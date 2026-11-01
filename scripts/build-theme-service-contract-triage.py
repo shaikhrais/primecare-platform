@@ -12,6 +12,9 @@ def build(root=ROOT):
     inventory = json.loads(source.read_text())
     registered_path = 'packages/shared/src/communications/registered-contracts.json'
     registered = json.loads((root / registered_path).read_text())
+    historical_path = 'docs/api/api-family-reconciliation.json'
+    historical = json.loads((root / historical_path).read_text())
+    old_operations = {(op['method'], op['route']): op for op in historical['operations']}
     literal_sources = []
     for folder in ['cloudflare/workers/src', 'packages/shared/src']:
         for path in sorted((root / folder).rglob('*')):
@@ -26,7 +29,14 @@ def build(root=ROOT):
         matches = [{'path': path, 'line': line, 'literal': literal}
                    for path, literals in literal_sources for literal, line in literals if literal in variants]
         contract_matches = [api for api in registered['apis'] if api['path'] == candidate['path'] and api['method'] == candidate['method']]
+        old = old_operations.get((candidate['method'], candidate['path']))
         rows.append({**candidate, 'sourceLiteralMatches': matches,
+                     'historicalWorkflowReview': None if old is None else {
+                         'evidence': historical_path, 'family': old['familyClassification'],
+                         'routingClassification': old['routingClassification'],
+                         'missingContractFields': old['missingContractFields'],
+                         'businessOperationVerified': old['businessOperationVerified'],
+                         'freshProductionProof': False},
                      'registeredContractMatches': [{'catalog': registered_path, 'id': api['id'], 'operation': api['operation'], 'status': api['status'],
                                                     'router': 'cloudflare/workers/src/business-tasks/http.ts',
                                                     'composition': 'cloudflare/workers/src/business-tasks/channels.ts',
@@ -40,6 +50,7 @@ def build(root=ROOT):
             'metadataEvidence': inventory.get('evidence'), 'freshProductionReadByThisIndex': False,
             'candidateCount': len(rows), 'candidatesWithLiteralMatches': sum(bool(r['sourceLiteralMatches']) for r in rows),
             'candidatesWithRegisteredDynamicContracts': sum(bool(r['registeredContractMatches']) for r in rows),
+            'candidatesWithHistoricalWorkflowGaps': sum(r['historicalWorkflowReview'] is not None for r in rows),
             'approvedBindings': 0, 'newApis': 0, 'newRoleGrants': 0, 'runtimeActivated': False,
             'limits': ['Literal references can be schemas, dispatcher names or shared adapters; they do not establish executable equivalence',
                        'No exact source match is not proof that a dynamic route or another service is absent',

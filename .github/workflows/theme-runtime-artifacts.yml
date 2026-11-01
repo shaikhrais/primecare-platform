@@ -1,0 +1,26 @@
+name: Read deployment-backed theme runtime artifact candidates
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: [scripts/audit-theme-runtime-artifacts.mjs, scripts/test-theme-runtime-artifacts.mjs, .github/workflows/theme-runtime-artifacts.yml]
+permissions: {contents: read}
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-theme-runtime-artifacts.mjs
+      - name: Read only auth/governance active deployments and service identity
+        env:
+          CLOUDFLARE_API_TOKEN: '${{ secrets.CLOUDFLARE_API_TOKEN }}'
+          CLOUDFLARE_ACCOUNT_ID: '${{ secrets.CLOUDFLARE_ACCOUNT_ID }}'
+        run: node scripts/audit-theme-runtime-artifacts.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: theme-runtime-artifact-readback, path: test-results/theme-runtime-artifacts/readback.json}

@@ -23,6 +23,7 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           npm install --prefix /tmp/theme-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
           ln -s /tmp/theme-reader/node_modules node_modules
+      - run: python tools/governance-production/test-theme-service-candidates.py
       - name: Read pinned registry metadata only
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

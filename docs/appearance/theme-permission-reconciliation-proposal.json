@@ -1,0 +1,5672 @@
+{
+  "format": 1,
+  "repairPackage": "R01",
+  "state": "blocked_authority_and_artifact_provenance",
+  "sourceCommit": "5a90647cf96a1b87c0f5e526d318fce3a9e3ee6c",
+  "capturedAt": "2026-11-01T20:59:45.626307+00:00",
+  "readback": {
+    "workflowRun": 41349589331,
+    "jobId": 124976690762,
+    "snapshotSha256": "6c7569db90e2ca11ec99bbfdd1d81e225d247f9d03cb75b9c79cee5c0c7af020",
+    "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42"
+  },
+  "counts": {
+    "distinctAffectedRows": 192,
+    "permissionOperationConflicts": 128,
+    "missingArtifactReferences": 192,
+    "runtimeArtifactsPresent": 0
+  },
+  "existingMessageScreenAuthority": [
+    {
+      "can_view": 1,
+      "role_id": 51,
+      "screen_id": 234,
+      "roleCode": "psw",
+      "establishesWriteOrApiGrant": false
+    },
+    {
+      "can_view": 1,
+      "role_id": 15,
+      "screen_id": 331,
+      "roleCode": "patient",
+      "establishesWriteOrApiGrant": false
+    },
+    {
+      "can_view": 1,
+      "role_id": 61,
+      "screen_id": 559,
+      "roleCode": "customer_support",
+      "establishesWriteOrApiGrant": false
+    },
+    {
+      "can_view": 1,
+      "role_id": 12,
+      "screen_id": 578,
+      "roleCode": "caregiver",
+      "establishesWriteOrApiGrant": false
+    }
+  ],
+  "adminRoles": [
+    {
+      "active": 1,
+      "id": 70,
+      "role_code": "platform_admin",
+      "hasExistingPreferenceGrant": false
+    },
+    {
+      "active": 1,
+      "id": 72,
+      "role_code": "tenant_admin",
+      "hasExistingPreferenceGrant": false
+    },
+    {
+      "active": 1,
+      "id": 80,
+      "role_code": "code_admin",
+      "hasExistingPreferenceGrant": false
+    }
+  ],
+  "requiredAuthorityDecisions": [
+    {
+      "id": "R01-D01",
+      "question": "Which current approved role/action grants belong to POST /v1/messages and GET /v1/messages/inbox, rather than the unrelated concierge/document-expiry operations named by the legacy keys?",
+      "evidence": "Current screen view grants are recorded separately; view access alone is not authority to create/send/read every record."
+    },
+    {
+      "id": "R01-D02",
+      "question": "Which independently registered deployment-backed runtime artifact should each auth/governance endpoint reference?",
+      "evidence": "The current runtime_artifacts table is empty. No valid candidate exists for missing ID 1."
+    },
+    {
+      "id": "R01-D03",
+      "question": "What explicit self-preference access is intended for Platform Admin 70, Tenant Admin 72 and Code Admin 80?",
+      "evidence": "Existing API777 grants cover role IDs 1–64. These roles remain excluded; runtime and panel binding gates are separate."
+    }
+  ],
+  "forbiddenShortcuts": [
+    "Do not confuse registry row ID 710/857 with endpoint ID 4957/5104",
+    "Do not convert all 64 legacy grants into messaging access",
+    "Do not insert a placeholder artifact 1 or null dangling references merely to satisfy the guard",
+    "Do not expand admin grants or enable runtime without exact current authority",
+    "Do not replace quarantine fingerprints to hide unresolved drift"
+  ],
+  "rows": [
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45377,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 1,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45377,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45378,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 2,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45378,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45379,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 3,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45379,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45380,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 4,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45380,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45381,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 5,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45381,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45382,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 6,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45382,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45383,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 7,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45383,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45384,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 8,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45384,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45385,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 9,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45385,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45386,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 10,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45386,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45387,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 11,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45387,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45388,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 12,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45388,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45389,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 13,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45389,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45390,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 14,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45390,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45391,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 15,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45391,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45392,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 16,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45392,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45393,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 17,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45393,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45394,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 18,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45394,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45395,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 19,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45395,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45396,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 20,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45396,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45397,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 21,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45397,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45398,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 22,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45398,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45399,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 23,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45399,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45400,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 24,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45400,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45401,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 25,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45401,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45402,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 26,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45402,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45403,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 27,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45403,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45404,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 28,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45404,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45405,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 29,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45405,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45406,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 30,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45406,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45407,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 31,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45407,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45408,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 32,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45408,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45409,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 33,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45409,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45410,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 34,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45410,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45411,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 35,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45411,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45412,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 36,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45412,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45413,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 37,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45413,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45414,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 38,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45414,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45415,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 39,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45415,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45416,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 40,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45416,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45417,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 41,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45417,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45418,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 42,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45418,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45419,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 43,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45419,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45420,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 44,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45420,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45421,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 45,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45421,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45422,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 46,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45422,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45423,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 47,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45423,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45424,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 48,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45424,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45425,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 49,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45425,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45426,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 50,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45426,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45427,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 51,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45427,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45428,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 52,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45428,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45429,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 53,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45429,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45430,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 54,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45430,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45431,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 55,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45431,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45432,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 56,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45432,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45433,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 57,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45433,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45434,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 58,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45434,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45435,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 59,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45435,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45436,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 60,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45436,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45437,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 61,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45437,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45438,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 62,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45438,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45439,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 63,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45439,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 710,
+        "can_access": 1,
+        "id": 45440,
+        "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+        "role_id": 64,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 710,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 4957,
+          "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+          "endpoint_path": "/v1/premium-concierge-workflow",
+          "id": 710,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 45440,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49665,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 1,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49665,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49666,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 2,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49666,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49667,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 3,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49667,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49668,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 4,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49668,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49669,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 5,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49669,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49670,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 6,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49670,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49671,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 7,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49671,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49672,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 8,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49672,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49673,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 9,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49673,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49674,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 10,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49674,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49675,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 11,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49675,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49676,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 12,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49676,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49677,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 13,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49677,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49678,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 14,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49678,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49679,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 15,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49679,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49680,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 16,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49680,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49681,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 17,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49681,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49682,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 18,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49682,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49683,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 19,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49683,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49684,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 20,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49684,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49685,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 21,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49685,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49686,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 22,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49686,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49687,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 23,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49687,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49688,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 24,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49688,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49689,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 25,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49689,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49690,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 26,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49690,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49691,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 27,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49691,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49692,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 28,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49692,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49693,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 29,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49693,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49694,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 30,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49694,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49695,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 31,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49695,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49696,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 32,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49696,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49697,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 33,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49697,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49698,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 34,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49698,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49699,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 35,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49699,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49700,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 36,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49700,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49701,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 37,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49701,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49702,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 38,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49702,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49703,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 39,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49703,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49704,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 40,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49704,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49705,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 41,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49705,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49706,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 42,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49706,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49707,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 43,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49707,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49708,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 44,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49708,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49709,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 45,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49709,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49710,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 46,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49710,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49711,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 47,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49711,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49712,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 48,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49712,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49713,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 49,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49713,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49714,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 50,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49714,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49715,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 51,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49715,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49716,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 52,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49716,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49717,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 53,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49717,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49718,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 54,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49718,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49719,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 55,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49719,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49720,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 56,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49720,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49721,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 57,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49721,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49722,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 58,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49722,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49723,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 59,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49723,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49724,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 60,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49724,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49725,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 61,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49725,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49726,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 62,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49726,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49727,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 63,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49727,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 777,
+        "can_access": 1,
+        "id": 49728,
+        "permission_key": "authenticated_self_preferences",
+        "role_id": 64,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "POST",
+        "id": 777,
+        "permission_key": "authenticated_self_preferences",
+        "route_path": "/v1/user/preferences"
+      },
+      "labelOrigins": [],
+      "proposedChange": null,
+      "rowId": 49728,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54785,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 1,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54785,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54786,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 2,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54786,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54787,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 3,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54787,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54788,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 4,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54788,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54789,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 5,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54789,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54790,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 6,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54790,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54791,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 7,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54791,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54792,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 8,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54792,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54793,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 9,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54793,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54794,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 10,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54794,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54795,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 11,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54795,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54796,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 12,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54796,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54797,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 13,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54797,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54798,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 14,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54798,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54799,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 15,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54799,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54800,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 16,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54800,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54801,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 17,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54801,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54802,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 18,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54802,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54803,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 19,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54803,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54804,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 20,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54804,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54805,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 21,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54805,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54806,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 22,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54806,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54807,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 23,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54807,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54808,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 24,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54808,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54809,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 25,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54809,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54810,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 26,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54810,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54811,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 27,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54811,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54812,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 28,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54812,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54813,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 29,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54813,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54814,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 30,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54814,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54815,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 31,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54815,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54816,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 32,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54816,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54817,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 33,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54817,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54818,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 34,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54818,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54819,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 35,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54819,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54820,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 36,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54820,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54821,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 37,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54821,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54822,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 38,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54822,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54823,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 39,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54823,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54824,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 40,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54824,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54825,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 41,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54825,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54826,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 42,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54826,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54827,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 43,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54827,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54828,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 44,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54828,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54829,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 45,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54829,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54830,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 46,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54830,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54831,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 47,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54831,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54832,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 48,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54832,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54833,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 49,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54833,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54834,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 50,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54834,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54835,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 51,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54835,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54836,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 52,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54836,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54837,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 53,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54837,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54838,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 54,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54838,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54839,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 55,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54839,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54840,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 56,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54840,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54841,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 57,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54841,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54842,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 58,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54842,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54843,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 59,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54843,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54844,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 60,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54844,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54845,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 61,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54845,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54846,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 62,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54846,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54847,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 63,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54847,
+      "safeToApply": false
+    },
+    {
+      "before": {
+        "api_id": 857,
+        "can_access": 1,
+        "id": 54848,
+        "permission_key": "api_permission_api_v1_document_expiry_list_get",
+        "role_id": 64,
+        "runtime_artifact_id": 1
+      },
+      "blockedBy": [
+        "permission_operation_authority_required",
+        "runtime_artifact_provenance_required"
+      ],
+      "endpoint": {
+        "http_method": "GET",
+        "id": 857,
+        "permission_key": "role_screen_permissions",
+        "route_path": "/v1/messages/inbox"
+      },
+      "labelOrigins": [
+        {
+          "api_id": 5104,
+          "endpoint_code": "api_v1_document_expiry_list_get",
+          "endpoint_path": "/v1/document-expiry",
+          "id": 857,
+          "method": "GET"
+        }
+      ],
+      "proposedChange": null,
+      "rowId": 54848,
+      "safeToApply": false
+    }
+  ],
+  "proposedDatabaseMutation": null,
+  "databaseRowsChanged": 0,
+  "newRoleGrants": 0,
+  "runtimeActivated": false,
+  "unblockedWork": [
+    "Continue source and isolated tests for shared controls/recovery",
+    "Complete contract review of existing dynamic message/mail adapters",
+    "Verify stale-publication scheduling and already-authorized tenant host locale behavior"
+  ]
+}

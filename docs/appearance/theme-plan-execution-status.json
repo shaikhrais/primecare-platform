@@ -1,0 +1,135 @@
+{
+  "format": 1,
+  "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
+  "implementedSource": "5a90647cf96a1b87c0f5e526d318fce3a9e3ee6c",
+  "wholeBatchesClosed": 0,
+  "execution": [
+    {
+      "package": "R00",
+      "state": "scope_inventory_and_tracking_source_verified",
+      "done": [
+        "86 retained grouped statements decomposed into 93 tracked items",
+        "9 native apps and 9 web portals indexed with bounded static composition evidence",
+        "Historical pending Flutter statement reconciled to current successful desktop CI"
+      ],
+      "remaining": [
+        "Dynamic runtime host resolution and remaining feature closure"
+      ],
+      "evidence": [
+        "docs/appearance/theme-execution-ledger.json",
+        "CI 41349589295 catalogue success"
+      ]
+    },
+    {
+      "package": "R01",
+      "state": "fresh_readback_complete_mutation_blocked",
+      "done": [
+        "Fresh readback of all 192 affected rows, raw-role IDs and linked screens",
+        "Confirmed empty runtime_artifacts table",
+        "Produced exact row-level reconciliation records with no guessed mutations"
+      ],
+      "remaining": [
+        "Resolve role/action authority for the 128 wrong-operation labels",
+        "Establish independently registered deployment-backed artifact associations",
+        "Explicitly resolve admin-role preference access"
+      ],
+      "evidence": [
+        "docs/appearance/theme-permission-reconciliation-proposal.json",
+        "CI 41349589331 / job 124976690762"
+      ]
+    },
+    {
+      "package": "R02",
+      "state": "all_candidates_indexed_semantic_review_in_progress",
+      "done": [
+        "Indexed all 187 metadata candidates",
+        "Resolved 7 current dynamic communication contracts to router/composition/authorization source",
+        "Joined 141 historical workflow-gap records without treating them as fresh proof"
+      ],
+      "remaining": [
+        "Fresh schema/status/link/grant metadata read and per-action semantic equivalence review"
+      ],
+      "evidence": [
+        "docs/appearance/theme-service-contract-triage.json"
+      ]
+    },
+    {
+      "package": "R03",
+      "state": "source_fix_verified_and_current_candidate_published",
+      "done": [
+        "Added fixed-workflow/main-only scheduler for prepublication stale-source rejection",
+        "Seven scheduler tests passed; current/failed/already-attempted candidates are not automatically replayed",
+        "Acceptance and publication succeeded for the same immutable source"
+      ],
+      "remaining": [
+        "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live"
+      ],
+      "evidence": [
+        "scripts/retry-stale-workspace-release.mjs",
+        "CI 41349589268 verify success",
+        "CI 41349589287 acceptance and publish success"
+      ]
+    },
+    {
+      "package": "R04",
+      "state": "locale_host_binding_deployed_partial_package",
+      "done": [
+        "Tenant work host and shared shell receive current supported document locale",
+        "French/Spanish calendar headings and date presentation checked in actual host tests",
+        "Published central web bundle to nine portals"
+      ],
+      "remaining": [
+        "Remaining shell/theme/utility migration and reviewed business localization"
+      ],
+      "evidence": [
+        "websites/typescript/src/tenant-dashboard/work-module-host.ts",
+        "CI 41349589267: 16 tenant-host checks including 2 locale cases"
+      ]
+    }
+  ],
+  "verification": {
+    "combined": {
+      "run": 41349589295,
+      "passedJobs": 7,
+      "totalJobs": 7
+    },
+    "workModules": {
+      "run": 41349589267,
+      "passedJobs": 5,
+      "totalJobs": 5
+    },
+    "freshMetadata": {
+      "run": 41349589331,
+      "conclusion": "success"
+    },
+    "publication": {
+      "run": 41349589287,
+      "acceptanceJob": 124976690571,
+      "publishJob": 124977231589,
+      "conclusion": "success",
+      "deployedSource": "5a90647cf96a1b87c0f5e526d318fce3a9e3ee6c",
+      "governanceBindingsPreserved": true,
+      "unauthenticatedEndpointsRemain401": true,
+      "webDeployments": [
+        "https://d406a659.primecare-business-development.pages.dev",
+        "https://4c2d6d73.primecare-client.pages.dev",
+        "https://377394b4.primecare-clinic.pages.dev",
+        "https://5ee6ab6b.primecare-corporate.pages.dev",
+        "https://e41631c9.primecare-franchise.pages.dev",
+        "https://19c10d65.primecare-marketing.pages.dev",
+        "https://9d90cb7c.primecare-support.pages.dev",
+        "https://10c38104.primecare-governance.pages.dev",
+        "https://1571bbb5.primecare-enterprise-blueprint.pages.dev"
+      ]
+    }
+  },
+  "permissionRowsChanged": 0,
+  "newRoleGrants": 0,
+  "preferenceRuntimeActivated": false,
+  "next": [
+    "Complete the read-only active-deployment artifact audit",
+    "Refresh candidate schema/status/link/grant inventory",
+    "Resolve exact authoritative R01 proposal before applying any permission mutation",
+    "Proceed with downstream host and feature integration only within confirmed authority"
+  ]
+}
