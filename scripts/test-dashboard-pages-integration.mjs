@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 import {tenantFixture} from './tenant-dashboard-fixture.mjs';
+import {projectRecordPage} from '../packages/shared/src/dashboard-pages/record-pages.mjs';
 import {DashboardPageSession} from '../packages/shared/src/dashboard-pages/session.mjs';
 const bundle=await build({entryPoints:['websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {dashboardPageTransport}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
@@ -19,6 +20,16 @@ try {
  const reload=new DashboardPageSession('project',scope,read,()=>scope);await reload.load();assert.deepEqual(reload.state.projection,s.state.projection);checks++;
  const wrong=new DashboardPageSession('project',{...scope,tenantId:f.tenants[1]},read,()=>({...scope,tenantId:f.tenants[1]}));await wrong.load();assert.equal(wrong.state.status,'denied');assert.equal(wrong.state.projection,null);checks++;
  const pswScope={...scope,userId:f.actors.psw.id,role:f.actors.psw.role};const psw=new DashboardPageSession('analytics',pswScope,dashboardPageTransport('https://fixture.test',f.actors.psw.token,'live',()=>f.actors.psw.token,fetcher),()=>pswScope);await psw.load();assert.equal(psw.state.status,'denied');assert.deepEqual(psw.state.projection.metrics,[]);checks++;
+ const recordSessions=[];
+ for(const kind of ['search','activity']){
+  const session=new DashboardPageSession(kind,scope,read,()=>scope,projectRecordPage);recordSessions.push(session);await session.load();assert.equal(session.state.status,'ready');
+  if(kind==='search'){
+   const stored=(await f.db.query('SELECT id::text,title FROM tenant_work_tasks WHERE tenant_id=$1',[scope.tenantId])).rows;
+   for(const item of stored)assert.ok(session.state.projection.rows.some(row=>row.type==='task'&&row.detail===item.id&&row.title===item.title));
+  }else{const stored=(await f.db.query('SELECT action FROM tenant_dashboard_events WHERE tenant_id=$1 ORDER BY created_at DESC',[scope.tenantId])).rows;assert.deepEqual(session.state.projection.rows.map(row=>row.title),stored.map(row=>row.action));}
+  const fresh=new DashboardPageSession(kind,scope,read,()=>scope,projectRecordPage);recordSessions.push(fresh);await fresh.load();assert.deepEqual(fresh.state.projection,session.state.projection);checks++;
+ }
+ for(const session of recordSessions)session.dispose();
  const before=requests;token='changed';await s.load();assert.equal(s.state.status,'denied');assert.equal(s.state.projection,null);assert.equal(requests,before);checks++;
  let captured=f.actors.admin.token;
  const race=dashboardPageTransport('https://fixture.test',captured,'live',()=>captured,async()=>({ok:true,json:async()=>{captured='changed';return {};}}));await assert.rejects(()=>race(new AbortController().signal),/denied/);checks++;

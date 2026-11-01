@@ -51,4 +51,25 @@ void main() {
       expect(find.byType(TextField),findsNothing);expect(find.byType(TextButton),findsNothing);
     }
   });
+  test('record projections match web fixtures and do not expose denied sources',(){
+    for(final expected in fixture['recordProjections'] as List){
+      expect(RecordPageProjection.fromResponse(expected['kind'] as String,raw(),scope).toJson(),expected);
+    }
+    expect(RecordPageProjection.fromResponse('search',raw(),scope,query:'<literal>').rows.length,1);
+    expect(RecordPageProjection.fromResponse('search',raw(),scope,query:'absent').status,'empty');
+    final denied=raw()..['allowedViews']=[];
+    expect(RecordPageProjection.fromResponse('activity',denied,scope).rows,isEmpty);
+    expect(RecordPageProjection.fromResponse('search',denied,scope).status,'denied');
+    final oversized=raw()..['tasks']=List.filled(101,{'id':'t','title':'Task'});
+    expect(()=>RecordPageProjection.fromResponse('search',oversized,scope),throwsArgumentError);
+  });
+  testWidgets('record presentation shows bounded scope and clears on replacement',(tester)async{
+    final recordLabels=<String,String>{'activity':'Activity','search':'Search','bounded':'Only loaded records','ready':'Ready','empty':'Empty','denied':'Denied','live':'LIVE','demo':'DEMO'};
+    await tester.pumpWidget(app(PrimeRecordPage(projection:RecordPageProjection.fromResponse('search',raw(),scope),labels:recordLabels)));
+    expect(find.text('Only loaded records'),findsOneWidget);expect(find.text('Task <literal>'),findsOneWidget);
+    final denied=raw()..['allowedViews']=[];
+    await tester.pumpWidget(app(PrimeRecordPage(projection:RecordPageProjection.fromResponse('search',denied,scope),labels:recordLabels)));
+    expect(find.text('Denied'),findsOneWidget);expect(find.text('Task <literal>'),findsNothing);
+  });
+
 }

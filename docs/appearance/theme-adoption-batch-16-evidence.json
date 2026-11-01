@@ -11,14 +11,14 @@
     {
       "id": 124847312637,
       "name": "native (ubuntu-24.04)",
-      "status": "queued",
-      "conclusion": null
+      "status": "completed",
+      "conclusion": "failure"
     },
     {
       "id": 124847312647,
       "name": "native (macos-latest)",
-      "status": "queued",
-      "conclusion": null
+      "status": "completed",
+      "conclusion": "failure"
     },
     {
       "id": 124847312652,
@@ -36,9 +36,10 @@
   "productionRuntimeVerified": false,
   "humanReviewApproved": false,
   "remaining": [
+    "Verify activity/search and native semantic-container fix in new CI",
     "Independent B16 registration readback and production mount",
     "Native authenticated session/HTTP adapter",
-    "Activity and search supporting templates",
-    "Android/iOS device acceptance and human locale/accessibility/release review"
-  ]
+    "Financial workflow bindings, Android/iOS and human review"
+  ],
+  "nativeFailure": "Linux/macOS exact Open: 5 semantics lookup failed; production fix adds explicit semantic containers while preserving the assertion."
 }

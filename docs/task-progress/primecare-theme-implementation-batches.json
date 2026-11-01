@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "updated_web_and_postgresql_browser_acceptance_passed_flutter_ci_pending",
+      "status": "activity_search_source_locally_verified_native_semantics_fix_ci_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1156,10 +1156,14 @@
         "packages/primecare_ui/web/supporting-pages.ts",
         "scripts/test-dashboard-pages-parity.mjs",
         "docs/appearance/dashboard-pages-usage.md",
-        "docs/appearance/theme-adoption-batch-16-evidence.json"
+        "docs/appearance/theme-adoption-batch-16-evidence.json",
+        "packages/shared/src/dashboard-pages/record-pages.mjs",
+        "packages/primecare_ui/web/record-pages.ts",
+        "packages/flutter_core/lib/dashboard_pages/record_page_model.dart",
+        "scripts/test-dashboard-record-pages.mjs"
       ],
       "blockers": [],
-      "nextAction": "Check native/supporting-page CI, complete activity/search templates and independent registration receipt before approved production mount; retain native adapter and release review gates.",
+      "nextAction": "Verify new activity/search and native semantic-container fix in CI, then obtain independent registration readback for approved host mount; retain native authenticated adapter and release gates.",
       "productionRuntimeVerified": false,
       "humanReviewApproved": false,
       "sourceRun": {
@@ -1168,7 +1172,7 @@
         "scope": "updated_web_and_native_postgresql_browser_acceptance",
         "web": "success",
         "postgres": "success",
-        "native": "pending"
+        "native": "linux_macos_widget_semantics_failed_fix_pending"
       }
     },
     {

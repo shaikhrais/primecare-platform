@@ -20,19 +20,23 @@ export function renderDashboardProjection(root: HTMLElement, projection: {
  return ()=>{if(section.parentNode===root)section.remove();};
 }
 
-/** Connect a registered host slot to a read session. The host retains login/navigation ownership. */
-export function bindDashboardPage(root:HTMLElement, session:{
- state:{status:string;projection:Parameters<typeof renderDashboardProjection>[1]|null};
- subscribe:(listener:()=>void)=>()=>void; load:()=>Promise<void>; dispose:()=>void;
-}, labels:Parameters<typeof renderDashboardProjection>[2]&{loading:string;error:string;idle:string;disposed:string}) {
+export type ReadPageSession<P>={
+ state:{status:string;projection:P|null};
+ subscribe:(listener:()=>void)=>()=>void;load:()=>Promise<void>;dispose:()=>void;
+};
+/** Shared lifecycle binding for optional registered read-only host slots. */
+export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,render:(projection:P)=>void,labels:Record<string,unknown>){
  const draw=()=>{
   const state=session.state;
-  if(state.projection){renderDashboardProjection(root,state.projection,labels);return;}
+  if(state.projection){render(state.projection);return;}
   const note=root.ownerDocument.createElement('p');
   note.dataset.cy='dashboard-pages-status';note.setAttribute('role',state.status==='error'||state.status==='denied'?'alert':'status');
-  note.textContent=Object.hasOwn(labels,state.status)?String(labels[state.status as keyof typeof labels]):labels.unavailable;
+  note.textContent=Object.hasOwn(labels,state.status)?String(labels[state.status]):String(labels.unavailable);
   root.replaceChildren(note);
  };
  const unsubscribe=session.subscribe(draw);draw();void session.load();
  return ()=>{unsubscribe();session.dispose();root.replaceChildren();};
+}
+export function bindDashboardPage(root:HTMLElement,session:ReadPageSession<Parameters<typeof renderDashboardProjection>[1]>,labels:Parameters<typeof renderDashboardProjection>[2]&{loading:string;error:string;idle:string;disposed:string}){
+ return bindReadPage(root,session,projection=>{renderDashboardProjection(root,projection,labels);},labels);
 }

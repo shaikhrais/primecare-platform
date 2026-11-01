@@ -17,7 +17,9 @@
     },
     "allowedViews": [
       "tasks",
-      "operations"
+      "operations",
+      "workflows",
+      "audit"
     ],
     "taskStats": {
       "open": 5,
@@ -34,8 +36,63 @@
       "time": 3,
       "care": 1,
       "plans": 2
-    }
+    },
+    "tasks": [
+      {
+        "id": "task-1",
+        "title": "Task <literal>"
+      }
+    ],
+    "workflows": [
+      {
+        "flow_id": "flow-1",
+        "title": "Workflow one"
+      }
+    ],
+    "events": [
+      {
+        "action": "create",
+        "created_at": "2026-11-01T10:00:00Z"
+      }
+    ]
   },
+  "recordProjections": [
+    {
+      "kind": "activity",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "bounded": true,
+      "status": "ready",
+      "rows": [
+        {
+          "type": "activity",
+          "title": "create",
+          "detail": "2026-11-01T10:00:00Z"
+        }
+      ]
+    },
+    {
+      "kind": "search",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "bounded": true,
+      "status": "ready",
+      "rows": [
+        {
+          "type": "task",
+          "title": "Task <literal>",
+          "detail": "task-1"
+        },
+        {
+          "type": "workflow",
+          "title": "Workflow one",
+          "detail": "flow-1"
+        }
+      ]
+    }
+  ],
   "projections": [
     {
       "family": "project",

@@ -6,11 +6,7 @@ const fields = Object.freeze({
 export const dashboardFamilies = Object.freeze(['project', 'analytics', 'finance', 'crypto']);
 export function projectDashboard(family, raw, expected) {
   if (!dashboardFamilies.includes(family)) throw Error('invalid_family');
-  if (!expected || !['live', 'demo'].includes(expected.dataset) ||
-      ![expected.userId, expected.tenantId, expected.role].every(x => typeof x === 'string' && x.length > 0)) throw Error('invalid_scope');
-  if (!raw || raw.dataset !== expected.dataset || raw.synthetic !== (expected.dataset === 'demo') ||
-      raw.identity?.userId !== expected.userId || raw.identity?.role !== expected.role ||
-      raw.organization?.id !== expected.tenantId) throw Error('scope_changed');
+  validateDashboardResponseScope(raw, expected);
   const base = {family, dataset: expected.dataset, synthetic: raw.synthetic, sourceApiId: 16578};
   if (!fields[family]) return {...base, status: 'unavailable', metrics: []};
   if (!Array.isArray(raw.allowedViews) || !raw.allowedViews.includes(family === 'analytics' ? 'operations' : 'tasks'))
@@ -23,4 +19,12 @@ export function projectDashboard(family, raw, expected) {
   });
   // Counts can overlap (blocked and overdue are subsets of open). Never sum or make a pie chart.
   return {...base, status: 'ready', metrics};
+}
+
+export function validateDashboardResponseScope(raw, expected) {
+  if (!expected || !['live', 'demo'].includes(expected.dataset) ||
+      ![expected.userId, expected.tenantId, expected.role].every(x => typeof x === 'string' && x.length > 0)) throw Error('invalid_scope');
+  if (!raw || raw.dataset !== expected.dataset || raw.synthetic !== (expected.dataset === 'demo') ||
+      raw.identity?.userId !== expected.userId || raw.identity?.role !== expected.role ||
+      raw.organization?.id !== expected.tenantId) throw Error('scope_changed');
 }

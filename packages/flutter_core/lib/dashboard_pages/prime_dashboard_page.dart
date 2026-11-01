@@ -14,10 +14,10 @@ class PrimeDashboardPage extends StatelessWidget {
   @override Widget build(BuildContext context) => Card(child: Padding(
     padding: const EdgeInsets.all(16),
     child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Semantics(header: true, child: Text(text(projection.family), style: Theme.of(context).textTheme.titleLarge)),
-      Semantics(liveRegion: true, child: Text(text(projection.status == 'ready' ? (projection.synthetic ? 'demo' : 'live') : projection.status))),
+      Semantics(container: true, header: true, child: Text(text(projection.family), style: Theme.of(context).textTheme.titleLarge)),
+      Semantics(container: true, liveRegion: true, child: Text(text(projection.status == 'ready' ? (projection.synthetic ? 'demo' : 'live') : projection.status))),
       if (projection.status == 'ready') for (final metric in projection.metrics)
-        Semantics(label: '${text(metric.key)}: ${metric.value}', excludeSemantics: true,
+        Semantics(container: true, label: '${text(metric.key)}: ${metric.value}', excludeSemantics: true,
           child: Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Text('${text(metric.key)}: ${metric.value}'))),
     ]),
   ));
@@ -33,8 +33,8 @@ class PrimeSupportingPage extends StatelessWidget {
     if (title == null || title.trim().isEmpty || message == null || message.trim().isEmpty) throw ArgumentError('missing_label');
     return Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(
       mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Semantics(header: true, child: Text(title, style: Theme.of(context).textTheme.titleLarge)),
-        Semantics(liveRegion: true, child: Text(message)),
+        Semantics(container: true, header: true, child: Text(title, style: Theme.of(context).textTheme.titleLarge)),
+        Semantics(container: true, liveRegion: true, child: Text(message)),
       ],
     )));
   }

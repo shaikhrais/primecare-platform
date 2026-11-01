@@ -2,8 +2,8 @@ import {projectDashboard} from './projection.mjs';
 /** A read-only session. Hosts call invalidate on logout, tenant/role or token changes. */
 export class DashboardPageSession {
   #epoch=0; #abort; #dead=false; #listeners=new Set(); #state={status:'idle',projection:null};
-  constructor(family, scope, read, current) {
-    this.family=family; this.scope=Object.freeze({...scope}); this.read=read; this.current=current;
+  constructor(family, scope, read, current, project = projectDashboard) {
+    this.family=family; this.scope=Object.freeze({...scope}); this.read=read; this.current=current; this.project=project;
   }
   get state(){return structuredClone(this.#state);}
   subscribe(listener){this.#listeners.add(listener);return ()=>this.#listeners.delete(listener);}
@@ -19,7 +19,7 @@ export class DashboardPageSession {
       const raw=await this.read(abort.signal);
       if(this.#dead||epoch!==this.#epoch)return;
       if(!this.#matches())throw Error('scope_changed');
-      const projection=projectDashboard(this.family,raw,this.scope);
+      const projection=this.project(this.family,raw,this.scope);
       this.#emit(projection.status,projection);
     }catch(error){
       if(this.#dead||epoch!==this.#epoch)return;
