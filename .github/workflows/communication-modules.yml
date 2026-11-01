@@ -1,0 +1,85 @@
+name: Shared communication modules
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/domain/src/work_modules.ts'
+      - 'packages/shared/src/work-modules/**'
+      - 'packages/shared/src/communications/module-*.ts'
+      - 'packages/primecare_ui/web/communication-modules.ts'
+      - 'packages/primecare_ui/web/work-modules.ts'
+      - 'packages/primecare_ui/catalogs/communication-modules.registration.json'
+      - 'packages/flutter_core/lib/work_modules/**'
+      - 'packages/flutter_core/lib/communication_modules.dart'
+      - 'packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart'
+      - 'packages/flutter_core/test/communication_modules/**'
+      - 'scripts/communication-modules-fixture.mjs'
+      - 'scripts/test-communication-modules*'
+      - '.github/workflows/communication-modules.yml'
+permissions: {contents: read}
+concurrency:
+  group: communication-module-tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
+          ln -s /tmp/work-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-communication-modules.mjs
+          node scripts/test-work-modules.mjs
+          node scripts/test-communication-modules-browser.mjs
+          node scripts/test-work-modules-browser.mjs
+          node scripts/test-tenant-dashboard.mjs
+          node --test scripts/test-business-communications.mjs scripts/test-communication-adapter-base.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/communication-modules.ts packages/primecare_ui/web/work-modules.ts
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/test-communication-modules-registration.py
+          python3 tools/governance-production/test-metadata-store.py
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: psw_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PSW_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/psw_test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
+          ln -s /tmp/work-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-communication-modules.mjs
+          node scripts/test-work-modules.mjs
+          node scripts/test-communication-modules-browser.mjs
+          node scripts/test-work-modules-browser.mjs
+  native:
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/work_modules lib/work_modules.dart lib/communication_modules.dart test/work_modules test/communication_modules
+        working-directory: packages/flutter_core
+      - run: flutter test test/work_modules test/communication_modules test/component_catalogue --reporter expanded
+        working-directory: packages/flutter_core

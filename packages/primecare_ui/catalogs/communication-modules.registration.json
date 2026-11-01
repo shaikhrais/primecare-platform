@@ -1,0 +1,262 @@
+{
+  "kind": "verified_metadata_export",
+  "sourceCommit": "07e0cb25b7ede06a4f03a7477fbd98fbc6c9ae3f",
+  "registrationRun": 41269023480,
+  "productionJob": 124737818113,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "82e15946cc5fc3a7f4ab3edc9992ed194132fb7602d52b4b5cdbdfd1bf79031f",
+  "apiBindings": {
+    "GET /v1/messages/email/inbox": 16512,
+    "GET /v1/messages/inbox": 857,
+    "GET /v1/messages/pictures": 16509,
+    "POST /v1/messages": 710,
+    "POST /v1/messages/email": 16511
+  },
+  "controls": [
+    {
+      "key": "mailbox",
+      "testId": "communication-modules-mailbox",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.mailbox",
+      "controlId": 756
+    },
+    {
+      "key": "messenger",
+      "testId": "communication-modules-messenger",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.messenger",
+      "controlId": 757
+    },
+    {
+      "key": "notifications",
+      "testId": "communication-modules-notifications",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.notifications",
+      "controlId": 758
+    },
+    {
+      "key": "files",
+      "testId": "communication-modules-files",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.files",
+      "controlId": 759
+    },
+    {
+      "key": "filter",
+      "testId": "communication-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.filter",
+      "controlId": 760
+    },
+    {
+      "key": "open",
+      "testId": "communication-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.open",
+      "controlId": 761
+    },
+    {
+      "key": "detail",
+      "testId": "communication-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.detail",
+      "controlId": 762
+    },
+    {
+      "key": "title",
+      "testId": "communication-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.title",
+      "controlId": 763
+    },
+    {
+      "key": "body",
+      "testId": "communication-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "communicationModules.body",
+      "controlId": 764
+    },
+    {
+      "key": "date",
+      "testId": "communication-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.date",
+      "controlId": 765
+    },
+    {
+      "key": "action",
+      "testId": "communication-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "communicationModules.action",
+      "controlId": 766
+    },
+    {
+      "key": "save",
+      "testId": "communication-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.save",
+      "controlId": 767
+    },
+    {
+      "key": "create",
+      "testId": "communication-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.create",
+      "controlId": 768
+    },
+    {
+      "key": "close",
+      "testId": "communication-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.close",
+      "controlId": 769
+    },
+    {
+      "key": "previous",
+      "testId": "communication-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.previous",
+      "controlId": 770
+    },
+    {
+      "key": "next",
+      "testId": "communication-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.next",
+      "controlId": 771
+    },
+    {
+      "key": "reload",
+      "testId": "communication-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.reload",
+      "controlId": 772
+    },
+    {
+      "key": "retry",
+      "testId": "communication-modules-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.retry",
+      "controlId": 773
+    }
+  ],
+  "locales": {
+    "en": {
+      "accepted": "Provider accepted; delivery unconfirmed",
+      "action": "Available action",
+      "attachment": "Private picture reference",
+      "body": "Instructions or evidence",
+      "close": "Close details",
+      "conflict": "Record changed; reload before retry",
+      "create": "Create task",
+      "date": "Due date",
+      "denied": "Action not authorized",
+      "detail": "Record details",
+      "empty": "No matching records",
+      "error": "Unable to complete action",
+      "files": "Conversation attachments",
+      "filter": "Filter visible records",
+      "invalid": "Check the entered values",
+      "loading": "Loading authorized records",
+      "mailbox": "Authorized mailbox",
+      "markRead": "Mark conversation read",
+      "messenger": "Authorized conversations",
+      "next": "Next page",
+      "notifications": "Your notifications",
+      "open": "Open details",
+      "partial": "Only the authorized page is shown",
+      "previous": "Previous page",
+      "quarantined": "Quarantined; sender unverified",
+      "queued": "Queued; not delivered",
+      "read": "Read",
+      "reload": "Reload records",
+      "retry": "Confirm original action",
+      "save": "Apply action",
+      "send": "Send message",
+      "sending": "Submission in progress",
+      "success": "Saved and read back",
+      "title": "Title",
+      "unavailable": "Approved workflow adapter is unavailable",
+      "unknown": "Delivery unknown",
+      "unread": "Unread"
+    },
+    "fr": {
+      "accepted": "Accept\u00e9 par le fournisseur ; livraison non confirm\u00e9e",
+      "action": "Action disponible",
+      "attachment": "R\u00e9f\u00e9rence d\u2019image priv\u00e9e",
+      "body": "Consignes ou \u00e9l\u00e9ments de preuve",
+      "close": "Fermer les d\u00e9tails",
+      "conflict": "Dossier modifi\u00e9; recharger avant de r\u00e9essayer",
+      "create": "Cr\u00e9er une t\u00e2che",
+      "date": "\u00c9ch\u00e9ance",
+      "denied": "Action non autoris\u00e9e",
+      "detail": "D\u00e9tails du dossier",
+      "empty": "Aucun dossier correspondant",
+      "error": "Impossible de terminer cette action",
+      "files": "Pi\u00e8ces jointes de conversation",
+      "filter": "Filtrer les dossiers visibles",
+      "invalid": "V\u00e9rifier les valeurs saisies",
+      "loading": "Chargement des dossiers autoris\u00e9s",
+      "mailbox": "Bo\u00eete aux lettres autoris\u00e9e",
+      "markRead": "Marquer la conversation comme lue",
+      "messenger": "Conversations autoris\u00e9es",
+      "next": "Page suivante",
+      "notifications": "Vos notifications",
+      "open": "Ouvrir les d\u00e9tails",
+      "partial": "Seule la page autoris\u00e9e est affich\u00e9e",
+      "previous": "Page pr\u00e9c\u00e9dente",
+      "quarantined": "En quarantaine ; exp\u00e9diteur non v\u00e9rifi\u00e9",
+      "queued": "En attente ; non livr\u00e9",
+      "read": "Lu",
+      "reload": "Recharger les dossiers",
+      "retry": "Confirmer l\u2019action initiale",
+      "save": "Appliquer l\u2019action",
+      "send": "Envoyer le message",
+      "sending": "Envoi en cours",
+      "success": "Enregistr\u00e9 et relu",
+      "title": "Titre",
+      "unavailable": "Adaptateur de processus approuv\u00e9 indisponible",
+      "unknown": "Livraison inconnue",
+      "unread": "Non lu"
+    },
+    "es": {
+      "accepted": "Aceptado por proveedor; entrega sin confirmar",
+      "action": "Acci\u00f3n disponible",
+      "attachment": "Referencia de imagen privada",
+      "body": "Instrucciones o evidencia",
+      "close": "Cerrar detalles",
+      "conflict": "El registro cambi\u00f3; recarga antes de reintentar",
+      "create": "Crear tarea",
+      "date": "Fecha l\u00edmite",
+      "denied": "Acci\u00f3n no autorizada",
+      "detail": "Detalles del registro",
+      "empty": "No hay registros coincidentes",
+      "error": "No se pudo completar la acci\u00f3n",
+      "files": "Archivos adjuntos de conversaci\u00f3n",
+      "filter": "Filtrar registros visibles",
+      "invalid": "Revisa los valores ingresados",
+      "loading": "Cargando registros autorizados",
+      "mailbox": "Buz\u00f3n autorizado",
+      "markRead": "Marcar conversaci\u00f3n como le\u00edda",
+      "messenger": "Conversaciones autorizadas",
+      "next": "P\u00e1gina siguiente",
+      "notifications": "Sus notificaciones",
+      "open": "Abrir detalles",
+      "partial": "Solo se muestra la p\u00e1gina autorizada",
+      "previous": "P\u00e1gina anterior",
+      "quarantined": "En cuarentena; remitente sin verificar",
+      "queued": "En cola; sin entregar",
+      "read": "Le\u00eddo",
+      "reload": "Recargar registros",
+      "retry": "Confirmar acci\u00f3n original",
+      "save": "Aplicar acci\u00f3n",
+      "send": "Enviar mensaje",
+      "sending": "Env\u00edo en curso",
+      "success": "Guardado y verificado",
+      "title": "T\u00edtulo",
+      "unavailable": "Adaptador de proceso aprobado no disponible",
+      "unknown": "Entrega desconocida",
+      "unread": "No le\u00eddo"
+    }
+  }
+}

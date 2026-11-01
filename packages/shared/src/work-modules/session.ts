@@ -7,7 +7,7 @@ export interface WorkPort {read(query:WorkQuery,signal:AbortSignal):Promise<unkn
 /** Immutable actor and module binding, no business permissions or success fallback in UI. */
 export class WorkModuleSession {
  readonly scope:PreferenceScope;private data:WorkSnapshot|null=null;private generation=0;private dead=false;private busy=false;private abort=new AbortController();private listeners=new Set<()=>void>();private pending:{command:WorkCommand;key:string}|null=null;private query:WorkQuery={search:'',offset:0};status='idle';
- constructor(scope:PreferenceScope,readonly module:WorkModule,readonly port?:WorkPort,private uuid:()=>string=()=>crypto.randomUUID()){this.scope=Object.freeze(preferenceScope(scope));if(!['calendar','contacts','tasks','notes','board'].includes(module))throw new WorkFailure('invalid');if(!port)this.status='unavailable';}
+ constructor(scope:PreferenceScope,readonly module:WorkModule,readonly port?:WorkPort,private uuid:()=>string=()=>crypto.randomUUID()){this.scope=Object.freeze(preferenceScope(scope));if(!['calendar','contacts','tasks','notes','board','mailbox','messenger','notifications','files'].includes(module))throw new WorkFailure('invalid');if(!port)this.status='unavailable';}
  get current(){return{status:this.status,snapshot:this.data===null?null:structuredClone(this.data),pending:this.pending!==null,query:{...this.query}};}
  subscribe(f:()=>void){this.listeners.add(f);return()=>{this.listeners.delete(f);};}private emit(){if(!this.dead)for(const f of this.listeners)f();}
  private fail(error:unknown){this.status=error instanceof WorkFailure?error.code:'error';}
