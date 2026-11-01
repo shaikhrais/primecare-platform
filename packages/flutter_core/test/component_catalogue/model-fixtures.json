@@ -1,0 +1,233 @@
+{
+  "format": 1,
+  "code": [
+    {
+      "input": "",
+      "tokens": []
+    },
+    {
+      "input": "const ready = true;",
+      "tokens": [
+        {
+          "kind": "keyword",
+          "text": "const"
+        },
+        {
+          "kind": "plain",
+          "text": " ready = "
+        },
+        {
+          "kind": "keyword",
+          "text": "true"
+        },
+        {
+          "kind": "plain",
+          "text": ";"
+        }
+      ]
+    },
+    {
+      "input": "// comment\nreturn 12;",
+      "tokens": [
+        {
+          "kind": "comment",
+          "text": "// comment"
+        },
+        {
+          "kind": "plain",
+          "text": "\n"
+        },
+        {
+          "kind": "keyword",
+          "text": "return"
+        },
+        {
+          "kind": "plain",
+          "text": " "
+        },
+        {
+          "kind": "number",
+          "text": "12"
+        },
+        {
+          "kind": "plain",
+          "text": ";"
+        }
+      ]
+    },
+    {
+      "input": "/* unfinished",
+      "tokens": [
+        {
+          "kind": "comment",
+          "text": "/* unfinished"
+        }
+      ]
+    },
+    {
+      "input": "<script>alert(\"x\")</script>",
+      "tokens": [
+        {
+          "kind": "plain",
+          "text": "<script>alert("
+        },
+        {
+          "kind": "string",
+          "text": "\"x\""
+        },
+        {
+          "kind": "plain",
+          "text": ")</script>"
+        }
+      ]
+    },
+    {
+      "input": "final text = \"a\\\"b\";",
+      "tokens": [
+        {
+          "kind": "keyword",
+          "text": "final"
+        },
+        {
+          "kind": "plain",
+          "text": " text = "
+        },
+        {
+          "kind": "string",
+          "text": "\"a\\\"b\""
+        },
+        {
+          "kind": "plain",
+          "text": ";"
+        }
+      ]
+    },
+    {
+      "input": "😀\nawait value;",
+      "tokens": [
+        {
+          "kind": "plain",
+          "text": "😀\n"
+        },
+        {
+          "kind": "keyword",
+          "text": "await"
+        },
+        {
+          "kind": "plain",
+          "text": " value;"
+        }
+      ]
+    },
+    {
+      "input": "/* repeated /* /*",
+      "tokens": [
+        {
+          "kind": "comment",
+          "text": "/* repeated /* /*"
+        }
+      ]
+    },
+    {
+      "input": "class User extends Base {}",
+      "tokens": [
+        {
+          "kind": "keyword",
+          "text": "class"
+        },
+        {
+          "kind": "plain",
+          "text": " User "
+        },
+        {
+          "kind": "keyword",
+          "text": "extends"
+        },
+        {
+          "kind": "plain",
+          "text": " Base {}"
+        }
+      ]
+    },
+    {
+      "input": "const a = 'unterminated",
+      "tokens": [
+        {
+          "kind": "keyword",
+          "text": "const"
+        },
+        {
+          "kind": "plain",
+          "text": " a = "
+        },
+        {
+          "kind": "string",
+          "text": "'unterminated"
+        }
+      ]
+    }
+  ],
+  "countdown": [
+    {
+      "deadline": 1000,
+      "now": 0,
+      "remaining": 1
+    },
+    {
+      "deadline": 1001,
+      "now": 1,
+      "remaining": 1
+    },
+    {
+      "deadline": 1001,
+      "now": 2,
+      "remaining": 1
+    },
+    {
+      "deadline": 1000,
+      "now": 1000,
+      "remaining": 0
+    },
+    {
+      "deadline": 0,
+      "now": 1000,
+      "remaining": 0
+    },
+    {
+      "deadline": 9007199254740991,
+      "now": 9007199254740000,
+      "remaining": 1
+    },
+    {
+      "deadline": 9007199254740991,
+      "now": 0,
+      "remaining": 9007199254741
+    }
+  ],
+  "columns": [
+    {
+      "width": 320,
+      "minWidth": 240,
+      "gap": 16,
+      "columns": 1
+    },
+    {
+      "width": 1000,
+      "minWidth": 240,
+      "gap": 16,
+      "columns": 3
+    },
+    {
+      "width": 0,
+      "minWidth": 240,
+      "gap": 16,
+      "columns": 1
+    },
+    {
+      "width": 4000,
+      "minWidth": 100,
+      "gap": 8,
+      "columns": 12
+    }
+  ]
+}
