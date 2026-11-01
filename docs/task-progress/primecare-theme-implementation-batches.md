@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. B10 shared table/form/editor/upload factories passed web and Flutter Linux/Windows/macOS acceptance, with platform and specialized-variant gaps documented. B11 shared chart/grid foundations passed web and Flutter Linux/Windows/macOS acceptance; registry/data/common-preference integration remains pending. B12 original assets and controlled shared adoption passed web and Flutter Linux/Windows/macOS acceptance; app-specific migration/review remains pending. Host activation, human review, device release verification and B13–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. B10 shared table/form/editor/upload factories passed web and Flutter Linux/Windows/macOS acceptance, with platform and specialized-variant gaps documented. B11 shared chart/grid foundations passed web and Flutter Linux/Windows/macOS acceptance; registry/data/common-preference integration remains pending. B12 original assets and controlled shared adoption passed web and Flutter Linux/Windows/macOS acceptance; app-specific migration/review remains pending. B13 task-backed work module foundations passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; standalone application features and host activation remain pending. Host activation, human review, device release verification and B14–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -275,7 +275,7 @@ Shared targets: `packages/primecare_ui/assets/original/`, `packages/primecare_ui
 
 ### B13 — Calendar, contacts, tasks, notes and scrumboard
 
-Status: planned. Dependencies: B01, B05, B07, B08, B10, B11, B12.
+Status: task-backed shared templates verified; host activation and unmapped features pending. See `docs/appearance/theme-adoption-batch-13.md` and `docs/appearance/work-modules-usage.md`. Dependencies: B01, B05, B07, B08, B10, B11, B12.
 
 Scope:
 
@@ -291,6 +291,8 @@ Completion checks:
 - Unmapped reference features are listed as needs-specification rather than marked adopted.
 
 Shared targets: `packages/shared/src/`, `packages/primecare_ui/web/`, `packages/primecare_ui/lib/`, `websites/typescript/src/`.
+
+Accepted subset: task due-date calendar, read-only authorized directory, task edits, task instructions and status transitions. Standalone notes/contact CRUD, appointments/recurrence, manual board ranking and new-template creation remain needs-specification. Native live transport, host/device verification, pagination/demo/reconciliation polish and human review remain open. No whole-screen activation or full reference adoption is claimed.
 
 ### B14 — Mailbox, messenger, notifications and file manager
 

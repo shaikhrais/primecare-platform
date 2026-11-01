@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "batch": "B13",
+  "status": "task_backed_shared_work_modules_verified_host_activation_and_unmapped_features_pending",
+  "sourceCommit": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+  "sourceRun": {
+    "runId": 41267690894,
+    "sourceCommit": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124733837353,
+        "name": "postgres",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:06:34.3642273Z PASS work modules: 27 checks; native PostgreSQL API, independent SQL and fresh-session readback",
+          "2026-11-01T03:06:37.3065866Z PASS work modules browser: 17 checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (native PostgreSQL)"
+        ]
+      },
+      {
+        "id": 124733837438,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:08:12.5669196Z No issues found! (ran in 10.6s)\r",
+          "2026-11-01T03:08:22.6194500Z 00:01 +10: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124733837494,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:05:32.7155645Z No issues found! (ran in 8.1s)",
+          "2026-11-01T03:05:39.7539726Z 00:00 +10: All tests passed!"
+        ]
+      },
+      {
+        "id": 124733837523,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:05:36.9109900Z No issues found! (ran in 8.6s)",
+          "2026-11-01T03:05:50.6931990Z 00:00 +10: All tests passed!"
+        ]
+      },
+      {
+        "id": 124733837640,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:06:54.7218560Z PASS work modules: 27 checks; PGlite PostgreSQL API, independent SQL and fresh-session readback",
+          "2026-11-01T03:06:59.4591014Z PASS work modules browser: 17 checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (PGlite PostgreSQL)",
+          "2026-11-01T03:07:01.8881900Z Tenant dashboard passed 74 database/API checks: real metrics, registered workflows, tasks, independent review, tenant/owner isolation, preferences, demo cleanup and immutable audit.",
+          "2026-11-01T03:07:08.0049513Z Ran 8 tests in 0.025s",
+          "2026-11-01T03:07:08.1597987Z Ran 3 tests in 0.004s"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41266361915,
+    "sourceCommit": "5103c7815e9c2dfc72e1a65e7ed7f28b5ed7f4db",
+    "validateJobId": 124729886878,
+    "productionJobId": 124729947054,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 23,
+    "requiredElements": 23,
+    "resources": 38,
+    "translations": 114,
+    "apiBindings": {
+      "GET": 16578,
+      "POST": 16579
+    },
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/work-modules-registration-receipt.json"
+  },
+  "acceptedSubset": {
+    "calendar": "Task due dates and existing task edit; not appointments",
+    "contacts": "Authorized bounded tenant directory, read-only",
+    "tasks": "Existing task detail/edit and authorized transitions",
+    "notes": "Task instructions, not standalone notes",
+    "board": "Existing task status lanes and evidence transitions; no manual ranking"
+  },
+  "localVerification": {
+    "modelApiSqlChecks": 27,
+    "browserChecks": 17,
+    "tenantApiRegressionChecks": 74,
+    "registrationTests": 8,
+    "metadataStoreTests": 3,
+    "typescript": "passed"
+  },
+  "testData": "Isolated synthetic PostgreSQL fixtures only; no production business writes",
+  "productionRuntimeVerified": false,
+  "nativeLiveTransportVerified": false,
+  "humanReviewApproved": false,
+  "fullReferenceAdopted": false,
+  "remainingScope": [
+    "Standalone notes and personal contact CRUD require approved workflow/API bindings",
+    "Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings",
+    "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
+    "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
+    "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
+    "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+    "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+  ],
+  "usage": "docs/appearance/work-modules-usage.md"
+}

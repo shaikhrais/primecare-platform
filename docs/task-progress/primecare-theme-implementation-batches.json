@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b12_shared_original_assets_adopted_selected_sources_app_migration_review_pending",
+  "overall_status": "b13_task_backed_work_module_foundations_verified_host_and_unmapped_features_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102 and B12 has 45 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102 B12 has 45 and B13 has 114 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -830,7 +830,7 @@
     {
       "id": "B13",
       "title": "Calendar, contacts, tasks, notes and scrumboard",
-      "status": "planned",
+      "status": "task_backed_shared_work_modules_verified_host_activation_and_unmapped_features_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -857,8 +857,61 @@
         "packages/primecare_ui/lib/",
         "websites/typescript/src/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-13.md",
+        "docs/appearance/theme-adoption-batch-13-evidence.json",
+        "docs/appearance/work-modules-usage.md",
+        "docs/appearance/work-modules-registration-receipt.json",
+        ".github/workflows/work-modules.yml"
+      ],
+      "blockers": [
+        {
+          "code": "WORK_MODULE_FEATURE_BINDINGS_NEED_SPECIFICATION",
+          "detail": "Standalone notes and personal contact CRUD require approved workflow/API bindings; Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings; Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings; New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged"
+        },
+        {
+          "code": "WORK_MODULE_HOST_NATIVE_REVIEW_PENDING",
+          "detail": "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification; Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41266361915,
+        "sourceCommit": "5103c7815e9c2dfc72e1a65e7ed7f28b5ed7f4db",
+        "validateJobId": 124729886878,
+        "productionJobId": 124729947054,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 23,
+        "requiredElements": 23,
+        "resources": 38,
+        "translations": 114,
+        "apiBindings": {
+          "GET": 16578,
+          "POST": 16579
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/work-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41267690894,
+        "sourceCommit": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Standalone notes and personal contact CRUD require approved workflow/API bindings",
+        "Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings",
+        "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
+        "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
+        "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
+        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+      ],
+      "nextAction": "Proceed to B14 shared communications/file templates using existing governed services; retain all B13 host and unmapped feature gates."
     },
     {
       "id": "B14",
