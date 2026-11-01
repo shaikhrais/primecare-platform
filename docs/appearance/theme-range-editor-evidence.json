@@ -1,0 +1,52 @@
+{
+  "format": 1,
+  "source": "08da93c20f96da079ade3855cec8bbf50cd648bb",
+  "package": "R07",
+  "batch": "B10",
+  "state": "shared_editor_source_accepted_partial_package",
+  "implemented": [
+    "Opt-in v2 character-range bold and italic in shared web and Flutter editors",
+    "Selection retained after formatting; insertion and deletion rebase marks using the actual caret, including repeated text",
+    "Literal styled preview, failed-save draft retention and UTF-16 boundary validation",
+    "Legacy v1 remains default; v2 requires explicit capability opt-in"
+  ],
+  "verification": {
+    "dataControls": {
+      "run": 41352883340,
+      "passedJobs": 4,
+      "totalJobs": 4,
+      "jobs": [
+        124986665150,
+        124986665288,
+        124986665291,
+        124986665296
+      ]
+    },
+    "combined": {
+      "run": 41352883344,
+      "passedJobs": 7,
+      "totalJobs": 7,
+      "jobs": [
+        124986665263,
+        124986665520,
+        124986665522,
+        124986665594,
+        124987289481,
+        124987289488,
+        124987289490
+      ]
+    },
+    "rangeModelTests": 8,
+    "crossLanguageFixtureOperations": 254,
+    "independentReferenceToggles": 250,
+    "browserPages": 9
+  },
+  "limits": [
+    "Browser scenarios exercise shared controls, not a production business flow",
+    "No production host opted into v2 and no persistence contract changed",
+    "Arbitrary HTML import remains open",
+    "Whole R07 package and B10 batch remain open"
+  ],
+  "permissionRowsChanged": 0,
+  "newRoleGrants": 0
+}

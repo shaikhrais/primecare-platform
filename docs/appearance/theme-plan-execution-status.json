@@ -90,6 +90,27 @@
         "websites/typescript/src/tenant-dashboard/work-module-host.ts",
         "CI 41349589267: 16 tenant-host checks including 2 locale cases"
       ]
+    },
+    {
+      "package": "R07",
+      "state": "shared_editor_source_accepted_partial_package",
+      "done": [
+        "Opt-in v2 character-range bold and italic in shared web and Flutter editors",
+        "Selection retained after formatting; insertion and deletion rebase marks using the actual caret, including repeated text",
+        "Literal styled preview, failed-save draft retention and UTF-16 boundary validation",
+        "Legacy v1 remains default; v2 requires explicit capability opt-in"
+      ],
+      "remaining": [
+        "Browser scenarios exercise shared controls, not a production business flow",
+        "No production host opted into v2 and no persistence contract changed",
+        "Arbitrary HTML import remains open",
+        "Whole R07 package and B10 batch remain open"
+      ],
+      "evidence": [
+        "docs/appearance/theme-range-editor-evidence.json",
+        "CI 41352883340: 4/4 jobs passed",
+        "CI 41352883344: 7/7 jobs passed"
+      ]
     }
   ],
   "verification": {
@@ -146,6 +167,38 @@
       "missingRequestSchemas": 158,
       "missingResponseSchemas": 158,
       "candidatesWithoutScreenLinks": 154
+    },
+    "rangeEditor": {
+      "dataControls": {
+        "run": 41352883340,
+        "passedJobs": 4,
+        "totalJobs": 4,
+        "jobs": [
+          124986665150,
+          124986665288,
+          124986665291,
+          124986665296
+        ]
+      },
+      "combined": {
+        "run": 41352883344,
+        "passedJobs": 7,
+        "totalJobs": 7,
+        "jobs": [
+          124986665263,
+          124986665520,
+          124986665522,
+          124986665594,
+          124987289481,
+          124987289488,
+          124987289490
+        ]
+      },
+      "rangeModelTests": 8,
+      "crossLanguageFixtureOperations": 254,
+      "independentReferenceToggles": 250,
+      "browserPages": 9,
+      "source": "08da93c20f96da079ade3855cec8bbf50cd648bb"
     }
   },
   "permissionRowsChanged": 0,
