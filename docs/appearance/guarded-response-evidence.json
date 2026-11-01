@@ -1,0 +1,171 @@
+{
+  "format": 1,
+  "batches": [
+    "B13",
+    "B15",
+    "B16"
+  ],
+  "sourceCommit": "e1e0a786e5515f57e92df3289cd6d382babc0551",
+  "conclusion": "success",
+  "local": {
+    "transportRegressions": 17,
+    "taskChecks": 30,
+    "applicationChecks": 27,
+    "dashboardIntegrationGroups": 11,
+    "typecheck": "passed",
+    "catalogue": "passed"
+  },
+  "workflows": [
+    {
+      "runId": 41330968037,
+      "name": "Shared work modules",
+      "jobs": [
+        {
+          "id": 124920786899,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787106,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787110,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787117,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787230,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41330968107,
+      "name": "Dashboard page projection",
+      "jobs": [
+        {
+          "id": 124920786722,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786955,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786976,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786990,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787004,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41330968013,
+      "name": "Theme cross-batch closure verification",
+      "jobs": [
+        {
+          "id": 124920786860,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787111,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787135,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920787192,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920872917,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920872924,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920872954,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41330968033,
+      "name": "Shared application modules",
+      "jobs": [
+        {
+          "id": 124920786625,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786886,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786928,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786932,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124920786979,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "bounds": {
+    "taskReplyBytes": 1048576,
+    "dashboardReplyBytes": 1048576,
+    "selfProfileReplyBytes": 65536
+  },
+  "verified": [
+    "bounded strict UTF-8 JSON",
+    "identity/token, cancellation and disposal checks during streaming and cleanup",
+    "read-only self identity and exact reply field matching",
+    "original task mutation receipt preservation",
+    "real-handler/database, reload and denied-scope regressions",
+    "web and Linux/Windows/macOS regression suites"
+  ],
+  "productionHostActivated": false,
+  "newApiOrGrantChanges": 0,
+  "physicalDeviceVerified": false,
+  "humanReleaseApproved": false
+}

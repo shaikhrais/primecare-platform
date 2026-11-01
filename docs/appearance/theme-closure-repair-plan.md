@@ -25,6 +25,8 @@ Component tests cover the implemented subset. A complete batch also needs its in
 
 ## Repairs completed during follow-up
 
+- B13/B15/B16: shared web response reader with streamed byte limits, strict JSON and captured actor/cancellation/disposal checks through cleanup. Source `e1e0a786e5515f57e92df3289cd6d382babc0551` passed all 22 targeted/combined CI jobs; see `guarded-response-evidence.json`. This is response integration/parity acceptance, not completion of the missing business workflows.
+
 - B02/B06: account-bound appearance teardown and out-of-order/stale import protection; 13 browser checks passed (run 41321528275).
 - B07: local-discard serialization, retained drafts on storage failure and disposed-state protection; all five targeted jobs passed (run 41320644480).
 - B15: native read-only self-profile API16402 adapter; web, PostgreSQL/browser and Flutter Linux/Windows/macOS passed (run 41323515743).
