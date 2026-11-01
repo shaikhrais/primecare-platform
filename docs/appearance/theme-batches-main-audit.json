@@ -1,11 +1,11 @@
 {
   "format": 1,
-  "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
-  "capturedAt": "2026-11-01T12:38:56.245Z",
+  "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+  "capturedAt": "2026-11-01T13:03:44.246980+00:00",
   "remoteBranches": [
     {
       "name": "main",
-      "sha": "6d7ec963967f34270c51ef215a3178902df57132"
+      "sha": "2b957d21e702819e628ac64bce200bcb74edd453"
     }
   ],
   "mainOnlyConfirmed": true,
@@ -15,35 +15,32 @@
   "latestB16": {
     "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
     "runId": 41307397565,
-    "status": "in_progress",
-    "conclusion": null,
-    "priorSourceCommit": "8dc2dbab62a064a98b182eddd4d7edb05a13ecbc",
-    "priorRunId": 41307207533,
-    "priorNativeFailure": "Semantics assertions passed; test leaked its handle at end-of-test verification. Explicit try/finally cleanup committed; await new CI.",
+    "status": "completed",
+    "conclusion": "success",
     "jobs": [
       {
         "id": 124850486748,
         "name": "native (windows-latest)",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850486989,
         "name": "native (macos-latest)",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487015,
         "name": "postgres",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487039,
         "name": "web",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487046,
@@ -51,10 +48,44 @@
         "status": "completed",
         "conclusion": "success"
       }
-    ],
-    "linuxNative": "success",
-    "windowsNative": "pending",
-    "macosNative": "pending"
+    ]
+  },
+  "nextNativeReader": {
+    "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+    "runId": 41309237883,
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 124855950807,
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951043,
+        "name": "native (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951070,
+        "name": "web",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951090,
+        "name": "native (macos-latest)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 124855951189,
+        "name": "native (windows-latest)",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
   },
   "localRegressions": [
     {
@@ -586,7 +617,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "recordedStatus": "activity_search_source_locally_verified_native_semantics_fix_ci_pending",
+      "recordedStatus": "linux_native_repaired_passed_windows_macos_and_exact_source_other_jobs_pending",
       "fullFunctionalityConfirmed": false,
       "sourceState": "implemented_subset_or_foundation",
       "evidenceReferences": 21,
@@ -596,16 +627,16 @@
       "proposalFeatureCount": 13,
       "historicalRun": {
         "id": "B16",
-        "runId": 41306313942,
-        "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
-        "actualHead": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+        "runId": 41307397565,
+        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+        "actualHead": "6d7ec963967f34270c51ef215a3178902df57132",
         "status": "completed",
-        "conclusion": "failure",
-        "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41306313942"
+        "conclusion": "success",
+        "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41307397565"
       },
       "remaining": [
-        "Verify latest native fixes; obtain independent registration readback and production slot activation",
-        "Native authenticated read/session adapter",
+        "Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime",
+        "Verify and integrate the new native authenticated read/session adapter",
         "Real finance/crypto workflow bindings",
         "Android/iOS, human localization/accessibility and release acceptance"
       ]
@@ -613,10 +644,10 @@
     {
       "id": "B17",
       "title": "Catalogue, documentation and app-wide adoption",
-      "recordedStatus": "planned",
+      "recordedStatus": "main_only_evidence_audit_prepared_catalogue_and_app_wide_adoption_pending",
       "fullFunctionalityConfirmed": false,
-      "sourceState": "plan_only",
-      "evidenceReferences": 0,
+      "sourceState": "audit_partial",
+      "evidenceReferences": 4,
       "missingEvidenceReferences": [],
       "historicalHashCount": 0,
       "changedSinceHistoricalHashes": [],

@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "linux_native_repaired_passed_windows_macos_and_exact_source_other_jobs_pending",
+      "status": "prior_five_job_acceptance_passed_receipt_recovered_native_reader_linux_passed_other_platforms_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1160,21 +1160,55 @@
         "packages/shared/src/dashboard-pages/record-pages.mjs",
         "packages/primecare_ui/web/record-pages.ts",
         "packages/flutter_core/lib/dashboard_pages/record_page_model.dart",
-        "scripts/test-dashboard-record-pages.mjs"
+        "scripts/test-dashboard-record-pages.mjs",
+        "docs/appearance/dashboard-pages-registration-receipt.json",
+        "packages/flutter_core/lib/dashboard_pages/dashboard_read_session.dart",
+        "packages/flutter_core/test/dashboard_pages/dashboard_read_session_test.dart"
       ],
       "blockers": [],
-      "nextAction": "Finish exact-source native verification, then address registered host/API/device/review gaps; see the main-only B01-B18 audit.",
+      "nextAction": "Complete native reader CI and approved host integration; recovered inactive metadata is not live activation.",
       "productionRuntimeVerified": false,
       "humanReviewApproved": false,
       "sourceRun": {
-        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
-        "runId": 41307397565,
-        "conclusion": null,
+        "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+        "runId": 41309237883,
         "status": "in_progress",
         "linuxNative": "success",
+        "web": "success",
+        "postgres": "success",
         "windowsNative": "pending",
         "macosNative": "pending"
-      }
+      },
+      "priorSourceRun": {
+        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+        "runId": 41307397565,
+        "conclusion": "success",
+        "jobs": [
+          "web",
+          "postgres",
+          "Linux native",
+          "Windows native",
+          "macOS native"
+        ]
+      },
+      "productionRegistration": "historical_commit_and_independent_readback_receipt_recovered_runtime_off",
+      "productionRun": {
+        "runId": 41278838480,
+        "sourceCommit": "33d3566c5f120d7ebcb423fc7bd8fc8cb099196e",
+        "productionJobId": 124766476200,
+        "committed": true,
+        "independentReadback": true,
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "freshReadbackThisTurn": false,
+        "receipt": "docs/appearance/dashboard-pages-registration-receipt.json"
+      },
+      "remainingScope": [
+        "Complete new native reader acceptance on all declared platforms",
+        "Approved authenticated host mounting, fresh production readback and UI/API/database/reload verification",
+        "Real financial data bindings and non-placeholder invoice/pricing/account workflows",
+        "Physical Android/iOS, localization/accessibility and release review"
+      ]
     },
     {
       "id": "B17",

@@ -1,11 +1,11 @@
 {
   "format": 1,
-  "capturedAt": "2026-11-01T12:38:56.245Z",
-  "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+  "capturedAt": "2026-11-01T13:03:44.246980+00:00",
+  "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
   "branches": [
     {
       "name": "main",
-      "sha": "6d7ec963967f34270c51ef215a3178902df57132"
+      "sha": "2b957d21e702819e628ac64bce200bcb74edd453"
     }
   ],
   "historicalRuns": [
@@ -146,46 +146,43 @@
     },
     {
       "id": "B16",
-      "runId": 41306313942,
-      "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
-      "actualHead": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+      "runId": 41307397565,
+      "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+      "actualHead": "6d7ec963967f34270c51ef215a3178902df57132",
       "status": "completed",
-      "conclusion": "failure",
-      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41306313942"
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41307397565"
     }
   ],
   "latestB16": {
     "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
     "runId": 41307397565,
-    "status": "in_progress",
-    "conclusion": null,
-    "priorSourceCommit": "8dc2dbab62a064a98b182eddd4d7edb05a13ecbc",
-    "priorRunId": 41307207533,
-    "priorNativeFailure": "Semantics assertions passed; test leaked its handle at end-of-test verification. Explicit try/finally cleanup committed; await new CI.",
+    "status": "completed",
+    "conclusion": "success",
     "jobs": [
       {
         "id": 124850486748,
         "name": "native (windows-latest)",
-        "status": "in_progress",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850486989,
         "name": "native (macos-latest)",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487015,
         "name": "postgres",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487039,
         "name": "web",
-        "status": "queued",
-        "conclusion": null
+        "status": "completed",
+        "conclusion": "success"
       },
       {
         "id": 124850487046,
@@ -193,10 +190,7 @@
         "status": "completed",
         "conclusion": "success"
       }
-    ],
-    "linuxNative": "success",
-    "windowsNative": "pending",
-    "macosNative": "pending"
+    ]
   },
   "localRegressions": [
     {
@@ -295,5 +289,43 @@
       "exitCode": 0,
       "summary": "PASS dashboard page integration: 10 groups; PGlite PostgreSQL, real tenant handler, independent SQL, reload, tenant mismatch, role denial and token changes\n"
     }
-  ]
+  ],
+  "nextNativeReader": {
+    "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+    "runId": 41309237883,
+    "status": "in_progress",
+    "jobs": [
+      {
+        "id": 124855950807,
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951043,
+        "name": "native (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951070,
+        "name": "web",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124855951090,
+        "name": "native (macos-latest)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 124855951189,
+        "name": "native (windows-latest)",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ]
+  },
+  "localRegressionsSourceCommit": "6d7ec963967f34270c51ef215a3178902df57132"
 }

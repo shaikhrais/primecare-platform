@@ -47,14 +47,14 @@ for batch in plan['batches']:
     if not remaining:
         remaining = [x['detail'] for x in batch.get('blockers', [])]
     if bid == 'B16':
-        remaining = ['Verify latest native fixes; obtain independent registration readback and production slot activation',
-                     'Native authenticated read/session adapter', 'Real finance/crypto workflow bindings',
+        remaining = ['Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime',
+                     'Verify and integrate the new native authenticated read/session adapter', 'Real finance/crypto workflow bindings',
                      'Android/iOS, human localization/accessibility and release acceptance']
     if bid in ['B17', 'B18']:
         remaining = batch['scope']
     rows.append({'id': bid, 'title': batch['title'], 'recordedStatus': batch['status'],
                  'fullFunctionalityConfirmed': False,
-                 'sourceState': 'plan_only' if bid in ['B17', 'B18'] else 'implemented_subset_or_foundation',
+                 'sourceState': ('plan_only' if batch['status'] == 'planned' else 'audit_partial') if bid in ['B17', 'B18'] else 'implemented_subset_or_foundation',
                  'evidenceReferences': len(paths), 'missingEvidenceReferences': missing,
                  'historicalHashCount': len(hashes), 'changedSinceHistoricalHashes': changed,
                  'proposalFeatureCount': features[bid], 'historicalRun': remote.get(bid),
@@ -64,12 +64,12 @@ result = {'format': 1, 'sourceCommit': source, 'capturedAt': snapshot['capturedA
           'remoteBranches': branches, 'mainOnlyConfirmed': [x['name'] for x in branches] == ['main'],
           'all18FullyFunctional': False, 'fullyConfirmedBatches': 0,
           'historicalEvidenceIsNotCurrentProductionAcceptance': True,
-          'latestB16': snapshot['latestB16'], 'localRegressions': snapshot['localRegressions'],
+          'latestB16': snapshot['latestB16'], 'nextNativeReader': snapshot.get('nextNativeReader'), 'localRegressions': snapshot['localRegressions'],
           'proposalFeatures': len(contract['features']), 'batches': rows}
 passed = sum(row['exitCode'] == 0 for row in snapshot['localRegressions'])
 lines = ['# B01-B18 main-branch functionality audit', '',
          f"Captured: {snapshot['capturedAt']}. Audited source: `{source}`.", '',
-         '**All 18 batches are not fully functional or production verified.** B01-B15 have historical passing checks for registered subsets/factories; B16 has recent native failures and corrections; B17/B18 were planned at the audited source. No batch is promoted to full functionality from a green build, metadata registration or file presence.', '',
+         '**All 18 batches are not fully functional or production verified.** B01-B15 have historical passing checks for registered subsets/factories; B16 has corrected native checks and remaining integration gaps; B17 has an audit but unfinished catalogue/app migration; B18 remains unfinished. No batch is promoted to full functionality from a green build, metadata registration or file presence.', '',
          f"GitHub branch read: {', '.join(x['name'] for x in branches)}. Main-only confirmed: {result['mainOnlyConfirmed']}. No branch was created or deleted by this audit.", '',
          f"Current local checks: {passed}/{len(snapshot['localRegressions'])} scripts passed. The workspace browser script could not launch because local Chromium is unavailable; this is an environment limitation, not a passing browser result. Historical and new CI results are listed separately. Local PostgreSQL tests here use PGlite; native PostgreSQL/browser acceptance comes from CI.", '',
          '| Batch | Source saved on main | Historical verification | Full functionality | Main remaining work |',
@@ -77,11 +77,14 @@ lines = ['# B01-B18 main-branch functionality audit', '',
 for row in rows:
     run = row['historicalRun']
     status = f"[{run.get('conclusion', 'pending')}]({run['url']})" if run and run.get('url') else 'Not established'
-    source_text = 'Plan only' if row['sourceState'] == 'plan_only' else ('Missing evidence links' if row['missingEvidenceReferences'] else 'Subset/foundation and evidence')
+    source_text = 'Plan only' if row['sourceState'] == 'plan_only' else 'Audit partial' if row['sourceState'] == 'audit_partial' else ('Missing evidence links' if row['missingEvidenceReferences'] else 'Subset/foundation and evidence')
     remain = '; '.join(str(x) for x in row['remaining'][:2]).replace('|', '/')
     lines.append(f"| {row['id']} | {source_text} | {status} | Not confirmed | {remain} |")
 latest = snapshot['latestB16']
 job_summary = '; '.join(f"{job['name']}: {job.get('conclusion') or job['status']}" for job in latest.get('jobs', []))
+if snapshot.get('nextNativeReader'):
+    pending = snapshot['nextNativeReader']
+    lines += ['', f"New native reader source `{pending['sourceCommit']}`: [run {pending['runId']}](https://github.com/shaikhrais/primecare-platform/actions/runs/{pending['runId']}); status {pending['status']}. Earlier green checks do not establish this new adapter's acceptance."]
 lines += ['', f"Latest B16 repairs: [run {latest['runId']}](https://github.com/shaikhrais/primecare-platform/actions/runs/{latest['runId']}) at `{latest['sourceCommit']}`. {job_summary}. Pending jobs are not counted as accepted.", '', '## Exact limits and next actions', '',
           'The 72 proposal-feature records are a bounded catalogue, not an authoritative claim of complete reference parity. B09 and B10 historical source digests differ for later-edited native renderer files; their older receipts remain historical. Full details, missing references, digests and remaining work are in the JSON audit.', '',
           'Keep all remaining work on main. Verify the B16 native test repairs first. Then close registered host/access/preference bindings and real workflows in earlier batches before claiming app-wide adoption. B17 must finish catalogue and app migration; B18 must verify deployed UI/API/database/reload and denied/cross-tenant/device/review paths.', '',

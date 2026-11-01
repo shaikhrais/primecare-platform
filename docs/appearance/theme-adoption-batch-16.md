@@ -43,3 +43,13 @@ Activity timestamps now require UTC ISO date-time text and roundtrip date compon
 ## Main-only audit repair
 
 The all-batch audit found two additional test-only issues: untyped empty authorization-view lists under strict Dart analysis, and a semantics handle disposed too late by generic teardown. The fixture now types those lists and disposes the handle in a test-body try/finally. Production accessibility assertions remain intact. Source `6d7ec963967f34270c51ef215a3178902df57132` passed Linux native analysis and all six widget/model tests in run 41307397565 (job 124850487046). Windows/macOS and other final-source jobs were pending at capture. See the complete `theme-batches-main-audit.md` for B01-B18 gaps and main-only evidence.
+
+## Registration evidence recovered and native reader added
+
+All five jobs in run 41307397565 passed for source `6d7ec963967f34270c51ef215a3178902df57132`: web, native PostgreSQL and Flutter Linux/Windows/macOS. Earlier native failures were corrected; the prior pending status is superseded for that exact source.
+
+Recovered the B16 metadata receipt from successful production job 124766476200 / run 41278838480 at source `33d3566c5f120d7ebcb423fc7bd8fc8cb099196e`. The recorded writer transaction committed and independently read back 20 optional controls, 44 resources, 132 translations and API16578. This is historical readback, not a fresh production query. Controls remain registered-unimplemented, runtime off and review approval false. Recovery closes the missing-receipt evidence gap, not activation.
+
+Added a generic actor-bound Flutter read session and existing-API HTTP transport for metric and record projections. It checks token/scope during network and stream processing, bounds bytes, disables redirects, clears stale projection state and ignores old/disposed results. Five new native test groups cover GET/bearer/no-cache behavior, reload, captured context changes, late completion, disposal, denied/redirect/malformed/oversized replies and unsafe configuration. The new source requires its own CI acceptance before readiness is promoted. Live host/device/database verification remains open.
+
+Source `2b957d21e702819e628ac64bce200bcb74edd453` passed web, native PostgreSQL and Linux Flutter analysis/all 11 tests in run 41309237883 at capture. Windows/macOS remained running. The historical receipt consistency check matched the unchanged registered contract, all control/resource keys and existing API16578. No live activation or fresh production query was performed.

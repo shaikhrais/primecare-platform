@@ -1,45 +1,85 @@
 {
-  "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
-  "runId": 41306313942,
+  "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+  "runId": 41309237883,
   "jobs": [
     {
-      "id": 124847312375,
+      "id": 124855950807,
+      "name": "postgres",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124855951043,
+      "name": "native (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124855951070,
       "name": "web",
       "status": "completed",
       "conclusion": "success"
     },
     {
-      "id": 124847312637,
-      "name": "native (ubuntu-24.04)",
-      "status": "completed",
-      "conclusion": "failure"
-    },
-    {
-      "id": 124847312647,
+      "id": 124855951090,
       "name": "native (macos-latest)",
-      "status": "completed",
-      "conclusion": "failure"
-    },
-    {
-      "id": 124847312652,
-      "name": "native (windows-latest)",
       "status": "in_progress",
       "conclusion": null
     },
     {
-      "id": 124847312673,
-      "name": "postgres",
-      "status": "completed",
-      "conclusion": "success"
+      "id": 124855951189,
+      "name": "native (windows-latest)",
+      "status": "in_progress",
+      "conclusion": null
     }
   ],
+  "previousAcceptedSource": {
+    "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+    "runId": 41307397565,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124850486748,
+        "name": "native (windows-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124850486989,
+        "name": "native (macos-latest)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124850487015,
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124850487039,
+        "name": "web",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124850487046,
+        "name": "native (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "registrationReceipt": "docs/appearance/dashboard-pages-registration-receipt.json",
+  "registrationRunId": 41278838480,
   "productionRuntimeVerified": false,
   "humanReviewApproved": false,
+  "nativeTransportUnitTests": "Linux analysis and all 11 model/widget/transport tests passed; Windows/macOS pending; no deployed/device acceptance",
   "remaining": [
-    "Verify activity/search and native semantic-container fix in new CI",
-    "Independent B16 registration readback and production mount",
-    "Native authenticated session/HTTP adapter",
-    "Financial workflow bindings, Android/iOS and human review"
-  ],
-  "nativeFailure": "Linux/macOS exact Open: 5 semantics lookup failed; production fix adds explicit semantic containers while preserving the assertion."
+    "Finish native reader declared-platform acceptance",
+    "Approved live host mount and fresh production UI/API/database/reload verification",
+    "Financial workflow bindings",
+    "Physical Android/iOS and human locale/accessibility/release review"
+  ]
 }
