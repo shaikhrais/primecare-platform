@@ -418,5 +418,7 @@
     }
   },
   "runtimeActivated": false,
-  "humanReviewApproved": false
+  "humanReviewApproved": false,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "cbb8ef0749b73f6573ef07ee46be006dcf85430171056d4c7b8635a85293fbf6"
 }

@@ -2,7 +2,7 @@
 export type Cell=string|number|boolean|null;
 export type DataRow={id:string;values:Record<string,Cell>};
 export type DataColumn={key:string;label:string;width:number;visible:boolean;pinned:boolean};
-const identity=(v:string)=>typeof v==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(v);
+const identity=(v:string)=>typeof v==='string'&&/^[a-z0-9_-]{1,80}$/.test(v);
 export function virtualWindow(count:number,offset:number,height:number,rowHeight:number,overscan=2){if(![count,overscan].every(Number.isSafeInteger)||count<0||count>100000||overscan<0||overscan>20||![offset,height,rowHeight].every(Number.isFinite)||offset<0||height<=0||rowHeight<=0)throw Error('invalid_window');const start=Math.min(count,Math.max(0,Math.floor(offset/rowHeight)-overscan)),end=Math.min(count,Math.ceil((offset+height)/rowHeight)+overscan);return {start,end:Math.max(start,end),before:start*rowHeight,after:Math.max(0,(count-end)*rowHeight)};}
 export class DataTableModel {
  rows:readonly DataRow[]=[];columns:DataColumn[];query='';sortKey:string|null=null;descending=false;page=0;selected=new Set<string>();expanded:string|null=null;
