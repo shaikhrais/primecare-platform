@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b09_shared_component_catalogue_accepted_host_binding_pending",
+  "overall_status": "b10_shared_data_controls_accepted_platform_gaps_host_binding_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93 and B09 has 126 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126 and B10 has 138 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -567,7 +567,7 @@
     {
       "id": "B10",
       "title": "Tables, forms, editors and upload controls",
-      "status": "planned",
+      "status": "shared_data_controls_accepted_platform_gaps_host_binding_pending",
       "depends_on": [
         "B01",
         "B06",
@@ -590,8 +590,65 @@
         "packages/shared/src/",
         "packages/domain/src/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-10.md",
+        "docs/appearance/theme-adoption-batch-10-evidence.json",
+        "docs/appearance/data-controls-usage.md",
+        "docs/appearance/data-controls-design.md",
+        "docs/appearance/data-controls-support.json",
+        "docs/appearance/data-controls-registration-receipt.json",
+        "packages/primecare_ui/catalogs/data-controls.registration.json",
+        ".github/workflows/data-controls.yml"
+      ],
+      "blockers": [
+        {
+          "code": "DATA_CONTROLS_HOST_BINDINGS_PENDING",
+          "detail": "Actual host/native source and access bindings, real data/persistence/upload adapters and governed business flows remain unverified."
+        },
+        {
+          "code": "DATA_CONTROLS_PLATFORM_AND_VARIANT_GAPS",
+          "detail": "Native sticky horizontal pinning; Native link activation adapter; Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Upload removal/remote deletion UI; Specialized rating/slider/stepper/transfer-list variants"
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed_with_documented_platform_gaps",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41258198250,
+        "sourceCommit": "ba504522165ea5a61f59faab568af7a30b446cc9",
+        "validateJobId": 124705758506,
+        "productionJobId": 124705829773,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 38,
+        "requiredElements": 38,
+        "resources": 46,
+        "translations": 138,
+        "newPrimitiveRows": 0,
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/data-controls-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41259596812,
+        "sourceCommit": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Native sticky horizontal pinning",
+        "Native link activation adapter",
+        "Character-range rich-text marks and arbitrary HTML import",
+        "Spreadsheet editing and server-side query adapter",
+        "Upload removal/remote deletion UI",
+        "Specialized rating/slider/stepper/transfer-list variants",
+        "host source registration",
+        "authorized data projections and persistence adapters",
+        "native binary picker and image policy adapter",
+        "governed real-data flows",
+        "human localization/accessibility/release review"
+      ],
+      "nextAction": "B11 shared chart/widget foundations can proceed. Retain all B10 platform, specialized-variant, real-adapter and human-review gates before app-wide activation."
     },
     {
       "id": "B11",

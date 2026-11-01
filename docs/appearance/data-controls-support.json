@@ -1,7 +1,7 @@
 {
   "format": 1,
   "batch": "B10",
-  "status": "shared_source_implemented_ci_pending_host_binding_pending",
+  "status": "shared_source_accepted_platform_gaps_and_host_binding_pending",
   "businessHostActivated": false,
   "vendorSourceCopied": false,
   "activationGates": [

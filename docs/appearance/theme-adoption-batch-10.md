@@ -1,6 +1,6 @@
 # B10 — Shared tables, forms, structured editor and uploads
 
-Shared source implementation is on main. Final platform acceptance is pending; host activation and remaining feature gaps are separate gates. This batch does not complete application screens or claim every reference variant.
+Shared source implementation is on main. Web and Flutter Linux/Windows/macOS factory acceptance passed; host activation and remaining feature gaps are separate gates. This batch does not complete application screens or claim every reference variant.
 
 The original web/Flutter packages reuse verified B09 action/label handling, B06 theme context and registered PrimeCare primitives. They add bounded table models and virtual renderers, typed form constraints and autocomplete, a safe block document editor, and a receipt-based upload lifecycle. Usage/API details and platform limits are in [data-controls-usage.md](data-controls-usage.md); [support matrix](data-controls-support.json) preserves explicit dispositions.
 
@@ -29,6 +29,15 @@ Native pinning currently prioritizes column order without sticky horizontal rend
 
 Local checks passed: six model/state-machine groups, 19 shared TS/Dart oracle cases, five Chromium scenes, TypeScript, seven registration tests and three metadata-store tests. Browser scenes cover keyboard table navigation, 50,000-row virtualization, column configuration, mobile RTL form input retention, stale/denied autocomplete, unsafe editor links and literal text, failed saves, cancellation/late receipts/retry/denial, and disabled missing adapters. These use isolated synthetic projections and transport callbacks, not production business transactions.
 
-Final CI evidence will be recorded after the exact source run completes. Production APIs, native binary permissions/picker policy, trusted image hosts, idempotency service contracts, host/source/access registration and actual business-data flows remain integration work. Device/screen-reader verification and human localization/accessibility/release review remain pending. Six historical auth-reader review blockers are unchanged; whole-repository CI success is not claimed.
+Source `8022da343ef678ab1fa63d80f13a0fdeba276cf3` passed [run 41259596812](https://github.com/shaikhrais/primecare-platform/actions/runs/41259596812). Flutter analysis was clean and all 12 native tests passed per platform.
+
+| Job | ID | Result |
+|---|---:|---|
+| native (windows-latest) | 124709977319 | Passed |
+| native (macos-latest) | 124709977504 | Passed |
+| native (ubuntu-24.04) | 124709977514 | Passed |
+| web | 124709977609 | Passed |
+
+The initial native run caught a missing semantics import; after correction, a test finder matched both the filter text and the selected cell. The assertion now targets the cell widget. Final acceptance uses the corrected exact commit. Production APIs, native binary permissions/picker policy, trusted image hosts, idempotency service contracts, host/source/access registration and actual business-data flows remain integration work. Device/screen-reader verification and human localization/accessibility/release review remain pending. Six historical auth-reader review blockers are unchanged; whole-repository CI success is not claimed.
 
 Rollback: unmount/dispose an optional factory or widget and remove its host import. Additive metadata stays registered-unimplemented; this batch provides no destructive registration rollback.

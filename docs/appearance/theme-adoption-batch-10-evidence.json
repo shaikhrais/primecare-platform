@@ -1,0 +1,128 @@
+{
+  "format": 1,
+  "batch": "B10",
+  "status": "shared_data_controls_accepted_platform_gaps_host_binding_pending",
+  "sourceCommit": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+  "sourceRun": {
+    "runId": 41259596812,
+    "sourceCommit": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124709977319,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:10:07.4625612Z No issues found! (ran in 14.4s)\r",
+          "2026-11-01T01:10:22.8200885Z 00:03 +12: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124709977504,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:10:24.8957540Z No issues found! (ran in 9.2s)",
+          "2026-11-01T01:10:41.1364730Z 00:02 +12: All tests passed!"
+        ]
+      },
+      {
+        "id": 124709977514,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:08:50.1280661Z No issues found! (ran in 12.9s)",
+          "2026-11-01T01:09:02.9456517Z 00:02 +12: All tests passed!"
+        ]
+      },
+      {
+        "id": 124709977609,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:09:41.1467801Z \u2139 tests 6",
+          "2026-11-01T01:09:41.1469355Z \u2139 pass 6",
+          "2026-11-01T01:09:43.1904610Z {\"pages\":5,\"largeRows\":50000,\"virtualRowsBounded\":true,\"checks\":[\"grid keyboard/filter/sort/paging/selection/expansion/columns\",\"required typed forms and retained failed submit\",\"stale and denied autocomplete\",\"literal structured editor and unsafe links\",\"cancelled/retried/denied uploads and receipt\",\"disabled missing adapters\"],\"productionBusinessFlow\":false}",
+          "2026-11-01T01:09:46.7897451Z Ran 7 tests in 0.028s",
+          "2026-11-01T01:09:46.9420720Z Ran 3 tests in 0.004s"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41258198250,
+    "sourceCommit": "ba504522165ea5a61f59faab568af7a30b446cc9",
+    "validateJobId": 124705758506,
+    "productionJobId": 124705829773,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 38,
+    "requiredElements": 38,
+    "resources": 46,
+    "translations": 138,
+    "newPrimitiveRows": 0,
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/data-controls-registration-receipt.json"
+  },
+  "verification": {
+    "nodeModelGroups": 6,
+    "crossRuntimeOracleCases": 19,
+    "browserScenes": 5,
+    "largeDataRows": 50000,
+    "boundedMountedRows": true,
+    "nativeModelTests": 5,
+    "nativeWidgetTests": 7,
+    "nativeTotalPerPlatform": 12,
+    "registrationTests": 7,
+    "metadataStoreTests": 3,
+    "flutterVersion": "3.41.5"
+  },
+  "sourceSha256": {
+    ".github/workflows/data-controls.yml": "43878a1d656e81a00b560a898089d2cc757387de54f14753b905c11873dbdd4c",
+    "packages/domain/src/data_controls.ts": "e28a0143d4c7a7076a3b1ab891a83a27b251e5a182e2e2d5229d9e3fff224d8e",
+    "packages/shared/src/data-controls/upload-task.ts": "f5b03eaef976a43c3cd5dc2ba1a9c48537b7b36250217b0af060f37e1e6eff70",
+    "packages/primecare_ui/web/data-controls.ts": "17a11fee535b4ac092646b9f937c6e553a7e583c3a60d4801420fd9c52768ce3",
+    "packages/primecare_ui/catalogs/data-controls.registration.json": "db7d7796cafa7d47fbe3988fa1500e7c208ccaa76f88af31a8e28c2a00b0ee14",
+    "packages/flutter_core/lib/data_controls.dart": "fa242811c50a5383fc855f9142443c1b089e9bcdef3e6fe86f9df5096138566c",
+    "packages/primecare_ui/lib/data_controls.dart": "1fcf27dbbc8ea130bfadb2d2b554b06153836b867888291c7fc43c69213e0826",
+    "docs/appearance/data-controls-registration-receipt.json": "b3b41514e786fa5b5480e688ed6ebe7f61faf5fecf788bc0132917cbef0627dd",
+    "scripts/test-data-controls-model.mjs": "78a790997283a02b3ba3602f83c9342a78fb34a9f56596b048361c621c6a1756",
+    "scripts/test-data-controls-browser.mjs": "d95ea4863f7556b051e4deb6f2dde5064a5abd1e184aedaa029700ce3aba6ef5",
+    "packages/flutter_core/lib/data_controls/data_controls_model.dart": "e7dba6f0446451a41c06beb4a3a1a4f20ca736f45cdb9c7c9ba9d5b25906c432",
+    "packages/flutter_core/lib/data_controls/upload_task.dart": "a07bb563246d2a884cbcc83fc69f4156465b2f81b4183e5f3fb1ee8531682b63",
+    "packages/flutter_core/lib/data_controls/prime_data_controls.dart": "bb71eb2609d0c691fbffc7ae9304d9124a6ff70605c7977841d312c9694a74d1",
+    "packages/flutter_core/test/data_controls/model-fixtures.json": "66eed239902f4f26bde49dcc588de1786e7517e477f3046160a230e413df14e7",
+    "packages/flutter_core/test/data_controls/data_controls_model_test.dart": "ec9895081d94e41f1b317ac93d8d2004c27d0d288ba6549699e4985b6ff03a2c",
+    "packages/flutter_core/test/data_controls/data_controls_widget_test.dart": "912c0ae7375bff9dd6c21d49c80c18130e6417bf347de0b9417ea089b1dbf444"
+  },
+  "registrationSha256": {
+    "tools/governance-production/data-controls-contract.json": "cbb8ef0749b73f6573ef07ee46be006dcf85430171056d4c7b8635a85293fbf6",
+    "tools/governance-production/data_controls_registration.py": "2d7897f5b2a01ebfc82940a635db32dee517856ab6d548231fbb545e5459a249",
+    "tools/governance-production/test-data-controls-registration.py": "3c8e5ff83d4c025f99b720300ef2e87ba694fde316a79f5b32e86e1f3abf1064",
+    "tools/governance-production/production-pin.json": "17bce3ef13075b2f11b9a83b8ff2dc1f74c1cc380dd839933f07ea7a768b648a",
+    ".github/workflows/data-controls-registration.yml": "a7d80772aa09120738daca737153850ac8afcb837e88945601a4f1ae9d81fccf"
+  },
+  "supportMatrix": {
+    "path": "docs/appearance/data-controls-support.json",
+    "sha256": "0e5138f1ecfb6eead6943fcffdfb18e8fdf275e598dbd5c62dd3dc5e43dd09ea"
+  },
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "wholeRepositoryCiClaimed": false,
+  "remainingFeatureGaps": [
+    "Native sticky horizontal pinning",
+    "Native link activation adapter",
+    "Character-range rich-text marks and arbitrary HTML import",
+    "Spreadsheet editing and server-side query adapter",
+    "Upload removal/remote deletion UI",
+    "Specialized rating/slider/stepper/transfer-list variants"
+  ],
+  "remainingActivationGates": [
+    "host source registration",
+    "authorized data projections and persistence adapters",
+    "native binary picker and image policy adapter",
+    "governed real-data flows",
+    "human localization/accessibility/release review"
+  ]
+}

@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. Host activation, human review, device release verification and B10–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. B10 shared table/form/editor/upload factories passed web and Flutter Linux/Windows/macOS acceptance, with platform and specialized-variant gaps documented. Host activation, human review, device release verification and B11–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -218,7 +218,7 @@ Shared targets: `packages/primecare_ui/web/`, `packages/primecare_ui/lib/src/com
 
 ### B10 — Tables, forms, editors and upload controls
 
-Status: planned. Dependencies: B01, B06, B09.
+Status: shared source accepted with documented platform/variant gaps; host binding and human review pending. See `docs/appearance/theme-adoption-batch-10.md` and `data-controls-support.json`. Production metadata: 38 optional controls and required-element records, 46 resources and 138 draft translations, independently read back. Web and 12 native tests passed on Linux/Windows/macOS. No app activation or full reference parity is claimed. Dependencies: B01, B06, B09.
 
 Scope:
 
