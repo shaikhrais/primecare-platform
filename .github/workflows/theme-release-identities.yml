@@ -1,0 +1,32 @@
+name: Read blocked theme release identities
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - tools/governance-production/audit_theme_release_identities.py
+      - .github/workflows/theme-release-identities.yml
+permissions: {contents: read}
+jobs:
+  read:
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/theme-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/theme-reader/node_modules node_modules
+      - name: Read pinned metadata without changing grants
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/governance-production/audit_theme_release_identities.py --output test-results/theme-release-identities.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: theme-release-identities, path: test-results/theme-release-identities.json}
