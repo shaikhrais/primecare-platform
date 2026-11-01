@@ -1,0 +1,299 @@
+{
+  "format": 1,
+  "capturedAt": "2026-11-01T12:38:56.245Z",
+  "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+  "branches": [
+    {
+      "name": "main",
+      "sha": "6d7ec963967f34270c51ef215a3178902df57132"
+    }
+  ],
+  "historicalRuns": [
+    {
+      "id": "B01",
+      "runId": 41226841005,
+      "sourceCommit": null,
+      "actualHead": "b912b61002c671faaf16d8910ff2765c489309b2",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41226841005"
+    },
+    {
+      "id": "B02",
+      "runId": 41230046732,
+      "sourceCommit": "579b4378861cb935307aab464aec17a847d8b761",
+      "actualHead": "a60d53911b8d15bb93721a7ba6d9e11c88e0c666",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41230046732"
+    },
+    {
+      "id": "B03",
+      "runId": 41232017741,
+      "sourceCommit": "376a9713dc6c8b6a8f63361b17c4a84bb631eff1",
+      "actualHead": "376a9713dc6c8b6a8f63361b17c4a84bb631eff1",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41232017741"
+    },
+    {
+      "id": "B04",
+      "runId": 41239616377,
+      "sourceCommit": "3b834d0e89a4ebd1d0630ed969075ab80d6875e1",
+      "actualHead": "3b834d0e89a4ebd1d0630ed969075ab80d6875e1",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41239616377"
+    },
+    {
+      "id": "B05",
+      "runId": 41242747737,
+      "sourceCommit": "7edbc40aa42dd31bad9aaf4eb694ba0499c007be",
+      "actualHead": "7edbc40aa42dd31bad9aaf4eb694ba0499c007be",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41242747737"
+    },
+    {
+      "id": "B06",
+      "runId": 41245395058,
+      "sourceCommit": "ce8cd842bfec9a6ba37d6b35fa2eb8fbfba4177a",
+      "actualHead": "ce8cd842bfec9a6ba37d6b35fa2eb8fbfba4177a",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41245395058"
+    },
+    {
+      "id": "B07",
+      "runId": 41249952025,
+      "sourceCommit": "df9bfbf922af47167fc9b354d2808cf9c562953d",
+      "actualHead": "df9bfbf922af47167fc9b354d2808cf9c562953d",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41249952025"
+    },
+    {
+      "id": "B08",
+      "runId": 41253722290,
+      "sourceCommit": "aa9d6cbe04a72775a78743377e17f2d7e4e2367c",
+      "actualHead": "aa9d6cbe04a72775a78743377e17f2d7e4e2367c",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41253722290"
+    },
+    {
+      "id": "B09",
+      "runId": 41257279489,
+      "sourceCommit": "f5bf3d21ebda8fade161b680d91129c8da8f5a63",
+      "actualHead": "f5bf3d21ebda8fade161b680d91129c8da8f5a63",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41257279489"
+    },
+    {
+      "id": "B10",
+      "runId": 41259596812,
+      "sourceCommit": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+      "actualHead": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41259596812"
+    },
+    {
+      "id": "B11",
+      "runId": 41261294950,
+      "sourceCommit": "7a437a823f839d75247cd2490c8f02be63efc63d",
+      "actualHead": "7a437a823f839d75247cd2490c8f02be63efc63d",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41261294950"
+    },
+    {
+      "id": "B12",
+      "runId": 41263870497,
+      "sourceCommit": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+      "actualHead": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41263870497"
+    },
+    {
+      "id": "B13",
+      "runId": 41267690894,
+      "sourceCommit": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+      "actualHead": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41267690894"
+    },
+    {
+      "id": "B14",
+      "runId": 41269984530,
+      "sourceCommit": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+      "actualHead": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41269984530"
+    },
+    {
+      "id": "B15",
+      "runId": 41277937362,
+      "sourceCommit": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+      "actualHead": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41277937362"
+    },
+    {
+      "id": "B16",
+      "runId": 41306313942,
+      "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+      "actualHead": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+      "status": "completed",
+      "conclusion": "failure",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41306313942"
+    }
+  ],
+  "latestB16": {
+    "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+    "runId": 41307397565,
+    "status": "in_progress",
+    "conclusion": null,
+    "priorSourceCommit": "8dc2dbab62a064a98b182eddd4d7edb05a13ecbc",
+    "priorRunId": 41307207533,
+    "priorNativeFailure": "Semantics assertions passed; test leaked its handle at end-of-test verification. Explicit try/finally cleanup committed; await new CI.",
+    "jobs": [
+      {
+        "id": 124850486748,
+        "name": "native (windows-latest)",
+        "status": "in_progress",
+        "conclusion": null
+      },
+      {
+        "id": 124850486989,
+        "name": "native (macos-latest)",
+        "status": "queued",
+        "conclusion": null
+      },
+      {
+        "id": 124850487015,
+        "name": "postgres",
+        "status": "queued",
+        "conclusion": null
+      },
+      {
+        "id": 124850487039,
+        "name": "web",
+        "status": "queued",
+        "conclusion": null
+      },
+      {
+        "id": 124850487046,
+        "name": "native (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "linuxNative": "success",
+    "windowsNative": "pending",
+    "macosNative": "pending"
+  },
+  "localRegressions": [
+    {
+      "script": "scripts/test-workspace-layout.mjs",
+      "exitCode": 1,
+      "summary": "node:internal/modules/run_main:107\n    triggerUncaughtException(\n    ^\n\nbrowserType.launch: Executable doesn't exist at /root/.cache/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-linux64/chrome-headless-shell\n\u2554\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2557\n\u2551 Looks like Playwright was just installed or updated.       \u2551\n\u2551 Please run the following command to download new browsers: \u2551\n\u2551                                                            \u2551\n\u2551     npx playwright install                                 \u2551\n\u2551                                                            \u2551\n\u2551 <3 Playwright Team                                         \u2551\n\u255a\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u255d\n    at /workspace/scratch/3a6db269ee18/primecare-platform/scripts/test-workspace-layout.mjs:16:30 {\n  name: 'Error'\n}\n\nNode.js v24.22.1\n"
+    },
+    {
+      "script": "scripts/test-workspace-layout-contract.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 180 layout combinations survive a validated data-only JSON roundtrip (7.99315ms)\n\u2714 unregistered panels, authority fields, script-like settings and invalid dimensions fail closed (0.725291ms)\n\u2714 validated profiles do not retain mutable caller references (0.120491ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 21.411814\n"
+    },
+    {
+      "script": "scripts/test-workspace-navigation-model.mjs",
+      "exitCode": 0,
+      "summary": "Generated 21 navigation authority and active-route fixtures.\n\u2714 both IDs and routes intersect; denied parents and disabled descendants remain unavailable (1.278504ms)\n\u2714 unknown fields, malformed trees, duplicate identities, unsafe routes and icons fail closed (1.041167ms)\n\u2714 three compositions preserve geometry and cannot add destinations (1.941322ms)\n\u2139 tests 3\n\u2139 suites 0\n\u2139 pass 3\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 8.913665\n"
+    },
+    {
+      "script": "scripts/test-page-template-model.mjs",
+      "exitCode": 0,
+      "summary": "Generated 288 page route/layout cases.\n\u2714 only registered ID/route intersections and authorized breadcrumbs survive (1.542421ms)\n\u2714 unknown authority fields, unsafe routes, ambiguous bindings and malformed geometry fail closed (0.809779ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 7.490273\n"
+    },
+    {
+      "script": "scripts/test-advanced-theme-model.mjs",
+      "exitCode": 0,
+      "summary": "Generated 96 advanced theme oracle cases.\n\u2714 all region modes and semantic shades retain contrast with independent palettes (27.250222ms)\n\u2714 strict schemas, imports and library identities reject injection, authority and duplicates (1.426116ms)\n\u2139 tests 2\n\u2139 suites 0\n\u2139 pass 2\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 33.19575\n"
+    },
+    {
+      "script": "scripts/test-preference-client.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 two devices conflict, explicit local/remote resolution, reload and monotonic reset/delete (5.163601ms)\n\u2714 lost acknowledgement survives reload and retries exact request UUID once (1.126154ms)\n\u2714 restart after lost acknowledgement retains a newer cached draft (8.660384ms)\n\u2714 offline initialization queues a durable CAS request without automatic retry (1.644965ms)\n\u2714 refresh preserves unsaved edits; edit while acknowledgement is pending stays dirty (2.039038ms)\n\u2714 storage rejection prevents a mutation from reaching the transport (9.287758ms)\n\u2714 strict schemas, account/dataset isolation and proven migration only (0.826824ms)\n\u2714 disposed client ignores delayed responses (0.346271ms)\n\u2714 HTTP adapter uses registered POST, bearer only, bounded replies and typed conflict (6.070957ms)\n\u2139 tests 9\n\u2139 suites 0\n\u2139 pass 9\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 44.421134\n"
+    },
+    {
+      "script": "scripts/test-shell-utilities-model.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 unbound resource adapters stay unavailable; errors never become successful empty lists (2.142725ms)\n\u2714 read/unread changes require exact server acknowledgement and preserve value on failure (0.988287ms)\n\u2714 wrong confirmation, duplicate records and unregistered destination restore fail closed (0.745482ms)\n\u2714 search and favourites reuse scoped preference state and expose pending errors honestly (2.434013ms)\n\u2714 disposed actors ignore late resource results and cannot mutate or navigate (0.485811ms)\n\u2714 unknown utility keys cannot modify prototypes or bypass the fixed channel registry (0.387353ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 13.488721\n"
+    },
+    {
+      "script": "scripts/test-component-catalogue-model.mjs",
+      "exitCode": 0,
+      "summary": "Verified 21 shared code/countdown/responsive-form cases.\n\u2714 code is preserved literally and bounded even with unfinished comments and malicious markup (6.433072ms)\n\u2714 countdown recomputes from absolute time and cannot become negative (0.204979ms)\n\u2714 responsive form geometry is bounded and handles a narrow viewport without overflow columns (0.149144ms)\n\u2714 async boundaries clear old data and ignore stale actor results and disposed completions (0.915327ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 14.590828\n"
+    },
+    {
+      "script": "scripts/test-data-controls-model.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 shared windows, field constraints and URL fixtures (1.784506ms)\n\u2714 large projected table is stable, bounded and retains identity correctly (42.884501ms)\n\u2714 structured editor rejects executable/unknown data and preserves literal text (0.583308ms)\n\u2714 upload rejects metadata violations and never sends without an adapter (0.521555ms)\n\u2714 upload progress, cancellation, late results and stable-key retry (0.527174ms)\n\u2714 missing receipt and denied transport remain errors; invalid replacement clears old files (0.222906ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 58.322461\n"
+    },
+    {
+      "script": "scripts/test-dashboard-widgets-model.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 bounded chart geometry preserves gaps, negative values, singleton and zero cases (1.702012ms)\n\u2714 breakpoints and deterministic pack preserve placement bounds (0.234663ms)\n\u2714 add/remove/reorder/resize are view-specific and reject denied imports and stale defaults (1.280457ms)\n\u2714 scoped save requires acknowledged revision and independent port readback; reload survives (1.883565ms)\n\u2714 denied or mismatched persistence never claims saved and keeps edits (1.385836ms)\n\u2714 edits during save survive older acknowledgement and disposed completions are ignored (1.386356ms)\n\u2139 tests 6\n\u2139 suites 0\n\u2139 pass 6\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 14.163936\n"
+    },
+    {
+      "script": "scripts/test-original-assets-model.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 all canonical SVG hashes, keys and package paths match compiled registry (47.635917ms)\n\u2714 all legacy shell keys resolve to original geometry and retain renderer contract (0.453122ms)\n\u2714 unknown/prototype keys fail and descriptors cannot mutate the central registry (0.434914ms)\n\u2714 directional metadata is explicit and aliases preserve semantic targets (0.174002ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 53.672328\n"
+    },
+    {
+      "script": "scripts/test-work-modules.mjs",
+      "exitCode": 0,
+      "summary": "PASS work modules: 27 checks; PGlite PostgreSQL API, independent SQL and fresh-session readback\n"
+    },
+    {
+      "script": "scripts/test-communication-modules.mjs",
+      "exitCode": 0,
+      "summary": "PASS communication modules: 28 checks; PGlite PostgreSQL, registered handler, independent SQL, replay, reload, denial and no external mail\n(node:6) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///workspace/scratch/3a6db269ee18/primecare-platform/cloudflare/workers/src/business-tasks/communication.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /workspace/scratch/3a6db269ee18/primecare-platform/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n",
+      "environmentPreparation": "Installed the pinned existing communication-test dependencies in temporary tooling; application dependencies unchanged."
+    },
+    {
+      "script": "scripts/test-application-modules.mjs",
+      "exitCode": 0,
+      "summary": "PASS application modules: 27 checks; PGlite PostgreSQL, existing account/preference handlers, independent SQL, version conflict, original-key replay, read-only identity and blocked unregistered services\n"
+    },
+    {
+      "script": "scripts/test-dashboard-pages-projection.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 projects exact source counts without adding overlapping groups or mutating input (2.144728ms)\n\u2714 account, tenant, role and dataset mismatch fail closed (0.443027ms)\n\u2714 server view denial reveals no counts (0.187392ms)\n\u2714 rejects absent, coerced, fractional, negative and unsafe counts (0.323176ms)\n\u2714 finance and crypto cannot manufacture business data; demo remains labelled (0.261884ms)\n\u2139 tests 5\n\u2139 suites 0\n\u2139 pass 5\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 11.231673\n"
+    },
+    {
+      "script": "scripts/test-dashboard-pages-session.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 latest request wins even when aborted transport resolves (2.011157ms)\n\u2714 refresh immediately clears old values; failure retains no stale projection (0.522566ms)\n\u2714 scope changes, explicit invalidation and disposal defeat pending responses (0.791011ms)\n\u2714 snapshot consumers cannot modify retained values (0.323206ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 13.216581\n"
+    },
+    {
+      "script": "scripts/test-dashboard-record-pages.mjs",
+      "exitCode": 0,
+      "summary": "\u2714 bounded search maps only approved fields and filters literal text (2.528285ms)\n\u2714 denied views reveal no records and do not inspect denied fields (0.187121ms)\n\u2714 scope mismatch, oversized lists, invalid projected fields/query and invalid dates reject (0.572612ms)\n\u2714 activity timestamps reject normalized impossible dates and ambiguous local dates (0.198249ms)\n\u2139 tests 4\n\u2139 suites 0\n\u2139 pass 4\n\u2139 fail 0\n\u2139 cancelled 0\n\u2139 skipped 0\n\u2139 todo 0\n\u2139 duration_ms 11.440438\n"
+    },
+    {
+      "script": "scripts/test-dashboard-pages-parity.mjs",
+      "exitCode": 0,
+      "summary": "PASS dashboard/supporting-page shared fixtures and unavailable workflow gates\n"
+    },
+    {
+      "script": "scripts/test-dashboard-pages-integration.mjs",
+      "exitCode": 0,
+      "summary": "PASS dashboard page integration: 10 groups; PGlite PostgreSQL, real tenant handler, independent SQL, reload, tenant mismatch, role denial and token changes\n"
+    }
+  ]
+}

@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b15_account_identity_and_navigation_settings_verified_application_dependency_and_release_gates_pending",
+  "overall_status": "b01_b18_audited_partial_functionality_main_only_integration_and_release_gaps_open",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "activity_search_source_locally_verified_native_semantics_fix_ci_pending",
+      "status": "linux_native_repaired_passed_windows_macos_and_exact_source_other_jobs_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1163,22 +1163,23 @@
         "scripts/test-dashboard-record-pages.mjs"
       ],
       "blockers": [],
-      "nextAction": "Verify new activity/search and native semantic-container fix in CI, then obtain independent registration readback for approved host mount; retain native authenticated adapter and release gates.",
+      "nextAction": "Finish exact-source native verification, then address registered host/API/device/review gaps; see the main-only B01-B18 audit.",
       "productionRuntimeVerified": false,
       "humanReviewApproved": false,
       "sourceRun": {
-        "runId": 41306313942,
-        "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
-        "scope": "updated_web_and_native_postgresql_browser_acceptance",
-        "web": "success",
-        "postgres": "success",
-        "native": "linux_macos_widget_semantics_failed_fix_pending"
+        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+        "runId": 41307397565,
+        "conclusion": null,
+        "status": "in_progress",
+        "linuxNative": "success",
+        "windowsNative": "pending",
+        "macosNative": "pending"
       }
     },
     {
       "id": "B17",
       "title": "Catalogue, documentation and app-wide adoption",
-      "status": "planned",
+      "status": "main_only_evidence_audit_prepared_catalogue_and_app_wide_adoption_pending",
       "depends_on": [
         "B04",
         "B05",
@@ -1211,8 +1212,21 @@
         "websites/",
         "scripts/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "scripts/audit-theme-batches.py",
+        "docs/appearance/theme-batches-main-audit.md",
+        "docs/appearance/theme-batches-main-audit.json",
+        "docs/appearance/theme-batches-main-audit-snapshot.json"
+      ],
+      "blockers": [],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "remainingScope": [
+        "Every feature needs final reviewed disposition, API/recipe/owner documentation and evidence",
+        "Complete app-by-app shared factory migration and compatibility/rollback verification",
+        "Close earlier batch host/API/runtime gaps before claiming whole-app adoption"
+      ],
+      "nextAction": "Use the audit to close earlier gaps and complete the developer catalogue and controlled app migrations; remain on main."
     },
     {
       "id": "B18",
