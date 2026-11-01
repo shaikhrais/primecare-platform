@@ -19,11 +19,11 @@ void main(){
  TenantTaskModulePort port(String module,TenantTaskTransport transport)=>TenantTaskModulePort(scope:scope,module:module,labels:labels,transport:transport);
  final first=clone((oracle['cases'] as List).firstWhere((c)=>c['name']=='tasks-open-manager')['raw']);
  WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
- test('20 native projections match the existing shared web adapter exactly',()async{
+ test('60 native projections match the existing shared web adapter exactly',()async{
   for(final value in oracle['cases'] as List){final c=value as Map,p=port(c['module'] as String,(_ )async=>clone(c['raw']));
    expect(await p.read(const WorkQuery()),c['expected'],reason:c['name'] as String);p.dispose();}
  });
- test('26 native mutations match existing wire commands, receipts and independent readback',()async{
+ test('52 native mutations match existing wire commands, receipts and independent readback',()async{
   for(final value in oracle['mutations'] as List){final c=value as Map;var changed=false;TenantTaskRequest? sent;
    final p=port(c['module'] as String,(r)async{if(r.method=='POST'){sent=r;changed=true;}return clone(c[changed?'reply':'raw']);});
    await p.read(const WorkQuery());final receipt=await p.mutate(command(c['command'] as Map),c['key'] as String);
@@ -50,6 +50,11 @@ void main(){
   final contacts=port('contacts',(_)async=>first);await contacts.read(const WorkQuery());await expectLater(contacts.mutate(WorkCommand('staff:worker',1,'edit',{'body':'x'}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));contacts.dispose();
   for(final raw in [ {...first,'database':'SQLite'}, {...first,'identity':{'userId':'other','role':scope.role}}, {...first,'organization':{'id':'other'}}, {...first,'synthetic':true} ]){
    final p=port('tasks',(_)async=>raw);await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','denied')));p.dispose();
+  }
+  for(final selfOwner in [true,false]){
+   final raw=clone(first),task=(raw['tasks'] as List).single as Map;task['status']='submitted';task['owner_id']=selfOwner?'manager':'worker';task['submitted_by']=selfOwner?'worker':'manager';task['actions']=['complete','return'];
+   final guarded=port('tasks',(_)async=>raw),snapshot=WorkSnapshot.fromJson(await guarded.read(const WorkQuery()),scope,'tasks');expect(snapshot.items.single.actions.any((a)=>a.id=='complete'),false);if(!selfOwner)expect(snapshot.items.single.actions.any((a)=>a.id=='return'),false);
+   await expectLater(guarded.mutate(WorkCommand('task1',1,'complete',{'body':'Independent approval required'}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));guarded.dispose();
   }
   var posts=0;final p=port('tasks',(r)async{if(r.method=='POST')posts++;return first;});await p.read(const WorkQuery());
   for(final cmd in [WorkCommand('task1',99,'edit',{'title':'New title','body':'Note','date':'2026-11-02'}),WorkCommand('task1',1,'edit',{'role':'admin'}),WorkCommand('task1',1,'invented',{'body':'No grant'})]){await expectLater(p.mutate(cmd,'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));}expect(posts,0);p.dispose();
