@@ -1,0 +1,133 @@
+{
+  "format": 1,
+  "batch": "B14",
+  "status": "shared_communication_module_subset_verified_notification_registration_and_host_activation_pending",
+  "sourceCommit": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+  "sourceRun": {
+    "runId": 41269984530,
+    "sourceCommit": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124740604292,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:45:01.4514101Z No issues found! (ran in 12.3s)",
+          "2026-11-01T03:45:14.6783933Z 00:04 +27: All tests passed!"
+        ]
+      },
+      {
+        "id": 124740604392,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:41:45.7868262Z No issues found! (ran in 15.8s)\r",
+          "2026-11-01T03:42:05.3241265Z 00:06 +27: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124740604452,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:47:19.5960790Z No issues found! (ran in 14.4s)",
+          "2026-11-01T03:47:58.2162250Z 00:11 +27: All tests passed!"
+        ]
+      },
+      {
+        "id": 124740604469,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:46:12.7667454Z PASS communication modules: 28 checks; PGlite PostgreSQL, registered handler, independent SQL, replay, reload, denial and no external mail",
+          "2026-11-01T03:46:15.2311110Z PASS work modules: 27 checks; PGlite PostgreSQL API, independent SQL and fresh-session readback",
+          "2026-11-01T03:46:18.6058668Z PASS communication module browser: 23 checks; four templates, safe mail preview, retained draft, exactly-once retry, SQL/reload, localization, scope denial, zero external sends/requests (PGlite PostgreSQL)",
+          "2026-11-01T03:46:21.8846156Z PASS work modules browser: 17 checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (PGlite PostgreSQL)",
+          "2026-11-01T03:46:24.3503348Z Tenant dashboard passed 74 database/API checks: real metrics, registered workflows, tasks, independent review, tenant/owner isolation, preferences, demo cleanup and immutable audit.",
+          "2026-11-01T03:46:24.8015548Z \u2139 tests 78",
+          "2026-11-01T03:46:24.8016037Z \u2139 pass 78",
+          "2026-11-01T03:46:28.9281817Z Ran 8 tests in 0.024s",
+          "2026-11-01T03:46:29.0841076Z Ran 3 tests in 0.004s"
+        ]
+      },
+      {
+        "id": 124740604483,
+        "name": "postgres",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T03:46:17.5633506Z PASS communication modules: 28 checks; native PostgreSQL, registered handler, independent SQL, replay, reload, denial and no external mail",
+          "2026-11-01T03:46:18.4936131Z PASS work modules: 27 checks; native PostgreSQL API, independent SQL and fresh-session readback",
+          "2026-11-01T03:46:20.6584823Z PASS communication module browser: 23 checks; four templates, safe mail preview, retained draft, exactly-once retry, SQL/reload, localization, scope denial, zero external sends/requests (native PostgreSQL)",
+          "2026-11-01T03:46:23.0015123Z PASS work modules browser: 17 checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (native PostgreSQL)"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41269023480,
+    "sourceCommit": "07e0cb25b7ede06a4f03a7477fbd98fbc6c9ae3f",
+    "validateJobId": 124737757905,
+    "productionJobId": 124737818113,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 18,
+    "requiredElements": 18,
+    "resources": 37,
+    "translations": 111,
+    "apiBindings": {
+      "GET /v1/messages/email/inbox": 16512,
+      "GET /v1/messages/inbox": 857,
+      "GET /v1/messages/pictures": 16509,
+      "POST /v1/messages": 710,
+      "POST /v1/messages/email": 16511
+    },
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/communication-modules-registration-receipt.json"
+  },
+  "acceptedSubset": {
+    "mailbox": "Bounded sent/received safe reads and honest transport/quarantine states; no mail send",
+    "messenger": "Existing inbox/latest text, send, read receipt, captured version, exact original-key retry and fresh readback",
+    "notifications": "Optional registered presentation; unavailable without registered read transport",
+    "files": "Read-only picture references from authorized conversations; no general file CRUD"
+  },
+  "registrationDiscovery": {
+    "failedBeforeWrites": [
+      41268831239,
+      41268942317
+    ],
+    "confirmedGap": "GET /v1/auth/me/notifications returned no production API row",
+    "roleOrApiChanges": false
+  },
+  "localVerification": {
+    "modelApiSqlChecks": 28,
+    "browserChecks": 23,
+    "inheritedCommunicationAndResourceTests": 78,
+    "B13ModelApiSqlChecks": 27,
+    "B13BrowserChecks": 17,
+    "registrationTests": 8,
+    "typescript": "passed"
+  },
+  "testData": "Disposable synthetic PostgreSQL fixtures; no production business writes or external message/email sends",
+  "productionRuntimeVerified": false,
+  "nativeLiveCollectionTransportVerified": false,
+  "humanReviewApproved": false,
+  "fullReferenceAdopted": false,
+  "remainingScope": [
+    "Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound",
+    "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
+    "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
+    "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
+    "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+    "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+  ],
+  "usage": "docs/appearance/communication-modules-usage.md",
+  "sourceArtifactsSha256": {
+    "packages/shared/src/communications/module-port.ts": "045065a9d5a125d37999380af416399f1445ddfe41ee0ff4379f07e4c30c2530",
+    "packages/shared/src/communications/module-transport.ts": "2f0965bea8bf9fc5a1184fe801ce2693e6c1ee02f64bc2325ebb08320c3e4d28",
+    "packages/primecare_ui/web/communication-modules.ts": "eafb107764013cb8dd9528958d7f73e095c2ddf9c1666787cc9d7c08256acfe3",
+    "packages/primecare_ui/catalogs/communication-modules.registration.json": "6764bd9065e6abf74395a1008a41cfb4b44ae7afe00d5c1965c2cca67af6c471",
+    "tools/governance-production/communication-modules-contract.json": "82e15946cc5fc3a7f4ab3edc9992ed194132fb7602d52b4b5cdbdfd1bf79031f"
+  }
+}

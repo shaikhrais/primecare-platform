@@ -26,7 +26,7 @@ The task page is bounded to 100 records. Filtering is server-side for tasks and 
 
 Import `package:flutter_core/work_modules.dart` or the `primecare_ui` forwarding export. Load `CatalogueLabels.fromMetadata` from `packages/primecare_ui/catalogs/work-modules.registration.json`. Supply the session, scope key, year/month, first weekday, theme spacing and board column width to `PrimeWorkModule`. Mount within the host's scroll/layout constraints.
 
-`WorkPort` is an injected contract with read, mutate, independent item read and dispose. The Flutter session verifies exact actor/module scope, editor version, mutation receipt and fresh readback before success. A concrete native authenticated transport and live host mount remain pending. Widget tests use a deliberately isolated test port; they are not production API evidence. Native semantics use registered component IDs. Very long generic record IDs may exceed the inherited native catalogue suffix limit; tenant UUID/directory IDs fit that limit, and broader host adapters must validate their identifiers.
+`WorkPort` is an injected contract with read, mutate, independent item read and dispose. The Flutter session verifies exact actor/module scope, editor version, mutation receipt and fresh readback before success. A concrete native authenticated transport and live host mount remain pending. Widget tests use a deliberately isolated test port; they are not production API evidence. Native semantics use registered component IDs. B14 expanded common record IDs to the existing communication service’s 200-character bound and semantics suffixes to 400; old deterministic IDs are unchanged. Broader host adapters must validate their identifiers.
 
 ## Save, conflict and disposal
 
@@ -36,6 +36,6 @@ Disposal and generation guards ignore late results. Denied reload/mutation clear
 
 ## Release gates
 
-Common EN/FR/ES labels are registered drafts. Task action/status labels reuse the existing English task catalogue. Human translation, accessibility, keyboard/screen-reader, contrast and release review are open. Native date input, weekday headings, responsive calendar density, focus restoration, localized business labels, long-ID suffixes and generic pagination wording need host verification. Do not infer release approval from factory tests.
+Common EN/FR/ES labels are registered drafts. Task action/status labels reuse the existing English task catalogue. Human translation, accessibility, keyboard/screen-reader, contrast and release review are open. Native date input, weekday headings, responsive calendar density, focus restoration, localized business labels, generic pagination wording need host verification. Do not infer release approval from factory tests.
 
 No synthetic data is seeded into production by this batch. The generic protocol supports separate live/demo scopes, but a host must provide a persistent, localized demo banner and verify workspace-version handling before exposing demo mode. The current templates do not supply that banner; demo host activation remains blocked.

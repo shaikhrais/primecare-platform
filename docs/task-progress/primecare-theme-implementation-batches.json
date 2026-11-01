@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b13_task_backed_work_module_foundations_verified_host_and_unmapped_features_pending",
+  "overall_status": "b14_shared_communication_module_subset_verified_release_and_feature_binding_gates_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102 B12 has 45 and B13 has 114 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102, B12 has 45, B13 has 114 and B14 has 111 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -916,7 +916,7 @@
     {
       "id": "B14",
       "title": "Mailbox, messenger, notifications and file manager",
-      "status": "planned",
+      "status": "shared_communication_module_subset_verified_notification_registration_and_host_activation_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -942,8 +942,67 @@
         "packages/primecare_ui/lib/src/communications/",
         "packages/primecare_ui/web/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-14.md",
+        "docs/appearance/theme-adoption-batch-14-evidence.json",
+        "docs/appearance/communication-modules-usage.md",
+        "docs/appearance/communication-modules-registration-receipt.json",
+        ".github/workflows/communication-modules.yml"
+      ],
+      "blockers": [
+        {
+          "code": "OWN_NOTIFICATION_API_REGISTRATION_MISSING",
+          "detail": "Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound"
+        },
+        {
+          "code": "COMMUNICATION_MODULE_UNMAPPED_FEATURES",
+          "detail": "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings; New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped; New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped"
+        },
+        {
+          "code": "COMMUNICATION_MODULE_HOST_NATIVE_REVIEW_PENDING",
+          "detail": "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending; Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_shared_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41269023480,
+        "sourceCommit": "07e0cb25b7ede06a4f03a7477fbd98fbc6c9ae3f",
+        "validateJobId": 124737757905,
+        "productionJobId": 124737818113,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 18,
+        "requiredElements": 18,
+        "resources": 37,
+        "translations": 111,
+        "apiBindings": {
+          "GET /v1/messages/email/inbox": 16512,
+          "GET /v1/messages/inbox": 857,
+          "GET /v1/messages/pictures": 16509,
+          "POST /v1/messages": 710,
+          "POST /v1/messages/email": 16511
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/communication-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41269984530,
+        "sourceCommit": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound",
+        "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
+        "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
+        "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
+        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+      ],
+      "nextAction": "Proceed to B15 original shared academy/commerce/AI-image/profile/settings/help templates only where existing registered workflows allow; retain B14 unbound and unmapped feature gates."
     },
     {
       "id": "B15",
