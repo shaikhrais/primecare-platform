@@ -109,7 +109,7 @@ def register(db, catalog=None):
     api_bindings={}
     for spec in c['requiredExistingApis']:
         rows=db.execute('SELECT id,service_name,auth_required,permission_key FROM api_endpoints WHERE route_path=? AND http_method=?',(spec['path'],spec['method'])).fetchall()
-        if len(rows)!=1 or type(rows[0][0]) is not int or rows[0][0]<1 or rows[0][1:]!=(spec['service'],1,spec['permission']):raise GovernanceReadError('Existing task API registration differs')
+        if len(rows)!=1 or type(rows[0][0]) is not int or rows[0][0]<1 or rows[0][1:]!=(spec['service'],1,spec['permission']):raise GovernanceReadError('Existing API registration differs: '+spec['method']+' '+spec['path']+' '+repr(rows))
         api_bindings[spec['method']+' '+spec['path']]=rows[0][0]
     if db.execute("SELECT flow_kind,definition_status FROM virtual_workflow_definitions WHERE flow_id='tenant.admin.workspace'").fetchall()!=[('screen_journey','source_mapped')]:raise GovernanceReadError('Existing task workflow required')
     for code in c['requiredExistingComponents']:
