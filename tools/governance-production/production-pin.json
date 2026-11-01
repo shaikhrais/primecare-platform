@@ -1735,5 +1735,23 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "dataControlsWriter": {
+    "optInVariable": "GOVERNANCE_DATA_CONTROLS_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "cbb8ef0749b73f6573ef07ee46be006dcf85430171056d4c7b8635a85293fbf6",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "dataControls.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

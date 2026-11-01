@@ -1,0 +1,486 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/data-controls.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_checkbox_web",
+    "prime_dropdown_web",
+    "prime_text_field",
+    "prime_textarea_web",
+    "prime_table_web"
+  ],
+  "controls": [
+    {
+      "key": "table",
+      "testId": "data-controls-table",
+      "componentCode": "prime_table_web",
+      "resourceKey": "dataControls.table"
+    },
+    {
+      "key": "filter",
+      "testId": "data-controls-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.filter"
+    },
+    {
+      "key": "sort",
+      "testId": "data-controls-sort",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.sort"
+    },
+    {
+      "key": "selectRow",
+      "testId": "data-controls-select-row",
+      "componentCode": "prime_checkbox_web",
+      "resourceKey": "dataControls.selectRow"
+    },
+    {
+      "key": "expand",
+      "testId": "data-controls-expand",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.expand"
+    },
+    {
+      "key": "previous",
+      "testId": "data-controls-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.previous"
+    },
+    {
+      "key": "next",
+      "testId": "data-controls-next",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.next"
+    },
+    {
+      "key": "columns",
+      "testId": "data-controls-columns",
+      "componentCode": "prime_card",
+      "resourceKey": "dataControls.columns"
+    },
+    {
+      "key": "visible",
+      "testId": "data-controls-visible",
+      "componentCode": "prime_checkbox_web",
+      "resourceKey": "dataControls.visible"
+    },
+    {
+      "key": "moveLeft",
+      "testId": "data-controls-move-left",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.moveLeft"
+    },
+    {
+      "key": "moveRight",
+      "testId": "data-controls-move-right",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.moveRight"
+    },
+    {
+      "key": "pin",
+      "testId": "data-controls-pin",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.pin"
+    },
+    {
+      "key": "resize",
+      "testId": "data-controls-resize",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.resize"
+    },
+    {
+      "key": "autocomplete",
+      "testId": "data-controls-autocomplete",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.autocomplete"
+    },
+    {
+      "key": "date",
+      "testId": "data-controls-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.date"
+    },
+    {
+      "key": "time",
+      "testId": "data-controls-time",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.time"
+    },
+    {
+      "key": "number",
+      "testId": "data-controls-number",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.number"
+    },
+    {
+      "key": "mask",
+      "testId": "data-controls-mask",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.mask"
+    },
+    {
+      "key": "submit",
+      "testId": "data-controls-submit",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.submit"
+    },
+    {
+      "key": "form",
+      "testId": "data-controls-form",
+      "componentCode": "prime_card",
+      "resourceKey": "dataControls.form"
+    },
+    {
+      "key": "editor",
+      "testId": "data-controls-editor",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "dataControls.editor"
+    },
+    {
+      "key": "bold",
+      "testId": "data-controls-bold",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.bold"
+    },
+    {
+      "key": "italic",
+      "testId": "data-controls-italic",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.italic"
+    },
+    {
+      "key": "list",
+      "testId": "data-controls-list",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.list"
+    },
+    {
+      "key": "link",
+      "testId": "data-controls-link",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.link"
+    },
+    {
+      "key": "image",
+      "testId": "data-controls-image",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.image"
+    },
+    {
+      "key": "addLink",
+      "testId": "data-controls-add-link",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.addLink"
+    },
+    {
+      "key": "addImage",
+      "testId": "data-controls-add-image",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.addImage"
+    },
+    {
+      "key": "addBlock",
+      "testId": "data-controls-add-block",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.addBlock"
+    },
+    {
+      "key": "save",
+      "testId": "data-controls-save",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.save"
+    },
+    {
+      "key": "upload",
+      "testId": "data-controls-upload",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dataControls.upload"
+    },
+    {
+      "key": "send",
+      "testId": "data-controls-send",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.send"
+    },
+    {
+      "key": "cancel",
+      "testId": "data-controls-cancel",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.cancel"
+    },
+    {
+      "key": "retry",
+      "testId": "data-controls-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.retry"
+    },
+    {
+      "key": "progress",
+      "testId": "data-controls-progress",
+      "componentCode": "prime_card",
+      "resourceKey": "dataControls.progress"
+    },
+    {
+      "key": "remove",
+      "testId": "data-controls-remove",
+      "componentCode": "prime_button",
+      "resourceKey": "dataControls.remove"
+    },
+    {
+      "key": "options",
+      "testId": "data-controls-options",
+      "componentCode": "prime_card",
+      "resourceKey": "dataControls.options"
+    },
+    {
+      "key": "editorPreview",
+      "testId": "data-controls-editor-preview",
+      "componentCode": "prime_card",
+      "resourceKey": "dataControls.editorPreview"
+    }
+  ],
+  "resources": {
+    "dataControls.table": {
+      "en": "Data table",
+      "fr": "Tableau de données",
+      "es": "Tabla de datos"
+    },
+    "dataControls.filter": {
+      "en": "Filter rows",
+      "fr": "Filtrer les lignes",
+      "es": "Filtrar filas"
+    },
+    "dataControls.sort": {
+      "en": "Sort column",
+      "fr": "Trier la colonne",
+      "es": "Ordenar columna"
+    },
+    "dataControls.selectRow": {
+      "en": "Select row",
+      "fr": "Sélectionner la ligne",
+      "es": "Seleccionar fila"
+    },
+    "dataControls.expand": {
+      "en": "Expand row",
+      "fr": "Développer la ligne",
+      "es": "Expandir fila"
+    },
+    "dataControls.previous": {
+      "en": "Previous page",
+      "fr": "Page précédente",
+      "es": "Página anterior"
+    },
+    "dataControls.next": {
+      "en": "Next page",
+      "fr": "Page suivante",
+      "es": "Página siguiente"
+    },
+    "dataControls.columns": {
+      "en": "Columns",
+      "fr": "Colonnes",
+      "es": "Columnas"
+    },
+    "dataControls.visible": {
+      "en": "Show column",
+      "fr": "Afficher la colonne",
+      "es": "Mostrar columna"
+    },
+    "dataControls.moveLeft": {
+      "en": "Move column earlier",
+      "fr": "Avancer la colonne",
+      "es": "Mover columna antes"
+    },
+    "dataControls.moveRight": {
+      "en": "Move column later",
+      "fr": "Reculer la colonne",
+      "es": "Mover columna después"
+    },
+    "dataControls.pin": {
+      "en": "Pin column",
+      "fr": "Épingler la colonne",
+      "es": "Fijar columna"
+    },
+    "dataControls.resize": {
+      "en": "Column width",
+      "fr": "Largeur de colonne",
+      "es": "Ancho de columna"
+    },
+    "dataControls.empty": {
+      "en": "No matching rows",
+      "fr": "Aucune ligne correspondante",
+      "es": "No hay filas coincidentes"
+    },
+    "dataControls.loading": {
+      "en": "Loading",
+      "fr": "Chargement",
+      "es": "Cargando"
+    },
+    "dataControls.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acción"
+    },
+    "dataControls.success": {
+      "en": "Action completed",
+      "fr": "Action terminée",
+      "es": "Acción completada"
+    },
+    "dataControls.required": {
+      "en": "A value is required",
+      "fr": "Une valeur est requise",
+      "es": "Se requiere un valor"
+    },
+    "dataControls.invalid": {
+      "en": "Invalid value",
+      "fr": "Valeur incorrecte",
+      "es": "Valor no válido"
+    },
+    "dataControls.autocomplete": {
+      "en": "Search options",
+      "fr": "Rechercher des options",
+      "es": "Buscar opciones"
+    },
+    "dataControls.date": {
+      "en": "Date",
+      "fr": "Date",
+      "es": "Fecha"
+    },
+    "dataControls.time": {
+      "en": "Time",
+      "fr": "Heure",
+      "es": "Hora"
+    },
+    "dataControls.number": {
+      "en": "Number",
+      "fr": "Nombre",
+      "es": "Número"
+    },
+    "dataControls.mask": {
+      "en": "Formatted value",
+      "fr": "Valeur formatée",
+      "es": "Valor con formato"
+    },
+    "dataControls.submit": {
+      "en": "Submit form",
+      "fr": "Envoyer le formulaire",
+      "es": "Enviar formulario"
+    },
+    "dataControls.form": {
+      "en": "Validated form",
+      "fr": "Formulaire validé",
+      "es": "Formulario validado"
+    },
+    "dataControls.editor": {
+      "en": "Document editor",
+      "fr": "Éditeur de document",
+      "es": "Editor de documentos"
+    },
+    "dataControls.bold": {
+      "en": "Bold",
+      "fr": "Gras",
+      "es": "Negrita"
+    },
+    "dataControls.italic": {
+      "en": "Italic",
+      "fr": "Italique",
+      "es": "Cursiva"
+    },
+    "dataControls.list": {
+      "en": "Bullet list",
+      "fr": "Liste à puces",
+      "es": "Lista con viñetas"
+    },
+    "dataControls.link": {
+      "en": "Link address",
+      "fr": "Adresse du lien",
+      "es": "Dirección del enlace"
+    },
+    "dataControls.image": {
+      "en": "Image address",
+      "fr": "Adresse de l’image",
+      "es": "Dirección de imagen"
+    },
+    "dataControls.addLink": {
+      "en": "Apply link",
+      "fr": "Appliquer le lien",
+      "es": "Aplicar enlace"
+    },
+    "dataControls.addImage": {
+      "en": "Add image",
+      "fr": "Ajouter une image",
+      "es": "Añadir imagen"
+    },
+    "dataControls.addBlock": {
+      "en": "Add paragraph",
+      "fr": "Ajouter un paragraphe",
+      "es": "Añadir párrafo"
+    },
+    "dataControls.save": {
+      "en": "Save document",
+      "fr": "Enregistrer le document",
+      "es": "Guardar documento"
+    },
+    "dataControls.upload": {
+      "en": "Choose files",
+      "fr": "Choisir des fichiers",
+      "es": "Elegir archivos"
+    },
+    "dataControls.send": {
+      "en": "Upload files",
+      "fr": "Téléverser les fichiers",
+      "es": "Subir archivos"
+    },
+    "dataControls.cancel": {
+      "en": "Cancel upload",
+      "fr": "Annuler le téléversement",
+      "es": "Cancelar carga"
+    },
+    "dataControls.retry": {
+      "en": "Retry upload",
+      "fr": "Réessayer le téléversement",
+      "es": "Reintentar carga"
+    },
+    "dataControls.progress": {
+      "en": "Upload progress",
+      "fr": "Progression du téléversement",
+      "es": "Progreso de carga"
+    },
+    "dataControls.unsupported": {
+      "en": "Unavailable until an authorized adapter is connected",
+      "fr": "Indisponible sans adaptateur autorisé",
+      "es": "No disponible sin un adaptador autorizado"
+    },
+    "dataControls.remove": {
+      "en": "Remove file",
+      "fr": "Retirer le fichier",
+      "es": "Eliminar archivo"
+    },
+    "dataControls.options": {
+      "en": "Available options",
+      "fr": "Options disponibles",
+      "es": "Opciones disponibles"
+    },
+    "dataControls.selected": {
+      "en": "Selected rows",
+      "fr": "Lignes sélectionnées",
+      "es": "Filas seleccionadas"
+    },
+    "dataControls.editorPreview": {
+      "en": "Document preview",
+      "fr": "Aperçu du document",
+      "es": "Vista previa del documento"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Optional shared presentation factories; host adapters enforce real data, permissions, upload policy and persistence. No business endpoint or runtime activation.",
+  "newComponents": []
+}
