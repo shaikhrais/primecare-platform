@@ -1,0 +1,15 @@
+{
+  "format": 1,
+  "batch": "B11",
+  "status": "shared_source_implemented_ci_pending",
+  "chartFamilies": ["line", "area", "grouped bar", "donut", "metric"],
+  "sharedBehavior": ["bounded finite data and missing values", "accessible data alternatives", "series visibility controls", "registered permitted widget definitions", "per-breakpoint add/remove/reorder/resize", "deterministic permitted grid packing", "validated JSON import/export and registered defaults", "stale data rejection and retry", "scoped revisioned persistence port with fresh readback"],
+  "web": ["SVG geometry", "semantic data table", "keyboard buttons and explicit breakpoint selector", "automatic ResizeObserver breakpoint selection", "abort-aware data and persistence ports", "stable governed data-cy identifiers"],
+  "native": ["CustomPainter geometry", "semantic data table", "keyboard reachable editing controls", "LayoutBuilder breakpoint selection", "injectable data and preference ports", "epoch-guarded stale completion rejection"],
+  "notClaimed": ["production widget data or business dashboard activation", "production API/database/reload persistence", "every vendor chart property/animation", "free coordinate or drag-and-drop grid editing", "candlestick/radar/heatmap/treemap/3D families", "native data transport cancellation", "offline dashboard cache synchronization"],
+  "registeredButNotExposedOnNative": ["add button; native widget selector adds its chosen item"],
+  "remainingGates": ["registered business widget/workflow/source mappings and authoritative server grants", "dashboard document kind and policy in the common preference service", "actual host/source/access bindings and production API/database/reload flow", "transport cancellation and uncertain-save conflict recovery integration", "actual-device/screen-reader and human localization/accessibility/release review"],
+  "vendorSourceCopied": false,
+  "humanReviewApproved": false,
+  "productionRuntimeVerified": false
+}

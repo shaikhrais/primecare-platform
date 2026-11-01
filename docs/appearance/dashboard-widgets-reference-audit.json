@@ -1,0 +1,1347 @@
+{
+  "format": 1,
+  "scope": "TS/TSX in dashboards directories or chart-named files, both licensed v17 demos",
+  "sourceArchiveSha256": "6be441cd0b2c4c22f0607904c5fafa2230e38a4361a8b3e4b5d77c4656315dd5",
+  "sourceInventorySha256": "8b313f87403ac87aaaf538c0ade3dac577e64bb11624b7df1bbe838820818ccc",
+  "physicalFiles": 189,
+  "files": [
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/(routes)/page.tsx",
+      "sha256": "1043fd130ed357321286c143a6b825fa5a30b97c9f98fc341fe41368344bd13a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "cbee52d95946e49b4b177515209869161155e1ad590462e28183b94f4bd2fc8a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "9e830acf060b2572dc57ba281b58b1cb860308dee7894bd72d82ec7b068c9af2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/services/analyticsApiService.ts",
+      "sha256": "0933803f63aa5852e40e5ff0f15093402911793792546f9e9349843c9d799f10",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/AgeWidgetType.ts",
+      "sha256": "b781e9517074cb5b56752b054296ef3c1ccd14d2e53005e8b3665a898f4c9c6d",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/ConversionsWidgetType.ts",
+      "sha256": "54ffe66f375d85c420d09017d8452cf5c65160307ca1b690c8883153acc0d8c5",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/GenderWidgetType.ts",
+      "sha256": "f07110092c8b23e57a37c04579ff1a3d897a2ec633be1d9b46ecf1de8bca4727",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/ImpressionsWidgetType.ts",
+      "sha256": "85bd010e115f243b39aa6ff302e467f19761b89ed48dff9eba6b6cf096023ce3",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/LanguageWidgetType.ts",
+      "sha256": "7c95349fd9f12c2e9f8f3e1f2a9e4aea30e76738a5f669eb8d5b2f3fecdf404b",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/NewVsReturningWidgetType.ts",
+      "sha256": "6010239be7d8f7dcce3442fff9ec518c26b24c11e649abd2995158571cbb4e6b",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitorsOverviewWidgetType.ts",
+      "sha256": "8a1a59ebf9c6788ab170889d545f47e323b9c5e5716f2d35a0424e04d50e0221",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitorsVsPageViewsType.ts",
+      "sha256": "b3187b23309246deccc8ca438b7c4fa01e52c14bf410538b06d6d984196d89ae",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitsWidgetType.ts",
+      "sha256": "5d5f5f9700603a4d4b0a7bcd73b927fb843e494a1b8b1f3673e1b2b401d60d40",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/index.ts",
+      "sha256": "9a2e66ad29e3c8f688d4238428f983dfd83916ead5b8e5389f6936331b3db34c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/AnalyticsDashboardAppHeader.tsx",
+      "sha256": "9f7f3da4e2a792a40b11777a0ec5713d3797c24c916675cefeb0a7445cbd1770",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/AgeWidget.tsx",
+      "sha256": "d077aa0c37da81a8195efc483cfc72fff029422b41fd87e9ccfa9b3bfcd8561f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/ConversionsWidget.tsx",
+      "sha256": "cc729dc9dd3794c29b91b9569be392271ac260ba214d282926b896b05e83fed4",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/GenderWidget.tsx",
+      "sha256": "681dddc818e179bce530ae4b888553dfac2ea8030f582cc256b18212e0035dad",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/ImpressionsWidget.tsx",
+      "sha256": "7a6a7d9f510d70dd88c7fade5d37e494add2a28ae0383e8317a6b682717db9ef",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/LanguageWidget.tsx",
+      "sha256": "23e30f4f19d8fd969ebd0b8aba91f7eb2acc1852a8c50dcc357452e1d46d6990",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/NewVsReturningWidget.tsx",
+      "sha256": "331245ecc18b1cbae830409ae45e46f19509df5626359347cea24343169736e7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitorsOverviewWidget.tsx",
+      "sha256": "f197d537af7817a38bbf375c77f0633648d2fdb9fd19e0b5c3106546c46ac91a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitorsVsPageViewsWidget.tsx",
+      "sha256": "095cfc929593471aad1cd3296042f517a9a9e561d48beb816c00e739b9cb2bc2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitsWidget.tsx",
+      "sha256": "8dc2d82ba62af430fc17509ac8378acbbb69b9e51e8b0bfaab8561015f0ab8f7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/views/AnalyticsDashboardAppView.tsx",
+      "sha256": "498bcafae5e1109bd97894d4e0179f0a194566906a0a097e992e266de2575c0a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/(routes)/page.tsx",
+      "sha256": "bbd76b451274c764825ccd1a7001ea7dd4f5a23df5d55efb3a7b16f16a5d37fd",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "9b3440b6f3b45ec42863d0836db47120859c8100cc60c734e261f5c1d1740b60",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "272c8ba841a7a314b517c26840f61016c0a0dfdbd8b9d5030d1c30468c4c6d43",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/services/cryptoApiService.ts",
+      "sha256": "b17aa108023ec0a4d873c8337427e535c9433daa6f1273b7e19f64b76cbeb0e8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/BTCWidgetType.ts",
+      "sha256": "830201277488d705caaf93e5020d1f74f9df5d19ce9844439b7d4139272b334c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/CoinTypes.ts",
+      "sha256": "1fce3e4d61ed360136db9b047f086a73dceef998e58bf889c45b6344b8d21b9d",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/PricesType.ts",
+      "sha256": "4361242ddd729c39c6fbd529a7edf217d419dcf34f03ed296ab86d523e1247b0",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/WalletsType.ts",
+      "sha256": "2750d439f688e8ec74bcb770a0e25f470906508f215099e0c9796e43f6f6ff51",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/WatchlistType.ts",
+      "sha256": "4905fa6c531e33ffc4d860036902928626eb835f1f14d1dd7eb42fc173586cb8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/index.ts",
+      "sha256": "49a19ef83276400af6100dee32846a8e1a7f99eb6290ac4e642d9beb47df5960",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppContent.tsx",
+      "sha256": "255d19aff6330c450557ba0c59950d215281397c8e9b1e3eede03bdc02726b38",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppHeader.tsx",
+      "sha256": "80661b647678b642b55a2a6588326c08f646a3f743f0ddc3394a61c0b9eef565",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppSidebar.tsx",
+      "sha256": "ee0d681db97a537bb5f4d95118a7d6444110ede9b67688eafce1034fa34743d2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/BTCMainChart.tsx",
+      "sha256": "64d62beb0e12e2861c0b93a4aa94c580f7c79a0595fb6b5759ef2c871f89c1fa",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/BuySellForm.tsx",
+      "sha256": "ad9fa381e626efc2ced243176397242e327ce7a5874f798181e71a7918dcc242",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/ValueSectionSmall.tsx",
+      "sha256": "666e5c85570c842c4f14c274083ebba1747c7be0a7e0289e078ac217f5b79461",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/WatchlistItem.tsx",
+      "sha256": "ad1847ae27fd774b44c952fbf88b065075a35772b88562e24e39b2a84a1ca0a7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/views/CryptoDashboardAppView.tsx",
+      "sha256": "f159b52674bf408791d097243e30cb3753c3b8e07212e90df9be7807c18fc641",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/(routes)/page.tsx",
+      "sha256": "88401802c2f2f98d75c94f45d5c4435a3b43097ad9e0fe6854fd50e583e344e5",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "425886d43f48c5cd17471b0625527f6148795963a4bfa4b3f22ac87fa7db7cb8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "c8461c609eac026f72e2c5e051e91ee891d43f9976066ff30040e85bedb255ac",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/services/financeApiService.ts",
+      "sha256": "54f10755bf928e5d7b05d68140e1f53e8361a2ce673cca46c98a48379880eea6",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/AccountBalanceWidgetType.ts",
+      "sha256": "3f8dad724666582a21708fb5b3444ee281a87bd4634ef24a2979cb2b6e8b6733",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/BudgetWidgetType.ts",
+      "sha256": "2da2fae27c7b78efe42c9302f92859afd33dfda5409e95754098b1d9b223d2c4",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/CurrentStatementWidgetType.ts",
+      "sha256": "b290f02e634c556907889fd942afeaa13530ea3de64bcaa770ccea3a187d37ed",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/PreviousStatementWidgetType.ts",
+      "sha256": "367f4ee180a4a499a47eb94994a389e08809b15119ad591e466ec3c9e4030a71",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/RecentTransactionsWidgetType.ts",
+      "sha256": "fed1bc721d5035c8b297625f56f363a9206d6adae9eac2616b620048b9b87b03",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/index.ts",
+      "sha256": "f6f2cfc479e1190b5b0a730babfee7913be9a6ab8ba2e43db8eee62b1426f28c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/FinanceDashboardAppHeader.tsx",
+      "sha256": "6fc15d8f677da80017f4d0254e1b8eca57fa7319e0db7196037bc3831b221344",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/AccountBalanceWidget.tsx",
+      "sha256": "8fe0057dcc555d877ad1159cb667004be109040e362b4c1629a1a3104dfcb496",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/BudgetWidget.tsx",
+      "sha256": "9eb4865aa3288fab53d7f91456d9a642304f634920f410d9cf6f2d2a19e2cf92",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/CurrentStatementWidget.tsx",
+      "sha256": "65108dd301a8215368fb24c559c96912132beda995b4af18f56746aabf84f8c8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/PreviousStatementWidget.tsx",
+      "sha256": "4a8898d86d6e81604af474a4ba9d8ec6eedf5d62dfd6a7206923c26cfc0c6aad",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/RecentTransactionsWidget.tsx",
+      "sha256": "153dfe3639fcf376bbada949a65921f61571962f296198ee375d81c6ee55df29",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/views/FinanceDashboardAppView.tsx",
+      "sha256": "6798d976fdcb2058d94cca52a0b4d22e82cd451b6f38e6793c3fc76900b16ed9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/page.tsx",
+      "sha256": "97d21e19e07c5dd5bbbc31842dfdd3bc6efadb20f618671316603635899dd6a1",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/(routes)/page.tsx",
+      "sha256": "85de5976413013b496ae262d6bfe71b534c9c38b17fa98d2bf96aa42e21e2314",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/projects/useGetProjects.ts",
+      "sha256": "a9b253175563943072a8a3aa6afc084ab041808f4096bba8783dc31c24d3bd4c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "6d06bb7cbde8a929426031ebb43923724646c13bc73c8b15ebf71e6d3eccc3b1",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "5e9d3cc2f5f906e5ad1cd888bf63aab52b2f91e9abf0d3644576582ee5085339",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/services/projectApiService.ts",
+      "sha256": "74d539938a290693f687cabf74756f407080c0c4f305e11cf827c08d71001492",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/BudgetDetailsDataType.ts",
+      "sha256": "55a72eba2ded02f7b37cd08255130c92177d54381455372e111fc45081d77877",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/BudgetDistributionDataType.ts",
+      "sha256": "74f06e799881e8be6662e79a9887f4d4925f8985c8e91fdc2aa316a8eef34223",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/ExpensesDataType.ts",
+      "sha256": "43791956686159c4e6df82c2b5a0208633ff76521d79264406ad84d57d392ffe",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/GithubIssuesDataType.ts",
+      "sha256": "2e228cb16ff00638f204f74be8e8bba13d154daaf62db97596ce4fe20f366960",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/ScheduleDataType.ts",
+      "sha256": "26ebdd2b9e0092ec04adbdabb9c7541c57b92fee8ebc36b83a5ccb74ef8764fb",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/TaskDistributionDataType.ts",
+      "sha256": "45c89eef0a7dce54d13b90a6446a6592297fb1fb31ba8d787cd8bd8d160845cd",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/WidgetDataType.ts",
+      "sha256": "df35feb3b80a93b53ce29ff52ad402e639d0d233609b198cf2533734f28c71f2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/index.ts",
+      "sha256": "4867333fd4c206d8e8b2dc616469faa7349ed4da0ccace057e1bee1ce5bde440",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/team/TeamMemberType.ts",
+      "sha256": "c267caf0f576da341c8e966a2ebfb3d0843922b1761636cf1a36add84b4a5972",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/ProjectDashboardAppHeader.tsx",
+      "sha256": "7318b28de1a14f9da3a5c44b8026d1af415efa6d9a2bdfcca010b1465770a3af",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/ProjectSelector.tsx",
+      "sha256": "14075611fcfb11a82e3a4a0662a8cf7ac62c2f90f5acb38c654eaf19ab41ebd5",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/BudgetTab.tsx",
+      "sha256": "35be6420d551d21cd9dc8304356ce006f756755ffce65070759ef3995612399e",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/BudgetDetailsWidget.tsx",
+      "sha256": "80778202baf25fcd6e3ef0ca6624f20b9911c869c87fd8c998aa721d52a4b2ca",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/BudgetDistributionWidget.tsx",
+      "sha256": "d29e04d6221d3daef1a3709549ea6accac1fd728030a19e32518d9f3e837f664",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/MonthlyExpensesWidget.tsx",
+      "sha256": "15b78773b349ad4ece420b480c93bc1d7aa29c2ae175c2b898af1ef79448f503",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/WeeklyExpensesWidget.tsx",
+      "sha256": "ea058acefd1d6b7c6c8492644e482c0f7d51e5bc2ef0c2f9165b4000808176d8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/YearlyExpensesWidget.tsx",
+      "sha256": "6a8a6eb74507ef2121ffe44d93b4730d1a8c5cfe2974b787f976d697204a6b11",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/HomeTab.tsx",
+      "sha256": "191b2ded7d26ac4b5b49deaf5d10148530c76b1b8ad8e3451c3a551409b694aa",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/FeaturesWidget.tsx",
+      "sha256": "21dcc0005be1b3fe050ce1cfc01b0d147b0e91fe733d553c60d42cf75279bb1f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/GithubIssuesWidget.tsx",
+      "sha256": "0468a9f8877d845438ed69d753dff76b8a8630418369c521f811be80a0167be9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/IssuesWidget.tsx",
+      "sha256": "3a1a3183a4fc149735e1a6385762fd3faf5d8bc79766f38f7c30bf661e77b292",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/OverdueWidget.tsx",
+      "sha256": "a7bd63a9a58bbfd86bc84aef447d4d4a96453a42853191388ae2789a7131e9c8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/ScheduleWidget.tsx",
+      "sha256": "f7dd54782f36e7eb8f9562d429437113366a12f91ee6597f7d24cf3632837014",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/SummaryWidget.tsx",
+      "sha256": "0345da98fce259cac65e6c7a80bcf295345daa26737523172356879863a77dcb",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/TaskDistributionWidget.tsx",
+      "sha256": "48d4f019469453d3a87099445a5ddb73ac0bacf2b27c5a051e01acc153327b4f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/team/TeamTab.tsx",
+      "sha256": "2ee779880dfa9737d7cb0a04bffdb04c653a32f9a1190b068d9e5149d9fd4b6f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/team/widgets/TeamMembersWidget.tsx",
+      "sha256": "4f98248a484384f482b9015e85cedab9dc6788f1325aacd01ee1ba11b1afc2c9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/views/ProjectDashboardAppView.tsx",
+      "sha256": "eebdbeed2df3d266aaf1734925e2169f693eb6e89aef0be2200d83596cc8ff53",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-nextjs-demo.zip",
+      "path": "src/app/(public)/documentation/components/views/third-party-components/ReactApexchartsDoc.tsx",
+      "sha256": "17e10ae8ad97eea6c46baca2a43b1ad52736c606a026f349ce0f1c0969d078e3",
+      "disposition": "chart_family_reference_only",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "cbee52d95946e49b4b177515209869161155e1ad590462e28183b94f4bd2fc8a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "9e830acf060b2572dc57ba281b58b1cb860308dee7894bd72d82ec7b068c9af2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/services/analyticsApiService.ts",
+      "sha256": "0933803f63aa5852e40e5ff0f15093402911793792546f9e9349843c9d799f10",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/AgeWidgetType.ts",
+      "sha256": "b781e9517074cb5b56752b054296ef3c1ccd14d2e53005e8b3665a898f4c9c6d",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/ConversionsWidgetType.ts",
+      "sha256": "54ffe66f375d85c420d09017d8452cf5c65160307ca1b690c8883153acc0d8c5",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/GenderWidgetType.ts",
+      "sha256": "f07110092c8b23e57a37c04579ff1a3d897a2ec633be1d9b46ecf1de8bca4727",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/ImpressionsWidgetType.ts",
+      "sha256": "85bd010e115f243b39aa6ff302e467f19761b89ed48dff9eba6b6cf096023ce3",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/LanguageWidgetType.ts",
+      "sha256": "7c95349fd9f12c2e9f8f3e1f2a9e4aea30e76738a5f669eb8d5b2f3fecdf404b",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/NewVsReturningWidgetType.ts",
+      "sha256": "6010239be7d8f7dcce3442fff9ec518c26b24c11e649abd2995158571cbb4e6b",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitorsOverviewWidgetType.ts",
+      "sha256": "8a1a59ebf9c6788ab170889d545f47e323b9c5e5716f2d35a0424e04d50e0221",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitorsVsPageViewsType.ts",
+      "sha256": "b3187b23309246deccc8ca438b7c4fa01e52c14bf410538b06d6d984196d89ae",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/VisitsWidgetType.ts",
+      "sha256": "5d5f5f9700603a4d4b0a7bcd73b927fb843e494a1b8b1f3673e1b2b401d60d40",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/api/types/index.ts",
+      "sha256": "9a2e66ad29e3c8f688d4238428f983dfd83916ead5b8e5389f6936331b3db34c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/AnalyticsDashboardAppHeader.tsx",
+      "sha256": "9f7f3da4e2a792a40b11777a0ec5713d3797c24c916675cefeb0a7445cbd1770",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/AgeWidget.tsx",
+      "sha256": "d077aa0c37da81a8195efc483cfc72fff029422b41fd87e9ccfa9b3bfcd8561f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/ConversionsWidget.tsx",
+      "sha256": "cc729dc9dd3794c29b91b9569be392271ac260ba214d282926b896b05e83fed4",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/GenderWidget.tsx",
+      "sha256": "681dddc818e179bce530ae4b888553dfac2ea8030f582cc256b18212e0035dad",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/ImpressionsWidget.tsx",
+      "sha256": "7a6a7d9f510d70dd88c7fade5d37e494add2a28ae0383e8317a6b682717db9ef",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/LanguageWidget.tsx",
+      "sha256": "23e30f4f19d8fd969ebd0b8aba91f7eb2acc1852a8c50dcc357452e1d46d6990",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/NewVsReturningWidget.tsx",
+      "sha256": "331245ecc18b1cbae830409ae45e46f19509df5626359347cea24343169736e7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitorsOverviewWidget.tsx",
+      "sha256": "f197d537af7817a38bbf375c77f0633648d2fdb9fd19e0b5c3106546c46ac91a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitorsVsPageViewsWidget.tsx",
+      "sha256": "095cfc929593471aad1cd3296042f517a9a9e561d48beb816c00e739b9cb2bc2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/ui/widgets/VisitsWidget.tsx",
+      "sha256": "8dc2d82ba62af430fc17509ac8378acbbb69b9e51e8b0bfaab8561015f0ab8f7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/components/views/AnalyticsDashboardAppView.tsx",
+      "sha256": "498bcafae5e1109bd97894d4e0179f0a194566906a0a097e992e266de2575c0a",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/analytics/route.tsx",
+      "sha256": "022ed8556a141d602604b416e56a34820bde9088a1ded8f31de486a644db8420",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "9b3440b6f3b45ec42863d0836db47120859c8100cc60c734e261f5c1d1740b60",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "272c8ba841a7a314b517c26840f61016c0a0dfdbd8b9d5030d1c30468c4c6d43",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/services/cryptoApiService.ts",
+      "sha256": "b17aa108023ec0a4d873c8337427e535c9433daa6f1273b7e19f64b76cbeb0e8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/BTCWidgetType.ts",
+      "sha256": "830201277488d705caaf93e5020d1f74f9df5d19ce9844439b7d4139272b334c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/CoinTypes.ts",
+      "sha256": "1fce3e4d61ed360136db9b047f086a73dceef998e58bf889c45b6344b8d21b9d",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/PricesType.ts",
+      "sha256": "4361242ddd729c39c6fbd529a7edf217d419dcf34f03ed296ab86d523e1247b0",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/WalletsType.ts",
+      "sha256": "2750d439f688e8ec74bcb770a0e25f470906508f215099e0c9796e43f6f6ff51",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/WatchlistType.ts",
+      "sha256": "4905fa6c531e33ffc4d860036902928626eb835f1f14d1dd7eb42fc173586cb8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/api/types/index.ts",
+      "sha256": "49a19ef83276400af6100dee32846a8e1a7f99eb6290ac4e642d9beb47df5960",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppContent.tsx",
+      "sha256": "255d19aff6330c450557ba0c59950d215281397c8e9b1e3eede03bdc02726b38",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppHeader.tsx",
+      "sha256": "80661b647678b642b55a2a6588326c08f646a3f743f0ddc3394a61c0b9eef565",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/CryptoDashboardAppSidebar.tsx",
+      "sha256": "ee0d681db97a537bb5f4d95118a7d6444110ede9b67688eafce1034fa34743d2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/BTCMainChart.tsx",
+      "sha256": "64d62beb0e12e2861c0b93a4aa94c580f7c79a0595fb6b5759ef2c871f89c1fa",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/BuySellForm.tsx",
+      "sha256": "ad9fa381e626efc2ced243176397242e327ce7a5874f798181e71a7918dcc242",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/ValueSectionSmall.tsx",
+      "sha256": "666e5c85570c842c4f14c274083ebba1747c7be0a7e0289e078ac217f5b79461",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/ui/widgets/WatchlistItem.tsx",
+      "sha256": "ad1847ae27fd774b44c952fbf88b065075a35772b88562e24e39b2a84a1ca0a7",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/components/views/CryptoDashboardAppView.tsx",
+      "sha256": "f159b52674bf408791d097243e30cb3753c3b8e07212e90df9be7807c18fc641",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/crypto/route.tsx",
+      "sha256": "519631dc06583b341b3045c7f0c8263f32309ccd50620bfa69ab16b89a789862",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "425886d43f48c5cd17471b0625527f6148795963a4bfa4b3f22ac87fa7db7cb8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "c8461c609eac026f72e2c5e051e91ee891d43f9976066ff30040e85bedb255ac",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/services/financeApiService.ts",
+      "sha256": "54f10755bf928e5d7b05d68140e1f53e8361a2ce673cca46c98a48379880eea6",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/AccountBalanceWidgetType.ts",
+      "sha256": "3f8dad724666582a21708fb5b3444ee281a87bd4634ef24a2979cb2b6e8b6733",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/BudgetWidgetType.ts",
+      "sha256": "2da2fae27c7b78efe42c9302f92859afd33dfda5409e95754098b1d9b223d2c4",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/CurrentStatementWidgetType.ts",
+      "sha256": "b290f02e634c556907889fd942afeaa13530ea3de64bcaa770ccea3a187d37ed",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/PreviousStatementWidgetType.ts",
+      "sha256": "367f4ee180a4a499a47eb94994a389e08809b15119ad591e466ec3c9e4030a71",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/RecentTransactionsWidgetType.ts",
+      "sha256": "fed1bc721d5035c8b297625f56f363a9206d6adae9eac2616b620048b9b87b03",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/api/types/index.ts",
+      "sha256": "f6f2cfc479e1190b5b0a730babfee7913be9a6ab8ba2e43db8eee62b1426f28c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/FinanceDashboardAppHeader.tsx",
+      "sha256": "6fc15d8f677da80017f4d0254e1b8eca57fa7319e0db7196037bc3831b221344",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/AccountBalanceWidget.tsx",
+      "sha256": "8fe0057dcc555d877ad1159cb667004be109040e362b4c1629a1a3104dfcb496",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/BudgetWidget.tsx",
+      "sha256": "9eb4865aa3288fab53d7f91456d9a642304f634920f410d9cf6f2d2a19e2cf92",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/CurrentStatementWidget.tsx",
+      "sha256": "65108dd301a8215368fb24c559c96912132beda995b4af18f56746aabf84f8c8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/PreviousStatementWidget.tsx",
+      "sha256": "4a8898d86d6e81604af474a4ba9d8ec6eedf5d62dfd6a7206923c26cfc0c6aad",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/ui/widgets/RecentTransactionsWidget.tsx",
+      "sha256": "153dfe3639fcf376bbada949a65921f61571962f296198ee375d81c6ee55df29",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/components/views/FinanceDashboardAppView.tsx",
+      "sha256": "6798d976fdcb2058d94cca52a0b4d22e82cd451b6f38e6793c3fc76900b16ed9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/finance/route.tsx",
+      "sha256": "129ba2f10f10e8d1f5b7888df2bd499c72fe5b1db46e203643048abdf7a5faf3",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/projects/useGetProjects.ts",
+      "sha256": "a9b253175563943072a8a3aa6afc084ab041808f4096bba8783dc31c24d3bd4c",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/widgets/useGetWidget.ts",
+      "sha256": "6d06bb7cbde8a929426031ebb43923724646c13bc73c8b15ebf71e6d3eccc3b1",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/hooks/widgets/useGetWidgets.ts",
+      "sha256": "5e9d3cc2f5f906e5ad1cd888bf63aab52b2f91e9abf0d3644576582ee5085339",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/services/projectApiService.ts",
+      "sha256": "74d539938a290693f687cabf74756f407080c0c4f305e11cf827c08d71001492",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/BudgetDetailsDataType.ts",
+      "sha256": "55a72eba2ded02f7b37cd08255130c92177d54381455372e111fc45081d77877",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/BudgetDistributionDataType.ts",
+      "sha256": "74f06e799881e8be6662e79a9887f4d4925f8985c8e91fdc2aa316a8eef34223",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/budget/ExpensesDataType.ts",
+      "sha256": "43791956686159c4e6df82c2b5a0208633ff76521d79264406ad84d57d392ffe",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/GithubIssuesDataType.ts",
+      "sha256": "2e228cb16ff00638f204f74be8e8bba13d154daaf62db97596ce4fe20f366960",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/ScheduleDataType.ts",
+      "sha256": "26ebdd2b9e0092ec04adbdabb9c7541c57b92fee8ebc36b83a5ccb74ef8764fb",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/TaskDistributionDataType.ts",
+      "sha256": "45c89eef0a7dce54d13b90a6446a6592297fb1fb31ba8d787cd8bd8d160845cd",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/home/WidgetDataType.ts",
+      "sha256": "df35feb3b80a93b53ce29ff52ad402e639d0d233609b198cf2533734f28c71f2",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/index.ts",
+      "sha256": "4867333fd4c206d8e8b2dc616469faa7349ed4da0ccace057e1bee1ce5bde440",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/api/types/team/TeamMemberType.ts",
+      "sha256": "c267caf0f576da341c8e966a2ebfb3d0843922b1761636cf1a36add84b4a5972",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/ProjectDashboardAppHeader.tsx",
+      "sha256": "7318b28de1a14f9da3a5c44b8026d1af415efa6d9a2bdfcca010b1465770a3af",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/ProjectSelector.tsx",
+      "sha256": "14075611fcfb11a82e3a4a0662a8cf7ac62c2f90f5acb38c654eaf19ab41ebd5",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/BudgetTab.tsx",
+      "sha256": "35be6420d551d21cd9dc8304356ce006f756755ffce65070759ef3995612399e",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/BudgetDetailsWidget.tsx",
+      "sha256": "80778202baf25fcd6e3ef0ca6624f20b9911c869c87fd8c998aa721d52a4b2ca",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/BudgetDistributionWidget.tsx",
+      "sha256": "d29e04d6221d3daef1a3709549ea6accac1fd728030a19e32518d9f3e837f664",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/MonthlyExpensesWidget.tsx",
+      "sha256": "15b78773b349ad4ece420b480c93bc1d7aa29c2ae175c2b898af1ef79448f503",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/WeeklyExpensesWidget.tsx",
+      "sha256": "ea058acefd1d6b7c6c8492644e482c0f7d51e5bc2ef0c2f9165b4000808176d8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/budget/widgets/YearlyExpensesWidget.tsx",
+      "sha256": "6a8a6eb74507ef2121ffe44d93b4730d1a8c5cfe2974b787f976d697204a6b11",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/HomeTab.tsx",
+      "sha256": "191b2ded7d26ac4b5b49deaf5d10148530c76b1b8ad8e3451c3a551409b694aa",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/FeaturesWidget.tsx",
+      "sha256": "21dcc0005be1b3fe050ce1cfc01b0d147b0e91fe733d553c60d42cf75279bb1f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/GithubIssuesWidget.tsx",
+      "sha256": "0468a9f8877d845438ed69d753dff76b8a8630418369c521f811be80a0167be9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/IssuesWidget.tsx",
+      "sha256": "3a1a3183a4fc149735e1a6385762fd3faf5d8bc79766f38f7c30bf661e77b292",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/OverdueWidget.tsx",
+      "sha256": "a7bd63a9a58bbfd86bc84aef447d4d4a96453a42853191388ae2789a7131e9c8",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/ScheduleWidget.tsx",
+      "sha256": "f7dd54782f36e7eb8f9562d429437113366a12f91ee6597f7d24cf3632837014",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/SummaryWidget.tsx",
+      "sha256": "0345da98fce259cac65e6c7a80bcf295345daa26737523172356879863a77dcb",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/home/widgets/TaskDistributionWidget.tsx",
+      "sha256": "48d4f019469453d3a87099445a5ddb73ac0bacf2b27c5a051e01acc153327b4f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/team/TeamTab.tsx",
+      "sha256": "2ee779880dfa9737d7cb0a04bffdb04c653a32f9a1190b068d9e5149d9fd4b6f",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/ui/tabs/team/widgets/TeamMembersWidget.tsx",
+      "sha256": "4f98248a484384f482b9015e85cedab9dc6788f1325aacd01ee1ba11b1afc2c9",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/components/views/ProjectDashboardAppView.tsx",
+      "sha256": "eebdbeed2df3d266aaf1734925e2169f693eb6e89aef0be2200d83596cc8ff53",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(control-panel)/dashboards/project/route.tsx",
+      "sha256": "90a3711a2d24f37027c34f3682747d36d4f1c9214f72221a19a1d289f640e0ca",
+      "disposition": "business_dashboard_deferred_b16",
+      "variantParityClaimed": false
+    },
+    {
+      "bundle": "Fuse-React-v17.0.0-vitejs-demo.zip",
+      "path": "src/app/(public)/documentation/components/views/third-party-components/ReactApexchartsDoc.tsx",
+      "sha256": "17e10ae8ad97eea6c46baca2a43b1ad52736c606a026f349ce0f1c0969d078e3",
+      "disposition": "chart_family_reference_only",
+      "variantParityClaimed": false
+    }
+  ],
+  "vendorSourceCopied": false,
+  "fullVariantParityClaimed": false,
+  "businessDashboardsActivated": false,
+  "originalCatalogue": [
+    "line",
+    "area",
+    "grouped_bar",
+    "donut",
+    "metric"
+  ],
+  "deferred": [
+    "project/analytics/finance/crypto business dashboards B16",
+    "advanced chart families and every vendor property/animation",
+    "real registered widget/workflow/data and dashboard preference bindings"
+  ]
+}
