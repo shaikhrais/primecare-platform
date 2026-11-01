@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:flutter_core/application_modules.dart';
-import 'package:flutter_core/preference_sync/preference_protocol.dart';
 
 class TrackedClient extends MockClient {
   bool closed = false;
@@ -30,7 +29,9 @@ void main() {
       expect(r.followRedirects, false); expect(r.headers['authorization'], 'Bearer captured-token');
       expect(r.headers['cache-control'], 'no-store'); expect(r.body, isEmpty); }
     await expectLater(p.mutate(WorkCommand('user1', 1, 'edit', {}), 'key'), denied);
-    await expectLater(p.readItem('user1'), denied); expect(requests.length, 2); p.dispose();
+    await expectLater(p.readItem('user1'), denied); expect(requests.length, 2);
+    final session = WorkModuleSession(scope, 'profile', port: p); await session.load();
+    expect(session.status, 'ready'); expect(session.snapshot!.items.single.id, 'user1'); session.dispose();
   });
   test('identity mismatch, unknown fields and denied status never publish profile', () async {
     for (final change in [{'tenantId': 'other'}, {'userId': 'other'}, {'roles': 'admin'}, {'status': 'anonymous'}]) {
