@@ -19,7 +19,7 @@ on:
       - '.github/workflows/application-modules.yml'
 permissions: {contents: read}
 concurrency:
-  group: application-module-tests-${{ github.ref }}
+  group: application-module-tests-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   web:
