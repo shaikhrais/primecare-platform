@@ -69,6 +69,7 @@ def capture(reader, *, scope_details=False):
         result['registrationIdAllocationAuthority'] = False
         result['artifactIdColumnShape'] = [{key: column.get(key) for key in ('name', 'type', 'notnull', 'pk', 'dflt_value')} for column in columns if column['name'] == 'id']
         grant_columns = rows('PRAGMA table_info(api_permissions)')
+        result['grantColumnShape'] = [{key: column.get(key) for key in ('name', 'type', 'notnull', 'pk', 'dflt_value')} for column in grant_columns]
         result['grantIdColumnShape'] = [{key: column.get(key) for key in ('name', 'type', 'notnull', 'pk', 'dflt_value')} for column in grant_columns if column['name'] == 'id']
         result['roleAndScreenReadbackEstablishesNewGrants'] = False
     result['snapshotSha256'] = hashlib.sha256(json.dumps(result, sort_keys=True, separators=(',', ':')).encode()).hexdigest()

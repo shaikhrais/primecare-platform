@@ -51,8 +51,25 @@ jobs:
           import json,os
           print(json.dumps({'source':os.environ['SOURCE'],'authSecurityAndPreferenceChecks':'passed','productionDeployed':False,'runtimeActivated':False,'productionGrantsChanged':0,'legacyCandidateHashesRewritten':False}))
           PY
-  deploy-code:
+  production-schema:
     needs: source-acceptance
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/auth-schema-reader --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/auth-schema-reader/node_modules node_modules
+      - name: Inspect production schema metadata without changing account data
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/check-auth-schema.mjs
+  deploy-code:
+    if: github.event_name == 'workflow_dispatch'
+    needs: [source-acceptance, production-schema]
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 12
