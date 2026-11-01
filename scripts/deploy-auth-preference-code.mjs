@@ -1,10 +1,13 @@
 /** Deploy only the accepted auth code; no grants, schema, key selection or preference activation. */
+import {checkAuthSchema} from './check-auth-schema.mjs';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';import {execFileSync} from 'node:child_process';
 import {authPreferenceDeploymentConfig} from './auth-preference-deployment-config.mjs';import {mfaKeyringSource} from './mfa-keyring-source.mjs';import {uploadedWorkerVersion,verifyWorkerDeployment} from './worker-deployment-receipt.mjs';
 const worker='primecare-auth-api',account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,source=process.env.GITHUB_SHA;
 if(process.env.DEPLOY_AUTH_PREFERENCE_CODE!=='1'||!/^[a-f0-9]{32}$/i.test(account??'')||!token||!/^[a-f0-9]{40}$/.test(source??'')||process.env.GITHUB_REF!=='refs/heads/main')throw Error('Explicit accepted main auth code release required');
 if(execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()!==source)throw Error('Checkout identity differs');execFileSync('git',['diff','--quiet','HEAD'],{stdio:'ignore'});
 const currentMain=execFileSync('git',['ls-remote','origin','refs/heads/main'],{encoding:'utf8'}).trim().split(/\s/)[0];if(currentMain!==source)throw Error('Auth release source is stale');
+const databaseUrl=new URL(process.env.PRODUCTION_DATABASE_URL??'');if(!['postgres:','postgresql:'].includes(databaseUrl.protocol)||databaseUrl.hostname!=='pooled.db.prisma.io'||databaseUrl.pathname!=='/postgres')throw Error('Pinned schema inspection target required');
+if((await checkAuthSchema(databaseUrl.href)).length)throw Error('Production auth schema is incompatible with the accepted source');
 const api=async path=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{redirect:'error',headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const v=await r.json();if(!r.ok||v.success!==true)throw Error('Scoped Cloudflare read failed');return v.result;};
 const base='/workers/scripts/'+worker,proof=JSON.parse(await readFile('docs/appearance/theme-auth-release-provenance.json','utf8')),before=(await api(base+'/deployments?per_page=1')).deployments?.[0];
 if(proof.worker!==worker||before?.id!==proof.activeReadback.deploymentId||before.versions?.length!==1||before.versions[0].version_id!==proof.activeReadback.versionId||before.versions[0].percentage!==100)throw Error('Auth deployment differs from the independently reconciled source');

@@ -63,6 +63,13 @@ def capture(reader, *, scope_details=False):
         candidates = rows('SELECT ' + ','.join(selected) + ' FROM runtime_artifacts ORDER BY id LIMIT 1001')
         result['runtimeArtifactCandidates'] = candidates[:1000]
         result['runtimeArtifactCandidatesTruncated'] = len(candidates) > 1000
+        result['runtimeArtifactIdUpperBound'] = max(artifact_ids, default=0)
+        result['referencedArtifactIdUpperBound'] = rows('SELECT max(runtime_artifact_id) AS upper_bound FROM api_permissions')[0]['upper_bound']
+        result['grantIdUpperBound'] = rows('SELECT max(id) AS upper_bound FROM api_permissions')[0]['upper_bound']
+        result['registrationIdAllocationAuthority'] = False
+        result['artifactIdColumnShape'] = [{key: column.get(key) for key in ('name', 'type', 'notnull', 'pk', 'dflt_value')} for column in columns if column['name'] == 'id']
+        grant_columns = rows('PRAGMA table_info(api_permissions)')
+        result['grantIdColumnShape'] = [{key: column.get(key) for key in ('name', 'type', 'notnull', 'pk', 'dflt_value')} for column in grant_columns if column['name'] == 'id']
         result['roleAndScreenReadbackEstablishesNewGrants'] = False
     result['snapshotSha256'] = hashlib.sha256(json.dumps(result, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     return result

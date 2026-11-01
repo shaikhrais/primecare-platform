@@ -48,6 +48,10 @@ class IdentityCaptureTests(unittest.TestCase):
         self.assertFalse(report['authorityEstablished'])
         self.assertFalse(report['roleAndScreenReadbackEstablishesNewGrants'])
         self.assertEqual(report['screenPermissions'][1]['can_view'], 0)
+        self.assertEqual(report['runtimeArtifactIdUpperBound'], 2)
+        self.assertEqual(report['referencedArtifactIdUpperBound'], 1)
+        self.assertFalse(report['registrationIdAllocationAuthority'])
+        self.assertEqual(report['artifactIdColumnShape'][0]['name'], 'id')
     def test_unchanged_readback_hash_is_deterministic_and_detects_drift(self):
         original = module.capture(self.db)['snapshotSha256']
         self.assertEqual(original, module.capture(self.db)['snapshotSha256'])

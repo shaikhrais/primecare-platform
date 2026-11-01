@@ -71,6 +71,7 @@ jobs:
       - name: Update only accepted auth code while keeping preference runtime disabled
         env:
           DEPLOY_AUTH_PREFERENCE_CODE: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: node scripts/deploy-auth-preference-code.mjs
