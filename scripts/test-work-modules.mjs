@@ -31,6 +31,14 @@ try {
  // A lost response retains one key; readback is required before success.
  const snapshot=structuredClone(task.current.snapshot),item=snapshot.items.find(i=>i.id===created.id);let attempt=0,keys=[];
  const uncertain=new WorkModuleSession(scope,'tasks',{read:async()=>snapshot,mutate:async(c,k)=>{keys.push(k);if(++attempt===1)throw Error('lost response');return{itemId:c.itemId,version:c.version+1,action:c.action,expected:{title:'Retry title'}};},readItem:async()=>({...snapshot,items:snapshot.items.map(i=>i.id===item.id?{...i,version:i.version+1,title:'Retry title'}:i)})});await uncertain.load();await assert.rejects(()=>uncertain.submit(item.id,'edit',{title:'Retry title',body:item.body,date:item.date},item.version));ok(uncertain.current.pending);await uncertain.retryPending();ok(uncertain.status==='success'&&keys[0]===keys[1]);
+ // An acknowledged write must never be sent again merely because verification failed.
+ let acknowledgedWrites=0,verificationReads=0;const acknowledged=new WorkModuleSession(scope,'tasks',{
+  read:async()=>snapshot,
+  mutate:async(c)=>{acknowledgedWrites++;return{itemId:c.itemId,version:c.version+1,action:c.action,expected:{title:'Verified once'}};},
+  readItem:async()=>{if(++verificationReads===1)throw Error('read offline');return {...snapshot,items:snapshot.items.map(i=>i.id===item.id?{...i,version:i.version+1,title:'Verified once'}:i)};}
+ });await acknowledged.load();await assert.rejects(()=>acknowledged.submit(item.id,'edit',{title:'Verified once',body:item.body,date:item.date},item.version));
+ ok(acknowledged.current.pending);await assert.rejects(()=>acknowledged.load({search:'replacement',offset:0}));ok(acknowledged.current.snapshot.items[0].title===snapshot.items[0].title&&acknowledged.current.query.search==='');
+ await acknowledged.retryPending();ok(acknowledged.status==='success'&&acknowledgedWrites===1&&verificationReads===2);acknowledged.dispose();
  let finish;const disposed=new WorkModuleSession(scope,'tasks',{read:()=>new Promise(r=>finish=r),mutate:async()=>{throw Error();},readItem:async()=>snapshot});const loading=disposed.load();disposed.dispose();finish(snapshot);await loading;ok(disposed.current.snapshot===null&&disposed.status==='disposed');
  for(const session of [task,fresh,notes,calendar,board,contacts,wrong,uncertain])session.dispose();
  console.log(`PASS work modules: ${checks} checks; ${f.native?'native PostgreSQL':'PGlite PostgreSQL'} API, independent SQL and fresh-session readback`);
