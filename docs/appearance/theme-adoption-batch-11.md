@@ -1,6 +1,6 @@
 # B11 — Shared chart and configurable widget foundations
 
-The original shared chart/grid source is on main; final platform acceptance is pending. Registry/data bindings, common preference-service integration, real business flows and human review remain pending. This is factory acceptance, not production dashboard completion.
+The original shared chart/grid source is on main; web and Flutter Linux/Windows/macOS factory acceptance passed. Registry/data bindings, common preference-service integration, real business flows and human review remain pending. This is factory acceptance, not production dashboard completion.
 
 The catalogue adds line, area, grouped bar, donut and metric presentations with accessible data alternatives. A separate dashboard-grid model provides permitted widget add/remove/order/column-span/row-span changes, per-breakpoint layouts, registered defaults and strict JSON import/export. It does not mix dashboard grids with floating workspace panels.
 
@@ -38,6 +38,15 @@ Local checks passed: six model/session groups, five browser scenes, TypeScript, 
 
 Browser coverage includes literal hostile titles, missing data, all four graphic families, series controls, widget add/remove/reorder/resize, isolated save/readback/reload, denied imports, conflicts, mobile RTL/breakpoint changes, removed stale data, retry and unbound adapters. Native tests cover matching model/session behavior, chart data alternatives, grid edits, source failure/retry and removed late results.
 
-Final CI evidence will be recorded after the exact corrected source run completes. Human localization/accessibility/release approval, actual-device/screen-reader verification, real registered business data, service policy and host rollout remain pending. Six historical auth-reader review blockers are unchanged; whole-repository CI success is not claimed.
+Source `7a437a823f839d75247cd2490c8f02be63efc63d` passed [run 41261294950](https://github.com/shaikhrais/primecare-platform/actions/runs/41261294950). Native analysis was clean and all nine tests passed on each platform.
+
+| Job | ID | Result |
+|---|---:|---|
+| native (macos-latest) | 124714952555 | Passed |
+| native (ubuntu-24.04) | 124714952703 | Passed |
+| native (windows-latest) | 124714952741 | Passed |
+| web | 124714952791 | Passed |
+
+The first native interaction run found an off-screen test tap after resize. The final assertion scrolls the governed edit control into view. Default-layout status and data-retry loading state were also corrected before the final source run. Human localization/accessibility/release approval, actual-device/screen-reader verification, real registered business data, service policy and host rollout remain pending. Six historical auth-reader review blockers are unchanged; whole-repository CI success is not claimed.
 
 Rollback: dispose/unmount the optional factory/grid and remove its host import. Additive metadata remains registered-unimplemented; no destructive registration rollback is provided. B12 original icons/assets can proceed while these explicit B11 activation gates remain tracked.

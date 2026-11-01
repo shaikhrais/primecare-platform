@@ -1,0 +1,147 @@
+{
+  "format": 1,
+  "batch": "B11",
+  "status": "shared_chart_widget_foundations_accepted_registry_persistence_host_pending",
+  "sourceCommit": "7a437a823f839d75247cd2490c8f02be63efc63d",
+  "sourceRun": {
+    "runId": 41261294950,
+    "sourceCommit": "7a437a823f839d75247cd2490c8f02be63efc63d",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124714952555,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:32:53.7073410Z No issues found! (ran in 14.8s)",
+          "2026-11-01T01:33:28.1753880Z 00:02 +9: All tests passed!"
+        ]
+      },
+      {
+        "id": 124714952703,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:30:39.6691084Z No issues found! (ran in 9.2s)",
+          "2026-11-01T01:30:47.8921707Z 00:00 +9: All tests passed!"
+        ]
+      },
+      {
+        "id": 124714952741,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:33:00.7522075Z No issues found! (ran in 13.8s)\r",
+          "2026-11-01T01:33:16.4875798Z 00:02 +9: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124714952791,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T01:31:05.1181052Z \u2139 tests 6",
+          "2026-11-01T01:31:05.1181840Z \u2139 pass 6",
+          "2026-11-01T01:31:06.9795476Z {\"pages\":5,\"charts\":4,\"checks\":[\"literal accessible charts and missing values\",\"series keyboard buttons\",\"per-view widget add/remove/reorder/resize\",\"save/readback/reload through isolated port\",\"denied import and save conflict\",\"mobile RTL and breakpoint changes\",\"removed stale data and source retry\",\"unbound adapters disabled\"],\"productionApiDatabaseVerified\":false}",
+          "2026-11-01T01:31:12.4625820Z Ran 7 tests in 0.023s",
+          "2026-11-01T01:31:12.6388658Z Ran 3 tests in 0.004s"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41260408035,
+    "sourceCommit": "acac55e3b68dacbecf2330ce89889fccf303f379",
+    "validateJobId": 124712308550,
+    "productionJobId": 124712384496,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 22,
+    "requiredElements": 22,
+    "resources": 34,
+    "translations": 102,
+    "primitiveIds": {
+      "prime_chart": 20
+    },
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/dashboard-widgets-registration-receipt.json"
+  },
+  "verification": {
+    "nodeModelSessionGroups": 6,
+    "sharedOracleChartCases": 6,
+    "sharedOracleBreakpointCases": 4,
+    "sharedOraclePackedLayoutCases": 1,
+    "browserScenes": 5,
+    "graphicFamilies": 4,
+    "nativeModelSessionTests": 5,
+    "nativeWidgetTests": 4,
+    "nativeTotalPerPlatform": 9,
+    "registrationTests": 7,
+    "metadataStoreTests": 3,
+    "flutterVersion": "3.41.5",
+    "isolatedPersistencePortReadbackReload": true,
+    "productionApiDatabaseReadbackReload": false,
+    "localChromiumKeyboardSmoke": {
+      "enterAndSpaceSeriesToggles": true,
+      "scope": "isolated fixture, same shared runtime",
+      "production": false
+    }
+  },
+  "sourceSha256": {
+    ".github/workflows/dashboard-widgets.yml": "9e9702ffa622f27a1be1126936213c781bd9681d5c06405e320e4a790f6fa95f",
+    "packages/domain/src/dashboard_widgets.ts": "431c680c1030cd7eccc808235df8d6230d1680f5e9ef58696f52dce23b6266c9",
+    "packages/shared/src/dashboard-widgets/session.ts": "2fcb6bb41de128f47eb1ae53fed13c758f7f8ea8db8bc909bbe770308a6470c0",
+    "packages/primecare_ui/web/dashboard-widgets.ts": "2b77bcb673d108d0969e8bcb38eb179446a61c4fb724ea8f88b9344f678c4daf",
+    "packages/primecare_ui/catalogs/dashboard-widgets.registration.json": "9cda2aead0c9f49e5509c45b4ec62af88e3c51857ebe0648752fb303c023a243",
+    "packages/flutter_core/lib/dashboard_widgets.dart": "f67e9fd6ceb64c092aa54e0a2f39593cda89946db45dc4a4469013615c8817af",
+    "packages/primecare_ui/lib/dashboard_widgets.dart": "055de710a6442896cb2eb8ec24bdf8c2ba3c15e4a01514110f8caab88e1ac272",
+    "docs/appearance/dashboard-widgets-registration-receipt.json": "58b791b3b3e6fddf96f95a95f1c63610338655fc69b3b740210b2c56c2c503a3",
+    "scripts/test-dashboard-widgets-model.mjs": "553bc97ed3b56e58e55267b65c53a87337344b0b48bdfb52d71c77f7aabe4c35",
+    "scripts/test-dashboard-widgets-browser.mjs": "d0324ab6f7677aa7d23f110db4197d319f46b8bbcd4cde94ca2ea2c98e35fc69",
+    "packages/flutter_core/lib/dashboard_widgets/dashboard_session.dart": "ee3d14088ee5e5dbba2799cf6686e07ddd43b4f131275e1f1d0e3f59617ba40c",
+    "packages/flutter_core/lib/dashboard_widgets/dashboard_widgets_model.dart": "a6585cb20b79851f0662927b658e2473c187cdd1559b9cf0660be9e2f1a983e8",
+    "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart": "262c8b03f48496f48b7f2c0a4fbdbb5eb09184d45f41082b6fb075744d9b0311",
+    "packages/flutter_core/test/dashboard_widgets/dashboard_widgets_model_test.dart": "de98e690fbfd6900a69f3b96b6700196c854bc48707da681cc5167c6188038ef",
+    "packages/flutter_core/test/dashboard_widgets/model-fixtures.json": "e9940702008f40800455ebd99e226fa5174e1c1acc1cf257686295e1756c45a0",
+    "packages/flutter_core/test/dashboard_widgets/dashboard_widgets_widget_test.dart": "abf40a91cc3252e8a11df280bca3ad98ddab2f7ae4b608d6c950c3bd6a4d268a"
+  },
+  "registrationSha256": {
+    "tools/governance-production/dashboard-widgets-contract.json": "c106026ffef35de23bcda0c42337944befeb6c81d5c3cdf8669af69e1aa4b602",
+    "tools/governance-production/dashboard_widgets_registration.py": "e30791a74492662b292de3c99e26b8eda2dca6210ce378922b68c17cfe4bf34c",
+    "tools/governance-production/test-dashboard-widgets-registration.py": "a7bbab484b17e96c394e101cf42d4ee0aaf05f0324a93c7c816dc6a55512b080",
+    "tools/governance-production/production-pin.json": "ac755bcce19951d357934150e4b0fc5836f6ada1da10ed7aaa3bd8763f2221e2",
+    ".github/workflows/dashboard-widgets-registration.yml": "2f9834860426e7767a82fe5c676f3dcdb76c0778301edb106dfe3101c1a2725e"
+  },
+  "referenceAudit": {
+    "path": "docs/appearance/dashboard-widgets-reference-audit.json",
+    "sha256": "1bcb1009ae507d437da965ffdb9d73c89fd7c20c73068691a83a069e582a641e",
+    "physicalFiles": 189,
+    "sourceInventorySha256": "8b313f87403ac87aaaf538c0ade3dac577e64bb11624b7df1bbe838820818ccc",
+    "vendorSourceCopied": false,
+    "fullVariantParityClaimed": false
+  },
+  "supportMatrix": {
+    "path": "docs/appearance/dashboard-widgets-support.json",
+    "sha256": "755043aefe0b885bb6f4524437c80b3cec1f219e66258aac12b17c0e3f425291"
+  },
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "wholeRepositoryCiClaimed": false,
+  "remainingGates": [
+    "registered business widget/workflow/source mappings and authoritative server grants",
+    "dashboard document kind and policy in the common preference service",
+    "actual host/source/access bindings and production API/database/reload flow",
+    "transport cancellation and uncertain-save conflict recovery integration",
+    "actual-device/screen-reader and human localization/accessibility/release review"
+  ],
+  "notClaimed": [
+    "production widget data or business dashboard activation",
+    "production API/database/reload persistence",
+    "every vendor chart property/animation",
+    "free coordinate or drag-and-drop grid editing",
+    "candlestick/radar/heatmap/treemap/3D families",
+    "native data transport cancellation",
+    "offline dashboard cache synchronization"
+  ]
+}

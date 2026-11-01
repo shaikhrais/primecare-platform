@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b10_shared_data_controls_accepted_platform_gaps_host_binding_pending",
+  "overall_status": "b11_shared_chart_widgets_accepted_registry_persistence_host_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93, B09 has 126 and B10 has 138 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138 and B11 has 102 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -653,7 +653,7 @@
     {
       "id": "B11",
       "title": "Charts and configurable dashboard widgets",
-      "status": "planned",
+      "status": "shared_chart_widget_foundations_accepted_registry_persistence_host_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -678,8 +678,73 @@
         "packages/primecare_ui/web/",
         "packages/primecare_ui/lib/src/components/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-11.md",
+        "docs/appearance/theme-adoption-batch-11-evidence.json",
+        "docs/appearance/dashboard-widgets-usage.md",
+        "docs/appearance/dashboard-widgets-design.md",
+        "docs/appearance/dashboard-widgets-support.json",
+        "docs/appearance/dashboard-widgets-reference-audit.json",
+        "docs/appearance/dashboard-widgets-registration-receipt.json",
+        "packages/primecare_ui/catalogs/dashboard-widgets.registration.json",
+        ".github/workflows/dashboard-widgets.yml"
+      ],
+      "blockers": [
+        {
+          "code": "DASHBOARD_REGISTRY_DATA_BINDINGS_PENDING",
+          "detail": "Business widget/workflow/source registration, authoritative server grants and actual authorized datasets are not bound in production."
+        },
+        {
+          "code": "DASHBOARD_COMMON_PREFERENCE_KIND_PENDING",
+          "detail": "API 777 has no dashboard document kind. No HTTP binding, new role grant or workspace payload smuggling is provided; production API/database/reload verification remains pending."
+        },
+        {
+          "code": "DASHBOARD_HOST_HUMAN_REVIEW_PENDING",
+          "detail": "Actual host/source/access activation, device/screen-reader checks and localization/accessibility/release reviews remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41260408035,
+        "sourceCommit": "acac55e3b68dacbecf2330ce89889fccf303f379",
+        "validateJobId": 124712308550,
+        "productionJobId": 124712384496,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 22,
+        "requiredElements": 22,
+        "resources": 34,
+        "translations": 102,
+        "primitiveIds": {
+          "prime_chart": 20
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/dashboard-widgets-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41261294950,
+        "sourceCommit": "7a437a823f839d75247cd2490c8f02be63efc63d",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "registered business widget/workflow/source mappings and authoritative server grants",
+        "dashboard document kind and policy in the common preference service",
+        "actual host/source/access bindings and production API/database/reload flow",
+        "transport cancellation and uncertain-save conflict recovery integration",
+        "actual-device/screen-reader and human localization/accessibility/release review",
+        "production widget data or business dashboard activation",
+        "production API/database/reload persistence",
+        "every vendor chart property/animation",
+        "free coordinate or drag-and-drop grid editing",
+        "candlestick/radar/heatmap/treemap/3D families",
+        "native data transport cancellation",
+        "offline dashboard cache synchronization"
+      ],
+      "nextAction": "Proceed to B12 original icons and visual assets. Retain B11 registered source, common preference kind, server policy, host, advanced-family and human-review gates before live dashboard activation."
     },
     {
       "id": "B12",
