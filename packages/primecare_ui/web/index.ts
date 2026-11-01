@@ -22,3 +22,6 @@ export type {PrimeCareIconName} from './original-assets';
 export {WorkspaceLayoutManager,defaultWorkspaceLayout} from './workspace-layout';
 export type {WorkspaceLayout,WorkspaceSlots,WorkspaceHistory,PanelDock} from './workspace-layout';
 export type {WorkspaceCustomizerOptions} from './workspace-customizer';
+
+export {originalAssetElement,originalAssetInfo,originalAssetDrawing,originalAssetNames,resolveOriginalAsset} from './original-asset-view';
+export type {AssetCategory,AssetRole} from './original-asset-view';

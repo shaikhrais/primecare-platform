@@ -1,0 +1,100 @@
+{
+  "kind": "verified_metadata_export",
+  "sourceCommit": "112891281b3175a3bcb38902ed57736cd526fb97",
+  "runId": 41262137235,
+  "jobId": 124717455483,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "538fcff1428157bd0e53a4cc57f9387421eb34c68a706a18eb10b68f4a0170f3",
+  "controls": [
+    {
+      "key": "icon",
+      "testId": "original-assets-icon",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.icon",
+      "controlId": 728
+    },
+    {
+      "key": "illustration",
+      "testId": "original-assets-illustration",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.illustration",
+      "controlId": 729
+    },
+    {
+      "key": "brand",
+      "testId": "original-assets-brand",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.brand",
+      "controlId": 730
+    },
+    {
+      "key": "placeholder",
+      "testId": "original-assets-placeholder",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.placeholder",
+      "controlId": 731
+    },
+    {
+      "key": "select",
+      "testId": "original-assets-select",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "originalAssets.select",
+      "controlId": 732
+    }
+  ],
+  "locales": {
+    "en": {
+      "icon": "Icon",
+      "illustration": "Illustration",
+      "brand": "Brand concept",
+      "placeholder": "Placeholder",
+      "select": "Asset",
+      "calendar": "Calendar",
+      "search": "Search",
+      "copy": "Copy",
+      "close": "Close",
+      "menu": "Open navigation",
+      "empty": "No records available",
+      "onboarding": "Getting started",
+      "error": "Unable to display asset",
+      "missing": "Unknown asset key",
+      "decorative": "Decorative asset"
+    },
+    "fr": {
+      "icon": "Icône",
+      "illustration": "Illustration",
+      "brand": "Concept de marque",
+      "placeholder": "Espace réservé",
+      "select": "Ressource visuelle",
+      "calendar": "Calendrier",
+      "search": "Rechercher",
+      "copy": "Copier",
+      "close": "Fermer",
+      "menu": "Ouvrir la navigation",
+      "empty": "Aucun dossier disponible",
+      "onboarding": "Premiers pas",
+      "error": "Impossible d’afficher la ressource",
+      "missing": "Clé de ressource inconnue",
+      "decorative": "Ressource décorative"
+    },
+    "es": {
+      "icon": "Icono",
+      "illustration": "Ilustración",
+      "brand": "Concepto de marca",
+      "placeholder": "Marcador de posición",
+      "select": "Recurso visual",
+      "calendar": "Calendario",
+      "search": "Buscar",
+      "copy": "Copiar",
+      "close": "Cerrar",
+      "menu": "Abrir navegación",
+      "empty": "No hay registros disponibles",
+      "onboarding": "Primeros pasos",
+      "error": "No se pudo mostrar el recurso",
+      "missing": "Clave de recurso desconocida",
+      "decorative": "Recurso decorativo"
+    }
+  },
+  "runtimeActivated": false,
+  "humanReviewApproved": false
+}

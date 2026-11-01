@@ -1,0 +1,45 @@
+{
+  "committed": true,
+  "componentIds": {
+    "prime_asset": 21
+  },
+  "controls": {
+    "original-assets-brand": 730,
+    "original-assets-icon": 728,
+    "original-assets-illustration": 729,
+    "original-assets-placeholder": 731,
+    "original-assets-select": 732
+  },
+  "implementationStatuses": {
+    "original-assets-brand": "registered-unimplemented",
+    "original-assets-icon": "registered-unimplemented",
+    "original-assets-illustration": "registered-unimplemented",
+    "original-assets-placeholder": "registered-unimplemented",
+    "original-assets-select": "registered-unimplemented"
+  },
+  "independentReadback": true,
+  "resourceIds": {
+    "originalAssets.brand": 2319,
+    "originalAssets.calendar": 2322,
+    "originalAssets.close": 2325,
+    "originalAssets.copy": 2324,
+    "originalAssets.decorative": 2331,
+    "originalAssets.empty": 2327,
+    "originalAssets.error": 2329,
+    "originalAssets.icon": 2317,
+    "originalAssets.illustration": 2318,
+    "originalAssets.menu": 2326,
+    "originalAssets.missing": 2330,
+    "originalAssets.onboarding": 2328,
+    "originalAssets.placeholder": 2320,
+    "originalAssets.search": 2323,
+    "originalAssets.select": 2321
+  },
+  "reviewApproved": false,
+  "roleGrants": 0,
+  "runtimeActivated": false,
+  "schemaChanges": false,
+  "screenCode": "tenant_admin_command_center",
+  "screenId": 2534,
+  "translationCount": 45
+}

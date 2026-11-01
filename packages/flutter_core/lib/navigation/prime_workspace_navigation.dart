@@ -1,3 +1,4 @@
+import '../original_assets.dart';
 import 'dart:convert';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -70,7 +71,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     final icon=n.icon!=null?widget.iconBuilder?.call(n.icon!):null;
     return Row(mainAxisSize:MainAxisSize.min,children:[
       if(icon!=null)...[SizedBox(width:24,height:24,child:icon),if(!folded)const SizedBox(width:8)],
-      if(folded&&icon==null)const Icon(Icons.circle_outlined,size:20),
+      if(folded&&icon==null)const PrimeOriginalAsset('placeholder-circle',size:20),
       if(!folded)Flexible(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[Text(n.label),if(n.subtitle!=null)Text(n.subtitle!,style:Theme.of(context).textTheme.labelSmall)])),
       if(!folded&&n.badge!=null)...[const SizedBox(width:8),Text(n.badge!)],
     ]);
@@ -163,7 +164,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     final groups=widget.model.nodes.where((n)=>n.kind=='group').toList();final selected=widget.model.find(_selected??'');
     return Row(crossAxisAlignment:CrossAxisAlignment.start,children:[SizedBox(width:72,child:Column(mainAxisSize:MainAxisSize.min,children:[for(final group in groups)
       Focus(onKeyEvent:(_,e)=>_railKey(group.id,e),child:Semantics(selected:group.id==_selected,child:Tooltip(message:group.label,child:IconButton(focusNode:_boundNode(group.id,(event)=>_railKey(group.id,event)),key:ValueKey('workspace-navigation-tab-${group.id}'),
-        onPressed:group.disabled?null:(){_node(group.id).requestFocus();_mutate(()=>_selected=group.id);},icon:group.icon!=null?(widget.iconBuilder?.call(group.icon!)??const Icon(Icons.folder_outlined)):const Icon(Icons.folder_outlined)))))])),
+        onPressed:group.disabled?null:(){_node(group.id).requestFocus();_mutate(()=>_selected=group.id);},icon:group.icon!=null?(widget.iconBuilder?.call(group.icon!)??const PrimeOriginalAsset('folder')):const PrimeOriginalAsset('folder')))))])),
       Expanded(child:Column(mainAxisSize:MainAxisSize.min,children:[if(selected!=null&&!selected.disabled)_vertical(selected.children),_vertical(widget.model.nodes.where((n)=>n.kind=='item').toList())])),
     ]);
   }
@@ -171,9 +172,9 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     final folded=!drawer&&widget.mode=='folded'&&!_wide;
     final contents=widget.mode=='rail'&&!drawer?_rail():_vertical(widget.model.nodes,folded:folded,prefix:drawer?'drawer:':'');
     return SizedBox(width:drawer?null:widget.mode=='rail'?340:folded?64:260,child:SingleChildScrollView(child:Column(mainAxisSize:MainAxisSize.min,children:[
-      if(drawer)Align(alignment:AlignmentDirectional.centerEnd,child:IconButton(tooltip:widget.labels.close,onPressed:(){final route=_dialog,nav=_navigator;if(route!=null&&nav!=null&&route.isActive)nav.removeRoute(route);_dialog=null;_navigator=null;},icon:const Icon(Icons.close))),
+      if(drawer)Align(alignment:AlignmentDirectional.centerEnd,child:IconButton(tooltip:widget.labels.close,onPressed:(){final route=_dialog,nav=_navigator;if(route!=null&&nav!=null&&route.isActive)nav.removeRoute(route);_dialog=null;_navigator=null;},icon:const PrimeOriginalAsset('close'))),
       if(!drawer&&widget.mode=='folded')IconButton(tooltip:_pinned?widget.labels.unpin:widget.labels.pin,
-        onPressed:()=>_mutate(()=>_pinned=!_pinned),icon:Icon(_pinned?Icons.push_pin:Icons.push_pin_outlined)),
+        onPressed:()=>_mutate(()=>_pinned=!_pinned),icon:PrimeOriginalAsset('pin-panel',strokeScale:_pinned?1.4:1)),
       contents,
     ])));
   }
@@ -187,7 +188,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     if(widget.scope.trim().isEmpty||!['vertical','horizontal-header','horizontal-footer'].contains(widget.family)||!['expanded','folded','rail'].contains(widget.mode))throw StateError('Invalid navigation presentation');
     _activeId=widget.model.active(widget.currentRoute);
     if(!_narrow&&_dialog!=null)_closeDialogLater();
-    if(_narrow)return IconButton(tooltip:widget.labels.open,onPressed:_openDrawer,icon:const Icon(Icons.menu));
+    if(_narrow)return IconButton(tooltip:widget.labels.open,onPressed:_openDrawer,icon:const PrimeOriginalAsset('menu'));
     return Semantics(label:widget.labels.navigation,container:true,child:KeyedSubtree(key:ValueKey('${widget.scope}:${jsonEncode(widget.model.toJson())}'),
       child:MouseRegion(onEnter:(_)=>_mutate(()=>_hover=true),onExit:(_)=>_mutate(()=>_hover=false),
         child:Focus(onFocusChange:(focused)=>_mutate(()=>_focused=focused),child:widget.family=='vertical'?_panel():_horizontal()))));
