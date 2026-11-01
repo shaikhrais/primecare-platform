@@ -1,0 +1,56 @@
+{
+  "format": 1,
+  "componentFixes": [
+    {
+      "batch": "B10",
+      "fix": "Native HTTPS link action, scoped async errors and draft reset",
+      "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+      "runId": 41310167831,
+      "conclusion": "success"
+    },
+    {
+      "batch": "B10",
+      "fix": "Native LTR/RTL pinned columns and selection controls during horizontal scroll",
+      "sourceCommit": "68b607b80b9846f6f2b9916a1f82d088abe33e7a",
+      "runId": 41311492044,
+      "conclusion": "success"
+    },
+    {
+      "batch": "B16",
+      "fix": "Unavailable optional operational metrics remain labelled null without breaking available metrics",
+      "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+      "runId": 41310167833,
+      "conclusion": "success"
+    }
+  ],
+  "catalogue": {
+    "proposalFeatures": 72,
+    "knownReferenceRecords": 1200,
+    "nativeApps": 9,
+    "webPortals": 9,
+    "appWideAdoptionVerified": false
+  },
+  "combinedVerification": {
+    "sourceCommit": "9103a399eac31c05e8768c082901a65079adafb9",
+    "runId": 41311981882,
+    "status": "queued_at_capture",
+    "accepted": false
+  },
+  "serviceDiscovery": {
+    "sourceCommit": "0bafb2a8a112c19da727e15e487662565e6da16b",
+    "runId": 41311286317,
+    "rows": 1312,
+    "candidates": 187,
+    "readOnly": true,
+    "writes": 0,
+    "businessDataRead": false,
+    "candidateBindingsApproved": false
+  },
+  "releaseReady": false,
+  "remaining": [
+    "Approved live host/source/role bindings and deployed UI/API/database/reload acceptance",
+    "Remaining source variants and app-by-app migration",
+    "Reviewed service contracts/provider bindings for unbound business features",
+    "Physical Android/iOS and human localization/accessibility/release review"
+  ]
+}
