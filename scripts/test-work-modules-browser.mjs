@@ -30,7 +30,7 @@ try{
  await mount('calendar');assert.equal(await page.locator('[data-cy^="work-modules-date-2026-"]').count(),42);checks++;await open();await page.locator('[data-cy="work-modules-date"]').fill('2026-11-09');await save();
  await mount('board');await open();await page.locator('[data-cy="work-modules-action"]').selectOption('start');await page.locator('[data-cy="work-modules-body"]').fill('Browser authorized start evidence');await save();
  await mount('contacts');await open();assert.equal(await page.locator('[data-cy="work-modules-save"]').count(),0);checks++;
- const row=(await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0];assert.deepEqual(row,{title:'Browser renamed task <literal>',notes:'Saved browser task instructions',due_on:'2026-11-09',status:'in_progress',version:5});checks++;
+ const row=(await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0];assert.deepEqual(row,{title:'Verified browser recovery',notes:'Saved browser task instructions',due_on:'2026-11-09',status:'in_progress',version:6});checks++;
  await page.reload();await mount('tasks');assert.ok((await page.locator('main').innerText()).includes(row.title));checks++;
  // An expired/changed host session must clear the old authorized result.
  await page.evaluate(async()=>{sessionStorage.removeItem('primecare_session');await window.session.load();});assert.equal(await page.evaluate(()=>window.session.status),'denied');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;assert.deepEqual(errors,[]);

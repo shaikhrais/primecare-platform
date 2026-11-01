@@ -30,3 +30,7 @@ B13–B15 share the same session and renderers. A validated mutation acknowledge
 Local verification: 30 work-module checks, 28 communication-module checks and 27 application-module checks passed using PGlite PostgreSQL and real handlers. TypeScript and Dart syntax checks pass. Browser download failed locally; browser and native runtime validation require CI. No production host, API grant, business record, translation approval or release status is changed.
 
 The full batch gaps above remain open until their own source, service, host, deployment, device and review evidence is recorded.
+
+## B11 dashboard save recovery repair
+
+Shared web/native dashboard sessions now retain the original request/document/revision after an uncertain save. An explicit retry reuses that request ID; acknowledged writes retry only independent readback. The existing save action handles this retry, with reload and layout mutations disabled while pending. A changed readback is an explicit conflict and requires reload; edits made through the session API during an in-flight save remain retained as dirty. This is in-memory recovery only: durable offline recovery and a registered production dashboard preference/API policy remain open. Seven local dashboard model checks, TypeScript and Dart syntax validation pass; browser/native runtime acceptance awaits CI.
