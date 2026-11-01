@@ -222,6 +222,16 @@
       "conclusion": "success",
       "artifactRegistrationApproved": false,
       "permissionRowsChanged": 0
+    },
+    "currentRuntimeProvenance": {
+      "source": "7143fee7791f0bd3d0651dddf6873e3f3e465973",
+      "run": 41355924660,
+      "job": 124995801323,
+      "conclusion": "success",
+      "evidence": "docs/appearance/theme-runtime-artifact-current.json",
+      "governanceReleaseReceiptIndependentlyMatched": true,
+      "authSourceStillUnresolved": true,
+      "preferenceRuntimeActivated": false
     }
   },
   "permissionRowsChanged": 0,

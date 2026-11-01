@@ -1,0 +1,189 @@
+{
+  "format": 1,
+  "readOnly": true,
+  "providerOperationsSent": 0,
+  "settingsChanged": 0,
+  "grantsChanged": 0,
+  "runtimeActivated": false,
+  "artifacts": [
+    {
+      "worker": "primecare-auth-api",
+      "service": "auth",
+      "apiIds": [
+        777
+      ],
+      "deploymentId": "c40b8881-c1c9-4309-8e25-45d121bfb887",
+      "createdOn": "2026-10-22T11:59:01.724485Z",
+      "versions": [
+        {
+          "versionId": "efda07fe-0c93-4942-96f0-2f0291c03b70",
+          "trafficPercent": 100,
+          "createdOn": "2026-10-22T11:59:00.131272Z",
+          "uploadSource": "wrangler",
+          "sourceCommitTag": null,
+          "sourceCommitAnnotation": null,
+          "sourceCommitCandidate": null
+        }
+      ],
+      "bindingShape": [
+        {
+          "name": "AUTH_SOURCE_LIMIT",
+          "type": "ratelimit"
+        },
+        {
+          "name": "CONFIG_ENCRYPTION_KEY",
+          "type": "secret_text"
+        },
+        {
+          "name": "DB_URL",
+          "type": "secret_text"
+        },
+        {
+          "name": "EMAIL",
+          "type": "send_email"
+        },
+        {
+          "name": "EMAIL_ALLOWED_SENDER",
+          "type": "plain_text"
+        },
+        {
+          "name": "EMAIL_FROM",
+          "type": "plain_text"
+        },
+        {
+          "name": "MFA_ACTIVE_KEY_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "MFA_ENCRYPTION_KEY",
+          "type": "secret_text"
+        },
+        {
+          "name": "MFA_ENCRYPTION_KEY_V2",
+          "type": "secret_text"
+        },
+        {
+          "name": "MFA_KEYRING_SOURCE_SHA256",
+          "type": "plain_text"
+        },
+        {
+          "name": "MFA_ROTATION_FROM_KEY_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "SERVICE_NAME",
+          "type": "plain_text"
+        },
+        {
+          "name": "WORKSPACE_SOURCE_LIMIT",
+          "type": "ratelimit"
+        }
+      ],
+      "preferenceSyncEnabled": false,
+      "sourceCommitTagsPresent": false,
+      "sourceCommitCandidatesPresent": false,
+      "sourceCommitFullyEstablished": false,
+      "independentlyReadDeployment": true,
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false
+    },
+    {
+      "worker": "primecare-governance-api",
+      "service": "governance",
+      "apiIds": [
+        710,
+        857
+      ],
+      "deploymentId": "21d2661a-b05c-4212-8eb4-421fb58bdd86",
+      "createdOn": "2026-11-01T22:08:47.178239Z",
+      "versions": [
+        {
+          "versionId": "d2f9ef71-050f-45e5-b936-ed8a0603a238",
+          "trafficPercent": 100,
+          "createdOn": "2026-11-01T22:08:46.495439Z",
+          "uploadSource": "wrangler",
+          "sourceCommitTag": null,
+          "sourceCommitAnnotation": null,
+          "sourceCommitCandidate": null
+        }
+      ],
+      "bindingShape": [
+        {
+          "name": "DB_URL",
+          "type": "secret_text"
+        },
+        {
+          "name": "EMAIL",
+          "type": "send_email"
+        },
+        {
+          "name": "EMAIL_ALLOWED_SENDER",
+          "type": "plain_text"
+        },
+        {
+          "name": "EMAIL_FROM",
+          "type": "plain_text"
+        },
+        {
+          "name": "LOOK_AI",
+          "type": "service"
+        },
+        {
+          "name": "LOOK_SOURCE",
+          "type": "plain_text"
+        },
+        {
+          "name": "SERVICE_NAME",
+          "type": "plain_text"
+        },
+        {
+          "name": "VAPI_ADMIN_CATALOG",
+          "type": "plain_text"
+        },
+        {
+          "name": "VAPI_ADMIN_ORG_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "VAPI_ADMIN_TEMPLATE_ID",
+          "type": "plain_text"
+        },
+        {
+          "name": "VAPI_PRIVATE_API_KEY",
+          "type": "secret_text"
+        },
+        {
+          "name": "WORKSPACE_SOURCE_LIMIT",
+          "type": "ratelimit"
+        }
+      ],
+      "preferenceSyncEnabled": null,
+      "sourceCommitTagsPresent": false,
+      "sourceCommitCandidatesPresent": false,
+      "sourceCommitFullyEstablished": false,
+      "independentlyReadDeployment": true,
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false
+    }
+  ],
+  "limits": [
+    "Deployment identities are candidate provenance, not permission to relink legacy grant rows",
+    "No code, secret binding value, author email or account identifier is emitted",
+    "Source commit tags, if present, still require source/release receipt validation",
+    "No placeholder runtime_artifact_id is registered or inferred"
+  ],
+  "capturedAt": "2026-11-01T22:12:26.271Z",
+  "sourceCommit": "7143fee7791f0bd3d0651dddf6873e3f3e465973",
+  "workflowRun": 41355924660,
+  "jobId": 124995801323,
+  "releaseReceiptCorrelation": {
+    "worker": "primecare-governance-api",
+    "source": "c1795c4997ca2f88e8f5b4323a299bd4d63367f3",
+    "deploymentId": "21d2661a-b05c-4212-8eb4-421fb58bdd86",
+    "versionId": "d2f9ef71-050f-45e5-b936-ed8a0603a238",
+    "releaseRun": 41355173755,
+    "publishJob": 124994139523,
+    "independentlyMatched": true,
+    "artifactRegistrationApproved": false
+  }
+}
