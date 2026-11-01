@@ -1,0 +1,39 @@
+name: Theme catalogue and release evidence integrity
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - docs/appearance/theme-batches-main-audit-snapshot.json
+      - docs/task-progress/primecare-theme-implementation-batches.json
+      - scripts/build-theme-developer-catalogue.py
+      - scripts/check-theme-release.py
+      - scripts/audit-theme-batches.py
+      - packages/primecare_ui/catalogs/developer-catalogue.json
+      - .github/workflows/theme-catalogue.yml
+permissions: {contents: read}
+concurrency:
+  group: theme-catalogue-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Fetch immutable audited source
+        run: |
+          python - <<'PY'
+          import json,re,subprocess
+          source=json.load(open('docs/appearance/theme-batches-main-audit-snapshot.json'))['sourceCommit']
+          assert re.fullmatch('[0-9a-f]{40}',source)
+          subprocess.run(['git','fetch','--depth=1','origin',source],check=True)
+          PY
+      - run: |
+          python scripts/build-theme-developer-catalogue.py --check
+          python scripts/audit-theme-batches.py --check
+          python scripts/check-theme-release.py --output docs/appearance/theme-release-gates.json
+      - uses: actions/upload-artifact@v4
+        with: {name: theme-release-gates, path: docs/appearance/theme-release-gates.json}

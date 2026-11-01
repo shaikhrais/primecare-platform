@@ -9,15 +9,12 @@ on:
   push:
     branches: [main]
     paths:
-      - docs/appearance/theme-batches-main-audit-snapshot.json
-      - docs/task-progress/primecare-theme-implementation-batches.json
+      - cloudflare/workers/src/**
+      - packages/flutter_core/test/**
       - packages/flutter_core/lib/**
       - packages/primecare_ui/web/**
       - packages/shared/src/**
       - packages/domain/src/**
-      - scripts/build-theme-developer-catalogue.py
-      - scripts/check-theme-release.py
-      - packages/primecare_ui/catalogs/developer-catalogue.json
       - .github/workflows/theme-closure.yml
 permissions: {contents: read}
 concurrency:
