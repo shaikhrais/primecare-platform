@@ -57,7 +57,7 @@ void main() {
     }
     expect(RecordPageProjection.fromResponse('search',raw(),scope,query:'<literal>').rows.length,1);
     expect(RecordPageProjection.fromResponse('search',raw(),scope,query:'absent').status,'empty');
-    final denied=raw()..['allowedViews']=[];
+    final denied=raw()..['allowedViews']=<String>[];
     expect(RecordPageProjection.fromResponse('activity',denied,scope).rows,isEmpty);
     expect(RecordPageProjection.fromResponse('search',denied,scope).status,'denied');
     for(final date in ['2026-02-30T10:00:00Z','2026-11-01','2026-11-01T10:00:00','2026-11-01T10:00:60Z']){
@@ -71,7 +71,7 @@ void main() {
     final recordLabels=<String,String>{'activity':'Activity','search':'Search','bounded':'Only loaded records','ready':'Ready','empty':'Empty','denied':'Denied','live':'LIVE','demo':'DEMO'};
     await tester.pumpWidget(app(PrimeRecordPage(projection:RecordPageProjection.fromResponse('search',raw(),scope),labels:recordLabels)));
     expect(find.text('Only loaded records'),findsOneWidget);expect(find.text('Task <literal>'),findsOneWidget);
-    final denied=raw()..['allowedViews']=[];
+    final denied=raw()..['allowedViews']=<String>[];
     await tester.pumpWidget(app(PrimeRecordPage(projection:RecordPageProjection.fromResponse('search',denied,scope),labels:recordLabels)));
     expect(find.text('Denied'),findsOneWidget);expect(find.text('Task <literal>'),findsNothing);
   });
