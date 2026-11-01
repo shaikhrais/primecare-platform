@@ -24,4 +24,68 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
   pending.completeError(StateError('late failure'));await t.pumpAndSettle();expect(find.text(l.text('error')),findsNothing);expect(t.takeException(),isNull);
  });
 
+  for (final direction in [TextDirection.ltr, TextDirection.rtl]) {
+    testWidgets(
+      'pinned native cells retain position and actions in $direction',
+      (t) async {
+        await t.pumpWidget(
+          app(
+            Directionality(
+              textDirection: direction,
+              child: SizedBox(
+                width: 600,
+                child: PrimeVirtualTable(
+                  labels: l,
+                  scope: 'sticky',
+                  columns: [
+                    DataColumnSpec('p', 'Pinned', 160, pinned: true),
+                    DataColumnSpec('u', 'Moving', 700),
+                  ],
+                  rows: [
+                    DataRowSpec('r', {'p': 'fixed value', 'u': 'moving value'}),
+                  ],
+                  rowHeight: 56,
+                  height: 200,
+                  minWidth: 80,
+                  maxWidth: 800,
+                  actionWidth: 120,
+                ),
+              ),
+            ),
+          ),
+        );
+        final fixed = find.byWidgetPredicate(
+          (w) => w is SelectableText && w.data == 'fixed value',
+        );
+        final moving = find.byWidgetPredicate(
+          (w) => w is SelectableText && w.data == 'moving value',
+        );
+        final before = t.getTopLeft(fixed), beforeMoving = t.getTopLeft(moving);
+        final horizontal = find
+            .byWidgetPredicate(
+              (w) =>
+                  w is SingleChildScrollView &&
+                  w.scrollDirection == Axis.horizontal,
+            )
+            .last;
+        final controller = t
+            .widget<SingleChildScrollView>(horizontal)
+            .controller!;
+        controller.jumpTo(220);
+        await t.pump();
+        expect(t.getTopLeft(fixed).dx, closeTo(before.dx, 0.1));
+        expect(
+          (t.getTopLeft(moving).dx - beforeMoving.dx).abs(),
+          closeTo(220, 0.1),
+        );
+        expect(find.text('Pinned'), findsOneWidget);
+        final checkbox = find.byType(Checkbox).first;
+        await t.tap(checkbox);
+        await t.pump();
+        expect(t.widget<Checkbox>(checkbox).value, true);
+        expect(t.takeException(), isNull);
+        await t.pumpWidget(const SizedBox());
+      },
+    );
+  }
 }

@@ -8,19 +8,430 @@ class PrimeDataKit {final CatalogueLabels labels;final String scope;PrimeDataKit
  return labels.identify(kind,'prime_text_field',TextFormField(controller:controller,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&firstDate!=null&&lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:IconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:pick)):null),onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,validator:(v){final error=fieldError(v??'',kind,required:required,min:min,max:max,step:step,pattern:pattern);return error==null?null:labels.text(error);}));});
  Widget form(GlobalKey<FormState> key,List<Widget> children,Future<void> Function()? save)=>labels.identify('form','prime_card',Form(key:key,child:Column(mainAxisSize:MainAxisSize.min,children:[...children,button('submit',save==null?null:()async{if(!key.currentState!.validate())throw StateError('invalid_form');await save();}),if(save==null)Text(labels.text('unsupported'))])));
 }
-class PrimeVirtualTable extends StatefulWidget {final CatalogueLabels labels;final String scope;final List<DataColumnSpec> columns;final List<DataRowSpec> rows;final double rowHeight,height,minWidth,maxWidth,actionWidth;final int pageSize;final Widget Function(DataRowSpec)? detail;
- const PrimeVirtualTable({super.key,required this.labels,required this.scope,required this.columns,required this.rows,required this.rowHeight,required this.height,required this.minWidth,required this.maxWidth,required this.actionWidth,this.pageSize=100,this.detail});@override State<PrimeVirtualTable> createState()=>_PrimeVirtualTableState();}
-class _PrimeVirtualTableState extends State<PrimeVirtualTable>{late DataTableModel model;final scroll=ScrollController(),filter=TextEditingController();final headerScroll=ScrollController(),bodyScroll=ScrollController();bool syncing=false;int active=0;final focus=FocusNode();
- @override void initState(){super.initState();_reset();bodyScroll.addListener(_horizontal);}
- void _horizontal(){if(!syncing&&headerScroll.hasClients){syncing=true;headerScroll.jumpTo(bodyScroll.offset);syncing=false;}}
- void _reset(){final w=widget;if(![w.rowHeight,w.height,w.minWidth,w.maxWidth,w.actionWidth].every((v)=>v.isFinite)||[w.rowHeight,w.height,w.minWidth,w.actionWidth].any((v)=>v<=0)||w.maxWidth<w.minWidth||w.columns.any((c)=>c.width<w.minWidth||c.width>w.maxWidth))throw ArgumentError('invalid_geometry');model=DataTableModel(w.columns,w.rows,pageSize:w.pageSize);filter.clear();active=0;}
- @override void didUpdateWidget(covariant PrimeVirtualTable old){super.didUpdateWidget(old);if(old.scope!=widget.scope||old.columns!=widget.columns||old.pageSize!=widget.pageSize){_reset();}else if(old.rows!=widget.rows){model.replace(widget.rows);active=0;}}
- @override void dispose(){scroll.dispose();filter.dispose();headerScroll.dispose();bodyScroll.dispose();focus.dispose();super.dispose();}
- void refresh(){setState(()=>active=0);if(scroll.hasClients)scroll.jumpTo(0);}
- @override Widget build(BuildContext context){final l=widget.labels,kit=PrimeDataKit(l,widget.scope),page=model.pageRows(),columns=model.visible(),width=widget.actionWidth+columns.fold<double>(0,(s,c)=>s+c.width);Widget cell(Widget child,double w)=>SizedBox(width:w,child:child);final header=Row(children:[cell(Text(l.text('selectRow')),widget.actionWidth),for(final c in columns)cell(Semantics(sortKey:OrdinalSortKey(columns.indexOf(c).toDouble()),child:l.identify('sort','prime_button',TextButton(onPressed:(){model.sort(c.key);refresh();},child:Text(c.label)),suffix:'-${c.key}')),c.width)]);
- return l.identify('table','prime_table_web',Column(mainAxisSize:MainAxisSize.min,children:[l.identify('filter','prime_text_field',TextField(controller:filter,decoration:InputDecoration(labelText:l.text('filter')),onChanged:(value){model.filter(value);refresh();})),l.identify('columns','prime_card',ExpansionTile(title:Text(l.text('columns')),children:[for(final c in model.columns)Column(mainAxisSize:MainAxisSize.min,children:[l.identify('visible','prime_checkbox_web',CheckboxListTile(title:Text(c.label),value:c.visible,onChanged:(v){try{model.configure(c.key,visible:v,minWidth:widget.minWidth,maxWidth:widget.maxWidth);refresh();}on ArgumentError{/* Preserve the last visible column. */}}),suffix:'-${c.key}'),Wrap(children:[kit.button('moveLeft',()async{model.configure(c.key,move:-1,minWidth:widget.minWidth,maxWidth:widget.maxWidth);refresh();},suffix:'-${c.key}'),kit.button('moveRight',()async{model.configure(c.key,move:1,minWidth:widget.minWidth,maxWidth:widget.maxWidth);refresh();},suffix:'-${c.key}'),kit.button('pin',()async{model.configure(c.key,pinned:!c.pinned,minWidth:widget.minWidth,maxWidth:widget.maxWidth);refresh();},suffix:'-${c.key}')]),l.identify('resize','prime_text_field',Slider(label:l.text('resize'),value:c.width,min:widget.minWidth,max:widget.maxWidth,onChanged:(value){model.configure(c.key,width:value,minWidth:widget.minWidth,maxWidth:widget.maxWidth);refresh();}),suffix:'-${c.key}')])])),SingleChildScrollView(controller:headerScroll,scrollDirection:Axis.horizontal,physics:const NeverScrollableScrollPhysics(),child:SizedBox(width:width,child:header)),Focus(focusNode:focus,onKeyEvent:(node,event){if(event is! KeyDownEvent||![LogicalKeyboardKey.arrowDown,LogicalKeyboardKey.arrowUp,LogicalKeyboardKey.pageDown,LogicalKeyboardKey.pageUp].contains(event.logicalKey)||!scroll.hasClients)return KeyEventResult.ignored;final direction=[LogicalKeyboardKey.arrowUp,LogicalKeyboardKey.pageUp].contains(event.logicalKey)?-1:1;final step=[LogicalKeyboardKey.pageDown,LogicalKeyboardKey.pageUp].contains(event.logicalKey)?widget.height:widget.rowHeight;scroll.jumpTo((scroll.offset+direction*step).clamp(0,scroll.position.maxScrollExtent));return KeyEventResult.handled;},child:SizedBox(height:widget.height,child:SingleChildScrollView(controller:bodyScroll,scrollDirection:Axis.horizontal,child:SizedBox(width:width,child:ListView.builder(controller:scroll,itemExtent:widget.rowHeight,itemCount:page.rows.length,itemBuilder:(context,i){final row=page.rows[i];return Semantics(identifier:'${l.id('table','prime_table_web')}-row-${row.id}',selected:model.selected.contains(row.id),child:Row(children:[cell(Row(children:[Expanded(child:l.identify('selectRow','prime_checkbox_web',Checkbox(semanticLabel:l.text('selectRow'),value:model.selected.contains(row.id),onChanged:(_)=>setState(()=>model.toggle(row.id))),suffix:'-${row.id}')),if(widget.detail!=null)Expanded(child:l.identify('expand','prime_button',IconButton(tooltip:l.text('expand'),icon:PrimeOriginalAsset(model.expanded==row.id?'chevron-up':'chevron-down'),onPressed:()=>setState(()=>model.expanded=model.expanded==row.id?null:row.id)),suffix:'-${row.id}'))]),widget.actionWidth),for(final c in columns)cell(Semantics(identifier:'${l.id('table','prime_table_web')}-cell-${row.id}-${c.key}',child:SelectableText((row.values[c.key]??'').toString(),semanticsLabel:'${c.label}: ${row.values[c.key]??''}')),c.width)]));}))))) ,Wrap(children:[kit.button('previous',()async{model.page--;refresh();},disabled:model.page==0),kit.button('next',()async{model.page++;refresh();},disabled:(model.page+1)*model.pageSize>=page.total)]),Semantics(liveRegion:true,child:Text('${page.total==0?l.text('empty'):'${page.start+1}–${page.start+page.rows.length} / ${page.total}'}; ${l.text('selected')}: ${model.selected.length}')),if(model.expanded!=null&&widget.detail!=null)widget.detail!(model.rows.firstWhere((r)=>r.id==model.expanded))]));
- }
+class PrimeVirtualTable extends StatefulWidget {
+  final CatalogueLabels labels;
+  final String scope;
+  final List<DataColumnSpec> columns;
+  final List<DataRowSpec> rows;
+  final double rowHeight, height, minWidth, maxWidth, actionWidth;
+  final int pageSize;
+  final Widget Function(DataRowSpec)? detail;
+  const PrimeVirtualTable({
+    super.key,
+    required this.labels,
+    required this.scope,
+    required this.columns,
+    required this.rows,
+    required this.rowHeight,
+    required this.height,
+    required this.minWidth,
+    required this.maxWidth,
+    required this.actionWidth,
+    this.pageSize = 100,
+    this.detail,
+  });
+  @override
+  State<PrimeVirtualTable> createState() => _PrimeVirtualTableState();
 }
+
+class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
+  late DataTableModel model;
+  final scroll = ScrollController(), filter = TextEditingController();
+  final headerScroll = ScrollController(), bodyScroll = ScrollController();
+  bool syncing = false;
+  int active = 0;
+  final focus = FocusNode();
+  @override
+  void initState() {
+    super.initState();
+    _reset();
+    bodyScroll.addListener(_horizontal);
+  }
+
+  void _horizontal() {
+    if (!syncing && headerScroll.hasClients) {
+      syncing = true;
+      headerScroll.jumpTo(bodyScroll.offset);
+      syncing = false;
+    }
+  }
+
+  void _reset() {
+    final w = widget;
+    if (![
+          w.rowHeight,
+          w.height,
+          w.minWidth,
+          w.maxWidth,
+          w.actionWidth,
+        ].every((v) => v.isFinite) ||
+        [w.rowHeight, w.height, w.minWidth, w.actionWidth].any((v) => v <= 0) ||
+        w.maxWidth < w.minWidth ||
+        w.columns.any((c) => c.width < w.minWidth || c.width > w.maxWidth))
+      throw ArgumentError('invalid_geometry');
+    model = DataTableModel(w.columns, w.rows, pageSize: w.pageSize);
+    filter.clear();
+    active = 0;
+  }
+
+  @override
+  void didUpdateWidget(covariant PrimeVirtualTable old) {
+    super.didUpdateWidget(old);
+    if (old.scope != widget.scope ||
+        old.columns != widget.columns ||
+        old.pageSize != widget.pageSize) {
+      _reset();
+    } else if (old.rows != widget.rows) {
+      model.replace(widget.rows);
+      active = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    scroll.dispose();
+    filter.dispose();
+    headerScroll.dispose();
+    bodyScroll.dispose();
+    focus.dispose();
+    super.dispose();
+  }
+
+  void refresh() {
+    setState(() => active = 0);
+    if (scroll.hasClients) scroll.jumpTo(0);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l = widget.labels,
+        kit = PrimeDataKit(l, widget.scope),
+        page = model.pageRows(),
+        columns = model.visible(),
+        width =
+            widget.actionWidth + columns.fold<double>(0, (s, c) => s + c.width);
+    Widget cell(Widget child, double w) => SizedBox(width: w, child: child);
+    // Keep a single semantic/widget instance per cell. Pinned cells paint last,
+    // cancelling the enclosing viewport's logical horizontal displacement.
+    Widget stickyRow(List<Widget> cells) => AnimatedBuilder(
+      animation: bodyScroll,
+      builder: (context, _) {
+        final offset = bodyScroll.hasClients ? bodyScroll.offset : 0.0;
+        final sign = Directionality.of(context) == TextDirection.rtl
+            ? -1.0
+            : 1.0;
+        final starts = <double>[0];
+        final widths = <double>[
+          widget.actionWidth,
+          ...columns.map((c) => c.width),
+        ];
+        for (final w in widths) {
+          starts.add(starts.last + w);
+        }
+        bool pinned(int i) => i == 0 || columns[i - 1].pinned;
+        return SizedBox(
+          height: widget.rowHeight,
+          width: width,
+          child: Stack(
+            children: [
+              for (final fixed in [false, true])
+                for (var i = 0; i < cells.length; i++)
+                  if (pinned(i) == fixed)
+                    PositionedDirectional(
+                      start: starts[i],
+                      top: 0,
+                      bottom: 0,
+                      width: widths[i],
+                      child: Transform.translate(
+                        offset: Offset(fixed ? sign * offset : 0, 0),
+                        child: ColoredBox(
+                          color: Theme.of(context).colorScheme.surface,
+                          child: cells[i],
+                        ),
+                      ),
+                    ),
+            ],
+          ),
+        );
+      },
+    );
+    final header = stickyRow([
+      cell(Text(l.text('selectRow')), widget.actionWidth),
+      for (final c in columns)
+        cell(
+          Semantics(
+            sortKey: OrdinalSortKey(columns.indexOf(c).toDouble()),
+            child: l.identify(
+              'sort',
+              'prime_button',
+              TextButton(
+                onPressed: () {
+                  model.sort(c.key);
+                  refresh();
+                },
+                child: Text(c.label),
+              ),
+              suffix: '-${c.key}',
+            ),
+          ),
+          c.width,
+        ),
+    ]);
+    return l.identify(
+      'table',
+      'prime_table_web',
+      Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          l.identify(
+            'filter',
+            'prime_text_field',
+            TextField(
+              controller: filter,
+              decoration: InputDecoration(labelText: l.text('filter')),
+              onChanged: (value) {
+                model.filter(value);
+                refresh();
+              },
+            ),
+          ),
+          l.identify(
+            'columns',
+            'prime_card',
+            ExpansionTile(
+              title: Text(l.text('columns')),
+              children: [
+                for (final c in model.columns)
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      l.identify(
+                        'visible',
+                        'prime_checkbox_web',
+                        CheckboxListTile(
+                          title: Text(c.label),
+                          value: c.visible,
+                          onChanged: (v) {
+                            try {
+                              model.configure(
+                                c.key,
+                                visible: v,
+                                minWidth: widget.minWidth,
+                                maxWidth: widget.maxWidth,
+                              );
+                              refresh();
+                            } on ArgumentError {
+                              /* Preserve the last visible column. */
+                            }
+                          },
+                        ),
+                        suffix: '-${c.key}',
+                      ),
+                      Wrap(
+                        children: [
+                          kit.button('moveLeft', () async {
+                            model.configure(
+                              c.key,
+                              move: -1,
+                              minWidth: widget.minWidth,
+                              maxWidth: widget.maxWidth,
+                            );
+                            refresh();
+                          }, suffix: '-${c.key}'),
+                          kit.button('moveRight', () async {
+                            model.configure(
+                              c.key,
+                              move: 1,
+                              minWidth: widget.minWidth,
+                              maxWidth: widget.maxWidth,
+                            );
+                            refresh();
+                          }, suffix: '-${c.key}'),
+                          kit.button('pin', () async {
+                            model.configure(
+                              c.key,
+                              pinned: !c.pinned,
+                              minWidth: widget.minWidth,
+                              maxWidth: widget.maxWidth,
+                            );
+                            refresh();
+                          }, suffix: '-${c.key}'),
+                        ],
+                      ),
+                      l.identify(
+                        'resize',
+                        'prime_text_field',
+                        Slider(
+                          label: l.text('resize'),
+                          value: c.width,
+                          min: widget.minWidth,
+                          max: widget.maxWidth,
+                          onChanged: (value) {
+                            model.configure(
+                              c.key,
+                              width: value,
+                              minWidth: widget.minWidth,
+                              maxWidth: widget.maxWidth,
+                            );
+                            refresh();
+                          },
+                        ),
+                        suffix: '-${c.key}',
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ),
+          SingleChildScrollView(
+            controller: headerScroll,
+            scrollDirection: Axis.horizontal,
+            physics: const NeverScrollableScrollPhysics(),
+            child: SizedBox(width: width, child: header),
+          ),
+          Focus(
+            focusNode: focus,
+            onKeyEvent: (node, event) {
+              if (event is! KeyDownEvent ||
+                  ![
+                    LogicalKeyboardKey.arrowDown,
+                    LogicalKeyboardKey.arrowUp,
+                    LogicalKeyboardKey.pageDown,
+                    LogicalKeyboardKey.pageUp,
+                  ].contains(event.logicalKey) ||
+                  !scroll.hasClients)
+                return KeyEventResult.ignored;
+              final direction =
+                  [
+                    LogicalKeyboardKey.arrowUp,
+                    LogicalKeyboardKey.pageUp,
+                  ].contains(event.logicalKey)
+                  ? -1
+                  : 1;
+              final step =
+                  [
+                    LogicalKeyboardKey.pageDown,
+                    LogicalKeyboardKey.pageUp,
+                  ].contains(event.logicalKey)
+                  ? widget.height
+                  : widget.rowHeight;
+              scroll.jumpTo(
+                (scroll.offset + direction * step).clamp(
+                  0,
+                  scroll.position.maxScrollExtent,
+                ),
+              );
+              return KeyEventResult.handled;
+            },
+            child: SizedBox(
+              height: widget.height,
+              child: SingleChildScrollView(
+                controller: bodyScroll,
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: width,
+                  child: ListView.builder(
+                    controller: scroll,
+                    itemExtent: widget.rowHeight,
+                    itemCount: page.rows.length,
+                    itemBuilder: (context, i) {
+                      final row = page.rows[i];
+                      return Semantics(
+                        identifier:
+                            '${l.id('table', 'prime_table_web')}-row-${row.id}',
+                        selected: model.selected.contains(row.id),
+                        child: stickyRow([
+                          cell(
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: l.identify(
+                                    'selectRow',
+                                    'prime_checkbox_web',
+                                    Checkbox(
+                                      semanticLabel: l.text('selectRow'),
+                                      value: model.selected.contains(row.id),
+                                      onChanged: (_) =>
+                                          setState(() => model.toggle(row.id)),
+                                    ),
+                                    suffix: '-${row.id}',
+                                  ),
+                                ),
+                                if (widget.detail != null)
+                                  Expanded(
+                                    child: l.identify(
+                                      'expand',
+                                      'prime_button',
+                                      IconButton(
+                                        tooltip: l.text('expand'),
+                                        icon: PrimeOriginalAsset(
+                                          model.expanded == row.id
+                                              ? 'chevron-up'
+                                              : 'chevron-down',
+                                        ),
+                                        onPressed: () => setState(
+                                          () => model.expanded =
+                                              model.expanded == row.id
+                                              ? null
+                                              : row.id,
+                                        ),
+                                      ),
+                                      suffix: '-${row.id}',
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            widget.actionWidth,
+                          ),
+                          for (final c in columns)
+                            cell(
+                              Semantics(
+                                identifier:
+                                    '${l.id('table', 'prime_table_web')}-cell-${row.id}-${c.key}',
+                                child: SelectableText(
+                                  (row.values[c.key] ?? '').toString(),
+                                  semanticsLabel:
+                                      '${c.label}: ${row.values[c.key] ?? ''}',
+                                ),
+                              ),
+                              c.width,
+                            ),
+                        ]),
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Wrap(
+            children: [
+              kit.button('previous', () async {
+                model.page--;
+                refresh();
+              }, disabled: model.page == 0),
+              kit.button('next', () async {
+                model.page++;
+                refresh();
+              }, disabled: (model.page + 1) * model.pageSize >= page.total),
+            ],
+          ),
+          Semantics(
+            liveRegion: true,
+            child: Text(
+              '${page.total == 0 ? l.text('empty') : '${page.start + 1}–${page.start + page.rows.length} / ${page.total}'}; ${l.text('selected')}: ${model.selected.length}',
+            ),
+          ),
+          if (model.expanded != null && widget.detail != null)
+            widget.detail!(
+              model.rows.firstWhere((r) => r.id == model.expanded),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
 class PrimeDataAutocomplete extends StatefulWidget {final CatalogueLabels labels;final String scope;final Future<List<({String value,String label})>> Function(String)? load;final ValueChanged<String>? selected;const PrimeDataAutocomplete({super.key,required this.labels,required this.scope,this.load,this.selected});@override State<PrimeDataAutocomplete> createState()=>_PrimeDataAutocompleteState();}
 class _PrimeDataAutocompleteState extends State<PrimeDataAutocomplete>{int generation=0;String? status;@override void didUpdateWidget(covariant PrimeDataAutocomplete old){super.didUpdateWidget(old);if(old.scope!=widget.scope){generation++;status=null;}}@override void dispose(){generation++;super.dispose();}@override Widget build(BuildContext context){final l=widget.labels;return Column(mainAxisSize:MainAxisSize.min,children:[l.identify('autocomplete','prime_text_field',Autocomplete<({String value,String label})>(key:ValueKey(widget.scope),displayStringForOption:(v)=>v.label,optionsBuilder:(text)async{final g=++generation;if(widget.load==null)return [];setState(()=>status='loading');try{final result=await widget.load!(text.text);if(!mounted||g!=generation)return [];if(result.length>100||result.map((v)=>v.value).toSet().length!=result.length||result.any((v)=>v.label.isEmpty))throw StateError('invalid_options');setState(()=>status=result.isEmpty?'empty':null);return result;}catch(_){if(mounted&&g==generation)setState(()=>status='error');return [];}},onSelected:(v)=>widget.selected?.call(v.value),fieldViewBuilder:(context,controller,node,submit)=>TextField(controller:controller,focusNode:node,enabled:widget.load!=null,onSubmitted:(_)=>submit(),decoration:InputDecoration(labelText:l.text('autocomplete'))))),if(widget.load==null)Text(l.text('unsupported')),if(status!=null)Semantics(liveRegion:true,child:Text(l.text(status!)))]);}}
 class PrimeStructuredEditor extends StatefulWidget {final CatalogueLabels labels;final String scope;final Object document;final Future<void> Function(Map<String,Object?>)? save;final bool Function(String)? imageAllowed;final Widget Function(String,String)? imageBuilder;final Future<void> Function(String)? openLink;const PrimeStructuredEditor({super.key,required this.labels,required this.scope,required this.document,this.save,this.imageAllowed,this.imageBuilder,this.openLink});@override State<PrimeStructuredEditor> createState()=>_PrimeStructuredEditorState();}

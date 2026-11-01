@@ -11,7 +11,7 @@ Runtime changes are on main at `4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2`. B10 r
 
 ## Work that remains blocked or unverified
 
-Approved app/host/source/role bindings and live UI → API → database → reload checks remain open in earlier batches. Native horizontal table pinning, richer editor/table/upload variants, advanced chart families and broad app migration remain source/feature work. The catalogue lists the owning package and remaining scope; those items are not silently dropped.
+Approved app/host/source/role bindings and live UI → API → database → reload checks remain open in earlier batches. Richer editor/table/upload variants, advanced chart families and broad app migration remain source/feature work. The catalogue lists the owning package and remaining scope; those items are not silently dropped.
 
 Standalone contacts/notes, timed calendar/recurrence, board ranking, general file/mail/message operations, academy/commerce/AI-image/help and financial examples need confirmed approved workflow/service/provider mappings. Earlier searches established missing queried candidates, not proof that no equivalent service exists. Resolve the authoritative mapping and access policy before exposing new business actions; do not invent routes, roles, provider credentials or successful transactions.
 
@@ -25,3 +25,7 @@ Localization/accessibility signoff and physical Android/iOS acceptance require a
 - `.github/workflows/theme-closure.yml` for combined source/browser/database/native verification
 
 No work branch is created. Remaining implementation and evidence stay on main.
+
+## Native table pinning repair
+
+The shared B10 Flutter table now keeps pinned columns and selection/expansion actions at the logical leading edge while unpinned columns scroll. Header/body keep one cell instance each, retain vertical virtualization, and use direction-aware horizontal offsets. Added LTR/RTL position and selection regressions. Six shared JavaScript model tests pass locally. Native analysis/widget execution awaits CI: local Flutter startup was stopped after automatic review rejected an unexpected cloud metadata request. Local browser launch also failed; neither is counted as passing. This repair does not establish host activation or close B01–B18 release gates.
