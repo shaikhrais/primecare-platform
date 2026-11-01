@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "read_session_transport_and_optional_host_binding_locally_verified_ci_and_activation_pending",
+      "status": "isolated_web_postgresql_host_acceptance_passed_native_and_supporting_source_added_ci_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1149,12 +1149,23 @@
         "scripts/test-dashboard-pages-session.mjs",
         "scripts/test-dashboard-pages-integration.mjs",
         "scripts/test-dashboard-pages-browser.mjs",
-        ".github/workflows/dashboard-pages-projection.yml"
+        ".github/workflows/dashboard-pages-projection.yml",
+        "packages/flutter_core/lib/dashboard_pages.dart",
+        "packages/primecare_ui/lib/dashboard_pages.dart",
+        "packages/flutter_core/test/dashboard_pages/dashboard_page_test.dart",
+        "packages/primecare_ui/web/supporting-pages.ts",
+        "scripts/test-dashboard-pages-parity.mjs"
       ],
       "blockers": [],
-      "nextAction": "Read CI browser/native PostgreSQL results, obtain independent registration receipt, then activate approved host slots; native/supporting pages and review remain pending.",
+      "nextAction": "Check native/supporting-page CI, complete activity/search templates and independent registration receipt before approved production mount; retain native adapter and release review gates.",
       "productionRuntimeVerified": false,
-      "humanReviewApproved": false
+      "humanReviewApproved": false,
+      "sourceRun": {
+        "runId": 41305965995,
+        "sourceCommit": "de65f80a56dedb3ac934d7b3b58d53eb886018b7",
+        "conclusion": "success",
+        "scope": "web_and_native_postgresql_isolated_host_acceptance"
+      }
     },
     {
       "id": "B17",

@@ -5,6 +5,11 @@ on:
     paths:
       - packages/shared/src/dashboard-pages/**
       - packages/primecare_ui/web/dashboard-pages.ts
+      - packages/primecare_ui/web/supporting-pages.ts
+      - packages/flutter_core/lib/dashboard_pages*
+      - packages/flutter_core/lib/dashboard_pages/**
+      - packages/flutter_core/test/dashboard_pages/**
+      - packages/primecare_ui/lib/dashboard_pages.dart
       - websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts
       - scripts/test-dashboard-pages-*.mjs
       - .github/workflows/dashboard-pages-projection.yml
@@ -23,9 +28,10 @@ jobs:
           ln -s /tmp/dashboard-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node --test scripts/test-dashboard-pages-projection.mjs scripts/test-dashboard-pages-session.mjs
+          node scripts/test-dashboard-pages-parity.mjs
           node scripts/test-dashboard-pages-integration.mjs
           node scripts/test-dashboard-pages-browser.mjs
-          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/primecare_ui/web/dashboard-pages.ts websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/primecare_ui/web/dashboard-pages.ts packages/primecare_ui/web/supporting-pages.ts websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts
   postgres:
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -47,3 +53,20 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/test-dashboard-pages-integration.mjs
           node scripts/test-dashboard-pages-browser.mjs
+
+  native:
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/dashboard_pages lib/dashboard_pages.dart test/dashboard_pages
+        working-directory: packages/flutter_core
+      - run: flutter test test/dashboard_pages --reporter expanded
+        working-directory: packages/flutter_core

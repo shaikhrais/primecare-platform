@@ -1,0 +1,161 @@
+{
+  "scope": {
+    "tenantId": "fixture-tenant",
+    "userId": "fixture-user",
+    "role": "tenant_admin",
+    "dataset": "live"
+  },
+  "raw": {
+    "dataset": "live",
+    "synthetic": false,
+    "identity": {
+      "userId": "fixture-user",
+      "role": "tenant_admin"
+    },
+    "organization": {
+      "id": "fixture-tenant"
+    },
+    "allowedViews": [
+      "tasks",
+      "operations"
+    ],
+    "taskStats": {
+      "open": 5,
+      "review": 2,
+      "blocked": 1,
+      "overdue": 3,
+      "completed": 4
+    },
+    "stats": {
+      "staff": 2,
+      "clients": 4,
+      "visits": 1,
+      "requests": 0,
+      "time": 3,
+      "care": 1,
+      "plans": 2
+    }
+  },
+  "projections": [
+    {
+      "family": "project",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "status": "ready",
+      "metrics": [
+        {
+          "key": "open",
+          "value": 5,
+          "sourceField": "taskStats.open"
+        },
+        {
+          "key": "review",
+          "value": 2,
+          "sourceField": "taskStats.review"
+        },
+        {
+          "key": "blocked",
+          "value": 1,
+          "sourceField": "taskStats.blocked"
+        },
+        {
+          "key": "overdue",
+          "value": 3,
+          "sourceField": "taskStats.overdue"
+        },
+        {
+          "key": "completed",
+          "value": 4,
+          "sourceField": "taskStats.completed"
+        }
+      ]
+    },
+    {
+      "family": "analytics",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "status": "ready",
+      "metrics": [
+        {
+          "key": "staff",
+          "value": 2,
+          "sourceField": "stats.staff"
+        },
+        {
+          "key": "clients",
+          "value": 4,
+          "sourceField": "stats.clients"
+        },
+        {
+          "key": "visits",
+          "value": 1,
+          "sourceField": "stats.visits"
+        },
+        {
+          "key": "requests",
+          "value": 0,
+          "sourceField": "stats.requests"
+        },
+        {
+          "key": "time",
+          "value": 3,
+          "sourceField": "stats.time"
+        },
+        {
+          "key": "care",
+          "value": 1,
+          "sourceField": "stats.care"
+        },
+        {
+          "key": "plans",
+          "value": 2,
+          "sourceField": "stats.plans"
+        }
+      ]
+    },
+    {
+      "family": "finance",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "status": "unavailable",
+      "metrics": []
+    },
+    {
+      "family": "crypto",
+      "dataset": "live",
+      "synthetic": false,
+      "sourceApiId": 16578,
+      "status": "unavailable",
+      "metrics": []
+    }
+  ],
+  "supportingPages": [
+    {
+      "kind": "invoice",
+      "status": "unavailable"
+    },
+    {
+      "kind": "pricing",
+      "status": "unavailable"
+    },
+    {
+      "kind": "authentication",
+      "status": "unavailable"
+    },
+    {
+      "kind": "coming-soon",
+      "status": "static-coming-soon"
+    },
+    {
+      "kind": "maintenance",
+      "status": "static-maintenance"
+    },
+    {
+      "kind": "error",
+      "status": "static-error"
+    }
+  ]
+}

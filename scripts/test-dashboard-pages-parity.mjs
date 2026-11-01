@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';import {readFile,writeFile} from 'node:fs/promises';
+import {projectDashboard} from '../packages/shared/src/dashboard-pages/projection.mjs';
+import {supportingPageKinds,supportingPageStatus} from '../packages/shared/src/dashboard-pages/supporting-pages.mjs';
+const scope={tenantId:'fixture-tenant',userId:'fixture-user',role:'tenant_admin',dataset:'live'};
+const raw={dataset:'live',synthetic:false,identity:{userId:scope.userId,role:scope.role},organization:{id:scope.tenantId},allowedViews:['tasks','operations'],taskStats:{open:5,review:2,blocked:1,overdue:3,completed:4},stats:{staff:2,clients:4,visits:1,requests:0,time:3,care:1,plans:2}};
+const fixture={scope,raw,projections:['project','analytics','finance','crypto'].map(f=>projectDashboard(f,raw,scope)),supportingPages:supportingPageKinds.map(kind=>({kind,status:supportingPageStatus(kind)}))};
+const path='packages/flutter_core/test/dashboard_pages/parity-fixtures.json';
+if(process.argv.includes('--write'))await writeFile(path,JSON.stringify(fixture,null,2)+'\n');else assert.deepEqual(JSON.parse(await readFile(path,'utf8')),fixture);
+for(const kind of ['invoice','pricing','authentication'])assert.equal(supportingPageStatus(kind),'unavailable');assert.throws(()=>supportingPageStatus('login-submit'));
+console.log('PASS dashboard/supporting-page shared fixtures and unavailable workflow gates');
