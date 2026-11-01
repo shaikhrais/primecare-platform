@@ -44,3 +44,9 @@ These repairs do not supply missing business contracts, grant privileges, activa
 ## Current production release blocker
 
 Release run 41339668667 job 124948188609 rejects existing API710/API857 grant keys targeting different operations and dangling runtime-artifact references in 64 grants each for APIs710,857,777. This is separate from source verification. Repair requires exact pinned PostgreSQL identity/authority reconciliation and independent readback; adding grants, replacing the quarantine baseline or bypassing the guard would not repair it. See `current-release-blocker-evidence.json`. The tenant workspace publication path is tracked separately and does not establish acceptance of this blocked release.
+
+## Follow-up: draft preservation and exact production readback
+
+Source `4c23805263bd41250786d31ead5523bc86de9f79` prevents internal work-module navigation from silently discarding edited drafts in web and native renderers. PostgreSQL CI run 41346938280 job 124968680553 passed 21 browser checks, 30 work-module checks and 14 actual-host checks. Flutter acceptance is pending. See `theme-draft-preservation-evidence.json`; this does not close any entire batch.
+
+Read-only production run 41346724602 job 124968025068 confirms 64 grants each on APIs710,857,777 and missing runtime artifact 1. API710 is POST /v1/messages but its grant labels name premium-concierge-workflow; API857 is GET /v1/messages/inbox but its grant labels name document-expiry. Registry references point to APIs4957/5104, which were not present in the endpoint readback. API777 has its canonical preference key but the same missing artifact. No grant is retargeted, enabled, removed or assigned a fabricated artifact by this follow-up. Exact evidence is `theme-release-identity-readback.json`. Intended operation/role authority must be reconciled before a mutation is safe; changing labels solely to pass the guard could turn unrelated legacy permissions into message permissions.
