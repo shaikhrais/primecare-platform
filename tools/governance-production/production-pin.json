@@ -1717,5 +1717,22 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "componentCatalogueWriter": {
+    "optInVariable": "GOVERNANCE_COMPONENT_CATALOGUE_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "contractSha256": "4fdbd8295fa21e834f85c50cfb3ddf1892452a64436501c83fce81887d7bfd73",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "componentCatalogue.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

@@ -1,0 +1,406 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/component-catalogue.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_checkbox_web",
+    "prime_dropdown_web",
+    "prime_text_field"
+  ],
+  "controls": [
+    {
+      "key": "button",
+      "testId": "component-catalogue-button",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.button"
+    },
+    {
+      "key": "input",
+      "testId": "component-catalogue-input",
+      "componentCode": "prime_text_field",
+      "resourceKey": "componentCatalogue.input"
+    },
+    {
+      "key": "select",
+      "testId": "component-catalogue-select",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "componentCatalogue.select"
+    },
+    {
+      "key": "checkbox",
+      "testId": "component-catalogue-checkbox",
+      "componentCode": "prime_checkbox_web",
+      "resourceKey": "componentCatalogue.checkbox"
+    },
+    {
+      "key": "menu",
+      "testId": "component-catalogue-menu",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.menu"
+    },
+    {
+      "key": "menuItem",
+      "testId": "component-catalogue-menu-item",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.menuItem"
+    },
+    {
+      "key": "tabs",
+      "testId": "component-catalogue-tabs",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.tabs"
+    },
+    {
+      "key": "tabOne",
+      "testId": "component-catalogue-tab-one",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tabOne"
+    },
+    {
+      "key": "tabTwo",
+      "testId": "component-catalogue-tab-two",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tabTwo"
+    },
+    {
+      "key": "accordion",
+      "testId": "component-catalogue-accordion",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.accordion"
+    },
+    {
+      "key": "badge",
+      "testId": "component-catalogue-badge",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.badge"
+    },
+    {
+      "key": "card",
+      "testId": "component-catalogue-card",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.card"
+    },
+    {
+      "key": "dialog",
+      "testId": "component-catalogue-dialog",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.dialog"
+    },
+    {
+      "key": "drawer",
+      "testId": "component-catalogue-drawer",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.drawer"
+    },
+    {
+      "key": "close",
+      "testId": "component-catalogue-close",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.close"
+    },
+    {
+      "key": "tooltip",
+      "testId": "component-catalogue-tooltip",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.tooltip"
+    },
+    {
+      "key": "tooltipTrigger",
+      "testId": "component-catalogue-tooltip-trigger",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.tooltipTrigger"
+    },
+    {
+      "key": "form",
+      "testId": "component-catalogue-form",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.form"
+    },
+    {
+      "key": "loading",
+      "testId": "component-catalogue-loading",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.loading"
+    },
+    {
+      "key": "splash",
+      "testId": "component-catalogue-splash",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.splash"
+    },
+    {
+      "key": "empty",
+      "testId": "component-catalogue-empty",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.empty"
+    },
+    {
+      "key": "error",
+      "testId": "component-catalogue-error",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.error"
+    },
+    {
+      "key": "toast",
+      "testId": "component-catalogue-toast",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.toast"
+    },
+    {
+      "key": "confirm",
+      "testId": "component-catalogue-confirm",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.confirm"
+    },
+    {
+      "key": "cancel",
+      "testId": "component-catalogue-cancel",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.cancel"
+    },
+    {
+      "key": "countdown",
+      "testId": "component-catalogue-countdown",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.countdown"
+    },
+    {
+      "key": "code",
+      "testId": "component-catalogue-code",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.code"
+    },
+    {
+      "key": "copy",
+      "testId": "component-catalogue-copy",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.copy"
+    },
+    {
+      "key": "preview",
+      "testId": "component-catalogue-preview",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.preview"
+    },
+    {
+      "key": "retry",
+      "testId": "component-catalogue-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "componentCatalogue.retry"
+    },
+    {
+      "key": "status",
+      "testId": "component-catalogue-status",
+      "componentCode": "prime_card",
+      "resourceKey": "componentCatalogue.status"
+    }
+  ],
+  "resources": {
+    "componentCatalogue.button": {
+      "en": "Action",
+      "fr": "Action",
+      "es": "Acción"
+    },
+    "componentCatalogue.input": {
+      "en": "Text value",
+      "fr": "Valeur texte",
+      "es": "Valor de texto"
+    },
+    "componentCatalogue.select": {
+      "en": "Choose an option",
+      "fr": "Choisir une option",
+      "es": "Elegir una opción"
+    },
+    "componentCatalogue.checkbox": {
+      "en": "Enable option",
+      "fr": "Activer l’option",
+      "es": "Activar opción"
+    },
+    "componentCatalogue.menu": {
+      "en": "Open menu",
+      "fr": "Ouvrir le menu",
+      "es": "Abrir menú"
+    },
+    "componentCatalogue.menuItem": {
+      "en": "Menu action",
+      "fr": "Action du menu",
+      "es": "Acción de menú"
+    },
+    "componentCatalogue.tabs": {
+      "en": "Sections",
+      "fr": "Sections",
+      "es": "Secciones"
+    },
+    "componentCatalogue.tabOne": {
+      "en": "First section",
+      "fr": "Première section",
+      "es": "Primera sección"
+    },
+    "componentCatalogue.tabTwo": {
+      "en": "Second section",
+      "fr": "Deuxième section",
+      "es": "Segunda sección"
+    },
+    "componentCatalogue.accordion": {
+      "en": "Show details",
+      "fr": "Afficher les détails",
+      "es": "Mostrar detalles"
+    },
+    "componentCatalogue.badge": {
+      "en": "Status badge",
+      "fr": "Badge d’état",
+      "es": "Insignia de estado"
+    },
+    "componentCatalogue.card": {
+      "en": "Content card",
+      "fr": "Carte de contenu",
+      "es": "Tarjeta de contenido"
+    },
+    "componentCatalogue.dialog": {
+      "en": "Open dialog",
+      "fr": "Ouvrir la boîte de dialogue",
+      "es": "Abrir diálogo"
+    },
+    "componentCatalogue.drawer": {
+      "en": "Open drawer",
+      "fr": "Ouvrir le panneau",
+      "es": "Abrir panel"
+    },
+    "componentCatalogue.close": {
+      "en": "Close",
+      "fr": "Fermer",
+      "es": "Cerrar"
+    },
+    "componentCatalogue.tooltip": {
+      "en": "Additional information",
+      "fr": "Informations supplémentaires",
+      "es": "Información adicional"
+    },
+    "componentCatalogue.tooltipTrigger": {
+      "en": "Show information",
+      "fr": "Afficher les informations",
+      "es": "Mostrar información"
+    },
+    "componentCatalogue.form": {
+      "en": "Responsive form",
+      "fr": "Formulaire adaptatif",
+      "es": "Formulario adaptable"
+    },
+    "componentCatalogue.loading": {
+      "en": "Loading",
+      "fr": "Chargement",
+      "es": "Cargando"
+    },
+    "componentCatalogue.splash": {
+      "en": "Preparing workspace",
+      "fr": "Préparation de l’espace de travail",
+      "es": "Preparando espacio de trabajo"
+    },
+    "componentCatalogue.empty": {
+      "en": "No content available",
+      "fr": "Aucun contenu disponible",
+      "es": "No hay contenido disponible"
+    },
+    "componentCatalogue.error": {
+      "en": "Unable to load content",
+      "fr": "Impossible de charger le contenu",
+      "es": "No se pudo cargar el contenido"
+    },
+    "componentCatalogue.toast": {
+      "en": "Notice",
+      "fr": "Avis",
+      "es": "Aviso"
+    },
+    "componentCatalogue.confirm": {
+      "en": "Confirm",
+      "fr": "Confirmer",
+      "es": "Confirmar"
+    },
+    "componentCatalogue.cancel": {
+      "en": "Cancel",
+      "fr": "Annuler",
+      "es": "Cancelar"
+    },
+    "componentCatalogue.countdown": {
+      "en": "Time remaining",
+      "fr": "Temps restant",
+      "es": "Tiempo restante"
+    },
+    "componentCatalogue.code": {
+      "en": "Source code",
+      "fr": "Code source",
+      "es": "Código fuente"
+    },
+    "componentCatalogue.copy": {
+      "en": "Copy code",
+      "fr": "Copier le code",
+      "es": "Copiar código"
+    },
+    "componentCatalogue.preview": {
+      "en": "Component preview",
+      "fr": "Aperçu du composant",
+      "es": "Vista previa del componente"
+    },
+    "componentCatalogue.retry": {
+      "en": "Retry",
+      "fr": "Réessayer",
+      "es": "Reintentar"
+    },
+    "componentCatalogue.status": {
+      "en": "Status",
+      "fr": "État",
+      "es": "Estado"
+    },
+    "componentCatalogue.optionOne": {
+      "en": "First option",
+      "fr": "Première option",
+      "es": "Primera opción"
+    },
+    "componentCatalogue.optionTwo": {
+      "en": "Second option",
+      "fr": "Deuxième option",
+      "es": "Segunda opción"
+    },
+    "componentCatalogue.required": {
+      "en": "This value is required",
+      "fr": "Cette valeur est obligatoire",
+      "es": "Este valor es obligatorio"
+    },
+    "componentCatalogue.success": {
+      "en": "Action completed",
+      "fr": "Action terminée",
+      "es": "Acción completada"
+    },
+    "componentCatalogue.actionError": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acción"
+    },
+    "componentCatalogue.copied": {
+      "en": "Code copied",
+      "fr": "Code copié",
+      "es": "Código copiado"
+    },
+    "componentCatalogue.copyError": {
+      "en": "Unable to copy code",
+      "fr": "Impossible de copier le code",
+      "es": "No se pudo copiar el código"
+    },
+    "componentCatalogue.finished": {
+      "en": "Time has expired",
+      "fr": "Le délai est écoulé",
+      "es": "El tiempo ha terminado"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Pure component factories; no business APIs, permissions or workflow claims"
+}
