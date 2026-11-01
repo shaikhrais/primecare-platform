@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "batch": "B15",
+  "sourceCommit": "2b0cb0d27da5f88d7b7b25b189866a5ed85a607f",
+  "binding": {
+    "apiId": 16402,
+    "method": "GET",
+    "path": "/v1/auth/me",
+    "access": "existing authenticated self session; read-only"
+  },
+  "workflowRun": 41323515743,
+  "jobs": {
+    "web": 124898541750,
+    "postgres": 124898541555,
+    "flutterLinux": 124898541732,
+    "flutterMacOS": 124898541767,
+    "flutterWindows": 124898541912
+  },
+  "conclusion": "success",
+  "nativeRegressionGroups": 7,
+  "nativeSuiteTests": 43,
+  "localExistingApplicationChecks": 27,
+  "hostActivated": false,
+  "productionApiOrGrantChanges": 0,
+  "actualDeviceVerified": false,
+  "humanReleaseApproved": false,
+  "remaining": [
+    "authenticated native host mounting and logout lifecycle acceptance",
+    "production UI/API read and scoped denial verification",
+    "full profile editing and other native application adapters",
+    "physical-device and human release review"
+  ]
+}
