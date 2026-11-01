@@ -1,0 +1,420 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/dashboard-pages.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_text_field",
+    "prime_table_web",
+    "prime_chart"
+  ],
+  "controls": [
+    {
+      "key": "host",
+      "testId": "dashboard-pages-host",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.host"
+    },
+    {
+      "key": "project",
+      "testId": "dashboard-pages-project",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.project"
+    },
+    {
+      "key": "analytics",
+      "testId": "dashboard-pages-analytics",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.analytics"
+    },
+    {
+      "key": "finance",
+      "testId": "dashboard-pages-finance",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.finance"
+    },
+    {
+      "key": "crypto",
+      "testId": "dashboard-pages-crypto",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.crypto"
+    },
+    {
+      "key": "invoice",
+      "testId": "dashboard-pages-invoice",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.invoice"
+    },
+    {
+      "key": "pricing",
+      "testId": "dashboard-pages-pricing",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.pricing"
+    },
+    {
+      "key": "activity",
+      "testId": "dashboard-pages-activity",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.activity"
+    },
+    {
+      "key": "search",
+      "testId": "dashboard-pages-search",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.search"
+    },
+    {
+      "key": "authentication",
+      "testId": "dashboard-pages-authentication",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.authentication"
+    },
+    {
+      "key": "coming-soon",
+      "testId": "dashboard-pages-coming-soon",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.coming-soon"
+    },
+    {
+      "key": "maintenance",
+      "testId": "dashboard-pages-maintenance",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.maintenance"
+    },
+    {
+      "key": "error",
+      "testId": "dashboard-pages-error",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.error"
+    },
+    {
+      "key": "metric",
+      "testId": "dashboard-pages-metric",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.metric"
+    },
+    {
+      "key": "record",
+      "testId": "dashboard-pages-record",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardPages.record"
+    },
+    {
+      "key": "filter",
+      "testId": "dashboard-pages-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "dashboardPages.filter"
+    },
+    {
+      "key": "reload",
+      "testId": "dashboard-pages-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardPages.reload"
+    },
+    {
+      "key": "retry",
+      "testId": "dashboard-pages-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardPages.retry"
+    },
+    {
+      "key": "chart",
+      "testId": "dashboard-pages-chart",
+      "componentCode": "prime_chart",
+      "resourceKey": "dashboardPages.chart"
+    },
+    {
+      "key": "table",
+      "testId": "dashboard-pages-table",
+      "componentCode": "prime_table_web",
+      "resourceKey": "dashboardPages.table"
+    }
+  ],
+  "resources": {
+    "dashboardPages.project": {
+      "en": "Task overview",
+      "fr": "Vue d\u2019ensemble des t\u00e2ches",
+      "es": "Resumen de tareas"
+    },
+    "dashboardPages.analytics": {
+      "en": "Operational counts",
+      "fr": "Comptages op\u00e9rationnels",
+      "es": "Recuentos operativos"
+    },
+    "dashboardPages.finance": {
+      "en": "Finance dashboard",
+      "fr": "Tableau financier",
+      "es": "Panel financiero"
+    },
+    "dashboardPages.crypto": {
+      "en": "Crypto dashboard",
+      "fr": "Tableau crypto",
+      "es": "Panel de criptomonedas"
+    },
+    "dashboardPages.invoice": {
+      "en": "Invoice",
+      "fr": "Facture",
+      "es": "Factura"
+    },
+    "dashboardPages.pricing": {
+      "en": "Pricing",
+      "fr": "Tarification",
+      "es": "Precios"
+    },
+    "dashboardPages.activity": {
+      "en": "Recent authorized activity",
+      "fr": "Activit\u00e9 autoris\u00e9e r\u00e9cente",
+      "es": "Actividad autorizada reciente"
+    },
+    "dashboardPages.search": {
+      "en": "Search authorized records",
+      "fr": "Rechercher les dossiers autoris\u00e9s",
+      "es": "Buscar registros autorizados"
+    },
+    "dashboardPages.authentication": {
+      "en": "Account access",
+      "fr": "Acc\u00e8s au compte",
+      "es": "Acceso a la cuenta"
+    },
+    "dashboardPages.coming-soon": {
+      "en": "Coming soon",
+      "fr": "Bient\u00f4t disponible",
+      "es": "Pr\u00f3ximamente"
+    },
+    "dashboardPages.maintenance": {
+      "en": "Maintenance",
+      "fr": "Maintenance",
+      "es": "Mantenimiento"
+    },
+    "dashboardPages.error": {
+      "en": "Unable to display this page",
+      "fr": "Impossible d\u2019afficher cette page",
+      "es": "No se puede mostrar esta p\u00e1gina"
+    },
+    "dashboardPages.host": {
+      "en": "Authorized task summary",
+      "fr": "R\u00e9sum\u00e9 des t\u00e2ches autoris\u00e9es",
+      "es": "Resumen de tareas autorizadas"
+    },
+    "dashboardPages.reload": {
+      "en": "Reload counts",
+      "fr": "Recharger les comptages",
+      "es": "Actualizar recuentos"
+    },
+    "dashboardPages.retry": {
+      "en": "Retry read",
+      "fr": "R\u00e9essayer la lecture",
+      "es": "Reintentar lectura"
+    },
+    "dashboardPages.filter": {
+      "en": "Filter authorized records",
+      "fr": "Filtrer les dossiers autoris\u00e9s",
+      "es": "Filtrar registros autorizados"
+    },
+    "dashboardPages.chart": {
+      "en": "Authorized counts",
+      "fr": "Comptages autoris\u00e9s",
+      "es": "Recuentos autorizados"
+    },
+    "dashboardPages.table": {
+      "en": "Accessible data",
+      "fr": "Donn\u00e9es accessibles",
+      "es": "Datos accesibles"
+    },
+    "dashboardPages.metric": {
+      "en": "Count",
+      "fr": "Nombre",
+      "es": "Recuento"
+    },
+    "dashboardPages.record": {
+      "en": "Authorized record",
+      "fr": "Dossier autoris\u00e9",
+      "es": "Registro autorizado"
+    },
+    "dashboardPages.loading": {
+      "en": "Loading authorized data",
+      "fr": "Chargement des donn\u00e9es autoris\u00e9es",
+      "es": "Cargando datos autorizados"
+    },
+    "dashboardPages.unavailable": {
+      "en": "Approved data or workflow is unavailable",
+      "fr": "Donn\u00e9es ou processus approuv\u00e9s indisponibles",
+      "es": "Datos o flujo aprobado no disponible"
+    },
+    "dashboardPages.denied": {
+      "en": "Access is not authorized",
+      "fr": "Acc\u00e8s non autoris\u00e9",
+      "es": "Acceso no autorizado"
+    },
+    "dashboardPages.invalid": {
+      "en": "Invalid data projection",
+      "fr": "Projection de donn\u00e9es invalide",
+      "es": "Proyecci\u00f3n de datos no v\u00e1lida"
+    },
+    "dashboardPages.empty": {
+      "en": "No matching authorized records",
+      "fr": "Aucun dossier autoris\u00e9 correspondant",
+      "es": "No hay registros autorizados coincidentes"
+    },
+    "dashboardPages.ready": {
+      "en": "Current authorized data",
+      "fr": "Donn\u00e9es autoris\u00e9es actuelles",
+      "es": "Datos autorizados actuales"
+    },
+    "dashboardPages.partial": {
+      "en": "Only the bounded authorized result is shown",
+      "fr": "Seul le r\u00e9sultat autoris\u00e9 limit\u00e9 est affich\u00e9",
+      "es": "Solo se muestra el resultado autorizado limitado"
+    },
+    "dashboardPages.open": {
+      "en": "Open tasks",
+      "fr": "T\u00e2ches ouvertes",
+      "es": "Tareas abiertas"
+    },
+    "dashboardPages.review": {
+      "en": "Tasks awaiting review",
+      "fr": "T\u00e2ches en attente de r\u00e9vision",
+      "es": "Tareas pendientes de revisi\u00f3n"
+    },
+    "dashboardPages.blocked": {
+      "en": "Blocked tasks",
+      "fr": "T\u00e2ches bloqu\u00e9es",
+      "es": "Tareas bloqueadas"
+    },
+    "dashboardPages.overdue": {
+      "en": "Overdue tasks",
+      "fr": "T\u00e2ches en retard",
+      "es": "Tareas vencidas"
+    },
+    "dashboardPages.completed": {
+      "en": "Completed tasks",
+      "fr": "T\u00e2ches termin\u00e9es",
+      "es": "Tareas completadas"
+    },
+    "dashboardPages.staff": {
+      "en": "Active staff",
+      "fr": "Personnel actif",
+      "es": "Personal activo"
+    },
+    "dashboardPages.clients": {
+      "en": "Clients",
+      "fr": "Clients",
+      "es": "Clientes"
+    },
+    "dashboardPages.visits": {
+      "en": "Visits today",
+      "fr": "Visites aujourd\u2019hui",
+      "es": "Visitas de hoy"
+    },
+    "dashboardPages.requests": {
+      "en": "Open staff requests",
+      "fr": "Demandes de personnel ouvertes",
+      "es": "Solicitudes de personal abiertas"
+    },
+    "dashboardPages.time": {
+      "en": "Time records awaiting review",
+      "fr": "Relev\u00e9s de temps en attente de r\u00e9vision",
+      "es": "Registros de tiempo pendientes de revisi\u00f3n"
+    },
+    "dashboardPages.care": {
+      "en": "Care cases awaiting action",
+      "fr": "Dossiers de soins en attente d\u2019action",
+      "es": "Casos de atenci\u00f3n pendientes de acci\u00f3n"
+    },
+    "dashboardPages.plans": {
+      "en": "Business plan cycles",
+      "fr": "Cycles de plans d\u2019affaires",
+      "es": "Ciclos de planes de negocio"
+    },
+    "dashboardPages.missing": {
+      "en": "Not available",
+      "fr": "Indisponible",
+      "es": "No disponible"
+    },
+    "dashboardPages.static-coming": {
+      "en": "This feature is not activated.",
+      "fr": "Cette fonctionnalit\u00e9 n\u2019est pas activ\u00e9e.",
+      "es": "Esta funci\u00f3n no est\u00e1 activada."
+    },
+    "dashboardPages.static-maintenance": {
+      "en": "This presentation does not change service availability.",
+      "fr": "Cette pr\u00e9sentation ne modifie pas la disponibilit\u00e9 du service.",
+      "es": "Esta presentaci\u00f3n no cambia la disponibilidad del servicio."
+    },
+    "dashboardPages.static-error": {
+      "en": "Retry through the current approved host workflow.",
+      "fr": "R\u00e9essayez via le processus approuv\u00e9 de l\u2019h\u00f4te.",
+      "es": "Reintente mediante el flujo aprobado del entorno."
+    },
+    "dashboardPages.no-persistence": {
+      "en": "Dashboard layout persistence is not enabled.",
+      "fr": "La persistance de la disposition n\u2019est pas activ\u00e9e.",
+      "es": "El guardado del dise\u00f1o del panel no est\u00e1 habilitado."
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Only existing tenant.admin.workspace task workflow: due dates, current-tenant directory read, task instructions and allowed task-state transitions. Standalone notes, appointment mutation, personal contact CRUD and manual ranking need specifications. No new grants, API, route, schema or runtime activation.",
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "GET",
+      "path": "/v1/governance/tenant-dashboard",
+      "service": "governance",
+      "permission": "tenant_dashboard.current_tenant_or_own_task"
+    }
+  ],
+  "discoveryApis": [],
+  "sourceBindings": {
+    "project": {
+      "apiId": 16578,
+      "fields": [
+        "taskStats.open",
+        "taskStats.review",
+        "taskStats.blocked",
+        "taskStats.overdue",
+        "taskStats.completed"
+      ],
+      "workflow": "tenant.admin.workspace"
+    },
+    "analytics": {
+      "apiId": 16578,
+      "fields": [
+        "stats.staff",
+        "stats.clients",
+        "stats.visits",
+        "stats.requests",
+        "stats.time",
+        "stats.care",
+        "stats.plans"
+      ],
+      "requiresServerView": "operations",
+      "workflow": "tenant.admin.workspace"
+    },
+    "activity": {
+      "apiId": 16578,
+      "fields": [
+        "events.action",
+        "events.created_at"
+      ],
+      "workflow": "tenant.admin.workspace"
+    },
+    "search": {
+      "apiId": 16578,
+      "fields": [
+        "tasks.id",
+        "tasks.title",
+        "workflows.flow_id",
+        "workflows.title"
+      ],
+      "workflow": "tenant.admin.workspace"
+    }
+  }
+}
