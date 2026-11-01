@@ -1,0 +1,397 @@
+{
+  "views": [
+    {
+      "id": "small",
+      "label": "Small",
+      "minWidth": 0,
+      "columns": 1
+    },
+    {
+      "id": "wide",
+      "label": "Wide",
+      "minWidth": 700,
+      "columns": 4
+    }
+  ],
+  "widgets": [
+    {
+      "id": "trend",
+      "label": "Authorized trend",
+      "registrationId": 11,
+      "sourceId": 21,
+      "workflowId": 31,
+      "kind": "line",
+      "views": [
+        "small",
+        "wide"
+      ],
+      "minSpan": 1,
+      "maxSpan": 4,
+      "minRows": 2,
+      "maxRows": 8
+    },
+    {
+      "id": "metric",
+      "label": "Authorized metric",
+      "registrationId": 12,
+      "sourceId": 22,
+      "workflowId": 32,
+      "kind": "metric",
+      "views": [
+        "small",
+        "wide"
+      ],
+      "minSpan": 1,
+      "maxSpan": 2,
+      "minRows": 2,
+      "maxRows": 6
+    }
+  ],
+  "defaults": {
+    "version": 1,
+    "views": {
+      "small": [
+        {
+          "id": "trend",
+          "span": 1,
+          "rows": 3
+        }
+      ],
+      "wide": [
+        {
+          "id": "trend",
+          "span": 2,
+          "rows": 3
+        },
+        {
+          "id": "metric",
+          "span": 2,
+          "rows": 3
+        }
+      ]
+    }
+  },
+  "charts": [
+    {
+      "data": {
+        "kind": "line",
+        "title": "Mixed and missing",
+        "categories": [
+          "A",
+          "B",
+          "C"
+        ],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": [
+              -4,
+              null,
+              6
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "min": -4,
+        "max": 6,
+        "base": 0.6,
+        "empty": false,
+        "series": [
+          {
+            "id": "one",
+            "points": [
+              {
+                "x": 0,
+                "y": 1,
+                "barX": 0.03333333333333333,
+                "barWidth": 0.26666666666666666,
+                "value": -4
+              },
+              null,
+              {
+                "x": 1,
+                "y": 0,
+                "barX": 0.7000000000000001,
+                "barWidth": 0.26666666666666666,
+                "value": 6
+              }
+            ]
+          }
+        ],
+        "slices": []
+      }
+    },
+    {
+      "data": {
+        "kind": "area",
+        "title": "Single",
+        "categories": [
+          "A"
+        ],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": [
+              2
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "min": 0,
+        "max": 2,
+        "base": 1,
+        "empty": false,
+        "series": [
+          {
+            "id": "one",
+            "points": [
+              {
+                "x": 0.5,
+                "y": 0,
+                "barX": 0.1,
+                "barWidth": 0.8,
+                "value": 2
+              }
+            ]
+          }
+        ],
+        "slices": []
+      }
+    },
+    {
+      "data": {
+        "kind": "bar",
+        "title": "Grouped",
+        "categories": [
+          "A",
+          "B"
+        ],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": [
+              -3,
+              5
+            ]
+          },
+          {
+            "id": "two",
+            "label": "Two",
+            "values": [
+              4,
+              null
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "min": -3,
+        "max": 5,
+        "base": 0.625,
+        "empty": false,
+        "series": [
+          {
+            "id": "one",
+            "points": [
+              {
+                "x": 0,
+                "y": 1,
+                "barX": 0.025,
+                "barWidth": 0.2,
+                "value": -3
+              },
+              {
+                "x": 1,
+                "y": 0,
+                "barX": 0.525,
+                "barWidth": 0.2,
+                "value": 5
+              }
+            ]
+          },
+          {
+            "id": "two",
+            "points": [
+              {
+                "x": 0,
+                "y": 0.125,
+                "barX": 0.275,
+                "barWidth": 0.2,
+                "value": 4
+              },
+              null
+            ]
+          }
+        ],
+        "slices": []
+      }
+    },
+    {
+      "data": {
+        "kind": "donut",
+        "title": "Shares",
+        "categories": [
+          "A",
+          "B"
+        ],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": [
+              3,
+              1
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "min": 0,
+        "max": 3,
+        "base": 1,
+        "empty": false,
+        "series": [
+          {
+            "id": "one",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "barX": 0.05,
+                "barWidth": 0.4,
+                "value": 3
+              },
+              {
+                "x": 1,
+                "y": 0.6666666666666666,
+                "barX": 0.55,
+                "barWidth": 0.4,
+                "value": 1
+              }
+            ]
+          }
+        ],
+        "slices": [
+          {
+            "start": 0,
+            "end": 0.75
+          },
+          {
+            "start": 0.75,
+            "end": 1
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "kind": "donut",
+        "title": "Zero",
+        "categories": [
+          "A"
+        ],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": [
+              0
+            ]
+          }
+        ]
+      },
+      "geometry": {
+        "min": 0,
+        "max": 0,
+        "base": 0,
+        "empty": true,
+        "series": [
+          {
+            "id": "one",
+            "points": [
+              {
+                "x": 0.5,
+                "y": 0,
+                "barX": 0.1,
+                "barWidth": 0.8,
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "slices": [
+          {
+            "start": 0,
+            "end": 0
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "kind": "line",
+        "title": "Empty",
+        "categories": [],
+        "series": [
+          {
+            "id": "one",
+            "label": "One",
+            "values": []
+          }
+        ]
+      },
+      "geometry": {
+        "min": 0,
+        "max": 0,
+        "base": 0,
+        "empty": true,
+        "series": [
+          {
+            "id": "one",
+            "points": []
+          }
+        ],
+        "slices": []
+      }
+    }
+  ],
+  "packed": [
+    {
+      "id": "trend",
+      "span": 2,
+      "rows": 3,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "metric",
+      "span": 2,
+      "rows": 3,
+      "x": 2,
+      "y": 0
+    }
+  ],
+  "breakpoints": [
+    [
+      0,
+      "small"
+    ],
+    [
+      699,
+      "small"
+    ],
+    [
+      700,
+      "wide"
+    ],
+    [
+      1500,
+      "wide"
+    ]
+  ]
+}

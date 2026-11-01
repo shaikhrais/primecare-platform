@@ -1,0 +1,276 @@
+{
+  "kind": "verified_metadata_export",
+  "sourceCommit": "acac55e3b68dacbecf2330ce89889fccf303f379",
+  "runId": 41260408035,
+  "jobId": 124712384496,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "controls": [
+    {
+      "key": "dashboard",
+      "testId": "dashboard-widgets-dashboard",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardWidgets.dashboard",
+      "controlId": 706
+    },
+    {
+      "key": "chart",
+      "testId": "dashboard-widgets-chart",
+      "componentCode": "prime_chart",
+      "resourceKey": "dashboardWidgets.chart",
+      "controlId": 707
+    },
+    {
+      "key": "metric",
+      "testId": "dashboard-widgets-metric",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardWidgets.metric",
+      "controlId": 708
+    },
+    {
+      "key": "table",
+      "testId": "dashboard-widgets-table",
+      "componentCode": "prime_table_web",
+      "resourceKey": "dashboardWidgets.table",
+      "controlId": 709
+    },
+    {
+      "key": "widget",
+      "testId": "dashboard-widgets-widget",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "dashboardWidgets.widget",
+      "controlId": 710
+    },
+    {
+      "key": "add",
+      "testId": "dashboard-widgets-add",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.add",
+      "controlId": 711
+    },
+    {
+      "key": "remove",
+      "testId": "dashboard-widgets-remove",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.remove",
+      "controlId": 712
+    },
+    {
+      "key": "earlier",
+      "testId": "dashboard-widgets-earlier",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.earlier",
+      "controlId": 713
+    },
+    {
+      "key": "later",
+      "testId": "dashboard-widgets-later",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.later",
+      "controlId": 714
+    },
+    {
+      "key": "wider",
+      "testId": "dashboard-widgets-wider",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.wider",
+      "controlId": 715
+    },
+    {
+      "key": "narrower",
+      "testId": "dashboard-widgets-narrower",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.narrower",
+      "controlId": 716
+    },
+    {
+      "key": "taller",
+      "testId": "dashboard-widgets-taller",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.taller",
+      "controlId": 717
+    },
+    {
+      "key": "shorter",
+      "testId": "dashboard-widgets-shorter",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.shorter",
+      "controlId": 718
+    },
+    {
+      "key": "breakpoint",
+      "testId": "dashboard-widgets-breakpoint",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "dashboardWidgets.breakpoint",
+      "controlId": 719
+    },
+    {
+      "key": "save",
+      "testId": "dashboard-widgets-save",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.save",
+      "controlId": 720
+    },
+    {
+      "key": "reload",
+      "testId": "dashboard-widgets-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.reload",
+      "controlId": 721
+    },
+    {
+      "key": "reset",
+      "testId": "dashboard-widgets-reset",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.reset",
+      "controlId": 722
+    },
+    {
+      "key": "layout",
+      "testId": "dashboard-widgets-layout",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "dashboardWidgets.layout",
+      "controlId": 723
+    },
+    {
+      "key": "import",
+      "testId": "dashboard-widgets-import",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.import",
+      "controlId": 724
+    },
+    {
+      "key": "export",
+      "testId": "dashboard-widgets-export",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.export",
+      "controlId": 725
+    },
+    {
+      "key": "retry",
+      "testId": "dashboard-widgets-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.retry",
+      "controlId": 726
+    },
+    {
+      "key": "toggle",
+      "testId": "dashboard-widgets-toggle",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.toggle",
+      "controlId": 727
+    }
+  ],
+  "locales": {
+    "en": {
+      "dashboard": "Dashboard widgets",
+      "chart": "Chart",
+      "metric": "Metric",
+      "table": "Chart data",
+      "series": "Series",
+      "category": "Category",
+      "widget": "Available widget",
+      "add": "Add widget",
+      "remove": "Remove widget",
+      "earlier": "Move widget earlier",
+      "later": "Move widget later",
+      "wider": "Widen widget",
+      "narrower": "Narrow widget",
+      "taller": "Increase widget height",
+      "shorter": "Reduce widget height",
+      "breakpoint": "Dashboard viewport",
+      "save": "Save dashboard",
+      "reload": "Reload dashboard",
+      "reset": "Use registered default",
+      "layout": "Dashboard layout JSON",
+      "import": "Import layout",
+      "export": "Export layout",
+      "retry": "Retry data load",
+      "toggle": "Toggle series",
+      "loading": "Loading widget data",
+      "empty": "No data available",
+      "error": "Unable to complete action",
+      "success": "Action completed",
+      "dirty": "Unsaved dashboard changes",
+      "clean": "Dashboard saved and verified",
+      "unavailable": "Authorized adapter is not connected",
+      "conflict": "Dashboard changed elsewhere; reload to resolve",
+      "invalid": "Invalid or unavailable widget layout",
+      "missing": "Missing value"
+    },
+    "fr": {
+      "dashboard": "Widgets du tableau de bord",
+      "chart": "Graphique",
+      "metric": "Indicateur",
+      "table": "Données du graphique",
+      "series": "Série",
+      "category": "Catégorie",
+      "widget": "Widget disponible",
+      "add": "Ajouter un widget",
+      "remove": "Retirer le widget",
+      "earlier": "Avancer le widget",
+      "later": "Reculer le widget",
+      "wider": "Élargir le widget",
+      "narrower": "Réduire le widget",
+      "taller": "Augmenter la hauteur",
+      "shorter": "Réduire la hauteur",
+      "breakpoint": "Vue du tableau de bord",
+      "save": "Enregistrer le tableau de bord",
+      "reload": "Recharger le tableau de bord",
+      "reset": "Utiliser la disposition par défaut",
+      "layout": "Disposition JSON",
+      "import": "Importer la disposition",
+      "export": "Exporter la disposition",
+      "retry": "Réessayer le chargement",
+      "toggle": "Afficher ou masquer la série",
+      "loading": "Chargement des données",
+      "empty": "Aucune donnée disponible",
+      "error": "Impossible de terminer cette action",
+      "success": "Action terminée",
+      "dirty": "Modifications non enregistrées",
+      "clean": "Tableau enregistré et vérifié",
+      "unavailable": "Adaptateur autorisé non connecté",
+      "conflict": "Disposition modifiée ailleurs; recharger",
+      "invalid": "Disposition incorrecte ou non autorisée",
+      "missing": "Valeur manquante"
+    },
+    "es": {
+      "dashboard": "Widgets del panel",
+      "chart": "Gráfico",
+      "metric": "Indicador",
+      "table": "Datos del gráfico",
+      "series": "Serie",
+      "category": "Categoría",
+      "widget": "Widget disponible",
+      "add": "Añadir widget",
+      "remove": "Eliminar widget",
+      "earlier": "Mover widget antes",
+      "later": "Mover widget después",
+      "wider": "Ampliar widget",
+      "narrower": "Reducir widget",
+      "taller": "Aumentar altura",
+      "shorter": "Reducir altura",
+      "breakpoint": "Vista del panel",
+      "save": "Guardar panel",
+      "reload": "Recargar panel",
+      "reset": "Usar diseño predeterminado",
+      "layout": "Diseño JSON del panel",
+      "import": "Importar diseño",
+      "export": "Exportar diseño",
+      "retry": "Reintentar carga",
+      "toggle": "Mostrar u ocultar serie",
+      "loading": "Cargando datos del widget",
+      "empty": "No hay datos disponibles",
+      "error": "No se pudo completar la acción",
+      "success": "Acción completada",
+      "dirty": "Cambios del panel sin guardar",
+      "clean": "Panel guardado y verificado",
+      "unavailable": "Adaptador autorizado no conectado",
+      "conflict": "El panel cambió en otro lugar; recarga para resolver",
+      "invalid": "Diseño no válido o no autorizado",
+      "missing": "Valor ausente"
+    }
+  },
+  "runtimeActivated": false,
+  "humanReviewApproved": false,
+  "contractSha256": "c106026ffef35de23bcda0c42337944befeb6c81d5c3cdf8669af69e1aa4b602"
+}
