@@ -1107,13 +1107,13 @@
       "remaining": [
         "Character-range rich-text marks and arbitrary HTML import",
         "Spreadsheet editing and server-side query adapter",
-        "Upload removal/remote deletion UI",
         "Specialized rating/slider/stepper/transfer-list variants",
         "host source registration",
         "authorized data projections and persistence adapters",
         "native binary picker and image policy adapter",
         "governed real-data flows",
-        "human localization/accessibility/release review"
+        "human localization/accessibility/release review",
+        "Approved production upload/removal storage adapters and live end-to-end verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
       "runtimeVerified": false

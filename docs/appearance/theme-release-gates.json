@@ -323,7 +323,7 @@
         "releaseEvidence.supportedDevices",
         "releaseEvidence.localizationAndAccessibilityReview"
       ],
-      "recordedStatus": "cross_batch_source_verification_and_strict_release_gate_implemented_acceptance_pending"
+      "recordedStatus": "cross_batch_source_verified_production_device_and_human_acceptance_pending"
     }
   ]
 }

@@ -607,7 +607,7 @@
         },
         {
           "code": "DATA_CONTROLS_PLATFORM_AND_VARIANT_GAPS",
-          "detail": "Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Upload removal/remote deletion UI; Specialized rating/slider/stepper/transfer-list variants"
+          "detail": "Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Specialized rating/slider/stepper/transfer-list variants"
         }
       ],
       "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed_with_documented_platform_gaps",
@@ -638,15 +638,15 @@
       "remainingScope": [
         "Character-range rich-text marks and arbitrary HTML import",
         "Spreadsheet editing and server-side query adapter",
-        "Upload removal/remote deletion UI",
         "Specialized rating/slider/stepper/transfer-list variants",
         "host source registration",
         "authorized data projections and persistence adapters",
         "native binary picker and image policy adapter",
         "governed real-data flows",
-        "human localization/accessibility/release review"
+        "human localization/accessibility/release review",
+        "Approved production upload/removal storage adapters and live end-to-end verification"
       ],
-      "nextAction": "B11 shared chart/widget foundations can proceed. Retain all B10 platform, specialized-variant, real-adapter and human-review gates before app-wide activation.",
+      "nextAction": "Bind verified upload/removal ports to approved storage workflows and app hosts; continue editor/table variants and real runtime/device/review acceptance.",
       "sourceFollowups": [
         {
           "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
@@ -665,6 +665,12 @@
             "macOS"
           ],
           "change": "Sticky native leading-edge columns/actions; LTR/RTL position and selection regressions; host/device activation remains unverified"
+        },
+        {
+          "sourceCommit": "7409001beae3d7ff714f2f2a9bb98f296535443f",
+          "runId": 41315000584,
+          "conclusion": "success",
+          "change": "Registered removal control exposed in both renderers: pre-upload selection removal, guarded remote deletion, independent receipt absence readback and safe explicit retry"
         }
       ]
     },

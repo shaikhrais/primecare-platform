@@ -1,0 +1,101 @@
+{
+  "format": 1,
+  "batch": "B10",
+  "sourceCommit": "7409001beae3d7ff714f2f2a9bb98f296535443f",
+  "runId": 41315000584,
+  "sourceVerified": true,
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "componentJobs": [
+    {
+      "id": 124873048483,
+      "name": "native (macos-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124873048720,
+      "name": "native (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124873048761,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124873048837,
+      "name": "native (windows-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "localChecks": {
+    "existingDataModelTests": 6,
+    "uploadRemovalTests": 8,
+    "typeScript": "passed"
+  },
+  "implemented": [
+    "Pre-upload selection removal in web and Flutter",
+    "Receipt-level remote removal through explicit host ports",
+    "Independent scope/receipt-matching absence readback",
+    "Lost-acknowledgement reconciliation and verification-only retry after acknowledgement",
+    "Stable deletion key replay only with declared idempotency",
+    "Denial, malformed acknowledgement/readback and disposal handling"
+  ],
+  "remaining": [
+    "Approved production storage endpoint binding and real UI/API/database/reload verification",
+    "Durable pending-operation reconciliation across reload",
+    "Registered app host and physical-device/human release acceptance"
+  ],
+  "combinedRun": {
+    "id": 41315000334,
+    "jobs": [
+      {
+        "id": 124873047583,
+        "name": "web",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124873047738,
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124873047754,
+        "name": "catalogue",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124873047879,
+        "name": "oracles",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 124873159937,
+        "name": "native (macos-latest)",
+        "status": "queued",
+        "conclusion": null
+      },
+      {
+        "id": 124873159959,
+        "name": "native (windows-latest)",
+        "status": "queued",
+        "conclusion": null
+      },
+      {
+        "id": 124873159969,
+        "name": "native (ubuntu-24.04)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "accepted": false
+  }
+}

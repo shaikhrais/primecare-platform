@@ -131,6 +131,14 @@
       "runId": 41310167831,
       "conclusion": "success",
       "fix": "Native safe HTTPS host link callback, async error and scope/disposal handling; link source adapter gap closed, host binding still pending"
+    },
+    {
+      "sourceCommit": "7409001beae3d7ff714f2f2a9bb98f296535443f",
+      "runId": 41315000584,
+      "conclusion": "success",
+      "closedSourceGap": "upload selection/removal UI and independent receipt readback lifecycle",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     }
   ]
 }

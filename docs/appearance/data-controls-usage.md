@@ -50,3 +50,16 @@ Remaining feature gaps include arbitrary HTML import, inline mark ranges, spread
 Rollback: dispose/unmount the optional factory/widget and remove its host import. Additive metadata remains registered-unimplemented; no destructive metadata rollback is provided.
 
 Native `PrimeStructuredEditor.openLink` accepts a host-owned async HTTPS navigation callback. No system launcher or route is chosen by the factory. A missing callback retains selectable link text; a failure exposes the existing error label. Duplicate taps are disabled while pending, and late failures after scope replacement/disposal cannot overwrite the new context. Link/image draft fields also reset when the document/scope resets. Native table horizontal pinning is implemented in the shared renderer; application-specific adapter/host gates and device acceptance remain open.
+
+
+## Upload selection and receipt removal
+
+Web: `upload(policy, uploadPort, retrySafe, {remove, readReceipt, retrySafe: removalRetrySafe})` adds the optional removal binding. Flutter: pass `removalPort`, `receiptPort` and `removalRetrySafe` to `PrimeUploadControl`. All types are exported through the existing data-control entry points; no app-specific implementation is required.
+
+Before upload, each selected file can be removed. This edits the local selection and invalidates its upload key; it never deletes remote data. After successful upload, the receipt-level Remove file action deletes the entire upload represented by that receipt. Per-file remote deletion is not inferred from a multi-file upload receipt.
+
+The host must bind both a deletion port and a fresh authoritative receipt reader. The write acknowledgement must match the captured receipt and confirm deletion; the separate read must match scope/receipt and report absent. Only then are local files and the receipt cleared. Missing adapters keep remote removal disabled. Denied, malformed or failed operations retain the receipt and selection with an error.
+
+An acknowledged write followed by failed verification retries only the read. A lost acknowledgement first reconciles absence. Reissuing an unresolved deletion requires explicitly declared server idempotency and reuses the exact original operation key. No automatic retry, new endpoint, permission grant or provider operation is introduced. Scope replacement/disposal suppresses late completions. The pending state is in-memory; durable reload reconciliation is a host/storage integration requirement.
+
+Source `7409001beae3d7ff714f2f2a9bb98f296535443f`, run 41315000584: web/browser and Flutter Linux/Windows/macOS analysis/widget/model checks passed. This closes the shared removal-control/lifecycle source gap; approved storage bindings and deployed business acceptance remain pending.

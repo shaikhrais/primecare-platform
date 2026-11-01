@@ -52,7 +52,10 @@
       "metadata policy",
       "progress/cancel",
       "explicit idempotent retry",
-      "durable receipt required"
+      "durable receipt required",
+      "pre-upload selection removal",
+      "optional receipt deletion with independent absence readback",
+      "acknowledged-write verification-only retry"
     ]
   },
   "native": {
@@ -83,7 +86,10 @@
       "same lifecycle policy",
       "cancellation signal",
       "explicit idempotent retry",
-      "durable receipt required"
+      "durable receipt required",
+      "pre-upload selection removal",
+      "optional receipt deletion with independent absence readback",
+      "acknowledged-write verification-only retry"
     ]
   },
   "referenceFamilies": [
@@ -139,12 +145,9 @@
   "remainingFeatureGaps": [
     "Character-range rich-text marks and arbitrary HTML import",
     "Spreadsheet editing and server-side query adapter",
-    "Upload removal/remote deletion UI",
     "Specialized rating/slider/stepper/transfer-list variants"
   ],
-  "registeredButNotExposed": [
-    "remove"
-  ],
+  "registeredButNotExposed": [],
   "sourceFollowups": [
     {
       "sourceCommit": "68b607b80b9846f6f2b9916a1f82d088abe33e7a",
@@ -157,6 +160,18 @@
         "macOS"
       ],
       "change": "Sticky native leading-edge columns/actions; LTR/RTL position and selection regressions; host/device activation remains unverified"
+    },
+    {
+      "sourceCommit": "7409001beae3d7ff714f2f2a9bb98f296535443f",
+      "runId": 41315000584,
+      "conclusion": "success",
+      "platforms": [
+        "web/browser",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "change": "Optional receipt removal UI and verified shared lifecycle; no production endpoint or role binding introduced"
     }
   ]
 }
