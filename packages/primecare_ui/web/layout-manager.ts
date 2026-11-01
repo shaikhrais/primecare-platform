@@ -32,7 +32,7 @@ export class BaseLayoutManager {
  setPersonalTheme(value:unknown|null):void {this.personal=value===null?null:validatePersonalTheme(value);this.attach();}
  get personalTheme():PersonalTheme|null{return this.personal?structuredClone(this.personal):null;}
  /** Release account presentation on host/session teardown. Cached profiles remain scoped. */
- dispose():void {this.theme.setDefaults({});this.theme.apply(defaultLayoutProfile);}
+ dispose():void {this.theme.setDefaults({});this.theme.apply(defaultLayoutProfile);const shell=this.root.querySelector<HTMLElement>('.app-shell');if(shell){for(const key of ['sidebarPosition','navigationMode','density','layoutVersion','themeCenterActive'])delete shell.dataset[key];shell.style.removeProperty('--layout-content-width');}}
  save():void {localStorage.setItem(this.storageKey,this.exportXml());}
  attach():void {const shell=this.root.querySelector<HTMLElement>('.app-shell');if(!shell)return;this.theme.apply(this.profile,this.personal);shell.dataset.sidebarPosition=this.profile.sidebar;shell.dataset.navigationMode=this.profile.navigation;shell.dataset.density=this.profile.density;shell.style.setProperty('--layout-content-width',this.profile.contentWidth+'%');shell.dataset.layoutVersion='1';if(this.personal||this.profile.theme!=='default'||this.profile.accent)shell.dataset.themeCenterActive='true';else delete shell.dataset.themeCenterActive;for(const dialog of this.root.querySelectorAll<HTMLElement>('.layout-customizer')){if(this.personal||this.profile.theme!=='default'||this.profile.accent)dialog.dataset.themeCenterActive='true';else delete dialog.dataset.themeCenterActive;}}
 }

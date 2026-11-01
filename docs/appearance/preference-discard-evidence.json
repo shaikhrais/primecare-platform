@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "batch": "B07",
+  "sourceCommit": "4b5cbcccd97036c1f425265384a7068532d2c789",
+  "workflowRun": 41320644480,
+  "jobs": {
+    "protocol": 124889900131,
+    "nativePostgres": 124889900481,
+    "flutterLinux": 124889900448,
+    "flutterMacOS": 124889900577,
+    "flutterWindows": 124889900584
+  },
+  "conclusion": "success",
+  "coverage": [
+    "discard blocks overlapping edits and writes",
+    "failed discard retains draft and reports cache failure",
+    "late discard completion preserves disposed state"
+  ],
+  "productionRuntimeActivated": false,
+  "humanReleaseApproved": false
+}
