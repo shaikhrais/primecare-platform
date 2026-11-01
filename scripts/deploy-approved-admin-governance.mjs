@@ -1,9 +1,15 @@
 /** Update only governance code; preserve and verify its existing live bindings. */
 import {mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
+import {uploadedWorkerVersion,verifyWorkerDeployment} from './worker-deployment-receipt.mjs';
 const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,worker='primecare-governance-api';
 if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw Error('Cloudflare configuration required');
 const api=async path=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const value=await r.json();if(!r.ok||value.success!==true)throw Error('Cloudflare metadata request failed');return value.result;};
+const source=process.env.GITHUB_SHA;
+if(!/^[0-9a-f]{40}$/.test(source??'')||process.env.GITHUB_REF!=='refs/heads/main'||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()!==source)throw Error('Verified main checkout required for deployment provenance');
+execFileSync('git',['diff','--quiet','HEAD'],{stdio:'ignore'});
+const previous=(await api('/workers/scripts/'+worker+'/deployments?per_page=1'))?.deployments?.[0];
+if(!/^[0-9a-f-]{36}$/i.test(previous?.id??''))throw Error('Previous deployment identity required');
 const settings=await api('/workers/scripts/'+worker+'/settings');
 if(!Array.isArray(settings.bindings)||!settings.bindings.some(b=>b.name==='DB_URL'&&b.type==='secret_text'))throw Error('Existing encrypted database binding required');
 const config={name:worker,main:'../cloudflare/workers/src/service.ts',compatibility_date:settings.compatibility_date??'2026-09-27',compatibility_flags:settings.compatibility_flags??['nodejs_compat'],workers_dev:true,vars:{},services:[],ratelimits:[],send_email:[],observability:settings.observability??{enabled:true}};
@@ -22,11 +28,13 @@ for(const binding of settings.bindings){
 }
 if(config.vars.SERVICE_NAME!=='governance')throw Error('Governance service scope changed');
 await mkdir('.cloudflare-workers',{recursive:true});await writeFile('.cloudflare-workers/approved-governance.jsonc',JSON.stringify(config,null,2));
-try{execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/approved-governance.jsonc','--keep-vars'],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});}catch(error){let diagnostic=String(error.stderr??'')+'\n'+String(error.stdout??'');for(const value of [token,account,process.env.PRODUCTION_DATABASE_URL,...Object.values(config.vars).filter(v=>typeof v==='string'&&v.length>3)])if(value)diagnostic=diagnostic.split(value).join('[redacted]');diagnostic=diagnostic.replace(/postgres(?:ql)?:\/\/[^\s\"']+/g,'[redacted database]');console.error(diagnostic.slice(-12000));throw Error('Governance worker publication failed; no other worker targeted');}
+let versionId;
+try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/approved-governance.jsonc','--keep-vars'],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});versionId=uploadedWorkerVersion(output.toString());}catch(error){let diagnostic=String(error.stderr??'')+'\n'+String(error.stdout??'');for(const value of [token,account,process.env.PRODUCTION_DATABASE_URL,...Object.values(config.vars).filter(v=>typeof v==='string'&&v.length>3)])if(value)diagnostic=diagnostic.split(value).join('[redacted]');diagnostic=diagnostic.replace(/postgres(?:ql)?:\/\/[^\s\"']+/g,'[redacted database]');console.error(diagnostic.slice(-12000));throw Error('Governance worker publication failed; no other worker targeted');}
+const provenance=await verifyWorkerDeployment({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id});
 const after=await api('/workers/scripts/'+worker+'/settings');
 const fingerprint=bindings=>JSON.stringify(bindings.map(b=>({name:b.name,type:b.type,...(b.service?{service:b.service}:{}),...(b.entrypoint?{entrypoint:b.entrypoint}:{}),...(b.id?{id:b.id}:{})})).sort((a,b)=>a.name.localeCompare(b.name)));
 if(fingerprint(settings.bindings)!==fingerprint(after.bindings))throw Error('Live binding preservation readback failed');
 const subdomain=await api('/workers/subdomain');if(subdomain.subdomain!=='itpro-mohammed')throw Error('Worker host scope changed');
 const response=await fetch('https://'+worker+'.'+subdomain.subdomain+'.workers.dev/health',{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Published governance health readback failed');
-await mkdir('test-results/approved-code-admin-release',{recursive:true});await writeFile('test-results/approved-code-admin-release/worker.json',JSON.stringify({source:process.env.GITHUB_SHA,worker,deployed:true,existingBindingsPreserved:true,healthStatus:response.status,otherWorkersModified:0,providerActions:0},null,2));
-console.log('APPROVED_GOVERNANCE_DEPLOYED existing bindings preserved; other workers untouched');
+await mkdir('test-results/approved-code-admin-release',{recursive:true});await writeFile('test-results/approved-code-admin-release/worker.json',JSON.stringify({...provenance,sourceCheckoutVerified:true,deployed:true,existingBindingsPreserved:true,healthStatus:response.status,otherWorkersModified:0,providerActions:0},null,2));
+console.log('APPROVED_GOVERNANCE_DEPLOYED '+JSON.stringify({...provenance,sourceCheckoutVerified:true,existingBindingsPreserved:true,healthStatus:response.status,otherWorkersModified:0,providerActions:0}));
