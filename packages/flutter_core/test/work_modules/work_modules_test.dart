@@ -33,6 +33,10 @@ void main(){
   await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();
   expect(s.pending,isNotNull);expect(t.widget<TextField>(find.byType(TextField).first).enabled,false);
   expect(t.widget<TextButton>(find.widgetWithText(TextButton,labels.text('reload')).first).onPressed,isNull);
+  // Recreating a view must expose the original recovery action without triggering a destructive load.
+  await t.pumpWidget(const SizedBox());
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'fixture',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();expect(t.takeException(),isNull);
   await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();
   expect(s.status,'success');expect(p.calls,1);expect(p.readCalls,2);expect(t.takeException(),isNull);
   await t.pumpWidget(const SizedBox());s.dispose();
