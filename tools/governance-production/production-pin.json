@@ -1817,7 +1817,7 @@
       "language_resource_values",
       "primecare_ui_component_registry"
     ],
-    "contractSha256": "12a84ed2dd9a1976b4f300f3682e0049882c14fb66f5cc1095dfb851b68c9e48",
+    "contractSha256": "82e15946cc5fc3a7f4ab3edc9992ed194132fb7602d52b4b5cdbdfd1bf79031f",
     "screenCode": "tenant_admin_command_center",
     "route": "/tenant-dashboard",
     "resourceNamespace": "communicationModules.",

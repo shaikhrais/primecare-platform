@@ -1,6 +1,7 @@
 """Exact, additive theme metadata registration on an existing authorized host.
 
 No new screens, routes, role grants, APIs, business data or runtime activation.
+Notification transport stays unbound: the own-notification API is absent from production metadata.
 """
 import datetime
 import hashlib
