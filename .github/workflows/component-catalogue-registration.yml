@@ -6,6 +6,7 @@ on:
     paths:
       - '.github/workflows/component-catalogue-registration.yml'
       - 'tools/governance-production/component_catalogue_registration.py'
+      - 'tools/governance-production/metadata_store.py'
       - 'tools/governance-production/test-component-catalogue-registration.py'
 permissions:
   contents: read

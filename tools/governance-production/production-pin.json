@@ -1724,9 +1724,10 @@
       "screen_components",
       "screen_required_elements",
       "language_resources",
-      "language_resource_values"
+      "language_resource_values",
+      "primecare_ui_component_registry"
     ],
-    "contractSha256": "4fdbd8295fa21e834f85c50cfb3ddf1892452a64436501c83fce81887d7bfd73",
+    "contractSha256": "2ef7db11b519d04569aca0b100c209e2c8697c3f6c8fb2a7c1aed50951d437da",
     "screenCode": "tenant_admin_command_center",
     "route": "/tenant-dashboard",
     "resourceNamespace": "componentCatalogue.",

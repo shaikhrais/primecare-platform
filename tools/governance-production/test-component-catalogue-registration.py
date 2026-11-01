@@ -65,9 +65,9 @@ class RegistrationTests(unittest.TestCase):
     def test_exact_optional_metadata_is_idempotent(self):
         model = Model()
         first = target.register(model)
-        self.assertEqual(len(model.calls), 2*len(C['controls'])+4*len(C['resources']))
+        self.assertEqual(len(model.calls), 2*len(C['controls'])+4*len(C['resources'])+len(C['newComponents']))
         self.assertEqual(target.register(model), first)
-        self.assertEqual(len(model.calls), 2*len(C['controls'])+4*len(C['resources']))
+        self.assertEqual(len(model.calls), 2*len(C['controls'])+4*len(C['resources'])+len(C['newComponents']))
         self.assertEqual(set(t for t, _, _ in model.calls), set(target.TABLES))
         self.assertEqual(first['roleGrants'], 0)
         self.assertFalse(first['runtimeActivated'])

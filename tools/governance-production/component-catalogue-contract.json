@@ -14,7 +14,8 @@
     "prime_card",
     "prime_checkbox_web",
     "prime_dropdown_web",
-    "prime_text_field"
+    "prime_text_field",
+    "prime_textarea_web"
   ],
   "controls": [
     {
@@ -202,6 +203,24 @@
       "testId": "component-catalogue-status",
       "componentCode": "prime_card",
       "resourceKey": "componentCatalogue.status"
+    },
+    {
+      "key": "radio",
+      "testId": "component-catalogue-radio",
+      "componentCode": "prime_radio",
+      "resourceKey": "componentCatalogue.radio"
+    },
+    {
+      "key": "switch",
+      "testId": "component-catalogue-switch",
+      "componentCode": "prime_switch",
+      "resourceKey": "componentCatalogue.switch"
+    },
+    {
+      "key": "multiline",
+      "testId": "component-catalogue-multiline",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "componentCatalogue.multiline"
     }
   ],
   "resources": {
@@ -399,8 +418,45 @@
       "en": "Time has expired",
       "fr": "Le délai est écoulé",
       "es": "El tiempo ha terminado"
+    },
+    "componentCatalogue.radio": {
+      "en": "Choose one option",
+      "fr": "Choisir une seule option",
+      "es": "Elegir una opción"
+    },
+    "componentCatalogue.switch": {
+      "en": "Toggle option",
+      "fr": "Basculer l’option",
+      "es": "Alternar opción"
+    },
+    "componentCatalogue.multiline": {
+      "en": "Multiline value",
+      "fr": "Valeur multiligne",
+      "es": "Valor multilínea"
     }
   },
   "runtimeActivation": false,
-  "businessBindings": "Pure component factories; no business APIs, permissions or workflow claims"
+  "businessBindings": "Pure component factories; no business APIs, permissions or workflow claims",
+  "newComponents": [
+    {
+      "component_code": "prime_radio",
+      "component_name": "Prime radio group",
+      "component_type": "selection",
+      "dart_class_name": "PrimeCatalogueRadio",
+      "source_file_path": "packages/primecare_ui/web/component-catalogue.ts",
+      "purpose": "Shared accessible single-choice control",
+      "allowed_element_types_json": "[\"input\",\"fieldset\"]",
+      "active": 1
+    },
+    {
+      "component_code": "prime_switch",
+      "component_name": "Prime switch",
+      "component_type": "selection",
+      "dart_class_name": "PrimeCatalogueSwitch",
+      "source_file_path": "packages/primecare_ui/web/component-catalogue.ts",
+      "purpose": "Shared accessible boolean switch",
+      "allowed_element_types_json": "[\"input\"]",
+      "active": 1
+    }
+  ]
 }

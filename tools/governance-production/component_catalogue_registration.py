@@ -11,12 +11,13 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT / 'tools/workflow-verification'))
-from production_store import ProductionWorkflowStore, quote
+from production_store import quote
+from metadata_store import MetadataStore
 from production_reader import GovernanceReadError, connect
 
 FILE = Path(__file__).with_name('component-catalogue-contract.json')
 TABLES = {'screen_components': 'id', 'screen_required_elements': 'id',
-          'language_resources': 'resource_id', 'language_resource_values': 'translation_id'}
+          'language_resources': 'resource_id', 'language_resource_values': 'translation_id', 'primecare_ui_component_registry':'id'}
 
 
 def expected_scope():
@@ -28,9 +29,9 @@ def expected_scope():
                 roleGrants=False, runtimeActivation=False)
 
 
-class ComponentCatalogueStore(ProductionWorkflowStore):
+class ComponentCatalogueStore(MetadataStore):
     def __init__(self):
-        super().__init__()
+        super().__init__('componentCatalogueWriter',expected_scope())
         try:
             if self.pin.get('componentCatalogueWriter') != expected_scope() or os.environ.get('GOVERNANCE_COMPONENT_CATALOGUE_WRITES') != '1':
                 raise GovernanceReadError('Exact theme metadata scope required')
@@ -53,6 +54,9 @@ class ComponentCatalogueStore(ProductionWorkflowStore):
         if table not in TABLES:
             raise GovernanceReadError('Unscoped theme metadata write')
         c = json.loads(FILE.read_text())
+        if table=='primecare_ui_component_registry':
+            spec=next((x for x in c['newComponents'] if x['component_code']==key.get('component_code')),None)
+            if spec is None or key!={'component_code':spec['component_code']} or values!={k:v for k,v in spec.items() if k!='component_code'}:raise GovernanceReadError('Unscoped component registry write')
         if table == 'language_resources' and key.get('resource_key') not in c['resources']:
             raise GovernanceReadError('Unrelated theme resource')
         if table == 'language_resource_values':
@@ -108,6 +112,9 @@ def register(db, catalog=None):
     languages = dict(db.execute("SELECT language_code,language_id FROM languages WHERE language_code IN ('en','fr','es') AND enabled=1"))
     if set(languages) != {'en', 'fr', 'es'}:
         raise GovernanceReadError('Existing theme languages required')
+    component_ids={}
+    for spec in c['newComponents']:
+        component_ids[spec['component_code']]=db.ensure('primecare_ui_component_registry',{'component_code':spec['component_code']},{k:v for k,v in spec.items() if k!='component_code'})
     resource_ids = {}
     for key, text in c['resources'].items():
         rid = db.ensure('language_resources', {'resource_key': key}, dict(resource_group='componentCatalogue', description='Shared component catalogue label', context='component_catalogue', active=1))
@@ -133,13 +140,16 @@ def register(db, catalog=None):
         cid = db.ensure('screen_components', dict(screen_id=sid, component_code=key), dict(component_name=label, component_type=control['componentCode'], data_cy=control['testId'], file_path=target['controlsSource'], implementation_status=status))
         db.ensure('screen_required_elements', dict(screen_id=sid, element_key=key), dict(element_type=control['componentCode'], label=label, test_id=control['testId'], required=0))
         control_ids[control['testId']] = cid
-    return dict(screenId=sid, screenCode=target['screenCode'], controls=control_ids, implementationStatuses=statuses, resourceIds=resource_ids, translationCount=len(resource_ids) * 3,
+    return dict(screenId=sid, screenCode=target['screenCode'], controls=control_ids, implementationStatuses=statuses, resourceIds=resource_ids, translationCount=len(resource_ids) * 3, componentIds=component_ids,
                 roleGrants=0, schemaChanges=False, runtimeActivated=False, reviewApproved=False)
 
 
 def verify_independently(receipt):
     c = json.loads(FILE.read_text())
     with connect() as reader:
+        for spec in c['newComponents']:
+            fields=list(spec);rows=reader.execute('SELECT '+','.join(fields)+' FROM primecare_ui_component_registry WHERE component_code=?',(spec['component_code'],)).fetchall()
+            if rows!=[tuple(spec.values())]:raise GovernanceReadError('Component registry readback failed')
         for key, rid in receipt['resourceIds'].items():
             if reader.execute('SELECT resource_key,active FROM language_resources WHERE resource_id=?', (rid,)).fetchall() != [(key, 1)]:
                 raise GovernanceReadError('Theme resource readback failed')
