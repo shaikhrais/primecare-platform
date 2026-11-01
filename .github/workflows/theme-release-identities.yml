@@ -23,10 +23,11 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           npm install --prefix /tmp/theme-reader --ignore-scripts --no-audit --no-fund pg@8.11.3
           ln -s /tmp/theme-reader/node_modules node_modules
+      - run: python tools/governance-production/test-theme-release-identities.py
       - name: Read pinned metadata without changing grants
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-        run: python tools/governance-production/audit_theme_release_identities.py --output test-results/theme-release-identities.json
+        run: python tools/governance-production/audit_theme_release_identities.py --scope-details --output test-results/theme-release-identities.json
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: theme-release-identities, path: test-results/theme-release-identities.json}

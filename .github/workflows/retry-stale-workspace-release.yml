@@ -1,0 +1,35 @@
+name: Queue fresh workspace verification after stale publication
+on:
+  workflow_run:
+    workflows: [Test and publish tenant and PSW workspaces]
+    branches: [main]
+    types: [completed]
+  push:
+    branches: [main]
+    paths: [scripts/retry-stale-workspace-release.mjs, scripts/test-retry-stale-workspace-release.mjs, .github/workflows/retry-stale-workspace-release.yml]
+permissions: {contents: read}
+concurrency:
+  group: workspace-stale-release-scheduler
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: node --test scripts/test-retry-stale-workspace-release.mjs
+  retry:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'failure'
+    needs: verify
+    permissions: {contents: read, actions: write}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Queue acceptance for current main only after prepublication stale rejection
+        env: {GITHUB_TOKEN: '${{ github.token }}'}
+        run: node scripts/retry-stale-workspace-release.mjs

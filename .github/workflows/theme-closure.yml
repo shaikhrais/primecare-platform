@@ -20,6 +20,11 @@ on:
       - tools/governance-production/theme-adoption-preflight.mjs
       - scripts/test-theme-adoption-preflight.mjs
       - .github/workflows/theme-closure.yml
+      - scripts/build-theme-execution-ledger.py
+      - scripts/build-theme-service-contract-triage.py
+      - scripts/test-theme-execution-plan.py
+      - docs/appearance/theme-execution-ledger.json
+      - docs/appearance/theme-service-contract-triage.json
 permissions: {contents: read}
 concurrency:
   group: theme-closure-${{ github.ref }}-${{ github.sha }}
@@ -44,6 +49,9 @@ jobs:
           PY
       - run: |
           python scripts/build-theme-developer-catalogue.py --check
+          python scripts/build-theme-execution-ledger.py --check
+          python scripts/build-theme-service-contract-triage.py --check
+          python scripts/test-theme-execution-plan.py
           python scripts/audit-theme-batches.py --check
           python scripts/check-theme-release.py --output docs/appearance/theme-release-gates.json
       - if: inputs.require_release_complete == true

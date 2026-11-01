@@ -22,7 +22,9 @@
     "browserChecks": 21,
     "modelChecks": 30,
     "tenantHostChecks": 14,
-    "flutter": "pending"
+    "flutter": "accepted in combined Linux/Windows/macOS source run 41346938130",
+    "combinedRun": 41346938130,
+    "combinedConclusion": "success"
   },
   "productionRowsChanged": 0,
   "runtimeActivated": false,
