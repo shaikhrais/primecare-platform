@@ -6,6 +6,29 @@ try{
  await check('CAS conflict and idempotent lost-response replay; changed payload cannot reuse UUID',async()=>{const req=write(1,'2'),a=await data(f.call(req)),b=await data(f.call(req));assert.equal(a.status,200);assert.deepEqual(b,a);assert.equal((await data(f.call(write(1)))).body.error,'revision_conflict');assert.equal((await data(f.call({...req,document:{version:1,screenIds:['1']}}))).body.error,'request_id_reused');});
  if(f.native)await check('two simultaneous first writes serialize (native PostgreSQL)',async()=>{const a=f.body('write',{dataset:'demo',revision:0,requestId:randomUUID(),document:{version:1,screenIds:['1']}}),b={...a,requestId:randomUUID()};const results=await Promise.all([f.call(a),f.call(b)]);assert.deepEqual(results.map(r=>r.status).sort(),[200,409]);});
  await check('cross-account/tenant precondition denied, scoped data never leaks',async()=>{assert.equal((await f.call(f.body(),'user2')).status,409);const r=await data(f.call(f.body('read',{},'user2'),'user2'));assert.equal(r.body.revision,0);assert.equal((await f.call(f.body(),'admin')).status,409);assert.equal((await f.call(f.body('read',{},'admin'),'admin')).status,403);});
+ await check('approved admin policy remains self-only and requires an exact active-role grant (isolated fixture)',async()=>{
+  const roles=[[70,'platform_admin'],[72,'tenant_admin'],[80,'code_admin']];
+  try{for(const [roleId,role] of roles){
+   await f.db.query('DELETE FROM account_preference_rate');
+   await f.db.query('INSERT INTO '+f.table('roles')+' VALUES($1,$2,1) ON CONFLICT(id) DO NOTHING',[roleId,role]);
+   await f.db.query("UPDATE users SET roles=$1 WHERE id='admin'",[role]);
+   const expectedScope={tenantId:'tenant1',userId:'admin',role,dataset:'live'},request=(extra={})=>f.body('read',{expectedScope,...extra},'admin');
+   assert.equal((await f.call(request(),'admin')).status,403);
+   await f.db.query('INSERT INTO '+f.table('api_permissions')+' VALUES($1,777,$2,1,$3)',[90000+roleId,roleId,'authenticated_self_preferences']);
+   await f.db.query('INSERT INTO '+f.table('role_screen_permissions')+' VALUES($1,1,1)',[roleId]);
+   for(const [kind,resource,document] of [['theme','advanced-v2',{version:2,active:null,items:[]}],['shortcuts','navigation',{version:1,screenIds:['1']}],['workspace','SCREEN_ONE',{version:1,navigation:'left',navigationWidth:248,toolbar:'top',toolbarStyle:'sticky',footer:'static',container:'fullwidth',maxWidth:1280,scroll:'page',panels:{}}]]){
+    const req=request({action:'write',kind,resource,revision:0,requestId:randomUUID(),document});
+    assert.equal((await f.call(req,'admin')).status,200);
+    const own=await data(f.call(request({kind,resource}),'admin'));assert.equal(own.status,200);assert.deepEqual(own.body.document,document);
+    assert.equal((await f.call({...req,expectedScope:{...expectedScope,userId:'user1'}},'admin')).status,409);
+    assert.equal((await f.call({...req,expectedScope:{...expectedScope,tenantId:'tenant2'}},'admin')).status,409);
+    assert.equal((await f.call({...req,expectedScope:{...expectedScope,role:'psw'}},'admin')).status,409);
+    assert.equal((await f.call({...req,expectedScope:{...expectedScope,dataset:'demo'}},'admin')).status,409);
+   }
+   await f.db.query('DELETE FROM '+f.table('api_permissions')+' WHERE id=$1',[90000+roleId]);
+   assert.equal((await f.call(request(),'admin')).status,403);
+  }}finally{await f.db.query("UPDATE users SET roles='tenant_admin' WHERE id='admin'");await f.db.query('DELETE FROM '+f.table('role_screen_permissions')+' WHERE role_id IN (70,72,80)');await f.db.query('DELETE FROM '+f.table('api_permissions')+' WHERE id IN (90070,90072,90080)');}
+ });
  await check('current database role change invalidates captured client scope',async()=>{await f.db.query("UPDATE users SET roles='tenant_admin' WHERE id='user1'");assert.equal((await f.call()).status,409);await f.db.query("UPDATE users SET roles='psw' WHERE id='user1'");});
  await check('bearer required; cookies, scope headers/query, unregistered method and unknown fields rejected',async()=>{assert.equal((await f.call(f.body(),'user1',{authorization:'',cookie:'session_token='+f.tokens.user1})).status,401);assert.equal((await f.call(f.body(),'user1',{'x-tenant-id':'tenant2'})).status,400);assert.equal((await f.call(f.body(),'user1',{},'?userId=user2')).status,400);assert.equal((await f.call(null,'user1',{},'','GET')).status,405);assert.equal((await f.call({...f.body(),userId:'user2'})).status,400);});
  await check('screen references and workspace panels are server allowlisted',async()=>{assert.equal((await f.call(write(2,'3'))).status,400);assert.equal((await f.call(f.body('read',{kind:'workspace',resource:'DENIED'}))).status,403);assert.equal((await f.call(write(2,'1'))).status,200);});

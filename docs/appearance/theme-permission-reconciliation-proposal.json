@@ -80,7 +80,29 @@
     {
       "id": "R01-D03",
       "question": "What explicit self-preference access is intended for Platform Admin 70, Tenant Admin 72 and Code Admin 80?",
-      "evidence": "Existing API777 grants cover role IDs 1–64. These roles remain excluded; runtime and panel binding gates are separate."
+      "evidence": "Existing API777 grants cover role IDs 1\u201364. These roles remain excluded; runtime and panel binding gates are separate.",
+      "state": "user_policy_confirmed",
+      "approvedPolicy": {
+        "roleIds": [
+          70,
+          72,
+          80
+        ],
+        "roleCodes": [
+          "platform_admin",
+          "tenant_admin",
+          "code_admin"
+        ],
+        "kinds": [
+          "theme",
+          "workspace",
+          "shortcuts"
+        ],
+        "ownership": "authenticated actor only, within current tenant and active role; live/demo remain separate",
+        "crossAccountAccess": false
+      },
+      "authorizationSource": "User answered Yes to the explicit own-preferences-only recommendation in this conversation",
+      "implementationState": "Pending exact production metadata reconciliation, deployment provenance, registered host/panel bindings and runtime acceptance; no production grant changes made"
     }
   ],
   "forbiddenShortcuts": [

@@ -27,12 +27,13 @@
         "Fresh readback of all 192 affected rows, raw-role IDs and linked screens",
         "Confirmed empty runtime_artifacts table",
         "Produced exact row-level reconciliation records with no guessed mutations",
-        "Read active auth/governance deployment version identities without settings or grant changes"
+        "Read active auth/governance deployment version identities without settings or grant changes",
+        "User confirmed self-only theme/workspace/shortcut preferences for Platform Admin 70, Tenant Admin 72 and Code Admin 80; isolated service policy checks pass"
       ],
       "remaining": [
         "Resolve role/action authority for the 128 wrong-operation labels",
         "Validate source/deployment provenance and register legitimate artifact associations; active version IDs alone do not identify legacy artifact 1",
-        "Explicitly resolve admin-role preference access"
+        "Implement confirmed admin self-preference policy through exact registered grants, hosts and deployment-backed runtime acceptance"
       ],
       "evidence": [
         "docs/appearance/theme-permission-reconciliation-proposal.json",
