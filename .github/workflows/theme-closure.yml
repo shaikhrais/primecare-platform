@@ -18,7 +18,7 @@ on:
       - .github/workflows/theme-closure.yml
 permissions: {contents: read}
 concurrency:
-  group: theme-closure-${{ github.ref }}
+  group: theme-closure-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   catalogue:
