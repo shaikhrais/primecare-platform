@@ -1,0 +1,17 @@
+import {build} from 'esbuild';import {readFile,writeFile} from 'node:fs/promises';import assert from 'node:assert/strict';
+import {taskActions,transition} from '../packages/shared/src/tenant-dashboard/core.mjs';
+const b=await build({entryPoints:['packages/shared/src/work-modules/tenant-task-adapter.ts'],bundle:true,platform:'node',format:'esm',write:false});const {TenantTaskModulePort}=await import('data:text/javascript;base64,'+Buffer.from(b.outputFiles[0].text).toString('base64'));
+const catalog=JSON.parse(await readFile('packages/shared/src/tenant-dashboard/catalog.json','utf8')),labels={...catalog.labels,...catalog.controls},scope={tenantId:'tenant',userId:'user1',role:'tenant_admin',dataset:'live'},key='00000000-0000-4000-8000-000000000001',cases=[];
+for(const module of ['calendar','contacts','tasks','notes','board'])for(const status of ['open','submitted'])for(const manager of [false,true]){
+ const actor=manager?'manager':'worker',task={id:'task1',version:1,title:'Owned task',notes:'Current note',due_on:'2026-11-01',status,owner_id:'worker',priority:'normal',flow_id:'registered-flow',evidence:'Previous evidence',submitted_by:status==='submitted'?'worker':null};task.actions=taskActions(task,actor,manager);
+ const raw={organization:{id:scope.tenantId},identity:{userId:scope.userId,role:scope.role},dataset:'live',synthetic:false,database:'PostgreSQL',taskActorId:actor,canManage:manager,tasks:[task],users:[{id:'worker',name:'Worker',email:'worker@example.invalid'}],clients:[{id:'client1',name:'Client'}],taskPage:{total:1},directoryTruncated:false};
+ const port=new TenantTaskModulePort(scope,module,async()=>structuredClone(raw)),snapshot=await port.read({search:'',offset:0},new AbortController().signal);port.dispose();cases.push({name:[module,status,manager?'manager':'owner'].join('-'),module,raw,expected:snapshot});
+}
+const mutations=[];
+for(const c of cases){if(c.module==='contacts')continue;for(const action of c.expected.items[0].actions){
+ let latest=structuredClone(c.raw),sent;const port=new TenantTaskModulePort(scope,c.module,async r=>{if(r.method==='POST'){sent=structuredClone(r);const task=latest.tasks[0],v=r.body.value;if(r.body.action==='edit'){task.title=v.title.trim();task.notes=v.notes.trim();task.due_on=v.dueOn;}else Object.assign(task,transition(task,r.body.action,v.evidence,latest.taskActorId,latest.canManage));task.version++;task.actions=taskActions(task,latest.taskActorId,latest.canManage);}return structuredClone(latest);});await port.read({search:'',offset:0},new AbortController().signal);
+ const command={itemId:'task1',version:1,action:action.id,fields:Object.fromEntries(action.fields.map(k=>[k,k==='title'?'Updated task':k==='date'?'2026-11-12':'Verified task outcome.']))};const receipt=await port.mutate(command,key,new AbortController().signal),readback=await port.readItem('task1',new AbortController().signal);mutations.push({name:c.name+'-'+action.id,module:c.module,raw:c.raw,command,key,request:sent,reply:latest,receipt,readback});port.dispose();
+}}
+const result=JSON.stringify({format:1,scope,labels,cases,mutations})+'\n',path='packages/flutter_core/test/work_modules/tenant-task-oracle.json';
+if(process.argv.includes('--check'))assert.equal(await readFile(path,'utf8'),result,'native task oracle drift');else await writeFile(path,result);
+console.log(`Native task oracle: ${cases.length} projections, ${mutations.length} mutations from existing shared adapter and transition policy`);

@@ -14,6 +14,7 @@ on:
       - 'packages/flutter_core/lib/work_modules/**'
       - 'packages/flutter_core/test/work_modules/**'
       - 'scripts/test-work-modules*'
+      - 'scripts/work-modules-native-fixtures.mjs'
       - '.github/workflows/work-modules.yml'
 permissions: {contents: read}
 concurrency:
@@ -31,6 +32,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/work-modules-native-fixtures.mjs --check
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
@@ -59,6 +61,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 bcryptjs@3.0.2 pg@8.16.3
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/work-modules-native-fixtures.mjs --check
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
