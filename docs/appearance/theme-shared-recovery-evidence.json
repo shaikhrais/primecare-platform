@@ -1,0 +1,198 @@
+{
+  "format": 1,
+  "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+  "sourceVerified": true,
+  "fullFunctionalityVerified": false,
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "localChecks": {
+    "workModules": 30,
+    "communicationModules": 28,
+    "applicationModules": 27,
+    "dashboardModelTests": 7,
+    "total": 92,
+    "sqlEngine": "PGlite PostgreSQL with real handlers"
+  },
+  "runs": [
+    {
+      "id": 41312965931,
+      "name": "Shared charts and dashboard widget catalogue",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41312965931",
+      "jobs": [
+        {
+          "id": 124867076567,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076691,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076705,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076708,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 41312965936,
+      "name": "Shared communication modules",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41312965936",
+      "jobs": [
+        {
+          "id": 124867076381,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076538,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076630,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076634,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867076746,
+          "name": "web",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 41312965872,
+      "name": "Shared application modules",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41312965872",
+      "jobs": [
+        {
+          "id": 124867028411,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867028446,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867028477,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867028485,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867028585,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 41312965897,
+      "name": "Shared work modules",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41312965897",
+      "jobs": [
+        {
+          "id": 124867030265,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867030496,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867030531,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867030549,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867030642,
+          "name": "postgres",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "id": 41312965824,
+      "name": "Theme cross-batch closure verification",
+      "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41312965824",
+      "jobs": [
+        {
+          "id": 124867062108,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867062292,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867062302,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124867062363,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124868089515,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124868089539,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124868089551,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "repairs": [
+    "Retain validated mutation acknowledgement across failed independent readback",
+    "Reuse original command and request ID after an uncertain response",
+    "Expose original pending recovery through existing controls and block replacement/reload while unresolved",
+    "Suppress late native callbacks after session/scope replacement",
+    "Preserve pending recovery across view recreation",
+    "Dashboard in-memory save recovery retains original revision/document/request ID"
+  ],
+  "limits": [
+    "No production host activation, new grants or real business transaction claimed",
+    "No full batch, parity or release completion claimed",
+    "Dashboard pending recovery remains in-memory; durable offline recovery remains open",
+    "Native business transports, complete cached preference reconciliation and remaining feature/workflow/app migration remain open",
+    "Physical Android/iOS and human localization/accessibility/release approvals remain open"
+  ]
+}

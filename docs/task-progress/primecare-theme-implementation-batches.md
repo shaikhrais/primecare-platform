@@ -2,9 +2,9 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: Full B01-B18 functionality/release acceptance is not established. B10 native link actions and B16 optional operational counts are fixed and pass their platform CI. B17 now has a generated 72-feature/1200-reference catalogue and app adoption inventory. B18 has a combined verification workflow and strict release-gap check; its execution and production/device/human acceptance are still required. Remaining work stays on the sole `main` branch.**
+**Status: Full B01-B18 functionality/release acceptance is not established. B10 native link actions and B16 optional operational counts are fixed and pass their platform CI. B17 now has a generated 72-feature/1200-reference catalogue and app adoption inventory. B11/B13–B15 shared pending recovery passed source acceptance. B18 combined browser/PostgreSQL/Linux/Windows/macOS source verification passed at `2857fdfe78873e206db98dfc028cae7545cd3a8e`; production/device/human acceptance and earlier feature/integration gaps remain required. Remaining work stays on the sole `main` branch.**
 
-Read the [B01-B18 functionality audit](../appearance/theme-batches-main-audit.md) and [machine evidence](../appearance/theme-batches-main-audit.json). Historical green checks are not full current-production acceptance. Remaining work stays on `main`.
+Read the current [B01–B18 open gap register](../appearance/theme-gap-register.md) and [shared recovery evidence](../appearance/theme-shared-recovery-evidence.json). Read the historical [B01-B18 functionality audit](../appearance/theme-batches-main-audit.md) and [machine evidence](../appearance/theme-batches-main-audit.json). Historical green checks are not full current-production acceptance. Remaining work stays on `main`.
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -378,7 +378,7 @@ Shared targets: `docs/appearance/`, `packages/primecare_ui/catalogs/`, `apps/`, 
 
 ### B18 — Full verification and release closure
 
-Status: planned. Dependencies: B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17.
+Status: combined source verification passed; production/device/human acceptance and earlier feature/integration gaps remain open. Dependencies: B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17.
 
 Scope:
 

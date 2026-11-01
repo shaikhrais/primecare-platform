@@ -1132,7 +1132,7 @@
         "registered business widget/workflow/source mappings and authoritative server grants",
         "dashboard document kind and policy in the common preference service",
         "actual host/source/access bindings and production API/database/reload flow",
-        "transport cancellation and uncertain-save conflict recovery integration",
+        "native transport cancellation, durable offline recovery and production recovery integration",
         "actual-device/screen-reader and human localization/accessibility/release review",
         "production widget data or business dashboard activation",
         "production API/database/reload persistence",
@@ -1193,7 +1193,6 @@
       ],
       "usage": null,
       "remaining": [
-        "Execute the combined cross-batch browser/PostgreSQL/native workflow on the shipped source",
         "Authenticated deployed UI/API/database/reload and denied/cross-tenant acceptance",
         "Physical-device and human localization/accessibility/release approval",
         "All earlier batch source/contract/integration gaps must be resolved"
@@ -1217,7 +1216,7 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1239,7 +1238,7 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1261,7 +1260,7 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1283,7 +1282,7 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1305,7 +1304,7 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",

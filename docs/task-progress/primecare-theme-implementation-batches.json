@@ -752,7 +752,7 @@
         "registered business widget/workflow/source mappings and authoritative server grants",
         "dashboard document kind and policy in the common preference service",
         "actual host/source/access bindings and production API/database/reload flow",
-        "transport cancellation and uncertain-save conflict recovery integration",
+        "native transport cancellation, durable offline recovery and production recovery integration",
         "actual-device/screen-reader and human localization/accessibility/release review",
         "production widget data or business dashboard activation",
         "production API/database/reload persistence",
@@ -762,7 +762,16 @@
         "native data transport cancellation",
         "offline dashboard cache synchronization"
       ],
-      "nextAction": "Proceed to B12 original icons and visual assets. Retain B11 registered source, common preference kind, server policy, host, advanced-family and human-review gates before live dashboard activation."
+      "nextAction": "Proceed to B12 original icons and visual assets. Retain B11 registered source, common preference kind, server policy, host, advanced-family and human-review gates before live dashboard activation.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965931,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
     },
     {
       "id": "B12",
@@ -889,7 +898,7 @@
         },
         {
           "code": "WORK_MODULE_HOST_NATIVE_REVIEW_PENDING",
-          "detail": "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification; Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+          "detail": "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification; Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
         }
       ],
       "readiness": "isolated_web_postgresql_and_flutter_factory_acceptance_passed",
@@ -926,10 +935,19 @@
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
         "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
-        "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
-      "nextAction": "Proceed to B14 shared communications/file templates using existing governed services; retain all B13 host and unmapped feature gates."
+      "nextAction": "Proceed to B14 shared communications/file templates using existing governed services; retain all B13 host and unmapped feature gates.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965897,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
     },
     {
       "id": "B14",
@@ -1020,7 +1038,16 @@
         "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
-      "nextAction": "Proceed to B15 original shared academy/commerce/AI-image/profile/settings/help templates only where existing registered workflows allow; retain B14 unbound and unmapped feature gates."
+      "nextAction": "Proceed to B15 original shared academy/commerce/AI-image/profile/settings/help templates only where existing registered workflows allow; retain B14 unbound and unmapped feature gates.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965936,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
     },
     {
       "id": "B15",
@@ -1125,7 +1152,16 @@
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
-      "nextAction": "Proceed to B16 dashboard families and supporting pages using existing governed data sources; retain all B15 missing API/provider, host and review gates."
+      "nextAction": "Proceed to B16 dashboard families and supporting pages using existing governed data sources; retain all B15 missing API/provider, host and review gates.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965872,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
     },
     {
       "id": "B16",
@@ -1288,7 +1324,7 @@
     {
       "id": "B18",
       "title": "Full verification and release closure",
-      "status": "cross_batch_source_verification_and_strict_release_gate_implemented_acceptance_pending",
+      "status": "cross_batch_source_verified_production_device_and_human_acceptance_pending",
       "depends_on": [
         "B02",
         "B03",
@@ -1333,12 +1369,20 @@
       "productionRuntimeVerified": false,
       "humanReviewApproved": false,
       "remainingScope": [
-        "Execute the combined cross-batch browser/PostgreSQL/native workflow on the shipped source",
         "Authenticated deployed UI/API/database/reload and denied/cross-tenant acceptance",
         "Physical-device and human localization/accessibility/release approval",
         "All earlier batch source/contract/integration gaps must be resolved"
       ],
-      "nextAction": "Run the combined verification workflow; --require-complete must remain nonzero until every release gate has valid evidence."
+      "nextAction": "Close remaining feature/contract/host/deployment/device/review gaps; rerun exact-source verification after subsequent code changes.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965824,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
     }
   ]
 }
