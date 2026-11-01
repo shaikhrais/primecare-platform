@@ -56,3 +56,10 @@ The new collection has no concrete native live profile/settings `WorkPort` or ho
 ## Release gates
 
 All new labels are registered EN/FR/ES drafts. Human language, keyboard/focus, screen-reader, contrast, responsive layout, localization and release review remain open. Host bindings, API 777 activation/current grants, profile routing metadata review, default/picker presentation and complete reconciliation UX are required before exposure. B14's unrelated notification/API and file-operation gaps remain unchanged. Full reference-family adoption is not claimed.
+
+
+## Native self-profile binding
+
+`package:primecare_ui/application_modules.dart` now exports `ApplicationProfilePort` for the existing API 16402 `GET /v1/auth/me`. Construct it with the real gateway origin, the captured bearer token, immutable `PreferenceScope`, current-token/current-scope callbacks and the registered localized identity label. Pass it to `WorkModuleSession(scope, 'profile', port: port)` and the existing `PrimeWorkModule`. Dispose the session on logout or actor/tenant/role change.
+
+The native adapter exposes only the existing authenticated identity fields and no mutation actions. It denies demo scope, owner-selected queries and redirects; bounds streamed JSON to at most 64 KiB; checks captured context before dispatch, after headers, throughout streaming and before publication; and compares all returned identity fields exactly. Closing the port does not close a host-injected HTTP client. Its source tests use isolated fixtures; authenticated native host activation, actual-device checks and production acceptance remain open.

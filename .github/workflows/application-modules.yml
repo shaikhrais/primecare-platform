@@ -12,6 +12,7 @@ on:
       - 'packages/primecare_ui/catalogs/application-modules.registration.json'
       - 'packages/flutter_core/lib/work_modules/**'
       - 'packages/flutter_core/lib/application_modules.dart'
+      - 'packages/flutter_core/lib/application_modules/**'
       - 'packages/flutter_core/test/application_modules/**'
       - 'scripts/application-modules-fixture.mjs'
       - 'scripts/test-application-modules*'
@@ -80,7 +81,7 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/work_modules lib/work_modules.dart lib/communication_modules.dart lib/application_modules.dart test/work_modules test/communication_modules test/application_modules
+      - run: flutter analyze --no-fatal-infos lib/work_modules lib/work_modules.dart lib/communication_modules.dart lib/application_modules.dart lib/application_modules test/work_modules test/communication_modules test/application_modules
         working-directory: packages/flutter_core
       - run: flutter test test/work_modules test/communication_modules test/application_modules test/component_catalogue --reporter expanded
         working-directory: packages/flutter_core
