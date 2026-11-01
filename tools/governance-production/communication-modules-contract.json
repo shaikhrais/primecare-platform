@@ -1,0 +1,358 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/communication-modules.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_dropdown_web",
+    "prime_text_field",
+    "prime_textarea_web",
+    "prime_table_web"
+  ],
+  "controls": [
+    {
+      "key": "mailbox",
+      "testId": "communication-modules-mailbox",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.mailbox"
+    },
+    {
+      "key": "messenger",
+      "testId": "communication-modules-messenger",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.messenger"
+    },
+    {
+      "key": "notifications",
+      "testId": "communication-modules-notifications",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.notifications"
+    },
+    {
+      "key": "files",
+      "testId": "communication-modules-files",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.files"
+    },
+    {
+      "key": "filter",
+      "testId": "communication-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.filter"
+    },
+    {
+      "key": "open",
+      "testId": "communication-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.open"
+    },
+    {
+      "key": "detail",
+      "testId": "communication-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "communicationModules.detail"
+    },
+    {
+      "key": "title",
+      "testId": "communication-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.title"
+    },
+    {
+      "key": "body",
+      "testId": "communication-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "communicationModules.body"
+    },
+    {
+      "key": "date",
+      "testId": "communication-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "communicationModules.date"
+    },
+    {
+      "key": "action",
+      "testId": "communication-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "communicationModules.action"
+    },
+    {
+      "key": "save",
+      "testId": "communication-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.save"
+    },
+    {
+      "key": "create",
+      "testId": "communication-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.create"
+    },
+    {
+      "key": "close",
+      "testId": "communication-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.close"
+    },
+    {
+      "key": "previous",
+      "testId": "communication-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.previous"
+    },
+    {
+      "key": "next",
+      "testId": "communication-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.next"
+    },
+    {
+      "key": "reload",
+      "testId": "communication-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.reload"
+    },
+    {
+      "key": "retry",
+      "testId": "communication-modules-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "communicationModules.retry"
+    }
+  ],
+  "resources": {
+    "communicationModules.accepted": {
+      "en": "Provider accepted; delivery unconfirmed",
+      "fr": "Accept\u00e9 par le fournisseur ; livraison non confirm\u00e9e",
+      "es": "Aceptado por proveedor; entrega sin confirmar"
+    },
+    "communicationModules.action": {
+      "en": "Available action",
+      "fr": "Action disponible",
+      "es": "Acci\u00f3n disponible"
+    },
+    "communicationModules.attachment": {
+      "en": "Private picture reference",
+      "fr": "R\u00e9f\u00e9rence d\u2019image priv\u00e9e",
+      "es": "Referencia de imagen privada"
+    },
+    "communicationModules.body": {
+      "en": "Instructions or evidence",
+      "fr": "Consignes ou \u00e9l\u00e9ments de preuve",
+      "es": "Instrucciones o evidencia"
+    },
+    "communicationModules.close": {
+      "en": "Close details",
+      "fr": "Fermer les d\u00e9tails",
+      "es": "Cerrar detalles"
+    },
+    "communicationModules.conflict": {
+      "en": "Record changed; reload before retry",
+      "fr": "Dossier modifi\u00e9; recharger avant de r\u00e9essayer",
+      "es": "El registro cambi\u00f3; recarga antes de reintentar"
+    },
+    "communicationModules.create": {
+      "en": "Create task",
+      "fr": "Cr\u00e9er une t\u00e2che",
+      "es": "Crear tarea"
+    },
+    "communicationModules.date": {
+      "en": "Due date",
+      "fr": "\u00c9ch\u00e9ance",
+      "es": "Fecha l\u00edmite"
+    },
+    "communicationModules.denied": {
+      "en": "Action not authorized",
+      "fr": "Action non autoris\u00e9e",
+      "es": "Acci\u00f3n no autorizada"
+    },
+    "communicationModules.detail": {
+      "en": "Record details",
+      "fr": "D\u00e9tails du dossier",
+      "es": "Detalles del registro"
+    },
+    "communicationModules.empty": {
+      "en": "No matching records",
+      "fr": "Aucun dossier correspondant",
+      "es": "No hay registros coincidentes"
+    },
+    "communicationModules.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acci\u00f3n"
+    },
+    "communicationModules.files": {
+      "en": "Conversation attachments",
+      "fr": "Pi\u00e8ces jointes de conversation",
+      "es": "Archivos adjuntos de conversaci\u00f3n"
+    },
+    "communicationModules.filter": {
+      "en": "Filter visible records",
+      "fr": "Filtrer les dossiers visibles",
+      "es": "Filtrar registros visibles"
+    },
+    "communicationModules.invalid": {
+      "en": "Check the entered values",
+      "fr": "V\u00e9rifier les valeurs saisies",
+      "es": "Revisa los valores ingresados"
+    },
+    "communicationModules.loading": {
+      "en": "Loading authorized records",
+      "fr": "Chargement des dossiers autoris\u00e9s",
+      "es": "Cargando registros autorizados"
+    },
+    "communicationModules.mailbox": {
+      "en": "Authorized mailbox",
+      "fr": "Bo\u00eete aux lettres autoris\u00e9e",
+      "es": "Buz\u00f3n autorizado"
+    },
+    "communicationModules.markRead": {
+      "en": "Mark conversation read",
+      "fr": "Marquer la conversation comme lue",
+      "es": "Marcar conversaci\u00f3n como le\u00edda"
+    },
+    "communicationModules.messenger": {
+      "en": "Authorized conversations",
+      "fr": "Conversations autoris\u00e9es",
+      "es": "Conversaciones autorizadas"
+    },
+    "communicationModules.next": {
+      "en": "Next page",
+      "fr": "Page suivante",
+      "es": "P\u00e1gina siguiente"
+    },
+    "communicationModules.notifications": {
+      "en": "Your notifications",
+      "fr": "Vos notifications",
+      "es": "Sus notificaciones"
+    },
+    "communicationModules.open": {
+      "en": "Open details",
+      "fr": "Ouvrir les d\u00e9tails",
+      "es": "Abrir detalles"
+    },
+    "communicationModules.partial": {
+      "en": "Only the authorized page is shown",
+      "fr": "Seule la page autoris\u00e9e est affich\u00e9e",
+      "es": "Solo se muestra la p\u00e1gina autorizada"
+    },
+    "communicationModules.previous": {
+      "en": "Previous page",
+      "fr": "Page pr\u00e9c\u00e9dente",
+      "es": "P\u00e1gina anterior"
+    },
+    "communicationModules.quarantined": {
+      "en": "Quarantined; sender unverified",
+      "fr": "En quarantaine ; exp\u00e9diteur non v\u00e9rifi\u00e9",
+      "es": "En cuarentena; remitente sin verificar"
+    },
+    "communicationModules.queued": {
+      "en": "Queued; not delivered",
+      "fr": "En attente ; non livr\u00e9",
+      "es": "En cola; sin entregar"
+    },
+    "communicationModules.read": {
+      "en": "Read",
+      "fr": "Lu",
+      "es": "Le\u00eddo"
+    },
+    "communicationModules.reload": {
+      "en": "Reload records",
+      "fr": "Recharger les dossiers",
+      "es": "Recargar registros"
+    },
+    "communicationModules.retry": {
+      "en": "Confirm original action",
+      "fr": "Confirmer l\u2019action initiale",
+      "es": "Confirmar acci\u00f3n original"
+    },
+    "communicationModules.save": {
+      "en": "Apply action",
+      "fr": "Appliquer l\u2019action",
+      "es": "Aplicar acci\u00f3n"
+    },
+    "communicationModules.send": {
+      "en": "Send message",
+      "fr": "Envoyer le message",
+      "es": "Enviar mensaje"
+    },
+    "communicationModules.sending": {
+      "en": "Submission in progress",
+      "fr": "Envoi en cours",
+      "es": "Env\u00edo en curso"
+    },
+    "communicationModules.success": {
+      "en": "Saved and read back",
+      "fr": "Enregistr\u00e9 et relu",
+      "es": "Guardado y verificado"
+    },
+    "communicationModules.title": {
+      "en": "Title",
+      "fr": "Titre",
+      "es": "T\u00edtulo"
+    },
+    "communicationModules.unavailable": {
+      "en": "Approved workflow adapter is unavailable",
+      "fr": "Adaptateur de processus approuv\u00e9 indisponible",
+      "es": "Adaptador de proceso aprobado no disponible"
+    },
+    "communicationModules.unknown": {
+      "en": "Delivery unknown",
+      "fr": "Livraison inconnue",
+      "es": "Entrega desconocida"
+    },
+    "communicationModules.unread": {
+      "en": "Unread",
+      "fr": "Non lu",
+      "es": "No le\u00eddo"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Only existing tenant.admin.workspace task workflow: due dates, current-tenant directory read, task instructions and allowed task-state transitions. Standalone notes, appointment mutation, personal contact CRUD and manual ranking need specifications. No new grants, API, route, schema or runtime activation.",
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "POST",
+      "path": "/v1/messages",
+      "service": "governance",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "service": "governance",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/messages/email",
+      "service": "governance",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/email/inbox",
+      "service": "governance",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/messages/pictures",
+      "service": "governance",
+      "permission": "role_screen_permissions"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/auth/me/notifications",
+      "service": "auth",
+      "permission": "authenticated_self_record_owner"
+    }
+  ]
+}

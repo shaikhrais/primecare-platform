@@ -1807,5 +1807,23 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "communicationModulesWriter": {
+    "optInVariable": "GOVERNANCE_COMMUNICATION_MODULES_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "12a84ed2dd9a1976b4f300f3682e0049882c14fb66f5cc1095dfb851b68c9e48",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "communicationModules.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }
