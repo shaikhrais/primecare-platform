@@ -1,11 +1,11 @@
 {
   "format": 1,
-  "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
+  "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
   "capturedAt": "2026-11-01T13:03:44.246980+00:00",
   "remoteBranches": [
     {
       "name": "main",
-      "sha": "2b957d21e702819e628ac64bce200bcb74edd453"
+      "sha": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2"
     }
   ],
   "mainOnlyConfirmed": true,
@@ -13,38 +13,33 @@
   "fullyConfirmedBatches": 0,
   "historicalEvidenceIsNotCurrentProductionAcceptance": true,
   "latestB16": {
-    "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
-    "runId": 41307397565,
+    "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+    "runId": 41310167833,
     "status": "completed",
     "conclusion": "success",
     "jobs": [
       {
-        "id": 124850486748,
-        "name": "native (windows-latest)",
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "id": 124850486989,
-        "name": "native (macos-latest)",
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "id": 124850487015,
-        "name": "postgres",
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "id": 124850487039,
         "name": "web",
         "status": "completed",
         "conclusion": "success"
       },
       {
-        "id": 124850487046,
-        "name": "native (ubuntu-24.04)",
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "native Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "native Windows",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "native macOS",
         "status": "completed",
         "conclusion": "success"
       }
@@ -53,37 +48,32 @@
   "nextNativeReader": {
     "sourceCommit": "2b957d21e702819e628ac64bce200bcb74edd453",
     "runId": 41309237883,
-    "status": "in_progress",
+    "status": "completed",
     "jobs": [
       {
-        "id": 124855950807,
-        "name": "postgres",
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "id": 124855951043,
-        "name": "native (ubuntu-24.04)",
-        "status": "completed",
-        "conclusion": "success"
-      },
-      {
-        "id": 124855951070,
         "name": "web",
         "status": "completed",
         "conclusion": "success"
       },
       {
-        "id": 124855951090,
-        "name": "native (macos-latest)",
-        "status": "in_progress",
-        "conclusion": null
+        "name": "postgres",
+        "status": "completed",
+        "conclusion": "success"
       },
       {
-        "id": 124855951189,
-        "name": "native (windows-latest)",
-        "status": "in_progress",
-        "conclusion": null
+        "name": "native Linux",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "native Windows",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "name": "native macOS",
+        "status": "completed",
+        "conclusion": "success"
       }
     ]
   },
@@ -436,7 +426,8 @@
       "missingEvidenceReferences": [],
       "historicalHashCount": 16,
       "changedSinceHistoricalHashes": [
-        "packages/flutter_core/lib/data_controls/prime_data_controls.dart"
+        "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+        "packages/flutter_core/test/data_controls/data_controls_widget_test.dart"
       ],
       "proposalFeatureCount": 1,
       "historicalRun": {
@@ -506,7 +497,9 @@
       "evidenceReferences": 8,
       "missingEvidenceReferences": [],
       "historicalHashCount": 147,
-      "changedSinceHistoricalHashes": [],
+      "changedSinceHistoricalHashes": [
+        "packages/flutter_core/lib/data_controls/prime_data_controls.dart"
+      ],
       "proposalFeatureCount": 2,
       "historicalRun": {
         "id": "B12",
@@ -617,26 +610,26 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "recordedStatus": "linux_native_repaired_passed_windows_macos_and_exact_source_other_jobs_pending",
+      "recordedStatus": "prior_five_job_acceptance_passed_receipt_recovered_native_reader_linux_passed_other_platforms_pending",
       "fullFunctionalityConfirmed": false,
       "sourceState": "implemented_subset_or_foundation",
-      "evidenceReferences": 21,
+      "evidenceReferences": 24,
       "missingEvidenceReferences": [],
       "historicalHashCount": 0,
       "changedSinceHistoricalHashes": [],
       "proposalFeatureCount": 13,
       "historicalRun": {
         "id": "B16",
-        "runId": 41307397565,
-        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
-        "actualHead": "6d7ec963967f34270c51ef215a3178902df57132",
+        "runId": 41310167833,
+        "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+        "actualHead": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
         "status": "completed",
         "conclusion": "success",
-        "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41307397565"
+        "url": "https://github.com/shaikhrais/primecare-platform/actions/runs/41310167833"
       },
       "remaining": [
         "Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime",
-        "Verify and integrate the new native authenticated read/session adapter",
+        "Integrate the verified native authenticated reader into registered app hosts",
         "Real finance/crypto workflow bindings",
         "Android/iOS, human localization/accessibility and release acceptance"
       ]

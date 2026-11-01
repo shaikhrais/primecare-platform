@@ -124,5 +124,13 @@
     "native binary picker and image policy adapter",
     "governed real-data flows",
     "human localization/accessibility/release review"
+  ],
+  "sourceFollowups": [
+    {
+      "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+      "runId": 41310167831,
+      "conclusion": "success",
+      "fix": "Native safe HTTPS host link callback, async error and scope/disposal handling; link source adapter gap closed, host binding still pending"
+    }
   ]
 }

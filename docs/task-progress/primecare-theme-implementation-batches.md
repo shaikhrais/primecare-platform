@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B01-B18 are not all fully functional. B01-B15 have historical passing subset/factory checks and documented integration/release gaps. B16 prior source passed all five web/PostgreSQL/Linux/Windows/macOS jobs. Historical registration receipt is recovered. The new native reader passes Linux; remaining platform acceptance and production integration are pending. B17 has a reproducible main-only evidence audit; its catalogue/adoption scope remains unfinished. B18 final verification/release closure remains pending. GitHub has only `main`; no other branch was opened.**
+**Status: Full B01-B18 functionality/release acceptance is not established. B10 native link actions and B16 optional operational counts are fixed and pass their platform CI. B17 now has a generated 72-feature/1200-reference catalogue and app adoption inventory. B18 has a combined verification workflow and strict release-gap check; its execution and production/device/human acceptance are still required. Remaining work stays on the sole `main` branch.**
 
 Read the [B01-B18 functionality audit](../appearance/theme-batches-main-audit.md) and [machine evidence](../appearance/theme-batches-main-audit.json). Historical green checks are not full current-production acceptance. Remaining work stays on `main`.
 

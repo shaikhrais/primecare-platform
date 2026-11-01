@@ -75,7 +75,8 @@
       "same block document schema",
       "safe link address display",
       "host-approved image builder",
-      "async save"
+      "async save",
+      "host-supplied safe HTTPS link action with scoped async failure handling"
     ],
     "upload": [
       "injected binary picker",
@@ -137,7 +138,6 @@
   ],
   "remainingFeatureGaps": [
     "Native sticky horizontal pinning",
-    "Native link activation adapter",
     "Character-range rich-text marks and arbitrary HTML import",
     "Spreadsheet editing and server-side query adapter",
     "Upload removal/remote deletion UI",

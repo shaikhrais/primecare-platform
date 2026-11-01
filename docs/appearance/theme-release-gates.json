@@ -1,0 +1,329 @@
+{
+  "format": 1,
+  "releaseReady": false,
+  "batchCount": 18,
+  "mainOnlyPolicy": true,
+  "liveBranchInventoryNotRecheckedByThisScript": true,
+  "evidencePolicy": "Declared plan/evidence gates only; CI/deployment/review receipts require independent validation before final signoff",
+  "batches": [
+    {
+      "batch": "B01",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "metadata_pilot_registered"
+    },
+    {
+      "batch": "B02",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "tenant_pilot_accepted"
+    },
+    {
+      "batch": "B03",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_engine_accepted_native_host_pending"
+    },
+    {
+      "batch": "B04",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_navigation_accepted_host_binding_pending"
+    },
+    {
+      "batch": "B05",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_page_templates_accepted_host_binding_pending"
+    },
+    {
+      "batch": "B06",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_advanced_theme_accepted_host_binding_pending"
+    },
+    {
+      "batch": "B07",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_account_sync_accepted_host_binding_pending"
+    },
+    {
+      "batch": "B08",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_shell_utilities_accepted_business_host_bindings_pending"
+    },
+    {
+      "batch": "B09",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_component_catalogue_accepted_host_binding_pending"
+    },
+    {
+      "batch": "B10",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_data_controls_accepted_platform_gaps_host_binding_pending"
+    },
+    {
+      "batch": "B11",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_chart_widget_foundations_accepted_registry_persistence_host_pending"
+    },
+    {
+      "batch": "B12",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_original_assets_adopted_selected_sources_app_migration_review_pending"
+    },
+    {
+      "batch": "B13",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "task_backed_shared_work_modules_verified_host_activation_and_unmapped_features_pending"
+    },
+    {
+      "batch": "B14",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "shared_communication_module_subset_verified_notification_registration_and_host_activation_pending"
+    },
+    {
+      "batch": "B15",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "blockers",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "account_identity_and_navigation_settings_verified_other_application_dependencies_and_host_activation_pending"
+    },
+    {
+      "batch": "B16",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "cross_platform_dashboard_and_native_read_subsets_verified_optional_count_handling_fixed_host_release_gaps_open"
+    },
+    {
+      "batch": "B17",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "developer_catalogue_and_known_reference_dispositions_generated_app_migration_and_review_pending"
+    },
+    {
+      "batch": "B18",
+      "ready": false,
+      "openGates": [
+        "fullFunctionalityVerified",
+        "productionRuntimeVerified",
+        "humanReviewApproved",
+        "remainingScope",
+        "releaseEvidence.sourceCommit",
+        "releaseEvidence.ciRun",
+        "releaseEvidence.deployedUiApiDatabaseReload",
+        "releaseEvidence.deniedAndCrossTenant",
+        "releaseEvidence.supportedDevices",
+        "releaseEvidence.localizationAndAccessibilityReview"
+      ],
+      "recordedStatus": "cross_batch_source_verification_and_strict_release_gate_implemented_acceptance_pending"
+    }
+  ]
+}

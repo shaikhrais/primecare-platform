@@ -48,7 +48,7 @@ for batch in plan['batches']:
         remaining = [x['detail'] for x in batch.get('blockers', [])]
     if bid == 'B16':
         remaining = ['Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime',
-                     'Verify and integrate the new native authenticated read/session adapter', 'Real finance/crypto workflow bindings',
+                     'Integrate the verified native authenticated reader into registered app hosts', 'Real finance/crypto workflow bindings',
                      'Android/iOS, human localization/accessibility and release acceptance']
     if bid in ['B17', 'B18']:
         remaining = batch['scope']

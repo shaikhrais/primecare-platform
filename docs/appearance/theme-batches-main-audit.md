@@ -1,6 +1,6 @@
 # B01-B18 main-branch functionality audit
 
-Captured: 2026-11-01T13:03:44.246980+00:00. Audited source: `2b957d21e702819e628ac64bce200bcb74edd453`.
+Captured: 2026-11-01T13:03:44.246980+00:00. Audited source: `4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2`.
 
 **All 18 batches are not fully functional or production verified.** B01-B15 have historical passing checks for registered subsets/factories; B16 has corrected native checks and remaining integration gaps; B17 has an audit but unfinished catalogue/app migration; B18 remains unfinished. No batch is promoted to full functionality from a green build, metadata registration or file presence.
 
@@ -25,13 +25,13 @@ Current local checks: 18/19 scripts passed. The workspace browser script could n
 | B13 | Subset/foundation and evidence | [success](https://github.com/shaikhrais/primecare-platform/actions/runs/41267690894) | Not confirmed | Standalone notes and personal contact CRUD require approved workflow/API bindings; Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings |
 | B14 | Subset/foundation and evidence | [success](https://github.com/shaikhrais/primecare-platform/actions/runs/41269984530) | Not confirmed | Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound; General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings |
 | B15 | Subset/foundation and evidence | [success](https://github.com/shaikhrais/primecare-platform/actions/runs/41277937362) | Not confirmed | Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs; Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers |
-| B16 | Subset/foundation and evidence | [success](https://github.com/shaikhrais/primecare-platform/actions/runs/41307397565) | Not confirmed | Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime; Verify and integrate the new native authenticated read/session adapter |
+| B16 | Subset/foundation and evidence | [success](https://github.com/shaikhrais/primecare-platform/actions/runs/41310167833) | Not confirmed | Obtain fresh production activation/readback; the recovered metadata receipt does not activate runtime; Integrate the verified native authenticated reader into registered app hosts |
 | B17 | Audit partial | Not established | Not confirmed | Publish an original developer catalogue with component APIs, layout recipes, examples, configuration schemas and asset mappings.; Track every reference feature as verified-equivalent, intentionally-replaced, not-applicable-with-reason, blocked or missing; no silent omissions. |
 | B18 | Plan only | Not established | Not confirmed | Run governed Cypress/browser and Flutter/native verification across registered roles, tenants, supported apps, layout families and breakpoints.; Cover LTR/RTL, EN/FR/ES, keyboard/touch/screen-reader behaviours, contrast, state retention and preference migrations. |
 
-New native reader source `2b957d21e702819e628ac64bce200bcb74edd453`: [run 41309237883](https://github.com/shaikhrais/primecare-platform/actions/runs/41309237883); status in_progress. Earlier green checks do not establish this new adapter's acceptance.
+New native reader source `2b957d21e702819e628ac64bce200bcb74edd453`: [run 41309237883](https://github.com/shaikhrais/primecare-platform/actions/runs/41309237883); status completed. Earlier green checks do not establish this new adapter's acceptance.
 
-Latest B16 repairs: [run 41307397565](https://github.com/shaikhrais/primecare-platform/actions/runs/41307397565) at `6d7ec963967f34270c51ef215a3178902df57132`. native (windows-latest): success; native (macos-latest): success; postgres: success; web: success; native (ubuntu-24.04): success. Pending jobs are not counted as accepted.
+Latest B16 repairs: [run 41310167833](https://github.com/shaikhrais/primecare-platform/actions/runs/41310167833) at `4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2`. web: success; postgres: success; native Linux: success; native Windows: success; native macOS: success. Pending jobs are not counted as accepted.
 
 ## Exact limits and next actions
 
