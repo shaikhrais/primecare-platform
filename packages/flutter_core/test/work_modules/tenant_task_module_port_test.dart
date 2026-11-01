@@ -18,7 +18,7 @@ void main(){
  Map<String,dynamic> clone(Object? value)=>Map<String,dynamic>.from(jsonDecode(jsonEncode(value)) as Map);
  TenantTaskModulePort port(String module,TenantTaskTransport transport)=>TenantTaskModulePort(scope:scope,module:module,labels:labels,transport:transport);
  final first=clone((oracle['cases'] as List).firstWhere((c)=>c['name']=='tasks-open-manager')['raw']);
- WorkCommand command(Map c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
+ WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
  test('20 native projections match the existing shared web adapter exactly',()async{
   for(final value in oracle['cases'] as List){final c=value as Map,p=port(c['module'] as String,(_ )async=>clone(c['raw']));
    expect(await p.read(const WorkQuery()),c['expected'],reason:c['name'] as String);p.dispose();}
@@ -56,7 +56,7 @@ void main(){
  });
  test('readback follows renamed tasks across bounded pages and fails on missing identity',()async{
   final c=(oracle['mutations'] as List).firstWhere((c)=>c['name']=='tasks-open-manager-edit') as Map,offsets=<String>[];var changed=false;
-  final p=port('tasks',(r)async{if(r.method=='POST'){changed=true;return clone(c['reply']);}if(!changed)return clone(c['raw']);offsets.add(r.filters['taskOffset']!);expect(r.filters['search'],'Updated task');final raw=clone(c['reply']);raw['taskPage']={'total':201};if(r.filters['taskOffset']!='200')raw['tasks']=[];return raw;});
+  final p=port('tasks',(r)async{if(r.method=='POST'){changed=true;return clone(c['reply']);}if(!changed)return clone(c['raw']);offsets.add(r.filters['taskOffset']!);expect(r.filters['search'],'Updated task');final raw=clone(c['reply']);raw['taskPage']={'total':201};if(r.filters['taskOffset']!='200')raw['tasks']=<Object?>[];return raw;});
   await p.read(const WorkQuery());await p.mutate(command(c['command'] as Map),c['key'] as String);expect((await p.readItem('task1') as Map)['offset'],200);expect(offsets,['0','100','200']);await expectLater(p.readItem('missing'),throwsA(isA<WorkFailure>()));p.dispose();
  });
  test('disposed ports ignore delayed data and close an owned transport once',()async{

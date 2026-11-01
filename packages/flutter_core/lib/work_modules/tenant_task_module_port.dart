@@ -38,7 +38,7 @@ class TenantTaskModulePort implements WorkPort {
       raw['database']!='PostgreSQL'||raw['taskActorId'] is! String||(raw['taskActorId'] as String).isEmpty||raw['canManage'] is! bool||raw['tasks'] is! List||raw['users'] is! List||raw['clients'] is! List)throw const WorkFailure('denied',403);
     return raw;
   }
-  String _target(Map task,String action,String evidence,Map raw){
+  String _target(Map<dynamic,dynamic> task,String action,String evidence,Map<dynamic,dynamic> raw){
     if(evidence.trim().length<10||evidence.length>2000||RegExp(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]').hasMatch(evidence)||
       ['completed','cancelled'].contains(task['status']))throw const WorkFailure('invalid',400);
     final own=task['owner_id']==raw['taskActorId'],manager=raw['canManage']==true,status=task['status'];
