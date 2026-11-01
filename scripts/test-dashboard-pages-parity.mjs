@@ -5,7 +5,8 @@ import {supportingPageKinds,supportingPageStatus} from '../packages/shared/src/d
 const scope={tenantId:'fixture-tenant',userId:'fixture-user',role:'tenant_admin',dataset:'live'};
 const raw={dataset:'live',synthetic:false,identity:{userId:scope.userId,role:scope.role},organization:{id:scope.tenantId},allowedViews:['tasks','operations','workflows','audit'],taskStats:{open:5,review:2,blocked:1,overdue:3,completed:4},stats:{staff:2,clients:4,visits:1,requests:0,time:3,care:1,plans:2}};
 raw.tasks=[{id:'task-1',title:'Task <literal>'}];raw.workflows=[{flow_id:'flow-1',title:'Workflow one'}];raw.events=[{action:'create',created_at:'2026-11-01T10:00:00Z'}];
-const fixture={scope,raw,recordProjections:['activity','search'].map(kind=>projectRecordPage(kind,raw,scope)),projections:['project','analytics','finance','crypto'].map(f=>projectDashboard(f,raw,scope)),supportingPages:supportingPageKinds.map(kind=>({kind,status:supportingPageStatus(kind)}))};
+const optional=structuredClone(raw);optional.stats.plans=null;
+const fixture={scope,raw,unavailableAnalytics:projectDashboard('analytics',optional,scope),recordProjections:['activity','search'].map(kind=>projectRecordPage(kind,raw,scope)),projections:['project','analytics','finance','crypto'].map(f=>projectDashboard(f,raw,scope)),supportingPages:supportingPageKinds.map(kind=>({kind,status:supportingPageStatus(kind)}))};
 const path='packages/flutter_core/test/dashboard_pages/parity-fixtures.json';
 if(process.argv.includes('--write'))await writeFile(path,JSON.stringify(fixture,null,2)+'\n');else assert.deepEqual(JSON.parse(await readFile(path,'utf8')),fixture);
 for(const kind of ['invoice','pricing','authentication'])assert.equal(supportingPageStatus(kind),'unavailable');assert.throws(()=>supportingPageStatus('login-submit'));

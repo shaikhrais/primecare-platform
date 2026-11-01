@@ -10,7 +10,7 @@ void main() {
   final scope=PreferenceScope.fromJson(fixture['scope']);
   Map<String,dynamic> raw()=>jsonDecode(jsonEncode(fixture['raw'])) as Map<String,dynamic>;
   final labels=<String,String>{'project':'Task <overview>','analytics':'Operations','finance':'Finance','crypto':'Crypto','live':'LIVE','demo':'DEMO','denied':'Denied','unavailable':'Unavailable',
-    'open':'Open','review':'Review','blocked':'Blocked','overdue':'Overdue','completed':'Completed','invoice':'Invoice','pricing':'Pricing','authentication':'Account access','coming-soon':'Coming soon','maintenance':'Maintenance','error':'Error','static-coming-soon':'Not activated','static-maintenance':'Presentation only','static-error':'Use approved workflow'};
+    'missing':'Not available','open':'Open','review':'Review','blocked':'Blocked','overdue':'Overdue','completed':'Completed','invoice':'Invoice','pricing':'Pricing','authentication':'Account access','coming-soon':'Coming soon','maintenance':'Maintenance','error':'Error','static-coming-soon':'Not activated','static-maintenance':'Presentation only','static-error':'Use approved workflow'};
   test('web/native projections and supporting statuses match shared fixtures',(){
     for(final expected in fixture['projections'] as List){
       final projected=DashboardPageProjection.fromResponse(expected['family'] as String,raw(),scope);
@@ -76,6 +76,15 @@ void main() {
     final denied=raw()..['allowedViews']=<String>[];
     await tester.pumpWidget(app(PrimeRecordPage(projection:RecordPageProjection.fromResponse('search',denied,scope),labels:recordLabels)));
     expect(find.text('Denied'),findsOneWidget);expect(find.text('Task <literal>'),findsNothing);
+  });
+
+  testWidgets('optional unavailable counts have an explicit label', (tester)async{
+    final optional=raw();(optional['stats'] as Map)['plans']=null;
+    final projected=DashboardPageProjection.fromResponse('analytics',optional,scope);
+    expect(projected.toJson(),fixture['unavailableAnalytics']);
+    final allLabels=<String,String>{...labels,'staff':'Staff','clients':'Clients','visits':'Visits','requests':'Requests','time':'Time','care':'Care','plans':'Plans'};
+    await tester.pumpWidget(app(PrimeDashboardPage(projection:projected,labels:allLabels)));
+    expect(find.text('Plans: Not available'),findsOneWidget);expect(tester.takeException(),isNull);
   });
 
 }

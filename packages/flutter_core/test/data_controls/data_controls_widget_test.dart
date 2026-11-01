@@ -8,4 +8,20 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
  testWidgets('autocomplete ignores an older completion and reports denied loading',(t)async{final old=Completer<List<({String value,String label})>>();await t.pumpWidget(app(PrimeDataAutocomplete(labels:l,scope:'search',load:(q)async{if(q=='old')return old.future;if(q=='fail')throw StateError('denied');return [(value:q,label:'$q label')];})));await t.enterText(find.byType(TextField),'old');await t.pump();await t.enterText(find.byType(TextField),'new');await t.pumpAndSettle();old.complete([(value:'old',label:'old label')]);await t.pumpAndSettle();expect(find.text('old label'),findsNothing);expect(find.text('new label'),findsOneWidget);await t.enterText(find.byType(TextField),'fail');await t.pumpAndSettle();expect(find.text(l.text('error')),findsOneWidget);});
  testWidgets('native date and time picker access preserves cancelled values',(t)async{final kit=PrimeDataKit(l,'picker'),date=TextEditingController(text:'2024-02-29'),time=TextEditingController(text:'23:59');await t.pumpWidget(app(Column(children:[kit.field('date',date,firstDate:DateTime(2024),lastDate:DateTime(2025)),kit.field('time',time)])));await t.tap(find.byTooltip(l.text('date')));await t.pumpAndSettle();expect(find.byType(DatePickerDialog),findsOneWidget);await t.tap(find.text('Cancel'));await t.pumpAndSettle();expect(date.text,'2024-02-29');await t.tap(find.byTooltip(l.text('time')));await t.pumpAndSettle();expect(find.byType(TimePickerDialog),findsOneWidget);await t.tap(find.text('Cancel'));await t.pumpAndSettle();expect(time.text,'23:59');await t.pumpWidget(const SizedBox());date.dispose();time.dispose();});
 
+ testWidgets('native editor links use the host adapter and report failures',(t)async{
+  final doc={'version':1,'blocks':[{'kind':'paragraph','text':'Read policy','bold':false,'italic':false,'link':'https://example.test/policy'}]};
+  String? opened;
+  await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'link-reader',document:doc,openLink:(url)async{opened=url;})));
+  await t.ensureVisible(find.text('https://example.test/policy'));await t.pumpAndSettle();await t.tap(find.text('https://example.test/policy'));await t.pumpAndSettle();expect(opened,'https://example.test/policy');
+  await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'link-reader-failed',document:doc,openLink:(_)async{throw StateError('blocked');})));
+  await t.ensureVisible(find.text('https://example.test/policy'));await t.pumpAndSettle();await t.tap(find.text('https://example.test/policy'));await t.pumpAndSettle();expect(find.text(l.text('error')),findsOneWidget);
+ });
+ testWidgets('native editor suppresses link completion after scope replacement',(t)async{
+  final doc={'version':1,'blocks':[{'kind':'paragraph','text':'Policy','bold':false,'italic':false,'link':'https://example.test/policy'}]},pending=Completer<void>();
+  await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'old-scope',document:doc,openLink:(_)async=>pending.future)));
+  await t.ensureVisible(find.text('https://example.test/policy'));await t.pumpAndSettle();await t.tap(find.text('https://example.test/policy'));await t.pump();
+  await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'new-scope',document:doc,openLink:(_)async{})));
+  pending.completeError(StateError('late failure'));await t.pumpAndSettle();expect(find.text(l.text('error')),findsNothing);expect(t.takeException(),isNull);
+ });
+
 }

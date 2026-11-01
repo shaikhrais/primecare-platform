@@ -14,7 +14,7 @@ export function projectDashboard(family, raw, expected) {
   const values = family === 'project' ? raw.taskStats : raw.stats;
   const metrics = fields[family].map(key => {
     const value = values?.[key];
-    if (!Number.isSafeInteger(value) || value < 0) throw Error('invalid_count');
+    if (!(family === 'analytics' && value === null && Object.hasOwn(values, key)) && (!Number.isSafeInteger(value) || value < 0)) throw Error('invalid_count');
     return {key, value, sourceField: (family === 'project' ? 'taskStats.' : 'stats.') + key};
   });
   // Counts can overlap (blocked and overdue are subsets of open). Never sum or make a pie chart.

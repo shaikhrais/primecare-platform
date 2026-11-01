@@ -9,7 +9,7 @@ const _fields = {
 
 class DashboardPageMetric {
   final String key, sourceField;
-  final int value;
+  final int? value;
   const DashboardPageMetric(this.key, this.value, this.sourceField);
   Map<String, Object?> toJson() => {'key': key, 'value': value, 'sourceField': sourceField};
 }
@@ -33,6 +33,7 @@ class DashboardPageProjection {
     final prefix = family == 'project' ? 'taskStats' : 'stats', values = response[family == 'project' ? 'taskStats' : 'stats'];
     return result('ready', keys.map((key) {
       final value = values is Map ? values[key] : null;
+      if (family == 'analytics' && value == null && values is Map && values.containsKey(key)) return DashboardPageMetric(key, null, '$prefix.$key');
       if (value is! num || !value.isFinite || value < 0 || value > 9007199254740991 || value != value.truncateToDouble()) {
         throw ArgumentError('invalid_count');
       }

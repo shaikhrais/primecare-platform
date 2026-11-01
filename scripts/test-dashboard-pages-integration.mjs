@@ -30,6 +30,7 @@ try {
   const fresh=new DashboardPageSession(kind,scope,read,()=>scope,projectRecordPage);recordSessions.push(fresh);await fresh.load();assert.deepEqual(fresh.state.projection,session.state.projection);checks++;
  }
  for(const session of recordSessions)session.dispose();
+ const analytics=new DashboardPageSession('analytics',scope,read,()=>scope);await analytics.load();assert.equal(analytics.state.status,'ready');assert.ok(analytics.state.projection.metrics.some(m=>m.value===null));analytics.dispose();checks++;
  const before=requests;token='changed';await s.load();assert.equal(s.state.status,'denied');assert.equal(s.state.projection,null);assert.equal(requests,before);checks++;
  let captured=f.actors.admin.token;
  const race=dashboardPageTransport('https://fixture.test',captured,'live',()=>captured,async()=>({ok:true,json:async()=>{captured='changed';return {};}}));await assert.rejects(()=>race(new AbortController().signal),/denied/);checks++;

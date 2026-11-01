@@ -17,8 +17,8 @@ class PrimeDashboardPage extends StatelessWidget {
       Semantics(container: true, header: true, child: Text(text(projection.family), style: Theme.of(context).textTheme.titleLarge)),
       Semantics(container: true, liveRegion: true, child: Text(text(projection.status == 'ready' ? (projection.synthetic ? 'demo' : 'live') : projection.status))),
       if (projection.status == 'ready') for (final metric in projection.metrics)
-        Semantics(container: true, label: '${text(metric.key)}: ${metric.value}', excludeSemantics: true,
-          child: Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Text('${text(metric.key)}: ${metric.value}'))),
+        Semantics(container: true, label: '${text(metric.key)}: ${metric.value ?? text('missing')}', excludeSemantics: true,
+          child: Padding(padding: const EdgeInsets.symmetric(vertical: 8), child: Text('${text(metric.key)}: ${metric.value ?? text('missing')}'))),
     ]),
   ));
 }

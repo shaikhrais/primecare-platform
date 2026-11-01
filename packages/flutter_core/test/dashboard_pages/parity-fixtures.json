@@ -56,6 +56,50 @@
       }
     ]
   },
+  "unavailableAnalytics": {
+    "family": "analytics",
+    "dataset": "live",
+    "synthetic": false,
+    "sourceApiId": 16578,
+    "status": "ready",
+    "metrics": [
+      {
+        "key": "staff",
+        "value": 2,
+        "sourceField": "stats.staff"
+      },
+      {
+        "key": "clients",
+        "value": 4,
+        "sourceField": "stats.clients"
+      },
+      {
+        "key": "visits",
+        "value": 1,
+        "sourceField": "stats.visits"
+      },
+      {
+        "key": "requests",
+        "value": 0,
+        "sourceField": "stats.requests"
+      },
+      {
+        "key": "time",
+        "value": 3,
+        "sourceField": "stats.time"
+      },
+      {
+        "key": "care",
+        "value": 1,
+        "sourceField": "stats.care"
+      },
+      {
+        "key": "plans",
+        "value": null,
+        "sourceField": "stats.plans"
+      }
+    ]
+  },
   "recordProjections": [
     {
       "kind": "activity",
