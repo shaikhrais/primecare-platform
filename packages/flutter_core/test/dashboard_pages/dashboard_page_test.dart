@@ -36,12 +36,14 @@ void main() {
   testWidgets('literal labels, metric semantics and narrow layout', (tester)async{
     tester.view.physicalSize=const Size(360,740);tester.view.devicePixelRatio=1;
     addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
-    final semantics=tester.ensureSemantics();addTearDown(semantics.dispose);
+    final semantics=tester.ensureSemantics();
+    try {
     await tester.pumpWidget(app(PrimeDashboardPage(projection:DashboardPageProjection.fromResponse('project',raw(),scope),labels:labels)));
     expect(find.text('Task <overview>'),findsOneWidget);expect(find.text('LIVE'),findsOneWidget);
     expect(find.bySemanticsLabel('Open: 5'),findsOneWidget);expect(tester.takeException(),isNull);
     await tester.pumpWidget(app(PrimeDashboardPage(projection:DashboardPageProjection.fromResponse('finance',raw(),scope),labels:labels)));
     expect(find.text('Unavailable'),findsOneWidget);expect(find.text('Open: 5'),findsNothing);
+    } finally { semantics.dispose(); }
   });
   testWidgets('supporting pages expose no billing or authentication actions', (tester)async{
     for(final kind in supportingPageKinds){
