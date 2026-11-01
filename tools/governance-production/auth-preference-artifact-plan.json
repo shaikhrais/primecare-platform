@@ -1,0 +1,1066 @@
+{
+  "format": 1,
+  "apiId": 777,
+  "method": "POST",
+  "path": "/v1/user/preferences",
+  "service": "auth",
+  "permissionKey": "authenticated_self_preferences",
+  "sourceCommit": "1831695d1609d0b49fdb0427efbeba7f241d4a4b",
+  "worker": "primecare-auth-api",
+  "deploymentId": "5d3fc26e-1495-47f8-9cea-c833918658be",
+  "versionId": "4db1ce26-0770-4d96-b0e5-c104a4df865c",
+  "artifact": {
+    "id": 2,
+    "artifact_type": "file",
+    "artifact_code": "primecare-auth-api.account-preferences.4db1ce26-0770-4d96-b0e5-c104a4df865c",
+    "artifact_name": "primecare-auth-api account preferences [1831695d1609d0b49fdb0427efbeba7f241d4a4b]",
+    "physical_path": "cloudflare/workers/src/account-preferences.ts",
+    "status": "active",
+    "health_status": "unverified",
+    "deployment_status": "deployed",
+    "version": "4db1ce26-0770-4d96-b0e5-c104a4df865c",
+    "checksum": "78d84679eb24a90cd30cf3839438816c5ecebea069c0f857d34f44d7a2ddd140"
+  },
+  "expectedArtifactIdUpperBound": 0,
+  "expectedReferencedArtifactIdUpperBound": 1,
+  "before": [
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49665,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 1,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49666,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 2,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49667,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 3,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49668,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 4,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49669,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 5,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49670,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 6,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49671,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 7,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49672,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 8,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49673,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 9,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49674,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 10,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49675,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 11,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49676,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 12,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49677,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 13,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49678,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 14,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49679,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 15,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49680,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 16,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49681,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 17,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49682,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 18,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49683,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 19,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49684,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 20,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49685,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 21,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49686,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 22,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49687,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 23,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49688,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 24,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49689,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 25,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49690,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 26,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49691,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 27,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49692,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 28,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49693,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 29,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49694,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 30,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49695,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 31,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49696,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 32,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49697,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 33,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49698,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 34,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49699,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 35,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49700,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 36,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49701,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 37,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49702,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 38,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49703,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 39,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49704,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 40,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49705,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 41,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49706,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 42,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49707,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 43,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49708,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 44,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49709,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 45,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49710,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 46,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49711,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 47,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49712,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 48,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49713,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 49,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49714,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 50,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49715,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 51,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49716,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 52,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49717,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 53,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49718,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 54,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49719,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 55,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49720,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 56,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49721,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 57,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49722,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 58,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49723,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 59,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49724,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 60,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49725,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 61,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49726,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 62,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49727,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 63,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49728,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 64,
+      "runtime_artifact_id": 1
+    }
+  ],
+  "after": [
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49665,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 1,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49666,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 2,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49667,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 3,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49668,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 4,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49669,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 5,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49670,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 6,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49671,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 7,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49672,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 8,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49673,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 9,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49674,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 10,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49675,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 11,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49676,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 12,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49677,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 13,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49678,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 14,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49679,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 15,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49680,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 16,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49681,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 17,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49682,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 18,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49683,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 19,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49684,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 20,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49685,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 21,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49686,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 22,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49687,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 23,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49688,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 24,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49689,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 25,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49690,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 26,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49691,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 27,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49692,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 28,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49693,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 29,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49694,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 30,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49695,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 31,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49696,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 32,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49697,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 33,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49698,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 34,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49699,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 35,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49700,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 36,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49701,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 37,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49702,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 38,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49703,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 39,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49704,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 40,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49705,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 41,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49706,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 42,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49707,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 43,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49708,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 44,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49709,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 45,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49710,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 46,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49711,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 47,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49712,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 48,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49713,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 49,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49714,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 50,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49715,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 51,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49716,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 52,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49717,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 53,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49718,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 54,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49719,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 55,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49720,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 56,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49721,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 57,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49722,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 58,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49723,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 59,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49724,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 60,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49725,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 61,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49726,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 62,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49727,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 63,
+      "runtime_artifact_id": 2
+    },
+    {
+      "api_id": 777,
+      "can_access": 1,
+      "id": 49728,
+      "permission_key": "authenticated_self_preferences",
+      "role_id": 64,
+      "runtime_artifact_id": 2
+    }
+  ],
+  "newRoleGrants": 0,
+  "accessFlagsChanged": 0,
+  "permissionKeysChanged": 0,
+  "runtimeActivated": false,
+  "quarantineChanges": 0,
+  "metadataEvidence": {
+    "run": 41358563188,
+    "job": 125003813743,
+    "snapshotSha256": "109ca2427bd8727e09cd534ad913217ad452c8ee22a3c7764d5c8e9fd17f4b8b"
+  },
+  "authority": "Existing API777 self-preference grants retain their role, operation and access flags; replace only dangling runtime provenance with the independently matched deployed handler artifact",
+  "legacyMessagingRowsChanged": 0
+}

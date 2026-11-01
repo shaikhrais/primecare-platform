@@ -1861,5 +1861,19 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "authPreferenceArtifactWriter": {
+    "optInVariable": "REGISTER_AUTH_PREFERENCE_ARTIFACT",
+    "planSha256": "4d5e464948753f0031a48f07c5bb5462312d76cbcf610c0ea6b315f3890fe287",
+    "tables": [
+      "runtime_artifacts",
+      "api_permissions"
+    ],
+    "apiId": 777,
+    "artifactId": 2,
+    "existingGrantRows": 64,
+    "newRoleGrants": false,
+    "runtimeActivation": false,
+    "businessDataWrites": false
   }
 }
