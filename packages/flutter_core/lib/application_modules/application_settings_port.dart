@@ -34,7 +34,7 @@ class ApplicationSettingsPort implements WorkPort {
       transport:(request)async{guard();try{final raw=await wire.call(request);guard();return raw;}catch(_){guard();rethrow;}});}catch(_){if(client==null)wire.close();rethrow;}
   }
   void _open(){if(_dead)throw const WorkFailure('unavailable');}
-  Never _fail([Object? error]){final e=error??_lastError;if(e is WorkFailure)throw e;if(e is PreferenceFailure)throw WorkFailure([401,403].contains(e.status)?'denied':e.status==409?'conflict':e.status==400?'invalid':'error',e.status);throw const WorkFailure('error');}
+  Never _fail([Object? error]){final e=error??_lastError;if(e==null&&_client.current['error']=='scope_changed')throw const WorkFailure('denied',403);if(e is WorkFailure)throw e;if(e is PreferenceFailure)throw WorkFailure([401,403].contains(e.status)?'denied':e.status==409?'conflict':e.status==400?'invalid':'error',e.status);throw const WorkFailure('error');}
   String _body(Map<String,dynamic> snapshot){final doc=snapshot['document'],ids=doc==null?defaults:List<String>.from((doc as Map)['screenIds'] as List);
     if(ids.any((id)=>!names.containsKey(id)))throw const WorkFailure('unavailable');return ids.map((id)=>names[id]!).join('\n');}
   WorkSnapshot _project(Map<String,dynamic> snapshot)=>WorkSnapshot.fromJson({'scope':binding.scope.toJson(),'module':'settings','items':[

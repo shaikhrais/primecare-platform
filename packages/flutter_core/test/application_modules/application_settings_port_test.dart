@@ -52,6 +52,9 @@ void main(){
   final p=ApplicationSettingsPort.authenticated(origin:Uri.parse('https://fixture.test'),token:token,binding:binding,cache:SettingsCache(),names:names,labels:labels,defaults:defaults,currentToken:()=>current,currentScope:()=>scope,client:client);await p.read(const WorkQuery());expect(requests.length,2);for(final r in requests){expect(r.url.path,'/v1/user/preferences');expect(r.method,'POST');expect(r.headers['authorization'],'Bearer $token');}
   current='changed';await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','denied')));expect(requests.length,2);p.dispose();expect(client.closed,false);client.close();
  });
+ test('wrong-account owned snapshots become denied rather than retryable errors',()async{
+  final raw=clone((oracle['cases'] as List).first['raw']);raw['scope']={...scope.toJson(),'userId':'other'};final p=port((_)async=>raw),s=WorkModuleSession(scope,'settings',port:p);await s.load();expect(s.status,'denied');expect(s.snapshot,isNull);s.dispose();
+ });
  test('late responses are suppressed after native port disposal',()async{
   final reply=Completer<Object?>(),p=port((_)=>reply.future),pending=p.read(const WorkQuery());await Future<void>.delayed(Duration.zero);p.dispose();reply.complete((oracle['cases'] as List).first['raw']);await expectLater(pending,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));
  });
