@@ -294,7 +294,7 @@ Completion checks:
 
 Shared targets: `packages/shared/src/`, `packages/primecare_ui/web/`, `packages/primecare_ui/lib/`, `websites/typescript/src/`.
 
-Accepted subset: task due-date calendar, read-only authorized directory, task edits, task instructions and status transitions. Standalone notes/contact CRUD, appointments/recurrence, manual board ranking and new-template creation remain needs-specification. Native live transport, host/device verification, pagination/demo/reconciliation polish and human review remain open. No whole-screen activation or full reference adoption is claimed.
+Accepted subset: task due-date calendar, read-only authorized directory, task edits, task instructions and status transitions. Standalone notes/contact CRUD, appointments/recurrence, manual board ranking and new-template creation remain needs-specification. The concrete native task API transport, task-backed projections/commands, receipt replay and independent readback are implemented. Authenticated native host/deployment/device verification, durable restart recovery, pagination/demo/accessibility polish and human review remain open. No whole-screen activation or full reference adoption is claimed.
 
 ### B14 — Mailbox, messenger, notifications and file manager
 

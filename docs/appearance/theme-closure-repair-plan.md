@@ -16,7 +16,7 @@ Component tests cover the implemented subset. A complete batch also needs its in
 | B10 | Remaining editor/table/specialized controls and storage integration missing | Complete range marks/import requirements, spreadsheet/query adapters, specialized variants and approved binary storage/picker policies | Real persistence/removal readback, native parity and accessibility review |
 | B11 | Business widgets, registered persistence and chart/placement scope incomplete | Confirm widget grants/data mappings and dashboard document policy; finish required chart families, placement and durable recovery | API/database/reload, offline recovery, native and device acceptance |
 | B12 | Icon migration and dependency review incomplete | Replace remaining actual usages and review resolved licence bundle | Per-app verified usages, licence/contrast/screen-reader review |
-| B13 | Task-backed subset does not implement all requested work apps | Complete approved calendar recurrence/reminders, personal contact/notes CRUD, board ordering and native ports; add durable reconciliation | Real workflow mutations, created-item receipts, independent readback/reload and denial |
+| B13 | Task-backed subset does not implement all requested work apps | Complete approved calendar recurrence/reminders, personal contact/notes CRUD, board ordering; mount and accept the native task adapter; add durable reconciliation | Real workflow mutations, created-item receipts, independent readback/reload and denial |
 | B14 | Full mail/messenger/files/notifications workflows unbound | Confirm registered contracts for compose/drafts/folders/history/realtime/attachments/storage; implement their authorized adapters | Provider/service receipts, owned records, reload and denied/cross-tenant acceptance |
 | B15 | Identity read alone is not full academy/commerce/profile/settings/help | Mount native identity port; bind confirmed learning/commerce/help/provider contracts and preference recovery; preserve existing sensitive account flows | Real host/API flows and provider authorization/quota/persistence acceptance |
 | B16 | Finance/supporting pages have unavailable placeholders | Confirm real financial data and invoice/pricing/account workflows; mount authorized dashboards | Real data projections and complete deployed UI/API/database/reload flows |
@@ -24,6 +24,8 @@ Component tests cover the implemented subset. A complete batch also needs its in
 | B18 | Deployed, device and human release evidence incomplete | Run full login/action/API/database/reload paths, denied/cross-tenant cases and actual-device/review checks | Recorded evidence for each earlier batch; human release decisions |
 
 ## Repairs completed during follow-up
+
+- B13: concrete native task API transport/projection/mutation/receipt/readback binding for all five task-backed views, verified by 60 projection cases, 52 mutation cases and 13 regression groups across 12 targeted/combined jobs. Source `d0d2ea41c13be48fd7ed6b613d2d14573fdf5cb6`; see `native-task-binding-evidence.json`. Host activation and standalone workflow/device/review gaps remain open.
 
 - B13/B15/B16: shared web response reader with streamed byte limits, strict JSON and captured actor/cancellation/disposal checks through cleanup. Source `e1e0a786e5515f57e92df3289cd6d382babc0551` passed all 22 targeted/combined CI jobs; see `guarded-response-evidence.json`. This is response integration/parity acceptance, not completion of the missing business workflows.
 

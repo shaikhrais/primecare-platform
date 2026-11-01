@@ -106,5 +106,11 @@
     "Visible uncertain-operation reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
     "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
   ],
-  "usage": "docs/appearance/work-modules-usage.md"
+  "usage": "docs/appearance/work-modules-usage.md",
+  "nativeTaskAdapterFollowup": {
+    "sourceCommit": "d0d2ea41c13be48fd7ed6b613d2d14573fdf5cb6",
+    "evidence": "docs/appearance/native-task-binding-evidence.json",
+    "conclusion": "success",
+    "runtimeActivated": false
+  }
 }

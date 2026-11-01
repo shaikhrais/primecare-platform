@@ -1,0 +1,118 @@
+{
+  "format": 1,
+  "batch": "B13",
+  "sourceCommit": "d0d2ea41c13be48fd7ed6b613d2d14573fdf5cb6",
+  "conclusion": "success",
+  "apiBindings": {
+    "GET": 16578,
+    "POST": 16579,
+    "path": "/v1/governance/tenant-dashboard"
+  },
+  "modules": [
+    "calendar",
+    "contacts",
+    "tasks",
+    "notes",
+    "board"
+  ],
+  "scope": "existing task-backed projections/actions; contacts are a read-only authorized directory",
+  "nativeRegressionGroups": 13,
+  "projectionCases": 60,
+  "mutationReceiptReadbackCases": 52,
+  "localExistingTaskChecks": 30,
+  "workflows": [
+    {
+      "runId": 41333591922,
+      "name": "Theme cross-batch closure verification",
+      "jobs": [
+        {
+          "id": 124928619027,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619246,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619290,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619333,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124929666262,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124929666307,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124929666381,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41333591937,
+      "name": "Shared work modules",
+      "jobs": [
+        {
+          "id": 124928619045,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619210,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619247,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619269,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124928619358,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    "all six task states and existing independent-manager policy",
+    "exact shared web request, receipt and readback parity",
+    "native session HTTP GET/POST/independent GET with an isolated client",
+    "original receipt and payload replay after uncertain acknowledgement",
+    "verification-only retry after acknowledged save",
+    "forbidden fields/version/identity checks",
+    "bounded HTTP, disposal abort triggers and borrowed-client ownership",
+    "stale query exclusion, renamed-task pagination and demo workspace revision"
+  ],
+  "productionHostActivated": false,
+  "newApis": 0,
+  "newGrants": 0,
+  "physicalDeviceVerified": false,
+  "humanReleaseApproved": false,
+  "remaining": [
+    "authenticated native host mounting and deployed UI/API/database/reload verification",
+    "standalone notes/contact CRUD, appointments/recurrence/reminders and custom board workflows",
+    "durable process-restart reconciliation and native UI/accessibility polish",
+    "physical devices and human localization/accessibility/release review"
+  ]
+}

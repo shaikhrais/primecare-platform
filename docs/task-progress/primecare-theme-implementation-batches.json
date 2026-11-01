@@ -379,7 +379,7 @@
       "blockers": [
         {
           "code": "PREFERENCE_HOST_ACTIVATION_PENDING",
-          "detail": "Runtime remains off. API grants remain restricted to existing roles 1\u201364; no panel bindings exist for cloud workspace restoration."
+          "detail": "Runtime remains off. API grants remain restricted to existing roles 1–64; no panel bindings exist for cloud workspace restoration."
         }
       ],
       "readiness": "web_native_postgresql_browser_and_linux_windows_macos_acceptance_passed",
@@ -880,7 +880,7 @@
         "Keep synthetic demonstration data isolated and explicitly labelled; activate only registered real workflows."
       ],
       "acceptance": [
-        "For each approved module: authorized UI action \u2192 API \u2192 independent database readback \u2192 reload.",
+        "For each approved module: authorized UI action → API → independent database readback → reload.",
         "Meaningful create/update/delete or reorder actions include validation, denied roles and tenant-isolation cases.",
         "Unmapped reference features are listed as needs-specification rather than marked adopted."
       ],
@@ -888,14 +888,16 @@
         "packages/shared/src/",
         "packages/primecare_ui/web/",
         "packages/primecare_ui/lib/",
-        "websites/typescript/src/"
+        "websites/typescript/src/",
+        "packages/flutter_core/lib/work_modules/"
       ],
       "evidence": [
         "docs/appearance/theme-adoption-batch-13.md",
         "docs/appearance/theme-adoption-batch-13-evidence.json",
         "docs/appearance/work-modules-usage.md",
         "docs/appearance/work-modules-registration-receipt.json",
-        ".github/workflows/work-modules.yml"
+        ".github/workflows/work-modules.yml",
+        "docs/appearance/native-task-binding-evidence.json"
       ],
       "blockers": [
         {
@@ -904,7 +906,7 @@
         },
         {
           "code": "WORK_MODULE_HOST_NATIVE_REVIEW_PENDING",
-          "detail": "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification; Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+          "detail": "Authenticated native host mounts, deployed/device and full-app verification; Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
         }
       ],
       "readiness": "isolated_web_postgresql_and_flutter_factory_acceptance_passed",
@@ -940,11 +942,11 @@
         "Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings",
         "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
         "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
-        "Concrete native authenticated adapter, host mounts, deployed/device and full-app verification",
+        "Authenticated native host mounts, deployed/device and full-app verification",
         "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
         "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
       ],
-      "nextAction": "Proceed to B14 shared communications/file templates using existing governed services; retain all B13 host and unmapped feature gates.",
+      "nextAction": "Mount and accept registered native task-backed hosts; complete approved standalone workflow bindings, durable restart recovery, device verification and human release review.",
       "sourceFollowups": [
         {
           "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
@@ -952,6 +954,14 @@
           "conclusion": "success",
           "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
           "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "d0d2ea41c13be48fd7ed6b613d2d14573fdf5cb6",
+          "runId": 41333591937,
+          "combinedRunId": 41333591922,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-task-binding-evidence.json",
+          "change": "Concrete native authenticated task-backed API adapter verified against all six task states; host, durable restart, standalone workflows and release gates retained"
         }
       ]
     },
@@ -1352,7 +1362,7 @@
       "scope": [
         "Run governed Cypress/browser and Flutter/native verification across registered roles, tenants, supported apps, layout families and breakpoints.",
         "Cover LTR/RTL, EN/FR/ES, keyboard/touch/screen-reader behaviours, contrast, state retention and preference migrations.",
-        "Verify UI \u2192 API \u2192 database \u2192 reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
+        "Verify UI → API → database → reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
         "Update implementation/test/review tags honestly, record required CI and deployment/readback evidence, and resolve every remaining gap or mark it blocked."
       ],
       "acceptance": [
