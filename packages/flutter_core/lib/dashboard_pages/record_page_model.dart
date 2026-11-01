@@ -30,7 +30,8 @@ class RecordPageProjection {
       for (final event in _rows(response['events'])) {
         if (event is! Map) throw ArgumentError('invalid_record');
         final title = _text(event['action'], 200), detail = _text(event['created_at'], 100);
-        if (DateTime.tryParse(detail) == null) throw ArgumentError('invalid_record');
+        final date = DateTime.tryParse(detail);
+        if (!RegExp(r'^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$').hasMatch(detail) || date == null || date.toUtc().toIso8601String().substring(0, 19) != detail.substring(0, 19)) throw ArgumentError('invalid_record');
         rows.add(RecordPageRow('activity', title, detail));
       }
     } else {

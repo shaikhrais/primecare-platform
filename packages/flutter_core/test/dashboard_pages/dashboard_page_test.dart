@@ -60,6 +60,10 @@ void main() {
     final denied=raw()..['allowedViews']=[];
     expect(RecordPageProjection.fromResponse('activity',denied,scope).rows,isEmpty);
     expect(RecordPageProjection.fromResponse('search',denied,scope).status,'denied');
+    for(final date in ['2026-02-30T10:00:00Z','2026-11-01','2026-11-01T10:00:00','2026-11-01T10:00:60Z']){
+      final invalid=raw()..['events']=[{'action':'create','created_at':date}];
+      expect(()=>RecordPageProjection.fromResponse('activity',invalid,scope),throwsArgumentError);
+    }
     final oversized=raw()..['tasks']=List.filled(101,{'id':'t','title':'Task'});
     expect(()=>RecordPageProjection.fromResponse('search',oversized,scope),throwsArgumentError);
   });

@@ -12,7 +12,8 @@ export function projectRecordPage(kind,raw,scope,query=''){
   if(!views.includes('audit'))return {...base,status:'denied',rows:[]};
   const result=rows(raw.events).map(event=>{
    const title=text(event?.action,200),detail=text(event?.created_at,100);
-   if(!Number.isFinite(Date.parse(detail)))throw Error('invalid_record');
+   const date=new Date(detail);
+   if(!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,3})?Z$/.test(detail)||!Number.isFinite(date.getTime())||date.toISOString().slice(0,19)!==detail.slice(0,19))throw Error('invalid_record');
    return {type:'activity',title,detail};
   });
   return {...base,status:result.length?'ready':'empty',rows:result};
