@@ -18,9 +18,61 @@ export class DataTableModel {
  toggle(id:string){if(!this.rows.some(r=>r.id===id))throw Error('unknown_row');this.selected.has(id)?this.selected.delete(id):this.selected.add(id);}
 }
 export function safeHttps(value:unknown){if(typeof value!=='string'||value.length>2048||/[\u0000-\u0020\u007f\\]/.test(value)||!/^https:\/\//i.test(value))throw Error('unsafe_url');let u:URL;try{u=new URL(value);}catch{throw Error('unsafe_url');}if(u.protocol!=='https:'||!u.hostname||u.username||u.password)throw Error('unsafe_url');return value;}
-export type RichBlock={text:string;bold:boolean;italic:boolean;kind:'paragraph'|'bullet';link?:string;image?:{url:string;alt:string}};
-export type RichDocument={version:1;blocks:RichBlock[]};
-export function validateDocument(raw:unknown):RichDocument{const o=raw as RichDocument;if(!o||typeof o!=='object'||Object.keys(o).some(k=>!['version','blocks'].includes(k))||o.version!==1||!Array.isArray(o.blocks)||o.blocks.length<1||o.blocks.length>200)throw Error('invalid_document');let size=0;const blocks=o.blocks.map(b=>{if(!b||typeof b!=='object'||Object.keys(b).some(k=>!['text','bold','italic','kind','link','image'].includes(k))||typeof b.text!=='string'||typeof b.bold!=='boolean'||typeof b.italic!=='boolean'||!['paragraph','bullet'].includes(b.kind))throw Error('invalid_block');size+=b.text.length;if(size>32768)throw Error('document_too_large');const n:RichBlock={text:b.text,bold:b.bold,italic:b.italic,kind:b.kind};if(b.link!==undefined)n.link=safeHttps(b.link);if(b.image!==undefined){if(!b.image||Object.keys(b.image).some(k=>!['url','alt'].includes(k))||typeof b.image.alt!=='string'||!b.image.alt.trim()||b.image.alt.length>500)throw Error('invalid_image');n.image={url:safeHttps(b.image.url),alt:b.image.alt};}return n;});return {version:1,blocks};}
+export type RichMark={start:number;end:number;bold:boolean;italic:boolean};
+export type RichRun=RichMark&{text:string};
+export type RichBlock={marks?:RichMark[];text:string;bold:boolean;italic:boolean;kind:'paragraph'|'bullet';link?:string;image?:{url:string;alt:string}};
+export type RichDocument={version:1|2;blocks:RichBlock[]};
+/** Offsets use UTF-16 on web and Dart; never divide a surrogate pair. */
+export function richTextBoundary(text:string,offset:number){return Number.isSafeInteger(offset)&&offset>=0&&offset<=text.length&&!(offset>0&&offset<text.length&&text.charCodeAt(offset-1)>=0xd800&&text.charCodeAt(offset-1)<=0xdbff&&text.charCodeAt(offset)>=0xdc00&&text.charCodeAt(offset)<=0xdfff);}
+function validateRichMarks(text:string,raw:unknown,bold:boolean,italic:boolean):RichMark[]{
+ if(!Array.isArray(raw)||raw.length>1024)throw Error('invalid_marks');
+ const result:RichMark[]=[];let previousEnd=0;
+ for(const mark of raw){
+  if(!mark||typeof mark!=='object'||Object.keys(mark).sort().join(',')!=='bold,end,italic,start'||typeof mark.bold!=='boolean'||typeof mark.italic!=='boolean'||!richTextBoundary(text,mark.start)||!richTextBoundary(text,mark.end)||mark.start>=mark.end||mark.start<previousEnd)throw Error('invalid_mark');
+  previousEnd=mark.end;if(mark.bold===bold&&mark.italic===italic)continue;
+  const last=result.at(-1);
+  if(last&&last.end===mark.start&&last.bold===mark.bold&&last.italic===mark.italic)last.end=mark.end;
+  else result.push({start:mark.start,end:mark.end,bold:mark.bold,italic:mark.italic});
+ }
+ return result;
+}
+export function richRuns(raw:RichBlock):RichRun[]{
+ const block=validateDocument({version:2,blocks:[raw]}).blocks[0],result:RichRun[]=[];let offset=0;
+ const add=(start:number,end:number,bold:boolean,italic:boolean)=>{if(start<end)result.push({start,end,text:block.text.slice(start,end),bold,italic});};
+ for(const mark of block.marks??[]){add(offset,mark.start,block.bold,block.italic);add(mark.start,mark.end,mark.bold,mark.italic);offset=mark.end;}
+ add(offset,block.text.length,block.bold,block.italic);return result;
+}
+function markedBlock(block:RichBlock,text:string,runs:readonly RichMark[]):RichBlock{
+ const spans:RichMark[]=[];
+ for(const run of runs){if(run.bold===block.bold&&run.italic===block.italic)continue;const last=spans.at(-1);if(last&&last.end===run.start&&last.bold===run.bold&&last.italic===run.italic)last.end=run.end;else spans.push({...run});}
+ const marks=validateRichMarks(text,spans,block.bold,block.italic),result={...block,text};
+ delete result.marks;if(marks.length)result.marks=marks;return validateDocument({version:2,blocks:[result]}).blocks[0];
+}
+export function toggleRichRange(raw:RichBlock,start:number,end:number,style:'bold'|'italic'):RichBlock{
+ const block=validateDocument({version:2,blocks:[raw]}).blocks[0];
+ if(!['bold','italic'].includes(style)||!richTextBoundary(block.text,start)||!richTextBoundary(block.text,end)||start>=end)throw Error('invalid_range');
+ const runs=richRuns(block),enabled=!runs.filter(r=>r.start<end&&r.end>start).every(r=>r[style]);const next:RichMark[]=[];
+ for(const run of runs){const cuts=[run.start,...[start,end].filter(n=>n>run.start&&n<run.end),run.end];
+  for(let i=0;i<cuts.length-1;i++){const a=cuts[i],b=cuts[i+1];next.push({start:a,end:b,bold:run.bold,italic:run.italic,...(a>=start&&b<=end?{[style]:enabled}:{})});}}
+ return markedBlock(block,block.text,next);
+}
+/** Rebase marks around one contiguous edit; inserted text inherits its neighbouring style. */
+export function replaceRichText(raw:RichBlock,text:string):RichBlock{
+ const block=validateDocument({version:2,blocks:[raw]}).blocks[0];if(typeof text!=='string'||text.length>32768)throw Error('invalid_text');
+ if(text===block.text)return block;
+ let prefix=0,suffix=0;const old=block.text;
+ while(prefix<old.length&&prefix<text.length&&old[prefix]===text[prefix])prefix++;
+ while(!richTextBoundary(old,prefix)||!richTextBoundary(text,prefix))prefix--;
+ while(suffix<old.length-prefix&&suffix<text.length-prefix&&old[old.length-1-suffix]===text[text.length-1-suffix])suffix++;
+ while(!richTextBoundary(old,old.length-suffix)||!richTextBoundary(text,text.length-suffix))suffix--;
+ const runs=richRuns(block),next:RichMark[]=[],insertEnd=text.length-suffix,oldEnd=old.length-suffix,delta=text.length-old.length;
+ const inherited=runs.find(r=>r.start<=Math.max(0,prefix-1)&&r.end>Math.max(0,prefix-1))??block;
+ for(const run of runs)if(run.start<prefix)next.push({start:run.start,end:Math.min(run.end,prefix),bold:run.bold,italic:run.italic});
+ if(insertEnd>prefix)next.push({start:prefix,end:insertEnd,bold:inherited.bold,italic:inherited.italic});
+ for(const run of runs)if(run.end>oldEnd)next.push({start:Math.max(run.start,oldEnd)+delta,end:run.end+delta,bold:run.bold,italic:run.italic});
+ return markedBlock(block,text,next);
+}
+export function validateDocument(raw:unknown):RichDocument{const o=raw as RichDocument;if(!o||typeof o!=='object'||Object.keys(o).some(k=>!['version','blocks'].includes(k))||![1,2].includes(o.version)||!Array.isArray(o.blocks)||o.blocks.length<1||o.blocks.length>200)throw Error('invalid_document');let size=0,totalMarks=0;const blocks=o.blocks.map(b=>{if(!b||typeof b!=='object'||Object.keys(b).some(k=>!['text','bold','italic','kind','link','image','marks'].includes(k))||typeof b.text!=='string'||typeof b.bold!=='boolean'||typeof b.italic!=='boolean'||!['paragraph','bullet'].includes(b.kind))throw Error('invalid_block');size+=b.text.length;if(size>32768)throw Error('document_too_large');const n:RichBlock={text:b.text,bold:b.bold,italic:b.italic,kind:b.kind};if(b.marks!==undefined){if(o.version!==2)throw Error('range_document_version_required');const marks=validateRichMarks(b.text,b.marks,b.bold,b.italic);totalMarks+=marks.length;if(totalMarks>4096)throw Error('too_many_marks');if(marks.length)n.marks=marks;}if(b.link!==undefined)n.link=safeHttps(b.link);if(b.image!==undefined){if(!b.image||Object.keys(b.image).some(k=>!['url','alt'].includes(k))||typeof b.image.alt!=='string'||!b.image.alt.trim()||b.image.alt.length>500)throw Error('invalid_image');n.image={url:safeHttps(b.image.url),alt:b.image.alt};}return n;});return {version:o.version,blocks};}
 export type FieldConstraint={kind:'date'|'time'|'number'|'mask';required?:boolean;min?:number;max?:number;step?:number;pattern?:string};
 export function formatMask(value:string,pattern:string){if(!/^[# ()+.-]{1,80}$/.test(pattern)||!pattern.includes('#'))throw Error('invalid_mask');const digits=value.replace(/\D/g,'');let i=0,result='';for(const c of pattern){if(i>=digits.length)break;result+=c==='#'?digits[i++]:c;}return result;}
 export function fieldError(value:string,c:FieldConstraint):'required'|'invalid'|null{if(!value.trim())return c.required?'required':null;if(c.kind==='number'){if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)$/.test(value))return 'invalid';const n=Number(value);if(!Number.isFinite(n)||c.min!==undefined&&n<c.min||c.max!==undefined&&n>c.max||c.step!==undefined&&(c.step<=0||Math.abs((n-(c.min??0))/c.step-Math.round((n-(c.min??0))/c.step))>1e-7))return 'invalid';}if(c.kind==='date'){if(!/^\d{4}-\d{2}-\d{2}$/.test(value)||value.slice(0,4)==='0000')return 'invalid';const t=new Date(value+'T00:00:00Z');if(!Number.isFinite(t.getTime())||t.toISOString().slice(0,10)!==value)return 'invalid';}if(c.kind==='time'&&!/^([01]\d|2[0-3]):[0-5]\d$/.test(value))return 'invalid';if(c.kind==='mask'&&(!c.pattern||formatMask(value,c.pattern)!==value||value.replace(/\D/g,'').length!==(c.pattern.match(/#/g)??[]).length))return 'invalid';return null;}

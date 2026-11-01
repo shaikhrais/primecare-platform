@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 permissions: {contents: read}
 concurrency:
-  group: data-controls-tests-${{ github.ref }}
+  group: data-controls-tests-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   web:
@@ -33,6 +33,7 @@ jobs:
           ln -s /tmp/catalogue-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-data-controls-model.mjs
+          node scripts/test-data-controls-rich-ranges.mjs
           node --test scripts/test-upload-removal.mjs
           node scripts/test-data-controls-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/data-controls.ts
