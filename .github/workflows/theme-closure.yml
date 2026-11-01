@@ -64,7 +64,7 @@ jobs:
           done
       - name: Cross-batch browser acceptance
         run: |
-          for name in shell-lifecycle workspace-layout tenant-workspace-layout workspace-navigation-browser page-template-browser advanced-theme-browser preference-browser shell-utilities-browser component-catalogue-browser data-controls-browser dashboard-widgets-browser original-assets-browser work-modules-browser communication-modules-browser application-modules-browser dashboard-pages-browser; do
+          for name in shell-lifecycle workspace-layout tenant-workspace-layout tenant-work-module-host workspace-navigation-browser page-template-browser advanced-theme-browser preference-browser shell-utilities-browser component-catalogue-browser data-controls-browser dashboard-widgets-browser original-assets-browser work-modules-browser communication-modules-browser application-modules-browser dashboard-pages-browser; do
             node scripts/test-$name.mjs
           done
   postgres:

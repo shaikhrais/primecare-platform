@@ -79,3 +79,8 @@ Local acceptance: 17 transport regressions, existing 30 task checks, 27 applicat
 ## Native B14/B15 approved-subset bindings
 
 B14 now has a concrete native collection port for the registered messenger operations, owned mailbox reads and attachment references, composed over existing channel clients. B15 now has a concrete native shortcut-settings `WorkPort` over B07's durable cache/CAS/receipt client, matching the existing web adapter. Both have authenticated factories and captured-context/lifecycle checks. B14's web JSON transport also adopts the shared bounded reader. Source/native CI acceptance is pending; no production host, provider operation, API grant or release approval is activated. Full mail/messenger/storage/notification/learning/commerce/help/provider requirements, explicit preference recovery UI, durable module restart and actual host/device/review gates remain open.
+
+
+## B13 registered web pilot composition
+
+The existing tenant-dashboard source now composes the task-backed shared view under an explicit `workModule` URL opt-in and existing server view grants, with captured scope and the original APIs. Default rollout is unchanged. Dirty/pending editor guards protect host navigation and refresh; source ownership closes dialogs/listeners and suppresses late root writes. Browser/real-handler CI acceptance is pending. This is an opt-in source binding, not production-runtime acceptance or completion of native host rollout/standalone business features.
