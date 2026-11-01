@@ -62,3 +62,10 @@ The web transport for existing APIs 16578/16579 now validates the captured accou
 Local checks: nine transport regressions, 30 existing real-handler/PGlite PostgreSQL checks with independent SQL and fresh-session readback, TypeScript compilation, catalogue consistency and diff validation pass. Source `0633b548ee5f73b9c34e2f7c22bb6d7ee036af5b` passed all five targeted jobs (run 41326605698) and all seven combined jobs (run 41326605678), including web/browser, native PostgreSQL and Flutter Linux/Windows/macOS. See `work-module-transport-evidence.json`. The B13 business bindings, native host, durable reload, device and release gaps in the table remain open.
 
 The complete batch-by-batch repair and acceptance checklist is in `theme-closure-repair-plan.md`.
+
+
+## Shared B13/B15/B16 web response reader
+
+A single guarded JSON reader now covers task replies (1 MiB), dashboard reads (1 MiB) and self-profile identity reads (64 KiB, matching native). Captured identity/token, cancellation and disposal checks run throughout streaming and after asynchronous cleanup. Malformed/oversized replies cannot be published, and response readers are released. Existing HTTP failure mapping, endpoint identities, task receipt keys and read-only profile behavior remain unchanged. This closes response-lifecycle/parity defects, not the business feature and host activation gaps above.
+
+Local acceptance: 17 transport regressions, existing 30 task checks, 27 application checks and 11 dashboard integration groups passed, with real handlers, independent database reads and reload/denial checks. Shared TypeScript and catalogue checks pass. CI acceptance is pending.

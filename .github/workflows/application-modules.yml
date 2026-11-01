@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/shared/src/guarded-json.ts'
       - 'packages/domain/src/work_modules.ts'
       - 'packages/shared/src/work-modules/**'
       - 'packages/shared/src/application-modules/**'
@@ -33,6 +34,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/test-application-modules-transport.mjs
           node scripts/test-application-modules.mjs
           node scripts/test-communication-modules.mjs
           node scripts/test-work-modules.mjs
@@ -67,6 +69,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 @electric-sql/pglite@0.3.14 playwright@1.60.0 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/test-application-modules-transport.mjs
           node scripts/test-application-modules.mjs
           node scripts/test-application-modules-browser.mjs
   native:

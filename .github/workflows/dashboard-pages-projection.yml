@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/shared/src/guarded-json.ts'
       - packages/shared/src/dashboard-pages/**
       - packages/primecare_ui/web/dashboard-pages.ts
       - packages/primecare_ui/web/supporting-pages.ts

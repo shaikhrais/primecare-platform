@@ -33,7 +33,7 @@ try {
  const analytics=new DashboardPageSession('analytics',scope,read,()=>scope);await analytics.load();assert.equal(analytics.state.status,'ready');assert.ok(analytics.state.projection.metrics.some(m=>m.value===null));analytics.dispose();checks++;
  const before=requests;token='changed';await s.load();assert.equal(s.state.status,'denied');assert.equal(s.state.projection,null);assert.equal(requests,before);checks++;
  let captured=f.actors.admin.token;
- const race=dashboardPageTransport('https://fixture.test',captured,'live',()=>captured,async()=>({ok:true,json:async()=>{captured='changed';return {};}}));await assert.rejects(()=>race(new AbortController().signal),/denied/);checks++;
+ const race=dashboardPageTransport('https://fixture.test',captured,'live',()=>captured,async()=>new Response(new ReadableStream({pull(controller){captured='changed';controller.enqueue(new TextEncoder().encode('{}'));controller.close();}})));await assert.rejects(()=>race(new AbortController().signal),/denied/);checks++;
  for(const origin of ['http://public.example','https://u:p@example.test','https://example.test/path','https://example.test/?token=x'])assert.throws(()=>dashboardPageTransport(origin,'token','live',()=>''));checks++;
  for(const session of [s,reload,wrong,psw])session.dispose();
  console.log(`PASS dashboard page integration: ${checks} groups; ${f.native?'native PostgreSQL':'PGlite PostgreSQL'}, real tenant handler, independent SQL, reload, tenant mismatch, role denial and token changes`);
