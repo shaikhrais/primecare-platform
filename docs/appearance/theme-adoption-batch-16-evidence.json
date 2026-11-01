@@ -1,0 +1,44 @@
+{
+  "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+  "runId": 41306313942,
+  "jobs": [
+    {
+      "id": 124847312375,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124847312637,
+      "name": "native (ubuntu-24.04)",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124847312647,
+      "name": "native (macos-latest)",
+      "status": "queued",
+      "conclusion": null
+    },
+    {
+      "id": 124847312652,
+      "name": "native (windows-latest)",
+      "status": "in_progress",
+      "conclusion": null
+    },
+    {
+      "id": 124847312673,
+      "name": "postgres",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "remaining": [
+    "Independent B16 registration readback and production mount",
+    "Native authenticated session/HTTP adapter",
+    "Activity and search supporting templates",
+    "Android/iOS device acceptance and human locale/accessibility/release review"
+  ]
+}

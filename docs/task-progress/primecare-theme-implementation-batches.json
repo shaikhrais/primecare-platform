@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "isolated_web_postgresql_host_acceptance_passed_native_and_supporting_source_added_ci_pending",
+      "status": "updated_web_and_postgresql_browser_acceptance_passed_flutter_ci_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1154,17 +1154,21 @@
         "packages/primecare_ui/lib/dashboard_pages.dart",
         "packages/flutter_core/test/dashboard_pages/dashboard_page_test.dart",
         "packages/primecare_ui/web/supporting-pages.ts",
-        "scripts/test-dashboard-pages-parity.mjs"
+        "scripts/test-dashboard-pages-parity.mjs",
+        "docs/appearance/dashboard-pages-usage.md",
+        "docs/appearance/theme-adoption-batch-16-evidence.json"
       ],
       "blockers": [],
       "nextAction": "Check native/supporting-page CI, complete activity/search templates and independent registration receipt before approved production mount; retain native adapter and release review gates.",
       "productionRuntimeVerified": false,
       "humanReviewApproved": false,
       "sourceRun": {
-        "runId": 41305965995,
-        "sourceCommit": "de65f80a56dedb3ac934d7b3b58d53eb886018b7",
-        "conclusion": "success",
-        "scope": "web_and_native_postgresql_isolated_host_acceptance"
+        "runId": 41306313942,
+        "sourceCommit": "ea9ca5089ca040aaa2dff7ba365329198c20804a",
+        "scope": "updated_web_and_native_postgresql_browser_acceptance",
+        "web": "success",
+        "postgres": "success",
+        "native": "pending"
       }
     },
     {
