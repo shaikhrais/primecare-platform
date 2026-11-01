@@ -1,0 +1,64 @@
+name: Register scoped shared dashboard widgets metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/dashboard-widgets-registration.yml'
+      - 'tools/governance-production/dashboard_widgets_registration.py'
+      - 'tools/governance-production/test-dashboard-widgets-registration.py'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: dashboard-widgets-metadata-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          python tools/governance-production/test-dashboard-widgets-registration.py
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/dashboard-widgets-registration-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/dashboard-widgets-registration-tools/node_modules node_modules
+          mkdir -p test-results/dashboard-widgets-registration
+      - name: Validate exact metadata transaction and roll it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_DASHBOARD_WIDGETS_WRITES: '1'
+        run: python tools/governance-production/dashboard_widgets_registration.py --dry-run | tee test-results/dashboard-widgets-registration/dry-run.txt
+      - name: Register optional controls and draft labels with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_DASHBOARD_WIDGETS_WRITES: '1'
+        run: python tools/governance-production/dashboard_widgets_registration.py --apply | tee test-results/dashboard-widgets-registration/registration.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: dashboard-widgets-registration, path: test-results/dashboard-widgets-registration}

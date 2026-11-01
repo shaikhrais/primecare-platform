@@ -1753,5 +1753,23 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "dashboardWidgetsWriter": {
+    "optInVariable": "GOVERNANCE_DASHBOARD_WIDGETS_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "c106026ffef35de23bcda0c42337944befeb6c81d5c3cdf8669af69e1aa4b602",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "dashboardWidgets.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

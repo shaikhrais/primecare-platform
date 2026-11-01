@@ -1,0 +1,339 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/dashboard-widgets.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_dropdown_web",
+    "prime_textarea_web",
+    "prime_table_web"
+  ],
+  "controls": [
+    {
+      "key": "dashboard",
+      "testId": "dashboard-widgets-dashboard",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardWidgets.dashboard"
+    },
+    {
+      "key": "chart",
+      "testId": "dashboard-widgets-chart",
+      "componentCode": "prime_chart",
+      "resourceKey": "dashboardWidgets.chart"
+    },
+    {
+      "key": "metric",
+      "testId": "dashboard-widgets-metric",
+      "componentCode": "prime_card",
+      "resourceKey": "dashboardWidgets.metric"
+    },
+    {
+      "key": "table",
+      "testId": "dashboard-widgets-table",
+      "componentCode": "prime_table_web",
+      "resourceKey": "dashboardWidgets.table"
+    },
+    {
+      "key": "widget",
+      "testId": "dashboard-widgets-widget",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "dashboardWidgets.widget"
+    },
+    {
+      "key": "add",
+      "testId": "dashboard-widgets-add",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.add"
+    },
+    {
+      "key": "remove",
+      "testId": "dashboard-widgets-remove",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.remove"
+    },
+    {
+      "key": "earlier",
+      "testId": "dashboard-widgets-earlier",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.earlier"
+    },
+    {
+      "key": "later",
+      "testId": "dashboard-widgets-later",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.later"
+    },
+    {
+      "key": "wider",
+      "testId": "dashboard-widgets-wider",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.wider"
+    },
+    {
+      "key": "narrower",
+      "testId": "dashboard-widgets-narrower",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.narrower"
+    },
+    {
+      "key": "taller",
+      "testId": "dashboard-widgets-taller",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.taller"
+    },
+    {
+      "key": "shorter",
+      "testId": "dashboard-widgets-shorter",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.shorter"
+    },
+    {
+      "key": "breakpoint",
+      "testId": "dashboard-widgets-breakpoint",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "dashboardWidgets.breakpoint"
+    },
+    {
+      "key": "save",
+      "testId": "dashboard-widgets-save",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.save"
+    },
+    {
+      "key": "reload",
+      "testId": "dashboard-widgets-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.reload"
+    },
+    {
+      "key": "reset",
+      "testId": "dashboard-widgets-reset",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.reset"
+    },
+    {
+      "key": "layout",
+      "testId": "dashboard-widgets-layout",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "dashboardWidgets.layout"
+    },
+    {
+      "key": "import",
+      "testId": "dashboard-widgets-import",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.import"
+    },
+    {
+      "key": "export",
+      "testId": "dashboard-widgets-export",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.export"
+    },
+    {
+      "key": "retry",
+      "testId": "dashboard-widgets-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.retry"
+    },
+    {
+      "key": "toggle",
+      "testId": "dashboard-widgets-toggle",
+      "componentCode": "prime_button",
+      "resourceKey": "dashboardWidgets.toggle"
+    }
+  ],
+  "resources": {
+    "dashboardWidgets.dashboard": {
+      "en": "Dashboard widgets",
+      "fr": "Widgets du tableau de bord",
+      "es": "Widgets del panel"
+    },
+    "dashboardWidgets.chart": {
+      "en": "Chart",
+      "fr": "Graphique",
+      "es": "Gráfico"
+    },
+    "dashboardWidgets.metric": {
+      "en": "Metric",
+      "fr": "Indicateur",
+      "es": "Indicador"
+    },
+    "dashboardWidgets.table": {
+      "en": "Chart data",
+      "fr": "Données du graphique",
+      "es": "Datos del gráfico"
+    },
+    "dashboardWidgets.series": {
+      "en": "Series",
+      "fr": "Série",
+      "es": "Serie"
+    },
+    "dashboardWidgets.category": {
+      "en": "Category",
+      "fr": "Catégorie",
+      "es": "Categoría"
+    },
+    "dashboardWidgets.widget": {
+      "en": "Available widget",
+      "fr": "Widget disponible",
+      "es": "Widget disponible"
+    },
+    "dashboardWidgets.add": {
+      "en": "Add widget",
+      "fr": "Ajouter un widget",
+      "es": "Añadir widget"
+    },
+    "dashboardWidgets.remove": {
+      "en": "Remove widget",
+      "fr": "Retirer le widget",
+      "es": "Eliminar widget"
+    },
+    "dashboardWidgets.earlier": {
+      "en": "Move widget earlier",
+      "fr": "Avancer le widget",
+      "es": "Mover widget antes"
+    },
+    "dashboardWidgets.later": {
+      "en": "Move widget later",
+      "fr": "Reculer le widget",
+      "es": "Mover widget después"
+    },
+    "dashboardWidgets.wider": {
+      "en": "Widen widget",
+      "fr": "Élargir le widget",
+      "es": "Ampliar widget"
+    },
+    "dashboardWidgets.narrower": {
+      "en": "Narrow widget",
+      "fr": "Réduire le widget",
+      "es": "Reducir widget"
+    },
+    "dashboardWidgets.taller": {
+      "en": "Increase widget height",
+      "fr": "Augmenter la hauteur",
+      "es": "Aumentar altura"
+    },
+    "dashboardWidgets.shorter": {
+      "en": "Reduce widget height",
+      "fr": "Réduire la hauteur",
+      "es": "Reducir altura"
+    },
+    "dashboardWidgets.breakpoint": {
+      "en": "Dashboard viewport",
+      "fr": "Vue du tableau de bord",
+      "es": "Vista del panel"
+    },
+    "dashboardWidgets.save": {
+      "en": "Save dashboard",
+      "fr": "Enregistrer le tableau de bord",
+      "es": "Guardar panel"
+    },
+    "dashboardWidgets.reload": {
+      "en": "Reload dashboard",
+      "fr": "Recharger le tableau de bord",
+      "es": "Recargar panel"
+    },
+    "dashboardWidgets.reset": {
+      "en": "Use registered default",
+      "fr": "Utiliser la disposition par défaut",
+      "es": "Usar diseño predeterminado"
+    },
+    "dashboardWidgets.layout": {
+      "en": "Dashboard layout JSON",
+      "fr": "Disposition JSON",
+      "es": "Diseño JSON del panel"
+    },
+    "dashboardWidgets.import": {
+      "en": "Import layout",
+      "fr": "Importer la disposition",
+      "es": "Importar diseño"
+    },
+    "dashboardWidgets.export": {
+      "en": "Export layout",
+      "fr": "Exporter la disposition",
+      "es": "Exportar diseño"
+    },
+    "dashboardWidgets.retry": {
+      "en": "Retry data load",
+      "fr": "Réessayer le chargement",
+      "es": "Reintentar carga"
+    },
+    "dashboardWidgets.toggle": {
+      "en": "Toggle series",
+      "fr": "Afficher ou masquer la série",
+      "es": "Mostrar u ocultar serie"
+    },
+    "dashboardWidgets.loading": {
+      "en": "Loading widget data",
+      "fr": "Chargement des données",
+      "es": "Cargando datos del widget"
+    },
+    "dashboardWidgets.empty": {
+      "en": "No data available",
+      "fr": "Aucune donnée disponible",
+      "es": "No hay datos disponibles"
+    },
+    "dashboardWidgets.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acción"
+    },
+    "dashboardWidgets.success": {
+      "en": "Action completed",
+      "fr": "Action terminée",
+      "es": "Acción completada"
+    },
+    "dashboardWidgets.dirty": {
+      "en": "Unsaved dashboard changes",
+      "fr": "Modifications non enregistrées",
+      "es": "Cambios del panel sin guardar"
+    },
+    "dashboardWidgets.clean": {
+      "en": "Dashboard saved and verified",
+      "fr": "Tableau enregistré et vérifié",
+      "es": "Panel guardado y verificado"
+    },
+    "dashboardWidgets.unavailable": {
+      "en": "Authorized adapter is not connected",
+      "fr": "Adaptateur autorisé non connecté",
+      "es": "Adaptador autorizado no conectado"
+    },
+    "dashboardWidgets.conflict": {
+      "en": "Dashboard changed elsewhere; reload to resolve",
+      "fr": "Disposition modifiée ailleurs; recharger",
+      "es": "El panel cambió en otro lugar; recarga para resolver"
+    },
+    "dashboardWidgets.invalid": {
+      "en": "Invalid or unavailable widget layout",
+      "fr": "Disposition incorrecte ou non autorisée",
+      "es": "Diseño no válido o no autorizado"
+    },
+    "dashboardWidgets.missing": {
+      "en": "Missing value",
+      "fr": "Valeur manquante",
+      "es": "Valor ausente"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Optional original chart/grid factories. Runtime widget/workflow/source grants and dashboard preference-kind registration remain required; no business metrics, API kinds, grants or activation are created.",
+  "newComponents": [
+    {
+      "component_code": "prime_chart",
+      "component_name": "Prime accessible chart",
+      "component_type": "chart",
+      "dart_class_name": "PrimeChart",
+      "source_file_path": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "purpose": "Original shared chart with accessible data alternative",
+      "allowed_element_types_json": "[\"svg\",\"figure\"]",
+      "active": 1
+    }
+  ]
+}
