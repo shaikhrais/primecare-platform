@@ -18,7 +18,7 @@ def emit(path,text):
  if CHECK:
   if not path.exists() or path.read_text()!=text:raise ValueError('Generated asset drift: '+str(path.relative_to(ROOT)))
  else:path.parent.mkdir(parents=True,exist_ok=True);path.write_text(text)
-for key,path in NEW.items():emit(Path('packages/primecare_ui/assets/original/icons')/(key+'.svg'),f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{path}"/></svg>\n')
+
 # Original semantic scenes, built from simple shapes. No people/photos/third-party artwork.
 SCENES={
 'onboarding-welcome':'<rect x="28" y="20" width="184" height="120" rx="18"/><path d="M52 52h52m-52 20h76m-76 20h40m46 0 16 16 32-40"/>',
@@ -30,7 +30,15 @@ SCENES={
 'empty-upload':'<path d="M44 104v32h152v-32M120 112V28m-30 30 30-30 30 30"/><path d="M66 104H44m152 0h-22"/>',
 'empty-error':'<circle cx="120" cy="80" r="56"/><path d="m96 56 48 48m-48 0 48-48"/>',
 'empty-offline':'<path d="M42 54c40-36 116-36 156 0M64 80c28-24 84-24 112 0M92 106c16-12 40-12 56 0M120 128h.01M44 20l152 120"/>'}
-for key,body in SCENES.items():emit(Path('packages/primecare_ui/assets/original/assets')/(key+'.svg'),f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">{body}</svg>\n')
+def seed_missing_originals():
+ # One-time scaffolding only. Existing canonical SVG edits always win.
+ for key,path in NEW.items():
+  p=Path('packages/primecare_ui/assets/original/icons')/(key+'.svg')
+  if not (ROOT/p).exists():emit(p,f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="{path}"/></svg>\n')
+ for key,body in SCENES.items():
+  p=Path('packages/primecare_ui/assets/original/assets')/(key+'.svg')
+  if not (ROOT/p).exists():emit(p,f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">{body}</svg>\n')
+
 NUM=r'[-+]?(?:\d*\.\d+|\d+\.?\d*)(?:[eE][-+]?\d+)?';TOK=re.compile('[A-Za-z]|'+NUM)
 def nums(s):
  rest=re.sub(NUM,'',s)
@@ -148,4 +156,8 @@ def build():
  dart+=" static const themeTokens='$root/theme-tokens.json';\n}\n";emit(Path('packages/primecare_ui/lib/src/theme/primecare_assets.dart'),dart)
  print(json.dumps({'icons':len(paths),'illustrationsAndAssets':len(assets)-len(paths),'aliases':len(ALIASES),'check':CHECK}))
  return data
-if __name__=='__main__':build()
+if __name__=='__main__':
+ if '--seed-missing' in sys.argv:
+  if CHECK:raise SystemExit('Seed and check cannot be combined')
+  seed_missing_originals()
+ build()

@@ -1,4 +1,4 @@
-import importlib.util,unittest
+import importlib.util,unittest,tempfile,shutil
 from pathlib import Path
 spec=importlib.util.spec_from_file_location('asset_compiler',Path(__file__).with_name('build-original-assets.py'));target=importlib.util.module_from_spec(spec);spec.loader.exec_module(target)
 class CompilerTests(unittest.TestCase):
@@ -18,4 +18,12 @@ class CompilerTests(unittest.TestCase):
    with self.assertRaises(ValueError):target.compile_svg(text)
  def test_inherited_theme_transform_and_opacity(self):
   _,nodes=target.compile_svg('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><g transform="translate(2 3) scale(2)" opacity=".5"><path d="M1 2L3 4"/></g></svg>');self.assertEqual(nodes[0]['transforms'],[['translate',2,3],['scale',2]]);self.assertEqual(nodes[0]['opacity'],.5);self.assertEqual(nodes[0]['stroke'],'foreground')
+ def test_build_preserves_canonical_edits(self):
+  original_root,original_base=target.ROOT,target.BASE
+  with tempfile.TemporaryDirectory() as temp:
+   try:
+    target.ROOT=Path(temp);target.BASE=target.ROOT/'packages/primecare_ui/assets/original';shutil.copytree(original_base,target.BASE)
+    metadata=target.ROOT/'packages/primecare_ui/catalogs';metadata.mkdir(parents=True);shutil.copy(original_root/'packages/primecare_ui/catalogs/original-assets.registration.json',metadata)
+    svg=target.BASE/'icons/arrow-left.svg';edited=svg.read_text().replace('M21 12','M20 12');svg.write_text(edited);target.build();self.assertEqual(svg.read_text(),edited)
+   finally:target.ROOT,target.BASE=original_root,original_base
 if __name__=='__main__':unittest.main()
