@@ -1,0 +1,320 @@
+{
+  "head": "83acb26ce086e34005118fa393dd8ccf2a860393",
+  "sourceComparison": {
+    "status": "ahead",
+    "aheadBy": 1,
+    "files": [
+      {
+        "path": "docs/appearance/theme-closure-repair-plan.md",
+        "status": "modified"
+      },
+      {
+        "path": "docs/appearance/theme-draft-preservation-evidence.json",
+        "status": "added"
+      }
+    ]
+  },
+  "jobs": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938280,
+        "jobs": [
+          {
+            "id": 124968680465,
+            "name": "web",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680553,
+            "name": "postgres",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680625,
+            "name": "native (windows-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680691,
+            "name": "native (ubuntu-24.04)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680783,
+            "name": "native (macos-latest)",
+            "status": "queued",
+            "conclusion": null,
+            "failedSteps": []
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938130,
+        "jobs": [
+          {
+            "id": 124968680226,
+            "name": "oracles",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680351,
+            "name": "postgres",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680360,
+            "name": "catalogue",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680361,
+            "name": "web",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968762200,
+            "name": "native (ubuntu-24.04)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968762251,
+            "name": "native (macos-latest)",
+            "status": "in_progress",
+            "conclusion": null,
+            "failedSteps": []
+          },
+          {
+            "id": 124968762254,
+            "name": "native (windows-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938090,
+        "jobs": [
+          {
+            "id": 124968679616,
+            "name": "acceptance",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124969228064,
+            "name": "publish",
+            "status": "completed",
+            "conclusion": "failure",
+            "failedSteps": [
+              "Verify current main before publication"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938228,
+        "jobs": [
+          {
+            "id": 124968680310,
+            "name": "web",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680512,
+            "name": "native (ubuntu-24.04)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680513,
+            "name": "postgres",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680584,
+            "name": "native (windows-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680619,
+            "name": "native (macos-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938213,
+        "jobs": [
+          {
+            "id": 124968680255,
+            "name": "postgres",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680458,
+            "name": "native (windows-latest)",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680478,
+            "name": "web",
+            "status": "completed",
+            "conclusion": "success",
+            "failedSteps": []
+          },
+          {
+            "id": 124968680503,
+            "name": "native (macos-latest)",
+            "status": "queued",
+            "conclusion": null,
+            "failedSteps": []
+          },
+          {
+            "id": 124968681009,
+            "name": "native (ubuntu-24.04)",
+            "status": "in_progress",
+            "conclusion": null,
+            "failedSteps": []
+          }
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "run": 41346938408,
+        "jobs": [
+          {
+            "id": 124968681235,
+            "name": "deploy / deploy",
+            "status": "queued",
+            "conclusion": null,
+            "failedSteps": []
+          }
+        ]
+      }
+    }
+  ],
+  "combined": [
+    {
+      "id": 124968680226,
+      "name": "oracles",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968680351,
+      "name": "postgres",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968680360,
+      "name": "catalogue",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968680361,
+      "name": "web",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968762200,
+      "name": "native (ubuntu-24.04)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968762251,
+      "name": "native (macos-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 124968762254,
+      "name": "native (windows-latest)",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "native": [
+    {
+      "status": "fulfilled",
+      "value": {
+        "job": 124968680625,
+        "lines": [
+          "2026-11-01T20:31:56.9955540Z 00:02 +24: D:/a/primecare-platform/primecare-platform/packages/flutter_core/test/work_modules/work_modules_test.dart: dirty editor survives internal reload and item selection\r",
+          "2026-11-01T20:31:57.6323897Z 00:03 +26: All tests passed!\r"
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "job": 124968762254,
+        "lines": [
+          "2026-11-01T20:32:02.8054281Z 00:25 +119: D:/a/primecare-platform/primecare-platform/packages/flutter_core/test/work_modules/work_modules_test.dart: dirty editor survives internal reload and item selection\r",
+          "2026-11-01T20:32:03.0891154Z 00:26 +120: D:/a/primecare-platform/primecare-platform/packages/flutter_core/test/work_modules/work_modules_test.dart: dirty editor survives internal reload and item selection\r",
+          "2026-11-01T20:32:09.9496970Z 00:32 +173: All tests passed!\r"
+        ]
+      }
+    },
+    {
+      "status": "fulfilled",
+      "value": {
+        "job": 124968762200,
+        "lines": [
+          "2026-11-01T20:32:15.6203190Z 00:25 +173: All tests passed!"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,2414 @@
+{
+  "format": 1,
+  "title": "PrimeCare B01–B18 deep assessment and repair plan",
+  "assessmentDate": "2026-11-01",
+  "timezone": "America/Toronto",
+  "assessedSource": "83acb26ce086e34005118fa393dd8ccf2a860393",
+  "scope": "Shared theme/skeleton B01–B18 and its actual app/service/release integration; not a claim that the whole PrimeCare platform was re-audited.",
+  "activity": "Assessment and planning only; no application code, production permissions, provider operations or runtime activation changed in this assessment.",
+  "verdict": "Shared foundations and tested subsets exist; full functional integration and production acceptance are not established for any whole batch.",
+  "measurements": {
+    "batches": 18,
+    "releaseReadyBatches": 0,
+    "groupedRemainingScopeStatements": 86,
+    "localRegressionSuites": 22,
+    "localPassed": 22,
+    "catalogueFeatures": 72,
+    "coreFamilies": 24,
+    "referenceFiles": 389,
+    "unadoptedExamples": 106,
+    "nativeApps": 9,
+    "webPortals": 9,
+    "originalIcons": 105,
+    "otherOriginalAssets": 16,
+    "remainingFrameworkGlyphFiles": 2539,
+    "metadataEndpoints": 1312,
+    "keywordCandidates": 187,
+    "affectedGrantRows": 192,
+    "permissionKeyConflictRows": 128,
+    "danglingArtifactReferenceRows": 192
+  },
+  "evidenceLimits": [
+    "Production metadata findings use the retained read-only CI snapshot 41346724602, not a new live database read during this assessment. Refresh before any write.",
+    "The 187 endpoint candidates are historical keyword candidates, not approved equivalent contracts or proof of runtime behavior.",
+    "Static constructor scanning does not resolve all dynamic factories; the repair plan requires a complete runtime composition inventory.",
+    "Local database integration uses PGlite; native PostgreSQL and desktop Flutter evidence comes from CI.",
+    "No authenticated production business journey, physical-device session or human review was performed in this assessment.",
+    "No completion percentage or reliable delivery duration is estimated from grouped gaps, file counts or component tests."
+  ],
+  "findings": [
+    {
+      "id": "F01",
+      "priority": "P0",
+      "title": "Production grant identities do not reconcile",
+      "detail": "The production metadata snapshot contains 192 distinct grants: 64 each for API710, API857 and API777. Of those, 128 have labels for operations different from the message endpoints; all 192 refer to missing runtime artifact 1. These are overlapping findings, not 320 separate grant rows. API777 already has its correct preference key. Registry IDs 710/857 refer to endpoint IDs 4957/5104, which were absent from the endpoint readback. Numeric registry IDs must not be treated as endpoint IDs.",
+      "evidence": [
+        "docs/appearance/theme-release-identity-readback.json",
+        "scripts/check-api-catalog-identity.py",
+        "CI 41346724602 / job 124968025068"
+      ],
+      "repair": "R01: reconcile original authority and exact row provenance; prepare a per-row before/after proposal. Do not blindly relabel, move grants, clear artifact references, invent artifacts, add roles or change quarantine."
+    },
+    {
+      "id": "F02",
+      "priority": "P0",
+      "title": "Source acceptance and publication have diverged",
+      "detail": "Tenant/PSW acceptance succeeded at 4c238052. Its publication job failed because main advanced to 83acb26c. The source comparison shows only two documentation files changed, but the publication guard compares the entire commit. This is a correctly enforced stale-source guard, with a scheduling/coordination consequence. Repeated documentation pushes can leave accepted code unpublished. The separate production grant blocker remains independently open.",
+      "evidence": [
+        ".github/workflows/psw-workspace.yml:85 and :113",
+        "CI 41346938090 / failed publish job 124969228064"
+      ],
+      "repair": "R03: select the exact latest release candidate, finish required verification, publish that same immutable candidate, then record acceptance. Queue/retry stale candidates through a fresh verified run; retain both current-main checks."
+    },
+    {
+      "id": "F03",
+      "priority": "P1",
+      "title": "Shared implementation is much broader than actual host adoption",
+      "detail": "Static constructor scanning found one web composition of PrimeWorkModule/TenantTaskModulePort, in the existing tenant pilot, and no direct constructors of the assessed new workspace/navigation/work/communication/application adapters under the native apps or shared registry. This is bounded source evidence, not proof that no dynamic composition exists. The native usage guide explicitly states that existing shells do not opt in automatically. Tests and exports therefore cannot establish app-wide adoption.",
+      "evidence": [
+        "websites/typescript/src/tenant-dashboard/work-module-host.ts",
+        "docs/appearance/native-workspace-usage.md",
+        "docs/appearance/developer-catalogue.md"
+      ],
+      "repair": "R04/R05: build a per-app route-to-composition-to-adapter manifest, including dynamic registry resolution; bind registered hosts and verify actual routes before migration."
+    },
+    {
+      "id": "F04",
+      "priority": "P1",
+      "title": "Preference service is deliberately gated and does not cover the pilot roles",
+      "detail": "The handler requires PREFERENCE_SYNC_ENABLED=1, exact reviewed endpoint metadata, an active role and its API777 grant. The retained documentation says runtime is disabled, grants cover role IDs 1–64, Tenant Admin and Code Admin remain denied, and no registered panel bindings exist. Thus registering theme controls on Tenant Admin does not make account cloud preferences functional. Current secret/runtime flag values were not freshly queried during this assessment.",
+      "evidence": [
+        "cloudflare/workers/src/account-preferences.ts:16 and :43–48",
+        "docs/appearance/preference-sync-usage.md",
+        "tools/governance-production/preference-sync-contract.json"
+      ],
+      "repair": "R02/R06: resolve actual raw-role/host authority, register panel references and intended preference kinds, wire explicit recovery, and enable only after exact authorization and deployed acceptance."
+    },
+    {
+      "id": "F05",
+      "priority": "P1",
+      "title": "The five work views implement task-backed subsets",
+      "detail": "Contacts is a read-only projection of users/clients. Notes edits task notes. Calendar changes task due dates. Board follows task transitions. This is useful reuse, but does not implement standalone contact/notes CRUD, timed appointments, recurrence, reminders, custom board lanes/ranking or new-template creation receipts. The broader platform may have related services; no platform-wide absence is claimed.",
+      "evidence": [
+        "packages/shared/src/work-modules/tenant-task-adapter.ts",
+        "packages/flutter_core/lib/work_modules/tenant_task_module_port.dart",
+        "docs/appearance/theme-gap-register.md B13"
+      ],
+      "repair": "R08: reuse confirmed existing workflow contracts where equivalent; implement the missing domain flows only after request/response, authorization, persistence and receipt mapping."
+    },
+    {
+      "id": "F06",
+      "priority": "P1",
+      "title": "Communication templates omit full workflows",
+      "detail": "The collection adapter exposes existing message inbox/read/send/mark-read and owned mailbox reads. Its type explicitly excludes notifications; files project attachment references. These new templates do not yet supply general file storage management, mailbox compose/drafts/folders/delivery UI, full conversation creation/history/realtime/presence/call UI or a self-notification binding. Existing communications channels and provider services must be reused, not duplicated.",
+      "evidence": [
+        "packages/shared/src/communications/module-port.ts",
+        "packages/primecare_ui/web/communication-modules.ts",
+        "packages/shared/src/communications/AGENTS.md"
+      ],
+      "repair": "R09: map registered service operations to the inherited shared adapters; implement provider receipts, storage policies and real host flows with owned/cross-tenant denial."
+    },
+    {
+      "id": "F07",
+      "priority": "P1",
+      "title": "Several application/dashboard families are intentionally unavailable",
+      "detail": "Profile is read-only identity and settings manages shortcut preferences. Academy, commerce, AI images and help require additional confirmed workflows/providers. Dashboard projection supports project/analytics counts but explicitly returns unavailable for finance/crypto; invoice/pricing/authentication supporting-page statuses are also unavailable. These are missing integrations/features, not rendering regressions.",
+      "evidence": [
+        "packages/shared/src/application-modules/profile-port.ts",
+        "packages/shared/src/application-modules/settings-port.ts",
+        "packages/shared/src/dashboard-pages/projection.mjs",
+        "packages/shared/src/dashboard-pages/supporting-pages.mjs"
+      ],
+      "repair": "R10: confirm learning/help/finance/commerce/provider contracts and entitlements, reuse existing account flows, and complete genuine business flows without invented metrics or fixture success."
+    },
+    {
+      "id": "F08",
+      "priority": "P1",
+      "title": "Advanced controls and widget persistence are incomplete",
+      "detail": "Remaining B10 scope includes character-range rich-text marks/HTML import policy, spreadsheet/server query adapters, specialized rating/slider/stepper/transfer controls and production binary storage/picker adapters. The chart model accepts line, area, bar and donut, with metrics; free-coordinate grid editing and additional chart families remain outside the implemented subset. B11 has no registered dashboard preference document kind or complete authoritative widget mappings.",
+      "evidence": [
+        "packages/domain/src/data_controls.ts",
+        "packages/domain/src/dashboard_widgets.ts",
+        "docs/appearance/theme-gap-register.md B10/B11"
+      ],
+      "repair": "R07: specify each remaining variant, add shared web/native implementations and authorized persistence, and test real data/removal/readback. R06 must establish the dashboard document policy first."
+    },
+    {
+      "id": "F09",
+      "priority": "P1",
+      "title": "Durable restart recovery remains distinct from in-session retry",
+      "detail": "WorkModuleSession keeps the pending command, request key and acknowledgement in memory. The verified retry path avoids duplicate mutations after a failed readback. Disposing/restarting still clears this context; a durable restart journal/reconciliation flow is not implemented by that repair. Pending state must remain bound to tenant/user/raw role/dataset and receipt lifetime.",
+      "evidence": [
+        "packages/shared/src/work-modules/session.ts",
+        "packages/flutter_core/lib/work_modules/work_module_session.dart",
+        "docs/appearance/theme-gap-register.md"
+      ],
+      "repair": "R06: add a scoped versioned pending-command journal and explicit restart reconciliation; test crash after send, lost acknowledgement, acknowledged/readback failure, receipt expiry, logout, revoked access and storage failure."
+    },
+    {
+      "id": "F10",
+      "priority": "P2",
+      "title": "Localization and terminology do not match complete rollout",
+      "detail": "The actual tenant work host hardcodes locale en. Generic pagination controls reuse Previous month/Next month translations even for non-calendar views. EN/FR/ES metadata exists, but translation presence is not reviewed business localization or whole-app RTL/accessibility acceptance.",
+      "evidence": [
+        "websites/typescript/src/tenant-dashboard/work-module-host.ts:23",
+        "packages/primecare_ui/catalogs/work-modules.registration.json",
+        "tools/governance-production/work-modules-contract.json"
+      ],
+      "repair": "R04/R11: propagate authenticated locale, register contextual pagination labels, and verify direction, date/number formats, keyboard/focus and screen-reader flows in real hosts."
+    },
+    {
+      "id": "F11",
+      "priority": "P2",
+      "title": "Reference parity and original-asset migration remain unclosed",
+      "detail": "The bounded proposal tracks 72 features, 24 core families and 389 reference files; it is not exhaustive parity certification. The reference audit retains 106 unadopted framework examples. The freshly reproduced asset inventory reports 105 original icons, 16 other original assets, 25 mapped shared-shell keys and 2,539 source files still using framework glyph tokens. That last count is an inventory, not 2,539 broken screens or a legal conclusion.",
+      "evidence": [
+        "tools/governance-production/theme-adoption-contract.json",
+        "docs/appearance/component-catalogue-reference-audit.json",
+        "scripts/audit-original-asset-usage.py"
+      ],
+      "repair": "R11: assign every required reference a verified equivalent or explicit reviewed disposition, migrate app consumers progressively, and remove duplicates only after compatibility checks."
+    },
+    {
+      "id": "F12",
+      "priority": "P1",
+      "title": "Status/evidence records have drift and release checks are declarative",
+      "detail": "The older main audit still lists already-repaired B10 pinning/link-adapter work and a missing B17 catalogue. Newer evidence and source show those subsets exist. The draft evidence still says Flutter pending, although this assessment confirms the combined seven-job run passed on all three desktop OSes. check-theme-release.py validates declared booleans/presence of receipts, not their freshness or independent truth. All 18 batches still fail its release criteria; the 86 remaining-scope entries are grouped statements, not 86 unique bugs.",
+      "evidence": [
+        "docs/appearance/theme-batches-main-audit.md",
+        "docs/appearance/theme-draft-preservation-evidence.json",
+        "scripts/check-theme-release.py",
+        "CI 41346938130"
+      ],
+      "repair": "R00: reconcile one current evidence ledger with source/deployment/role/device scope and superseded links. Retain original historical receipts. Do not repair solved work again or promote batches from a green component suite."
+    },
+    {
+      "id": "F13",
+      "priority": "P1",
+      "title": "Production and physical-device acceptance is not established",
+      "detail": "Fresh local model/integration tests and historical/current CI cover important subsets, including test PostgreSQL and desktop Flutter. This assessment did not perform an authenticated production login/action/API/database/reload journey, live business mutation, physical Android/iOS test, screen-reader session or human release review. Passing desktop widget tests is not evidence for those gates.",
+      "evidence": [
+        "docs/appearance/theme-gap-register.md B18",
+        "docs/appearance/theme-release-gates.json",
+        "CI 41346938130"
+      ],
+      "repair": "R12: close feature/contract/host gaps, then run the full supported-app, role, tenant, locale and device acceptance matrix against the exact deployed source."
+    }
+  ],
+  "repairPackages": [
+    {
+      "id": "R00",
+      "title": "Reconcile scope and evidence",
+      "batches": [
+        "B01",
+        "B17",
+        "B18"
+      ],
+      "dependsOn": [],
+      "proposedOwner": "Shared-core maintainer / QA",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Pin main and retain the 72-feature catalogue, 86 grouped scope statements and all existing receipts; classify each item as source defect, missing feature, host integration, authority decision, deployment or acceptance.",
+        "Supersede stale B10/B17 entries and refresh desktop acceptance from CI 41346938130; build a route/host/adapter inventory for nine native apps and nine web portals.",
+        "Create one per-item evidence ledger with exact source, API, metadata snapshot, deployment ID, actor/tenant, test and review scope."
+      ],
+      "acceptance": [
+        "Every B01–B18 requirement has an item ID, accountable owner role, dependency and measurable exit test; solved items link to current evidence.",
+        "Historical receipts remain available; no completion percentage is inferred from file counts or green jobs."
+      ]
+    },
+    {
+      "id": "R01",
+      "title": "Repair production identity safely",
+      "batches": [
+        "B01",
+        "B07",
+        "B14",
+        "B18"
+      ],
+      "dependsOn": [
+        "R00"
+      ],
+      "proposedOwner": "Governance / authorization maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Refresh SELECT-only endpoint, registry, permission, role and runtime-artifact rows from the pinned production authority; reconcile against original approved contracts, not numeric-ID similarity.",
+        "Produce the exact 192-row before/after proposal, including the 128 permission-key conflicts; explain whether each artifact reference should be restored, replaced or removed using its provenance.",
+        "Resolve genuinely missing business authority decisions only after source and governance evidence have been exhausted. Apply a narrowly scoped transaction with snapshot/drift guards, rollback and independent readback."
+      ],
+      "acceptance": [
+        "No unintended new role, tenant, operation or artifact authority; existing denials and legitimate grants are preserved.",
+        "Unchanged identity guard passes without quarantine replacement or bypass; independent readback matches the approved row-level proposal."
+      ]
+    },
+    {
+      "id": "R02",
+      "title": "Map existing service contracts before building replacements",
+      "batches": [
+        "B08",
+        "B10",
+        "B11",
+        "B13",
+        "B14",
+        "B15",
+        "B16"
+      ],
+      "dependsOn": [
+        "R00"
+      ],
+      "proposedOwner": "Domain/service maintainers",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Triage all 187 keyword candidates from 1,312 endpoint rows, beginning with scheduling, messaging/files, learning and finance. A keyword hit is not a contract.",
+        "For each requested action, resolve its existing implementation, canonical method/path, request/response, actor/tenant ownership, grants, tables, idempotency, receipts and provider entitlements.",
+        "Classify actions as reusable, implementation missing, contract missing or true product decision; specify only missing contracts and preserve existing API behavior."
+      ],
+      "acceptance": [
+        "A requirement-to-contract matrix covers every business action with real source and authority evidence or an explicit blocker.",
+        "No fabricated API, screen, workflow, provider entitlement or business data."
+      ]
+    },
+    {
+      "id": "R03",
+      "title": "Make verified publication reliable",
+      "batches": [
+        "B02",
+        "B13",
+        "B18"
+      ],
+      "dependsOn": [
+        "R00",
+        "R01"
+      ],
+      "proposedOwner": "Release maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Treat stale-main publication rejection and production identity rejection as separate blockers.",
+        "Select the latest immutable release candidate; run required checks and publish exactly it while sequencing non-release documentation writes after promotion.",
+        "When main advances, queue a fresh verified candidate rather than retrying a stale deployment or weakening the guard. Record API/web deployment IDs, source and rollback target."
+      ],
+      "acceptance": [
+        "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
+        "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
+      ]
+    },
+    {
+      "id": "R04",
+      "title": "Finish one real web shell before portal-wide rollout",
+      "batches": [
+        "B01",
+        "B02",
+        "B04",
+        "B05",
+        "B06",
+        "B08",
+        "B09"
+      ],
+      "dependsOn": [
+        "R01",
+        "R02",
+        "R03"
+      ],
+      "proposedOwner": "Web shared-shell maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Trace actual Platform_admin raw-role bindings and existing tenant pilot separately; do not assume Code Admin and Platform_admin are interchangeable.",
+        "Bind registered navigation, toolbar, content, real footer slot, route templates and owner-managed overlays through the shared skeleton.",
+        "Connect full theme interaction states, authorized utilities and account teardown; propagate locale and correct generic pagination labels.",
+        "Verify one authorized vertical slice, then adopt other web portals without copying business logic."
+      ],
+      "acceptance": [
+        "Actual login, navigation/deep link, theme/layout change, action, reload and logout pass at narrow/wide breakpoints.",
+        "Denied destinations never open; dirty/pending forms, overlays and stale account callbacks retain correct behavior; EN/FR/ES labels and LTR/RTL are checked."
+      ]
+    },
+    {
+      "id": "R05",
+      "title": "Mount native hosts progressively",
+      "batches": [
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B08",
+        "B09"
+      ],
+      "dependsOn": [
+        "R01",
+        "R02",
+        "R04"
+      ],
+      "proposedOwner": "Flutter shared-shell maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Register exact native source/control/component/resource bindings; the TypeScript pilot receipt is insufficient.",
+        "Compose the shared shell, navigation, Theme Center and authorized ports in one authenticated native host with tenant/user/raw-role/dataset lifecycle.",
+        "Build and accept that host before migrating the remaining apps. Preserve compatibility routes and app state until each replacement passes."
+      ],
+      "acceptance": [
+        "A real native app reaches the new shell after login and its actions traverse the intended API/data/reload path.",
+        "Android/iOS build and actual-device checks cover focus, touch/drag, permissions, orientation, suspend/resume and account switching; desktop parity checks stay green."
+      ]
+    },
+    {
+      "id": "R06",
+      "title": "Complete preferences and durable recovery",
+      "batches": [
+        "B07",
+        "B11",
+        "B13",
+        "B15"
+      ],
+      "dependsOn": [
+        "R01",
+        "R02",
+        "R04"
+      ],
+      "proposedOwner": "Preference/core data maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Resolve API777 role access and registered panel/source mappings; keep runtime disabled until its exact activation conditions are met.",
+        "Register the required dashboard document kind and strict widget/policy scope; do not hide dashboard data inside workspace payloads.",
+        "Wire explicit cached-draft, conflict, revoked-reference and local-storage-error recovery UI.",
+        "Add durable pending-command reconciliation on web/native with original request IDs, receipt expiry and acknowledged-write readback-only retry."
+      ],
+      "acceptance": [
+        "Owned save/read/reload/cross-device restoration and dashboard persistence pass with independent SQL readback.",
+        "Crash/restart at every mutation boundary cannot duplicate a write or restore another actor’s data; revoked access remains denied and failed drafts stay recoverable."
+      ]
+    },
+    {
+      "id": "R07",
+      "title": "Complete data controls and configurable widgets",
+      "batches": [
+        "B10",
+        "B11"
+      ],
+      "dependsOn": [
+        "R02",
+        "R04",
+        "R06"
+      ],
+      "proposedOwner": "Shared controls / dashboard maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Implement the agreed rich-text range/import policy, spreadsheet editing/query adapter and missing rating/slider/stepper/transfer variants in shared web/native code.",
+        "Bind approved production upload/removal storage and native picker/image policies, with cancellation and verified deletion receipts.",
+        "Finish required chart families and drag/coordinate placement against explicit reference dispositions; connect authoritative widget data and recovery."
+      ],
+      "acceptance": [
+        "Each required control has a real authorized host, persistence/remove/readback flow and accessible web/native behavior.",
+        "Dashboard layout survives reload and recovery without stale or unauthorized widgets; overlapping business counts are not presented as additive totals."
+      ]
+    },
+    {
+      "id": "R08",
+      "title": "Complete the work applications",
+      "batches": [
+        "B13"
+      ],
+      "dependsOn": [
+        "R02",
+        "R04",
+        "R05",
+        "R06"
+      ],
+      "proposedOwner": "Scheduling / work-domain maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Reuse the proven task-backed adapters, then separately implement actual timed scheduling, recurrence/reminders, standalone contacts/notes CRUD and board lanes/ranking/CRUD.",
+        "Provide verifiable created-item identities for template creation and durable reload reconciliation.",
+        "Accept each business flow in its actual web/native host; preserve task-only views where they are the intended product."
+      ],
+      "acceptance": [
+        "Create/read/update/delete or approved state transitions persist and survive fresh-session reload, with concurrency and tenant/role denial.",
+        "Recurrence/timezone changes, reminders and board ordering meet explicit domain rules rather than only rendering fixture data."
+      ]
+    },
+    {
+      "id": "R09",
+      "title": "Complete communications and files",
+      "batches": [
+        "B08",
+        "B14"
+      ],
+      "dependsOn": [
+        "R01",
+        "R02",
+        "R04",
+        "R05",
+        "R06"
+      ],
+      "proposedOwner": "Communications / storage maintainer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Use the existing shared communication inheritance and scoped services for messenger, mailbox, notification and storage adapters.",
+        "Add the confirmed missing compose/draft/folder/delivery, conversation/history/realtime/attachment/call and file/folder/sharing/quota flows.",
+        "Keep inbound quarantine and sender-identity rules intact; connect real provider receipts and failures."
+      ],
+      "acceptance": [
+        "Actual send/receive/read/unread/history and file lifecycle flows work through UI, provider/service, database and reload.",
+        "Wrong-owner, denied-role and cross-tenant tests pass; no provider acceptance is misreported as recipient delivery."
+      ]
+    },
+    {
+      "id": "R10",
+      "title": "Complete application and financial families",
+      "batches": [
+        "B15",
+        "B16"
+      ],
+      "dependsOn": [
+        "R02",
+        "R04",
+        "R05",
+        "R06",
+        "R07"
+      ],
+      "proposedOwner": "Learning / commerce / help / finance maintainers",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Implement confirmed academy progress/enrolment/certificate, help/support, profile-edit and settings workflows without replacing secure account flows.",
+        "Bind commerce/payment/refund/tax/entitlement and AI-provider quota/persistence/asset-access requirements only to confirmed contracts and providers.",
+        "Supply real authorized financial projections and invoice/pricing/account workflows; decide required crypto/reference applicability explicitly."
+      ],
+      "acceptance": [
+        "Every retained family has a complete real business journey with owned persistence, receipt/error behavior and denied access.",
+        "Unavailable placeholders are removed only when their replacement has accepted behavior; demo data remains clearly marked."
+      ]
+    },
+    {
+      "id": "R11",
+      "title": "Finish reference/asset adoption and review",
+      "batches": [
+        "B06",
+        "B09",
+        "B12",
+        "B17"
+      ],
+      "dependsOn": [
+        "R04",
+        "R05",
+        "R07",
+        "R08",
+        "R09",
+        "R10"
+      ],
+      "proposedOwner": "UI migration / localization / accessibility reviewers",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Resolve all 106 unadopted examples and every B10/B12 deferred reference with a verified equivalent or documented reviewed disposition.",
+        "Migrate the 2,539-file framework-glyph inventory by actual usages; review resolved dependency licences and asset provenance separately from visual migration.",
+        "Remove duplicate implementations only after route/state/API compatibility acceptance; complete human localization and accessibility review."
+      ],
+      "acceptance": [
+        "All required reference items and supported app consumers have accepted disposition/adoption evidence.",
+        "No missing asset, duplicate active route or keyboard/screen-reader/contrast/locale regression is introduced; original-assets claims match actual consumers."
+      ]
+    },
+    {
+      "id": "R12",
+      "title": "Run full release acceptance and close batches",
+      "batches": [
+        "B01",
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B07",
+        "B08",
+        "B09",
+        "B10",
+        "B11",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
+        "B16",
+        "B17",
+        "B18"
+      ],
+      "dependsOn": [
+        "R01",
+        "R03",
+        "R04",
+        "R05",
+        "R06",
+        "R07",
+        "R08",
+        "R09",
+        "R10",
+        "R11"
+      ],
+      "proposedOwner": "QA / release reviewer",
+      "status": "planned_not_executed",
+      "tasks": [
+        "Freeze the exact candidate and execute login → UI action → canonical API → PostgreSQL → independent readback → fresh reload on supported real hosts.",
+        "Cover allowed/denied roles, two tenants, wrong owner, live/demo separation, session/role changes, EN/FR/ES, LTR/RTL, responsive layouts and actual Android/iOS devices.",
+        "Capture deployment and review evidence, re-evaluate each batch’s remaining scope and run --require-complete only after all its facts are true."
+      ],
+      "acceptance": [
+        "Every retained feature and every batch meets its individual acceptance criteria with current evidence; no unknown/pending result is counted as passed.",
+        "Release guard succeeds, production/device/review receipts match the shipped source, and a tested rollback target is retained."
+      ]
+    }
+  ],
+  "originalBatchScope": [
+    {
+      "id": "B01",
+      "title": "Governance, feature contracts and localization",
+      "status": "metadata_pilot_registered",
+      "depends_on": [],
+      "scope": [
+        "Reconcile every audited Fuse capability against existing production registrations and PrimeCare implementations; retain missing, partial, implemented-unverified and verified distinctions.",
+        "Register approved controls, resources, tokens, template requirements and implementation tags in the pinned production PostgreSQL authority before exposing new UI.",
+        "Map every template to an existing authorized business workflow; record unmatched workflows as needs-specification instead of inventing routes, permissions or endpoints.",
+        "Export reviewed identifiers and EN/FR/ES resources; define RTL behaviour, owner, API bindings and evidence requirements."
+      ],
+      "acceptance": [
+        "Exact pinned manifest validates; registrations are idempotent and independently read back.",
+        "Every later batch has approved dependencies and traceable requirement IDs.",
+        "No operational SQLite fallback; no fabricated registration or completed tags."
+      ],
+      "shared_targets": [
+        "tools/governance-production/",
+        "packages/primecare_ui/catalogs/",
+        "packages/domain/src/"
+      ],
+      "evidence": [
+        "tools/governance-production/theme-adoption-contract.json",
+        "tools/governance-production/theme-adoption-preflight.mjs",
+        "scripts/test-theme-adoption-preflight.mjs",
+        "docs/appearance/theme-adoption-source-preflight.json",
+        "docs/appearance/theme-adoption-production-preflight.json",
+        "docs/appearance/theme-adoption-batch-01.md",
+        ".github/workflows/theme-adoption-preflight.yml",
+        "docs/appearance/theme-adoption-binding-candidates.json",
+        "tools/governance-production/theme_adoption_registration.py",
+        "tools/governance-production/test-theme-adoption-registration.py",
+        "docs/appearance/theme-adoption-registration-receipt.json",
+        "packages/primecare_ui/catalogs/theme-workspace.registration.json"
+      ],
+      "blockers": [],
+      "sourcePreparation": "validated",
+      "productionRegistration": "committed_independently_verified",
+      "productionReconciliation": "all_pilot_records_verified_review_pending",
+      "productionRun": {
+        "runId": 41226841005,
+        "attempt": 2,
+        "jobId": 124613105486,
+        "commit": "b912b61002c671faaf16d8910ff2765c489309b2",
+        "connected": true,
+        "committed": true,
+        "independentReadback": true,
+        "roleGrants": 0,
+        "runtimeActivated": false
+      },
+      "nextAction": "The B02 Tenant Admin pilot is connected. Complete human translation review and remaining host/feature contracts before wider rollout.",
+      "remainingScope": [
+        "Translation review before release approval",
+        "Non-pilot host registration and feature-specific workflow/API contracts remain required before their later-batch activation"
+      ]
+    },
+    {
+      "id": "B02",
+      "title": "Integrate the advanced web layout engine",
+      "status": "tenant_pilot_accepted",
+      "depends_on": [
+        "B01"
+      ],
+      "scope": [
+        "Mount the existing WorkspaceLayoutManager through the shared web shell and existing Theme Center using governed controls.",
+        "Expose navigation placement and width, boxed/full-width/content modes, panel docking/floating/hiding, resize handles and keyboard alternatives.",
+        "Connect toolbar top/bottom and sticky/static, footer sticky/static/hidden, page/content scrolling, undo/redo/reset and workspace JSON import/export.",
+        "Preserve existing theme XML compatibility and unsaved screen state; define focus and lifecycle handling on navigation, logout and tenant/role changes."
+      ],
+      "acceptance": [
+        "Real shell actions change the layout without losing input, handlers or authorized content.",
+        "Denied or removed panels cannot be restored by imported preferences.",
+        "Desktop/mobile browser tests cover storage failures, gestures, focus, import rejection and rollback."
+      ],
+      "shared_targets": [
+        "packages/primecare_ui/web/",
+        "packages/domain/src/workspace_layout.ts",
+        "websites/typescript/src/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-02.md",
+        "packages/primecare_ui/web/workspace-customizer.ts",
+        "scripts/test-tenant-workspace-layout.mjs",
+        "scripts/test-workspace-layout.mjs",
+        "scripts/test-workspace-layout-contract.mjs"
+      ],
+      "blockers": [],
+      "readiness": "native_postgresql_and_actual_browser_acceptance_passed",
+      "remainingScope": [
+        "Footer controls remain disabled without an existing footer slot",
+        "Other-host registration and rollout",
+        "Human translation, accessibility and release review",
+        "Authenticated deployed end-to-end verification"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
+    },
+    {
+      "id": "B03",
+      "title": "Flutter layout parity",
+      "status": "shared_engine_accepted_native_host_pending",
+      "depends_on": [
+        "B01",
+        "B02"
+      ],
+      "scope": [
+        "Implement a Flutter renderer for the same validated workspace contract and approved panel registry.",
+        "Support matching container, toolbar/footer, panel docking, floating/resizing and scroll settings through shared layout factories.",
+        "Add touch and keyboard interaction, semantics, safe-area handling and small-screen stacking.",
+        "Use one account/tenant/role-scoped preference adapter; preserve current native layout choices and migrate existing preferences safely."
+      ],
+      "acceptance": [
+        "Shared web/native contract fixtures roundtrip without silent setting loss.",
+        "Flutter widget and interaction tests verify focus, retained state and panel authorization.",
+        "Supported Android, iOS and desktop builds pass relevant checks; unsupported platforms remain explicitly blocked."
+      ],
+      "shared_targets": [
+        "packages/flutter_core/lib/theme/",
+        "packages/flutter_core/lib/registry/widgets/",
+        "packages/primecare_ui/lib/src/components/layouts/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-03.md",
+        "docs/appearance/theme-adoption-batch-03-evidence.json",
+        "docs/appearance/native-workspace-usage.md",
+        ".github/workflows/native-workspace-layout.yml",
+        "packages/flutter_core/lib/workspace.dart",
+        "packages/primecare_ui/lib/workspace.dart"
+      ],
+      "blockers": [
+        {
+          "code": "NATIVE_HOST_BINDING_REQUIRED",
+          "detail": "The verified pilot binding identifies the TypeScript Tenant Admin host; native source/control/component bindings must be independently registered and read back before native shell activation."
+        }
+      ],
+      "readiness": "linux_windows_macos_widget_and_web_compile_passed",
+      "remainingScope": [
+        "Native host registration and explicit shell/Theme Center binding",
+        "Android/iOS and physical-device workflow verification",
+        "Full platform app build evidence and independent accessibility/release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
+    },
+    {
+      "id": "B04",
+      "title": "Complete navigation and three layout families",
+      "status": "shared_navigation_accepted_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "scope": [
+        "Create three original preset compositions corresponding to the functional vertical and two horizontal layout families.",
+        "Implement genuine horizontal dropdown navigation, grouped/nested menus, tabbed icon rail and submenu panel.",
+        "Complete folded/expanded, hover expansion and pin/unpin behaviour across web and native.",
+        "Support registered icons, badges, subtitles, disabled items, active-route matching and permission-filtered navigation with responsive drawer fallbacks."
+      ],
+      "acceptance": [
+        "All three compositions work through the same navigation model and existing authorization.",
+        "Keyboard navigation and menu focus work in LTR/RTL and mobile layouts.",
+        "Changing layout never changes permitted destinations or exposes denied menu entries."
+      ],
+      "shared_targets": [
+        "packages/domain/src/workspace_navigation.ts",
+        "packages/primecare_ui/web/workspace-navigation.ts",
+        "packages/flutter_core/lib/navigation/",
+        "packages/flutter_core/lib/workspace_navigation.dart",
+        "packages/primecare_ui/lib/workspace_navigation.dart"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-04.md",
+        "docs/appearance/theme-adoption-batch-04-evidence.json",
+        "docs/appearance/workspace-navigation-usage.md",
+        ".github/workflows/workspace-navigation.yml"
+      ],
+      "blockers": [
+        {
+          "code": "NAVIGATION_HOST_BINDING_REQUIRED",
+          "detail": "New pin/group/rail controls, resources and web/native source bindings require independent production registration/readback before live exposure. The earlier TypeScript workspace pilot is not sufficient."
+        }
+      ],
+      "readiness": "web_linux_windows_macos_and_cross_runtime_navigation_checks_passed",
+      "remainingScope": [
+        "Registered host activation and authenticated runtime checks",
+        "Android/iOS device, accessibility, translation and release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
+    },
+    {
+      "id": "B05",
+      "title": "Page templates and route-specific layouts",
+      "status": "shared_page_templates_accepted_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B02",
+        "B03",
+        "B04"
+      ],
+      "scope": [
+        "Build original simple and carded page factories with header/action/content slots and independently controlled left/right page sidebars.",
+        "Support permanent, temporary and responsive page drawers plus normal/page/content scrolling and route scroll resets.",
+        "Bind registered route-specific layout overrides with independent chrome visibility; public/auth/error pages reuse the shared shell safely.",
+        "Add consistent page titles and breadcrumbs from authorized route metadata."
+      ],
+      "acceptance": [
+        "Every template supports both renderers without duplicating screen business logic.",
+        "Navigation restores route defaults without leaking another page or role profile.",
+        "Header, sidebars, content and focus remain usable at tested breakpoints."
+      ],
+      "shared_targets": [
+        "packages/domain/src/page_template.ts",
+        "packages/primecare_ui/web/page-template.ts",
+        "packages/primecare_ui/web/page-workspace-chrome.ts",
+        "packages/flutter_core/lib/page/",
+        "packages/flutter_core/lib/page_template.dart",
+        "packages/primecare_ui/lib/page_template.dart"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-05.md",
+        "docs/appearance/theme-adoption-batch-05-evidence.json",
+        "docs/appearance/page-template-usage.md",
+        ".github/workflows/page-template.yml"
+      ],
+      "blockers": [
+        {
+          "code": "PAGE_HOST_BINDING_REQUIRED",
+          "detail": "Page/template/control/component/resource/source bindings require production registration and independent readback before live app exposure."
+        }
+      ],
+      "readiness": "web_linux_windows_macos_and_cross_runtime_page_checks_passed",
+      "remainingScope": [
+        "Registered host binding and authenticated route/runtime checks",
+        "Owner-controlled navigation/business overlay teardown before hiding chrome",
+        "Device, accessibility, localization and release review"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
+    },
+    {
+      "id": "B06",
+      "title": "Complete Theme Center and palette tools",
+      "status": "shared_advanced_theme_accepted_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B02",
+        "B03"
+      ],
+      "scope": [
+        "Expose independent main/navigation/toolbar/footer palettes with light/dark mode, contrast-safe foregrounds and editable semantic colours.",
+        "Add palette previews, derived light/dark shades and a common typography, spacing, border/radius and density token model.",
+        "Generate conditional layout controls from approved configuration schemas rather than duplicating forms per layout.",
+        "Provide theme/settings preview, formatted configuration viewer, copy, import/export, reset, named theme CRUD and reviewed translations."
+      ],
+      "acceptance": [
+        "Theme combinations satisfy agreed contrast checks without overriding business content.",
+        "Web/native controls produce compatible validated data and reject scripts, CSS injection and unknown fields.",
+        "Existing saved themes and version-1 XML imports remain supported or explicitly migrated."
+      ],
+      "shared_targets": [
+        "packages/domain/src/advanced_theme.ts",
+        "packages/primecare_ui/web/advanced-theme.ts",
+        "packages/primecare_ui/web/advanced-theme-editor.ts",
+        "packages/flutter_core/lib/advanced_theme/",
+        "packages/flutter_core/lib/advanced_theme.dart",
+        "packages/primecare_ui/lib/advanced_theme.dart"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-06.md",
+        "docs/appearance/theme-adoption-batch-06-evidence.json",
+        "docs/appearance/advanced-theme-usage.md",
+        ".github/workflows/advanced-theme.yml"
+      ],
+      "blockers": [
+        {
+          "code": "ADVANCED_THEME_HOST_BINDING_REQUIRED",
+          "detail": "New theme editor controls, schemas, components, resources and source bindings require production registration/readback before live exposure. Existing v1 paths remain unchanged."
+        },
+        {
+          "code": "ADVANCED_THEME_TRANSLATION_REVIEW_PENDING",
+          "detail": "New editor labels are supplied by the host; EN/FR/ES resource registration and independent human approval remain required."
+        }
+      ],
+      "readiness": "web_linux_windows_macos_and_cross_runtime_theme_checks_passed",
+      "remainingScope": [
+        "Registered host integration and authenticated runtime checks",
+        "Device, accessibility, translation and release review",
+        "Cross-device synchronization remains B07",
+        "Complete component-state integration for focus/caret, selection, hover, disabled and error states"
+      ],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
+    },
+    {
+      "id": "B07",
+      "title": "Account preferences and cross-device sync",
+      "status": "shared_account_sync_accepted_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B02",
+        "B03",
+        "B06"
+      ],
+      "scope": [
+        "Register and implement account/tenant/role-scoped theme, workspace and shortcut preference persistence using existing authorized service conventions.",
+        "Define optimistic concurrency, versioned migrations, local cache precedence, default/reset semantics and deletion behaviour.",
+        "Sync settings across sessions/devices with explicit error and offline states; never present failed saves as success.",
+        "Document API contracts, rate limits, audit records and server-side allowlists."
+      ],
+      "acceptance": [
+        "Save on one client and read back on another through API, independent database read and reload.",
+        "Cross-account and cross-tenant attempts fail; stale updates cannot silently overwrite changes.",
+        "Offline recovery, storage denial, invalid imports and schema migrations are tested."
+      ],
+      "shared_targets": [
+        "packages/domain/src/",
+        "packages/shared/src/",
+        "cloudflare/workers/src/",
+        "packages/contracts/",
+        "packages/flutter_core/lib/theme/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-07.md",
+        "docs/appearance/theme-adoption-batch-07-evidence.json",
+        "docs/appearance/preference-sync-usage.md",
+        "docs/api/account-preferences.openapi.yaml",
+        "tools/governance-production/preference-sync-contract.json",
+        ".github/workflows/preference-sync-registration.yml",
+        ".github/workflows/preference-sync.yml",
+        ".github/workflows/preference-sync-source-review.yml"
+      ],
+      "blockers": [
+        {
+          "code": "PREFERENCE_HOST_ACTIVATION_PENDING",
+          "detail": "Runtime remains off. API grants remain restricted to existing roles 1–64; no panel bindings exist for cloud workspace restoration."
+        }
+      ],
+      "readiness": "web_native_postgresql_browser_and_linux_windows_macos_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "remainingScope": [
+        "Registered authenticated host controls/resources and panel bindings",
+        "Reviewed access decisions for roles without existing API 777 grants",
+        "Deployed runtime, mobile/physical-device verification and human accessibility/localization/release review",
+        "Explicit governed recovery UI for revoked server references; broader auth catalog reader-review cutover"
+      ],
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41248358532,
+        "validateJobId": 124676460294,
+        "productionJobId": 124676536638,
+        "sourceCommit": "f371cb6285aedd926aa5dbc13108513702cf7248",
+        "grantRowsPreserved": 64,
+        "newRoleGrants": 0,
+        "preferenceValuesWritten": 0,
+        "runtimeActivated": false
+      },
+      "sourceRun": {
+        "runId": 41249952025,
+        "sourceCommit": "df9bfbf922af47167fc9b354d2808cf9c562953d",
+        "conclusion": "success"
+      },
+      "nextAction": "B08 shared shell utilities may continue through source factories; register host/panel/control bindings and complete release reviews before enabling account sync.",
+      "sourceReviewRun": {
+        "runId": 41250255157,
+        "jobId": 124682095775,
+        "sourceCommit": "1257a8dc5acd82cfc812dfcc6ff598f693d0489e",
+        "conclusion": "success"
+      }
+    },
+    {
+      "id": "B08",
+      "title": "Shared shell utilities",
+      "status": "shared_shell_utilities_accepted_business_host_bindings_pending",
+      "depends_on": [
+        "B01",
+        "B04",
+        "B05",
+        "B07"
+      ],
+      "scope": [
+        "Implement the quick side panel for authorized events, notes and quick settings using existing business data adapters.",
+        "Add consistent notification drawer, read/unread actions and authorized delivery/status views.",
+        "Add account-saved favourite navigation shortcuts and searchable shortcut management alongside existing native keyboard shortcuts.",
+        "Add fullscreen controls, complete RTL shell behaviour and real custom-scrollbar/route-reset support with native fallbacks."
+      ],
+      "acceptance": [
+        "Utility actions operate on real authorized resources where required and fail honestly when unavailable.",
+        "Favourites and settings survive account-scoped reload and cross-device sync.",
+        "Focus restoration, keyboard operation, fullscreen rejection, mobile and RTL interactions pass."
+      ],
+      "shared_targets": [
+        "packages/primecare_ui/web/",
+        "packages/flutter_core/lib/registry/widgets/",
+        "packages/flutter_core/lib/security/shortcuts/",
+        "packages/shared/src/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-08.md",
+        "docs/appearance/theme-adoption-batch-08-evidence.json",
+        "docs/appearance/shell-utilities-usage.md",
+        "docs/appearance/shell-utilities-registration-receipt.json",
+        "packages/primecare_ui/catalogs/shell-utilities.registration.json",
+        ".github/workflows/shell-utilities.yml"
+      ],
+      "blockers": [
+        {
+          "code": "SHELL_BUSINESS_ADAPTER_BINDINGS_REQUIRED",
+          "detail": "No approved self-notification read/unread API binding was established for shell utilities. Events, notes, quick settings and notification adapters remain unbound in production."
+        },
+        {
+          "code": "SHELL_HOST_ACTIVATION_PENDING",
+          "detail": "Optional metadata targets Tenant Admin only; API 777 grants still exclude this role. Native/other host registrations and explicit access decisions remain required."
+        }
+      ],
+      "readiness": "native_postgresql_browser_and_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41251351703,
+        "validateJobId": 124685354436,
+        "productionJobId": 124685439755,
+        "sourceCommit": "6abf5e8822d399f981094701777f2753379503c0",
+        "controls": 21,
+        "translations": 93,
+        "roleGrants": 0,
+        "runtimeActivated": false
+      },
+      "remainingScope": [
+        "Approved resource adapter and notification read/unread API bindings with real business-data verification",
+        "Actual web/native host/source bindings and reviewed API 777 role access decision",
+        "Production B07 activation, stale-preference recovery UI, device and whole-app RTL/scroll integration checks",
+        "Human localization, accessibility and release review"
+      ],
+      "sourceRun": {
+        "runId": 41253722290,
+        "sourceCommit": "aa9d6cbe04a72775a78743377e17f2d7e4e2367c",
+        "conclusion": "success"
+      },
+      "nextAction": "B09 shared base components can proceed. Keep B08 business adapter, host, API 777 role, production sync and human review gates explicit before live activation."
+    },
+    {
+      "id": "B09",
+      "title": "Base component and feedback catalogue",
+      "status": "shared_component_catalogue_accepted_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B06"
+      ],
+      "scope": [
+        "Audit bundled component demonstrations and map them to original PrimeCare factories; classify duplicates and framework-only examples explicitly.",
+        "Complete controls, menus, tabs, accordions, badges, cards, dialogs/drawers, tooltips and responsive form layouts.",
+        "Unify loading/suspense, splash, empty/error states, toast/snackbar, confirmations and countdown utilities.",
+        "Add reusable accessible code-highlight/copy and component-preview helpers where registered requirements call for them."
+      ],
+      "acceptance": [
+        "Each adopted component has a documented API, governed identifier, localization and meaningful interaction tests.",
+        "Disabled, loading, error, focus and screen-reader states are covered.",
+        "No vendored Fuse runtime, copied proprietary assets or duplicate per-app factories are introduced."
+      ],
+      "shared_targets": [
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/src/components/",
+        "packages/flutter_core/lib/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-09.md",
+        "docs/appearance/theme-adoption-batch-09-evidence.json",
+        "docs/appearance/component-catalogue-usage.md",
+        "docs/appearance/component-catalogue-reference-audit.json",
+        "docs/appearance/component-catalogue-registration-receipt.json",
+        "packages/primecare_ui/catalogs/component-catalogue.registration.json",
+        ".github/workflows/component-catalogue.yml"
+      ],
+      "blockers": [
+        {
+          "code": "COMPONENT_HOST_ACTIVATION_PENDING",
+          "detail": "Optional Tenant Admin metadata does not mount a runtime. Actual host/native source bindings and authorized business callbacks remain required."
+        },
+        {
+          "code": "COMPONENT_VARIANT_AND_REVIEW_SCOPE_PENDING",
+          "detail": "Consolidated framework families do not imply full variant parity. B10/B12 deferrals and 106 unadopted examples remain explicit in the reference audit; localization/accessibility/release reviews remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41255604301,
+        "validateJobId": 124697993743,
+        "productionJobId": 124698079577,
+        "sourceCommit": "517d66b0201ea773a6bb5b45a2389de6c3ef42ba",
+        "controls": 34,
+        "requiredElements": 34,
+        "resources": 42,
+        "translations": 126,
+        "newPrimitiveIds": {
+          "prime_radio": 18,
+          "prime_switch": 19
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false
+      },
+      "sourceRun": {
+        "runId": 41257279489,
+        "sourceCommit": "f5bf3d21ebda8fade161b680d91129c8da8f5a63",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Host source/role/API bindings and real application flows",
+        "Advanced inputs/collections B10 and assets B12",
+        "Reviewed specifications/dispositions for 106 unadopted framework examples",
+        "App migration, actual-device/screen-reader verification and human localization/accessibility/release approval"
+      ],
+      "nextAction": "Proceed to B10 tables, forms, editors and upload controls. Preserve B09 host activation, unadopted variant and human review gates."
+    },
+    {
+      "id": "B10",
+      "title": "Tables, forms, editors and upload controls",
+      "status": "shared_data_controls_accepted_platform_gaps_host_binding_pending",
+      "depends_on": [
+        "B01",
+        "B06",
+        "B09"
+      ],
+      "scope": [
+        "Complete shared table/grid filtering, sorting, pagination, row selection/expansion, column visibility/order/pinning, resizing and virtualization as required by the reference inventory.",
+        "Implement equivalent validated forms, autocomplete, date/time pickers, masks, numeric fields and file upload states.",
+        "Add a shared rich-text editor with registered formatting, links, images, lists and sanitization rules.",
+        "Map supported features per web/native renderer and document any platform gaps; reuse approved open-source dependencies only with recorded provenance."
+      ],
+      "acceptance": [
+        "Representative large-data cases validate actual virtualization and accessible keyboard operation.",
+        "Form, upload and editor failures are tested, including untrusted content and denied operations.",
+        "Existing APIs provide real data; unsupported actions remain disabled with clear status."
+      ],
+      "shared_targets": [
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/src/components/",
+        "packages/shared/src/",
+        "packages/domain/src/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-10.md",
+        "docs/appearance/theme-adoption-batch-10-evidence.json",
+        "docs/appearance/data-controls-usage.md",
+        "docs/appearance/data-controls-design.md",
+        "docs/appearance/data-controls-support.json",
+        "docs/appearance/data-controls-registration-receipt.json",
+        "packages/primecare_ui/catalogs/data-controls.registration.json",
+        ".github/workflows/data-controls.yml"
+      ],
+      "blockers": [
+        {
+          "code": "DATA_CONTROLS_HOST_BINDINGS_PENDING",
+          "detail": "Actual host/native source and access bindings, real data/persistence/upload adapters and governed business flows remain unverified."
+        },
+        {
+          "code": "DATA_CONTROLS_PLATFORM_AND_VARIANT_GAPS",
+          "detail": "Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Specialized rating/slider/stepper/transfer-list variants"
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed_with_documented_platform_gaps",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41258198250,
+        "sourceCommit": "ba504522165ea5a61f59faab568af7a30b446cc9",
+        "validateJobId": 124705758506,
+        "productionJobId": 124705829773,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 38,
+        "requiredElements": 38,
+        "resources": 46,
+        "translations": 138,
+        "newPrimitiveRows": 0,
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/data-controls-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41259596812,
+        "sourceCommit": "8022da343ef678ab1fa63d80f13a0fdeba276cf3",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Character-range rich-text marks and arbitrary HTML import",
+        "Spreadsheet editing and server-side query adapter",
+        "Specialized rating/slider/stepper/transfer-list variants",
+        "host source registration",
+        "authorized data projections and persistence adapters",
+        "native binary picker and image policy adapter",
+        "governed real-data flows",
+        "human localization/accessibility/release review",
+        "Approved production upload/removal storage adapters and live end-to-end verification"
+      ],
+      "nextAction": "Bind verified upload/removal ports to approved storage workflows and app hosts; continue editor/table variants and real runtime/device/review acceptance.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+          "runId": 41310167831,
+          "conclusion": "success",
+          "change": "Host-supplied HTTPS link action, guarded async errors and actor replacement; app-specific binding remains open"
+        },
+        {
+          "sourceCommit": "68b607b80b9846f6f2b9916a1f82d088abe33e7a",
+          "runId": 41311492044,
+          "conclusion": "success",
+          "platforms": [
+            "web/browser",
+            "Linux",
+            "Windows",
+            "macOS"
+          ],
+          "change": "Sticky native leading-edge columns/actions; LTR/RTL position and selection regressions; host/device activation remains unverified"
+        },
+        {
+          "sourceCommit": "7409001beae3d7ff714f2f2a9bb98f296535443f",
+          "runId": 41315000584,
+          "conclusion": "success",
+          "change": "Registered removal control exposed in both renderers: pre-upload selection removal, guarded remote deletion, independent receipt absence readback and safe explicit retry"
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "title": "Charts and configurable dashboard widgets",
+      "status": "shared_chart_widget_foundations_accepted_registry_persistence_host_pending",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B06",
+        "B09",
+        "B10"
+      ],
+      "scope": [
+        "Build a reusable original chart and metric/widget catalogue from the reference examples.",
+        "Implement widget add/remove/reorder/resize, permitted placement, per-breakpoint layouts and role/tenant defaults.",
+        "Connect dashboard definitions and real data sources through approved widget and workflow registries.",
+        "Persist dashboard layouts through the common preference service; keep floating panel layout distinct from dashboard grid layout."
+      ],
+      "acceptance": [
+        "User edits survive API/database readback and reload across breakpoints.",
+        "A denied widget cannot be added through layout import or stale cache.",
+        "Charts expose accessible data alternatives; empty, error, loading and data-update states pass."
+      ],
+      "shared_targets": [
+        "packages/domain/src/",
+        "packages/shared/src/",
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/src/components/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-11.md",
+        "docs/appearance/theme-adoption-batch-11-evidence.json",
+        "docs/appearance/dashboard-widgets-usage.md",
+        "docs/appearance/dashboard-widgets-design.md",
+        "docs/appearance/dashboard-widgets-support.json",
+        "docs/appearance/dashboard-widgets-reference-audit.json",
+        "docs/appearance/dashboard-widgets-registration-receipt.json",
+        "packages/primecare_ui/catalogs/dashboard-widgets.registration.json",
+        ".github/workflows/dashboard-widgets.yml"
+      ],
+      "blockers": [
+        {
+          "code": "DASHBOARD_REGISTRY_DATA_BINDINGS_PENDING",
+          "detail": "Business widget/workflow/source registration, authoritative server grants and actual authorized datasets are not bound in production."
+        },
+        {
+          "code": "DASHBOARD_COMMON_PREFERENCE_KIND_PENDING",
+          "detail": "API 777 has no dashboard document kind. No HTTP binding, new role grant or workspace payload smuggling is provided; production API/database/reload verification remains pending."
+        },
+        {
+          "code": "DASHBOARD_HOST_HUMAN_REVIEW_PENDING",
+          "detail": "Actual host/source/access activation, device/screen-reader checks and localization/accessibility/release reviews remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41260408035,
+        "sourceCommit": "acac55e3b68dacbecf2330ce89889fccf303f379",
+        "validateJobId": 124712308550,
+        "productionJobId": 124712384496,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 22,
+        "requiredElements": 22,
+        "resources": 34,
+        "translations": 102,
+        "primitiveIds": {
+          "prime_chart": 20
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/dashboard-widgets-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41261294950,
+        "sourceCommit": "7a437a823f839d75247cd2490c8f02be63efc63d",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "registered business widget/workflow/source mappings and authoritative server grants",
+        "dashboard document kind and policy in the common preference service",
+        "actual host/source/access bindings and production API/database/reload flow",
+        "native transport cancellation, durable offline recovery and production recovery integration",
+        "actual-device/screen-reader and human localization/accessibility/release review",
+        "production widget data or business dashboard activation",
+        "production API/database/reload persistence",
+        "every vendor chart property/animation",
+        "free coordinate or drag-and-drop grid editing",
+        "candlestick/radar/heatmap/treemap/3D families",
+        "native data transport cancellation",
+        "offline dashboard cache synchronization"
+      ],
+      "nextAction": "Proceed to B12 original icons and visual assets. Retain B11 registered source, common preference kind, server policy, host, advanced-family and human-review gates before live dashboard activation.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965931,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "title": "Original icon and visual asset completion",
+      "status": "shared_original_assets_adopted_selected_sources_app_migration_review_pending",
+      "depends_on": [
+        "B01",
+        "B06",
+        "B09"
+      ],
+      "scope": [
+        "Build a semantic inventory of actual icon/illustration needs across the approved theme/component catalogue.",
+        "Expand the current original 56-icon SVG collection and add needed brand, empty-state, onboarding and placeholder assets.",
+        "Map existing app icon keys to the central asset registry, replace usage systematically and remove obsolete references after verification.",
+        "Document provenance, accessible naming, contrast/tint behaviour, sizing and package access for all supported apps."
+      ],
+      "acceptance": [
+        "No missing asset keys, broken references or duplicate per-app copies in adopted screens.",
+        "Representative web/native renders verify scaling, tinting and meaning.",
+        "Every retained third-party dependency/asset has recorded terms; original replacements are not presented as trademark clearance."
+      ],
+      "shared_targets": [
+        "packages/primecare_ui/assets/original/",
+        "packages/primecare_ui/web/original-assets.ts",
+        "packages/primecare_ui/lib/src/theme/primecare_assets.dart",
+        "packages/shared/src/media/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-12.md",
+        "docs/appearance/theme-adoption-batch-12-evidence.json",
+        "docs/appearance/original-assets-usage.md",
+        "docs/appearance/original-assets-provenance.json",
+        "docs/appearance/original-assets-usage-audit.json",
+        "docs/appearance/original-assets-registration-receipt.json",
+        "packages/primecare_ui/assets/original/registry.json",
+        ".github/workflows/original-assets.yml"
+      ],
+      "blockers": [
+        {
+          "code": "ASSET_APP_MIGRATION_REMAINING",
+          "detail": "Shared shell and selected native defaults migrated; 2539 runtime source files still reference existing framework glyphs. These are inventory records, not broken assets or license violations."
+        },
+        {
+          "code": "ASSET_HOST_REVIEW_PENDING",
+          "detail": "Deployment/device, source binding, human localization/accessibility/contrast/release and resolved-license-bundle review remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_asset_and_shared_adoption_regressions_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41262137235,
+        "sourceCommit": "112891281b3175a3bcb38902ed57736cd526fb97",
+        "validateJobId": 124717385931,
+        "productionJobId": 124717455483,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 5,
+        "requiredElements": 5,
+        "resources": 15,
+        "translations": 45,
+        "primitiveIds": {
+          "prime_asset": 21
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/original-assets-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41263870497,
+        "sourceCommit": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "App-specific framework icon migration with individual verified usage",
+        "Host-specific metadata/source bindings and production deployment/device checks",
+        "Human localization, accessibility, contrast, screen-reader and release review",
+        "Resolved-version third-party license bundle review; retained dependencies remain installed"
+      ],
+      "nextAction": "Proceed to B13 calendar/contacts/tasks/notes/scrumboard foundations. Retain B12 app-specific migration, deployment/device and human/license review gates; remove old dependencies only after proven usage closure."
+    },
+    {
+      "id": "B13",
+      "title": "Calendar, contacts, tasks, notes and scrumboard",
+      "status": "task_backed_shared_work_modules_verified_host_activation_and_unmapped_features_pending",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B07",
+        "B08",
+        "B10",
+        "B11",
+        "B12"
+      ],
+      "scope": [
+        "Create original reusable templates for calendar, contacts, tasks, notes and scrumboard.",
+        "Map scheduling, filtering, details, editing and drag operations to existing governed PrimeCare workflows.",
+        "Add proper loading, empty, invalid, conflict and denied states without mock-success business adapters.",
+        "Keep synthetic demonstration data isolated and explicitly labelled; activate only registered real workflows."
+      ],
+      "acceptance": [
+        "For each approved module: authorized UI action → API → independent database readback → reload.",
+        "Meaningful create/update/delete or reorder actions include validation, denied roles and tenant-isolation cases.",
+        "Unmapped reference features are listed as needs-specification rather than marked adopted."
+      ],
+      "shared_targets": [
+        "packages/shared/src/",
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/",
+        "websites/typescript/src/",
+        "packages/flutter_core/lib/work_modules/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-13.md",
+        "docs/appearance/theme-adoption-batch-13-evidence.json",
+        "docs/appearance/work-modules-usage.md",
+        "docs/appearance/work-modules-registration-receipt.json",
+        ".github/workflows/work-modules.yml",
+        "docs/appearance/native-task-binding-evidence.json",
+        "docs/appearance/tenant-work-host-evidence.json"
+      ],
+      "blockers": [
+        {
+          "code": "WORK_MODULE_FEATURE_BINDINGS_NEED_SPECIFICATION",
+          "detail": "Standalone notes and personal contact CRUD require approved workflow/API bindings; Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings; Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings; New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged"
+        },
+        {
+          "code": "WORK_MODULE_HOST_NATIVE_REVIEW_PENDING",
+          "detail": "Authenticated native host mounts, deployed/device and full-app verification; Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish; Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41266361915,
+        "sourceCommit": "5103c7815e9c2dfc72e1a65e7ed7f28b5ed7f4db",
+        "validateJobId": 124729886878,
+        "productionJobId": 124729947054,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 23,
+        "requiredElements": 23,
+        "resources": 38,
+        "translations": 114,
+        "apiBindings": {
+          "GET": 16578,
+          "POST": 16579
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/work-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41267690894,
+        "sourceCommit": "5a9deba6d51c54a2bfdac795c86c651b06827ab5",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Standalone notes and personal contact CRUD require approved workflow/API bindings",
+        "Timed appointment scheduling, recurrence and calendar reminders require approved workflow/API bindings",
+        "Manual board ranking, custom lanes and board CRUD require approved workflow/API bindings",
+        "New-template creation requires a verifiable created-item identity receipt; existing task creation is unchanged",
+        "Authenticated native host mounts, deployed/device and full-app verification",
+        "Durable session-reload reconciliation, neutral pagination labels, native date/drag/focus and calendar accessibility polish",
+        "Human EN/FR/ES business/common localization, accessibility, contrast and release approval; demo host banner and workspace-version verification"
+      ],
+      "nextAction": "Mount and accept registered native task-backed hosts; complete approved standalone workflow bindings, durable restart recovery, device verification and human release review.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965897,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "d0d2ea41c13be48fd7ed6b613d2d14573fdf5cb6",
+          "runId": 41333591937,
+          "combinedRunId": 41333591922,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-task-binding-evidence.json",
+          "change": "Concrete native authenticated task-backed API adapter verified against all six task states; host, durable restart, standalone workflows and release gates retained"
+        },
+        {
+          "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820",
+          "runId": 41339668646,
+          "combinedRunId": 41339668594,
+          "conclusion": "success",
+          "evidence": "docs/appearance/tenant-work-host-evidence.json",
+          "change": "Registered tenant dashboard opt-in source host passed 14 browser checks and real handler/independent SQL acceptance; default rollout, deployed/native hosts and release gates remain open"
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "title": "Mailbox, messenger, notifications and file manager",
+      "status": "shared_communication_module_subset_verified_notification_registration_and_host_activation_pending",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B07",
+        "B08",
+        "B10",
+        "B12"
+      ],
+      "scope": [
+        "Create original shared application templates for mailbox, messenger, notifications and file management.",
+        "Reuse the existing communications inheritance core and authorized conversation/mail/file services.",
+        "Implement required threads, search, attachments, delivery/read states, folders and file operations through registered adapters.",
+        "Preserve privacy, sender/recipient verification, file access and honest send/upload failure states; no unrequested external messages."
+      ],
+      "acceptance": [
+        "Permission-scoped message/file flows pass API/database/reload validation.",
+        "Denied conversation/mailbox/file access, cross-tenant access and attachment failures are covered.",
+        "Existing call and communication behaviour does not regress."
+      ],
+      "shared_targets": [
+        "packages/shared/src/communications/",
+        "packages/shared/src/",
+        "packages/primecare_ui/lib/src/communications/",
+        "packages/primecare_ui/web/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-14.md",
+        "docs/appearance/theme-adoption-batch-14-evidence.json",
+        "docs/appearance/communication-modules-usage.md",
+        "docs/appearance/communication-modules-registration-receipt.json",
+        ".github/workflows/communication-modules.yml",
+        "docs/appearance/native-communication-settings-evidence.json"
+      ],
+      "blockers": [
+        {
+          "code": "OWN_NOTIFICATION_API_REGISTRATION_MISSING",
+          "detail": "Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound"
+        },
+        {
+          "code": "COMMUNICATION_MODULE_UNMAPPED_FEATURES",
+          "detail": "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings; New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped; New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped"
+        },
+        {
+          "code": "COMMUNICATION_MODULE_HOST_NATIVE_REVIEW_PENDING",
+          "detail": "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending; Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_shared_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41269023480,
+        "sourceCommit": "07e0cb25b7ede06a4f03a7477fbd98fbc6c9ae3f",
+        "validateJobId": 124737757905,
+        "productionJobId": 124737818113,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 18,
+        "requiredElements": 18,
+        "resources": 37,
+        "translations": 111,
+        "apiBindings": {
+          "GET /v1/messages/email/inbox": 16512,
+          "GET /v1/messages/inbox": 857,
+          "GET /v1/messages/pictures": 16509,
+          "POST /v1/messages": 710,
+          "POST /v1/messages/email": 16511
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/communication-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41269984530,
+        "sourceCommit": "e75c8af8806e680b0b9039890253a9b38b9fa86f",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Own-notification API is absent from pinned production metadata: read transport, mutations and navigation remain unbound",
+        "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
+        "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
+        "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
+        "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+      ],
+      "nextAction": "Mount approved native communication subset in registered hosts; confirm remaining provider/storage/notification contracts and complete their implementations and release acceptance.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965936,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "2b45aec357284b88f32235def5c89e32a656140e",
+          "runId": 41336298352,
+          "combinedRunId": 41336612512,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-communication-settings-evidence.json",
+          "change": "Native registered communication subset and shortcut-settings binding verified; full business features, hosts, cached recovery UI, deployment/device and human gates remain open"
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "title": "Academy, commerce, AI images, profile, settings and help centre",
+      "status": "account_identity_and_navigation_settings_verified_other_application_dependencies_and_host_activation_pending",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B07",
+        "B09",
+        "B10",
+        "B12",
+        "B13",
+        "B14"
+      ],
+      "scope": [
+        "Create original template counterparts for academy, e-commerce, AI image generation, profile, settings and help centre.",
+        "Reuse existing identity/account settings and approved learning/product/support workflows; do not replace working authentication.",
+        "Register any required external provider adapter and entitlement before enabling AI/image or commerce operations.",
+        "Document real-service dependencies, missing workflow specifications and platform support separately from presentation readiness."
+      ],
+      "acceptance": [
+        "Each template has approved scope and a verified real flow, or an explicit blocked dependency.",
+        "Profile/settings permissions and sensitive updates are validated.",
+        "No demo billing, generated image, purchase or provider success is reported as a production transaction."
+      ],
+      "shared_targets": [
+        "packages/shared/src/",
+        "packages/domain/src/",
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-15.md",
+        "docs/appearance/theme-adoption-batch-15-evidence.json",
+        "docs/appearance/application-modules-usage.md",
+        "docs/appearance/application-modules-registration-receipt.json",
+        ".github/workflows/application-modules.yml",
+        "docs/appearance/native-communication-settings-evidence.json"
+      ],
+      "blockers": [
+        {
+          "code": "APPLICATION_FAMILY_API_PROVIDER_BINDINGS_PENDING",
+          "detail": "Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs; Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers; AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows; Help content/search/support-escalation workflows require approved knowledge/support API bindings"
+        },
+        {
+          "code": "APPLICATION_HOST_NATIVE_RECOVERY_REVIEW_PENDING",
+          "detail": "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged; Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending; Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure; Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_template_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41276699858,
+        "attempt": 2,
+        "sourceCommit": "aedf003f535fc8cf730d43347fcc1066cd7cf70b",
+        "validateJobId": 124760725672,
+        "productionJobId": 124760724723,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 20,
+        "requiredElements": 20,
+        "resources": 32,
+        "translations": 96,
+        "apiBindings": {
+          "POST /v1/user/preferences": 777
+        },
+        "discoveries": {
+          "GET /v1/auth/me": [
+            [
+              16402,
+              null,
+              1,
+              "authenticated_self_session"
+            ]
+          ],
+          "GET /v1/auth/me/authored-post-records": [],
+          "GET /v1/auth/me/ledger-event-records": [],
+          "GET /v1/client/inventory-item-records": [],
+          "GET /v1/client/purchase-order-records": [],
+          "GET /v1/help/articles": [],
+          "GET /v1/knowledge/articles": [],
+          "GET /v1/provider/training-assignment-records": []
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/application-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41277937362,
+        "sourceCommit": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs",
+        "Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers",
+        "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
+        "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
+        "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
+        "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+      ],
+      "nextAction": "Mount self-profile and shortcut-settings ports with explicit recovery UI; confirm remaining business/provider contracts and finish deployed/device/review acceptance.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965872,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "7a27afcd07e24692150662de2e965cdf3076d765",
+          "runId": 41336612262,
+          "combinedRunId": 41336612512,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-communication-settings-evidence.json",
+          "change": "Native registered communication subset and shortcut-settings binding verified; full business features, hosts, cached recovery UI, deployment/device and human gates remain open"
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "title": "Four dashboard families and supporting pages",
+      "status": "cross_platform_dashboard_and_native_read_subsets_verified_optional_count_handling_fixed_host_release_gaps_open",
+      "depends_on": [
+        "B01",
+        "B05",
+        "B06",
+        "B09",
+        "B10",
+        "B11",
+        "B12"
+      ],
+      "scope": [
+        "Create original project, analytics, finance and crypto dashboard presentation templates driven by approved registered datasets.",
+        "Map relevant PrimeCare metrics and currencies to approved requirements; crypto examples remain isolated unless a real workflow is registered.",
+        "Add invoice, pricing, activity, search, authentication presentation, coming-soon, maintenance and error-page templates.",
+        "Reuse current auth/permission providers. Inventory Fuse JWT/Firebase/AWS adapters as architectural references; register an adapter only where an approved requirement needs it."
+      ],
+      "acceptance": [
+        "Each dashboard tile/chart is permission filtered and source mapped; no invented production metrics.",
+        "Supporting pages use shared route templates, navigation and localized resources.",
+        "Synthetic reference-only examples are separated from operational business screens and cannot be mistaken for live data."
+      ],
+      "shared_targets": [
+        "packages/shared/src/",
+        "packages/primecare_ui/web/",
+        "packages/primecare_ui/lib/src/components/layouts/",
+        "websites/typescript/src/"
+      ],
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-16.md",
+        "packages/shared/src/dashboard-pages/projection.mjs",
+        "packages/primecare_ui/web/dashboard-pages.ts",
+        "scripts/test-dashboard-pages-projection.mjs",
+        "packages/shared/src/dashboard-pages/session.mjs",
+        "websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts",
+        "scripts/test-dashboard-pages-session.mjs",
+        "scripts/test-dashboard-pages-integration.mjs",
+        "scripts/test-dashboard-pages-browser.mjs",
+        ".github/workflows/dashboard-pages-projection.yml",
+        "packages/flutter_core/lib/dashboard_pages.dart",
+        "packages/primecare_ui/lib/dashboard_pages.dart",
+        "packages/flutter_core/test/dashboard_pages/dashboard_page_test.dart",
+        "packages/primecare_ui/web/supporting-pages.ts",
+        "scripts/test-dashboard-pages-parity.mjs",
+        "docs/appearance/dashboard-pages-usage.md",
+        "docs/appearance/theme-adoption-batch-16-evidence.json",
+        "packages/shared/src/dashboard-pages/record-pages.mjs",
+        "packages/primecare_ui/web/record-pages.ts",
+        "packages/flutter_core/lib/dashboard_pages/record_page_model.dart",
+        "scripts/test-dashboard-record-pages.mjs",
+        "docs/appearance/dashboard-pages-registration-receipt.json",
+        "packages/flutter_core/lib/dashboard_pages/dashboard_read_session.dart",
+        "packages/flutter_core/test/dashboard_pages/dashboard_read_session_test.dart"
+      ],
+      "blockers": [],
+      "nextAction": "Use verified read sessions and explicit unavailable counts in approved host rollout; live API/database/device/review gates still apply.",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "sourceRun": {
+        "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
+        "runId": 41310167833,
+        "conclusion": "success",
+        "jobs": [
+          "web",
+          "postgres",
+          "native Linux",
+          "native Windows",
+          "native macOS"
+        ]
+      },
+      "priorSourceRun": {
+        "sourceCommit": "6d7ec963967f34270c51ef215a3178902df57132",
+        "runId": 41307397565,
+        "conclusion": "success",
+        "jobs": [
+          "web",
+          "postgres",
+          "Linux native",
+          "Windows native",
+          "macOS native"
+        ]
+      },
+      "productionRegistration": "historical_commit_and_independent_readback_receipt_recovered_runtime_off",
+      "productionRun": {
+        "runId": 41278838480,
+        "sourceCommit": "33d3566c5f120d7ebcb423fc7bd8fc8cb099196e",
+        "productionJobId": 124766476200,
+        "committed": true,
+        "independentReadback": true,
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "freshReadbackThisTurn": false,
+        "receipt": "docs/appearance/dashboard-pages-registration-receipt.json"
+      },
+      "remainingScope": [
+        "Approved authenticated host mounting, fresh production readback and UI/API/database/reload verification",
+        "Real financial data bindings and non-placeholder invoice/pricing/account workflows",
+        "Physical Android/iOS, localization/accessibility and release review",
+        "Full financial dashboard/business and advanced chart requirements remain unbound"
+      ]
+    },
+    {
+      "id": "B17",
+      "title": "Catalogue, documentation and app-wide adoption",
+      "status": "developer_catalogue_and_known_reference_dispositions_generated_app_migration_and_review_pending",
+      "depends_on": [
+        "B04",
+        "B05",
+        "B06",
+        "B08",
+        "B09",
+        "B10",
+        "B11",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
+        "B16"
+      ],
+      "scope": [
+        "Publish an original developer catalogue with component APIs, layout recipes, examples, configuration schemas and asset mappings.",
+        "Track every reference feature as verified-equivalent, intentionally-replaced, not-applicable-with-reason, blocked or missing; no silent omissions.",
+        "Replace old app-specific shell/theme/widget implementations with shared factories in controlled app groups.",
+        "Remove obsolete implementations only after references, compatibility and migration checks pass; maintain main-only commits."
+      ],
+      "acceptance": [
+        "Every reference feature has a reviewed disposition, integration owner and evidence link.",
+        "All supported apps consume the shared packages without duplicate implementations.",
+        "Migration/rollback documentation matches the shipped configuration and supported platforms."
+      ],
+      "shared_targets": [
+        "docs/appearance/",
+        "packages/primecare_ui/catalogs/",
+        "apps/",
+        "websites/",
+        "scripts/"
+      ],
+      "evidence": [
+        "scripts/audit-theme-batches.py",
+        "docs/appearance/theme-batches-main-audit.md",
+        "docs/appearance/theme-batches-main-audit.json",
+        "docs/appearance/theme-batches-main-audit-snapshot.json",
+        "scripts/build-theme-developer-catalogue.py",
+        "docs/appearance/developer-catalogue.md",
+        "packages/primecare_ui/catalogs/developer-catalogue.json"
+      ],
+      "blockers": [],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "remainingScope": [
+        "Human review of feature/reference dispositions and owner decisions",
+        "Complete app-by-app migration and remove duplicate paths only after compatibility acceptance",
+        "Close earlier host/API/runtime gaps before app-wide adoption"
+      ],
+      "nextAction": "Use the 72-feature/1200-reference catalogue and 9-app/9-portal inventory to drive controlled migration and reviewed dispositions."
+    },
+    {
+      "id": "B18",
+      "title": "Full verification and release closure",
+      "status": "cross_batch_source_verified_production_device_and_human_acceptance_pending",
+      "depends_on": [
+        "B02",
+        "B03",
+        "B04",
+        "B05",
+        "B06",
+        "B07",
+        "B08",
+        "B09",
+        "B10",
+        "B11",
+        "B12",
+        "B13",
+        "B14",
+        "B15",
+        "B16",
+        "B17"
+      ],
+      "scope": [
+        "Run governed Cypress/browser and Flutter/native verification across registered roles, tenants, supported apps, layout families and breakpoints.",
+        "Cover LTR/RTL, EN/FR/ES, keyboard/touch/screen-reader behaviours, contrast, state retention and preference migrations.",
+        "Verify UI → API → database → reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
+        "Update implementation/test/review tags honestly, record required CI and deployment/readback evidence, and resolve every remaining gap or mark it blocked."
+      ],
+      "acceptance": [
+        "No feature is called complete from file presence, inventory, compilation or screenshot alone.",
+        "All required checks pass against the exact shipped commit; material exceptions stay explicit.",
+        "Final matrix distinguishes source implementation, production integration, runtime verification and human review."
+      ],
+      "shared_targets": [
+        "scripts/",
+        ".github/workflows/",
+        "docs/appearance/",
+        "tools/governance-production/"
+      ],
+      "evidence": [
+        ".github/workflows/theme-closure.yml",
+        "scripts/check-theme-release.py",
+        "docs/appearance/theme-release-gates.json"
+      ],
+      "blockers": [],
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "remainingScope": [
+        "Authenticated deployed UI/API/database/reload and denied/cross-tenant acceptance",
+        "Physical-device and human localization/accessibility/release approval",
+        "All earlier batch source/contract/integration gaps must be resolved"
+      ],
+      "nextAction": "Close remaining feature/contract/host/deployment/device/review gaps; rerun exact-source verification after subsequent code changes.",
+      "sourceFollowups": [
+        {
+          "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
+          "runId": 41312965824,
+          "conclusion": "success",
+          "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
+          "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        }
+      ]
+    }
+  ],
+  "regressions": [
+    {
+      "script": "workspace-layout-contract",
+      "exitCode": 0,
+      "seconds": 0.09,
+      "output": "✔ 180 layout combinations survive a validated data-only JSON roundtrip (5.365034ms)\n✔ unregistered panels, authority fields, script-like settings and invalid dimensions fail closed (0.695949ms)\n✔ validated profiles do not retain mutable caller references (0.116786ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 10.937771\n"
+    },
+    {
+      "script": "workspace-navigation-model",
+      "exitCode": 0,
+      "seconds": 0.09,
+      "output": "Generated 21 navigation authority and active-route fixtures.\n✔ both IDs and routes intersect; denied parents and disabled descendants remain unavailable (1.021129ms)\n✔ unknown fields, malformed trees, duplicate identities, unsafe routes and icons fail closed (0.892895ms)\n✔ three compositions preserve geometry and cannot add destinations (2.020314ms)\nℹ tests 3\nℹ suites 0\nℹ pass 3\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8.962075\n"
+    },
+    {
+      "script": "page-template-model",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "output": "Generated 288 page route/layout cases.\n✔ only registered ID/route intersections and authorized breadcrumbs survive (1.296784ms)\n✔ unknown authority fields, unsafe routes, ambiguous bindings and malformed geometry fail closed (0.639654ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 7.085592\n"
+    },
+    {
+      "script": "advanced-theme-model",
+      "exitCode": 0,
+      "seconds": 0.19,
+      "output": "Generated 96 advanced theme oracle cases.\n✔ all region modes and semantic shades retain contrast with independent palettes (29.999414ms)\n✔ strict schemas, imports and library identities reject injection, authority and duplicates (1.408142ms)\nℹ tests 2\nℹ suites 0\nℹ pass 2\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 35.951712\n"
+    },
+    {
+      "script": "preference-client",
+      "exitCode": 0,
+      "seconds": 0.12,
+      "output": "✔ two devices conflict, explicit local/remote resolution, reload and monotonic reset/delete (5.617784ms)\n✔ lost acknowledgement survives reload and retries exact request UUID once (1.208071ms)\n✔ restart after lost acknowledgement retains a newer cached draft (1.283183ms)\n✔ offline initialization queues a durable CAS request without automatic retry (1.637698ms)\n✔ refresh preserves unsaved edits; edit while acknowledgement is pending stays dirty (2.320527ms)\n✔ storage rejection prevents a mutation from reaching the transport (0.98849ms)\n✔ strict schemas, account/dataset isolation and proven migration only (0.770841ms)\n✔ disposed client ignores delayed responses (0.215785ms)\n✔ HTTP adapter uses registered POST, bearer only, bounded replies and typed conflict (4.136834ms)\n✔ discard locks edits and mutations until storage finishes (0.644671ms)\n✔ failed discard retains the draft and reports storage failure (0.368045ms)\n✔ late discard completion cannot revive a disposed actor (0.352792ms)\nℹ tests 12\nℹ suites 0\nℹ pass 12\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 24.792037\n"
+    },
+    {
+      "script": "shell-utilities-model",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "output": "✔ unbound resource adapters stay unavailable; errors never become successful empty lists (2.734681ms)\n✔ read/unread changes require exact server acknowledgement and preserve value on failure (0.741457ms)\n✔ wrong confirmation, duplicate records and unregistered destination restore fail closed (1.071084ms)\n✔ search and favourites reuse scoped preference state and expose pending errors honestly (2.536001ms)\n✔ disposed actors ignore late resource results and cannot mutate or navigate (0.412381ms)\n✔ unknown utility keys cannot modify prototypes or bypass the fixed channel registry (0.381525ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 14.69391\n"
+    },
+    {
+      "script": "component-catalogue-model",
+      "exitCode": 0,
+      "seconds": 0.11,
+      "output": "Verified 21 shared code/countdown/responsive-form cases.\n✔ code is preserved literally and bounded even with unfinished comments and malicious markup (6.851634ms)\n✔ countdown recomputes from absolute time and cannot become negative (0.206922ms)\n✔ responsive form geometry is bounded and handles a narrow viewport without overflow columns (0.15889ms)\n✔ async boundaries clear old data and ignore stale actor results and disposed completions (2.822533ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 16.928256\n"
+    },
+    {
+      "script": "data-controls-model",
+      "exitCode": 0,
+      "seconds": 0.14,
+      "output": "✔ shared windows, field constraints and URL fixtures (1.910229ms)\n✔ large projected table is stable, bounded and retains identity correctly (43.0295ms)\n✔ structured editor rejects executable/unknown data and preserves literal text (0.564962ms)\n✔ upload rejects metadata violations and never sends without an adapter (1.037674ms)\n✔ upload progress, cancellation, late results and stable-key retry (0.539683ms)\n✔ missing receipt and denied transport remain errors; invalid replacement clears old files (0.300272ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 57.17935\n"
+    },
+    {
+      "script": "upload-removal",
+      "exitCode": 0,
+      "seconds": 0.08,
+      "output": "✔ remove selection only before upload (1.83206ms)\n✔ delete success requires matching acknowledgement and independent absence (0.443758ms)\n✔ acknowledged delete retries readback only after read failure (0.419892ms)\n✔ lost acknowledgement is reconciled without a duplicate delete (0.295285ms)\n✔ unsafe retry never repeats a denied or uncertain mutation (0.263768ms)\n✔ declared idempotent retry preserves the exact delete key (0.328245ms)\n✔ mismatched receipt, foreign scope and a still-present item cannot become removed (0.412521ms)\n✔ dispose suppresses late delete completion and unbound deletion is inert (0.3121ms)\nℹ tests 8\nℹ suites 0\nℹ pass 8\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 9.536278\n"
+    },
+    {
+      "script": "dashboard-widgets-model",
+      "exitCode": 0,
+      "seconds": 0.1,
+      "output": "✔ bounded chart geometry preserves gaps, negative values, singleton and zero cases (1.001059ms)\n✔ breakpoints and deterministic pack preserve placement bounds (0.217358ms)\n✔ add/remove/reorder/resize are view-specific and reject denied imports and stale defaults (1.048309ms)\n✔ scoped save requires acknowledged revision and independent port readback; reload survives (1.530116ms)\n✔ denied or mismatched persistence never claims saved and keeps edits (1.200469ms)\n✔ edits during save survive older acknowledgement and disposed completions are ignored (0.74283ms)\n✔ uncertain dashboard retries retain request identity and acknowledged saves only retry readback (1.949156ms)\nℹ tests 7\nℹ suites 0\nℹ pass 7\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 12.670862\n"
+    },
+    {
+      "script": "original-assets-model",
+      "exitCode": 0,
+      "seconds": 0.12,
+      "output": "✔ all canonical SVG hashes, keys and package paths match compiled registry (19.89744ms)\n✔ all legacy shell keys resolve to original geometry and retain renderer contract (0.502908ms)\n✔ unknown/prototype keys fail and descriptors cannot mutate the central registry (0.33152ms)\n✔ directional metadata is explicit and aliases preserve semantic targets (0.154774ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 25.626502\n"
+    },
+    {
+      "script": "work-modules",
+      "exitCode": 0,
+      "seconds": 2.09,
+      "output": "PASS work modules: 30 checks; PGlite PostgreSQL API, independent SQL and fresh-session readback\n"
+    },
+    {
+      "script": "work-modules-transport",
+      "exitCode": 0,
+      "seconds": 0.12,
+      "output": "✔ existing endpoint, filters, bearer and exact mutation receipt are preserved (6.624421ms)\n✔ logout before dispatch sends nothing (0.513634ms)\n✔ logout while response body is pending rejects stale data and cancels reader (3.088414ms)\n✔ aborted transports cannot publish even when fetch ignores abort (0.568857ms)\n✔ declared and streamed oversized replies fail and cancel without replay (1.892462ms)\n✔ malformed JSON and invalid UTF-8 never become successful data (0.926326ms)\n✔ HTTP denied, conflict and invalid responses retain typed failures (1.259197ms)\n✔ invalid origins and header-breaking tokens reject construction (0.600775ms)\n✔ session changes during asynchronous stream cleanup cannot publish (0.65738ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 23.027416\n"
+    },
+    {
+      "script": "communication-modules",
+      "exitCode": 0,
+      "seconds": 1.58,
+      "output": "PASS communication modules: 28 checks; PGlite PostgreSQL, registered handler, independent SQL, replay, reload, denial and no external mail\n(node:265) [MODULE_TYPELESS_PACKAGE_JSON] Warning: Module type of file:///tmp/primecare-deep-assessment/cloudflare/workers/src/business-tasks/communication.ts is not specified and it doesn't parse as CommonJS.\nReparsing as ES module because module syntax was detected. This incurs a performance overhead.\nTo eliminate this warning, add \"type\": \"module\" to /tmp/primecare-deep-assessment/package.json.\n(Use `node --trace-warnings ...` to show where the warning was created)\n"
+    },
+    {
+      "script": "communication-modules-transport",
+      "exitCode": 0,
+      "seconds": 0.11,
+      "output": "✔ registered operations preserve paths, query semantics and original message receipt (7.463035ms)\n✔ identity aliases, unsupported providers and cancelled calls cannot reach fetch (0.919846ms)\n✔ scope changes and disposal while reading cannot publish old replies (4.031064ms)\n✔ oversized and malformed replies fail without replaying a message mutation (2.548179ms)\n✔ HTTP deny/conflict failures retain their codes and stream cleanup checks captured scope (1.951451ms)\nℹ tests 5\nℹ suites 0\nℹ pass 5\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 21.29016\n"
+    },
+    {
+      "script": "application-modules",
+      "exitCode": 0,
+      "seconds": 1.4,
+      "output": "PASS application modules: 27 checks; PGlite PostgreSQL, existing account/preference handlers, independent SQL, version conflict, original-key replay, read-only identity and blocked unregistered services\n"
+    },
+    {
+      "script": "application-modules-transport",
+      "exitCode": 0,
+      "seconds": 0.12,
+      "output": "✔ profile projects registered self identity and sends no owner-selected parameters (7.273619ms)\n✔ profile rejects logout while streaming and cancels the owned reader (2.251803ms)\n✔ profile disposal and cancellation reject pending replies (2.147215ms)\n✔ profile bounds streamed and declared replies to the native 64 KiB limit (1.211716ms)\n✔ profile validates pagination, search and abort before dispatch (0.399232ms)\n✔ profile malformed JSON and changed response identity never publish (4.134019ms)\n✔ dashboard rejects oversized bodies and token changes during streaming (0.847747ms)\n✔ profile and dashboard retain valid replies at their exact byte limits (3.749028ms)\n✔ settings maps rejected owned snapshot identity to denial rather than a retryable error (1.192187ms)\nℹ tests 9\nℹ suites 0\nℹ pass 9\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 28.334643\n"
+    },
+    {
+      "script": "dashboard-pages-projection",
+      "exitCode": 0,
+      "seconds": 0.08,
+      "output": "✔ projects exact source counts without adding overlapping groups or mutating input (2.180465ms)\n✔ account, tenant, role and dataset mismatch fail closed (0.423658ms)\n✔ server view denial reveals no counts (0.214924ms)\n✔ rejects absent, coerced, fractional, negative and unsafe counts (0.315515ms)\n✔ finance and crypto cannot manufacture business data; demo remains labelled (0.533343ms)\n✔ unavailable optional operational source remains null without breaking other metrics (0.180872ms)\nℹ tests 6\nℹ suites 0\nℹ pass 6\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 11.912669\n"
+    },
+    {
+      "script": "dashboard-pages-session",
+      "exitCode": 0,
+      "seconds": 0.07,
+      "output": "✔ latest request wins even when aborted transport resolves (1.407251ms)\n✔ refresh immediately clears old values; failure retains no stale projection (0.348045ms)\n✔ scope changes, explicit invalidation and disposal defeat pending responses (0.548707ms)\n✔ snapshot consumers cannot modify retained values (0.254083ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8.579517\n"
+    },
+    {
+      "script": "dashboard-record-pages",
+      "exitCode": 0,
+      "seconds": 0.07,
+      "output": "✔ bounded search maps only approved fields and filters literal text (2.249429ms)\n✔ denied views reveal no records and do not inspect denied fields (0.176636ms)\n✔ scope mismatch, oversized lists, invalid projected fields/query and invalid dates reject (0.417348ms)\n✔ activity timestamps reject normalized impossible dates and ambiguous local dates (0.220622ms)\nℹ tests 4\nℹ suites 0\nℹ pass 4\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 8.938487\n"
+    },
+    {
+      "script": "dashboard-pages-parity",
+      "exitCode": 0,
+      "seconds": 0.06,
+      "output": "PASS dashboard/supporting-page shared fixtures and unavailable workflow gates\n"
+    },
+    {
+      "script": "dashboard-pages-integration",
+      "exitCode": 0,
+      "seconds": 1.48,
+      "output": "PASS dashboard page integration: 11 groups; PGlite PostgreSQL, real tenant handler, independent SQL, reload, tenant mismatch, role denial and token changes\n"
+    }
+  ],
+  "releaseGates": {
+    "format": 1,
+    "releaseReady": false,
+    "batchCount": 18,
+    "mainOnlyPolicy": true,
+    "liveBranchInventoryNotRecheckedByThisScript": true,
+    "evidencePolicy": "Declared plan/evidence gates only; CI/deployment/review receipts require independent validation before final signoff",
+    "batches": [
+      {
+        "batch": "B01",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "metadata_pilot_registered"
+      },
+      {
+        "batch": "B02",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "tenant_pilot_accepted"
+      },
+      {
+        "batch": "B03",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_engine_accepted_native_host_pending"
+      },
+      {
+        "batch": "B04",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_navigation_accepted_host_binding_pending"
+      },
+      {
+        "batch": "B05",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_page_templates_accepted_host_binding_pending"
+      },
+      {
+        "batch": "B06",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_advanced_theme_accepted_host_binding_pending"
+      },
+      {
+        "batch": "B07",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_account_sync_accepted_host_binding_pending"
+      },
+      {
+        "batch": "B08",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_shell_utilities_accepted_business_host_bindings_pending"
+      },
+      {
+        "batch": "B09",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_component_catalogue_accepted_host_binding_pending"
+      },
+      {
+        "batch": "B10",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_data_controls_accepted_platform_gaps_host_binding_pending"
+      },
+      {
+        "batch": "B11",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_chart_widget_foundations_accepted_registry_persistence_host_pending"
+      },
+      {
+        "batch": "B12",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_original_assets_adopted_selected_sources_app_migration_review_pending"
+      },
+      {
+        "batch": "B13",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "task_backed_shared_work_modules_verified_host_activation_and_unmapped_features_pending"
+      },
+      {
+        "batch": "B14",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "shared_communication_module_subset_verified_notification_registration_and_host_activation_pending"
+      },
+      {
+        "batch": "B15",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "blockers",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "account_identity_and_navigation_settings_verified_other_application_dependencies_and_host_activation_pending"
+      },
+      {
+        "batch": "B16",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "cross_platform_dashboard_and_native_read_subsets_verified_optional_count_handling_fixed_host_release_gaps_open"
+      },
+      {
+        "batch": "B17",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "developer_catalogue_and_known_reference_dispositions_generated_app_migration_and_review_pending"
+      },
+      {
+        "batch": "B18",
+        "ready": false,
+        "openGates": [
+          "fullFunctionalityVerified",
+          "productionRuntimeVerified",
+          "humanReviewApproved",
+          "remainingScope",
+          "releaseEvidence.sourceCommit",
+          "releaseEvidence.ciRun",
+          "releaseEvidence.deployedUiApiDatabaseReload",
+          "releaseEvidence.deniedAndCrossTenant",
+          "releaseEvidence.supportedDevices",
+          "releaseEvidence.localizationAndAccessibilityReview"
+        ],
+        "recordedStatus": "cross_batch_source_verified_production_device_and_human_acceptance_pending"
+      }
+    ]
+  },
+  "releaseRules": [
+    "Main only; no work branch required.",
+    "Reuse shared core/inheritance and existing contracts; no invented duties, routes, APIs or permissive fallbacks.",
+    "No SQLite production fallback.",
+    "Do not disable identity, stale-source or release guards.",
+    "No blanket role grants or global activation.",
+    "Close one verified vertical slice before multiplying rollout."
+  ]
+}
