@@ -1,0 +1,2269 @@
+{
+  "authority": "pinned production governance PostgreSQL",
+  "businessDataRead": false,
+  "candidateCount": 187,
+  "candidates": [
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 42,
+      "method": "POST",
+      "path": "/v1/admin/actions/training-modules",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 58,
+      "method": "POST",
+      "path": "/v1/admin/notifications",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 59,
+      "method": "POST",
+      "path": "/v1/admin/notifications/broadcast",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 73,
+      "method": "POST",
+      "path": "/v1/admin/pharmacy/orders",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 80,
+      "method": "POST",
+      "path": "/v1/admin/financial/invoices",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 103,
+      "method": "POST",
+      "path": "/v1/admin/erp/inventory",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 104,
+      "method": "POST",
+      "path": "/v1/admin/erp/purchase-orders",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 106,
+      "method": "POST",
+      "path": "/v1/admin/erp/inventory/add",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 142,
+      "method": "POST",
+      "path": "/v1/admin/system-data/notifications",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 151,
+      "method": "POST",
+      "path": "/v1/admin/cron/training-reminders",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 153,
+      "method": "POST",
+      "path": "/v1/admin/cron/inventory-reorder",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 169,
+      "method": "POST",
+      "path": "/v1/manager/finance/payroll-audit",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 174,
+      "method": "POST",
+      "path": "/v1/manager/ops/schedule/logistics-board",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 179,
+      "method": "POST",
+      "path": "/v1/manager/training/assign",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 180,
+      "method": "POST",
+      "path": "/v1/manager/training/compliance",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 181,
+      "method": "POST",
+      "path": "/v1/manager/training/modules",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 191,
+      "method": "POST",
+      "path": "/v1/staff/messages/hub",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 192,
+      "method": "POST",
+      "path": "/v1/staff/messages/hub/audit",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 193,
+      "method": "POST",
+      "path": "/v1/staff/messages/hub/multidisciplinary",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 212,
+      "method": "POST",
+      "path": "/v1/psw/home/hardware/purchase",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 216,
+      "method": "POST",
+      "path": "/v1/psw/schedule/visits",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 217,
+      "method": "POST",
+      "path": "/v1/psw/schedule/offers",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 218,
+      "method": "POST",
+      "path": "/v1/psw/schedule/availability",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 219,
+      "method": "POST",
+      "path": "/v1/psw/schedule/marketplace",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 220,
+      "method": "POST",
+      "path": "/v1/psw/schedule/marketplace/swaps",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 232,
+      "method": "POST",
+      "path": "/v1/psw/training/assigned",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 233,
+      "method": "POST",
+      "path": "/v1/psw/visit-notes",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 235,
+      "method": "POST",
+      "path": "/v1/client/home/profile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 239,
+      "method": "POST",
+      "path": "/v1/client/invoices",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 242,
+      "method": "POST",
+      "path": "/v1/client/support/feedback",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 244,
+      "method": "POST",
+      "path": "/v1/client/engagement/pay-invoice",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 246,
+      "method": "POST",
+      "path": "/v1/client/family/message",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 247,
+      "method": "POST",
+      "path": "/v1/client/family/schedule/upcoming",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 248,
+      "method": "POST",
+      "path": "/v1/client/billing/invoices",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 250,
+      "method": "POST",
+      "path": "/v1/client/billing/payment-methods",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 257,
+      "method": "POST",
+      "path": "/v1/client/profile/medical-summary",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 259,
+      "method": "POST",
+      "path": "/v1/coordinator/schedule/master",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 276,
+      "method": "POST",
+      "path": "/v1/user/profile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 279,
+      "method": "POST",
+      "path": "/v1/user/training/catalog",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 280,
+      "method": "POST",
+      "path": "/v1/user/training/my-progress",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 281,
+      "method": "POST",
+      "path": "/v1/system/notifications/register-device",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 282,
+      "method": "POST",
+      "path": "/v1/system/notifications",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 283,
+      "method": "POST",
+      "path": "/v1/system/payments/create-payment-intent",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 305,
+      "method": "POST",
+      "path": "/v1/psw/schedule",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 329,
+      "method": "POST",
+      "path": "/v1/psw/schedule/visits/check-in",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 330,
+      "method": "POST",
+      "path": "/v1/psw/schedule/payouts/request",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 382,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 383,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency/rates",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 384,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency/conversions",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 391,
+      "method": "POST",
+      "path": "/v1/admin/supply-chain/purchase-orders",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 392,
+      "method": "POST",
+      "path": "/v1/admin/supply-chain/inventory/sync",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 408,
+      "method": "POST",
+      "path": "/v1/support/chat",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 409,
+      "method": "POST",
+      "path": "/v1/support/tickets",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 421,
+      "method": "POST",
+      "path": "/v1/admin/invoices",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 517,
+      "method": "POST",
+      "path": "/v1/manager/finance/pl",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 519,
+      "method": "POST",
+      "path": "/v1/manager/finance/billing/finalize",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 520,
+      "method": "POST",
+      "path": "/v1/manager/training",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 544,
+      "method": "POST",
+      "path": "/v1/manager/training/academy",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 545,
+      "method": "POST",
+      "path": "/v1/manager/training/academy/modules",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 546,
+      "method": "POST",
+      "path": "/v1/manager/training/academy/progress",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 553,
+      "method": "POST",
+      "path": "/v1/client/support/nursing-chat",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 627,
+      "method": "POST",
+      "path": "/v1/finance/void",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 628,
+      "method": "POST",
+      "path": "/v1/finance/seal",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 629,
+      "method": "POST",
+      "path": "/v1/finance/tax/report",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 632,
+      "method": "POST",
+      "path": "/v1/training/assign",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 633,
+      "method": "POST",
+      "path": "/v1/training/verify",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 634,
+      "method": "POST",
+      "path": "/v1/training/renew",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 635,
+      "method": "POST",
+      "path": "/v1/training/export",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 708,
+      "method": "POST",
+      "path": "/v1/auth/profile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 710,
+      "method": "POST",
+      "path": "/v1/messages",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 714,
+      "method": "POST",
+      "path": "/v1/admin/training/stats",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 715,
+      "method": "POST",
+      "path": "/v1/staff/training/summary",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 716,
+      "method": "POST",
+      "path": "/v1/admin/training/architect/audit",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 740,
+      "method": "POST",
+      "path": "/v1/admin/training/stats/compliance-overview",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 741,
+      "method": "POST",
+      "path": "/v1/admin/training/stats/expiring-certs",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 783,
+      "method": "POST",
+      "path": "/v1/psw/messages",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 788,
+      "method": "POST",
+      "path": "/v1/psw/profile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 793,
+      "method": "POST",
+      "path": "/v1/psw/notifications",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 794,
+      "method": "POST",
+      "path": "/v1/psw/help-support",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 834,
+      "method": "GET",
+      "path": "/v1/admin/compliance/training",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 847,
+      "method": "GET",
+      "path": "/v1/admin/message-archive",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 857,
+      "method": "GET",
+      "path": "/v1/messages/inbox",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 870,
+      "method": "GET",
+      "path": "/v1/analytics/finance/forecast",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 886,
+      "method": "GET",
+      "path": "/v1/education/sim_lab/schedule",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 897,
+      "method": "GET",
+      "path": "/v1/premium/familynotification",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 906,
+      "method": "GET",
+      "path": "/v1/premium/appnotification",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 907,
+      "method": "GET",
+      "path": "/v1/premium/gamificationprofile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 917,
+      "method": "GET",
+      "path": "/v1/premium/behaviornote",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 921,
+      "method": "GET",
+      "path": "/v1/premium/narrativeprogressnote",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 936,
+      "method": "GET",
+      "path": "/v1/premium/messagethread",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 947,
+      "method": "GET",
+      "path": "/v1/premium/message",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 955,
+      "method": "GET",
+      "path": "/v1/premium/supportticket",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 957,
+      "method": "GET",
+      "path": "/v1/premium/familyappointment",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 960,
+      "method": "GET",
+      "path": "/v1/premium/familyclinicalmessage",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 982,
+      "method": "GET",
+      "path": "/v1/premium/localfinancenode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 989,
+      "method": "GET",
+      "path": "/v1/premium/invoicerecord",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 999,
+      "method": "GET",
+      "path": "/v1/premium/schedulertrendnode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1000,
+      "method": "GET",
+      "path": "/v1/premium/schedulerrosternode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1001,
+      "method": "GET",
+      "path": "/v1/premium/schedulerfacilitynode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 1015,
+      "method": "GET",
+      "path": "/v1/premium/supportticketnode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 1018,
+      "method": "GET",
+      "path": "/v1/premium/supportagentnode",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1063,
+      "method": "GET",
+      "path": "/v1/premium/clientprofile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1064,
+      "method": "GET",
+      "path": "/v1/premium/providerprofile",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1069,
+      "method": "GET",
+      "path": "/v1/premium/visitnote",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1108,
+      "method": "GET",
+      "path": "/v1/premium/invoice",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1110,
+      "method": "GET",
+      "path": "/v1/premium/payment",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1122,
+      "method": "GET",
+      "path": "/v1/premium/transactionledger",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1125,
+      "method": "GET",
+      "path": "/v1/premium/trainingmodule",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1126,
+      "method": "GET",
+      "path": "/v1/premium/trainingassignment",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1137,
+      "method": "GET",
+      "path": "/v1/premium/inventoryitem",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1138,
+      "method": "GET",
+      "path": "/v1/premium/purchaseorder",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1146,
+      "method": "GET",
+      "path": "/v1/marketing/email/journeys",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1159,
+      "method": "POST",
+      "path": "/v1/adjustment-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1162,
+      "method": "POST",
+      "path": "/v1/chiropractor-appointments/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1169,
+      "method": "POST",
+      "path": "/v1/chiropractor-treatment-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1173,
+      "method": "POST",
+      "path": "/v1/physiotherapist-appointments/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1180,
+      "method": "POST",
+      "path": "/v1/physiotherapist-treatment-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1181,
+      "method": "POST",
+      "path": "/v1/rmt-appointments/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1186,
+      "method": "POST",
+      "path": "/v1/rmt/appointments/fetch",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1187,
+      "method": "POST",
+      "path": "/v1/rmt/soap-notes/submit",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1192,
+      "method": "POST",
+      "path": "/v1/rmt-treatment-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1197,
+      "method": "POST",
+      "path": "/v1/therapist/notes/finalize",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1199,
+      "method": "POST",
+      "path": "/v1/treatment-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1244,
+      "method": "POST",
+      "path": "/v1/appointment/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 1248,
+      "method": "POST",
+      "path": "/v1/caregiver/meds/acknowledge",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1254,
+      "method": "POST",
+      "path": "/v1/emergency-contacts/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1256,
+      "method": "POST",
+      "path": "/v1/file-verification-dashboard/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1260,
+      "method": "POST",
+      "path": "/v1/patient-appointments/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1265,
+      "method": "POST",
+      "path": "/v1/patient-messages/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1266,
+      "method": "POST",
+      "path": "/v1/patient-profile/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1276,
+      "method": "POST",
+      "path": "/v1/appointment-overview/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1281,
+      "method": "POST",
+      "path": "/v1/cfo-invoices/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1302,
+      "method": "POST",
+      "path": "/v1/finance-director-analytics/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1303,
+      "method": "POST",
+      "path": "/v1/finance-director-workflow/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1310,
+      "method": "POST",
+      "path": "/v1/franchise-owner-appointments/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1315,
+      "method": "POST",
+      "path": "/v1/franchise-owner-finance-snapshot/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1323,
+      "method": "POST",
+      "path": "/v1/hr-director-staff-files/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1324,
+      "method": "POST",
+      "path": "/v1/hr-director-training/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1351,
+      "method": "POST",
+      "path": "/v1/training-director-workflow/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1380,
+      "method": "POST",
+      "path": "/v1/training-management/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1385,
+      "method": "POST",
+      "path": "/v1/caregiver-client-profile/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1387,
+      "method": "POST",
+      "path": "/v1/caregiver-schedule/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1389,
+      "method": "POST",
+      "path": "/v1/caregiver-visit-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1393,
+      "method": "POST",
+      "path": "/v1/psw-client-profile/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 1397,
+      "method": "POST",
+      "path": "/v1/psw-messages/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1399,
+      "method": "POST",
+      "path": "/v1/psw-visit-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1401,
+      "method": "POST",
+      "path": "/v1/schedule/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 1403,
+      "method": "POST",
+      "path": "/v1/visit-notes/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1437,
+      "method": "POST",
+      "path": "/v1/calendar-management/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1447,
+      "method": "POST",
+      "path": "/v1/course-assignment/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1462,
+      "method": "POST",
+      "path": "/v1/invoice-management/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1466,
+      "method": "POST",
+      "path": "/v1/payment-tracking/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 1468,
+      "method": "POST",
+      "path": "/v1/refund-management/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1470,
+      "method": "POST",
+      "path": "/v1/scheduler-booking-requests/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1471,
+      "method": "POST",
+      "path": "/v1/scheduler-calendar/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1472,
+      "method": "POST",
+      "path": "/v1/scheduler-command-center/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1473,
+      "method": "POST",
+      "path": "/v1/scheduler-conflicts/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1474,
+      "method": "POST",
+      "path": "/v1/scheduler-open-shifts/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 1475,
+      "method": "POST",
+      "path": "/v1/scheduler-provider-availability/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "academy"
+      ],
+      "id": 1483,
+      "method": "POST",
+      "path": "/v1/training-dashboard/compliance/scan",
+      "permissionKey": null,
+      "service": "PRISMA"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16431,
+      "method": "GET",
+      "path": "/v1/client/home/profile",
+      "permissionKey": "authenticated_client_profile_owner",
+      "service": "client"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 16432,
+      "method": "GET",
+      "path": "/v1/client/invoices",
+      "permissionKey": "authenticated_client_profile_owner",
+      "service": "client"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 16457,
+      "method": "POST",
+      "path": "/v1/governance/growth/appointments",
+      "permissionKey": "growth.tenant_role",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 16458,
+      "method": "PATCH",
+      "path": "/v1/governance/growth/appointments/{id}",
+      "permissionKey": "growth.tenant_role",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 16459,
+      "method": "PATCH",
+      "path": "/v1/governance/growth/contacts/{id}",
+      "permissionKey": "growth.tenant_role",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16470,
+      "method": "POST",
+      "path": "/v1/governance/growth/performance/email",
+      "permissionKey": "growth.report_manager",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 16475,
+      "method": "POST",
+      "path": "/v1/governance/growth/finance",
+      "permissionKey": "growth.ceo_business",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "calendar"
+      ],
+      "id": 16484,
+      "method": "POST",
+      "path": "/v1/governance/care/schedules",
+      "permissionKey": "care.current_staff_and_assignment",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16491,
+      "method": "POST",
+      "path": "/v1/governance/reports/{reportId}/email",
+      "permissionKey": "shared_report_grants",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16495,
+      "method": "POST",
+      "path": "/v1/auth/maintenance/configuration/test-email",
+      "permissionKey": "role_screen_permissions",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16503,
+      "method": "POST",
+      "path": "/v1/auth/mfa/support/request",
+      "permissionKey": "elevated_code_admin_support_request",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16504,
+      "method": "GET",
+      "path": "/v1/auth/mfa/support/requests",
+      "permissionKey": "tenant_admin_support_approval",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16505,
+      "method": "POST",
+      "path": "/v1/auth/mfa/support/approve",
+      "permissionKey": "tenant_admin_support_approval",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16506,
+      "method": "POST",
+      "path": "/v1/auth/mfa/support/revoke",
+      "permissionKey": "owned_or_tenant_admin_support_revocation",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16507,
+      "method": "POST",
+      "path": "/v1/auth/mfa/support/summary",
+      "permissionKey": "approved_tenant_security_summary",
+      "service": "auth"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16508,
+      "method": "POST",
+      "path": "/v1/messages/pictures",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16509,
+      "method": "GET",
+      "path": "/v1/messages/pictures",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16510,
+      "method": "POST",
+      "path": "/v1/messages/calls",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16511,
+      "method": "POST",
+      "path": "/v1/messages/email",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16512,
+      "method": "GET",
+      "path": "/v1/messages/email/inbox",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16516,
+      "method": "POST",
+      "path": "/v1/voice/voicemail/read",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "messaging_files"
+      ],
+      "id": 16517,
+      "method": "POST",
+      "path": "/v1/voice/voicemail/audio",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 16535,
+      "method": "POST",
+      "path": "/v1/voice/contact/status",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 16536,
+      "method": "POST",
+      "path": "/v1/voice/contact/start",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "contacts_notes"
+      ],
+      "id": 16537,
+      "method": "POST",
+      "path": "/v1/voice/contact/check",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "ai_images_help"
+      ],
+      "id": 16558,
+      "method": "GET",
+      "path": "/v1/governance/look/reviews/{id}/image",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    },
+    {
+      "authRequired": 1,
+      "bindingApproved": false,
+      "candidateGroups": [
+        "commerce_finance"
+      ],
+      "id": 16561,
+      "method": "GET",
+      "path": "/v1/governance/platform/vapi/inventory",
+      "permissionKey": "role_screen_permissions",
+      "service": "governance"
+    }
+  ],
+  "endpointRowsRead": 1312,
+  "format": 1,
+  "limits": [
+    "Keyword matches are candidates, not equivalent workflow contracts or role grants",
+    "No endpoint is executed and no service/provider operation is sent",
+    "Independent host/role/request/response contract review is required before binding"
+  ],
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "readOnly": true,
+  "roleGrants": 0,
+  "runtimeActivated": false,
+  "writes": 0,
+  "evidence": {
+    "runId": 41311286317,
+    "jobId": 124862034565,
+    "sourceCommit": "0bafb2a8a112c19da727e15e487662565e6da16b",
+    "freshProductionMetadataRead": true
+  }
+}
