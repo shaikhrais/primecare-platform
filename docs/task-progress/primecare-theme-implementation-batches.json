@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "planned",
+      "status": "read_only_projection_and_optional_web_renderer_source_verified_host_and_acceptance_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1139,8 +1139,16 @@
         "packages/primecare_ui/lib/src/components/layouts/",
         "websites/typescript/src/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-16.md",
+        "packages/shared/src/dashboard-pages/projection.mjs",
+        "packages/primecare_ui/web/dashboard-pages.ts",
+        "scripts/test-dashboard-pages-projection.mjs"
+      ],
+      "blockers": [],
+      "nextAction": "Complete authenticated host lifecycle, browser/PostgreSQL acceptance, native and supporting pages before declaring B16 accepted.",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false
     },
     {
       "id": "B17",

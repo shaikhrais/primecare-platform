@@ -1,0 +1,9 @@
+# B16 dashboard presentation progress
+
+The shared read-only projection now maps API 16578 task counts and operational counts to original presentation data. It rejects mismatched user, tenant, role, dataset and synthetic flags, invalid counts, and unavailable server views. Operational counts require the server's `operations` view; project counts require `tasks`. Finance and crypto return unavailable because this contract supplies no approved financial datasets. Overlapping task counts are never summed or converted to a composition chart.
+
+`packages/shared/src/dashboard-pages/projection.mjs` consumes an already authenticated, authorized response. It is not an authorization boundary or HTTP adapter. Hosts must discard old responses when session identity changes and independently verify registration before mounting. `packages/primecare_ui/web/dashboard-pages.ts` renders supplied localized labels and counts through text nodes and a semantic description list. It is optional and not mounted in the live host. Its demo/live label is mandatory caller input; callers must use the validated projection.
+
+Validation: five Node test groups cover exact projections, mutation isolation, identity/tenant/role/dataset changes, server-view denial, malformed counts, unavailable financial families and explicit demo flags. Eight existing synthetic registration tests pass. Node successfully loads the renderer after TypeScript stripping; this is not a typecheck or browser test.
+
+Remaining B16: authenticated transport/session lifecycle, independently read-back registration receipt, host activation, browser and PostgreSQL/reload acceptance, Flutter renderer, supporting-page templates, human localization/accessibility and release review. Dashboard layout persistence remains unavailable under API 777. No production activation, production database write, full dashboard-family completion or B17 completion is claimed.

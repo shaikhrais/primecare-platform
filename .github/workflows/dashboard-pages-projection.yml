@@ -1,0 +1,19 @@
+name: Dashboard page projection
+on:
+  push:
+    paths:
+      - packages/shared/src/dashboard-pages/**
+      - packages/primecare_ui/web/dashboard-pages.ts
+      - scripts/test-dashboard-pages-projection.mjs
+      - .github/workflows/dashboard-pages-projection.yml
+  workflow_dispatch:
+jobs:
+  projection:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: node --test scripts/test-dashboard-pages-projection.mjs
+      - run: node --experimental-strip-types -e "import('./packages/primecare_ui/web/dashboard-pages.ts')"
