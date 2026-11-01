@@ -53,3 +53,10 @@ The native `ApplicationProfilePort` connects the existing read-only self-identit
 
 
 B18 verification follow-up: application and combined theme CI concurrency groups now include the immutable source commit. Delayed older push events cannot cancel newer source verification through the same branch group. The 13-check shell lifecycle suite also runs in the combined browser suite. This improves verification reliability; deployed/device/human release evidence remains required.
+
+
+## B13 authenticated task reply lifecycle
+
+The web transport for existing APIs 16578/16579 now validates the captured account token throughout streaming and asynchronous reader cleanup, rejects aborted requests even when an injected fetcher ignores cancellation, and bounds replies to 1 MiB of strict UTF-8 JSON. Readers are cancelled/released after failure; HTTP denial/conflict/invalid status mapping and original POST receipt keys are preserved. No automatic write replay, endpoint, grant or runtime host activation is introduced.
+
+Local checks: nine transport regressions, 30 existing real-handler/PGlite PostgreSQL checks with independent SQL and fresh-session readback, TypeScript compilation, catalogue consistency and diff validation pass. Browser/native PostgreSQL CI acceptance is pending. The B13 business bindings, native host, durable reload, device and release gaps in the table remain open.

@@ -16,7 +16,7 @@ on:
       - '.github/workflows/work-modules.yml'
 permissions: {contents: read}
 concurrency:
-  group: work-module-tests-${{ github.ref }}
+  group: work-module-tests-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: true
 jobs:
   web:
@@ -30,6 +30,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
           node scripts/test-tenant-dashboard.mjs
@@ -57,6 +58,7 @@ jobs:
           npm install --prefix /tmp/work-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 bcryptjs@3.0.2 pg@8.16.3
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
   native:
