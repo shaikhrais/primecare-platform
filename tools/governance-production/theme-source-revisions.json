@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "purpose": "Exact source revision evidence; original production registration contract and receipts remain unchanged. Not runtime activation or human approval.",
+  "runtimeActivated": false,
+  "humanApproved": false,
+  "sourceVerificationRun": 41339668594,
+  "sources": [
+    {
+      "path": "packages/primecare_ui/web/layout-customizer.ts",
+      "originalSha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0",
+      "currentSha256": "41e179b4d9465d5309d08c19e648a0dd03b04d5b6e11d93bf5dc84cf119e7bfe",
+      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    },
+    {
+      "path": "packages/primecare_ui/web/shell.ts",
+      "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
+      "currentSha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
+      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    },
+    {
+      "path": "packages/primecare_ui/web/original-assets.ts",
+      "originalSha256": "e6af7e439b434455c49945d09fd99988e1472b5a2accff2726ef7d642199ca38",
+      "currentSha256": "221fdeadf994583d9477800c0ed016ddc4f009fe823a4e4228b4a745cb674f9c",
+      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    },
+    {
+      "path": "packages/primecare_ui/web/theme-center.ts",
+      "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
+      "currentSha256": "7272dbe32e8d954a6653f815f32c521974c5834d3241e2f38ab13ded83830001",
+      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/theme/primecare_assets.dart",
+      "originalSha256": "4b98f1896e26a123e7ca53194582eb6d8c3887d0324a3f531cf3f8cf16991ecf",
+      "currentSha256": "54e05ab76583f4f60114eb572d5511ef374e4c0886cab76becd23346b6687dbb",
+      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    }
+  ]
+}

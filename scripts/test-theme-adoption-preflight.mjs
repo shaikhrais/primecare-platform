@@ -70,3 +70,10 @@ test('name discovery is bounded, allowlisted and cannot activate candidate hosts
   const query=compileDiscovery(ready,'primecare_ui_component_registry');assert.match(query.sql,/^SELECT /);assert.match(query.sql,/LIMIT 100$/);assert.ok(query.parameters.includes('%dropdown%'));assert.ok(!query.sql.includes('%dropdown%'));assert.throws(()=>compileDiscovery(ready,'business_clients'));
   const data=snapshot();data.discovery={screens:[{id:999,screen_code:'fixture_theme_candidate'}],components:[],authoritativeBindings:false};const report=reconcileSnapshot(catalog,data);assert.equal(report.discovery.authoritativeBindings,false);assert.ok(!report.hosts.some(h=>h.screenId===999));assert.equal(report.productionActivationAllowed,false);
 });
+
+test('recorded source revisions retain original identities and reject drift or approval inflation',async()=>{
+  const revisions=JSON.parse(await readFile(ROOT+'/tools/governance-production/theme-source-revisions.json','utf8'));
+  for(const mutate of [r=>r.runtimeActivated=true,r=>r.humanApproved=true,r=>r.sources.push(structuredClone(r.sources[0])),r=>r.sources[0].path='../outside',r=>r.sources[0].originalSha256='0'.repeat(64),r=>r.sources[0].currentSha256='0'.repeat(64),r=>r.sources[0].sourceCommit='not-a-commit']){
+    const value=structuredClone(revisions);mutate(value);await assert.rejects(()=>validateContract(catalog,ROOT,value));
+  }
+});

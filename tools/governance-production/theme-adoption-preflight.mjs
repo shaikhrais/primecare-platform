@@ -11,7 +11,17 @@ const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 const requireValue=(value,message)=>{if(!value)throw Error(message);};
 const unique=(items,key)=>{const values=items.map(key);requireValue(new Set(values).size===values.length,'Duplicate adoption identity');};
 const insideRoot=path=>typeof path==='string'&&!path.startsWith('/')&&!path.split('/').includes('..');
-export async function validateContract(catalog,root=ROOT) {
+export async function validateContract(catalog,root=ROOT,revisions) {
+  // Preserve the original registration proposal; later source revisions are explicit evidence only.
+  revisions ??= JSON.parse(await readFile(resolve(root,'tools/governance-production/theme-source-revisions.json'),'utf8'));
+  requireValue(revisions?.version===1&&revisions.runtimeActivated===false&&revisions.humanApproved===false&&Array.isArray(revisions.sources),'Invalid source revision evidence');
+  const evidenceByPath=new Map();
+  for(const entry of revisions.sources){
+    requireValue(insideRoot(entry.path)&&/^[a-f0-9]{64}$/.test(entry.originalSha256)&&/^[a-f0-9]{64}$/.test(entry.currentSha256)&&/^[a-f0-9]{40}$/.test(entry.sourceCommit)&&!evidenceByPath.has(entry.path),'Invalid source revision identity');
+    requireValue(catalog.features.some(f=>f.sourceEvidence.some(s=>s.path===entry.path&&s.sha256===entry.originalSha256)),'Revision must retain its exact original proposal identity');
+    requireValue(digest(await readFile(resolve(root,entry.path)))===entry.currentSha256,'Recorded source revision changed');
+    evidenceByPath.set(entry.path,entry);
+  }
   requireValue(catalog?.version===1&&catalog.kind==='proposal_not_production_registry','Expected an adoption proposal');
   requireValue(catalog.status==='registration_preparation_only'&&catalog.runtimeExposure===false&&catalog.registrationWriteTool==='tools/governance-production/theme_adoption_registration.py','Proposal cannot claim registration or runtime activation');
   requireValue(catalog.authority?.productionRequired===true&&catalog.authority.sqliteFallback===false&&catalog.authority.schemaChanges===false&&catalog.authority.businessDataWrites===false&&catalog.authority.newRoleGrants===false,'Unexpected authority scope');
@@ -31,7 +41,8 @@ export async function validateContract(catalog,root=ROOT) {
     requireValue(['source_present_unverified','no_mapped_equivalent'].includes(feature.sourceStatus),'Invalid source status');
     requireValue((feature.sourceStatus==='source_present_unverified')===(feature.sourceEvidence.length>0),'Source evidence/status mismatch');
     for(const source of feature.sourceEvidence) {
-      requireValue(insideRoot(source.path)&&digest(await readFile(resolve(root,source.path)))===source.sha256,'Mapped PrimeCare source changed');
+      const revision=evidenceByPath.get(source.path);
+      requireValue(insideRoot(source.path)&&digest(await readFile(resolve(root,source.path)))===(revision?.currentSha256??source.sha256),'Mapped PrimeCare source changed');
     }
   }
   const mappings=catalog.referenceInventory.fileMappings;
