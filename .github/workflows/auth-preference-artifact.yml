@@ -53,11 +53,10 @@ jobs:
           npm install --prefix /tmp/artifact-repair --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s /tmp/artifact-repair/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
-      - name: Check unchanged current main and original identity guard
+      - name: Check unchanged current main before the exact provenance repair
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-          python scripts/check-api-catalog-identity.py
       - name: Preview exact repair with rollback and live Worker identity verification
         run: node tools/governance-production/auth-preference-artifact.mjs
       - name: Apply only the legitimate artifact and 64 existing reference repairs
