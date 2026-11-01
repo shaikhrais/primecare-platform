@@ -15,6 +15,7 @@ on:
       - packages/primecare_ui/web/**
       - packages/shared/src/**
       - packages/domain/src/**
+      - websites/typescript/src/tenant-dashboard/**
       - .github/workflows/theme-closure.yml
 permissions: {contents: read}
 concurrency:
