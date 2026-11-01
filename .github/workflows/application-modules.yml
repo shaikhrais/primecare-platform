@@ -17,6 +17,7 @@ on:
       - 'packages/flutter_core/test/application_modules/**'
       - 'scripts/application-modules-fixture.mjs'
       - 'scripts/test-application-modules*'
+      - 'scripts/application-settings-native-fixtures.mjs'
       - '.github/workflows/application-modules.yml'
 permissions: {contents: read}
 concurrency:
@@ -35,6 +36,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-application-modules-transport.mjs
+          node scripts/application-settings-native-fixtures.mjs --check
           node scripts/test-application-modules.mjs
           node scripts/test-communication-modules.mjs
           node scripts/test-work-modules.mjs
@@ -70,6 +72,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-application-modules-transport.mjs
+          node scripts/application-settings-native-fixtures.mjs --check
           node scripts/test-application-modules.mjs
           node scripts/test-application-modules-browser.mjs
   native:

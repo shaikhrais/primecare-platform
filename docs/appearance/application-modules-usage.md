@@ -67,3 +67,10 @@ The native adapter exposes only the existing authenticated identity fields and n
 Native source acceptance: `2b0cb0d27da5f88d7b7b25b189866a5ed85a607f`, run 41323515743, passed web, native PostgreSQL/browser and Flutter Linux/Windows/macOS jobs. The native suite passed 43 tests including seven self-profile regression groups. See `native-profile-binding-evidence.json`; host activation and release approval remain separate.
 
 Web/native response parity: the web self-profile port now uses the same 64 KiB maximum as native. Its shared guarded reader validates the captured actor, cancellation and disposal throughout streaming and after cleanup. Invalid/oversized JSON fails without publishing identity or adding any mutation operation. `scripts/test-application-modules-transport.mjs` covers these cases and the dashboard reader's 1 MiB bound.
+
+
+## Native shortcut settings binding
+
+`ApplicationSettingsPort.authenticated` composes the existing API777/B07 client with the common `WorkPort`. Supply the existing grant-bearing session, immutable shortcut binding/allowlist, scoped cache, registered destination names/labels and explicit host defaults. It projects the same names/version as the web adapter and preserves API revision, original request UUID, durable cached draft and independent readback. Injected HTTP clients remain owned by the host. Dispose the session/port on actor, role, tenant, dataset or route changes.
+
+Default, empty and selected preferences plus writes/readback are compared against the existing web adapter by `application-settings-native-fixtures.mjs --check`. Native tests cover cache-denied/no-write behavior, original-key replay, verification-only retry, strict names/fields/version, changed sessions and disposal. Restarted dirty/pending preferences remain explicitly blocked with the owned recovery snapshot exposed; the B07 governed reconciliation UI must be mounted before host rollout. This adapter does not enable API777, add roles/grants, alter account security, or create academy/commerce/help/image-provider bindings. Native CI acceptance is pending.
