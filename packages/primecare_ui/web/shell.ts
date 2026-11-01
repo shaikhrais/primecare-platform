@@ -1,7 +1,7 @@
 import {prepareWorkspaceRender,clearWorkspaceCustomizer,type WorkspaceCustomizerOptions} from './workspace-customizer';
 import {shellIcon} from './icons';
 import media from '../../shared/src/media/registry.json';
-import {mountLayoutCustomizer} from './layout-customizer';
+import {mountLayoutCustomizer,clearLayoutCustomizer} from './layout-customizer';
 import {BaseMediaLook,applyMediaTokens} from './media-look';
 import {bindSidebar} from './sidebar';
 import {mountNavigation,type NavigationLocale,type SearchEntry} from './navigation';
@@ -18,7 +18,7 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  applyMediaTokens();
  const previous=shells.get(root);
  const main=root.querySelector<HTMLElement>('.workspace > main');
- if(!previous||!main||previous.role!==options.role||previous.home!==options.home){root.innerHTML=shellMarkup(options);}
+ if(!previous||!main||previous.role!==options.role||previous.home!==options.home){clearLayoutCustomizer(root);root.innerHTML=shellMarkup(options);}
  else {
   if(previous.navigation!==options.navigation)root.querySelector('aside nav')!.innerHTML=options.navigation;
   if(previous.controls!==options.controls)root.querySelector('[data-cy=shell-controls]')!.innerHTML=options.controls;
@@ -43,6 +43,7 @@ export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,
  bindSidebar(root);
  mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,title,locale,scope,entries);
  if(!profileScope||!workspaceOptions)clearWorkspaceCustomizer(root);
+ if(!profileScope)clearLayoutCustomizer(root);
  if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme,workspaceOptions);
  for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','refresh'],['[data-cy=platform-logout]','logout']] as const){const action=root.querySelector(selector);if(action&&!action.querySelector('svg'))action.insertAdjacentHTML('afterbegin',shellIcon(icon));}
 }

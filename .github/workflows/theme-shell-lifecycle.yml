@@ -1,0 +1,24 @@
+name: Shared theme shell lifecycle
+on:
+  push:
+    branches: [main]
+    paths: ['packages/primecare_ui/web/shell.ts', 'packages/primecare_ui/web/layout-customizer.ts', 'packages/primecare_ui/web/layout-manager.ts', 'packages/primecare_ui/web/theme-center.ts', 'scripts/test-shell-lifecycle.mjs', '.github/workflows/theme-shell-lifecycle.yml']
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: theme-shell-lifecycle-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-shell-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
+          ln -s /tmp/theme-shell-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+      - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable packages/primecare_ui/web/shell.ts
+      - run: node scripts/test-shell-lifecycle.mjs
