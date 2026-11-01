@@ -1105,7 +1105,6 @@
       "sources": [],
       "usage": "data-controls-usage.md",
       "remaining": [
-        "Native sticky horizontal pinning",
         "Character-range rich-text marks and arbitrary HTML import",
         "Spreadsheet editing and server-side query adapter",
         "Upload removal/remote deletion UI",

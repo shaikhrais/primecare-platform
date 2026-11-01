@@ -61,7 +61,7 @@
       "filter/sort/paging",
       "selection/expansion",
       "column visibility/order/width",
-      "pin order only",
+      "logical leading-edge sticky columns and selection actions in LTR/RTL",
       "vertical keyboard scroll"
     ],
     "forms": [
@@ -108,7 +108,7 @@
     {
       "family": "table",
       "examples": 27,
-      "disposition": "core_behavior_original_factory_native_pin_gap",
+      "disposition": "core_behavior_original_factory_specialized_variants_pending",
       "fullVariantParity": false
     },
     {
@@ -137,7 +137,6 @@
     }
   ],
   "remainingFeatureGaps": [
-    "Native sticky horizontal pinning",
     "Character-range rich-text marks and arbitrary HTML import",
     "Spreadsheet editing and server-side query adapter",
     "Upload removal/remote deletion UI",
@@ -145,5 +144,19 @@
   ],
   "registeredButNotExposed": [
     "remove"
+  ],
+  "sourceFollowups": [
+    {
+      "sourceCommit": "68b607b80b9846f6f2b9916a1f82d088abe33e7a",
+      "runId": 41311492044,
+      "conclusion": "success",
+      "platforms": [
+        "web/browser",
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "change": "Sticky native leading-edge columns/actions; LTR/RTL position and selection regressions; host/device activation remains unverified"
+    }
   ]
 }

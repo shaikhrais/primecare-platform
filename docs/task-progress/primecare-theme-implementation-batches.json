@@ -607,7 +607,7 @@
         },
         {
           "code": "DATA_CONTROLS_PLATFORM_AND_VARIANT_GAPS",
-          "detail": "Native sticky horizontal pinning; Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Upload removal/remote deletion UI; Specialized rating/slider/stepper/transfer-list variants"
+          "detail": "Character-range rich-text marks and arbitrary HTML import; Spreadsheet editing and server-side query adapter; Upload removal/remote deletion UI; Specialized rating/slider/stepper/transfer-list variants"
         }
       ],
       "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed_with_documented_platform_gaps",
@@ -636,7 +636,6 @@
         "conclusion": "success"
       },
       "remainingScope": [
-        "Native sticky horizontal pinning",
         "Character-range rich-text marks and arbitrary HTML import",
         "Spreadsheet editing and server-side query adapter",
         "Upload removal/remote deletion UI",
@@ -654,6 +653,18 @@
           "runId": 41310167831,
           "conclusion": "success",
           "change": "Host-supplied HTTPS link action, guarded async errors and actor replacement; app-specific binding remains open"
+        },
+        {
+          "sourceCommit": "68b607b80b9846f6f2b9916a1f82d088abe33e7a",
+          "runId": 41311492044,
+          "conclusion": "success",
+          "platforms": [
+            "web/browser",
+            "Linux",
+            "Windows",
+            "macOS"
+          ],
+          "change": "Sticky native leading-edge columns/actions; LTR/RTL position and selection regressions; host/device activation remains unverified"
         }
       ]
     },

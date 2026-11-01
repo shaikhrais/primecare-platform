@@ -23,7 +23,7 @@ No external grid/editor/picker dependency or vendor source/assets were added. Ex
 
 The B09 physical inventory has 205 advanced-input/collection examples. Core family behavior maps to the 59 autocomplete, 11 number-field, 24 pagination and 27 table examples; this is family consolidation, not a claim to all 121 visual/property variants. The 17 rating, 39 slider, 21 stepper and 7 transfer-list examples remain specialized variants pending. Source details remain in the unmodified B09 reference inventory and the B10 support matrix.
 
-Native pinning currently prioritizes column order without sticky horizontal rendering. Native editor links are selectable addresses; host link activation is pending. Block-level marks do not provide character-range mark editing or arbitrary HTML import. Spreadsheet cell editing, server-side queries, remote upload removal/deletion and specialized variants remain gaps. The support matrix makes these limits machine-readable.
+Native pinning now keeps columns/actions sticky at the logical leading edge. Native editor links support a guarded host action; registered application adapters remain pending. Block-level marks do not provide character-range mark editing or arbitrary HTML import. Spreadsheet cell editing, server-side queries, remote upload removal/deletion and specialized variants remain gaps. The support matrix makes these limits machine-readable.
 
 ## Validation and remaining rollout
 
@@ -41,3 +41,5 @@ Source `8022da343ef678ab1fa63d80f13a0fdeba276cf3` passed [run 41259596812](https
 The initial native run caught a missing semantics import; after correction, a test finder matched both the filter text and the selected cell. The assertion now targets the cell widget. Final acceptance uses the corrected exact commit. Production APIs, native binary permissions/picker policy, trusted image hosts, idempotency service contracts, host/source/access registration and actual business-data flows remain integration work. Device/screen-reader verification and human localization/accessibility/release review remain pending. Six historical auth-reader review blockers are unchanged; whole-repository CI success is not claimed.
 
 Rollback: unmount/dispose an optional factory or widget and remove its host import. Additive metadata stays registered-unimplemented; this batch provides no destructive registration rollback.
+
+Native pinning repair at `68b607b80b9846f6f2b9916a1f82d088abe33e7a` passed web/browser and Linux/Windows/macOS native analysis/widget tests in [run 41311492044](https://github.com/shaikhrais/primecare-platform/actions/runs/41311492044). LTR/RTL tests verify retained pinned-cell position, scrolling unpinned cells and selection after scrolling. Host activation, physical devices and full reference parity remain open.
