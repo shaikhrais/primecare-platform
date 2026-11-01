@@ -99,7 +99,8 @@
         "Opt-in v2 character-range bold and italic in shared web and Flutter editors",
         "Selection retained after formatting; insertion and deletion rebase marks using the actual caret, including repeated text",
         "Literal styled preview, failed-save draft retention and UTF-16 boundary validation",
-        "Legacy v1 remains default; v2 requires explicit capability opt-in"
+        "Legacy v1 remains default; v2 requires explicit capability opt-in",
+        "Web and Flutter dashboards preserve unsaved layout state across same-session remounts; automatic mount reads only untouched idle sessions"
       ],
       "remaining": [
         "Browser scenarios exercise shared controls, not a production business flow",
@@ -110,7 +111,8 @@
       "evidence": [
         "docs/appearance/theme-range-editor-evidence.json",
         "CI 41352883340: 4/4 jobs passed",
-        "CI 41352883344: 7/7 jobs passed"
+        "CI 41352883344: 7/7 jobs passed",
+        "Dashboard repair source 751581a1b234a33545750b163dc43225f6b3fbf7; CI results tracked separately"
       ]
     }
   ],
@@ -200,13 +202,22 @@
       "independentReferenceToggles": 250,
       "browserPages": 9,
       "source": "08da93c20f96da079ade3855cec8bbf50cd648bb"
+    },
+    "adminSelfPreferencesAndDashboardRemount": {
+      "source": "751581a1b234a33545750b163dc43225f6b3fbf7",
+      "evidence": "docs/appearance/theme-dashboard-remount-evidence.json",
+      "preferenceRun": 41354445037,
+      "preferencePassedJobs": 5,
+      "dashboardRun": 41354445038,
+      "dashboardPassedJobs": 4,
+      "dashboardTotalJobs": 4
     }
   },
   "permissionRowsChanged": 0,
   "newRoleGrants": 0,
   "preferenceRuntimeActivated": false,
   "next": [
-    "Resolve the concrete operation/role authority questions in the row-level R01 proposal",
+    "Resolve remaining messaging operation/role authority; admin self-preference policy is now confirmed",
     "Validate source provenance for observed auth/governance deployment versions before registering artifact associations",
     "Complete per-action semantic contract review, then proceed with eligible hosts and business flows",
     "Keep source acceptance, publication, actual-device and human release evidence separate"

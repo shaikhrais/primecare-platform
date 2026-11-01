@@ -1,0 +1,59 @@
+{
+  "format": 1,
+  "source": "751581a1b234a33545750b163dc43225f6b3fbf7",
+  "changes": [
+    "Web and Flutter dashboard mounting no longer implicitly reloads an existing edited or loaded session",
+    "Flutter delayed mount callbacks verify the session and scope still match",
+    "Recorded user-confirmed self-preference policy for platform_admin 70, tenant_admin 72 and code_admin 80",
+    "Added per-role own theme, workspace and shortcut persistence tests plus cross-user, cross-tenant, cross-role and cross-dataset denials and revoked-grant denial"
+  ],
+  "policy": {
+    "ownership": "authenticated actor within current tenant and active role",
+    "runtimeActivation": false,
+    "productionGrantChanges": 0
+  },
+  "verification": {
+    "preferencePostgres": {
+      "run": 41354445037,
+      "job": 124991395666,
+      "checks": 15,
+      "conclusion": "success"
+    },
+    "preferenceProtocol": {
+      "run": 41354445037,
+      "job": 124991395658,
+      "conclusion": "success"
+    },
+    "dashboardBrowser": {
+      "run": 41354445038,
+      "job": 124991395697,
+      "conclusion": "success",
+      "pages": 5,
+      "charts": 4,
+      "productionBusinessFlow": false
+    },
+    "preferenceSuite": {
+      "run": 41354445037,
+      "passedJobs": 5,
+      "totalJobs": 5,
+      "conclusion": "success"
+    },
+    "dashboardSuite": {
+      "run": 41354445038,
+      "jobs": [
+        124991395697,
+        124991395905,
+        124991395960,
+        124991395998
+      ],
+      "passedJobs": 4,
+      "totalJobs": 4,
+      "conclusion": "success"
+    }
+  },
+  "remaining": [
+    "Production admin grants require exact metadata reconciliation and deployment provenance",
+    "Registered host and panel bindings and authenticated production acceptance remain open",
+    "R07 and B11 remain partial; this repair does not register a dashboard preference document kind"
+  ]
+}
