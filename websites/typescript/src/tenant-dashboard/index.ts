@@ -15,7 +15,7 @@ class TenantClient extends BaseSessionClient{
 }
 export async function renderTenantDashboard(root:HTMLElement,gateway:string){
  tenantRenders.get(root)?.();let alive=true;const dialogs=new Set<HTMLDialogElement>();let owner:MutationObserver|undefined,ownedShell:Element|null=null;
- const token=sessionStorage.getItem('primecare_session');if(!token){location.assign('/login?enable-semantics=true');return;}
+ const token=sessionStorage.getItem('primecare_session');if(!token){root.replaceChildren();location.assign('/login?enable-semantics=true');return;}
  const params=new URLSearchParams(location.search),api=new TenantClient(gateway,token,params.get('dataset')||'live',params.get('tenant')||'');let workHost:TenantWorkHost|null=null;let data:any,busy=false,view=catalog.views.some(v=>v.id===location.hash.slice(1))?location.hash.slice(1):'',search='',status='all',taskOffset=0,flowOffset=0,notice='',epoch=0;
  if(!document.getElementById('tenant-dashboard-styles')){const style=document.createElement('style');style.id='tenant-dashboard-styles';style.textContent=tenantStyles;document.head.append(style);}
  const filters=()=>({search,status,taskOffset:String(taskOffset),flowOffset:String(flowOffset)});
