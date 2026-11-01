@@ -1,0 +1,151 @@
+{
+  "format": 1,
+  "batches": [
+    "B14",
+    "B15"
+  ],
+  "conclusion": "success",
+  "sourceCommits": {
+    "communication": "2b45aec357284b88f32235def5c89e32a656140e",
+    "settings": "7a27afcd07e24692150662de2e965cdf3076d765"
+  },
+  "nativeRegressionGroups": {
+    "communication": 10,
+    "settings": 10
+  },
+  "oracleCases": {
+    "communication": {
+      "projections": 8,
+      "mutations": 2
+    },
+    "settings": {
+      "projections": 3,
+      "mutations": 2
+    }
+  },
+  "webTransportChecks": {
+    "communication": 5,
+    "application": 9
+  },
+  "workflows": [
+    {
+      "runId": 41336298352,
+      "jobs": [
+        {
+          "id": 124936734596,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124936734852,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124936734871,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124936734917,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124936734939,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41336612262,
+      "jobs": [
+        {
+          "id": 124937672611,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937672840,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937672864,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937672874,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937672886,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41336612512,
+      "jobs": [
+        {
+          "id": 124937673353,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937673603,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937673636,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124937673660,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124938860100,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124938860115,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124938860142,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    "Registered six-operation messenger/mailbox HTTP routing over existing native channel clients",
+    "Owned message send/read-through receipts and independent readback; mailbox/files read-only references",
+    "API777 shortcut settings through inherited durable cache, CAS and original-key retry",
+    "Wrong-owner settings replies produce denied scope and cannot retain protected snapshots",
+    "Bounded strict JSON, captured session, stale read exclusion, disposal and HTTP ownership"
+  ],
+  "productionHostActivated": false,
+  "newApis": 0,
+  "newGrants": 0,
+  "physicalDeviceVerified": false,
+  "humanReleaseApproved": false,
+  "remaining": [
+    "Full mail compose/drafts/folders, message history/presence/realtime and general storage/notifications contracts",
+    "Learning/commerce/help/provider adapters and full profile editing",
+    "Authenticated native host composition; API777 activation and granted-role decisions",
+    "Explicit cached preference recovery UI; durable module restart reconciliation",
+    "Deployed flows, physical devices and human localization/accessibility/release review"
+  ]
+}

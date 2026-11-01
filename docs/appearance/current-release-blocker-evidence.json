@@ -1,0 +1,44 @@
+{
+  "format": 1,
+  "scope": "B01/B07/B14/B15/B18 release blocker",
+  "observedSourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820",
+  "workflowRun": 41339668667,
+  "failedJob": 124948188609,
+  "guard": "scripts/check-api-catalog-identity.py",
+  "conclusion": "deployment_blocked_by_current_production_metadata",
+  "violations": [
+    {
+      "apiId": 710,
+      "rows": 64,
+      "reasons": [
+        "permission_key_targets_different_operation",
+        "missing_runtime_artifact_foreign_key"
+      ]
+    },
+    {
+      "apiId": 857,
+      "rows": 64,
+      "reasons": [
+        "permission_key_targets_different_operation",
+        "missing_runtime_artifact_foreign_key"
+      ]
+    },
+    {
+      "apiId": 777,
+      "rows": 64,
+      "reasons": [
+        "missing_runtime_artifact_foreign_key"
+      ]
+    }
+  ],
+  "requiredRepair": [
+    "Read exact current grant, endpoint, registry and runtime-artifact identities from pinned PostgreSQL",
+    "Reconcile each existing grant with its governed operation and legitimate runtime artifact; preserve role membership and existing denials",
+    "Register an exact scoped repair and independently verify readback before rerunning the guard and deployment"
+  ],
+  "quarantineChanged": false,
+  "guardBypassed": false,
+  "newGrants": 0,
+  "productionRowsChangedByThisReport": 0,
+  "authorityEstablished": false
+}

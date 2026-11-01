@@ -402,3 +402,7 @@ The companion JSON is the machine-readable checklist. Advance one batch only wit
 A reference demo does not automatically authorize a new production business workflow. Unmapped features require a registered specification or a reviewed not-applicable disposition, never silent omission or fake data presented as live success. Native and web equivalents may use different rendering technology while sharing validated contracts, semantic tokens and access boundaries.
 
 Deliver each batch as a reviewable commit on main with relevant tests, known gaps and migration/rollback notes. Do not estimate an adoption percentage from source-file counts. No execution schedule or automatic background task is created by this plan.
+
+## Registered adapter and tenant-host follow-up
+
+B14 native communication collections and B15 native shortcut-settings binding passed all 17 targeted/combined jobs; see `docs/appearance/native-communication-settings-evidence.json`. B13 actual tenant-dashboard opt-in host passed 14 browser checks and PostgreSQL mutation/readback/reload acceptance (run 41339668646); see `docs/appearance/tenant-work-host-evidence.json`. Default rollout, other business workflows, authenticated native hosts, API777 activation/recovery UI, physical devices and human release review remain open. The batch plan retains all full-functionality/production/review gates.

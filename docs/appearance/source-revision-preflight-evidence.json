@@ -1,0 +1,60 @@
+{
+  "format": 1,
+  "sourceCommit": "c4842c029f5c6e1c782aea83dd2f3acfc41a0ce7",
+  "conclusion": "source_acceptance_success",
+  "checks": 13,
+  "change": "Original proposal/registration contract and receipts retained; five exact current source revisions explicitly recorded; unknown drift and approval inflation rejected",
+  "combinedRun": {
+    "runId": 41340043425,
+    "jobs": [
+      {
+        "id": 124947919978,
+        "name": "catalogue",
+        "conclusion": "success"
+      },
+      {
+        "id": 124947920131,
+        "name": "postgres",
+        "conclusion": "success"
+      },
+      {
+        "id": 124947920195,
+        "name": "oracles",
+        "conclusion": "success"
+      },
+      {
+        "id": 124947920239,
+        "name": "web",
+        "conclusion": "success"
+      },
+      {
+        "id": 124948329753,
+        "name": "native (macos-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124948329756,
+        "name": "native (windows-latest)",
+        "conclusion": "success"
+      },
+      {
+        "id": 124948329895,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "tenantWorkspaceAcceptance": {
+    "runId": 41340043416,
+    "jobId": 124947919893,
+    "conclusion": "success"
+  },
+  "releaseReady": false,
+  "governanceGrantRepairIncluded": false,
+  "remainingReleaseBlocker": "docs/appearance/current-release-blocker-evidence.json",
+  "tenantWorkspacePublication": {
+    "runId": 41340043416,
+    "jobId": 124948614754,
+    "conclusion": "success"
+  }
+}

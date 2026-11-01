@@ -1328,7 +1328,7 @@
         "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
         "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
         "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
-        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1349,7 +1349,7 @@
         "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
         "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
         "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
-        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1370,7 +1370,7 @@
         "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
         "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
         "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
-        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1391,7 +1391,7 @@
         "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
         "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
         "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
-        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
       "sourceProposalStatus": "no_mapped_equivalent",
@@ -1413,7 +1413,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
@@ -1436,7 +1436,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
@@ -1459,7 +1459,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
@@ -1482,7 +1482,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
@@ -1505,7 +1505,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
@@ -1528,7 +1528,7 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],

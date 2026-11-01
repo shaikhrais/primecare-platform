@@ -1,0 +1,118 @@
+{
+  "format": 1,
+  "batch": "B13",
+  "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820",
+  "conclusion": "success",
+  "registeredHost": {
+    "screenId": 2534,
+    "route": "/tenant-dashboard",
+    "optInParameter": "workModule",
+    "modules": [
+      "tasks",
+      "calendar",
+      "notes",
+      "board",
+      "contacts"
+    ],
+    "defaultRollout": false
+  },
+  "browserChecks": 14,
+  "workflows": [
+    {
+      "runId": 41339668646,
+      "jobs": [
+        {
+          "id": 124946800462,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800648,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800663,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800761,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800784,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41339668594,
+      "jobs": [
+        {
+          "id": 124946800148,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800284,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800357,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124946800437,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124947048212,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124947048226,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124947048273,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    "Actual tenant portal and real task handler using PGlite and native PostgreSQL",
+    "Verified save, independent SQL version/readback, acknowledged retry without duplicate mutation and reload",
+    "Server view denial, read-only contacts and exact registered action identifiers",
+    "Unsaved editor navigation/refresh guards and context invalidation teardown",
+    "Dialog teardown, stale initial response exclusion and root replacement ownership",
+    "No-session redirect clears content and performs no task read"
+  ],
+  "newApis": 0,
+  "newGrants": 0,
+  "productionRuntimeVerified": false,
+  "nativeHostActivated": false,
+  "physicalDeviceVerified": false,
+  "humanReleaseApproved": false,
+  "remaining": [
+    "Default rollout and deployed authenticated acceptance",
+    "Standalone work workflows and durable restart reconciliation",
+    "Native host composition, physical devices and human review"
+  ],
+  "productionSourcePublication": {
+    "sourceCommit": "c4842c029f5c6e1c782aea83dd2f3acfc41a0ce7",
+    "runId": 41340043416,
+    "jobId": 124948614754,
+    "conclusion": "success",
+    "authenticatedEndToEndVerified": false
+  }
+}

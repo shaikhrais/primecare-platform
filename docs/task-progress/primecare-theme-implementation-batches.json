@@ -29,6 +29,18 @@
         "full_auth_ci"
       ],
       "detail": "Six other runtime readers remain blocked by the historical catalog consumer-review gate; their source is unchanged since before B07. B07 does not claim full cutover or whole-repository CI success."
+    },
+    {
+      "code": "API_CATALOG_CURRENT_IDENTITY_DRIFT",
+      "affects": [
+        "B01",
+        "B07",
+        "B14",
+        "B15",
+        "B18",
+        "deployment"
+      ],
+      "detail": "Release run 41339668667 job 124948188609 rejected current production grant groups for APIs 710, 857 and 777: each has 64 rows with missing runtime artifact foreign keys; 710/857 also retain keys for different operations. Exact governed identity reconciliation and independent readback are required; quarantine and grants are unchanged. See docs/appearance/current-release-blocker-evidence.json."
     }
   ],
   "baseline": {
@@ -379,7 +391,7 @@
       "blockers": [
         {
           "code": "PREFERENCE_HOST_ACTIVATION_PENDING",
-          "detail": "Runtime remains off. API grants remain restricted to existing roles 1–64; no panel bindings exist for cloud workspace restoration."
+          "detail": "Runtime remains off. API grants remain restricted to existing roles 1\u201364; no panel bindings exist for cloud workspace restoration."
         }
       ],
       "readiness": "web_native_postgresql_browser_and_linux_windows_macos_acceptance_passed",
@@ -880,7 +892,7 @@
         "Keep synthetic demonstration data isolated and explicitly labelled; activate only registered real workflows."
       ],
       "acceptance": [
-        "For each approved module: authorized UI action → API → independent database readback → reload.",
+        "For each approved module: authorized UI action \u2192 API \u2192 independent database readback \u2192 reload.",
         "Meaningful create/update/delete or reorder actions include validation, denied roles and tenant-isolation cases.",
         "Unmapped reference features are listed as needs-specification rather than marked adopted."
       ],
@@ -897,7 +909,8 @@
         "docs/appearance/work-modules-usage.md",
         "docs/appearance/work-modules-registration-receipt.json",
         ".github/workflows/work-modules.yml",
-        "docs/appearance/native-task-binding-evidence.json"
+        "docs/appearance/native-task-binding-evidence.json",
+        "docs/appearance/tenant-work-host-evidence.json"
       ],
       "blockers": [
         {
@@ -962,6 +975,14 @@
           "conclusion": "success",
           "evidence": "docs/appearance/native-task-binding-evidence.json",
           "change": "Concrete native authenticated task-backed API adapter verified against all six task states; host, durable restart, standalone workflows and release gates retained"
+        },
+        {
+          "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820",
+          "runId": 41339668646,
+          "combinedRunId": 41339668594,
+          "conclusion": "success",
+          "evidence": "docs/appearance/tenant-work-host-evidence.json",
+          "change": "Registered tenant dashboard opt-in source host passed 14 browser checks and real handler/independent SQL acceptance; default rollout, deployed/native hosts and release gates remain open"
         }
       ]
     },
@@ -999,7 +1020,8 @@
         "docs/appearance/theme-adoption-batch-14-evidence.json",
         "docs/appearance/communication-modules-usage.md",
         "docs/appearance/communication-modules-registration-receipt.json",
-        ".github/workflows/communication-modules.yml"
+        ".github/workflows/communication-modules.yml",
+        "docs/appearance/native-communication-settings-evidence.json"
       ],
       "blockers": [
         {
@@ -1012,7 +1034,7 @@
         },
         {
           "code": "COMMUNICATION_MODULE_HOST_NATIVE_REVIEW_PENDING",
-          "detail": "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending; Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
+          "detail": "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending; Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
         }
       ],
       "readiness": "isolated_web_postgresql_and_flutter_shared_factory_acceptance_passed",
@@ -1051,10 +1073,10 @@
         "General file/folder storage, binary picture open/upload, rename/move/delete/sharing/quota need approved adapter/workflow bindings",
         "New mailbox compose/queue/deliver, drafts, folder/archive/delete and delivery receipt UI remain unmapped",
         "New messenger creation, full history, presence/reactions, attachment composer, realtime and call UI remain unmapped",
-        "Concrete native collection WorkPort adapters, authenticated host mounts, production deployment/device and full-app acceptance remain pending",
+        "Native approved-subset adapters are verified; authenticated host mounts, remaining business adapters, production deployment/device and full-app acceptance remain pending",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/screen-reader/contrast and release review remain pending"
       ],
-      "nextAction": "Proceed to B15 original shared academy/commerce/AI-image/profile/settings/help templates only where existing registered workflows allow; retain B14 unbound and unmapped feature gates.",
+      "nextAction": "Mount approved native communication subset in registered hosts; confirm remaining provider/storage/notification contracts and complete their implementations and release acceptance.",
       "sourceFollowups": [
         {
           "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
@@ -1062,6 +1084,14 @@
           "conclusion": "success",
           "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
           "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "2b45aec357284b88f32235def5c89e32a656140e",
+          "runId": 41336298352,
+          "combinedRunId": 41336612512,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-communication-settings-evidence.json",
+          "change": "Native registered communication subset and shortcut-settings binding verified; full business features, hosts, cached recovery UI, deployment/device and human gates remain open"
         }
       ]
     },
@@ -1101,7 +1131,8 @@
         "docs/appearance/theme-adoption-batch-15-evidence.json",
         "docs/appearance/application-modules-usage.md",
         "docs/appearance/application-modules-registration-receipt.json",
-        ".github/workflows/application-modules.yml"
+        ".github/workflows/application-modules.yml",
+        "docs/appearance/native-communication-settings-evidence.json"
       ],
       "blockers": [
         {
@@ -1110,7 +1141,7 @@
         },
         {
           "code": "APPLICATION_HOST_NATIVE_RECOVERY_REVIEW_PENDING",
-          "detail": "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged; Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending; Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure; Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+          "detail": "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged; Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending; Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure; Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
         }
       ],
       "readiness": "isolated_web_postgresql_and_flutter_template_acceptance_passed",
@@ -1164,11 +1195,11 @@
         "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
         "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
         "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
-        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Native self-profile and shortcut-settings adapters are verified; remaining collection/provider ports, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
         "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
         "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
       ],
-      "nextAction": "Proceed to B16 dashboard families and supporting pages using existing governed data sources; retain all B15 missing API/provider, host and review gates.",
+      "nextAction": "Mount self-profile and shortcut-settings ports with explicit recovery UI; confirm remaining business/provider contracts and finish deployed/device/review acceptance.",
       "sourceFollowups": [
         {
           "sourceCommit": "2857fdfe78873e206db98dfc028cae7545cd3a8e",
@@ -1176,6 +1207,14 @@
           "conclusion": "success",
           "evidence": "docs/appearance/theme-shared-recovery-evidence.json",
           "change": "Shared pending/acknowledgement recovery verified; source acceptance only, production/device/human and remaining feature gates retained"
+        },
+        {
+          "sourceCommit": "7a27afcd07e24692150662de2e965cdf3076d765",
+          "runId": 41336612262,
+          "combinedRunId": 41336612512,
+          "conclusion": "success",
+          "evidence": "docs/appearance/native-communication-settings-evidence.json",
+          "change": "Native registered communication subset and shortcut-settings binding verified; full business features, hosts, cached recovery UI, deployment/device and human gates remain open"
         }
       ]
     },
@@ -1362,7 +1401,7 @@
       "scope": [
         "Run governed Cypress/browser and Flutter/native verification across registered roles, tenants, supported apps, layout families and breakpoints.",
         "Cover LTR/RTL, EN/FR/ES, keyboard/touch/screen-reader behaviours, contrast, state retention and preference migrations.",
-        "Verify UI → API → database → reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
+        "Verify UI \u2192 API \u2192 database \u2192 reload, denial cases, cross-tenant isolation, large-data performance and production error paths.",
         "Update implementation/test/review tags honestly, record required CI and deployment/readback evidence, and resolve every remaining gap or mark it blocked."
       ],
       "acceptance": [
