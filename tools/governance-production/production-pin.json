@@ -1771,5 +1771,23 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "originalAssetsWriter": {
+    "optInVariable": "GOVERNANCE_ORIGINAL_ASSETS_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "538fcff1428157bd0e53a4cc57f9387421eb34c68a706a18eb10b68f4a0170f3",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "originalAssets.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

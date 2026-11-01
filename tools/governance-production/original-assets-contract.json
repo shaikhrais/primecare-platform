@@ -1,0 +1,140 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/original-asset-view.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_dropdown_web"
+  ],
+  "controls": [
+    {
+      "key": "icon",
+      "testId": "original-assets-icon",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.icon"
+    },
+    {
+      "key": "illustration",
+      "testId": "original-assets-illustration",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.illustration"
+    },
+    {
+      "key": "brand",
+      "testId": "original-assets-brand",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.brand"
+    },
+    {
+      "key": "placeholder",
+      "testId": "original-assets-placeholder",
+      "componentCode": "prime_asset",
+      "resourceKey": "originalAssets.placeholder"
+    },
+    {
+      "key": "select",
+      "testId": "original-assets-select",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "originalAssets.select"
+    }
+  ],
+  "resources": {
+    "originalAssets.icon": {
+      "en": "Icon",
+      "fr": "Icône",
+      "es": "Icono"
+    },
+    "originalAssets.illustration": {
+      "en": "Illustration",
+      "fr": "Illustration",
+      "es": "Ilustración"
+    },
+    "originalAssets.brand": {
+      "en": "Brand concept",
+      "fr": "Concept de marque",
+      "es": "Concepto de marca"
+    },
+    "originalAssets.placeholder": {
+      "en": "Placeholder",
+      "fr": "Espace réservé",
+      "es": "Marcador de posición"
+    },
+    "originalAssets.select": {
+      "en": "Asset",
+      "fr": "Ressource visuelle",
+      "es": "Recurso visual"
+    },
+    "originalAssets.calendar": {
+      "en": "Calendar",
+      "fr": "Calendrier",
+      "es": "Calendario"
+    },
+    "originalAssets.search": {
+      "en": "Search",
+      "fr": "Rechercher",
+      "es": "Buscar"
+    },
+    "originalAssets.copy": {
+      "en": "Copy",
+      "fr": "Copier",
+      "es": "Copiar"
+    },
+    "originalAssets.close": {
+      "en": "Close",
+      "fr": "Fermer",
+      "es": "Cerrar"
+    },
+    "originalAssets.menu": {
+      "en": "Open navigation",
+      "fr": "Ouvrir la navigation",
+      "es": "Abrir navegación"
+    },
+    "originalAssets.empty": {
+      "en": "No records available",
+      "fr": "Aucun dossier disponible",
+      "es": "No hay registros disponibles"
+    },
+    "originalAssets.onboarding": {
+      "en": "Getting started",
+      "fr": "Premiers pas",
+      "es": "Primeros pasos"
+    },
+    "originalAssets.error": {
+      "en": "Unable to display asset",
+      "fr": "Impossible d’afficher la ressource",
+      "es": "No se pudo mostrar el recurso"
+    },
+    "originalAssets.missing": {
+      "en": "Unknown asset key",
+      "fr": "Clé de ressource inconnue",
+      "es": "Clave de recurso desconocida"
+    },
+    "originalAssets.decorative": {
+      "en": "Decorative asset",
+      "fr": "Ressource décorative",
+      "es": "Recurso decorativo"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Original asset presentation only. Caller supplies localized accessible names from registered host resources; semantic asset keys are inventory metadata, not new business widgets, grants or routes.",
+  "newComponents": [
+    {
+      "component_code": "prime_asset",
+      "component_name": "Prime original vector asset",
+      "component_type": "media",
+      "dart_class_name": "PrimeOriginalAsset",
+      "source_file_path": "packages/primecare_ui/web/original-asset-view.ts",
+      "purpose": "Shared original vector icon and illustration rendering with explicit accessible naming",
+      "allowed_element_types_json": "[\"svg\",\"figure\"]",
+      "active": 1
+    }
+  ]
+}
