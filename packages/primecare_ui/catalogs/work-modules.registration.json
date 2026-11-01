@@ -1,0 +1,299 @@
+{
+  "kind": "verified_metadata_export",
+  "sourceCommit": "5103c7815e9c2dfc72e1a65e7ed7f28b5ed7f4db",
+  "runId": 41266361915,
+  "jobId": 124729947054,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "cea70e926d99b3adafaa3b1c02247ff17f9f033ad41f91298852193cb72c23c6",
+  "apiBindings": {
+    "GET": 16578,
+    "POST": 16579
+  },
+  "controls": [
+    {
+      "key": "calendar",
+      "testId": "work-modules-calendar",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.calendar",
+      "controlId": 733
+    },
+    {
+      "key": "contacts",
+      "testId": "work-modules-contacts",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.contacts",
+      "controlId": 734
+    },
+    {
+      "key": "tasks",
+      "testId": "work-modules-tasks",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.tasks",
+      "controlId": 735
+    },
+    {
+      "key": "notes",
+      "testId": "work-modules-notes",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.notes",
+      "controlId": 736
+    },
+    {
+      "key": "board",
+      "testId": "work-modules-board",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.board",
+      "controlId": 737
+    },
+    {
+      "key": "filter",
+      "testId": "work-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.filter",
+      "controlId": 738
+    },
+    {
+      "key": "open",
+      "testId": "work-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.open",
+      "controlId": 739
+    },
+    {
+      "key": "detail",
+      "testId": "work-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.detail",
+      "controlId": 740
+    },
+    {
+      "key": "title",
+      "testId": "work-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.title",
+      "controlId": 741
+    },
+    {
+      "key": "body",
+      "testId": "work-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "workModules.body",
+      "controlId": 742
+    },
+    {
+      "key": "date",
+      "testId": "work-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.date",
+      "controlId": 743
+    },
+    {
+      "key": "action",
+      "testId": "work-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.action",
+      "controlId": 744
+    },
+    {
+      "key": "save",
+      "testId": "work-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.save",
+      "controlId": 745
+    },
+    {
+      "key": "create",
+      "testId": "work-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.create",
+      "controlId": 746
+    },
+    {
+      "key": "close",
+      "testId": "work-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.close",
+      "controlId": 747
+    },
+    {
+      "key": "previous",
+      "testId": "work-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.previous",
+      "controlId": 748
+    },
+    {
+      "key": "next",
+      "testId": "work-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.next",
+      "controlId": 749
+    },
+    {
+      "key": "reload",
+      "testId": "work-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.reload",
+      "controlId": 750
+    },
+    {
+      "key": "move",
+      "testId": "work-modules-move",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.move",
+      "controlId": 751
+    },
+    {
+      "key": "target",
+      "testId": "work-modules-target",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.target",
+      "controlId": 752
+    },
+    {
+      "key": "owner",
+      "testId": "work-modules-owner",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.owner",
+      "controlId": 753
+    },
+    {
+      "key": "workflow",
+      "testId": "work-modules-workflow",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.workflow",
+      "controlId": 754
+    },
+    {
+      "key": "priority",
+      "testId": "work-modules-priority",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.priority",
+      "controlId": 755
+    }
+  ],
+  "locales": {
+    "en": {
+      "calendar": "Task due-date calendar",
+      "contacts": "Authorized directory",
+      "tasks": "Workflow tasks",
+      "notes": "Task instructions",
+      "board": "Task status board",
+      "filter": "Filter visible records",
+      "open": "Open details",
+      "detail": "Record details",
+      "title": "Title",
+      "body": "Instructions or evidence",
+      "date": "Due date",
+      "action": "Available action",
+      "save": "Apply action",
+      "create": "Create task",
+      "close": "Close details",
+      "previous": "Previous month",
+      "next": "Next month",
+      "reload": "Reload records",
+      "move": "Move to date or status",
+      "target": "Target date or status",
+      "owner": "Owner",
+      "workflow": "Registered workflow",
+      "priority": "Priority",
+      "loading": "Loading authorized records",
+      "empty": "No matching records",
+      "error": "Unable to complete action",
+      "denied": "Action not authorized",
+      "conflict": "Record changed; reload before retry",
+      "invalid": "Check the entered values",
+      "unavailable": "Approved workflow adapter is unavailable",
+      "success": "Saved and read back",
+      "partial": "Only the authorized page is shown",
+      "open_status": "Open",
+      "in_progress": "In progress",
+      "blocked": "Blocked",
+      "submitted": "Awaiting independent review",
+      "completed": "Completed",
+      "cancelled": "Cancelled"
+    },
+    "fr": {
+      "calendar": "Calendrier des échéances",
+      "contacts": "Répertoire autorisé",
+      "tasks": "Tâches de processus",
+      "notes": "Consignes des tâches",
+      "board": "Tableau des statuts",
+      "filter": "Filtrer les dossiers visibles",
+      "open": "Ouvrir les détails",
+      "detail": "Détails du dossier",
+      "title": "Titre",
+      "body": "Consignes ou éléments de preuve",
+      "date": "Échéance",
+      "action": "Action disponible",
+      "save": "Appliquer l’action",
+      "create": "Créer une tâche",
+      "close": "Fermer les détails",
+      "previous": "Mois précédent",
+      "next": "Mois suivant",
+      "reload": "Recharger les dossiers",
+      "move": "Déplacer vers une date ou un statut",
+      "target": "Date ou statut cible",
+      "owner": "Responsable",
+      "workflow": "Processus enregistré",
+      "priority": "Priorité",
+      "loading": "Chargement des dossiers autorisés",
+      "empty": "Aucun dossier correspondant",
+      "error": "Impossible de terminer cette action",
+      "denied": "Action non autorisée",
+      "conflict": "Dossier modifié; recharger avant de réessayer",
+      "invalid": "Vérifier les valeurs saisies",
+      "unavailable": "Adaptateur de processus approuvé indisponible",
+      "success": "Enregistré et relu",
+      "partial": "Seule la page autorisée est affichée",
+      "open_status": "Ouvert",
+      "in_progress": "En cours",
+      "blocked": "Bloqué",
+      "submitted": "En attente de vérification indépendante",
+      "completed": "Terminé",
+      "cancelled": "Annulé"
+    },
+    "es": {
+      "calendar": "Calendario de vencimientos",
+      "contacts": "Directorio autorizado",
+      "tasks": "Tareas del proceso",
+      "notes": "Instrucciones de tareas",
+      "board": "Tablero de estados",
+      "filter": "Filtrar registros visibles",
+      "open": "Abrir detalles",
+      "detail": "Detalles del registro",
+      "title": "Título",
+      "body": "Instrucciones o evidencia",
+      "date": "Fecha límite",
+      "action": "Acción disponible",
+      "save": "Aplicar acción",
+      "create": "Crear tarea",
+      "close": "Cerrar detalles",
+      "previous": "Mes anterior",
+      "next": "Mes siguiente",
+      "reload": "Recargar registros",
+      "move": "Mover a fecha o estado",
+      "target": "Fecha o estado de destino",
+      "owner": "Responsable",
+      "workflow": "Proceso registrado",
+      "priority": "Prioridad",
+      "loading": "Cargando registros autorizados",
+      "empty": "No hay registros coincidentes",
+      "error": "No se pudo completar la acción",
+      "denied": "Acción no autorizada",
+      "conflict": "El registro cambió; recarga antes de reintentar",
+      "invalid": "Revisa los valores ingresados",
+      "unavailable": "Adaptador de proceso aprobado no disponible",
+      "success": "Guardado y verificado",
+      "partial": "Solo se muestra la página autorizada",
+      "open_status": "Abierto",
+      "in_progress": "En curso",
+      "blocked": "Bloqueado",
+      "submitted": "En espera de revisión independiente",
+      "completed": "Completado",
+      "cancelled": "Cancelado"
+    }
+  },
+  "runtimeActivated": false,
+  "humanReviewApproved": false
+}
