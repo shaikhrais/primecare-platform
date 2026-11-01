@@ -1,0 +1,95 @@
+{
+  "format": 1,
+  "batch": "B13",
+  "sourceCommit": "0633b548ee5f73b9c34e2f7c22bb6d7ee036af5b",
+  "conclusion": "success",
+  "local": {
+    "transportRegressionChecks": 9,
+    "existingWorkModuleChecks": 30,
+    "typecheck": "passed",
+    "catalogue": "passed"
+  },
+  "workflows": [
+    {
+      "runId": 41326605698,
+      "jobs": [
+        {
+          "id": 124907762061,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762286,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762293,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762299,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762310,
+          "name": "web",
+          "conclusion": "success"
+        }
+      ]
+    },
+    {
+      "runId": 41326605678,
+      "jobs": [
+        {
+          "id": 124907761909,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762108,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762125,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907762196,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907856932,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907856955,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 124907856990,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        }
+      ]
+    }
+  ],
+  "coverage": [
+    "session changes before dispatch and during body streaming/cleanup",
+    "cancelled requests even with noncompliant injected fetcher",
+    "1 MiB reply limit and strict UTF-8/JSON decoding",
+    "typed HTTP errors and original POST receipt preservation",
+    "existing browser, database, native and cross-batch regressions"
+  ],
+  "productionHostActivated": false,
+  "newApiOrGrantChanges": 0,
+  "physicalDeviceVerified": false,
+  "humanReleaseApproved": false
+}

@@ -39,3 +39,5 @@ Disposal and generation guards ignore late results. Denied reload/mutation clear
 Common EN/FR/ES labels are registered drafts. Task action/status labels reuse the existing English task catalogue. Human translation, accessibility, keyboard/screen-reader, contrast and release review are open. Native date input, weekday headings, responsive calendar density, focus restoration, localized business labels, generic pagination wording need host verification. Do not infer release approval from factory tests.
 
 No synthetic data is seeded into production by this batch. The generic protocol supports separate live/demo scopes, but a host must provide a persistent, localized demo banner and verify workspace-version handling before exposing demo mode. The current templates do not supply that banner; demo host activation remains blocked.
+
+Transport lifecycle acceptance: source `0633b548ee5f73b9c34e2f7c22bb6d7ee036af5b` passed all 12 targeted/combined jobs in runs 41326605698 and 41326605678. See `work-module-transport-evidence.json`. Production host, missing workflow, device and release gates remain open.
