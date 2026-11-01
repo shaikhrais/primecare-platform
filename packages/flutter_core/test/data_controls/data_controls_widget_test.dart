@@ -1,4 +1,4 @@
-import 'dart:async';import 'dart:convert';import 'dart:io';import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';import 'package:flutter_core/component_catalogue.dart' show CatalogueLabels;import 'package:flutter_core/data_controls.dart';
+import 'dart:async';import 'dart:convert';import 'dart:io';import 'package:flutter/material.dart';import 'package:flutter_test/flutter_test.dart';import 'package:flutter_core/component_catalogue.dart' show CatalogueLabels,PrimeCatalogueAction;import 'package:flutter_core/data_controls.dart';
 void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_ui/catalogs/data-controls.registration.json').readAsStringSync()),'en');Widget app(Widget child)=>MaterialApp(home:Scaffold(body:SingleChildScrollView(child:child)));
  testWidgets('large virtual table mounts bounded rows and filters real supplied projection',(t)async{final rows=List.generate(50000,(i)=>DataRowSpec('r$i',{'n':i,'text':'row $i'}));await t.pumpWidget(app(PrimeVirtualTable(labels:l,scope:'table',columns:[DataColumnSpec('n','Number',120),DataColumnSpec('text','Text',150)],rows:rows,rowHeight:56,height:200,minWidth:80,maxWidth:400,actionWidth:120,pageSize:1000)));expect(find.byType(SelectableText).evaluate().length,lessThan(30));await t.enterText(find.byType(TextField).first,'row 49999');await t.pump();expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='row 49999'),findsOneWidget);expect(find.textContaining('/ 1'),findsOneWidget);});
  testWidgets('required typed fields and rejected submit preserve input',(t)async{final kit=PrimeDataKit(l,'form'),key=GlobalKey<FormState>(),number=TextEditingController(),date=TextEditingController();var calls=0;await t.pumpWidget(app(kit.form(key,[kit.field('number',number,required:true,min:0,max:10,step:0.5),kit.field('date',date,required:true)],()async{calls++;throw StateError('denied');})));await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,0);await t.enterText(find.byType(TextFormField).first,'1.5');await t.enterText(find.byType(TextFormField).last,'2024-02-29');await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,1);expect(number.text,'1.5');expect(find.text(l.text('error')),findsOneWidget);await t.pumpWidget(const SizedBox());number.dispose();date.dispose();});
@@ -88,4 +88,16 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
       },
     );
   }
+ testWidgets('upload selection removal and verified remote deletion are visible',(t)async{
+  var writes=0,reads=0,present=true;
+  final sent=<String>[];
+  await t.pumpWidget(app(PrimeUploadControl(labels:l,scope:'removal-ui',policy:const UploadPolicy(maxFiles:2,maxBytes:100,types:['text/plain']),pick:()async=>[const UploadCandidate('a.txt',5,'text/plain','a'),const UploadCandidate('b.txt',5,'text/plain','b')],port:(a,b,c,d,e)async{sent.addAll(c.map((f)=>f.name));return 'r1';},removalPort:(a,b,c,d)async{writes++;present=false;return UploadRemovalReceipt(b,true);},receiptPort:(a,b,c)async{if(++reads==1)throw StateError('read unavailable');return UploadReceiptState(a,b,present);})));
+  await t.tap(find.text(l.text('upload')));await t.pumpAndSettle();
+  await t.tap(find.text(l.text('remove')).first);await t.pumpAndSettle();expect(find.text('a.txt'),findsNothing);
+  await t.tap(find.text(l.text('send')));await t.pumpAndSettle();expect(sent,['b.txt']);
+  final remove=find.descendant(of:find.byWidgetPredicate((w)=>w is PrimeCatalogueAction&&w.control=='remove'&&w.suffix=='-receipt'),matching:find.byType(TextButton));
+  await t.ensureVisible(remove);await t.tap(remove);await t.pumpAndSettle();expect(find.text('b.txt'),findsOneWidget);expect(writes,1);
+  await t.ensureVisible(remove);await t.tap(remove);await t.pumpAndSettle();expect(find.text('b.txt'),findsNothing);expect(writes,1);expect(t.takeException(),isNull);
+ });
+
 }

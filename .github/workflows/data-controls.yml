@@ -12,6 +12,7 @@ on:
       - 'packages/flutter_core/test/data_controls/**'
       - 'packages/primecare_ui/lib/data_controls.dart'
       - 'scripts/*data-controls*.mjs'
+      - 'scripts/test-upload-removal.mjs'
       - 'packages/flutter_core/lib/component_catalogue/**'
       - '.github/workflows/data-controls.yml'
   workflow_dispatch:
@@ -32,6 +33,7 @@ jobs:
           ln -s /tmp/catalogue-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-data-controls-model.mjs
+          node --test scripts/test-upload-removal.mjs
           node scripts/test-data-controls-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/data-controls.ts
       - run: |
