@@ -1,0 +1,149 @@
+{
+  "format": 1,
+  "batch": "B10",
+  "status": "shared_source_implemented_ci_pending_host_binding_pending",
+  "businessHostActivated": false,
+  "vendorSourceCopied": false,
+  "activationGates": [
+    "host source registration",
+    "authorized data projections and persistence adapters",
+    "native binary picker and image policy adapter",
+    "governed real-data flows",
+    "human localization/accessibility/release review"
+  ],
+  "notClaimed": [
+    "every reference framework variant",
+    "spreadsheet cell editing",
+    "server-side query implementation",
+    "arbitrary HTML import",
+    "provider-specific upload service",
+    "production business transaction success"
+  ],
+  "models": [
+    "bounded table state",
+    "fixed-row virtual window",
+    "structured document validation",
+    "form constraints",
+    "upload lifecycle"
+  ],
+  "web": {
+    "table": [
+      "fixed-height virtualization",
+      "filter/sort/paging",
+      "selection/expansion",
+      "column visibility/order/sticky pinning/width",
+      "keyboard cell navigation"
+    ],
+    "forms": [
+      "required and typed validation",
+      "date/time browser picker",
+      "bounded number/step",
+      "mask",
+      "async autocomplete"
+    ],
+    "editor": [
+      "block bold/italic/bullet",
+      "safe HTTPS links",
+      "host-approved images",
+      "async save"
+    ],
+    "upload": [
+      "browser binary picker",
+      "metadata policy",
+      "progress/cancel",
+      "explicit idempotent retry",
+      "durable receipt required"
+    ]
+  },
+  "native": {
+    "table": [
+      "ListView.builder virtualization",
+      "filter/sort/paging",
+      "selection/expansion",
+      "column visibility/order/width",
+      "pin order only",
+      "vertical keyboard scroll"
+    ],
+    "forms": [
+      "typed validation",
+      "date picker with host bounds",
+      "time picker",
+      "number/mask",
+      "stale-safe autocomplete"
+    ],
+    "editor": [
+      "same block document schema",
+      "safe link address display",
+      "host-approved image builder",
+      "async save"
+    ],
+    "upload": [
+      "injected binary picker",
+      "same lifecycle policy",
+      "cancellation signal",
+      "explicit idempotent retry",
+      "durable receipt required"
+    ]
+  },
+  "referenceFamilies": [
+    {
+      "family": "autocomplete",
+      "examples": 59,
+      "disposition": "core_behavior_original_factory",
+      "fullVariantParity": false
+    },
+    {
+      "family": "number-field",
+      "examples": 11,
+      "disposition": "core_behavior_original_factory",
+      "fullVariantParity": false
+    },
+    {
+      "family": "pagination",
+      "examples": 24,
+      "disposition": "table_paging_original_factory",
+      "fullVariantParity": false
+    },
+    {
+      "family": "table",
+      "examples": 27,
+      "disposition": "core_behavior_original_factory_native_pin_gap",
+      "fullVariantParity": false
+    },
+    {
+      "family": "rating",
+      "examples": 17,
+      "disposition": "specialized_variant_pending",
+      "fullVariantParity": false
+    },
+    {
+      "family": "slider",
+      "examples": 39,
+      "disposition": "specialized_variant_pending",
+      "fullVariantParity": false
+    },
+    {
+      "family": "steppers",
+      "examples": 21,
+      "disposition": "specialized_variant_pending",
+      "fullVariantParity": false
+    },
+    {
+      "family": "transfer-list",
+      "examples": 7,
+      "disposition": "specialized_variant_pending",
+      "fullVariantParity": false
+    }
+  ],
+  "remainingFeatureGaps": [
+    "Native sticky horizontal pinning",
+    "Native link activation adapter",
+    "Character-range rich-text marks and arbitrary HTML import",
+    "Spreadsheet editing and server-side query adapter",
+    "Upload removal/remote deletion UI",
+    "Specialized rating/slider/stepper/transfer-list variants"
+  ],
+  "registeredButNotExposed": [
+    "remove"
+  ]
+}
