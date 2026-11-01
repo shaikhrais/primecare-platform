@@ -25,3 +25,13 @@ test('traffic split, version mismatch and deployment drift fail instead of regis
   (r,url,n)=>{if(url.includes('/deployments?')&&n===4)r.deployments[0].id=version;},
  ]){const f=fixture(mutate);await assert.rejects(auditRuntimeArtifacts({account:'a'.repeat(32),token:'fixture',fetcher:f.fetcher}));}
 });
+
+test('standard CI commit annotations are retained without inferring source authority',async()=>{
+ const f=fixture((r,url)=>{if(url.includes('/versions/'))r.annotations={'workers/commit_sha':'b'.repeat(40),'private':'DO_NOT_EXPORT'};});
+ const r=await auditRuntimeArtifacts({account:'a'.repeat(32),token:'fixture',fetcher:f.fetcher});
+ assert.equal(r.artifacts[0].versions[0].sourceCommitCandidate,'b'.repeat(40));assert.equal(r.artifacts[0].sourceCommitCandidatesPresent,true);assert.equal(r.artifacts[0].sourceCommitTagsPresent,false);assert.equal(r.artifacts[0].sourceCommitFullyEstablished,false);assert.ok(!JSON.stringify(r).includes('DO_NOT_EXPORT'));
+});
+test('conflicting commit identities fail and malformed annotations are not treated as a source',async()=>{
+ const conflict=fixture((r,url)=>{if(url.includes('/versions/'))r.annotations['workers/commit_sha']='b'.repeat(40);});await assert.rejects(()=>auditRuntimeArtifacts({account:'a'.repeat(32),token:'fixture',fetcher:conflict.fetcher}));
+ const invalid=fixture((r,url)=>{if(url.includes('/versions/'))r.annotations={'workers/commit_sha':'main'};});const r=await auditRuntimeArtifacts({account:'a'.repeat(32),token:'fixture',fetcher:invalid.fetcher});assert.equal(r.artifacts[0].versions[0].sourceCommitCandidate,null);assert.equal(r.artifacts[0].sourceCommitCandidatesPresent,false);
+});

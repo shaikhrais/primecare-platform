@@ -27,12 +27,14 @@ export async function auditRuntimeArtifacts({account,token,fetcher=fetch}){
   for(const activeVersion of active.versions){
    const version=await api(base+'/versions/'+activeVersion.version_id);
    if(version.id!==activeVersion.version_id)throw Error('Version readback mismatch');
-   const tag=version.annotations?.['workers/tag'];
+   const tag=version.annotations?.['workers/tag'],annotation=version.annotations?.['workers/commit_sha'];
+   const commitTag=typeof tag==='string'&&/^[0-9a-f]{40}$/.test(tag)?tag:null,commitAnnotation=typeof annotation==='string'&&/^[0-9a-f]{40}$/.test(annotation)?annotation:null;
+   if(commitTag&&commitAnnotation&&commitTag!==commitAnnotation)throw Error('Worker source commit identities disagree');
    const created=version.metadata?.created_on,uploadSource=version.metadata?.source;
    versions.push({versionId:version.id,trafficPercent:activeVersion.percentage,
     createdOn:typeof created==='string'&&Number.isFinite(Date.parse(created))?created:null,
     uploadSource:typeof uploadSource==='string'&&/^[a-z_-]{1,80}$/i.test(uploadSource)?uploadSource:null,
-    sourceCommitTag:typeof tag==='string'&&/^[0-9a-f]{40}$/.test(tag)?tag:null});
+    sourceCommitTag:commitTag,sourceCommitAnnotation:commitAnnotation,sourceCommitCandidate:commitAnnotation??commitTag});
   }
   const after=await api(base+'/deployments?per_page=1');
   if(after?.deployments?.[0]?.id!==active.id||JSON.stringify(after.deployments[0].versions)!==JSON.stringify(active.versions))throw Error('Active deployment changed during readback');
@@ -40,7 +42,7 @@ export async function auditRuntimeArtifacts({account,token,fetcher=fetch}){
    deploymentId:active.id,createdOn:active.created_on,versions,
    bindingShape:settings.bindings.filter(b=>/^[A-Za-z_][A-Za-z0-9_]{0,127}$/.test(b.name??'')&&/^[a-z_]{1,80}$/.test(b.type??'')).map(b=>({name:b.name,type:b.type})).sort((a,b)=>a.name.localeCompare(b.name)),
    preferenceSyncEnabled:target.service==='auth'?settings.bindings.some(b=>b.name==='PREFERENCE_SYNC_ENABLED'&&b.type==='plain_text'&&b.text==='1'):null,
-   sourceCommitTagsPresent:versions.every(v=>v.sourceCommitTag!==null),sourceCommitFullyEstablished:false,
+   sourceCommitTagsPresent:versions.every(v=>v.sourceCommitTag!==null),sourceCommitCandidatesPresent:versions.every(v=>v.sourceCommitCandidate!==null),sourceCommitFullyEstablished:false,
    independentlyReadDeployment:true,registeredGovernanceArtifactId:null,grantAssociationApproved:false});
  }
  return {format:1,readOnly:true,providerOperationsSent:0,settingsChanged:0,grantsChanged:0,runtimeActivated:false,

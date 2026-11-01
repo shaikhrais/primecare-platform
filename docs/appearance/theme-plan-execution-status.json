@@ -28,7 +28,8 @@
         "Confirmed empty runtime_artifacts table",
         "Produced exact row-level reconciliation records with no guessed mutations",
         "Read active auth/governance deployment version identities without settings or grant changes",
-        "User confirmed self-only theme/workspace/shortcut preferences for Platform Admin 70, Tenant Admin 72 and Code Admin 80; isolated service policy checks pass"
+        "User confirmed self-only theme/workspace/shortcut preferences for Platform Admin 70, Tenant Admin 72 and Code Admin 80; isolated service policy checks pass",
+        "Governance release now has independently verified CI-source-to-uploaded-version-to-active-deployment provenance; no legacy artifact alias or grant relinking inferred"
       ],
       "remaining": [
         "Resolve role/action authority for the 128 wrong-operation labels",
@@ -37,7 +38,8 @@
       ],
       "evidence": [
         "docs/appearance/theme-permission-reconciliation-proposal.json",
-        "CI 41349589331 / job 124976690762"
+        "CI 41349589331 / job 124976690762",
+        "docs/appearance/theme-worker-provenance-evidence.json"
       ]
     },
     {
@@ -211,6 +213,15 @@
       "dashboardRun": 41354445038,
       "dashboardPassedJobs": 4,
       "dashboardTotalJobs": 4
+    },
+    "governanceDeploymentProvenance": {
+      "source": "c1795c4997ca2f88e8f5b4323a299bd4d63367f3",
+      "run": 41355173755,
+      "acceptanceJob": 124993576290,
+      "publishJob": 124994139523,
+      "conclusion": "success",
+      "artifactRegistrationApproved": false,
+      "permissionRowsChanged": 0
     }
   },
   "permissionRowsChanged": 0,

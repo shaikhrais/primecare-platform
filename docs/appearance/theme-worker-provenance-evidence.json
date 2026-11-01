@@ -1,0 +1,57 @@
+{
+  "format": 1,
+  "source": "c1795c4997ca2f88e8f5b4323a299bd4d63367f3",
+  "packages": [
+    "R01",
+    "R03"
+  ],
+  "verification": {
+    "run": 41355173755,
+    "acceptanceJob": 124993576290,
+    "publishJob": 124994139523,
+    "conclusion": "success",
+    "localReceiptTests": 4,
+    "worker": {
+      "format": 1,
+      "source": "c1795c4997ca2f88e8f5b4323a299bd4d63367f3",
+      "worker": "primecare-governance-api",
+      "service": "governance",
+      "deploymentId": "21d2661a-b05c-4212-8eb4-421fb58bdd86",
+      "versionId": "d2f9ef71-050f-45e5-b936-ed8a0603a238",
+      "trafficPercent": 100,
+      "createdOn": "2026-11-01T22:08:47.178239Z",
+      "independentlyReadDeployment": true,
+      "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false,
+      "sourceCheckoutVerified": true,
+      "existingBindingsPreserved": true,
+      "healthStatus": 200,
+      "otherWorkersModified": 0,
+      "providerActions": 0
+    },
+    "webDeployments": [
+      "https://d7cc1b4c.primecare-business-development.pages.dev",
+      "https://3208db7d.primecare-client.pages.dev",
+      "https://76ac77c7.primecare-clinic.pages.dev",
+      "https://6d7180cf.primecare-corporate.pages.dev",
+      "https://795672d7.primecare-franchise.pages.dev",
+      "https://c37cf1a2.primecare-marketing.pages.dev",
+      "https://e99f49d4.primecare-support.pages.dev",
+      "https://538adbbe.primecare-governance.pages.dev",
+      "https://1533943f.primecare-enterprise-blueprint.pages.dev"
+    ]
+  },
+  "changes": [
+    "Require main CI source SHA to match a clean checked-out commit",
+    "Join exact Wrangler upload version to an independently read new deployment at 100 percent traffic",
+    "Reject old deployments, wrong versions, split traffic and deployment races",
+    "Preserve existing live bindings and confirm Worker health"
+  ],
+  "limits": [
+    "No legacy artifact 1 alias is inferred",
+    "No runtime artifact rows or permission links have been changed",
+    "Auth Worker provenance and confirmed admin preference integration remain open"
+  ],
+  "wholeBatchesClosed": 0
+}
