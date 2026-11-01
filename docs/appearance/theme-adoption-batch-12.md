@@ -1,6 +1,6 @@
 # B12 — Original icon and visual asset foundations
 
-The expanded original assets and controlled shared adoption are on main. Final platform acceptance is pending. App-wide migration, production/device verification and human review remain separate gates.
+The expanded original assets and controlled shared adoption are on main. Web and Flutter Linux/Windows/macOS acceptance passed. App-wide migration, production/device verification and human review remain separate gates.
 
 The canonical collection now has 105 icons and 16 brand/background/empty/onboarding/placeholder assets: 49 added icons and nine added scenes, with the original 56 icons and seven asset paths preserved. The complete generated preview is `packages/primecare_ui/assets/original/preview.html`.
 
@@ -28,10 +28,19 @@ Retained notices distinguish Tabler MIT terms, the Flutter Lucide wrapper's publ
 
 ## Verification
 
-Local checks passed: six compiler groups; four registry/shell/hash groups; rendering of all 121 assets in Chromium; meaningful/decorative naming; strict colour input validation; directional-only RTL; literal hostile labels; responsive sizing; keyboard shell controls; zero external asset requests. Canonical hashes and all 25 shared shell mappings were checked. Navigation browser regression passed and the existing 74-check tenant-dashboard suite passed against its isolated PostgreSQL fixture.
+Local checks passed: seven compiler groups; four registry/shell/hash groups; rendering of all 121 assets in Chromium; meaningful/decorative naming; strict colour input validation; directional-only RTL; literal hostile labels; responsive sizing; keyboard shell controls; zero external asset requests. Canonical hashes and all 25 shared shell mappings were checked. Navigation browser regression passed and the existing 74-check tenant-dashboard suite passed against its isolated PostgreSQL fixture.
 
 Native tests render all 121 assets, validate aliases/semantics, compare raster tint/RTL behavior and rerun B04 navigation/B10 form/table/picker tests. The raster fixture uses Flutter real-async capture. Initial web CI exposed missing PGlite test setup; the corrected workflow installs the existing pinned fixture dependencies. These are isolated source/component regressions, not production business-flow evidence.
 
-Final exact-source CI evidence will be recorded after the corrected platform run completes. Actual deployment/device/screen-reader checks, host-specific source bindings, app-wide migration and human localization/accessibility/release reviews remain pending. Existing auth-reader review blockers remain unchanged; whole-repository CI success is not claimed.
+Source `1b86c3764c4fc456d717c81bb8c657c465806d29` passed [run 41263870497](https://github.com/shaikhrais/primecare-platform/actions/runs/41263870497). Native analysis was clean and all 21 asset/navigation/data-control tests passed per platform.
+
+| Job | ID | Result |
+|---|---:|---|
+| web | 124722490522 | Passed |
+| native (windows-latest) | 124722675468 | Passed |
+| native (macos-latest) | 124722675478 | Passed |
+| native (ubuntu-24.04) | 124722675547 | Passed |
+
+The final workflow also publishes/downloads the existing generated navigation oracle before native regression tests, matching the B04 fixture contract. Raster capture runs through real async, and a compiler regression proves canonical SVG edits survive rebuilds. No test skips or production fallback were introduced. Actual deployment/device/screen-reader checks, host-specific source bindings, app-wide migration and human localization/accessibility/release reviews remain pending. Existing auth-reader review blockers remain unchanged; whole-repository CI success is not claimed.
 
 Rollback can restore controlled shared glyph mappings and unmount optional asset views while preserving canonical files and additive metadata. No business-data rollback or destructive metadata removal is provided. B13 business-module foundations can proceed while these B12 migration/review gates remain explicit.

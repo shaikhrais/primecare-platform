@@ -1,6 +1,6 @@
 # B12 original icon and visual asset APIs
 
-The central pack contains 105 icons and 16 brand/background/empty/onboarding/placeholder assets. Canonical files live in `packages/primecare_ui/assets/original/`. `scripts/build-original-assets.py` regenerates the registry, sprite, web icon paths, native drawing data and package-key constants; `--check` rejects drift. Author SVGs in the compiler's strict supported subset, never edit generated mirrors or copy assets per app.
+The central pack contains 105 icons and 16 brand/background/empty/onboarding/placeholder assets. Canonical files live in `packages/primecare_ui/assets/original/`. `scripts/build-original-assets.py` regenerates the registry, sprite, web icon paths, native drawing data and package-key constants; `--check` rejects drift. Author SVGs in the compiler's strict supported subset, never edit generated mirrors or copy assets per app. Optional `--seed-missing` scaffolds absent original additions only; it never overwrites existing canonical SVG edits.
 
 ## Scope and provenance
 
@@ -8,7 +8,7 @@ The 56 original v1 icons and seven asset paths remain available. B12 adds 49 ico
 
 The task-authored paths use basic geometry; no Fuse or third-party icon paths were imported into this pack. Retained third-party notices and primary license references are in `original-assets-provenance.json`. This is not trademark clearance, an exclusive-copyright claim or a complete transitive-license audit. The brand mark is still a concept.
 
-Production run 41262137235 registered five optional presentation controls, 15 resources, 45 draft EN/FR/ES translations and `prime_asset` primitive ID 21 on existing screen 2534. Native/other-host activation and human review are not implied. Meaningful asset names must come from each registered host's localized resources; key names are inventory metadata, not default user-facing labels.
+Production run 41262137235 registered five optional presentation controls, 15 resources, 45 draft EN/FR/ES translations and `prime_asset` primitive ID 21 on existing screen 2534. Native/other-host activation and human review are not implied. The optional select binding remains reserved for a future authorized catalogue host; the static preview is documentation. Meaningful asset names must come from each registered host's localized resources; key names are inventory metadata, not default user-facing labels.
 
 ## Web
 
@@ -32,7 +32,7 @@ Inline SVG can inherit CSS tint. External `<img>` SVGs cannot inherit page `curr
 Import `package:flutter_core/original_assets.dart` or `package:primecare_ui/original_assets.dart`. `PrimeOriginalAsset(name, ...)` uses the generated data with a shared CustomPainter. It needs no SVG package, network fetch or app-specific bundle copy. The core renderer works even when only flutter_core is installed.
 
 - Icons use explicit `size`/`width`/`height` or the host `IconTheme.size`. Non-icon assets require explicit finite positive width and height, at most 10,000 each.
-- Decorative defaults to true and excludes inner semantics. Meaningful instances require `decorative:false` and `semanticLabel`; the default semantics identifier comes from the verified registration and canonical key. `dataCy` can supply a stable registered host identifier; do not generate random identifiers.
+- Decorative defaults to true and excludes inner semantics. Meaningful instances require `decorative:false` and `semanticLabel`; the default semantics identifier comes from the verified registration and canonical key. `dataCy` supplies a stable registered host identifier for repeated meaningful instances; give each a unique binding and do not generate random identifiers.
 - `direction` overrides host Directionality. Mirroring is limited to declared directional glyphs. `color`, theme-backed `palette` and `strokeScale` control tint/stroke. Alpha is preserved and multiplied by source opacity. Native accent uses the host tertiary colour unless overridden to match the web accent token.
 - Drawing preserves view-box aspect ratio, centers inside the requested bounds and clips to the widget bounds. Paths support compiled move/line/cubic/quadratic/arc/close commands. The runtime never accepts untrusted SVG/path text.
 

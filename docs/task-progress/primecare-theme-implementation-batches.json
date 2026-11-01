@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b11_shared_chart_widgets_accepted_registry_persistence_host_pending",
+  "overall_status": "b12_shared_original_assets_adopted_selected_sources_app_migration_review_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138 and B11 has 102 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102 and B12 has 45 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -749,7 +749,7 @@
     {
       "id": "B12",
       "title": "Original icon and visual asset completion",
-      "status": "planned",
+      "status": "shared_original_assets_adopted_selected_sources_app_migration_review_pending",
       "depends_on": [
         "B01",
         "B06",
@@ -772,8 +772,60 @@
         "packages/primecare_ui/lib/src/theme/primecare_assets.dart",
         "packages/shared/src/media/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-12.md",
+        "docs/appearance/theme-adoption-batch-12-evidence.json",
+        "docs/appearance/original-assets-usage.md",
+        "docs/appearance/original-assets-provenance.json",
+        "docs/appearance/original-assets-usage-audit.json",
+        "docs/appearance/original-assets-registration-receipt.json",
+        "packages/primecare_ui/assets/original/registry.json",
+        ".github/workflows/original-assets.yml"
+      ],
+      "blockers": [
+        {
+          "code": "ASSET_APP_MIGRATION_REMAINING",
+          "detail": "Shared shell and selected native defaults migrated; 2539 runtime source files still reference existing framework glyphs. These are inventory records, not broken assets or license violations."
+        },
+        {
+          "code": "ASSET_HOST_REVIEW_PENDING",
+          "detail": "Deployment/device, source binding, human localization/accessibility/contrast/release and resolved-license-bundle review remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_asset_and_shared_adoption_regressions_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41262137235,
+        "sourceCommit": "112891281b3175a3bcb38902ed57736cd526fb97",
+        "validateJobId": 124717385931,
+        "productionJobId": 124717455483,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 5,
+        "requiredElements": 5,
+        "resources": 15,
+        "translations": 45,
+        "primitiveIds": {
+          "prime_asset": 21
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/original-assets-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41263870497,
+        "sourceCommit": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "App-specific framework icon migration with individual verified usage",
+        "Host-specific metadata/source bindings and production deployment/device checks",
+        "Human localization, accessibility, contrast, screen-reader and release review",
+        "Resolved-version third-party license bundle review; retained dependencies remain installed"
+      ],
+      "nextAction": "Proceed to B13 calendar/contacts/tasks/notes/scrumboard foundations. Retain B12 app-specific migration, deployment/device and human/license review gates; remove old dependencies only after proven usage closure."
     },
     {
       "id": "B13",

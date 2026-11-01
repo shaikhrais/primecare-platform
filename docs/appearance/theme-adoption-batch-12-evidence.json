@@ -1,0 +1,330 @@
+{
+  "format": 1,
+  "batch": "B12",
+  "status": "shared_original_assets_adopted_selected_sources_app_migration_review_pending",
+  "sourceCommit": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+  "sourceRun": {
+    "runId": 41263870497,
+    "sourceCommit": "1b86c3764c4fc456d717c81bb8c657c465806d29",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124722490522,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T02:08:12.6644005Z Ran 7 tests in 0.051s",
+          "2026-11-01T02:08:12.7773726Z \u2139 tests 4",
+          "2026-11-01T02:08:12.7774655Z \u2139 pass 4",
+          "2026-11-01T02:08:13.5823034Z {\"assets\":121,\"legacyShellKeys\":25,\"checks\":[\"all vector geometry renders\",\"meaningful and decorative naming\",\"RTL directional-only mirroring\",\"literal labels and rejected unsafe themes\",\"keyboard shell controls\",\"mobile scaling\",\"zero external requests\"],\"productionHostActivation\":false}",
+          "2026-11-01T02:08:17.4543724Z Tenant dashboard passed 74 database/API checks: real metrics, registered workflows, tasks, independent review, tenant/owner isolation, preferences, demo cleanup and immutable audit.",
+          "2026-11-01T02:08:21.1242819Z Ran 7 tests in 0.013s",
+          "2026-11-01T02:08:21.2809708Z Ran 3 tests in 0.004s"
+        ]
+      },
+      {
+        "id": 124722675468,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T02:11:13.2479173Z No issues found! (ran in 15.5s)\r",
+          "2026-11-01T02:11:34.2628901Z 00:07 +21: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124722675478,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T02:13:29.1927730Z No issues found! (ran in 10.6s)",
+          "2026-11-01T02:14:00.8745530Z 00:12 +21: All tests passed!"
+        ]
+      },
+      {
+        "id": 124722675547,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T02:09:35.0078252Z No issues found! (ran in 13.5s)",
+          "2026-11-01T02:09:51.0814425Z 00:05 +21: All tests passed!"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41262137235,
+    "sourceCommit": "112891281b3175a3bcb38902ed57736cd526fb97",
+    "validateJobId": 124717385931,
+    "productionJobId": 124717455483,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 5,
+    "requiredElements": 5,
+    "resources": 15,
+    "translations": 45,
+    "primitiveIds": {
+      "prime_asset": 21
+    },
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/original-assets-registration-receipt.json"
+  },
+  "assets": {
+    "originalIcons": 105,
+    "otherOriginalAssets": 16,
+    "newIcons": 49,
+    "newScenes": 9,
+    "aliases": 20,
+    "sharedShellKeysMapped": 25,
+    "canonicalSvgFiles": 121,
+    "newRuntimeDependencies": 0,
+    "allAppMigrationClaimed": false,
+    "vendorSourceCopied": false
+  },
+  "verification": {
+    "compilerGroups": 7,
+    "registryHashShellGroups": 4,
+    "browserAssetsRendered": 121,
+    "nativeAssetsRendered": 121,
+    "nativeAssetTests": 4,
+    "nativeNavigationTests": 5,
+    "nativeDataControlTests": 12,
+    "nativeTotalPerPlatform": 21,
+    "isolatedTenantDashboardChecks": 74,
+    "navigationWebRegressionPassed": true,
+    "nativeRasterTintRtlComparison": true,
+    "registrationTests": 7,
+    "metadataStoreTests": 3,
+    "flutterVersion": "3.41.5"
+  },
+  "sourceSha256": {
+    ".github/workflows/original-assets.yml": "a26fdee30ff931f3e6f9a19a0697d229613875100cbc766394eb7a9725fc7f10",
+    "docs/appearance/original-assets-registration-receipt.json": "ce309ee8d38677cf1d41b81a8ba2346d438b09e95e5094ee7f097e17fa3164e4",
+    "packages/flutter_core/lib/data_controls/prime_data_controls.dart": "a706658a9b07b28456133c01af40fbf3b00dce6c64e91afea03259e6529b4f81",
+    "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart": "71eb12dae4556bf9a451f819c07881e0c920a1253de0a2c0163f0f043d742435",
+    "packages/flutter_core/lib/original_assets.dart": "2e6780fa5b6eba2fd26ad13ff0f7f2d2d425bae8f35c1c2ec7635a2e9fc5af8a",
+    "packages/flutter_core/lib/original_assets/asset_data.dart": "86572ea48293de38373e3b2199cd5cde25ec1152675a29fc0116de08aa4fbc99",
+    "packages/flutter_core/lib/original_assets/prime_original_asset.dart": "175e425d0053ee3419329eb35667be99434e1ef81ed7f5cb987ff9c05d5d6e6d",
+    "packages/flutter_core/test/original_assets/original_assets_test.dart": "255aa0d53791feab3627c1bad97851fa9b43bcd113b97aa33f9008a71a160c43",
+    "packages/primecare_ui/assets/original/README.md": "2491c96042bbd2e7a715212590034594edcdaa095b1450f2f6de5b3918ca8424",
+    "packages/primecare_ui/assets/original/assets/background-grid.svg": "234d5b09f7fb52856c6ce99c37101028122d20f9999bae34cb46ff5b039ee9ba",
+    "packages/primecare_ui/assets/original/assets/background-orbit.svg": "3c52134bcbb69ce0d0c4c9793790a19f4ab7c9128e25e50e71860dc33ea56cbe",
+    "packages/primecare_ui/assets/original/assets/brand-mark-concept.svg": "5a2af3b71a7b4f56625819f10ae81e11f2b68c7ae7bce9a59480762d4f4834cd",
+    "packages/primecare_ui/assets/original/assets/empty-appointments.svg": "e2534725684e9a9714d4e323a7897cee55c1925805a4a421ad571217d1e9d0b3",
+    "packages/primecare_ui/assets/original/assets/empty-dashboard.svg": "817643638205474f9b8ffebf1f5710a8362f6cc39c5ebbca10dbb672e2614944",
+    "packages/primecare_ui/assets/original/assets/empty-error.svg": "ba9cfbfcb4d96aa760d0cb36cfdbd7c4df2bfc5e6d8608d5e635ca808de99f9a",
+    "packages/primecare_ui/assets/original/assets/empty-messages.svg": "a98199b1c7b129b619129f723a76765f83ba413963a70a84284c9dba77894159",
+    "packages/primecare_ui/assets/original/assets/empty-offline.svg": "ed49c84d1f82ca3e4a69555e2b6618c1d36706fee6ac09a3dccecfa780feca03",
+    "packages/primecare_ui/assets/original/assets/empty-records.svg": "60e178b4aca4e11762cb2fdfbf492e88665383cec72bfb9a877a0a3dfcdc843d",
+    "packages/primecare_ui/assets/original/assets/empty-search.svg": "bea9b2d8162ce19c55436cfac742295afa0798b0833da8527b63cfe5a5bfff7c",
+    "packages/primecare_ui/assets/original/assets/empty-upload.svg": "70e92b87d074c04893eb592777afb46549d8d88fbf724de4cfa4f04880befddf",
+    "packages/primecare_ui/assets/original/assets/onboarding-layout.svg": "9c27e171c022ede713ec69d948160054615c33d70e479c21090bdcd054720c54",
+    "packages/primecare_ui/assets/original/assets/onboarding-theme.svg": "d3755bbeaca7eef9490890eb3ecd469941e2756cd05a010f148f8a9cf011e183",
+    "packages/primecare_ui/assets/original/assets/onboarding-welcome.svg": "cab766661613c73fb645ff5fd95aec114c9fcb9f66ed34ae8ad6615dd6897550",
+    "packages/primecare_ui/assets/original/assets/placeholder-avatar.svg": "516ac0b4a2b1a853b81802ace3e57ddabc18f59ca91931b7aa03a6b0aacae3d7",
+    "packages/primecare_ui/assets/original/assets/placeholder-image.svg": "65e5bec9f1161c7b4074cf3c6fe564dd73ea99016977829bf6af2b346abf05b4",
+    "packages/primecare_ui/assets/original/icons.json": "403dc965700f99b7a8460d9ed0a62730d03ca5996f3300b552042375478c6e61",
+    "packages/primecare_ui/assets/original/icons/accessibility.svg": "df4404c20eb808d03f5022fbeadd6244a423ebc304da0adf5e8eac67f9dd19e9",
+    "packages/primecare_ui/assets/original/icons/add.svg": "2bf4f531d1a6a1b3b413f0a3fcb489ed3a83da70b6389940cb5e7f51e8655e2d",
+    "packages/primecare_ui/assets/original/icons/appointment.svg": "6634cb71e1b76e24d60f4a8888037d610456148a3a2c1548016c2d15c34b53fd",
+    "packages/primecare_ui/assets/original/icons/arrow-down.svg": "47d55b4d0684d28001178e674b8505926ff7454ad1101dc5b2f0714bc0376c8f",
+    "packages/primecare_ui/assets/original/icons/arrow-left.svg": "fe2d3625ddecab08bec4bf2cbde176926ef99451bd6f031492e537b561c944c7",
+    "packages/primecare_ui/assets/original/icons/arrow-right.svg": "cdfada482aaa0ace6429922d87fb042dad77d75f46db5247930d2ad6619aafcd",
+    "packages/primecare_ui/assets/original/icons/arrow-up.svg": "b9d9c758e6e67e01a116cb8cd78a5e88b25c6e5243615e45cfb111629f388bc8",
+    "packages/primecare_ui/assets/original/icons/attachment.svg": "8bc25f2b5fc5c58b75c414f90a2dfb9426e628962aaed6b9e4053f014ddfcaf0",
+    "packages/primecare_ui/assets/original/icons/audit.svg": "0d85ddf8537fdd195b0c63b5ab9a2d0afc67f264e47ae2f327b4231a90004ead",
+    "packages/primecare_ui/assets/original/icons/billing.svg": "f98c7cb6efec98e33675fda3c9265f06edda1ed8193c4ed32d67df9b8ebd27b6",
+    "packages/primecare_ui/assets/original/icons/bold.svg": "a1fc4cd5bd0ca69ad8e4cd99515b8da4347afdb3bcb8dc4873a2edc7f2d6781a",
+    "packages/primecare_ui/assets/original/icons/bookmark.svg": "ca99b69490c4b529284dbf433762d1b3f6a2227795939112c479853343a5af1f",
+    "packages/primecare_ui/assets/original/icons/calendar.svg": "d4c5024dde64351bb4c08144f19576d9be1c678d48ee388cdebced2c1bb271c9",
+    "packages/primecare_ui/assets/original/icons/care-plan.svg": "86cd2236e9397efea34d31bf57236ef3342f01e5fa5e1ba062f2027e594e7bef",
+    "packages/primecare_ui/assets/original/icons/chart-area.svg": "03766bfbebcde8964aa9196982d233c25239da745cb10a257cba8cb0dff423f5",
+    "packages/primecare_ui/assets/original/icons/chart-bar.svg": "a052336d02a568b410409351df3874873e80b77b9d0a592ba058c6d1a62fee9c",
+    "packages/primecare_ui/assets/original/icons/chart-donut.svg": "c34f77dfe7f61875956700c5fb8e608dff7c00432673c4d12db9fced357e2386",
+    "packages/primecare_ui/assets/original/icons/chart-line.svg": "bf2f17134ef7e70982711c2db97c92ecc1bf3f12153938c80f2d0c2473f8c985",
+    "packages/primecare_ui/assets/original/icons/check.svg": "4fe69da7d1d792abe8769177335947e46114b2444d6bee5c94029054877b5e07",
+    "packages/primecare_ui/assets/original/icons/checkbox.svg": "3a48eea048a80bd2b9bc24fb6c23a144d85e5a437f03d0d80a6b2ea86b7e310f",
+    "packages/primecare_ui/assets/original/icons/chevron-down.svg": "0c307a942650588697caa5df6d8fa3aeb868c1502f5a1290020db458055ca9fe",
+    "packages/primecare_ui/assets/original/icons/chevron-left.svg": "3daf21eb8876d53aa936937106042457118af11ae919a576cc055ece0e75fec1",
+    "packages/primecare_ui/assets/original/icons/chevron-right.svg": "9a3021db2846d7e881bb46950e391047209cf702a8df481a544f5e61f43b21a3",
+    "packages/primecare_ui/assets/original/icons/chevron-up.svg": "cf89a4681705e73e3fb4d13d53e399106c5dc99b10bea1918e74d4e6444148af",
+    "packages/primecare_ui/assets/original/icons/clock.svg": "a7363a70a00fe921abe2ad0d2fa30c24569c0cc3d95868cfc87cdbb82bfc8aee",
+    "packages/primecare_ui/assets/original/icons/close.svg": "1055185caf78ce28e192b37e64d6d76d6c7bb1576d1d7bcc173dc461b1e47f91",
+    "packages/primecare_ui/assets/original/icons/cloud.svg": "b8a976cdc96eb48cd349844ed488ce2f2c50a186576236e9577a353450877268",
+    "packages/primecare_ui/assets/original/icons/code.svg": "62707c71ed49dd9fba59635171de1ad1da6fd2e570a295818ec7081df4d06788",
+    "packages/primecare_ui/assets/original/icons/collapse.svg": "f9bac481b6d027c064eabd770d2e38c0ebc9614d02325cf84a1d0e598eb11bbd",
+    "packages/primecare_ui/assets/original/icons/columns.svg": "96e9bc25339dc4e273430ce9bb4269507e5daaac2195deb167f5e2d78b2ed124",
+    "packages/primecare_ui/assets/original/icons/copy.svg": "2f363a9d97d3f292518e68e8c550f24e2f71a9edbde93f787ea96d1b3f54cdf0",
+    "packages/primecare_ui/assets/original/icons/dashboard.svg": "590d87a58c54c29f7fad73d46bf4788feca33a3f0daf0cb031f513d038723d81",
+    "packages/primecare_ui/assets/original/icons/database.svg": "e6d65543bf386b3f6afb7781239c076b555f53f3373a353274cd88a70709fb58",
+    "packages/primecare_ui/assets/original/icons/delete.svg": "d4b0cec8ec8c13e95a2648ab508e8407be8f9405cfca08f1eff37b84b64a7af3",
+    "packages/primecare_ui/assets/original/icons/desktop.svg": "19a799f5ecbaf254b2c6b44cd466f74f88e092945259b7f0a9e8bab134a4ca94",
+    "packages/primecare_ui/assets/original/icons/document.svg": "eabf131f16779d8fbca107f4f6af18502e8fed39a118994cbcd853f139505e45",
+    "packages/primecare_ui/assets/original/icons/dots-vertical.svg": "8058e4a034c62b8208b179254e469b300b9744038f09a459c8816bf91eba9e41",
+    "packages/primecare_ui/assets/original/icons/download.svg": "04c320aa76cc045bc52c535b0334313807df2b483e2959913daedbbf7d206563",
+    "packages/primecare_ui/assets/original/icons/edit.svg": "9c69cdacac7f1005fab2649e289f20c91b704ed162834830bcdb8bd6ddc29752",
+    "packages/primecare_ui/assets/original/icons/email.svg": "1a99096ff7260a359202e15ebf9c12a9f9116d0fa8407b7600ca0d1377980b5c",
+    "packages/primecare_ui/assets/original/icons/error.svg": "da713ecda6dfeb3bb067a57f495f28d8011f60ab5cbca55fa2f6101dc64c2347",
+    "packages/primecare_ui/assets/original/icons/expand.svg": "725bc139743d0a9b348668cd3223fb92119b4f253fc970bba26380a6550e1300",
+    "packages/primecare_ui/assets/original/icons/external-link.svg": "1c7f2043a91e7a1edbd129aa1b841819e5db94b39f634c80f6e0a6bfedfbb47f",
+    "packages/primecare_ui/assets/original/icons/eye-off.svg": "91c8982d2c93275d19b6cb296f403f722377bc58fb7b1bd70876e136f1ef41d9",
+    "packages/primecare_ui/assets/original/icons/eye.svg": "aa76d99ff53359b0515ca1c28f6b1c0f98b55c915aeb38c79167b87e000b1e9c",
+    "packages/primecare_ui/assets/original/icons/filter.svg": "651749b1af7f8d58303c9300afe0b4d0ca90fd7c3fc140158fd4128c733d6159",
+    "packages/primecare_ui/assets/original/icons/folder.svg": "640a45ec7624198b85ef51638a5cff40f9d224f30268b1d3a72ed80a197da06c",
+    "packages/primecare_ui/assets/original/icons/fullscreen-exit.svg": "5f0b589d35bade93dfc977511491e5fe1a1af791335a0adaab2dd6a528fab7da",
+    "packages/primecare_ui/assets/original/icons/fullscreen.svg": "5d92f648afdf700820be4ef2c3c732f9127b1d5ea745e8be62dc9cc8abf0b6b3",
+    "packages/primecare_ui/assets/original/icons/heart.svg": "f7033e303baca55e84eeeef238e0374483ac5a4227079bcf52e695d536e11f6d",
+    "packages/primecare_ui/assets/original/icons/help.svg": "a920a28f4ef9295177ec545b2f458cf82163196bbc937986d6ec3df9a7c43db1",
+    "packages/primecare_ui/assets/original/icons/home.svg": "56ff2aa42d14012d79c21b1d6f6c91aa5bf057b455b786237e3898b4b93d5c9f",
+    "packages/primecare_ui/assets/original/icons/image.svg": "ceec06fb45aaefd91d62ab093e04c5e5ecaa89c02f85fe7602a8cdaaeb635fad",
+    "packages/primecare_ui/assets/original/icons/info.svg": "26ac2df22eae2566f72f2bdfe50c7d65cc600bc3862b8c90df8ed1b741221c82",
+    "packages/primecare_ui/assets/original/icons/italic.svg": "c0d946182ef34d05f7e91d0ce7ce532a11664c239982c8e2de8d3706b333b697",
+    "packages/primecare_ui/assets/original/icons/launch.svg": "f102a6f48cd36aed32b0665607f7ea7bfc48b4dae8158ecf63ce92750257f362",
+    "packages/primecare_ui/assets/original/icons/layout.svg": "e717f5fbf51334f82c0fd4b45f554e7250a77836aa0a7157017c730db66acb92",
+    "packages/primecare_ui/assets/original/icons/link.svg": "a561f04d8a7c5f47e774d987562e205c82ba631d152c669617c7fcbf3c1ae06f",
+    "packages/primecare_ui/assets/original/icons/list.svg": "bbfb74cba5b84cc479a5abc22ad7268418e420202a09c59d8020c0ba5e9a0ed6",
+    "packages/primecare_ui/assets/original/icons/lock.svg": "d1675ef91d7ac9662972b7417f0c38d8be54d6522bfa0e682ec4afd126245406",
+    "packages/primecare_ui/assets/original/icons/logout.svg": "83a1458aeb7ddef9da2fca325de6e72d80e1a2d1b7702c25edc8ac0a0048acea",
+    "packages/primecare_ui/assets/original/icons/medical-bag.svg": "4d03210bafcd6425a10df1edb0ce4ca076d0dc0c117033487bb23ed106a63078",
+    "packages/primecare_ui/assets/original/icons/menu.svg": "9fac1aca9469b26ed107319b8f28accffe980ba93d287ceb59fe2941fb99450e",
+    "packages/primecare_ui/assets/original/icons/message.svg": "9b463fba0b1f79b46ee612d9b63ecc7930751c4f646b0feec1f65c496363b6de",
+    "packages/primecare_ui/assets/original/icons/metric.svg": "2c476bb88a5641ae98c499b128c790d5b024c43fb4676054c8a05ccb5e14127b",
+    "packages/primecare_ui/assets/original/icons/microphone.svg": "a58eb3401d0f3e89f0e64fb579b92a80da96915664afe38ed334b3e60cac15b4",
+    "packages/primecare_ui/assets/original/icons/mobile.svg": "35d32ddecad0df28b3ffd025b6247ff41a3a6497fa5eb3b9141e9111f00aae83",
+    "packages/primecare_ui/assets/original/icons/moon.svg": "97ca41a075a99a89d52ba26aca0606a48df9fe1a02bd8daca5cbb9789b0212a0",
+    "packages/primecare_ui/assets/original/icons/more.svg": "69f193732beb90f4cf9db9f5d9e01331cc6b251ae6b1b5b7972fdd4a76e1a85b",
+    "packages/primecare_ui/assets/original/icons/notes.svg": "65a7be10b2eb51de2f271b4db1ac5bcb38bc532a6f208b0b988ab1af34521387",
+    "packages/primecare_ui/assets/original/icons/notification.svg": "e5f9d0f98d736586c1e298a944786e31d8f2de0cf9794485636d6e8ad5876d98",
+    "packages/primecare_ui/assets/original/icons/offline.svg": "dbdedc48c22fc5d63f885eedf9651d2cafbf979d0ec56b620be5a6f889bd212b",
+    "packages/primecare_ui/assets/original/icons/phone.svg": "6dd9c08d7e2804cf20a55833b4334e43ce7a2c8bd5f52aee2331af9ae9b68db8",
+    "packages/primecare_ui/assets/original/icons/pin-panel.svg": "921e2d525352744b13c6127cc900f929005af2933c23eed4f569b459dc168fbd",
+    "packages/primecare_ui/assets/original/icons/pin.svg": "8a81fe1654ea79ba941f6fba1f77d503440e031c9cb7054b9cc921e1f7ad9947",
+    "packages/primecare_ui/assets/original/icons/placeholder-circle.svg": "ae0843fa6f914ae5f8b513f031438a2890de60cdd9f4afd494bf8d36a8330e98",
+    "packages/primecare_ui/assets/original/icons/pulse.svg": "9e0a02a855083fd2f41c282d8b182a87747a65d01bd66a9616443b229291e3fa",
+    "packages/primecare_ui/assets/original/icons/radio.svg": "f528f257c887c25212f550e0edc158fd9a0612260fd7f2700522785b524d7b1a",
+    "packages/primecare_ui/assets/original/icons/refresh.svg": "80c20659a5d17e7f8364066c5ea23744b8140477b764134cb5a078d7ac05686e",
+    "packages/primecare_ui/assets/original/icons/report.svg": "5dbcce0debe1ca3f3c817dbd16edd9e0ba89393b5c0ff5fbd6a0d6b00bd70ccd",
+    "packages/primecare_ui/assets/original/icons/resize.svg": "1cd8ba84b7ce81603964057fbb11361e3df3fdb8c6bf06913078f1f1c381fd9d",
+    "packages/primecare_ui/assets/original/icons/robot.svg": "e0eb6c59ecd9906a1c8fbbd4983d68b13a8b65b8595fe7879d1601e0cb3b0cb8",
+    "packages/primecare_ui/assets/original/icons/save.svg": "115f9e6b59e30145dfb42a0c79beb572ecd9854c082bdfb61d700fc56881288d",
+    "packages/primecare_ui/assets/original/icons/search.svg": "2b1c23dc7e486b2d97600a8d008dc176adaac1c56a2243b92a40ee02b2029539",
+    "packages/primecare_ui/assets/original/icons/settings.svg": "9e213acb1dc80fba93d6c06b3ae347a53534aacb0cc07103c2265ade74c4a53c",
+    "packages/primecare_ui/assets/original/icons/shield.svg": "4dcf1b32d7071f9fbbe8dcff4d57cb11b88686a03398614050df54e30e6d6d9a",
+    "packages/primecare_ui/assets/original/icons/sort-ascending.svg": "10fca1fba63530da35ab20210a3303fefea5daca4a936ca0503d7d76550fb741",
+    "packages/primecare_ui/assets/original/icons/sort-descending.svg": "70d6a22f73b4a3006fab869d38263cfd1842559c29aa4c7dbb2d39f760b04453",
+    "packages/primecare_ui/assets/original/icons/star.svg": "8b058429634f1b3d9eb0afb99e3e9f4be218d070af07e48d772e4c1aabb2f865",
+    "packages/primecare_ui/assets/original/icons/sun.svg": "f5d4fa69931d00df86a2e7daede30ac8e6f4463cb8a51060dbce492514b515e0",
+    "packages/primecare_ui/assets/original/icons/table.svg": "909d4ef9a47f1fcccec480b51243373ff92edff6d7290c69e2df05457d0bf413",
+    "packages/primecare_ui/assets/original/icons/tablet.svg": "9193ea9ad3b7992e3d609c35b0a90f65cabd9f2b4daeed1ef6bdb6c93631a74e",
+    "packages/primecare_ui/assets/original/icons/team.svg": "126202f9c71612aa35a4565bb896f90d6f27dbd3039eed322a2f74c073cc31d7",
+    "packages/primecare_ui/assets/original/icons/tenant-add.svg": "ea18272ea5ccbe54cf9d64aaae028079414019c9c56d0d5d3db341e70e204f52",
+    "packages/primecare_ui/assets/original/icons/tenant.svg": "e57e364f9da92704cdea37ba79b1e9011cca1d6b43b00bfbdb18856f41b1f919",
+    "packages/primecare_ui/assets/original/icons/territory.svg": "cb52083288a407ab4ff080bd33942ef744cd3232697bc26b4038ff43d4715b3d",
+    "packages/primecare_ui/assets/original/icons/theme.svg": "3013fe8d32c9999521d21585befe2b2423d6a63702186208d4a4d8faf5bf4274",
+    "packages/primecare_ui/assets/original/icons/toggle.svg": "16eedd5ff7a504be3008fc7178b079709ce474eb4091319f27e556d30fc83efd",
+    "packages/primecare_ui/assets/original/icons/training.svg": "49811785e3bb96bc90de29c5e4a70b9c67e837a01a9ea7cca0ccb80eb2247775",
+    "packages/primecare_ui/assets/original/icons/upload.svg": "ae82cdb4727d7aeed0530a06b1d212cbaf5cb4b87aa9586edbf30566bebdb991",
+    "packages/primecare_ui/assets/original/icons/user-circle.svg": "5bdd8b67570b2b28403581c8e04c7caaff4d5c668bbafdfbaaebae370df29bcb",
+    "packages/primecare_ui/assets/original/icons/user.svg": "bf064783f2542d7f75420289bc0f81648cff3c6c8f3bad946056d29c57b166f7",
+    "packages/primecare_ui/assets/original/icons/video.svg": "2d7ef6fc00bd3fa4d98436798c63163a9c05de5021958a7af523edcd35bb6aeb",
+    "packages/primecare_ui/assets/original/icons/warning.svg": "aa4bfa67254b16929a2778d4d310810d565224ee1f931f68338758cd35fdc247",
+    "packages/primecare_ui/assets/original/icons/workflow.svg": "6f9f07b7c0deac5d99b4f3ec6368d9cbbd899723e6863f83a5a693539d0db2c5",
+    "packages/primecare_ui/assets/original/preview.html": "751553291cfec207ec54fdebf618096b32bea5691ab52a2d38f4f2be4e392bb4",
+    "packages/primecare_ui/assets/original/primecare-sprite.svg": "d7d67742964d6439cc88e87174b30ef9da46aa3cfc81d83bec45e3d9d353c364",
+    "packages/primecare_ui/assets/original/registry.json": "a45d33d47ae14e4c9c9b4a9a1b799954d85f57ce1682ac5a79ba868ab1a3a496",
+    "packages/primecare_ui/assets/original/theme-tokens.json": "d0d42d84033ba05a932a0d7867949cf926ee940056d992e92fbaf6cc7f7018b9",
+    "packages/primecare_ui/catalogs/original-assets.registration.json": "3494ac588b0c76834b972ef7f859c683f76c66c87b53f0170bcadb1fd0d9937e",
+    "packages/primecare_ui/lib/original_assets.dart": "2f25a9a9c2e30f4d6587a043e88fbd71efa050bea29a37b1d8ceecf7f75b0bcb",
+    "packages/primecare_ui/lib/src/theme/primecare_assets.dart": "54e05ab76583f4f60114eb572d5511ef374e4c0886cab76becd23346b6687dbb",
+    "packages/primecare_ui/web/icons.ts": "6d339345e5f8ce6f381593af4791af74d13438876218fb88c1ff91ed3ef2c89a",
+    "packages/primecare_ui/web/index.ts": "ee2aa0f70f47c18e2c28a3c4f61e4d70e129c8a9cd67db49912035da86213abb",
+    "packages/primecare_ui/web/original-asset-view.ts": "8b8b42fe987b561f5f93651f7aa3dad507e68db4a4c1bd4a096e59099d221f88",
+    "packages/primecare_ui/web/original-assets.ts": "221fdeadf994583d9477800c0ed016ddc4f009fe823a4e4228b4a745cb674f9c",
+    "scripts/build-original-assets.py": "69f330ee7d45a7179c275808e49943847d67c8785c36805a6e081599ecb42d49",
+    "scripts/test-original-asset-compiler.py": "f8eb0d42512ac561dd5b25b2baef783031e55667025c46660d77664ebdf5c52b",
+    "scripts/test-original-assets-browser.mjs": "f2b71e410a78554cccaba6e2babd4ff24981ffbe7f7d1965a213eb34bc0fd921",
+    "scripts/test-original-assets-model.mjs": "0bcca1c159e27b92b647accc735d74b88c3a143da96e35320b06fa79c971829e",
+    "websites/typescript/src/shell-icons.ts": "8d99aab1f853e1006ca32f8cefd742109e23779413a0e7dc2281c3d3b544a26f"
+  },
+  "registrationSha256": {
+    "tools/governance-production/original-assets-contract.json": "538fcff1428157bd0e53a4cc57f9387421eb34c68a706a18eb10b68f4a0170f3",
+    "tools/governance-production/original_assets_registration.py": "4cded2e94fbb7c89bfdd1b85d42f8be83afafb3181af21850f878f2cf9cb25bd",
+    "tools/governance-production/test-original-assets-registration.py": "a13f2bbb2d75c79527265a147bc0c66905c4d23d9ed6cfc3a017e77576412803",
+    "tools/governance-production/production-pin.json": "7010a8789b88e9d4cde24bd05682d539479e99cde3562d41a7da53c7ff081aab",
+    ".github/workflows/original-assets-registration.yml": "7452cebeed069f848333146269bc15d8a5f4e577a5b9c54fb9a7127e69e8dd4e"
+  },
+  "usageAudit": {
+    "path": "docs/appearance/original-assets-usage-audit.json",
+    "sha256": "95fa9f15f0f1c369b76afd3b5cc8b7831cce44d2bf0f19fd4a8304e1a2fd0022",
+    "remainingFrameworkFileCount": 2539,
+    "sourcePages": [
+      {
+        "path": "docs/appearance/original-asset-usage/part-001.json",
+        "sha256": "d208dc32a525fd7ad9f3cb355736aa5fd770fb235cea92935b3397d0aa09a346"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-002.json",
+        "sha256": "c5f89602f0dfefd1787ae94a22782c66da5c48af522d4849e9f9707c94a415fe"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-003.json",
+        "sha256": "0f8503139a40b12a14ee3d80aad7e385e940c6663675f084164c4742c33f472b"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-004.json",
+        "sha256": "783b7687da7d27f389fdb5b967564f67865f49ebcc5e3d1e5ece1748cbaa00c0"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-005.json",
+        "sha256": "386382202ba90edc5549d3052b894e70876d734cc3843091cb4cf634f9b57e02"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-006.json",
+        "sha256": "4058892adbdc3582fa7d5487c1b9f620a5e476a42776dbd1be10b12fcd183dcc"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-007.json",
+        "sha256": "feeff83d3891439ad8dd1bdf789311ecbc3e4dd8ef90723a202860ba7d93b894"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-008.json",
+        "sha256": "73520783dd6137848595255e4ed682ae2a66ce20d0eddfcf34d28e39618a833b"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-009.json",
+        "sha256": "1563a8a425fc2b2d59a60d756bd051ea0f6aa0812a25da89e9d04afc988034d2"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-010.json",
+        "sha256": "ac116d9a9e342bc000ef5e1ec42801fc382345944b830dec658e6205a0c7aa0f"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-011.json",
+        "sha256": "71c06f89843d7da53e53d2800c251d80a08382ab21be1411854177e7c29d36e1"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-012.json",
+        "sha256": "6ea846cbbc36cbccce26455b45e7bd55fb0fec676a44498c2304cfd60bb21667"
+      },
+      {
+        "path": "docs/appearance/original-asset-usage/part-013.json",
+        "sha256": "eee1e1d49e1aba2113f4b58ce6a0f5b639eca921d079651a6508c4d21e193b2e"
+      }
+    ]
+  },
+  "provenance": {
+    "path": "docs/appearance/original-assets-provenance.json",
+    "sha256": "81579320902bea0c0660b8af037d94f6ad5e0e51f2413d0d8f551a84edd5ddc3",
+    "trademarkClearanceClaimed": false,
+    "fullTransitiveLicenseAuditClaimed": false
+  },
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "wholeRepositoryCiClaimed": false,
+  "remainingGates": [
+    "App-specific framework icon migration with individual verified usage",
+    "Host-specific metadata/source bindings and production deployment/device checks",
+    "Human localization, accessibility, contrast, screen-reader and release review",
+    "Resolved-version third-party license bundle review; retained dependencies remain installed"
+  ]
+}
