@@ -1875,5 +1875,28 @@
     "newRoleGrants": false,
     "runtimeActivation": false,
     "businessDataWrites": false
+  },
+  "adminSelfPreferenceGrantWriter": {
+    "optInVariable": "REGISTER_ADMIN_SELF_PREFERENCES",
+    "policySha256": "5c874e6b06bac3083918e5456cc57e7f31f35e72c6f97479d40a0456a8941f32",
+    "tables": [
+      "api_permissions"
+    ],
+    "apiId": 777,
+    "roleIds": [
+      70,
+      72,
+      80
+    ],
+    "grantIds": [
+      80123,
+      80124,
+      80125
+    ],
+    "existingGrantsPreserved": 64,
+    "newRoleGrants": 3,
+    "runtimeActivation": false,
+    "businessDataWrites": false,
+    "createRoles": false
   }
 }

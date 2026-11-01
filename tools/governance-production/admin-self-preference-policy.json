@@ -1,0 +1,54 @@
+{
+  "format": 1,
+  "apiId": 777,
+  "path": "/v1/user/preferences",
+  "permissionKey": "authenticated_self_preferences",
+  "artifactId": 2,
+  "roles": [
+    {
+      "id": 70,
+      "code": "platform_admin"
+    },
+    {
+      "id": 72,
+      "code": "tenant_admin"
+    },
+    {
+      "id": 80,
+      "code": "code_admin"
+    }
+  ],
+  "expectedGrantIdUpperBound": 80122,
+  "grants": [
+    {
+      "id": 80123,
+      "api_id": 777,
+      "role_id": 70,
+      "runtime_artifact_id": 2,
+      "permission_key": "authenticated_self_preferences",
+      "can_access": 1
+    },
+    {
+      "id": 80124,
+      "api_id": 777,
+      "role_id": 72,
+      "runtime_artifact_id": 2,
+      "permission_key": "authenticated_self_preferences",
+      "can_access": 1
+    },
+    {
+      "id": 80125,
+      "api_id": 777,
+      "role_id": 80,
+      "runtime_artifact_id": 2,
+      "permission_key": "authenticated_self_preferences",
+      "can_access": 1
+    }
+  ],
+  "authorization": "User explicitly confirmed own theme, layout and shortcut preferences for these three existing admin roles in this conversation",
+  "ownership": "Authenticated user only, within current tenant, active role and live/demo dataset; existing registered screen/panel checks remain",
+  "existingGrantsPreserved": 64,
+  "runtimeActivated": false,
+  "createRoles": false,
+  "quarantineChanges": false
+}
