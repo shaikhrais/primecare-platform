@@ -1,0 +1,349 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/application-modules.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_dropdown_web",
+    "prime_text_field",
+    "prime_textarea_web",
+    "prime_table_web"
+  ],
+  "controls": [
+    {
+      "key": "academy",
+      "testId": "application-modules-academy",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.academy"
+    },
+    {
+      "key": "commerce",
+      "testId": "application-modules-commerce",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.commerce"
+    },
+    {
+      "key": "ai-images",
+      "testId": "application-modules-ai-images",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.ai-images"
+    },
+    {
+      "key": "profile",
+      "testId": "application-modules-profile",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.profile"
+    },
+    {
+      "key": "settings",
+      "testId": "application-modules-settings",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.settings"
+    },
+    {
+      "key": "help",
+      "testId": "application-modules-help",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.help"
+    },
+    {
+      "key": "filter",
+      "testId": "application-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.filter"
+    },
+    {
+      "key": "open",
+      "testId": "application-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.open"
+    },
+    {
+      "key": "detail",
+      "testId": "application-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.detail"
+    },
+    {
+      "key": "title",
+      "testId": "application-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.title"
+    },
+    {
+      "key": "body",
+      "testId": "application-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "applicationModules.body"
+    },
+    {
+      "key": "date",
+      "testId": "application-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.date"
+    },
+    {
+      "key": "action",
+      "testId": "application-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "applicationModules.action"
+    },
+    {
+      "key": "save",
+      "testId": "application-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.save"
+    },
+    {
+      "key": "create",
+      "testId": "application-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.create"
+    },
+    {
+      "key": "close",
+      "testId": "application-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.close"
+    },
+    {
+      "key": "previous",
+      "testId": "application-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.previous"
+    },
+    {
+      "key": "next",
+      "testId": "application-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.next"
+    },
+    {
+      "key": "reload",
+      "testId": "application-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.reload"
+    },
+    {
+      "key": "retry",
+      "testId": "application-modules-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.retry"
+    }
+  ],
+  "resources": {
+    "applicationModules.academy": {
+      "en": "Learning records",
+      "fr": "Dossiers d\u2019apprentissage",
+      "es": "Registros de aprendizaje"
+    },
+    "applicationModules.commerce": {
+      "en": "Authorized commerce records",
+      "fr": "Dossiers commerciaux autoris\u00e9s",
+      "es": "Registros comerciales autorizados"
+    },
+    "applicationModules.ai-images": {
+      "en": "AI image workspace",
+      "fr": "Espace d\u2019images IA",
+      "es": "Espacio de im\u00e1genes con IA"
+    },
+    "applicationModules.profile": {
+      "en": "Your account identity",
+      "fr": "Identit\u00e9 de votre compte",
+      "es": "Identidad de su cuenta"
+    },
+    "applicationModules.settings": {
+      "en": "Account navigation preferences",
+      "fr": "Pr\u00e9f\u00e9rences de navigation du compte",
+      "es": "Preferencias de navegaci\u00f3n de la cuenta"
+    },
+    "applicationModules.help": {
+      "en": "Help centre",
+      "fr": "Centre d\u2019aide",
+      "es": "Centro de ayuda"
+    },
+    "applicationModules.filter": {
+      "en": "Filter visible records",
+      "fr": "Filtrer les dossiers visibles",
+      "es": "Filtrar registros visibles"
+    },
+    "applicationModules.open": {
+      "en": "Open details",
+      "fr": "Ouvrir les d\u00e9tails",
+      "es": "Abrir detalles"
+    },
+    "applicationModules.detail": {
+      "en": "Record details",
+      "fr": "D\u00e9tails du dossier",
+      "es": "Detalles del registro"
+    },
+    "applicationModules.title": {
+      "en": "Title",
+      "fr": "Titre",
+      "es": "T\u00edtulo"
+    },
+    "applicationModules.body": {
+      "en": "Content",
+      "fr": "Contenu",
+      "es": "Contenido"
+    },
+    "applicationModules.date": {
+      "en": "Date",
+      "fr": "Date",
+      "es": "Fecha"
+    },
+    "applicationModules.action": {
+      "en": "Available action",
+      "fr": "Action disponible",
+      "es": "Acci\u00f3n disponible"
+    },
+    "applicationModules.save": {
+      "en": "Apply change",
+      "fr": "Appliquer la modification",
+      "es": "Aplicar cambio"
+    },
+    "applicationModules.create": {
+      "en": "Create record",
+      "fr": "Cr\u00e9er un dossier",
+      "es": "Crear registro"
+    },
+    "applicationModules.close": {
+      "en": "Close details",
+      "fr": "Fermer les d\u00e9tails",
+      "es": "Cerrar detalles"
+    },
+    "applicationModules.previous": {
+      "en": "Previous page",
+      "fr": "Page pr\u00e9c\u00e9dente",
+      "es": "P\u00e1gina anterior"
+    },
+    "applicationModules.next": {
+      "en": "Next page",
+      "fr": "Page suivante",
+      "es": "P\u00e1gina siguiente"
+    },
+    "applicationModules.reload": {
+      "en": "Reload records",
+      "fr": "Recharger les dossiers",
+      "es": "Recargar registros"
+    },
+    "applicationModules.retry": {
+      "en": "Confirm original change",
+      "fr": "Confirmer la modification initiale",
+      "es": "Confirmar cambio original"
+    },
+    "applicationModules.loading": {
+      "en": "Loading authorized records",
+      "fr": "Chargement des dossiers autoris\u00e9s",
+      "es": "Cargando registros autorizados"
+    },
+    "applicationModules.empty": {
+      "en": "No matching records",
+      "fr": "Aucun dossier correspondant",
+      "es": "No hay registros coincidentes"
+    },
+    "applicationModules.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acci\u00f3n"
+    },
+    "applicationModules.denied": {
+      "en": "Action not authorized",
+      "fr": "Action non autoris\u00e9e",
+      "es": "Acci\u00f3n no autorizada"
+    },
+    "applicationModules.conflict": {
+      "en": "Record changed; reload before retry",
+      "fr": "Dossier modifi\u00e9; recharger avant de r\u00e9essayer",
+      "es": "El registro cambi\u00f3; recarga antes de reintentar"
+    },
+    "applicationModules.invalid": {
+      "en": "Check the entered values",
+      "fr": "V\u00e9rifier les valeurs saisies",
+      "es": "Revisa los valores ingresados"
+    },
+    "applicationModules.unavailable": {
+      "en": "Approved workflow adapter is unavailable",
+      "fr": "Adaptateur de processus approuv\u00e9 indisponible",
+      "es": "Adaptador de proceso aprobado no disponible"
+    },
+    "applicationModules.success": {
+      "en": "Saved and read back",
+      "fr": "Enregistr\u00e9 et relu",
+      "es": "Guardado y verificado"
+    },
+    "applicationModules.partial": {
+      "en": "Only the authorized page is shown",
+      "fr": "Seule la page autoris\u00e9e est affich\u00e9e",
+      "es": "Solo se muestra la p\u00e1gina autorizada"
+    },
+    "applicationModules.shortcuts": {
+      "en": "Navigation shortcuts",
+      "fr": "Raccourcis de navigation",
+      "es": "Accesos directos de navegaci\u00f3n"
+    },
+    "applicationModules.editShortcuts": {
+      "en": "Edit registered screen shortcuts",
+      "fr": "Modifier les raccourcis d\u2019\u00e9crans enregistr\u00e9s",
+      "es": "Editar accesos a pantallas registradas"
+    },
+    "applicationModules.identity": {
+      "en": "Verified current session identity",
+      "fr": "Identit\u00e9 de la session actuelle v\u00e9rifi\u00e9e",
+      "es": "Identidad verificada de sesi\u00f3n actual"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Only existing tenant.admin.workspace task workflow: due dates, current-tenant directory read, task instructions and allowed task-state transitions. Standalone notes, appointment mutation, personal contact CRUD and manual ranking need specifications. No new grants, API, route, schema or runtime activation.",
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "POST",
+      "path": "/v1/user/preferences",
+      "service": "auth",
+      "permission": "authenticated_self_preferences"
+    }
+  ],
+  "discoveryApis": [
+    {
+      "method": "GET",
+      "path": "/v1/auth/me"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/provider/training-assignment-records"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/client/inventory-item-records"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/client/purchase-order-records"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/auth/me/authored-post-records"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/auth/me/ledger-event-records"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/help/articles"
+    },
+    {
+      "method": "GET",
+      "path": "/v1/knowledge/articles"
+    }
+  ]
+}
