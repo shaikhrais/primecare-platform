@@ -29,17 +29,20 @@
         "Produced exact row-level reconciliation records with no guessed mutations",
         "Read active auth/governance deployment version identities without settings or grant changes",
         "User confirmed self-only theme/workspace/shortcut preferences for Platform Admin 70, Tenant Admin 72 and Code Admin 80; isolated service policy checks pass",
-        "Governance release now has independently verified CI-source-to-uploaded-version-to-active-deployment provenance; no legacy artifact alias or grant relinking inferred"
+        "Governance release now has independently verified CI-source-to-uploaded-version-to-active-deployment provenance; no legacy artifact alias or grant relinking inferred",
+        "Recovered active auth source from successful historical main release: exact uploaded Worker version matches current independent Cloudflare readback"
       ],
       "remaining": [
         "Resolve role/action authority for the 128 wrong-operation labels",
         "Validate source/deployment provenance and register legitimate artifact associations; active version IDs alone do not identify legacy artifact 1",
-        "Implement confirmed admin self-preference policy through exact registered grants, hosts and deployment-backed runtime acceptance"
+        "Implement confirmed admin self-preference policy through exact registered grants, hosts and deployment-backed runtime acceptance",
+        "Current auth security/preference source acceptance and binding-preserving auth deployment; historical deployed source predates preference handler"
       ],
       "evidence": [
         "docs/appearance/theme-permission-reconciliation-proposal.json",
         "CI 41349589331 / job 124976690762",
-        "docs/appearance/theme-worker-provenance-evidence.json"
+        "docs/appearance/theme-worker-provenance-evidence.json",
+        "docs/appearance/theme-auth-release-provenance.json"
       ]
     },
     {
@@ -232,6 +235,15 @@
       "governanceReleaseReceiptIndependentlyMatched": true,
       "authSourceStillUnresolved": true,
       "preferenceRuntimeActivated": false
+    },
+    "historicalAuthSource": {
+      "source": "4ada3b8729a626d10560a7c2980035bf172b3640",
+      "releaseRun": 39773884490,
+      "job": 119810142529,
+      "currentReadbackRun": 41355924660,
+      "exactVersionMatched": true,
+      "preferenceHandlerPresentAtDeployedSource": false,
+      "artifactRegistrationApproved": false
     }
   },
   "permissionRowsChanged": 0,

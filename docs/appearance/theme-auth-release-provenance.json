@@ -1,0 +1,48 @@
+{
+  "format": 1,
+  "sourceCommit": "4ada3b8729a626d10560a7c2980035bf172b3640",
+  "worker": "primecare-auth-api",
+  "release": {
+    "id": 39773884490,
+    "head_sha": "4ada3b8729a626d10560a7c2980035bf172b3640",
+    "conclusion": "success",
+    "status": "completed",
+    "path": ".github/workflows/verify-auth-lifecycle-candidate.yml",
+    "head_branch": "main",
+    "event": "push",
+    "created_at": "2026-10-22T11:52:35Z",
+    "updated_at": "2026-10-22T12:00:46Z",
+    "html_url": "https://github.com/shaikhrais/primecare-platform/actions/runs/39773884490",
+    "job": 119810142529,
+    "logEvidence": [
+      "2026-10-22T11:58:11.7595955Z \u001b[36;1mecho \"Release source: $GITHUB_SHA; current main: $current_main\"\u001b[0m",
+      "2026-10-22T11:58:11.9626639Z Release source: 4ada3b8729a626d10560a7c2980035bf172b3640; current main: 4ada3b8729a626d10560a7c2980035bf172b3640",
+      "2026-10-22T11:59:02.5718190Z Uploaded primecare-auth-api (4.13 sec)",
+      "2026-10-22T11:59:04.1370532Z Current Version ID: efda07fe-0c93-4942-96f0-2f0291c03b70"
+    ]
+  },
+  "activeReadback": {
+    "run": 41355924660,
+    "job": 124995801323,
+    "deploymentId": "c40b8881-c1c9-4309-8e25-45d121bfb887",
+    "versionId": "efda07fe-0c93-4942-96f0-2f0291c03b70",
+    "trafficPercent": 100,
+    "preferenceSyncEnabled": false
+  },
+  "sourceAssociation": "Successful historical main release log records the same source SHA, current main SHA, uploaded auth worker and exact version observed in current Cloudflare readback",
+  "historicalSource": {
+    "serviceApplicationPath": "cloudflare/workers/src/service-application.ts",
+    "accountPreferencesImported": false,
+    "preferenceRoutePresent": false,
+    "accountPreferenceHandlerPathAtSource": "404 Not Found"
+  },
+  "currentCandidate": {
+    "oldPromotedManifestSourceDriftPaths": 8,
+    "oldSourceApprovalReused": false,
+    "productionAuthUpdateRequired": true,
+    "required": "Current security and preference acceptance, binding-preserving deployment and independently verified new Worker receipt"
+  },
+  "artifactRegistrationApproved": false,
+  "permissionRowsChanged": 0,
+  "wholeBatchesClosed": 0
+}
