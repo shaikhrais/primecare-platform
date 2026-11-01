@@ -8,11 +8,17 @@ void main(){
   expect(fixture['offsetUnit'],'UTF-16; no surrogate-pair split');var checked=0;
   for(final sample in fixture['cases'] as List){var block=Map<String,Object?>.from(sample['initial'] as Map);
    for(final step in sample['steps'] as List){
-    block=step['action']=='toggle'?toggleRichRange(block,step['start'] as int,step['end'] as int,step['style'] as String):replaceRichText(block,step['text'] as String);
+    final edit=step['edit'];
+    block=step['action']=='toggle'?toggleRichRange(block,step['start'] as int,step['end'] as int,step['style'] as String):replaceRichText(block,step['text'] as String,edit is Map?RichTextEdit(edit['start'] as int,edit['end'] as int):null);
     expect(block,step['expected']);expect(richRuns(block).map((r)=>r.toJson()).toList(),step['runs']);checked++;
    }
   }
   expect(checked,greaterThan(200));
+ });
+ test('selection context resolves repeated-character insertions and forward/backward deletion',(){
+  final hint=inferRichEdit('aaaa','aaaaa',0,0,1)!;expect(hint.start,0);expect(hint.end,0);
+  expect(inferRichEdit('aaaa','aaa',2,2,1)!.start,1);expect(inferRichEdit('aaaa','aaa',2,2,2)!.start,2);
+  expect(inferRichEdit('a😀b','ab',3,3,1)!.start,1);
  });
  test('invalid and split-surrogate spans reject without changing caller input',(){
   final block=<String,Object?>{'text':'a😀b','bold':false,'italic':false,'kind':'paragraph'};

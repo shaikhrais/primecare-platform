@@ -37,6 +37,18 @@ test('UTF-16 boundaries protect emoji and edits preserve valid range offsets',()
  assert.deepEqual(api.replaceRichText(original,'aX😀b').marks,[{start:2,end:4,bold:true,italic:false}]);
  for(const sample of fixture.cases)for(const step of sample.steps)for(const mark of step.expected.marks??[]){assert.ok(api.richTextBoundary(step.expected.text,mark.start));assert.ok(api.richTextBoundary(step.expected.text,mark.end));}
 });
+test('actual edit positions disambiguate repeated characters and directional deletions',()=>{
+ const marked=api.toggleRichRange(block('aaaa'),1,2,'bold');
+ const inserted=api.inferRichEdit('aaaa','aaaaa',0,0,1);assert.deepEqual(inserted,{start:0,end:0});
+ assert.deepEqual(api.replaceRichText(marked,'aaaaa',inserted).marks,[{start:2,end:3,bold:true,italic:false}]);
+ assert.deepEqual(api.inferRichEdit('aaaa','aaa',2,2,1),{start:1,end:2});
+ assert.deepEqual(api.inferRichEdit('aaaa','aaa',2,2,2),{start:2,end:3});
+ assert.deepEqual(api.replaceRichText(marked,'aaa',{start:1,end:2}),block('aaa'));
+ assert.equal(api.inferRichEdit('a😀b','ab',3,3,1)?.start,1);
+ assert.equal(api.inferRichEdit('aaaa','changed',1,2,2),null);
+ assert.throws(()=>api.replaceRichText(marked,'aaaaa',{start:-1,end:0}));
+ assert.throws(()=>api.replaceRichText(block('abcd'),'axcd',{start:0,end:0}));
+});
 test('malformed, overlapping, executable or unbounded marks are rejected',()=>{
  const good={start:0,end:1,bold:true,italic:false};
  for(const marks of [null,[{...good,start:0.1}],[{...good,end:12}],[good,good],[{...good,html:'<script>'}],Array(1025).fill(good)])assert.throws(()=>api.validateDocument({version:2,blocks:[{...block(),marks}]}));

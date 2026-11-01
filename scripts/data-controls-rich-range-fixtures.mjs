@@ -13,5 +13,11 @@ export function richRangeFixture(api){
   }
   cases.push({initial:{text,bold,italic,kind:'paragraph'},steps});
  }
+ let repeated={text:'aaaa',bold:false,italic:false,kind:'paragraph',marks:[{start:1,end:2,bold:true,italic:false}]};
+ const repeatedCase={initial:repeated,steps:[]};
+ for(const step of [{action:'replace',text:'aaaaa',edit:{start:0,end:0}},{action:'replace',text:'aaaa',edit:{start:1,end:2}}]){
+  repeated=api.replaceRichText(repeated,step.text,step.edit);repeatedCase.steps.push({...step,expected:repeated,runs:api.richRuns(repeated)});
+ }
+ cases.push(repeatedCase);
  return {format:1,offsetUnit:'UTF-16; no surrogate-pair split',cases};
 }

@@ -20,6 +20,7 @@ export class DataTableModel {
 export function safeHttps(value:unknown){if(typeof value!=='string'||value.length>2048||/[\u0000-\u0020\u007f\\]/.test(value)||!/^https:\/\//i.test(value))throw Error('unsafe_url');let u:URL;try{u=new URL(value);}catch{throw Error('unsafe_url');}if(u.protocol!=='https:'||!u.hostname||u.username||u.password)throw Error('unsafe_url');return value;}
 export type RichMark={start:number;end:number;bold:boolean;italic:boolean};
 export type RichRun=RichMark&{text:string};
+export type RichTextEdit={start:number;end:number};
 export type RichBlock={marks?:RichMark[];text:string;bold:boolean;italic:boolean;kind:'paragraph'|'bullet';link?:string;image?:{url:string;alt:string}};
 export type RichDocument={version:1|2;blocks:RichBlock[]};
 /** Offsets use UTF-16 on web and Dart; never divide a surrogate pair. */
@@ -57,14 +58,23 @@ export function toggleRichRange(raw:RichBlock,start:number,end:number,style:'bol
  return markedBlock(block,block.text,next);
 }
 /** Rebase marks around one contiguous edit; inserted text inherits its neighbouring style. */
-export function replaceRichText(raw:RichBlock,text:string):RichBlock{
+export function inferRichEdit(old:string,text:string,start:number,end:number,afterStart:number):RichTextEdit|null{
+ if(!richTextBoundary(old,start)||!richTextBoundary(old,end)||start>end||!richTextBoundary(text,afterStart))return null;
+ const fits=(a:number,b:number)=>{const inserted=text.length-(old.length-(b-a));return richTextBoundary(old,a)&&richTextBoundary(old,b)&&inserted>=0&&richTextBoundary(text,a)&&richTextBoundary(text,a+inserted)&&text.slice(0,a)===old.slice(0,a)&&text.slice(a+inserted)===old.slice(b);};
+ if(start===end&&text.length<old.length){const removed=old.length-text.length,a=afterStart<start?start-removed:start,b=afterStart<start?start:start+removed;return fits(a,b)?{start:a,end:b}:null;}
+ return fits(start,end)?{start,end}:null;
+}
+export function replaceRichText(raw:RichBlock,text:string,edit?:RichTextEdit):RichBlock{
  const block=validateDocument({version:2,blocks:[raw]}).blocks[0];if(typeof text!=='string'||text.length>32768)throw Error('invalid_text');
  if(text===block.text)return block;
  let prefix=0,suffix=0;const old=block.text;
- while(prefix<old.length&&prefix<text.length&&old[prefix]===text[prefix])prefix++;
- while(!richTextBoundary(old,prefix)||!richTextBoundary(text,prefix))prefix--;
- while(suffix<old.length-prefix&&suffix<text.length-prefix&&old[old.length-1-suffix]===text[text.length-1-suffix])suffix++;
- while(!richTextBoundary(old,old.length-suffix)||!richTextBoundary(text,text.length-suffix))suffix--;
+ if(edit!==undefined){if(!edit||Object.keys(edit).sort().join(',')!=='end,start'||!richTextBoundary(old,edit.start)||!richTextBoundary(old,edit.end)||edit.start>edit.end)throw Error('invalid_edit');prefix=edit.start;suffix=old.length-edit.end;const insertEnd=text.length-suffix;if(insertEnd<prefix||!richTextBoundary(text,prefix)||!richTextBoundary(text,insertEnd)||old.slice(0,prefix)!==text.slice(0,prefix)||old.slice(edit.end)!==text.slice(insertEnd))throw Error('invalid_edit');}
+ else{
+  while(prefix<old.length&&prefix<text.length&&old[prefix]===text[prefix])prefix++;
+  while(!richTextBoundary(old,prefix)||!richTextBoundary(text,prefix))prefix--;
+  while(suffix<old.length-prefix&&suffix<text.length-prefix&&old[old.length-1-suffix]===text[text.length-1-suffix])suffix++;
+  while(!richTextBoundary(old,old.length-suffix)||!richTextBoundary(text,text.length-suffix))suffix--;
+ }
  const runs=richRuns(block),next:RichMark[]=[],insertEnd=text.length-suffix,oldEnd=old.length-suffix,delta=text.length-old.length;
  const inherited=runs.find(r=>r.start<=Math.max(0,prefix-1)&&r.end>Math.max(0,prefix-1))??block;
  for(const run of runs)if(run.start<prefix)next.push({start:run.start,end:Math.min(run.end,prefix),bold:run.bold,italic:run.italic});

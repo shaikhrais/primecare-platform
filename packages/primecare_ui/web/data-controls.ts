@@ -1,7 +1,7 @@
 import metadata from '../catalogs/data-controls.registration.json';
-import {DataTableModel,DataColumn,DataRow,virtualWindow,FieldConstraint,fieldError,formatMask,RichDocument,validateDocument,safeHttps,richRuns,toggleRichRange,replaceRichText,UploadPolicy} from '../../domain/src/data_controls';
+import {DataTableModel,DataColumn,DataRow,virtualWindow,FieldConstraint,fieldError,formatMask,RichDocument,validateDocument,safeHttps,richRuns,toggleRichRange,replaceRichText,inferRichEdit,UploadPolicy} from '../../domain/src/data_controls';
 import {UploadTask,UploadPort,UploadRemovalPort,UploadReceiptPort} from '../../shared/src/data-controls/upload-task';
-export {DataTableModel,virtualWindow,fieldError,formatMask,validateDocument,safeHttps,richRuns,toggleRichRange,replaceRichText,UploadTask};
+export {DataTableModel,virtualWindow,fieldError,formatMask,validateDocument,safeHttps,richRuns,toggleRichRange,replaceRichText,inferRichEdit,UploadTask};
 export type {DataColumn,DataRow,RichDocument,UploadPolicy,UploadPort,UploadRemovalPort,UploadReceiptPort};
 const owners=new WeakSet<HTMLElement>();
 /** Optional scoped, governed presentation. Host callbacks own authorization and durable acknowledgement. */
@@ -36,7 +36,7 @@ export class PrimeDataControls {
   if(!options.inlineRanges&&doc.version!==1)throw Error('inline_range_capability_required');if(options.inlineRanges)doc={...doc,version:2};
   const box=this.plain('section'),input=this.el('textarea','editor','prime_textarea_web'),preview=this.el('div','editorPreview','prime_card'),link=this.el('input','link','prime_text_field'),image=this.el('input','image','prime_text_field'),status=this.plain('span'),blocks=this.plain('div');
   input.setAttribute('aria-label',this.text('editor'));for(const [el,key] of [[link,'link'],[image,'image']] as const)el.setAttribute('aria-label',this.text(key));status.setAttribute('role','status');status.dataset.cy=input.id+'-status';
-  const sync=()=>{const next=options.inlineRanges?replaceRichText(doc.blocks[index],input.value):{...doc.blocks[index],text:input.value};doc=validateDocument({...doc,blocks:doc.blocks.map((b,i)=>i===index?next:b)});};
+  const sync=(edit?:{start:number;end:number})=>{const next=options.inlineRanges?replaceRichText(doc.blocks[index],input.value,edit):{...doc.blocks[index],text:input.value};doc=validateDocument({...doc,blocks:doc.blocks.map((b,i)=>i===index?next:b)});};
   const renderPreview=()=>{preview.replaceChildren();for(const b of doc.blocks){
    const p=this.plain('p'),text=this.plain(b.link?'a':'span');
    if(b.kind==='bullet')text.append(this.root.ownerDocument.createTextNode('• '));
@@ -45,7 +45,9 @@ export class PrimeDataControls {
    if(b.image){if(imageAllowed?.(b.image.url)){const img=this.plain('img');img.src=b.image.url;img.alt=b.image.alt;p.append(img);}else p.append(this.root.ownerDocument.createTextNode(b.image.alt));}preview.append(p);
   }};
   const render=()=>{input.value=doc.blocks[index].text;blocks.replaceChildren();doc.blocks.forEach((b,i)=>{const choose=this.plain('button');choose.type='button';choose.textContent=String(i+1);choose.dataset.cy=input.id+'-block-'+i;choose.setAttribute('aria-label',this.text('editor')+' '+(i+1));choose.setAttribute('aria-pressed',String(index===i));choose.addEventListener('click',()=>{try{sync();index=i;render();}catch{status.textContent=this.text('invalid');}},{signal:this.abort.signal});blocks.append(choose);});renderPreview();};
-  input.maxLength=32768;input.addEventListener('input',()=>{try{sync();renderPreview();status.textContent='';}catch{status.textContent=this.text('invalid');}},{signal:this.abort.signal});
+  let beforeInput:{text:string;start:number;end:number}|null=null;
+  input.maxLength=32768;input.addEventListener('beforeinput',()=>{beforeInput={text:input.value,start:input.selectionStart,end:input.selectionEnd};},{signal:this.abort.signal});
+  input.addEventListener('input',()=>{try{const prior=beforeInput;beforeInput=null;const edit=options.inlineRanges&&prior?.text===doc.blocks[index].text?inferRichEdit(prior.text,input.value,prior.start,prior.end,input.selectionStart):null;sync(edit??undefined);renderPreview();status.textContent='';}catch{status.textContent=this.text('invalid');}},{signal:this.abort.signal});
   const format=(key:'bold'|'italic'|'list')=>this.button(key,()=>{
    const start=input.selectionStart,end=input.selectionEnd;sync();const block=doc.blocks[index];
    if(key==='list')block.kind=block.kind==='bullet'?'paragraph':'bullet';

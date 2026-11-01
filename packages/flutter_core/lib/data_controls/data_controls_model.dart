@@ -19,6 +19,13 @@ class RichTextRun {
  const RichTextRun(this.start,this.end,this.text,this.bold,this.italic);
  Map<String,Object?> toJson()=>{'start':start,'end':end,'text':text,'bold':bold,'italic':italic};
 }
+class RichTextEdit {final int start,end;const RichTextEdit(this.start,this.end);}
+RichTextEdit? inferRichEdit(String old,String text,int start,int end,int afterStart){
+ if(!richTextBoundary(old,start)||!richTextBoundary(old,end)||start>end||!richTextBoundary(text,afterStart))return null;
+ bool fits(int a,int b){final inserted=text.length-(old.length-(b-a));return richTextBoundary(old,a)&&richTextBoundary(old,b)&&inserted>=0&&richTextBoundary(text,a)&&richTextBoundary(text,a+inserted)&&text.substring(0,a)==old.substring(0,a)&&text.substring(a+inserted)==old.substring(b);}
+ if(start==end&&text.length<old.length){final removed=old.length-text.length,a=afterStart<start?start-removed:start,b=afterStart<start?start:start+removed;return fits(a,b)?RichTextEdit(a,b):null;}
+ return fits(start,end)?RichTextEdit(start,end):null;
+}
 List<RichTextRun> richRuns(Map<String,Object?> raw){
  final block=((validateDocument({'version':2,'blocks':[raw]})['blocks'] as List).single as Map).cast<String,Object?>(),text=block['text'] as String,result=<RichTextRun>[];var offset=0;
  void add(int start,int end,bool bold,bool italic){if(start<end)result.add(RichTextRun(start,end,text.substring(start,end),bold,italic));}
@@ -47,14 +54,17 @@ Map<String,Object?> toggleRichRange(Map<String,Object?> raw,int start,int end,St
  }
  return _markedBlock(block,text,next);
 }
-Map<String,Object?> replaceRichText(Map<String,Object?> raw,String text){
+Map<String,Object?> replaceRichText(Map<String,Object?> raw,String text,[RichTextEdit? edit]){
  final block=((validateDocument({'version':2,'blocks':[raw]})['blocks'] as List).single as Map).cast<String,Object?>(),old=block['text'] as String;
  if(text.length>32768)throw ArgumentError('invalid_text');if(text==old)return block;
  var prefix=0,suffix=0;
- while(prefix<old.length&&prefix<text.length&&old[prefix]==text[prefix]){prefix++;}
- while(!richTextBoundary(old,prefix)||!richTextBoundary(text,prefix)){prefix--;}
- while(suffix<old.length-prefix&&suffix<text.length-prefix&&old[old.length-1-suffix]==text[text.length-1-suffix]){suffix++;}
- while(!richTextBoundary(old,old.length-suffix)||!richTextBoundary(text,text.length-suffix)){suffix--;}
+ if(edit!=null){if(!richTextBoundary(old,edit.start)||!richTextBoundary(old,edit.end)||edit.start>edit.end)throw ArgumentError('invalid_edit');prefix=edit.start;suffix=old.length-edit.end;final insertEnd=text.length-suffix;if(insertEnd<prefix||!richTextBoundary(text,prefix)||!richTextBoundary(text,insertEnd)||old.substring(0,prefix)!=text.substring(0,prefix)||old.substring(edit.end)!=text.substring(insertEnd))throw ArgumentError('invalid_edit');}
+ else{
+  while(prefix<old.length&&prefix<text.length&&old[prefix]==text[prefix]){prefix++;}
+  while(!richTextBoundary(old,prefix)||!richTextBoundary(text,prefix)){prefix--;}
+  while(suffix<old.length-prefix&&suffix<text.length-prefix&&old[old.length-1-suffix]==text[text.length-1-suffix]){suffix++;}
+  while(!richTextBoundary(old,old.length-suffix)||!richTextBoundary(text,text.length-suffix)){suffix--;}
+ }
  final runs=richRuns(block),next=<Map<String,Object?>>[],insertEnd=text.length-suffix,oldEnd=old.length-suffix,delta=text.length-old.length;
  RichTextRun? inherited;for(final run in runs){if(run.start<=math.max(0,prefix-1)&&run.end>math.max(0,prefix-1)){inherited=run;break;}}
  for(final run in runs){if(run.start<prefix)next.add({'start':run.start,'end':math.min(run.end,prefix),'bold':run.bold,'italic':run.italic});}

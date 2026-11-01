@@ -13281,6 +13281,114 @@
           ]
         }
       ]
+    },
+    {
+      "initial": {
+        "text": "aaaa",
+        "bold": false,
+        "italic": false,
+        "kind": "paragraph",
+        "marks": [
+          {
+            "start": 1,
+            "end": 2,
+            "bold": true,
+            "italic": false
+          }
+        ]
+      },
+      "steps": [
+        {
+          "action": "replace",
+          "text": "aaaaa",
+          "edit": {
+            "start": 0,
+            "end": 0
+          },
+          "expected": {
+            "text": "aaaaa",
+            "bold": false,
+            "italic": false,
+            "kind": "paragraph",
+            "marks": [
+              {
+                "start": 2,
+                "end": 3,
+                "bold": true,
+                "italic": false
+              }
+            ]
+          },
+          "runs": [
+            {
+              "start": 0,
+              "end": 2,
+              "text": "aa",
+              "bold": false,
+              "italic": false
+            },
+            {
+              "start": 2,
+              "end": 3,
+              "text": "a",
+              "bold": true,
+              "italic": false
+            },
+            {
+              "start": 3,
+              "end": 5,
+              "text": "aa",
+              "bold": false,
+              "italic": false
+            }
+          ]
+        },
+        {
+          "action": "replace",
+          "text": "aaaa",
+          "edit": {
+            "start": 1,
+            "end": 2
+          },
+          "expected": {
+            "text": "aaaa",
+            "bold": false,
+            "italic": false,
+            "kind": "paragraph",
+            "marks": [
+              {
+                "start": 1,
+                "end": 2,
+                "bold": true,
+                "italic": false
+              }
+            ]
+          },
+          "runs": [
+            {
+              "start": 0,
+              "end": 1,
+              "text": "a",
+              "bold": false,
+              "italic": false
+            },
+            {
+              "start": 1,
+              "end": 2,
+              "text": "a",
+              "bold": true,
+              "italic": false
+            },
+            {
+              "start": 2,
+              "end": 4,
+              "text": "aa",
+              "bold": false,
+              "italic": false
+            }
+          ]
+        }
+      ]
     }
   ]
 }

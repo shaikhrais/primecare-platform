@@ -443,17 +443,19 @@ class PrimeStructuredEditor extends StatefulWidget {
 }
 class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
  late Map<String,Object?> doc;final text=TextEditingController(),link=TextEditingController(),image=TextEditingController();
- int index=0,generation=0;bool linkBusy=false;String? linkStatus,editorStatus;
+ int index=0,generation=0;bool linkBusy=false,settingText=false;String? linkStatus,editorStatus;TextEditingValue previousValue=const TextEditingValue();RichTextEdit? pendingEdit;
  List<Map<String,Object?>> get blocks=>(doc['blocks'] as List).cast<Map<String,Object?>>();
- @override void initState(){super.initState();_reset();}
+ @override void initState(){super.initState();_reset();text.addListener(trackEdit);}
  void _reset(){generation++;linkBusy=false;linkStatus=null;editorStatus=null;link.clear();image.clear();doc=validateDocument(widget.document);
   if(!widget.inlineRanges&&doc['version']!=1)throw ArgumentError('inline_range_capability_required');if(widget.inlineRanges)doc['version']=2;
-  index=0;text.text=blocks[0]['text'] as String;
+  index=0;setText(blocks[0]['text'] as String);
  }
- void sync(){final next=widget.inlineRanges?replaceRichText(blocks[index],text.text):{...blocks[index],'text':text.text};doc=validateDocument({...doc,'blocks':[for(var i=0;i<blocks.length;i++)i==index?next:blocks[i]]});}
+ void setText(String value){settingText=true;try{text.value=TextEditingValue(text:value,selection:TextSelection.collapsed(offset:value.length));previousValue=text.value;pendingEdit=null;}finally{settingText=false;}}
+ void trackEdit(){if(settingText)return;final next=text.value;if(previousValue.text!=next.text){pendingEdit=widget.inlineRanges&&previousValue.text==blocks[index]['text']?inferRichEdit(previousValue.text,next.text,previousValue.selection.start,previousValue.selection.end,next.selection.start):null;}previousValue=next;}
+ void sync(){final next=widget.inlineRanges?replaceRichText(blocks[index],text.text,pendingEdit):{...blocks[index],'text':text.text};doc=validateDocument({...doc,'blocks':[for(var i=0;i<blocks.length;i++)i==index?next:blocks[i]]});pendingEdit=null;}
  @override void didUpdateWidget(covariant PrimeStructuredEditor old){super.didUpdateWidget(old);if(old.scope!=widget.scope||old.document!=widget.document||old.inlineRanges!=widget.inlineRanges)_reset();}
  Future<void> activateLink(String value)async{if(linkBusy||widget.openLink==null)return;final g=generation;setState((){linkBusy=true;linkStatus=null;});try{await widget.openLink!(safeHttps(value));}catch(_){if(mounted&&g==generation)setState(()=>linkStatus='error');}finally{if(mounted&&g==generation)setState(()=>linkBusy=false);}}
- @override void dispose(){generation++;text.dispose();link.dispose();image.dispose();super.dispose();}
+ @override void dispose(){generation++;text.removeListener(trackEdit);text.dispose();link.dispose();image.dispose();super.dispose();}
  Widget previewText(Map<String,Object?> block){
   final style=TextStyle(fontWeight:block['bold']==true?FontWeight.bold:null,fontStyle:block['italic']==true?FontStyle.italic:null);
   if((block['marks'] as List?)?.isNotEmpty!=true)return SelectableText('${block['kind']=='bullet'?'• ':''}${block['text']}',style:style);
@@ -469,14 +471,14 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
    });
   });
   return Column(mainAxisSize:MainAxisSize.min,children:[
-   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',TextButton(onPressed:(){try{sync();setState((){index=i;text.text=blocks[index]['text'] as String;editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:Text('${i+1}')),suffix:'-block-$i')]),
+   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',TextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:Text('${i+1}')),suffix:'-block-$i')]),
    l.identify('editor','prime_textarea_web',TextField(controller:text,maxLines:5,maxLength:32768,decoration:InputDecoration(labelText:l.text('editor')),onChanged:(_){try{sync();setState(()=>editorStatus=null);}catch(_){setState(()=>editorStatus='invalid');}})),
    Wrap(children:[format('bold'),format('italic'),format('list')]),
    l.identify('link','prime_text_field',TextField(controller:link,decoration:InputDecoration(labelText:l.text('link')))),
    kit.button('addLink',()async{sync();final url=safeHttps(link.text);setState(()=>blocks[index]['link']=url);}),
    l.identify('image','prime_text_field',TextField(controller:image,decoration:InputDecoration(labelText:l.text('image')))),
    kit.button('addImage',widget.imageAllowed==null||widget.imageBuilder==null?null:()async{sync();final url=safeHttps(image.text);if(!widget.imageAllowed!(url)||(blocks[index]['text'] as String).trim().isEmpty)throw StateError('denied_image');setState(()=>blocks[index]['image']={'url':url,'alt':blocks[index]['text']});}),
-   kit.button('addBlock',()async{sync();if(blocks.length>=200)throw StateError('too_many_blocks');setState((){blocks.add({'text':'','bold':false,'italic':false,'kind':'paragraph'});index=blocks.length-1;text.clear();});}),
+   kit.button('addBlock',()async{sync();if(blocks.length>=200)throw StateError('too_many_blocks');setState((){blocks.add({'text':'','bold':false,'italic':false,'kind':'paragraph'});index=blocks.length-1;setText('');});}),
    kit.button('save',widget.save==null?null:()async{sync();await widget.save!(validateDocument(doc));}),
    if(widget.save==null)Text(l.text('unsupported')),
    if(editorStatus!=null)Semantics(liveRegion:true,child:Text(l.text(editorStatus!))),

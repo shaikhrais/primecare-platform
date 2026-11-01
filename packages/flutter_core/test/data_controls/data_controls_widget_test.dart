@@ -14,6 +14,14 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
   await t.ensureVisible(find.byType(TextField).first);await t.enterText(find.byType(TextField).first,'XHello world');await t.pumpAndSettle();fail=false;
   await t.ensureVisible(find.text(l.text('save')));await t.tap(find.text(l.text('save')));await t.pumpAndSettle();expect(((saved!['blocks'] as List).single as Map)['marks'],[{'start':0,'end':6,'bold':true,'italic':false}]);expect(t.takeException(),isNull);
  });
+ testWidgets('range editor tracks the caret when identical characters are inserted',(t)async{
+  await t.binding.setSurfaceSize(const Size(1000,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final doc={'version':2,'blocks':[{'text':'aaaa','bold':false,'italic':false,'kind':'paragraph','marks':[{'start':1,'end':2,'bold':true,'italic':false}]}]};Map<String,Object?>? saved;
+  await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'repeated',document:doc,inlineRanges:true,save:(d)async{saved=d;})));
+  final controller=t.widget<TextField>(find.byType(TextField).first).controller!;await t.showKeyboard(find.byType(TextField).first);controller.selection=const TextSelection.collapsed(offset:0);t.testTextInput.updateEditingValue(const TextEditingValue(text:'aaaaa',selection:TextSelection.collapsed(offset:1)));await t.pumpAndSettle();
+  await t.ensureVisible(find.text(l.text('save')));await t.tap(find.text(l.text('save')));await t.pumpAndSettle();
+  expect(((saved!['blocks'] as List).single as Map)['marks'],[{'start':2,'end':3,'bold':true,'italic':false}]);expect(t.takeException(),isNull);
+ });
  testWidgets('marked input requires an explicit range capability',(t)async{
   final doc={'version':2,'blocks':[{'text':'ab','bold':false,'italic':false,'kind':'paragraph','marks':[{'start':0,'end':1,'bold':true,'italic':false}]}]};
   await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'legacy-marked',document:doc)));expect(t.takeException(),isArgumentError);
