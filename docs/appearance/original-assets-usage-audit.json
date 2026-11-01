@@ -1,0 +1,68 @@
+{
+  "format": 1,
+  "scope": "tracked runtime Dart/TS/TSX source inventory across apps/packages/websites; test fixtures excluded, framework controls separately classified",
+  "originalIcons": 105,
+  "otherOriginalAssets": 16,
+  "sharedShellKeysMapped": 25,
+  "aliases": {
+    "building": "tenant",
+    "building-plus": "tenant-add",
+    "layout-dashboard": "dashboard",
+    "users": "team",
+    "clipboard-check": "care-plan",
+    "shield-check": "shield",
+    "map-2": "territory",
+    "rocket": "launch",
+    "school": "training",
+    "menu-2": "menu",
+    "x": "close",
+    "file-text": "document",
+    "adjustments-horizontal": "settings",
+    "palette": "theme",
+    "success": "check",
+    "push-pin": "pin-panel",
+    "expand-more": "chevron-down",
+    "expand-less": "chevron-up",
+    "calendar-today": "calendar",
+    "access-time": "clock"
+  },
+  "adoptedSharedNativeSources": [
+    {
+      "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+      "keys": [
+        "calendar",
+        "chevron-down",
+        "chevron-up",
+        "clock"
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "keys": [
+        "close",
+        "folder",
+        "menu",
+        "pin-panel",
+        "placeholder-circle"
+      ]
+    }
+  ],
+  "remainingFrameworkFilesIndex": [
+    "docs/appearance/original-asset-usage/part-001.json",
+    "docs/appearance/original-asset-usage/part-002.json",
+    "docs/appearance/original-asset-usage/part-003.json",
+    "docs/appearance/original-asset-usage/part-004.json",
+    "docs/appearance/original-asset-usage/part-005.json",
+    "docs/appearance/original-asset-usage/part-006.json",
+    "docs/appearance/original-asset-usage/part-007.json",
+    "docs/appearance/original-asset-usage/part-008.json",
+    "docs/appearance/original-asset-usage/part-009.json",
+    "docs/appearance/original-asset-usage/part-010.json",
+    "docs/appearance/original-asset-usage/part-011.json",
+    "docs/appearance/original-asset-usage/part-012.json",
+    "docs/appearance/original-asset-usage/part-013.json"
+  ],
+  "remainingFrameworkFileCount": 2539,
+  "allAppMigrationClaimed": false,
+  "perAppCopiesAdded": false
+}

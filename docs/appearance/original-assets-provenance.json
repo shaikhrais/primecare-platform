@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "originalCollection": {
+    "authoring": "PrimeCare task-authored basic vector geometry; canonical SVG files plus reproducible generated web/Dart mirrors",
+    "thirdPartyPathsCopied": false,
+    "vendorRuntimeCopied": false,
+    "trademarkClearanceClaimed": false,
+    "exclusiveCopyrightClaimed": false
+  },
+  "retainedDependencies": [
+    {"name":"Tabler selected shell icons","terms":"MIT","notice":"docs/appearance/TABLER_ICONS_LICENSE.txt","primarySource":"https://github.com/tabler/tabler-icons/blob/main/LICENSE","disposition":"Shared shell path data replaced in B12; notice retained for historical and other retained copies"},
+    {"name":"lucide_icons_flutter","declaredConstraint":"^3.1.14+2","wrapperTerms":"MIT (publisher license page)","primarySource":"https://pub.dev/packages/lucide_icons_flutter/license","upstreamSource":"https://lucide.dev/license","upstreamTerms":"ISC plus MIT notices for the listed Feather-derived icons","disposition":"Dependency retained for un-migrated app code; resolved-version license bundle remains a release gate"},
+    {"name":"Flutter framework and bundled Material/Cupertino icon resources","primarySource":"https://docs.flutter.dev/resources/faq","disposition":"Framework dependencies and their bundled notices retained; no claim that app-wide dependencies were removed or fully audited"}
+  ],
+  "newRuntimeDependencies": [],
+  "review": "Provenance inventory, not a legal clearance or full transitive-dependency audit"
+}
