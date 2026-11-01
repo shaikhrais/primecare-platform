@@ -132,6 +132,11 @@ def build():
  if set(bindings)!={'icon','illustration','brand','placeholder'}:raise ValueError('Missing asset bindings')
  data={'version':2,'bindings':bindings,'provenance':'original-task-authored-geometry','aliases':ALIASES,'assets':assets}
  encoded=json.dumps(data,separators=(',',':'),ensure_ascii=False)
+
+ preview='<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare original vectors v2</title><style>body{font:16px system-ui;background:Canvas;color:CanvasText;margin:24px}section{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}figure{margin:0;border:1px solid;padding:16px;overflow:hidden}svg{width:100%;height:90px;color:LinkText}figcaption{font-size:13px;overflow-wrap:anywhere}</style><h1>PrimeCare original vectors</h1><p>Documentation preview: '+str(len(paths))+' icons and '+str(len(assets)-len(paths))+' scenes. Meaningful production labels come from each host’s registered resources.</p><section>'
+ for key,a in assets.items():preview+='<figure>'+Path(ROOT/a['path']).read_text()+'<figcaption>'+key+'</figcaption></figure>'
+ preview+='</section><p>Original basic geometry; brand mark is a concept. See docs/appearance/original-assets-provenance.json for retained dependency notices and limits.</p></html>\n'
+ emit(Path('packages/primecare_ui/assets/original/preview.html'),preview)
  emit(Path('packages/primecare_ui/assets/original/registry.json'),encoded+'\n')
  emit(Path('packages/primecare_ui/assets/original/icons.json'),json.dumps(paths,indent=2)+'\n')
  emit(Path('packages/primecare_ui/assets/original/primecare-sprite.svg'),'<svg xmlns="http://www.w3.org/2000/svg" style="display:none">'+''.join(sprite)+'</svg>\n')
