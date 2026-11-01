@@ -24,6 +24,18 @@ void main(){
  test('denied mutation removes protected data',()async{final p=Port('tasks')..deny=true,s=session('tasks',p);await s.load();await expectLater(s.submit('Task-A','edit',{'title':'Denied','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));expect(s.status,'denied');expect(s.snapshot,isNull);s.dispose();});
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final module in ['calendar','contacts','tasks','notes','board']){testWidgets('$module uses registered semantics and renders its authorized projection',(t)async{await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));final p=Port(module),s=session(module,p),labels=CatalogueLabels.fromMetadata(metadata,'en');await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'fixture',year:2026,month:11,gap:8,boardWidth:250)))));await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text('Original task'),findsOneWidget);expect(find.text(labels.text(module)),findsWidgets);final create=t.widget<TextButton>(find.widgetWithText(TextButton,labels.text('create')).first);expect(create.onPressed,isNull);await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text(labels.text('success')),findsNothing);await t.pumpWidget(const SizedBox());s.dispose();});}
+ testWidgets('dirty editor survives internal reload and item selection',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'fixture',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Retain unsaved title');
+  await t.tap(find.widgetWithText(TextButton,labels.text('reload')).first);await t.pumpAndSettle();
+  expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Retain unsaved title');
+  await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Retain unsaved title');expect(p.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
  testWidgets('pending action locks navigation and fields and offers original verification retry',(t)async{
   await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
   final p=Port('tasks')..loseRead=true,s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');

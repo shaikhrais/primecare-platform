@@ -15,6 +15,16 @@ try{
  async function open(){await page.locator('[data-cy^="work-modules-open-"]').first().click();await page.locator('[data-cy="work-modules-detail"]').waitFor();}
  async function save(){await page.locator('[data-cy="work-modules-save"]').click();await page.waitForFunction(()=>window.session.status!=='saving');assert.equal(await page.evaluate(()=>window.session.status),'success',JSON.stringify(await page.evaluate(()=>window.session.current)));checks++;}
  await mount('tasks');await open();await page.locator('[data-cy="work-modules-action"]').selectOption('edit');await page.locator('[data-cy="work-modules-title"]').fill('x');await page.locator('[data-cy="work-modules-body"]').fill('Retained draft from browser');await page.locator('[data-cy="work-modules-save"]').click();await page.waitForFunction(()=>window.session.status==='invalid');assert.equal(await page.locator('[data-cy="work-modules-body"]').inputValue(),'Retained draft from browser');checks++;
+ // Internal navigation must preserve unsaved editor input.
+ const dirtyTitle=await page.locator('[data-cy="work-modules-title"]').inputValue();
+ await page.locator('[data-cy="work-modules-reload"]').click();
+ assert.equal(await page.locator('[data-cy="work-modules-title"]').inputValue(),dirtyTitle);checks++;
+ await page.locator('[data-cy^="work-modules-open-"]').first().click();
+ assert.equal(await page.locator('[data-cy="work-modules-body"]').inputValue(),'Retained draft from browser');checks++;
+ await page.locator('[data-cy="work-modules-filter"]').fill('discard-risk');
+ await page.locator('[data-cy="work-modules-filter"]').dispatchEvent('change');
+ assert.equal(await page.locator('[data-cy="work-modules-body"]').inputValue(),'Retained draft from browser');
+ assert.equal(await page.evaluate(()=>window.session.current.query.search),'');checks++;
  await page.locator('[data-cy="work-modules-title"]').fill('Browser renamed task <literal>');await save();assert.equal(await page.locator('literal').count(),0);checks++;
  // Keep the original pending action visible and retry verification without a second write.
  await open();await page.locator('[data-cy="work-modules-action"]').selectOption('edit');
