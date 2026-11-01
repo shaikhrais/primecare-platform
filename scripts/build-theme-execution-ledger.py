@@ -19,6 +19,19 @@ def build(root=ROOT):
     mapped = {b['id']: [p['id'] for p in packages if b['id'] in p['batches']] for b in plan['batches']}
     items = []
     seen = {}
+    def work_types(text):
+        text = text.lower()
+        types = []
+        for name, terms in [
+            ('authority_or_contract', ['grant','policy','api','contract','registration','registered','binding']),
+            ('host_integration', ['host','shell','mount','rollout','adoption','migration']),
+            ('production_or_device_acceptance', ['production','deployed','device','android','ios','runtime','full-app']),
+            ('independent_review', ['human','review','localization','translation','accessibility','screen-reader']),
+            ('persistence_or_recovery', ['persist','recovery','cache','offline','reload','sync','reconcil']),
+        ]:
+            if any(term in text for term in terms):
+                types.append(name)
+        return types or ['feature_implementation']
     for batch in plan['batches']:
         for index, statement in enumerate(batch.get('remainingScope', []), 1):
             for part, text in enumerate(statement.split(';'), 1):
@@ -29,6 +42,7 @@ def build(root=ROOT):
                 fingerprint = hashlib.sha256(re.sub(r'\s+', ' ', text).lower().encode()).hexdigest()
                 items.append({'id': item_id, 'batch': batch['id'], 'parentScope': f"{batch['id']}-S{index:02}",
                               'requirement': text, 'repairPackages': mapped[batch['id']],
+                              'workTypesForTriage': work_types(text), 'classificationRequiresItemReview': True,
                               'executionOwner': 'Codex under user instruction to execute the plan',
                               'reviewOwner': 'unassigned where independent human review is required',
                               'state': 'open', 'duplicateTextOf': seen.get(fingerprint),

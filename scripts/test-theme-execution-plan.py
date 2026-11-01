@@ -32,6 +32,9 @@ class ExecutionPlanTests(unittest.TestCase):
         self.assertTrue(message['registeredContractMatches'])
         self.assertEqual(message['registeredContractMatches'][0]['operation'], 'message.command')
         self.assertEqual(message['classification'], 'registered_dynamic_router_requires_authority_and_host_acceptance')
+        for candidate in triage['candidates']:
+            for match in candidate['registeredContractMatches']:
+                self.assertTrue(all(match['currentMetadataParity'].values()))
         self.assertEqual(triage['approvedBindings'], 0)
         self.assertTrue(all(r['historicalWorkflowReview']['freshProductionProof'] is False for r in triage['candidates'] if r['historicalWorkflowReview'] is not None))
 

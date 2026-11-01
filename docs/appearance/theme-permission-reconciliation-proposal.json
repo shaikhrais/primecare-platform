@@ -75,7 +75,7 @@
     {
       "id": "R01-D02",
       "question": "Which independently registered deployment-backed runtime artifact should each auth/governance endpoint reference?",
-      "evidence": "The current runtime_artifacts table is empty. No valid candidate exists for missing ID 1."
+      "evidence": "The governance runtime_artifacts table is empty. Active auth/governance Worker versions have now been independently read, but neither has a source-commit tag or a validated governance association. No alias for legacy artifact 1 is inferred."
     },
     {
       "id": "R01-D03",
@@ -5668,5 +5668,53 @@
     "Continue source and isolated tests for shared controls/recovery",
     "Complete contract review of existing dynamic message/mail adapters",
     "Verify stale-publication scheduling and already-authorized tenant host locale behavior"
-  ]
+  ],
+  "runtimeDeploymentReadback": {
+    "evidence": "docs/appearance/theme-runtime-artifact-readback.json",
+    "workflowRun": 41350683165,
+    "jobId": 124979960706,
+    "candidates": [
+      {
+        "worker": "primecare-auth-api",
+        "service": "auth",
+        "apiIds": [
+          777
+        ],
+        "deploymentId": "c40b8881-c1c9-4309-8e25-45d121bfb887",
+        "versions": [
+          {
+            "versionId": "efda07fe-0c93-4942-96f0-2f0291c03b70",
+            "trafficPercent": 100,
+            "createdOn": "2026-10-22T11:59:00.131272Z",
+            "uploadSource": "wrangler",
+            "sourceCommitTag": null
+          }
+        ],
+        "registeredGovernanceArtifactId": null,
+        "sourceCommitFullyEstablished": false,
+        "grantAssociationApproved": false
+      },
+      {
+        "worker": "primecare-governance-api",
+        "service": "governance",
+        "apiIds": [
+          710,
+          857
+        ],
+        "deploymentId": "c99c9806-3b6c-413d-a515-dcbbc132bf3a",
+        "versions": [
+          {
+            "versionId": "5c33f72b-5063-4b9c-bfc6-73784ab131af",
+            "trafficPercent": 100,
+            "createdOn": "2026-11-01T21:04:09.928431Z",
+            "uploadSource": "wrangler",
+            "sourceCommitTag": null
+          }
+        ],
+        "registeredGovernanceArtifactId": null,
+        "sourceCommitFullyEstablished": false,
+        "grantAssociationApproved": false
+      }
+    ]
+  }
 }

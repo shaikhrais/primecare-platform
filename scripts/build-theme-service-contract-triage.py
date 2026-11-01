@@ -8,7 +8,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = 'docs/appearance/theme-service-contract-triage.json'
 def build(root=ROOT):
-    source = root / 'docs/appearance/theme-service-candidates.json'
+    source = root / 'docs/appearance/theme-service-candidates-current.json'
     inventory = json.loads(source.read_text())
     registered_path = 'packages/shared/src/communications/registered-contracts.json'
     registered = json.loads((root / registered_path).read_text())
@@ -24,6 +24,8 @@ def build(root=ROOT):
             literals = [(m.group(1), text.count('\n', 0, m.start()) + 1) for m in re.finditer(r"['\"](/[^'\"\n]{1,300})['\"]", text)]
             literal_sources.append((str(path.relative_to(root)), literals))
     rows = []
+    def schema_hash(value):
+        return hashlib.sha256(json.dumps(value, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
     for candidate in inventory['candidates']:
         variants = {candidate['path'], re.sub(r'^/v1(?=/)', '', candidate['path'])}
         matches = [{'path': path, 'line': line, 'literal': literal}
@@ -38,6 +40,14 @@ def build(root=ROOT):
                          'businessOperationVerified': old['businessOperationVerified'],
                          'freshProductionProof': False},
                      'registeredContractMatches': [{'catalog': registered_path, 'id': api['id'], 'operation': api['operation'], 'status': api['status'],
+                                                    'currentMetadataParity': {
+                                                        'endpointId': api['id'] == candidate['id'],
+                                                        'permissionKey': api['permission'] == candidate['permissionKey'],
+                                                        'service': api['service'] == candidate['service'],
+                                                        'authenticationRequired': api['authRequired'] == candidate['authRequired'],
+                                                        'implementationStatus': api['status'] == candidate.get('implementationStatus'),
+                                                        'requestSchema': schema_hash(api['requestSchema']) == candidate.get('requestSchema', {}).get('sha256'),
+                                                        'responseSchema': schema_hash(api['responseSchema']) == candidate.get('responseSchema', {}).get('sha256')},
                                                     'router': 'cloudflare/workers/src/business-tasks/http.ts',
                                                     'composition': 'cloudflare/workers/src/business-tasks/channels.ts',
                                                     'authorization': 'cloudflare/workers/src/business-tasks/endpoint-policy.ts'} for api in contract_matches],
@@ -48,6 +58,7 @@ def build(root=ROOT):
                                         'idempotency/receipt/recovery', 'real host and provider entitlement where applicable']})
     return {'format': 1, 'candidateInventorySha256': hashlib.sha256(source.read_bytes()).hexdigest(),
             'metadataEvidence': inventory.get('evidence'), 'freshProductionReadByThisIndex': False,
+            'candidateSnapshotCapturedAt': inventory.get('capturedAt'),
             'candidateCount': len(rows), 'candidatesWithLiteralMatches': sum(bool(r['sourceLiteralMatches']) for r in rows),
             'candidatesWithRegisteredDynamicContracts': sum(bool(r['registeredContractMatches']) for r in rows),
             'candidatesWithHistoricalWorkflowGaps': sum(r['historicalWorkflowReview'] is not None for r in rows),

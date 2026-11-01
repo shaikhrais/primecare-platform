@@ -1,4 +1,6 @@
-# B01-B18 main-branch functionality audit
+# Historical B01-B18 main-branch functionality audit
+
+> This is a retained historical snapshot. For current work, use [the execution status](theme-plan-execution-status.json) and [the execution ledger](theme-execution-ledger.json). Historical gaps and hashes below are not current closure decisions.
 
 Captured: 2026-11-01T13:03:44.246980+00:00. Audited source: `4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2`.
 
@@ -6,7 +8,7 @@ Captured: 2026-11-01T13:03:44.246980+00:00. Audited source: `4c29795d4fe2e36dd1c
 
 GitHub branch read: main. Main-only confirmed: True. No branch was created or deleted by this audit.
 
-Current local checks: 18/19 scripts passed. The workspace browser script could not launch because local Chromium is unavailable; this is an environment limitation, not a passing browser result. Historical and new CI results are listed separately. Local PostgreSQL tests here use PGlite; native PostgreSQL/browser acceptance comes from CI.
+Captured local checks: 18/19 scripts passed. The workspace browser script could not launch because local Chromium is unavailable; this is an environment limitation, not a passing browser result. Historical and new CI results are listed separately. Local PostgreSQL tests here use PGlite; native PostgreSQL/browser acceptance comes from CI.
 
 | Batch | Source saved on main | Historical verification | Full functionality | Main remaining work |
 |---|---|---|---|---|

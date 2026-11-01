@@ -2557,6 +2557,10 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2580,6 +2584,11 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2602,6 +2611,10 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2624,6 +2637,11 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2646,6 +2664,10 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2668,6 +2690,10 @@
         "R04",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2689,6 +2715,11 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2710,6 +2741,10 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2731,6 +2766,10 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2753,6 +2792,12 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2775,6 +2820,11 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2797,6 +2847,12 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2819,6 +2875,10 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2841,6 +2901,11 @@
         "R05",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2864,6 +2929,12 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2887,6 +2958,11 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2910,6 +2986,11 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2933,6 +3014,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2955,6 +3040,11 @@
         "R06",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2977,6 +3067,11 @@
         "R06",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -2999,6 +3094,11 @@
         "R06",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3021,6 +3121,10 @@
         "R06",
         "R12"
       ],
+      "workTypesForTriage": [
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3043,6 +3147,10 @@
         "R06",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3067,6 +3175,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3091,6 +3203,12 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3115,6 +3233,11 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3139,6 +3262,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3162,6 +3289,11 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3185,6 +3317,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3208,6 +3344,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3231,6 +3371,12 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration",
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3253,6 +3399,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3275,6 +3425,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3297,6 +3451,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3319,6 +3477,11 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3341,6 +3504,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3363,6 +3530,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3385,6 +3556,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3407,6 +3582,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3429,6 +3608,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3452,6 +3635,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3475,6 +3662,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3498,6 +3689,13 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3521,6 +3719,11 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3544,6 +3747,11 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3567,6 +3775,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3590,6 +3802,12 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3613,6 +3831,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3636,6 +3858,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3659,6 +3885,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3682,6 +3912,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3705,6 +3939,10 @@
         "R07",
         "R12"
       ],
+      "workTypesForTriage": [
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3726,6 +3964,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3747,6 +3989,12 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3768,6 +4016,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3789,6 +4041,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3810,6 +4066,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3834,6 +4094,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3858,6 +4122,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3882,6 +4150,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3906,6 +4178,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3930,6 +4206,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3954,6 +4234,11 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -3978,6 +4263,11 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4002,6 +4292,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4026,6 +4320,10 @@
         "R08",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4049,6 +4347,11 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4072,6 +4375,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4095,6 +4402,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4118,6 +4429,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4141,6 +4456,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4164,6 +4483,11 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4187,6 +4511,10 @@
         "R09",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4210,6 +4538,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4233,6 +4565,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4256,6 +4592,11 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4279,6 +4620,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4302,6 +4647,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4325,6 +4674,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4348,6 +4701,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4371,6 +4728,12 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4394,6 +4757,11 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4417,6 +4785,11 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4439,6 +4812,13 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4461,6 +4841,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4483,6 +4867,11 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4505,6 +4894,10 @@
         "R10",
         "R12"
       ],
+      "workTypesForTriage": [
+        "feature_implementation"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4527,6 +4920,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4549,6 +4946,10 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "host_integration"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4571,6 +4972,12 @@
         "R11",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "host_integration",
+        "production_or_device_acceptance"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4594,6 +5001,12 @@
         "R03",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract",
+        "production_or_device_acceptance",
+        "persistence_or_recovery"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4617,6 +5030,11 @@
         "R03",
         "R12"
       ],
+      "workTypesForTriage": [
+        "production_or_device_acceptance",
+        "independent_review"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",
@@ -4640,6 +5058,10 @@
         "R03",
         "R12"
       ],
+      "workTypesForTriage": [
+        "authority_or_contract"
+      ],
+      "classificationRequiresItemReview": true,
       "executionOwner": "Codex under user instruction to execute the plan",
       "reviewOwner": "unassigned where independent human review is required",
       "state": "open",

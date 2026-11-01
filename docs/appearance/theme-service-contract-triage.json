@@ -1,13 +1,14 @@
 {
   "format": 1,
-  "candidateInventorySha256": "be72a6e9ffd1d583f1f9261e4e3b0447e0e9ff26f7b21e14f24d5469da4d88a0",
+  "candidateInventorySha256": "fa82a605548935a004315591db4a726f379b74d0d530c7fb9ae0b518bdd8f083",
   "metadataEvidence": {
-    "runId": 41311286317,
-    "jobId": 124862034565,
-    "sourceCommit": "0bafb2a8a112c19da727e15e487662565e6da16b",
+    "runId": 41350683143,
+    "jobId": 124979960703,
+    "sourceCommit": "18caf467a26b174f93eae36dce683143079d0290",
     "freshProductionMetadataRead": true
   },
   "freshProductionReadByThisIndex": false,
+  "candidateSnapshotCapturedAt": "2026-11-01T21:11:27.100669+00:00",
   "candidateCount": 187,
   "candidatesWithLiteralMatches": 0,
   "candidatesWithRegisteredDynamicContracts": 7,
@@ -28,10 +29,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_ACTIONS_TRAINING-MODULES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 42,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/actions/training-modules",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -65,10 +82,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_ADMIN_NOTIFICATIONS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 58,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/notifications",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -102,10 +135,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_ADMIN_NOTIFICATIONS_BROADCAST",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 59,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/notifications/broadcast",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -139,10 +188,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_PHARMACY_ORDERS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 73,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/pharmacy/orders",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -176,10 +241,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_FINANCIAL_INVOICES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 80,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/financial/invoices",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -213,10 +294,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_ERP_INVENTORY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 103,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/erp/inventory",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -250,10 +347,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_ERP_PURCHASE-ORDERS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 104,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/erp/purchase-orders",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -287,10 +400,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_ERP_INVENTORY_ADD",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 106,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/erp/inventory/add",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -324,10 +453,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_ADMIN_SYSTEM-DATA_NOTIFICATIONS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 142,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/system-data/notifications",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -361,10 +506,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_CRON_TRAINING-REMINDERS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 151,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/cron/training-reminders",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -398,10 +559,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_CRON_INVENTORY-REORDER",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 153,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/cron/inventory-reorder",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -435,10 +612,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_MANAGER_FINANCE_PAYROLL-AUDIT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 169,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/finance/payroll-audit",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -472,10 +665,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_MANAGER_OPS_SCHEDULE_LOGISTICS-BOARD",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 174,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/ops/schedule/logistics-board",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -509,10 +718,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_ASSIGN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 179,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/assign",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -546,10 +771,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_COMPLIANCE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 180,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/compliance",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -583,10 +824,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_MODULES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 181,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/modules",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -620,10 +877,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_STAFF_MESSAGES_HUB",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 191,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/staff/messages/hub",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -657,10 +930,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_STAFF_MESSAGES_HUB_AUDIT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 192,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/staff/messages/hub/audit",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -694,10 +983,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_STAFF_MESSAGES_HUB_MULTIDISCIPLINARY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 193,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/staff/messages/hub/multidisciplinary",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -731,10 +1036,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PSW_HOME_HARDWARE_PURCHASE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 212,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/home/hardware/purchase",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -768,10 +1089,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_VISITS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 216,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/visits",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -805,10 +1142,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_OFFERS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 217,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/offers",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -842,10 +1195,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_AVAILABILITY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 218,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/availability",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -879,10 +1248,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_MARKETPLACE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 219,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/marketplace",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -916,10 +1301,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_MARKETPLACE_SWAPS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 220,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/marketplace/swaps",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -953,10 +1354,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_PSW_TRAINING_ASSIGNED",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 232,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/training/assigned",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -990,10 +1407,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PSW_VISIT-NOTES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 233,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/visit-notes",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1027,10 +1460,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_CLIENT_HOME_PROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 235,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/home/profile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -1052,10 +1501,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_CLIENT_INVOICES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 239,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/invoices",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -1077,10 +1542,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_CLIENT_SUPPORT_FEEDBACK",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 242,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/support/feedback",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1114,10 +1595,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_CLIENT_ENGAGEMENT_PAY-INVOICE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 244,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/engagement/pay-invoice",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1151,10 +1648,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_CLIENT_FAMILY_MESSAGE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 246,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/family/message",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1188,10 +1701,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_CLIENT_FAMILY_SCHEDULE_UPCOMING",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 247,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/family/schedule/upcoming",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1225,10 +1754,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_CLIENT_BILLING_INVOICES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 248,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/billing/invoices",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -1250,10 +1795,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_CLIENT_BILLING_PAYMENT-METHODS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 250,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/billing/payment-methods",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1287,10 +1848,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_CLIENT_PROFILE_MEDICAL-SUMMARY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 257,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/profile/medical-summary",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1324,10 +1901,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_COORDINATOR_SCHEDULE_MASTER",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 259,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/coordinator/schedule/master",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1361,10 +1954,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_USER_PROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 276,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/user/profile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1398,10 +2007,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_USER_TRAINING_CATALOG",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 279,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/user/training/catalog",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1435,10 +2060,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_USER_TRAINING_MY-PROGRESS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 280,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/user/training/my-progress",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1472,10 +2113,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_SYSTEM_NOTIFICATIONS_REGISTER-DEVICE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 281,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/system/notifications/register-device",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1509,10 +2166,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_SYSTEM_NOTIFICATIONS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 282,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/system/notifications",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1546,10 +2219,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_SYSTEM_PAYMENTS_CREATE-PAYMENT-INTENT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 283,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/system/payments/create-payment-intent",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1583,10 +2272,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 305,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1620,10 +2325,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_VISITS_CHECK-IN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 329,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/visits/check-in",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1657,10 +2378,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PSW_SCHEDULE_PAYOUTS_REQUEST",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 330,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/schedule/payouts/request",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1694,10 +2431,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_FINANCE_MULTI-CURRENCY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 382,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/finance/multi-currency",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1731,10 +2484,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_FINANCE_MULTI-CURRENCY_RATES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 383,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/finance/multi-currency/rates",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1768,10 +2537,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_FINANCE_MULTI-CURRENCY_CONVERSIONS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 384,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/finance/multi-currency/conversions",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1805,10 +2590,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_SUPPLY-CHAIN_PURCHASE-ORDERS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 391,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/supply-chain/purchase-orders",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1842,10 +2643,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_SUPPLY-CHAIN_INVENTORY_SYNC",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 392,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/supply-chain/inventory/sync",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1879,10 +2696,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_SUPPORT_CHAT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 408,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/support/chat",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1916,10 +2749,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_SUPPORT_TICKETS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 409,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/support/tickets",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1953,10 +2802,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ADMIN_INVOICES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 421,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/invoices",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -1990,10 +2855,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_MANAGER_FINANCE_PL",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 517,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/finance/pl",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2027,10 +2908,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_MANAGER_FINANCE_BILLING_FINALIZE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 519,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/finance/billing/finalize",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2064,10 +2961,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 520,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2101,10 +3014,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_ACADEMY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 544,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/academy",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2138,10 +3067,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_ACADEMY_MODULES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 545,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/academy/modules",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2175,10 +3120,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_MANAGER_TRAINING_ACADEMY_PROGRESS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 546,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/manager/training/academy/progress",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2212,10 +3173,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_CLIENT_SUPPORT_NURSING-CHAT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 553,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/client/support/nursing-chat",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2249,10 +3226,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FINANCE_VOID",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 627,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/finance/void",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2286,10 +3279,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FINANCE_SEAL",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 628,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/finance/seal",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2323,10 +3332,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FINANCE_TAX_REPORT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 629,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/finance/tax/report",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2360,10 +3385,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING_ASSIGN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 632,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training/assign",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2397,10 +3438,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING_VERIFY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 633,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training/verify",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2434,10 +3491,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING_RENEW",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 634,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training/renew",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2471,10 +3544,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING_EXPORT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 635,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training/export",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2508,10 +3597,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_AUTH_PROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 708,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/auth/profile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2545,10 +3650,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_MESSAGES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 710,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/messages",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "6642abf47f446ef4e3d24204d40325b60219b130713846a6519c634aacea385f",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "6de2243a60677d9f9aca7b5e3c05da24ea8c2410cd5ab69b1aa24feb31d34366",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2570,6 +3691,15 @@
           "id": 710,
           "operation": "message.command",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -2592,10 +3722,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_TRAINING_STATS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 714,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/training/stats",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2629,10 +3775,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_STAFF_TRAINING_SUMMARY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 715,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/staff/training/summary",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2666,10 +3828,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_TRAINING_ARCHITECT_AUDIT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 716,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/training/architect/audit",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2703,10 +3881,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_TRAINING_STATS_COMPLIANCE-OVERVIEW",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 740,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/training/stats/compliance-overview",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2740,10 +3934,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_TRAINING_STATS_EXPIRING-CERTS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 741,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/admin/training/stats/expiring-certs",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2777,10 +3987,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PSW_MESSAGES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 783,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/messages",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2814,10 +4040,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PSW_PROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 788,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/profile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2851,10 +4093,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PSW_NOTIFICATIONS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 793,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/notifications",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2888,10 +4146,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_PSW_HELP-SUPPORT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 794,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw/help-support",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2925,10 +4199,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_ADMIN_COMPLIANCE_TRAINING",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 834,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/admin/compliance/training",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2962,10 +4252,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_ADMIN_MESSAGE-ARCHIVE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 847,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/admin/message-archive",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -2999,10 +4305,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_MESSAGES_INBOX",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 857,
+      "implementationStatus": "registered-unimplemented",
       "method": "GET",
       "path": "/v1/messages/inbox",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "ac5aa82c1b051aab572f2668e2ed8190f141fb92f3b8c5086c2c57db73e12578",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a0a41c107159a1c6a6b3d944c3c94498d04ea5083d736719b1345cc2e87fe4a5",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3024,6 +4346,15 @@
           "id": 857,
           "operation": "message.inbox",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -3046,10 +4377,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_ANALYTICS_FINANCE_FORECAST",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 870,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/analytics/finance/forecast",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3083,10 +4430,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_EDUCATION_SIM_LAB_SCHEDULE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 886,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/education/sim_lab/schedule",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3120,10 +4483,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_FAMILYNOTIFICATION",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 897,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/familynotification",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3145,10 +4524,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_APPNOTIFICATION",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 906,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/appnotification",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3170,10 +4565,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_GAMIFICATIONPROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 907,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/gamificationprofile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3195,10 +4606,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PREMIUM_BEHAVIORNOTE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 917,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/behaviornote",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3220,10 +4647,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PREMIUM_NARRATIVEPROGRESSNOTE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 921,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/narrativeprogressnote",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3245,10 +4688,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_MESSAGETHREAD",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 936,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/messagethread",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3270,10 +4729,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_MESSAGE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 947,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/message",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3295,10 +4770,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_PREMIUM_SUPPORTTICKET",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 955,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/supportticket",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3332,10 +4823,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PREMIUM_FAMILYAPPOINTMENT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 957,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/familyappointment",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3369,10 +4876,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_FAMILYCLINICALMESSAGE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 960,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/familyclinicalmessage",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3406,10 +4929,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_LOCALFINANCENODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 982,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/localfinancenode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3443,10 +4982,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_INVOICERECORD",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 989,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/invoicerecord",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3480,10 +5035,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PREMIUM_SCHEDULERTRENDNODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 999,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/schedulertrendnode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3517,10 +5088,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PREMIUM_SCHEDULERROSTERNODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1000,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/schedulerrosternode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3554,10 +5141,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PREMIUM_SCHEDULERFACILITYNODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1001,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/schedulerfacilitynode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3591,10 +5194,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_PREMIUM_SUPPORTTICKETNODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1015,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/supportticketnode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3628,10 +5247,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_PREMIUM_SUPPORTAGENTNODE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1018,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/supportagentnode",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3665,10 +5300,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_CLIENTPROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1063,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/clientprofile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3690,10 +5341,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PREMIUM_PROVIDERPROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1064,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/providerprofile",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3715,10 +5382,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PREMIUM_VISITNOTE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1069,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/visitnote",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3740,10 +5423,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_INVOICE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1108,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/invoice",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3765,10 +5464,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_PAYMENT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1110,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/payment",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3790,10 +5505,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_TRANSACTIONLEDGER",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1122,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/transactionledger",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3815,10 +5546,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_PREMIUM_TRAININGMODULE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1125,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/trainingmodule",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3852,10 +5599,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_PREMIUM_TRAININGASSIGNMENT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1126,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/trainingassignment",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3877,10 +5640,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_INVENTORYITEM",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1137,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/inventoryitem",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3902,10 +5681,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PREMIUM_PURCHASEORDER",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1138,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/premium/purchaseorder",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -3927,10 +5722,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_MARKETING_EMAIL_JOURNEYS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1146,
+      "implementationStatus": "active",
       "method": "GET",
       "path": "/v1/marketing/email/journeys",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -3964,10 +5775,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_ADJUSTMENT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1159,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/adjustment-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4001,10 +5828,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_CHIROPRACTOR-APPOINTMENTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1162,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/chiropractor-appointments/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4038,10 +5881,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_CHIROPRACTOR-TREATMENT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1169,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/chiropractor-treatment-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4075,10 +5934,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PHYSIOTHERAPIST-APPOINTMENTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1173,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/physiotherapist-appointments/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4112,10 +5987,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PHYSIOTHERAPIST-TREATMENT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1180,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/physiotherapist-treatment-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4149,10 +6040,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_RMT-APPOINTMENTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1181,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/rmt-appointments/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4186,10 +6093,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_RMT_APPOINTMENTS_FETCH",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1186,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/rmt/appointments/fetch",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 1,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4222,10 +6145,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_RMT_SOAP-NOTES_SUBMIT",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1187,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/rmt/soap-notes/submit",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 1,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4258,10 +6197,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_RMT-TREATMENT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1192,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/rmt-treatment-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4295,10 +6250,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_THERAPIST_NOTES_FINALIZE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1197,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/therapist/notes/finalize",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 1,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4331,10 +6302,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_TREATMENT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1199,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/treatment-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4368,10 +6355,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_APPOINTMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1244,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/appointment/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4405,10 +6408,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "API__V1_CAREGIVER_MEDS_ACKNOWLEDGE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 64,
+        "rows": 64
+      },
       "id": 1248,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/caregiver/meds/acknowledge",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 1,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4441,10 +6460,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_EMERGENCY-CONTACTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1254,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/emergency-contacts/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4478,10 +6513,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_FILE-VERIFICATION-DASHBOARD_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1256,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/file-verification-dashboard/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 6,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4514,10 +6565,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_PATIENT-APPOINTMENTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1260,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/patient-appointments/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4551,10 +6618,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PATIENT-MESSAGES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1265,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/patient-messages/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4588,10 +6671,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PATIENT-PROFILE_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1266,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/patient-profile/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4625,10 +6724,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_APPOINTMENT-OVERVIEW_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1276,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/appointment-overview/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4662,10 +6777,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_CFO-INVOICES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1281,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/cfo-invoices/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4699,10 +6830,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FINANCE-DIRECTOR-ANALYTICS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1302,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/finance-director-analytics/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4736,10 +6883,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FINANCE-DIRECTOR-WORKFLOW_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1303,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/finance-director-workflow/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4773,10 +6936,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_FRANCHISE-OWNER-APPOINTMENTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1310,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/franchise-owner-appointments/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4810,10 +6989,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_FRANCHISE-OWNER-FINANCE-SNAPSHOT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1315,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/franchise-owner-finance-snapshot/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4847,10 +7042,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_HR-DIRECTOR-STAFF-FILES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1323,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/hr-director-staff-files/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4884,10 +7095,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_HR-DIRECTOR-TRAINING_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1324,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/hr-director-training/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4921,10 +7148,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING-DIRECTOR-WORKFLOW_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1351,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training-director-workflow/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4958,10 +7201,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING-MANAGEMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1380,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training-management/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -4995,10 +7254,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_CAREGIVER-CLIENT-PROFILE_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1385,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/caregiver-client-profile/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5032,10 +7307,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_CAREGIVER-SCHEDULE_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1387,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/caregiver-schedule/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5069,10 +7360,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_CAREGIVER-VISIT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1389,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/caregiver-visit-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5106,10 +7413,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PSW-CLIENT-PROFILE_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1393,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw-client-profile/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5143,10 +7466,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "API__V1_PSW-MESSAGES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1397,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw-messages/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5180,10 +7519,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_PSW-VISIT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1399,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/psw-visit-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5217,10 +7572,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULE_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1401,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/schedule/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5254,10 +7625,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "API__V1_VISIT-NOTES_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1403,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/visit-notes/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5291,10 +7678,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_CALENDAR-MANAGEMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1437,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/calendar-management/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5328,10 +7731,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_COURSE-ASSIGNMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1447,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/course-assignment/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5365,10 +7784,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_INVOICE-MANAGEMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1462,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/invoice-management/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5402,10 +7837,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_PAYMENT-TRACKING_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1466,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/payment-tracking/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5439,10 +7890,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "API__V1_REFUND-MANAGEMENT_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1468,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/refund-management/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5476,10 +7943,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-BOOKING-REQUESTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1470,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-booking-requests/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5513,10 +7996,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-CALENDAR_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1471,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-calendar/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5550,10 +8049,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-COMMAND-CENTER_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1472,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-command-center/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5587,10 +8102,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-CONFLICTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1473,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-conflicts/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5624,10 +8155,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-OPEN-SHIFTS_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1474,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-open-shifts/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5661,10 +8208,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "API__V1_SCHEDULER-PROVIDER-AVAILABILITY_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1475,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/scheduler-provider-availability/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 0,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5698,10 +8261,26 @@
       "candidateGroups": [
         "academy"
       ],
+      "endpointCode": "API__V1_TRAINING-DASHBOARD_COMPLIANCE_SCAN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 1483,
+      "implementationStatus": "active",
       "method": "POST",
       "path": "/v1/training-dashboard/compliance/scan",
       "permissionKey": null,
+      "requestSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "responseSchema": {
+        "sha256": null,
+        "state": "missing"
+      },
+      "screenLinkCount": 1,
       "service": "PRISMA",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": {
@@ -5734,10 +8313,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "CLIENT_SELF_PROFILE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16431,
+      "implementationStatus": "implemented",
       "method": "GET",
       "path": "/v1/client/home/profile",
       "permissionKey": "authenticated_client_profile_owner",
+      "requestSchema": {
+        "sha256": "99334726611ccf58a148b0814696bfa6fe08c1b2d027e946beccf5a74331c9aa",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "e74e5c0bccea73855628e9fad76a95d6276ba8ca73d2d5af1f35bcd6e10b183a",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "client",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5759,10 +8354,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "CLIENT_SELF_INVOICES",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16432,
+      "implementationStatus": "implemented",
       "method": "GET",
       "path": "/v1/client/invoices",
       "permissionKey": "authenticated_client_profile_owner",
+      "requestSchema": {
+        "sha256": "095cc2f4df36218b19c104e7bd0d50f7e8594c41a7145621d4636079fa5439d0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "10dea4956970d08e4d0f26b9baed4629e1a054cc93a4fed6b60de9fd68321e8d",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "client",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5784,10 +8395,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "GROWTH_POST__appointments",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16457,
+      "implementationStatus": "implemented",
       "method": "POST",
       "path": "/v1/governance/growth/appointments",
       "permissionKey": "growth.tenant_role",
+      "requestSchema": {
+        "sha256": "9f3793c68c2469f47196dc8db374d6120d9b5469bd362009e744eae62a6d909a",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5809,10 +8436,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "GROWTH_PATCH__appointments_id",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16458,
+      "implementationStatus": "implemented",
       "method": "PATCH",
       "path": "/v1/governance/growth/appointments/{id}",
       "permissionKey": "growth.tenant_role",
+      "requestSchema": {
+        "sha256": "88963551934827748094d7a9428bd20ed4419418ee8b01e08197335e1f1eae2e",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5834,10 +8477,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "GROWTH_PATCH__contacts_id",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16459,
+      "implementationStatus": "implemented",
       "method": "PATCH",
       "path": "/v1/governance/growth/contacts/{id}",
       "permissionKey": "growth.tenant_role",
+      "requestSchema": {
+        "sha256": "d03d0316a57d7499868fc640599117e50acf5079a413cc19bc6663af4faa023b",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5859,10 +8518,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "GROWTH_POST__performance_email",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16470,
+      "implementationStatus": "implemented",
       "method": "POST",
       "path": "/v1/governance/growth/performance/email",
       "permissionKey": "growth.report_manager",
+      "requestSchema": {
+        "sha256": "3372a45c0e38322ee294f57246f96d2abdc7879cc9899c4145eed12cf673b361",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5884,10 +8559,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "GROWTH_POST__finance",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16475,
+      "implementationStatus": "implemented",
       "method": "POST",
       "path": "/v1/governance/growth/finance",
       "permissionKey": "growth.ceo_business",
+      "requestSchema": {
+        "sha256": "f2577bdc7176b4a7a5e689fd336e37f83fcf17603f4e04ff951fadf5e1ba1ffa",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5909,10 +8600,26 @@
       "candidateGroups": [
         "calendar"
       ],
+      "endpointCode": "CARE_POST__schedules",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16484,
+      "implementationStatus": "partial",
       "method": "POST",
       "path": "/v1/governance/care/schedules",
       "permissionKey": "care.current_staff_and_assignment",
+      "requestSchema": {
+        "sha256": "dc44660150dd5a06509b69e635f0652cdfc2a61ad08445cc5e14757527756331",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5934,10 +8641,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "SHARED_REPORT_EMAIL",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16491,
+      "implementationStatus": "planned",
       "method": "POST",
       "path": "/v1/governance/reports/{reportId}/email",
       "permissionKey": "shared_report_grants",
+      "requestSchema": {
+        "sha256": "80cfd75d782dfd3b302c1b26cfa8679f93352547ccbd30880aaeb4f473de6fdd",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 151,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5959,10 +8682,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "MAINTENANCE_CONFIGURATION_TEST_EMAIL",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 2,
+        "rows": 2
+      },
       "id": 16495,
+      "implementationStatus": "implemented",
       "method": "POST",
       "path": "/v1/auth/maintenance/configuration/test-email",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "84dd2557aeddb7f13dd570feb30ab5b4a5fbc875b9eb2cb4d9fcd4f44d7bf425",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -5984,10 +8723,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "auth_support_request",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16503,
+      "implementationStatus": "implemented-scoped-tested",
       "method": "POST",
       "path": "/v1/auth/mfa/support/request",
       "permissionKey": "elevated_code_admin_support_request",
+      "requestSchema": {
+        "sha256": "cecfb81e6d64da246807ee2119ee696c5830a7babc9a3605e1f5ed5f50ffcbb6",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "fce3cba45c4b4485d9d7ee034982d0b004e51a7284b44ca759c8533d27188eba",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6009,10 +8764,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "auth_support_requests",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16504,
+      "implementationStatus": "implemented-scoped-tested",
       "method": "GET",
       "path": "/v1/auth/mfa/support/requests",
       "permissionKey": "tenant_admin_support_approval",
+      "requestSchema": {
+        "sha256": "d746974fa9afd5e951f76f9af38954b0ad7f436f2120dc974da65e5ee39f856f",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "3af37eb505b1d06ccdfb4e6e94637a4596160cf946b8aad8bebfd127d77d2e70",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6034,10 +8805,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "auth_support_approve",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16505,
+      "implementationStatus": "implemented-scoped-tested",
       "method": "POST",
       "path": "/v1/auth/mfa/support/approve",
       "permissionKey": "tenant_admin_support_approval",
+      "requestSchema": {
+        "sha256": "1c3a10da39a84584c0b27a2598f466aa59dd051793cf703aafc2b7c7b167d309",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "8d4380a8d11bdcab8a76683a8f94db1eb47dea6de198f53969ee679e3549edd6",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6059,10 +8846,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "auth_support_revoke",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16506,
+      "implementationStatus": "implemented-scoped-tested",
       "method": "POST",
       "path": "/v1/auth/mfa/support/revoke",
       "permissionKey": "owned_or_tenant_admin_support_revocation",
+      "requestSchema": {
+        "sha256": "1c3a10da39a84584c0b27a2598f466aa59dd051793cf703aafc2b7c7b167d309",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "b8295c396b98a8c816991b79cbb79c8b24cc62a1d3de96af00c93547064a0be4",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6084,10 +8887,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "auth_support_summary",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16507,
+      "implementationStatus": "implemented-scoped-tested",
       "method": "POST",
       "path": "/v1/auth/mfa/support/summary",
       "permissionKey": "approved_tenant_security_summary",
+      "requestSchema": {
+        "sha256": "84910e6a2f58b694b7cf0c085fcf42a90d47020b67bc8d909e71ba5e64fa49a2",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "17965379356027c806ab68a3f41b9d6e6cc8a5e5f43389780958a5960ac80e2a",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "auth",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6109,10 +8928,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "COMMUNICATION_PICTURE_UPLOAD",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16508,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/messages/pictures",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "09c144bd540fc869e12ff4d553b26e909512fe7c352078535f5655aedd250284",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "5a2456557f28b77da0d56623cffa60622dc302c41ab1b1ceee9ee052dde7cc83",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6122,6 +8957,15 @@
           "id": 16508,
           "operation": "picture.upload",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -6144,10 +8988,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "COMMUNICATION_PICTURE_OPEN",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16509,
+      "implementationStatus": "registered-unimplemented",
       "method": "GET",
       "path": "/v1/messages/pictures",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "29947f7ba15911acfbc1b0e94b0176f84be55a398b00daae483d8af4168ac10f",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "93a5098823960bc70e0d3a19ec3fd97e87db86b1efc237e093c095cb7ea9a05c",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6157,6 +9017,15 @@
           "id": 16509,
           "operation": "picture.open",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -6179,10 +9048,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "COMMUNICATION_AUDIO_COMMAND",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16510,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/messages/calls",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "2cefbb36c60c4b5171eef059166eee83ff0409368460cbce632ba6dd4fd2cee3",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "6de2243a60677d9f9aca7b5e3c05da24ea8c2410cd5ab69b1aa24feb31d34366",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6192,6 +9077,15 @@
           "id": 16510,
           "operation": "audio.command",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -6214,10 +9108,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "COMMUNICATION_EMAIL_COMMAND",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16511,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/messages/email",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "79dca5a9ad5065e5eb779f84ea5beee18d2d97f700d205b916f0ce51adf1c647",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "6de2243a60677d9f9aca7b5e3c05da24ea8c2410cd5ab69b1aa24feb31d34366",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6227,6 +9137,15 @@
           "id": 16511,
           "operation": "email.command",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -6249,10 +9168,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "COMMUNICATION_EMAIL_INBOX",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16512,
+      "implementationStatus": "registered-unimplemented",
       "method": "GET",
       "path": "/v1/messages/email/inbox",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "33c51a8a9a1f61dad2906a2bef4eff106b2c8986bd525d1a1f207db7e06e11a4",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "ae007e314d75787f119bdbcab27175324d369b650e4f3b459fc37257f39d2ad2",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 4,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6262,6 +9197,15 @@
           "id": 16512,
           "operation": "email.inbox",
           "status": "registered-unimplemented",
+          "currentMetadataParity": {
+            "endpointId": true,
+            "permissionKey": true,
+            "service": true,
+            "authenticationRequired": true,
+            "implementationStatus": true,
+            "requestSchema": true,
+            "responseSchema": true
+          },
           "router": "cloudflare/workers/src/business-tasks/http.ts",
           "composition": "cloudflare/workers/src/business-tasks/channels.ts",
           "authorization": "cloudflare/workers/src/business-tasks/endpoint-policy.ts"
@@ -6284,10 +9228,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "TWILIO_VOICEMAIL_READ",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16516,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/voice/voicemail/read",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "500680cbc3277cedf8d6191af7449c8a282cbbd74195d6de322e3ea0a483f21a",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "41dde832b276bd04129367a3f48dcf4b00d0b587dbda9ab48f286f061955db84",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 0,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6309,10 +9269,26 @@
       "candidateGroups": [
         "messaging_files"
       ],
+      "endpointCode": "TWILIO_VOICEMAIL_AUDIO",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 0,
+        "rows": 0
+      },
       "id": 16517,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/voice/voicemail/audio",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "500680cbc3277cedf8d6191af7449c8a282cbbd74195d6de322e3ea0a483f21a",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "b52a271e76bc546c395d00159024bd2dd40c06866c7b94de61caab6a4cb090aa",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 0,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6334,10 +9310,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "VOICE_CONTACT_STATUS",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 5,
+        "rows": 5
+      },
       "id": 16535,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/voice/contact/status",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "d746974fa9afd5e951f76f9af38954b0ad7f436f2120dc974da65e5ee39f856f",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "ba8ba04bd12d4d8cea65efe9113bbb52d3d33cd0d8d2fbef28e371f35684867b",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 5,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6359,10 +9351,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "VOICE_CONTACT_START",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 5,
+        "rows": 5
+      },
       "id": 16536,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/voice/contact/start",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "9d3d223dd5febf7ec0be64a9d153fd284a634565b79ffcf6432f75b86daa4a44",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "d32033fcc56b32863c18759272f4239ed856cc7373b5cc9409627c109c86da14",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 5,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6384,10 +9392,26 @@
       "candidateGroups": [
         "contacts_notes"
       ],
+      "endpointCode": "VOICE_CONTACT_CHECK",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 5,
+        "rows": 5
+      },
       "id": 16537,
+      "implementationStatus": "registered-unimplemented",
       "method": "POST",
       "path": "/v1/voice/contact/check",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "ec0cd6725997d98aa7354078d3c8ee100d1fb9b9f5699cbeda5377170c425d65",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "78296ff10f3dfac789ee1e5857371c2d6663c27d6bb5bea5d1a2f48e2b107962",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 5,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6409,10 +9433,26 @@
       "candidateGroups": [
         "ai_images_help"
       ],
+      "endpointCode": "LOOK_IMAGE",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 5,
+        "rows": 5
+      },
       "id": 16558,
+      "implementationStatus": "implemented",
       "method": "GET",
       "path": "/v1/governance/look/reviews/{id}/image",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "cd1a463c46d6264134447db17a8c3c7abe5b9a2488c6d759fea66da1f96b133e",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,
@@ -6434,10 +9474,26 @@
       "candidateGroups": [
         "commerce_finance"
       ],
+      "endpointCode": "VAPI_ADMIN_INVENTORY",
+      "grantInventory": {
+        "authorityEstablished": false,
+        "enabledRows": 1,
+        "rows": 1
+      },
       "id": 16561,
+      "implementationStatus": "implemented",
       "method": "GET",
       "path": "/v1/governance/platform/vapi/inventory",
       "permissionKey": "role_screen_permissions",
+      "requestSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "responseSchema": {
+        "sha256": "a2c799262a3ce3c19ef5cdd983bf3d12b43ab3c426227091b909dcb7054738c0",
+        "state": "json_object_requires_semantic_review"
+      },
+      "screenLinkCount": 1,
       "service": "governance",
       "sourceLiteralMatches": [],
       "historicalWorkflowReview": null,

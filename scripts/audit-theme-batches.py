@@ -61,17 +61,19 @@ for batch in plan['batches']:
                  'remaining': remaining})
 branches = snapshot['branches']
 result = {'format': 1, 'sourceCommit': source, 'capturedAt': snapshot['capturedAt'],
+          'historicalSnapshot': True, 'currentExecutionStatus': 'docs/appearance/theme-plan-execution-status.json',
           'remoteBranches': branches, 'mainOnlyConfirmed': [x['name'] for x in branches] == ['main'],
           'all18FullyFunctional': False, 'fullyConfirmedBatches': 0,
           'historicalEvidenceIsNotCurrentProductionAcceptance': True,
           'latestB16': snapshot['latestB16'], 'nextNativeReader': snapshot.get('nextNativeReader'), 'localRegressions': snapshot['localRegressions'],
           'proposalFeatures': len(contract['features']), 'batches': rows}
 passed = sum(row['exitCode'] == 0 for row in snapshot['localRegressions'])
-lines = ['# B01-B18 main-branch functionality audit', '',
+lines = ['# Historical B01-B18 main-branch functionality audit', '',
+         '> This is a retained historical snapshot. For current work, use [the execution status](theme-plan-execution-status.json) and [the execution ledger](theme-execution-ledger.json). Historical gaps and hashes below are not current closure decisions.', '',
          f"Captured: {snapshot['capturedAt']}. Audited source: `{source}`.", '',
          '**All 18 batches are not fully functional or production verified.** B01-B15 have historical passing checks for registered subsets/factories; B16 has corrected native checks and remaining integration gaps; B17 has an audit but unfinished catalogue/app migration; B18 remains unfinished. No batch is promoted to full functionality from a green build, metadata registration or file presence.', '',
          f"GitHub branch read: {', '.join(x['name'] for x in branches)}. Main-only confirmed: {result['mainOnlyConfirmed']}. No branch was created or deleted by this audit.", '',
-         f"Current local checks: {passed}/{len(snapshot['localRegressions'])} scripts passed. The workspace browser script could not launch because local Chromium is unavailable; this is an environment limitation, not a passing browser result. Historical and new CI results are listed separately. Local PostgreSQL tests here use PGlite; native PostgreSQL/browser acceptance comes from CI.", '',
+         f"Captured local checks: {passed}/{len(snapshot['localRegressions'])} scripts passed. The workspace browser script could not launch because local Chromium is unavailable; this is an environment limitation, not a passing browser result. Historical and new CI results are listed separately. Local PostgreSQL tests here use PGlite; native PostgreSQL/browser acceptance comes from CI.", '',
          '| Batch | Source saved on main | Historical verification | Full functionality | Main remaining work |',
          '|---|---|---|---|---|']
 for row in rows:

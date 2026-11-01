@@ -26,11 +26,12 @@
       "done": [
         "Fresh readback of all 192 affected rows, raw-role IDs and linked screens",
         "Confirmed empty runtime_artifacts table",
-        "Produced exact row-level reconciliation records with no guessed mutations"
+        "Produced exact row-level reconciliation records with no guessed mutations",
+        "Read active auth/governance deployment version identities without settings or grant changes"
       ],
       "remaining": [
         "Resolve role/action authority for the 128 wrong-operation labels",
-        "Establish independently registered deployment-backed artifact associations",
+        "Validate source/deployment provenance and register legitimate artifact associations; active version IDs alone do not identify legacy artifact 1",
         "Explicitly resolve admin-role preference access"
       ],
       "evidence": [
@@ -44,13 +45,17 @@
       "done": [
         "Indexed all 187 metadata candidates",
         "Resolved 7 current dynamic communication contracts to router/composition/authorization source",
-        "Joined 141 historical workflow-gap records without treating them as fresh proof"
+        "Joined 141 historical workflow-gap records without treating them as fresh proof",
+        "Fresh production snapshot confirms 158 candidates missing both schemas and 154 without screen links; counts overlap",
+        "All seven current message/mail contract IDs, permissions, services, auth requirements, statuses and schema digests match retained definitions"
       ],
       "remaining": [
-        "Fresh schema/status/link/grant metadata read and per-action semantic equivalence review"
+        "Review action-level equivalence, current role/owner/tenant authority, and actual host/provider flows; specify contracts that are truly missing"
       ],
       "evidence": [
-        "docs/appearance/theme-service-contract-triage.json"
+        "docs/appearance/theme-service-contract-triage.json",
+        "docs/appearance/theme-service-candidates-current.json",
+        "CI 41350683143 / job 124979960703"
       ]
     },
     {
@@ -121,15 +126,35 @@
         "https://10c38104.primecare-governance.pages.dev",
         "https://1571bbb5.primecare-enterprise-blueprint.pages.dev"
       ]
+    },
+    "followup": {
+      "source": "18caf467a26b174f93eae36dce683143079d0290",
+      "combinedRun": 41350683268,
+      "passedJobs": 7,
+      "totalJobs": 7
+    },
+    "runtimeArtifacts": {
+      "run": 41350683165,
+      "job": 124979960706,
+      "conclusion": "success",
+      "sourceCommitAssociationsApproved": false
+    },
+    "currentContractSnapshot": {
+      "run": 41350683143,
+      "job": 124979960703,
+      "conclusion": "success",
+      "missingRequestSchemas": 158,
+      "missingResponseSchemas": 158,
+      "candidatesWithoutScreenLinks": 154
     }
   },
   "permissionRowsChanged": 0,
   "newRoleGrants": 0,
   "preferenceRuntimeActivated": false,
   "next": [
-    "Complete the read-only active-deployment artifact audit",
-    "Refresh candidate schema/status/link/grant inventory",
-    "Resolve exact authoritative R01 proposal before applying any permission mutation",
-    "Proceed with downstream host and feature integration only within confirmed authority"
+    "Resolve the concrete operation/role authority questions in the row-level R01 proposal",
+    "Validate source provenance for observed auth/governance deployment versions before registering artifact associations",
+    "Complete per-action semantic contract review, then proceed with eligible hosts and business flows",
+    "Keep source acceptance, publication, actual-device and human release evidence separate"
   ]
 }

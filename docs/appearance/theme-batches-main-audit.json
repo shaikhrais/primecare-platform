@@ -2,6 +2,8 @@
   "format": 1,
   "sourceCommit": "4c29795d4fe2e36dd1c978d0e4c16a2f0226e3b2",
   "capturedAt": "2026-11-01T13:03:44.246980+00:00",
+  "historicalSnapshot": true,
+  "currentExecutionStatus": "docs/appearance/theme-plan-execution-status.json",
   "remoteBranches": [
     {
       "name": "main",
