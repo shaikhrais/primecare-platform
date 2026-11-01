@@ -1,0 +1,176 @@
+{
+  "format": 1,
+  "batch": "B15",
+  "status": "account_identity_and_navigation_settings_verified_other_application_dependencies_and_host_activation_pending",
+  "sourceCommit": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+  "sourceRun": {
+    "runId": 41277937362,
+    "sourceCommit": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124763816183,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T05:43:01.1034704Z No issues found! (ran in 10.5s)",
+          "2026-11-01T05:43:13.5494704Z 00:04 +34: All tests passed!"
+        ]
+      },
+      {
+        "id": 124763816279,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T05:44:57.2008640Z No issues found! (ran in 14.9s)",
+          "2026-11-01T05:45:27.0140340Z 00:09 +34: All tests passed!"
+        ]
+      },
+      {
+        "id": 124763816284,
+        "name": "postgres",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T05:43:17.1154771Z PASS application modules: 27 checks; native PostgreSQL, existing account/preference handlers, independent SQL, version conflict, original-key replay, read-only identity and blocked unregistered services",
+          "2026-11-01T05:43:21.1367416Z PASS application module browser: 24 checks; six templates, real account/preference HTTP, retained invalid draft, exact-key retry, independent SQL/reload, localization, role-change denial, zero provider/purchase requests (native PostgreSQL)"
+        ]
+      },
+      {
+        "id": 124763816312,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T05:45:20.3277676Z No issues found! (ran in 12.7s)\r",
+          "2026-11-01T05:45:37.6951632Z 00:06 +34: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124763816377,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T05:42:59.4058599Z PASS application modules: 27 checks; PGlite PostgreSQL, existing account/preference handlers, independent SQL, version conflict, original-key replay, read-only identity and blocked unregistered services",
+          "2026-11-01T05:43:01.3235891Z PASS communication modules: 28 checks; PGlite PostgreSQL, registered handler, independent SQL, replay, reload, denial and no external mail",
+          "2026-11-01T05:43:03.4787985Z PASS work modules: 27 checks; PGlite PostgreSQL API, independent SQL and fresh-session readback",
+          "2026-11-01T05:43:06.6703329Z PASS application module browser: 24 checks; six templates, real account/preference HTTP, retained invalid draft, exact-key retry, independent SQL/reload, localization, role-change denial, zero provider/purchase requests (PGlite PostgreSQL)",
+          "2026-11-01T05:43:10.2091167Z PASS communication module browser: 23 checks; four templates, safe mail preview, retained draft, exactly-once retry, SQL/reload, localization, scope denial, zero external sends/requests (PGlite PostgreSQL)",
+          "2026-11-01T05:43:13.7353928Z PASS work modules browser: 17 checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (PGlite PostgreSQL)",
+          "2026-11-01T05:43:16.1190594Z Tenant dashboard passed 74 database/API checks: real metrics, registered workflows, tasks, independent review, tenant/owner isolation, preferences, demo cleanup and immutable audit.",
+          "2026-11-01T05:43:16.5727818Z \u2139 tests 78",
+          "2026-11-01T05:43:16.5728228Z \u2139 pass 78",
+          "2026-11-01T05:43:18.3256396Z \u2139 tests 10",
+          "2026-11-01T05:43:18.3257173Z \u2139 pass 10",
+          "2026-11-01T05:43:20.5450491Z {\"engine\":\"isolated-pglite\",\"checks\":13,\"productionAccountChanges\":0,\"liveActivation\":false}",
+          "2026-11-01T05:43:24.5100907Z Ran 8 tests in 0.022s",
+          "2026-11-01T05:43:24.6603868Z Ran 3 tests in 0.004s"
+        ]
+      }
+    ]
+  },
+  "productionRegistration": {
+    "runId": 41276699858,
+    "attempt": 2,
+    "sourceCommit": "aedf003f535fc8cf730d43347fcc1066cd7cf70b",
+    "validateJobId": 124760725672,
+    "productionJobId": 124760724723,
+    "committed": true,
+    "independentReadback": true,
+    "controls": 20,
+    "requiredElements": 20,
+    "resources": 32,
+    "translations": 96,
+    "apiBindings": {
+      "POST /v1/user/preferences": 777
+    },
+    "discoveries": {
+      "GET /v1/auth/me": [
+        [
+          16402,
+          null,
+          1,
+          "authenticated_self_session"
+        ]
+      ],
+      "GET /v1/auth/me/authored-post-records": [],
+      "GET /v1/auth/me/ledger-event-records": [],
+      "GET /v1/client/inventory-item-records": [],
+      "GET /v1/client/purchase-order-records": [],
+      "GET /v1/help/articles": [],
+      "GET /v1/knowledge/articles": [],
+      "GET /v1/provider/training-assignment-records": []
+    },
+    "roleGrants": 0,
+    "runtimeActivated": false,
+    "receipt": "docs/appearance/application-modules-registration-receipt.json"
+  },
+  "acceptedSubset": {
+    "academy": "Optional registered presentation; unavailable without approved workflow port",
+    "commerce": "Optional registered presentation; no purchase/payment or catalogue success",
+    "ai-images": "Optional registered presentation; no provider/generation/entitlement success",
+    "profile": "Existing API16402 current self-session identity only, read-only",
+    "settings": "Existing API777 navigation-shortcut preferences via owned B07 sync client, exact UUID replay and fresh readback",
+    "help": "Optional registered presentation; approved content/search binding pending"
+  },
+  "productionDiscovery": {
+    "GET /v1/auth/me": [
+      [
+        16402,
+        null,
+        1,
+        "authenticated_self_session"
+      ]
+    ],
+    "GET /v1/auth/me/authored-post-records": [],
+    "GET /v1/auth/me/ledger-event-records": [],
+    "GET /v1/client/inventory-item-records": [],
+    "GET /v1/client/purchase-order-records": [],
+    "GET /v1/help/articles": [],
+    "GET /v1/knowledge/articles": [],
+    "GET /v1/provider/training-assignment-records": []
+  },
+  "metadataGaps": [
+    "Profile API16402 legacy service_name remains null; source routing verified in fixtures, no metadata repair or production activation",
+    "Queried learning/commerce/help candidates returned no rows; no source-only service is treated as registered"
+  ],
+  "initialRegistrationFailure": {
+    "runId": 41276699858,
+    "attempt": 1,
+    "productionJobId": 124760273310,
+    "cause": "Existing database metadata lock contention",
+    "writes": false,
+    "retriedWithoutRelaxingLocks": true
+  },
+  "localVerification": {
+    "modelApiSqlChecks": 27,
+    "browserChecks": 24,
+    "preferenceClientAndRegistrationTests": 10,
+    "preferenceServicePGliteChecks": 13,
+    "B13ModelChecks": 27,
+    "B14ModelChecks": 28,
+    "registrationTests": 8,
+    "typescript": "passed"
+  },
+  "testData": "Disposable synthetic preference_test/PGlite fixtures only; zero production account changes or provider/purchase requests",
+  "productionRuntimeVerified": false,
+  "nativeLiveCollectionTransportVerified": false,
+  "humanReviewApproved": false,
+  "fullReferenceAdopted": false,
+  "remainingScope": [
+    "Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs",
+    "Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers",
+    "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
+    "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
+    "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
+    "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+    "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
+    "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+  ],
+  "usage": "docs/appearance/application-modules-usage.md",
+  "sourceArtifactsSha256": {
+    "packages/shared/src/application-modules/settings-port.ts": "dc9d65054435cafd4b59eabaa9950e70be83b8f1bece2f58349ef2cc754e8a43",
+    "packages/shared/src/application-modules/transport.ts": "c56b085764db3fdd50448616379c2897ba84f71736702d3f47dc3482c05821a1",
+    "packages/primecare_ui/web/application-modules.ts": "f6856c090b4c0da635b2eebddc88f99e9a3579ebd98e9d7b49d1f1d5d8dab594",
+    "packages/primecare_ui/catalogs/application-modules.registration.json": "b8d0604de8d94217f768efda4b627b6a3b82ebc5b3aecf9925121a57678ff081",
+    "tools/governance-production/application-modules-contract.json": "9f04ac9fbcf371b32c77d96b271d7dee57ade30edbac5ed5da7889bc449a3264"
+  }
+}

@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. B10 shared table/form/editor/upload factories passed web and Flutter Linux/Windows/macOS acceptance, with platform and specialized-variant gaps documented. B11 shared chart/grid foundations passed web and Flutter Linux/Windows/macOS acceptance; registry/data/common-preference integration remains pending. B12 original assets and controlled shared adoption passed web and Flutter Linux/Windows/macOS acceptance; app-specific migration/review remains pending. B13 task-backed work module foundations passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; standalone application features and host activation remain pending. B14 communication module subsets passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; own-notification registration, unmapped file/mail/message features and host activation remain pending. Host activation, human review, device release verification and B15–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. B10 shared table/form/editor/upload factories passed web and Flutter Linux/Windows/macOS acceptance, with platform and specialized-variant gaps documented. B11 shared chart/grid foundations passed web and Flutter Linux/Windows/macOS acceptance; registry/data/common-preference integration remains pending. B12 original assets and controlled shared adoption passed web and Flutter Linux/Windows/macOS acceptance; app-specific migration/review remains pending. B13 task-backed work module foundations passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; standalone application features and host activation remain pending. B14 communication module subsets passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; own-notification registration, unmapped file/mail/message features and host activation remain pending. B15 self-identity/navigation settings and optional application templates passed web, native PostgreSQL and Flutter Linux/Windows/macOS factory acceptance; other family/provider bindings, host activation and reconciliation UI remain pending. Host activation, human review, device release verification and B16–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -32,7 +32,7 @@ Shared optional docking engine exists and passed isolated tests; no production s
 | B12 | Original icon and visual asset completion | B01, B06, B09 |
 | B13 | Calendar, contacts, tasks, notes and scrumboard | B01, B05, B07, B08, B10, B11, B12 |
 | B14 | Mailbox, messenger, notifications and file manager | B01, B05, B07, B08, B10, B12 |
-| B15 | Academy, commerce, AI images, profile, settings and help centre | B01, B05, B07, B09, B10, B12 |
+| B15 | Academy, commerce, AI images, profile, settings and help centre | B01, B05, B07, B09, B10, B12, B13, B14 |
 | B16 | Four dashboard families and supporting pages | B01, B05, B06, B09, B10, B11, B12 |
 | B17 | Catalogue, documentation and app-wide adoption | B04, B05, B06, B08, B09, B10, B11, B12, B13, B14, B15, B16 |
 | B18 | Full verification and release closure | B02, B03, B04, B05, B06, B07, B08, B09, B10, B11, B12, B13, B14, B15, B16, B17 |
@@ -317,7 +317,7 @@ Accepted subset: read-only safe mailbox, existing conversation latest-text/send/
 
 ### B15 — Academy, commerce, AI images, profile, settings and help centre
 
-Status: planned. Dependencies: B01, B05, B07, B09, B10, B12.
+Status: self-identity/navigation settings verified; other application dependencies and host activation pending. See `docs/appearance/theme-adoption-batch-15.md` and `docs/appearance/application-modules-usage.md`. Dependencies: B01, B05, B07, B09, B10, B12, B13, B14.
 
 Scope:
 
@@ -333,6 +333,8 @@ Completion checks:
 - No demo billing, generated image, purchase or provider success is reported as a production transaction.
 
 Shared targets: `packages/shared/src/`, `packages/domain/src/`, `packages/primecare_ui/web/`, `packages/primecare_ui/lib/`.
+
+Accepted subset: existing read-only self-session identity and B07 navigation-shortcut preferences, with real handler/SQL/reload checks. Academy, commerce, AI-image and help workflows remain unavailable pending approved API/provider dependencies. Native live collection adapters, API activation/current grants, complete reconciliation/picker UX and human review remain open. No whole-screen activation or full reference adoption is claimed.
 
 ### B16 — Four dashboard families and supporting pages
 

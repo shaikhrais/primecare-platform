@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b14_shared_communication_module_subset_verified_release_and_feature_binding_gates_pending",
+  "overall_status": "b15_account_identity_and_navigation_settings_verified_application_dependency_and_release_gates_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102, B12 has 45, B13 has 114 and B14 has 111 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93, B09 has 126, B10 has 138, B11 has 102, B12 has 45, B13 has 114, B14 has 111 and B15 has 96 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -1007,14 +1007,16 @@
     {
       "id": "B15",
       "title": "Academy, commerce, AI images, profile, settings and help centre",
-      "status": "planned",
+      "status": "account_identity_and_navigation_settings_verified_other_application_dependencies_and_host_activation_pending",
       "depends_on": [
         "B01",
         "B05",
         "B07",
         "B09",
         "B10",
-        "B12"
+        "B12",
+        "B13",
+        "B14"
       ],
       "scope": [
         "Create original template counterparts for academy, e-commerce, AI image generation, profile, settings and help centre.",
@@ -1033,8 +1035,79 @@
         "packages/primecare_ui/web/",
         "packages/primecare_ui/lib/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-15.md",
+        "docs/appearance/theme-adoption-batch-15-evidence.json",
+        "docs/appearance/application-modules-usage.md",
+        "docs/appearance/application-modules-registration-receipt.json",
+        ".github/workflows/application-modules.yml"
+      ],
+      "blockers": [
+        {
+          "code": "APPLICATION_FAMILY_API_PROVIDER_BINDINGS_PENDING",
+          "detail": "Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs; Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers; AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows; Help content/search/support-escalation workflows require approved knowledge/support API bindings"
+        },
+        {
+          "code": "APPLICATION_HOST_NATIVE_RECOVERY_REVIEW_PENDING",
+          "detail": "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged; Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending; Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure; Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+        }
+      ],
+      "readiness": "isolated_web_postgresql_and_flutter_template_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41276699858,
+        "attempt": 2,
+        "sourceCommit": "aedf003f535fc8cf730d43347fcc1066cd7cf70b",
+        "validateJobId": 124760725672,
+        "productionJobId": 124760724723,
+        "committed": true,
+        "independentReadback": true,
+        "controls": 20,
+        "requiredElements": 20,
+        "resources": 32,
+        "translations": 96,
+        "apiBindings": {
+          "POST /v1/user/preferences": 777
+        },
+        "discoveries": {
+          "GET /v1/auth/me": [
+            [
+              16402,
+              null,
+              1,
+              "authenticated_self_session"
+            ]
+          ],
+          "GET /v1/auth/me/authored-post-records": [],
+          "GET /v1/auth/me/ledger-event-records": [],
+          "GET /v1/client/inventory-item-records": [],
+          "GET /v1/client/purchase-order-records": [],
+          "GET /v1/help/articles": [],
+          "GET /v1/knowledge/articles": [],
+          "GET /v1/provider/training-assignment-records": []
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false,
+        "receipt": "docs/appearance/application-modules-registration-receipt.json"
+      },
+      "sourceRun": {
+        "runId": 41277937362,
+        "sourceCommit": "1d9ebbf355f13faaf8d4a7b7e1ae034a56e80d42",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Academy course/catalogue/enrolment/progress/certificate workflows require confirmed registered learning APIs",
+        "Commerce inventory/order/payment/cart/checkout/tax/refund/entitlement workflows require confirmed APIs and providers",
+        "AI image generation requires registered provider, authorization, entitlement, quota, persistence and asset-access workflows",
+        "Help content/search/support-escalation workflows require approved knowledge/support API bindings",
+        "Full profile/contact/avatar and sensitive updates are outside the read-only self-identity adapter; existing account flows remain unchanged",
+        "Concrete native collection WorkPorts, host mounts, API 777 activation/grants and legacy profile routing metadata review remain pending",
+        "Complete shortcut-picker/default presentation and B07 explicit cached-draft/conflict-reconciliation UI must be wired before host exposure",
+        "Human EN/FR/ES localization, accessibility, keyboard/focus/contrast/screen-reader, physical-device and release review remain pending"
+      ],
+      "nextAction": "Proceed to B16 dashboard families and supporting pages using existing governed data sources; retain all B15 missing API/provider, host and review gates."
     },
     {
       "id": "B16",
