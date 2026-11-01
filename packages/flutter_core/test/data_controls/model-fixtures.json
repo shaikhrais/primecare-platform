@@ -1,0 +1,153 @@
+{
+  "windows": [
+    [
+      50000,
+      0,
+      200,
+      40
+    ],
+    [
+      50000,
+      400000,
+      200,
+      40
+    ],
+    [
+      3,
+      1000,
+      200,
+      40
+    ],
+    [
+      0,
+      0,
+      200,
+      40
+    ]
+  ],
+  "fields": [
+    [
+      "2024-02-29",
+      {
+        "kind": "date"
+      },
+      null
+    ],
+    [
+      "2023-02-29",
+      {
+        "kind": "date"
+      },
+      "invalid"
+    ],
+    [
+      "24:00",
+      {
+        "kind": "time"
+      },
+      "invalid"
+    ],
+    [
+      "23:59",
+      {
+        "kind": "time"
+      },
+      null
+    ],
+    [
+      "1.5",
+      {
+        "kind": "number",
+        "min": 0,
+        "max": 3,
+        "step": 0.5
+      },
+      null
+    ],
+    [
+      "1.4",
+      {
+        "kind": "number",
+        "min": 0,
+        "step": 0.5
+      },
+      "invalid"
+    ],
+    [
+      "",
+      {
+        "kind": "number",
+        "required": true
+      },
+      "required"
+    ],
+    [
+      "123-456",
+      {
+        "kind": "mask",
+        "pattern": "###-###"
+      },
+      null
+    ],
+    [
+      "123",
+      {
+        "kind": "mask",
+        "pattern": "###-###"
+      },
+      "invalid"
+    ]
+  ],
+  "urls": [
+    [
+      "https://example.org/a?b=c",
+      true
+    ],
+    [
+      "javascript:alert(1)",
+      false
+    ],
+    [
+      "data:image/png;base64,a",
+      false
+    ],
+    [
+      "https://user:pass@example.org",
+      false
+    ],
+    [
+      "https://example.org/\n",
+      false
+    ],
+    [
+      "https://example.org\\x",
+      false
+    ]
+  ],
+  "windowExpected": [
+    {
+      "start": 0,
+      "end": 7,
+      "before": 0,
+      "after": 1999720
+    },
+    {
+      "start": 9998,
+      "end": 10007,
+      "before": 399920,
+      "after": 1599720
+    },
+    {
+      "start": 3,
+      "end": 3,
+      "before": 120,
+      "after": 0
+    },
+    {
+      "start": 0,
+      "end": 0,
+      "before": 0,
+      "after": 0
+    }
+  ]
+}

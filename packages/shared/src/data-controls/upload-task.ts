@@ -1,0 +1,12 @@
+import {UploadCandidate,UploadPolicy,validateFiles} from '../../../domain/src/data_controls';
+export type UploadPort=(request:{scope:string;operationKey:string;files:readonly UploadCandidate[];signal:AbortSignal;progress:(fraction:number)=>void})=>Promise<{receiptId:string}>;
+/** The host must declare server idempotency before enabling retry. Progress is never completion. */
+export class UploadTask {
+ status:'idle'|'ready'|'uploading'|'error'|'cancelled'|'success'|'disposed'='idle';progress=0;receiptId:string|null=null;files:UploadCandidate[]=[];private epoch=0;private selection=0;private abort=new AbortController();private listeners=new Set<()=>void>();
+ constructor(readonly scope:string,readonly policy:UploadPolicy,readonly port?:UploadPort,readonly retrySafe=false){if(!scope.trim()||scope.length>1024)throw Error('invalid_upload_scope');}
+ subscribe(f:()=>void){this.listeners.add(f);return()=>{this.listeners.delete(f);};}private emit(){for(const f of this.listeners)f();}
+ choose(files:readonly UploadCandidate[]){if(this.status==='disposed'||this.status==='uploading')throw Error('upload_busy');this.files=[];this.status='idle';this.receiptId=null;this.progress=0;this.emit();const valid=validateFiles(files,this.policy);this.epoch++;this.selection++;this.files=valid;this.receiptId=null;this.progress=0;this.status='ready';this.emit();}
+ async send(){if(!this.port||!['ready','error','cancelled'].includes(this.status)||this.status!=='ready'&&!this.retrySafe)return;const generation=++this.epoch;this.abort.abort();this.abort=new AbortController();this.status='uploading';this.receiptId=null;this.progress=0;this.emit();try{const result=await this.port({scope:this.scope,operationKey:this.scope+':'+this.selection,files:this.files.map(f=>({...f})),signal:this.abort.signal,progress:p=>{if(generation===this.epoch&&Number.isFinite(p)&&p>=this.progress&&p<=1){this.progress=p;this.emit();}}});if(generation!==this.epoch)return;if(!result||typeof result.receiptId!=='string'||!result.receiptId.trim()||result.receiptId.length>256)throw Error('missing_receipt');this.receiptId=result.receiptId;this.progress=1;this.status='success';}catch{if(generation!==this.epoch)return;this.status='error';}this.emit();}
+ cancel(){if(this.status!=='uploading')return;this.epoch++;this.abort.abort();this.status='cancelled';this.emit();}
+ dispose(){this.epoch++;this.abort.abort();this.files=[];this.receiptId=null;this.progress=0;this.status='disposed';this.listeners.clear();}
+}

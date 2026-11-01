@@ -1,0 +1,56 @@
+name: Shared tables forms editors and upload controls
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/domain/src/data_controls.ts'
+      - 'packages/shared/src/data-controls/**'
+      - 'packages/primecare_ui/web/data-controls.ts'
+      - 'packages/primecare_ui/catalogs/data-controls.registration.json'
+      - 'packages/flutter_core/lib/data_controls*'
+      - 'packages/flutter_core/lib/data_controls/**'
+      - 'packages/flutter_core/test/data_controls/**'
+      - 'packages/primecare_ui/lib/data_controls.dart'
+      - 'scripts/*data-controls*.mjs'
+      - 'packages/flutter_core/lib/component_catalogue/**'
+      - '.github/workflows/data-controls.yml'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: data-controls-tests-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/catalogue-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
+          ln -s /tmp/catalogue-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-data-controls-model.mjs
+          node scripts/test-data-controls-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/data-controls.ts
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/test-data-controls-registration.py
+          python3 tools/governance-production/test-metadata-store.py
+  native:
+    strategy:
+      fail-fast: false
+      matrix: {os: [ubuntu-24.04, windows-latest, macos-latest]}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/data_controls lib/data_controls.dart test/data_controls
+        working-directory: packages/flutter_core
+      - run: flutter test test/data_controls --reporter expanded
+        working-directory: packages/flutter_core
