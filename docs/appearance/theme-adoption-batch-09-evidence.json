@@ -1,0 +1,131 @@
+{
+  "format": 1,
+  "batch": "B09",
+  "status": "shared_component_catalogue_accepted_host_binding_pending",
+  "sourceCommit": "f5bf3d21ebda8fade161b680d91129c8da8f5a63",
+  "sourceRun": {
+    "runId": 41257279489,
+    "conclusion": "success",
+    "jobs": [
+      {
+        "id": 124703051777,
+        "name": "web",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T00:35:14.5787210Z Ran 7 tests in 0.029s",
+          "2026-11-01T00:35:14.5787568Z OK",
+          "2026-11-01T00:35:14.7505079Z Ran 3 tests in 0.004s",
+          "2026-11-01T00:35:14.7505424Z OK"
+        ]
+      },
+      {
+        "id": 124703051792,
+        "name": "native (macos-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T00:36:25.2818480Z No issues found! (ran in 12.7s)",
+          "2026-11-01T00:36:44.4567260Z 00:02 +11: All tests passed!"
+        ]
+      },
+      {
+        "id": 124703051894,
+        "name": "native (windows-latest)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T00:36:50.5575557Z No issues found! (ran in 17.3s)\r",
+          "2026-11-01T00:37:06.2771102Z 00:03 +11: All tests passed!\r"
+        ]
+      },
+      {
+        "id": 124703051911,
+        "name": "native (ubuntu-24.04)",
+        "conclusion": "success",
+        "proof": [
+          "2026-11-01T00:35:01.1332326Z No issues found! (ran in 11.4s)",
+          "2026-11-01T00:35:13.0729627Z 00:02 +11: All tests passed!"
+        ]
+      }
+    ],
+    "flutterVersion": "3.41.5"
+  },
+  "productionRegistration": {
+    "runId": 41255604301,
+    "validateJobId": 124697993743,
+    "productionJobId": 124698079577,
+    "sourceCommit": "517d66b0201ea773a6bb5b45a2389de6c3ef42ba",
+    "committed": true,
+    "independentReadback": true,
+    "controls": 34,
+    "requiredElements": 34,
+    "resources": 42,
+    "translations": 126,
+    "primitiveIds": {
+      "prime_radio": 18,
+      "prime_switch": 19
+    },
+    "receipt": "docs/appearance/component-catalogue-registration-receipt.json",
+    "roleGrants": 0,
+    "runtimeActivated": false
+  },
+  "referenceAudit": {
+    "path": "docs/appearance/component-catalogue-reference-audit.json",
+    "sha256": "0f0b918a7dd6058d6e76617b46c7c230466d47bdf99ae7bfc4f81935a190f1f6",
+    "physicalExamples": 1187,
+    "families": 55,
+    "summary": {
+      "deferred_b10_advanced_form_collection": 205,
+      "deferred_b12_assets": 50,
+      "existing_b04_b05_navigation_composition": 65,
+      "framework_example_not_adopted_in_b09": 106,
+      "framework_only_example_not_separate_factory": 109,
+      "framework_variant_consolidated": 652
+    },
+    "exactDuplicates": 0,
+    "logicalDuplicateNames": 565,
+    "sourceInventorySha256": "bd57c4749c85ff970bb686e16638fcbefafec99ab08e409d8bf0e98576683bd1",
+    "vendorSourceCopied": false,
+    "fullVariantParityClaimed": false
+  },
+  "verification": {
+    "modelGroups": 4,
+    "sharedOracleCases": 21,
+    "browserScenes": 5,
+    "registrationTests": 7,
+    "metadataStoreTests": 3,
+    "nativeModelTests": 2,
+    "nativeWidgetTests": 9,
+    "nativeTotalPerPlatform": 11,
+    "lateConfirmationOwnedRouteRegression": true,
+    "auditArchiveDigestsRecomputed": true
+  },
+  "sourceSha256": {
+    ".github/workflows/component-catalogue.yml": "8396145a708aaada80f0db61a8d043d68e049117c7342b3965de147a4acf837a",
+    "packages/domain/src/component_catalogue.ts": "5bc4cee504edf06d7b34d71df9e4c07f852b111840f2108b26de659fe7a13c14",
+    "packages/primecare_ui/web/component-catalogue.ts": "bdb37184a94b4d6e25caceeac04532fac3f26d83e250e3d0451fb5b56fe48ebb",
+    "packages/primecare_ui/catalogs/component-catalogue.registration.json": "7236e7957a0407217254c1d0e1c1bb92b2d2ea45a6e8e78c731b1ea6e1354398",
+    "packages/flutter_core/lib/component_catalogue.dart": "82d7007da3f8e98f4c3d57f479516cbc04ff5c6aa70a30f0ce7741589d8a299c",
+    "packages/primecare_ui/lib/component_catalogue.dart": "9a2cce17e9f919fd68d1c9c72655019b34f3d1f06f25b666c0cd52f70d2740da",
+    "scripts/component-catalogue-fixtures.mjs": "7a3dba8a52d7c11559281798d0ff5e2fdf90e14a009817a434866964cfa2a6ea",
+    "scripts/test-component-catalogue-model.mjs": "357b6aadfb4ab27820e37994156753da39eb873139e9d4b970fadb2688cfe866",
+    "scripts/test-component-catalogue-browser.mjs": "2c671af42a6d2bb94fd80ca07c6ab64b8451281c881b9d631b695c972de86ab5",
+    "tools/governance-production/test-metadata-store.py": "480380621b3c6f3541ddad1f133496d25ab1973b0ca55c7c298bceb31634d494",
+    "docs/appearance/component-catalogue-registration-receipt.json": "7673cca0e6115422fe9a8a9fe7c1b46f0d6b2e21d3b653a74e8ee28c390f0afc",
+    "packages/shared/src/component-catalogue/async-task.ts": "66e4041cb870bac8a5f67f8750fc6003e937ba8cb19a162ce5df75a73e15d2d0",
+    "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart": "cf8a1096dd3b3e483180bcaed459eb662edebcca74ea97a6948523b3ec60583a",
+    "packages/flutter_core/lib/component_catalogue/component_catalogue_model.dart": "fe820d0dda4ac15853d7068a28c105ce281a7b1b65bbec9d5f2a78e47bf84406",
+    "packages/flutter_core/test/component_catalogue/component_catalogue_model_test.dart": "60fb4ea6f6ba988710938235f601ba9addcda222ca51f2f968d0cc146c0d89a2",
+    "packages/flutter_core/test/component_catalogue/component_catalogue_widget_test.dart": "e751df5fb4d25f6cd17b4a60ef0d9839663de3b31a945ea9205b42c748c630b9",
+    "packages/flutter_core/test/component_catalogue/model-fixtures.json": "1b4247243065d737f3c96e2b08490aef2ea96b7346cfa623140cbec50ff64ce8"
+  },
+  "productionRuntimeVerified": false,
+  "humanReviewApproved": false,
+  "wholeRepositoryCiClaimed": false,
+  "remainingGates": [
+    "Host/native source registrations and real approved business callbacks",
+    "B10 advanced fields/collections and B12 assets",
+    "Specifications or reviewed dispositions for unadopted reference families",
+    "App migration and governed Cypress/actual-device/screen-reader integration",
+    "Human localization, accessibility and release approval",
+    "Unchanged historical auth-reader consumer-review gate"
+  ]
+}

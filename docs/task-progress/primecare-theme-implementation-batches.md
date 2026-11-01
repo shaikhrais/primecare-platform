@@ -2,7 +2,7 @@
 
 Created: 2026-10-31. Baseline: `f563f5447c4d1cf8a9622975f475dd704931d1d1`.
 
-**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. Host activation, device release verification and B09–B18 remain pending.**
+**Status: B02 Tenant Admin publication succeeded. B03 shared native engine passed Linux/Windows/macOS widget tests, cross-runtime contract checks and Flutter-web compilation. B04 shared navigation passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B05 shared page templates passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B06 shared advanced Theme Center passed web, Linux/Windows/macOS interaction and cross-runtime model checks. B07 shared account-sync source passed web, native PostgreSQL/two-context browser and Flutter Linux/Windows/macOS acceptance. B08 shared shell utility factories passed native PostgreSQL/browser and Linux/Windows/macOS acceptance; live resource/host bindings remain pending. B09 shared component/feedback factories passed web and Flutter Linux/Windows/macOS acceptance; the full reference audit retains explicit deferred and unadopted families. Host activation, human review, device release verification and B10–B18 remain pending.**
 
 Implement original PrimeCare equivalents for the audited Fuse v17 features. Reuse shared core packages across web and Flutter. Work on current `main`, retain concurrent work and use expected-head checks. Do not copy proprietary vendor implementation or replace existing authentication without an approved requirement.
 
@@ -199,7 +199,7 @@ Shared targets: `packages/primecare_ui/web/`, `packages/flutter_core/lib/registr
 
 ### B09 — Base component and feedback catalogue
 
-Status: planned. Dependencies: B01, B05, B06.
+Status: shared catalogue accepted; host binding and human review pending. See `docs/appearance/theme-adoption-batch-09.md` and the reference audit. Production registration: 34 controls, 34 required-element records, 42 resources, 126 draft translations and two primitive registrations; independently verified. Web and 11 native tests passed on Linux/Windows/macOS. No runtime activation or full framework variant parity is claimed. Dependencies: B01, B05, B06.
 
 Scope:
 

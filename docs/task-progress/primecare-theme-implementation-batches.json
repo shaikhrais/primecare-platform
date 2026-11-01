@@ -4,7 +4,7 @@
   "created": "2026-10-31",
   "source_commit": "f563f5447c4d1cf8a9622975f475dd704931d1d1",
   "reference": "User-provided Fuse React v17.0.0 Next.js/Vite demos and skeletons; functional reference only",
-  "overall_status": "b08_shared_shell_utilities_accepted_business_host_bindings_pending",
+  "overall_status": "b09_shared_component_catalogue_accepted_host_binding_pending",
   "execution_policy": {
     "branch": "main",
     "new_work_branches": false,
@@ -20,7 +20,7 @@
       "affects": [
         "release_approval"
       ],
-      "detail": "B01 has 120 and B08 has 93 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
+      "detail": "B01 has 120, B08 has 93 and B09 has 126 registered/read-back EN/FR/ES translations; human reviewed/approved flags remain unset. No human approval or app-wide localization completion is claimed."
     },
     {
       "code": "EXISTING_AUTH_CATALOG_READER_REVIEW_PENDING",
@@ -490,7 +490,7 @@
     {
       "id": "B09",
       "title": "Base component and feedback catalogue",
-      "status": "planned",
+      "status": "shared_component_catalogue_accepted_host_binding_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -512,8 +512,57 @@
         "packages/primecare_ui/lib/src/components/",
         "packages/flutter_core/lib/"
       ],
-      "evidence": [],
-      "blockers": []
+      "evidence": [
+        "docs/appearance/theme-adoption-batch-09.md",
+        "docs/appearance/theme-adoption-batch-09-evidence.json",
+        "docs/appearance/component-catalogue-usage.md",
+        "docs/appearance/component-catalogue-reference-audit.json",
+        "docs/appearance/component-catalogue-registration-receipt.json",
+        "packages/primecare_ui/catalogs/component-catalogue.registration.json",
+        ".github/workflows/component-catalogue.yml"
+      ],
+      "blockers": [
+        {
+          "code": "COMPONENT_HOST_ACTIVATION_PENDING",
+          "detail": "Optional Tenant Admin metadata does not mount a runtime. Actual host/native source bindings and authorized business callbacks remain required."
+        },
+        {
+          "code": "COMPONENT_VARIANT_AND_REVIEW_SCOPE_PENDING",
+          "detail": "Consolidated framework families do not imply full variant parity. B10/B12 deferrals and 106 unadopted examples remain explicit in the reference audit; localization/accessibility/release reviews remain pending."
+        }
+      ],
+      "readiness": "web_and_flutter_linux_windows_macos_factory_acceptance_passed",
+      "productionRuntimeVerified": false,
+      "humanReviewApproved": false,
+      "productionRegistration": "committed_independently_verified",
+      "productionRun": {
+        "runId": 41255604301,
+        "validateJobId": 124697993743,
+        "productionJobId": 124698079577,
+        "sourceCommit": "517d66b0201ea773a6bb5b45a2389de6c3ef42ba",
+        "controls": 34,
+        "requiredElements": 34,
+        "resources": 42,
+        "translations": 126,
+        "newPrimitiveIds": {
+          "prime_radio": 18,
+          "prime_switch": 19
+        },
+        "roleGrants": 0,
+        "runtimeActivated": false
+      },
+      "sourceRun": {
+        "runId": 41257279489,
+        "sourceCommit": "f5bf3d21ebda8fade161b680d91129c8da8f5a63",
+        "conclusion": "success"
+      },
+      "remainingScope": [
+        "Host source/role/API bindings and real application flows",
+        "Advanced inputs/collections B10 and assets B12",
+        "Reviewed specifications/dispositions for 106 unadopted framework examples",
+        "App migration, actual-device/screen-reader verification and human localization/accessibility/release approval"
+      ],
+      "nextAction": "Proceed to B10 tables, forms, editors and upload controls. Preserve B09 host activation, unadopted variant and human review gates."
     },
     {
       "id": "B10",
