@@ -1,5 +1,5 @@
 import {preferenceScope,samePreferenceScope,type PreferenceScope} from './preference_sync';
-export type WorkModule='calendar'|'contacts'|'tasks'|'notes'|'board'|'mailbox'|'messenger'|'notifications'|'files';
+export type WorkModule='calendar'|'contacts'|'tasks'|'notes'|'board'|'mailbox'|'messenger'|'notifications'|'files'|'academy'|'commerce'|'ai-images'|'profile'|'settings'|'help';
 export type WorkAction={id:string;label:string;fields:string[];target:string};
 export type WorkItem={id:string;version:number;title:string;body:string;date:string;lane:string;meta:string;actions:WorkAction[]};
 export type WorkSnapshot={scope:PreferenceScope;module:WorkModule;items:WorkItem[];lanes:{id:string;label:string}[];offset:number;total:number;partial:boolean};

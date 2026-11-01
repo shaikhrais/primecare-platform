@@ -1,0 +1,275 @@
+{
+  "kind": "verified_metadata_export",
+  "sourceCommit": "aedf003f535fc8cf730d43347fcc1066cd7cf70b",
+  "registrationRun": 41276699858,
+  "runAttempt": 2,
+  "productionJob": 124760724723,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "contractSha256": "9f04ac9fbcf371b32c77d96b271d7dee57ade30edbac5ed5da7889bc449a3264",
+  "apiBindings": {
+    "POST /v1/user/preferences": 777
+  },
+  "discoveries": {
+    "GET /v1/auth/me": [
+      [
+        16402,
+        null,
+        1,
+        "authenticated_self_session"
+      ]
+    ],
+    "GET /v1/auth/me/authored-post-records": [],
+    "GET /v1/auth/me/ledger-event-records": [],
+    "GET /v1/client/inventory-item-records": [],
+    "GET /v1/client/purchase-order-records": [],
+    "GET /v1/help/articles": [],
+    "GET /v1/knowledge/articles": [],
+    "GET /v1/provider/training-assignment-records": []
+  },
+  "controls": [
+    {
+      "key": "academy",
+      "testId": "application-modules-academy",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.academy",
+      "controlId": 774
+    },
+    {
+      "key": "commerce",
+      "testId": "application-modules-commerce",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.commerce",
+      "controlId": 775
+    },
+    {
+      "key": "ai-images",
+      "testId": "application-modules-ai-images",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.ai-images",
+      "controlId": 776
+    },
+    {
+      "key": "profile",
+      "testId": "application-modules-profile",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.profile",
+      "controlId": 777
+    },
+    {
+      "key": "settings",
+      "testId": "application-modules-settings",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.settings",
+      "controlId": 778
+    },
+    {
+      "key": "help",
+      "testId": "application-modules-help",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.help",
+      "controlId": 779
+    },
+    {
+      "key": "filter",
+      "testId": "application-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.filter",
+      "controlId": 780
+    },
+    {
+      "key": "open",
+      "testId": "application-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.open",
+      "controlId": 781
+    },
+    {
+      "key": "detail",
+      "testId": "application-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "applicationModules.detail",
+      "controlId": 782
+    },
+    {
+      "key": "title",
+      "testId": "application-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.title",
+      "controlId": 783
+    },
+    {
+      "key": "body",
+      "testId": "application-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "applicationModules.body",
+      "controlId": 784
+    },
+    {
+      "key": "date",
+      "testId": "application-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "applicationModules.date",
+      "controlId": 785
+    },
+    {
+      "key": "action",
+      "testId": "application-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "applicationModules.action",
+      "controlId": 786
+    },
+    {
+      "key": "save",
+      "testId": "application-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.save",
+      "controlId": 787
+    },
+    {
+      "key": "create",
+      "testId": "application-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.create",
+      "controlId": 788
+    },
+    {
+      "key": "close",
+      "testId": "application-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.close",
+      "controlId": 789
+    },
+    {
+      "key": "previous",
+      "testId": "application-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.previous",
+      "controlId": 790
+    },
+    {
+      "key": "next",
+      "testId": "application-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.next",
+      "controlId": 791
+    },
+    {
+      "key": "reload",
+      "testId": "application-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.reload",
+      "controlId": 792
+    },
+    {
+      "key": "retry",
+      "testId": "application-modules-retry",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationModules.retry",
+      "controlId": 793
+    }
+  ],
+  "locales": {
+    "en": {
+      "academy": "Learning records",
+      "commerce": "Authorized commerce records",
+      "ai-images": "AI image workspace",
+      "profile": "Your account identity",
+      "settings": "Account navigation preferences",
+      "help": "Help centre",
+      "filter": "Filter visible records",
+      "open": "Open details",
+      "detail": "Record details",
+      "title": "Title",
+      "body": "Content",
+      "date": "Date",
+      "action": "Available action",
+      "save": "Apply change",
+      "create": "Create record",
+      "close": "Close details",
+      "previous": "Previous page",
+      "next": "Next page",
+      "reload": "Reload records",
+      "retry": "Confirm original change",
+      "loading": "Loading authorized records",
+      "empty": "No matching records",
+      "error": "Unable to complete action",
+      "denied": "Action not authorized",
+      "conflict": "Record changed; reload before retry",
+      "invalid": "Check the entered values",
+      "unavailable": "Approved workflow adapter is unavailable",
+      "success": "Saved and read back",
+      "partial": "Only the authorized page is shown",
+      "shortcuts": "Navigation shortcuts",
+      "editShortcuts": "Edit registered screen shortcuts",
+      "identity": "Verified current session identity"
+    },
+    "fr": {
+      "academy": "Dossiers d\u2019apprentissage",
+      "commerce": "Dossiers commerciaux autoris\u00e9s",
+      "ai-images": "Espace d\u2019images IA",
+      "profile": "Identit\u00e9 de votre compte",
+      "settings": "Pr\u00e9f\u00e9rences de navigation du compte",
+      "help": "Centre d\u2019aide",
+      "filter": "Filtrer les dossiers visibles",
+      "open": "Ouvrir les d\u00e9tails",
+      "detail": "D\u00e9tails du dossier",
+      "title": "Titre",
+      "body": "Contenu",
+      "date": "Date",
+      "action": "Action disponible",
+      "save": "Appliquer la modification",
+      "create": "Cr\u00e9er un dossier",
+      "close": "Fermer les d\u00e9tails",
+      "previous": "Page pr\u00e9c\u00e9dente",
+      "next": "Page suivante",
+      "reload": "Recharger les dossiers",
+      "retry": "Confirmer la modification initiale",
+      "loading": "Chargement des dossiers autoris\u00e9s",
+      "empty": "Aucun dossier correspondant",
+      "error": "Impossible de terminer cette action",
+      "denied": "Action non autoris\u00e9e",
+      "conflict": "Dossier modifi\u00e9; recharger avant de r\u00e9essayer",
+      "invalid": "V\u00e9rifier les valeurs saisies",
+      "unavailable": "Adaptateur de processus approuv\u00e9 indisponible",
+      "success": "Enregistr\u00e9 et relu",
+      "partial": "Seule la page autoris\u00e9e est affich\u00e9e",
+      "shortcuts": "Raccourcis de navigation",
+      "editShortcuts": "Modifier les raccourcis d\u2019\u00e9crans enregistr\u00e9s",
+      "identity": "Identit\u00e9 de la session actuelle v\u00e9rifi\u00e9e"
+    },
+    "es": {
+      "academy": "Registros de aprendizaje",
+      "commerce": "Registros comerciales autorizados",
+      "ai-images": "Espacio de im\u00e1genes con IA",
+      "profile": "Identidad de su cuenta",
+      "settings": "Preferencias de navegaci\u00f3n de la cuenta",
+      "help": "Centro de ayuda",
+      "filter": "Filtrar registros visibles",
+      "open": "Abrir detalles",
+      "detail": "Detalles del registro",
+      "title": "T\u00edtulo",
+      "body": "Contenido",
+      "date": "Fecha",
+      "action": "Acci\u00f3n disponible",
+      "save": "Aplicar cambio",
+      "create": "Crear registro",
+      "close": "Cerrar detalles",
+      "previous": "P\u00e1gina anterior",
+      "next": "P\u00e1gina siguiente",
+      "reload": "Recargar registros",
+      "retry": "Confirmar cambio original",
+      "loading": "Cargando registros autorizados",
+      "empty": "No hay registros coincidentes",
+      "error": "No se pudo completar la acci\u00f3n",
+      "denied": "Acci\u00f3n no autorizada",
+      "conflict": "El registro cambi\u00f3; recarga antes de reintentar",
+      "invalid": "Revisa los valores ingresados",
+      "unavailable": "Adaptador de proceso aprobado no disponible",
+      "success": "Guardado y verificado",
+      "partial": "Solo se muestra la p\u00e1gina autorizada",
+      "shortcuts": "Accesos directos de navegaci\u00f3n",
+      "editShortcuts": "Editar accesos a pantallas registradas",
+      "identity": "Identidad verificada de sesi\u00f3n actual"
+    }
+  }
+}
