@@ -1,0 +1,369 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/work-modules.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card",
+    "prime_dropdown_web",
+    "prime_text_field",
+    "prime_textarea_web",
+    "prime_table_web"
+  ],
+  "controls": [
+    {
+      "key": "calendar",
+      "testId": "work-modules-calendar",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.calendar"
+    },
+    {
+      "key": "contacts",
+      "testId": "work-modules-contacts",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.contacts"
+    },
+    {
+      "key": "tasks",
+      "testId": "work-modules-tasks",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.tasks"
+    },
+    {
+      "key": "notes",
+      "testId": "work-modules-notes",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.notes"
+    },
+    {
+      "key": "board",
+      "testId": "work-modules-board",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.board"
+    },
+    {
+      "key": "filter",
+      "testId": "work-modules-filter",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.filter"
+    },
+    {
+      "key": "open",
+      "testId": "work-modules-open",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.open"
+    },
+    {
+      "key": "detail",
+      "testId": "work-modules-detail",
+      "componentCode": "prime_card",
+      "resourceKey": "workModules.detail"
+    },
+    {
+      "key": "title",
+      "testId": "work-modules-title",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.title"
+    },
+    {
+      "key": "body",
+      "testId": "work-modules-body",
+      "componentCode": "prime_textarea_web",
+      "resourceKey": "workModules.body"
+    },
+    {
+      "key": "date",
+      "testId": "work-modules-date",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.date"
+    },
+    {
+      "key": "action",
+      "testId": "work-modules-action",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.action"
+    },
+    {
+      "key": "save",
+      "testId": "work-modules-save",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.save"
+    },
+    {
+      "key": "create",
+      "testId": "work-modules-create",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.create"
+    },
+    {
+      "key": "close",
+      "testId": "work-modules-close",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.close"
+    },
+    {
+      "key": "previous",
+      "testId": "work-modules-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.previous"
+    },
+    {
+      "key": "next",
+      "testId": "work-modules-next",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.next"
+    },
+    {
+      "key": "reload",
+      "testId": "work-modules-reload",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.reload"
+    },
+    {
+      "key": "move",
+      "testId": "work-modules-move",
+      "componentCode": "prime_button",
+      "resourceKey": "workModules.move"
+    },
+    {
+      "key": "target",
+      "testId": "work-modules-target",
+      "componentCode": "prime_text_field",
+      "resourceKey": "workModules.target"
+    },
+    {
+      "key": "owner",
+      "testId": "work-modules-owner",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.owner"
+    },
+    {
+      "key": "workflow",
+      "testId": "work-modules-workflow",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.workflow"
+    },
+    {
+      "key": "priority",
+      "testId": "work-modules-priority",
+      "componentCode": "prime_dropdown_web",
+      "resourceKey": "workModules.priority"
+    }
+  ],
+  "resources": {
+    "workModules.calendar": {
+      "en": "Task due-date calendar",
+      "fr": "Calendrier des échéances",
+      "es": "Calendario de vencimientos"
+    },
+    "workModules.contacts": {
+      "en": "Authorized directory",
+      "fr": "Répertoire autorisé",
+      "es": "Directorio autorizado"
+    },
+    "workModules.tasks": {
+      "en": "Workflow tasks",
+      "fr": "Tâches de processus",
+      "es": "Tareas del proceso"
+    },
+    "workModules.notes": {
+      "en": "Task instructions",
+      "fr": "Consignes des tâches",
+      "es": "Instrucciones de tareas"
+    },
+    "workModules.board": {
+      "en": "Task status board",
+      "fr": "Tableau des statuts",
+      "es": "Tablero de estados"
+    },
+    "workModules.filter": {
+      "en": "Filter visible records",
+      "fr": "Filtrer les dossiers visibles",
+      "es": "Filtrar registros visibles"
+    },
+    "workModules.open": {
+      "en": "Open details",
+      "fr": "Ouvrir les détails",
+      "es": "Abrir detalles"
+    },
+    "workModules.detail": {
+      "en": "Record details",
+      "fr": "Détails du dossier",
+      "es": "Detalles del registro"
+    },
+    "workModules.title": {
+      "en": "Title",
+      "fr": "Titre",
+      "es": "Título"
+    },
+    "workModules.body": {
+      "en": "Instructions or evidence",
+      "fr": "Consignes ou éléments de preuve",
+      "es": "Instrucciones o evidencia"
+    },
+    "workModules.date": {
+      "en": "Due date",
+      "fr": "Échéance",
+      "es": "Fecha límite"
+    },
+    "workModules.action": {
+      "en": "Available action",
+      "fr": "Action disponible",
+      "es": "Acción disponible"
+    },
+    "workModules.save": {
+      "en": "Apply action",
+      "fr": "Appliquer l’action",
+      "es": "Aplicar acción"
+    },
+    "workModules.create": {
+      "en": "Create task",
+      "fr": "Créer une tâche",
+      "es": "Crear tarea"
+    },
+    "workModules.close": {
+      "en": "Close details",
+      "fr": "Fermer les détails",
+      "es": "Cerrar detalles"
+    },
+    "workModules.previous": {
+      "en": "Previous month",
+      "fr": "Mois précédent",
+      "es": "Mes anterior"
+    },
+    "workModules.next": {
+      "en": "Next month",
+      "fr": "Mois suivant",
+      "es": "Mes siguiente"
+    },
+    "workModules.reload": {
+      "en": "Reload records",
+      "fr": "Recharger les dossiers",
+      "es": "Recargar registros"
+    },
+    "workModules.move": {
+      "en": "Move to date or status",
+      "fr": "Déplacer vers une date ou un statut",
+      "es": "Mover a fecha o estado"
+    },
+    "workModules.target": {
+      "en": "Target date or status",
+      "fr": "Date ou statut cible",
+      "es": "Fecha o estado de destino"
+    },
+    "workModules.owner": {
+      "en": "Owner",
+      "fr": "Responsable",
+      "es": "Responsable"
+    },
+    "workModules.workflow": {
+      "en": "Registered workflow",
+      "fr": "Processus enregistré",
+      "es": "Proceso registrado"
+    },
+    "workModules.priority": {
+      "en": "Priority",
+      "fr": "Priorité",
+      "es": "Prioridad"
+    },
+    "workModules.loading": {
+      "en": "Loading authorized records",
+      "fr": "Chargement des dossiers autorisés",
+      "es": "Cargando registros autorizados"
+    },
+    "workModules.empty": {
+      "en": "No matching records",
+      "fr": "Aucun dossier correspondant",
+      "es": "No hay registros coincidentes"
+    },
+    "workModules.error": {
+      "en": "Unable to complete action",
+      "fr": "Impossible de terminer cette action",
+      "es": "No se pudo completar la acción"
+    },
+    "workModules.denied": {
+      "en": "Action not authorized",
+      "fr": "Action non autorisée",
+      "es": "Acción no autorizada"
+    },
+    "workModules.conflict": {
+      "en": "Record changed; reload before retry",
+      "fr": "Dossier modifié; recharger avant de réessayer",
+      "es": "El registro cambió; recarga antes de reintentar"
+    },
+    "workModules.invalid": {
+      "en": "Check the entered values",
+      "fr": "Vérifier les valeurs saisies",
+      "es": "Revisa los valores ingresados"
+    },
+    "workModules.unavailable": {
+      "en": "Approved workflow adapter is unavailable",
+      "fr": "Adaptateur de processus approuvé indisponible",
+      "es": "Adaptador de proceso aprobado no disponible"
+    },
+    "workModules.success": {
+      "en": "Saved and read back",
+      "fr": "Enregistré et relu",
+      "es": "Guardado y verificado"
+    },
+    "workModules.partial": {
+      "en": "Only the authorized page is shown",
+      "fr": "Seule la page autorisée est affichée",
+      "es": "Solo se muestra la página autorizada"
+    },
+    "workModules.open_status": {
+      "en": "Open",
+      "fr": "Ouvert",
+      "es": "Abierto"
+    },
+    "workModules.in_progress": {
+      "en": "In progress",
+      "fr": "En cours",
+      "es": "En curso"
+    },
+    "workModules.blocked": {
+      "en": "Blocked",
+      "fr": "Bloqué",
+      "es": "Bloqueado"
+    },
+    "workModules.submitted": {
+      "en": "Awaiting independent review",
+      "fr": "En attente de vérification indépendante",
+      "es": "En espera de revisión independiente"
+    },
+    "workModules.completed": {
+      "en": "Completed",
+      "fr": "Terminé",
+      "es": "Completado"
+    },
+    "workModules.cancelled": {
+      "en": "Cancelled",
+      "fr": "Annulé",
+      "es": "Cancelado"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Only existing tenant.admin.workspace task workflow: due dates, current-tenant directory read, task instructions and allowed task-state transitions. Standalone notes, appointment mutation, personal contact CRUD and manual ranking need specifications. No new grants, API, route, schema or runtime activation.",
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "GET",
+      "path": "/v1/governance/tenant-dashboard",
+      "service": "governance",
+      "permission": "tenant_dashboard.current_tenant_or_own_task"
+    },
+    {
+      "method": "POST",
+      "path": "/v1/governance/tenant-dashboard",
+      "service": "governance",
+      "permission": "tenant_dashboard.current_tenant_or_own_task"
+    }
+  ]
+}
