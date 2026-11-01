@@ -1112,7 +1112,7 @@
     {
       "id": "B16",
       "title": "Four dashboard families and supporting pages",
-      "status": "read_only_projection_and_optional_web_renderer_source_verified_host_and_acceptance_pending",
+      "status": "read_session_transport_and_optional_host_binding_locally_verified_ci_and_activation_pending",
       "depends_on": [
         "B01",
         "B05",
@@ -1143,10 +1143,16 @@
         "docs/appearance/theme-adoption-batch-16.md",
         "packages/shared/src/dashboard-pages/projection.mjs",
         "packages/primecare_ui/web/dashboard-pages.ts",
-        "scripts/test-dashboard-pages-projection.mjs"
+        "scripts/test-dashboard-pages-projection.mjs",
+        "packages/shared/src/dashboard-pages/session.mjs",
+        "websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts",
+        "scripts/test-dashboard-pages-session.mjs",
+        "scripts/test-dashboard-pages-integration.mjs",
+        "scripts/test-dashboard-pages-browser.mjs",
+        ".github/workflows/dashboard-pages-projection.yml"
       ],
       "blockers": [],
-      "nextAction": "Complete authenticated host lifecycle, browser/PostgreSQL acceptance, native and supporting pages before declaring B16 accepted.",
+      "nextAction": "Read CI browser/native PostgreSQL results, obtain independent registration receipt, then activate approved host slots; native/supporting pages and review remain pending.",
       "productionRuntimeVerified": false,
       "humanReviewApproved": false
     },
