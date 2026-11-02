@@ -29,6 +29,11 @@ def count_sessions(uid):
 def read_user(uid):
  row=db.execute('SELECT email,roles,status,password_hash,tenant_id::text FROM users WHERE id::text=%s',(uid,)).fetchone();db.commit();return row
 def el(page,key):return page.locator('[data-cy="'+key+'"]')
+def reveal_shell_action(page,key):
+ # Account and sign-out live inside the shared More disclosure at every width.
+ action=el(page,key)
+ if not action.is_visible():page.locator('[data-cy="shell-utilities"] summary').click()
+ action.wait_for(state='visible',timeout=30000)
 def observed_submit(page,path,button):
  # Preserve the actual upstream acknowledgement before the UI navigates away.
  acknowledgement={};pattern=GATEWAY+path
@@ -94,7 +99,7 @@ try:
  must(response.value.status==200 and response.value.json().get('status')=='password_reset','Created-account browser password reset succeeds');must(call('/v1/auth/me',token=user_token)[0]==401,'Reset invalidates created-account old session');must(call('/v1/auth/login','POST',{'email':RECIPIENT,'password':target_password})[0]==401,'Reset rejects old created-account password');must(call('/v1/auth/reset-password','POST',{'email':RECIPIENT,'code':code,'newPassword':secrets.token_urlsafe(24)})[0]==400,'Consumed recovery code cannot be reused')
  new_page,new_token=login(client,CLINIC,RECIPIENT,new_password);must(call('/v1/auth/me',token=new_token)[1].get('roles')=='physio','Reset preserves assigned role and new credential session');
  # The same created account now changes its own password through the real shared account form.
- final_password=secrets.token_urlsafe(24);el(new_page,'workspace-account').click();el(new_page,'change-password-form').wait_for(timeout=30000);el(new_page,'current-password').fill(new_password);el(new_page,'new-password').fill(final_password)
+ final_password=secrets.token_urlsafe(24);reveal_shell_action(new_page,'workspace-account');el(new_page,'workspace-account').click();el(new_page,'change-password-form').wait_for(timeout=30000);el(new_page,'current-password').fill(new_password);el(new_page,'new-password').fill(final_password)
  changed_response=observed_submit(new_page,'/v1/user/change-password','change-password-submit')
  must(changed_response['status']==changed_response['browserStatus']==200 and changed_response['body']=={'status':'password_changed','reauthenticationRequired':True},'Created-account browser password change succeeds with mandatory reauthentication')
  must(bcrypt.checkpw(final_password.encode(),read_user(target_id)[3].encode()) and count_sessions(target_id)==0,'Browser password change persists hash and removes every prior session')
@@ -102,6 +107,7 @@ try:
  n=db.execute('SELECT COUNT(*) FROM auth_password_audit WHERE user_id::text=%s',(target_id,)).fetchone()[0];remaining=db.execute('SELECT COUNT(*) FROM auth_password_resets WHERE user_id::text=%s',(target_id,)).fetchone()[0];db.commit();must(n==2 and remaining==0,'Reset and current-password change both persist audit with no usable reset records');el(new_page,'login-form').wait_for(timeout=30000)
  new_page,new_token=login(client,CLINIC,RECIPIENT,final_password)
 
+ reveal_shell_action(new_page,'workspace-logout')
  logout_response=observed_submit(new_page,'/v1/auth/logout','workspace-logout')
  must(logout_response['status']==logout_response['browserStatus']==200 and logout_response['body'].get('status')=='signed_out' and count_sessions(target_id)==0 and call('/v1/auth/me',token=new_token)[0]==401,'Created-account browser logout removes its database session and remains denied');el(new_page,'login-form').wait_for(timeout=30000);new_page.reload(wait_until='domcontentloaded');el(new_page,'login-form').wait_for(timeout=30000);must(new_page.evaluate("sessionStorage.getItem('primecare_session')") is None,'Created-account reload clears logged-out session')
  must(page.evaluate('document.documentElement.scrollWidth<=innerWidth') and hr_page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'CEO and HR forms fit registered viewport')
