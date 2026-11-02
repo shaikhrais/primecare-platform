@@ -9,7 +9,7 @@ The plan contains **13 repair packages (R00–R12)** covering 18 feature batches
 | R00 | Reconcile scope and evidence | partial | Scope ledger exists; dynamic host-resolution evidence is incomplete. |
 | R01 | Repair production identity safely | done | Original 192-row identity repair accepted. Broader quarantined catalog review belongs to R02; runtime activation belongs to R06/R09. |
 | R02 | Map existing service contracts before building replacements | partial | 187 candidates indexed; action-level contract and authority review remains. |
-| R03 | Make verified publication reliable | partial | All-nine stamped publication and three-locale owned account acceptance pass. Coordination of remaining publishers and compatible API/UI rollback remain. |
+| R03 | Make verified publication reliable | partial | Four direct TypeScript producers share the production publication lock; current-main checks and all-nine source-bound EN/FR/ES owned journeys pass. Compatible API/UI rollback and full producer-lifecycle acceptance remain. |
 | R04 | Finish one real web shell before portal-wide rollout | partial | Owned clinic theme/layout pilot passes 58 live checks per locale. Shared footer passes 12 EN/FR/ES LTR/RTL browser cases and actual tenant/PostgreSQL save/reload/node-preservation checks. Original Platform_admin binding and wider route/overlay acceptance remain. |
 | R05 | Mount native hosts progressively | pending | Real native host rollout and physical-device journeys are not accepted. |
 | R06 | Complete preferences and durable recovery | partial | Tenant request recovery and web local-theme recovery shipped and tested. Registered API777 hosts, cloud/dashboard persistence, other commands and native recovery remain. |
@@ -18,15 +18,17 @@ The plan contains **13 repair packages (R00–R12)** covering 18 feature batches
 | R09 | Complete communications and files | pending | Messaging role policy is staged; host, provider, member/tenant denial and file-lifecycle acceptance remain. |
 | R10 | Complete application and financial families | pending | Application/finance business journeys and replacement of unavailable placeholders remain. |
 | R11 | Finish reference/asset adoption and review | pending | Remaining app/reference/icon adoption and licensing/localization/accessibility review remain. |
-| R12 | Run full release acceptance and close batches | partial | Owned deployed account lifecycle accepted across EN/FR/ES at 320/768/1440 widths (49 checks each); other feature families, actual devices, human review and coordinated rollback remain open. |
+| R12 | Run full release acceptance and close batches | partial | Owned deployed account/theme lifecycle accepted across EN/FR/ES at 320/768/1440 widths (58 mutation/theme and 36 tenant-read checks each); other feature families, actual devices, human review and coordinated rollback remain open. |
 
 Latest verified web pilot:
 
-[Release 41475732794](https://github.com/shaikhrais/primecare-platform/actions/runs/41475732794) published all nine portals and verified nine critical files per portal. Owned live account journeys passed **58 checks each in English (320px), French (768px) and Spanish (1440px)**. They include unreadable-theme protection, reset cancellation, explicit scoped recovery, named palette/font saving, sidebar/navigation saving, restoration after reload, and logout. Source/file fingerprints were checked before and after every journey; synthetic accounts and correlated mail were cleaned up.
+[Release 41486500369](https://github.com/shaikhrais/primecare-platform/actions/runs/41486500369) published all nine portals and verified nine critical files per portal. Owned live account journeys passed **58 checks each in English (320px), French (768px) and Spanish (1440px)**. They include unreadable-theme protection, reset cancellation, explicit scoped recovery, named palette/font saving, sidebar/navigation saving, restoration after reload, and logout. Each locale also passed 36 tenant-account read checks. Source/file fingerprints were checked before and after every journey; synthetic accounts and correlated mail were cleaned up.
 
 These theme/layout values are saved on this browser. **API777 cloud preference synchronization remains off.** This is an owned physio/clinic pilot, not proof for all roles, every portal workflow, native devices, complete reference parity or all 13 packages.
 
 Additional accepted repairs:
+
+- [Coordinated TypeScript publication](https://github.com/shaikhrais/primecare-platform/actions/runs/41486500369): four direct publishers share the production lock; current-main checks run before account registration and each portal upload. Two contract checks and nine retry-decision checks passed. The earlier overlap/source-mismatch failure remains recorded. Compatible API/UI rollback and full producer-lifecycle acceptance remain open.
 
 - [Shared footer and description binding](https://github.com/shaikhrais/primecare-platform/actions/runs/41483421280): two markup checks, 13 lifecycle checks and 12 real-browser combinations (EN/FR/ES, LTR/RTL, 390/1440px) passed. [Actual tenant/PostgreSQL acceptance](https://github.com/shaikhrais/primecare-platform/actions/runs/41483793034) also passed footer enablement, sticky save/reload and original-node preservation after a preference redraw, alongside durable request/SQL regressions. These are isolated acceptance results; the last verified live pilot remains the release linked above.
 

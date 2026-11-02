@@ -141,9 +141,9 @@
     "prePostSourceAndHashReceiptsPerLocale": 4
   },
   "remaining": [
-    "Finish all-nine stamped production release and source-bound EN/FR/ES account journeys",
-    "Reconcile all remaining TypeScript publication paths and accept coordinated compatible API/UI rollback",
-    "Native physical-device and independent review acceptance are separate"
+    "Accept coordinated compatible API/UI rollback",
+    "Complete producer-lifecycle and feature-family release acceptance beyond the owned pilot",
+    "Native physical-device and independent review acceptance remain separate"
   ],
   "providerCredentialsOrBusinessAuthorityChanged": false,
   "diagnosticThreeLocaleAcceptance": {
@@ -191,6 +191,41 @@
     ]
   },
   "latestOwnedThemeAcceptance": {
+    "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+    "run": 41486500369,
+    "conclusion": "success",
+    "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
+    "portalsPublished": 9,
+    "filesVerifiedPerPortal": 9,
+    "checksPerLocale": 58,
+    "jobs": [
+      {
+        "locale": "en",
+        "width": 320,
+        "job": 125425129760,
+        "conclusion": "success"
+      },
+      {
+        "locale": "fr",
+        "width": 768,
+        "job": 125425129603,
+        "conclusion": "success"
+      },
+      {
+        "locale": "es",
+        "width": 1440,
+        "job": 125425129991,
+        "conclusion": "success"
+      }
+    ],
+    "prePostWebFingerprintReceiptsPerLocale": 4,
+    "localThemeVerified": true,
+    "themeCloudSyncVerified": false,
+    "exactOwnedFixtureAndMailCleanup": true,
+    "wholeThemeAcceptance": false,
+    "tenantAccountReadChecksPerLocale": 36
+  },
+  "previousOwnedThemeAcceptance": {
     "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
     "run": 41475732794,
     "conclusion": "success",
@@ -223,5 +258,83 @@
     "themeCloudSyncVerified": false,
     "exactOwnedFixtureAndMailCleanup": true,
     "wholeThemeAcceptance": false
+  },
+  "coordinatedPublication": {
+    "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+    "run": 41486500369,
+    "conclusion": "success",
+    "portals": [
+      {
+        "job": 125423334202,
+        "project": "primecare-client",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125423334321,
+        "project": "primecare-clinic",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125423334546,
+        "project": "primecare-business-development",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125423810364,
+        "project": "primecare-corporate",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125423824953,
+        "project": "primecare-franchise",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125424131611,
+        "project": "primecare-marketing",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125424176543,
+        "project": "primecare-support",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125424327243,
+        "project": "primecare-governance",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      },
+      {
+        "job": 125424606557,
+        "project": "primecare-enterprise-blueprint",
+        "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "filesVerified": 9
+      }
+    ],
+    "commonTypeScriptLock": "primecare-cloudflare-typescript-production",
+    "producerContractChecks": 2,
+    "producerContractJob": 125421366620,
+    "currentMainChecks": [
+      "before account registration",
+      "before shared release verification",
+      "before each portal upload"
+    ],
+    "retainedOverlapFailure": {
+      "run": 41483421336,
+      "expectedSource": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+      "overlappingPublishedSource": "79ff5a95f709c7c4b9b6b264d40160593075604c",
+      "rejectedEnglishProofJob": 125417785344,
+      "reason": "Live runtime, source or project differs from accepted release"
+    },
+    "compatibleApiUiRollbackAccepted": false,
+    "wholeReleaseAcceptance": false
   }
 }

@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+  "asOfImplementation": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
   "counts": {
     "total": 13,
     "done": 1,
@@ -63,7 +63,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "All-nine stamped publication and three-locale owned account acceptance pass. Coordination of remaining publishers and compatible API/UI rollback remain.",
+      "note": "Four direct TypeScript producers share the production publication lock; current-main checks and all-nine source-bound EN/FR/ES owned journeys pass. Compatible API/UI rollback and full producer-lifecycle acceptance remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -75,8 +75,9 @@
         "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful",
         "docs/appearance/theme-web-publisher-evidence.json",
         "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful",
-        "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 pending",
-        "Stale scheduler correction: evidence upload is not a provider publication; 9 local decision tests pass. Successful automatic retry/publication remains unverified."
+        "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 successful; retained pre-footer publication",
+        "Stale scheduler correction: evidence upload is not a provider publication; 9 local decision tests pass. Successful automatic retry/publication remains unverified.",
+        "CI41486500369: 2 publisher-lock/current-main contract checks, 9 retry-decision checks, all-nine exact-file publication and all three owned live proofs successful. Automatic successful retry is not claimed."
       ]
     },
     {
@@ -93,7 +94,8 @@
         "CI 41349589267: 16 tenant-host checks including 2 locale cases",
         "CI41475732794: owned live local-theme pilot",
         "CI41483421280 / job125407379803: 12 shared footer browser cases, 13 lifecycle checks and 2 markup checks successful",
-        "CI41483793034 / acceptance125408681457: actual tenant footer control, sticky save/reload and node preservation plus independent preference SQL/lost-ack regression checks successful"
+        "CI41483793034 / acceptance125408681457: actual tenant footer control, sticky save/reload and node preservation plus independent preference SQL/lost-ack regression checks successful",
+        "CI41486500369 / browser125421645753: current-source footer/PWA/theme recovery passed; all-nine publication plus 58 owned local-theme/account checks and 36 tenant-read checks per locale passed"
       ]
     },
     {
@@ -119,8 +121,8 @@
       "evidence": [
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
-        "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending",
-        "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 pending",
+        "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 initial checkpoint; superseded by accepted CI41452987783",
+        "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 initial checkpoint; superseded by accepted CI41452987783",
         "docs/appearance/theme-preference-disposal-evidence.json",
         "CI 41452987783: 5/5 jobs successful",
         "docs/appearance/theme-web-recovery-evidence.json"
@@ -190,13 +192,14 @@
       "id": "R12",
       "title": "Run full release acceptance and close batches",
       "status": "partial",
-      "note": "Owned deployed account lifecycle accepted across EN/FR/ES at 320/768/1440 widths (49 checks each); other feature families, actual devices, human review and coordinated rollback remain open.",
+      "note": "Owned deployed account/theme lifecycle accepted across EN/FR/ES at 320/768/1440 widths (58 mutation/theme and 36 tenant-read checks each); other feature families, actual devices, human review and coordinated rollback remain open.",
       "acceptance": [
         "Every retained feature and every batch meets its individual acceptance criteria with current evidence; no unknown/pending result is counted as passed.",
         "Release guard succeeds, production/device/review receipts match the shipped source, and a tested rollback target is retained."
       ],
       "evidence": [
-        "CI 41448542072 / proof jobs 125290860143, 125290860230, 125290860222"
+        "CI 41448542072 / proof jobs 125290860143, 125290860230, 125290860222",
+        "CI41486500369: matching nine-file fingerprints before/after each owned journey; exact synthetic fixture and inbox cleanup passed"
       ]
     }
   ],

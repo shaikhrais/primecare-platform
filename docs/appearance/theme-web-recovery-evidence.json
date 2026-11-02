@@ -207,8 +207,8 @@
       }
     ],
     "componentSuite": {
-      "source": "4ebf9cc13a23e1f82c46da5e85ac0c59bf733d75",
-      "run": 41483793344,
+      "source": "79ff5a95f709c7c4b9b6b264d40160593075604c",
+      "run": 41485540003,
       "conclusion": "success",
       "jobs": 7
     },
@@ -221,7 +221,163 @@
       },
       "correction": "Exclude only the known evidence upload step from provider-execution detection; require one successful acceptance job",
       "localDecisionTests": 9,
-      "automatedSuccessfulRetryObserved": false
+      "automatedSuccessfulRetryObserved": false,
+      "ciDecisionTests": 9,
+      "ciRun": 41486500369
+    },
+    "latestRelease": {
+      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+      "run": 41486500369,
+      "publication": {
+        "portals": 9,
+        "filesVerifiedPerPortal": 9,
+        "receipts": [
+          {
+            "job": 125423334202,
+            "project": "primecare-client",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125423334321,
+            "project": "primecare-clinic",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125423334546,
+            "project": "primecare-business-development",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125423810364,
+            "project": "primecare-corporate",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125423824953,
+            "project": "primecare-franchise",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125424131611,
+            "project": "primecare-marketing",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125424176543,
+            "project": "primecare-support",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125424327243,
+            "project": "primecare-governance",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          },
+          {
+            "job": 125424606557,
+            "project": "primecare-enterprise-blueprint",
+            "commit": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+            "filesVerified": 9
+          }
+        ]
+      },
+      "ownedLiveAcceptance": {
+        "conclusion": "success",
+        "receipts": [
+          {
+            "locale": "en",
+            "checks": 58,
+            "localThemeVerified": true,
+            "themeCloudSyncVerified": false,
+            "cleanup": true,
+            "cleanupError": false,
+            "fingerprintReceipts": 4,
+            "tenantReadChecks": 36,
+            "tenantReadCleanup": true,
+            "width": 320,
+            "job": 125425129760
+          },
+          {
+            "locale": "fr",
+            "width": 768,
+            "checks": 58,
+            "tenantReadChecks": 36,
+            "localThemeVerified": true,
+            "themeCloudSyncVerified": false,
+            "cleanup": true,
+            "tenantReadCleanup": true,
+            "cleanupError": false,
+            "fingerprintReceipts": 4,
+            "job": 125425129603
+          },
+          {
+            "locale": "es",
+            "width": 1440,
+            "checks": 58,
+            "tenantReadChecks": 36,
+            "localThemeVerified": true,
+            "themeCloudSyncVerified": false,
+            "cleanup": true,
+            "tenantReadCleanup": true,
+            "cleanupError": false,
+            "fingerprintReceipts": 4,
+            "job": 125425129991
+          }
+        ],
+        "scope": "Owned physio/clinic local theme plus CEO account reads; no cloud sync, native or whole-package acceptance"
+      }
+    },
+    "latestTenantRelease": {
+      "source": "79ff5a95f709c7c4b9b6b264d40160593075604c",
+      "run": 41485540328,
+      "acceptanceJob": 125414774871,
+      "publishJob": 125416077074,
+      "conclusion": "success",
+      "portals": 9,
+      "protectedRoutesRequireAuthentication": true,
+      "ownedLiveThemeAcceptance": false
+    },
+    "publisherCoordination": {
+      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+      "commonLock": "primecare-cloudflare-typescript-production",
+      "producers": [
+        "deploy-typescript-websites",
+        "psw-workspace",
+        "business-plan-cycles",
+        "code-admin-look"
+      ],
+      "currentMainChecks": [
+        "before account metadata registration",
+        "before shared release verification",
+        "before each matrix portal upload"
+      ],
+      "localContractChecks": 2,
+      "releaseRun": 41486500369,
+      "releaseAcceptance": "success",
+      "retainedOverlapFailure": {
+        "run": 41483421336,
+        "expectedSource": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+        "overlappingPublishedSource": "79ff5a95f709c7c4b9b6b264d40160593075604c",
+        "rejectedEnglishProofJob": 125417785344,
+        "reason": "Live runtime, source or project differs from accepted release"
+      },
+      "ciContractJob": 125421366620,
+      "ciContractChecks": 2,
+      "ciResult": "success"
+    },
+    "latestSharedBrowserAcceptance": {
+      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+      "run": 41486500369,
+      "job": 125421645753,
+      "footerCases": 12,
+      "conclusion": "success"
     }
   }
 }
