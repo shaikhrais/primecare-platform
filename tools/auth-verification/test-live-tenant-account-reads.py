@@ -1,10 +1,10 @@
 """Real deployed CEO read workflows against uniquely owned synthetic tenant records."""
-import os,json,pathlib,uuid,secrets,hashlib,urllib.request,urllib.error
+import os,json,pathlib,uuid,secrets,hashlib,urllib.request,urllib.error,urllib.parse,re
 import psycopg,bcrypt
 from playwright.sync_api import sync_playwright
 GATEWAY='https://primecare-api-gateway.itpro-mohammed.workers.dev';PORTAL='https://primecare-corporate.pages.dev'
 locale=os.environ['TEST_LOCALE'];width=int(os.environ['TEST_WIDTH']);nonce=uuid.uuid4().hex
-report={'synthetic':True,'scope':'deployed-ceo-account-reads','locale':locale,'width':width,'checks':[],'wholeAuthVerified':False}
+report={'synthetic':True,'scope':'deployed-ceo-account-reads','locale':locale,'width':width,'checks':[],'wholeAuthVerified':False,'stage':'fixture-setup'}
 db=psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'],connect_timeout=15)
 tenants=[str(uuid.uuid4()),str(uuid.uuid4())];users=[str(uuid.uuid4()) for _ in range(28)];password=secrets.token_urlsafe(24);created=False;pw=browser=context=None
 report['fixtureIdentifiers']={'tenants':tenants,'users':users,'nonce':nonce}
@@ -34,6 +34,15 @@ try:
   for uid in [users[1],users[27]]:db.execute("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES(%s,%s,NOW()+INTERVAL '1 hour')",(hashlib.sha256(secrets.token_urlsafe(32).encode()).hexdigest(),uid))
  created=True
  pw=sync_playwright().start();browser=pw.chromium.launch();context=browser.new_context(viewport={'width':width,'height':1000},locale=locale);page=context.new_page()
+ # Retain bounded route/status metadata only: no headers, query, body or credentials.
+ network=[]
+ def record_response(response):
+  url=urllib.parse.urlsplit(response.url)
+  if url.netloc not in [urllib.parse.urlsplit(PORTAL).netloc,urllib.parse.urlsplit(GATEWAY).netloc]:return
+  network.append({'method':response.request.method,'path':re.sub(r'[0-9a-f]{8}-[0-9a-f-]{27,}',':id',url.path,flags=re.I),'status':response.status})
+  del network[:-30]
+ page.on('response',record_response)
+ report['stage']='initial-login-and-list'
  def el(name):return page.locator('[data-cy="'+name+'"]')
  page.goto(PORTAL+'/login?locale='+locale+'&enable-semantics=true',wait_until='domcontentloaded',timeout=60000);el('login-email').fill(emails[0]);el('login-password').fill(password)
  with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/auth/login') and r.request.method=='POST',timeout=30000) as login:el('login-submit').click()
@@ -74,16 +83,26 @@ try:
  must(call('/v1/admin/users/'+users[27],token)[0]==404,'Foreign account detail concealed')
  must(call('/v1/admin/users/'+users[27]+'/sessions',token)[0]==404,'Foreign account sessions concealed')
  must(snapshot()==before,'All read workflows preserve account/session/audit records')
+ report['stage']='fresh-page-reload'
  page.reload(wait_until='domcontentloaded');el('tenant-accounts-table-row-'+users[1]).wait_for(timeout=30000)
  must(el('tenant-accounts-pagination').inner_text().endswith('27'),'Reload rereads authoritative account list')
+ report['stage']='offline-refresh'
  context.set_offline(True);el('tenant-accounts-refresh').click();page.wait_for_function("document.querySelector('[data-cy=tenant-accounts-status]').textContent.length>0 && document.querySelector('[data-cy=tenant-accounts-root]').getAttribute('aria-busy')==='false'",timeout=30000)
  must(page.locator('[data-cy^="tenant-accounts-table-row-"]').count()==0,'Offline failure clears stale account data')
+ report['stage']='online-recovery'
  context.set_offline(False);el('tenant-accounts-refresh').click();el('tenant-accounts-table-row-'+users[1]).wait_for(timeout=30000)
  must(el('tenant-accounts-pagination').inner_text().endswith('27'),'Refresh recovers after offline failure')
  must(page.evaluate('document.documentElement.scrollWidth<=innerWidth'),'Registered viewport has no page overflow')
  out=pathlib.Path('test-results/tenant-account-reads');out.mkdir(parents=True,exist_ok=True);page.screenshot(path=str(out/('accounts-'+locale+'-'+str(width)+'.png')),full_page=True)
  report['passed']=True
-except Exception as e:report['error']=str(e);raise
+except Exception as e:
+ report['error']=str(e)
+ if context:
+  try:
+   report['browserFailure']={'path':urllib.parse.urlsplit(page.url).path,'responses':network,'states':{key:page.locator('[data-cy="'+key+'"]').count() for key in ['workspace-loading','error-state','tenant-accounts-root','login-form']}}
+   out=pathlib.Path('test-results/tenant-account-reads');out.mkdir(parents=True,exist_ok=True);page.screenshot(path=str(out/('failure-'+locale+'-'+str(width)+'.png')),full_page=True)
+  except Exception as diagnostic_error:report['diagnosticError']=type(diagnostic_error).__name__
+ raise
 finally:
  if context:context.close()
  if browser:browser.close()

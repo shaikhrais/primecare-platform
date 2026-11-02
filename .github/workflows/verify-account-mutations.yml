@@ -9,6 +9,7 @@ on:
       - websites/typescript/src/infrastructure/http/base-session-client.ts
       - packages/shared/src/account-mutations.json
       - tools/auth-verification/test-live-account-mutations.py
+      - tools/auth-verification/test-live-tenant-account-reads.py
       - tools/auth-verification/owned_inbox.py
       - tools/auth-verification/accepted-auth-live-proof-release.json
       - scripts/verify-auth-live-proof-source.mjs
