@@ -27,6 +27,8 @@ jobs:
         run: node --test scripts/test-method-capture-blockers.mjs
       - name: Verify fresh governed workspace identifiers before publication
         run: node --test scripts/test-theme-adoption-preflight.mjs scripts/test-theme-workspace-export.mjs
+      - name: Account-bound default-view draft recovery
+        run: node scripts/test-tenant-dashboard-preference-draft.mjs
       - name: Scheduling constraints and atomic recurrence
         run: node scripts/test-psw-scheduling.mjs
       - name: Native PostgreSQL workspace commands and isolation

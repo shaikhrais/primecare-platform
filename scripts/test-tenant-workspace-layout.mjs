@@ -26,14 +26,37 @@ try{
  await el('workspace-layout-import').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"role":"code_admin"}')});await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-status]').textContent.includes('Unable'));
  await el('workspace-layout-close').click();
  assert.equal(await page.evaluate(()=>window.input===document.querySelector('[data-cy=tenant-preference-view]')),true);await el('tenant-preference-view').selectOption('tasks');assert.equal(await page.evaluate(()=>window.clicks),1);assert.equal(writes,0);
+ // Failed saves must retain the exact default-view draft across redraw and browser restart.
+ const beforePreference=(await (await f.call('admin')).json()).preference;
+ await page.route('**/v1/governance/tenant-dashboard*',async route=>{if(route.request().method()==='POST'){await route.fulfill({status:503,contentType:'application/json',body:JSON.stringify({error:'Fixture unavailable; draft must survive.'})});}else await route.continue();});
+ await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Fixture unavailable'));
+ assert.equal(await el('tenant-preference-view').inputValue(),'tasks');assert.deepEqual((await (await f.call('admin')).json()).preference,beforePreference);
+ await page.unroute('**/v1/governance/tenant-dashboard*');await page.reload();await el('appearance-open').waitFor();assert.equal(await el('tenant-preference-view').inputValue(),'tasks');
+ await page.evaluate(()=>window.input=document.querySelector('[data-cy=tenant-preference-view]'));
  // Real form handler and database readback survive moving the original node.
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-preference-view]')!==window.input);assert.equal((await (await f.call('admin')).json()).preference.view,'tasks');assert.equal(await page.locator('[data-pc-panel]').count(),1);assert.equal(await el('workspace-layout-move').count(),1);assert.equal(await el('appearance-open').count(),1);
  await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'floating');await el('workspace-layout-undo').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');await el('workspace-layout-redo').click();await el('workspace-layout-close').click();
  await page.reload();await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'floating');await el('workspace-layout-reset').click();await el('workspace-layout-close').click();
  await page.setViewportSize({width:390,height:844});await el('sidebar-toggle').click();await el('sidebar-close').waitFor({state:'visible'});await page.keyboard.press('Escape');assert.equal(await el('sidebar-toggle').getAttribute('aria-expanded'),'false');assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
  await el('appearance-open').click();assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));await el('workspace-layout-close').click();
+ // A newer remote revision must not silently rebase an unsaved local choice.
+ await el('tenant-preference-view').selectOption('audit');const currentPreference=(await (await f.call('admin')).json()).preference;
+ const concurrent=await f.call('admin',{action:'preferences',version:currentPreference.version,value:{view:'overview'}});assert.equal(concurrent.status,200);
+ await el('tenant-search-form').evaluate(form=>form.requestSubmit());await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-preference-view]').value==='audit');
+ await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.toLowerCase().includes('conflict'));
+ assert.equal(await el('tenant-preference-view').inputValue(),'audit');assert.equal((await (await f.call('admin')).json()).preference.view,'overview');
+ page.once('dialog',dialog=>dialog.dismiss());await el('tenant-refresh').click();assert.equal(await el('tenant-preference-view').inputValue(),'audit');
+ page.once('dialog',dialog=>dialog.accept());await el('tenant-refresh').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-preference-view]').value==='overview');
+ // A choice edited during a save remains dirty on the acknowledged revision.
+ await el('tenant-preference-view').selectOption('tasks');let releaseSave;const heldSave=new Promise(resolve=>releaseSave=resolve);let sawSave;const saveStarted=new Promise(resolve=>sawSave=resolve);
+ await page.route('**/v1/governance/tenant-dashboard*',async route=>{if(route.request().method()==='POST'){sawSave();await heldSave;}await route.continue();});
+ await el('tenant-preference-save').click();await saveStarted;await el('tenant-preference-view').selectOption('audit');releaseSave();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('newer default-view edit'));
+ assert.equal(await el('tenant-preference-view').inputValue(),'audit');assert.equal((await (await f.call('admin')).json()).preference.view,'tasks');
+ await page.unroute('**/v1/governance/tenant-dashboard*');await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Default view saved'));
+ assert.equal((await (await f.call('admin')).json()).preference.view,'audit');await page.reload();await el('appearance-open').waitFor();assert.equal(await el('tenant-preference-view').inputValue(),'audit');
  // Switching authenticated actor uses a different storage scope and never restores old panels.
  await page.evaluate(token=>{sessionStorage.setItem('primecare_session',token);document.querySelector('#app').innerHTML='';return window.render();},f.actors.psw.token);await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
  await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
- assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,productionVerified:false}));
+ assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,productionVerified:false}));
 }finally{await context.close();await browser.close();await new Promise(r=>server.close(r));await f.close();}
