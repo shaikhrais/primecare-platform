@@ -17,12 +17,16 @@ class TypeScriptReleaseTests(unittest.TestCase):
         self.stamps = [self.stamp, self.stamp]; self.requests = []
     def read(self, url):
         self.requests.append(url); name = urlsplit(url).path[1:]
+        if name == 'index.html':
+            from urllib.error import HTTPError
+            raise HTTPError(url, 308, 'Permanent Redirect', {'Location':'/'}, None)
+        if name == '': name = 'index.html'
         return json.dumps(self.stamps.pop(0)).encode() if name == STAMP else self.assets[name]
     def verify(self):
         return verify_live(self.project, self.commit, self.stamp, self.read)
     def test_exact_source_and_independently_read_assets(self):
         self.assertEqual(self.verify(), self.stamp)
-        self.assertEqual([urlsplit(url).path for url in self.requests], ['/' + STAMP, *('/' + name for name in FILES), '/' + STAMP])
+        self.assertEqual([urlsplit(url).path for url in self.requests], ['/' + STAMP, '/', '/portal.json', '/assets/app.js', '/' + STAMP])
     def test_local_asset_change_changes_fingerprint(self):
         (self.root / 'assets/app.js').write_bytes(b'new build')
         self.assertNotEqual(make_stamp(self.root, self.project, self.commit), self.stamp)

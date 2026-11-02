@@ -46,7 +46,10 @@ def verify_live(project, commit, expected=None, reader=read_public_asset):
     if expected is not None and stamp != validate(expected, project, commit):
         raise ValueError('Live release stamp changed during verification')
     for name in FILES:
-        if digest(reader(base + name + query)) != stamp['files'][name]:
+        # Pages serves index.html at / and redirects its noncanonical .html URL.
+        # Read the canonical URL directly; never follow redirects to other content.
+        route = '' if name == 'index.html' else name
+        if digest(reader(base + route + query)) != stamp['files'][name]:
             raise ValueError('Live release asset digest differs: ' + name)
     # A second stamp read catches a publisher changing the release during the reads.
     if json.loads(reader(base + STAMP + query)) != stamp:
