@@ -1,0 +1,20 @@
+{
+  "format": 1,
+  "path": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart",
+  "sourceCommit": "86a73ecbbe0af7bcc3dfde2749ecc2d8795f1e26",
+  "sha256": "4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120",
+  "previousReviewedSha256": "45a3acd6d1e25f3ebd3860abcc71cddc958d03666b2a1bdffab0834cd1a42f9a",
+  "review": [
+    "Read all 213 source lines and compared against the exact historical reviewed fixture.",
+    "Changes add a server-session-scoped entry/identity wrapper and literal requirement/blocker cards.",
+    "Returned ListView still iterates the matching server page's registered sections and calls _section.",
+    "The _section implementation and visible _card containing section name/semantics are unchanged.",
+    "Registry screen/route uniqueness and section identity checks remain required.",
+    "Only the two exact full-source hashes are accepted; modified loops/cards and unknown hashes are rejected."
+  ],
+  "scope": "Static structural rendering only",
+  "businessWorkflowAcceptance": false,
+  "runtimeAcceptance": false,
+  "productionReadyPromotions": 0,
+  "productionAuthorityChanges": 0
+}

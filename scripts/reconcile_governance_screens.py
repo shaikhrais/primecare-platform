@@ -27,6 +27,13 @@ DEFAULT_DB = ROOT / ".agents" / "governance" / "governance.db"
 WORKSPACE_RENDERER = 'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart'
 # Bounded reviewed renderer: changed control flow requires another source review.
 WORKSPACE_RENDERER_SHA256 = '45a3acd6d1e25f3ebd3860abcc71cddc958d03666b2a1bdffab0834cd1a42f9a'
+# Exact additional review: scoped identity wrapper and requirement/blocker cards;
+# returned registered-section loop, _section and visible _card remain unchanged.
+# Structural evidence only; no business readiness or authority is inferred.
+WORKSPACE_RENDERER_REVIEWED_SHA256 = frozenset({
+    WORKSPACE_RENDERER_SHA256,
+    '4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120',
+})
 CLASS_RE = re.compile(r"\bclass\s+([A-Za-z_]\w*)\b")
 CONSTRUCTOR_RE = re.compile(r"(?<![.\w])([A-Z][A-Za-z0-9_]*)\s*\(")
 SCREEN_CLASS_RE = re.compile(
@@ -72,7 +79,7 @@ def dynamic_sections(root: Path, screen: sqlite3.Row, names: list[str], source: 
     """
     if screen['actual_file_path'] != WORKSPACE_RENDERER:
         return []
-    if hashlib.sha256(source.encode()).hexdigest() != WORKSPACE_RENDERER_SHA256:
+    if hashlib.sha256(source.encode()).hexdigest() not in WORKSPACE_RENDERER_REVIEWED_SHA256:
         return []
     path = root / 'cloudflare/workers/src/workspace-registry.json'
     try:

@@ -22,6 +22,13 @@ class ScreenAuditTest(unittest.TestCase):
         self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],self.original),['Header Section'])
     def test_unreviewed_source_change_remains_rejected(self):
         self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],self.original+'\n// unreviewed source drift\n'),[])
+    def test_current_scoped_renderer_has_exact_review_and_preserved_section_path(self):
+        current=(m.ROOT/m.WORKSPACE_RENDERER).read_text()
+        self.assertIn(hashlib.sha256(current.encode()).hexdigest(),m.WORKSPACE_RENDERER_REVIEWED_SHA256)
+        self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],current),['Header Section'])
+        for changed in [current.replace("for (final section in list(page['sections'])) _section(page, section, overview, pages),",''),current.replace("return _card(section['name'].toString()", "return Text(section['name'].toString()")]:
+            self.assertNotEqual(changed,current)
+            self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])
     def test_dead_or_unrendered_iteration_rejected(self):
         for changed in [self.original.replace('for (final section in list(page[\'sections\'])) _section(page, section, overview, pages),',''),self.original.replace("return _card(section['name'].toString()", "return Text(section['name'].toString()")]:
             self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])
