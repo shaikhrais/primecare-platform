@@ -770,7 +770,7 @@
       "wholeThemeAcceptance": false
     },
     "latestAuthSourceGate": {
-      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
       "run": 41486500369,
       "job": 125421645298,
       "conclusion": "success",
@@ -811,6 +811,14 @@
       "tenantReadLocaleChecks": 36,
       "compatibleApiUiRollbackAccepted": false,
       "automaticSuccessfulRetryObserved": false
+    },
+    "previousAuthSourceGate": {
+      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+      "run": 41475732794,
+      "job": 125384153818,
+      "conclusion": "success",
+      "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
+      "preferenceRuntimeActivated": false
     }
   },
   "permissionRowsChanged": 209,
