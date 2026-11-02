@@ -10,6 +10,9 @@ on:
       - packages/shared/src/account-mutations.json
       - tools/auth-verification/test-live-account-mutations.py
       - tools/auth-verification/owned_inbox.py
+      - tools/auth-verification/accepted-auth-live-proof-release.json
+      - scripts/verify-auth-live-proof-source.mjs
+      - tools/auth-verification/test-auth-live-proof-source.mjs
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
     types: [completed]
@@ -36,6 +39,7 @@ jobs:
       - run: |
           npm install --prefix "$RUNNER_TEMP/account-tools" --ignore-scripts esbuild@0.27.2 typescript@5.9.3
           ln -s "$RUNNER_TEMP/account-tools/node_modules" node_modules
+          node tools/auth-verification/test-auth-live-proof-source.mjs
           node scripts/test-account-mutations-client.mjs
           node scripts/test-tenant-account-reads.mjs
           node scripts/test-auth-client.mjs
@@ -118,7 +122,7 @@ jobs:
     needs: [release_source, deploy]
     if: always() && needs.release_source.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     strategy:
       fail-fast: false
@@ -144,29 +148,12 @@ jobs:
           python -m playwright install --with-deps chromium
           npm install --prefix "$RUNNER_TEMP/account-tools" --ignore-scripts pg@8.16.3
           ln -s "$RUNNER_TEMP/account-tools/node_modules" node_modules
-      - name: Require a successful auth release with the exact tested Worker source
+      - name: Require independently verified deployed auth source
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          for attempt in {1..60}; do
-            gh api 'repos/${{ github.repository }}/actions/workflows/release-session-revocation-fix.yml/runs?branch=main&status=success&per_page=1' > /tmp/auth-releases.json
-            ready=false
-            while read -r release_id release_sha; do
-              git fetch --no-tags --depth=1 origin "$release_sha"
-              if git diff --quiet "$release_sha" HEAD -- cloudflare/workers; then
-                mkdir -p test-results/account-mutations
-                jq -n --argjson run "$release_id" --arg sha "$release_sha" --arg producer "$GITHUB_SHA" '{run:$run,releaseSource:$sha,producer:$producer,workerSourceMatch:true}' > test-results/account-mutations/auth-release-approved.json
-                ready=true
-                break
-              fi
-            done < <(jq -r '.workflow_runs[] | "\(.id) \(.head_sha)"' /tmp/auth-releases.json)
-            if test "$ready" = true; then exit 0; fi
-            echo 'Waiting for successful native-verified auth deployment'
-            sleep 15
-          done
-          echo 'No successful auth deployment matches the current Worker source'
-          exit 1
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/verify-auth-live-proof-source.mjs
       - name: Verify actual account UI API database audit reload and owned receiving-Worker mail
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

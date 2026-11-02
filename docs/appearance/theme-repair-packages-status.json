@@ -1,0 +1,192 @@
+{
+  "format": 1,
+  "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
+  "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
+  "asOfImplementation": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+  "counts": {
+    "total": 13,
+    "done": 1,
+    "partial": 6,
+    "pending": 6
+  },
+  "wholeFeatureBatchesClosed": 0,
+  "packages": [
+    {
+      "id": "R00",
+      "title": "Reconcile scope and evidence",
+      "status": "partial",
+      "note": "Scope ledger exists; dynamic host-resolution evidence is incomplete.",
+      "acceptance": [
+        "Every B01–B18 requirement has an item ID, accountable owner role, dependency and measurable exit test; solved items link to current evidence.",
+        "Historical receipts remain available; no completion percentage is inferred from file counts or green jobs."
+      ],
+      "evidence": [
+        "docs/appearance/theme-execution-ledger.json",
+        "CI 41349589295 catalogue success"
+      ]
+    },
+    {
+      "id": "R01",
+      "title": "Repair production identity safely",
+      "status": "done",
+      "note": "Original 192-row identity repair accepted. Broader quarantined catalog review belongs to R02; runtime activation belongs to R06/R09.",
+      "acceptance": [
+        "No unintended new role, tenant, operation or artifact authority; existing denials and legitimate grants are preserved.",
+        "Unchanged identity guard passes without quarantine replacement or bypass; independent readback matches the approved row-level proposal."
+      ],
+      "evidence": [
+        "docs/appearance/theme-permission-reconciliation-proposal.json",
+        "CI 41349589331 / job 124976690762",
+        "docs/appearance/theme-worker-provenance-evidence.json",
+        "docs/appearance/theme-auth-release-provenance.json",
+        "docs/appearance/theme-auth-preference-repair-evidence.json",
+        "docs/appearance/theme-messaging-authority-repair-evidence.json"
+      ]
+    },
+    {
+      "id": "R02",
+      "title": "Map existing service contracts before building replacements",
+      "status": "partial",
+      "note": "187 candidates indexed; action-level contract and authority review remains.",
+      "acceptance": [
+        "A requirement-to-contract matrix covers every business action with real source and authority evidence or an explicit blocker.",
+        "No fabricated API, screen, workflow, provider entitlement or business data."
+      ],
+      "evidence": [
+        "docs/appearance/theme-service-contract-triage.json",
+        "docs/appearance/theme-service-candidates-current.json",
+        "CI 41350683143 / job 124979960703"
+      ]
+    },
+    {
+      "id": "R03",
+      "title": "Make verified publication reliable",
+      "status": "partial",
+      "note": "Immutable-source publication works; full authenticated smoke and rollback acceptance remain.",
+      "acceptance": [
+        "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
+        "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
+      ],
+      "evidence": [
+        "scripts/retry-stale-workspace-release.mjs",
+        "CI 41349589268 verify success",
+        "CI 41349589287 acceptance and publish success"
+      ]
+    },
+    {
+      "id": "R04",
+      "title": "Finish one real web shell before portal-wide rollout",
+      "status": "partial",
+      "note": "Tenant pilot and locale/recovery subsets work; shell migration and localization/RTL acceptance remain.",
+      "acceptance": [
+        "Actual login, navigation/deep link, theme/layout change, action, reload and logout pass at narrow/wide breakpoints.",
+        "Denied destinations never open; dirty/pending forms, overlays and stale account callbacks retain correct behavior; EN/FR/ES labels and LTR/RTL are checked."
+      ],
+      "evidence": [
+        "websites/typescript/src/tenant-dashboard/work-module-host.ts",
+        "CI 41349589267: 16 tenant-host checks including 2 locale cases"
+      ]
+    },
+    {
+      "id": "R05",
+      "title": "Mount native hosts progressively",
+      "status": "pending",
+      "note": "Real native host rollout and physical-device journeys are not accepted.",
+      "acceptance": [
+        "A real native app reaches the new shell after login and its actions traverse the intended API/data/reload path.",
+        "Android/iOS build and actual-device checks cover focus, touch/drag, permissions, orientation, suspend/resume and account switching; desktop parity checks stay green."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R06",
+      "title": "Complete preferences and durable recovery",
+      "status": "partial",
+      "note": "Tenant draft and pending-request recovery are implemented; global API777 hosts, dashboard persistence and broader native recovery remain.",
+      "acceptance": [
+        "Owned save/read/reload/cross-device restoration and dashboard persistence pass with independent SQL readback.",
+        "Crash/restart at every mutation boundary cannot duplicate a write or restore another actor’s data; revoked access remains denied and failed drafts stay recoverable."
+      ],
+      "evidence": [
+        "docs/appearance/theme-tenant-preference-draft-evidence.json",
+        "CI 41380784090 / acceptance 125070913213"
+      ]
+    },
+    {
+      "id": "R07",
+      "title": "Complete data controls and configurable widgets",
+      "status": "partial",
+      "note": "Editor and dashboard-remount subsets pass; full control/widget adoption and persistence remain.",
+      "acceptance": [
+        "Each required control has a real authorized host, persistence/remove/readback flow and accessible web/native behavior.",
+        "Dashboard layout survives reload and recovery without stale or unauthorized widgets; overlapping business counts are not presented as additive totals."
+      ],
+      "evidence": [
+        "docs/appearance/theme-range-editor-evidence.json",
+        "CI 41352883340: 4/4 jobs passed",
+        "CI 41352883344: 7/7 jobs passed",
+        "Dashboard repair source 751581a1b234a33545750b163dc43225f6b3fbf7; CI results tracked separately"
+      ]
+    },
+    {
+      "id": "R08",
+      "title": "Complete the work applications",
+      "status": "pending",
+      "note": "Remaining work-app domain behavior and complete owned journeys are not accepted.",
+      "acceptance": [
+        "Create/read/update/delete or approved state transitions persist and survive fresh-session reload, with concurrency and tenant/role denial.",
+        "Recurrence/timezone changes, reminders and board ordering meet explicit domain rules rather than only rendering fixture data."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R09",
+      "title": "Complete communications and files",
+      "status": "pending",
+      "note": "Messaging role policy is staged; host, provider, member/tenant denial and file-lifecycle acceptance remain.",
+      "acceptance": [
+        "Actual send/receive/read/unread/history and file lifecycle flows work through UI, provider/service, database and reload.",
+        "Wrong-owner, denied-role and cross-tenant tests pass; no provider acceptance is misreported as recipient delivery."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R10",
+      "title": "Complete application and financial families",
+      "status": "pending",
+      "note": "Application/finance business journeys and replacement of unavailable placeholders remain.",
+      "acceptance": [
+        "Every retained family has a complete real business journey with owned persistence, receipt/error behavior and denied access.",
+        "Unavailable placeholders are removed only when their replacement has accepted behavior; demo data remains clearly marked."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R11",
+      "title": "Finish reference/asset adoption and review",
+      "status": "pending",
+      "note": "Remaining app/reference/icon adoption and licensing/localization/accessibility review remain.",
+      "acceptance": [
+        "All required reference items and supported app consumers have accepted disposition/adoption evidence.",
+        "No missing asset, duplicate active route or keyboard/screen-reader/contrast/locale regression is introduced; original-assets claims match actual consumers."
+      ],
+      "evidence": []
+    },
+    {
+      "id": "R12",
+      "title": "Run full release acceptance and close batches",
+      "status": "pending",
+      "note": "Full release acceptance depends on the open packages plus actual-device and human evidence.",
+      "acceptance": [
+        "Every retained feature and every batch meets its individual acceptance criteria with current evidence; no unknown/pending result is counted as passed.",
+        "Release guard succeeds, production/device/review receipts match the shipped source, and a tested rollback target is retained."
+      ],
+      "evidence": []
+    }
+  ],
+  "limits": [
+    "Done means the package's defined acceptance scope passed, not platform-wide authority or feature completion.",
+    "R01 completion is limited to the original 192 affected rows; 2494 broader quarantined groups remain unestablished.",
+    "Pending means package acceptance is not established; existing foundation components may already exist."
+  ]
+}

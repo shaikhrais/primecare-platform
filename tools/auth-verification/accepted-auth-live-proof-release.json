@@ -1,0 +1,10 @@
+{
+  "source": "1831695d1609d0b49fdb0427efbeba7f241d4a4b",
+  "run": 41357999594,
+  "job": 125002586171,
+  "workflow": ".github/workflows/auth-preference-candidate.yml",
+  "worker": "primecare-auth-api",
+  "deploymentId": "5d3fc26e-1495-47f8-9cea-c833918658be",
+  "versionId": "4db1ce26-0770-4d96-b0e5-c104a4df865c",
+  "preferenceRuntimeActivated": false
+}

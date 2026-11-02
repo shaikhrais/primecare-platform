@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
+  "implementedSource": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "package": "R01",
-      "state": "targeted_192_rows_reconciled_runtime_acceptance_open",
+      "state": "done_for_original_192_row_scope",
       "done": [
         "Fresh readback of all 192 affected rows, raw-role IDs and linked screens",
         "Confirmed empty runtime_artifacts table",
@@ -39,11 +39,7 @@
         "Registered the real deployed governance message router as artifact 3; never created missing artifact 1",
         "Independent production readback preserved all 67 preference grants; unchanged global gate passed with zero new violations"
       ],
-      "remaining": [
-        "Bind approved message hosts and accept owned UI/API/database/reload journeys before enabling any messaging grants",
-        "Accept preference hosts, scope/recovery flows and current deployment before runtime activation",
-        "Review orphan legacy registry declarations 4957/5104 in R02; the broader 2494-group quarantine remains, with authorityEstablished=false"
-      ],
+      "remaining": [],
       "evidence": [
         "docs/appearance/theme-permission-reconciliation-proposal.json",
         "CI 41349589331 / job 124976690762",
@@ -51,6 +47,21 @@
         "docs/appearance/theme-auth-release-provenance.json",
         "docs/appearance/theme-auth-preference-repair-evidence.json",
         "docs/appearance/theme-messaging-authority-repair-evidence.json"
+      ],
+      "acceptanceScope": "Original 192 affected permission rows; not platform-wide catalog authority or runtime activation",
+      "followUps": [
+        {
+          "package": "R09",
+          "item": "Bind approved message hosts and accept owned UI/API/database/reload journeys before enabling any messaging grants"
+        },
+        {
+          "package": "R06",
+          "item": "Accept preference hosts, scope/recovery flows and current deployment before runtime activation"
+        },
+        {
+          "package": "R02",
+          "item": "Review orphan legacy registry declarations 4957/5104 in R02; the broader 2494-group quarantine remains, with authorityEstablished=false"
+        }
       ]
     },
     {
@@ -130,7 +141,7 @@
     },
     {
       "package": "R06",
-      "state": "tenant_default_view_draft_recovery_published_partial_package",
+      "state": "tenant_default_view_durable_requests_published_partial_package",
       "done": [
         "Retain unsaved choice after failed save and form redraw",
         "Restore the same account-scoped draft after browser reload",
@@ -139,17 +150,21 @@
         "Retain a newer choice edited while a save is pending; advance it only to the acknowledged revision",
         "Reject malformed cached drafts and revoked views",
         "Separate local draft caches by tenant, user, role and live/demo dataset",
-        "Retain the tab's draft and report cache write/remove failures"
+        "Retain the tab's draft and report cache write/remove failures",
+        "Persist the original default-view request ID, immutable body and demo version before dispatch; restore them after restart without automatic retry",
+        "Retry a lost-acknowledgement receipt through the existing Save control; direct SQL verifies a single preference revision and a single original audit event",
+        "Retain newer edits while confirming the original request; definitive rejection permits explicit local discard"
       ],
       "remaining": [
         "Registered API777 preference hosts and current owned UI/API/database/reload acceptance before cloud activation",
         "Strict dashboard document kind and widget/policy bindings",
-        "Full web/native durable pending-command reconciliation, including original request IDs after crash/restart and receipt expiry",
+        "Extend durable original-request reconciliation to remaining web/native commands and their receipt lifecycles",
         "Remaining native host integration and reviewed localization/accessibility"
       ],
       "evidence": [
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
-        "CI 41380784090 / acceptance 125070913213"
+        "CI 41380784090 / acceptance 125070913213",
+        "CI 41440610076 / acceptance 125261215473 / publication 125262081071"
       ]
     }
   ],
@@ -351,6 +366,37 @@
           "Authenticated live-user, physical-device, localization and human release evidence remain open"
         ]
       }
+    },
+    "tenantPreferenceRestart": {
+      "source": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+      "run": 41440610076,
+      "acceptanceJob": 125261215473,
+      "publishJob": 125262081071,
+      "conclusion": "success",
+      "modelChecks": 17,
+      "pendingRequestRestart": true,
+      "lostAcknowledgementReceiptReplay": true,
+      "independentSqlReadback": true,
+      "singleOriginalAuditEvent": true,
+      "receipt": {
+        "format": 1,
+        "source": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+        "worker": "primecare-governance-api",
+        "service": "governance",
+        "deploymentId": "b6907f33-8d55-49fd-80fd-3f2aa98d50cd",
+        "versionId": "af0b3972-740f-4559-80fc-ed5e617c06e7",
+        "trafficPercent": 100,
+        "createdOn": "2026-11-02T12:06:14.831785Z",
+        "independentlyReadDeployment": true,
+        "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+        "registeredGovernanceArtifactId": null,
+        "grantAssociationApproved": false,
+        "sourceCheckoutVerified": true,
+        "existingBindingsPreserved": true,
+        "healthStatus": 200,
+        "otherWorkersModified": 0,
+        "providerActions": 0
+      }
     }
   },
   "permissionRowsChanged": 209,
@@ -415,9 +461,9 @@
     "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
   },
   "latestUiPublication": {
-    "source": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
-    "run": 41380784090,
-    "publishJob": 125071633522,
+    "source": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+    "run": 41440610076,
+    "publishJob": 125262081071,
     "conclusion": "success",
     "portals": 9,
     "globalPreferenceRuntimeActivated": false,
@@ -485,5 +531,13 @@
     },
     "applicationDeployedSource": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
     "applicationSourceChangedByRunnerCommit": false
-  }
+  },
+  "primaryProgressUnit": "repair_packages_R00_R12",
+  "repairPackageCounts": {
+    "total": 13,
+    "done": 1,
+    "partial": 6,
+    "pending": 6
+  },
+  "repairPackageStatus": "docs/appearance/theme-repair-packages-status.md"
 }
