@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "34ef8463af0872f66b38e8f70cb00c68690d5d4a",
+  "asOfImplementation": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
   "counts": {
     "total": 13,
     "done": 1,
@@ -103,14 +103,15 @@
       "id": "R06",
       "title": "Complete preferences and durable recovery",
       "status": "partial",
-      "note": "Tenant draft and pending-request recovery are implemented; global API777 hosts, dashboard persistence and broader native recovery remain.",
+      "note": "Published tenant draft/request recovery; shared preference dispatch now stops after disposal during cache storage (regression reproduced, 13 client tests pass). Global API777 hosts, dashboard contract and native recovery remain open.",
       "acceptance": [
         "Owned save/read/reload/cross-device restoration and dashboard persistence pass with independent SQL readback.",
         "Crash/restart at every mutation boundary cannot duplicate a write or restore another actor’s data; revoked access remains denied and failed drafts stay recoverable."
       ],
       "evidence": [
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
-        "CI 41380784090 / acceptance 125070913213"
+        "CI 41380784090 / acceptance 125070913213",
+        "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending"
       ]
     },
     {

@@ -25,3 +25,5 @@ Latest accepted evidence: [account lifecycle run](https://github.com/shaikhrais/
 Tenant default-view durable-request recovery was published in [run 41440610076](https://github.com/shaikhrais/primecare-platform/actions/runs/41440610076), with 17 model checks and lost-acknowledgement SQL/audit verification. Global preference synchronization remains off; 14 messaging grants remain disabled.
 
 R01 is complete only for its original 192-row repair scope. Broader quarantined catalogue review belongs to R02; preference and messaging activation remain in R06/R09. Full acceptance criteria and evidence are retained in `theme-repair-packages-status.json` and the original deep-assessment plan.
+
+Latest source fix: `5bb049c0bbf9cdf5ad1b39a67598398f99d787a9` prevents a preference mutation after disposal while durable storage is pending. The regression failed before the fix; all 13 client tests, 16 protocol oracle cases, registration checks, 14 isolated service checks and client type checking passed locally. [CI verification](https://github.com/shaikhrais/primecare-platform/actions/runs/41451471237) is pending; this source fix is not claimed as production activated.

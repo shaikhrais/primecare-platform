@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "34ef8463af0872f66b38e8f70cb00c68690d5d4a",
+  "implementedSource": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -159,7 +159,8 @@
         "Retain the tab's draft and report cache write/remove failures",
         "Persist the original default-view request ID, immutable body and demo version before dispatch; restore them after restart without automatic retry",
         "Retry a lost-acknowledgement receipt through the existing Save control; direct SQL verifies a single preference revision and a single original audit event",
-        "Retain newer edits while confirming the original request; definitive rejection permits explicit local discard"
+        "Retain newer edits while confirming the original request; definitive rejection permits explicit local discard",
+        "Reproduced and fixed disposal during durable-request storage: no post-disposal transport write, original scoped request remains explicitly retryable"
       ],
       "remaining": [
         "Registered API777 preference hosts and current owned UI/API/database/reload acceptance before cloud activation",
@@ -467,6 +468,20 @@
       "exactOwnedFixtureCleanup": true,
       "wholeAuthVerified": false,
       "scope": "Existing owned account lifecycle only; not whole-platform or device acceptance"
+    },
+    "preferenceDisposal": {
+      "source": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
+      "regressionFailedBeforeFix": true,
+      "preferenceClientChecks": 13,
+      "protocolOracleCases": 16,
+      "registrationDryRun": "passed",
+      "serviceChecks": 14,
+      "localServiceEngine": "isolated-pglite",
+      "clientTypeCheck": "passed",
+      "productionChanges": 0,
+      "runtimeActivation": false,
+      "ciRun": 41451471237,
+      "ciConclusion": "pending"
     }
   },
   "permissionRowsChanged": 209,
