@@ -18,7 +18,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: primecare-cloudflare-typescript-websites
+  group: primecare-cloudflare-typescript-production
   cancel-in-progress: false
 
 env:
@@ -32,6 +32,9 @@ jobs:
     outputs:
       gateway: ${{ steps.gateway.outputs.url }}
     steps:
+      - uses: actions/checkout@v4
+      - name: Verify current main before release verification
+        run: git fetch origin main && test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
       - name: Validate authorization and secrets
         run: |
           set -euo pipefail
@@ -101,6 +104,9 @@ jobs:
           path: websites/typescript/dist
       - name: Deploy ${{ matrix.project }}
         run: |
+          set -euo pipefail
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           python3 -m tools.deployment.runtime_policy "${{ matrix.project }}" typescript --require
           npx --yes wrangler@4.68.1 pages deploy "websites/typescript/dist/${{ matrix.project }}" --project-name="${{ matrix.project }}" --branch=main --commit-hash="${GITHUB_SHA}"
       - name: Verify ${{ matrix.project }}

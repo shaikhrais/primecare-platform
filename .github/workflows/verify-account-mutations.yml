@@ -32,6 +32,7 @@ on:
       - scripts/test-shell-footer-model.mjs
       - scripts/retry-stale-workspace-release.mjs
       - scripts/test-retry-stale-workspace-release.mjs
+      - scripts/test-typescript-publisher-lock.mjs
       - packages/primecare_ui/web/shell.ts
       - tools/governance-production/theme-source-revisions.json
       - packages/primecare_ui/web/workspace-customizer.ts
@@ -71,6 +72,7 @@ jobs:
           node --test scripts/test-theme-library-recovery.mjs
           node --test scripts/test-shell-footer-model.mjs
           node --test scripts/test-retry-stale-workspace-release.mjs
+          node --test scripts/test-typescript-publisher-lock.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
           python3 -m py_compile tools/auth-verification/test-live-account-mutations.py tools/auth-verification/test-live-tenant-account-reads.py
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
@@ -174,6 +176,8 @@ jobs:
           ln -s "$RUNNER_TEMP/account-tools/node_modules" node_modules
           python3 tools/governance-production/test-account-mutations-registration.py
           python3 tools/governance-production/test-tenant-accounts-registration.py
+      - name: Verify current main before account registration
+        run: git fetch origin main && test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
       - name: Bind existing account processes to current source and canonical APIs
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
