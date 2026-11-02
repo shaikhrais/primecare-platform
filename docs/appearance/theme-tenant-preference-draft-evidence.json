@@ -79,5 +79,70 @@
     "portals": 9,
     "liveGatewayUnauthenticatedReads401": true,
     "authenticatedLiveUserJourneyVerified": false
+  },
+  "additionalVerification": {
+    "source": "dfda381b80a9416f791fd18374d3598fe1a964f2",
+    "themeClosure": {
+      "run": 41382186217,
+      "passedJobs": 7,
+      "totalJobs": 7,
+      "jobs": [
+        {
+          "id": 125075181986,
+          "name": "catalogue",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075182093,
+          "name": "oracles",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075182187,
+          "name": "web",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075182260,
+          "name": "postgres",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075266638,
+          "name": "native (ubuntu-24.04)",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075266647,
+          "name": "native (macos-latest)",
+          "conclusion": "success"
+        },
+        {
+          "id": 125075266743,
+          "name": "native (windows-latest)",
+          "conclusion": "success"
+        }
+      ],
+      "releaseCompleteRequested": false
+    },
+    "password": {
+      "run": 41382186099,
+      "passedJobs": 3,
+      "totalJobs": 3,
+      "browsers": [
+        "chromium",
+        "firefox",
+        "webkit"
+      ]
+    },
+    "contractReview": {
+      "run": 41382186051,
+      "passedJobs": 2,
+      "totalJobs": 2
+    },
+    "limits": [
+      "Passing these component/integration suites does not close any whole B01–B18 batch",
+      "Authenticated live-user, physical-device, localization and human release evidence remain open"
+    ]
   }
 }
