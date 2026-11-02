@@ -1,0 +1,51 @@
+{
+  "format": 1,
+  "scope": "Preference client lifecycle during pending cache writes, TypeScript and Flutter",
+  "firstFix": {
+    "webSource": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
+    "flutterSource": "7142dbf8d50530aa6f219042903494eb00a04f3e",
+    "ci": [
+      {
+        "run": 41451471237,
+        "passedJobs": 5,
+        "totalJobs": 5
+      },
+      {
+        "run": 41451711345,
+        "passedJobs": 5,
+        "totalJobs": 5
+      }
+    ],
+    "behavior": "Disposal before durable storage completes prevents subsequent transport dispatch; original scoped command remains available only for explicit retry."
+  },
+  "lateStorageFailure": {
+    "source": "3ea54479d0d1fa3d6c3e4e16399fae3735b0c159",
+    "regressionsFailedBeforeFix": 3,
+    "operations": [
+      "edit",
+      "acceptRemote",
+      "keepLocal"
+    ],
+    "localWebTests": 16,
+    "localClientTypeCheck": "success",
+    "ci": {
+      "run": 41452987783,
+      "passedJobs": 5,
+      "totalJobs": 5,
+      "webClientTests": 16,
+      "flutterTests": 16,
+      "platforms": [
+        "Linux",
+        "Windows",
+        "macOS"
+      ],
+      "postgresAndBrowser": "success"
+    },
+    "behavior": "A storage error delivered after disposal does not replace disposed state or notify closed listeners. Conflict-resolution operations continue to reject storage failure."
+  },
+  "limits": [
+    "No production preference activation or new authority",
+    "Native CI is not physical-device acceptance",
+    "Global host binding, dashboard contract and broader pending-command lifecycle acceptance remain open"
+  ]
+}

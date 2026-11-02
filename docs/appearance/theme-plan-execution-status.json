@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "7142dbf8d50530aa6f219042903494eb00a04f3e",
+  "implementedSource": "030a5b448c11a38057876d67176f001e8aab1c05",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -10,14 +10,18 @@
       "done": [
         "86 retained grouped statements decomposed into 93 tracked items",
         "9 native apps and 9 web portals indexed with bounded static composition evidence",
-        "Historical pending Flutter statement reconciled to current successful desktop CI"
+        "Historical pending Flutter statement reconciled to current successful desktop CI",
+        "Reviewed exact current 213-line scoped Flutter workspace renderer and unchanged returned section/card path; accepted one additional full-source hash for structural evidence only",
+        "Frozen historical reviewed renderer fixture and repaired sparse checkout/explicit isolated historical reconciliation setup; no production readiness promotions"
       ],
       "remaining": [
         "Dynamic runtime host resolution and remaining feature closure"
       ],
       "evidence": [
         "docs/appearance/theme-execution-ledger.json",
-        "CI 41349589295 catalogue success"
+        "CI 41349589295 catalogue success",
+        "docs/appearance/theme-renderer-structural-review.json",
+        "CI 41456376437: reconciliation success"
       ]
     },
     {
@@ -93,11 +97,17 @@
         "Live-account verification now accepts the independently verified deployed auth candidate instead of selecting only an obsolete release workflow",
         "Read-only Worker-source, successful CI upload receipt and active-provider-version checks run before metadata writes/publication and again before the live proof",
         "Eight source/receipt/provider rejection cases pass; affected shared-session/account-proof browser jobs use supported Ubuntu 24.04",
-        "Actual deployed owned account creation, management, revocation, recovery, password change and logout pass in EN/FR/ES with independent SQL/audit and receiving-Worker mail readback"
+        "Actual deployed owned account creation, management, revocation, recovery, password change and logout pass in EN/FR/ES with independent SQL/audit and receiving-Worker mail readback",
+        "Retain bounded failure route/status metadata, page-state markers and screenshot for live account read failures; changes to the read proof now trigger its guarded release workflow",
+        "Selected TypeScript for the existing nine production portal projects; shared Flutter web builds archive artifacts and skip production publication under that policy",
+        "Added strict source/build stamps plus independent HTML/manifest/JavaScript hash verification to TypeScript deployment and pre/post owned account journeys",
+        "Legacy Flutter production publishers require selected runtime before provider publication; secure legacy release checks the policy before backend publication; live Flutter proofs require actual publication output"
       ],
       "remaining": [
         "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live",
-        "Complete coordinated publication and rollback acceptance for the full supported API/UI pair"
+        "Complete coordinated publication and rollback acceptance for the full supported API/UI pair",
+        "Accept candidate db56ea9621d7213180dfc7b718b8755ca99220f7 through all-nine stamped publication and pre/post source-bound owned account journeys; workflow currently queued",
+        "Complete coordinated release and compatible API/UI rollback acceptance across remaining publishers"
       ],
       "evidence": [
         "scripts/retry-stale-workspace-release.mjs",
@@ -160,7 +170,8 @@
         "Persist the original default-view request ID, immutable body and demo version before dispatch; restore them after restart without automatic retry",
         "Retry a lost-acknowledgement receipt through the existing Save control; direct SQL verifies a single preference revision and a single original audit event",
         "Retain newer edits while confirming the original request; definitive rejection permits explicit local discard",
-        "Reproduced and fixed disposal during durable-request storage: no post-disposal transport write, original scoped request remains explicitly retryable"
+        "Reproduced and fixed disposal during durable-request storage: no post-disposal transport write, original scoped request remains explicitly retryable",
+        "Preserve terminal disposed state and closed listeners when edit/accept-remote/keep-local cache writes fail after disposal; three regressions reproduced before the TypeScript/Flutter fix"
       ],
       "remaining": [
         "Registered API777 preference hosts and current owned UI/API/database/reload acceptance before cloud activation",
@@ -171,7 +182,8 @@
       "evidence": [
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
-        "CI 41440610076 / acceptance 125261215473 / publication 125262081071"
+        "CI 41440610076 / acceptance 125261215473 / publication 125262081071",
+        "docs/appearance/theme-preference-disposal-evidence.json"
       ]
     },
     {
@@ -481,18 +493,20 @@
       "productionChanges": 0,
       "runtimeActivation": false,
       "ciRun": 41451471237,
-      "ciConclusion": "pending",
+      "ciConclusion": "success",
       "flutterSource": "7142dbf8d50530aa6f219042903494eb00a04f3e",
       "flutterRegressionAdded": true,
       "flutterCiRun": 41451711345,
-      "flutterCiConclusion": "pending",
+      "flutterCiConclusion": "success",
       "webCi": {
         "run": 41451471237,
-        "protocol": "success",
-        "postgresAndBrowser": "success",
-        "linuxNative": "success",
-        "windowsNative": "pending",
-        "macosNative": "pending"
+        "passedJobs": 5,
+        "totalJobs": 5
+      },
+      "flutterCi": {
+        "run": 41451711345,
+        "passedJobs": 5,
+        "totalJobs": 5
       }
     },
     "deploymentReuse": {
@@ -504,6 +518,91 @@
       "en320": "success",
       "fr768": "pending",
       "es1440": "pending"
+    },
+    "preferenceLateStorageFailure": {
+      "source": "3ea54479d0d1fa3d6c3e4e16399fae3735b0c159",
+      "regressionsFailedBeforeFix": 3,
+      "operations": [
+        "edit",
+        "acceptRemote",
+        "keepLocal"
+      ],
+      "localWebTests": 16,
+      "localClientTypeCheck": "success",
+      "ci": {
+        "run": 41452987783,
+        "passedJobs": 5,
+        "totalJobs": 5,
+        "webClientTests": 16,
+        "flutterTests": 16,
+        "platforms": [
+          "Linux",
+          "Windows",
+          "macOS"
+        ],
+        "postgresAndBrowser": "success"
+      },
+      "behavior": "A storage error delivered after disposal does not replace disposed state or notify closed listeners. Conflict-resolution operations continue to reject storage failure."
+    },
+    "accountReloadInvestigation": {
+      "run": 41449376214,
+      "failedOriginalJob": 125296156787,
+      "locale": "es",
+      "width": 1440,
+      "stage": "fresh-page-reload",
+      "failure": "Expected account row not visible within 30 seconds",
+      "ownedFixtureCleanup": "success",
+      "earlierCompleteThreeLocaleRun": 41448542072,
+      "rootCause": "Competing production runtimes; successful Flutter replacements correlate with both TypeScript UI failures",
+      "targetedRetry": "failed before login; expected TypeScript controls absent",
+      "diagnosticSource": "4e621770beb91571ae607ec1c7713ca7978a5974",
+      "diagnosticRun": 41453304412,
+      "assertionsWeakened": false,
+      "resolutionSource": "db56ea9621d7213180dfc7b718b8755ca99220f7",
+      "resolutionAcceptance": "All nine Flutter publishers skipped production and archived successful builds; diagnostic TypeScript account journeys passed in all three locales; stamped release pending",
+      "latestSuccessfulRun": 41453304412
+    },
+    "rendererStructuralReview": {
+      "source": "030a5b448c11a38057876d67176f001e8aab1c05",
+      "reviewedSource": "86a73ecbbe0af7bcc3dfde2749ecc2d8795f1e26",
+      "sha256": "4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120",
+      "unitTests": 12,
+      "reconciliation": {
+        "run": 41456376437,
+        "job": 125313985350,
+        "conclusion": "success"
+      },
+      "mainSuite": {
+        "run": 41456376480,
+        "job": 125313985458,
+        "conclusion": "success"
+      },
+      "productionReadyPromotions": 0,
+      "productionAuthorityChanges": 0,
+      "scope": "Exact static structure only; isolated historical fixture, not live inventory"
+    },
+    "webPublisher": {
+      "source": "db56ea9621d7213180dfc7b718b8755ca99220f7",
+      "evidence": "docs/appearance/theme-web-publisher-evidence.json",
+      "localTests": 19,
+      "flutterBuilds": 9,
+      "flutterProductionDeployments": 0,
+      "stampedProductionRun": 41455071276,
+      "stampedProductionConclusion": "pending",
+      "stampedProductionPhase": "test/source preflight successful; binding in progress"
+    },
+    "ownedAccountLifecycleAdditional": {
+      "source": "4e621770beb91571ae607ec1c7713ca7978a5974",
+      "run": 41453304412,
+      "conclusion": "success",
+      "locales": [
+        "en",
+        "fr",
+        "es"
+      ],
+      "ownedSyntheticFixtures": true,
+      "wholeReleaseAcceptance": false,
+      "prePostWebFingerprints": false
     }
   },
   "permissionRowsChanged": 209,
@@ -568,13 +667,13 @@
     "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
   },
   "latestUiPublication": {
-    "source": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
-    "run": 41440610076,
-    "publishJob": 125262081071,
+    "source": "4e621770beb91571ae607ec1c7713ca7978a5974",
+    "run": 41453304412,
     "conclusion": "success",
     "portals": 9,
+    "ownedSyntheticAuthenticatedJourneysVerified": true,
     "globalPreferenceRuntimeActivated": false,
-    "authenticatedLiveUserJourneyVerified": false
+    "prePostWebFingerprints": false
   },
   "additionalBrowserRunnerRepair": {
     "source": "dfda381b80a9416f791fd18374d3598fe1a964f2",

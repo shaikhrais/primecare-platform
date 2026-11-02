@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "7142dbf8d50530aa6f219042903494eb00a04f3e",
+  "asOfImplementation": "030a5b448c11a38057876d67176f001e8aab1c05",
   "counts": {
     "total": 13,
     "done": 1,
@@ -22,7 +22,8 @@
       ],
       "evidence": [
         "docs/appearance/theme-execution-ledger.json",
-        "CI 41349589295 catalogue success"
+        "CI 41349589295 catalogue success",
+        "CI 41456376480: main governance/POM suite successful"
       ]
     },
     {
@@ -62,7 +63,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "Read-only source/provider preflight and deployed owned account smoke accepted; coordinated full API/UI publication and rollback acceptance remain.",
+      "note": "Competing Flutter/TypeScript publishers identified; nine-portal TypeScript selection and source/hash gates implemented. All nine Flutter web builds archived without publication. Stamped production acceptance and coordinated rollback remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -71,7 +72,9 @@
         "scripts/retry-stale-workspace-release.mjs",
         "CI 41349589268 verify success",
         "CI 41349589287 acceptance and publish success",
-        "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful"
+        "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful",
+        "docs/appearance/theme-web-publisher-evidence.json",
+        "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful"
       ]
     },
     {
@@ -103,7 +106,7 @@
       "id": "R06",
       "title": "Complete preferences and durable recovery",
       "status": "partial",
-      "note": "Published tenant draft/request recovery; shared preference dispatch now stops after disposal during cache storage (regression reproduced, 13 client tests pass). Global API777 hosts, dashboard contract and native recovery remain open.",
+      "note": "Published tenant request recovery; TypeScript/Flutter disposal and late-storage fixes passed all five CI jobs (16 client tests per language). API777 hosts, dashboard contract and broader native recovery remain.",
       "acceptance": [
         "Owned save/read/reload/cross-device restoration and dashboard persistence pass with independent SQL readback.",
         "Crash/restart at every mutation boundary cannot duplicate a write or restore another actor’s data; revoked access remains denied and failed drafts stay recoverable."
@@ -112,7 +115,9 @@
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
         "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending",
-        "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 pending"
+        "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 pending",
+        "docs/appearance/theme-preference-disposal-evidence.json",
+        "CI 41452987783: 5/5 jobs successful"
       ]
     },
     {

@@ -1,0 +1,156 @@
+{
+  "format": 1,
+  "source": "db56ea9621d7213180dfc7b718b8755ca99220f7",
+  "finding": "Independent successful Flutter publications replaced the TypeScript corporate UI during its source-bound account test window.",
+  "failedRun": 41449376214,
+  "originalFailure": {
+    "job": 125296156787,
+    "stage": "fresh-page-reload",
+    "completedReadChecks": 32,
+    "cleanup": "success"
+  },
+  "retry": {
+    "job": 125303026320,
+    "stage": "initial-login",
+    "completedReadChecks": 0,
+    "cleanup": "success"
+  },
+  "replacementEvidence": [
+    {
+      "run": 41451711503,
+      "job": 125298249012,
+      "verifiedRuntime": "flutter",
+      "project": "primecare-corporate",
+      "deployment": "https://8e33c853.primecare-corporate.pages.dev"
+    },
+    {
+      "run": 41452988067,
+      "job": 125302507231,
+      "verifiedRuntime": "flutter",
+      "project": "primecare-corporate",
+      "deployment": "https://4e872392.primecare-corporate.pages.dev"
+    }
+  ],
+  "selectedProductionRuntime": "typescript",
+  "projectCount": 9,
+  "policy": "websites/production-runtime.json",
+  "localPolicyAndProvenanceTests": 19,
+  "flutterBuildDisposition": [
+    {
+      "run": 41455071253,
+      "name": "Deploy Web - primecare-enterprise-blueprint",
+      "job": 125309575622,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071438,
+      "name": "Deploy Web - primecare-franchise",
+      "job": 125309577485,
+      "status": "in_progress",
+      "conclusion": null,
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071224,
+      "name": "Deploy Web - primecare-corporate",
+      "job": 125309574618,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071227,
+      "name": "Deploy Web - primecare-marketing",
+      "job": 125309575133,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071301,
+      "name": "Deploy Web - primecare-governance",
+      "job": 125309574890,
+      "status": "in_progress",
+      "conclusion": null,
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071357,
+      "name": "Deploy Web - primecare-support",
+      "job": 125309575220,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071352,
+      "name": "Deploy Web - primecare-client",
+      "job": 125309575229,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071290,
+      "name": "Deploy Web - primecare-business-development",
+      "job": 125309574696,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    },
+    {
+      "run": 41455071275,
+      "name": "Deploy Web - primecare-clinic",
+      "job": 125309574992,
+      "status": "completed",
+      "conclusion": "success",
+      "build": "success",
+      "publish": "skipped",
+      "artifact": "success"
+    }
+  ],
+  "stampedProductionAcceptance": {
+    "run": 41455071276,
+    "testJob": 125314679457,
+    "test": "success",
+    "sourceProofJob": 125314880691,
+    "sourceProof": "success",
+    "bindingJob": 125315238181,
+    "conclusion": "pending"
+  },
+  "remaining": [
+    "Finish all-nine stamped production release and source-bound EN/FR/ES account journeys",
+    "Reconcile all remaining TypeScript publication paths and accept coordinated compatible API/UI rollback",
+    "Native physical-device and independent review acceptance are separate"
+  ],
+  "providerCredentialsOrBusinessAuthorityChanged": false,
+  "diagnosticThreeLocaleAcceptance": {
+    "source": "4e621770beb91571ae607ec1c7713ca7978a5974",
+    "run": 41453304412,
+    "conclusion": "success",
+    "proofJobs": [
+      125308950200,
+      125308950227,
+      125308950128
+    ],
+    "sourceAndBundlePrePostFingerprint": false
+  }
+}
