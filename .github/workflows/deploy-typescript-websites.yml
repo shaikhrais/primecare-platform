@@ -73,9 +73,7 @@ jobs:
           set -euo pipefail
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           python3 -m tools.deployment.runtime_policy all typescript --require
-          mkdir -p "$RUNNER_TEMP/website-dependencies"
-          npm install --prefix "$RUNNER_TEMP/website-dependencies" --ignore-scripts esbuild@0.27.2 typescript@5.9.3 pg@8.11.3 @twilio/voice-sdk@2.18.5
-          ln -s "$RUNNER_TEMP/website-dependencies/node_modules" node_modules
+          npm ci --ignore-scripts
           pip install -r tools/governance-production/requirements.txt
           if [ "${{ inputs.bind_account_metadata }}" = true ]; then
             git fetch origin main

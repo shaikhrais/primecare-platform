@@ -8,6 +8,16 @@ test('direct TypeScript producers share a non-cancelling release lock',async()=>
   assert.match(text,/cancel-in-progress: false/,name);
  }
 });
+test('production TypeScript bundles use the same repository dependency lockfile',async()=>{
+ for(const name of ['deploy-typescript-websites','psw-workspace','business-plan-cycles','code-admin-look']){
+  const text=await readFile('.github/workflows/'+name+'.yml','utf8');
+  const section=name==='deploy-typescript-websites'?text.split('\n  build:\n')[1]?.split('\n  deploy:\n')[0]:text.split('\n  publish:\n')[1];
+  assert.ok(section,name+' publication section');
+  const install=section.indexOf('npm ci --ignore-scripts'),build=section.indexOf('node scripts/build-typescript-websites.mjs');
+  assert.ok(install>=0&&build>install,name+' must install locked dependencies before bundling');
+  assert.doesNotMatch(section,/npm install[^\n]*esbuild@/,name+' must not substitute an independent bundler version');
+ }
+});
 test('account metadata stays inside the locked publisher and portal uploads verify current source',async()=>{
  const account=await readFile('.github/workflows/verify-account-mutations.yml','utf8');
  const bind=account.split('\n  bind:\n')[1]?.split('\n  deploy:\n')[0];
