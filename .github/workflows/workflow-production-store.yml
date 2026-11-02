@@ -12,6 +12,8 @@ on:
     branches: [main]
     paths:
       - 'tools/workflow-verification/production_store.py'
+      - 'tools/workflow-verification/execution.py'
+      - 'tools/workflow-verification/test_production_store.py'
       - 'tools/workflow-verification/record_production_recovery.py'
       - 'tools/governance-production/production-pin.json'
       - 'scripts/test-care-availability-workflow.mjs'

@@ -373,9 +373,9 @@ def record_attempt(db, flow_id, result, source_root=ROOT):
               expected_text,actual_text,affected_sources_json) VALUES(?,?,?,?,?,?)''',
               (attempt_id, issue['criterion_id'], issue['reproduction'], issue['expected'],
                issue['actual'], encoded(issue['affected_sources'])))
-        for item in evidence:
-            db.execute('''INSERT INTO virtual_workflow_evidence(attempt_id,kind,path,sha256,url)
-              VALUES(?,?,?,?,?)''', (attempt_id, item['kind'], item['path'], item['sha256'], item.get('url')))
+        db.executemany('''INSERT INTO virtual_workflow_evidence(attempt_id,kind,path,sha256,url)
+          VALUES(?,?,?,?,?)''', [(attempt_id, item['kind'], item['path'], item['sha256'], item.get('url'))
+                                for item in evidence])
         db.executemany('''INSERT INTO virtual_workflow_issue_resolutions(issue_id,attempt_id,resolution_note)
             VALUES(?,?,?)''', [(issue_id, attempt_id, result['resolution_note']) for issue_id in resolves])
         db.execute('''UPDATE virtual_workflow_definitions SET verification_status=?,

@@ -151,7 +151,7 @@ class ProductionWorkflowStore:
             return Jsonb({'t': 'integer', 'v': str(value)})
         raise GovernanceReadError('Unsupported formerly-null tracking value')
 
-    def _insert(self, table, values):
+    def _insert_defaults(self, table, values):
         if table not in INSERTS and table != 'virtual_flow_catalog_snapshots':
             raise GovernanceReadError('Tracking insert refused')
         now = datetime.datetime.now(datetime.timezone.utc).isoformat()
@@ -161,6 +161,10 @@ class ProductionWorkflowStore:
                 values.setdefault(name, now)
         if 'invalidation_json' in columns:
             values.setdefault('invalidation_json', '[]')
+        return values
+
+    def _insert(self, table, values):
+        values = self._insert_defaults(table, values)
         identity = {'virtual_workflow_attempts': 'attempt_id', 'virtual_workflow_issues': 'issue_id', 'virtual_workflow_evidence': 'evidence_id'}.get(table)
         if identity:
             values[identity] = self.execute('SELECT COALESCE(MAX(' + quote(identity) + '),0)+1 FROM ' + table).fetchone()[0]
@@ -229,6 +233,36 @@ class ProductionWorkflowStore:
         raise GovernanceReadError('Unsupported production workflow statement')
 
     def executemany(self, sql, rows):
+        # Keep every evidence row and binding, but avoid three network round
+        # trips per file while the transaction holds the metadata table locks.
+        table = 'virtual_workflow_evidence'
+        columns = INSERTS[table]
+        expected = ('INSERT INTO ' + table + '(' + ','.join(columns) + ') VALUES('
+                    + ','.join('?' for _ in columns) + ')')
+        if ''.join(sql.split()) == ''.join(expected.split()):
+            rows = list(rows)
+            if not rows:
+                return
+            if any(len(row) != len(columns) for row in rows):
+                raise GovernanceReadError('Tracking parameter count mismatch')
+            # Constructor-held SHARE ROW EXCLUSIVE locks prevent concurrent
+            # inserts. Reserve only new IDs; imported identities stay untouched.
+            first_id = self.execute('SELECT COALESCE(MAX("evidence_id"),0)+1 FROM ' + table).fetchone()[0]
+            first_ordinal = self.db.execute('SELECT COALESCE(MAX(_primecare_import_row),-1)+1 FROM ' + self.table(table)).fetchone()[0]
+            parameters = []
+            fields = None
+            for offset, row in enumerate(rows):
+                values = self._insert_defaults(table, dict(zip(columns, row)))
+                values['evidence_id'] = first_id + offset
+                values['_primecare_import_row'] = first_ordinal + offset
+                fields = list(values) if fields is None else fields
+                parameters.append([values[c] if c == '_primecare_import_row'
+                                   else self._value(table, c, values[c]) for c in fields])
+            statement = ('INSERT INTO ' + self.table(table) + '(' + ','.join(map(quote, fields))
+                         + ') VALUES (' + ','.join(['%s'] * len(fields)) + ')')
+            with self.db.cursor() as cursor:
+                cursor.executemany(statement, parameters)
+            return
         for row in rows:
             self.execute(sql, row)
 

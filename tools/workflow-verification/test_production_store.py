@@ -21,6 +21,38 @@ from execution import record_attempt, refresh, export_progress
 URL = os.environ.get('WORKFLOW_TEST_DATABASE_URL')
 
 
+class CountedConnection:
+    """Trace actual driver requests without replacing PostgreSQL execution."""
+    def __init__(self, connection):
+        self.connection = connection
+        self.statements = []
+        self.batch_sizes = []
+
+    def execute(self, sql, *args, **kwargs):
+        self.statements.append(sql)
+        return self.connection.execute(sql, *args, **kwargs)
+
+    def cursor(self):
+        trace = self
+        actual = self.connection.cursor()
+
+        class Cursor:
+            def __enter__(self):
+                actual.__enter__()
+                return self
+
+            def executemany(self, sql, parameters):
+                trace.batch_sizes.append(len(parameters))
+                return actual.executemany(sql, parameters)
+
+            def __exit__(self, *args):
+                return actual.__exit__(*args)
+        return Cursor()
+
+    def __getattr__(self, name):
+        return getattr(self.connection, name)
+
+
 @unittest.skipUnless(URL, 'Native isolated PostgreSQL service required')
 class NativeStoreTests(unittest.TestCase):
     def setUp(self):
@@ -80,10 +112,52 @@ class NativeStoreTests(unittest.TestCase):
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_issue_resolutions').fetchone()[0],1)
 
     def test_partial_insert_failure_rolls_back_attempt_and_evidence(self):
-        self.db.db.execute('CREATE FUNCTION '+quote(self.schema)+".reject_fixture_evidence() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN RAISE EXCEPTION 'Synthetic evidence insert failure'; END $$")
+        self.db.db.execute('CREATE FUNCTION '+quote(self.schema)+".reject_fixture_evidence() RETURNS trigger LANGUAGE plpgsql AS $$ BEGIN IF NEW._primecare_import_row=1 THEN RAISE EXCEPTION 'Synthetic second evidence insert failure'; END IF; RETURN NEW; END $$")
         self.db.db.execute('CREATE TRIGGER reject_fixture_evidence BEFORE INSERT ON '+self.table('virtual_workflow_evidence')+' FOR EACH ROW EXECUTE FUNCTION '+quote(self.schema)+'.reject_fixture_evidence()')
-        with self.assertRaises(Exception):record_attempt(self.db,self.plan['id'],self.scoped,self.root)
+        (self.root/'second.json').write_text('{"synthetic":2}')
+        result={**self.scoped,'evidence':self.scoped['evidence']+[self.evidence('second.json','browser')]}
+        with self.assertRaises(Exception):record_attempt(self.db,self.plan['id'],result,self.root)
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_attempts').fetchone()[0],0)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_evidence').fetchone()[0],0)
+        self.db.db.execute('DROP TRIGGER reject_fixture_evidence ON '+self.table('virtual_workflow_evidence'))
+        record_attempt(self.db,self.plan['id'],self.scoped,self.root)
+        self.assertEqual(self.db.execute('SELECT evidence_id FROM virtual_workflow_evidence').fetchone()[0],1)
+        self.assertEqual(self.db.db.execute('SELECT _primecare_import_row FROM '+self.table('virtual_workflow_evidence')).fetchone()[0],0)
+
+    def test_bulk_evidence_retains_every_binding_and_import_identity_with_bounded_requests(self):
+        record_attempt(self.db,self.plan['id'],self.scoped,self.root)
+        previous=self.db.db.execute('SELECT * FROM '+self.table('virtual_workflow_evidence')).fetchall()
+        evidence=[]
+        for i in range(200):
+            name="evidence-"+str(i)+"-quoted'.json"
+            (self.root/name).write_text(json.dumps({'synthetic':True,'index':i}))
+            item=self.evidence(name,'browser')
+            if i%2:item['url']="https://fixture.invalid/receipt?label='bound'"
+            evidence.append(item)
+        trace=CountedConnection(self.db.db)
+        with patch.object(self.db,'db',trace):
+            attempt=record_attempt(self.db,self.plan['id'],{**self.scoped,'evidence':evidence},self.root)
+        maximum_queries=[q for q in trace.statements if 'virtual_workflow_evidence' in q and 'max(' in q.replace(' ','').lower()]
+        self.assertEqual(len(maximum_queries),2)
+        self.assertEqual(trace.batch_sizes,[200])
+        rows=self.db.execute('SELECT evidence_id,attempt_id,kind,path,sha256,url FROM virtual_workflow_evidence ORDER BY evidence_id').fetchall()
+        self.assertEqual([r[0] for r in rows],list(range(1,202)))
+        self.assertEqual(rows[1:],[(i+2,attempt['attempt_id'],item['kind'],item['path'],item['sha256'],item.get('url')) for i,item in enumerate(evidence)])
+        self.assertEqual(self.db.db.execute('SELECT * FROM '+self.table('virtual_workflow_evidence')+' WHERE _primecare_import_row=0').fetchall(),previous)
+        self.assertEqual([r[0] for r in self.db.db.execute('SELECT _primecare_import_row FROM '+self.table('virtual_workflow_evidence')+' ORDER BY _primecare_import_row')],list(range(201)))
+        self.assertEqual(attempt['summary']['verified'],0)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_attempts').fetchone()[0],2)
+
+    def test_empty_and_invalid_evidence_batches_do_not_issue_partial_writes(self):
+        sql='INSERT INTO virtual_workflow_evidence(attempt_id,kind,path,sha256,url) VALUES(?,?,?,?,?)'
+        trace=CountedConnection(self.db.db)
+        with patch.object(self.db,'db',trace):
+            self.db.executemany(sql,iter(()))
+            with self.assertRaisesRegex(Exception,'parameter count'):
+                self.db.executemany(sql,[(1,'browser','bound.json','0'*64,None),(1,'missing')])
+            self.assertEqual(trace.statements,[])
+            self.assertEqual(trace.batch_sizes,[])
+        with self.assertRaises(Exception):self.db.executemany('INSERT INTO users VALUES(?)',[('forbidden',)])
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_evidence').fetchone()[0],0)
 
     def test_statement_and_schema_guard(self):
