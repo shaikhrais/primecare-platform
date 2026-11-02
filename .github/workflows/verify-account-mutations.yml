@@ -21,6 +21,9 @@ on:
       - tools/deployment/test_runtime_policy.py
       - websites/production-runtime.json
       - scripts/build-typescript-websites.mjs
+      - scripts/portal-pwa-assets.mjs
+      - scripts/test-portal-pwa.mjs
+      - scripts/test-portal-pwa-browser.mjs
       - .github/workflows/deploy-typescript-websites.yml
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
@@ -52,9 +55,29 @@ jobs:
           node scripts/test-account-mutations-client.mjs
           node scripts/test-tenant-account-reads.mjs
           node scripts/test-auth-client.mjs
+          node --test scripts/test-portal-pwa.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/account-mutations-panel.ts websites/typescript/src/tenant-accounts-panel.ts
+  shell_acceptance:
+    needs: test
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify fresh install and old worker migration in a real isolated browser
+        run: |
+          npm install --prefix "$RUNNER_TEMP/shell-tools" --ignore-scripts esbuild@0.27.2 playwright@1.60.0
+          ln -s "$RUNNER_TEMP/shell-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          node scripts/test-portal-pwa-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: portal-shell-acceptance
+          path: test-results/external-calls/pwa-browser.json
   release_source:
     needs: test
     runs-on: ubuntu-latest
@@ -70,19 +93,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          runtime=df0fb0939a9e349038a2df4e0d04f4661b864995
+          runtime=3c732cf3096716b32ad3baae70f443f4b6903edd
           if git diff --quiet "$runtime" HEAD -- websites/typescript websites/production-runtime.json packages cloudflare/workers scripts tools/governance-production tools/deployment package.json package-lock.json .github/workflows/deploy-typescript-websites.yml .github/workflows/psw-workspace.yml; then
-            gh api repos/${{ github.repository }}/actions/runs/41446602608 > /tmp/deployed-account-run.json
-            gh api repos/${{ github.repository }}/actions/runs/41446602608/jobs --paginate > /tmp/deployed-account-jobs.json
+            gh api repos/${{ github.repository }}/actions/runs/41457664954 > /tmp/deployed-account-run.json
+            gh api repos/${{ github.repository }}/actions/runs/41457664954/jobs --paginate > /tmp/deployed-account-jobs.json
             python3 - <<'PY'
           import json
           run=json.load(open('/tmp/deployed-account-run.json'))
-          assert run['head_sha']=='df0fb0939a9e349038a2df4e0d04f4661b864995' and run['head_branch']=='main' and run['path']=='.github/workflows/verify-account-mutations.yml','Pinned runtime source must match its own CI run'
+          assert run['head_sha']=='3c732cf3096716b32ad3baae70f443f4b6903edd' and run['head_branch']=='main' and run['path']=='.github/workflows/verify-account-mutations.yml' and run['conclusion']=='success','Pinned runtime source must match its own CI run'
           jobs=json.load(open('/tmp/deployed-account-jobs.json'))['jobs']
-          expected={'test','source_proof','bind','deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
+          expected={'test','source_proof','bind','proof (en, 320)','proof (fr, 768)','proof (es, 1440)','deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
           actual={j['name'] for j in jobs if j['conclusion']=='success'}
           assert expected.issubset(actual),'All nine pinned runtime deployments must have succeeded'
-          print('Reusing successful all-nine deployment phases from41446602608; runtime/build/catalog sources identical todf0fb093; current provider source is independently rechecked')
+          print('Reusing successful all-nine deployment phases from41457664954; runtime/build/catalog sources identical to3c732cf3; current provider source is independently rechecked')
           PY
             echo reuse=true >> "$GITHUB_OUTPUT"
             echo "runtime_source=$runtime" >> "$GITHUB_OUTPUT"
@@ -111,7 +134,7 @@ jobs:
           name: auth-live-proof-source-acceptance
           path: test-results/account-mutations/auth-release-approved.json
   bind:
-    needs: [release_source, source_proof]
+    needs: [release_source, source_proof, shell_acceptance]
     if: needs.release_source.outputs.reuse != 'true'
     environment: production
     runs-on: ubuntu-latest
@@ -155,8 +178,8 @@ jobs:
       confirm: DEPLOY
     secrets: inherit
   proof:
-    needs: [release_source, source_proof, deploy]
-    if: always() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
+    needs: [release_source, source_proof, shell_acceptance, deploy]
+    if: always() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 25

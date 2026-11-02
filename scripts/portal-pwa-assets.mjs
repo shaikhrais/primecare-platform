@@ -33,4 +33,6 @@ export function writePortalPwa(target,name){
  for(const size of [192,512])writeFileSync(join(target,'icons','primecare-'+size+'.png'),portalIcon(size));
  writeFileSync(join(target,'manifest.webmanifest'),JSON.stringify(portalManifest(name),null,2)+'\n');
  writeFileSync(join(target,'service-worker.js'),portalServiceWorker);
+ // Existing installations update their original worker URL before the new app can load.
+ writeFileSync(join(target,'flutter_service_worker.js'),portalServiceWorker);
 }

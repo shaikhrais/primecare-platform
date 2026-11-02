@@ -1,9 +1,17 @@
 import assert from 'node:assert/strict';
-import {portalIcon,portalManifest,portalServiceWorker} from './portal-pwa-assets.mjs';
+import {portalIcon,portalManifest,portalServiceWorker,writePortalPwa} from './portal-pwa-assets.mjs';
 import {inflateSync} from 'node:zlib';
 import {readFile} from 'node:fs/promises';
 import {test} from 'node:test';
 import vm from 'node:vm';
+import {mkdtemp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+test('upgrades the previously registered Flutter worker URL to the same network-only worker',async()=>{
+ const target=await mkdtemp(join(tmpdir(),'portal-worker-migration-'));
+ try{writePortalPwa(target,'PrimeCare');const legacy=await readFile(join(target,'flutter_service_worker.js'),'utf8');assert.equal(legacy,portalServiceWorker);assert.equal(legacy,await readFile(join(target,'service-worker.js'),'utf8'));}
+ finally{await rm(target,{recursive:true,force:true});}
+});
 test('manifest has standalone identity, scoped login and decoded opaque PNG icons',()=>{
  const m=portalManifest('PrimeCare Clinic');assert.equal(m.display,'standalone');assert.equal(m.scope,'/');assert.equal(m.start_url,'/login?source=pwa');assert.equal(m.prefer_related_applications,false);
  for(const size of [192,512]){

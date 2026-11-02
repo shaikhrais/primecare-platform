@@ -12,7 +12,8 @@ class TypeScriptReleaseTests(unittest.TestCase):
         self.root = Path(self.temp.name); (self.root / 'assets').mkdir()
         self.project = 'primecare-corporate'; self.commit = 'a' * 40
         self.assets = {name: ('owned ' + name).encode() for name in FILES}
-        for name, value in self.assets.items(): (self.root / name).write_bytes(value)
+        for name, value in self.assets.items():
+            path=self.root / name; path.parent.mkdir(parents=True, exist_ok=True); path.write_bytes(value)
         self.stamp = make_stamp(self.root, self.project, self.commit)
         self.stamps = [self.stamp, self.stamp]; self.requests = []
     def read(self, url):
@@ -26,7 +27,7 @@ class TypeScriptReleaseTests(unittest.TestCase):
         return verify_live(self.project, self.commit, self.stamp, self.read)
     def test_exact_source_and_independently_read_assets(self):
         self.assertEqual(self.verify(), self.stamp)
-        self.assertEqual([urlsplit(url).path for url in self.requests], ['/' + STAMP, '/', '/portal.json', '/assets/app.js', '/' + STAMP])
+        self.assertEqual([urlsplit(url).path for url in self.requests], ['/' + STAMP, *('/' if name == 'index.html' else '/' + name for name in FILES), '/' + STAMP])
     def test_local_asset_change_changes_fingerprint(self):
         (self.root / 'assets/app.js').write_bytes(b'new build')
         self.assertNotEqual(make_stamp(self.root, self.project, self.commit), self.stamp)

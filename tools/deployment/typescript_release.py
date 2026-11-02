@@ -10,7 +10,9 @@ import time
 import urllib.error
 from .http_client import read_public_asset
 
-FILES = ('index.html', 'portal.json', 'assets/app.js')
+FILES = ('index.html', 'portal.json', 'assets/app.js', 'assets/app.css',
+         'manifest.webmanifest', 'service-worker.js', 'flutter_service_worker.js',
+         'icons/primecare-192.png', 'icons/primecare-512.png')
 STAMP = 'primecare-build.json'
 
 def digest(data):
