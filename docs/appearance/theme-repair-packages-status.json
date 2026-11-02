@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+  "asOfImplementation": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
   "counts": {
     "total": 13,
     "done": 1,
@@ -75,14 +75,15 @@
         "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful",
         "docs/appearance/theme-web-publisher-evidence.json",
         "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful",
-        "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 pending"
+        "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 pending",
+        "Stale scheduler correction: evidence upload is not a provider publication; 9 local decision tests pass. Successful automatic retry/publication remains unverified."
       ]
     },
     {
       "id": "R04",
       "title": "Finish one real web shell before portal-wide rollout",
       "status": "partial",
-      "note": "One owned clinic web pilot passes 58 live checks in each locale, including theme/layout recovery/save/reload. Original Platform_admin binding, footer/route/overlay adoption and LTR/RTL acceptance remain.",
+      "note": "Owned clinic local-theme pilot passes 58 live checks per locale. Shared footer binding and literal/fresh sidebar descriptions pass 12 isolated EN/FR/ES LTR/RTL browser cases plus actual tenant/PostgreSQL layout, reload and preference-redraw checks. Original Platform_admin binding and wider route/overlay acceptance remain.",
       "acceptance": [
         "Actual login, navigation/deep link, theme/layout change, action, reload and logout pass at narrow/wide breakpoints.",
         "Denied destinations never open; dirty/pending forms, overlays and stale account callbacks retain correct behavior; EN/FR/ES labels and LTR/RTL are checked."
@@ -90,7 +91,9 @@
       "evidence": [
         "websites/typescript/src/tenant-dashboard/work-module-host.ts",
         "CI 41349589267: 16 tenant-host checks including 2 locale cases",
-        "CI41475732794: owned live local-theme pilot"
+        "CI41475732794: owned live local-theme pilot",
+        "CI41483421280 / job125407379803: 12 shared footer browser cases, 13 lifecycle checks and 2 markup checks successful",
+        "CI41483793034 / acceptance125408681457: actual tenant footer control, sticky save/reload and node preservation plus independent preference SQL/lost-ack regression checks successful"
       ]
     },
     {

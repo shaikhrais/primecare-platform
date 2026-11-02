@@ -6,6 +6,16 @@ const run={id:17,repository:{full_name:'shaikhrais/primecare-platform'},head_rep
 const jobs=[{name:'acceptance',conclusion:'success',steps:[]},{name:'publish',conclusion:'failure',steps:[{name:'Setup',conclusion:'success'},{name:'Verify current main before publication',conclusion:'failure'},{name:'Publish governance API',conclusion:'skipped'},{name:'Post Run actions/checkout@v4',conclusion:'success'}]}];
 const input=()=>({run:structuredClone(run),jobs:structuredClone(jobs),currentHead:head,currentRuns:[]});
 test('only a prepublication stale guard queues fresh verification',()=>assert.deepEqual(retryDecision(input()),{retry:true,reason:'verify_new_main',source:head,ref:'main'}));
+test('the always-run evidence upload does not suppress fresh verification after a stale rejection',()=>{
+ const i=input();i.jobs[1].steps.splice(3,0,{name:'Run actions/upload-artifact@v4',conclusion:'success'});
+ assert.equal(retryDecision(i).retry,true);
+ for(const name of ['Publish governance API','Upload and publish provider assets','Run actions/upload-artifact@v5']){
+  const changed=structuredClone(i);changed.jobs[1].steps.splice(3,0,{name,conclusion:'success'});assert.equal(retryDecision(changed).reason,'later_steps_executed');
+ }
+});
+test('missing, duplicate or failed acceptance cannot schedule a fresh publication workflow',()=>{
+ for(const mutate of [i=>i.jobs.shift(),i=>i.jobs.push(structuredClone(i.jobs[0])),i=>i.jobs[0].conclusion='failure',i=>i.jobs[0].conclusion='skipped']){const i=input();mutate(i);assert.equal(retryDecision(i).reason,'acceptance_not_successful');}
+});
 test('current source and already queued or successful current runs do not loop',()=>{
  const i=input();i.currentHead=old;assert.equal(retryDecision(i).retry,false);
  for(const r of [{status:'queued'},{status:'in_progress'},{status:'completed',conclusion:'success'},{status:'completed',conclusion:'failure'},{status:'completed',conclusion:'cancelled'}]){const i=input();i.currentRuns=[{...r,path,head_sha:head}];assert.equal(retryDecision(i).retry,false);}

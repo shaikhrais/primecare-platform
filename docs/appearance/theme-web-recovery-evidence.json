@@ -135,5 +135,93 @@
     "Personal theme and layout remain stored locally on this browser",
     "API777 cloud preference synchronization remains off",
     "No whole R04/R06 package or B01–B18 batch closure is inferred"
-  ]
+  ],
+  "sharedShellFooter": {
+    "source": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+    "run": 41483421280,
+    "browserJob": 125407379803,
+    "conclusion": "success",
+    "modelChecks": 2,
+    "lifecycleChecks": 13,
+    "browserReceipt": {
+      "passed": true,
+      "cases": 12,
+      "locales": [
+        "en",
+        "fr",
+        "es"
+      ],
+      "directions": [
+        "ltr",
+        "rtl"
+      ],
+      "widths": [
+        390,
+        1440
+      ],
+      "productionChanges": 0
+    },
+    "verified": [
+      "Supplied footer supports static/sticky/hidden and saves/reloads",
+      "Footer node and unsaved form survive layout changes",
+      "Unchanged footer node survives same-owner redraw",
+      "Description is literal text and refreshes on redraw",
+      "Hosts without a footer keep the footer control disabled",
+      "Content-only shell hides footer",
+      "No horizontal overflow in the fixture"
+    ],
+    "limits": [
+      "Shared-shell fixture and actual tenant renderer use isolated browsers/disposable PostgreSQL; production release tracked separately",
+      "No native, cloud preference synchronization, all-role or whole-package acceptance"
+    ],
+    "tenantIntegration": {
+      "source": "4ebf9cc13a23e1f82c46da5e85ac0c59bf733d75",
+      "run": 41483793034,
+      "job": 125408681457,
+      "conclusion": "success",
+      "database": "disposable PostgreSQL",
+      "actualTenantPortal": true,
+      "footerControlEnabled": true,
+      "stickySaveReload": true,
+      "originalFooterNodePreservedAfterPreferenceRedraw": true,
+      "lostAcknowledgementReceiptReplay": true,
+      "independentSqlReadback": true,
+      "noDuplicatePreferenceEvent": true,
+      "productionVerified": false
+    },
+    "retainedFailures": [
+      {
+        "run": 41483421185,
+        "job": 125407378587,
+        "reason": "Exact source-revision gate rejected changed shell bytes before integration/publication",
+        "correctionSource": "4ebf9cc13a23e1f82c46da5e85ac0c59bf733d75",
+        "acceptedRetryRun": 41483793034
+      },
+      {
+        "run": 41483421146,
+        "job": 125407378490,
+        "reason": "Playwright chromium unsupported on ubuntu26.04-x64",
+        "correction": "Pin affected browser jobs to Ubuntu24.04",
+        "acceptedSecurityRun": 41483793162,
+        "acceptedSignoutRun": 41483793360
+      }
+    ],
+    "componentSuite": {
+      "source": "4ebf9cc13a23e1f82c46da5e85ac0c59bf733d75",
+      "run": 41483793344,
+      "conclusion": "success",
+      "jobs": 7
+    },
+    "releaseScheduler": {
+      "observedRun": 41484887591,
+      "observedJob": 125412815136,
+      "observedDecision": {
+        "retry": false,
+        "reason": "later_steps_executed"
+      },
+      "correction": "Exclude only the known evidence upload step from provider-execution detection; require one successful acceptance job",
+      "localDecisionTests": 9,
+      "automatedSuccessfulRetryObserved": false
+    }
+  }
 }

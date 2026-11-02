@@ -13,6 +13,8 @@ export function retryDecision({run,jobs,currentHead,currentRuns}) {
     !shaPattern.test(run.head_sha??''))return {retry:false,reason:'untrusted_or_ineligible_run'};
  if(!shaPattern.test(currentHead??'')||!Array.isArray(jobs)||!Array.isArray(currentRuns))throw Error('Invalid release metadata');
  if(currentHead===run.head_sha)return {retry:false,reason:'source_is_current'};
+ const acceptance=jobs.filter(j=>j.name==='acceptance');
+ if(acceptance.length!==1||acceptance[0].conclusion!=='success')return {retry:false,reason:'acceptance_not_successful'};
  const publish=jobs.filter(j=>j.name==='publish');
  if(publish.length!==1||publish[0].conclusion!=='failure')return {retry:false,reason:'not_a_publication_failure'};
  const steps=publish[0].steps;
@@ -20,7 +22,9 @@ export function retryDecision({run,jobs,currentHead,currentRuns}) {
  const failed=steps.filter(s=>s.conclusion==='failure');
  if(failed.length!==1||failed[0].name!==prepublication)return {retry:false,reason:'not_a_prepublication_stale_guard'};
  const index=steps.indexOf(failed[0]);
- if(steps.slice(index+1).some(s=>!s.name.startsWith('Post ')&&s.name!=='Complete job'&&
+ // The workflow always uploads its evidence after a rejection. That evidence-only
+ // artifact step is not a provider publication and must not suppress verification.
+ if(steps.slice(index+1).some(s=>!s.name.startsWith('Post ')&&s.name!=='Complete job'&&s.name!=='Run actions/upload-artifact@v4'&&
     !['skipped',null,undefined].includes(s.conclusion)))return {retry:false,reason:'later_steps_executed'};
  if(currentRuns.some(r=>r.head_sha===currentHead&&r.path===workflow))return {retry:false,reason:'current_source_already_attempted'};
  return {retry:true,reason:'verify_new_main',source:currentHead,ref:'main'};

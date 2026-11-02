@@ -17,12 +17,11 @@
       "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
       "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
       "verification": {
+        "run": 41483421280,
+        "browserJob": 125407379803,
         "modelChecks": 2,
-        "command": "node --test scripts/test-shell-footer-model.mjs",
-        "result": "success",
-        "browserRun": 41483421280,
-        "browserAcceptance": "pending",
-        "scope": "Literal sidebar description and optional footer markup; browser, publication and human acceptance are not claimed"
+        "browserCases": 12,
+        "scope": "Isolated shared-shell footer/description binding in EN/FR/ES, LTR/RTL at390/1440px; actual tenant/PostgreSQL acceptance41483793034; not production or human approval"
       }
     },
     {
