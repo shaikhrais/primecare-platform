@@ -1,0 +1,83 @@
+{
+  "format": 1,
+  "scope": "Existing tenant-dashboard default-view preference draft recovery; not global API777 cloud activation",
+  "implementationSource": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
+  "workflowRun": 41380784090,
+  "acceptanceJob": 125070913213,
+  "acceptance": "success",
+  "modelChecks": 9,
+  "behavior": [
+    "Retain unsaved choice after failed save and form redraw",
+    "Restore the same account-scoped draft after browser reload",
+    "Keep original optimistic revision across another-device update",
+    "Explicit Refresh confirmation discards the local draft and reads the saved value",
+    "Retain a newer choice edited while a save is pending; advance it only to the acknowledged revision",
+    "Reject malformed cached drafts and revoked views",
+    "Separate local draft caches by tenant, user, role and live/demo dataset",
+    "Retain the tab's draft and report cache write/remove failures"
+  ],
+  "browser": {
+    "actualTenantRenderer": true,
+    "engine": "native PostgreSQL disposable fixture",
+    "preferenceSaveReload": true,
+    "failedSaveRetained": true,
+    "conflictRetained": true,
+    "explicitDiscard": true,
+    "newerEditDuringSaveRetained": true,
+    "roleIsolation": true,
+    "mobileViewport": true,
+    "productionVerified": false
+  },
+  "regressions": {
+    "tenantServiceChecks": 76,
+    "preferenceSync": {
+      "run": 41380784035,
+      "passedJobs": 5,
+      "totalJobs": 5
+    },
+    "workModules": {
+      "run": 41380784037,
+      "passedJobs": 5,
+      "totalJobs": 5
+    }
+  },
+  "grantsIntroducedByImplementation": 0,
+  "newRoutes": 0,
+  "newControls": 0,
+  "api777RuntimeActivated": false,
+  "wholeBatchesClosed": 0,
+  "limits": [
+    "Existing tenant default-view business API remains the persistence contract; draft cache scope does not change its server schema",
+    "Global API777 theme/workspace/shortcut cloud saves remain disabled",
+    "Browser tests use synthetic accounts and disposable PostgreSQL; authenticated live-user and physical-device journeys were not performed",
+    "HTTP request IDs for this business form are not persisted across a browser restart; lost acknowledgement restart reconciliation remains an R06 item",
+    "New recovery text still needs localization and human review"
+  ],
+  "publication": {
+    "run": 41380784090,
+    "job": 125071633522,
+    "conclusion": "success",
+    "receipt": {
+      "format": 1,
+      "source": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
+      "worker": "primecare-governance-api",
+      "service": "governance",
+      "deploymentId": "c3a7eff4-7a38-4deb-9d33-8274b855ff1b",
+      "versionId": "630d6c19-2ea0-4f8f-9e5c-4d950454cad6",
+      "trafficPercent": 100,
+      "createdOn": "2026-11-02T03:09:55.187801Z",
+      "independentlyReadDeployment": true,
+      "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false,
+      "sourceCheckoutVerified": true,
+      "existingBindingsPreserved": true,
+      "healthStatus": 200,
+      "otherWorkersModified": 0,
+      "providerActions": 0
+    },
+    "portals": 9,
+    "liveGatewayUnauthenticatedReads401": true,
+    "authenticatedLiveUserJourneyVerified": false
+  }
+}

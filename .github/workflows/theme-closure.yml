@@ -64,7 +64,7 @@ jobs:
           name: theme-release-gap-report
           path: docs/appearance/theme-release-gates.json
   web:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
@@ -86,7 +86,7 @@ jobs:
             node scripts/test-$name.mjs
           done
   postgres:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     services:
       postgres:

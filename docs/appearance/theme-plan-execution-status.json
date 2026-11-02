@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+  "implementedSource": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -126,6 +126,30 @@
         "CI 41352883340: 4/4 jobs passed",
         "CI 41352883344: 7/7 jobs passed",
         "Dashboard repair source 751581a1b234a33545750b163dc43225f6b3fbf7; CI results tracked separately"
+      ]
+    },
+    {
+      "package": "R06",
+      "state": "tenant_default_view_draft_recovery_published_partial_package",
+      "done": [
+        "Retain unsaved choice after failed save and form redraw",
+        "Restore the same account-scoped draft after browser reload",
+        "Keep original optimistic revision across another-device update",
+        "Explicit Refresh confirmation discards the local draft and reads the saved value",
+        "Retain a newer choice edited while a save is pending; advance it only to the acknowledged revision",
+        "Reject malformed cached drafts and revoked views",
+        "Separate local draft caches by tenant, user, role and live/demo dataset",
+        "Retain the tab's draft and report cache write/remove failures"
+      ],
+      "remaining": [
+        "Registered API777 preference hosts and current owned UI/API/database/reload acceptance before cloud activation",
+        "Strict dashboard document kind and widget/policy bindings",
+        "Full web/native durable pending-command reconciliation, including original request IDs after crash/restart and receipt expiry",
+        "Remaining native host integration and reviewed localization/accessibility"
+      ],
+      "evidence": [
+        "docs/appearance/theme-tenant-preference-draft-evidence.json",
+        "CI 41380784090 / acceptance 125070913213"
       ]
     }
   ],
@@ -252,16 +276,26 @@
       "exactVersionMatched": true,
       "preferenceHandlerPresentAtDeployedSource": false,
       "artifactRegistrationApproved": false
+    },
+    "tenantPreferenceDraft": {
+      "source": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
+      "run": 41380784090,
+      "acceptanceJob": 125070913213,
+      "modelChecks": 9,
+      "acceptance": "success",
+      "evidence": "docs/appearance/theme-tenant-preference-draft-evidence.json",
+      "publishJob": 125071633522,
+      "publication": "success"
     }
   },
   "permissionRowsChanged": 209,
   "newRoleGrants": 3,
   "preferenceRuntimeActivated": false,
   "next": [
-    "Resolve remaining messaging operation/role authority; admin self-preference policy is now confirmed",
-    "Validate source provenance for observed auth/governance deployment versions before registering artifact associations",
-    "Complete per-action semantic contract review, then proceed with eligible hosts and business flows",
-    "Keep source acceptance, publication, actual-device and human release evidence separate"
+    "Complete API777 registered host/control bindings and owned persistence/recovery journeys before activation",
+    "Complete strict dashboard persistence registration and web/native pending-command reconciliation",
+    "Bind the approved messaging roles to registered hosts and accept member/tenant denial flows before enabling grants",
+    "Continue R02 semantic contract review, native integration, remaining business workflows, physical-device and human release acceptance"
   ],
   "productionPreferenceRuntimeActivated": false,
   "productionRepairCounts": {
@@ -314,5 +348,14 @@
     "conclusion": "success",
     "change": "Pin workflow tracking native/browser jobs to Ubuntu 24.04; Playwright 1.60 rejected ubuntu-latest Ubuntu 26.04",
     "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
+  },
+  "latestUiPublication": {
+    "source": "d3139664819e6654cbb4e2697e7dc14dd36b0d80",
+    "run": 41380784090,
+    "publishJob": 125071633522,
+    "conclusion": "success",
+    "portals": 9,
+    "globalPreferenceRuntimeActivated": false,
+    "authenticatedLiveUserJourneyVerified": false
   }
 }
