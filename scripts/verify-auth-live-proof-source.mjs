@@ -26,9 +26,10 @@ async function main(){
  phase='successful_ci_run';const run=JSON.parse(call('gh',['api',base+'runs/'+accepted.run]));
  phase='successful_ci_job';const job=JSON.parse(call('gh',['api',base+'jobs/'+accepted.job]));
  phase='uploaded_version_receipt';
- const log=call('gh',['api',base+'jobs/'+accepted.job+'/logs']),marker='AUTH_PREFERENCE_CODE_DEPLOYED ';
- const lines=log.split('\n').filter(line=>line.includes(marker+'{'));if(lines.length!==1)throw Error('Unique uploaded-version receipt required');
+ const log=call('gh',['run','view',String(accepted.run),'--repo',process.env.GITHUB_REPOSITORY,'--job',String(accepted.job),'--log']),marker='AUTH_PREFERENCE_CODE_DEPLOYED ';
+ const lines=log.split('\n').filter(line=>line.includes(marker+'{'));console.log('AUTH_LIVE_CI_RECEIPT_COUNT '+JSON.stringify({count:lines.length}));if(lines.length!==1)throw Error('Unique uploaded-version receipt required');
  const receipt=JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length));
+ phase='ci_receipt_validation';
  const approved=checkAuthLiveProof({run,job,receipt,workerSourceMatches:true});
  const {auditRuntimeArtifacts}=await import('./audit-theme-runtime-artifacts.mjs');
  phase='provider_read';
@@ -40,4 +41,4 @@ async function main(){
  await mkdir('test-results/account-mutations',{recursive:true});await writeFile('test-results/account-mutations/auth-release-approved.json',JSON.stringify(result,null,2)+'\n');
  console.log('AUTH_LIVE_PROOF_SOURCE '+JSON.stringify(result));
 }
-if(import.meta.url===pathToFileURL(process.argv[1]??'').href)main().catch(()=>{console.error('AUTH_LIVE_PROOF_SOURCE_REJECTED '+JSON.stringify({phase}));process.exitCode=1;});
+if(import.meta.url===pathToFileURL(process.argv[1]??'').href)main().catch(e=>{const reason=['Unapproved auth source','Auth deployment run not accepted','Auth deployment job not accepted','Auth deployment receipt not accepted','Active auth provider identity differs'].includes(e?.message)?e.message:'source_or_provider_validation';const status=String(e?.stderr??'').match(/HTTP (\d{3})/);console.error('AUTH_LIVE_PROOF_SOURCE_REJECTED '+JSON.stringify({phase,reason,httpStatus:status?Number(status[1]):null}));process.exitCode=1;});
