@@ -31,6 +31,7 @@ on:
       - scripts/test-shell-footer.mjs
       - scripts/test-shell-footer-model.mjs
       - packages/primecare_ui/web/shell.ts
+      - tools/governance-production/theme-source-revisions.json
       - packages/primecare_ui/web/workspace-customizer.ts
       - websites/typescript/src/tenant-dashboard/index.ts
       - .github/workflows/deploy-typescript-websites.yml
