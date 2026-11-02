@@ -7,6 +7,8 @@ import os
 import sqlite3
 import ssl
 import tempfile
+import threading
+import time
 from types import SimpleNamespace
 import unittest
 from pathlib import Path
@@ -189,6 +191,91 @@ class NativeStoreTests(unittest.TestCase):
         self.assertEqual(len(set(ids)),2)
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_attempts').fetchone()[0],2)
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_checkpoints').fetchone()[0],1)
+
+    def test_large_recording_batch_releases_the_unchanged_lock_for_a_waiting_writer(self):
+        # Match the recorder's 14-workflow shape without production credentials
+        # or real business data. Every attempt retains 200 separate bindings.
+        definition=json.loads(self.db.execute('SELECT definition_json FROM virtual_workflow_definitions WHERE flow_id=?',(self.plan['id'],)).fetchone()[0])
+        columns=[c['name'] for c in self.db.tables['virtual_workflow_definitions']['columns']]
+        flows=[self.plan['id']]
+        for ordinal in range(1,14):
+            flow='synthetic.batch.'+str(ordinal)
+            clone={**definition,'id':flow}
+            encoded=json.dumps(clone,sort_keys=True)
+            replacements={'flow_id':flow,'definition_json':encoded,'definition_sha256':hashlib.sha256(encoded.encode()).hexdigest()}
+            expressions=[];values=[ordinal]
+            for name in columns:
+                expressions.append('%s' if name in replacements else quote(name))
+                if name in replacements:values.append(replacements[name])
+            values.append(self.plan['id'])
+            self.db.db.execute('INSERT INTO '+self.table('virtual_workflow_definitions')+' SELECT %s,'+','.join(expressions)+' FROM '+self.table('virtual_workflow_definitions')+' WHERE flow_id=%s',values)
+            flows.append(flow)
+        evidence=[]
+        for i in range(200):
+            name='load-'+str(i)+'.json'
+            (self.root/name).write_text(json.dumps({'synthetic':True,'index':i}))
+            evidence.append(self.evidence(name,'browser'))
+        self.db.db.commit()
+        ready=threading.Event();release=threading.Event();writer_pid=[]
+        observer=psycopg.connect(URL,autocommit=True)
+        self.addCleanup(observer.close)
+        waiting_connection=psycopg.connect(URL)
+        self.addCleanup(waiting_connection.close)
+        waiting_pid=waiting_connection.info.backend_pid
+
+        def record_large():
+            with self.open_store() as db:
+                writer_pid.append(db.db.info.backend_pid)
+                ready.set()
+                if not release.wait(5):raise RuntimeError('Fixture coordinator did not release the recording batch')
+                trace=CountedConnection(db.db)
+                start=time.monotonic()
+                with patch.object(db,'db',trace):
+                    attempts=[record_attempt(db,flow,{**self.scoped,'evidence':evidence},self.root)['attempt_id'] for flow in flows]
+                return {'attempts':attempts,'seconds':time.monotonic()-start,'batches':trace.batch_sizes,
+                        'allocation_reads':sum('virtual_workflow_evidence' in q and 'max(' in q.replace(' ','').lower() for q in trace.statements)}
+
+        def waiting_writer():
+            start=time.monotonic()
+            with ProductionWorkflowStore(_test_connection=waiting_connection) as db:
+                timeout=db.db.execute('SHOW lock_timeout').fetchone()[0]
+                attempt=record_attempt(db,self.plan['id'],self.scoped,self.root)['attempt_id']
+            return {'attempt':attempt,'seconds':time.monotonic()-start,'lock_timeout':timeout}
+
+        blocked=False
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as pool:
+            recording=pool.submit(record_large)
+            try:
+                self.assertTrue(ready.wait(5),'Recording store did not acquire its fixture lock')
+                publishing=pool.submit(waiting_writer)
+                deadline=time.monotonic()+3
+                while time.monotonic()<deadline:
+                    blockers=observer.execute('SELECT pg_blocking_pids(%s)',(waiting_pid,)).fetchone()[0]
+                    if writer_pid[0] in blockers:
+                        blocked=True
+                        break
+                    time.sleep(.01)
+                self.assertTrue(blocked,'Second writer must actually wait on the recorder, not merely run afterwards')
+            finally:
+                release.set()
+            recorded=recording.result(timeout=20)
+            published=publishing.result(timeout=20)
+        self.assertEqual(recorded['batches'],[200]*14)
+        self.assertEqual(recorded['allocation_reads'],28)
+        self.assertEqual(recorded['attempts'],list(range(1,15)))
+        self.assertEqual(published['attempt'],15)
+        self.assertEqual(published['lock_timeout'],'10s')
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_attempts').fetchone()[0],15)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_evidence').fetchone()[0],2801)
+        self.assertEqual(self.db.execute('SELECT COUNT(*) FROM virtual_workflow_checkpoints').fetchone()[0],14)
+        ids=[r[0] for r in self.db.execute('SELECT evidence_id FROM virtual_workflow_evidence ORDER BY evidence_id')]
+        self.assertEqual(ids,list(range(1,2802)))
+        self.assertEqual(self.db.execute("SELECT COUNT(*) FROM virtual_workflow_definitions WHERE verification_status='verified'").fetchone()[0],0)
+        print('WORKFLOW_METADATA_CONTENTION '+json.dumps({'scope':'isolated PostgreSQL; simulated publication metadata writer',
+              'flows':14,'evidencePerFlow':200,'recordedEvidence':2800,'actualLockWaitObserved':blocked,
+              'recordingBodySeconds':round(recorded['seconds'],3),'waitingWriterTotalSeconds':round(published['seconds'],3),
+              'lockTimeout':published['lock_timeout'],'allocationReads':28,'driverBulkCalls':14,
+              'allEvidenceAndCheckpointsPreserved':True,'productionBenchmark':False}))
 
 
 class ConfigurationTests(unittest.TestCase):
