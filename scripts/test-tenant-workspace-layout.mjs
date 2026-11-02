@@ -32,6 +32,8 @@ try{
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Fixture unavailable'));
  assert.equal(await el('tenant-preference-view').inputValue(),'tasks');assert.deepEqual((await (await f.call('admin')).json()).preference,beforePreference);
  await page.unroute('**/v1/governance/tenant-dashboard*');await page.reload();await el('appearance-open').waitFor();assert.equal(await el('tenant-preference-view').inputValue(),'tasks');
+ // Reload intentionally starts a fresh undo history; seed a real edit before testing rerender retention.
+ await el('appearance-open').click();await el('workspace-layout-dock').selectOption('bottom');await el('workspace-layout-dock').selectOption('floating');await el('workspace-layout-close').click();
  await page.evaluate(()=>window.input=document.querySelector('[data-cy=tenant-preference-view]'));
  // Real form handler and database readback survive moving the original node.
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-preference-view]')!==window.input);assert.equal((await (await f.call('admin')).json()).preference.view,'tasks');assert.equal(await page.locator('[data-pc-panel]').count(),1);assert.equal(await el('workspace-layout-move').count(),1);assert.equal(await el('appearance-open').count(),1);
