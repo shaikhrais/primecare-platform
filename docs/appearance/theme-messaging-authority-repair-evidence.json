@@ -1,0 +1,110 @@
+{
+  "format": 1,
+  "source": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+  "workflowRun": 41369701141,
+  "attempt": 2,
+  "verifyJob": 125037786333,
+  "reconcileJob": 125037785410,
+  "conclusion": "success",
+  "receipts": [
+    {
+      "committed": false,
+      "alreadyReconciled": false,
+      "retiredIncorrectRows": 128,
+      "newDisabledRows": 14,
+      "enabledMessagingGrants": 0,
+      "artifactId": 3,
+      "archivedRows": 128,
+      "archiveName": "theme.messaging.authority.v1",
+      "preferenceGrantsPreserved": 67,
+      "otherApiGrantsChanged": 0,
+      "screenViewsChanged": 0,
+      "runtimeActivated": false
+    },
+    {
+      "committed": true,
+      "alreadyReconciled": false,
+      "retiredIncorrectRows": 128,
+      "newDisabledRows": 14,
+      "enabledMessagingGrants": 0,
+      "artifactId": 3,
+      "archivedRows": 128,
+      "archiveName": "theme.messaging.authority.v1",
+      "preferenceGrantsPreserved": 67,
+      "otherApiGrantsChanged": 0,
+      "screenViewsChanged": 0,
+      "runtimeActivated": false
+    },
+    {
+      "independentReadback": true,
+      "disabledMessagingRows": 14,
+      "enabledMessagingGrants": 0,
+      "archivedRows": 128,
+      "preferenceGrants": 67,
+      "runtimeActivated": false
+    }
+  ],
+  "unchangedGlobalIdentityGate": "passed",
+  "quarantineChanged": false,
+  "firstAttempt": {
+    "reconcileJob": 125037491737,
+    "preview": "success",
+    "apply": "rolled_back_lock_timeout_55P03",
+    "changesCommitted": false
+  },
+  "roleIds": [
+    12,
+    15,
+    51,
+    61,
+    70,
+    72,
+    80
+  ],
+  "scope": "same tenant and conversation member; no admin bypass",
+  "limits": [
+    "All 14 replacement messaging grants remain disabled",
+    "No screen views changed",
+    "Orphan legacy registry declarations 4957/5104 remain for R02 semantic review",
+    "Real previously deployed governance router file is registered as artifact 3; no placeholder artifact 1",
+    "No whole B01–B18 batch is closed",
+    "Preference runtime remains disabled",
+    "The baseline still contains 2494 quarantined groups; passing this gate does not establish platform-wide authority",
+    "Artifact 3 retains a proven earlier deployed version; the later publication receipt does not activate the disabled messaging grants"
+  ],
+  "tests": {
+    "isolatedAndNativeMetadata": "passed",
+    "nativeEndpointPolicy": "passed",
+    "nativeSelfPreferenceOwnership": "passed"
+  },
+  "subsequentPublication": {
+    "run": 41369701191,
+    "publishJob": 125037953084,
+    "conclusion": "success",
+    "receipt": {
+      "format": 1,
+      "source": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+      "worker": "primecare-governance-api",
+      "service": "governance",
+      "deploymentId": "9c9b74ae-5661-4a79-810c-63d6cb8c58cd",
+      "versionId": "ab9bace6-dad5-4ddc-b434-643b32a9ee1f",
+      "trafficPercent": 100,
+      "createdOn": "2026-11-02T00:59:29.600635Z",
+      "independentlyReadDeployment": true,
+      "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false,
+      "sourceCheckoutVerified": true,
+      "existingBindingsPreserved": true,
+      "healthStatus": 200,
+      "otherWorkersModified": 0,
+      "providerActions": 0
+    }
+  },
+  "globalGateReadback": {
+    "currentQuarantinedGroups": 2494,
+    "removedOrRepairedGroups": 6,
+    "newViolations": 0,
+    "authorityEstablished": false
+  }
+}

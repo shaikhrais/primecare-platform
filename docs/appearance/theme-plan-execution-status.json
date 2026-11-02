@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "5a90647cf96a1b87c0f5e526d318fce3a9e3ee6c",
+  "implementedSource": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -22,7 +22,7 @@
     },
     {
       "package": "R01",
-      "state": "fresh_readback_complete_mutation_blocked",
+      "state": "targeted_192_rows_reconciled_runtime_acceptance_open",
       "done": [
         "Fresh readback of all 192 affected rows, raw-role IDs and linked screens",
         "Confirmed empty runtime_artifacts table",
@@ -30,19 +30,27 @@
         "Read active auth/governance deployment version identities without settings or grant changes",
         "User confirmed self-only theme/workspace/shortcut preferences for Platform Admin 70, Tenant Admin 72 and Code Admin 80; isolated service policy checks pass",
         "Governance release now has independently verified CI-source-to-uploaded-version-to-active-deployment provenance; no legacy artifact alias or grant relinking inferred",
-        "Recovered active auth source from successful historical main release: exact uploaded Worker version matches current independent Cloudflare readback"
+        "Recovered active auth source from successful historical main release: exact uploaded Worker version matches current independent Cloudflare readback",
+        "Deployed current auth source with exact provider version receipt, preserving bindings and schedules; preferences remain disabled",
+        "Registered real auth artifact 2 and repaired all 64 existing preference references; independent production readback passed",
+        "Registered and independently read back three approved admin self-preference grants, preserving the original 64",
+        "User approved messaging scope for caregiver, patient, PSW, customer support and three admins; same-tenant member scope, no admin bypass",
+        "Atomically archived all 128 incorrect messaging grants and replaced them with 14 disabled entries for the seven approved roles",
+        "Registered the real deployed governance message router as artifact 3; never created missing artifact 1",
+        "Independent production readback preserved all 67 preference grants; unchanged global gate passed with zero new violations"
       ],
       "remaining": [
-        "Resolve role/action authority for the 128 wrong-operation labels",
-        "Validate source/deployment provenance and register legitimate artifact associations; active version IDs alone do not identify legacy artifact 1",
-        "Implement confirmed admin self-preference policy through exact registered grants, hosts and deployment-backed runtime acceptance",
-        "Current auth security/preference source acceptance and binding-preserving auth deployment; historical deployed source predates preference handler"
+        "Bind approved message hosts and accept owned UI/API/database/reload journeys before enabling any messaging grants",
+        "Accept preference hosts, scope/recovery flows and current deployment before runtime activation",
+        "Review orphan legacy registry declarations 4957/5104 in R02; the broader 2494-group quarantine remains, with authorityEstablished=false"
       ],
       "evidence": [
         "docs/appearance/theme-permission-reconciliation-proposal.json",
         "CI 41349589331 / job 124976690762",
         "docs/appearance/theme-worker-provenance-evidence.json",
-        "docs/appearance/theme-auth-release-provenance.json"
+        "docs/appearance/theme-auth-release-provenance.json",
+        "docs/appearance/theme-auth-preference-repair-evidence.json",
+        "docs/appearance/theme-messaging-authority-repair-evidence.json"
       ]
     },
     {
@@ -246,13 +254,56 @@
       "artifactRegistrationApproved": false
     }
   },
-  "permissionRowsChanged": 0,
-  "newRoleGrants": 0,
+  "permissionRowsChanged": 209,
+  "newRoleGrants": 3,
   "preferenceRuntimeActivated": false,
   "next": [
     "Resolve remaining messaging operation/role authority; admin self-preference policy is now confirmed",
     "Validate source provenance for observed auth/governance deployment versions before registering artifact associations",
     "Complete per-action semantic contract review, then proceed with eligible hosts and business flows",
     "Keep source acceptance, publication, actual-device and human release evidence separate"
-  ]
+  ],
+  "productionPreferenceRuntimeActivated": false,
+  "productionRepairCounts": {
+    "existingPreferenceReferencesRepaired": 64,
+    "approvedAdminPreferenceGrantsCreated": 3,
+    "preferenceGrantsAfter": 67,
+    "incorrectMessagingRowsRetiredAndArchived": 128,
+    "disabledMessagingRowsCreated": 14,
+    "enabledMessagingGrantsCreated": 0,
+    "newRuntimeArtifacts": [
+      2,
+      3
+    ],
+    "placeholderArtifactOneCreated": false,
+    "screenViewsChanged": 0
+  },
+  "newDisabledRoleApiRecords": 14,
+  "messagingRuntimeActivated": false,
+  "permissionRowsChangedDefinition": "Distinct targeted grant records updated, retired or inserted: 64 reference updates + 128 retired + 3 enabled self-preference inserts + 14 disabled messaging inserts. This is not a count of newly enabled messaging authority.",
+  "globalIdentityGate": {
+    "newViolations": 0,
+    "currentQuarantinedGroups": 2494,
+    "authorityEstablished": false
+  },
+  "remainingReleaseScope": [
+    "R02 semantic contract and legacy registry review",
+    "R04 web shell and registered host bindings",
+    "R05 native host rollout",
+    "R06 preference owned persistence and recovery acceptance before activation",
+    "R08 work application workflows",
+    "R09 communications/files owned flows before activation",
+    "R10 application/finance families",
+    "R11 migration, assets, localization and accessibility review",
+    "R12 deployed, physical-device and human release acceptance"
+  ],
+  "latestProductionAcceptance": {
+    "source": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+    "messagingRun": 41369701141,
+    "authArtifactRun": 41369701205,
+    "adminGrantRun": 41369701237,
+    "publicationRun": 41369701191,
+    "allConclusions": "success",
+    "runtimeActivation": false
+  }
 }

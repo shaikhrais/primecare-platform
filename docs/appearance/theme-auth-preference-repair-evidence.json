@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "scope": "Completed auth preference repairs; messaging still pending exact reconciliation",
+  "scope": "Historical auth preference repair receipts through source 18cd8af; see messaging evidence for the subsequent reconciliation",
   "authDeployment": {
     "format": 1,
     "source": "1831695d1609d0b49fdb0427efbeba7f241d4a4b",
@@ -109,7 +109,15 @@
         "runtimeActivated": false
       }
     ],
-    "jobConclusion": "failure_at_final_global_gate_remaining_128_messaging_rows"
+    "jobConclusion": "failure_at_final_global_gate_remaining_128_messaging_rows",
+    "subsequentSuccessfulReplay": {
+      "source": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+      "run": 41369701237,
+      "job": 125038905686,
+      "conclusion": "success",
+      "additionalGrants": 0,
+      "globalNewViolations": 0
+    }
   },
   "compatibleRegistration": {
     "run": 41362961701,
@@ -117,8 +125,18 @@
   },
   "limits": [
     "Preference runtime remains disabled",
-    "Messaging reconciliation has not yet been applied",
-    "No whole B01–B18 batch is closed",
+    "No whole B01\u2013B18 batch is closed",
     "No placeholder artifact 1 was created"
-  ]
+  ],
+  "subsequentMessagingEvidence": "docs/appearance/theme-messaging-authority-repair-evidence.json",
+  "subsequentSuccessfulReplay": {
+    "source": "dbcf9f6d3d3fa851e918db09dc280f19657dc141",
+    "run": 41369701205,
+    "job": 125038637275,
+    "conclusion": "success",
+    "existingReferences": 64,
+    "approvedAdminReferences": 3,
+    "additionalChanges": 0,
+    "globalNewViolations": 0
+  }
 }
