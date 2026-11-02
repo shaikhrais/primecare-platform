@@ -7,6 +7,11 @@ on:
         description: Production deployment authorization
         required: true
         type: string
+      bind_account_metadata:
+        description: Bind existing account metadata within this publication lock
+        required: false
+        type: boolean
+        default: false
   workflow_dispatch:
     inputs:
       confirm:
@@ -60,7 +65,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build all database-governed TypeScript websites
+      - name: Bind requested account metadata and build governed TypeScript websites
         env:
           API_GATEWAY_URL: ${{ needs.verify_gateway.outputs.gateway }}
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
@@ -72,12 +77,30 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/website-dependencies" --ignore-scripts esbuild@0.27.2 typescript@5.9.3 pg@8.11.3 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/website-dependencies/node_modules" node_modules
           pip install -r tools/governance-production/requirements.txt
+          if [ "${{ inputs.bind_account_metadata }}" = true ]; then
+            git fetch origin main
+            test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+            export GOVERNANCE_WORKFLOW_WRITES=1
+            export GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION=1
+            export GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES=1
+            export GOVERNANCE_RECOVERY_REGISTRATION_WRITES=1
+            python3 tools/governance-production/account_mutations_registration.py --apply --bind
+            python3 tools/governance-production/tenant_accounts_registration.py --apply --bind
+            python3 tools/governance-production/recovery_registration.py --apply
+          fi
           node scripts/build-typescript-websites.mjs
           for project in $(jq -r 'keys[]' websites/typescript/projects.json); do
             test -s "websites/typescript/dist/${project}/index.html"
             test -s "websites/typescript/dist/${project}/portal.json"
             test -s "websites/typescript/dist/${project}/assets/app.js"
           done
+      - uses: actions/upload-artifact@v4
+        if: always() && inputs.bind_account_metadata
+        with:
+          name: current-account-registration-bindings
+          path: |
+            test-results/account-mutations-registration
+            test-results/tenant-accounts-registration
       - uses: actions/upload-artifact@v4
         with:
           name: primecare-typescript-websites

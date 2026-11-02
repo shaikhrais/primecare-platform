@@ -167,7 +167,6 @@ jobs:
           name: auth-live-proof-source-acceptance
           path: test-results/account-mutations/auth-release-approved.json
   bind:
-    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
     needs: [release_source, source_proof, shell_acceptance]
     if: needs.release_source.outputs.reuse != 'true'
     environment: production
@@ -187,31 +186,12 @@ jobs:
           ln -s "$RUNNER_TEMP/account-tools/node_modules" node_modules
           python3 tools/governance-production/test-account-mutations-registration.py
           python3 tools/governance-production/test-tenant-accounts-registration.py
-      - name: Verify current main before account registration
-        run: git fetch origin main && test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-      - name: Bind existing account processes to current source and canonical APIs
-        env:
-          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
-          GOVERNANCE_WORKFLOW_WRITES: '1'
-          GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION: '1'
-          GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES: '1'
-          GOVERNANCE_RECOVERY_REGISTRATION_WRITES: '1'
-        run: |
-          python3 tools/governance-production/account_mutations_registration.py --apply --bind
-          python3 tools/governance-production/tenant_accounts_registration.py --apply --bind
-          python3 tools/governance-production/recovery_registration.py --apply
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: current-account-registration-bindings
-          path: |
-            test-results/account-mutations-registration
-            test-results/tenant-accounts-registration
   deploy:
     needs: bind
     uses: ./.github/workflows/deploy-typescript-websites.yml
     with:
       confirm: DEPLOY
+      bind_account_metadata: true
     secrets: inherit
   proof:
     needs: [release_source, source_proof, shell_acceptance, deploy]

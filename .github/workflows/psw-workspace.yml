@@ -114,10 +114,14 @@ jobs:
         run: node scripts/build-typescript-websites.mjs
       - name: Publish the PSW route to every existing portal
         run: |
+          set -euo pipefail
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           for project in $(node -e "console.log(Object.keys(require('./websites/typescript/projects.json')).join(' '))"); do
+            git fetch origin main
+            test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
             npx wrangler pages deploy "websites/typescript/dist/$project" --project-name "$project" --branch main --commit-hash "$GITHUB_SHA"
+            python3 -m tools.deployment.typescript_release verify-deploy "websites/typescript/dist/$project" "$project"
           done
       - name: Verify live gateway routes enforce authentication
         run: |
