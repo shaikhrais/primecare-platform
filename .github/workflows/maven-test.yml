@@ -10,6 +10,7 @@ on:
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
       - 'scripts/test-reconcile-governance-screens.py'
+      - 'scripts/test-fixtures/**'
       - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/maven-test.yml'
       - '.github/workflows/production-deploy.yml'
@@ -24,6 +25,7 @@ on:
       - 'packages/primecare_ui/lib/**/*.dart'
       - 'scripts/reconcile_governance_screens.py'
       - 'scripts/test-reconcile-governance-screens.py'
+      - 'scripts/test-fixtures/**'
       - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/maven-test.yml'
       - '.github/workflows/production-deploy.yml'
@@ -54,6 +56,7 @@ jobs:
             packages/primecare_ui/lib
             scripts/reconcile_governance_screens.py
             scripts/test-reconcile-governance-screens.py
+            scripts/test-fixtures
             cloudflare/workers/src/workspace-registry.json
           sparse-checkout-cone-mode: false
 

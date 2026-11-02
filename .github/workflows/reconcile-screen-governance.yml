@@ -7,6 +7,8 @@ on:
     paths:
       - 'scripts/reconcile_governance_screens.py'
       - 'scripts/test-reconcile-governance-screens.py'
+      - 'scripts/test-fixtures/**'
+      - 'tools/governance-production/prepare-ci-fixture.py'
       - 'cloudflare/workers/src/workspace-registry.json'
       - '.github/workflows/reconcile-screen-governance.yml'
 
@@ -24,6 +26,11 @@ jobs:
     steps:
       - name: Checkout reviewed sources
         uses: actions/checkout@v4
+
+      - name: Prepare explicitly isolated historical fixture (not production authority)
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 tools/governance-production/prepare-ci-fixture.py > governance-fixture-source.json
 
       - name: Test auditor and derive disposable metadata
         run: |
@@ -65,5 +72,6 @@ jobs:
             governance-screen-reconciliation.json
             governance-screen-metadata-archive.json
             governance-seed-digest.json
+            governance-fixture-source.json
           if-no-files-found: warn
           retention-days: 14
