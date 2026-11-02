@@ -26,8 +26,13 @@
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
       "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-      "currentSha256": "7272dbe32e8d954a6653f815f32c521974c5834d3241e2f38ab13ded83830001",
-      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+      "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+      "verification": {
+        "run": 41472788148,
+        "browserJob": 125372855548,
+        "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+      }
     },
     {
       "path": "packages/primecare_ui/lib/src/theme/primecare_assets.dart",

@@ -559,7 +559,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "present": true,
-          "sha256": "7272dbe32e8d954a6653f815f32c521974c5834d3241e2f38ab13ded83830001",
+          "sha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "mountThemeCenter",
@@ -883,7 +883,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "present": true,
-          "sha256": "7272dbe32e8d954a6653f815f32c521974c5834d3241e2f38ab13ded83830001",
+          "sha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "mountThemeCenter",
