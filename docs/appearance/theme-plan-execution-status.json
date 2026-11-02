@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "030a5b448c11a38057876d67176f001e8aab1c05",
+  "implementedSource": "3c732cf3096716b32ad3baae70f443f4b6903edd",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -106,7 +106,7 @@
       "remaining": [
         "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live",
         "Complete coordinated publication and rollback acceptance for the full supported API/UI pair",
-        "Accept candidate db56ea9621d7213180dfc7b718b8755ca99220f7 through all-nine stamped publication and pre/post source-bound owned account journeys; workflow currently queued",
+        "Accept corrected candidate 3c732cf3096716b32ad3baae70f443f4b6903edd through all-nine stamped publication and pre/post source-bound owned account journeys; CI41457664954 queued",
         "Complete coordinated release and compatible API/UI rollback acceptance across remaining publishers"
       ],
       "evidence": [
@@ -587,9 +587,16 @@
       "localTests": 19,
       "flutterBuilds": 9,
       "flutterProductionDeployments": 0,
-      "stampedProductionRun": 41455071276,
+      "stampedProductionRun": 41457664954,
       "stampedProductionConclusion": "pending",
-      "stampedProductionPhase": "test/source preflight successful; binding in progress"
+      "stampedProductionPhase": "Corrected canonical-root verifier: 19 local tests passed; fresh release queued",
+      "previousAttempt": {
+        "source": "db56ea9621d7213180dfc7b718b8755ca99220f7",
+        "run": 41455071276,
+        "acceptance": "blocked",
+        "reason": "Verifier requested noncanonical /index.html; Pages returned HTTP308; no redirect was followed and live proof was not accepted"
+      },
+      "canonicalVerifierSource": "3c732cf3096716b32ad3baae70f443f4b6903edd"
     },
     "ownedAccountLifecycleAdditional": {
       "source": "4e621770beb91571ae607ec1c7713ca7978a5974",

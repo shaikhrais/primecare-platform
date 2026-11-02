@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "030a5b448c11a38057876d67176f001e8aab1c05",
+  "asOfImplementation": "3c732cf3096716b32ad3baae70f443f4b6903edd",
   "counts": {
     "total": 13,
     "done": 1,
@@ -74,7 +74,8 @@
         "CI 41349589287 acceptance and publish success",
         "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful",
         "docs/appearance/theme-web-publisher-evidence.json",
-        "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful"
+        "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful",
+        "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 pending"
       ]
     },
     {

@@ -128,12 +128,8 @@
     }
   ],
   "stampedProductionAcceptance": {
-    "run": 41455071276,
-    "testJob": 125314679457,
-    "test": "success",
-    "sourceProofJob": 125314880691,
-    "sourceProof": "success",
-    "bindingJob": 125315238181,
+    "source": "3c732cf3096716b32ad3baae70f443f4b6903edd",
+    "run": 41457664954,
     "conclusion": "pending"
   },
   "remaining": [
@@ -152,5 +148,21 @@
       125308950128
     ],
     "sourceAndBundlePrePostFingerprint": false
+  },
+  "blockedStampAttempt": {
+    "source": "db56ea9621d7213180dfc7b718b8755ca99220f7",
+    "run": 41455071276,
+    "firstFailedJob": 125316322248,
+    "reason": "HTTP308 for /index.html; exact asset verification rejected redirect",
+    "acceptance": false
+  },
+  "canonicalVerifier": {
+    "source": "3c732cf3096716b32ad3baae70f443f4b6903edd",
+    "htmlArtifact": "index.html",
+    "publicRoute": "/",
+    "hashComparison": "exact bytes",
+    "redirectsFollowed": false,
+    "localTests": 19,
+    "documentation": "https://developers.cloudflare.com/pages/configuration/serving-pages/"
   }
 }
