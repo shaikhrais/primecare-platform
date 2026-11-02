@@ -28,6 +28,11 @@ on:
       - packages/primecare_ui/web/theme-center.ts
       - scripts/test-theme-library-recovery.mjs
       - scripts/test-theme-library-recovery-browser.mjs
+      - scripts/test-shell-footer.mjs
+      - scripts/test-shell-footer-model.mjs
+      - packages/primecare_ui/web/shell.ts
+      - packages/primecare_ui/web/workspace-customizer.ts
+      - websites/typescript/src/tenant-dashboard/index.ts
       - .github/workflows/deploy-typescript-websites.yml
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
@@ -61,6 +66,7 @@ jobs:
           node scripts/test-auth-client.mjs
           node --test scripts/test-portal-pwa.mjs
           node --test scripts/test-theme-library-recovery.mjs
+          node --test scripts/test-shell-footer-model.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
           python3 -m py_compile tools/auth-verification/test-live-account-mutations.py tools/auth-verification/test-live-tenant-account-reads.py
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
@@ -80,6 +86,7 @@ jobs:
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/test-portal-pwa-browser.mjs
           node scripts/test-theme-library-recovery-browser.mjs
+          node scripts/test-shell-footer.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -87,6 +94,7 @@ jobs:
           path: |
             test-results/external-calls/pwa-browser.json
             test-results/theme-library-recovery
+            test-results/shell-footer
   release_source:
     needs: test
     runs-on: ubuntu-latest

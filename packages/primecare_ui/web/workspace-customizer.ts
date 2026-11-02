@@ -19,12 +19,13 @@ export function mountWorkspaceCustomizer(root:HTMLElement,dialog:HTMLDialogEleme
  e??={scope,handles:[]};entries.set(root,e);
  const shell=root.querySelector<HTMLElement>('[data-cy=app-shell]')!,wrapper=shell.querySelector<HTMLElement>('.workspace')!;
  const navigation=shell.querySelector<HTMLElement>('[data-cy=app-sidebar]')!,toolbar=shell.querySelector<HTMLElement>('[data-cy=app-topbar]')!,main=wrapper.querySelector<HTMLElement>('main')!;
+ const footer=wrapper.querySelector<HTMLElement>('[data-cy=app-footer]')??undefined;
  const ids=Object.keys(options.panels),defaults=defaultWorkspaceLayout(ids);for(const p of Object.values(defaults.panels))p.dock='bottom';
  const resources=registration.resources as Record<string,Record<string,unknown>>;
  const text=(key:string)=>String(resources['themeWorkspace.'+key]?.[locale]??key);
  const control=(key:string)=>{const c=registration.controls.find(c=>!c.existingSelector&&c.key===key);if(!c)throw Error('Unregistered control');return c;};
  for(const panel of Object.values(options.panels))for(const kind of ['move','resize'] as const){const b=document.createElement('button');b.type='button';b.dataset.cy=control(kind).testId;b.setAttribute(kind==='move'?'data-layout-drag':'data-layout-resize','');b.textContent=text(kind);b.title=text('instructions');b.setAttribute('aria-label',text(kind)+'. '+text('instructions'));panel.prepend(b);e.handles.push(b);}
- const manager=new WorkspaceLayoutManager(shell,{navigation,toolbar,main,panels:options.panels},'primecare-workspace:v1:'+encodeURIComponent(scope),undefined,defaults);
+ const manager=new WorkspaceLayoutManager(shell,{navigation,toolbar,main,footer,panels:options.panels},'primecare-workspace:v1:'+encodeURIComponent(scope),undefined,defaults);
  e.manager=manager;e.dialog=dialog;e.wrapper=wrapper;e.wrapperHidden=wrapper.hidden;wrapper.hidden=true;
  if(e.history){try{manager.restoreHistory(e.history);}catch{e.history=undefined;}}
  const abort=new AbortController();e.abort=abort;
@@ -42,7 +43,7 @@ export function mountWorkspaceCustomizer(root:HTMLElement,dialog:HTMLDialogEleme
    const values=key==='panel'?ids:c.allowedValues!;
    for(const value of values){const option=document.createElement('option');option.value=value;option.textContent=key==='panel'?(options.panels[value].querySelector('h2,h3')?.textContent??value):text(key==='scroll'&&value==='content'?'contentScroll':value);select.append(option);}
   }else{input=document.createElement('input');input.type='number';input.min=key==='navigationWidth'?'160':'960';input.max=key==='navigationWidth'?'400':'1920';input.step='1';}
-  input.dataset.cy=c.testId;input.disabled=key==='footer'||(['panel','dock'].includes(key)&&!ids.length);label.append(input);group.append(label);fields.set(key,input);
+  input.dataset.cy=c.testId;input.disabled=key==='footer'&&!footer||(['panel','dock'].includes(key)&&!ids.length);label.append(input);group.append(label);fields.set(key,input);
  }
  const output=dialog.querySelector<HTMLOutputElement>('[data-cy=appearance-status]')!;
  const buttons=new Map<string,HTMLButtonElement>();
@@ -55,6 +56,6 @@ export function mountWorkspaceCustomizer(root:HTMLElement,dialog:HTMLDialogEleme
  dialog.querySelector('form')!.prepend(group);
  // Advanced workspace controls own placement; the legacy XML profile retains colors/density.
  for(const key of ['sidebar','width'])dialog.querySelector<HTMLElement>('[data-cy=appearance-'+key+']')?.closest('label')?.setAttribute('hidden','');
- for(const c of registration.controls){const element=root.querySelector<HTMLElement>('[data-cy='+c.testId+']');if(element){element.dataset.controlId=String(c.controlId);element.dataset.implementationTag=c.key==='footer'?'registered-unimplemented':'implemented-unverified';element.dataset.apiTag='local-only';element.dataset.testTag='isolated-browser';element.dataset.reviewTag='pending';}}
+ for(const c of registration.controls){const element=root.querySelector<HTMLElement>('[data-cy='+c.testId+']');if(element){element.dataset.controlId=String(c.controlId);element.dataset.implementationTag=c.key==='footer'&&!footer?'registered-unimplemented':'implemented-unverified';element.dataset.apiTag='local-only';element.dataset.testTag='isolated-browser';element.dataset.reviewTag='pending';}}
  shell.addEventListener('primecare:workspace-layout',sync,{signal:abort.signal});sync();
 }

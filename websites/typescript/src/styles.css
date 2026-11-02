@@ -1,3 +1,5 @@
+.sidebar-description{overflow-wrap:anywhere}
+.app-footer{padding:var(--spacing-md,16px) var(--spacing-lg,24px);border-block-start:1px solid var(--color-border,#d7e3e7);color:var(--color-text-muted,#52627a);background:var(--color-surface,#fff);overflow-wrap:anywhere}
 :root { color-scheme: light; }
 /* Media is inherited from one catalog; transaction pages retain compact visual treatment. */
 .media-icon{width:var(--media-icon-size);height:var(--media-icon-size);flex:none;vertical-align:middle}
