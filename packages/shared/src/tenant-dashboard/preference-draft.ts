@@ -23,8 +23,9 @@ export class TenantPreferenceDraft {
  private persist(){try{if(this.draft)this.storage.setItem(this.key,JSON.stringify(this.draft));else this.storage.removeItem(this.key);this.failure=null;}catch{this.failure='draft_cache_unavailable';}}
  value(saved:TenantPreference,allowed:readonly string[]):string{
   if(!valid(saved))throw Error('Invalid saved preference');
-  if(this.draft&&!allowed.includes(this.draft.view)){this.failure='draft_view_revoked';return saved.view;}
-  return this.draft?.view??saved.view;
+  const fallback=allowed.includes(saved.view)?saved.view:allowed[0];if(!fallback)throw Error('No allowed preference view');
+  if(this.draft&&!allowed.includes(this.draft.view)){this.failure='draft_view_revoked';return fallback;}
+  return this.draft?.view??fallback;
  }
  edit(view:string,saved:TenantPreference,allowed:readonly string[]){
   if(this.invalid||!allowed.includes(view)||!valid({...saved,view}))throw Error('Resolve unavailable preference draft first');
