@@ -24,6 +24,10 @@ on:
       - scripts/portal-pwa-assets.mjs
       - scripts/test-portal-pwa.mjs
       - scripts/test-portal-pwa-browser.mjs
+      - packages/primecare_ui/web/theme-library.ts
+      - packages/primecare_ui/web/theme-center.ts
+      - scripts/test-theme-library-recovery.mjs
+      - scripts/test-theme-library-recovery-browser.mjs
       - .github/workflows/deploy-typescript-websites.yml
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
@@ -56,6 +60,7 @@ jobs:
           node scripts/test-tenant-account-reads.mjs
           node scripts/test-auth-client.mjs
           node --test scripts/test-portal-pwa.mjs
+          node --test scripts/test-theme-library-recovery.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/account-mutations-panel.ts websites/typescript/src/tenant-accounts-panel.ts
@@ -73,11 +78,14 @@ jobs:
           ln -s "$RUNNER_TEMP/shell-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/test-portal-pwa-browser.mjs
+          node scripts/test-theme-library-recovery-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: portal-shell-acceptance
-          path: test-results/external-calls/pwa-browser.json
+          path: |
+            test-results/external-calls/pwa-browser.json
+            test-results/theme-library-recovery
   release_source:
     needs: test
     runs-on: ubuntu-latest
