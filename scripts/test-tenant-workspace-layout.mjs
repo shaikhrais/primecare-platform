@@ -61,6 +61,7 @@ try{
  const identity=await (await f.call('admin')).json();
  const storedPreference=async()=>{const rows=(await f.db.query('SELECT view,version FROM tenant_dashboard_preferences WHERE tenant_id=$1 AND user_id=$2',[identity.organization.id,identity.identity.userId])).rows;assert.equal(rows.length,1);return rows[0];};
  const beforeLost=await storedPreference(),postStart=preferencePosts.length;
+ const beforeLostEvents=Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total);
  await el('tenant-preference-view').selectOption('tasks');
  await page.route('**/v1/governance/tenant-dashboard*',async route=>{if(route.request().method()==='POST'){const response=await route.fetch();assert.equal(response.status(),200);await route.abort('failed');}else await route.continue();});
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('awaiting confirmation'));
@@ -70,7 +71,7 @@ try{
  await el('tenant-refresh').click();assert.equal(preferencePosts.length,postStart+1,'refresh cannot issue an uncertain mutation');
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('newer default-view edit'));
  assert.deepEqual(preferencePosts[postStart+1],preferencePosts[postStart]);assert.deepEqual(await storedPreference(),{view:'tasks',version:beforeLost.version+1});
- const auditCount=Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total);
+ const auditCount=Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total);assert.equal(auditCount,beforeLostEvents+1,'replaying a receipt cannot append a second preference event');
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Default view saved'));
  assert.deepEqual(await storedPreference(),{view:'audit',version:beforeLost.version+2});assert.notEqual(preferencePosts[postStart+2].key,preferencePosts[postStart].key);
  assert.equal(Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total),auditCount+1);
