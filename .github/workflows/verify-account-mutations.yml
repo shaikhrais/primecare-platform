@@ -30,6 +30,7 @@ on:
       - scripts/test-theme-library-recovery-browser.mjs
       - scripts/test-shell-footer.mjs
       - scripts/test-shell-footer-model.mjs
+      - scripts/test-tenant-workspace-layout.mjs
       - scripts/retry-stale-workspace-release.mjs
       - scripts/test-retry-stale-workspace-release.mjs
       - scripts/test-typescript-publisher-lock.mjs
@@ -81,18 +82,27 @@ jobs:
     needs: test
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: tenant_route, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U tenant_route -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - name: Verify fresh install and old worker migration in a real isolated browser
         run: |
-          npm install --prefix "$RUNNER_TEMP/shell-tools" --ignore-scripts esbuild@0.27.2 playwright@1.60.0
+          npm install --prefix "$RUNNER_TEMP/shell-tools" --ignore-scripts esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3.0.2 @electric-sql/pglite@0.3.14 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/shell-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
           node scripts/test-portal-pwa-browser.mjs
           node scripts/test-theme-library-recovery-browser.mjs
           node scripts/test-shell-footer.mjs
+      - name: Verify actual tenant navigation and pending-work guards with PostgreSQL
+        env: {PSW_TEST_DATABASE_URL: 'postgres://tenant_route:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-tenant-workspace-layout.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
