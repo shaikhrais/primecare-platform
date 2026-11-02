@@ -39,6 +39,7 @@ on:
       - packages/primecare_ui/web/workspace-customizer.ts
       - websites/typescript/src/tenant-dashboard/index.ts
       - .github/workflows/deploy-typescript-websites.yml
+      - .github/workflows/psw-workspace.yml
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
     types: [completed]
