@@ -305,5 +305,14 @@
     "publicationRun": 41369701191,
     "allConclusions": "success",
     "runtimeActivation": false
+  },
+  "ciRunnerRepair": {
+    "source": "da2d3989dd6a96c267f4d3cccee99995d2b83a06",
+    "workflowRun": 41370351482,
+    "nativeJob": 125039287795,
+    "browserAndTrackingJob": 125039570918,
+    "conclusion": "success",
+    "change": "Pin workflow tracking native/browser jobs to Ubuntu 24.04; Playwright 1.60 rejected ubuntu-latest Ubuntu 26.04",
+    "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
   }
 }
