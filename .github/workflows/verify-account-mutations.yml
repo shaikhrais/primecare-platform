@@ -59,16 +59,19 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
-          runtime=190ac653e166490fc4bfde5003d12ab6a7a38e76
-          if git diff --quiet "$runtime" HEAD -- websites/typescript packages/shared cloudflare/workers scripts/build-typescript-websites.mjs 'scripts/verify-*-catalog.py'; then
-            gh api repos/${{ github.repository }}/actions/runs/39485060375/jobs --paginate > /tmp/deployed-account-jobs.json
+          runtime=df0fb0939a9e349038a2df4e0d04f4661b864995
+          if git diff --quiet "$runtime" HEAD -- websites/typescript packages cloudflare/workers scripts tools/governance-production package.json package-lock.json .github/workflows/deploy-typescript-websites.yml .github/workflows/psw-workspace.yml; then
+            gh api repos/${{ github.repository }}/actions/runs/41446602608 > /tmp/deployed-account-run.json
+            gh api repos/${{ github.repository }}/actions/runs/41446602608/jobs --paginate > /tmp/deployed-account-jobs.json
             python3 - <<'PY'
           import json
+          run=json.load(open('/tmp/deployed-account-run.json'))
+          assert run['head_sha']=='df0fb0939a9e349038a2df4e0d04f4661b864995' and run['head_branch']=='main' and run['path']=='.github/workflows/verify-account-mutations.yml','Pinned runtime source must match its own CI run'
           jobs=json.load(open('/tmp/deployed-account-jobs.json'))['jobs']
-          expected={'deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
+          expected={'test','source_proof','bind','deploy / verify_gateway','deploy / build',*('deploy / deploy ('+p+')' for p in ['primecare-business-development','primecare-client','primecare-clinic','primecare-corporate','primecare-franchise','primecare-marketing','primecare-support','primecare-governance','primecare-enterprise-blueprint'])}
           actual={j['name'] for j in jobs if j['conclusion']=='success'}
           assert expected.issubset(actual),'All nine pinned runtime deployments must have succeeded'
-          print('Reusing successful all-nine deployment39485060375; complete runtime/catalog source identical to190ac653')
+          print('Reusing successful all-nine deployment phases from41446602608; runtime/build/catalog sources identical todf0fb093; current provider source is independently rechecked')
           PY
             echo reuse=true >> "$GITHUB_OUTPUT"
           else
