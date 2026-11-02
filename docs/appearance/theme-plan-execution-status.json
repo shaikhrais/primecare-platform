@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
+  "implementedSource": "7142dbf8d50530aa6f219042903494eb00a04f3e",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -481,7 +481,29 @@
       "productionChanges": 0,
       "runtimeActivation": false,
       "ciRun": 41451471237,
-      "ciConclusion": "pending"
+      "ciConclusion": "pending",
+      "flutterSource": "7142dbf8d50530aa6f219042903494eb00a04f3e",
+      "flutterRegressionAdded": true,
+      "flutterCiRun": 41451711345,
+      "flutterCiConclusion": "pending",
+      "webCi": {
+        "run": 41451471237,
+        "protocol": "success",
+        "postgresAndBrowser": "success",
+        "linuxNative": "success",
+        "windowsNative": "pending",
+        "macosNative": "pending"
+      }
+    },
+    "deploymentReuse": {
+      "run": 41449376214,
+      "source": "34ef8463af0872f66b38e8f70cb00c68690d5d4a",
+      "sourceProof": "success",
+      "releaseSource": "success",
+      "metadataAndDeployment": "skipped after identical runtime inputs and original deployment phases were verified",
+      "en320": "success",
+      "fr768": "pending",
+      "es1440": "pending"
     }
   },
   "permissionRowsChanged": 209,

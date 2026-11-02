@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "5bb049c0bbf9cdf5ad1b39a67598398f99d787a9",
+  "asOfImplementation": "7142dbf8d50530aa6f219042903494eb00a04f3e",
   "counts": {
     "total": 13,
     "done": 1,
@@ -111,7 +111,8 @@
       "evidence": [
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
-        "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending"
+        "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending",
+        "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 pending"
       ]
     },
     {
