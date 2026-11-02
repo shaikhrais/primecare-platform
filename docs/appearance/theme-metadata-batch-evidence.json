@@ -59,6 +59,39 @@
       "status": "implemented-unverified",
       "wholeTaskVerified": false,
       "businessData": "isolated synthetic fixture; production-governed themes and tracking only"
+    },
+    "contendedNativeBatch": {
+      "source": "9fe953183ab739fb3d1d115c031c91454aec64fa",
+      "run": 41524309558,
+      "conclusion": "success",
+      "nativeJob": 125548000897,
+      "productionJob": 125548530721,
+      "productionStoreAndConfigurationChecks": 26,
+      "receipt": {
+        "scope": "isolated PostgreSQL; simulated publication metadata writer",
+        "flows": 14,
+        "evidencePerFlow": 200,
+        "recordedEvidence": 2800,
+        "actualLockWaitObserved": true,
+        "recordingBodySeconds": 0.929,
+        "waitingWriterTotalSeconds": 1.026,
+        "lockTimeout": "10s",
+        "allocationReads": 28,
+        "driverBulkCalls": 14,
+        "allEvidenceAndCheckpointsPreserved": true,
+        "productionBenchmark": false
+      },
+      "totalEvidenceAfterWaitingWriter": 2801,
+      "checkpoints": 14,
+      "attempts": 15,
+      "productionScoped": {
+        "passed": true,
+        "browserCases": 6,
+        "apiCheckGroups": 8,
+        "attemptId": 647,
+        "status": "implemented-unverified",
+        "wholeTaskVerified": false
+      }
     }
   },
   "limits": [

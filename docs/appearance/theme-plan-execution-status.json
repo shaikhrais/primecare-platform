@@ -1051,6 +1051,20 @@
     "conclusion": "success",
     "evidence": "docs/appearance/theme-metadata-batch-evidence.json",
     "uiDeploymentChanged": false,
-    "fullPackageAccepted": false
+    "fullPackageAccepted": false,
+    "contentionValidation": {
+      "source": "9fe953183ab739fb3d1d115c031c91454aec64fa",
+      "run": 41524309558,
+      "conclusion": "success",
+      "scope": "isolated PostgreSQL; simulated publication metadata writer",
+      "flows": 14,
+      "evidencePerFlow": 200,
+      "totalEvidenceAfterWaitingWriter": 2801,
+      "checkpoints": 14,
+      "waitingWriterTotalSeconds": 1.026,
+      "lockTimeout": "10s",
+      "productionBenchmark": false,
+      "fullPackageAccepted": false
+    }
   }
 }
