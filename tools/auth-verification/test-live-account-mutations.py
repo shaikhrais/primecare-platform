@@ -107,6 +107,29 @@ try:
  n=db.execute('SELECT COUNT(*) FROM auth_password_audit WHERE user_id::text=%s',(target_id,)).fetchone()[0];remaining=db.execute('SELECT COUNT(*) FROM auth_password_resets WHERE user_id::text=%s',(target_id,)).fetchone()[0];db.commit();must(n==2 and remaining==0,'Reset and current-password change both persist audit with no usable reset records');el(new_page,'login-form').wait_for(timeout=30000)
  new_page,new_token=login(client,CLINIC,RECIPIENT,final_password)
 
+ # Exercise the shipped Theme Center only inside this newly created fixture's browser scope.
+ theme_key='primecare-themes:v1:physio%3A'+target_id
+ must(new_page.evaluate('(key)=>localStorage.getItem(key)',theme_key) is None,'New owned theme scope has no existing library to overwrite')
+ new_page.evaluate('(key)=>localStorage.setItem(key,"{owned unreadable theme fixture")',theme_key)
+ new_page.reload(wait_until='domcontentloaded');el(new_page,'appearance-open').wait_for(state='attached',timeout=30000);reveal_shell_action(new_page,'appearance-open');el(new_page,'appearance-open').click()
+ recovery_notice={'en':'Saved themes could not be read','fr':'Impossible de lire','es':'No se pudieron leer'}[locale]
+ must(recovery_notice in el(new_page,'theme-center-status').inner_text(),'Actual Theme Center displays unreadable-library recovery notice')
+ el(new_page,'theme-center-name').fill('Owned QA theme');el(new_page,'theme-center-new').click()
+ must(new_page.evaluate('(key)=>localStorage.getItem(key)',theme_key)=='{owned unreadable theme fixture','Actual theme Save preserves unreadable owned record')
+ new_page.once('dialog',lambda dialog:dialog.dismiss());el(new_page,'theme-center-reset').click()
+ must(new_page.evaluate('(key)=>localStorage.getItem(key)',theme_key)=='{owned unreadable theme fixture','Actual theme reset cancellation preserves owned record')
+ new_page.once('dialog',lambda dialog:dialog.accept());el(new_page,'theme-center-reset').click()
+ must(new_page.evaluate('(key)=>localStorage.getItem(key)',theme_key) is None,'Confirmed theme recovery clears only the unreadable owned library')
+ el(new_page,'theme-center-name').fill('Owned QA theme');el(new_page,'theme-center-preset').select_option('navyTealPalette');el(new_page,'theme-center-font').select_option('serif');el(new_page,'theme-center-new').click()
+ saved_theme=new_page.evaluate('(key)=>JSON.parse(localStorage.getItem(key)).active',theme_key)
+ must(saved_theme['name']=='Owned QA theme' and saved_theme['preset']=='navyTealPalette' and saved_theme['fontFamily']=='serif','Actual theme action persists owned name palette and font locally')
+ el(new_page,'appearance-sidebar').select_option('right');el(new_page,'appearance-navigation').select_option('compact');el(new_page,'appearance-save').click();el(new_page,'appearance-close').click()
+ new_page.reload(wait_until='domcontentloaded');el(new_page,'appearance-open').wait_for(state='attached',timeout=30000);reveal_shell_action(new_page,'appearance-open');el(new_page,'appearance-open').click()
+ must(el(new_page,'theme-center-name').input_value()=='Owned QA theme' and el(new_page,'theme-center-preset').input_value()=='navyTealPalette' and el(new_page,'theme-center-font').input_value()=='serif','Fresh production reload restores the owned local theme')
+ must(el(new_page,'appearance-sidebar').input_value()=='right' and el(new_page,'appearance-navigation').input_value()=='compact','Fresh production reload restores saved sidebar and navigation settings')
+ must(new_page.locator('.app-shell').get_attribute('data-sidebar-position')=='right' and new_page.locator('.app-shell').get_attribute('data-navigation-mode')=='compact','Restored layout settings apply to the actual shared shell')
+ el(new_page,'appearance-close').click();report['localThemeVerified']=True;report['themeCloudSyncVerified']=False
+
  reveal_shell_action(new_page,'workspace-logout')
  logout_response=observed_submit(new_page,'/v1/auth/logout','workspace-logout')
  must(logout_response['status']==logout_response['browserStatus']==200 and logout_response['body'].get('status')=='signed_out' and count_sessions(target_id)==0 and call('/v1/auth/me',token=new_token)[0]==401,'Created-account browser logout removes its database session and remains denied');el(new_page,'login-form').wait_for(timeout=30000);new_page.reload(wait_until='domcontentloaded');el(new_page,'login-form').wait_for(timeout=30000);must(new_page.evaluate("sessionStorage.getItem('primecare_session')") is None,'Created-account reload clears logged-out session')

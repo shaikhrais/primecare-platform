@@ -62,6 +62,7 @@ jobs:
           node --test scripts/test-portal-pwa.mjs
           node --test scripts/test-theme-library-recovery.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
+          python3 -m py_compile tools/auth-verification/test-live-account-mutations.py tools/auth-verification/test-live-tenant-account-reads.py
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/account-mutations-panel.ts websites/typescript/src/tenant-accounts-panel.ts
   shell_acceptance:
