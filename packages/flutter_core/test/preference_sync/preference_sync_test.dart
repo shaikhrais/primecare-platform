@@ -13,8 +13,8 @@ class RemovalCache extends MemoryCache {
  @override Future<void> remove(String key)async{started.complete();await release.future;if(fail)throw StateError('denied');await super.remove(key);}
 }
 class BlockingWriteCache extends MemoryCache {
- final started=Completer<void>(),release=Completer<void>();bool blocked=false;
- @override Future<void> write(String key,String value)async{if(blocked){if(!started.isCompleted)started.complete();await release.future;}await super.write(key,value);}
+ final started=Completer<void>(),release=Completer<void>();bool blocked=false,fail=false;
+ @override Future<void> write(String key,String value)async{if(blocked){if(!started.isCompleted)started.complete();await release.future;if(fail)throw StateError('late storage denial');}await super.write(key,value);}
 }
 final scope=PreferenceScope('tenant1','user1','psw','live');
 PreferenceBinding binding()=>PreferenceBinding(scope:scope,kind:'shortcuts',resource:'navigation',screenIds:['1','2']);
@@ -26,6 +26,16 @@ class Server {
  Future<Object?> call(Map<String,dynamic> r)async{if(offline)throw StateError('offline');if(r['action']=='read')return clone(snapshot);if(block!=null)await block!.future;final id=r['requestId'] as String;if(receipts.containsKey(id))return clone(receipts[id]);if(r['revision']!=snapshot['revision'])throw PreferenceFailure('revision_conflict',409,clone(snapshot));snapshot={...snapshot,'revision':(snapshot['revision'] as int)+1,'document':r['action']=='write'?r['document']:null};receipts[id]=clone(snapshot);if(lost){lost=false;throw StateError('lost');}return clone(snapshot);}
 }
 void main(){
+ for(final operation in ['edit','acceptRemote','keepLocal']){test('late $operation storage failure preserves disposed actor',()async{
+  final s=Server(),cache=BlockingWriteCache(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);var changes=0;a.addListener(()=>changes++);
+  await a.load();await a.edit(doc('1'));
+  if(operation!='edit'){final other=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await other.load();await other.edit(doc('2'));await other.save();await a.load();expect(a.current['status'],'conflict');other.dispose();await other.settled;}
+  cache.blocked=true;cache.fail=true;
+  final work=operation=='edit'?a.edit(doc('2')):operation=='acceptRemote'?a.acceptRemote():a.keepLocal();
+  final completed=operation=='edit'?work:expectLater(work,throwsA(isA<PreferenceFailure>().having((e)=>e.code,'code','cache_unavailable')));
+  await cache.started.future;a.dispose();final notifications=changes;cache.release.complete();await completed;await a.settled;
+  expect(a.current['status'],'disposed');expect(changes,notifications);expect(s.snapshot['revision'],operation=='edit'?0:1);
+ });}
  test('disposal during durable storage prevents dispatch and retains explicit retry',()async{
   final s=Server(),cache=BlockingWriteCache();var calls=0;
   final a=PreferenceSyncClient(binding:binding(),transport:(request)async{if(request['action']!='read')calls++;return s.call(request);},cache:cache);
