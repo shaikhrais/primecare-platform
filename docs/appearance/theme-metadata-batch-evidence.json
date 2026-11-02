@@ -1,0 +1,71 @@
+{
+  "format": 1,
+  "source": "2928d7d1e7571e6f9845ecb99000b8f630a17ed5",
+  "repairPackage": "R03",
+  "scope": "Workflow evidence insertion throughput without changing tracking authority or completion gates",
+  "changes": [
+    "Record every evidence binding through the existing executemany interface",
+    "Allocate evidence IDs and imported row ordinals once per batch under the existing table locks",
+    "Use psycopg bulk execution for the exact allowlisted evidence INSERT only",
+    "Reuse existing default-value and tagged-JSON conversion rules"
+  ],
+  "preserved": {
+    "tenSecondLockTimeout": true,
+    "tableLockMode": "SHARE ROW EXCLUSIVE",
+    "transactionAndSavepointRollback": true,
+    "importedIdentities": true,
+    "perFileHashesPathsKindsUrls": true,
+    "writeWhitelist": true,
+    "pinnedSchemaAndManifest": true,
+    "noSqliteProductionFallback": true,
+    "noGrantOrBusinessDataScopeChanges": true,
+    "independentReviewAndCompletionGates": true
+  },
+  "validation": {
+    "local": {
+      "executionChecks": 21,
+      "gateChecks": 4,
+      "pythonCompilation": "success"
+    },
+    "ci": {
+      "run": 41510188309,
+      "conclusion": "success",
+      "nativeJob": 125499730309,
+      "productionJob": 125500231980,
+      "executionChecks": 21,
+      "gateChecks": 4,
+      "productionStoreAndConfigurationChecks": 25,
+      "productionReaderChecks": 5
+    },
+    "nativeBatch": {
+      "evidenceFiles": 200,
+      "identityAllocationReads": 2,
+      "driverBulkInvocations": 1,
+      "previousScalarEvidenceInsertCalls": 600,
+      "countsScope": "Evidence insertion only; excludes attempt validation, parent/checkpoint and summary operations",
+      "existingRowsAndIdsPreserved": true,
+      "allBindingsIndependentlyReadBack": true,
+      "quotedAndNullableValuesPreserved": true,
+      "secondRowFailureRollsBackAttemptAndAllEvidence": true,
+      "retryAfterRollbackDoesNotLeakIds": true,
+      "emptyOrMalformedBatchesDoNotPartiallyWrite": true
+    },
+    "productionScoped": {
+      "workflow": "care.psw.submit-availability",
+      "browserCases": 6,
+      "apiCheckGroups": 8,
+      "passed": true,
+      "attemptId": 646,
+      "status": "implemented-unverified",
+      "wholeTaskVerified": false,
+      "businessData": "isolated synthetic fixture; production-governed themes and tracking only"
+    }
+  },
+  "limits": [
+    "The full 14-workflow production recording batch has not been timed or tested against a simultaneously waiting production publisher",
+    "Fewer client operations are verified; no production wall-clock speedup or maximum lock-hold duration is claimed",
+    "R03 still needs remaining metadata-writer coordination and compatible API/UI rollback acceptance",
+    "This tooling change does not redeploy or alter the nine portal UI bundles",
+    "No full repair package, feature batch or business workflow is promoted to complete"
+  ]
+}

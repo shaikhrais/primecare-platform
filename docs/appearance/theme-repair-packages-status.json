@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+  "asOfImplementation": "2928d7d1e7571e6f9845ecb99000b8f630a17ed5",
   "counts": {
     "total": 13,
     "done": 1,
@@ -63,7 +63,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "Account registration now runs inside the publication lock, and four TypeScript publishers use the repository dependency lockfile. Both paths pass nine-file checks; other metadata-writer coordination and compatible API/UI rollback remain.",
+      "note": "Publisher locking and dependency alignment are accepted. Evidence inserts now pass batched PostgreSQL identity/hash/rollback checks and a production-scoped recording check. Large-batch production contention timing, remaining writer coordination and compatible API/UI rollback remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -80,7 +80,9 @@
         "CI41486500369: 2 publisher-lock/current-main contract checks, 9 retry-decision checks, all-nine exact-file publication and all three owned live proofs successful. Automatic successful retry is not claimed.",
         "docs/appearance/theme-tenant-history-evidence.json",
         "CI41501329650: 3 publication/dependency contract checks and all-nine owned account acceptance successful",
-        "CI41501329419 attempt2: failed-only tenant publication retry accepted after metadata writers completed; original lock failure retained"
+        "CI41501329419 attempt2: failed-only tenant publication retry accepted after metadata writers completed; original lock failure retained",
+        "docs/appearance/theme-metadata-batch-evidence.json",
+        "CI41510188309: 21 execution, 4 gate, 25 store/configuration and 5 reader checks successful; production-scoped synthetic care browser/recording successful"
       ]
     },
     {

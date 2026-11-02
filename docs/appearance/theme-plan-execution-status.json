@@ -860,14 +860,27 @@
         "producer": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
         "readOnly": true
       }
-    ]
+    ],
+    "metadataEvidenceBatch": {
+      "source": "2928d7d1e7571e6f9845ecb99000b8f630a17ed5",
+      "run": 41510188309,
+      "nativeJob": 125499730309,
+      "productionJob": 125500231980,
+      "nativeBatchEvidenceFiles": 200,
+      "identityReads": 2,
+      "driverBulkInvocations": 1,
+      "existingIdsAndBindingsPreserved": true,
+      "partialBatchRollbackVerified": true,
+      "productionScopedRecordingPassed": true,
+      "largeBatchProductionContentionAccepted": false
+    }
   },
   "permissionRowsChanged": 209,
   "newRoleGrants": 3,
   "preferenceRuntimeActivated": false,
   "next": [
-    "Coordinate the evidence-recording metadata writer with publishers without weakening PostgreSQL locks",
-    "Accept compatible API/UI rollback and remaining producer-lifecycle release acceptance",
+    "Benchmark the large production evidence batch with a waiting publisher while retaining existing locks",
+    "Coordinate remaining metadata writers and accept compatible API/UI rollback",
     "Trace original Platform_admin bindings and complete wider route/overlay acceptance",
     "Complete API777 registered host/control bindings and owned persistence/recovery journeys before activation",
     "Complete strict dashboard persistence registration and web/native pending-command reconciliation",
@@ -1031,5 +1044,13 @@
     "ownedLocalThemeJourneysVerified": true,
     "prePostWebFingerprints": true,
     "globalPreferenceRuntimeActivated": false
+  },
+  "latestMetadataTooling": {
+    "source": "2928d7d1e7571e6f9845ecb99000b8f630a17ed5",
+    "run": 41510188309,
+    "conclusion": "success",
+    "evidence": "docs/appearance/theme-metadata-batch-evidence.json",
+    "uiDeploymentChanged": false,
+    "fullPackageAccepted": false
   }
 }
