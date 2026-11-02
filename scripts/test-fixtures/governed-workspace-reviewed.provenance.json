@@ -1,0 +1,6 @@
+{
+  "sourceCommit": "6e13f9f4bee20045553a51aaebeba394964061d0",
+  "sourcePath": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart",
+  "sha256": "45a3acd6d1e25f3ebd3860abcc71cddc958d03666b2a1bdffab0834cd1a42f9a",
+  "purpose": "Frozen reviewed-source fixture for structural audit tests; grants no acceptance to the current renderer or business workflows."
+}

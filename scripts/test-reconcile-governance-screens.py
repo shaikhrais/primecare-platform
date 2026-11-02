@@ -1,4 +1,4 @@
-import importlib.util,json,sqlite3,tempfile,unittest
+import hashlib,importlib.util,json,sqlite3,tempfile,unittest
 from pathlib import Path
 from unittest.mock import patch
 spec=importlib.util.spec_from_file_location('audit',Path(__file__).with_name('reconcile_governance_screens.py'))
@@ -8,7 +8,10 @@ class ScreenAuditTest(unittest.TestCase):
     def setUp(self):
         self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
         renderer=self.root/m.WORKSPACE_RENDERER;renderer.parent.mkdir(parents=True)
-        self.original=(m.ROOT/m.WORKSPACE_RENDERER).read_text();renderer.write_text(self.original)
+        # The classifier accepts a specifically reviewed source, not the moving app file.
+        self.original=Path(__file__).with_name('test-fixtures').joinpath('governed-workspace-reviewed.dart').read_text()
+        self.assertEqual(hashlib.sha256(self.original.encode()).hexdigest(),m.WORKSPACE_RENDERER_SHA256)
+        renderer.write_text(self.original)
         self.registry=self.root/'cloudflare/workers/src/workspace-registry.json';self.registry.parent.mkdir(parents=True)
         self.page={'code':'example','route':'/example','sections':[{'code':'example_header','name':'Header Section','testId':'section-example_header'}]}
         self.save_registry()
@@ -17,6 +20,8 @@ class ScreenAuditTest(unittest.TestCase):
     def save_registry(self):self.registry.write_text(json.dumps({'screens':[self.page]}))
     def test_reviewed_returned_section_rendering_is_recognized(self):
         self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],self.original),['Header Section'])
+    def test_unreviewed_source_change_remains_rejected(self):
+        self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],self.original+'\n// unreviewed source drift\n'),[])
     def test_dead_or_unrendered_iteration_rejected(self):
         for changed in [self.original.replace('for (final section in list(page[\'sections\'])) _section(page, section, overview, pages),',''),self.original.replace("return _card(section['name'].toString()", "return Text(section['name'].toString()")]:
             self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])
