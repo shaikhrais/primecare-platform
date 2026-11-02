@@ -167,6 +167,7 @@ jobs:
           name: auth-live-proof-source-acceptance
           path: test-results/account-mutations/auth-release-approved.json
   bind:
+    concurrency: {group: primecare-cloudflare-typescript-production, cancel-in-progress: false}
     needs: [release_source, source_proof, shell_acceptance]
     if: needs.release_source.outputs.reuse != 'true'
     environment: production
