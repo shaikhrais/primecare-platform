@@ -80,13 +80,15 @@ jobs:
           if [ "${{ inputs.bind_account_metadata }}" = true ]; then
             git fetch origin main
             test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
-            export GOVERNANCE_WORKFLOW_WRITES=1
-            export GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION=1
-            export GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES=1
-            export GOVERNANCE_RECOVERY_REGISTRATION_WRITES=1
-            python3 tools/governance-production/account_mutations_registration.py --apply --bind
-            python3 tools/governance-production/tenant_accounts_registration.py --apply --bind
-            python3 tools/governance-production/recovery_registration.py --apply
+            (
+              export GOVERNANCE_WORKFLOW_WRITES=1
+              export GOVERNANCE_ACCOUNT_MUTATIONS_REGISTRATION=1
+              export GOVERNANCE_TENANT_ACCOUNTS_READ_WRITES=1
+              export GOVERNANCE_RECOVERY_REGISTRATION_WRITES=1
+              python3 tools/governance-production/account_mutations_registration.py --apply --bind
+              python3 tools/governance-production/tenant_accounts_registration.py --apply --bind
+              python3 tools/governance-production/recovery_registration.py --apply
+            )
           fi
           node scripts/build-typescript-websites.mjs
           for project in $(jq -r 'keys[]' websites/typescript/projects.json); do
