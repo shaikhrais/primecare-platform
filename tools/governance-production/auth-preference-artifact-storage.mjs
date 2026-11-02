@@ -1,7 +1,7 @@
 /** Respect the pinned governance import's tagged JSONB representation and internal row key. */
 export const artifactStorage=(db,pin,manifest)=>metadataStorage(db,pin,manifest,'runtime_artifacts');
 export async function metadataStorage(db,pin,manifest,name){
- if(!['runtime_artifacts','api_permissions','api_endpoints'].includes(name))throw Error('Unscoped metadata storage');
+ if(!['runtime_artifacts','api_permissions','api_endpoints','virtual_flow_catalog_snapshots'].includes(name))throw Error('Unscoped metadata storage');
  const table=manifest?.tables?.find(t=>t.name===name);if(!table||!Array.isArray(table.columns)||new Set(table.columns.map(c=>c.name)).size!==table.columns.length||table.columns.some(c=>!Array.isArray(c.storage_types)||c.storage_types.length>1))throw Error('Pinned artifact storage definition required');
  const expected={_primecare_import_row:'bigint',...Object.fromEntries(table.columns.map(c=>[c.name,({integer:'bigint',text:'text',real:'double precision',blob:'bytea'})[c.storage_types[0]]??'jsonb']))};
  const rows=(await db.query('SELECT column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND table_name=$2 ORDER BY ordinal_position',[pin.schema,pin.tablePrefix+name])).rows;const actual=Object.fromEntries(rows.map(r=>[r.column_name,r.data_type]));if(Object.keys(actual).length!==Object.keys(expected).length||Object.keys(expected).some(k=>actual[k]!==expected[k]))throw Error('Physical artifact storage differs from the pinned manifest');

@@ -9,13 +9,13 @@ export async function reconcileAuthArtifact(db,{apply=false,verifyDeployment=asy
  await checkArtifactPlan();await db.query('BEGIN');try{
   await db.query("SET LOCAL lock_timeout='10s'");await db.query("SET LOCAL statement_timeout='60s'");
   const authority=(await db.query('SELECT manifest_sha256,manifest FROM '+relation('source_manifest'))).rows;if(authority.length!==1||authority[0].manifest_sha256!==pin.manifestSha256)throw Error('Pinned metadata authority differs');
-  await db.query('LOCK TABLE '+relation('runtime_artifacts')+','+relation('api_permissions')+' IN SHARE ROW EXCLUSIVE MODE');
+  await db.query('LOCK TABLE '+relation('api_permissions')+','+relation('runtime_artifacts')+' IN SHARE ROW EXCLUSIVE MODE');
   const storage=await artifactStorage(db,pin,authority[0].manifest),decodeArtifact=a=>Object.fromEntries(Object.keys(plan.artifact).map(k=>[k,storage.decode(k,a[k]) ]));
   const endpoint=(await db.query('SELECT id,http_method,route_path,auth_required,permission_key,service_name FROM '+relation('api_endpoints')+' WHERE id=777 FOR SHARE')).rows;
   if(endpoint.length!==1||endpoint[0].http_method!==plan.method||endpoint[0].route_path!==plan.path||Number(endpoint[0].auth_required)!==1||endpoint[0].permission_key!==plan.permissionKey||endpoint[0].service_name!==plan.service)throw Error('API777 operation authority differs');
   const grants=async ids=>normalized((await db.query('SELECT '+fields.join(',')+' FROM '+relation('api_permissions')+' WHERE api_id IN ('+ids.join(',')+') ORDER BY id')).rows);
   const current=await grants([777]),messages=await grants([710,857]);const artifacts=(await db.query('SELECT id,artifact_type,artifact_code,artifact_name,physical_path,status,health_status,deployment_status,version,checksum FROM '+relation('runtime_artifacts')+' ORDER BY id')).rows.map(decodeArtifact);
-  const extras=current.filter(g=>g.role_id>64),baseGrants=current.filter(g=>g.role_id<=64);if(!approvedAdminRows(extras))throw Error('Unexpected extra preference grants');const artifactMatches=artifacts.length===1&&equal(artifacts[0],plan.artifact),already=artifactMatches&&equal(baseGrants,plan.after);
+  const extras=current.filter(g=>g.role_id>64),baseGrants=current.filter(g=>g.role_id<=64);if(!approvedAdminRows(extras))throw Error('Unexpected extra preference grants');const artifactMatches=artifacts.filter(a=>a.id===plan.artifact.id).length===1&&equal(artifacts.find(a=>a.id===plan.artifact.id),plan.artifact),already=artifactMatches&&equal(baseGrants,plan.after);
   if(!already){
    const references=(await db.query('SELECT max(runtime_artifact_id) AS maximum FROM '+relation('api_permissions'))).rows[0].maximum;
    if(artifacts.length!==0||Number(references)!==plan.expectedReferencedArtifactIdUpperBound||!equal(current,plan.before))throw Error('Exact before-state changed; preserve it');
@@ -24,7 +24,7 @@ export async function reconcileAuthArtifact(db,{apply=false,verifyDeployment=asy
    const updated=(await db.query('UPDATE '+relation('api_permissions')+' SET runtime_artifact_id=$1 WHERE api_id=777 AND runtime_artifact_id=1 RETURNING id',[plan.artifact.id])).rows;if(updated.length!==64||!equal(updated.map(r=>Number(r.id)).sort((a,b)=>a-b),plan.before.map(g=>g.id)))throw Error('Unexpected grant repair scope');
   }
   const inserted=(await db.query('SELECT id,artifact_type,artifact_code,artifact_name,physical_path,status,health_status,deployment_status,version,checksum FROM '+relation('runtime_artifacts')+' ORDER BY id')).rows.map(decodeArtifact);
-  if(!equal(inserted,[plan.artifact])||!equal(await grants([777]),[...plan.after,...extras].sort((a,b)=>a.id-b.id))||!equal(await grants([710,857]),messages))throw Error('Independent in-transaction scope verification failed');
+  if(!equal(inserted,already?artifacts:[plan.artifact])||!equal(await grants([777]),[...plan.after,...extras].sort((a,b)=>a.id-b.id))||!equal(await grants([710,857]),messages))throw Error('Independent in-transaction scope verification failed');
   await verifyDeployment();
   await db.query(apply?'COMMIT':'ROLLBACK');return {committed:apply,alreadyReconciled:already,artifactId:2,artifactRowsCreated:already?0:1,existingGrantReferencesRepaired:already?0:64,newRoleGrants:0,accessFlagsChanged:0,permissionKeysChanged:0,messagingRowsChanged:0,runtimeActivated:false,quarantineChanged:false};
  }catch(e){await db.query('ROLLBACK');throw e;}

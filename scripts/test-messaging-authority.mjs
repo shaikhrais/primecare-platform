@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import {authAuthorityFixture} from './auth-authority-fixture.mjs';
+import {prepareAdminAuthorityFixture} from './prepare-admin-authority-fixture.mjs';
+import {reconcileAuthArtifact} from '../tools/governance-production/auth-preference-artifact.mjs';
+import {reconcileAdminPreferences} from '../tools/governance-production/admin-self-preference-grants.mjs';
+import {policy,reconcileMessaging,readMessaging,verifyMessagingOwner} from '../tools/governance-production/messaging-authority.mjs';
+import {readFile} from 'node:fs/promises';
+const fixture=await authAuthorityFixture(),{db,exec,q,native}=fixture;
+try{
+ await reconcileAuthArtifact(db,{apply:true});await prepareAdminAuthorityFixture(fixture);await reconcileAdminPreferences(db,{apply:true});
+ await exec('DELETE FROM '+q('api_permissions')+' WHERE api_id IN (710,857)');
+ const fields=['id','api_id','role_id','runtime_artifact_id','permission_key','can_access'];
+ for(const [i,row] of policy.retiredRows.entries())await db.query('INSERT INTO '+q('api_permissions')+' (_primecare_import_row,'+fields.join(',')+',created_at) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)',[90000+i,...fields.map(k=>row[k]),'original-created-at']);
+ for(const r of policy.roles)await db.query('UPDATE '+q('roles')+' SET role_code=$1 WHERE id=$2',[r.code,r.id]);
+ const contracts=JSON.parse(await readFile('packages/shared/src/communications/registered-contracts.json','utf8')).apis.slice(0,2);
+ for(const c of contracts)await db.query('INSERT INTO '+q('api_endpoints')+' (_primecare_import_row,id,http_method,route_path,auth_required,permission_key,service_name,request_schema,response_schema,rate_limit_key,implementation_status) VALUES ($1,$2,$3,$4,1,$5,$6,$7,$8,$9,$10)',[c.id,c.id,c.method,c.path,c.permission,c.service,JSON.stringify(c.requestSchema),JSON.stringify(c.responseSchema),'fixture',c.status]);
+ await exec('CREATE TABLE '+q('api_endpoint_registry')+' (id bigint,api_id bigint,endpoint_code text,endpoint_path text,method text);CREATE TABLE '+q('virtual_flow_catalog_snapshots')+' (_primecare_import_row bigint PRIMARY KEY,name jsonb,summary_json jsonb,updated_at jsonb)');
+ for(const o of policy.legacyOrigins)await db.query('INSERT INTO '+q('api_endpoint_registry')+' VALUES($1,$2,$3,$4,$5)',[o.id,o.api_id,o.endpoint_code,o.endpoint_path,o.method]);
+ const manifest=(await db.query('SELECT manifest FROM '+q('source_manifest'))).rows[0].manifest;manifest.tables.push({name:'virtual_flow_catalog_snapshots',columns:['name','summary_json','updated_at'].map(name=>({name,declared_type:'TEXT',storage_types:[]}))});await db.query('UPDATE '+q('source_manifest')+' SET manifest=$1',[JSON.stringify(manifest)]);
+ await db.query('INSERT INTO '+q('virtual_flow_catalog_snapshots')+' VALUES(0,$1,$2,$3)',[JSON.stringify({t:'text',v:'unrelated'}),JSON.stringify({t:'text',v:'keep'}),JSON.stringify({t:'text',v:'fixture'})]);
+ const before=(await db.query('SELECT * FROM '+q('api_permissions')+' ORDER BY id')).rows;
+ assert.equal((await reconcileMessaging(db)).committed,false);assert.deepEqual((await db.query('SELECT * FROM '+q('api_permissions')+' ORDER BY id')).rows,before);
+ await exec('UPDATE '+q('roles')+' SET active=0 WHERE id=80');await assert.rejects(()=>reconcileMessaging(db,{apply:true}));await exec('UPDATE '+q('roles')+' SET active=1 WHERE id=80');
+ await exec('UPDATE '+q('api_permissions')+' SET can_access=0 WHERE id=45377');await assert.rejects(()=>reconcileMessaging(db,{apply:true}));await exec('UPDATE '+q('api_permissions')+' SET can_access=1 WHERE id=45377');
+ await exec('UPDATE '+q('api_endpoint_registry')+" SET endpoint_code='changed' WHERE id=710");await assert.rejects(()=>reconcileMessaging(db,{apply:true}));await db.query('UPDATE '+q('api_endpoint_registry')+' SET endpoint_code=$1 WHERE id=710',[policy.legacyOrigins[0].endpoint_code]);
+ await exec('INSERT INTO '+q('api_endpoints')+"(id,http_method,route_path) VALUES(4957,'GET','/v1/premium-concierge-workflow')");await assert.rejects(()=>reconcileMessaging(db,{apply:true}));await exec('DELETE FROM '+q('api_endpoints')+' WHERE id=4957');
+ await assert.rejects(()=>reconcileMessaging(db,{apply:true,verifyDeployment:async()=>{throw Error('provider drift');}}));assert.deepEqual((await db.query('SELECT * FROM '+q('api_permissions')+' ORDER BY id')).rows,before);
+ const result=await reconcileMessaging(db,{apply:true});assert.equal(result.retiredIncorrectRows,128);assert.equal(result.newDisabledRows,14);assert.equal((await readMessaging(db)).preferenceGrants,67);
+ const after=(await db.query('SELECT * FROM '+q('api_permissions')+' WHERE api_id NOT IN (710,857) ORDER BY id')).rows;assert.deepEqual(after,before.filter(r=>![710,857].includes(Number(r.api_id))));
+ assert.equal((await reconcileMessaging(db,{apply:true})).alreadyReconciled,true);assert.equal((await reconcileAuthArtifact(db,{apply:true})).alreadyReconciled,true);
+ const inserted=(await db.query('SELECT * FROM '+q('api_permissions')+' WHERE api_id IN (710,857)')).rows;assert.ok(inserted.every(r=>Number(r.can_access)===0&&Number(r._primecare_import_row)>90127));
+ assert.equal((await db.query('SELECT count(*) AS count FROM '+q('virtual_flow_catalog_snapshots'))).rows[0].count, native?'2':2);
+ await exec('UPDATE '+q('api_permissions')+' SET can_access=1 WHERE id=80126');await assert.rejects(()=>readMessaging(db));await assert.rejects(()=>reconcileMessaging(db,{apply:true}));await exec('UPDATE '+q('api_permissions')+' SET can_access=0 WHERE id=80126');
+ const fetcher=async url=>({ok:true,json:async()=>({success:true,result:url.endsWith('/settings')?{bindings:[{name:'SERVICE_NAME',type:'plain_text',text:'governance'}]}:{id:policy.versionId}})});
+ assert.equal((await verifyMessagingOwner({account:'a'.repeat(32),token:'test',fetcher})).activationApproved,false);await assert.rejects(()=>verifyMessagingOwner({account:'a'.repeat(32),token:'test',fetcher:async()=>({ok:false})}));
+ console.log(JSON.stringify({engine:native?'native-postgresql':'isolated-pglite',checks:['preview rolls back','inactive role denied','old access drift preserved','registry drift denied','restored legacy target preserved','provider failure atomic rollback','128 full records archived','14 new records disabled','67 preferences and unrelated grants preserved','internal identities not reused','idempotent repeat','auth readers preserve unrelated artifact','enabled-grant drift denied','provider identity failure denied'],productionChanges:0}));
+}finally{await fixture.close();}

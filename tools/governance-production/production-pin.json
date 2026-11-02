@@ -1898,5 +1898,34 @@
     "runtimeActivation": false,
     "businessDataWrites": false,
     "createRoles": false
+  },
+  "messagingAuthorityWriter": {
+    "optInVariable": "RECONCILE_MESSAGING_AUTHORITY",
+    "planSha256": "8d437a9cbb7e88c707006fdf5e3f2bab6aaeff0e2c2084899ef928143c257a8d",
+    "tables": [
+      "runtime_artifacts",
+      "api_permissions",
+      "virtual_flow_catalog_snapshots"
+    ],
+    "apiIds": [
+      710,
+      857
+    ],
+    "roleIds": [
+      12,
+      15,
+      51,
+      61,
+      70,
+      72,
+      80
+    ],
+    "artifactId": 3,
+    "retiredRows": 128,
+    "stagedRows": 14,
+    "newEnabledGrants": 0,
+    "screenViewsChanged": false,
+    "runtimeActivation": false,
+    "businessDataWrites": false
   }
 }

@@ -1,0 +1,93 @@
+name: Reconcile staged messaging authority
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/messaging-authority.yml'
+      - 'tools/governance-production/messaging-authority*'
+      - 'scripts/test-messaging-authority.mjs'
+      - 'scripts/prepare-admin-authority-fixture.mjs'
+      - 'scripts/auth-authority-fixture.mjs'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: messaging-authority-registration
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: preference_test, POSTGRES_PASSWORD: isolated, POSTGRES_DB: preference_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/admin-preference-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14 esbuild@0.27.2 bcryptjs@3.0.3
+          ln -s /tmp/admin-preference-tools/node_modules node_modules
+          node scripts/test-preference-registration.mjs
+          node scripts/test-auth-preference-artifact.mjs
+          node scripts/test-admin-self-preference-grants.mjs
+          node scripts/test-messaging-authority.mjs
+      - name: Prepare dedicated native metadata test database
+        run: |
+          node --input-type=module <<'JS'
+          import pg from 'pg';const db=new pg.Client({connectionString:'postgresql://preference_test:isolated@127.0.0.1:5432/preference_test'});await db.connect();try{await db.query('CREATE DATABASE artifact_test');}finally{await db.end();}
+          JS
+      - name: Verify native metadata transaction scope and compatible legacy readers
+        env:
+          ARTIFACT_TEST_DATABASE_URL: postgresql://preference_test:isolated@127.0.0.1:5432/artifact_test
+        run: |
+          node scripts/test-auth-preference-artifact.mjs
+          node scripts/test-admin-self-preference-grants.mjs
+          node scripts/test-messaging-authority.mjs
+      - name: Verify wrong-key, disabled, tenant and host denials in PostgreSQL
+        env:
+          BUSINESS_TEST_DATABASE_URL: postgresql://preference_test:isolated@127.0.0.1:5432/artifact_test
+        run: node scripts/test-communication-endpoint-policy.mjs
+      - name: Verify all approved roles remain self-only through the API and PostgreSQL
+        env:
+          PREFERENCE_TEST_DATABASE_URL: postgresql://preference_test:isolated@127.0.0.1:5432/preference_test
+        run: node scripts/test-preference-service.mjs
+  reconcile:
+    needs: verify
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 12
+    env:
+      PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      RECONCILE_MESSAGING_AUTHORITY: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          npm install --prefix /tmp/admin-preference-registration --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/admin-preference-registration/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Preview exact retirement and disabled replacements with rollback
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          node tools/governance-production/messaging-authority.mjs
+      - name: Archive incorrect identities and register disabled messaging scope
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          node tools/governance-production/messaging-authority.mjs --apply
+      - name: Independent readback and unchanged global release identity gate
+        run: |
+          node tools/governance-production/messaging-authority.mjs --readback
+          python scripts/check-api-catalog-identity.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: messaging-authority-registration, path: test-results/messaging-authority}

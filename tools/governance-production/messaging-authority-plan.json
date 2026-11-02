@@ -1,0 +1,1251 @@
+{
+  "format": 1,
+  "roles": [
+    {
+      "id": 12,
+      "code": "caregiver"
+    },
+    {
+      "id": 15,
+      "code": "patient"
+    },
+    {
+      "id": 51,
+      "code": "psw"
+    },
+    {
+      "id": 61,
+      "code": "customer_support"
+    },
+    {
+      "id": 70,
+      "code": "platform_admin"
+    },
+    {
+      "id": 72,
+      "code": "tenant_admin"
+    },
+    {
+      "id": 80,
+      "code": "code_admin"
+    }
+  ],
+  "authorization": "User selected Include admins too for the first messaging rollout; access is tenant-bound and limited to conversations the user belongs to",
+  "desiredActions": [
+    "read",
+    "send"
+  ],
+  "sourceContractBehavior": "Existing registered message.command/inbox schemas and scoped conversation/business-context checks remain unchanged",
+  "activation": false,
+  "stagedCanAccess": 0,
+  "activationRequires": [
+    "Registered host bindings",
+    "Owned UI/API/database/reload journey",
+    "Denied role, nonmember and cross-tenant checks",
+    "Current runtime source/deployment acceptance"
+  ],
+  "expectedGrantIdUpperBound": 80125,
+  "expectedArtifactIdUpperBound": 2,
+  "expectedReferencedArtifactIdUpperBound": 2,
+  "sourceCommit": "18cd8af98692647a30ee5a0a066988a4f3ab46e1",
+  "worker": "primecare-governance-api",
+  "deploymentId": "32af9a23-afdd-4f13-b576-9cf854b9d851",
+  "versionId": "d7606411-73df-40c4-90e0-bb7403e11c4d",
+  "artifact": {
+    "id": 3,
+    "artifact_type": "file",
+    "artifact_code": "primecare-governance-api.messages",
+    "artifact_name": "Registered messaging router [18cd8af98692647a30ee5a0a066988a4f3ab46e1]",
+    "physical_path": "cloudflare/workers/src/business-tasks/http.ts",
+    "status": "active",
+    "health_status": "unverified",
+    "deployment_status": "deployed",
+    "version": "d7606411-73df-40c4-90e0-bb7403e11c4d",
+    "checksum": "51bd342ffb1f016429a8a70a1a368f52f4f5d46486c4087912dabd0e2505c43f"
+  },
+  "retiredRows": [
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45377,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 1,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45378,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 2,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45379,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 3,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45380,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 4,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45381,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 5,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45382,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 6,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45383,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 7,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45384,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 8,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45385,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 9,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45386,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 10,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45387,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 11,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45388,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 12,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45389,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 13,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45390,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 14,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45391,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 15,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45392,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 16,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45393,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 17,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45394,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 18,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45395,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 19,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45396,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 20,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45397,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 21,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45398,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 22,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45399,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 23,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45400,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 24,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45401,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 25,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45402,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 26,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45403,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 27,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45404,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 28,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45405,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 29,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45406,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 30,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45407,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 31,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45408,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 32,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45409,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 33,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45410,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 34,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45411,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 35,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45412,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 36,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45413,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 37,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45414,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 38,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45415,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 39,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45416,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 40,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45417,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 41,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45418,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 42,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45419,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 43,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45420,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 44,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45421,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 45,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45422,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 46,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45423,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 47,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45424,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 48,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45425,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 49,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45426,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 50,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45427,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 51,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45428,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 52,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45429,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 53,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45430,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 54,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45431,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 55,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45432,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 56,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45433,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 57,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45434,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 58,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45435,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 59,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45436,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 60,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45437,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 61,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45438,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 62,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45439,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 63,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 710,
+      "can_access": 1,
+      "id": 45440,
+      "permission_key": "api_permission_api_v1_premium_concierge_workflow_list_get",
+      "role_id": 64,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54785,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 1,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54786,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 2,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54787,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 3,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54788,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 4,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54789,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 5,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54790,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 6,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54791,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 7,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54792,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 8,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54793,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 9,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54794,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 10,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54795,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 11,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54796,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 12,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54797,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 13,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54798,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 14,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54799,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 15,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54800,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 16,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54801,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 17,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54802,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 18,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54803,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 19,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54804,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 20,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54805,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 21,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54806,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 22,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54807,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 23,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54808,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 24,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54809,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 25,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54810,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 26,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54811,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 27,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54812,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 28,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54813,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 29,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54814,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 30,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54815,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 31,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54816,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 32,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54817,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 33,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54818,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 34,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54819,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 35,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54820,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 36,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54821,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 37,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54822,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 38,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54823,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 39,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54824,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 40,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54825,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 41,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54826,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 42,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54827,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 43,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54828,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 44,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54829,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 45,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54830,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 46,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54831,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 47,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54832,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 48,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54833,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 49,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54834,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 50,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54835,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 51,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54836,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 52,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54837,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 53,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54838,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 54,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54839,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 55,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54840,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 56,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54841,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 57,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54842,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 58,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54843,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 59,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54844,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 60,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54845,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 61,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54846,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 62,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54847,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 63,
+      "runtime_artifact_id": 1
+    },
+    {
+      "api_id": 857,
+      "can_access": 1,
+      "id": 54848,
+      "permission_key": "api_permission_api_v1_document_expiry_list_get",
+      "role_id": 64,
+      "runtime_artifact_id": 1
+    }
+  ],
+  "legacyOrigins": [
+    {
+      "api_id": 4957,
+      "endpoint_code": "api_v1_premium_concierge_workflow_list_get",
+      "endpoint_path": "/v1/premium-concierge-workflow",
+      "id": 710,
+      "method": "GET"
+    },
+    {
+      "api_id": 5104,
+      "endpoint_code": "api_v1_document_expiry_list_get",
+      "endpoint_path": "/v1/document-expiry",
+      "id": 857,
+      "method": "GET"
+    }
+  ],
+  "retirementReason": "These keys name different legacy operations than actual APIs710/857; their original registry targets4957/5104 are absent. Retain this exact archive and legacy declarations for separate contract review; do not reassign these grant identities.",
+  "stagedRows": [
+    {
+      "id": 80126,
+      "api_id": 710,
+      "role_id": 12,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80127,
+      "api_id": 710,
+      "role_id": 15,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80128,
+      "api_id": 710,
+      "role_id": 51,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80129,
+      "api_id": 710,
+      "role_id": 61,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80130,
+      "api_id": 710,
+      "role_id": 70,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80131,
+      "api_id": 710,
+      "role_id": 72,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80132,
+      "api_id": 710,
+      "role_id": 80,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80133,
+      "api_id": 857,
+      "role_id": 12,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80134,
+      "api_id": 857,
+      "role_id": 15,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80135,
+      "api_id": 857,
+      "role_id": 51,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80136,
+      "api_id": 857,
+      "role_id": 61,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80137,
+      "api_id": 857,
+      "role_id": 70,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80138,
+      "api_id": 857,
+      "role_id": 72,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    },
+    {
+      "id": 80139,
+      "api_id": 857,
+      "role_id": 80,
+      "runtime_artifact_id": 3,
+      "permission_key": "role_screen_permissions",
+      "can_access": 0
+    }
+  ],
+  "otherApiGrantsChanged": 0,
+  "rolesCreated": 0,
+  "screenViewsChanged": 0,
+  "quarantineChanges": false,
+  "auditSnapshotName": "theme.messaging.authority.v1",
+  "releaseEvidence": {
+    "workflowRun": 41362961739,
+    "publishJob": 125017651709,
+    "receipt": {
+      "format": 1,
+      "source": "18cd8af98692647a30ee5a0a066988a4f3ab46e1",
+      "worker": "primecare-governance-api",
+      "service": "governance",
+      "deploymentId": "32af9a23-afdd-4f13-b576-9cf854b9d851",
+      "versionId": "d7606411-73df-40c4-90e0-bb7403e11c4d",
+      "trafficPercent": 100,
+      "createdOn": "2026-11-01T23:42:08.44409Z",
+      "independentlyReadDeployment": true,
+      "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+      "registeredGovernanceArtifactId": null,
+      "grantAssociationApproved": false,
+      "sourceCheckoutVerified": true,
+      "existingBindingsPreserved": true,
+      "healthStatus": 200,
+      "otherWorkersModified": 0,
+      "providerActions": 0
+    }
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "format": 1,
+  "scope": "Completed auth preference repairs; messaging still pending exact reconciliation",
+  "authDeployment": {
+    "format": 1,
+    "source": "1831695d1609d0b49fdb0427efbeba7f241d4a4b",
+    "worker": "primecare-auth-api",
+    "service": "auth",
+    "deploymentId": "5d3fc26e-1495-47f8-9cea-c833918658be",
+    "versionId": "4db1ce26-0770-4d96-b0e5-c104a4df865c",
+    "trafficPercent": 100,
+    "createdOn": "2026-11-01T22:39:56.093082Z",
+    "independentlyReadDeployment": true,
+    "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+    "registeredGovernanceArtifactId": null,
+    "grantAssociationApproved": false,
+    "sourceCheckoutVerified": true,
+    "existingBindingsPreserved": true,
+    "existingCronSchedulesPreserved": true,
+    "keySelectionChanged": false,
+    "sourceFingerprintUpdated": true,
+    "preferenceRuntimeActivated": false,
+    "productionGrantsChanged": 0,
+    "productionSchemaChanged": false,
+    "healthStatus": 200,
+    "disabledPreferenceProbe": 503
+  },
+  "artifactRepair": {
+    "run": 41360646453,
+    "job": 125010237328,
+    "receipts": [
+      {
+        "committed": false,
+        "alreadyReconciled": false,
+        "artifactId": 2,
+        "artifactRowsCreated": 1,
+        "existingGrantReferencesRepaired": 64,
+        "newRoleGrants": 0,
+        "accessFlagsChanged": 0,
+        "permissionKeysChanged": 0,
+        "messagingRowsChanged": 0,
+        "runtimeActivated": false,
+        "quarantineChanged": false
+      },
+      {
+        "committed": true,
+        "alreadyReconciled": false,
+        "artifactId": 2,
+        "artifactRowsCreated": 1,
+        "existingGrantReferencesRepaired": 64,
+        "newRoleGrants": 0,
+        "accessFlagsChanged": 0,
+        "permissionKeysChanged": 0,
+        "messagingRowsChanged": 0,
+        "runtimeActivated": false,
+        "quarantineChanged": false
+      },
+      {
+        "independentReadback": true,
+        "artifactId": 2,
+        "existingGrantReferences": 64,
+        "newRoleGrants": 0,
+        "runtimeActivated": false
+      }
+    ],
+    "jobConclusion": "failure_at_final_global_gate_remaining_128_messaging_rows"
+  },
+  "adminGrants": {
+    "run": 41362961743,
+    "job": 125017235934,
+    "receipts": [
+      {
+        "committed": false,
+        "alreadyReconciled": false,
+        "taggedEndpointFields": [],
+        "newRoleGrants": 3,
+        "roleIds": [
+          70,
+          72,
+          80
+        ],
+        "existingGrantRowsChanged": 0,
+        "otherApiGrantsChanged": 0,
+        "rolesCreated": 0,
+        "runtimeActivated": false,
+        "quarantineChanged": false
+      },
+      {
+        "committed": true,
+        "alreadyReconciled": false,
+        "taggedEndpointFields": [],
+        "newRoleGrants": 3,
+        "roleIds": [
+          70,
+          72,
+          80
+        ],
+        "existingGrantRowsChanged": 0,
+        "otherApiGrantsChanged": 0,
+        "rolesCreated": 0,
+        "runtimeActivated": false,
+        "quarantineChanged": false
+      },
+      {
+        "independentReadback": true,
+        "adminGrants": 3,
+        "legacyPreferenceGrants": 64,
+        "artifactId": 2,
+        "runtimeActivated": false
+      }
+    ],
+    "jobConclusion": "failure_at_final_global_gate_remaining_128_messaging_rows"
+  },
+  "compatibleRegistration": {
+    "run": 41362961701,
+    "conclusion": "success"
+  },
+  "limits": [
+    "Preference runtime remains disabled",
+    "Messaging reconciliation has not yet been applied",
+    "No whole B01–B18 batch is closed",
+    "No placeholder artifact 1 was created"
+  ]
+}
