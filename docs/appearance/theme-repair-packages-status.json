@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+  "asOfImplementation": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
   "counts": {
     "total": 13,
     "done": 1,
@@ -63,7 +63,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "Four direct TypeScript producers share the production publication lock; current-main checks and all-nine source-bound EN/FR/ES owned journeys pass. Compatible API/UI rollback and full producer-lifecycle acceptance remain.",
+      "note": "Account registration now runs inside the publication lock, and four TypeScript publishers use the repository dependency lockfile. Both paths pass nine-file checks; other metadata-writer coordination and compatible API/UI rollback remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -77,14 +77,17 @@
         "CI 41453304412: all-nine diagnostic publication and EN/FR/ES account journeys successful",
         "Corrected canonical verifier source 3c732cf3096716b32ad3baae70f443f4b6903edd / CI41457664954 successful; retained pre-footer publication",
         "Stale scheduler correction: evidence upload is not a provider publication; 9 local decision tests pass. Successful automatic retry/publication remains unverified.",
-        "CI41486500369: 2 publisher-lock/current-main contract checks, 9 retry-decision checks, all-nine exact-file publication and all three owned live proofs successful. Automatic successful retry is not claimed."
+        "CI41486500369: 2 publisher-lock/current-main contract checks, 9 retry-decision checks, all-nine exact-file publication and all three owned live proofs successful. Automatic successful retry is not claimed.",
+        "docs/appearance/theme-tenant-history-evidence.json",
+        "CI41501329650: 3 publication/dependency contract checks and all-nine owned account acceptance successful",
+        "CI41501329419 attempt2: failed-only tenant publication retry accepted after metadata writers completed; original lock failure retained"
       ]
     },
     {
       "id": "R04",
       "title": "Finish one real web shell before portal-wide rollout",
       "status": "partial",
-      "note": "Owned clinic local-theme pilot passes 58 live checks per locale. Shared footer binding and literal/fresh sidebar descriptions pass 12 isolated EN/FR/ES LTR/RTL browser cases plus actual tenant/PostgreSQL layout, reload and preference-redraw checks. Original Platform_admin binding and wider route/overlay acceptance remain.",
+      "note": "Tenant history/deep-link denial, dialog drafts, pending saves and editable-node preservation pass actual browser/PostgreSQL checks. Footer and owned local-theme pilot remain accepted. Original Platform_admin binding and other host/role/route/overlay acceptance remain.",
       "acceptance": [
         "Actual login, navigation/deep link, theme/layout change, action, reload and logout pass at narrow/wide breakpoints.",
         "Denied destinations never open; dirty/pending forms, overlays and stale account callbacks retain correct behavior; EN/FR/ES labels and LTR/RTL are checked."
@@ -95,7 +98,9 @@
         "CI41475732794: owned live local-theme pilot",
         "CI41483421280 / job125407379803: 12 shared footer browser cases, 13 lifecycle checks and 2 markup checks successful",
         "CI41483793034 / acceptance125408681457: actual tenant footer control, sticky save/reload and node preservation plus independent preference SQL/lost-ack regression checks successful",
-        "CI41486500369 / browser125421645753: current-source footer/PWA/theme recovery passed; all-nine publication plus 58 owned local-theme/account checks and 36 tenant-read checks per locale passed"
+        "CI41486500369 / browser125421645753: current-source footer/PWA/theme recovery passed; all-nine publication plus 58 owned local-theme/account checks and 36 tenant-read checks per locale passed",
+        "docs/appearance/theme-tenant-history-evidence.json",
+        "CI41501329650 / browser125473150988: actual tenant history guards, PostgreSQL recovery and existing shell regressions successful"
       ]
     },
     {
@@ -199,7 +204,8 @@
       ],
       "evidence": [
         "CI 41448542072 / proof jobs 125290860143, 125290860230, 125290860222",
-        "CI41486500369: matching nine-file fingerprints before/after each owned journey; exact synthetic fixture and inbox cleanup passed"
+        "CI41486500369: matching nine-file fingerprints before/after each owned journey; exact synthetic fixture and inbox cleanup passed",
+        "CI41501329650: 58 mutation/theme and 36 tenant-read checks per locale, matching before/after assets and exact cleanup; later same-source tenant publication independently verified nine files per portal"
       ]
     }
   ],

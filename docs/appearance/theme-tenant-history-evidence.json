@@ -1,0 +1,394 @@
+{
+  "format": 1,
+  "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+  "implementationSource": "7a027047a0858d408c9a6d86aed8e89776f96003",
+  "scope": "R04 actual tenant history navigation and R03 metadata publication serialization",
+  "changes": [
+    "Validate tenant history/hash destinations using the server-provided allowedViews",
+    "Preserve open tenant dialogs and pending mutations on history navigation",
+    "Normalize denied/unknown deep links and avoid redraw on same-view events",
+    "Remove both history listeners at teardown",
+    "Require actual tenant browser/PostgreSQL acceptance before account registration/publication",
+    "Serialize account metadata registration with the TypeScript production publishers"
+  ],
+  "localVerification": {
+    "typescript": "success",
+    "preferenceDraftChecks": 17,
+    "publisherContractChecks": 3
+  },
+  "tenantAcceptance": {
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "accountGateRun": 41501329650,
+    "accountGateJob": 125473150988,
+    "tenantRun": 41501329419,
+    "originalTenantAcceptanceJob": 125469271366,
+    "receipt": {
+      "actualTenantPortal": true,
+      "disposableDatabase": "PostgreSQL",
+      "navigation": true,
+      "deniedDeepLinkNormalized": true,
+      "deniedHistoryAndHashBlocked": true,
+      "dialogDraftPreservedOnHistory": true,
+      "pendingSavePreservedOnHistory": true,
+      "sameViewHistoryPreservesNodes": true,
+      "layoutControls": true,
+      "undoRedo": true,
+      "saveReload": true,
+      "invalidImport": true,
+      "originalNodeAndHandler": true,
+      "preferenceDatabaseReadback": true,
+      "rerenderHistory": true,
+      "mobileDrawer": true,
+      "actorIsolation": true,
+      "preferenceDraftRestart": true,
+      "failedPreferenceSaveRetained": true,
+      "preferenceConflictPreserved": true,
+      "explicitDraftDiscard": true,
+      "newerEditDuringSaveRetained": true,
+      "pendingRequestRestart": true,
+      "lostAcknowledgementReceiptReplay": true,
+      "independentPreferenceSqlReadback": true,
+      "noDuplicatePreferenceEvent": true,
+      "productionVerified": false
+    }
+  },
+  "accountRelease": {
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "run": 41501329650,
+    "conclusion": "success",
+    "portals": 9,
+    "filesVerifiedPerPortal": 9,
+    "receipts": [
+      {
+        "locale": "en",
+        "job": 125478516056,
+        "width": 320,
+        "checks": 58,
+        "tenantReadChecks": 36,
+        "localThemeVerified": true,
+        "themeCloudSyncVerified": false,
+        "fingerprintReceipts": 4,
+        "fixtureAndMailCleanup": true
+      },
+      {
+        "locale": "fr",
+        "job": 125478515874,
+        "width": 768,
+        "checks": 58,
+        "tenantReadChecks": 36,
+        "localThemeVerified": true,
+        "themeCloudSyncVerified": false,
+        "fingerprintReceipts": 4,
+        "fixtureAndMailCleanup": true
+      },
+      {
+        "locale": "es",
+        "job": 125478515917,
+        "width": 1440,
+        "checks": 58,
+        "tenantReadChecks": 36,
+        "localThemeVerified": true,
+        "themeCloudSyncVerified": false,
+        "fingerprintReceipts": 4,
+        "fixtureAndMailCleanup": true
+      }
+    ],
+    "publicationReceipts": [
+      {
+        "job": 125477330904,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "9efdcf59fe9d668c1e5cb729150217049f22a00fa2b5e61fe7ea353dbdeb41a1",
+          "portal.json": "7097feb2990dba311b7aa60a3898242a73f8c9af57470e8eb12798574e3ebdb9",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-clinic",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125477330998,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "81044e5f248407a35a6233b71d31dcdce5d2e0049809bd2bf64fbb0b6304ef52",
+          "portal.json": "583611a30781ca20bc9d1d81ea10b1a673b4d75928de3468db23da9a3cb59ac6",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-business-development",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125477331327,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "d9f700b85a2affa0b21da1e149a8e57bd5eb3377e9cb5bab93a1c917b6181bc4",
+          "portal.json": "05e9af5a1be9ea68325697547d14b0bed6efc5500b7827292bc17ff80437e49c",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-client",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125477657377,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "e8f1fd1c40890ce4cd9f36b8b503c107cc8cf1b4b75671b55526a663e3c818d3",
+          "portal.json": "724fe615469770fc3bf5bb01eb3e1b0e1792943a41cf44a49782588f9594c7b5",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-corporate",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125477718395,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "5e3276fd9f6a8e203d835f1592a98b5a9856a2f28871110c72841c8a56c02667",
+          "portal.json": "228c8c2f4ad877121935c5b3b81d19acf06862749665243ec84b472c0c9cc5c1",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-franchise",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125477729927,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "07916faebe52f1518dea35e8b58570520a19b7eac86903c95b7212e5f3d88192",
+          "portal.json": "ce0b074fe63dc7a724d13dc9ad6caf169e1b6bf0364288f4c178418d379c4537",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-marketing",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125478081067,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "0e80f02baf3793fce30bdee4e33d636620ee8cbccb9302d9df31e344762f6d00",
+          "portal.json": "34190deae24b66813c4c7ff59e598a167f72f842bc6b7f1b0383ab8b292fce12",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-support",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125478099848,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "3a18052e8d595f2d6e2e9366b604e210bde7e2fe22d0558cc5f85313a02be3ac",
+          "portal.json": "c57d0472ccd9b290ae80e1b53b7fea077164a58499a84991533ca46176ac1a10",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-governance",
+        "runtime": "typescript"
+      },
+      {
+        "job": 125478169578,
+        "commit": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+        "files": {
+          "assets/app.css": "436dee7ced86c4536e41b90455907423a8b416f9be17efa126687bdb36500179",
+          "assets/app.js": "691fb7937d572eb8227dc9cb6d83bf769b523f49bf1cc5217a213963c5c7eaf8",
+          "flutter_service_worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa",
+          "icons/primecare-192.png": "755533c67c85459bfe123dd01ab9a4f8fd15ccbf0be9509b6a0a127a4533c576",
+          "icons/primecare-512.png": "52d04dacd076592d64315544dc410082fd4f1c1391a4145818b57049f7e7287b",
+          "index.html": "ba116e0612ea93e93a31d771215206b071d66d0554c3fdfdc57f6ce0cd492dd1",
+          "manifest.webmanifest": "d3448302cabef34120debc9b55c39c8b71102a4759219052b6b465046f738bdb",
+          "portal.json": "791c830d025a12c7ad6cad8f69865c04a8e4d0145f13ebe1a81df0061f489135",
+          "service-worker.js": "9f884ab1dcc4609fe9c3d28a83b2d0762f073396c1715b059cd70573dca1efaa"
+        },
+        "project": "primecare-enterprise-blueprint",
+        "runtime": "typescript"
+      }
+    ]
+  },
+  "retainedFailures": [
+    {
+      "run": 41494107216,
+      "job": 125444424821,
+      "reason": "New test used an ambiguous dialog selector; corrected to the owned tenant dialog",
+      "publication": "blocked"
+    },
+    {
+      "run": 41494873908,
+      "job": 125448225084,
+      "reason": "PostgreSQL lock timeout during personal registration while account metadata was being bound",
+      "correction": "Account binding now shares the production publication lock",
+      "publication": "stopped at failed registration"
+    },
+    {
+      "run": 41494509627,
+      "job": 125447169566,
+      "reason": "Current-main guard rejected an older account source before registration",
+      "publication": "skipped"
+    },
+    {
+      "run": 41495916219,
+      "job": 125452007573,
+      "reason": "GitHub replaced a pending tenant publication during the separate account bind/deploy queue handoff",
+      "conclusion": "cancelled",
+      "correction": "Move account registration inside the already-locked publisher; remove the separate metadata lock acquisition"
+    },
+    {
+      "run": 41501329419,
+      "attempt": 1,
+      "job": 125472734168,
+      "reason": "Coordinator metadata registration hit the retained ten-second PostgreSQL table-lock timeout",
+      "retry": "Only failed publication rerun after account acceptance and metadata-recording jobs completed",
+      "retryAttempt": 2,
+      "retryJob": 125487109805,
+      "retryConclusion": "success"
+    }
+  ],
+  "limits": [
+    "Tenant route acceptance uses the actual renderer/service and disposable PostgreSQL; no production tenant route journey is claimed",
+    "Owned deployed account/theme journeys are tracked separately",
+    "API777 cloud preference synchronization and native acceptance remain off/unverified",
+    "No whole R04 or R03 package closure",
+    "Tenant route fixture covers tenant_admin and psw; full all-role and business-label localization acceptance remain open",
+    "The later same-source tenant retry regenerates portal.json with current governance metadata and generatedAt. All eight static critical files, including JavaScript, match the owned-tested account publication; portal.json hashes are not claimed identical. Owned journeys were not rerun after this metadata regeneration."
+  ],
+  "metadataPublication": {
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "commonLock": "primecare-cloudflare-typescript-production",
+    "accountRegistrationInsidePublisher": true,
+    "registrationFlagsScopedToCommands": true,
+    "manualDefaultBindAccountMetadata": false,
+    "contractChecks": 3,
+    "tenantPublication": {
+      "run": 41501329419,
+      "attempt": 2,
+      "job": 125487109805,
+      "conclusion": "success",
+      "portals": 9,
+      "filesPerPortal": 9,
+      "protectedRoutesRequireAuthentication": true
+    },
+    "contractJob": 125472904579,
+    "recordingWriter": ".github/workflows/record-account-lifecycle-evidence.yml",
+    "recordingWriterCoordinationAccepted": false
+  },
+  "dependencyAlignment": {
+    "previousSource": "0574c1109dcf1aa9ca3ace39ce8f37f532a32276",
+    "observedDifferingFiles": [
+      "assets/app.js",
+      "portal.json"
+    ],
+    "projectsAffected": 9,
+    "previousAccountCompiler": "0.27.2",
+    "repositoryLock": {
+      "esbuild": "0.27.7",
+      "pg": "8.16.3",
+      "twilio": "2.18.5"
+    },
+    "fix": "Use npm ci --ignore-scripts for the account publisher as well as the other three direct TypeScript producers",
+    "contractChecks": 3,
+    "verification": "success",
+    "matchedJavascriptProjects": 9,
+    "staticAssetsMatchAfterTenantRetry": true,
+    "portalManifestsRegenerated": true,
+    "comparison": [
+      {
+        "project": "primecare-business-development",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-client",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-clinic",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-corporate",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-franchise",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-marketing",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-support",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-governance",
+        "differingFiles": [
+          "portal.json"
+        ]
+      },
+      {
+        "project": "primecare-enterprise-blueprint",
+        "differingFiles": [
+          "portal.json"
+        ]
+      }
+    ]
+  }
+}

@@ -770,14 +770,13 @@
       "wholeThemeAcceptance": false
     },
     "latestAuthSourceGate": {
-      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
-      "run": 41486500369,
-      "job": 125421645298,
+      "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+      "producer": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+      "run": 41501329650,
+      "job": 125473150790,
       "conclusion": "success",
-      "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
-      "preferenceRuntimeActivated": false,
-      "producer": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
-      "readOnly": true
+      "scope": "Read-only approved Worker source/deployment identity check; rechecked before each owned live journey",
+      "preferenceRuntimeActivated": false
     },
     "sharedFooterBinding": {
       "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
@@ -802,6 +801,44 @@
       "scope": "Isolated shared shell and actual tenant renderer/disposable PostgreSQL; live account theme scope recorded separately"
     },
     "publisherCoordination": {
+      "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+      "run": 41501329650,
+      "commonTypeScriptLock": "primecare-cloudflare-typescript-production",
+      "accountRegistrationInsidePublisher": true,
+      "registrationFlagsScoped": true,
+      "contractChecks": 3,
+      "dependencyLockfile": "package-lock.json",
+      "versions": {
+        "esbuild": "0.27.7",
+        "pg": "8.16.3",
+        "twilio": "2.18.5"
+      },
+      "matchedJavascriptProjects": 9,
+      "otherMetadataWritersCoordinated": false,
+      "compatibleApiUiRollbackAccepted": false,
+      "automaticSuccessfulStaleRetryObserved": false
+    },
+    "previousAuthSourceGate": {
+      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+      "run": 41475732794,
+      "job": 125384153818,
+      "conclusion": "success",
+      "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
+      "preferenceRuntimeActivated": false
+    },
+    "tenantHistoryNavigation": {
+      "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+      "evidence": "docs/appearance/theme-tenant-history-evidence.json",
+      "browserRun": 41501329650,
+      "browserJob": 125473150988,
+      "actualTenantPortal": true,
+      "disposableDatabase": "PostgreSQL",
+      "deniedViewsBlocked": true,
+      "dialogAndPendingSavePreserved": true,
+      "sameViewEditableNodesPreserved": true,
+      "wholePackageAccepted": false
+    },
+    "previousPublisherCoordination": {
       "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
       "run": 41486500369,
       "commonTypeScriptLock": "primecare-cloudflare-typescript-production",
@@ -812,20 +849,25 @@
       "compatibleApiUiRollbackAccepted": false,
       "automaticSuccessfulRetryObserved": false
     },
-    "previousAuthSourceGate": {
-      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
-      "run": 41475732794,
-      "job": 125384153818,
-      "conclusion": "success",
-      "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
-      "preferenceRuntimeActivated": false
-    }
+    "authSourceGateHistory": [
+      {
+        "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "run": 41486500369,
+        "job": 125421645298,
+        "conclusion": "success",
+        "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
+        "preferenceRuntimeActivated": false,
+        "producer": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+        "readOnly": true
+      }
+    ]
   },
   "permissionRowsChanged": 209,
   "newRoleGrants": 3,
   "preferenceRuntimeActivated": false,
   "next": [
-    "Accept compatible API/UI rollback and complete producer-lifecycle release acceptance",
+    "Coordinate the evidence-recording metadata writer with publishers without weakening PostgreSQL locks",
+    "Accept compatible API/UI rollback and remaining producer-lifecycle release acceptance",
     "Trace original Platform_admin bindings and complete wider route/overlay acceptance",
     "Complete API777 registered host/control bindings and owned persistence/recovery journeys before activation",
     "Complete strict dashboard persistence registration and web/native pending-command reconciliation",
@@ -858,7 +900,7 @@
   "remainingReleaseScope": [
     "R00 dynamic host-resolution and full scope/evidence reconciliation",
     "R02 semantic contract and legacy registry review",
-    "R03 compatible API/UI rollback and complete release acceptance",
+    "R03 remaining metadata-writer coordination, complete producer-lifecycle acceptance and compatible API/UI rollback",
     "R04 original Platform_admin binding and wider route/overlay acceptance",
     "R05 native host rollout and physical-device journeys",
     "R06 registered preference/cloud/dashboard persistence and command recovery before activation",
@@ -888,15 +930,25 @@
     "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
   },
   "latestUiPublication": {
-    "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
-    "run": 41486500369,
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "run": 41501329650,
     "conclusion": "success",
     "portals": 9,
     "filesVerifiedPerPortal": 9,
     "ownedSyntheticAuthenticatedJourneysVerified": true,
     "ownedLocalThemeJourneysVerified": true,
     "prePostWebFingerprints": true,
-    "globalPreferenceRuntimeActivated": false
+    "globalPreferenceRuntimeActivated": false,
+    "subsequentSameSourceTenantPublication": {
+      "run": 41501329419,
+      "attempt": 2,
+      "conclusion": "success",
+      "portals": 9,
+      "filesVerifiedPerPortal": 9,
+      "staticAssetsUnchanged": true,
+      "portalManifestsRegenerated": true,
+      "ownedJourneysRerunAfterMetadataRegeneration": false
+    }
   },
   "additionalBrowserRunnerRepair": {
     "source": "dfda381b80a9416f791fd18374d3598fe1a964f2",
@@ -968,5 +1020,16 @@
     "partial": 7,
     "pending": 5
   },
-  "repairPackageStatus": "docs/appearance/theme-repair-packages-status.md"
+  "repairPackageStatus": "docs/appearance/theme-repair-packages-status.md",
+  "previousUiPublication": {
+    "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+    "run": 41486500369,
+    "conclusion": "success",
+    "portals": 9,
+    "filesVerifiedPerPortal": 9,
+    "ownedSyntheticAuthenticatedJourneysVerified": true,
+    "ownedLocalThemeJourneysVerified": true,
+    "prePostWebFingerprints": true,
+    "globalPreferenceRuntimeActivated": false
+  }
 }

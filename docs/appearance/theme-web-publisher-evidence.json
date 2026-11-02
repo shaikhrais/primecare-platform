@@ -141,9 +141,9 @@
     "prePostSourceAndHashReceiptsPerLocale": 4
   },
   "remaining": [
-    "Accept coordinated compatible API/UI rollback",
-    "Complete producer-lifecycle and feature-family release acceptance beyond the owned pilot",
-    "Native physical-device and independent review acceptance remain separate"
+    "Coordinate remaining metadata writers, including .github/workflows/record-account-lifecycle-evidence.yml",
+    "Accept compatible API/UI rollback and complete producer-lifecycle acceptance",
+    "Native physical-device, remaining feature families and independent review remain open"
   ],
   "providerCredentialsOrBusinessAuthorityChanged": false,
   "diagnosticThreeLocaleAcceptance": {
@@ -191,8 +191,8 @@
     ]
   },
   "latestOwnedThemeAcceptance": {
-    "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
-    "run": 41486500369,
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "run": 41501329650,
     "conclusion": "success",
     "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
     "portalsPublished": 9,
@@ -202,19 +202,19 @@
       {
         "locale": "en",
         "width": 320,
-        "job": 125425129760,
+        "job": 125478516056,
         "conclusion": "success"
       },
       {
         "locale": "fr",
         "width": 768,
-        "job": 125425129603,
+        "job": 125478515874,
         "conclusion": "success"
       },
       {
         "locale": "es",
         "width": 1440,
-        "job": 125425129991,
+        "job": 125478515917,
         "conclusion": "success"
       }
     ],
@@ -336,5 +336,63 @@
     },
     "compatibleApiUiRollbackAccepted": false,
     "wholeReleaseAcceptance": false
+  },
+  "ownedThemeAcceptanceHistory": [
+    {
+      "source": "0943eb002d7a7bcf74ca53dcd23ddab174996448",
+      "run": 41486500369,
+      "conclusion": "success",
+      "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
+      "portalsPublished": 9,
+      "filesVerifiedPerPortal": 9,
+      "checksPerLocale": 58,
+      "jobs": [
+        {
+          "locale": "en",
+          "width": 320,
+          "job": 125425129760,
+          "conclusion": "success"
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "job": 125425129603,
+          "conclusion": "success"
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "job": 125425129991,
+          "conclusion": "success"
+        }
+      ],
+      "prePostWebFingerprintReceiptsPerLocale": 4,
+      "localThemeVerified": true,
+      "themeCloudSyncVerified": false,
+      "exactOwnedFixtureAndMailCleanup": true,
+      "wholeThemeAcceptance": false,
+      "tenantAccountReadChecksPerLocale": 36
+    }
+  ],
+  "metadataAndDependencyRepair": {
+    "source": "a9e3bf385b67c1809ce7a9e8985c52b2fa12b804",
+    "accountRun": 41501329650,
+    "tenantRun": 41501329419,
+    "tenantAttempt": 2,
+    "accountRegistrationInsidePublisher": true,
+    "contractChecks": 3,
+    "dependencyLockfile": "package-lock.json",
+    "versions": {
+      "esbuild": "0.27.7",
+      "pg": "8.16.3",
+      "twilio": "2.18.5"
+    },
+    "javascriptMatchesAcrossPublishers": 9,
+    "staticAssetsMatch": true,
+    "portalManifestsRegenerated": true,
+    "ownedJourneysRerunAfterTenantRetry": false,
+    "evidence": "docs/appearance/theme-tenant-history-evidence.json",
+    "otherMetadataWriterCoordinationAccepted": false,
+    "compatibleApiUiRollbackAccepted": false
   }
 }
