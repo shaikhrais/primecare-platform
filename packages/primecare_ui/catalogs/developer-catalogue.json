@@ -161,7 +161,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
+          "sha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -649,7 +649,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
+          "sha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -680,7 +680,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
+          "sha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",
@@ -759,7 +759,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "present": true,
-          "sha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
+          "sha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "ShellContent",

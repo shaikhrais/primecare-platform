@@ -14,8 +14,16 @@
     {
       "path": "packages/primecare_ui/web/shell.ts",
       "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
-      "currentSha256": "43e828b1e856e65bdc1ec72040f02e5300ead80487f8757205c968bce9454a27",
-      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
+      "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+      "verification": {
+        "modelChecks": 2,
+        "command": "node --test scripts/test-shell-footer-model.mjs",
+        "result": "success",
+        "browserRun": 41483421280,
+        "browserAcceptance": "pending",
+        "scope": "Literal sidebar description and optional footer markup; browser, publication and human acceptance are not claimed"
+      }
     },
     {
       "path": "packages/primecare_ui/web/original-assets.ts",
