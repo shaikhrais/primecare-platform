@@ -21,6 +21,7 @@ jobs:
     secrets: inherit
   verify:
     needs: deploy
+    if: needs.deploy.outputs.published == 'true'
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 25

@@ -8,10 +8,6 @@ on:
         required: false
         default: main
         type: string
-  push:
-    branches: [main]
-    paths:
-      - '.github/workflows/cloudflare-web.yml'
 
 permissions:
   actions: read
@@ -131,6 +127,9 @@ jobs:
         with:
           ref: ${{ env.RELEASE_SHA }}
 
+      - name: Require selected production runtime before provider operations
+        run: python3 -m tools.deployment.runtime_policy "${{ matrix.project }}" flutter --require
+
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -146,6 +145,7 @@ jobs:
           cache-dependency-path: package-lock.json
 
       - name: Build immutable web release
+        # This legacy publisher must not replace the selected production runtime.
         working-directory: apps/${{ matrix.app }}
         shell: bash
         run: |
@@ -171,6 +171,7 @@ jobs:
           PROJECT: ${{ matrix.project }}
         run: |
           set -euo pipefail
+          python3 -m tools.deployment.runtime_policy "$PROJECT" flutter --require
           code="$(curl --silent --show-error --output /tmp/pages-project.json             --write-out '%{http_code}'             --header "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}"             "https://api.cloudflare.com/client/v4/accounts/${CLOUDFLARE_ACCOUNT_ID}/pages/projects/${PROJECT}")"
           if [ "${code}" = "404" ]; then
             npx --yes wrangler@"${WRANGLER_VERSION}" pages project create "${PROJECT}"               --production-branch=main
@@ -189,6 +190,7 @@ jobs:
           PROJECT: ${{ matrix.project }}
         run: |
           set -euo pipefail
+          (cd "$GITHUB_WORKSPACE" && python3 -m tools.deployment.runtime_policy "$PROJECT" flutter --require)
           for attempt in 1 2 3 4 5; do
             if npx --yes wrangler@"${WRANGLER_VERSION}" pages deploy build/web               --project-name="${PROJECT}"               --branch=main               --commit-hash="${RELEASE_SHA}"               --commit-message="PrimeCare verified release ${RELEASE_SHA}"; then
               exit 0

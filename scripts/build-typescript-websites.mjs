@@ -26,6 +26,7 @@ import { join } from 'node:path';
 
 const gateway = process.env.API_GATEWAY_URL || 'https://primecare-api-gateway.itpro-mohammed.workers.dev';
 const source = 'websites/typescript'; const generated = join(source, 'generated'); const dist = join(source, 'dist');
+execFileSync('python3', ['-m', 'tools.deployment.runtime_policy', 'all', 'typescript', '--require'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-maintenance-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-recovery-catalog.py'], { stdio: 'inherit' });
 execFileSync('python3', ['scripts/verify-account-sessions-catalog.py'], { stdio: 'inherit' });
@@ -43,6 +44,7 @@ for (const project of projects) {
   cpSync(join(source, 'index.html'), join(target, 'index.html')); cpSync(join(dist, 'assets'), join(target, 'assets'), { recursive: true });
   cpSync(join(generated, project, 'portal.json'), join(target, 'portal.json'));
   writePortalPwa(target,JSON.parse(readFileSync(join(target,'portal.json'),'utf8')).name);
+  execFileSync('python3', ['-m', 'tools.deployment.typescript_release', 'stamp', target, project], { stdio: 'inherit' });
   writeFileSync(join(target, '_redirects'), '/* /index.html 200\n');
-  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(self), geolocation=()\n/manifest.webmanifest\n  Content-Type: application/manifest+json\n  Cache-Control: no-cache\n/service-worker.js\n  Content-Type: application/javascript\n  Cache-Control: no-cache\n  Service-Worker-Allowed: /\n');
+  writeFileSync(join(target, '_headers'), '/*\n  X-Content-Type-Options: nosniff\n  X-Frame-Options: DENY\n  Referrer-Policy: strict-origin-when-cross-origin\n  Permissions-Policy: camera=(), microphone=(self), geolocation=()\n/primecare-build.json\n  Content-Type: application/json\n  Cache-Control: no-store\n/manifest.webmanifest\n  Content-Type: application/manifest+json\n  Cache-Control: no-cache\n/service-worker.js\n  Content-Type: application/javascript\n  Cache-Control: no-cache\n  Service-Worker-Allowed: /\n');
 }

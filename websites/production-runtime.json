@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "projects": {
+    "primecare-business-development": "typescript",
+    "primecare-client": "typescript",
+    "primecare-clinic": "typescript",
+    "primecare-corporate": "typescript",
+    "primecare-franchise": "typescript",
+    "primecare-marketing": "typescript",
+    "primecare-support": "typescript",
+    "primecare-governance": "typescript",
+    "primecare-enterprise-blueprint": "typescript"
+  }
+}

@@ -82,6 +82,12 @@ jobs:
           done
           exit "${missing}"
 
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.release.outputs.sha }}
+      - name: Require compatible web runtime before any backend publication
+        run: python3 -m tools.deployment.runtime_policy all flutter --require
+
   deploy_backend:
     name: Deploy APIs, gateway, and Cloudflare edge
     needs: preflight
@@ -303,6 +309,7 @@ jobs:
         working-directory: apps/${{ matrix.app }}
         run: |
           set -euo pipefail
+          (cd "$GITHUB_WORKSPACE" && python3 -m tools.deployment.runtime_policy "${{ matrix.project }}" flutter --require)
           npx --yes wrangler@"${WRANGLER_VERSION}" pages deploy build/web             --project-name=${{ matrix.project }} --branch=main             --commit-hash="${RELEASE_SHA}"
       - name: Verify website
         run: curl --fail --show-error --location --retry 10 --retry-delay 5 https://${{ matrix.project }}.pages.dev/

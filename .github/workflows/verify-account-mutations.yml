@@ -14,6 +14,14 @@ on:
       - tools/auth-verification/accepted-auth-live-proof-release.json
       - scripts/verify-auth-live-proof-source.mjs
       - tools/auth-verification/test-auth-live-proof-source.mjs
+      - tools/deployment/typescript_release.py
+      - tools/deployment/test_typescript_release.py
+      - tools/deployment/http_client.py
+      - tools/deployment/runtime_policy.py
+      - tools/deployment/test_runtime_policy.py
+      - websites/production-runtime.json
+      - scripts/build-typescript-websites.mjs
+      - .github/workflows/deploy-typescript-websites.yml
   workflow_run:
     workflows: ['Release confirmed self-session revocation']
     types: [completed]
@@ -45,12 +53,14 @@ jobs:
           node scripts/test-tenant-account-reads.mjs
           node scripts/test-auth-client.mjs
           python3 tools/auth-verification/test-owned-inbox-parser.py
+          python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --resolveJsonModule --allowSyntheticDefaultImports --lib dom,dom.iterable,es2022 websites/typescript/src/account-mutations-panel.ts websites/typescript/src/tenant-accounts-panel.ts
   release_source:
     needs: test
     runs-on: ubuntu-latest
     outputs:
       reuse: ${{ steps.source.outputs.reuse }}
+      runtime_source: ${{ steps.source.outputs.runtime_source }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -61,7 +71,7 @@ jobs:
         run: |
           set -euo pipefail
           runtime=df0fb0939a9e349038a2df4e0d04f4661b864995
-          if git diff --quiet "$runtime" HEAD -- websites/typescript packages cloudflare/workers scripts tools/governance-production package.json package-lock.json .github/workflows/deploy-typescript-websites.yml .github/workflows/psw-workspace.yml; then
+          if git diff --quiet "$runtime" HEAD -- websites/typescript websites/production-runtime.json packages cloudflare/workers scripts tools/governance-production tools/deployment package.json package-lock.json .github/workflows/deploy-typescript-websites.yml .github/workflows/psw-workspace.yml; then
             gh api repos/${{ github.repository }}/actions/runs/41446602608 > /tmp/deployed-account-run.json
             gh api repos/${{ github.repository }}/actions/runs/41446602608/jobs --paginate > /tmp/deployed-account-jobs.json
             python3 - <<'PY'
@@ -75,8 +85,10 @@ jobs:
           print('Reusing successful all-nine deployment phases from41446602608; runtime/build/catalog sources identical todf0fb093; current provider source is independently rechecked')
           PY
             echo reuse=true >> "$GITHUB_OUTPUT"
+            echo "runtime_source=$runtime" >> "$GITHUB_OUTPUT"
           else
             echo reuse=false >> "$GITHUB_OUTPUT"
+            echo "runtime_source=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
           fi
   source_proof:
     needs: test
@@ -180,16 +192,23 @@ jobs:
         run: node scripts/verify-auth-live-proof-source.mjs
       - name: Verify actual account UI API database audit reload and owned receiving-Worker mail
         env:
+          EXPECTED_WEB_SOURCE: ${{ needs.release_source.outputs.runtime_source }}
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           TEST_LOCALE: ${{ matrix.locale }}
           TEST_WIDTH: ${{ matrix.width }}
         run: |
+          for project in primecare-corporate primecare-clinic; do
+            python3 -m tools.deployment.typescript_release live "$project" "$EXPECTED_WEB_SOURCE" --record "test-results/account-mutations/web-release-$project.json"
+          done
           python3 scripts/verify-tenant-account-reads-catalog.py
           python3 scripts/verify-account-mutations-catalog.py
           python3 tools/auth-verification/test-live-tenant-account-reads.py
           python3 tools/auth-verification/test-live-account-mutations.py
+          for project in primecare-corporate primecare-clinic; do
+            python3 -m tools.deployment.typescript_release live "$project" "$EXPECTED_WEB_SOURCE" --baseline "test-results/account-mutations/web-release-$project.json"
+          done
       - uses: actions/upload-artifact@v4
         if: always()
         with:

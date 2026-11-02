@@ -2,6 +2,10 @@ name: Reusable Flutter Website Deployment
 
 on:
   workflow_call:
+    outputs:
+      published:
+        description: True only when this runtime is selected for production and its deployment job succeeds
+        value: ${{ jobs.deploy.outputs.published }}
     inputs:
       app:
         required: true
@@ -21,16 +25,22 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
+    outputs:
+      published: ${{ steps.runtime.outputs.publish }}
     steps:
       - uses: actions/checkout@v4
+      - name: Select production runtime without replacing another web implementation
+        id: runtime
+        run: python3 -m tools.deployment.runtime_policy "${{ inputs.project }}" flutter --github-output
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
           channel: stable
           cache: true
       - name: Verify deployment HTTP client
-        run: python3 -m unittest tools.deployment.test_http_client -v
+        run: python3 -m unittest tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
       - name: Verify Cloudflare configuration
+        if: steps.runtime.outputs.publish == 'true'
         env:
           CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CF_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -60,9 +70,10 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: flutter-build-${{ inputs.project }}
-          path: apps/${{ inputs.app }}/build/web/primecare-build.json
-          retention-days: 90
+          path: apps/${{ inputs.app }}/build/web
+          retention-days: 14
       - name: Deploy website with rate-limit retries
+        if: steps.runtime.outputs.publish == 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -81,6 +92,7 @@ jobs:
             sleep "${sleep_seconds}"
           done
       - name: Verify exact live Flutter bundle after propagation
+        if: steps.runtime.outputs.publish == 'true'
         env:
           APP: ${{ inputs.app }}
           PROJECT: ${{ inputs.project }}
@@ -109,3 +121,6 @@ jobs:
               except Exception:
                   if attempt==11:raise
                   time.sleep(5)
+      - name: Report build-only runtime disposition
+        if: steps.runtime.outputs.publish != 'true'
+        run: echo 'Flutter web build archived. Production Pages publishing remains assigned to the selected TypeScript runtime.' >> "$GITHUB_STEP_SUMMARY"
