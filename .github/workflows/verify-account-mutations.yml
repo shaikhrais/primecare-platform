@@ -74,8 +74,28 @@ jobs:
           else
             echo reuse=false >> "$GITHUB_OUTPUT"
           fi
+  source_proof:
+    needs: test
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Read-only source and active-provider gate before metadata or publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: node scripts/verify-auth-live-proof-source.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: auth-live-proof-source-acceptance
+          path: test-results/account-mutations/auth-release-approved.json
   bind:
-    needs: release_source
+    needs: [release_source, source_proof]
     if: needs.release_source.outputs.reuse != 'true'
     environment: production
     runs-on: ubuntu-latest
@@ -119,8 +139,8 @@ jobs:
       confirm: DEPLOY
     secrets: inherit
   proof:
-    needs: [release_source, deploy]
-    if: always() && needs.release_source.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
+    needs: [release_source, source_proof, deploy]
+    if: always() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 25
