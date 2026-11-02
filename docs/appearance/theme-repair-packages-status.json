@@ -2,7 +2,7 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "3c732cf3096716b32ad3baae70f443f4b6903edd",
+  "asOfImplementation": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
   "counts": {
     "total": 13,
     "done": 1,
@@ -63,7 +63,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "Competing Flutter/TypeScript publishers identified; nine-portal TypeScript selection and source/hash gates implemented. All nine Flutter web builds archived without publication. Stamped production acceptance and coordinated rollback remain.",
+      "note": "All-nine stamped publication and three-locale owned account acceptance pass. Coordination of remaining publishers and compatible API/UI rollback remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -82,14 +82,15 @@
       "id": "R04",
       "title": "Finish one real web shell before portal-wide rollout",
       "status": "partial",
-      "note": "Tenant pilot and locale/recovery subsets work; shell migration and localization/RTL acceptance remain.",
+      "note": "One owned clinic web pilot passes 58 live checks in each locale, including theme/layout recovery/save/reload. Original Platform_admin binding, footer/route/overlay adoption and LTR/RTL acceptance remain.",
       "acceptance": [
         "Actual login, navigation/deep link, theme/layout change, action, reload and logout pass at narrow/wide breakpoints.",
         "Denied destinations never open; dirty/pending forms, overlays and stale account callbacks retain correct behavior; EN/FR/ES labels and LTR/RTL are checked."
       ],
       "evidence": [
         "websites/typescript/src/tenant-dashboard/work-module-host.ts",
-        "CI 41349589267: 16 tenant-host checks including 2 locale cases"
+        "CI 41349589267: 16 tenant-host checks including 2 locale cases",
+        "CI41475732794: owned live local-theme pilot"
       ]
     },
     {
@@ -107,7 +108,7 @@
       "id": "R06",
       "title": "Complete preferences and durable recovery",
       "status": "partial",
-      "note": "Published tenant request recovery; TypeScript/Flutter disposal and late-storage fixes passed all five CI jobs (16 client tests per language). API777 hosts, dashboard contract and broader native recovery remain.",
+      "note": "Tenant request recovery and web local-theme recovery shipped and tested. Registered API777 hosts, cloud/dashboard persistence, other commands and native recovery remain.",
       "acceptance": [
         "Owned save/read/reload/cross-device restoration and dashboard persistence pass with independent SQL readback.",
         "Crash/restart at every mutation boundary cannot duplicate a write or restore another actor’s data; revoked access remains denied and failed drafts stay recoverable."
@@ -118,7 +119,8 @@
         "Preference client source 5bb049c0bbf9cdf5ad1b39a67598398f99d787a9; CI 41451471237 pending",
         "Matching Flutter source 7142dbf8d50530aa6f219042903494eb00a04f3e; CI 41451711345 pending",
         "docs/appearance/theme-preference-disposal-evidence.json",
-        "CI 41452987783: 5/5 jobs successful"
+        "CI 41452987783: 5/5 jobs successful",
+        "docs/appearance/theme-web-recovery-evidence.json"
       ]
     },
     {

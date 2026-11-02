@@ -130,7 +130,15 @@
   "stampedProductionAcceptance": {
     "source": "3c732cf3096716b32ad3baae70f443f4b6903edd",
     "run": 41457664954,
-    "conclusion": "pending"
+    "conclusion": "success",
+    "portals": 9,
+    "locales": [
+      "en",
+      "fr",
+      "es"
+    ],
+    "checksPerLocale": 49,
+    "prePostSourceAndHashReceiptsPerLocale": 4
   },
   "remaining": [
     "Finish all-nine stamped production release and source-bound EN/FR/ES account journeys",
@@ -164,5 +172,56 @@
     "redirectsFollowed": false,
     "localTests": 19,
     "documentation": "https://developers.cloudflare.com/pages/configuration/serving-pages/"
+  },
+  "expandedPortalAssets": {
+    "source": "f30d58b1ffec7f0a49ddb451a73b7bd0d93e39ba",
+    "run": 41470438175,
+    "conclusion": "success",
+    "portals": 9,
+    "files": [
+      "index.html",
+      "portal.json",
+      "assets/app.js",
+      "assets/app.css",
+      "manifest.webmanifest",
+      "service-worker.js",
+      "flutter_service_worker.js",
+      "icons/primecare-192.png",
+      "icons/primecare-512.png"
+    ]
+  },
+  "latestOwnedThemeAcceptance": {
+    "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+    "run": 41475732794,
+    "conclusion": "success",
+    "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
+    "portalsPublished": 9,
+    "filesVerifiedPerPortal": 9,
+    "checksPerLocale": 58,
+    "jobs": [
+      {
+        "locale": "en",
+        "width": 320,
+        "job": 125387768325,
+        "conclusion": "success"
+      },
+      {
+        "locale": "fr",
+        "width": 768,
+        "job": 125387768096,
+        "conclusion": "success"
+      },
+      {
+        "locale": "es",
+        "width": 1440,
+        "job": 125387768139,
+        "conclusion": "success"
+      }
+    ],
+    "prePostWebFingerprintReceiptsPerLocale": 4,
+    "localThemeVerified": true,
+    "themeCloudSyncVerified": false,
+    "exactOwnedFixtureAndMailCleanup": true,
+    "wholeThemeAcceptance": false
   }
 }

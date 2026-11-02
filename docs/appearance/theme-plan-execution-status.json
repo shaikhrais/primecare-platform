@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "3c732cf3096716b32ad3baae70f443f4b6903edd",
+  "implementedSource": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -89,7 +89,7 @@
     },
     {
       "package": "R03",
-      "state": "source_fix_verified_and_current_candidate_published",
+      "state": "stamped_portal_publication_accepted_coordinated_rollback_open",
       "done": [
         "Added fixed-workflow/main-only scheduler for prepublication stale-source rejection",
         "Seven scheduler tests passed; current/failed/already-attempted candidates are not automatically replayed",
@@ -101,19 +101,20 @@
         "Retain bounded failure route/status metadata, page-state markers and screenshot for live account read failures; changes to the read proof now trigger its guarded release workflow",
         "Selected TypeScript for the existing nine production portal projects; shared Flutter web builds archive artifacts and skip production publication under that policy",
         "Added strict source/build stamps plus independent HTML/manifest/JavaScript hash verification to TypeScript deployment and pre/post owned account journeys",
-        "Legacy Flutter production publishers require selected runtime before provider publication; secure legacy release checks the policy before backend publication; live Flutter proofs require actual publication output"
+        "Legacy Flutter production publishers require selected runtime before provider publication; secure legacy release checks the policy before backend publication; live Flutter proofs require actual publication output",
+        "Accepted all-nine source-stamped TypeScript release and EN/FR/ES owned account journeys with pre/post live file fingerprints (CI41457664954)"
       ],
       "remaining": [
         "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live",
         "Complete coordinated publication and rollback acceptance for the full supported API/UI pair",
-        "Accept corrected candidate 3c732cf3096716b32ad3baae70f443f4b6903edd through all-nine stamped publication and pre/post source-bound owned account journeys; CI41457664954 queued",
         "Complete coordinated release and compatible API/UI rollback acceptance across remaining publishers"
       ],
       "evidence": [
         "scripts/retry-stale-workspace-release.mjs",
         "CI 41349589268 verify success",
         "CI 41349589287 acceptance and publish success",
-        "CI 41448542072: all jobs successful"
+        "CI 41448542072: all jobs successful",
+        "CI41457664954: complete successful release"
       ]
     },
     {
@@ -122,14 +123,20 @@
       "done": [
         "Tenant work host and shared shell receive current supported document locale",
         "French/Spanish calendar headings and date presentation checked in actual host tests",
-        "Published central web bundle to nine portals"
+        "Published central web bundle to nine portals",
+        "Publish a network-only compatibility worker at the former Flutter worker URL; actual browser update preserves unsaved drafts and unrelated cache entries",
+        "Verify nine critical portal files including CSS, both workers, manifest and icons against the shipped build",
+        "Actual shipped clinic Theme Center recovery, named palette/font save, sidebar/navigation save, fresh reload and logout passed in EN320/FR768/ES1440; 58 checks per owned account journey"
       ],
       "remaining": [
-        "Remaining shell/theme/utility migration and reviewed business localization"
+        "Remaining shell/theme/utility migration and reviewed business localization",
+        "Complete original Platform_admin binding, footer/route/overlay adoption and LTR/RTL acceptance without conflating the owned physio pilot with all roles"
       ],
       "evidence": [
         "websites/typescript/src/tenant-dashboard/work-module-host.ts",
-        "CI 41349589267: 16 tenant-host checks including 2 locale cases"
+        "CI 41349589267: 16 tenant-host checks including 2 locale cases",
+        "docs/appearance/theme-web-recovery-evidence.json",
+        "CI41475732794: all nine deployments and three source-bound owned theme journeys successful"
       ]
     },
     {
@@ -171,7 +178,9 @@
         "Retry a lost-acknowledgement receipt through the existing Save control; direct SQL verifies a single preference revision and a single original audit event",
         "Retain newer edits while confirming the original request; definitive rejection permits explicit local discard",
         "Reproduced and fixed disposal during durable-request storage: no post-disposal transport write, original scoped request remains explicitly retryable",
-        "Preserve terminal disposed state and closed listeners when edit/accept-remote/keep-local cache writes fail after disposal; three regressions reproduced before the TypeScript/Flutter fix"
+        "Preserve terminal disposed state and closed listeners when edit/accept-remote/keep-local cache writes fail after disposal; three regressions reproduced before the TypeScript/Flutter fix",
+        "Protect unreadable web Theme Center libraries from overwrite; show localized recovery notice and require explicit scoped reset, preserving data after cancellation/removal failure",
+        "Four recovery model tests and EN/FR/ES real-browser recovery cases passed before publishing to all nine portals (CI41472788148)"
       ],
       "remaining": [
         "Registered API777 preference hosts and current owned UI/API/database/reload acceptance before cloud activation",
@@ -183,7 +192,8 @@
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
         "CI 41440610076 / acceptance 125261215473 / publication 125262081071",
-        "docs/appearance/theme-preference-disposal-evidence.json"
+        "docs/appearance/theme-preference-disposal-evidence.json",
+        "docs/appearance/theme-web-recovery-evidence.json"
       ]
     },
     {
@@ -588,8 +598,8 @@
       "flutterBuilds": 9,
       "flutterProductionDeployments": 0,
       "stampedProductionRun": 41457664954,
-      "stampedProductionConclusion": "pending",
-      "stampedProductionPhase": "Corrected canonical-root verifier: 19 local tests passed; fresh release queued",
+      "stampedProductionConclusion": "success",
+      "stampedProductionPhase": "All nine deployments and all three owned account journeys successful",
       "previousAttempt": {
         "source": "db56ea9621d7213180dfc7b718b8755ca99220f7",
         "run": 41455071276,
@@ -610,6 +620,162 @@
       "ownedSyntheticFixtures": true,
       "wholeReleaseAcceptance": false,
       "prePostWebFingerprints": false
+    },
+    "shellWorkerMigration": {
+      "source": "f30d58b1ffec7f0a49ddb451a73b7bd0d93e39ba",
+      "run": 41470438175,
+      "browserJob": 125362486263,
+      "conclusion": "success",
+      "portals": 9,
+      "filesVerifiedPerPortal": 9,
+      "checksPerLiveLocale": 49,
+      "locales": [
+        "en",
+        "fr",
+        "es"
+      ],
+      "receipt": {
+        "source": "f30d58b1ffec7f0a49ddb451a73b7bd0d93e39ba",
+        "passed": true,
+        "realBrowser": true,
+        "nativeManifestParsed": true,
+        "iconsDecoded": [
+          192,
+          512
+        ],
+        "serviceWorkerControlsPage": true,
+        "installButtonFallback": true,
+        "installPromptEventSimulated": true,
+        "installedStateHidden": true,
+        "offlineNoPrivatePageReplay": true,
+        "workerFetchNetworkFailureForced": true,
+        "noCacheStorage": true,
+        "legacyRegisteredWorkerUpdate": true,
+        "legacyCachedShellReplaced": true,
+        "unsavedDraftAndUnrelatedCachePreserved": true,
+        "migratedOfflineNoPrivateReplay": true,
+        "legacyWorkerUsesSyntheticFixture": true,
+        "osInstallPromptVerified": false,
+        "callsPlaced": 0
+      },
+      "limits": [
+        "Legacy cached worker was reproduced with an isolated fixture and explicit registration.update()",
+        "No physical-device or OS installation acceptance"
+      ]
+    },
+    "themeLibraryRecovery": {
+      "source": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+      "run": 41472788148,
+      "conclusion": "success",
+      "modelChecks": 4,
+      "browserJob": 125372855548,
+      "browserReceipt": {
+        "source": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+        "passed": true,
+        "scope": "isolated real-browser local Theme Center recovery",
+        "results": [
+          {
+            "locale": "en",
+            "width": 390,
+            "noticeVisible": true,
+            "overwriteBlocked": true,
+            "draftRetained": true,
+            "cancelPreservesRecord": true,
+            "failedRemovalPreservesRecord": true,
+            "explicitScopedRecovery": true,
+            "otherAccountPreserved": true,
+            "newSaveAndReload": true
+          },
+          {
+            "locale": "fr",
+            "width": 768,
+            "noticeVisible": true,
+            "overwriteBlocked": true,
+            "draftRetained": true,
+            "cancelPreservesRecord": true,
+            "failedRemovalPreservesRecord": true,
+            "explicitScopedRecovery": true,
+            "otherAccountPreserved": true,
+            "newSaveAndReload": true
+          },
+          {
+            "locale": "es",
+            "width": 1440,
+            "noticeVisible": true,
+            "overwriteBlocked": true,
+            "draftRetained": true,
+            "cancelPreservesRecord": true,
+            "failedRemovalPreservesRecord": true,
+            "explicitScopedRecovery": true,
+            "otherAccountPreserved": true,
+            "newSaveAndReload": true
+          }
+        ],
+        "productionAccountsChanged": 0,
+        "callsPlaced": 0
+      },
+      "portals": 9,
+      "liveAccountChecksPerLocale": 49,
+      "scope": "Web local Theme Center storage; not native recovery or API777 cloud synchronization"
+    },
+    "themeCatalogueRefresh": {
+      "source": "f40a60c905662c597ea460e18c8eddd4d6f4fde9",
+      "run": 41474757358,
+      "passedJobs": 7,
+      "totalJobs": 7,
+      "originalProposalIdentityPreserved": true,
+      "humanApproval": false,
+      "runtimeActivation": false,
+      "changedSource": "packages/primecare_ui/web/theme-center.ts"
+    },
+    "sharedShellRunner": {
+      "source": "ad9b1ab79147e29ce5aee3ad7dbc01a2198f4408",
+      "run": 41473038636,
+      "job": 125371332898,
+      "conclusion": "success",
+      "runner": "ubuntu-24.04"
+    },
+    "ownedLocalTheme": {
+      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+      "run": 41475732794,
+      "conclusion": "success",
+      "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
+      "portalsPublished": 9,
+      "filesVerifiedPerPortal": 9,
+      "checksPerLocale": 58,
+      "jobs": [
+        {
+          "locale": "en",
+          "width": 320,
+          "job": 125387768325,
+          "conclusion": "success"
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "job": 125387768096,
+          "conclusion": "success"
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "job": 125387768139,
+          "conclusion": "success"
+        }
+      ],
+      "prePostWebFingerprintReceiptsPerLocale": 4,
+      "localThemeVerified": true,
+      "themeCloudSyncVerified": false,
+      "exactOwnedFixtureAndMailCleanup": true,
+      "wholeThemeAcceptance": false
+    },
+    "latestAuthSourceGate": {
+      "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+      "run": 41475732794,
+      "job": 125384153818,
+      "conclusion": "success",
+      "scope": "Read-only approved Worker source/deployment identity check; rechecked before every owned live journey",
+      "preferenceRuntimeActivated": false
     }
   },
   "permissionRowsChanged": 209,
@@ -674,13 +840,15 @@
     "acceptanceScope": "Browser uses synthetic business data with production-governed themes; not an authenticated real business journey or physical-device acceptance"
   },
   "latestUiPublication": {
-    "source": "4e621770beb91571ae607ec1c7713ca7978a5974",
-    "run": 41453304412,
+    "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+    "run": 41475732794,
     "conclusion": "success",
     "portals": 9,
+    "filesVerifiedPerPortal": 9,
     "ownedSyntheticAuthenticatedJourneysVerified": true,
-    "globalPreferenceRuntimeActivated": false,
-    "prePostWebFingerprints": false
+    "ownedLocalThemeJourneysVerified": true,
+    "prePostWebFingerprints": true,
+    "globalPreferenceRuntimeActivated": false
   },
   "additionalBrowserRunnerRepair": {
     "source": "dfda381b80a9416f791fd18374d3598fe1a964f2",

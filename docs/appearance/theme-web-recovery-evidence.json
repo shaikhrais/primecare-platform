@@ -1,0 +1,139 @@
+{
+  "format": 1,
+  "workerMigration": {
+    "source": "f30d58b1ffec7f0a49ddb451a73b7bd0d93e39ba",
+    "run": 41470438175,
+    "browserJob": 125362486263,
+    "conclusion": "success",
+    "portals": 9,
+    "filesVerifiedPerPortal": 9,
+    "checksPerLiveLocale": 49,
+    "locales": [
+      "en",
+      "fr",
+      "es"
+    ],
+    "receipt": {
+      "source": "f30d58b1ffec7f0a49ddb451a73b7bd0d93e39ba",
+      "passed": true,
+      "realBrowser": true,
+      "nativeManifestParsed": true,
+      "iconsDecoded": [
+        192,
+        512
+      ],
+      "serviceWorkerControlsPage": true,
+      "installButtonFallback": true,
+      "installPromptEventSimulated": true,
+      "installedStateHidden": true,
+      "offlineNoPrivatePageReplay": true,
+      "workerFetchNetworkFailureForced": true,
+      "noCacheStorage": true,
+      "legacyRegisteredWorkerUpdate": true,
+      "legacyCachedShellReplaced": true,
+      "unsavedDraftAndUnrelatedCachePreserved": true,
+      "migratedOfflineNoPrivateReplay": true,
+      "legacyWorkerUsesSyntheticFixture": true,
+      "osInstallPromptVerified": false,
+      "callsPlaced": 0
+    },
+    "limits": [
+      "Legacy cached worker was reproduced with an isolated fixture and explicit registration.update()",
+      "No physical-device or OS installation acceptance"
+    ]
+  },
+  "unreadableThemeLibrary": {
+    "source": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+    "run": 41472788148,
+    "conclusion": "success",
+    "modelChecks": 4,
+    "browserJob": 125372855548,
+    "browserReceipt": {
+      "source": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+      "passed": true,
+      "scope": "isolated real-browser local Theme Center recovery",
+      "results": [
+        {
+          "locale": "en",
+          "width": 390,
+          "noticeVisible": true,
+          "overwriteBlocked": true,
+          "draftRetained": true,
+          "cancelPreservesRecord": true,
+          "failedRemovalPreservesRecord": true,
+          "explicitScopedRecovery": true,
+          "otherAccountPreserved": true,
+          "newSaveAndReload": true
+        },
+        {
+          "locale": "fr",
+          "width": 768,
+          "noticeVisible": true,
+          "overwriteBlocked": true,
+          "draftRetained": true,
+          "cancelPreservesRecord": true,
+          "failedRemovalPreservesRecord": true,
+          "explicitScopedRecovery": true,
+          "otherAccountPreserved": true,
+          "newSaveAndReload": true
+        },
+        {
+          "locale": "es",
+          "width": 1440,
+          "noticeVisible": true,
+          "overwriteBlocked": true,
+          "draftRetained": true,
+          "cancelPreservesRecord": true,
+          "failedRemovalPreservesRecord": true,
+          "explicitScopedRecovery": true,
+          "otherAccountPreserved": true,
+          "newSaveAndReload": true
+        }
+      ],
+      "productionAccountsChanged": 0,
+      "callsPlaced": 0
+    },
+    "portals": 9,
+    "liveAccountChecksPerLocale": 49,
+    "scope": "Web local Theme Center storage; not native recovery or API777 cloud synchronization"
+  },
+  "ownedThemePilot": {
+    "source": "a3cc31603202f23b8ea7362cb649056dcf3aba38",
+    "run": 41475732794,
+    "conclusion": "success",
+    "scope": "Owned physio clinic account: local Theme Center recovery, named palette/font save, layout save/reload and logout",
+    "portalsPublished": 9,
+    "filesVerifiedPerPortal": 9,
+    "checksPerLocale": 58,
+    "jobs": [
+      {
+        "locale": "en",
+        "width": 320,
+        "job": 125387768325,
+        "conclusion": "success"
+      },
+      {
+        "locale": "fr",
+        "width": 768,
+        "job": 125387768096,
+        "conclusion": "success"
+      },
+      {
+        "locale": "es",
+        "width": 1440,
+        "job": 125387768139,
+        "conclusion": "success"
+      }
+    ],
+    "prePostWebFingerprintReceiptsPerLocale": 4,
+    "localThemeVerified": true,
+    "themeCloudSyncVerified": false,
+    "exactOwnedFixtureAndMailCleanup": true,
+    "wholeThemeAcceptance": false
+  },
+  "limits": [
+    "Personal theme and layout remain stored locally on this browser",
+    "API777 cloud preference synchronization remains off",
+    "No whole R04/R06 package or B01–B18 batch closure is inferred"
+  ]
+}
