@@ -2,12 +2,12 @@
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
   "countingUnit": "13 repair packages R00–R12; these cover 18 feature batches B01–B18. A package may contain several tasks.",
-  "asOfImplementation": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+  "asOfImplementation": "34ef8463af0872f66b38e8f70cb00c68690d5d4a",
   "counts": {
     "total": 13,
     "done": 1,
-    "partial": 6,
-    "pending": 6
+    "partial": 7,
+    "pending": 5
   },
   "wholeFeatureBatchesClosed": 0,
   "packages": [
@@ -62,7 +62,7 @@
       "id": "R03",
       "title": "Make verified publication reliable",
       "status": "partial",
-      "note": "Immutable-source publication works; full authenticated smoke and rollback acceptance remain.",
+      "note": "Read-only source/provider preflight and deployed owned account smoke accepted; coordinated full API/UI publication and rollback acceptance remain.",
       "acceptance": [
         "One candidate can progress from verification to publication without source drift; both current-main checks remain effective.",
         "Deployment receipts and a smoke login/action/reload journey refer to the same source; rollback restores a compatible known-good API/UI pair."
@@ -70,7 +70,8 @@
       "evidence": [
         "scripts/retry-stale-workspace-release.mjs",
         "CI 41349589268 verify success",
-        "CI 41349589287 acceptance and publish success"
+        "CI 41349589287 acceptance and publish success",
+        "CI 41448542072: source preflight, all nine portal deployments and three owned account proofs successful"
       ]
     },
     {
@@ -175,13 +176,15 @@
     {
       "id": "R12",
       "title": "Run full release acceptance and close batches",
-      "status": "pending",
-      "note": "Full release acceptance depends on the open packages plus actual-device and human evidence.",
+      "status": "partial",
+      "note": "Owned deployed account lifecycle accepted across EN/FR/ES at 320/768/1440 widths (49 checks each); other feature families, actual devices, human review and coordinated rollback remain open.",
       "acceptance": [
         "Every retained feature and every batch meets its individual acceptance criteria with current evidence; no unknown/pending result is counted as passed.",
         "Release guard succeeds, production/device/review receipts match the shipped source, and a tested rollback target is retained."
       ],
-      "evidence": []
+      "evidence": [
+        "CI 41448542072 / proof jobs 125290860143, 125290860230, 125290860222"
+      ]
     }
   ],
   "limits": [

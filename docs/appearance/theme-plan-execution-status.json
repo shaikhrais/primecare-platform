@@ -1,7 +1,7 @@
 {
   "format": 1,
   "plan": "docs/appearance/deep-assessment-repair-plan-2026-11-01.json",
-  "implementedSource": "e8aab4d25fd234f85d7843bac94707bf2d23970a",
+  "implementedSource": "34ef8463af0872f66b38e8f70cb00c68690d5d4a",
   "wholeBatchesClosed": 0,
   "execution": [
     {
@@ -89,15 +89,21 @@
       "done": [
         "Added fixed-workflow/main-only scheduler for prepublication stale-source rejection",
         "Seven scheduler tests passed; current/failed/already-attempted candidates are not automatically replayed",
-        "Acceptance and publication succeeded for the same immutable source"
+        "Acceptance and publication succeeded for the same immutable source",
+        "Live-account verification now accepts the independently verified deployed auth candidate instead of selecting only an obsolete release workflow",
+        "Read-only Worker-source, successful CI upload receipt and active-provider-version checks run before metadata writes/publication and again before the live proof",
+        "Eight source/receipt/provider rejection cases pass; affected shared-session/account-proof browser jobs use supported Ubuntu 24.04",
+        "Actual deployed owned account creation, management, revocation, recovery, password change and logout pass in EN/FR/ES with independent SQL/audit and receiving-Worker mail readback"
       ],
       "remaining": [
-        "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live"
+        "Automatic dispatch after a real future stale rejection is unit-verified, not yet observed live",
+        "Complete coordinated publication and rollback acceptance for the full supported API/UI pair"
       ],
       "evidence": [
         "scripts/retry-stale-workspace-release.mjs",
         "CI 41349589268 verify success",
-        "CI 41349589287 acceptance and publish success"
+        "CI 41349589287 acceptance and publish success",
+        "CI 41448542072: all jobs successful"
       ]
     },
     {
@@ -165,6 +171,22 @@
         "docs/appearance/theme-tenant-preference-draft-evidence.json",
         "CI 41380784090 / acceptance 125070913213",
         "CI 41440610076 / acceptance 125261215473 / publication 125262081071"
+      ]
+    },
+    {
+      "package": "R12",
+      "state": "owned_account_family_accepted_partial_release",
+      "done": [
+        "Actual deployed owned account creation, management, revocation, recovery, password change and logout pass in EN/FR/ES with independent SQL/audit and receiving-Worker mail readback",
+        "All three owned fixtures and their correlated inbox messages cleaned up successfully"
+      ],
+      "remaining": [
+        "All other retained feature-family acceptance",
+        "Physical-device and human-review evidence",
+        "Compatible API/UI rollback acceptance"
+      ],
+      "evidence": [
+        "CI 41448542072: all jobs successful"
       ]
     }
   ],
@@ -397,6 +419,54 @@
         "otherWorkersModified": 0,
         "providerActions": 0
       }
+    },
+    "authLiveSource": {
+      "source": "df0fb0939a9e349038a2df4e0d04f4661b864995",
+      "run": 41446602608,
+      "sourceProofJob": 125281337998,
+      "readOnlyGate": "success",
+      "acceptance": {
+        "run": 41357999594,
+        "releaseSource": "1831695d1609d0b49fdb0427efbeba7f241d4a4b",
+        "workerSourceMatch": true,
+        "worker": "primecare-auth-api",
+        "versionId": "4db1ce26-0770-4d96-b0e5-c104a4df865c",
+        "deploymentId": "5d3fc26e-1495-47f8-9cea-c833918658be",
+        "ciDeploymentVerified": true,
+        "producer": "df0fb0939a9e349038a2df4e0d04f4661b864995",
+        "independentActiveDeploymentRead": true,
+        "preferenceRuntimeActivated": false
+      },
+      "localRejectionCases": 8,
+      "productionWorkflowWritesBySourceCheck": 0
+    },
+    "ownedAccountLifecycle": {
+      "source": "c3647124278aea266a2c3e39c05133c70c8e0b08",
+      "run": 41448542072,
+      "conclusion": "success",
+      "jobs": [
+        {
+          "id": 125290860143,
+          "locale": "en",
+          "width": 320
+        },
+        {
+          "id": 125290860230,
+          "locale": "fr",
+          "width": 768
+        },
+        {
+          "id": 125290860222,
+          "locale": "es",
+          "width": 1440
+        }
+      ],
+      "checksPerJourney": 49,
+      "ownedReceivingWorkerMail": true,
+      "independentDatabaseReadback": true,
+      "exactOwnedFixtureCleanup": true,
+      "wholeAuthVerified": false,
+      "scope": "Existing owned account lifecycle only; not whole-platform or device acceptance"
     }
   },
   "permissionRowsChanged": 209,
@@ -536,8 +606,8 @@
   "repairPackageCounts": {
     "total": 13,
     "done": 1,
-    "partial": 6,
-    "pending": 6
+    "partial": 7,
+    "pending": 5
   },
   "repairPackageStatus": "docs/appearance/theme-repair-packages-status.md"
 }

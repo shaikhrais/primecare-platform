@@ -1,0 +1,28 @@
+{
+  "source": "c3647124278aea266a2c3e39c05133c70c8e0b08",
+  "run": 41448542072,
+  "conclusion": "success",
+  "jobs": [
+    {
+      "id": 125290860143,
+      "locale": "en",
+      "width": 320
+    },
+    {
+      "id": 125290860230,
+      "locale": "fr",
+      "width": 768
+    },
+    {
+      "id": 125290860222,
+      "locale": "es",
+      "width": 1440
+    }
+  ],
+  "checksPerJourney": 49,
+  "ownedReceivingWorkerMail": true,
+  "independentDatabaseReadback": true,
+  "exactOwnedFixtureCleanup": true,
+  "wholeAuthVerified": false,
+  "scope": "Existing owned account lifecycle only; not whole-platform or device acceptance"
+}
