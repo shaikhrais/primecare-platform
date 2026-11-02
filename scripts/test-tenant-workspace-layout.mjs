@@ -21,7 +21,7 @@ try{
  await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routeMain===document.querySelector('[data-pc-slot=main]')),true);
  await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
  await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routeMain===document.querySelector('[data-pc-slot=main]')),true);
- await el('tenant-dialog-close').click();await page.locator('dialog').waitFor({state:'detached'});
+ await el('tenant-dialog-close').click();await page.locator('dialog.td-dialog').waitFor({state:'detached'});
  await changeHistory('#audit');assert.equal(await page.locator('[data-td-view=audit]').getAttribute('aria-current'),'page');
  await page.evaluate(()=>window.routeMain=document.querySelector('[data-pc-slot=main]'));await page.evaluate(()=>dispatchEvent(new PopStateEvent('popstate')));assert.equal(await page.evaluate(()=>window.routeMain===document.querySelector('[data-pc-slot=main]')),true);
  await changeHistory('#overview');await page.goBack();await page.waitForFunction(()=>document.querySelector('[data-td-view=audit]').getAttribute('aria-current')==='page');await page.goForward();await page.waitForFunction(()=>document.querySelector('[data-td-view=overview]').getAttribute('aria-current')==='page');assert.equal(writes,0);
