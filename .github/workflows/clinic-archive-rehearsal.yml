@@ -2,7 +2,7 @@ name: Isolated clinic archive rehearsal
 on:
   push:
     branches: [main]
-    paths: ['.github/workflows/clinic-archive-rehearsal.yml']
+    paths: ['.github/workflows/clinic-archive-rehearsal.yml', 'scripts/test-auth-password-workflow.mjs']
   workflow_dispatch:
 permissions:
   contents: read

@@ -44,7 +44,7 @@ try{
   if(archive&&!requestUrl.pathname.startsWith('/v1/')){
    const path=requestUrl.pathname.slice(1);
    const name=['','login','forgot-password','reset-password','platform/administration'].includes(path)?'index.html':path;
-   const file=archivedFiles.get(name);
+   const file=name==='__fixture/axe.min.js'?await readFile(require.resolve('axe-core/axe.min.js')):archivedFiles.get(name);
    if(!file){res.writeHead(404);res.end();return;}
    res.setHeader('Content-Security-Policy',"default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'none'; form-action 'none'; base-uri 'none'");
    const extension=name.split('.').at(-1);
@@ -75,7 +75,7 @@ try{
   await page.keyboard.press('Tab');await page.keyboard.press('Enter');
  };
  const checkForm=async(page,id,locale,bucket=receipt.accessibility,surface=id)=>{
-  await page.addScriptTag({path:require.resolve('axe-core/axe.min.js')});
+  await page.addScriptTag(archive?{url:origin+'/__fixture/axe.min.js'}:{path:require.resolve('axe-core/axe.min.js')});
   const result=await cy(page,id).evaluate(async element=>window.axe.run(element,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}}));
   const summary={browser:browserName,locale,form:id,surface,passes:result.passes.length,violations:result.violations.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>({target:n.target,failureSummary:n.failureSummary}))})),incomplete:result.incomplete.map(v=>({id:v.id,impact:v.impact,nodes:v.nodes.map(n=>n.target)}))};
   bucket.push(summary);assert.equal(summary.violations.length,0,'Automated form accessibility: '+JSON.stringify(summary.violations));
