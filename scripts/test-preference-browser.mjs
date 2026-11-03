@@ -10,7 +10,30 @@ try{for(let i=0;i<2;i++){const context=await browser.newContext();contexts.push(
  await b.evaluate(async()=>{await sync.keepLocal();await sync.save();});
  const sql=(await f.db.query('SELECT revision,document FROM account_preference_documents')).rows[0];assert.equal(Number(sql.revision),2);assert.deepEqual(sql.document,{version:1,screenIds:['2']});
  await a.evaluate(async()=>{await sync.load();});assert.deepEqual(await a.evaluate(()=>sync.current.draft),{version:1,screenIds:['2']});
- await a.reload();await a.evaluate(async token=>{window.sync=new PreferenceSync.PreferenceSyncClient({scope:{tenantId:'tenant1',userId:'user1',role:'psw',dataset:'live'},kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1','2']}},PreferenceSync.preferenceHttpTransport(location.origin,token),PreferenceSync.preferenceStorageCache(localStorage));await sync.load();},f.tokens.user1);assert.equal(await a.evaluate(()=>sync.current.base.revision),2);
+ const reloadClient=async()=>{await a.reload();await a.evaluate(async token=>{window.sync=new PreferenceSync.PreferenceSyncClient({scope:{tenantId:'tenant1',userId:'user1',role:'psw',dataset:'live'},kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1','2']}},PreferenceSync.preferenceHttpTransport(location.origin,token),PreferenceSync.preferenceStorageCache(localStorage));await sync.load();},f.tokens.user1);};
+ await reloadClient();assert.equal(await a.evaluate(()=>sync.current.base.revision),2);
  await contexts[0].setOffline(true);await a.evaluate(async()=>{await sync.edit({version:1,screenIds:['1']});await sync.save();});assert.equal(await a.evaluate(()=>sync.current.status),'offline');await contexts[0].setOffline(false);await a.evaluate(async()=>{await sync.retryPending();});assert.equal(await a.evaluate(()=>sync.current.base.revision),3);
- console.log(JSON.stringify({browser:'chromium',contexts:2,checks:['real HTTP gateway/service','conflict resolution','independent SQL read','page reload','offline explicit retry'],engine:f.native?'native-postgresql':'isolated-pglite',liveActivation:false}));
+ const auditCount=async()=>Number((await f.db.query('SELECT COUNT(*) AS count FROM account_preference_audit')).rows[0].count);
+ const beforeLostResponse=await auditCount();
+ await a.route('**/v1/**',async route=>{
+  const response=await route.fetch();
+  assert.equal(response.status(),200);
+  await route.abort();
+ },{times:1});
+ await a.evaluate(async()=>{await sync.edit({version:1,screenIds:['2']});await sync.save();});
+ const pending=await a.evaluate(()=>sync.current.pending);
+ assert.ok(pending?.requestId);
+ assert.equal(await auditCount(),beforeLostResponse+1);
+ await reloadClient();
+ assert.deepEqual(await a.evaluate(()=>sync.current.pending),pending);
+ assert.equal(await auditCount(),beforeLostResponse+1,'Loading must not replay the pending write');
+ await a.evaluate(()=>sync.retryPending());
+ assert.equal(await a.evaluate(()=>sync.current.status),'clean');
+ assert.equal(await a.evaluate(()=>sync.current.base.revision),4);
+ assert.equal(await a.evaluate(()=>sync.current.pending),null);
+ const persisted=(await f.db.query('SELECT revision,document FROM account_preference_documents')).rows[0];
+ assert.equal(Number(persisted.revision),4);
+ assert.deepEqual(persisted.document,{version:1,screenIds:['2']});
+ assert.equal(await auditCount(),beforeLostResponse+1,'Receipt replay must not write another audit row');
+ console.log(JSON.stringify({browser:'chromium',contexts:2,checks:['real HTTP gateway/service','conflict resolution','independent SQL read','page reload','offline explicit retry','committed response lost and replayed after reload'],engine:f.native?'native-postgresql':'isolated-pglite',liveActivation:false}));
 }finally{await browser.close();await new Promise(r=>server.close(r));await f.close();}
