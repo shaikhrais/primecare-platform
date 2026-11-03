@@ -3,6 +3,7 @@ import hashlib
 import json
 import os
 import subprocess
+import time
 from pathlib import Path
 from execution import record_attempt, export_progress
 from production_store import ProductionWorkflowStore
@@ -11,6 +12,20 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def sha(path):
     return hashlib.sha256((ROOT/path).read_bytes()).hexdigest()
+
+
+def open_tracking_store():
+    from psycopg.errors import LockNotAvailable
+
+    # Only retry opening the store. Once recording starts, surface failures
+    # rather than risk repeating an attempt whose commit outcome is unknown.
+    for attempt in range(3):
+        try:
+            return ProductionWorkflowStore()
+        except LockNotAvailable:
+            if attempt == 2:
+                raise
+            time.sleep(2)
 
 
 def main():
@@ -47,7 +62,7 @@ def main():
         'next_action': 'Main '+commit+'; scoped browser/API/embedded database evidence uploaded at '+url+'. Work branch work/workflow-production-recorder is merged; cleanup must be confirmed after this run. Synthetic business database closed; no production synthetic accounts. Next: inspect registered deployed-route, native business concurrency, accessibility/PWA and independent review dependencies, then execute the next unblocked workflow. Recording-store native concurrency is separate from business-workflow concurrency.',
         'repository_checkpoint':{'main_sha':commit,'active_branch':branch,'work_branch':'work/workflow-production-recorder','pr_state':'merged; verify branch cleanup','ci_run':os.environ.get('GITHUB_RUN_ID'),'evidence_url':url,'synthetic_data_cleanup':'disposable embedded database closed; production business data untouched'},
     }
-    with ProductionWorkflowStore() as db:
+    with open_tracking_store() as db:
         output=record_attempt(db,workflow,result,ROOT)
         export_progress(db,ROOT)
     # Emit success only AFTER commit, never from an uncommitted transaction.
