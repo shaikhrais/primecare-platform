@@ -84,7 +84,8 @@
         "docs/appearance/theme-metadata-batch-evidence.json",
         "CI41510188309: 21 execution, 4 gate, 25 store/configuration and 5 reader checks successful; production-scoped synthetic care browser/recording successful",
         "CI41524309558: 26 store/configuration checks; observed waiting writer, 14 x 200-file batch, 2801 final evidence rows and 14 checkpoints preserved; isolated PostgreSQL only. Production-scoped synthetic care check also passed.",
-        "CI41568955554: archived clinic portal passed isolated Chromium login, password change/reload and recovery across three locales; exact Cloudflare Worker restore remains open."
+        "CI41568955554: archived clinic portal passed isolated Chromium login, password change/reload and recovery across three locales; exact Cloudflare Worker restore remains open.",
+        "CI41570031632: archived clinic rehearsal passed direct cross-tenant management denial (404), unchanged rows after denial and same-tenant success (200)."
       ]
     },
     {
