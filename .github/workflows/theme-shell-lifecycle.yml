@@ -2,7 +2,7 @@ name: Shared theme shell lifecycle
 on:
   push:
     branches: [main]
-    paths: ['packages/primecare_ui/web/shell.ts', 'packages/primecare_ui/web/layout-customizer.ts', 'packages/primecare_ui/web/workspace-customizer.ts', 'packages/primecare_ui/web/layout-manager.ts', 'packages/primecare_ui/web/theme-center.ts', 'scripts/test-shell-lifecycle.mjs', 'scripts/test-shell-footer.mjs', 'scripts/test-shell-footer-model.mjs', '.github/workflows/theme-shell-lifecycle.yml']
+    paths: ['packages/primecare_ui/web/shell.ts', 'packages/primecare_ui/web/layout-customizer.ts', 'packages/primecare_ui/web/workspace-customizer.ts', 'packages/primecare_ui/web/layout-manager.ts', 'packages/primecare_ui/web/theme-center.ts', 'packages/primecare_ui/web/theme-library.ts', 'scripts/test-theme-library-recovery.mjs', 'scripts/test-theme-library-recovery-browser.mjs', 'scripts/test-shell-lifecycle.mjs', 'scripts/test-shell-footer.mjs', 'scripts/test-shell-footer-model.mjs', '.github/workflows/theme-shell-lifecycle.yml']
   workflow_dispatch:
 permissions: {contents: read}
 concurrency:
@@ -24,6 +24,11 @@ jobs:
       - run: node --test scripts/test-shell-footer-model.mjs
       - run: node scripts/test-shell-lifecycle.mjs
       - run: node scripts/test-shell-footer.mjs
+      - run: node --test scripts/test-theme-library-recovery.mjs
+      - run: node scripts/test-theme-library-recovery-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: shared-shell-footer, path: test-results/shell-footer}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: theme-library-recovery, path: test-results/theme-library-recovery}
