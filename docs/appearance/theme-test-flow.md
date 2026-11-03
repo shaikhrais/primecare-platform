@@ -25,7 +25,7 @@ The master-record step repeats for each configured record family. Actions logs u
 17. Verify tenant switching clears search records
 18. Open administrator training
 19. Customize the shared theme and layout
-20. Restore the Platform Admin sidebar after reload
+20. Save the Platform Admin layout and verify the sidebar after reload
 21. Export and validate the XML layout
 22. Save a named personal theme
 23. Restore and export the personal theme
