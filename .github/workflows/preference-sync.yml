@@ -13,6 +13,11 @@ on:
       - 'cloudflare/workers/src/account-preferences.ts'
       - 'cloudflare/workers/src/gateway.ts'
       - 'cloudflare/workers/src/service-application.ts'
+      - 'packages/database/migrations/20261031_account_preferences.sql'
+      - 'tools/governance-production/production-pin.json'
+      - 'tools/governance-production/preference-sync-contract.json'
+      - 'packages/flutter_core/pubspec.yaml'
+      - 'packages/primecare_models/pubspec.yaml'
       - 'scripts/*preference*.mjs'
       - '.github/workflows/preference-sync.yml'
   workflow_dispatch:
