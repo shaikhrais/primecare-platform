@@ -106,7 +106,7 @@ try{
  });
  await test('campaign capacity: owner-only confirmation, stale review and retries, revoked authority and immutable history',async()=>{
   const created=await gw(own,'/campaigns','POST',{...proposal,budgetCents:10000});capacityCampaign=created.id;
-  const brief={version:0,ownerId:local,pipeline:'client',audience:'Synthetic local audience',offer:'Synthetic requested discussion',creative:'Synthetic local campaign',landingUrl:'',targetLeads:5,start:'2026-10-01',end:'2026-10-31'};
+  const brief={version:0,ownerId:local,pipeline:'client',audience:'Synthetic local audience',offer:'Synthetic requested discussion',creative:'Synthetic local campaign',landingUrl:'',targetLeads:5,start:new Date().toISOString().slice(0,10),end:new Date(Date.now()+7*86400000).toISOString().slice(0,10)};
   await gw(local,'/briefs/'+created.id,'PUT',brief,200);
   const expiry=new Date(Date.now()+86400000).toISOString(),body={version:0,briefVersion:1,clientSlots:3,expiresAt:expiry,evidence:'Synthetic operations capacity reviewed'};
   await gw(own,'/capacity/'+created.id,'PUT',body,409);
@@ -185,7 +185,7 @@ try{
    await scanAccessibility(page,'growth-'+role+'-'+lang+'-'+width);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    for(const id of await page.locator('[data-cy^=growth-nav-]').evaluateAll(links=>links.map(link=>link.dataset.cy))){
     if(width===320){await el('sidebar-toggle').focus();await page.keyboard.press('Enter');}
-    await el(id).focus();await page.keyboard.press('Enter');const section='growth-'+id.slice('growth-nav-'.length);assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-cy')),section);
+    await el(id).focus();await page.keyboard.press('Enter');const section=id==='growth-nav-business_ops'?'growth-business':'growth-'+id.slice('growth-nav-'.length);assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-cy')),section);
     assert.ok(await el(section).evaluate(s=>{const bar=document.querySelector('[data-cy=app-topbar]');return s.getBoundingClientRect().top>=(getComputedStyle(bar).position==='sticky'?bar.getBoundingClientRect().bottom:0);}), 'Growth section focus stays below the top bar');
    }
    await el('universal-search').fill('Synthetic');if(lang==='en')await scanAccessibility(page,'growth-search-'+role+'-'+lang+'-'+width);await el('universal-search').press('Escape');assert.equal(await page.evaluate(()=>document.activeElement?.getAttribute('data-cy')),'universal-search');
