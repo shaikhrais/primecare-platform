@@ -35,6 +35,15 @@ The master-record step repeats for each configured record family. Actions logs u
 
 The first run with step reporting is [41675732186](https://github.com/shaikhrais/primecare-platform/actions/runs/41675732186). Record acceptance only after reading the completed result.
 
+The [verified acceptance run](https://github.com/shaikhrais/primecare-platform/actions/runs/41690559227) passed all 28 expanded browser steps and the administrative and growth accessibility gate on `a200676`. Download the `platform-admin-workflow-video` artifact for the browser and accessibility receipts. This receipt covers the isolated Platform Admin run.
+
+## R05 native workspace sequence
+
+1. Run [Native workspace layout parity](https://github.com/shaikhrais/primecare-platform/actions/workflows/native-workspace-layout.yml) on the candidate commit. Check the web contract oracle, Linux/Windows/macOS widget suites, and native-to-web round trips.
+2. On each supported physical device, install the candidate app and record its build revision, OS and app host. Sign in as the registered role and open the shared workspace.
+3. Save a layout, fully restart the app, and verify the layout is restored. Sign in as a second scoped actor and verify the first actor's layout is absent.
+4. Sign out and verify the protected workspace cannot be reopened. Attach the device results separately from the automated parity receipts.
+
 ## Remaining flows and their gates
 
 | Package | Test flow in execution order | Evidence required |
