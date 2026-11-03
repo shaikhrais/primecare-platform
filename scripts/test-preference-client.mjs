@@ -37,3 +37,16 @@ for(const operation of ['edit','acceptRemote','keepLocal'])test(`late ${operatio
  const completed=operation==='edit'?work:assert.rejects(work,e=>e.code==='cache_unavailable');await entered;const disposed=a.dispose(),notifications=changes;release();await Promise.all([completed,disposed]);
  assert.equal(a.current.status,'disposed');assert.equal(changes,notifications);assert.equal(s.snapshot.revision,operation==='edit'?0:1);
 });
+
+test('receipt replay records the acknowledged base while retaining a newer remote conflict',async()=>{
+ const s=server(),c=cache(),a=make(s,c),other=make(s);
+ await a.load();await a.edit(doc('1'));s.lost=true;await a.save();
+ await other.load();await other.edit(doc('2'));await other.save();
+ await a.dispose();const restarted=make(s,c);await restarted.load();await restarted.retryPending();
+ assert.equal(restarted.current.status,'conflict');
+ assert.equal(restarted.current.pending,null);
+ assert.equal(restarted.current.base.revision,1);
+ assert.equal(restarted.current.remote.revision,2);
+ assert.equal(JSON.parse(c.data.get(preferenceKey(binding))).base.revision,1);
+ await restarted.acceptRemote();assert.deepEqual(restarted.current.draft,doc('2'));
+});
