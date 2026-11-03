@@ -1,0 +1,57 @@
+name: Isolated clinic archive rehearsal
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/clinic-archive-rehearsal.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+jobs:
+  rehearsal:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U primecare -d login_browser" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Retrieve accepted archive
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api repos/"$GITHUB_REPOSITORY"/actions/artifacts/13197151437/zip > "$RUNNER_TEMP/clinic-release.zip"
+      - name: Prepare synthetic browser fixture
+        run: |
+          npm install --prefix /tmp/clinic-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 axe-core@4.10.3 @twilio/voice-sdk@2.18.5
+          ln -s /tmp/clinic-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          mkdir -p test-results/auth-password
+          python3 - <<'PY'
+          import json, os, zipfile
+          from pathlib import Path
+          fixture = json.loads(Path('tools/workflow-verification/specs/auth.change-password.fixture.json').read_text())
+          with zipfile.ZipFile(Path(os.environ['RUNNER_TEMP']) / 'clinic-release.zip') as z:
+              fixture['theme'] = json.loads(z.read('primecare-clinic/portal.json'))['theme']
+          Path('test-results/auth-password/governance.json').write_text(json.dumps(fixture))
+          PY
+      - name: Exercise archived clinic against synthetic auth and PostgreSQL
+        env:
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+          AUTH_PASSWORD_TEST_FIXTURE: '1'
+          CLINIC_REHEARSAL_ARCHIVE: ${{ runner.temp }}/clinic-release.zip
+          CLINIC_REHEARSAL_COMMIT: cc0690ca5500a0238303bc06db96173405e07c26
+        run: node scripts/test-auth-password-workflow.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-clinic-archive-rehearsal
+          path: test-results/auth-password

@@ -1,5 +1,6 @@
 import {esbuildInputPath} from './esbuild-input-path.mjs';
 import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
 import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';import {chromium,firefox,webkit} from 'playwright';
 import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
 const browserName=process.env.AUTH_PASSWORD_BROWSER||'chromium';
@@ -24,9 +25,33 @@ try{
  const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
  const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
  const paths=[...Object.entries(front.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),...Object.entries(back.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),'websites/typescript/src/styles.css',...['20260926_auth_sessions.sql','20260928_auth_rate_limits.sql','20260928_auth_password_audit.sql','20261003_auth_password_resets.sql','20261003_maintenance_configuration.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+ const archive=process.env.CLINIC_REHEARSAL_ARCHIVE;
+ const archivedFiles=new Map();
+ if(archive){
+  const commit=process.env.CLINIC_REHEARSAL_COMMIT;
+  assert.match(commit ?? '',/^[0-9a-f]{40}$/);
+  const stamp=JSON.parse(execFileSync('python3',['-m','tools.deployment.verify_portal_archive',archive,'primecare-clinic',commit],{encoding:'utf8'}));
+  for(const [name,hash] of Object.entries(stamp.files)){
+   const bytes=execFileSync('unzip',['-p',archive,'primecare-clinic/'+name],{maxBuffer:20*1024*1024});
+   assert.equal(digest(bytes),hash,'Archived file changed during load: '+name);
+   archivedFiles.set(name,bytes);
+  }
+  receipt.archivedPortal={project:stamp.project,commit:stamp.commit,verifiedFiles:archivedFiles.size};
+ }
  let rejectRecoveryDelivery=false;const recoveryDeliveries=[];
  const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},EMAIL_FROM:'fixture@example.invalid',EMAIL:{send:async message=>{if(rejectRecoveryDelivery)throw Error('Isolated delivery outage');recoveryDeliveries.push(message);return {messageId:'isolated-'+randomUUID()};}}},css=await readFile('websites/typescript/src/styles.css','utf8');
  server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
+  if(archive&&!requestUrl.pathname.startsWith('/v1/')){
+   const path=requestUrl.pathname.slice(1);
+   const name=['','login','forgot-password','reset-password','platform/administration'].includes(path)?'index.html':path;
+   const file=archivedFiles.get(name);
+   if(!file){res.writeHead(404);res.end();return;}
+   res.setHeader('Content-Security-Policy',"default-src 'self'; connect-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'none'; form-action 'none'; base-uri 'none'");
+   const extension=name.split('.').at(-1);
+   res.setHeader('Content-Type',({html:'text/html',json:'application/json',js:'text/javascript',css:'text/css',png:'image/png'})[extension]??'application/octet-stream');
+   res.end(name==='portal.json'?JSON.stringify({...JSON.parse(file),apiGateway:origin}):file);
+   return;
+  }
   if(requestUrl.pathname==='/app.js'){res.setHeader('content-type','text/javascript');res.end(front.outputFiles[0].text);return;}
   if(requestUrl.pathname==='/portal.json'){res.setHeader('content-type','application/json');res.end(JSON.stringify({project:'PrimeCare',appCode:'pc',name:'PrimeCare',apiGateway:origin,theme:policy.theme}));return;}
   if(['/login','/forgot-password','/reset-password','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
@@ -58,7 +83,8 @@ try{
  const ready=page=>page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]')?.disabled);
  for(const [locale,width]of [['en',320],['fr',768],['es',1440]]){
   await db.query('DELETE FROM auth_sessions;DELETE FROM auth_rate_limits;DELETE FROM auth_password_resets;DELETE FROM auth_password_audit');await db.query('UPDATE users SET password_hash=$1 WHERE id=$2',[hash,actor]);
-  const context=await browser.newContext({viewport:{width,height:1000},recordVideo:{dir:out+'/raw'}}),page=await context.newPage();
+  const context=await browser.newContext({...(archive?{serviceWorkers:'block'}:{}),viewport:{width,height:1000},recordVideo:{dir:out+'/raw'}}),page=await context.newPage();
+   if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
   try{
    await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy(page,'login-form').waitFor();await checkForm(page,'login-form',locale);const forgot=new URL(await cy(page,'login-forgot').getAttribute('href'),page.url());assert.equal(forgot.searchParams.get('enable-semantics'),'true');assert.equal(forgot.searchParams.get('locale'),locale==='en'?null:locale);await cy(page,'login-email').fill('platform@example.invalid');await page.keyboard.press('Tab');assert.equal(await cy(page,'login-password').evaluate(el=>el===document.activeElement),true,'Tab reaches login password');await cy(page,'login-password').fill(password);await page.keyboard.press('Tab');assert.equal(await cy(page,'login-submit').evaluate(el=>el===document.activeElement),true,'Tab reaches login submit');await page.keyboard.press('Enter');await cy(page,'platform-language').waitFor();if(!baseline)assert.equal(await cy(page,'platform-language').inputValue(),locale,'Login locale must survive entering the admin shell');await cy(page,'platform-language').selectOption(locale);if(!await cy(page,'platform-account-link').isVisible())await page.locator('[data-cy=shell-utilities] summary').click();await cy(page,'platform-account-link').click();await cy(page,'change-password-form').waitFor();
    await checkForm(page,'change-password-form',locale);
@@ -103,7 +129,8 @@ try{
    await db.query('DELETE FROM auth_sessions;DELETE FROM auth_rate_limits;DELETE FROM auth_password_resets;DELETE FROM auth_password_audit');
    await db.query('UPDATE users SET password_hash=$1 WHERE id=$2',[hash,actor]);recoveryDeliveries.length=0;
    const oldToken=await login(email),otherToken=await login('tenant-admin@example.invalid');
-   const context=await browser.newContext({viewport:{width,height:1000}}),page=await context.newPage();
+   const context=await browser.newContext({...(archive?{serviceWorkers:'block'}:{}),viewport:{width,height:1000}}),page=await context.newPage();
+   if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
    try{
     await page.goto(origin+'/forgot-password?locale='+locale+'&enable-semantics=true');await cy(page,'recovery-form').waitFor();
     await checkForm(page,'recovery-form',locale,receipt.recoveryAccessibility,'forgot');
