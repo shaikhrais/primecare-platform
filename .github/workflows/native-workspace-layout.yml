@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/flutter_core/pubspec.yaml'
+      - 'packages/primecare_models/pubspec.yaml'
       - 'packages/flutter_core/lib/workspace.dart'
       - 'packages/flutter_core/lib/workspace/**'
       - 'packages/flutter_core/test/workspace/**'
@@ -55,7 +57,7 @@ jobs:
         with:
           name: native-workspace-roundtrip-${{ matrix.os }}
           path: packages/flutter_core/test/workspace/fixtures/native.json
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 30
       - name: Compile the actual optional renderer for Flutter web
         if: matrix.os == 'ubuntu-24.04'
