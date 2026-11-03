@@ -28,7 +28,18 @@ try{
   'WHERE l.api_id=$1 AND r.role_code=ANY($2::text[]) ORDER BY s.id,r.id',
   [777,['platform_admin','tenant_admin','code_admin']]
  )).rows;
+ const entryRoutes=JSON.parse(await readFile(new URL('../../packages/shared/src/admin-entry-routes.json',import.meta.url),'utf8'));
+ const adminRoles=['platform_admin','tenant_admin','code_admin'];
+ const hostCandidates=(await db.query(
+  'SELECT DISTINCT r.role_code,s.id AS screen_id,s.screen_code,s.route_path,s.active AS screen_active,p.can_view '+
+  'FROM unnest($1::text[],$2::text[]) AS entry(role_code,route_path) '+
+  'JOIN '+relation('roles')+' r ON r.role_code=entry.role_code AND r.active=1 '+
+  'JOIN '+relation('screens')+' s ON s.route_path=entry.route_path '+
+  'LEFT JOIN '+relation('role_screen_permissions')+' p ON p.screen_id=s.id AND p.role_id=r.id '+
+  'ORDER BY r.role_code,s.id',
+  [adminRoles,adminRoles.map(role=>entryRoutes[role])]
+ )).rows;
  const settingDefinitions=(await db.query('SELECT setting_code,setting_type,default_value FROM '+relation('user_setting_definitions')+' ORDER BY id LIMIT 100')).rows;
  const actorColumns=(await db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' AND table_name IN ('users','auth_sessions','tenants') AND column_name IN ('id','roles','tenant_id','status','user_id','token_hash','expires_at') ORDER BY table_name,column_name")).rows;
- const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
+ const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,hostCandidates,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
 }catch{console.error('Preference synchronization metadata inspection failed; no mutations were attempted.');process.exitCode=1;}finally{if(db)await db.end();}
