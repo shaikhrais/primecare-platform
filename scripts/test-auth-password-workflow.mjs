@@ -181,6 +181,23 @@ try{
    }finally{rejectRecoveryDelivery=false;await context.close();}
   }
  }
+ if(archive){
+  await db.query(await readFile('packages/database/migrations/20260928_auth_management_audit.sql','utf8'));
+  await db.query("INSERT INTO users(id,tenant_id,email,roles,password_hash,status) VALUES($1,$2,'scope-ceo@example.invalid','ceo',$3,'active')",[randomUUID(),tenant,hash]);
+  const token=await login('scope-ceo@example.invalid');
+  const manage=id=>fetch(origin+'/v1/admin/users',{method:'POST',headers:{authorization:'Bearer '+token,'content-type':'application/json'},body:JSON.stringify({id,role:'rmt',status:'inactive'})});
+  const before=await snapshot();
+  const blocked=await manage(admin);
+  assert.equal(blocked.status,404,'Foreign account must be concealed from a tenant-scoped CEO');
+  assert.deepEqual(await snapshot(),before,'Denied request must preserve both tenants');
+  const allowed=await manage(denied);
+  assert.equal(allowed.status,200,'The same action must succeed for a local account');
+  const result=await allowed.json();
+  assert.equal(result.user.id,denied);
+  assert.equal(result.user.status,'inactive');
+  receipt.crossTenantManagement={foreignStatus:blocked.status,localStatus:allowed.status,deniedRequestPreservedRows:true};
+  console.log('CLINIC_CROSS_TENANT '+JSON.stringify(receipt.crossTenantManagement));
+ }
  if(bridgeFailure)throw bridgeFailure;for(const [path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);
  receipt.passed=!baseline;receipt.probeCompleted=baseline;receipt.criterion_results=baseline?{}:{'ui.password-change-confirmation':'passed','ui.password-change-session-replacement':'passed','ui.password-change-localized-failure':'passed'};
 }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
