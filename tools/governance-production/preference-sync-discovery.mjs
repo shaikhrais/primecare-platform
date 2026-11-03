@@ -17,7 +17,18 @@ try{
  const roles=roleRows.map(({metadata:r})=>Object.fromEntries(Object.entries(r).filter(([k])=>['id','role_code','role_name','name','active','enabled','role_key'].includes(k))));
  const resourceScreens=(await db.query('SELECT id,screen_code,route_path,active FROM '+relation('screens')+' WHERE screen_code=ANY($1::text[])',[['tenant_admin_command_center','AUTHENTICATED_ACCOUNT']])).rows;
  const resourceControls=(await db.query('SELECT screen_id,data_cy,component_type,file_path FROM '+relation('screen_components')+' WHERE data_cy=$1',['tenant-preference-form'])).rows;
+ // A role grant alone does not prove that its registered screen can call this API.
+ const hostBindings=(await db.query(
+  'SELECT DISTINCT s.id AS screen_id,s.screen_code,s.active AS screen_active,'+
+  'r.id AS role_id,r.role_code,r.active AS role_active,p.can_view,g.can_access,g.permission_key,g.runtime_artifact_id '+
+  'FROM '+relation('screen_api_links')+' l JOIN '+relation('screens')+' s ON s.id=l.screen_id '+
+  'JOIN '+relation('api_permissions')+' g ON g.api_id=l.api_id '+
+  'JOIN '+relation('roles')+' r ON r.id=g.role_id '+
+  'LEFT JOIN '+relation('role_screen_permissions')+' p ON p.screen_id=s.id AND p.role_id=r.id '+
+  'WHERE l.api_id=$1 AND r.role_code=ANY($2::text[]) ORDER BY s.id,r.id',
+  [777,['platform_admin','tenant_admin','code_admin']]
+ )).rows;
  const settingDefinitions=(await db.query('SELECT setting_code,setting_type,default_value FROM '+relation('user_setting_definitions')+' ORDER BY id LIMIT 100')).rows;
  const actorColumns=(await db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' AND table_name IN ('users','auth_sessions','tenants') AND column_name IN ('id','roles','tenant_id','status','user_id','token_hash','expires_at') ORDER BY table_name,column_name")).rows;
- const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
+ const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
 }catch{console.error('Preference synchronization metadata inspection failed; no mutations were attempted.');process.exitCode=1;}finally{if(db)await db.end();}
