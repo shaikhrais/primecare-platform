@@ -4,6 +4,8 @@ Run the Platform Admin database and browser acceptance workflow on main. It uses
 
 ## R04 Platform Admin sequence
 
+The master-record step repeats for each configured record family. Actions logs use the expanded runtime step numbers.
+
 1. Sign in as platform administrator
 2. Create a tenant
 3. Create a tenant administrator
@@ -23,8 +25,8 @@ Run the Platform Admin database and browser acceptance workflow on main. It uses
 17. Verify tenant switching clears search records
 18. Open administrator training
 19. Customize the shared theme and layout
-20. Export and validate the XML layout
-21. Restore the Platform Admin sidebar after reload
+20. Restore the Platform Admin sidebar after reload
+21. Export and validate the XML layout
 22. Save a named personal theme
 23. Restore and export the personal theme
 24. Change own platform password
