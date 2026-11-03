@@ -49,6 +49,39 @@ void main(){
  test('native HTTP adapter uses registered bearer POST and bounds responses',()async{final server=Server(),requests=<http.Request>[],adapter=PreferenceHttpTransport(origin:Uri.parse('https://fixture.test/'),token:'a'*43,client:MockClient((r)async{requests.add(r);return http.Response(jsonEncode(await server.call(jsonDecode(r.body) as Map<String,dynamic>)),200);})),a=PreferenceSyncClient(binding:binding(),transport:adapter.call,cache:MemoryCache());await a.load();await a.edit(doc('1'));await a.save();expect(a.current['status'],'clean');expect(requests.length,2);for(final r in requests){expect(r.url.toString(),'https://fixture.test/v1/user/preferences');expect(r.method,'POST');expect(r.headers['authorization'],'Bearer ${'a'*43}');expect(r.followRedirects,false);}adapter.close();final conflict=PreferenceHttpTransport(origin:Uri.parse('https://fixture.test'),token:'a'*43,client:MockClient((_)async=>http.Response(jsonEncode({'error':'revision_conflict','current':server.snapshot}),409)));await expectLater(conflict.call({}),throwsA(isA<PreferenceFailure>().having((e)=>e.code,'code','revision_conflict')));conflict.close();final huge=PreferenceHttpTransport(origin:Uri.parse('https://fixture.test'),token:'a'*43,client:MockClient((_)async=>http.Response('x'*262145,200)));await expectLater(huge.call({}),throwsA(isA<PreferenceFailure>().having((e)=>e.code,'code','invalid_response')));huge.close();expect(()=>PreferenceHttpTransport(origin:Uri.parse('https://fixture.test/arbitrary'),token:'a'*43),throwsA(isA<PreferenceFailure>()));});
  test('two device CAS conflicts, explicit resolution, reload and tombstones',()async{final s=Server(),cache=MemoryCache(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache()),b=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await a.load();await b.load();await a.edit(doc('1'));await a.save();await b.edit(doc('2'));await b.save();expect(b.current['status'],'conflict');await b.keepLocal();await b.save();expect(s.snapshot['revision'],2);final reload=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await reload.load();expect(reload.current['draft'],doc('2'));await a.edit(doc('1'));await a.save();await a.acceptRemote();expect(a.current['draft'],doc('2'));await a.edit(null);await a.save('reset');await a.save('delete');expect(s.snapshot['revision'],4);expect(s.snapshot['document'],null);});
  test('lost acknowledgement persists UUID across restart and explicit replay',()async{final s=Server(),cache=MemoryCache(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await a.load();await a.edit(doc('1'));s.lost=true;await a.save();final pending=(a.current['pending'] as Map)['requestId'];expect(a.current['status'],'offline');a.dispose();await a.settled;final b=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await b.load();expect(b.current['status'],'conflict');expect((b.current['pending'] as Map)['requestId'],pending);await b.retryPending();expect(b.current['status'],'clean');expect(s.snapshot['revision'],1);});
+ test('receipt replay retains a newer remote conflict across restart', () async {
+  final server = Server();
+  final cache = MemoryCache();
+  final first = PreferenceSyncClient(binding: binding(), transport: server.call, cache: cache);
+  final other = PreferenceSyncClient(binding: binding(), transport: server.call, cache: MemoryCache());
+
+  await first.load();
+  await first.edit(doc('1'));
+  server.lost = true;
+  await first.save();
+  expect(first.current['status'], 'offline');
+
+  await other.load();
+  await other.edit(doc('2'));
+  await other.save();
+  first.dispose();
+  await first.settled;
+
+  final restarted = PreferenceSyncClient(binding: binding(), transport: server.call, cache: cache);
+  await restarted.load();
+  await restarted.retryPending();
+
+  expect(restarted.current['status'], 'conflict');
+  expect(restarted.current['pending'], isNull);
+  expect((restarted.current['base'] as Map)['revision'], 1);
+  expect((restarted.current['remote'] as Map)['revision'], 2);
+  expect(server.snapshot['revision'], 2);
+  await restarted.acceptRemote();
+  expect(restarted.current['draft'], doc('2'));
+  restarted.dispose();
+  other.dispose();
+  await Future.wait([restarted.settled, other.settled]);
+ });
  test('restart after lost acknowledgement preserves newer cached draft',()async{final s=Server(),cache=MemoryCache(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await a.load();await a.edit(doc('1'));s.lost=true;await a.save();await a.edit(doc('2'));a.dispose();await a.settled;final b=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);await b.load();await b.retryPending();expect(b.current['status'],'dirty');expect(b.current['draft'],doc('2'));await b.save();expect(s.snapshot['document'],doc('2'));expect(s.snapshot['revision'],2);});
  test('offline first load permits durable CAS queue, no automatic retry',()async{final s=Server()..offline=true,a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await a.load();await a.edit(doc('1'));await a.save();expect(a.current['status'],'offline');s.offline=false;expect(s.snapshot['revision'],0);await a.retryPending();expect(s.snapshot['revision'],1);});
  test('refresh and in-flight acknowledgement preserve newer edits',()async{final s=Server(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await a.load();await a.edit(doc('1'));await a.load();expect(a.current['draft'],doc('1'));s.block=Completer<void>();final saving=a.save();await Future<void>.delayed(Duration.zero);await a.edit(doc('2'));s.block!.complete();await saving;expect(a.current['status'],'dirty');expect(a.current['draft'],doc('2'));});
