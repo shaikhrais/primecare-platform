@@ -5,6 +5,17 @@ try{
  await check('registered gateway + owned write/read + independent PostgreSQL read + second session reload',async()=>{assert.equal((await f.call()).status,200);const r=await data(f.call(write(0)));assert.equal(r.status,200);assert.equal(r.body.revision,1);const sql=(await f.db.query('SELECT revision,document FROM account_preference_documents')).rows;assert.equal(Number(sql[0].revision),1);assert.deepEqual(sql[0].document,{version:1,screenIds:['1']});assert.deepEqual((await data(f.call())).body,r.body);});
  await check('CAS conflict and idempotent lost-response replay; changed payload cannot reuse UUID',async()=>{const req=write(1,'2'),a=await data(f.call(req)),b=await data(f.call(req));assert.equal(a.status,200);assert.deepEqual(b,a);assert.equal((await data(f.call(write(1)))).body.error,'revision_conflict');assert.equal((await data(f.call({...req,document:{version:1,screenIds:['1']}}))).body.error,'request_id_reused');});
  if(f.native)await check('two simultaneous first writes serialize (native PostgreSQL)',async()=>{const a=f.body('write',{dataset:'demo',revision:0,requestId:randomUUID(),document:{version:1,screenIds:['1']}}),b={...a,requestId:randomUUID()};const results=await Promise.all([f.call(a),f.call(b)]);assert.deepEqual(results.map(r=>r.status).sort(),[200,409]);});
+ if(f.native)await check('simultaneous retries with the same UUID commit exactly once',async()=>{
+  const request=f.body('write',{dataset:'demo',revision:1,requestId:randomUUID(),document:{version:1,screenIds:['2']}});
+  const [first,replay]=await Promise.all([data(f.call(request)),data(f.call(request))]);
+  assert.equal(first.status,200);
+  assert.equal(first.body.revision,2);
+  assert.deepEqual(replay,first);
+  const audit=await f.db.query('SELECT revision FROM account_preference_audit WHERE request_id=$1',[request.requestId]);
+  assert.deepEqual(audit.rows.map(row=>Number(row.revision)),[2]);
+  const stored=await data(f.call(f.body('read',{dataset:'demo'})));
+  assert.deepEqual(stored.body,first.body);
+ });
  await check('cross-account/tenant precondition denied, scoped data never leaks',async()=>{assert.equal((await f.call(f.body(),'user2')).status,409);const r=await data(f.call(f.body('read',{},'user2'),'user2'));assert.equal(r.body.revision,0);assert.equal((await f.call(f.body(),'admin')).status,409);assert.equal((await f.call(f.body('read',{},'admin'),'admin')).status,403);});
  await check('approved admin policy remains self-only and requires an exact active-role grant (isolated fixture)',async()=>{
   const roles=[[70,'platform_admin'],[72,'tenant_admin'],[80,'code_admin']];
