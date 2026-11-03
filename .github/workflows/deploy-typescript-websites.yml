@@ -149,3 +149,10 @@ jobs:
           exit 1
       - name: Verify source stamp and exact live TypeScript assets
         run: python3 -m tools.deployment.typescript_release verify-deploy "websites/typescript/dist/${{ matrix.project }}" "${{ matrix.project }}"
+      - name: Retain verified portal release stamp
+        uses: actions/upload-artifact@v4
+        with:
+          name: verified-portal-release-${{ matrix.project }}
+          path: websites/typescript/dist/${{ matrix.project }}/primecare-build.json
+          if-no-files-found: error
+          retention-days: 90
