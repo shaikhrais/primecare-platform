@@ -1,4 +1,5 @@
 name: Run accepted auth preference candidate
+# Reconcile the verified secret-generated version before this code refresh.
 on:
   push:
     branches: [main]

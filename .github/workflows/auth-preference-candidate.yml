@@ -8,7 +8,7 @@ on:
       - 'scripts/*preserved-service-config.mjs'
       - 'scripts/*auth-preference-deployment-config.mjs'
   workflow_dispatch:
-permissions: {contents: read}
+permissions: {contents: read, actions: read}
 concurrency:
   group: auth-preference-candidate-${{ github.sha }}
   cancel-in-progress: false
@@ -36,7 +36,7 @@ jobs:
           npm install --prefix /tmp/auth-preference --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 @electric-sql/pglite@0.3.14 bcryptjs@3.0.3 playwright@1.60.0
           ln -s /tmp/auth-preference/node_modules node_modules
           npx playwright install --with-deps chromium
-          node --test scripts/test-worker-deployment-receipt.mjs scripts/test-theme-runtime-artifacts.mjs scripts/test-preserved-service-config.mjs scripts/test-auth-preference-deployment-config.mjs
+          node --test scripts/test-auth-reconciled-source.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-theme-runtime-artifacts.mjs scripts/test-preserved-service-config.mjs scripts/test-auth-preference-deployment-config.mjs
           node scripts/test-preference-service.mjs
           node scripts/test-preference-browser.mjs
   source-acceptance:
@@ -87,6 +87,7 @@ jobs:
           test -e node_modules/bcryptjs || ln -s /tmp/auth-release-extra/node_modules/bcryptjs node_modules/bcryptjs
       - name: Update only accepted auth code while keeping preference runtime disabled
         env:
+          GH_TOKEN: ${{ github.token }}
           DEPLOY_AUTH_PREFERENCE_CODE: '1'
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
