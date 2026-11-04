@@ -61,7 +61,7 @@ jobs:
           python3 scripts/check-api-catalog-identity.py
           git diff --exit-code -- cloudflare/workers/src packages/shared/src
       - name: Type-check Workers
-        run: npx tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+        run: npx tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
 
       - name: Generate independent Worker configurations
         run: node scripts/generate-cloudflare-worker-config.mjs
