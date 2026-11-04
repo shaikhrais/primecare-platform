@@ -33,11 +33,11 @@
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
       "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-      "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
-      "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
+      "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
+      "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
       "verification": {
         "status": "unverified",
-        "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+        "scope": "Source revision recorded; browser lifecycle and concurrent-tab checks pending; no runtime or human approval."
       },
       "previousRevision": {
         "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
@@ -46,6 +46,14 @@
           "run": 41472788148,
           "browserJob": 125372855548,
           "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+        }
+      },
+      "intermediateRevision": {
+        "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
+        "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
+        "verification": {
+          "status": "unverified",
+          "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
         }
       }
     },
