@@ -3,6 +3,14 @@ const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API
 if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw Error('Cloudflare credentials required');
 const base='https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-governance-api';
 async function get(path){const r=await fetch(base+path,{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const x=await r.json();if(!r.ok||x.success!==true)throw Error('Cloudflare metadata read failed');return x.result;}
+const shape=b=>Object.fromEntries(['name','type','service','entrypoint','id'].filter(k=>b[k]).map(k=>[k,b[k]]));
+const differences=(left,right)=>{
+ if(!Array.isArray(left)||!Array.isArray(right))return null;
+ const all=new Set([...left.map(b=>b.name),...right.map(b=>b.name)]),out=[];
+ for(const name of all){const a=left.find(b=>b.name===name),b=right.find(b=>b.name===name);if(!a||!b){out.push({name,changed:['presence']});continue;}
+ const x=shape(a),y=shape(b),changed=[...new Set([...Object.keys(x),...Object.keys(y)])].filter(k=>x[k]!==y[k]);if(changed.length)out.push({name,changed});}
+ return out;
+};
 const names=bindings=>Array.isArray(bindings)?bindings.map(b=>({name:b.name,type:b.type})).sort((a,b)=>String(a.name).localeCompare(String(b.name))):null;
 const settings=await get('/settings');
 const deployments=await get('/deployments?per_page=3');
@@ -14,7 +22,7 @@ for(const deployment of rows){
   const id=item.version_id;
   if(!/^[a-f0-9-]{36}$/i.test(id??'')||versions.some(v=>v.id===id))continue;
   const version=await get('/versions/'+id);
-  versions.push({id,bindings:names(version.resources?.bindings)});
+  versions.push({id,bindings:names(version.resources?.bindings),differencesFromCurrent:differences(settings.bindings,version.resources?.bindings)});
  }
 }
 const health=await fetch('https://primecare-governance-api.itpro-mohammed.workers.dev/health',{signal:AbortSignal.timeout(30000)});
