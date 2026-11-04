@@ -1,3 +1,4 @@
+import {prepareStoredThemeMigration} from './advanced-theme-migration';
 import {validatePersonalTheme,validateThemeLibrary,type PersonalTheme,type ThemeLibrary,type SavedTheme} from '../../domain/src/theme_center';
 /** Secure UUID generation also supports previews where randomUUID is unavailable. */
 function themeId():string {
@@ -12,6 +13,7 @@ export class PersonalThemeLibrary {
  private library:ThemeLibrary={version:1,active:null,items:[]};
  private unreadable=false;
  constructor(private readonly key:string){try{const raw=localStorage.getItem(key);if(raw!==null){if(new TextEncoder().encode(raw).length>65536)throw Error();this.library=validateThemeLibrary(JSON.parse(raw));}}catch{this.unreadable=true;}}
+ prepareMigration() { return prepareStoredThemeMigration(localStorage, this.key); }
  get recoveryRequired():boolean{return this.unreadable;}
  /** Explicit scoped recovery only: never replace a record that could not be read. */
  discardUnreadable():void {if(!this.unreadable)throw Error('theme_recovery_not_required');localStorage.removeItem(this.key);this.library={version:1,active:null,items:[]};this.unreadable=false;}

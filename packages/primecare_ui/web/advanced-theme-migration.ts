@@ -1,8 +1,9 @@
 import {prepareLegacyThemeMigration} from '../../domain/src/legacy-theme-migration';
 
 /** Stage a candidate only after preserving the exact account-scoped source bytes. */
-export function prepareStoredThemeMigration(storage: Storage, sourceKey: string, backupKey: string) {
-  if (!sourceKey || !backupKey || sourceKey === backupKey) throw Error('Invalid theme backup scope');
+export function prepareStoredThemeMigration(storage: Storage, sourceKey: string) {
+  if (!sourceKey.startsWith('primecare-themes:v1:') || sourceKey.length === 'primecare-themes:v1:'.length) throw Error('Invalid theme backup scope');
+  const backupKey = 'primecare-theme-migration-backup:v1:' + sourceKey.slice('primecare-themes:v1:'.length);
   const source = storage.getItem(sourceKey);
   if (source === null) throw Error('Theme library does not exist');
   const migration = prepareLegacyThemeMigration(JSON.parse(source));
