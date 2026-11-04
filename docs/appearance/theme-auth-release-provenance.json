@@ -22,10 +22,10 @@
     ]
   },
   "activeReadback": {
-    "run": 41355924660,
-    "job": 124995801323,
-    "deploymentId": "c40b8881-c1c9-4309-8e25-45d121bfb887",
-    "versionId": "efda07fe-0c93-4942-96f0-2f0291c03b70",
+    "run": 41828657387,
+    "job": 126571763866,
+    "deploymentId": "c33c9b9c-d816-4b31-a195-e95f82d98f92",
+    "versionId": "bacbe97a-436c-43fb-8414-54821f322ee6",
     "trafficPercent": 100,
     "preferenceSyncEnabled": false
   },
@@ -39,10 +39,17 @@
   "currentCandidate": {
     "oldPromotedManifestSourceDriftPaths": 8,
     "oldSourceApprovalReused": false,
-    "productionAuthUpdateRequired": true,
-    "required": "Current security and preference acceptance, binding-preserving deployment and independently verified new Worker receipt"
+    "productionAuthUpdateRequired": false,
+    "required": "Production preference endpoint activation and host-level release checks remain pending.",
+    "latestVerifiedSource": "a916cce32ab0ef4fd3e9b021b301acda1b49d428"
   },
   "artifactRegistrationApproved": false,
   "permissionRowsChanged": 0,
-  "wholeBatchesClosed": 0
+  "wholeBatchesClosed": 0,
+  "latestVerifiedRelease": {
+    "source": "a916cce32ab0ef4fd3e9b021b301acda1b49d428",
+    "run": 41828657387,
+    "job": 126571763866,
+    "sourceAssociation": "Successful auth candidate CI and independent provider deployment, binding, schedule, health and disabled-preference checks."
+  }
 }
