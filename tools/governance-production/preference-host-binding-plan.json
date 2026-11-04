@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "apiId": 777,
+  "discoveryRun": 41742300096,
+  "table": "screen_api_links",
+  "mode": "proposal",
+  "bindings": [
+    {
+      "screenId": 1269,
+      "screenCode": "PLATFORM_ADMINISTRATION",
+      "route": "/platform/administration",
+      "roleIds": [
+        70,
+        80
+      ]
+    },
+    {
+      "screenId": 2534,
+      "screenCode": "tenant_admin_command_center",
+      "route": "/tenant-dashboard",
+      "roleIds": [
+        72
+      ]
+    }
+  ],
+  "preconditions": [
+    "Verify pinned manifest and API 777 endpoint identity",
+    "Verify each active screen and its existing role-view and API grants",
+    "Require a scoped production writer authorization for screen_api_links",
+    "Reject duplicate or conflicting existing links"
+  ],
+  "verification": [
+    "Rehearse in an isolated PostgreSQL fixture",
+    "Read back both links independently after registration",
+    "Verify host save and reload with scoped test accounts before runtime promotion"
+  ],
+  "newRoleGrants": 0,
+  "runtimeActivation": false
+}
