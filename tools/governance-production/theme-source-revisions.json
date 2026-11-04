@@ -33,12 +33,20 @@
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
       "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-      "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
-      "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+      "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
+      "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
       "verification": {
-        "run": 41472788148,
-        "browserJob": 125372855548,
-        "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+        "status": "unverified",
+        "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+      },
+      "previousRevision": {
+        "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+        "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+        "verification": {
+          "run": 41472788148,
+          "browserJob": 125372855548,
+          "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+        }
       }
     },
     {
