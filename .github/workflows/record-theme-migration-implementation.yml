@@ -1,0 +1,34 @@
+name: Record tenant theme migration implementation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/record-theme-migration-implementation.mjs'
+      - '.github/workflows/record-theme-migration-implementation.yml'
+permissions: {contents: read, actions: read}
+jobs:
+  record:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - name: Verify deployed source and full tenant acceptance
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner, repo=context.repo.repo, run_id=41821353177;
+            const run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
+            if(run.head_sha!=='1815fb84da3404f9829b4c00641640757b1e8fe0'||run.conclusion!=='success') throw Error('Accepted deployed source missing');
+            const jobs=(await github.rest.actions.listJobsForWorkflowRun({owner,repo,run_id,per_page:100})).data.jobs;
+            if(!['acceptance','publish'].every(name=>jobs.some(job=>job.name===name&&job.conclusion==='success'))) throw Error('Tenant acceptance or publication missing');
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-migration-implementation --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/theme-migration-implementation/node_modules node_modules
+          node tools/governance-production/record-theme-migration-implementation.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          RECORD_THEME_MIGRATION_IMPLEMENTATION: '1'
