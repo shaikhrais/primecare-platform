@@ -41,3 +41,15 @@ test('recovery refuses to erase a library that changed after it became unreadabl
  const editor=new PersonalThemeLibrary(key);storage.setItem(key,document);
  assert.throws(()=>editor.discardUnreadable(),/another_tab/);assert.equal(storage.getItem(key),document);
 });
+
+test('cooperating writers serialize and a stale writer is rejected',async(t)=>{
+ const storage=new MemoryStorage();globalThis.localStorage=storage;storage.setItem(key,document);
+ const prior=Object.getOwnPropertyDescriptor(globalThis,'navigator');let tail=Promise.resolve(),calls=[];
+ Object.defineProperty(globalThis,'navigator',{configurable:true,value:{locks:{request(name,options,work){calls.push({name,options});const task=tail.then(work);tail=task.catch(()=>{});return task;}}}});
+ t.after(()=>{if(prior)Object.defineProperty(globalThis,'navigator',prior);else delete globalThis.navigator;});
+ const first=new PersonalThemeLibrary(key),second=new PersonalThemeLibrary(key);
+ const result=await Promise.allSettled([first.withWriteLock(()=>first.rename(ids[0],'First')),second.withWriteLock(()=>second.rename(ids[0],'Second'))]);
+ assert.equal(result[0].status,'fulfilled');assert.equal(result[1].status,'rejected');
+ assert.equal(new PersonalThemeLibrary(key).items[0].theme.name,'First');
+ assert.deepEqual(calls,[{name:'primecare-theme-library:'+key,options:{mode:'exclusive'}},{name:'primecare-theme-library:'+key,options:{mode:'exclusive'}}]);
+});

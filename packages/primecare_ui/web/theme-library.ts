@@ -27,6 +27,12 @@ export class PersonalThemeLibrary {
  get recoveryRequired():boolean{return this.unreadable;}
  /** Explicit scoped recovery only: never replace a record that could not be read. */
  discardUnreadable():void {if(!this.unreadable)throw Error('theme_recovery_not_required');if(this.baseline!==undefined&&localStorage.getItem(this.key)!==this.baseline)throw Error('theme_changed_in_another_tab');localStorage.removeItem(this.key);this.baseline=null;for(const key of restoreCopyKeys(localStorage,this.key))localStorage.removeItem(key);this.restored=false;this.library={version:1,active:null,items:[]};this.unreadable=false;}
+ /** Serialize UI writes across cooperating tabs where Web Locks is available. */
+ async withWriteLock(work:()=>void):Promise<void> {
+  const locks=globalThis.navigator?.locks;
+  if(!locks){work();return;}
+  await locks.request('primecare-theme-library:'+this.key,{mode:'exclusive'},()=>{work();});
+ }
  get active():PersonalTheme|null{return this.library.active?structuredClone(this.library.active):null;}get items():SavedTheme[]{return structuredClone(this.library.items);}
  private commit(next:ThemeLibrary):void {if(this.unreadable)throw Error('theme_recovery_required');const validated=validateThemeLibrary(next);if(localStorage.getItem(this.key)!==this.baseline)throw Error('theme_changed_in_another_tab');const serialized=JSON.stringify(validated);localStorage.setItem(this.key,serialized);this.baseline=serialized;this.restored=false;this.library=validated;}
  save(value:unknown,id?:string):string {const theme=validatePersonalTheme(value);const next=structuredClone(this.library);if(id&&!next.items.some(i=>i.id===id))throw Error('Theme no longer exists');if(next.items.some(i=>i.id!==id&&i.theme.name.toLowerCase()===theme.name.toLowerCase()))throw Error('Choose a unique theme name');const key=id??themeId();const index=next.items.findIndex(i=>i.id===key);if(index>=0)next.items[index]={id:key,theme};else next.items.push({id:key,theme});next.active=theme;this.commit(next);return key;}

@@ -116,8 +116,12 @@ try{
  await editor.locator('[data-cy=theme-center-name]').fill('Stale edit');
  const otherTab=await tabs.newPage();await otherTab.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
  const newer=JSON.stringify({version:1,active:{...theme,name:'Newer tab'},items:[]});
- await otherTab.evaluate(({key,newer})=>localStorage.setItem(key,newer),{key,newer});
+ // Hold the cross-tab lock so the pending save cannot enter its check/write section.
+ await otherTab.evaluate(async key=>{await new Promise(resolve=>{navigator.locks.request('primecare-theme-library:'+key,{mode:'exclusive'},()=>new Promise(release=>{window.releaseThemeLock=release;resolve();}));});},key);
  await editor.locator('[data-cy=theme-center-new]').click();
+ await editor.waitForFunction(()=>document.querySelector('[data-cy=theme-center-new]')?.disabled===true);
+ assert.equal(await editor.evaluate(key=>localStorage.getItem(key),key),source);
+ await otherTab.evaluate(({key,newer})=>{localStorage.setItem(key,newer);window.releaseThemeLock();},{key,newer});
  await editor.waitForFunction(()=>document.querySelector('[data-cy=theme-center-status]')?.textContent?.startsWith('Unable to save'));
  assert.equal(await editor.evaluate(key=>localStorage.getItem(key),key),newer);
  assert.equal(await editor.locator('[data-cy=theme-center-name]').inputValue(),'Stale edit');
