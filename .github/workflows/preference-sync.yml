@@ -18,6 +18,9 @@ on:
       - 'tools/governance-production/preference-sync-contract.json'
       - 'packages/flutter_core/pubspec.yaml'
       - 'packages/primecare_models/pubspec.yaml'
+      - 'packages/primecare_ui/web/advanced-theme-tenant-*.ts'
+      - 'packages/primecare_ui/web/advanced-theme-migration.ts'
+      - 'packages/domain/src/legacy-theme-migration.ts'
       - 'scripts/*preference*.mjs'
       - '.github/workflows/preference-sync.yml'
   workflow_dispatch:
@@ -59,6 +62,7 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/test-preference-service.mjs
           node scripts/test-preference-browser.mjs
+          node scripts/test-preference-tenant-theme-browser.mjs
   native:
     strategy:
       fail-fast: false
