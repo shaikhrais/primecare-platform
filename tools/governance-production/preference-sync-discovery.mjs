@@ -39,7 +39,12 @@ try{
   'ORDER BY r.role_code,s.id',
   [adminRoles,adminRoles.map(role=>entryRoutes[role])]
  )).rows;
+ const registeredThemeControls=(await db.query(
+  'SELECT screen_id,data_cy,component_type,file_path FROM '+relation('screen_components')+
+  " WHERE screen_id=ANY($1::bigint[]) AND (data_cy ILIKE '%theme%' OR data_cy ILIKE '%appearance%') ORDER BY screen_id,data_cy",
+  [[1269,2534]]
+ )).rows;
  const settingDefinitions=(await db.query('SELECT setting_code,setting_type,default_value FROM '+relation('user_setting_definitions')+' ORDER BY id LIMIT 100')).rows;
  const actorColumns=(await db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' AND table_name IN ('users','auth_sessions','tenants') AND column_name IN ('id','roles','tenant_id','status','user_id','token_hash','expires_at') ORDER BY table_name,column_name")).rows;
- const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,hostCandidates,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
+ const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,hostCandidates,registeredThemeControls,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
 }catch{console.error('Preference synchronization metadata inspection failed; no mutations were attempted.');process.exitCode=1;}finally{if(db)await db.end();}
