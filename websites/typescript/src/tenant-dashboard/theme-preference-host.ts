@@ -1,3 +1,4 @@
+import {themeLibraryAbsent} from '../../../../packages/primecare_ui/web/theme-restore-storage';
 import {PreferenceSyncClient} from '../../../../packages/shared/src/preference-sync/client';
 import {preferenceHttpTransport,preferenceStorageCache} from '../../../../packages/shared/src/preference-sync/transport';
 import {mountTenantThemeMigration} from '../../../../packages/primecare_ui/web/advanced-theme-tenant-control';
@@ -26,7 +27,7 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
    if(!state.loaded||!['clean','dirty','conflict','offline'].includes(state.status))return;
    const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
    if(localStorage.getItem(key)!==null||state.pending)removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,valid);
-   else if(state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,options.locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
+   else if(themeLibraryAbsent(localStorage,key)&&state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,options.locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
   })().catch(()=>{});};
   opener.addEventListener('click',start);
   if(dialog.closest('dialog')?.open)start();

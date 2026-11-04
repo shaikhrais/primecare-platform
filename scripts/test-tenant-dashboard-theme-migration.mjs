@@ -74,11 +74,13 @@ try{
  assert.equal(await freshPage.locator('[data-cy=theme-restore-status]').textContent(),'Review ready');
  assert.match(await freshPage.locator('[data-cy=theme-restore-preview]').textContent(),/layout/);
  await Promise.all([freshPage.waitForEvent('load'),freshPage.locator('[data-cy=theme-restore-confirm]').click()]);
- await freshPage.waitForFunction(key=>localStorage.getItem(key)!==null,key);
+ await freshPage.waitForFunction(key=>Object.keys(localStorage).some(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':')),key);
  await freshPage.locator('[data-cy=appearance-open]').click();
  assert.equal(await freshPage.locator('[data-cy=theme-center-name]').inputValue(),theme.name);
  assert.equal(await freshPage.evaluate(()=>document.documentElement.style.getPropertyValue('--color-primary')),theme.colors.primary);
- assert.equal(JSON.parse(await freshPage.evaluate(key=>localStorage.getItem(key),key)).items[0].id,'00000000-0000-4000-8000-000000000001');
+ assert.equal(await freshPage.evaluate(key=>localStorage.getItem(key),key),null);
+ const savedCopy=await freshPage.evaluate(key=>localStorage.getItem(Object.keys(localStorage).find(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':'))),key);
+ assert.equal(JSON.parse(savedCopy).items[0].id,'00000000-0000-4000-8000-000000000001');
  await fresh.close();
  // An unsaved local edit blocks restoration and remains visible.
  const draft=await browser.newContext({viewport:{width:1440,height:960}});
@@ -93,6 +95,18 @@ try{
  assert.equal(await draftPage.locator('[data-cy=theme-center-name]').inputValue(),'Unsaved local draft');
  assert.equal(await draftPage.evaluate(key=>localStorage.getItem(key),key),null);
  await draft.close();
+ // Another tab creating a library after review must block restoration without changing it.
+ const conflict=await browser.newContext({viewport:{width:1440,height:960}});
+ await conflict.addInitScript(token=>sessionStorage.setItem('primecare_session',token),actor.token);
+ const conflictPage=await conflict.newPage();conflictPage.on('pageerror',error=>errors.push(error.message));
+ await conflictPage.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ await conflictPage.locator('[data-cy=appearance-open]').click();await conflictPage.locator('[data-cy=theme-restore-review]').click();
+ await conflictPage.evaluate(({key,source})=>localStorage.setItem(key,source),{key,source});
+ await conflictPage.locator('[data-cy=theme-restore-confirm]').click();
+ await conflictPage.waitForFunction(()=>document.querySelector('[data-cy=theme-restore-status]')?.textContent?.startsWith('Could not restore'));
+ assert.equal(await conflictPage.evaluate(key=>localStorage.getItem(key),key),source);
+ assert.equal(await conflictPage.evaluate(key=>Object.keys(localStorage).filter(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':')).length,key),0);
+ await conflict.close();
  await page.reload();
  await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').click();
