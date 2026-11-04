@@ -18,3 +18,24 @@ test('migration preserves the exact source and rejects conflicting or failed bac
  assert.equal(data.get('primecare-themes:v1:actor'),source);
  assert.throws(()=>prepareStoredThemeMigration(storage,'unscoped'),/scope/);
 });
+
+test('the Theme Center library prepares an actor-scoped backup', async t => {
+ const bundle = await build({entryPoints:['packages/primecare_ui/web/theme-library.ts'],bundle:true,platform:'node',format:'esm',write:false});
+ const {PersonalThemeLibrary}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+ const data=new Map();
+ const previous=Object.getOwnPropertyDescriptor(globalThis,'localStorage');
+ Object.defineProperty(globalThis,'localStorage',{configurable:true,value:{
+  getItem:key=>data.get(key)??null,setItem:(key,value)=>data.set(key,value),removeItem:key=>data.delete(key),
+ }});
+ t.after(()=>{if(previous)Object.defineProperty(globalThis,'localStorage',previous);else delete globalThis.localStorage;});
+ const source='primecare-themes:v1:tenant-user-role';
+ const backup='primecare-theme-migration-backup:v1:tenant-user-role';
+ const library=new PersonalThemeLibrary(source);
+ library.resetActive();
+ const original=data.get(source);
+ const prepared=library.prepareMigration();
+ assert.equal(data.get(source),original);
+ assert.equal(data.get(backup),original);
+ assert.equal(prepared.candidate.version,2);
+ assert.equal(prepared.requiresReview,true);
+});
