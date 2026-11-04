@@ -41,10 +41,29 @@ try {
   assert.deepEqual(await snapshot(), initial);
   await db.query('UPDATE ' + table('role_screen_permissions') + ' SET can_view=1 WHERE role_id=72');
 
-  assert.deepEqual(await registerPreferenceHostBindings(db, { commit: true }), { inserted: 2, committed: true });
+  await db.query('INSERT INTO ' + links + " VALUES (10,21,2534,777,'Conflicting existing link')");
+  const beforeConflict = (await db.query('SELECT * FROM ' + links + ' ORDER BY id')).rows;
+  await assert.rejects(registerPreferenceHostBindings(db, { commit: true }), /Conflicting preference host link/);
+  assert.deepEqual((await db.query('SELECT * FROM ' + links + ' ORDER BY id')).rows, beforeConflict);
+  await db.query('DELETE FROM ' + links + ' WHERE id=10');
+
+  const concurrent = new pg.Client({ connectionString: url.href });
+  await concurrent.connect();
+  try {
+    const results = await Promise.all([
+      registerPreferenceHostBindings(db, { commit: true }),
+      registerPreferenceHostBindings(concurrent, { commit: true }),
+    ]);
+    assert.ok(results.every(result => result.committed));
+    assert.deepEqual(results.map(result => result.inserted).sort(), [0, 2]);
+    const readback = await concurrent.query('SELECT screen_id,api_id FROM ' + links + ' ORDER BY id');
+    assert.deepEqual(readback.rows, [...initial, { screen_id: 1269, api_id: 777 }, { screen_id: 2534, api_id: 777 }]);
+  } finally {
+    await concurrent.end();
+  }
   assert.deepEqual(await snapshot(), [...initial, { screen_id: 1269, api_id: 777 }, { screen_id: 2534, api_id: 777 }]);
   assert.deepEqual(await registerPreferenceHostBindings(db, { commit: true }), { inserted: 0, committed: true });
-  console.log('Preference host transaction passed dry run, atomic rollback, commit and replay.');
+  console.log('Preference host transaction passed dry run, atomic rollback, conflict preservation, concurrent commit and replay.');
 } finally {
   await db.end();
 }
