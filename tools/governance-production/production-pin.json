@@ -1927,5 +1927,23 @@
     "screenViewsChanged": false,
     "runtimeActivation": false,
     "businessDataWrites": false
+  },
+  "themeMigrationWriter": {
+    "screenId": 2534,
+    "roleId": 72,
+    "apiId": 777,
+    "controls": [
+      "theme-migration-review",
+      "theme-migration-save",
+      "theme-migration-retry"
+    ],
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "runtimeActivation": false,
+    "roleGrants": false
   }
 }

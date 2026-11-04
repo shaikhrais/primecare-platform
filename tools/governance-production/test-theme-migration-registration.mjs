@@ -27,16 +27,19 @@ try{
  INSERT INTO ${t('api_permissions')} VALUES(72,777,1,'authenticated_self_preferences');
  INSERT INTO ${t('screen_api_links')} VALUES(2534,777);
  INSERT INTO ${t('languages')} VALUES(1,'en',1),(2,'fr',1),(3,'es',1);`);
- assert.deepEqual(await registerThemeMigrationControls(db,schema,'fixture'),{controls:3,translations:9});
- assert.deepEqual(await registerThemeMigrationControls(db,schema,'fixture'),{controls:3,translations:9});
+ assert.deepEqual(await registerThemeMigrationControls(db,schema,'fixture'),{controls:3,translations:9,committed:false});
+ assert.equal(Number((await db.query('SELECT count(*) n FROM '+t('screen_components'))).rows[0].n),0);
+ await assert.rejects(registerThemeMigrationControls(db,schema,'fixture',{requireExisting:true}),/Missing registered/);
+ assert.deepEqual(await registerThemeMigrationControls(db,schema,'fixture',{apply:true}),{controls:3,translations:9,committed:true});
+ assert.deepEqual(await registerThemeMigrationControls(db,schema,'fixture',{requireExisting:true}),{controls:3,translations:9,committed:false});
  assert.equal(Number((await db.query('SELECT count(*) n FROM '+t('screen_components'))).rows[0].n),3);
  assert.equal(Number((await db.query('SELECT count(*) n FROM '+t('language_resource_values'))).rows[0].n),9);
  await db.query('UPDATE '+t('role_screen_permissions')+' SET can_view=0');
- await assert.rejects(registerThemeMigrationControls(db,schema,'fixture'),/Host authority/);
+ await assert.rejects(registerThemeMigrationControls(db,schema,'fixture',{apply:true}),/Host authority/);
  assert.equal(Number((await db.query('SELECT count(*) n FROM '+t('screen_components'))).rows[0].n),3);
  await db.query('UPDATE '+t('role_screen_permissions')+' SET can_view=1');
  await db.query("UPDATE "+t('screen_components')+" SET component_name='conflict' WHERE data_cy='theme-migration-save'");
- await assert.rejects(registerThemeMigrationControls(db,schema,'fixture'),/Existing metadata differs/);
+ await assert.rejects(registerThemeMigrationControls(db,schema,'fixture',{apply:true}),/Existing metadata differs/);
  assert.equal(Number((await db.query('SELECT count(*) n FROM '+t('language_resource_values'))).rows[0].n),9);
  console.log('Isolated registration, replay and fail-closed checks passed.');
 }finally{await db.end();}

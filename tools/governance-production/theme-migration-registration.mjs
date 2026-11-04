@@ -1,5 +1,5 @@
 /** Register exactly the tenant theme review controls within an existing transaction. */
-export async function registerThemeMigrationControls(db, schema, manifestHash) {
+export async function registerThemeMigrationControls(db, schema, manifestHash, {apply = false, requireExisting = false} = {}) {
   if (!/^governance_[0-9a-f]{40}$/.test(schema)) throw Error('Invalid governance schema');
   const table = name => '"' + schema + '"."govt_' + name + '"';
   const controls = [
@@ -28,6 +28,7 @@ export async function registerThemeMigrationControls(db, schema, manifestHash) {
         if(fields.some(k=>String(rows[0][k])!==String(values[k]))) throw Error('Existing metadata differs');
         return rows[0][pk];
       }
+      if (requireExisting) throw Error('Missing registered metadata');
       const next=(await db.query('SELECT COALESCE(MAX("'+pk+'"),0)+1 AS id,COALESCE(MAX(_primecare_import_row),-1)+1 AS ordinal FROM '+table(name))).rows[0];
       const record={_primecare_import_row:next.ordinal,[pk]:next.id,...keys,...values};
       await db.query('INSERT INTO '+table(name)+' ('+Object.keys(record).map(k=>'"'+k+'"').join(',')+') VALUES ('+Object.keys(record).map((_,i)=>'$'+(i+1)).join(',')+')',Object.values(record));
@@ -40,7 +41,7 @@ export async function registerThemeMigrationControls(db, schema, manifestHash) {
       await ensure('screen_components','id',{screen_id:2534,component_code:key},{component_name:c.en,component_type:'prime_button',data_cy:c.id,file_path:'packages/primecare_ui/web/advanced-theme-tenant-control.ts',implementation_status:'registered-unimplemented'});
       await ensure('screen_required_elements','id',{screen_id:2534,element_key:key},{element_type:'prime_button',label:c.en,test_id:c.id,required:0});
     }
-    await db.query('COMMIT');
-    return {controls:controls.length,translations:9};
+    await db.query(apply ? 'COMMIT' : 'ROLLBACK');
+    return {controls:controls.length,translations:9,committed:apply};
   } catch(error) {await db.query('ROLLBACK');throw error;}
 }
