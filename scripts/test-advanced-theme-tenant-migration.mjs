@@ -61,3 +61,32 @@ test('explicit migration retry uses the original pending request',async()=>{
  assert.deepEqual(await retryTenantThemeMigration(client),{status:'clean',error:null,pending:false,revision:1});
  await assert.rejects(retryTenantThemeMigration(client),/No pending/);
 });
+
+test('migration saves through the real preference client and survives reload',async()=>{
+ const built=await build({stdin:{contents:"export {PreferenceSyncClient} from './packages/shared/src/preference-sync/client'; export {saveTenantThemeMigration} from './packages/primecare_ui/web/advanced-theme-tenant-migration';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'esm',write:false});
+ const {PreferenceSyncClient,saveTenantThemeMigration:save}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
+ const scope={tenantId:'tenant1',userId:'user1',role:'tenant_admin',dataset:'live'};
+ const binding={scope,kind:'theme',resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}};
+ let snapshot={version:1,scope,kind:'theme',resource:'advanced-v2',revision:0,document:null};
+ let writes=0;
+ const transport=async request=>{if(request.action==='write'){writes++;assert.equal(request.revision,snapshot.revision);snapshot={...snapshot,revision:snapshot.revision+1,document:request.document};}return structuredClone(snapshot);};
+ const values=new Map();
+ const cache={read:async k=>values.get(k)??null,write:async(k,v)=>values.set(k,v),remove:async k=>values.delete(k)};
+ const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard','live','tenant1','user1','tenant_admin']));
+ const source=JSON.stringify({version:1,active:null,items:[]});
+ const local=new Map([[key,source]]);
+ const storage={getItem:k=>local.get(k)??null,setItem:(k,v)=>local.set(k,v)};
+ const uuid=()=> '00000000-0000-4000-8000-000000000001';
+ const client=new PreferenceSyncClient(binding,transport,cache,uuid);
+ await client.load();
+ const candidate={version:2,active:null,items:[]};
+ assert.deepEqual(await save(storage,client,candidate),{status:'clean',error:null,pending:false,revision:1});
+ await client.dispose();
+ const reopened=new PreferenceSyncClient(binding,transport,cache,uuid);
+ await reopened.load();
+ assert.deepEqual(reopened.current.draft,candidate);
+ assert.equal(reopened.current.base.revision,1);
+ assert.equal(writes,1);
+ assert.equal(local.get(key),source);
+ await reopened.dispose();
+});
