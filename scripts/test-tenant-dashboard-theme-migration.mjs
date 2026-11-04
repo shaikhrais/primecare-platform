@@ -64,6 +64,35 @@ try{
  assert.equal(row.document.active.regions.navigation.background,theme.colors.sidebar);
  assert.equal(row.document.active.tokens.fontFamily,theme.fontFamily);
  assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),source);
+ // A separate browser with no local library can review and restore the account theme.
+ const fresh=await browser.newContext({viewport:{width:1440,height:960}});
+ await fresh.addInitScript(token=>sessionStorage.setItem('primecare_session',token),actor.token);
+ const freshPage=await fresh.newPage();freshPage.on('pageerror',error=>errors.push(error.message));
+ await freshPage.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ await freshPage.locator('[data-cy=appearance-open]').click();
+ await freshPage.locator('[data-cy=theme-restore-review]').click();
+ assert.equal(await freshPage.locator('[data-cy=theme-restore-status]').textContent(),'Review ready');
+ assert.match(await freshPage.locator('[data-cy=theme-restore-preview]').textContent(),/layout/);
+ await Promise.all([freshPage.waitForEvent('load'),freshPage.locator('[data-cy=theme-restore-confirm]').click()]);
+ await freshPage.waitForFunction(key=>localStorage.getItem(key)!==null,key);
+ await freshPage.locator('[data-cy=appearance-open]').click();
+ assert.equal(await freshPage.locator('[data-cy=theme-center-name]').inputValue(),theme.name);
+ assert.equal(await freshPage.evaluate(()=>document.documentElement.style.getPropertyValue('--color-primary')),theme.colors.primary);
+ assert.equal(JSON.parse(await freshPage.evaluate(key=>localStorage.getItem(key),key)).items[0].id,'00000000-0000-4000-8000-000000000001');
+ await fresh.close();
+ // An unsaved local edit blocks restoration and remains visible.
+ const draft=await browser.newContext({viewport:{width:1440,height:960}});
+ await draft.addInitScript(token=>sessionStorage.setItem('primecare_session',token),actor.token);
+ const draftPage=await draft.newPage();draftPage.on('pageerror',error=>errors.push(error.message));
+ await draftPage.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ await draftPage.locator('[data-cy=appearance-open]').click();
+ await draftPage.locator('[data-cy=theme-center-name]').fill('Unsaved local draft');
+ await draftPage.locator('[data-cy=theme-restore-review]').click();
+ await draftPage.locator('[data-cy=theme-restore-confirm]').click();
+ await draftPage.waitForFunction(()=>document.querySelector('[data-cy=theme-restore-status]')?.textContent?.startsWith('Could not restore'));
+ assert.equal(await draftPage.locator('[data-cy=theme-center-name]').inputValue(),'Unsaved local draft');
+ assert.equal(await draftPage.evaluate(key=>localStorage.getItem(key),key),null);
+ await draft.close();
  await page.reload();
  await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').click();
@@ -75,7 +104,7 @@ try{
  assert.equal(denied.status,409);
  assert.equal(Number((await preference.db.query('SELECT count(*) n FROM account_preference_audit WHERE user_id=$1',[actor.id])).rows[0].n),1);
  assert.deepEqual(errors,[]);
- console.log('Actual Tenant Admin page, preference gateway, PostgreSQL, audit, isolation and reload passed.');
+ console.log('Actual Tenant Admin migration, separate-browser restore, draft protection, PostgreSQL, audit, isolation and reload passed.');
 }finally{
  await browser?.close();if(server?.listening)await new Promise(resolve=>server.close(resolve));
  await preference?.close();await tenant?.close();
