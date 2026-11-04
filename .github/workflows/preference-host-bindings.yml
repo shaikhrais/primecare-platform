@@ -29,3 +29,19 @@ jobs:
           npm install --prefix /tmp/preference-host-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s /tmp/preference-host-tools/node_modules node_modules
           node tools/governance-production/test-preference-host-binding-registration.mjs
+  production-preflight:
+    needs: postgres
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/preference-host-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/preference-host-tools/node_modules node_modules
+          node tools/governance-production/preference-host-binding-preflight.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

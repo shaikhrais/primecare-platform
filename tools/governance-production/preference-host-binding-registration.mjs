@@ -11,15 +11,18 @@ const table = name => quote(pin.schema) + '.' + quote(pin.tablePrefix + name);
 const links = table('screen_api_links');
 const purpose = 'Authenticated self-preferences via API 777';
 
-export async function registerPreferenceHostBindings(db, { commit = false } = {}) {
-  await db.query('BEGIN');
+export async function registerPreferenceHostBindings(db, { commit = false, readOnly = false } = {}) {
+  if (commit && readOnly) throw Error('Read-only preflight cannot commit');
+  await db.query(readOnly ? 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY' : 'BEGIN');
   try {
     await db.query("SET LOCAL lock_timeout='5s'");
     await db.query("SET LOCAL statement_timeout='30s'");
     const checkedTables = ['source_manifest', 'api_endpoints', 'screens', 'roles',
       'role_screen_permissions', 'api_permissions'].map(table);
-    await db.query('LOCK TABLE ' + checkedTables.join(',') + ' IN SHARE MODE');
-    await db.query('LOCK TABLE ' + links + ' IN SHARE ROW EXCLUSIVE MODE');
+    if (!readOnly) {
+      await db.query('LOCK TABLE ' + checkedTables.join(',') + ' IN SHARE MODE');
+      await db.query('LOCK TABLE ' + links + ' IN SHARE ROW EXCLUSIVE MODE');
+    }
 
     const manifest = await db.query('SELECT manifest_sha256 FROM ' + table('source_manifest'));
     if (manifest.rows.length !== 1 || manifest.rows[0].manifest_sha256 !== pin.manifestSha256) {
@@ -33,6 +36,7 @@ export async function registerPreferenceHostBindings(db, { commit = false } = {}
     if (endpoint.rows.length !== 1) throw Error('Preference endpoint identity mismatch');
 
     let inserted = 0;
+    const missingScreenIds = [];
     for (const binding of plan.bindings) {
       for (const roleId of binding.roleIds) {
         const role = policy.roles.find(entry => entry.id === roleId);
@@ -54,6 +58,10 @@ export async function registerPreferenceHostBindings(db, { commit = false } = {}
         throw Error('Conflicting preference host link');
       }
       if (existing.rows.length === 1) continue;
+      if (readOnly) {
+        missingScreenIds.push(binding.screenId);
+        continue;
+      }
       await db.query(
         'INSERT INTO ' + links + ' (id,_primecare_import_row,screen_id,api_id,purpose)' +
         ' SELECT COALESCE(MAX(id),0)+1,COALESCE(MAX(_primecare_import_row),-1)+1,$1,$2,$3 FROM ' + links,
@@ -62,6 +70,7 @@ export async function registerPreferenceHostBindings(db, { commit = false } = {}
       inserted++;
     }
     await db.query(commit ? 'COMMIT' : 'ROLLBACK');
+    if (readOnly) return { apiId: plan.apiId, missingScreenIds, writes: 0 };
     return { inserted, committed: commit };
   } catch (error) {
     await db.query('ROLLBACK');
