@@ -48,6 +48,13 @@ try{
  const rows=(await fixture.db.query('SELECT tenant_id,user_id,actor_role,dataset,revision,document FROM account_preference_documents')).rows;
  assert.equal(rows.length,1);assert.deepEqual(rows[0].document,{version:2,active:null,items:[]});
  assert.equal(Number(rows[0].revision),1);assert.equal(rows[0].tenant_id,'tenant1');assert.equal(rows[0].user_id,'admin');
+ const audits=(await fixture.db.query("SELECT action,revision FROM account_preference_audit WHERE user_id='admin'")).rows;
+ assert.deepEqual(audits.map(row=>({action:row.action,revision:Number(row.revision)})),[{action:'write',revision:1}]);
+ const denied=await fixture.fetch(new Request('https://fixture.test/v1/user/preferences',{
+  method:'POST',headers:{authorization:'Bearer '+fixture.tokens.user2,'content-type':'application/json'},
+  body:JSON.stringify({version:1,action:'read',expectedScope:scope,dataset:'live',kind:'theme',resource:'advanced-v2'})
+ }));
+ assert.equal(denied.status,409);
  assert.equal(await page.evaluate(k=>localStorage.getItem(k),key),source);
  await page.reload();
  const reloaded=await page.evaluate(async({scope,token})=>{
