@@ -16,3 +16,15 @@ test('migration retains the source and refuses unsupported identifiers', () => {
   assert.equal(result.candidate.active.regions.toolbar.background, '#ffffff');
   assert.throws(() => prepareLegacyThemeMigration({ ...source, items: [{ id: '------------------------------------', theme }] }));
 });
+
+test('all built-in presets migrate while preserving the original', async () => {
+  const catalog = JSON.parse(await (await import('node:fs/promises')).readFile('scripts/primecare_presets.json', 'utf8'));
+  for (const preset of Object.keys(catalog)) {
+    const theme = { version: 1, name: preset, preset, fontFamily: 'system', fontScale: 1, radius: 12, colors: {} };
+    const source = { version: 1, active: theme, items: [] };
+    const result = prepareLegacyThemeMigration(source);
+    assert.deepEqual(result.original, source, preset);
+    assert.equal(result.candidate.active.name, preset);
+    assert.equal(result.candidate.active.regions.main.mode, catalog[preset].mode);
+  }
+});
