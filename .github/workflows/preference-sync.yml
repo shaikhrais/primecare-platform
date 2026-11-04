@@ -19,6 +19,8 @@ on:
       - 'packages/flutter_core/pubspec.yaml'
       - 'packages/primecare_models/pubspec.yaml'
       - 'packages/primecare_ui/web/advanced-theme-tenant-*.ts'
+      - 'websites/typescript/src/tenant-dashboard/theme-preference-host.ts'
+      - 'websites/typescript/src/tenant-dashboard/index.ts'
       - 'packages/primecare_ui/web/advanced-theme-migration.ts'
       - 'packages/domain/src/legacy-theme-migration.ts'
       - 'scripts/*preference*.mjs'

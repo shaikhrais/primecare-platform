@@ -6,7 +6,7 @@ import {preferenceFixture} from './preference-sync-fixture.mjs';
 
 const fixture=await preferenceFixture();
 const bundle=await build({stdin:{resolveDir:process.cwd(),contents:`
-export {mountTenantThemeMigration} from './packages/primecare_ui/web/advanced-theme-tenant-control';
+export {mountTenantThemePreference} from './websites/typescript/src/tenant-dashboard/theme-preference-host';
 export {PreferenceSyncClient} from './packages/shared/src/preference-sync/client';
 export {preferenceHttpTransport,preferenceStorageCache} from './packages/shared/src/preference-sync/transport';
 `},bundle:true,platform:'browser',format:'iife',globalName:'Migration',write:false});
@@ -18,7 +18,7 @@ const server=createServer(async(req,res)=>{
    const response=await fixture.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:req.headers,body:Buffer.concat(chunks)}));
    res.writeHead(response.status,Object.fromEntries(response.headers));return res.end(Buffer.from(await response.arrayBuffer()));
   }
-  res.setHeader('content-type','text/html');res.end('<main id="host"></main><script src="/client.js"></script>');
+  res.setHeader('content-type','text/html');res.end('<main id="root"><section data-cy="theme-center"></section></main><script src="/client.js"></script>');
  }catch{res.writeHead(500);res.end();}
 });
 let browser;
@@ -34,11 +34,10 @@ try{
  const source=JSON.stringify({version:1,active:null,items:[]});
  const mount=async()=>page.evaluate(async({scope,key,source,token})=>{
   if(localStorage.getItem(key)===null)localStorage.setItem(key,source);
-  window.client=new Migration.PreferenceSyncClient({scope,kind:'theme',resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}},Migration.preferenceHttpTransport(location.origin,token),Migration.preferenceStorageCache(localStorage));
-  await window.client.load();
-  Migration.mountTenantThemeMigration(document.querySelector('#host'),window.client,localStorage,'en');
+  window.disposeHost=Migration.mountTenantThemePreference(document.querySelector('#root'),{gateway:location.origin,token,locale:'en',tenantId:scope.tenantId,userId:scope.userId,dataset:scope.dataset,isCurrent:()=>true});
  },{scope,key,source,token:fixture.tokens.admin});
  await mount();
+ await page.locator('[data-cy=theme-migration-review]').waitFor();
  await page.locator('[data-cy=theme-migration-review]').click();
  assert.equal(await page.locator('[data-cy=theme-migration-status]').textContent(),'Review ready');
  assert.equal(Number((await fixture.db.query('SELECT count(*) AS n FROM account_preference_documents')).rows[0].n),0);
@@ -47,6 +46,7 @@ try{
  await page.waitForFunction(()=>document.querySelector('[data-cy=theme-migration-status]').textContent.includes('pending'));
  await page.reload();
  await mount();
+ await page.locator('[data-cy=theme-migration-retry]').waitFor();
  assert.equal(await page.locator('[data-cy=theme-migration-retry]').isVisible(),true);
  assert.equal(await page.locator('[data-cy=theme-migration-review]').isDisabled(),true);
  await page.locator('[data-cy=theme-migration-retry]').click();

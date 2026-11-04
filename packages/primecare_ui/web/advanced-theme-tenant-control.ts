@@ -16,7 +16,7 @@ const labels = {
 
 /** Mount only within a host that has registered these controls and verified its actor. */
 export function mountTenantThemeMigration(
-  root: HTMLElement, client: PreferenceSyncClient, storage: Storage, locale: Locale,
+  root: HTMLElement, client: PreferenceSyncClient, storage: Storage, locale: Locale, isCurrent:()=>boolean=()=>true,
 ) {
   const doc=root.ownerDocument, text=labels[locale], review=new TenantThemeMigrationReview(storage,client);
   const section=doc.createElement('section');
@@ -32,16 +32,16 @@ export function mountTenantThemeMigration(
   section.append(heading,prepare,description,preview,save,retry,status);root.append(section);
   let disposed=false,busy=false;
   const result=(value:{status:string;pending:boolean})=>{
-    if(disposed)return;
+    if(disposed||!isCurrent())return;
     retry.hidden=!value.pending;
     prepare.disabled=value.pending;
     status.textContent=value.status==='clean'?text.saved:value.pending?text.pending:text.failed;
   };
-  prepare.onclick=()=>{if(disposed||busy)return;try{
+  prepare.onclick=()=>{if(disposed||!isCurrent()||busy)return;try{
     const value=review.prepare();description.textContent=text.changed+' '+value.unmappedFields.join(', ');
     preview.textContent=JSON.stringify(value.candidate,null,2);save.disabled=false;status.textContent=text.ready;
   }catch{save.disabled=true;status.textContent=text.failed;}};
-  save.onclick=async()=>{if(disposed||busy)return;busy=true;save.disabled=true;try{result(await review.confirm());}catch{if(!disposed)status.textContent=text.failed;}finally{busy=false;}};
+  save.onclick=async()=>{if(disposed||busy)return;busy=true;save.disabled=true;try{result(await review.confirm());}catch{if(!disposed&&isCurrent())status.textContent=text.failed;}finally{busy=false;}};
   retry.onclick=async()=>{if(disposed||busy)return;busy=true;retry.disabled=true;try{result(await review.retry());}catch{if(!disposed)status.textContent=text.failed;}finally{busy=false;if(!disposed)retry.disabled=false;}};
   return ()=>{disposed=true;review.dispose();section.remove();};
 }
