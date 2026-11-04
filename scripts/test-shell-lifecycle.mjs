@@ -25,6 +25,8 @@ try{
   first=pending('appearance-import',xml('#334455'));second=pending('appearance-import',xml('#445566'));second.resolve();await second.done;first.resolve();await first.done;expect(document.documentElement.style.getPropertyValue('--color-primary')!=='#334455','older XML import cannot replace newer import');
   // Remove the active personal theme so the XML accent is observable.
   root.querySelector('[data-cy=theme-center-reset]').click();
+  if(navigator.locks)await navigator.locks.request('primecare-theme-library:primecare-themes:v1:'+encodeURIComponent('actor-c'),{mode:'exclusive'},()=>{});
+  else await new Promise(resolve=>setTimeout(resolve,0));
   first=pending('appearance-import',xml('#556677'));second=pending('appearance-import',xml('#667788'));second.resolve();await second.done;first.resolve();await first.done;expect(token()==='#667788','newest XML import wins');
   slow=pending('theme-center-import',theme('#778899'));const liveDialog=root.querySelector('[data-cy=appearance-dialog]');mount('actor-c','fr','refreshed');slow.resolve();await slow.done;expect(token()==='#778899'&&root.querySelector('[data-cy=appearance-dialog]')===liveDialog,'ordinary redraw preserves live dialog and import');
   slow=pending('theme-center-import',theme('#8899aa'));root.querySelector('[data-cy=appearance-open]').remove();mount('actor-c','fr','new-host');const refreshed=token();slow.resolve();await slow.done;expect(token()===refreshed,'replaced controls invalidate old dialog callbacks');

@@ -23,7 +23,7 @@ export function mountThemeCenter(dialog:HTMLDialogElement,manager:BaseLayoutMana
  let actionBusy=false;
  const run=(work:()=>void)=>{if(!isCurrent()||actionBusy)return;actionBusy=true;
   const disabled=new Map<HTMLInputElement|HTMLSelectElement|HTMLButtonElement,boolean>();
-  root.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLButtonElement>('input,select,button').forEach(el=>{disabled.set(el,el.disabled);el.disabled=true;});
+  root.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLButtonElement>('input[data-cy^=theme-center-],select[data-cy^=theme-center-],button[data-cy^=theme-center-],button[data-cy^=theme-quick-]').forEach(el=>{disabled.set(el,el.disabled);el.disabled=true;});
   let failed=false;
   void library.withWriteLock(()=>{if(isCurrent())work();}).catch(()=>{failed=true;}).finally(()=>{
    for(const [el,wasDisabled] of disabled)el.disabled=wasDisabled;
