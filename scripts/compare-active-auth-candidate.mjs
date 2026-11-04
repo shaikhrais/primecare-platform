@@ -26,7 +26,13 @@ const out=process.env.RUNNER_TEMP+'/auth-candidate-compare';await mkdir(out,{rec
 execFileSync('node_modules/.bin/wrangler',['deploy','--dry-run','--config','.cloudflare-workers/accepted-auth-preferences.jsonc','--outdir',out],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});
 const files=(await readdir(out)).filter(name=>name.endsWith('.js'));
 if(files.length!==1)throw Error('Unexpected candidate bundle shape');
-const localHash=createHash('sha256').update(await readFile(out+'/'+files[0])).digest('hex');
+const local=await readFile(out+'/'+files[0]);
+const localHash=createHash('sha256').update(local).digest('hex');
+const contentResponse=await fetch(base+'/content/v2',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
+if(!contentResponse.ok)throw Error('Active script content unavailable');
+const content=Buffer.from(await contentResponse.arrayBuffer());
+if(content.length>25*1024*1024)throw Error('Active script content exceeds limit');
+const contentMatches=content.includes(local);
 const after=(await get('/deployments?per_page=1')).deployments?.[0];
 if(after?.id!==active.id||after.versions?.length!==1||after.versions[0].version_id!==versionId||after.versions[0].percentage!==100)throw Error('Auth deployment changed during comparison');
-console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,preferenceRuntimeEnabled:false,writes:0}));
+console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,contentMatches,preferenceRuntimeEnabled:false,writes:0}));
