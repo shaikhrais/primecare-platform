@@ -24,6 +24,7 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm install --prefix /tmp/psw-tools --ignore-scripts --no-audit --no-fund @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
       - run: test -e node_modules/bcryptjs || ln -s /tmp/psw-tools/node_modules/bcryptjs node_modules/bcryptjs
+      - run: mkdir -p node_modules/@electric-sql && test -e node_modules/@electric-sql/pglite || ln -s /tmp/psw-tools/node_modules/@electric-sql/pglite node_modules/@electric-sql/pglite
       - name: Preserve independently reviewed gateway route behavior
         run: node --test scripts/test-method-capture-blockers.mjs
       - name: Verify fresh governed workspace identifiers before publication
