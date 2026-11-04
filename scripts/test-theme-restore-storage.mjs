@@ -28,3 +28,16 @@ test('multiple simultaneous restore copies are retained and require explicit rec
  assert.throws(()=>library.save(theme),/recovery/);assert.equal(storage.getItem(copy),document);assert.equal(storage.getItem(second),document);
  assert.throws(()=>storeRestoreCopy(storage,key,document,'bad'));library.discardUnreadable();assert.equal(restoreCopyKeys(storage,key).length,0);
 });
+
+test('a stale editor cannot replace a theme saved by another tab',()=>{
+ const storage=new MemoryStorage();globalThis.localStorage=storage;storage.setItem(key,document);
+ const first=new PersonalThemeLibrary(key),second=new PersonalThemeLibrary(key);
+ first.rename(ids[0],'Newer');const newer=storage.getItem(key);
+ assert.throws(()=>second.rename(ids[0],'Stale'),/another_tab/);assert.equal(storage.getItem(key),newer);
+ assert.equal(new PersonalThemeLibrary(key).items[0].theme.name,'Newer');
+});
+test('recovery refuses to erase a library that changed after it became unreadable',()=>{
+ const storage=new MemoryStorage();globalThis.localStorage=storage;storage.setItem(key,'broken');
+ const editor=new PersonalThemeLibrary(key);storage.setItem(key,document);
+ assert.throws(()=>editor.discardUnreadable(),/another_tab/);assert.equal(storage.getItem(key),document);
+});

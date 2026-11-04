@@ -14,8 +14,9 @@ export class PersonalThemeLibrary {
  private library:ThemeLibrary={version:1,active:null,items:[]};
  private unreadable=false;
  private restored=false;
+ private baseline:string|null|undefined=undefined;
  constructor(private readonly key:string){try{
-  const local=localStorage.getItem(key),copies=restoreCopyKeys(localStorage,key);
+  const local=localStorage.getItem(key);this.baseline=local;const copies=restoreCopyKeys(localStorage,key);
   if(local===null&&copies.length>1)throw Error('Multiple restore copies require recovery');
   const raw=local??(copies.length===1?localStorage.getItem(copies[0]):null);
   this.restored=local===null&&raw!==null;
@@ -25,9 +26,9 @@ export class PersonalThemeLibrary {
  prepareMigration() { return prepareStoredThemeMigration(localStorage, this.key); }
  get recoveryRequired():boolean{return this.unreadable;}
  /** Explicit scoped recovery only: never replace a record that could not be read. */
- discardUnreadable():void {if(!this.unreadable)throw Error('theme_recovery_not_required');localStorage.removeItem(this.key);for(const key of restoreCopyKeys(localStorage,this.key))localStorage.removeItem(key);this.restored=false;this.library={version:1,active:null,items:[]};this.unreadable=false;}
+ discardUnreadable():void {if(!this.unreadable)throw Error('theme_recovery_not_required');if(this.baseline!==undefined&&localStorage.getItem(this.key)!==this.baseline)throw Error('theme_changed_in_another_tab');localStorage.removeItem(this.key);this.baseline=null;for(const key of restoreCopyKeys(localStorage,this.key))localStorage.removeItem(key);this.restored=false;this.library={version:1,active:null,items:[]};this.unreadable=false;}
  get active():PersonalTheme|null{return this.library.active?structuredClone(this.library.active):null;}get items():SavedTheme[]{return structuredClone(this.library.items);}
- private commit(next:ThemeLibrary):void {if(this.unreadable)throw Error('theme_recovery_required');if(this.restored&&localStorage.getItem(this.key)!==null)throw Error('theme_changed_in_another_tab');const validated=validateThemeLibrary(next);localStorage.setItem(this.key,JSON.stringify(validated));this.restored=false;this.library=validated;}
+ private commit(next:ThemeLibrary):void {if(this.unreadable)throw Error('theme_recovery_required');const validated=validateThemeLibrary(next);if(localStorage.getItem(this.key)!==this.baseline)throw Error('theme_changed_in_another_tab');const serialized=JSON.stringify(validated);localStorage.setItem(this.key,serialized);this.baseline=serialized;this.restored=false;this.library=validated;}
  save(value:unknown,id?:string):string {const theme=validatePersonalTheme(value);const next=structuredClone(this.library);if(id&&!next.items.some(i=>i.id===id))throw Error('Theme no longer exists');if(next.items.some(i=>i.id!==id&&i.theme.name.toLowerCase()===theme.name.toLowerCase()))throw Error('Choose a unique theme name');const key=id??themeId();const index=next.items.findIndex(i=>i.id===key);if(index>=0)next.items[index]={id:key,theme};else next.items.push({id:key,theme});next.active=theme;this.commit(next);return key;}
  activate(id:string):PersonalTheme {const item=this.library.items.find(i=>i.id===id);if(!item)throw Error('Theme no longer exists');this.commit({...structuredClone(this.library),active:item.theme});return structuredClone(item.theme);}
  rename(id:string,name:string):void {const item=this.library.items.find(i=>i.id===id);if(!item)throw Error('Theme no longer exists');const next=structuredClone(this.library);const renamed=validatePersonalTheme({...item.theme,name});next.items=next.items.map(i=>i.id===id?{id,theme:renamed}:i);if(next.active?.name===item.theme.name)next.active=renamed;this.commit(next);}
