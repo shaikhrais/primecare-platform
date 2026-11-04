@@ -21,7 +21,7 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
    const state=current.current;
    if(!state.loaded||!['clean','dirty','conflict','offline'].includes(state.status))return;
    if(localStorage.getItem(key)===null&&!state.pending)return;
-   removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,options.isCurrent);
+   removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,()=>options.isCurrent()&&root.contains(dialog));
   })().catch(()=>{});
  }catch{}
  return ()=>{disposed=true;removeControl?.();if(client)void client.dispose();};
