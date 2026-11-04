@@ -1,0 +1,20 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+const bundle=await build({entryPoints:['packages/primecare_ui/web/advanced-theme-migration.ts'],bundle:true,platform:'node',format:'esm',write:false});
+const {prepareStoredThemeMigration}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+test('migration preserves the exact source and rejects conflicting or failed backups',()=>{
+ const source=JSON.stringify({version:1,active:null,items:[]});
+ const data=new Map([['actor:themes',source],['other:themes','untouched']]);
+ const storage={getItem:key=>data.get(key)??null,setItem:(key,value)=>data.set(key,value)};
+ assert.equal(prepareStoredThemeMigration(storage,'actor:themes','actor:backup').candidate.version,2);
+ assert.equal(data.get('actor:backup'),source);
+ assert.equal(data.get('other:themes'),'untouched');
+ data.set('actor:backup','existing');
+ assert.throws(()=>prepareStoredThemeMigration(storage,'actor:themes','actor:backup'),/differs/);
+ assert.equal(data.get('actor:backup'),'existing');
+ data.delete('actor:backup');
+ assert.throws(()=>prepareStoredThemeMigration({...storage,setItem(){throw Error('storage denied');}},'actor:themes','actor:backup'),/denied/);
+ assert.equal(data.get('actor:themes'),source);
+ assert.throws(()=>prepareStoredThemeMigration(storage,'actor:themes','actor:themes'),/scope/);
+});
