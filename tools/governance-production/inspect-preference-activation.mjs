@@ -23,5 +23,12 @@ try{
  if(!deploymentResponse.ok||deploymentResult.success!==true)throw Error('Worker deployment unavailable');
  const versions=deploymentResult.result?.deployments?.[0]?.versions;
  if(!Array.isArray(versions))throw Error('Worker version unavailable');
- console.log(JSON.stringify({endpoint,links,controls,preferenceFlag,activeVersions:versions.map(v=>({versionId:v.version_id,percentage:v.percentage})),writes:0}));
+ const activeVersions=[];
+ for(const item of versions){
+  if(!/^[a-f0-9-]{36}$/i.test(item.version_id??''))throw Error('Invalid version identity');
+  const detailResponse=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/versions/'+item.version_id,{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
+  const detail=await detailResponse.json();if(!detailResponse.ok||detail.success!==true)throw Error('Worker version details unavailable');
+  activeVersions.push({versionId:item.version_id,percentage:item.percentage,createdOn:detail.result?.metadata?.created_on??null});
+ }
+ console.log(JSON.stringify({endpoint,links,controls,preferenceFlag,activeVersions,writes:0}));
 }finally{await db.end();}
