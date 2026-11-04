@@ -1,0 +1,31 @@
+name: Preference host binding rehearsal
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/*preference-host-binding*'
+      - 'tools/governance-production/production-pin.json'
+      - 'tools/governance-production/admin-self-preference-policy.json'
+      - '.github/workflows/preference-host-bindings.yml'
+permissions: {contents: read}
+jobs:
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: rehearsal, POSTGRES_PASSWORD: isolated, POSTGRES_DB: preference_host_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PREFERENCE_HOST_TEST_URL: postgresql://rehearsal:isolated@127.0.0.1:5432/preference_host_test
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/preference-host-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/preference-host-tools/node_modules node_modules
+          node tools/governance-production/test-preference-host-binding-registration.mjs
