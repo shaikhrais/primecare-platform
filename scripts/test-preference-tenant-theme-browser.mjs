@@ -32,16 +32,24 @@ try{
  const scope={tenantId:'tenant1',userId:'admin',role:'tenant_admin',dataset:'live'};
  const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard','live','tenant1','admin','tenant_admin']));
  const source=JSON.stringify({version:1,active:null,items:[]});
- await page.evaluate(async({scope,key,source,token})=>{
-  localStorage.setItem(key,source);
+ const mount=async()=>page.evaluate(async({scope,key,source,token})=>{
+  if(localStorage.getItem(key)===null)localStorage.setItem(key,source);
   window.client=new Migration.PreferenceSyncClient({scope,kind:'theme',resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}},Migration.preferenceHttpTransport(location.origin,token),Migration.preferenceStorageCache(localStorage));
   await window.client.load();
   Migration.mountTenantThemeMigration(document.querySelector('#host'),window.client,localStorage,'en');
  },{scope,key,source,token:fixture.tokens.admin});
+ await mount();
  await page.locator('[data-cy=theme-migration-review]').click();
  assert.equal(await page.locator('[data-cy=theme-migration-status]').textContent(),'Review ready');
  assert.equal(Number((await fixture.db.query('SELECT count(*) AS n FROM account_preference_documents')).rows[0].n),0);
+ await page.route('**/v1/user/preferences',async route=>{await route.fetch();await route.abort();},{times:1});
  await page.locator('[data-cy=theme-migration-save]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=theme-migration-status]').textContent.includes('pending'));
+ await page.reload();
+ await mount();
+ assert.equal(await page.locator('[data-cy=theme-migration-retry]').isVisible(),true);
+ assert.equal(await page.locator('[data-cy=theme-migration-review]').isDisabled(),true);
+ await page.locator('[data-cy=theme-migration-retry]').click();
  await page.waitForFunction(()=>document.querySelector('[data-cy=theme-migration-status]').textContent==='Saved');
  const rows=(await fixture.db.query('SELECT tenant_id,user_id,actor_role,dataset,revision,document FROM account_preference_documents')).rows;
  assert.equal(rows.length,1);assert.deepEqual(rows[0].document,{version:2,active:null,items:[]});

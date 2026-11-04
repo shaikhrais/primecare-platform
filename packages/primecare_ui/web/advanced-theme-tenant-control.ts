@@ -26,12 +26,15 @@ export function mountTenantThemeMigration(
   const status=doc.createElement('output');status.dataset.cy='theme-migration-status';status.setAttribute('role','status');
   const button=(name:string,label:string)=>{const el=doc.createElement('button');el.type='button';el.dataset.cy='theme-migration-'+name;el.textContent=label;return el;};
   const prepare=button('review',text.review),save=button('save',text.save),retry=button('retry',text.retry);
-  save.disabled=true;retry.hidden=true;
+  save.disabled=true;
+  retry.hidden=client.current.pending?.action !== 'write';
+  prepare.disabled=!retry.hidden;
   section.append(heading,prepare,description,preview,save,retry,status);root.append(section);
   let disposed=false,busy=false;
   const result=(value:{status:string;pending:boolean})=>{
     if(disposed)return;
     retry.hidden=!value.pending;
+    prepare.disabled=value.pending;
     status.textContent=value.status==='clean'?text.saved:value.pending?text.pending:text.failed;
   };
   prepare.onclick=()=>{if(disposed||busy)return;try{
