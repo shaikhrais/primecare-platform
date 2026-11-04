@@ -44,4 +44,4 @@ if((contentResponse.headers.get('content-type')??'').startsWith('multipart/form-
 const contentType=contentResponse.headers.get('content-type')?.split(';')[0]??null;
 const after=(await get('/deployments?per_page=1')).deployments?.[0];
 if(after?.id!==active.id||after.versions?.length!==1||after.versions[0].version_id!==versionId||after.versions[0].percentage!==100)throw Error('Auth deployment changed during comparison');
-console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,contentMatches,contentExactlyMatches,contentType,moduleCount,matchingModules,preferenceRuntimeEnabled:false,writes:0}));
+console.log(JSON.stringify({source,activeDeployment:active.id,activeVersion:versionId,scriptHashMatches:localHash===etag,contentMatches,contentExactlyMatches,contentType,moduleCount,matchingModules,preferenceRuntimeEnabled:false,writes:0}));
