@@ -55,6 +55,8 @@ jobs:
           node scripts/test-tenant-workspace-layout.mjs
           node scripts/test-tenant-dashboard-theme-migration.mjs
           node scripts/test-theme-restore-storage.mjs
+          node scripts/test-shell-lifecycle.mjs
+          node scripts/test-theme-library-recovery-browser.mjs
       - name: Verify tenant catalogue and HTML preview
         run: python3 scripts/verify-tenant-dashboard.py && node scripts/preview-tenant-dashboard.mjs
       - name: Verify personal screen and workflow catalogue
