@@ -33,7 +33,18 @@ try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config',
 const provenance=await verifyWorkerDeployment({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id});
 const after=await api('/workers/scripts/'+worker+'/settings');
 const fingerprint=bindings=>JSON.stringify(bindings.map(b=>({name:b.name,type:b.type,...(b.service?{service:b.service}:{}),...(b.entrypoint?{entrypoint:b.entrypoint}:{}),...(b.id?{id:b.id}:{})})).sort((a,b)=>a.name.localeCompare(b.name)));
-if(fingerprint(settings.bindings)!==fingerprint(after.bindings))throw Error('Live binding preservation readback failed');
+if(fingerprint(settings.bindings)!==fingerprint(after.bindings)){
+ const names=new Set([...settings.bindings.map(b=>b.name),...after.bindings.map(b=>b.name)]);
+ const differences=[];
+ for(const name of names){
+  const before=settings.bindings.filter(b=>b.name===name),current=after.bindings.filter(b=>b.name===name);
+  if(before.length!==1||current.length!==1){differences.push({name,changed:['count']});continue;}
+  const fields=['type','service','entrypoint','id'].filter(field=>(before[0][field]||null)!==(current[0][field]||null));
+  if(fields.length)differences.push({name,changed:fields});
+ }
+ console.error('Binding metadata differences: '+JSON.stringify(differences));
+ throw Error('Live binding preservation readback failed');
+}
 const subdomain=await api('/workers/subdomain');if(subdomain.subdomain!=='itpro-mohammed')throw Error('Worker host scope changed');
 const response=await fetch('https://'+worker+'.'+subdomain.subdomain+'.workers.dev/health',{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Published governance health readback failed');
 await mkdir('test-results/approved-code-admin-release',{recursive:true});await writeFile('test-results/approved-code-admin-release/worker.json',JSON.stringify({...provenance,sourceCheckoutVerified:true,deployed:true,existingBindingsPreserved:true,healthStatus:response.status,otherWorkersModified:0,providerActions:0},null,2));
