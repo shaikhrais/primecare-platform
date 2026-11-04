@@ -18,5 +18,10 @@ try{
  const result=await response.json();if(!response.ok||result.success!==true||!Array.isArray(result.result?.bindings))throw Error('Worker settings unavailable');
  const flags=result.result.bindings.filter(b=>b.name==='PREFERENCE_SYNC_ENABLED');
  const preferenceFlag=flags.length===0?'absent':flags.length===1&&flags[0].type==='plain_text'&&['0','1'].includes(flags[0].text)?flags[0].text:'unexpected';
- console.log(JSON.stringify({endpoint,links,controls,preferenceFlag,writes:0}));
+ const deploymentResponse=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/deployments?per_page=1',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
+ const deploymentResult=await deploymentResponse.json();
+ if(!deploymentResponse.ok||deploymentResult.success!==true)throw Error('Worker deployment unavailable');
+ const versions=deploymentResult.result?.deployments?.[0]?.versions;
+ if(!Array.isArray(versions))throw Error('Worker version unavailable');
+ console.log(JSON.stringify({endpoint,links,controls,preferenceFlag,activeVersions:versions.map(v=>({versionId:v.version_id,percentage:v.percentage})),writes:0}));
 }finally{await db.end();}
