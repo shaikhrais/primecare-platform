@@ -107,6 +107,21 @@ try{
  assert.equal(await conflictPage.evaluate(key=>localStorage.getItem(key),key),source);
  assert.equal(await conflictPage.evaluate(key=>Object.keys(localStorage).filter(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':')).length,key),0);
  await conflict.close();
+ // Two actual tabs share storage: an editor with an old snapshot cannot replace a newer save.
+ const tabs=await browser.newContext({viewport:{width:1440,height:960}});
+ await tabs.addInitScript(({token,key,source})=>{sessionStorage.setItem('primecare_session',token);if(localStorage.getItem(key)===null)localStorage.setItem(key,source);},{token:actor.token,key,source});
+ const editor=await tabs.newPage();editor.on('pageerror',error=>errors.push(error.message));
+ await editor.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ await editor.locator('[data-cy=appearance-open]').click();
+ await editor.locator('[data-cy=theme-center-name]').fill('Stale edit');
+ const otherTab=await tabs.newPage();await otherTab.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ const newer=JSON.stringify({version:1,active:{...theme,name:'Newer tab'},items:[]});
+ await otherTab.evaluate(({key,newer})=>localStorage.setItem(key,newer),{key,newer});
+ await editor.locator('[data-cy=theme-center-new]').click();
+ await editor.waitForFunction(()=>document.querySelector('[data-cy=theme-center-status]')?.textContent?.startsWith('Unable to save'));
+ assert.equal(await editor.evaluate(key=>localStorage.getItem(key),key),newer);
+ assert.equal(await editor.locator('[data-cy=theme-center-name]').inputValue(),'Stale edit');
+ await tabs.close();
  await page.reload();
  await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').click();
