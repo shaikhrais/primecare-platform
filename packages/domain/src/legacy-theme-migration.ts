@@ -17,6 +17,11 @@ export function prepareLegacyThemeMigration(raw: unknown) {
       border: colors.border ?? theme.regions.main.border };
     theme.name = legacy.name;
     theme.regions.main = main;
+    for (const [region, color] of [['navigation', colors.sidebar], ['toolbar', colors.topbar]] as const) {
+      if (!color) continue;
+      theme.regions[region] = { ...theme.regions[region], background: color, surface: color,
+        text: foreground([color], theme.regions[region].text) };
+    }
     theme.tokens = { ...theme.tokens, fontFamily: legacy.fontFamily,
       fontScale: legacy.fontScale, radius: legacy.radius };
     return theme;
@@ -27,5 +32,5 @@ export function prepareLegacyThemeMigration(raw: unknown) {
     items: original.items.map(item => ({ id: item.id, theme: convert(item.theme) })),
   });
   return { original, candidate, requiresReview: true,
-    unmappedFields: ['preset', 'primaryContainer', 'muted', 'sidebar', 'topbar'] as const };
+    unmappedFields: ['preset', 'primaryContainer', 'muted'] as const };
 }
