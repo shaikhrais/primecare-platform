@@ -6,7 +6,7 @@ import {preferenceFixture} from './preference-sync-fixture.mjs';
 
 const fixture=await preferenceFixture();
 const bundle=await build({stdin:{resolveDir:process.cwd(),contents:`
-export {TenantThemeMigrationReview} from './packages/primecare_ui/web/advanced-theme-tenant-review';
+export {mountTenantThemeMigration} from './packages/primecare_ui/web/advanced-theme-tenant-control';
 export {PreferenceSyncClient} from './packages/shared/src/preference-sync/client';
 export {preferenceHttpTransport,preferenceStorageCache} from './packages/shared/src/preference-sync/transport';
 `},bundle:true,platform:'browser',format:'iife',globalName:'Migration',write:false});
@@ -18,7 +18,7 @@ const server=createServer(async(req,res)=>{
    const response=await fixture.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:req.headers,body:Buffer.concat(chunks)}));
    res.writeHead(response.status,Object.fromEntries(response.headers));return res.end(Buffer.from(await response.arrayBuffer()));
   }
-  res.setHeader('content-type','text/html');res.end('<button id="review">Review</button><button id="save">Save</button><output id="status"></output><script src="/client.js"></script>');
+  res.setHeader('content-type','text/html');res.end('<main id="host"></main><script src="/client.js"></script>');
  }catch{res.writeHead(500);res.end();}
 });
 let browser;
@@ -36,15 +36,13 @@ try{
   localStorage.setItem(key,source);
   window.client=new Migration.PreferenceSyncClient({scope,kind:'theme',resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}},Migration.preferenceHttpTransport(location.origin,token),Migration.preferenceStorageCache(localStorage));
   await window.client.load();
-  window.review=new Migration.TenantThemeMigrationReview(localStorage,window.client);
-  document.querySelector('#review').onclick=()=>{window.preview=window.review.prepare();document.querySelector('#status').textContent='review';};
-  document.querySelector('#save').onclick=async()=>{const result=await window.review.confirm();document.querySelector('#status').textContent=result.status;};
+  Migration.mountTenantThemeMigration(document.querySelector('#host'),window.client,localStorage,'en');
  },{scope,key,source,token:fixture.tokens.admin});
- await page.locator('#review').click();
- assert.equal(await page.locator('#status').textContent(),'review');
+ await page.locator('[data-cy=theme-migration-review]').click();
+ assert.equal(await page.locator('[data-cy=theme-migration-status]').textContent(),'Review ready');
  assert.equal(Number((await fixture.db.query('SELECT count(*) AS n FROM account_preference_documents')).rows[0].n),0);
- await page.locator('#save').click();
- await page.waitForFunction(()=>document.querySelector('#status').textContent==='clean');
+ await page.locator('[data-cy=theme-migration-save]').click();
+ await page.waitForFunction(()=>document.querySelector('[data-cy=theme-migration-status]').textContent==='Saved');
  const rows=(await fixture.db.query('SELECT tenant_id,user_id,actor_role,dataset,revision,document FROM account_preference_documents')).rows;
  assert.equal(rows.length,1);assert.deepEqual(rows[0].document,{version:2,active:null,items:[]});
  assert.equal(Number(rows[0].revision),1);assert.equal(rows[0].tenant_id,'tenant1');assert.equal(rows[0].user_id,'admin');
