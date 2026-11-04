@@ -29,6 +29,7 @@ jobs:
           node scripts/test-advanced-theme-model.mjs
           node scripts/test-advanced-theme-migration.mjs
           node scripts/test-advanced-theme-storage.mjs
+          node scripts/test-advanced-theme-tenant-migration.mjs
           node scripts/test-advanced-theme-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/advanced-theme-editor.ts
       - uses: actions/upload-artifact@v4

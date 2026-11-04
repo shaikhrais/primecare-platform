@@ -1,0 +1,21 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {build} from 'esbuild';
+const b=await build({entryPoints:['packages/primecare_ui/web/advanced-theme-tenant-migration.ts'],bundle:true,platform:'node',format:'esm',write:false});
+const {stageTenantThemeMigration}=await import('data:text/javascript;base64,'+Buffer.from(b.outputFiles[0].text).toString('base64'));
+test('tenant migration requires the exact actor scope and reviewed candidate',async()=>{
+ const scope={tenantId:'tenant1',userId:'user1',role:'tenant_admin',dataset:'live'};
+ const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard','live','tenant1','user1','tenant_admin']));
+ const source=JSON.stringify({version:1,active:null,items:[]});
+ const data=new Map([[key,source]]);
+ const storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};
+ let staged;
+ const client={binding:{scope,kind:'theme',resource:'advanced-v2'},current:{status:'clean'},async adoptLocal(doc,owner){assert.deepEqual(owner,scope);staged=doc;this.current.status='dirty';}};
+ await assert.rejects(stageTenantThemeMigration(storage,client,{version:2,active:null,items:[{}]}),/no longer matches/);
+ assert.equal(staged,undefined);
+ await stageTenantThemeMigration(storage,client,{version:2,active:null,items:[]});
+ assert.deepEqual(staged,{version:2,active:null,items:[]});
+ assert.equal(data.get(key),source);
+ const other={...client,binding:{...client.binding,scope:{...scope,userId:'other'}}};
+ await assert.rejects(stageTenantThemeMigration(storage,other,staged),/does not exist/);
+});
