@@ -12,6 +12,15 @@ const links = table('screen_api_links');
 const purpose = 'Authenticated self-preferences via API 777';
 
 export async function registerPreferenceHostBindings(db, { commit = false, readOnly = false } = {}) {
+  const scope = plan.bindings.map(({ screenId, screenCode, route, roleIds }) =>
+    ({ screenId, screenCode, route, roleIds }));
+  const expected = [
+    { screenId: 1269, screenCode: 'PLATFORM_ADMINISTRATION', route: '/platform/administration', roleIds: [70, 80] },
+    { screenId: 2534, screenCode: 'tenant_admin_command_center', route: '/tenant-dashboard', roleIds: [72] },
+  ];
+  if (plan.apiId !== 777 || JSON.stringify(scope) !== JSON.stringify(expected)) {
+    throw Error('Preference host plan scope differs');
+  }
   if (commit && readOnly) throw Error('Read-only preflight cannot commit');
   await db.query(readOnly ? 'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY' : 'BEGIN');
   try {
