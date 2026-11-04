@@ -1945,5 +1945,22 @@
     ],
     "runtimeActivation": false,
     "roleGrants": false
+  },
+  "themeRestoreWriter": {
+    "screenId": 2534,
+    "roleId": 72,
+    "apiId": 777,
+    "controls": [
+      "theme-restore-review",
+      "theme-restore-confirm"
+    ],
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values"
+    ],
+    "runtimeActivation": false,
+    "roleGrants": false
   }
 }

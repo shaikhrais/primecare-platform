@@ -1,0 +1,46 @@
+name: Tenant theme restore metadata rehearsal
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/*theme-restore-registration.mjs'
+      - '.github/workflows/theme-restore-registration.yml'
+permissions: {contents: read}
+jobs:
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: test, POSTGRES_PASSWORD: isolated, POSTGRES_DB: theme_restore_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      THEME_RESTORE_TEST_URL: postgresql://test:isolated@127.0.0.1:5432/theme_restore_test
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-migration-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/theme-migration-tools/node_modules node_modules
+          node tools/governance-production/test-theme-restore-registration.mjs
+  production:
+    needs: postgres
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-migration-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/theme-migration-tools/node_modules node_modules
+          node tools/governance-production/apply-theme-restore-registration.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          REGISTER_THEME_RESTORE: '1'
