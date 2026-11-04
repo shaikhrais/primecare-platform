@@ -8,7 +8,9 @@ type Options={gateway:string;token:string;locale:'en'|'fr'|'es';tenantId:string;
 export function mountTenantThemePreference(root:HTMLElement,options:Options) {
  let disposed=false,removeControl:(()=>void)|undefined,client:PreferenceSyncClient|undefined,draftChanged=false;
  const dialog=root.querySelector<HTMLElement>('[data-cy=theme-center]');
- if(!dialog)return ()=>{};
+ const opener=root.querySelector<HTMLElement>('[data-cy=appearance-open]');
+ if(!dialog||!opener)return ()=>{};
+ let started=false;let start=()=>{};
  const touched=(event:Event)=>{const target=event.target;if(target instanceof Element&&!target.closest('[data-cy=theme-restore-review],[data-cy=theme-restore-confirm]')&&target.closest('[data-cy^=theme-center-],[data-cy^=theme-quick-]'))draftChanged=true;};
  for(const name of ['input','change','click'])dialog.addEventListener(name,touched,true);
  try {
@@ -17,7 +19,7 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
   const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard',scope.dataset,scope.tenantId,scope.userId,scope.role]));
   client=new PreferenceSyncClient(binding,preferenceHttpTransport(options.gateway,options.token),preferenceStorageCache(localStorage));
   const current=client;
-  void (async()=>{
+  start=()=>{if(started||disposed)return;started=true;void (async()=>{
    await current.load();
    if(disposed||!options.isCurrent()||!root.contains(dialog))return;
    const state=current.current;
@@ -25,7 +27,9 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
    const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
    if(localStorage.getItem(key)!==null||state.pending)removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,valid);
    else if(state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,options.locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
-  })().catch(()=>{});
+  })().catch(()=>{});};
+  opener.addEventListener('click',start);
+  if(dialog.closest('dialog')?.open)start();
  }catch{}
- return ()=>{disposed=true;for(const name of ['input','change','click'])dialog.removeEventListener(name,touched,true);removeControl?.();if(client)void client.dispose();};
+ return ()=>{disposed=true;opener.removeEventListener('click',start);for(const name of ['input','change','click'])dialog.removeEventListener(name,touched,true);removeControl?.();if(client)void client.dispose();};
 }
