@@ -32,3 +32,20 @@ export function verifyReconciledAuth({before,run,job,log,release,active,changedP
  !Array.isArray(changedPaths)||changedPaths.some(path=>!allowed.has(path)))throw Error('Auth release lineage could not be verified');
  return {releaseSource,releaseVersion,activeVersion,activeDeployment,scriptHashMatches:true};
 }
+
+const recoveryAllowed=new Set([
+ 'scripts/worker-deployment-receipt.mjs','scripts/test-worker-deployment-receipt.mjs',
+ 'scripts/deploy-auth-preference-code.mjs','scripts/auth-reconciled-source.mjs',
+ 'scripts/test-auth-reconciled-source.mjs','scripts/compare-active-auth-candidate.mjs',
+ '.github/workflows/compare-active-auth-candidate.yml','.github/workflows/run-auth-preference-candidate.yml',
+]);
+/** Accept the interrupted upload only when an independent, single-module byte comparison passed. */
+export function verifyRebuiltAuthRecovery({before,run,job,receipt,changedPaths}){
+ const activeDeployment='7b767814-e099-474e-8705-9cb149ebe171',activeVersion='79ff92d4-d11e-4999-be30-46a5e2365626',source='339350f178a64a49a7a3c7ccaff4fbed1022998d';
+ if(before?.id!==activeDeployment||before.versions?.length!==1||before.versions[0].version_id!==activeVersion||before.versions[0].percentage!==100||
+ run?.id!==41828175403||run.head_sha!=='7b9b0ac9954bffd780f94422d51924a05f5b0e20'||run.head_branch!=='main'||run.path!=='.github/workflows/compare-active-auth-candidate.yml'||run.conclusion!=='success'||
+ job?.id!==126568192234||job.run_id!==41828175403||job.name!=='compare'||job.conclusion!=='success'||
+ receipt?.source!==source||receipt.activeDeployment!==activeDeployment||receipt.activeVersion!==activeVersion||receipt.moduleCount!==1||receipt.matchingModules!==1||receipt.contentMatches!==true||receipt.preferenceRuntimeEnabled!==false||receipt.writes!==0||
+ !Array.isArray(changedPaths)||changedPaths.some(path=>!recoveryAllowed.has(path)))throw Error('Interrupted auth upload could not be verified');
+ return {source,activeDeployment,activeVersion,independentModuleMatch:true};
+}

@@ -1,5 +1,5 @@
 /** Deploy only the accepted auth code; no grants, schema, key selection or preference activation. */
-import {verifyReconciledAuth} from './auth-reconciled-source.mjs';
+import {verifyReconciledAuth,verifyRebuiltAuthRecovery} from './auth-reconciled-source.mjs';
 import {checkAuthSchema} from './check-auth-schema.mjs';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';import {execFileSync} from 'node:child_process';
 import {authPreferenceDeploymentConfig} from './auth-preference-deployment-config.mjs';import {mfaKeyringSource} from './mfa-keyring-source.mjs';import {uploadedWorkerVersion,verifyWorkerDeploymentEventually} from './worker-deployment-receipt.mjs';
@@ -13,6 +13,19 @@ const api=async path=>{const r=await fetch('https://api.cloudflare.com/client/v4
 const base='/workers/scripts/'+worker,proof=JSON.parse(await readFile('docs/appearance/theme-auth-release-provenance.json','utf8')),before=(await api(base+'/deployments?per_page=1')).deployments?.[0];
 if(proof.worker!==worker||before?.id!==proof.activeReadback.deploymentId||before.versions?.length!==1||before.versions[0].version_id!==proof.activeReadback.versionId||before.versions[0].percentage!==100){
  if(process.env.GITHUB_REPOSITORY!=='shaikhrais/primecare-platform'||!process.env.GH_TOKEN)throw Error('Auth lineage verification credentials required');
+ if(before?.id==='7b767814-e099-474e-8705-9cb149ebe171'){
+  const recoveredSource='339350f178a64a49a7a3c7ccaff4fbed1022998d';
+  execFileSync('git',['fetch','--no-tags','--depth=1','origin',recoveredSource],{stdio:'ignore'});
+  const changedPaths=execFileSync('git',['diff','--name-only',recoveredSource,source],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
+  const gh=args=>execFileSync('gh',args,{encoding:'utf8',maxBuffer:32*1024*1024,stdio:['ignore','pipe','pipe']});
+  const run=JSON.parse(gh(['api','repos/shaikhrais/primecare-platform/actions/runs/41828175403']));
+  const job=JSON.parse(gh(['api','repos/shaikhrais/primecare-platform/actions/jobs/126568192234']));
+  const log=gh(['run','view','41828175403','--repo','shaikhrais/primecare-platform','--job','126568192234','--log']);
+  const records=log.split('\n').filter(line=>line.includes('{"source":"'+recoveredSource+'"')&&line.includes('"activeDeployment"'));
+  if(records.length!==1)throw Error('Unique independent recovery receipt required');
+  const receipt=JSON.parse(records[0].slice(records[0].indexOf('{"source"')));
+  console.log('AUTH_REBUILT_RECOVERY '+JSON.stringify(verifyRebuiltAuthRecovery({before,run,job,receipt,changedPaths})));
+ }else{
  const releaseSource='ca1d9edd6942ff5d960d7267a10c551c2f33a8cd';
  execFileSync('git',['fetch','--no-tags','--depth=1','origin',releaseSource],{stdio:'ignore'});
  const changedPaths=execFileSync('git',['diff','--name-only',releaseSource,source],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
@@ -23,6 +36,7 @@ if(proof.worker!==worker||before?.id!==proof.activeReadback.deploymentId||before
  const release=await api(base+'/versions/cefb0515-632a-437a-89f7-168c244fa33f');
  const active=await api(base+'/versions/ce2df651-30f7-4d1d-8bc4-8fa6689dff33');
  console.log('AUTH_RECONCILED_LINEAGE '+JSON.stringify(verifyReconciledAuth({before,run,job,log,release,active,changedPaths})));
+ }
 }
 const settings=await api(base+'/settings'),schedules=await api(base+'/schedules'),policy=JSON.parse(await readFile('cloudflare/workers/src/security/mfa-keyring-policy.json','utf8'));
 const config=authPreferenceDeploymentConfig(settings,schedules,{sourceFingerprint:mfaKeyringSource(),activeKeyId:policy.activeKeyId,rotationFromKeyId:policy.migrateFromKeyId});

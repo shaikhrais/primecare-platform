@@ -1,5 +1,5 @@
 name: Run accepted auth preference candidate
-# Reconcile the verified secret-generated version before this code refresh.
+# Recover the independently matched interrupted upload before this code refresh.
 on:
   push:
     branches: [main]
