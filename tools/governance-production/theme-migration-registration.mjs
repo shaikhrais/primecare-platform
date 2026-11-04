@@ -1,6 +1,6 @@
 /** Register exactly the tenant theme review controls within an existing transaction. */
 export async function registerThemeMigrationControls(db, schema, manifestHash, {apply = false, requireExisting = false} = {}) {
-  if (!/^governance_[0-9a-f]{40}$/.test(schema)) throw Error('Invalid governance schema');
+  if (!/^governance_[0-9a-f]{24,40}$/.test(schema)) throw Error('Invalid governance schema');
   const table = name => '"' + schema + '"."govt_' + name + '"';
   const controls = [
     {id:'theme-migration-review', key:'themeWorkspace.migrationReview', en:'Review saved themes', fr:'Vérifier les thèmes enregistrés', es:'Revisar temas guardados'},
