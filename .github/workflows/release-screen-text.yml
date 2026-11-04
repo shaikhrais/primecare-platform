@@ -14,7 +14,7 @@ on:
     paths: ['.github/workflows/release-screen-text.yml', 'scripts/check-screen-text-release.py', 'scripts/verify-screen-text-deployment.mjs', 'docs/ui/screen-text-release.md']
   push:
     branches: [main]
-    paths: ['cloudflare/workers/src/screen-text*', 'packages/database/migrations/*screen_text*', 'packages/flutter_core/lib/src/localization/live_screen_text.dart', 'websites/typescript/src/**']
+    paths: ['.github/workflows/release-screen-text.yml', 'cloudflare/workers/src/screen-text*', 'packages/database/migrations/*screen_text*', 'packages/flutter_core/lib/src/localization/live_screen_text.dart', 'websites/typescript/src/**']
 permissions:
   contents: read
 concurrency:
@@ -74,7 +74,7 @@ jobs:
   release_tests:
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     needs: prepare_portals
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
       postgres:
