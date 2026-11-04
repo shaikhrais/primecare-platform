@@ -52,3 +52,12 @@ test('save reports pending failures and does not claim cloud success',async()=>{
  const result=await saveTenantThemeMigration(storage,client,{version:2,active:null,items:[]});
  assert.deepEqual(result,{status:'offline',error:'offline',pending:true,revision:0});
 });
+
+test('explicit migration retry uses the original pending request',async()=>{
+ const built=await build({entryPoints:['packages/primecare_ui/web/advanced-theme-tenant-migration.ts'],bundle:true,platform:'node',format:'esm',write:false});
+ const {retryTenantThemeMigration}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
+ const request={action:'write',requestId:'original'};
+ const client={binding:{scope:{role:'tenant_admin'},kind:'theme',resource:'advanced-v2'},current:{status:'offline',pending:request,base:{revision:0},error:'offline'},async retryPending(){assert.equal(this.current.pending,request);this.current={status:'clean',pending:null,base:{revision:1},error:null};}};
+ assert.deepEqual(await retryTenantThemeMigration(client),{status:'clean',error:null,pending:false,revision:1});
+ await assert.rejects(retryTenantThemeMigration(client),/No pending/);
+});

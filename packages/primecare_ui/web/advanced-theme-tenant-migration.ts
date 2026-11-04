@@ -31,3 +31,17 @@ export async function saveTenantThemeMigration(
   return {status: result.status, error: result.error, pending: result.pending !== null,
     revision: result.base.revision};
 }
+
+/** Explicitly retry the original saved request after an uncertain response. */
+export async function retryTenantThemeMigration(client: PreferenceSyncClient) {
+  const scope = client.binding.scope;
+  const pending = client.current.pending;
+  if (scope.role !== 'tenant_admin' || client.binding.kind !== 'theme' ||
+      client.binding.resource !== 'advanced-v2' || !pending || pending.action !== 'write') {
+    throw Error('No pending tenant theme migration');
+  }
+  await client.retryPending();
+  const result = client.current;
+  return {status: result.status, error: result.error, pending: result.pending !== null,
+    revision: result.base.revision};
+}
