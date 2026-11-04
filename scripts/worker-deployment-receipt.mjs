@@ -16,3 +16,13 @@ export async function verifyWorkerDeployment({api,worker,service,source,versionI
  if(confirmed.id!==active.id)throw Error('Deployment changed during verification');
  return {format:1,source,worker,service,deploymentId:active.id,versionId,trafficPercent:100,createdOn:active.created_on,independentlyReadDeployment:true,sourceAssociation:'verified CI checkout and exact Wrangler upload version',registeredGovernanceArtifactId:null,grantAssociationApproved:false};
 }
+
+/** Allow provider propagation while still requiring the exact uploaded version at 100%. */
+export async function verifyWorkerDeploymentEventually(input,{attempts=4,wait=()=>new Promise(resolve=>setTimeout(resolve,2000))}={}){
+ let lastError;
+ for(let attempt=0;attempt<attempts;attempt++){
+  try{return await verifyWorkerDeployment(input);}catch(error){lastError=error;}
+  if(attempt+1<attempts)await wait();
+ }
+ throw lastError;
+}

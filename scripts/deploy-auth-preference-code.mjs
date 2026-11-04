@@ -2,7 +2,7 @@
 import {verifyReconciledAuth} from './auth-reconciled-source.mjs';
 import {checkAuthSchema} from './check-auth-schema.mjs';
 import {mkdir,writeFile,readFile} from 'node:fs/promises';import {execFileSync} from 'node:child_process';
-import {authPreferenceDeploymentConfig} from './auth-preference-deployment-config.mjs';import {mfaKeyringSource} from './mfa-keyring-source.mjs';import {uploadedWorkerVersion,verifyWorkerDeployment} from './worker-deployment-receipt.mjs';
+import {authPreferenceDeploymentConfig} from './auth-preference-deployment-config.mjs';import {mfaKeyringSource} from './mfa-keyring-source.mjs';import {uploadedWorkerVersion,verifyWorkerDeploymentEventually} from './worker-deployment-receipt.mjs';
 const worker='primecare-auth-api',account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,source=process.env.GITHUB_SHA;
 if(process.env.DEPLOY_AUTH_PREFERENCE_CODE!=='1'||!/^[a-f0-9]{32}$/i.test(account??'')||!token||!/^[a-f0-9]{40}$/.test(source??'')||process.env.GITHUB_REF!=='refs/heads/main')throw Error('Explicit accepted main auth code release required');
 if(execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()!==source)throw Error('Checkout identity differs');execFileSync('git',['diff','--quiet','HEAD'],{stdio:'ignore'});
@@ -29,7 +29,8 @@ const config=authPreferenceDeploymentConfig(settings,schedules,{sourceFingerprin
 await mkdir('.cloudflare-workers',{recursive:true});await writeFile('.cloudflare-workers/accepted-auth-preferences.jsonc',JSON.stringify(config,null,2));
 if((await api(base+'/deployments?per_page=1')).deployments?.[0]?.id!==before.id)throw Error('Auth deployment changed before publication');
 let versionId;try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/accepted-auth-preferences.jsonc','--keep-vars'],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});versionId=uploadedWorkerVersion(output.toString());}catch{throw Error('Auth code publication failed; inspect provider and release status before retrying');}
-const provenance=await verifyWorkerDeployment({api,worker,service:'auth',source,versionId,previousDeploymentId:before.id});
+console.log('AUTH_UPLOADED_VERSION '+JSON.stringify({source,worker,versionId,previousDeploymentId:before.id}));
+const provenance=await verifyWorkerDeploymentEventually({api,worker,service:'auth',source,versionId,previousDeploymentId:before.id});
 const after=await api(base+'/settings'),afterSchedules=await api(base+'/schedules');
 const expected=settings.bindings.map(b=>b.type==='plain_text'&&['MFA_KEYRING_SOURCE_SHA256','PREFERENCE_SYNC_ENABLED'].includes(b.name)?{...b,text:config.vars[b.name]}:b);if(!expected.some(b=>b.name==='PREFERENCE_SYNC_ENABLED'))expected.push({name:'PREFERENCE_SYNC_ENABLED',type:'plain_text',text:'0'});
 const fields=['name','type','text','json','service','entrypoint','id','namespace_id','simple','class_name','script_name','destination_address','allowed_destination_addresses','allowed_sender_addresses'];const canonical=x=>JSON.stringify(x,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);const fingerprint=bindings=>canonical(bindings.map(b=>Object.fromEntries(fields.filter(k=>b[k]!==undefined&&(b.type!=='secret_text'||['name','type'].includes(k))).map(k=>[k,b[k]]))).sort((a,b)=>a.name.localeCompare(b.name)));
