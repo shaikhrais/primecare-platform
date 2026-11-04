@@ -34,7 +34,14 @@ const content=Buffer.from(await contentResponse.arrayBuffer());
 if(content.length>25*1024*1024)throw Error('Active script content exceeds limit');
 const contentMatches=content.includes(local);
 const contentExactlyMatches=content.equals(local);
+let moduleCount=null,matchingModules=null;
+if((contentResponse.headers.get('content-type')??'').startsWith('multipart/form-data')){
+ const form=await new Response(content,{headers:{'content-type':contentResponse.headers.get('content-type')}}).formData();
+ const files=[...form.values()].filter(value=>typeof value!=='string');
+ moduleCount=files.length;matchingModules=0;
+ for(const file of files)if(Buffer.from(await file.arrayBuffer()).equals(local))matchingModules++;
+}
 const contentType=contentResponse.headers.get('content-type')?.split(';')[0]??null;
 const after=(await get('/deployments?per_page=1')).deployments?.[0];
 if(after?.id!==active.id||after.versions?.length!==1||after.versions[0].version_id!==versionId||after.versions[0].percentage!==100)throw Error('Auth deployment changed during comparison');
-console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,contentMatches,contentExactlyMatches,contentType,preferenceRuntimeEnabled:false,writes:0}));
+console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,contentMatches,contentExactlyMatches,contentType,moduleCount,matchingModules,preferenceRuntimeEnabled:false,writes:0}));
