@@ -40,3 +40,15 @@ test('real preference client rejects adoption over existing cloud data',async()=
  assert.equal(client.current.dirty,false);
  await client.dispose();
 });
+
+test('save reports pending failures and does not claim cloud success',async()=>{
+ const built=await build({entryPoints:['packages/primecare_ui/web/advanced-theme-tenant-migration.ts'],bundle:true,platform:'node',format:'esm',write:false});
+ const {saveTenantThemeMigration}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
+ const scope={tenantId:'tenant1',userId:'user1',role:'tenant_admin',dataset:'live'};
+ const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard','live','tenant1','user1','tenant_admin']));
+ const data=new Map([[key,JSON.stringify({version:1,active:null,items:[]})]]);
+ const storage={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};
+ const client={binding:{scope,kind:'theme',resource:'advanced-v2'},current:{status:'clean',pending:null,base:{revision:0},error:null},async adoptLocal(){this.current.status='dirty'},async save(){this.current.status='offline';this.current.pending={requestId:'pending'};this.current.error='offline'}};
+ const result=await saveTenantThemeMigration(storage,client,{version:2,active:null,items:[]});
+ assert.deepEqual(result,{status:'offline',error:'offline',pending:true,revision:0});
+});

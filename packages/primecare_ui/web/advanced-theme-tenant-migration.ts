@@ -20,3 +20,14 @@ export async function stageTenantThemeMigration(
   await client.adoptLocal(prepared.candidate, scope);
   if (client.current.status !== 'dirty') throw Error('Theme migration draft was not saved locally');
 }
+
+/** Save a reviewed candidate through the existing explicit preference transaction. */
+export async function saveTenantThemeMigration(
+  storage: Storage, client: PreferenceSyncClient, reviewedCandidate: unknown,
+) {
+  await stageTenantThemeMigration(storage, client, reviewedCandidate);
+  await client.save();
+  const result = client.current;
+  return {status: result.status, error: result.error, pending: result.pending !== null,
+    revision: result.base.revision};
+}
