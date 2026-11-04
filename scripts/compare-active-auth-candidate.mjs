@@ -1,0 +1,32 @@
+/** Read-only comparison of a rebuilt auth candidate to the active provider script hash. */
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {mkdir,readFile,readdir,writeFile} from 'node:fs/promises';
+import {authPreferenceDeploymentConfig} from './auth-preference-deployment-config.mjs';
+import {mfaKeyringSource} from './mfa-keyring-source.mjs';
+const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,source='339350f178a64a49a7a3c7ccaff4fbed1022998d';
+if(!/^[a-f0-9]{32}$/i.test(account??'')||!token||!process.env.RUNNER_TEMP)throw Error('Read-only provider credentials required');
+execFileSync('git',['fetch','--no-tags','--depth=1','origin',source],{stdio:'ignore'});
+const changed=execFileSync('git',['diff','--name-only',source,'HEAD'],{encoding:'utf8'}).trim().split('\n').filter(Boolean);
+const allowed=new Set(['scripts/worker-deployment-receipt.mjs','scripts/test-worker-deployment-receipt.mjs','scripts/deploy-auth-preference-code.mjs','scripts/compare-active-auth-candidate.mjs','.github/workflows/compare-active-auth-candidate.yml']);
+if(changed.some(path=>!allowed.has(path)))throw Error('Candidate source differs');
+const base='https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api';
+async function get(path){const r=await fetch(base+path,{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const body=await r.json();if(!r.ok||body.success!==true)throw Error('Provider metadata unavailable');return body.result;}
+const deployments=await get('/deployments?per_page=1'),active=deployments.deployments?.[0];
+if(active?.versions?.length!==1||active.versions[0].percentage!==100)throw Error('Single active auth version required');
+const versionId=active.versions[0].version_id;
+if(versionId!=='79ff92d4-d11e-4999-be30-46a5e2365626')throw Error('Active version changed');
+const version=await get('/versions/'+versionId),etag=version.resources?.script?.etag;
+if(!/^[a-f0-9]{64}$/i.test(etag??''))throw Error('Provider script hash unavailable');
+const settings=await get('/settings'),schedules=await get('/schedules');
+const policy=JSON.parse(await readFile('cloudflare/workers/src/security/mfa-keyring-policy.json','utf8'));
+const config=authPreferenceDeploymentConfig(settings,schedules,{sourceFingerprint:mfaKeyringSource(),activeKeyId:policy.activeKeyId,rotationFromKeyId:policy.migrateFromKeyId});
+await mkdir('.cloudflare-workers',{recursive:true});await writeFile('.cloudflare-workers/accepted-auth-preferences.jsonc',JSON.stringify(config,null,2));
+const out=process.env.RUNNER_TEMP+'/auth-candidate-compare';await mkdir(out,{recursive:true});
+execFileSync('node_modules/.bin/wrangler',['deploy','--dry-run','--config','.cloudflare-workers/accepted-auth-preferences.jsonc','--outdir',out],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});
+const files=(await readdir(out)).filter(name=>name.endsWith('.js'));
+if(files.length!==1)throw Error('Unexpected candidate bundle shape');
+const localHash=createHash('sha256').update(await readFile(out+'/'+files[0])).digest('hex');
+const after=(await get('/deployments?per_page=1')).deployments?.[0];
+if(after?.id!==active.id||after.versions?.length!==1||after.versions[0].version_id!==versionId||after.versions[0].percentage!==100)throw Error('Auth deployment changed during comparison');
+console.log(JSON.stringify({source,activeVersion:versionId,scriptHashMatches:localHash===etag,preferenceRuntimeEnabled:false,writes:0}));
