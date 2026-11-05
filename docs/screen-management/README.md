@@ -145,6 +145,12 @@ The placeholder is a fallback, not a business screen. The other six need a
 reviewed source of grants or an explicit access policy before a workspace-based
 authorization guard can be applied without inventing access or silently
 blocking existing routes. API permission enforcement remains a separate check.
+`scripts/audit_governance_screen_grants.py` can query only screen and role grant
+metadata for those paths and potential aliases through the pinned read-only
+production governance reader. Its output contains role-grant details and must
+not be published to public workflow logs or artifacts. The query has an isolated
+SQLite unit test; production execution and secure results handling are not yet
+verified. It does not resolve ambiguous aliases or grant access automatically.
 
 ### Client module declared-screen review
 
