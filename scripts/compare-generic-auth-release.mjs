@@ -1,6 +1,7 @@
 /** Read-only byte comparison of the live generic auth release with accepted source. */
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
+import ts from 'typescript';
 import {mkdir,readFile,readdir} from 'node:fs/promises';
 const genericSource='85f00097c01729c86451ff2107e93136ef767e85',acceptedSource='a916cce32ab0ef4fd3e9b021b301acda1b49d428';
 const expectedDeployment='41f6bd47-afa2-411b-9f08-6da3d81d012e',expectedVersion='8f4f184e-b704-4ede-b2a6-8208c08b1935';
@@ -28,7 +29,10 @@ if(!response.ok)throw Error('Active script content unavailable');const body=Buff
 let modules=[];const type=response.headers.get('content-type')??'';
 if(type.startsWith('multipart/form-data')){const form=await new Response(body,{headers:{'content-type':type}}).formData();for(const value of form.values())if(typeof value!=='string')modules.push(Buffer.from(await value.arrayBuffer()));}else modules=[body];
 const matching=modules.filter(value=>value.equals(local)).length;
-console.log('AUTH_GENERIC_COMPARISON_DIAGNOSTIC '+JSON.stringify({contentType:type.split(';')[0],moduleCount:modules.length,matchingModules:matching,rebuiltBytes:local.length,rebuiltSha256:createHash('sha256').update(local).digest('hex'),providerModules:modules.map(value=>({bytes:value.length,sha256:createHash('sha256').update(value).digest('hex')}))}));
+const tokenHash=bytes=>{const scanner=ts.createScanner(ts.ScriptTarget.Latest,true,ts.LanguageVariant.Standard,bytes.toString('utf8'));const hash=createHash('sha256');let token;while((token=scanner.scan())!==ts.SyntaxKind.EndOfFileToken){hash.update(String(token));hash.update(':');hash.update(scanner.getTokenText());hash.update('\n');}return hash.digest('hex');};
+const rebuiltTokens=tokenHash(local),providerTokens=modules.map(tokenHash);
+let commonPrefix=0,commonSuffix=0;if(modules.length===1){const other=modules[0],limit=Math.min(local.length,other.length);while(commonPrefix<limit&&local[commonPrefix]===other[commonPrefix])commonPrefix++;while(commonSuffix<limit-commonPrefix&&local[local.length-1-commonSuffix]===other[other.length-1-commonSuffix])commonSuffix++;}
+console.log('AUTH_GENERIC_COMPARISON_DIAGNOSTIC '+JSON.stringify({contentType:type.split(';')[0],moduleCount:modules.length,matchingModules:matching,rebuiltBytes:local.length,rebuiltSha256:createHash('sha256').update(local).digest('hex'),providerModules:modules.map(value=>({bytes:value.length,sha256:createHash('sha256').update(value).digest('hex')})),commonPrefix,commonSuffix,rebuiltTokens,providerTokens,tokensMatch:providerTokens.length===1&&providerTokens[0]===rebuiltTokens}));
 if(modules.length!==1||matching!==1)throw Error('Active auth code differs from rebuilt accepted source');
 const after=(await get('/deployments?per_page=1')).deployments?.[0];
 if(after?.id!==before.id||after.versions?.length!==1||after.versions[0].version_id!==expectedVersion||after.versions[0].percentage!==100)throw Error('Deployment changed during comparison');
