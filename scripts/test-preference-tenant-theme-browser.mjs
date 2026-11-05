@@ -18,7 +18,7 @@ const server=createServer(async(req,res)=>{
    const response=await fixture.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:req.headers,body:Buffer.concat(chunks)}));
    res.writeHead(response.status,Object.fromEntries(response.headers));return res.end(Buffer.from(await response.arrayBuffer()));
   }
-  res.setHeader('content-type','text/html');res.end('<main id="root"><section data-cy="theme-center"></section></main><script src="/client.js"></script>');
+  res.setHeader('content-type','text/html');res.end('<main id="root"><button data-cy="appearance-open">Appearance</button><section data-cy="theme-center"></section></main><script src="/client.js"></script>');
  }catch{res.writeHead(500);res.end();}
 });
 let browser;
@@ -37,6 +37,7 @@ try{
   window.disposeHost=Migration.mountTenantThemePreference(document.querySelector('#root'),{gateway:location.origin,token,locale:'en',tenantId:scope.tenantId,userId:scope.userId,dataset:scope.dataset,isCurrent:()=>true});
  },{scope,key,source,token:fixture.tokens.admin});
  await mount();
+ await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').waitFor();
  await page.locator('[data-cy=theme-migration-review]').click();
  assert.equal(await page.locator('[data-cy=theme-migration-status]').textContent(),'Review ready');
@@ -46,6 +47,7 @@ try{
  await page.waitForFunction(()=>document.querySelector('[data-cy=theme-migration-status]').textContent.includes('pending'));
  await page.reload();
  await mount();
+ await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-retry]').waitFor();
  assert.equal(await page.locator('[data-cy=theme-migration-retry]').isVisible(),true);
  assert.equal(await page.locator('[data-cy=theme-migration-review]').isDisabled(),true);
