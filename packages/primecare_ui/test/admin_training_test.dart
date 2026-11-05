@@ -109,7 +109,7 @@ void main() {
   }
   testWidgets('verified account opens training; switching account hides old progress', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
-    await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),child:localized(const Scaffold(body:AdminTrainingLauncher())))));await tester.pumpAndSettle();
+    await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),bootstrap:false,child:localized(const Scaffold(body:AdminTrainingLauncher())))));await tester.pumpAndSettle();
     await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();
     await tester.tap(find.text('Detailed training and self-assessment'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
     expect(find.ancestor(of: find.byType(AdminTrainingScreen), matching: find.byType(ManagedScreenBoundary)), findsOneWidget);

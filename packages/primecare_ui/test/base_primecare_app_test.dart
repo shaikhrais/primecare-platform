@@ -153,7 +153,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     router.dispose();
   });
-  testWidgets('corporate style retains branding without adding PrimeTheme', (
+  testWidgets('corporate style retains branding and fallback PrimeTheme tokens', (
     tester,
   ) async {
     final branding = ThemeData(colorSchemeSeed: Colors.orange);
@@ -162,7 +162,8 @@ void main() {
       tester.widget<MaterialApp>(find.byType(MaterialApp)).theme,
       same(branding),
     );
-    expect(find.byType(PrimeTheme), findsNothing);
+    expect(tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data.colors.primary,
+      const PrimeThemeData().colors.primary);
     expect(find.byType(AppShellBoundary), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     router.dispose();

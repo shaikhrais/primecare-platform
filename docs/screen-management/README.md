@@ -50,6 +50,7 @@ enforcement for all existing screens.
 | `packages/primecare_ui/lib/src/components/prime_components.dart` | `DashboardErrorWidget` | Heading and retry text now use locale-aware shared text; verify the remaining shared control strings and live-text catalog coverage before claiming complete localization. |
 | `packages/primecare_ui/lib/src/application/base_primecare_app.dart` | `BasePrimeCareApp`, `BaseThemedPrimeCareApp` | The corporate base now provides its previous fallback tokens through an explicit scope. Verify default branding and personal-theme propagation in its real workflows. |
 | `packages/primecare_ui/lib/src/components/governance_components.dart` | `GovDashboardHero` and upload controls | The localization audit finds literal strings such as `ACTIVE & SECURE`, `Utilization` and upload status text. Review each use and add the appropriate shared translations and tests. |
+| `packages/primecare_ui/lib/src/features/training/getting_started_guide.dart` | `GettingStartedGuide` | The route is managed, but labels such as `Detailed training and self-assessment` remain hardcoded English. Move them to the shared text system and test all supported locales. |
 
 On this draft the existing `scripts/audit-ui-localization.py` reported 38,653
 literal candidates in 11,054 files. It is a textual review aid, not a verified

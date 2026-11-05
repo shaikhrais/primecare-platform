@@ -42,6 +42,20 @@ void main() {
     expect(built, isFalse);
   });
 
+  testWidgets('extended registrations retain required connections', (tester) async {
+    var built = false;
+    final manager = ScreenManager(
+      [const ManagedScreenRegistration(id: '/shared')],
+      connections: {'custom manager': (_) => false},
+    ).withAdditionalRoutes(['/module']);
+    await tester.pumpWidget(MaterialApp(home: AppShellBoundary(child: ManagedScreenBoundary(
+      manager: manager, screenId: '/module',
+      builder: (_) { built = true; return const SizedBox(); },
+    ))));
+    expect(tester.takeException().toString(), contains('custom manager'));
+    expect(built, isFalse);
+  });
+
   testWidgets('registered screen receives features and inherited updates', (tester) async {
     ScreenInheritanceManager? current;
     final manager = ScreenManager([const ManagedScreenRegistration(

@@ -179,6 +179,8 @@ class SharedAuthRoutes {
     const ManagedScreenRegistration(id: '/maintenance/configuration'),
     const ManagedScreenRegistration(id: '/internal/training/guide'),
     const ManagedScreenRegistration(id: '/internal/training/detail'),
+    const ManagedScreenRegistration(id: '/internal/unauthorized-fallback'),
+    const ManagedScreenRegistration(id: '/internal/access-denied'),
     ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
   ], connections: {
     'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,

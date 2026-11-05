@@ -74,8 +74,12 @@ class GovernanceRouter {
       authorizedRoutes.add(
         GoRoute(
           path: fallbackPath,
-          builder: (context, state) => Scaffold(
-            body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+          builder: (context, state) => ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: '/internal/unauthorized-fallback',
+            builder: (_) => Scaffold(
+              body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+            ),
           ),
         ),
       );
@@ -119,7 +123,10 @@ class GovernanceRouter {
         return GovernanceMasterLayout(
           application: application,
           activeRole: activeRole,
-          child: Scaffold(
+          child: ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: '/internal/access-denied',
+            builder: (_) => Scaffold(
             appBar: AppBar(title: Text(tr('governance.access_denied'))),
             body: Center(
               child: Column(
@@ -142,6 +149,7 @@ class GovernanceRouter {
                   ],
                 ],
               ),
+            ),
             ),
           ),
         );
