@@ -90,7 +90,8 @@ void main() {
   });
   for (final initialized in [false, true]) {
     for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent',
-      '/roles/patient/dashboard', '/reconciled/screen_ceo_dashboard_labels']) {
+      '/roles/patient/dashboard', '/reconciled/screen_ceo_dashboard_labels',
+      '/admin/screen-health']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
         tester.binding.platformDispatcher.defaultRouteNameTestValue = '$path?enable-semantics=true';
         addTearDown(tester.binding.platformDispatcher.clearDefaultRouteNameTestValue);

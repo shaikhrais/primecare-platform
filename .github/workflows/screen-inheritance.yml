@@ -38,6 +38,10 @@ on:
       - packages/primecare_ui/test/prime_screen_inheritance_test.dart
       - packages/primecare_ui/test/shared_control_inheritance_test.dart
       - packages/primecare_ui/lib/primecare_ui.dart
+      - apps/primecare_governance/lib/core/governance/route_registry.dart
+      - apps/primecare_governance/test/auth_routing_test.dart
+      - apps/primecare_governance/test/admin_screen_health_route_test.dart
+      - packages/primecare_ui/lib/src/screens/admin/admin_screen_health/**
       - .github/workflows/screen-inheritance.yml
   workflow_dispatch:
 permissions: {contents: read}
@@ -118,3 +122,6 @@ jobs:
         working-directory: apps/primecare_${{ matrix.app }}
       - run: flutter test test/auth_routing_test.dart --plain-name 'module routes have explicit presentation registrations'
         working-directory: apps/primecare_${{ matrix.app }}
+      - run: flutter test test/admin_screen_health_route_test.dart test/auth_routing_test.dart
+        if: matrix.app == 'governance'
+        working-directory: apps/primecare_governance
