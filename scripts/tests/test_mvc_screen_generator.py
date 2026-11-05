@@ -28,6 +28,16 @@ class MvcGeneratorTest(unittest.TestCase):
             self.assertNotEqual(retry.returncode, 0)
             self.assertEqual(catalog.read_text().count("  '/example/booking',"), 1)
             self.assertEqual(view, Path(directory, 'apps/example/lib/features/booking/booking_view.dart').read_text())
+            conflict = subprocess.run(
+                ['dart', str(GENERATOR), 'example', 'Booking', '/example/other'], cwd=directory,
+                capture_output=True, text=True,
+            )
+            self.assertNotEqual(conflict.returncode, 0)
+            self.assertNotIn('/example/other', catalog.read_text())
+            subprocess.run(['dart', str(GENERATOR), 'example', 'Reports', '/example/reports'],
+                           cwd=directory, capture_output=True, text=True, check=True)
+            self.assertIn("  '/example/booking',", catalog.read_text())
+            self.assertIn("  '/example/reports',", catalog.read_text())
 
 
 if __name__ == '__main__':
