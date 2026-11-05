@@ -1,0 +1,30 @@
+name: Preview inherited screen features
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/screen-features-preview.yml', '.github/fixtures/screen-features/**']
+permissions: {contents: read}
+jobs:
+  flutter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - name: Apply candidate only to isolated runner
+        run: |
+          cp .github/fixtures/screen-features/screen.dart packages/flutter_core/lib/models/screen.dart
+          cp .github/fixtures/screen-features/screen_features.dart packages/flutter_core/lib/models/screen_features.dart
+          cp .github/fixtures/screen-features/screen_features_test.dart packages/flutter_core/test/screen_features_test.dart
+          cp .github/fixtures/screen-features/base_primecare_app.dart packages/primecare_ui/lib/src/application/base_primecare_app.dart
+      - run: flutter pub get
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/models/screen.dart lib/models/screen_features.dart test/screen_features_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/screen_features_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/application/base_primecare_app.dart
+        working-directory: packages/primecare_ui
