@@ -12,6 +12,16 @@ void main() {
     ]), throwsArgumentError);
   });
 
+  test('module routes extend registrations without replacing shared settings', () {
+    final original = ScreenManager([const ManagedScreenRegistration(
+      id: '/shared', features: ScreenFeatureConfig(padding: EdgeInsets.all(4)),
+    )]);
+    final combined = original.withAdditionalRoutes(['/shared', '/module', '/module']);
+    expect(original.lookup('/module'), isNull);
+    expect(combined.lookup('/module'), isNotNull);
+    expect(combined.lookup('/shared')!.features!.padding, const EdgeInsets.all(4));
+  });
+
   testWidgets('unregistered screen never invokes its builder', (tester) async {
     var built = false;
     await tester.pumpWidget(MaterialApp(home: ManagedScreenBoundary(

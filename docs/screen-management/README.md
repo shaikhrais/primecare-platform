@@ -29,9 +29,9 @@ building, and supplies the registered feature settings. These checks establish
 only that those Flutter contexts exist; they do not prove PrimeCare-specific
 providers or controls are connected. Shared authentication route builders use
 an explicit adapter and route registrations. The shared workspace builder uses
-registrations derived from `governedWorkspaceRoutes`; any module route missing
-from that catalog fails closed. Standalone governance and other routes remain
-outside this boundary.
+registrations derived from `governedWorkspaceRoutes` and the application's
+module definitions. A route missing from both sources fails closed. Standalone
+governance and other routes remain outside this boundary.
 This first batch has not yet been validated by Flutter CI. Do not treat it as
 enforcement for all existing screens.
 

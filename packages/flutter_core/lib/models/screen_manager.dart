@@ -45,6 +45,17 @@ class ScreenManager {
   }
 
   ManagedScreenRegistration? lookup(String id) => _registrations[id];
+
+  /// Combines an application's existing route metadata with shared defaults.
+  /// Existing registrations retain their configuration and this never grants
+  /// access; routers must still authorize each request independently.
+  ScreenManager withAdditionalRoutes(Iterable<String> routes) {
+    final extra = routes.toSet().difference(_registrations.keys.toSet());
+    return ScreenManager([
+      ..._registrations.values,
+      ...extra.map((route) => ManagedScreenRegistration(id: route)),
+    ]);
+  }
 }
 
 /// Checks registration and dependencies before invoking the screen builder.

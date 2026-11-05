@@ -43,6 +43,9 @@ class SharedAuthRouter {
       navigation.navigatorKey = GlobalKey<NavigatorState>();
     }
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
+    final screenManager = SharedAuthRoutes.screenManager.withAdditionalRoutes(
+      application.modules.expand((module) => module.screens.map((screen) => screen.route)),
+    );
     final dashboard = auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
@@ -55,7 +58,7 @@ class SharedAuthRouter {
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
       governedScreenBuilder: (context, state) => ManagedScreenBoundary(
-        manager: SharedAuthRoutes.screenManager,
+        manager: screenManager,
         screenId: state.uri.path,
         builder: (_) => GovernedWorkspaceScreen(route: state.uri.path),
       ),
