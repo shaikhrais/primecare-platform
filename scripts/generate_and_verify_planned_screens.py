@@ -265,7 +265,7 @@ def generate_planned_screens():
         WHERE s.verification_status = 'pending';
     """)
     planned_screens = cursor.fetchall()
-    print(f"Found {len(planned_screens)} planned screens to generate and verify.")
+    print(f"Found {len(planned_screens)} planned screens to generate; runtime verification remains pending.")
 
     if not planned_screens:
         print("No planned screens require generation.")
@@ -347,15 +347,16 @@ def generate_planned_screens():
             """, (app_id, file_name, file_path, f"Governed UI Screen layout for {scr_name}"))
             file_id = cursor.lastrowid
 
-        # 2. Update screens table directly with file checks and component texts, but keep status 'interaction_pending'
+        # Source generation alone does not prove that imports, routes, exports,
+        # permissions or rendering work. Keep those checks pending.
         comp_list = f"MVC Components:\n1. {state_class} - MVC State Model\n2. {controller_class} - Riverpod StateNotifier Controller\n3. {provider_name} - StateNotifierProvider\n4. {scr_name} - GovernedConsumerWidget View"
-        comp_behavior = f"Manages user dashboard metrics, logs compliance scanning events, and runs transactional API sweeps."
+        comp_behavior = "Generated scaffold; behavior, access, routing and rendering require verification."
         
         audit_json = [
-            {"component": state_class, "exists": True, "purpose": "State mapping", "status": "passed"},
-            {"component": controller_class, "exists": True, "purpose": "Riverpod Controller", "status": "passed"},
-            {"component": provider_name, "exists": True, "purpose": "Riverpod Provider", "status": "passed"},
-            {"component": scr_name, "exists": True, "purpose": "Consumer View class", "status": "passed"}
+            {"component": state_class, "exists": True, "purpose": "State mapping", "status": "generated"},
+            {"component": controller_class, "exists": True, "purpose": "Riverpod Controller", "status": "generated"},
+            {"component": provider_name, "exists": True, "purpose": "Riverpod Provider", "status": "generated"},
+            {"component": scr_name, "exists": True, "purpose": "Consumer View class", "status": "generated"}
         ]
 
         cursor.execute("""
@@ -363,11 +364,11 @@ def generate_planned_screens():
             SET 
                 actual_file_path = ?,
                 file_exists = 1,
-                import_works = 1,
+                import_works = 0,
                 class_exists = 1,
-                route_exists = 1,
-                widget_exported = 1,
-                widget_renders = 1,
+                route_exists = 0,
+                widget_exported = 0,
+                widget_renders = 0,
                 verification_status = 'interaction_pending',
                 component_list_text = ?,
                 component_behavior_text = ?,
@@ -397,7 +398,7 @@ def generate_planned_screens():
     conn.commit()
     conn.close()
 
-    print(f"\nGeneration Pipeline Complete. Physically created, linked, and set to 'interaction_pending' exactly {generated_count} screens.")
+    print(f"\nGenerated {generated_count} screen scaffolds; routing, imports, exports and runtime behavior still require verification.")
 
 if __name__ == "__main__":
     generate_planned_screens()
