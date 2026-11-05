@@ -10,6 +10,8 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';
 
+import 'package:primecare_governance/core/routing/governance_application.dart' as registered_app;
+
 class GuestAuth extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true);
@@ -28,6 +30,15 @@ class AuthTranslations extends AssetLoader {
 }
 
 void main() {
+  test('governance module routes have explicit presentation registrations', () {
+    for (final module in registered_app.GovernanceApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
     Registry.registerAll();

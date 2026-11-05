@@ -10,6 +10,8 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_clinic/core/routing/app_router.dart';
 
+import 'package:primecare_clinic/core/routing/clinic_routes.dart' as registered_app;
+
 class GuestAuth extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true);
@@ -36,6 +38,15 @@ class RoutingTranslations extends AssetLoader {
 }
 
 void main() {
+  test('clinic module routes have explicit presentation registrations', () {
+    for (final module in registered_app.ClinicApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('session restoration preserves recovery route and draft', (tester) async {
     SharedPreferences.setMockInitialValues({});

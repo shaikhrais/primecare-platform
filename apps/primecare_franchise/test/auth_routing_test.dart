@@ -6,12 +6,23 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_franchise/core/routing/app_router.dart';
 
+import 'package:primecare_franchise/core/routing/franchise_routes.dart' as registered_app;
+
 class GuestAuth extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true);
 }
 
 void main() {
+  test('franchise module routes have explicit presentation registrations', () {
+    for (final module in registered_app.FranchiseApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   testWidgets('franchise login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
       authProvider.overrideWith(GuestAuth.new),
