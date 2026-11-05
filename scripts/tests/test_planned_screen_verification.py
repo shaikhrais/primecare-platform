@@ -55,6 +55,15 @@ class PlannedScreenVerificationTest(unittest.TestCase):
             self.assertTrue(all(item['status'] == 'generated' for item in json.loads(row[6])))
             catalog = root / generator.CATALOG_RELATIVE
             self.assertIn("  '/example',", catalog.read_text())
+            generated = root / 'packages/primecare_ui/lib/src/screens/example_screen.dart'
+            source = generated.read_text()
+            self.assertNotIn('Security posture sync complete.', source)
+            self.assertNotIn('All governance invariants validated via API.', source)
+            self.assertNotIn('Dashboard telemetry synchronized.', source)
+            self.assertNotIn('Level 4 Approved', source)
+            self.assertNotIn('Zero exceptions logged', source)
+            self.assertNotIn('/compliance/scan', source)
+            self.assertIn('Dashboard data is not available yet.', source)
 
     def test_preflight_rejects_duplicate_or_existing_output(self):
         with tempfile.TemporaryDirectory() as directory:

@@ -87,51 +87,12 @@ class {controller_class} extends StateNotifier<{state_class}> {
           const {state_class}(
             isLoading: false,
             title: '{title_text} Control Center',
-            logs: [
-              'System initialized.',
-              'Security posture sync complete.',
-            ],
+            logs: [],
           ),
         );
 
   Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    try {
-      final apiClient = ref.read(apiClientProvider);
-      final response = await apiClient.post(
-        '/v1/{kebab_code}/compliance/scan',
-        body: {
-          'timestamp': DateTime.now().toIso8601String(),
-          'action': 'run_compliance_scan',
-        },
-      );
-      if (response.isSuccess) {
-        state = state.copyWith(
-          isLoading: false,
-          logs: [
-            ...state.logs,
-            'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-            'All governance invariants validated via API.',
-          ],
-        );
-      } else {
-        state = state.copyWith(
-          isLoading: false,
-          logs: [
-            ...state.logs,
-            'API Error running scan: ${response.error}',
-          ],
-        );
-      }
-    } catch (e) {
-      state = state.copyWith(
-        isLoading: false,
-        logs: [
-          ...state.logs,
-          'Network Error: $e',
-        ],
-      );
-    }
+    addLog('Compliance scanning is not available yet.');
   }
 
   void addLog(String entry) {
@@ -152,10 +113,7 @@ class {screen_name} extends GovernedConsumerWidget {
   @override
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final state = ref.watch({provider_name});
-    final controller = ref.read({provider_name}.notifier);
     final theme = context.theme;
-    final roleBase = '{screen_name}'.replaceAll('DashboardScreen', '').replaceAll('Screen', '');
-
     return Scaffold(
       backgroundColor: theme.colors.background,
       appBar: AppBar(
@@ -165,57 +123,13 @@ class {screen_name} extends GovernedConsumerWidget {
           state.title,
           style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
-            onPressed: () => controller.addLog('Manual refresh triggered.'),
-          ),
-        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GovDashboardHero(
-              title: state.title,
-              roleName: '$roleBase Dashboard',
-              description: 'Welcome to your governed operation center. Review key performance indicators, live telemetry logs, and compliance standings.',
-              onRefresh: () => controller.addLog('Dashboard telemetry synchronized.'),
-            ),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Active Operations',
-                    value: 'Active',
-                    trendLabel: 'Optimal productivity',
-                    progress: 0.92,
-                    icon: LucideIcons.activity,
-                    brandColor: theme.colors.primary,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: GovMetricCard(
-                    title: 'Security Clearance',
-                    value: 'Level 4 Approved',
-                    trendLabel: 'Zero exceptions logged',
-                    progress: 1.0,
-                    icon: LucideIcons.shieldCheck,
-                    brandColor: Colors.green,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            GovTelemetryChart(
-              title: 'Hourly Core Telemetry',
-              dataPoints: const [75, 82, 80, 94, 91, 98],
-              labels: const ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00'],
-              accentColor: theme.colors.primary,
-            ),
+            Text('Dashboard data is not available yet.', style: theme.typography.bodyMedium),
             const SizedBox(height: 24),
             Container(
               width: double.infinity,
@@ -252,32 +166,7 @@ class {screen_name} extends GovernedConsumerWidget {
                         ),
                       )),
                   const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 48,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: theme.colors.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      onPressed: state.isLoading ? null : () => controller.runComplianceScan(),
-                      child: state.isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
-                              child: CircularProgressIndicator(
-                                strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
-                              ),
-                            )
-                          : Text(
-                              'Execute Operational Audit Scan',
-                              style: theme.typography.button.copyWith(color: Colors.white),
-                            ),
-                    ),
-                  ),
+                  Text('Compliance scanning is not available yet.', style: theme.typography.bodySmall),
                 ],
               ),
             ),
@@ -323,7 +212,6 @@ def generate_planned_screens():
 
     for scr in planned_screens:
         scr_id = scr['id']
-        scr_code = scr['screen_code']
         scr_name = scr['screen_name']
         file_path = scr['expected_file_path']
         app_id = scr['app_id']
@@ -341,7 +229,6 @@ def generate_planned_screens():
             provider_name += "Provider"
 
         title_text = scr_name.replace('Screen', '').replace('Dashboard', '').replace('_', ' ').title()
-        kebab_code = scr_code.replace('_', '-')
 
         # Generate Dart source content
         content = TEMPLATE.replace(
@@ -354,8 +241,6 @@ def generate_planned_screens():
             '{provider_name}', provider_name
         ).replace(
             '{title_text}', title_text
-        ).replace(
-            '{kebab_code}', kebab_code
         )
 
         # Write to physical disk path
