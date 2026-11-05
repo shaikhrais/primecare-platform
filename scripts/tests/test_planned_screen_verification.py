@@ -53,6 +53,24 @@ class PlannedScreenVerificationTest(unittest.TestCase):
                                  'widget_exported, widget_renders, component_audit_json FROM screens').fetchone()
             self.assertEqual(row[:6], (1, 1, 0, 0, 0, 0))
             self.assertTrue(all(item['status'] == 'generated' for item in json.loads(row[6])))
+            catalog = root / generator.CATALOG_RELATIVE
+            self.assertIn("  '/example',", catalog.read_text())
+
+    def test_preflight_rejects_duplicate_or_existing_output(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            screen = {'screen_name': 'ExampleScreen', 'route_path': '/example',
+                      'expected_file_path': 'apps/example/lib/example_screen.dart'}
+            with self.assertRaisesRegex(ValueError, 'Duplicate'):
+                generator.prepare_route_catalog(root, [screen, screen])
+            self.assertFalse((root / generator.CATALOG_RELATIVE).exists())
+            output = root / screen['expected_file_path']
+            output.parent.mkdir(parents=True)
+            output.write_text('existing user source')
+            with self.assertRaisesRegex(ValueError, 'existing output'):
+                generator.prepare_route_catalog(root, [screen])
+            self.assertEqual(output.read_text(), 'existing user source')
+            self.assertFalse((root / generator.CATALOG_RELATIVE).exists())
 
 
 if __name__ == '__main__':
