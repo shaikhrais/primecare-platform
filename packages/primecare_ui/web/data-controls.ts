@@ -1,3 +1,4 @@
+import {ThemeControlBase} from './theme-control-base';
 import metadata from '../catalogs/data-controls.registration.json';
 import {DataTableModel,DataColumn,DataRow,virtualWindow,FieldConstraint,fieldError,formatMask,RichDocument,validateDocument,safeHttps,richRuns,toggleRichRange,replaceRichText,inferRichEdit,UploadPolicy} from '../../domain/src/data_controls';
 import {UploadTask,UploadPort,UploadRemovalPort,UploadReceiptPort} from '../../shared/src/data-controls/upload-task';
@@ -5,10 +6,11 @@ export {DataTableModel,virtualWindow,fieldError,formatMask,validateDocument,safe
 export type {DataColumn,DataRow,RichDocument,UploadPolicy,UploadPort,UploadRemovalPort,UploadReceiptPort};
 const owners=new WeakSet<HTMLElement>();
 /** Optional scoped, governed presentation. Host callbacks own authorization and durable acknowledgement. */
-export class PrimeDataControls {
- private abort=new AbortController();private cleanup=new Set<()=>void>();private used=new Set<string>();private dead=false;private generation=0;
+export class PrimeDataControls extends ThemeControlBase {
+ private cleanup=new Set<()=>void>();private used=new Set<string>();private generation=0;
  readonly labels:Record<string,string>;
- constructor(readonly root:HTMLElement,readonly scope:string,locale:'en'|'fr'|'es'='en'){
+ constructor(root:HTMLElement,readonly scope:string,locale:'en'|'fr'|'es'='en'){
+  super(root);
   if(!scope.trim()||owners.has(root)||[root.ownerDocument.body,root.ownerDocument.documentElement].includes(root)||metadata.kind!=='verified_metadata_export'||!metadata.locales[locale])throw Error('invalid_data_scope');owners.add(root);this.labels=metadata.locales[locale];root.dataset.pcDataControls='';
   const doc=root.ownerDocument;if(!doc.querySelector('[data-pc-data-controls-style]')){const s=doc.createElement('style');s.dataset.pcDataControlsStyle='';s.textContent=`[data-pc-data-controls]{color:var(--color-text);background:var(--color-surface);font:inherit}[data-pc-data-controls] :is(button,input,textarea){font:inherit;min-block-size:var(--control-min-height);max-inline-size:100%;box-sizing:border-box;color:inherit;background:var(--color-surface);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md);padding:var(--spacing-sm)}[data-pc-data-controls] :focus-visible{outline:var(--border-width) solid var(--color-text);outline-offset:var(--spacing-sm)}[data-pc-data-controls] [role=row]{display:flex}[data-pc-data-controls] :is([role=columnheader],[role=gridcell]){box-sizing:border-box;flex-shrink:0;overflow:hidden;border-block-end:var(--border-width) solid var(--color-border);background:var(--color-surface)}[data-pc-data-controls] [data-pinned]{position:sticky;z-index:1}[data-pc-data-controls] [role=gridcell]:focus{outline:var(--border-width) solid var(--color-primary);outline-offset:calc(-1*var(--border-width))}[data-pc-data-controls] [aria-selected=true]{background:var(--color-primary);color:var(--color-on-primary)}[data-pc-data-controls] [role=alert]{color:var(--color-error)}[data-pc-data-controls] [hidden]{display:none!important}[data-pc-data-controls] form{display:grid;gap:var(--spacing-md);grid-template-columns:repeat(auto-fit,minmax(min(100%,calc(var(--spacing-unit)*20)),1fr))}[data-pc-data-controls] img{max-inline-size:100%}`;doc.head.append(s);}
  }
@@ -73,5 +75,5 @@ export class PrimeDataControls {
   task.subscribe(draw);for(const b of [send,cancel,retry,remove,...choices.map(c=>c.button)])b.addEventListener('pc-idle',draw,{signal:this.abort.signal});
   input.addEventListener('change',()=>{try{task.choose([...input.files??[]].map(f=>({name:f.name,size:f.size,type:f.type,handle:f})));}catch{status.textContent=this.text('invalid');input.value='';}},{signal:this.abort.signal});this.cleanup.add(()=>task.dispose());box.append(label,input,selected,send,cancel,retry,remove,unsupported,progress,status);draw();return {element:box,task};
  }
- dispose(){if(this.dead)return;this.dead=true;this.generation++;this.abort.abort();for(const f of this.cleanup)f();this.cleanup.clear();this.root.replaceChildren();this.root.removeAttribute('data-pc-data-controls');owners.delete(this.root);}
+ dispose(){if(!this.endControlScope())return;this.generation++;for(const f of this.cleanup)f();this.cleanup.clear();this.root.replaceChildren();this.root.removeAttribute('data-pc-data-controls');owners.delete(this.root);}
 }

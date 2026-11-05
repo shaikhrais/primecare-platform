@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
+      - 'scripts/test-theme-control-base.mjs'
       - 'packages/domain/src/advanced_theme.ts'
       - 'packages/domain/src/legacy-theme-migration.ts'
       - 'packages/domain/src/advanced-theme-legacy-preview.ts'
@@ -27,6 +29,7 @@ jobs:
           npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
           ln -s /tmp/theme-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node --test scripts/test-theme-control-base.mjs
           node scripts/test-advanced-theme-model.mjs
           node scripts/test-advanced-theme-migration.mjs
           node scripts/test-advanced-theme-legacy-preview.mjs

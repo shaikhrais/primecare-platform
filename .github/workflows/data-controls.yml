@@ -3,6 +3,8 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
+      - 'scripts/test-theme-control-base.mjs'
       - 'packages/domain/src/data_controls.ts'
       - 'packages/shared/src/data-controls/**'
       - 'packages/primecare_ui/web/data-controls.ts'
@@ -32,6 +34,7 @@ jobs:
           npm install --prefix /tmp/catalogue-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
           ln -s /tmp/catalogue-tools/node_modules node_modules
           npx playwright install --with-deps chromium
+          node --test scripts/test-theme-control-base.mjs
           node scripts/test-data-controls-model.mjs
           node scripts/test-data-controls-rich-ranges.mjs
           node --test scripts/test-upload-removal.mjs
