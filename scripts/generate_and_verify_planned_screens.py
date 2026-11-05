@@ -21,7 +21,7 @@ def valid_route(route):
     return route == '/' or bool(ROUTE_PATTERN.fullmatch(route))
 
 
-def prepare_route_catalog(project_root, planned_screens):
+def prepare_route_catalog(project_root, planned_screens, *, check_state_output=True):
     """Validate all routes and output paths before generating any source."""
     root = Path(project_root).resolve()
     catalog = root / CATALOG_RELATIVE
@@ -45,7 +45,7 @@ def prepare_route_catalog(project_root, planned_screens):
         if not output.is_relative_to(root) or output.exists():
             raise ValueError(f"Unsafe or existing output: {screen['expected_file_path']}")
         model = root / 'packages/primecare_models/lib/src/generated_screen_states' / output.relative_to(root)
-        if model.exists():
+        if check_state_output and model.exists():
             raise ValueError(f'Generated state already exists: {model.relative_to(root)}')
     return catalog, entries
 

@@ -72,6 +72,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('Client 123'), findsOneWidget);
     expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 
   testWidgets('registered screen receives features and inherited updates', (tester) async {
