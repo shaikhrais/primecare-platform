@@ -135,6 +135,17 @@ authorization and actual screen behavior require separate checks. The current
 | `packages/primecare_ui/lib/src/components/governance_components.dart` | `GovDashboardHero`, `GovMetricCard`, and upload controls | The hero status and metric label now use shared locale-aware text; upload status and other strings still require translation and interaction tests. |
 | `packages/primecare_ui/lib/src/features/training/getting_started_guide.dart` | `GettingStartedGuide` | Navigation, status and accessibility labels now have English, French and Spanish fallbacks and use live screen text. The generated lesson titles, body text, checks and domains in `getting_started_catalog.g.dart` remain English; translate the shared source and regenerate before claiming full guide localization. Verify the locale-switch test in Flutter CI. |
 
+The governance workspace endpoint's generated `workspace-registry.json` maps
+16 of the 23 `governanceNativeScreenRoutes` paths. The following seven have no
+exact mapping there: `/admin/reality-check`, `/admin/role-screen-carousel`,
+`/admin/screenshot-gallery`, `/generated/corporate/ceo/growth-pipeline`,
+`/generated/corporate/ceo/region-performance`,
+`/generated/corporate/ceo/leadership-reports`, and `/governance/placeholder`.
+The placeholder is a fallback, not a business screen. The other six need a
+reviewed source of grants or an explicit access policy before a workspace-based
+authorization guard can be applied without inventing access or silently
+blocking existing routes. API permission enforcement remains a separate check.
+
 ### Client module declared-screen review
 
 All 13 declarations below inherit `GovernedConsumerWidget`. The production shared

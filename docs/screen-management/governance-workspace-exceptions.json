@@ -1,0 +1,9 @@
+[
+  {"route":"/admin/reality-check","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/admin/role-screen-carousel","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/admin/screenshot-gallery","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/generated/corporate/ceo/growth-pipeline","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/generated/corporate/ceo/region-performance","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/generated/corporate/ceo/leadership-reports","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
+  {"route":"/governance/placeholder","reason":"Fallback rather than a business screen","next":"Review fallback behavior when the route guard is implemented."}
+]
