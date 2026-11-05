@@ -1,7 +1,7 @@
 // Shared in-app authentication routing for every governed PrimeCare app.
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/models/screen_manager.dart';
-import '../../theme/prime_theme.dart';
+import '../../screens/screen_manager_catalog.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
@@ -11,7 +11,6 @@ import '../workspace/governed_workspace_screen.dart';
 import '../workspace/workspace_routes_generated.dart';
 import 'auth_experience.dart';
 import 'auth_navigation.dart';
-import 'generated_managed_routes.g.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
 import 'reset_password_view.dart';
@@ -158,35 +157,9 @@ class SharedAuthRouter {
 }
 
 class SharedAuthRoutes {
-  // Registration is presentation metadata only; the redirect and RouteGuard
-  // continue to make all access decisions.
-  static final ScreenManager screenManager = ScreenManager([
-    const ManagedScreenRegistration(id: '/login'),
-    const ManagedScreenRegistration(id: '/signup'),
-    const ManagedScreenRegistration(id: '/forgot-password'),
-    const ManagedScreenRegistration(id: '/reset-password'),
-    const ManagedScreenRegistration(id: '/mfa'),
-    const ManagedScreenRegistration(id: '/language'),
-    const ManagedScreenRegistration(id: '/auth/error'),
-    const ManagedScreenRegistration(id: '/auth/callback'),
-    const ManagedScreenRegistration(id: '/common/settings'),
-    const ManagedScreenRegistration(id: '/consent'),
-    const ManagedScreenRegistration(id: '/success'),
-    ManagedScreenRegistration(id: platformAdministrationRoute),
-    const ManagedScreenRegistration(id: '/maintenance/configuration'),
-    const ManagedScreenRegistration(id: '/internal/training/guide'),
-    const ManagedScreenRegistration(id: '/internal/training/detail'),
-    const ManagedScreenRegistration(id: '/internal/unauthorized-fallback'),
-    const ManagedScreenRegistration(id: '/internal/access-denied'),
-    const ManagedScreenRegistration(id: '/admin/screenshot-inventory'),
-    ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
-  ], connections: {
-    'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,
-  }).withAdditionalRoutes(generatedManagedScreenRoutes);
+  static ScreenManager get screenManager => primeCareScreenManager;
 
-  static Widget managedPage(String id, WidgetBuilder builder) => AppShellBoundary(
-    child: ManagedScreenBoundary(manager: screenManager, screenId: id, builder: builder),
-  );
+  static Widget managedPage(String id, WidgetBuilder builder) => managedPrimeCarePage(id, builder);
 
   static const publicPaths = <String>{
     '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',

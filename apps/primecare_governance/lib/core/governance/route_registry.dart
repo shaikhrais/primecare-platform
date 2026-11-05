@@ -40,7 +40,7 @@ const governanceNativeScreenRoutes = <String>{
 };
 
 ScreenManager buildGovernanceScreenManager() =>
-    SharedAuthRoutes.screenManager.withAdditionalRoutes([
+    primeCareScreenManager.withAdditionalRoutes([
       ...governanceNativeScreenRoutes,
       ...ScreenRegistry.screens.values.map((screen) => screen.routePath).where((path) => path.isNotEmpty),
     ]);

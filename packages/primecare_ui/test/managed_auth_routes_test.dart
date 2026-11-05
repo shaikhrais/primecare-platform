@@ -11,9 +11,11 @@ import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/routes/shared_routes.dart';
+import 'package:primecare_ui/src/screens/screen_manager_catalog.dart';
 
 void main() {
   test('all rendered shared authentication routes have registrations', () {
+    expect(SharedAuthRoutes.screenManager, same(primeCareScreenManager));
     for (final path in [
       '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
       '/language', '/auth/error', '/auth/callback', '/common/settings', '/consent', '/success',
