@@ -177,6 +177,8 @@ class SharedAuthRoutes {
     const ManagedScreenRegistration(id: '/success'),
     ManagedScreenRegistration(id: platformAdministrationRoute),
     const ManagedScreenRegistration(id: '/maintenance/configuration'),
+    const ManagedScreenRegistration(id: '/internal/training/guide'),
+    const ManagedScreenRegistration(id: '/internal/training/detail'),
     ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
   ], connections: {
     'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,

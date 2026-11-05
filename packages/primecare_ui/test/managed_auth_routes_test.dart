@@ -13,6 +13,7 @@ void main() {
     for (final path in [
       '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
       '/language', '/auth/error', '/auth/callback', '/common/settings', '/consent', '/success',
+      '/internal/training/guide', '/internal/training/detail',
     ]) {
       expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
     }
