@@ -77,6 +77,18 @@ Route-site review and representative workflow tests are still required for
 each adapter. Per-screen feature settings are consumed by governed bases; a
 direct-widget adapter needs explicit review before applying layout overrides.
 
+## Shared responsibilities
+
+| Responsibility | Existing system and current connection |
+| --- | --- |
+| Screen configuration | `ScreenManager` and `ScreenFeatureScope` hold registration and presentation settings; they do not authorize access. |
+| Layout | `AppShellBoundary` marks an approved shell or standalone adapter; `GovernanceMasterLayout` owns the governed shell. The marker alone does not validate every layout detail. |
+| Theme | Flutter `Theme`, `PrimeTheme` and `themeSettingsProvider` own material and PrimeCare appearance. Managed routes require the two theme contexts; individual controls still need migration review. |
+| Language | Easy Localization and Flutter `Localizations` own the active locale; existing live-screen text supports overrides. The boundary checks locale and direction, not translation completeness. |
+| Navigation and access | `GoRouter`, existing redirects, `RouteGuard` and server authorization own navigation and access. Registration does not grant permission. |
+| Responsive behavior | Existing `MediaQuery`, breakpoints and `ResponsiveScreenWrapper` provide sizing and scaling. The boundary checks for `MediaQuery`; it does not prove that every adapter uses the wrapper correctly. |
+| Accessibility and controls | Flutter semantics and `primecare_ui` controls are the existing shared systems. No duplicate accessibility manager was introduced; screen-specific semantics, focus order and control migration need verification. |
+
 ## Known work requiring manual review
 
 | Location | Class or generator | Reason and next action |
