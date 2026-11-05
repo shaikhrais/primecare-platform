@@ -61,11 +61,11 @@ void main() {
           child: EasyLocalization(supportedLocales: const [Locale('en')],
             path: 'assets/translations', startLocale: const Locale('en'),
             assetLoader: const AuthTranslations(),
-            child: Builder(builder: (context) => MaterialApp.router(
+            child: PrimeTheme(data: const PrimeThemeData(), child: Builder(builder: (context) => MaterialApp.router(
               locale: context.locale, supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               routerConfig: router,
-            )),
+            ))),
           ),
         ));
         await tester.pumpAndSettle();

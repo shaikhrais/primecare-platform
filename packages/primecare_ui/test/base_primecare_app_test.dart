@@ -1,4 +1,5 @@
 import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/registry/widgets/responsive_screen_wrapper.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
@@ -95,8 +96,13 @@ void main() {
     await tester.pumpWidget(const SizedBox());router.dispose();
   });
   testWidgets('branded corporate root exposes personal tokens without changing default branding', (tester) async {
+    final previousOverlay = ResponsiveScreenWrapper.overlayBuilder;
+    ResponsiveScreenWrapper.overlayBuilder = null;
+    addTearDown(() => ResponsiveScreenWrapper.overlayBuilder = previousOverlay);
     final router = await mount(tester, (r) => BrandedApp(r, ThemeData(colorSchemeSeed: Colors.orange)));
-    expect(find.byType(PrimeTheme), findsNothing);
+    expect(tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data.colors.primary,
+      const PrimeThemeData().colors.primary);
+    expect(ResponsiveScreenWrapper.overlayBuilder, isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
     await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Corporate', preset: 'dark1', fontScale: 1.5));
     await tester.pumpAndSettle();

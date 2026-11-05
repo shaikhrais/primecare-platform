@@ -13,7 +13,9 @@ on:
       - scripts/tests/test_mvc_screen_generator.py
       - packages/flutter_core/test/screen_features_test.dart
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
+      - packages/primecare_ui/test/base_primecare_app_test.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
+      - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
       - packages/primecare_ui/lib/src/components/prime_components.dart
       - packages/primecare_ui/lib/src/localization/shared_control_text.dart
@@ -49,6 +51,8 @@ jobs:
       - run: flutter pub get
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/application/base_primecare_app.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/base_primecare_app_test.dart
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/theme/prime_screen_inheritance.dart test/prime_screen_inheritance_test.dart
         working-directory: packages/primecare_ui

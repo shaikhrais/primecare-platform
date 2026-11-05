@@ -26,7 +26,8 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
   bool get drainTelemetry => false;
   Widget decorateApplication(Widget child) => child;
   Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
-    if (personal == null) return decorateApplication(child);
+    // Preserve the previous fallback tokens while providing an explicit scope.
+    if (personal == null) return PrimeTheme(data: const PrimeThemeData(), bootstrap: false, child: decorateApplication(child));
     return PrimeTheme(data:resolvePersonalPrimeTheme(const PrimeThemeData(),theme,personal),child:decorateApplication(child));
   }
 

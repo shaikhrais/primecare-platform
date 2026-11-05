@@ -1,6 +1,7 @@
 // Shared in-app authentication routing for every governed PrimeCare app.
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/models/screen_manager.dart';
+import '../../theme/prime_theme.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
@@ -177,7 +178,9 @@ class SharedAuthRoutes {
     ManagedScreenRegistration(id: platformAdministrationRoute),
     const ManagedScreenRegistration(id: '/maintenance/configuration'),
     ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
-  ]);
+  ], connections: {
+    'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,
+  });
 
   static Widget managedPage(String id, WidgetBuilder builder) => AppShellBoundary(
     child: ManagedScreenBoundary(manager: screenManager, screenId: id, builder: builder),

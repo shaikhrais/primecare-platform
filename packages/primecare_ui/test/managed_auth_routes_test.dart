@@ -30,7 +30,7 @@ void main() {
 
   testWidgets('adapter preserves application feature settings', (tester) async {
     ScreenFeatureConfig? observed;
-    await tester.pumpWidget(MaterialApp(
+    await tester.pumpWidget(PrimeTheme(data: const PrimeThemeData(), child: MaterialApp(
       home: ScreenFeatureScope(
         features: const ScreenFeatureConfig(padding: EdgeInsets.all(9)),
         child: SharedAuthRoutes.managedPage('/login', (context) {
@@ -38,7 +38,7 @@ void main() {
           return const SizedBox(key: Key('managed-auth-child'));
         }),
       ),
-    ));
+    )));
     expect(find.byKey(const Key('managed-auth-child')), findsOneWidget);
     expect(observed!.padding, const EdgeInsets.all(9));
   });
@@ -50,6 +50,16 @@ void main() {
       return const SizedBox();
     })));
     expect(tester.takeException().toString(), contains('/unregistered'));
+    expect(built, isFalse);
+  });
+
+  testWidgets('missing PrimeTheme blocks a registered screen', (tester) async {
+    var built = false;
+    await tester.pumpWidget(MaterialApp(home: SharedAuthRoutes.managedPage('/login', (_) {
+      built = true;
+      return const SizedBox();
+    })));
+    expect(tester.takeException().toString(), contains('PrimeTheme'));
     expect(built, isFalse);
   });
 

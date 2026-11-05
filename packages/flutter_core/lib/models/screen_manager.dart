@@ -27,10 +27,13 @@ class ManagedScreenRegistration {
 
 /// An explicit, immutable set of screen registrations. It grants no access.
 class ScreenManager {
-  ScreenManager(Iterable<ManagedScreenRegistration> registrations)
-      : _registrations = _index(registrations);
+  ScreenManager(Iterable<ManagedScreenRegistration> registrations,
+      {Map<String, bool Function(BuildContext)> connections = const {}})
+      : _registrations = _index(registrations),
+        _connections = Map.unmodifiable(connections);
 
   final Map<String, ManagedScreenRegistration> _registrations;
+  final Map<String, bool Function(BuildContext)> _connections;
 
   static Map<String, ManagedScreenRegistration> _index(
       Iterable<ManagedScreenRegistration> registrations) {
@@ -54,7 +57,7 @@ class ScreenManager {
     return ScreenManager([
       ..._registrations.values,
       ...extra.map((route) => ManagedScreenRegistration(id: route)),
-    ]);
+    ], connections: _connections);
   }
 }
 
@@ -78,7 +81,7 @@ class ManagedScreenBoundary extends StatelessWidget {
     if (registration == null) {
       throw FlutterError('Screen Manager: screen "$screenId" is not registered.');
     }
-    final missing = <ScreenDependency>[];
+    final missing = <String>[];
     for (final dependency in ManagedScreenRegistration.dependencies) {
       final available = switch (dependency) {
         ScreenDependency.layout => AppShellBoundary.isActive(context),
@@ -86,10 +89,13 @@ class ManagedScreenBoundary extends StatelessWidget {
         ScreenDependency.language => Localizations.maybeLocaleOf(context) != null && Directionality.maybeOf(context) != null,
         ScreenDependency.responsive => MediaQuery.maybeOf(context) != null,
       };
-      if (!available) missing.add(dependency);
+      if (!available) missing.add(dependency.name);
+    }
+    for (final entry in manager._connections.entries) {
+      if (!entry.value(context)) missing.add(entry.key);
     }
     if (missing.isNotEmpty) {
-      throw FlutterError('Screen Manager: screen "$screenId" is missing required connections: ${missing.map((item) => item.name).join(', ')}.');
+      throw FlutterError('Screen Manager: screen "$screenId" is missing required connections: ${missing.join(', ')}.');
     }
     return ScreenFeatureScope(
       features: registration.features ?? ScreenFeatureScope.of(context),

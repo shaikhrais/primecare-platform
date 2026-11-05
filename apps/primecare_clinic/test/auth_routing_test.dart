@@ -45,13 +45,13 @@ void main() {
     await tester.pumpWidget(ProviderScope(overrides: [authProvider.overrideWith(() => auth)],
       child: EasyLocalization(supportedLocales: const [Locale('en')],
         path: 'assets/translations', assetLoader: const RoutingTranslations(),
-        child: Consumer(builder: (context, ref, _) {
+        child: PrimeTheme(data: const PrimeThemeData(), child: Consumer(builder: (context, ref, _) {
           container = ProviderScope.containerOf(context);
           return MaterialApp.router(locale: context.locale,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             routerConfig: ref.watch(appRouterProvider));
-        }),
+        })),
       ),
     ));
     await tester.pumpAndSettle();

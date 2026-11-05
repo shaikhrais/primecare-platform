@@ -26,8 +26,9 @@ by changing parent classes without testing their layout and behaviour.
 `screen_manager.dart` contains a first, opt-in registration boundary. It checks
 for a shell, a Flutter theme ancestor, locale/direction and media query before
 building, and supplies the registered feature settings. These checks establish
-only that those Flutter contexts exist; they do not prove PrimeCare-specific
-providers or controls are connected. Shared authentication route builders use
+that those Flutter contexts exist; a required PrimeTheme connection is also
+checked for shared application routes. They do not prove every provider or
+control is connected. Shared authentication route builders use
 an explicit adapter and route registrations. The shared workspace builder uses
 registrations derived from `governedWorkspaceRoutes` and the application's
 module definitions. A route missing from both sources fails closed. Standalone
@@ -47,4 +48,10 @@ enforcement for all existing screens.
 | `scripts/implement_screens_from_db.py` | `generate_custom_screen_widget` | Generates governed views with hardcoded labels, including `Execute Action`. Connect the generator to route registrations and localization, preserving governance inputs. |
 | `packages/primecare_ui/lib/src/screens/common/governed/governed_screen.dart` | `Governed` | Direct `ConsumerWidget` with a standalone scaffold and hardcoded labels. Confirm whether it is used by a route and migrate without changing state or behavior. |
 | `packages/primecare_ui/lib/src/components/prime_components.dart` | `DashboardErrorWidget` | Heading and retry text now use locale-aware shared text; verify the remaining shared control strings and live-text catalog coverage before claiming complete localization. |
-| `packages/primecare_ui/lib/src/application/base_primecare_app.dart` | `BasePrimeCareApp`, `BaseThemedPrimeCareApp` | The corporate base intentionally lacks a `PrimeTheme` scope until a personal theme is selected. Preserve its existing default branding while migrating it before requiring this provider globally. |
+| `packages/primecare_ui/lib/src/application/base_primecare_app.dart` | `BasePrimeCareApp`, `BaseThemedPrimeCareApp` | The corporate base now provides its previous fallback tokens through an explicit scope. Verify default branding and personal-theme propagation in its real workflows. |
+| `packages/primecare_ui/lib/src/components/governance_components.dart` | `GovDashboardHero` and upload controls | The localization audit finds literal strings such as `ACTIVE & SECURE`, `Utilization` and upload status text. Review each use and add the appropriate shared translations and tests. |
+
+On this draft the existing `scripts/audit-ui-localization.py` reported 38,653
+literal candidates in 11,054 files. It is a textual review aid, not a verified
+count of untranslated screens; dynamic strings and false positives need manual
+inspection.
