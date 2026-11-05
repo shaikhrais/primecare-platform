@@ -187,3 +187,12 @@ Generator preflight checks reduce accidental overwrites but file and database
 writes are not one atomic transaction. Run generation against an isolated
 fixture first and review all generated code, registrations and database changes
 before using it with authoritative data.
+
+## Reviewed subset and remaining work
+
+[Reviewed candidate inventory](reviewed-candidates/README.md) records 338 exact
+file/class/base identities, source evidence, classification reasons and next
+review actions. Another 1,058 of the 1,396 scanner candidates remain unclassified.
+Run `python3 scripts/check_reviewed_screen_inventory.py` to verify the reviewed
+source hashes and reproduce the counts. This is static review, not production
+dispatch, behavior testing, migration approval or completion evidence.
