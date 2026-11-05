@@ -58,6 +58,15 @@ void main() {
       expect(manager.lookup(route.path), isNotNull, reason: route.path);
     }
   });
+  test('governance-only registrations correspond to existing registry paths', () {
+    final existingPaths = ScreenRegistry.screens.values
+        .map((screen) => screen.routePath).toSet();
+    final manager = buildGovernanceScreenManager();
+    for (final path in governanceRegistryScreenRoutes) {
+      expect(existingPaths, contains(path), reason: path);
+      expect(manager.lookup(path), isNotNull, reason: path);
+    }
+  });
   test('new registry metadata does not automatically register a governance route', () {
     const id = 'TEST_UNREGISTERED_SCREEN';
     const route = '/test-unregistered-governance-route';
@@ -80,7 +89,8 @@ void main() {
     expect(find.text('must not render'), findsNothing);
   });
   for (final initialized in [false, true]) {
-    for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
+    for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent',
+      '/roles/patient/dashboard', '/reconciled/screen_ceo_dashboard_labels']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
         tester.binding.platformDispatcher.defaultRouteNameTestValue = '$path?enable-semantics=true';
         addTearDown(tester.binding.platformDispatcher.clearDefaultRouteNameTestValue);
