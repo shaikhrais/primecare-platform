@@ -7,29 +7,12 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from sqlite_test_snapshot import logical_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('guard', ROOT/'scripts/record_authority_guard.py')
 GUARD = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(GUARD)
-
-def logical_snapshot(db):
-    """Compare all schema and row multisets without validating historical FKs.
-
-    Recent Python versions' iterdump checks foreign keys, which can reject
-    unrelated historical fixture schemas before the authority guard is exercised.
-    Include allocation counters: an aborted registrar must change nothing.
-    """
-    schema = db.execute(
-        'SELECT type,name,tbl_name,sql FROM sqlite_schema ORDER BY type,name'
-    ).fetchall()
-    rows = []
-    for kind, name, _, _ in schema:
-        if kind != 'table':
-            continue
-        quoted_name = '"' + name.replace('"', '""') + '"'
-        rows.append((name, sorted(repr(row) for row in db.execute('SELECT * FROM ' + quoted_name))))
-    return schema, rows
 
 
 class LogicalSnapshotTests(unittest.TestCase):
@@ -45,6 +28,18 @@ class LogicalSnapshotTests(unittest.TestCase):
             before = logical_snapshot(db)
             db.execute('CREATE INDEX value_index ON "quoted""table" (value)')
             self.assertNotEqual(logical_snapshot(db), before)
+
+    def test_sqlite_storage_classes_remain_distinct(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE sample (value)')
+            snapshots = []
+            for value in (None, 1, 1.0, '1', b'1'):
+                db.execute('DELETE FROM sample')
+                db.execute('INSERT INTO sample VALUES (?)', (value,))
+                snapshot = logical_snapshot(db)
+                for previous in snapshots:
+                    self.assertNotEqual(snapshot, previous)
+                snapshots.append(snapshot)
 
     def test_row_order_is_ignored_but_allocation_counters_are_compared(self):
         with closing(sqlite3.connect(':memory:')) as db:

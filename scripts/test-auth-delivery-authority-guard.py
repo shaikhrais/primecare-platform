@@ -1,6 +1,8 @@
 """Auth delivery reconciliation validates all declarations before any write."""
 import shutil, sqlite3, subprocess, sys, tempfile, unittest
 from pathlib import Path
+from contextlib import closing
+from sqlite_test_snapshot import logical_snapshot
 ROOT = Path(__file__).resolve().parents[1]
 
 class AuthDeliveryAuthorityTests(unittest.TestCase):
@@ -14,19 +16,20 @@ class AuthDeliveryAuthorityTests(unittest.TestCase):
                     shutil.copyfile(ROOT / file, target)
                 target = root / '.agents/governance/governance.db'
                 target.parent.mkdir(parents=True)
-                with sqlite3.connect(ROOT / '.agents/governance/governance.db') as source, sqlite3.connect(target) as db:
+                with closing(sqlite3.connect(ROOT / '.agents/governance/governance.db')) as source, closing(sqlite3.connect(target)) as db:
                     source.backup(db)
                     self.assertEqual(db.execute('UPDATE api_endpoints SET ' + column + "=? WHERE http_method='POST' AND route_path='/v1/auth/reset-password'", (value,)).rowcount, 1)
                     db.commit()
-                    before = '\n'.join(db.iterdump())
+                    before = logical_snapshot(db)
                 artifact = root / 'docs/api/auth-delivery-work-package.openapi.json'
                 artifact.write_text('existing contract')
                 result = subprocess.run([sys.executable, str(root / 'scripts/register-auth-delivery-work-package.py')], capture_output=True, text=True)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn('Auth delivery authority drift', result.stderr)
                 self.assertEqual(artifact.read_text(), 'existing contract')
-                with sqlite3.connect(target) as db:
-                    self.assertEqual('\n'.join(db.iterdump()), before)
+                with closing(sqlite3.connect(target)) as db:
+                    self.assertEqual(logical_snapshot(db), before)
 
 if __name__ == '__main__':
     unittest.main()
+
