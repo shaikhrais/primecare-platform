@@ -24,7 +24,9 @@ void main() {
       baseUrl: 'https://test',
       client: MockClient((request) async => http.Response(
         jsonEncode(request.url.path.endsWith('/screen-text')
-            ? {'screens': version == 0 ? [] : [{'id': 'shared_controls', 'version': version}]}
+            ? {'screens': <Map<String, Object>>[
+                if (version != 0) {'id': 'shared_controls', 'version': version},
+              ]}
             : {'screen': 'shared_controls', 'version': version, 'locales': {
                 for (final language in ['en', 'fr', 'es']) language: {
                   'dashboard_error': 'Updated error $language v$version',
