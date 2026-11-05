@@ -27,7 +27,9 @@ const local=await readFile(out+'/'+files[0]);const response=await fetch(base+'/c
 if(!response.ok)throw Error('Active script content unavailable');const body=Buffer.from(await response.arrayBuffer());if(body.length>25*1024*1024)throw Error('Active script too large');
 let modules=[];const type=response.headers.get('content-type')??'';
 if(type.startsWith('multipart/form-data')){const form=await new Response(body,{headers:{'content-type':type}}).formData();for(const value of form.values())if(typeof value!=='string')modules.push(Buffer.from(await value.arrayBuffer()));}else modules=[body];
-const matching=modules.filter(value=>value.equals(local)).length;if(modules.length!==1||matching!==1)throw Error('Active auth code differs from rebuilt accepted source');
+const matching=modules.filter(value=>value.equals(local)).length;
+console.log('AUTH_GENERIC_COMPARISON_DIAGNOSTIC '+JSON.stringify({contentType:type.split(';')[0],moduleCount:modules.length,matchingModules:matching,rebuiltBytes:local.length,rebuiltSha256:createHash('sha256').update(local).digest('hex'),providerModules:modules.map(value=>({bytes:value.length,sha256:createHash('sha256').update(value).digest('hex')}))}));
+if(modules.length!==1||matching!==1)throw Error('Active auth code differs from rebuilt accepted source');
 const after=(await get('/deployments?per_page=1')).deployments?.[0];
 if(after?.id!==before.id||after.versions?.length!==1||after.versions[0].version_id!==expectedVersion||after.versions[0].percentage!==100)throw Error('Deployment changed during comparison');
 console.log('AUTH_GENERIC_CODE_COMPARISON '+JSON.stringify({acceptedSource,genericSource,activeDeployment:before.id,activeVersion:expectedVersion,moduleCount:modules.length,matchingModules:matching,bundleSha256:createHash('sha256').update(local).digest('hex'),preferenceFlag:flags.length===0?'absent':'0',preferenceRuntimeActivated:false,providerWrites:0,humanApproved:false}));
