@@ -68,11 +68,7 @@ class SharedAuthRouter {
       navigatorKey: navigation.navigatorKey,
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
-      governedScreenBuilder: (context, state) => ManagedScreenBoundary(
-        manager: screenManager,
-        screenId: state.uri.path,
-        builder: (_) => GovernedWorkspaceScreen(route: state.uri.path),
-      ),
+      governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
       guestErrorBuilder: (context, state) => SharedAuthRoutes.managedPage(
         CommonRoutes.login, (_) => const LoginView(),
       ),

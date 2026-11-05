@@ -52,7 +52,13 @@ class GovernanceRouter {
           authorizedRoutes.add(
             GoRoute(
               path: screen.route,
-              builder: governedScreenBuilder ?? ((context, state) => screen.build(context)),
+              builder: (context, state) => ManagedScreenBoundary(
+                manager: screenManager,
+                screenId: screen.route,
+                builder: (context) => governedScreenBuilder == null
+                    ? screen.build(context)
+                    : governedScreenBuilder(context, state),
+              ),
             ),
           );
         }
@@ -61,7 +67,14 @@ class GovernanceRouter {
 
     for (final path in additionalGovernedRoutes) {
       if (!authorizedRoutes.any((route) => route.path == path) && governedScreenBuilder != null) {
-        authorizedRoutes.add(GoRoute(path: path, builder: governedScreenBuilder));
+        authorizedRoutes.add(GoRoute(
+          path: path,
+          builder: (context, state) => ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: path,
+            builder: (context) => governedScreenBuilder!(context, state),
+          ),
+        ));
       }
     }
     if (authorizedRoutes.isEmpty) {

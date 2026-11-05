@@ -11,7 +11,33 @@ class GuestAuth extends AuthNotifier {
   AuthState build() => AuthState(isInitialized: true);
 }
 
+class ClientAuth extends AuthNotifier {
+  @override
+  AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
+    userId: 'client-fixture', tenantId: 'tenant-fixture', token: 'fixture', role: 'client');
+}
+
 void main() {
+  testWidgets('client module route is managed while family route stays unavailable', (tester) async {
+    final container = ProviderContainer(overrides: [authProvider.overrideWith(ClientAuth.new)]);
+    addTearDown(container.dispose);
+    final router = container.read(appRouterProvider);
+    final shell = router.configuration.routes.whereType<ShellRoute>().single;
+    final routes = shell.routes.whereType<GoRoute>().toList();
+    final route = routes.singleWhere((item) => item.path == ClientRoutes.patientDashboard);
+    expect(routes.map((item) => item.path), isNot(contains(ClientRoutes.familyMemberDashboard)));
+    late BuildContext context;
+    await tester.pumpWidget(MaterialApp(home: Builder(builder: (value) {
+      context = value;
+      return const SizedBox.shrink();
+    })));
+    final state = GoRouterState(router.configuration, uri: Uri.parse(route.path),
+      matchedLocation: route.path, fullPath: route.path,
+      pathParameters: const {}, pageKey: const ValueKey('client-dashboard'));
+    final boundary = route.builder!(context, state) as ManagedScreenBoundary;
+    expect(boundary.screenId, route.path);
+    expect(boundary.manager.lookup(route.path), isNotNull);
+  });
   testWidgets('client login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
       authProvider.overrideWith(GuestAuth.new),
