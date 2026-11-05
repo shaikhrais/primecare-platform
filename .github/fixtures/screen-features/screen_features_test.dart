@@ -24,7 +24,14 @@ void main() {
     await tester.pumpWidget(app(const OverrideScreen(), const ScreenFeatureConfig(padding: EdgeInsets.all(7))));
     expect(find.ancestor(of: find.byKey(const Key('screen')), matching: find.byWidgetPredicate((w) => w is Padding && w.padding == const EdgeInsets.all(13))), findsOneWidget);
     await tester.pumpWidget(const ProviderScope(child: MaterialApp(home: OverrideScreen())));
-    expect(tester.takeException(), isA<FlutterError>());
+    expect(tester.takeException(), isA<AssertionError>());
+  });
+  testWidgets('manager reads inherited language, direction and theme', (tester) async {
+    ScreenInheritanceManager? observed;
+    await tester.pumpWidget(MaterialApp(locale: const Locale('fr'), supportedLocales: const [Locale('en'), Locale('fr')], theme: ThemeData(colorSchemeSeed: Colors.teal), home: Builder(builder: (context) { observed = ScreenInheritanceManager.of(context); return const SizedBox(); })));
+    expect(observed!.locale.languageCode, 'fr');
+    expect(observed!.direction, TextDirection.ltr);
+    expect(observed!.theme.colorScheme, isNotNull);
   });
   testWidgets('default wrapping does not introduce presentation widgets', (tester) async {
     const child = SizedBox();

@@ -33,9 +33,30 @@ class ScreenFeatureScope extends InheritedWidget {
       features.padding != oldWidget.features.padding || features.safeArea != oldWidget.features.safeArea || features.maxWidth != oldWidget.features.maxWidth;
 }
 
+/// Reads inherited screen, theme and language settings from the active app.
+/// Language changes remain owned by the existing localization provider.
+class ScreenInheritanceManager {
+  const ScreenInheritanceManager({required this.features, required this.theme, required this.locale, required this.direction});
+  final ScreenFeatureConfig features;
+  final ThemeData theme;
+  final Locale locale;
+  final TextDirection direction;
+
+  factory ScreenInheritanceManager.of(BuildContext context, {ScreenFeatureConfig? override}) => ScreenInheritanceManager(
+    features: override ?? ScreenFeatureScope.of(context),
+    theme: Theme.of(context),
+    locale: Localizations.maybeLocaleOf(context) ?? const Locale('en'),
+    direction: Directionality.maybeOf(context) ?? TextDirection.ltr,
+  );
+
+  Widget wrap(Widget child) => features.wrap(child);
+}
+
 /// A screen may override the application defaults without changing its permissions.
 mixin GovernedScreenFeatures {
   ScreenFeatureConfig? get screenFeatures => null;
+  ScreenInheritanceManager screenInheritance(BuildContext context) =>
+      ScreenInheritanceManager.of(context, override: screenFeatures);
   Widget applyScreenFeatures(BuildContext context, Widget child) =>
-      (screenFeatures ?? ScreenFeatureScope.of(context)).wrap(child);
+      screenInheritance(context).wrap(child);
 }
