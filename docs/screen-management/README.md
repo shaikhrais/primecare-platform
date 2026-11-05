@@ -16,6 +16,26 @@ match comments. It does not check registration, manager connections, routing,
 permissions, translations or runtime behaviour. A clean result does not prove
 that the application is managed or safe.
 
+Class names are not unique. For example, the governance router imports
+`apps/primecare_governance/lib/features/audit/screens/audit_log_screen.dart`,
+where `AuditLogScreen` uses `GovernedConsumerWidget`; a different file,
+`apps/primecare_governance/lib/features/audit/screens/audit_log/audit_log_screen.dart`,
+defines a direct `StatelessWidget` with the same class name. Resolve imports and
+actual route builders before classifying an inventory entry as a live route.
+
+In the governance router, a static import-and-constructor review found 18 native
+route classes using `GovernedConsumerWidget`. Four shared admin pages below use
+direct widget bases and are currently reached through the governance shell's
+managed adapter; their parent classes were not changed. This is not runtime
+proof of each page's workflow or permissions.
+
+| File | Class | Review still needed |
+| --- | --- | --- |
+| `packages/primecare_ui/lib/src/screens/admin/admin_screen_health/admin_screen_health_screen.dart` | `AdminScreenHealthScreen` | Verify health-screen actions, permission checks and responsive layout through the governance router. |
+| `packages/primecare_ui/lib/src/screens/admin/admin_reality_check_screen.dart` | `AdminRealityCheckScreen` | Verify state, filter interactions, localization and authorization through the adapter. |
+| `packages/primecare_ui/lib/src/screens/admin/admin_role_carousel_screen.dart` | `AdminRoleCarouselScreen` | Verify carousel state, controls, localization and authorization through the adapter. |
+| `packages/primecare_ui/lib/src/screens/admin/admin_screenshot_gallery_screen.dart` | `AdminScreenshotGalleryScreen` | Verify gallery state, accessibility and authorization through the adapter. |
+
 `route-sites.json` records textual route-constructor sites. Run
 `python3 scripts/check_route_sites.py` to flag new or changed sites for review;
 the output includes the file, line, constructor and a screen class when the
@@ -48,8 +68,14 @@ registrations derived from `governedWorkspaceRoutes` and the application's
 module definitions. A route missing from both sources fails closed. Standalone
 governance uses an adapter for its shell and registry routes. Other route entry
 points remain outside this boundary.
-This first batch has not yet been validated by Flutter CI. Do not treat it as
-enforcement for all existing screens.
+Earlier batches passed Flutter CI; check the current PR head for the latest
+results. Do not treat this as enforcement for all existing screens.
+
+Registrations currently identify routes by path; the boundary does not
+independently verify that a builder returned a particular widget class or base.
+Route-site review and representative workflow tests are still required for
+each adapter. Per-screen feature settings are consumed by governed bases; a
+direct-widget adapter needs explicit review before applying layout overrides.
 
 ## Known work requiring manual review
 
