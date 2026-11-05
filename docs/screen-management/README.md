@@ -109,3 +109,8 @@ On this draft the existing `scripts/audit-ui-localization.py` reported 38,653
 literal candidates in 11,054 files. It is a textual review aid, not a verified
 count of untranslated screens; dynamic strings and false positives need manual
 inspection.
+
+Generator preflight checks reduce accidental overwrites but file and database
+writes are not one atomic transaction. Run generation against an isolated
+fixture first and review all generated code, registrations and database changes
+before using it with authoritative data.
