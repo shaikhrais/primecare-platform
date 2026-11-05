@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/screens/admin/admin_screen_health/admin_screen_health_screen.dart' as routed;
+import 'package:primecare_ui/src/screens/admin/admin_screen_health/admin_screen_health_screen_controller.dart';
 import 'package:primecare_ui/src/screens/admin/admin_screen_health/sections/admin_screen_health_header_section.dart';
 import 'package:primecare_ui/src/screens/admin/admin_screen_health/sections/admin_screen_health_content_summary_section.dart';
 import 'package:primecare_ui/src/screens/admin/admin_screen_health/sections/admin_screen_health_primary_content_section.dart';
@@ -101,7 +102,9 @@ void main() {
     expect(find.byType(ManagedScreenBoundary), findsOneWidget);
     expect(find.byType(AppShellBoundary), findsOneWidget);
     expect(find.byKey(const ValueKey('admin_screen_health_loading')), findsOneWidget);
-    expect(api.paths, [healthPath]);
+    final controller = container.read(admin_screen_healthControllerProvider.notifier);
+    expect(controller.endpoint, healthPath);
+    expect(api.paths, [controller.endpoint]);
     final data = <String, dynamic>{'fixture': 'initial health response'};
     api.requests[0].complete(ApiResponse(data: data, statusCode: 200));
     await tester.pumpAndSettle();

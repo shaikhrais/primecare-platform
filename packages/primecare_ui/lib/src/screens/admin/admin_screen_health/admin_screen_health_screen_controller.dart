@@ -31,7 +31,7 @@ class AdminScreenHealthScreenController
     : super(
         ref,
         initialState: AdminScreenHealthScreenState(isLoading: true, data: {}),
-        endpoint: _screenHealthEndpoint,
+        endpoint: '/admin/screen-health',
         loader: () async {
           final response = await ref.read(apiClientProvider).get(_screenHealthEndpoint);
           final data = response.data;
