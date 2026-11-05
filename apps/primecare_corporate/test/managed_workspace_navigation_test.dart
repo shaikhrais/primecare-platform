@@ -38,12 +38,12 @@ class WorkspaceFixture extends Fake implements ApiClient {
     calls++;
     return ApiResponse(statusCode: 200, data: <String, dynamic>{
       'screens': [
-        {'code': 'ceo_dashboard', 'name': 'Fixture CEO dashboard', 'route': dashboard, 'sections': []},
+        {'code': 'ceo_dashboard', 'name': 'Fixture CEO dashboard', 'route': dashboard, 'sections': <dynamic>[]},
         if (grantOverview)
-          {'code': 'ceo_enterprise_overview', 'name': 'Fixture enterprise overview', 'route': overview, 'sections': []},
+          {'code': 'ceo_enterprise_overview', 'name': 'Fixture enterprise overview', 'route': overview, 'sections': <dynamic>[]},
       ],
-      'actions': [], 'inventory': [],
-      'overview': {'activeAccounts': 1, 'activeSessions': 1, 'accountRoles': [], 'activity': [], 'metrics': []},
+      'actions': <dynamic>[], 'inventory': <dynamic>[],
+      'overview': {'activeAccounts': 1, 'activeSessions': 1, 'accountRoles': <dynamic>[], 'activity': <dynamic>[], 'metrics': <dynamic>[]},
     });
   }
 }
