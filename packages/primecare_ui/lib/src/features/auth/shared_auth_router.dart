@@ -27,12 +27,21 @@ final _authNavigationProvider = Provider.family<_AuthNavigation, PlatformApplica
   (ref, application) => _AuthNavigation(),
 );
 
+/// A route outside the governed shell that still requires a registered screen.
+/// Authentication and authorization remain with the existing router redirect.
+class ManagedPublicRoute {
+  const ManagedPublicRoute({required this.path, required this.builder});
+
+  final String path;
+  final GoRouterWidgetBuilder builder;
+}
+
 class SharedAuthRouter {
   static GoRouter build({
     required Ref ref,
     required PlatformApplication application,
     required PlatformRole activeRole,
-    List<GoRoute> additionalPublicRoutes = const [],
+    List<ManagedPublicRoute> additionalPublicRoutes = const [],
   }) {
     final navigation = ref.read(_authNavigationProvider(application));
     final auth = ref.watch(authProvider);
@@ -129,7 +138,12 @@ class SharedAuthRouter {
         GoRoute(path: '/maintenance/configuration', builder: (context, state) => SharedAuthRoutes.managedPage('/maintenance/configuration', (_) => const MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
         ...SharedAuthRoutes.protectedRoutes(),
-        ...additionalPublicRoutes,
+        ...additionalPublicRoutes.map((route) => GoRoute(
+          path: route.path,
+          builder: (context, state) => SharedAuthRoutes.managedPage(
+            route.path, (context) => route.builder(context, state),
+          ),
+        )),
       ],
     );
     void rememberLocation() {

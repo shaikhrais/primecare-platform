@@ -39,4 +39,14 @@ void main() {
     expect(find.byKey(const Key('managed-auth-child')), findsOneWidget);
     expect(observed!.padding, const EdgeInsets.all(9));
   });
+
+  testWidgets('unregistered public route does not build a screen', (tester) async {
+    var built = false;
+    await tester.pumpWidget(MaterialApp(home: SharedAuthRoutes.managedPage('/unregistered', (_) {
+      built = true;
+      return const SizedBox();
+    })));
+    expect(tester.takeException().toString(), contains('/unregistered'));
+    expect(built, isFalse);
+  });
 }
