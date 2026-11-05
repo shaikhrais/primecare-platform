@@ -1617,7 +1617,7 @@
     "packages/primecare_ui/lib/src/features/generated_screens/shareholder_dashboard.dart": "967432f8ed6096ee78325b36979e6e20832c647602bbd84b6ed32ce5507f0df4",
     "packages/primecare_ui/lib/src/features/generated_screens/system_dashboard.dart": "b8ecebe02ce19ba0746efee7dbc54a1b1c43273a08f2e1cc98d372e01c1c8bf9",
     "packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart": "6571d5821d24c38c57cd57b2d89b3d01bbb276536bb74208c4e8a7abca6d997f",
-    "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart": "4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120",
+    "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart": "f39d904cca48b3db41fc3a0a1a8d16436b9e80f805d1611854a4ffc3051847ad",
     "packages/primecare_ui/lib/src/governance/automated_audit_engine.dart": "791a884c8afce7575c54def668b2b7847822d0ecb41a08c1abe65d87a6461df1",
     "packages/primecare_ui/lib/src/governance/dashboard_infrastructure.dart": "bbb79a95c5a2d0d3e9b3173672fa960ab10b429a0f5937939a6d248a70662bba",
     "packages/primecare_ui/lib/src/governance/database.dart": "4e122e31f24fff0b7d7f790afba5a16558a60cb61ab533414ca40dabef4acf24",

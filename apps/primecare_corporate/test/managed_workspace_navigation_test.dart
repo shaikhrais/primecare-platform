@@ -28,14 +28,27 @@ class SessionFixture extends AuthNotifier {
   AuthState build() => auth;
 }
 
+enum WorkspaceFailure { status, malformed, exception }
+
 class WorkspaceFixture extends Fake implements ApiClient {
   var calls = 0;
   var grantOverview = true;
+  WorkspaceFailure? failure;
   @override
   Future<ApiResponse> get(String path, {Map<String, dynamic>? queryParameters}) async {
     // Unexpected requests fail rather than silently obtaining fixture success.
     if (path != '/v1/governance/workspace') throw StateError(path);
     calls++;
+    switch (failure) {
+      case WorkspaceFailure.status:
+        return ApiResponse(statusCode: 503, data: null);
+      case WorkspaceFailure.malformed:
+        return ApiResponse(statusCode: 200, data: <dynamic>[]);
+      case WorkspaceFailure.exception:
+        throw StateError('Fixture transport failure');
+      case null:
+        break;
+    }
     return ApiResponse(statusCode: 200, data: <String, dynamic>{
       'screens': [
         {'code': 'ceo_dashboard', 'name': 'Fixture CEO dashboard', 'route': dashboard, 'sections': <dynamic>[]},
@@ -175,6 +188,63 @@ void main() {
     expect(api.calls, 3);
     expect(tester.takeException(), isNull);
   });
+
+  for (final failure in WorkspaceFailure.values) {
+    testWidgets('workspace $failure stays localized through theme changes and retry', (tester) async {
+      final api = WorkspaceFixture();
+      final theme = ValueNotifier(const PrimeThemeData());
+      final container = await mount(tester, api, theme);
+      final router = container.read(appRouterProvider);
+      final scaffoldElement = tester.element(workspaceScaffold());
+      expect(find.text('Fixture CEO dashboard'), findsWidgets);
+
+      api.failure = failure;
+      await tester.tap(find.descendant(of: workspace(), matching: find.byIcon(Icons.refresh)));
+      await tester.pumpAndSettle();
+      expect(api.calls, 2);
+      expect(find.text('Fixture CEO dashboard'), findsNothing);
+      expect(find.text('Unable to load the workspace. Try again.'), findsOneWidget);
+
+      final translations = <String, (String, String)>{
+        'en': ('Unable to load the workspace. Try again.', 'Refresh'),
+        'fr': ('Impossible de charger l’espace de travail. Réessayez.', 'Actualiser'),
+        'es': ('No se pudo cargar el espacio de trabajo. Inténtelo de nuevo.', 'Actualizar'),
+      };
+      theme.value = PrimeThemeData(colors: PrimeColors(background: Colors.orange));
+      await tester.pumpAndSettle();
+      for (final language in ['fr', 'es', 'en']) {
+        await tester.element(workspace()).setLocale(Locale(language));
+        await tester.pumpAndSettle();
+        final (message, retryLabel) = translations[language]!;
+        expect(find.text(message), findsOneWidget);
+        for (final other in translations.entries.where((entry) => entry.key != language)) {
+          expect(find.text(other.value.$1), findsNothing);
+        }
+        expect(find.descendant(of: workspace(), matching: find.byTooltip(retryLabel)), findsOneWidget);
+        final retry = find.descendant(of: workspace(), matching: find.byType(PrimeButton));
+        expect(tester.widget<PrimeButton>(retry).label, retryLabel);
+        expect(tester.widget<Scaffold>(workspaceScaffold()).backgroundColor, Colors.orange);
+        expect(tester.element(workspaceScaffold()), same(scaffoldElement));
+        expect(container.read(appRouterProvider), same(router));
+        expect(router.routeInformationProvider.value.uri.path, dashboard);
+        expect(api.calls, 2);
+        expect(tester.takeException(), isNull);
+      }
+
+      api.failure = null;
+      await tester.tap(find.descendant(of: workspace(), matching: find.byType(PrimeButton)));
+      await tester.pumpAndSettle();
+      expect(api.calls, 3);
+      expect(find.text('Fixture CEO dashboard'), findsWidgets);
+      for (final translation in translations.values) {
+        expect(find.text(translation.$1), findsNothing);
+      }
+      expect(tester.element(workspaceScaffold()), same(scaffoldElement));
+      expect(container.read(appRouterProvider), same(router));
+      expect(router.routeInformationProvider.value.uri.path, dashboard);
+      expect(tester.takeException(), isNull);
+    });
+  }
 
   testWidgets('guest deep link redirects before any workspace API request', (tester) async {
     final api = WorkspaceFixture();
