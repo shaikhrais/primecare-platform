@@ -20,3 +20,10 @@ export function storeRestoreCopy(storage:Storage,key:string,value:string,id:stri
  storage.setItem(copyKey,value);
  return copyKey;
 }
+
+/** Serialize cooperating theme writers per account when Web Locks is available. */
+export async function withThemeLibraryLock(key:string,work:()=>void):Promise<void> {
+ const locks=globalThis.navigator?.locks;
+ if(!locks){work();return;}
+ await locks.request('primecare-theme-library:'+key,{mode:'exclusive'},()=>{work();});
+}

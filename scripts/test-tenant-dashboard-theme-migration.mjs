@@ -73,7 +73,13 @@ try{
  await freshPage.locator('[data-cy=theme-restore-review]').click();
  assert.equal(await freshPage.locator('[data-cy=theme-restore-status]').textContent(),'Review ready');
  assert.match(await freshPage.locator('[data-cy=theme-restore-preview]').textContent(),/layout/);
- await Promise.all([freshPage.waitForEvent('load'),freshPage.locator('[data-cy=theme-restore-confirm]').click()]);
+ const restoreLockTab=await fresh.newPage();restoreLockTab.on('pageerror',error=>errors.push(error.message));
+ await restoreLockTab.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ await restoreLockTab.evaluate(async key=>{await new Promise(resolve=>{navigator.locks.request('primecare-theme-library:'+key,{mode:'exclusive'},()=>new Promise(release=>{window.releaseRestoreLock=release;resolve();}));});},key);
+ await freshPage.locator('[data-cy=theme-restore-confirm]').click();
+ await freshPage.waitForFunction(async key=>(await navigator.locks.query()).pending.some(lock=>lock.name==='primecare-theme-library:'+key),key);
+ assert.equal(await freshPage.evaluate(key=>Object.keys(localStorage).filter(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':')).length,key),0);
+ await Promise.all([freshPage.waitForEvent('load'),restoreLockTab.evaluate(()=>window.releaseRestoreLock())]);
  await freshPage.waitForFunction(key=>Object.keys(localStorage).some(k=>k.startsWith('primecare-theme-restored:v1:'+key.slice('primecare-themes:v1:'.length)+':')),key);
  await freshPage.locator('[data-cy=appearance-open]').click();
  assert.equal(await freshPage.locator('[data-cy=theme-center-name]').inputValue(),theme.name);

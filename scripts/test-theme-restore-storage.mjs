@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 const result=await build({entryPoints:['packages/primecare_ui/web/theme-restore-storage.ts','packages/primecare_ui/web/theme-library.ts','packages/domain/src/theme_center.ts'],bundle:true,platform:'node',format:'esm',outdir:'out',write:false});
 const load=async name=>import('data:text/javascript;base64,'+Buffer.from(result.outputFiles.find(f=>f.path.endsWith('/'+name+'.js')).text).toString('base64'));
-const {storeRestoreCopy,restoreCopyKeys,themeLibraryAbsent}=await load('theme-restore-storage');
+const {storeRestoreCopy,restoreCopyKeys,themeLibraryAbsent,withThemeLibraryLock}=await load('theme-restore-storage');
 const {PersonalThemeLibrary}=await load('theme-library');
 const {defaultPersonalTheme}=await load('theme_center');
 class MemoryStorage {
@@ -52,4 +52,12 @@ test('cooperating writers serialize and a stale writer is rejected',async(t)=>{
  assert.equal(result[0].status,'fulfilled');assert.equal(result[1].status,'rejected');
  assert.equal(new PersonalThemeLibrary(key).items[0].theme.name,'First');
  assert.deepEqual(calls,[{name:'primecare-theme-library:'+key,options:{mode:'exclusive'}},{name:'primecare-theme-library:'+key,options:{mode:'exclusive'}}]);
+});
+
+test('competing restore copies use the same account lock',async(t)=>{
+ const storage=new MemoryStorage();globalThis.localStorage=storage;const prior=Object.getOwnPropertyDescriptor(globalThis,'navigator');let tail=Promise.resolve();
+ Object.defineProperty(globalThis,'navigator',{configurable:true,value:{locks:{request(name,options,work){const task=tail.then(work);tail=task.catch(()=>{});return task;}}}});
+ t.after(()=>{if(prior)Object.defineProperty(globalThis,'navigator',prior);else delete globalThis.navigator;});
+ const result=await Promise.allSettled([withThemeLibraryLock(key,()=>storeRestoreCopy(storage,key,document,ids[0])),withThemeLibraryLock(key,()=>storeRestoreCopy(storage,key,document,ids[1]))]);
+ assert.equal(result[0].status,'fulfilled');assert.equal(result[1].status,'rejected');assert.equal(restoreCopyKeys(storage,key).length,1);
 });

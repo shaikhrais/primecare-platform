@@ -1,4 +1,4 @@
-import {storeRestoreCopy,themeLibraryAbsent} from './theme-restore-storage';
+import {storeRestoreCopy,themeLibraryAbsent,withThemeLibraryLock} from './theme-restore-storage';
 import {TenantThemeRestoreReview} from './advanced-theme-tenant-restore';
 import type {PreferenceSyncClient} from '../../shared/src/preference-sync/client';
 
@@ -22,9 +22,11 @@ export function mountTenantThemeRestore(root:HTMLElement,client:PreferenceSyncCl
  prepare.onclick=()=>{if(!valid()||busy)return;try{const value=review.prepare();candidate=value.candidate;preview.textContent=JSON.stringify({candidate:value.candidate,unmappedFields:value.unmappedFields},null,2);status.textContent=text.ready;confirm.disabled=false;}catch{candidate=null;confirm.disabled=true;status.textContent=text.failed;}};
  confirm.onclick=async()=>{if(!valid()||busy||!candidate)return;busy=true;confirm.disabled=true;try{
   const result=await review.confirm(candidate,()=>({libraryAbsent:themeLibraryAbsent(storage,key),draftAbsent:!hasDraft()}));
-  if(!valid()||hasDraft()||!themeLibraryAbsent(storage,key))throw Error('Local theme changed');
-  storeRestoreCopy(storage,key,JSON.stringify(result),crypto.randomUUID());
-  onRestored();
+  await withThemeLibraryLock(key,()=>{
+   if(!valid()||hasDraft()||!themeLibraryAbsent(storage,key))throw Error('Local theme changed');
+   storeRestoreCopy(storage,key,JSON.stringify(result),crypto.randomUUID());
+  });
+  if(valid())onRestored();
  }catch{if(valid())status.textContent=text.failed;}finally{busy=false;}};
  return ()=>{dead=true;review.dispose();section.remove();};
 }
