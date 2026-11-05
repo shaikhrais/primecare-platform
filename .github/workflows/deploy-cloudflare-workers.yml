@@ -16,6 +16,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 concurrency:
   group: primecare-cloudflare-typescript-production
@@ -66,6 +67,16 @@ jobs:
       - name: Generate independent Worker configurations
         run: node scripts/generate-cloudflare-worker-config.mjs
 
+      - name: Verify deployed auth source without modifying auth
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node scripts/verify-auth-live-proof-source.mjs
+
+      - name: Test and verify live Worker preservation before any deployment
+        run: |
+          node --test scripts/test-generic-worker-deploy.mjs
+          node scripts/check-generic-worker-deploy.mjs
+
       - name: Verify required auth schema before publishing
         run: node scripts/check-auth-schema.mjs
 
@@ -73,9 +84,10 @@ jobs:
         run: |
           set -euo pipefail
           : > worker-urls.txt
-          services=(auth client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
+          services=(client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
           for service in "${services[@]}"; do
             config=".cloudflare-workers/${service}.jsonc"
+            node scripts/check-generic-worker-deploy.mjs --service "${service}"
             output="$(npx wrangler deploy --config "${config}" 2>&1 | tee /dev/stderr)"
             url="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
             test -n "${url}" || { echo "::error::No public URL returned for ${service}"; exit 1; }
@@ -95,6 +107,7 @@ jobs:
         name: Deploy service-bound gateway
         run: |
           set -euo pipefail
+          node scripts/check-generic-worker-deploy.mjs --service gateway
           output="$(npx wrangler deploy --config .cloudflare-workers/gateway.jsonc 2>&1 | tee /dev/stderr)"
           gateway="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
           test -n "${gateway}" || { echo '::error::No public gateway URL returned'; exit 1; }

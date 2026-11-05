@@ -17,6 +17,7 @@ on:
     paths: ['.github/workflows/deploy-cloudflare-workers.yml', 'cloudflare/workers/src/screen-text*', 'packages/database/migrations/*screen_text*', 'packages/flutter_core/lib/src/localization/live_screen_text.dart', 'websites/typescript/src/**']
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: primecare-screen-text-release
   cancel-in-progress: false

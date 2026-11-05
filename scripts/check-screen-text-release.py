@@ -5,7 +5,7 @@ import yaml
 ROOT = Path(__file__).resolve().parents[1]
 p = ROOT / '.github/workflows/release-screen-text.yml'
 workflow = yaml.load(p.read_text(), Loader=yaml.BaseLoader)
-assert workflow['permissions'] == {'contents': 'read'}
+assert workflow['permissions'] == {'contents': 'read', 'actions': 'read'}
 assert workflow['on']['push']['branches'] == ['main']
 assert '.github/workflows/release-screen-text.yml' not in workflow['on']['push']['paths'], 'Installing the release workflow must not deploy an older feature'
 assert 'packages/flutter_core/lib/src/localization/live_screen_text.dart' in workflow['on']['push']['paths']
@@ -43,6 +43,22 @@ for job, filename in [('apis','deploy-cloudflare-workers.yml'),('websites','depl
     assert jobs[job]['uses'] == './.github/workflows/' + filename
     assert jobs[job]['secrets'] == 'inherit' and jobs[job]['with']['confirm'] == 'DEPLOY'
     assert 'workflow_call:' in (ROOT / '.github/workflows' / filename).read_text()
+# The generic deployment must validate every current Worker before the first write,
+# then recheck each service immediately before publication.
+worker = yaml.load((ROOT / '.github/workflows/deploy-cloudflare-workers.yml').read_text(), Loader=yaml.BaseLoader)
+worker_steps = worker['jobs']['deploy']['steps']
+auth_proof = next(i for i, step in enumerate(worker_steps) if step.get('name') == 'Verify deployed auth source without modifying auth')
+assert worker['permissions'] == {'contents': 'read', 'actions': 'read'}
+assert 'node scripts/verify-auth-live-proof-source.mjs' in worker_steps[auth_proof]['run']
+preflight = next(i for i, step in enumerate(worker_steps) if step.get('name') == 'Test and verify live Worker preservation before any deployment')
+deploy = next(i for i, step in enumerate(worker_steps) if step.get('name') == 'Deploy and capture every API URL')
+gateway = next(i for i, step in enumerate(worker_steps) if step.get('name') == 'Deploy service-bound gateway')
+assert auth_proof < preflight < deploy < gateway
+assert 'services=(client ' in worker_steps[deploy]['run'] and 'services=(auth ' not in worker_steps[deploy]['run']
+assert 'node --test scripts/test-generic-worker-deploy.mjs' in worker_steps[preflight]['run']
+assert 'node scripts/check-generic-worker-deploy.mjs' in worker_steps[preflight]['run']
+assert 'node scripts/check-generic-worker-deploy.mjs --service "${service}"' in worker_steps[deploy]['run']
+assert 'node scripts/check-generic-worker-deploy.mjs --service gateway' in worker_steps[gateway]['run']
 for job in jobs.values():
     for step in job.get('steps',[]):
         if step.get('uses','').startswith('actions/checkout@'):
