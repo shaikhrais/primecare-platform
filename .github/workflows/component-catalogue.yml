@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/domain/src/component_catalogue.ts'
       - 'packages/shared/src/component-catalogue/**'
       - 'packages/primecare_ui/web/component-catalogue.ts'

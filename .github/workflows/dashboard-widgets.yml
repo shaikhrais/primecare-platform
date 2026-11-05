@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/domain/src/dashboard_widgets.ts'
       - 'packages/shared/src/dashboard-widgets/**'
       - 'packages/primecare_ui/web/dashboard-widgets.ts'

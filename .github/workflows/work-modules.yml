@@ -4,6 +4,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/shared/src/guarded-json.ts'
       - 'packages/domain/src/work_modules.ts'
       - 'packages/shared/src/work-modules/**'
