@@ -6,7 +6,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart'
-    show AppErrorBoundary, executionGateProvider, AppShellBoundary;
+    show AppErrorBoundary, executionGateProvider, AppShellBoundary, ScreenFeatureConfig, ScreenFeatureScope;
 import 'package:go_router/go_router.dart';
 import '../theme/prime_theme.dart';
 import '../theme/primecare_theme.dart';
@@ -22,6 +22,7 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
   ThemeData get applicationTheme;
   ThemeMode get applicationThemeMode => ThemeMode.system;
   bool get useShellBoundary => true;
+  ScreenFeatureConfig get screenFeatures => const ScreenFeatureConfig();
   bool get drainTelemetry => false;
   Widget decorateApplication(Widget child) => child;
   Widget decorateResolvedApplication(Widget child,ThemeData theme,PersonalTheme? personal) {
@@ -48,7 +49,7 @@ abstract class BasePrimeCareApp extends ConsumerWidget {
       routerConfig: router,
       builder: (context, child) => LiveScreenTextScope(child: child ?? const SizedBox.shrink()),
     );
-    final decorated = decorateResolvedApplication(app,resolvedTheme,personal);
+    final decorated = ScreenFeatureScope(features: screenFeatures, child: decorateResolvedApplication(app,resolvedTheme,personal));
     return useShellBoundary ? AppShellBoundary(child: decorated) : decorated;
   }
 }

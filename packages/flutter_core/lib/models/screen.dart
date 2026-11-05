@@ -29,6 +29,8 @@ import 'package:go_router/go_router.dart';
 
 import '../registry/widgets/responsive_screen_wrapper.dart';
 import 'presentation_mode.dart';
+import 'screen_features.dart';
+export 'screen_features.dart';
 
 /// Interface for declaring screen governance requirements.
 abstract class ScreenGovernance {
@@ -44,7 +46,7 @@ abstract class ScreenGovernance {
 
 /// Base class for governed consumer widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
-abstract class GovernedConsumerWidget extends ConsumerWidget implements ScreenGovernance {
+abstract class GovernedConsumerWidget extends ConsumerWidget with GovernedScreenFeatures implements ScreenGovernance {
   const GovernedConsumerWidget({super.key});
 
   @override
@@ -72,7 +74,7 @@ abstract class GovernedConsumerWidget extends ConsumerWidget implements ScreenGo
     if (screenshotPresentationMode) {
       return buildPresentationScreen(context, ref, runtimeType.toString());
     }
-    return ResponsiveScreenWrapper(child: buildScreen(context, ref));
+    return ResponsiveScreenWrapper(child: applyScreenFeatures(context, buildScreen(context, ref)));
   }
 
   /// Override this instead of [build] to implement the screen UI.
@@ -81,7 +83,7 @@ abstract class GovernedConsumerWidget extends ConsumerWidget implements ScreenGo
 
 /// Base class for governed stateless widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
-abstract class GovernedStatelessWidget extends StatelessWidget implements ScreenGovernance {
+abstract class GovernedStatelessWidget extends StatelessWidget with GovernedScreenFeatures implements ScreenGovernance {
   const GovernedStatelessWidget({super.key});
 
   @override
@@ -109,7 +111,7 @@ abstract class GovernedStatelessWidget extends StatelessWidget implements Screen
     if (screenshotPresentationMode) {
       return buildPresentationScreen(context, null, runtimeType.toString());
     }
-    return ResponsiveScreenWrapper(child: buildScreen(context));
+    return ResponsiveScreenWrapper(child: applyScreenFeatures(context, buildScreen(context)));
   }
 
   /// Override this instead of [build] to implement the screen UI.
@@ -124,7 +126,7 @@ abstract class GovernedConsumerStatefulWidget extends ConsumerStatefulWidget {
 /// Base State class for governed consumer stateful widgets.
 /// Enforces layout invariants by making it impossible to render directly to a route.
 abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
-    extends ConsumerState<T> implements ScreenGovernance {
+    extends ConsumerState<T> with GovernedScreenFeatures implements ScreenGovernance {
   @override
   String get screenDescription => '';
 
@@ -150,7 +152,7 @@ abstract class GovernedConsumerState<T extends GovernedConsumerStatefulWidget>
     if (screenshotPresentationMode) {
       return buildPresentationScreen(context, ref, runtimeType.toString());
     }
-    return ResponsiveScreenWrapper(child: buildScreen(context));
+    return ResponsiveScreenWrapper(child: applyScreenFeatures(context, buildScreen(context)));
   }
 
   /// Override this instead of [build] to implement the screen UI.
