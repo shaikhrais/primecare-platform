@@ -8,6 +8,13 @@
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 50,
+    "constructor": "GoRouter",
+    "class": "<nested route container>",
+    "digest": "9390162c3c3272b28f8d1ffe0ae6933c0ab9d534db3f294f2816d371d81ae8a9"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
     "line": 119,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
@@ -211,6 +218,13 @@
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 102,
+    "constructor": "GoRouter",
+    "class": "<nested route container>",
+    "digest": "93b6b5c6b533ded8600711a2c21eab46195c530166a4722e1f1b37dda7d51074"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 108,
     "constructor": "GoRoute",
     "class": "AuthCallbackView",
@@ -232,91 +246,91 @@
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 134,
+    "line": 132,
     "constructor": "GoRoute",
     "class": "PlatformMasterScreen",
     "digest": "852f1d0ed346ac11e349509fa3a69e6170af49109935e1e41e89f7de59abb3be"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 135,
+    "line": 133,
     "constructor": "GoRoute",
     "class": "MaintenanceConfigurationScreen",
     "digest": "549fe686990ae386511cd36f4ed300dd60dfeb00cc81013b61942f4001f32e1d"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 138,
+    "line": 136,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "8222f1c8672b20ff14448c6b9de0d6f1eabd4ba304f14131c095177620f094ad"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 170,
+    "line": 168,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "3fb94007025c6cb35f11fc07355004473fc83296bb721b8df2ca32412ddc6ec8"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 171,
+    "line": 169,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "b71ad7e5779cb5122856e4241ed53f00a3f68a5e29dc0039adfda8624c8ba94d"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 175,
+    "line": 173,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "ffa5e19a89213c77803733e7fd32a12e2d3f1957caf7c2438db84043937ae1e3"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 177,
+    "line": 175,
     "constructor": "GoRoute",
     "class": "LoginView",
     "digest": "95054995823a73dc5e4c02b7e9b847bb82d17f21a04b24d65fef12aef6bf89e8"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 181,
+    "line": 179,
     "constructor": "GoRoute",
     "class": "SignUpAccessView",
     "digest": "f3f5a446c17b355aa6c9d34c7ed17978a496e22798443044a627bbe2bb645433"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 183,
+    "line": 181,
     "constructor": "GoRoute",
     "class": "ForgotPasswordView",
     "digest": "a743b19e80d3c3721c2f9629b314f0921ae87c2093935e40559fe30e2cdca138"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 185,
+    "line": 183,
     "constructor": "GoRoute",
     "class": "ResetPasswordView",
     "digest": "327abe1ef89ef9b413a721b9a063e959acb4437f8f8afa5a7e0bd16e8779fc88"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 187,
+    "line": 185,
     "constructor": "GoRoute",
     "class": "MfaView",
     "digest": "da709b1c78b01d86ae22e76d4b549b14a23fd74dc24b683d98daae28516eefb0"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 189,
+    "line": 187,
     "constructor": "GoRoute",
     "class": "LanguageSelectionView",
     "digest": "1294df1ec9d07d57c44fd32272924fa880936af031787ac4a1b08ff0ac730adf"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
-    "line": 193,
+    "line": 191,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "50fb89caa771aff3cddeb4743c82ffa26bac1fe2ab1bd8329d78321ab1552cf2"

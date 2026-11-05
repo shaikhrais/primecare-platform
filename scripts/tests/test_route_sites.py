@@ -29,6 +29,18 @@ class RouteSitesTest(unittest.TestCase):
         text = "GoRoute(path: '/a', builder: (c,s) => Screen(label: 'x)y'));"
         self.assertEqual(text[scanner.end_of_call(text, text.index('(')):], ';')
 
+    def test_router_error_builder_changes_are_reviewed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            file = root / 'apps/example/lib/router.dart'
+            file.parent.mkdir(parents=True)
+            file.write_text('GoRouter(errorBuilder: (c, s) => const ErrorScreen(), routes: []);')
+            before = scanner.scan(root)[0]
+            file.write_text('GoRouter(errorBuilder: (c, s) => const OtherScreen(), routes: []);')
+            after = scanner.scan(root)[0]
+            self.assertEqual(before['class'], '<nested route container>')
+            self.assertNotEqual(before['digest'], after['digest'])
+
 
 if __name__ == '__main__':
     unittest.main()

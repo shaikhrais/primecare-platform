@@ -13,7 +13,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / 'docs/screen-management/route-sites.json'
-START = re.compile(r'\b(GoRoute|ShellRoute|MaterialPageRoute|CupertinoPageRoute|PageRouteBuilder|ManagedPublicRoute)\s*(?:<[^>\n]+>)?\s*\(')
+START = re.compile(r'\b(GoRouter|GoRoute|ShellRoute|MaterialPageRoute|CupertinoPageRoute|PageRouteBuilder|ManagedPublicRoute)\s*(?:<[^>\n]+>)?\s*\(')
 TARGET = re.compile(r'=>\s*(?:const\s+)?([A-Z]\w*(?:Screen|View|Page))\s*\(')
 
 
@@ -71,7 +71,7 @@ def scan(root):
                     'file': path.relative_to(root).as_posix(),
                     'line': source.count('\n', 0, match.start()) + 1,
                     'constructor': match.group(1),
-                    'class': ('<nested route container>' if match.group(1) == 'ShellRoute'
+                    'class': ('<nested route container>' if match.group(1) in ('GoRouter', 'ShellRoute')
                               else target.group(1) if target else '<dynamic or nested builder>'),
                     'digest': hashlib.sha256(re.sub(r'\s+', ' ', segment).encode()).hexdigest(),
                 })

@@ -69,9 +69,7 @@ class SharedAuthRouter {
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
       governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
-      guestErrorBuilder: (context, state) => SharedAuthRoutes.managedPage(
-        CommonRoutes.login, (_) => const LoginView(),
-      ),
+      guestErrorBuilder: (context, state) => const LoginView(),
       redirect: (context, state) {
         final session = ref.read(authProvider);
         if (!session.isInitialized) return null;

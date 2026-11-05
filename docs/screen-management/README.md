@@ -46,6 +46,20 @@ It can miss indirect or generated routes and can match comments or strings; it
 does not evaluate routing behavior, enforce permissions or prove that existing
 sites are approved. A changed shell can also flag nested routes conservatively.
 
+The current static scan records 51 construction sites in six source files,
+including router containers so changes to their error builders are flagged.
+The following review concerns those source locations only; nested builders,
+indirect registrations and runtime behavior can still escape a textual scan.
+
+| Route source | Current managed entry point | Verification still needed |
+| --- | --- | --- |
+| `packages/flutter_core/lib/routes/governance_router.dart` | Module, workspace, callback and fallback/error views use a boundary, including caller-provided guest errors. | Exercise redirects, roles, permission failures and parameterized routes. |
+| `packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart` | Shared public/protected pages and additional public-route adapters use the catalog. | Exercise real authentication, recovery and role transitions. |
+| `apps/primecare_governance/lib/core/governance/route_registry.dart` | Governance shell wraps native and registry-driven route children. | Verify each native workflow, authorization and accessibility. |
+| `apps/primecare_clinic/lib/core/routing/app_router.dart` | Additional settings route uses `ManagedPublicRoute`. | Verify settings access and behavior for allowed and denied roles. |
+| `packages/primecare_ui/lib/src/features/training/admin_training_launcher.dart` | Both navigator pages use standalone adapters. | Verify session changes, training interactions and localization. |
+| `packages/primecare_ui/lib/src/routes/shared_routes.dart` | Screenshot inventory uses a standalone adapter. | Confirm its eventual owning router applies the correct authorization. |
+
 The current governed bases enforce an `AppShellBoundary` and apply inherited
 feature settings. `ScreenInheritanceManager` reads theme, locale and direction;
 `PrimeScreenInheritanceManager` additionally reads `PrimeTheme`. Neither is a

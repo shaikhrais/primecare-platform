@@ -21,6 +21,7 @@ void main() {
       '/language', '/auth/error', '/auth/callback', '/common/settings', '/consent', '/success',
       '/internal/training/guide', '/internal/training/detail',
       '/internal/unauthorized-fallback', '/internal/access-denied',
+      '/internal/guest-error',
       '/admin/screenshot-inventory',
     ]) {
       expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);

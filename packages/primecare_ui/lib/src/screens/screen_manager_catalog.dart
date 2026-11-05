@@ -26,6 +26,7 @@ final ScreenManager primeCareScreenManager = ScreenManager([
   const ManagedScreenRegistration(id: '/internal/training/detail'),
   const ManagedScreenRegistration(id: '/internal/unauthorized-fallback'),
   const ManagedScreenRegistration(id: '/internal/access-denied'),
+  const ManagedScreenRegistration(id: '/internal/guest-error'),
   const ManagedScreenRegistration(id: '/admin/screenshot-inventory'),
   ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
 ], connections: {

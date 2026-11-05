@@ -128,7 +128,11 @@ class GovernanceRouter {
       errorBuilder: (context, state) {
         if (activeRole == PlatformRole.guest) {
           if (guestErrorBuilder != null) {
-            return guestErrorBuilder(context, state);
+            return AppShellBoundary(child: ManagedScreenBoundary(
+              manager: screenManager,
+              screenId: '/internal/guest-error',
+              builder: (context) => guestErrorBuilder(context, state),
+            ));
           }
 
         }
