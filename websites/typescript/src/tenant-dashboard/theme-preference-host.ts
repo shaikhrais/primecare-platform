@@ -28,7 +28,7 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
    const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
    if(localStorage.getItem(key)!==null||state.pending)removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,valid);
    else if(themeLibraryAbsent(localStorage,key)&&state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,options.locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
-  })().catch(()=>{});};
+  })().catch(()=>{}).finally(()=>{if(!removeControl)started=false;});};
   opener.addEventListener('click',start);
   if(dialog.closest('dialog')?.open)start();
  }catch{}

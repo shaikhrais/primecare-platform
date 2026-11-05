@@ -64,6 +64,19 @@ try{
  assert.equal(row.document.active.regions.navigation.background,theme.colors.sidebar);
  assert.equal(row.document.active.tokens.fontFamily,theme.fontFamily);
  assert.equal(await page.evaluate(key=>localStorage.getItem(key),key),source);
+ // A temporary connection failure must not permanently prevent a later review.
+ const reconnect=await browser.newContext({viewport:{width:1440,height:960}});
+ await reconnect.addInitScript(token=>sessionStorage.setItem('primecare_session',token),actor.token);
+ const reconnectPage=await reconnect.newPage();reconnectPage.on('pageerror',error=>errors.push(error.message));
+ await reconnectPage.route('**/v1/user/preferences',route=>route.abort(),{times:1});
+ await reconnectPage.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard?enable-semantics=true');
+ const failedRead=reconnectPage.waitForEvent('requestfailed',r=>r.url().endsWith('/v1/user/preferences'));
+ await reconnectPage.locator('[data-cy=appearance-open]').click();await failedRead;
+ await reconnectPage.locator('[data-cy=appearance-close]').click();
+ await reconnectPage.locator('[data-cy=appearance-open]').click();
+ await reconnectPage.locator('[data-cy=theme-restore-review]').waitFor({timeout:30000});
+ assert.equal(await reconnectPage.evaluate(key=>localStorage.getItem(key),key),null);
+ await reconnect.close();
  // A separate browser with no local library can review and restore the account theme.
  const fresh=await browser.newContext({viewport:{width:1440,height:960}});
  await fresh.addInitScript(token=>sessionStorage.setItem('primecare_session',token),actor.token);
