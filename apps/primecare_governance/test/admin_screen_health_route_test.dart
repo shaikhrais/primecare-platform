@@ -96,8 +96,6 @@ void main() {
   }
 
   testWidgets('actual health route preserves loading, success data and sync', (tester) async {
-    final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
     await mount(tester);
     expect(find.byType(ManagedScreenBoundary), findsOneWidget);
     expect(find.byType(AppShellBoundary), findsOneWidget);
@@ -127,7 +125,7 @@ void main() {
     expect(Theme.of(tester.element(find.byType(routed.AdminScreenHealthScreen))).brightness, Brightness.dark);
     expect(tester.takeException(), isNull);
     await tester.pumpWidget(const SizedBox.shrink());
-  });
+  }, semanticsEnabled: true);
 
   testWidgets('synthetic offline fallback cannot render healthy sections', (tester) async {
     await mount(tester);
