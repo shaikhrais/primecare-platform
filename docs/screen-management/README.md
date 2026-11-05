@@ -23,7 +23,7 @@ but shared workspace routes and public authentication routes also need separate
 review. Do not equate registration with authorization or migrate these candidates
 by changing parent classes without testing their layout and behaviour.
 
-`screen_manager.dart` contains a first, opt-in registration boundary. It checks
+`screen_manager.dart` contains a registration boundary. It checks
 for a shell, a Flutter theme ancestor, locale/direction and media query before
 building, and supplies the registered feature settings. These checks establish
 that those Flutter contexts exist; a required PrimeTheme connection is also
