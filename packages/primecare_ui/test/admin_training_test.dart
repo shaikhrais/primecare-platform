@@ -111,7 +111,10 @@ void main() {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),bootstrap:false,child:localized(const Scaffold(body:AdminTrainingLauncher())))));await tester.pumpAndSettle();
     await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();
-    await tester.tap(find.text('Detailed training and self-assessment'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    final detailed = find.text('Detailed training and self-assessment');
+    await tester.scrollUntilVisible(detailed, 200, scrollable: find.byType(Scrollable).last, maxScrolls: 30);
+    await tester.pumpAndSettle();
+    await tester.tap(detailed);await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
     expect(find.ancestor(of: find.byType(AdminTrainingScreen), matching: find.byType(ManagedScreenBoundary)), findsOneWidget);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount('learner-b');await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-submit')),findsNothing);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount(null);await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-export')),findsNothing);
