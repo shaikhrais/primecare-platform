@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+    paths: [tools/governance-production/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
   pull_request:
-    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+    paths: [tools/governance-production/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
 permissions:
   contents: read
 jobs:
@@ -19,6 +19,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Reject fabricated screen verification (offline)
+        run: python scripts/test-verify-screens.py -v
       - run: |
           npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
           ln -s /tmp/govt-reader/node_modules node_modules
