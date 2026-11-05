@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: [Component] - Standardized Card for PrimeCare Platform.
 import 'package:primecare_ui/primecare_ui.dart';
+import '../localization/shared_control_text.dart';
 
 /// [Component] - Standardized Card for PrimeCare Platform.
 class PrimeCareCard extends StatelessWidget {
@@ -144,7 +145,7 @@ class DashboardErrorWidget extends StatelessWidget {
         children: [
           Icon(LucideIcons.alertTriangle, size: 48, color: theme.colors.error),
           const SizedBox(height: 16),
-          Text('Operational Anomaly Detected', style: theme.typography.h3),
+          Text(sharedControlText(context, 'dashboard_error'), style: theme.typography.h3),
           const SizedBox(height: 8),
           Text(
             message,
@@ -157,7 +158,7 @@ class DashboardErrorWidget extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(key: const Key('prime_components_elevatedbutton_button_1'), 
               onPressed: onRetry,
-              child: const Text('Retry Hydration'),
+              child: Text(sharedControlText(context, 'retry')),
             ),
           ],
         ],

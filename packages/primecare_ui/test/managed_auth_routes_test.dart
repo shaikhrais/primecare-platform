@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:flutter_core/models/screen.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
@@ -74,6 +75,38 @@ void main() {
     expect(find.text('Canadian'), findsOneWidget);
     expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.orange);
     expect(tester.widget<Text>(find.text('Ghost')).style!.color, Colors.orange);
+    expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('managed dashboard error follows English French and Spanish', (tester) async {
+    var retries = 0;
+    Widget app(String language) => PrimeTheme(
+      data: const PrimeThemeData(),
+      child: MaterialApp(
+        locale: Locale(language),
+        supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
+        localizationsDelegates: const [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        home: SharedAuthRoutes.managedPage('/login', (_) => Scaffold(
+          body: DashboardErrorWidget(message: 'Example', onRetry: () => retries++),
+        )),
+      ),
+    );
+    for (final row in [
+      ('en', 'Operational Anomaly Detected', 'Retry Hydration'),
+      ('fr', 'Anomalie de fonctionnement détectée', 'Réessayer'),
+      ('es', 'Se detectó una anomalía operativa', 'Reintentar'),
+    ]) {
+      await tester.pumpWidget(app(row.$1));
+      await tester.pumpAndSettle();
+      expect(find.text(row.$2), findsOneWidget);
+      expect(find.text(row.$3), findsOneWidget);
+      await tester.tap(find.text(row.$3));
+    }
+    expect(retries, 3);
     expect(tester.takeException(), isNull);
   });
 }
