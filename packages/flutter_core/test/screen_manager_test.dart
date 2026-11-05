@@ -2,8 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/models/screen.dart';
+import 'package:flutter_core/models/domain_governance.dart';
+import 'package:flutter_core/registry/platform_role.dart';
+import 'package:flutter_core/routes/governance_router.dart';
 import 'package:flutter_core/flutter_core.dart'
     show ManagedScreenBoundary, ManagedScreenRegistration, ScreenManager;
+
+class EmptyApplication extends PlatformApplication {
+  @override String get appId => 'test';
+  @override String get name => 'Test';
+  @override PlatformTenant get tenant => PrimeCareTenant();
+  @override List<PlatformRoleDefinition> get roleDefinitions => const [];
+}
 
 void main() {
   test('rejects duplicate and empty registration ids', () {
@@ -32,6 +42,24 @@ void main() {
     )));
     expect(tester.takeException().toString(), contains('screen "missing" is not registered'));
     expect(built, isFalse);
+  });
+
+  testWidgets('guest error builder is blocked without registration', (tester) async {
+    var built = false;
+    final router = GovernanceRouter.buildZeroTrustRouter(
+      application: EmptyApplication(), activeRole: PlatformRole.guest,
+      initialLocation: '/login', screenManager: ScreenManager([]),
+      publicRoutes: [GoRoute(path: '/login', builder: (_, __) => const SizedBox())],
+      guestErrorBuilder: (_, __) { built = true; return const SizedBox(); },
+    );
+    addTearDown(router.dispose);
+    await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+    await tester.pumpAndSettle();
+    router.go('/missing');
+    await tester.pumpAndSettle();
+    expect(tester.takeException().toString(), contains('/internal/guest-error'));
+    expect(built, isFalse);
+    await tester.pumpWidget(const SizedBox.shrink());
   });
 
   testWidgets('missing layout blocks the builder', (tester) async {
