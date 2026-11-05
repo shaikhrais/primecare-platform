@@ -39,7 +39,8 @@ void main() {
     )]);
     Widget app(Color color, Locale locale) => MaterialApp(
       theme: ThemeData(colorSchemeSeed: color), locale: locale,
-      supportedLocales: const [Locale('en'), Locale('fr')],
+      themeAnimationDuration: Duration.zero,
+      supportedLocales: const [Locale('en', 'US'), Locale('en', 'CA')],
       home: AppShellBoundary(child: ManagedScreenBoundary(
         manager: manager, screenId: 'one', builder: (context) {
           current = ScreenInheritanceManager.of(context);
@@ -47,11 +48,12 @@ void main() {
         },
       )),
     );
-    await tester.pumpWidget(app(Colors.teal, const Locale('en')));
+    await tester.pumpWidget(app(Colors.teal, const Locale('en', 'US')));
     final firstColor = current!.theme.colorScheme.primary;
     expect(current!.features.padding, const EdgeInsets.all(12));
-    await tester.pumpWidget(app(Colors.orange, const Locale('fr')));
-    expect(current!.locale, const Locale('fr'));
+    await tester.pumpWidget(app(Colors.orange, const Locale('en', 'CA')));
+    await tester.pumpAndSettle();
+    expect(current!.locale, const Locale('en', 'CA'));
     expect(current!.theme.colorScheme.primary, isNot(firstColor));
   });
 }

@@ -54,9 +54,13 @@ class SharedAuthRouter {
       navigatorKey: navigation.navigatorKey,
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
-      governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
-      guestErrorBuilder: (context, state) => const AppShellBoundary(
-        child: LoginView(),
+      governedScreenBuilder: (context, state) => ManagedScreenBoundary(
+        manager: SharedAuthRoutes.screenManager,
+        screenId: state.uri.path,
+        builder: (_) => GovernedWorkspaceScreen(route: state.uri.path),
+      ),
+      guestErrorBuilder: (context, state) => SharedAuthRoutes.managedPage(
+        CommonRoutes.login, (_) => const LoginView(),
       ),
       redirect: (context, state) {
         final session = ref.read(authProvider);
@@ -117,8 +121,8 @@ class SharedAuthRouter {
             : destination(result.redirectRoute ?? CommonRoutes.globalSettings);
       },
       publicRoutes: [
-        GoRoute(path: platformAdministrationRoute, builder: (context, state) => const AppShellBoundary(child: PlatformMasterScreen())),
-        GoRoute(path: '/maintenance/configuration', builder: (context, state) => const AppShellBoundary(child: MaintenanceConfigurationScreen())),
+        GoRoute(path: platformAdministrationRoute, builder: (context, state) => SharedAuthRoutes.managedPage(platformAdministrationRoute, (_) => const PlatformMasterScreen())),
+        GoRoute(path: '/maintenance/configuration', builder: (context, state) => SharedAuthRoutes.managedPage('/maintenance/configuration', (_) => const MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
         ...SharedAuthRoutes.protectedRoutes(),
         ...additionalPublicRoutes,
@@ -140,16 +144,19 @@ class SharedAuthRouter {
 class SharedAuthRoutes {
   // Registration is presentation metadata only; the redirect and RouteGuard
   // continue to make all access decisions.
-  static final ScreenManager screenManager = ScreenManager(const [
-    ManagedScreenRegistration(id: '/login'),
-    ManagedScreenRegistration(id: '/signup'),
-    ManagedScreenRegistration(id: '/forgot-password'),
-    ManagedScreenRegistration(id: '/reset-password'),
-    ManagedScreenRegistration(id: '/mfa'),
-    ManagedScreenRegistration(id: '/language'),
-    ManagedScreenRegistration(id: '/auth/error'),
-    ManagedScreenRegistration(id: '/consent'),
-    ManagedScreenRegistration(id: '/success'),
+  static final ScreenManager screenManager = ScreenManager([
+    const ManagedScreenRegistration(id: '/login'),
+    const ManagedScreenRegistration(id: '/signup'),
+    const ManagedScreenRegistration(id: '/forgot-password'),
+    const ManagedScreenRegistration(id: '/reset-password'),
+    const ManagedScreenRegistration(id: '/mfa'),
+    const ManagedScreenRegistration(id: '/language'),
+    const ManagedScreenRegistration(id: '/auth/error'),
+    const ManagedScreenRegistration(id: '/consent'),
+    const ManagedScreenRegistration(id: '/success'),
+    ManagedScreenRegistration(id: platformAdministrationRoute),
+    const ManagedScreenRegistration(id: '/maintenance/configuration'),
+    ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
   ]);
 
   static Widget managedPage(String id, WidgetBuilder builder) => AppShellBoundary(

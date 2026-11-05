@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:flutter_core/models/screen.dart';
+import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
+import 'package:primecare_ui/src/features/platform/platform_master_catalog.g.dart';
 
 void main() {
   test('all rendered shared authentication routes have registrations', () {
@@ -10,6 +12,16 @@ void main() {
       '/language', '/auth/error', '/consent', '/success',
     ]) {
       expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
+    }
+  });
+
+  test('generated workspace and special routes have registrations', () {
+    expect(SharedAuthRoutes.screenManager.lookup(platformAdministrationRoute), isNotNull);
+    expect(SharedAuthRoutes.screenManager.lookup('/maintenance/configuration'), isNotNull);
+    for (final paths in governedWorkspaceRoleRoutes.values) {
+      for (final path in paths) {
+        expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
+      }
     }
   });
 
