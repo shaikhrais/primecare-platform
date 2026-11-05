@@ -65,6 +65,8 @@ jobs:
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/features/auth/shared_auth_router.dart test/managed_auth_routes_test.dart
         working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/screens/screen_manager_catalog.dart lib/src/routes/shared_routes.dart
+        working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/components/prime_components.dart
         working-directory: packages/primecare_ui
       - run: flutter test test/managed_auth_routes_test.dart

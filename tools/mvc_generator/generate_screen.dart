@@ -156,7 +156,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '${snakeCaseName}_controller.dart';
 
-// Route registration belongs in the owning application module or workspace catalog.
+// Presentation registration is generated centrally; the owning application must wire and authorize the route.
 class ${screenName}View extends GovernedConsumerWidget {
   const ${screenName}View({super.key});
 
