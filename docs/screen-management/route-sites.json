@@ -17,7 +17,7 @@
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
     "line": 125,
     "constructor": "ShellRoute",
-    "class": "IconButton",
+    "class": "<nested route container>",
     "digest": "d619ac5da18c8ef842fb515e4e1642210f036477a09f3ffd5c9adac2720144d5"
   },
   {
@@ -185,42 +185,42 @@
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
     "line": 210,
     "constructor": "GoRoute",
-    "class": "Scaffold",
+    "class": "<dynamic or nested builder>",
     "digest": "a0c8b858212be6ba6f74dbc948ae21c263625269eea83198205091a90640d81d"
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 53,
     "constructor": "GoRoute",
-    "class": "ManagedScreenBoundary",
+    "class": "<dynamic or nested builder>",
     "digest": "b6eedf42d02fb6059257f7f81c15c53d1df564c46f0e7776d40d3a3a42667d26"
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 70,
     "constructor": "GoRoute",
-    "class": "ManagedScreenBoundary",
+    "class": "<dynamic or nested builder>",
     "digest": "502e249b43df03865bc5f99dfb141911015598d7079e65d80a7bbd0f5aac67a5"
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 88,
     "constructor": "GoRoute",
-    "class": "ManagedScreenBoundary",
+    "class": "<dynamic or nested builder>",
     "digest": "cd820d82f2cd58f763f36cc5d71c1f7e7559576779f4517ed8f57d8d18f9fd98"
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 108,
     "constructor": "GoRoute",
-    "class": "AppShellBoundary",
+    "class": "AuthCallbackView",
     "digest": "8df8dcb4acaf9201b78256b13cc7a3cb7c76ffd316cb416ee2e3beacec0900bc"
   },
   {
     "file": "packages/flutter_core/lib/routes/governance_router.dart",
     "line": 119,
     "constructor": "ShellRoute",
-    "class": "GovernanceMasterLayout",
+    "class": "<nested route container>",
     "digest": "8e7efbe3bd08ca542d8c9418ee8443d1b5b7a430b711e44570fa4b08b75296ed"
   },
   {
@@ -269,7 +269,7 @@
     "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
     "line": 202,
     "constructor": "GoRoute",
-    "class": "PrimeAuthExperience",
+    "class": "<dynamic or nested builder>",
     "digest": "ffa5e19a89213c77803733e7fd32a12e2d3f1957caf7c2438db84043937ae1e3"
   },
   {
@@ -325,7 +325,7 @@
     "file": "packages/primecare_ui/lib/src/features/training/admin_training_launcher.dart",
     "line": 19,
     "constructor": "MaterialPageRoute",
-    "class": "GettingStartedGuide",
+    "class": "AdminTrainingScreen",
     "digest": "f430a12f26ad8a714a2189e17b97939fcbd4dc0bda9adbf0c5731c9ab152272f"
   },
   {
