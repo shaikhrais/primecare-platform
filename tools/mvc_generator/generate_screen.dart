@@ -1,5 +1,9 @@
 import 'dart:io';
 
+bool _validRoute(String route) => route == '/' || RegExp(
+  r'^/(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*)(?:/(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*))*/?$',
+).hasMatch(route);
+
 void main(List<String> args) {
   if (args.isEmpty || args.length < 2) {
     print('Usage: dart generate_screen.dart <AppName> <ScreenName> [RoutePath]');
@@ -19,7 +23,7 @@ void main(List<String> args) {
 
   final snakeCaseName = _toSnakeCase(screenName);
   final route = args.length > 2 ? args[2] : '/generated/$appName/$snakeCaseName';
-  if (!RegExp(r'^/[A-Za-z0-9_/-]+$').hasMatch(route) || route.contains('//')) {
+  if (!_validRoute(route)) {
     stderr.writeln('Invalid route path: $route');
     exit(1);
   }
@@ -36,8 +40,8 @@ void main(List<String> args) {
   final body = existing.substring(header.length, existing.length - 3);
   final entries = <String>{};
   for (final line in body.split('\n').where((line) => line.isNotEmpty)) {
-    final match = RegExp(r"^  '(/[A-Za-z0-9_/-]+)',$").firstMatch(line);
-    if (match == null || !entries.add(match.group(1)!)) {
+    final match = RegExp(r"^  '(/[A-Za-z0-9_:/-]*)',$").firstMatch(line);
+    if (match == null || !_validRoute(match.group(1)!) || !entries.add(match.group(1)!)) {
       stderr.writeln('Generated route catalog contains invalid or duplicate entries; no files were changed.');
       exit(1);
     }

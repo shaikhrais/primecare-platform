@@ -38,6 +38,9 @@ class MvcGeneratorTest(unittest.TestCase):
                            cwd=directory, capture_output=True, text=True, check=True)
             self.assertIn("  '/example/booking',", catalog.read_text())
             self.assertIn("  '/example/reports',", catalog.read_text())
+            subprocess.run(['dart', str(GENERATOR), 'example', 'Details', '/example/:bookingId'],
+                           cwd=directory, capture_output=True, text=True, check=True)
+            self.assertIn("  '/example/:bookingId',", catalog.read_text())
 
     @unittest.skipUnless(shutil.which('dart') and shutil.which('flutter'), 'Flutter SDK unavailable')
     def test_generated_files_analyze_with_shared_packages(self):

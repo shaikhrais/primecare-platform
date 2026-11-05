@@ -72,6 +72,12 @@ class PlannedScreenVerificationTest(unittest.TestCase):
             self.assertEqual(output.read_text(), 'existing user source')
             self.assertFalse((root / generator.CATALOG_RELATIVE).exists())
 
+    def test_route_validation_accepts_root_and_named_parameters(self):
+        self.assertTrue(generator.valid_route('/'))
+        self.assertTrue(generator.valid_route('/clients/:clientId/details'))
+        for route in ('', '//clients', '/clients/:', '/clients?token=secret', '/clients/:id(.*)'):
+            self.assertFalse(generator.valid_route(route), route)
+
 
 if __name__ == '__main__':
     unittest.main()
