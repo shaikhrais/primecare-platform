@@ -65,6 +65,20 @@ void main() {
     addTearDown(() => ScreenRegistry.screens.remove(id));
     expect(buildGovernanceScreenManager().lookup(route), isNull);
   });
+  testWidgets('new governance metadata cannot display without presentation registration', (tester) async {
+    const id = 'TEST_UNREGISTERED_WIDGET';
+    const route = '/test-unregistered-governance-widget';
+    ScreenRegistry.screens[id] = const ScreenMetadata(id: id, title: 'Test screen', routePath: route);
+    addTearDown(() => ScreenRegistry.screens.remove(id));
+    var built = false;
+    await tester.pumpWidget(MaterialApp(home: AppShellBoundary(child: ManagedScreenBoundary(
+      manager: buildGovernanceScreenManager(), screenId: route,
+      builder: (_) { built = true; return const Text('must not render'); },
+    ))));
+    expect(tester.takeException().toString(), contains('screen "$route" is not registered'));
+    expect(built, isFalse);
+    expect(find.text('must not render'), findsNothing);
+  });
   for (final initialized in [false, true]) {
     for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
