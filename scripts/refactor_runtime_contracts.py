@@ -11,6 +11,13 @@ SOURCE = 'af61336bac522e2ab4a82cd61c562f2a57807258'
 CORE = 'packages/flutter_core/lib/'
 MODELS = 'packages/primecare_models/lib/src/models/'
 MANIFEST = ROOT / 'docs/refactoring/runtime-contract-migration.json'
+# These existing main files evolved after the structural migration. Keep their
+# security behavior pinned independently; never read expected bytes from HEAD.
+AUTH_SOURCE = 'df27a32822e6255709c48bfcf71be5f9bbccc6ac'
+AUTH_FILES = (
+    CORE + 'src/application/controllers/auth_notifier.dart',
+    CORE + 'auth_service.dart',
+)
 def original(path):
     return subprocess.check_output(['git', 'show', SOURCE + ':' + path], cwd=ROOT, text=True)
 def take_class(source, name):
@@ -20,7 +27,7 @@ def take_class(source, name):
     return match.start(), end, source[match.start():end]
 def snake(name):
     return re.sub(r'(?<!^)(?=[A-Z])', '_', name).lower()
-def render():
+def render_migration():
     files = {}
     auth = original(CORE + 'auth_service.dart').replace("import 'package:flutter/foundation.dart';\n", '')
     start, end, state = take_class(auth, 'AuthState')
@@ -96,12 +103,24 @@ def render():
     files[CORE + 'aura_providers.dart'] = aura[:index] + '\n' + ''.join(parts) + aura[index:]
     return {path: '\n'.join(line.rstrip() for line in content.splitlines()).rstrip() + '\n' for path,content in files.items()}
 
+def render():
+    files = render_migration()
+    for path in AUTH_FILES:
+        assert path in files, path
+        files[path] = subprocess.check_output(
+            ['git', 'show', AUTH_SOURCE + ':' + path], cwd=ROOT, text=True)
+    return files
+
+def check_files(files):
+    for path, content in files.items():
+        assert (ROOT / path).read_text() == content, path
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--check',action='store_true');args=parser.parse_args()
     files=render()
-    manifest={'sourceCommit':SOURCE,'files':list(files),'sharedClasses':6,'sharedEnums':2,'flutterClassFiles':11,'newParentClasses':2,'completedWorkflows':0}
+    manifest={'sourceCommit':SOURCE,'authEvolutionSourceCommit':AUTH_SOURCE,'authEvolutionFiles':list(AUTH_FILES),'files':list(files),'sharedClasses':6,'sharedEnums':2,'flutterClassFiles':11,'newParentClasses':2,'completedWorkflows':0}
     if args.check:
-        for path, content in files.items(): assert (ROOT/path).read_text()==content, path
+        check_files(files)
         assert json.loads(MANIFEST.read_text())==manifest
         print(json.dumps({key:manifest[key] for key in ['sharedClasses','sharedEnums','flutterClassFiles','newParentClasses','completedWorkflows']}))
     else:
