@@ -8,6 +8,8 @@ on:
       - packages/flutter_core/lib/models/screen_features.dart
       - packages/flutter_core/lib/models/screen_manager.dart
       - packages/flutter_core/test/screen_manager_test.dart
+      - tools/mvc_generator/generate_screen.dart
+      - scripts/tests/test_mvc_screen_generator.py
       - packages/flutter_core/test/screen_features_test.dart
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
@@ -26,6 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_mvc_screen_generator.py'
       - run: flutter pub get
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/models/screen.dart lib/models/screen_features.dart test/screen_features_test.dart
