@@ -50,6 +50,16 @@ jobs:
         working-directory: packages/flutter_core
       - run: flutter test test/theme_center_test.dart
         working-directory: packages/flutter_core
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Generate shared web contract fixtures for native tests
+        run: |
+          npm install --prefix "$RUNNER_TEMP/theme-oracle-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/theme-oracle-tools/node_modules" node_modules
+          node scripts/workspace-native-contract-fixtures.mjs
+          node scripts/workspace-navigation-fixtures.mjs
+          node scripts/page-template-fixtures.mjs
+          node scripts/advanced-theme-fixtures.mjs
       - run: flutter test test
         working-directory: packages/flutter_core
       - run: python3 scripts/test_dashboard_generator.py

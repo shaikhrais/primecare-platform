@@ -16,7 +16,13 @@ class AdminTrainingLauncher extends ConsumerWidget {
     final locale=Localizations.localeOf(context).languageCode;
     final trainingLabel=liveScreenText(context,'admin_training',locale,'nav',adminTrainingCatalog[locale]?['nav']??adminTrainingCatalog['en']!['nav']!);
     final label={'en':'Beginner guide','fr':'Guide de démarrage','es':'Guía para empezar'}[locale]??trainingLabel;
-    void open() => Navigator.of(context).push(MaterialPageRoute<void>(builder:(_)=>GettingStartedGuide(onDetailedTraining:()=>Navigator.of(context).push(MaterialPageRoute<void>(builder:(_)=>AdminTrainingScreen(actor:actor,gateway:ApiConfig.baseUrl))))));
+    void open() => Navigator.of(context).push(MaterialPageRoute<void>(
+      builder: (_) => managedPrimeCarePage('/internal/training/guide', (guideContext) =>
+        GettingStartedGuide(onDetailedTraining: () => Navigator.of(guideContext).push(MaterialPageRoute<void>(
+          builder: (_) => managedPrimeCarePage('/internal/training/detail', (_) =>
+            AdminTrainingScreen(actor: actor, gateway: ApiConfig.baseUrl)),
+        )))),
+    ));
     if(compact)return Semantics(label:'workspace-training',child:IconButton(key:const ValueKey('workspace-training'),tooltip:label,icon:const Icon(Icons.school_outlined),onPressed:open));
     return Semantics(label:'workspace-training',child:PrimeButton(key:const ValueKey('workspace-training'),dataCy:'workspace-training',label:label,onPressed:open));
   }

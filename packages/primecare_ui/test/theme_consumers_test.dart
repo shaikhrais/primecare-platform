@@ -5,6 +5,7 @@ import 'package:flutter_core/registry/widgets/responsive_split_dashboard.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
@@ -36,16 +37,34 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
     await tester.pumpWidget(dashboard(PersonalTheme(name: 'Light', preset: 'default')));
     await tester.pumpAndSettle();
+    final lightForeground = tester.widget<Text>(find.text('Saved appearance')).style!.color!;
     await tester.enterText(find.byKey(const Key('unfinished')), 'keep this draft');
     await tester.pumpWidget(dashboard(PersonalTheme(name: 'Dark', preset: 'dark1',
       fontScale: 1.5, radius: 20, colors: {'primary': '#ffffff'})));
     await tester.pumpAndSettle();
     expect(find.text('keep this draft'), findsOneWidget);
-    final primary = tester.widget<Text>(find.text('Saved appearance')).style!.color!;
-    expect(primary, Colors.black);
+    final foreground = tester.widget<Text>(find.text('Saved appearance')).style!.color!;
+    final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
+    // A readable preset foreground must survive the custom primary override.
+    expect(material.colorScheme.primary, Colors.white);
+    expect(material.colorScheme.onPrimary, ThemeConfig.getAppPalette('dark1').onPrimary);
+    expect(foreground, material.colorScheme.onPrimary);
+    expect(foreground, isNot(lightForeground));
+    final heroContainers = tester.widgetList<Container>(find.descendant(
+      of: find.byType(GovDashboardHero), matching: find.byType(Container)));
+    final gradients = heroContainers
+        .map((container) => container.decoration)
+        .whereType<BoxDecoration>()
+        .map((decoration) => decoration.gradient)
+        .whereType<LinearGradient>()
+        .toList();
+    expect(gradients, hasLength(1));
+    expect(gradients.single.colors.first, material.colorScheme.primary);
+    for (final stop in gradients.single.colors) {
+      expect(themeContrastRatio(stop, foreground), greaterThanOrEqualTo(4.5));
+    }
     final cards = tester.widgetList<Card>(find.byType(Card));
     expect(cards.length, 2);
-    final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
     final input = material.inputDecorationTheme;
     expect(input.fillColor, material.colorScheme.surface);
     expect(themeContrastRatio(input.fillColor!, material.colorScheme.onSurface), greaterThanOrEqualTo(4.5));

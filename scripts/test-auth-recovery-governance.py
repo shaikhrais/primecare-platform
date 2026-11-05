@@ -7,10 +7,73 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = json.loads((ROOT / 'docs/auth-recovery/native-presentation-baseline.json').read_text())['screens']
+
+
+def logical_digest(db):
+    """Compare schema and row multisets, not restore SQL or FK validity.
+
+    Python 3.14's iterdump runs foreign_key_check, which rejects unrelated
+    historical fixture schemas (translations references languages.id, but
+    the historical parent key is languages.language_id). Keep those schemas and rows in the comparison without changing them.
+    Integrity assertions below remain independent of this snapshot helper.
+    """
+    digest = hashlib.sha256()
+
+    def record(value):
+        encoded = repr(value).encode('utf-8')
+        digest.update(str(len(encoded)).encode('ascii') + b':' + encoded)
+
+    schema = db.execute(
+        'SELECT type,name,tbl_name,sql FROM sqlite_schema ORDER BY type,name'
+    ).fetchall()
+    record(schema)
+    for kind, name, _, _ in schema:
+        # Ignored INSERTs may advance SQLite allocation counters.
+        if kind != 'table' or name == 'sqlite_sequence':
+            continue
+        quoted_name = '"' + name.replace('"', '""') + '"'
+        record(name)
+        record(sorted(repr(row) for row in db.execute('SELECT * FROM ' + quoted_name)))
+    return digest.hexdigest()
+
+
+class LogicalDigestTests(unittest.TestCase):
+    def test_schema_and_all_row_values_are_compared(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE "quoted""table" (value)')
+            before = logical_digest(db)
+            db.execute('INSERT INTO "quoted""table" VALUES (?)', (b'\x00\xff',))
+            self.assertNotEqual(logical_digest(db), before)
+            before = logical_digest(db)
+            db.execute('CREATE INDEX value_index ON "quoted""table" (value)')
+            self.assertNotEqual(logical_digest(db), before)
+
+    def test_only_allocation_counters_are_ignored(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE sample (id INTEGER PRIMARY KEY AUTOINCREMENT, value)')
+            db.execute("INSERT INTO sample(value) VALUES ('original')")
+            before = logical_digest(db)
+            db.execute("UPDATE sqlite_sequence SET seq=99 WHERE name='sample'")
+            self.assertEqual(logical_digest(db), before)
+            db.execute("UPDATE sample SET value='changed'")
+            self.assertNotEqual(logical_digest(db), before)
+
+    def test_invalid_historical_fk_is_not_repaired_or_hidden(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.executescript('CREATE TABLE languages (language_id INTEGER PRIMARY KEY);'
+                             'CREATE TABLE translations (language TEXT REFERENCES languages(id));'
+                             "INSERT INTO translations VALUES ('en');")
+            before = logical_digest(db)
+            with self.assertRaisesRegex(sqlite3.OperationalError, 'foreign key mismatch'):
+                db.execute('PRAGMA foreign_key_check').fetchall()
+            self.assertEqual(logical_digest(db), before)
+            db.execute("UPDATE translations SET language='fr'")
+            self.assertNotEqual(logical_digest(db), before)
 
 
 class RecoveryGovernance(unittest.TestCase):
@@ -34,14 +97,8 @@ class RecoveryGovernance(unittest.TestCase):
         self.assertEqual(result.returncode == 0, success, result.stderr)
 
     def dump(self):
-        with sqlite3.connect(self.database) as db:
-            digest = hashlib.sha256()
-            for line in db.iterdump():
-                # Ignored INSERTs may advance SQLite allocation counters.
-                if not line.startswith('INSERT INTO \"sqlite_sequence\"'):
-                    digest.update(line.encode())
-                    digest.update(b'\n')
-            return digest.hexdigest()
+        with closing(sqlite3.connect(self.database)) as db:
+            return logical_digest(db)
 
     def test_native_routes_and_web_controls_are_independent_and_idempotent(self):
         self.run_registrar()

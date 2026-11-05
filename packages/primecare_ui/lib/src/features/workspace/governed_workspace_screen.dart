@@ -53,7 +53,9 @@ class _ScopedWorkspaceScreen extends ConsumerStatefulWidget {
 
 class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
   Map<String, dynamic>? _workspace;
-  String? _error;
+  // Store the failure, not its translated presentation. Locale and live-text
+  // changes must update an already-visible error without another API request.
+  bool _unavailable = false;
   bool _loading = false;
   String _search = '';
   final _searchController = TextEditingController();
@@ -73,16 +75,16 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
   }
   Future<void> _load() async {
     if (_loading) return;
-    setState(() { _loading = true; _error = null; });
+    setState(() { _loading = true; _unavailable = false; });
     try {
       final response = await ref.read(apiClientProvider).get('/v1/governance/workspace');
       if (!mounted) return;
       if (response.statusCode != 200 || response.data is! Map) {
-        setState(() { _workspace = null; _error = label('unavailable'); });
+        setState(() { _workspace = null; _unavailable = true; });
       } else {
         setState(() { _workspace = Map<String, dynamic>.from(response.data as Map); });
       }
-    } catch (_) { if (mounted) setState(() { _workspace = null; _error = label('unavailable'); }); }
+    } catch (_) { if (mounted) setState(() { _workspace = null; _unavailable = true; }); }
     finally { if (mounted) setState(() { _loading = false; }); }
   }
   Widget _card(String title, Widget child, String semantics) => Semantics(
@@ -115,8 +117,8 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
         }, icon: const Icon(Icons.logout)),
       ]),
       body: _loading ? const Center(child: CircularProgressIndicator())
-      : _error != null ? Center(child: Semantics(liveRegion: true, child: Column(mainAxisSize: MainAxisSize.min, children: [
-        Text(_error!), PrimeButton(label: label('refresh'), onPressed: _load),
+      : _unavailable ? Center(child: Semantics(liveRegion: true, child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Text(label('unavailable')), PrimeButton(label: label('refresh'), onPressed: _load),
       ])))
       : _workspace == null ? const SizedBox.shrink()
       : page == null ? Center(child: Text(label('forbidden')))

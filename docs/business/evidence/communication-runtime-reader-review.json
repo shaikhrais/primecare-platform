@@ -1,16 +1,16 @@
 {
   "cloudflare/workers/src/business-tasks/endpoint-policy.ts": {
-    "sha256": "8fbaca64995b1deef3ca857ee79c96c4a5288132436f53e9504ea6ddb63b2f38",
+    "sha256": "695c24c42d399ae9937f6698e24839f96091ae88fa6a1983cb39152393f96dd7",
     "authority": "pinned-production-postgresql",
     "historicalCatalogAccess": false,
     "basis": [
-      "Exact pinned manifest required",
-      "Explicit role_screen_permissions grant key excludes historical api_permission_* collision grants",
-      "Current API and screen grant required",
-      "Read-only transaction; no grants written"
+      "Current API and linked-screen grants require the explicit role_screen_permissions key; historical api_permission_* collision grants are excluded",
+      "Policy wrapper checks the pinned manifest in a read-only transaction; exported query builder relies on its caller for manifest and authenticated actor/session checks",
+      "Legacy messaging branch with null endpointCode does not independently check active tenant status; this admission is not a full authorization certification"
     ],
-    "nativeTest": "scripts/test-communication-endpoint-policy.mjs",
-    "activation": false
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false,
+    "nativeTest": "scripts/test-communication-endpoint-policy.mjs"
   },
   "cloudflare/workers/src/account-preferences.ts": {
     "sha256": "78d84679eb24a90cd30cf3839438816c5ecebea069c0f857d34f44d7a2ddd140",
@@ -24,6 +24,63 @@
       "Feature flag and implemented-unverified marker are both required; production activation remains disabled"
     ],
     "nativeTest": "scripts/test-preference-service.mjs",
+    "activation": false
+  },
+  "cloudflare/workers/src/vapi-administration-policy.ts": {
+    "sha256": "0017c1e549c987557ca08ab1b2693b84c3de963c543825fd03d991d143e33d7f",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Pinned-schema parameterized query requires current active user and tenant, code_admin role, screen 1269, exact operation contract, API and screen grants",
+      "Query builder relies on caller for authenticated session, pinned manifest validation and unique-result enforcement; no historical catalog access"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false
+  },
+  "cloudflare/workers/src/look/access.ts": {
+    "sha256": "7e3e433e56d3db4ea478d6dc439541a53f6ac0ace677822c0fbf72ea642b1a25",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Authorization checks the pinned manifest and current API plus linked look_review_manager screen grants",
+      "Caller must authenticate session and current actor/tenant; screens() relies on caller-authorized global flag",
+      "Privileged global review visibility is intentional caller-level scope, not tenant isolation certified by this review"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false
+  },
+  "packages/database/migrations/20261025_internal_call_context.sql": {
+    "sha256": "5e5fc628eca2617091e2ae16570e891b37c8f2973f40011f43fa52fd4488436c",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Generated SECURITY INVOKER stable function reads the pinned prefixed PostgreSQL relations and verifies current session, grants, tenant and manifest for permitted context",
+      "No historical catalog access or grant writes; CREATE FUNCTION is DDL, not a read-only migration",
+      "Installation requires the authorized runner to validate manifest, generated source and function ACL; quarantine admission does not authorize installation"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false
+  },
+  "packages/database/migrations/20261025_internal_call_permission_indexes.sql": {
+    "sha256": "60631596bca9749dccd3245ac84315633b48e773dbabcb4b9be420d234ee6160",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Additive nonunique concurrent indexes target only pinned prefixed PostgreSQL permission and lookup tables; no grant or historical catalog mutation",
+      "DDL has no embedded manifest check; authorized runner must enforce target/source/manifest and execution privileges; statements require execution outside a transaction"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false
+  },
+  "packages/shared/src/communications/internal-call-context-query.mjs": {
+    "sha256": "1eb79fb10dd74bb9b38de3059f18910338d8482a11a2bdbca1a11b7a6b81aeba",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Generated parameterized native snapshot query reads pinned prefixed PostgreSQL relations with current session, grants, tenant and manifest checks for permitted context",
+      "Caller must validate returned identity, grants and manifest before using context; no independent connection or session transport authority"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
     "activation": false
   }
 }

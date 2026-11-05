@@ -35,5 +35,10 @@
   "sharedEnums": 2,
   "flutterClassFiles": 11,
   "newParentClasses": 2,
-  "completedWorkflows": 0
+  "completedWorkflows": 0,
+  "authEvolutionSourceCommit": "df27a32822e6255709c48bfcf71be5f9bbccc6ac",
+  "authEvolutionFiles": [
+    "packages/flutter_core/lib/src/application/controllers/auth_notifier.dart",
+    "packages/flutter_core/lib/auth_service.dart"
+  ]
 }

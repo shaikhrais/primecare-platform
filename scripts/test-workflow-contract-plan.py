@@ -100,4 +100,48 @@ class SourceAmendmentTests(unittest.TestCase):
    self.write(root);path=Path(root,'docs/api/workflow-contract-source-amendments.json');target=Path(outside,'amendments.json');target.write_text(path.read_text());path.unlink();path.symlink_to(target)
    with self.assertRaisesRegex(ValueError,'document escapes'):m.build(self.c,self.manifest,root)
 
+class RepositorySourceReviewTests(unittest.TestCase):
+ def setUp(self):
+  self.root=Path(__file__).resolve().parents[1]
+  self.checklist=json.loads((self.root/'docs/api/api-delivery-checklist.json').read_text())
+  self.manifest=json.loads((self.root/'docs/api/workflow-contract-reviews.json').read_text())
+  self.filename='scripts/generate_and_verify_planned_screens.py'
+  self.entry=m.reviewed_amendments(self.root,self.manifest['sourceHashes'])[self.filename]
+  self.content=(self.root/self.filename).read_bytes()
+ def test_repository_sources_preserve_the_entire_existing_contract_plan(self):
+  expected=json.loads((self.root/'docs/api/workflow-contract-plan.json').read_text())
+  self.assertEqual(m.build(self.checklist,self.manifest,self.root),expected)
+  self.assertEqual(expected['operations'],self.checklist['operations'])
+  self.assertEqual(expected['sourceHashes'],self.manifest['sourceHashes'])
+  self.assertIs(expected['noActivation'],True)
+  self.assertEqual(expected['implementationCredits'],0)
+  self.assertEqual(expected['retirementCredits'],0)
+ def test_planned_screen_preflight_review_reconstructs_its_original_baseline(self):
+  m.verify_amended_source(self.content,self.entry)
+  hunk=self.entry['hunks'][-1]
+  for value in (hunk['before'],hunk['after']):
+   self.assertTrue(value.startswith('def prepare_route_catalog('))
+   self.assertTrue(value.endswith('    return catalog, entries\n'))
+   self.assertNotIn('TEMPLATE =',value)
+  previous=self.content.decode().replace(hunk['after'],hunk['before'],1)
+  previous_entry=copy.deepcopy(self.entry)
+  previous_entry['hunks'].pop()
+  previous_entry['reviewedSha256']=hashlib.sha256(previous.encode()).hexdigest()
+  m.verify_amended_source(previous.encode(),previous_entry)
+  self.assertEqual(self.entry['baselineSha256'],self.manifest['sourceHashes'][self.filename])
+ def test_planned_screen_review_rejects_extra_drift_and_preflight_reversion(self):
+  content=self.content.decode();hunk=self.entry['hunks'][-1]
+  variants=[content+'\n',content.replace('outputs.add(target)','outputs.clear()',1),
+            content.replace(hunk['after'],hunk['before'],1)]
+  for changed in variants:
+   with self.subTest(content=hashlib.sha256(changed.encode()).hexdigest()):
+    self.assertNotEqual(changed,content)
+    with self.assertRaisesRegex(ValueError,'amendment changed'):
+     m.verify_amended_source(changed.encode(),self.entry)
+ def test_refreshing_planned_screen_hash_alone_cannot_accept_unreviewed_drift(self):
+  content=self.content+b'\n# Unreviewed change outside the preflight function.\n'
+  entry=copy.deepcopy(self.entry);entry['reviewedSha256']=hashlib.sha256(content).hexdigest()
+  with self.assertRaisesRegex(ValueError,'exceeds reviewed scope'):
+   m.verify_amended_source(content,entry)
+
 if __name__=='__main__':unittest.main()

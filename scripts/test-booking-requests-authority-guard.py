@@ -1,6 +1,8 @@
 """Submission reconciliation fails closed without changing registry or contracts."""
 import shutil, sqlite3, subprocess, sys, tempfile, unittest
 from pathlib import Path
+from contextlib import closing
+from sqlite_test_snapshot import logical_snapshot
 ROOT=Path(__file__).resolve().parents[1]
 class BookingSubmissionAuthorityTests(unittest.TestCase):
  def test_authority_and_contract_drift_leave_all_artifacts_unchanged(self):
@@ -11,10 +13,11 @@ class BookingSubmissionAuthorityTests(unittest.TestCase):
     for file in ['scripts/register-booking-requests-delivery.py','docs/api/client-booking-lifecycle-batch-19.openapi.json']:
      target=root/file;target.parent.mkdir(parents=True,exist_ok=True);shutil.copyfile(ROOT/file,target)
     target=root/'.agents/governance/governance.db';target.parent.mkdir(parents=True)
-    with sqlite3.connect(ROOT/'.agents/governance/governance.db') as source,sqlite3.connect(target) as db:
-     source.backup(db);self.assertEqual(db.execute('UPDATE api_endpoints SET '+column+'=? WHERE http_method=\'POST\' AND route_path=?',(value,route)).rowcount,1);db.commit();before='\n'.join(db.iterdump())
+    with closing(sqlite3.connect(ROOT/'.agents/governance/governance.db')) as source,closing(sqlite3.connect(target)) as db:
+     source.backup(db);self.assertEqual(db.execute('UPDATE api_endpoints SET '+column+'=? WHERE http_method=\'POST\' AND route_path=?',(value,route)).rowcount,1);db.commit();before=logical_snapshot(db)
     artifact=root/'docs/api/booking-requests-delivery.openapi.json';artifact.write_text('existing contract')
     result=subprocess.run([sys.executable,str(root/'scripts/register-booking-requests-delivery.py')],capture_output=True,text=True)
     self.assertNotEqual(result.returncode,0);self.assertIn('Booking requests',result.stderr);self.assertEqual(artifact.read_text(),'existing contract')
-    with sqlite3.connect(target) as db:self.assertEqual('\n'.join(db.iterdump()),before)
+    with closing(sqlite3.connect(target)) as db:self.assertEqual(logical_snapshot(db),before)
 if __name__=='__main__':unittest.main()
+

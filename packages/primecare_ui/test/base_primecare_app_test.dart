@@ -1,4 +1,5 @@
 import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/registry/widgets/responsive_screen_wrapper.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
@@ -95,8 +96,13 @@ void main() {
     await tester.pumpWidget(const SizedBox());router.dispose();
   });
   testWidgets('branded corporate root exposes personal tokens without changing default branding', (tester) async {
+    final previousOverlay = ResponsiveScreenWrapper.overlayBuilder;
+    ResponsiveScreenWrapper.overlayBuilder = null;
+    addTearDown(() => ResponsiveScreenWrapper.overlayBuilder = previousOverlay);
     final router = await mount(tester, (r) => BrandedApp(r, ThemeData(colorSchemeSeed: Colors.orange)));
-    expect(find.byType(PrimeTheme), findsNothing);
+    expect(tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data.colors.primary,
+      const PrimeThemeData().colors.primary);
+    expect(ResponsiveScreenWrapper.overlayBuilder, isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
     await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Corporate', preset: 'dark1', fontScale: 1.5));
     await tester.pumpAndSettle();
@@ -147,7 +153,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     router.dispose();
   });
-  testWidgets('corporate style retains branding without adding PrimeTheme', (
+  testWidgets('corporate style retains branding and fallback PrimeTheme tokens', (
     tester,
   ) async {
     final branding = ThemeData(colorSchemeSeed: Colors.orange);
@@ -156,7 +162,8 @@ void main() {
       tester.widget<MaterialApp>(find.byType(MaterialApp)).theme,
       same(branding),
     );
-    expect(find.byType(PrimeTheme), findsNothing);
+    expect(tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data.colors.primary,
+      const PrimeThemeData().colors.primary);
     expect(find.byType(AppShellBoundary), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     router.dispose();

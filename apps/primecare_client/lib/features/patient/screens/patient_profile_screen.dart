@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_profile_screen_controller.dart';
+import 'patient_unavailable_text.dart';
 
 class PatientProfileScreen extends GovernedConsumerWidget {
   @override
@@ -48,10 +49,10 @@ class PatientProfileScreen extends GovernedConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          Icon(Icons.info_outline, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(height: 16),
           Text(
-            'PatientProfileScreen is now fully implemented.',
+            patientUnavailableText(context, 'profile'),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ],

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_support/core/routing/app_router.dart';
+
+import 'package:primecare_support/core/routing/support_routes.dart' as registered_app;
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -11,6 +14,15 @@ class GuestAuth extends AuthNotifier {
 }
 
 void main() {
+  test('support module routes have explicit presentation registrations', () {
+    for (final module in registered_app.SupportApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   testWidgets('support login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
       authProvider.overrideWith(GuestAuth.new),
@@ -34,7 +46,9 @@ void main() {
       pageKey: const ValueKey('login'),
     );
     final boundary = route.builder!(context, state) as AppShellBoundary;
-    expect(boundary.child, isA<LoginView>());
+    final managed = boundary.child as ManagedScreenBoundary;
+    expect(managed.screenId, CommonRoutes.login);
+    expect(managed.builder(context), isA<LoginView>());
     final legacy = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.ssoRedirect);
     final location = await legacy.redirect!(context, state);

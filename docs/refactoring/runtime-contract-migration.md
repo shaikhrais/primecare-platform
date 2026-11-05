@@ -32,8 +32,16 @@ ExecutionGateService moves to an infrastructure telemetry part file. Its debug
 output and provider remain unchanged. These telemetry gates are logging hooks,
 not newly enforced authorization rules.
 
-scripts/refactor_runtime_contracts.py reproduces and verifies all moved source
-from af61336bac522e2ab4a82cd61c562f2a57807258. The migration has six shared
+scripts/refactor_runtime_contracts.py retains the original structural migration
+from af61336bac522e2ab4a82cd61c562f2a57807258 for 27 unchanged files. The two
+authentication library files have a separate immutable post-migration baseline
+at df27a32822e6255709c48bfcf71be5f9bbccc6ac, already present on main. This preserves
+server-validated tenant restoration, MFA enrollment/recovery/replacement and
+rejected-session cleanup instead of reverting those security changes. All 29
+files still require exact equality; no file is exempted and expected bytes never
+come from the working tree or a moving branch. Changing authentication again
+requires an explicit reviewed baseline update plus its behavioral tests.
+The historical runtime contract parity runner still uses the original source. The migration has six shared
 classes, two shared enums, eleven Flutter class files and two new parents.
 No screens, routes, permission grants or completed workflows are added.
 

@@ -33,6 +33,10 @@ WORKSPACE_RENDERER_SHA256 = '45a3acd6d1e25f3ebd3860abcc71cddc958d03666b2a1bdffab
 WORKSPACE_RENDERER_REVIEWED_SHA256 = frozenset({
     WORKSPACE_RENDERER_SHA256,
     '4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120',
+    # Exact localized-error review: retain failure state and resolve unavailable
+    # text in build; scoped identity, page selection and section/card paths are
+    # unchanged. No runtime, accessibility or business completion is inferred.
+    'f39d904cca48b3db41fc3a0a1a8d16436b9e80f805d1611854a4ffc3051847ad',
 })
 CLASS_RE = re.compile(r"\bclass\s+([A-Za-z_]\w*)\b")
 CONSTRUCTOR_RE = re.compile(r"(?<![.\w])([A-Z][A-Za-z0-9_]*)\s*\(")

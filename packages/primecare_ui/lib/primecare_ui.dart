@@ -2,6 +2,7 @@
 library primecare_ui;
 
 export 'package:flutter_core/flutter_core.dart';
+export 'src/screens/screen_manager_catalog.dart';
 
 // Add factory-specific exports here as needed
 export 'src/features/common_forms/domain/review_fleet_maintenance_form_view_model.dart';

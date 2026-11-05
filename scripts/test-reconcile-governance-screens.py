@@ -29,6 +29,33 @@ class ScreenAuditTest(unittest.TestCase):
         for changed in [current.replace("for (final section in list(page['sections'])) _section(page, section, overview, pages),",''),current.replace("return _card(section['name'].toString()", "return Text(section['name'].toString()")]:
             self.assertNotEqual(changed,current)
             self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])
+    def test_localized_error_review_changes_only_error_presentation(self):
+        current=(m.ROOT/m.WORKSPACE_RENDERER).read_text()
+        # Reverse only the reviewed error-state presentation changes. The exact
+        # prior digest proves scope, auth, route and section/card code did not move.
+        previous=current
+        replacements=[
+            ('  // Store the failure, not its translated presentation. Locale and live-text\n'
+             '  // changes must update an already-visible error without another API request.\n'
+             '  bool _unavailable = false;', '  String? _error;', 1),
+            ('_unavailable = false;', '_error = null;', 1),
+            ('_unavailable = true;', "_error = label('unavailable');", 2),
+            (': _unavailable ? Center', ': _error != null ? Center', 1),
+            ("Text(label('unavailable')),", 'Text(_error!),', 1),
+        ]
+        for reviewed,baseline,count in replacements:
+            self.assertEqual(previous.count(reviewed),count)
+            previous=previous.replace(reviewed,baseline)
+        self.assertEqual(hashlib.sha256(previous.encode()).hexdigest(),
+                         '4db308b194b543345bf871495b6db224328f4ddfd8e936d6b2da78da18101120')
+    def test_current_renderer_review_rejects_unreviewed_drift(self):
+        current=(m.ROOT/m.WORKSPACE_RENDERER).read_text()
+        variants=[current+'\n// unreviewed source drift\n',
+                  current.replace("p['route'] == widget.route", 'true'),
+                  current.replace('if (!scope.$1 ||', 'if (false ||')]
+        for changed in variants:
+            self.assertNotEqual(changed,current)
+            self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])
     def test_dead_or_unrendered_iteration_rejected(self):
         for changed in [self.original.replace('for (final section in list(page[\'sections\'])) _section(page, section, overview, pages),',''),self.original.replace("return _card(section['name'].toString()", "return Text(section['name'].toString()")]:
             self.assertEqual(m.dynamic_sections(self.root,self.screen,['Header Section'],changed),[])

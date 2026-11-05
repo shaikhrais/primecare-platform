@@ -1,16 +1,72 @@
 """Regression checks for owner-read registration against drifted governance."""
 import importlib.util
+from contextlib import closing
 import sqlite3
 import subprocess
 import sys
 import tempfile
 import unittest
 from pathlib import Path
+from sqlite_test_snapshot import logical_snapshot
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location('guard', ROOT/'scripts/record_authority_guard.py')
 GUARD = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(GUARD)
+
+
+class LogicalSnapshotTests(unittest.TestCase):
+    def test_schema_and_row_values_including_duplicates_are_compared(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE "quoted""table" (value)')
+            before = logical_snapshot(db)
+            db.execute('INSERT INTO "quoted""table" VALUES (?)', (b'\x00\xff',))
+            self.assertNotEqual(logical_snapshot(db), before)
+            before = logical_snapshot(db)
+            db.execute('INSERT INTO "quoted""table" VALUES (?)', (b'\x00\xff',))
+            self.assertNotEqual(logical_snapshot(db), before)
+            before = logical_snapshot(db)
+            db.execute('CREATE INDEX value_index ON "quoted""table" (value)')
+            self.assertNotEqual(logical_snapshot(db), before)
+
+    def test_sqlite_storage_classes_remain_distinct(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE sample (value)')
+            snapshots = []
+            for value in (None, 1, 1.0, '1', b'1'):
+                db.execute('DELETE FROM sample')
+                db.execute('INSERT INTO sample VALUES (?)', (value,))
+                snapshot = logical_snapshot(db)
+                for previous in snapshots:
+                    self.assertNotEqual(snapshot, previous)
+                snapshots.append(snapshot)
+
+    def test_row_order_is_ignored_but_allocation_counters_are_compared(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.executescript('CREATE TABLE sample (value);'
+                             "INSERT INTO sample VALUES ('a'), ('b');")
+            before = logical_snapshot(db)
+            db.executescript('DELETE FROM sample;'
+                             "INSERT INTO sample VALUES ('b'), ('a');")
+            self.assertEqual(logical_snapshot(db), before)
+            db.execute('CREATE TABLE allocated (id INTEGER PRIMARY KEY AUTOINCREMENT)')
+            db.execute('INSERT INTO allocated DEFAULT VALUES')
+            before = logical_snapshot(db)
+            db.execute("UPDATE sqlite_sequence SET seq=99 WHERE name='allocated'")
+            self.assertNotEqual(logical_snapshot(db), before)
+
+    def test_invalid_historical_fk_is_not_repaired_or_hidden(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.executescript('CREATE TABLE languages (language_id INTEGER PRIMARY KEY);'
+                             'CREATE TABLE translations (language TEXT REFERENCES languages(id));'
+                             "INSERT INTO translations VALUES ('en');")
+            before = logical_snapshot(db)
+            with self.assertRaisesRegex(sqlite3.OperationalError, 'foreign key mismatch'):
+                db.execute('PRAGMA foreign_key_check').fetchall()
+            self.assertEqual(logical_snapshot(db), before)
+            db.execute("UPDATE translations SET language='fr'")
+            self.assertNotEqual(logical_snapshot(db), before)
+
 
 class AuthorityGuardTests(unittest.TestCase):
     def setUp(self):
@@ -64,12 +120,12 @@ class AuthorityGuardTests(unittest.TestCase):
                     for name in [script,'record_authority_guard.py']:
                         (root/'scripts'/name).write_bytes((ROOT/'scripts'/name).read_bytes())
                     target = root/'.agents/governance/governance.db'
-                    with sqlite3.connect(ROOT/'.agents/governance/governance.db') as source, sqlite3.connect(target) as db:
+                    with closing(sqlite3.connect(ROOT/'.agents/governance/governance.db')) as source, closing(sqlite3.connect(target)) as db:
                         source.backup(db)
                         updated = db.execute('UPDATE api_endpoints SET '+column+'=? WHERE route_path=? AND http_method=\'GET\'',(value,route))
                         self.assertEqual(updated.rowcount,1)
                         db.commit()
-                        before = '\n'.join(db.iterdump())
+                        before = logical_snapshot(db)
                     artifact = root/'cloudflare/workers/src'/registry
                     artifact.write_text('existing artifact must remain intact')
                     result = subprocess.run([sys.executable,str(root/'scripts'/script)],capture_output=True,text=True)
@@ -77,8 +133,8 @@ class AuthorityGuardTests(unittest.TestCase):
                     self.assertIn('Owner-read endpoint authority drift: GET '+route,result.stderr)
                     self.assertEqual(artifact.read_text(),'existing artifact must remain intact')
                     self.assertEqual(list((root/'docs/api').iterdir()),[])
-                    with sqlite3.connect(target) as db:
-                        self.assertEqual('\n'.join(db.iterdump()),before)
+                    with closing(sqlite3.connect(target)) as db:
+                        self.assertEqual(logical_snapshot(db),before)
 
 if __name__ == '__main__':
     unittest.main()

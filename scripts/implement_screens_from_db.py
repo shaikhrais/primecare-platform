@@ -7,6 +7,7 @@ import sys
 # Ensure scripts directory is in path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from report_handler import ReportHandler
+from generate_and_verify_planned_screens import CATALOG_HEADER, prepare_route_catalog
 
 def camel_to_snake(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -314,7 +315,8 @@ def implement_creative_screens_from_db():
     screens = [dict(r) for r in cursor.fetchall()]
     print(f"[DB Generator] Generating unverified presentation templates for {len(screens)} screens...")
 
-    implemented_count = 0
+    # Select and validate the entire batch before modifying source or the DB.
+    prepared = []
     for s in screens:
         sid = s['id']
         screen_code = s['screen_code']
@@ -322,11 +324,10 @@ def implement_creative_screens_from_db():
         file_name = f"{camel_to_snake(screen_code)}.dart"
         target_path = os.path.join(out_dir, file_name)
 
-        # Hand-written implementations must never be overwritten by templates.
+        # Existing implementations, including earlier templates, require manual review.
         if os.path.exists(target_path):
-            with open(target_path, encoding='utf-8') as existing:
-                if not existing.read().startswith('// Generated directly from SQLite Database'):
-                    continue
+            print(f'[DB Generator] Skipped {screen_code}: output already exists')
+            continue
 
         # Fetch sections
         cursor.execute("SELECT id as section_id, section_name, section_type, purpose FROM screen_sections WHERE screen_id = ? ORDER BY section_order", (sid,))
@@ -347,11 +348,35 @@ def implement_creative_screens_from_db():
         role_name = s['role_name'] or 'Standard Role'
         app_code = s['app_code'] or 'general'
         role_code = s['role_code'] or 'all'
-        route_path = s['route_path'] or '/'
+        route_path = s['route_path'] or ''
 
         if not sections or not elements or not apis or any(a['method'].upper() != 'GET' for a in apis):
             print(f'[DB Generator] Skipped {screen_code}: incomplete or unsupported contract')
             continue
+
+        prepared.append((s, target_path, file_name, sections, elements, apis,
+                         purpose, user_story, criteria, app_name, role_name,
+                         app_code, role_code, route_path))
+
+    registration_inputs = [{
+        'screen_name': s['screen_name'] or f"Screen{s['id']}",
+        'route_path': route_path,
+        'expected_file_path': os.path.relpath(target_path, project_root),
+    } for (s, target_path, _, _, _, _, _, _, _, _, _, _, _, route_path) in prepared]
+    try:
+        catalog, registered_routes = prepare_route_catalog(
+            project_root, registration_inputs, check_state_output=False)
+    except Exception:
+        conn.close()
+        raise
+
+    implemented_count = 0
+    for (s, target_path, file_name, sections, elements, apis, purpose,
+         user_story, criteria, app_name, role_name, app_code, role_code,
+         route_path) in prepared:
+        sid = s['id']
+        screen_code = s['screen_code']
+        screen_name = s['screen_name'] or f"Screen{sid}"
 
         dart_code = generate_custom_screen_widget(
             sid=sid,
@@ -390,6 +415,9 @@ def implement_creative_screens_from_db():
 
         implemented_count += 1
 
+    if prepared:
+        catalog.parent.mkdir(parents=True, exist_ok=True)
+        catalog.write_text(CATALOG_HEADER + ''.join(f"  '{route}',\n" for route in sorted(registered_routes)) + '};\n', encoding='utf-8')
     conn.commit()
     conn.close()
 

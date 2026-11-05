@@ -644,8 +644,8 @@ class PrimeThemeData {
 class PrimeTheme extends InheritedWidget {
   final PrimeThemeData data;
 
-  PrimeTheme({required this.data, required super.child, super.key}) {
-    GovernanceBootstrapper.bootstrap();
+  PrimeTheme({required this.data, required super.child, super.key, bool bootstrap = true}) {
+    if (bootstrap) GovernanceBootstrapper.bootstrap();
   }
 
   static PrimeThemeData of(BuildContext context) {

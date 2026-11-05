@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: [Component] - Standardized Card for PrimeCare Platform.
 import 'package:primecare_ui/primecare_ui.dart';
+import '../localization/shared_control_text.dart';
 
 /// [Component] - Standardized Card for PrimeCare Platform.
 class PrimeCareCard extends StatelessWidget {
@@ -144,7 +145,7 @@ class DashboardErrorWidget extends StatelessWidget {
         children: [
           Icon(LucideIcons.alertTriangle, size: 48, color: theme.colors.error),
           const SizedBox(height: 16),
-          Text('Operational Anomaly Detected', style: theme.typography.h3),
+          Text(sharedControlText(context, 'dashboard_error'), style: theme.typography.h3),
           const SizedBox(height: 8),
           Text(
             message,
@@ -157,7 +158,7 @@ class DashboardErrorWidget extends StatelessWidget {
             const SizedBox(height: 24),
             ElevatedButton(key: const Key('prime_components_elevatedbutton_button_1'), 
               onPressed: onRetry,
-              child: const Text('Retry Hydration'),
+              child: Text(sharedControlText(context, 'retry')),
             ),
           ],
         ],
@@ -475,6 +476,7 @@ class PrimeButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
   final bool isGhost;
+  final bool isSecondary;
   final String? dataCy;
 
   const PrimeButton({
@@ -488,6 +490,7 @@ class PrimeButton extends StatelessWidget {
     this.textColor,
     this.borderColor,
     this.isGhost = false,
+    this.isSecondary = false,
     this.dataCy,
   });
 
@@ -530,8 +533,7 @@ class PrimeButton extends StatelessWidget {
       isLoading: isLoading,
       isFullWidth: isFullWidth,
       color: Colors.transparent,
-      textColor: const Color(0xFF004AC6),
-      borderColor: const Color(0xFF004AC6).withValues(alpha: 0.2),
+      isSecondary: true,
       dataCy: dataCy,
     );
   }
@@ -554,7 +556,6 @@ class PrimeButton extends StatelessWidget {
       isLoading: isLoading,
       isFullWidth: isFullWidth,
       color: Colors.transparent,
-      textColor: const Color(0xFF434655),
       isGhost: true,
       dataCy: dataCy,
     );
@@ -566,9 +567,11 @@ class PrimeButton extends StatelessWidget {
     final buttonColor = color ?? theme.colors.primary;
     final actualTextColor =
         textColor ??
-        (color == Colors.transparent
+        (isGhost ? theme.colors.onSurfaceVariant : color == Colors.transparent
             ? theme.colors.primary
             : theme.colors.onPrimary);
+    final actualBorderColor = borderColor ??
+        (isSecondary ? theme.colors.primary.withValues(alpha: 0.2) : null);
 
     final child = Row(
       mainAxisSize: MainAxisSize.min,
@@ -620,8 +623,8 @@ class PrimeButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(theme.radiusDefault),
-              side: borderColor != null
-                  ? BorderSide(color: borderColor!)
+              side: actualBorderColor != null
+                  ? BorderSide(color: actualBorderColor)
                   : BorderSide.none,
             ),
             elevation: 0,

@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
@@ -23,8 +24,52 @@ import '../../features/executive/screens/governance_hud_screen.dart';
 import '../../features/executive/screens/control_center_screen.dart';
 import '../../features/executive/screens/proposals_screen.dart';
 
+// Presentation registrations only. The router's redirect remains responsible
+// for authentication, and data access remains protected by its existing API.
+const governanceNativeScreenRoutes = <String>{
+  '/admin/screen-health', '/admin/reality-check', '/admin/role-screen-carousel',
+  '/admin/screenshot-gallery', '/generated/audit-dashboard',
+  '/generated/compliance-reviews', '/generated/incident-reports',
+  '/generated/quality-metrics', '/governance/audit', '/governance/monitoring',
+  '/governance/tickets', '/governance/screen-status', '/governance/device-security',
+  '/governance/security', '/verification', '/governance/clinical-reference',
+  '/generated/corporate/ceo/growth-pipeline',
+  '/generated/corporate/ceo/region-performance',
+  '/generated/corporate/ceo/leadership-reports', '/governance/hud',
+  '/governance/control-center', '/proposals', '/governance/placeholder',
+};
+
+// Existing governance-only registry paths absent from the shared presentation
+// catalogs. Keep this explicit: newly loaded metadata must not register itself.
+// These entries preserve rendering only; they do not supply role/API grants.
+const governanceRegistryScreenRoutes = <String>{
+  '/reconciled/screen_ceo_dashboard_labels',
+  '/reconciled/screen_cfo_dashboard_labels',
+  '/reconciled/screen_clinical_director_labels',
+  '/reconciled/screen_clinical_labels',
+  '/reconciled/screen_command_center_labels',
+  '/reconciled/screen_common_dashboard_labels',
+  '/reconciled/screen_cto_dashboard_labels',
+  '/reconciled/screen_marketing_dashboard_labels',
+  '/reconciled/screen_regional_manager_labels',
+  '/reconciled/screen_support_dashboard_labels',
+  '/roles/customer_support/dashboard',
+  '/roles/family_member/dashboard',
+  '/roles/guest/dashboard',
+  '/roles/patient/dashboard',
+  '/roles/portal/dashboard',
+  '/roles/premium_concierge/dashboard',
+  '/roles/vip_manager/dashboard',
+};
+
+ScreenManager buildGovernanceScreenManager() =>
+    primeCareScreenManager.withAdditionalRoutes([
+      ...governanceNativeScreenRoutes,
+      ...governanceRegistryScreenRoutes,
+    ]);
 
 final appRouterProvider = Provider<GoRouter>((ref) {
+  final screenManager = buildGovernanceScreenManager();
   return GoRouter(
     initialLocation: '/login',
     // Unknown deep links must not enter the global error/restart loop.
@@ -136,7 +181,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             drawer: const AppDrawer(),
             endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
-            body: child,
+            body: AppShellBoundary(child: ManagedScreenBoundary(
+              manager: screenManager,
+              // Use the registered route pattern for parameterized paths.
+              screenId: state.fullPath ?? matchedLocation,
+              builder: (_) => child,
+            )),
           );
         },
         routes: [

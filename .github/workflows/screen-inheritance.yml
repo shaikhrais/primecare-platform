@@ -1,19 +1,69 @@
 name: Shared screen inheritance
 on:
+  pull_request:
   push:
     branches: [main]
     paths:
       - packages/flutter_core/lib/models/screen.dart
+      - packages/flutter_core/lib/flutter_core.dart
       - packages/flutter_core/lib/models/screen_features.dart
+      - packages/flutter_core/lib/models/screen_manager.dart
+      - packages/flutter_core/lib/routes/governance_router.dart
+      - packages/flutter_core/test/screen_manager_test.dart
+      - tools/mvc_generator/generate_screen.dart
+      - scripts/tests/test_mvc_screen_generator.py
       - packages/flutter_core/test/screen_features_test.dart
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
+      - packages/primecare_ui/test/base_primecare_app_test.dart
+      - packages/primecare_ui/lib/src/registry/screen_registry.dart
+      - packages/primecare_ui/test/screen_registry_audit_test.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
+      - packages/primecare_ui/lib/src/theme/prime_theme.dart
+      - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart
+      - packages/primecare_ui/lib/src/features/workspace/workspace_routes_generated.dart
+      - apps/primecare_clinic/assets/translations/*.json
+      - packages/primecare_ui/lib/src/features/training/getting_started_guide.dart
+      - packages/primecare_ui/lib/src/features/training/getting_started_catalog.g.dart
+      - packages/primecare_ui/test/getting_started_guide_test.dart
+      - packages/shared/src/getting-started-guide-i18n.json
+      - packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart
+      - packages/primecare_ui/lib/src/screens/module_screen_registrations.dart
+      - packages/primecare_ui/lib/src/screens/workspace_screen_registrations.dart
+      - packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart
+      - packages/primecare_ui/lib/src/routes/shared_routes.dart
+      - packages/primecare_ui/lib/src/components/prime_components.dart
+      - packages/primecare_ui/lib/src/components/governance_components.dart
+      - packages/primecare_ui/lib/src/localization/shared_control_text.dart
+      - apps/primecare_corporate/lib/core/routing/**
+      - apps/primecare_corporate/test/managed_workspace_navigation_test.dart
+      - apps/primecare_clinic/lib/core/routing/app_router.dart
+      - packages/primecare_ui/test/managed_auth_routes_test.dart
+      - packages/primecare_ui/test/governed_workspace_session_test.dart
       - packages/primecare_ui/test/prime_screen_inheritance_test.dart
+      - packages/primecare_ui/test/shared_control_inheritance_test.dart
       - packages/primecare_ui/lib/primecare_ui.dart
+      - apps/primecare_governance/lib/core/governance/route_registry.dart
+      - apps/primecare_governance/test/auth_routing_test.dart
+      - apps/primecare_governance/test/admin_screen_health_route_test.dart
+      - packages/primecare_ui/lib/src/screens/admin/admin_screen_health/**
       - .github/workflows/screen-inheritance.yml
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
+  registry-bindings:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/registry/screen_registry.dart test/screen_registry_audit_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/screen_registry_audit_test.dart
+        working-directory: packages/primecare_ui
   flutter:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
@@ -21,17 +71,68 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_mvc_screen_generator.py'
       - run: flutter pub get
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/models/screen.dart lib/models/screen_features.dart test/screen_features_test.dart
         working-directory: packages/flutter_core
       - run: flutter test test/screen_features_test.dart
         working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/models/screen_manager.dart test/screen_manager_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/routes/governance_router.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/screen_manager_test.dart
+        working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/application/base_primecare_app.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/base_primecare_app_test.dart
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/theme/prime_screen_inheritance.dart test/prime_screen_inheritance_test.dart
         working-directory: packages/primecare_ui
       - run: flutter test test/prime_screen_inheritance_test.dart
         working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/features/auth/shared_auth_router.dart test/managed_auth_routes_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/screens/screen_manager_catalog.dart lib/src/routes/shared_routes.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/components/prime_components.dart test/shared_control_inheritance_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/shared_control_inheritance_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/managed_auth_routes_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/governed_workspace_session_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/getting_started_guide_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter pub get
+        working-directory: apps/primecare_client
+      - run: flutter test test/auth_routing_test.dart test/patient_scaffold_safety_test.dart
+        working-directory: apps/primecare_client
+  application-routes:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        app: [business_development, clinic, corporate, franchise, governance, marketing, support]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: apps/primecare_${{ matrix.app }}
+      - run: flutter test test/auth_routing_test.dart --plain-name 'module routes have explicit presentation registrations'
+        working-directory: apps/primecare_${{ matrix.app }}
+      - run: flutter test test/admin_screen_health_route_test.dart test/auth_routing_test.dart
+        if: matrix.app == 'governance'
+        working-directory: apps/primecare_governance
+      - run: flutter analyze --no-fatal-infos test/managed_workspace_navigation_test.dart
+        if: matrix.app == 'corporate'
+        working-directory: apps/primecare_corporate
+      - run: flutter test test/managed_workspace_navigation_test.dart
+        if: matrix.app == 'corporate'
+        working-directory: apps/primecare_corporate

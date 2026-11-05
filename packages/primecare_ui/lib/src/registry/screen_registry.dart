@@ -250,118 +250,8 @@ import '../features/generated_screens/premium_feature_248.dart';
 import '../features/generated_screens/premium_feature_249.dart';
 import '../features/generated_screens/premium_feature_250.dart';
 import '../features/generated_screens/premium_feature_251.dart';
-import '../features/admin/user_management_screen.dart';
-import '../features/admin/tenant_configuration_screen.dart';
-import '../features/admin/system_registry_dashboard.dart';
-import '../features/admin/api_key_manager_screen.dart';
-import '../features/admin/audit_log_viewer.dart';
-import '../features/admin/system_event_monitor.dart';
-import '../features/admin/lead_pipeline_screen.dart';
-import '../features/admin/faq_manager_screen.dart';
-import '../features/admin/device_fleet_manager.dart';
-import '../features/admin/system_policy_editor.dart';
-import '../features/admin/response_bot_audit_screen.dart';
-import '../features/admin/touchpoint_analyzer_screen.dart';
-import '../features/admin/registry_entry_editor.dart';
-import '../features/admin/secure_message_center.dart';
-import '../features/admin/message_archive_viewer.dart';
-import '../features/admin/role_access_matrix_screen.dart';
-import '../features/admin/role_screen_access_screen.dart';
-import '../features/admin/crisis_protocol_trigger_screen.dart';
-import '../features/admin/protocol_resolution_log_screen.dart';
-import '../features/admin/ecosystem_state_board.dart';
-import '../features/admin/provider_performance_dashboard.dart';
-import '../features/admin/resource_allocation_map.dart';
-import '../features/admin/quality_assurance_metrics.dart';
-import '../features/admin/integration_health_monitor.dart';
-import '../features/admin/feature_flag_controller.dart';
-import '../features/admin/configuration_version_control.dart';
-import '../features/admin/service_mesh_topology.dart';
-import '../features/admin/incident_response_hub.dart';
-import '../features/admin/system_capacity_planner.dart';
-import '../features/admin/admin_user_management.dart';
-import '../features/admin/hipaa_audit_dashboard.dart';
-import '../features/admin/data_privacy_monitor.dart';
-import '../features/admin/security_incident_logger.dart';
-import '../features/admin/consent_management_console.dart';
-import '../features/admin/vendor_risk_assessor.dart';
-import '../features/admin/policy_exception_tracker.dart';
-import '../features/admin/regulatory_change_radar.dart';
-import '../features/admin/access_review_certifier.dart';
-import '../features/admin/compliance_training_tracker.dart';
-import '../features/admin/osha_incident_reporter.dart';
-import '../features/analytics/predictive_analytics_dashboard.dart';
-import '../features/analytics/clinical_outcomes_report.dart';
-import '../features/analytics/financial_forecasting_model.dart';
-import '../features/analytics/operational_efficiency_metrics.dart';
-import '../features/analytics/population_health_analyzer.dart';
-import '../features/analytics/marketing_roi_report.dart';
-import '../features/analytics/patient_retention_analytics.dart';
-import '../features/analytics/staff_utilization_heatmap.dart';
-import '../features/analytics/supply_chain_cost_analyzer.dart';
-import '../features/analytics/board_of_directors_summary.dart';
-import '../features/marketing/campaign_performance_dashboard.dart';
-import '../features/marketing/lead_conversion_funnel.dart';
-import '../features/marketing/social_media_sentiment_analyzer.dart';
-import '../features/marketing/patient_acquisition_cost_tracker.dart';
-import '../features/marketing/referral_network_manager.dart';
-import '../features/marketing/email_marketing_automator.dart';
-import '../features/marketing/competitor_analysis_board.dart';
-import '../features/marketing/event_and_webinar_manager.dart';
-import '../features/marketing/brand_asset_library.dart';
-import '../features/marketing/territory_sales_mapping.dart';
-import '../features/education/cme_tracking_dashboard.dart';
-import '../features/education/clinical_guideline_library.dart';
-import '../features/education/surgical_video_archive.dart';
-import '../features/education/peer_review_conference_room.dart';
-import '../features/education/residency_program_tracker.dart';
-import '../features/education/simulation_lab_scheduler.dart';
-import '../features/education/journal_club_discussion_board.dart';
-import '../features/education/patient_case_study_repository.dart';
-import '../features/education/certification_renewal_alerts.dart';
-import '../features/education/medical_library_access_portal.dart';
-import '../features/telehealth/telehealth_consultation_room.dart';
-import '../features/telehealth/remote_patient_monitoring_dashboard.dart';
-import '../features/telehealth/virtual_waiting_room.dart';
-import '../features/telehealth/telemedicine_prescription_pad.dart';
-import '../features/telehealth/asynchronous_consultation_inbox.dart';
-import '../features/telehealth/device_integration_hub.dart';
-import '../features/telehealth/telehealth_quality_metrics.dart';
-import '../features/telehealth/remote_diagnostics_viewer.dart';
-import '../features/telehealth/digital_symptom_checker.dart';
-import '../features/telehealth/chronic_care_management_tracker.dart';
-import '../features/pharmacy/pharmacy_dispensing_dashboard.dart';
-import '../features/pharmacy/medication_reconciliation_tool.dart';
-import '../features/pharmacy/drug_interaction_alert_center.dart';
-import '../features/pharmacy/formulary_compliance_manager.dart';
-import '../features/pharmacy/controlled_substance_log.dart';
-import '../features/pharmacy/inpatient_pharmacy_queue.dart';
-import '../features/pharmacy/outpatient_prescription_tracker.dart';
-import '../features/pharmacy/chemotherapy_protocol_builder.dart';
-import '../features/pharmacy/pharmacy_inventory_management.dart';
-import '../features/pharmacy/patient_medication_adherence.dart';
 
-import '../features/research/clinical_trial_recruitment_dashboard.dart';
-import '../features/research/research_protocol_manager.dart';
-import '../features/research/informed_consent_tracker.dart';
-import '../features/research/adverse_event_reporting_portal.dart';
-import '../features/research/trial_data_collection_crf.dart';
-import '../features/research/biospecimen_inventory_tracker.dart';
-import '../features/research/grant_funding_allocation.dart';
-import '../features/research/multi_center_trial_collaboration.dart';
-import '../features/research/research_publication_drafting.dart';
-import '../features/research/patient_trial_outcomes_viewer.dart';
 
-import '../features/public_health/epidemiological_surveillance_dashboard.dart';
-import '../features/public_health/vaccination_campaign_manager.dart';
-import '../features/public_health/public_health_alert_broadcaster.dart';
-import '../features/public_health/community_health_needs_assessment.dart';
-import '../features/public_health/environmental_health_hazards.dart';
-import '../features/public_health/vulnerable_population_registry.dart';
-import '../features/public_health/mobile_clinic_dispatch.dart';
-import '../features/public_health/school_health_program_dashboard.dart';
-import '../features/public_health/social_determinants_of_health_tracker.dart';
-import '../features/public_health/substance_abuse_prevention_tracker.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../screens/common/shared_screen_stubs.dart';
 import '../screens/psw/psw_messages/psw_messages_screen.dart';
@@ -1117,27 +1007,51 @@ class ScreenRegistry {
   static List<ScreenMetadata> getAllScreens() =>
       PlatformScreenRegistry.allScreens;
 
-  /// Retrieves the widget implementation for a given screen ID.
-  static Widget getWidget(String id) {
+  // Keep audit and navigation resolution identical, including alias precedence.
+  // A null result is distinct from an explicitly registered placeholder.
+  static Widget? _resolveWidget(String id) {
     final normalizedId = id.startsWith('SCREEN_') ? id.substring(7) : id;
     final prefixedId = id.startsWith('SCREEN_') ? id : 'SCREEN_$id';
     return _widgetRegistry[normalizedId] ??
         _widgetRegistry[prefixedId] ??
-        _widgetRegistry[id] ??
-        ScreenNotImplementedView(screenName: id);
+        _widgetRegistry[id];
   }
 
-  /// Audits the registry for health and implementation status.
+  /// Retrieves the widget implementation for a given screen ID.
+  static Widget getWidget(String id) =>
+      _resolveWidget(id) ?? ScreenNotImplementedView(screenName: id);
+
+  /// Audits metadata-to-widget bindings, without building or mounting widgets.
+  ///
+  /// A healthy binding is not proof of render, API, permission, accessibility,
+  /// workflow or production readiness. Templates inside a mapped widget also
+  /// require separate implementation and runtime checks.
   static List<ScreenAuditReport> auditRegistry() {
-    return screens.keys
-        .map(
-          (id) => ScreenAuditReport(
-            id: id,
-            isHealthy: true,
-            message: 'Screen $id is mapped to metadata.',
-          ),
-        )
-        .toList();
+    return screens.keys.map((id) {
+      final widget = _resolveWidget(id);
+      if (widget == null) {
+        return ScreenAuditReport(
+          id: id,
+          isHealthy: false,
+          message: 'Screen $id has metadata but no widget binding.',
+        );
+      }
+      if (widget is ScreenNotImplementedView ||
+          widget is ScreenNotImplementedScreen ||
+          widget is Placeholder) {
+        return ScreenAuditReport(
+          id: id,
+          isHealthy: false,
+          message: 'Screen $id resolves to a placeholder widget.',
+        );
+      }
+      return ScreenAuditReport(
+        id: id,
+        isHealthy: true,
+        message: 'Screen $id has a widget binding. '
+            'Implementation completeness and runtime behavior are not verified.',
+      );
+    }).toList();
   }
 
   /// Bootstraps the registry.
@@ -1150,6 +1064,8 @@ class ScreenRegistry {
 
 class ScreenAuditReport {
   final String id;
+  /// Whether the static binding exists and is not a known placeholder.
+  /// This does not certify implementation completeness or runtime health.
   final bool isHealthy;
   final String message;
 

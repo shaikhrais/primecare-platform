@@ -5,9 +5,12 @@ import 'package:primecare_ui/src/features/auth/password_recovery_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_clinic/core/routing/app_router.dart';
+
+import 'package:primecare_clinic/core/routing/clinic_routes.dart' as registered_app;
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -35,6 +38,15 @@ class RoutingTranslations extends AssetLoader {
 }
 
 void main() {
+  test('clinic module routes have explicit presentation registrations', () {
+    for (final module in registered_app.ClinicApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   testWidgets('session restoration preserves recovery route and draft', (tester) async {
     SharedPreferences.setMockInitialValues({});
@@ -44,13 +56,13 @@ void main() {
     await tester.pumpWidget(ProviderScope(overrides: [authProvider.overrideWith(() => auth)],
       child: EasyLocalization(supportedLocales: const [Locale('en')],
         path: 'assets/translations', assetLoader: const RoutingTranslations(),
-        child: Consumer(builder: (context, ref, _) {
+        child: PrimeTheme(data: const PrimeThemeData(), child: Consumer(builder: (context, ref, _) {
           container = ProviderScope.containerOf(context);
           return MaterialApp.router(locale: context.locale,
             supportedLocales: context.supportedLocales,
             localizationsDelegates: context.localizationDelegates,
             routerConfig: ref.watch(appRouterProvider));
-        }),
+        })),
       ),
     ));
     await tester.pumpAndSettle();
@@ -112,7 +124,9 @@ void main() {
       pageKey: const ValueKey('login'),
     );
     final boundary = route.builder!(context, state) as AppShellBoundary;
-    expect(boundary.child, isA<LoginView>());
+    final managed = boundary.child as ManagedScreenBoundary;
+    expect(managed.screenId, CommonRoutes.login);
+    expect(managed.builder(context), isA<LoginView>());
     final legacy = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.ssoRedirect);
     final location = await legacy.redirect!(context, state);
