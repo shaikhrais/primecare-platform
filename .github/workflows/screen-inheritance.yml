@@ -1,13 +1,17 @@
 name: Shared screen inheritance
 on:
+  pull_request:
   push:
     branches: [main]
     paths:
       - packages/flutter_core/lib/models/screen.dart
       - packages/flutter_core/lib/models/screen_features.dart
+      - packages/flutter_core/lib/models/screen_manager.dart
+      - packages/flutter_core/test/screen_manager_test.dart
       - packages/flutter_core/test/screen_features_test.dart
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
+      - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
       - packages/primecare_ui/test/prime_screen_inheritance_test.dart
       - packages/primecare_ui/lib/primecare_ui.dart
       - .github/workflows/screen-inheritance.yml
@@ -26,6 +30,10 @@ jobs:
       - run: flutter analyze --no-fatal-infos lib/models/screen.dart lib/models/screen_features.dart test/screen_features_test.dart
         working-directory: packages/flutter_core
       - run: flutter test test/screen_features_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/models/screen_manager.dart test/screen_manager_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter test test/screen_manager_test.dart
         working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: packages/primecare_ui

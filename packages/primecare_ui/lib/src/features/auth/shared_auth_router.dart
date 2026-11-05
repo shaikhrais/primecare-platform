@@ -1,5 +1,6 @@
 // Shared in-app authentication routing for every governed PrimeCare app.
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
@@ -137,40 +138,52 @@ class SharedAuthRouter {
 }
 
 class SharedAuthRoutes {
+  // Registration is presentation metadata only; the redirect and RouteGuard
+  // continue to make all access decisions.
+  static final ScreenManager screenManager = ScreenManager(const [
+    ManagedScreenRegistration(id: '/login'),
+    ManagedScreenRegistration(id: '/signup'),
+    ManagedScreenRegistration(id: '/forgot-password'),
+    ManagedScreenRegistration(id: '/reset-password'),
+    ManagedScreenRegistration(id: '/mfa'),
+    ManagedScreenRegistration(id: '/language'),
+    ManagedScreenRegistration(id: '/auth/error'),
+    ManagedScreenRegistration(id: '/consent'),
+    ManagedScreenRegistration(id: '/success'),
+  ]);
+
+  static Widget managedPage(String id, WidgetBuilder builder) => AppShellBoundary(
+    child: ManagedScreenBoundary(manager: screenManager, screenId: id, builder: builder),
+  );
+
   static const publicPaths = <String>{
     '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
     '/language', '/sso-redirect', '/auth/error',
   };
 
   static List<GoRoute> protectedRoutes() => [
-    GoRoute(path: '/consent', builder: (context, state) => const AppShellBoundary(
-      child: consent.ConsentScreen(redirectUri: ''))),
-    GoRoute(path: '/success', builder: (context, state) => const AppShellBoundary(
-      child: account.SuccessProfileScreen())),
+    GoRoute(path: '/consent', builder: (context, state) => managedPage('/consent', (_) => const consent.ConsentScreen(redirectUri: ''))),
+    GoRoute(path: '/success', builder: (context, state) => managedPage('/success', (_) => const account.SuccessProfileScreen())),
   ];
 
   static List<GoRoute> routes() => [
         GoRoute(path: CommonRoutes.authError,
-          builder: (context, state) => const AppShellBoundary(child: PrimeAuthExperience(page: AuthPage.error))),
+          builder: (context, state) => managedPage(CommonRoutes.authError, (_) => const PrimeAuthExperience(page: AuthPage.error))),
         GoRoute(
           path: CommonRoutes.login,
-          builder: (context, state) => const AppShellBoundary(
-            child: LoginView(),
-          ),
+          builder: (context, state) => managedPage(CommonRoutes.login, (_) => const LoginView()),
         ),
         GoRoute(path: CommonRoutes.signup,
-          builder: (context, state) => const AppShellBoundary(child: SignUpAccessView())),
+          builder: (context, state) => managedPage(CommonRoutes.signup, (_) => const SignUpAccessView())),
         GoRoute(path: CommonRoutes.forgotPassword,
-          builder: (context, state) => const AppShellBoundary(child: ForgotPasswordView())),
+          builder: (context, state) => managedPage(CommonRoutes.forgotPassword, (_) => const ForgotPasswordView())),
         GoRoute(path: '/reset-password',
-          builder: (context, state) => const AppShellBoundary(child: ResetPasswordView())),
+          builder: (context, state) => managedPage('/reset-password', (_) => const ResetPasswordView())),
         GoRoute(path: '/mfa',
-          builder: (context, state) => const AppShellBoundary(child: MfaView())),
+          builder: (context, state) => managedPage('/mfa', (_) => const MfaView())),
         GoRoute(
           path: CommonRoutes.language,
-          builder: (context, state) => const AppShellBoundary(
-            child: LanguageSelectionView(),
-          ),
+          builder: (context, state) => managedPage(CommonRoutes.language, (_) => const LanguageSelectionView()),
         ),
         GoRoute(
           path: CommonRoutes.ssoRedirect,
