@@ -1117,27 +1117,51 @@ class ScreenRegistry {
   static List<ScreenMetadata> getAllScreens() =>
       PlatformScreenRegistry.allScreens;
 
-  /// Retrieves the widget implementation for a given screen ID.
-  static Widget getWidget(String id) {
+  // Keep audit and navigation resolution identical, including alias precedence.
+  // A null result is distinct from an explicitly registered placeholder.
+  static Widget? _resolveWidget(String id) {
     final normalizedId = id.startsWith('SCREEN_') ? id.substring(7) : id;
     final prefixedId = id.startsWith('SCREEN_') ? id : 'SCREEN_$id';
     return _widgetRegistry[normalizedId] ??
         _widgetRegistry[prefixedId] ??
-        _widgetRegistry[id] ??
-        ScreenNotImplementedView(screenName: id);
+        _widgetRegistry[id];
   }
 
-  /// Audits the registry for health and implementation status.
+  /// Retrieves the widget implementation for a given screen ID.
+  static Widget getWidget(String id) =>
+      _resolveWidget(id) ?? ScreenNotImplementedView(screenName: id);
+
+  /// Audits metadata-to-widget bindings, without building or mounting widgets.
+  ///
+  /// A healthy binding is not proof of render, API, permission, accessibility,
+  /// workflow or production readiness. Templates inside a mapped widget also
+  /// require separate implementation and runtime checks.
   static List<ScreenAuditReport> auditRegistry() {
-    return screens.keys
-        .map(
-          (id) => ScreenAuditReport(
-            id: id,
-            isHealthy: true,
-            message: 'Screen $id is mapped to metadata.',
-          ),
-        )
-        .toList();
+    return screens.keys.map((id) {
+      final widget = _resolveWidget(id);
+      if (widget == null) {
+        return ScreenAuditReport(
+          id: id,
+          isHealthy: false,
+          message: 'Screen $id has metadata but no widget binding.',
+        );
+      }
+      if (widget is ScreenNotImplementedView ||
+          widget is ScreenNotImplementedScreen ||
+          widget is Placeholder) {
+        return ScreenAuditReport(
+          id: id,
+          isHealthy: false,
+          message: 'Screen $id resolves to a placeholder widget.',
+        );
+      }
+      return ScreenAuditReport(
+        id: id,
+        isHealthy: true,
+        message: 'Screen $id has a widget binding. '
+            'Implementation completeness and runtime behavior are not verified.',
+      );
+    }).toList();
   }
 
   /// Bootstraps the registry.
@@ -1150,6 +1174,8 @@ class ScreenRegistry {
 
 class ScreenAuditReport {
   final String id;
+  /// Whether the static binding exists and is not a known placeholder.
+  /// This does not certify implementation completeness or runtime health.
   final bool isHealthy;
   final String message;
 

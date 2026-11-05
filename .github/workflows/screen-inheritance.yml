@@ -15,6 +15,8 @@ on:
       - packages/flutter_core/test/screen_features_test.dart
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
       - packages/primecare_ui/test/base_primecare_app_test.dart
+      - packages/primecare_ui/lib/src/registry/screen_registry.dart
+      - packages/primecare_ui/test/screen_registry_audit_test.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
@@ -39,6 +41,19 @@ on:
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
+  registry-bindings:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/registry/screen_registry.dart test/screen_registry_audit_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter test test/screen_registry_audit_test.dart
+        working-directory: packages/primecare_ui
   flutter:
     runs-on: ubuntu-24.04
     timeout-minutes: 20
