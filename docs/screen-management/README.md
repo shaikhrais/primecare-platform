@@ -79,8 +79,9 @@ that those Flutter contexts exist; a required PrimeTheme connection is also
 checked for shared application routes. They do not prove every provider or
 control is connected. Shared authentication route builders use
 an explicit adapter and route registrations. The shared workspace builder uses
-registrations derived from `governedWorkspaceRoutes` and the application's
-module definitions. A route missing from both sources fails closed. Standalone
+registrations from independent workspace and module-route catalogs. A route
+missing from all relevant registrations fails closed. Workspace metadata is
+not itself a Screen Manager registration. Standalone
 governance uses an adapter for its shell and registry routes. Other route entry
 points remain outside this boundary.
 Earlier batches passed Flutter CI; check the current PR head for the latest

@@ -32,6 +32,9 @@ void main() {
   test('generated workspace and special routes have registrations', () {
     expect(SharedAuthRoutes.screenManager.lookup(platformAdministrationRoute), isNotNull);
     expect(SharedAuthRoutes.screenManager.lookup('/maintenance/configuration'), isNotNull);
+    for (final path in governedWorkspaceRoutes.keys) {
+      expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
+    }
     for (final paths in governedWorkspaceRoleRoutes.values) {
       for (final path in paths) {
         expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
