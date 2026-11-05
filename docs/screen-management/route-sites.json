@@ -1,0 +1,345 @@
+[
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/app_router.dart",
+    "line": 23,
+    "constructor": "ManagedPublicRoute",
+    "class": "GlobalSettingsScreen",
+    "digest": "a50b8ca2b7d7e6873f60ad4d84f2bbfcb5071ecfacb6e198f10760f837d4d018"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 119,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "e8bb02f2508cd290412b3d312a0968f13ce6615a0a494496de53742dad83cbf7"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 125,
+    "constructor": "ShellRoute",
+    "class": "IconButton",
+    "digest": "d619ac5da18c8ef842fb515e4e1642210f036477a09f3ffd5c9adac2720144d5"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 170,
+    "constructor": "GoRoute",
+    "class": "AdminScreenHealthScreen",
+    "digest": "f151209e043463cb903f9efba86f8017ee4c3bb317d885cc5a024af8ad3fc7cd"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 171,
+    "constructor": "GoRoute",
+    "class": "AdminRealityCheckScreen",
+    "digest": "18fdcee5aae9604c789aa6925acc79ddf1da2f24f7e51ecbbc89764b944d7b8a"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 172,
+    "constructor": "GoRoute",
+    "class": "AdminRoleCarouselScreen",
+    "digest": "30d62c71cadfa4ca9d2fee76ef8246bba2cbb02bf01f11f8875f80bd055c4707"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 173,
+    "constructor": "GoRoute",
+    "class": "AdminScreenshotGalleryScreen",
+    "digest": "a575283489340764b2cdebf19f6f55a0e7f68df27b1c93de1be11cdbdbf745d9"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 174,
+    "constructor": "GoRoute",
+    "class": "AuditDashboardScreen",
+    "digest": "8e1c76a9951d1ed8df2f8f3840f7f994e93e2c4d03efd250c5b0c2c3db39a0d2"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 175,
+    "constructor": "GoRoute",
+    "class": "ComplianceReviewsScreen",
+    "digest": "fc915b73a117a4e2dfa3db7d147caf4578d183594d4792a2711556f8f1b462f1"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 176,
+    "constructor": "GoRoute",
+    "class": "IncidentReportsScreen",
+    "digest": "3a0cb9301437aff91a7edd5fd31750c1cb8586922d9742dbd789185e463453b7"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 177,
+    "constructor": "GoRoute",
+    "class": "QualityMetricsScreen",
+    "digest": "df07c1301e5b2d39beecdebacf83c12d2bdd9dccf1fbe22f7d3f06a284e532b1"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 178,
+    "constructor": "GoRoute",
+    "class": "AuditLogScreen",
+    "digest": "08e18454f22c351ed4aacd0150bf6e68b3880274a4f71b4edab2fdc3b02a3db9"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 179,
+    "constructor": "GoRoute",
+    "class": "MonitoringScreen",
+    "digest": "525b6ef9e39702b86592157bbdee15c88cdd0bcd09033da484d50c35c32f543b"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 180,
+    "constructor": "GoRoute",
+    "class": "TicketCenterScreen",
+    "digest": "5facd816822f9e1c01e7572074ca2ee328d6344124eb3aaf8e8a33ce90ae6ece"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 181,
+    "constructor": "GoRoute",
+    "class": "ScreenStatusScreen",
+    "digest": "b726b72f9d9e18667c154c3d74209d790a1492c70b8a5f0c8dade16701c21428"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 182,
+    "constructor": "GoRoute",
+    "class": "SecurityHubScreen",
+    "digest": "30f8e12c2556ab0eff610f3237e4c67a69ed29b18b09bc4a5d037d37000ef3c5"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 183,
+    "constructor": "GoRoute",
+    "class": "SecuritySentinelScreen",
+    "digest": "d071098b817ea45248f77855da48054593567d26fc5f3edd3e1d5905d7c07303"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 184,
+    "constructor": "GoRoute",
+    "class": "VerificationCenterScreen",
+    "digest": "6a4facb9f2579635579350dcbb2ce09a56650f739356a2306d9d99f15889fad6"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 185,
+    "constructor": "GoRoute",
+    "class": "ClinicalReferenceScreen",
+    "digest": "47418492f3035099031e3df60b4493a2a9b594ddddd677f181acce3f2f1c6ca4"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 188,
+    "constructor": "GoRoute",
+    "class": "GrowthPipelineScreen",
+    "digest": "0591d0c09e73526e63d9790f6b3e390b1eef74dff5c2037d10c4be90dd8cd0a8"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 189,
+    "constructor": "GoRoute",
+    "class": "RegionalPerformanceScreen",
+    "digest": "cc6be0864b24169d1706a1dae2acfb7159a3df9f477455d635343774b4fc6937"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 190,
+    "constructor": "GoRoute",
+    "class": "LeadershipReportsScreen",
+    "digest": "3da15349232c84b504e9ef65d0b65dfef12f5f859a61752a3d09ae990b45f994"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 191,
+    "constructor": "GoRoute",
+    "class": "GovernanceHudScreen",
+    "digest": "2ce7524da4d46c39dab9a11ecef51c3321356656282baf53540853f0d9686dde"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 192,
+    "constructor": "GoRoute",
+    "class": "ControlCenterScreen",
+    "digest": "fdedb57d2892e553da294e5ae27251ba3da86e2c7a94f5b613d82af95531e2a4"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 193,
+    "constructor": "GoRoute",
+    "class": "ProposalsScreen",
+    "digest": "41fd256c7b1781308738532199c9180beb459c0e0363b3eb2e22e0a7942baf06"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 199,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "0e56486e4e1328b6aab481a16e80df8fb4543c22c6c99111c340067840a3e466"
+  },
+  {
+    "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "line": 210,
+    "constructor": "GoRoute",
+    "class": "Scaffold",
+    "digest": "a0c8b858212be6ba6f74dbc948ae21c263625269eea83198205091a90640d81d"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 53,
+    "constructor": "GoRoute",
+    "class": "ManagedScreenBoundary",
+    "digest": "b6eedf42d02fb6059257f7f81c15c53d1df564c46f0e7776d40d3a3a42667d26"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 70,
+    "constructor": "GoRoute",
+    "class": "ManagedScreenBoundary",
+    "digest": "502e249b43df03865bc5f99dfb141911015598d7079e65d80a7bbd0f5aac67a5"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 88,
+    "constructor": "GoRoute",
+    "class": "ManagedScreenBoundary",
+    "digest": "cd820d82f2cd58f763f36cc5d71c1f7e7559576779f4517ed8f57d8d18f9fd98"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 108,
+    "constructor": "GoRoute",
+    "class": "AppShellBoundary",
+    "digest": "8df8dcb4acaf9201b78256b13cc7a3cb7c76ffd316cb416ee2e3beacec0900bc"
+  },
+  {
+    "file": "packages/flutter_core/lib/routes/governance_router.dart",
+    "line": 119,
+    "constructor": "ShellRoute",
+    "class": "GovernanceMasterLayout",
+    "digest": "8e7efbe3bd08ca542d8c9418ee8443d1b5b7a430b711e44570fa4b08b75296ed"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 35,
+    "constructor": "ManagedPublicRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "5479efbb7fc16fbf7fb0eb2f2ee6fe2f48fe56d6855753eefc5f87a8b712c67a"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 135,
+    "constructor": "GoRoute",
+    "class": "PlatformMasterScreen",
+    "digest": "852f1d0ed346ac11e349509fa3a69e6170af49109935e1e41e89f7de59abb3be"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 136,
+    "constructor": "GoRoute",
+    "class": "MaintenanceConfigurationScreen",
+    "digest": "549fe686990ae386511cd36f4ed300dd60dfeb00cc81013b61942f4001f32e1d"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 139,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "8222f1c8672b20ff14448c6b9de0d6f1eabd4ba304f14131c095177620f094ad"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 197,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "3fb94007025c6cb35f11fc07355004473fc83296bb721b8df2ca32412ddc6ec8"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 198,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "b71ad7e5779cb5122856e4241ed53f00a3f68a5e29dc0039adfda8624c8ba94d"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 202,
+    "constructor": "GoRoute",
+    "class": "PrimeAuthExperience",
+    "digest": "ffa5e19a89213c77803733e7fd32a12e2d3f1957caf7c2438db84043937ae1e3"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 204,
+    "constructor": "GoRoute",
+    "class": "LoginView",
+    "digest": "95054995823a73dc5e4c02b7e9b847bb82d17f21a04b24d65fef12aef6bf89e8"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 208,
+    "constructor": "GoRoute",
+    "class": "SignUpAccessView",
+    "digest": "f3f5a446c17b355aa6c9d34c7ed17978a496e22798443044a627bbe2bb645433"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 210,
+    "constructor": "GoRoute",
+    "class": "ForgotPasswordView",
+    "digest": "a743b19e80d3c3721c2f9629b314f0921ae87c2093935e40559fe30e2cdca138"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 212,
+    "constructor": "GoRoute",
+    "class": "ResetPasswordView",
+    "digest": "327abe1ef89ef9b413a721b9a063e959acb4437f8f8afa5a7e0bd16e8779fc88"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 214,
+    "constructor": "GoRoute",
+    "class": "MfaView",
+    "digest": "da709b1c78b01d86ae22e76d4b549b14a23fd74dc24b683d98daae28516eefb0"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 216,
+    "constructor": "GoRoute",
+    "class": "LanguageSelectionView",
+    "digest": "1294df1ec9d07d57c44fd32272924fa880936af031787ac4a1b08ff0ac730adf"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart",
+    "line": 220,
+    "constructor": "GoRoute",
+    "class": "<dynamic or nested builder>",
+    "digest": "50fb89caa771aff3cddeb4743c82ffa26bac1fe2ab1bd8329d78321ab1552cf2"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/training/admin_training_launcher.dart",
+    "line": 19,
+    "constructor": "MaterialPageRoute",
+    "class": "GettingStartedGuide",
+    "digest": "f430a12f26ad8a714a2189e17b97939fcbd4dc0bda9adbf0c5731c9ab152272f"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/training/admin_training_launcher.dart",
+    "line": 21,
+    "constructor": "MaterialPageRoute",
+    "class": "AdminTrainingScreen",
+    "digest": "58571b067ee046d5e2156ad613fc37a8d77bca83e34b26afc9875a5288e18113"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/routes/shared_routes.dart",
+    "line": 7,
+    "constructor": "GoRoute",
+    "class": "ScreenshotInventoryPage",
+    "digest": "7b01ca9ee43af421d1eb390ae58f5a7bccd8cbbc0cb7987e7c75406170e65ec7"
+  }
+]

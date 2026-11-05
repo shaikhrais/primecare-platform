@@ -16,6 +16,16 @@ match comments. It does not check registration, manager connections, routing,
 permissions, translations or runtime behaviour. A clean result does not prove
 that the application is managed or safe.
 
+`route-sites.json` records textual route-constructor sites. Run
+`python3 scripts/check_route_sites.py` to flag new or changed sites for review;
+the output includes the file, line, constructor and a screen class when the
+simple pattern can identify one. Review the actual route, its registration,
+adapter and authorization before updating with `--update-baseline`. A match
+may report an adapter or a dynamic builder rather than the final screen class.
+It can miss indirect or generated routes and can match comments or strings; it
+does not evaluate routing behavior, enforce permissions or prove that existing
+sites are approved. A changed shell can also flag nested routes conservatively.
+
 The current governed bases enforce an `AppShellBoundary` and apply inherited
 feature settings. `ScreenInheritanceManager` reads theme, locale and direction;
 `PrimeScreenInheritanceManager` additionally reads `PrimeTheme`. Neither is a
