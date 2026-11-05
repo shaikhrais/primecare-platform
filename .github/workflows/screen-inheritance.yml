@@ -20,6 +20,9 @@ on:
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart
+      - packages/primecare_ui/lib/src/features/workspace/workspace_routes_generated.dart
+      - apps/primecare_clinic/assets/translations/*.json
       - packages/primecare_ui/lib/src/features/training/getting_started_guide.dart
       - packages/primecare_ui/lib/src/features/training/getting_started_catalog.g.dart
       - packages/primecare_ui/test/getting_started_guide_test.dart
@@ -32,6 +35,8 @@ on:
       - packages/primecare_ui/lib/src/components/prime_components.dart
       - packages/primecare_ui/lib/src/components/governance_components.dart
       - packages/primecare_ui/lib/src/localization/shared_control_text.dart
+      - apps/primecare_corporate/lib/core/routing/**
+      - apps/primecare_corporate/test/managed_workspace_navigation_test.dart
       - apps/primecare_clinic/lib/core/routing/app_router.dart
       - packages/primecare_ui/test/managed_auth_routes_test.dart
       - packages/primecare_ui/test/governed_workspace_session_test.dart
@@ -125,3 +130,9 @@ jobs:
       - run: flutter test test/admin_screen_health_route_test.dart test/auth_routing_test.dart
         if: matrix.app == 'governance'
         working-directory: apps/primecare_governance
+      - run: flutter analyze --no-fatal-infos test/managed_workspace_navigation_test.dart
+        if: matrix.app == 'corporate'
+        working-directory: apps/primecare_corporate
+      - run: flutter test test/managed_workspace_navigation_test.dart
+        if: matrix.app == 'corporate'
+        working-directory: apps/primecare_corporate
