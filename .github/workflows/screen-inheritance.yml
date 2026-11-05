@@ -78,7 +78,7 @@ jobs:
         working-directory: packages/primecare_ui
       - run: flutter pub get
         working-directory: apps/primecare_client
-      - run: flutter test test/auth_routing_test.dart
+      - run: flutter test test/auth_routing_test.dart test/patient_scaffold_safety_test.dart
         working-directory: apps/primecare_client
   application-routes:
     runs-on: ubuntu-24.04

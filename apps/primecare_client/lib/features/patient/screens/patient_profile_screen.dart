@@ -48,10 +48,10 @@ class PatientProfileScreen extends GovernedConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          Icon(Icons.info_outline, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(height: 16),
           Text(
-            'PatientProfileScreen is now fully implemented.',
+            'The patient profile is not available yet.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ],

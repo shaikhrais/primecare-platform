@@ -118,7 +118,7 @@ authorization and actual screen behavior require separate checks. The current
 | --- | --- | --- |
 | `apps/primecare_governance/lib/core/governance/route_registry.dart` | `appRouterProvider`, `buildGovernanceScreenManager` | The shell has a registration adapter. Dynamic metadata no longer registers itself; its paths must be in the independent catalog. Verify native and dynamic workflows, access behavior and accessibility before release. |
 | `apps/primecare_client/lib/core/routing/client_routes.dart` | `ClientPatientModule`, `ClientFamilyModule` | Their 13 directly declared screen classes use governed bases, but `SharedAuthRouter` currently dispatches those module paths to `GovernedWorkspaceScreen`. Confirm intended workflows before changing dispatch or claiming those specific screen classes render. |
-| `apps/primecare_client/lib/features/patient/screens/patient_dashboard_screen.dart` | `PatientDashboardScreen` | Its content claims the screen is fully implemented without demonstrating the listed functions. Review actual dashboard requirements and replace that claim with verified data or an honest unavailable state before connecting this class. |
+| `apps/primecare_client/lib/features/patient/screens/patient_dashboard_screen.dart` | `PatientDashboardScreen` | The scaffold now displays an unavailable state instead of claiming completion. Verify the Flutter test, localize this state and implement actual dashboard requirements before connecting this class. |
 | `apps/primecare_client/lib/features/patient/screens/patient_book_appointment_screen.dart` | `PatientBookAppointmentScreenController` | The scaffold initializes optimistic status text and `runComplianceScan` logs a timed action without an audit service. Review the real appointment and audit contracts, remove misleading status and test the workflow before connecting this class. |
 | `packages/flutter_core/lib/routes/governance_router.dart` | `GovernanceRouter` | Module and dynamic platform registry paths now use the separate `module_screen_registrations.dart` snapshot instead of being registered automatically at runtime. The snapshot was derived from route declarations, not individual screen verification; review each route and test role redirects, callback and errors before release. |
 | `packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart` | `SharedAuthRouter`, `SharedAuthRoutes` | Additional public routes now use the managed adapter; test real login, recovery, platform and workspace workflows. Registrations do not authorize users. |
@@ -144,19 +144,20 @@ before connecting the class. Do not simply swap the builder.
 
 | File | Class | Status |
 | --- | --- | --- |
-| `apps/primecare_client/lib/features/patient/screens/patient_dashboard_screen.dart` | `PatientDashboardScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_book_appointment_screen.dart` | `PatientBookAppointmentScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_my_appointments_screen.dart` | `PatientMyAppointmentsScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_care_team_screen.dart` | `PatientCareTeamScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_treatment_history_screen.dart` | `PatientTreatmentHistoryScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_payments_screen.dart` | `PatientPaymentsScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/patient/screens/patient_profile_screen.dart` | `PatientProfileScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_dashboard_screen.dart` | `FamilyDashboardScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_loved_one_schedule_screen.dart` | `FamilyLovedOneScheduleScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_care_updates_screen.dart` | `FamilyCareUpdatesScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_billing_screen.dart` | `FamilyBillingScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_emergency_contacts_screen.dart` | `FamilyEmergencyContactsScreen` | Declared in module; direct production dispatch not verified. |
-| `apps/primecare_client/lib/features/family/screens/family_profile_screen.dart` | `FamilyProfileScreen` | Declared in module; direct production dispatch not verified. |
+| `apps/primecare_client/lib/features/patient/screens/patient_dashboard_screen.dart` | `PatientDashboardScreen` | Governed; honest unavailable state added. Verify and localize it; implement data and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_book_appointment_screen.dart` | `PatientBookAppointmentScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_my_appointments_screen.dart` | `PatientMyAppointmentsScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_care_team_screen.dart` | `PatientCareTeamScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_treatment_history_screen.dart` | `PatientTreatmentHistoryScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_payments_screen.dart` | `PatientPaymentsScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/patient/screens/patient_profile_screen.dart` | `PatientProfileScreen` | Governed; honest unavailable state added. Verify and localize it; implement data and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_dashboard_screen.dart` | `FamilyDashboardScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_loved_one_schedule_screen.dart` | `FamilyLovedOneScheduleScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_care_updates_screen.dart` | `FamilyCareUpdatesScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_billing_screen.dart` | `FamilyBillingScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_emergency_contacts_screen.dart` | `FamilyEmergencyContactsScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+| `apps/primecare_client/lib/features/family/screens/family_profile_screen.dart` | `FamilyProfileScreen` | Governed; contains timed audit and optimistic security text. Verify service, labels and actions before dispatch. |
+
 
 On this draft the existing `scripts/audit-ui-localization.py` reported 38,653
 literal candidates in 11,054 files. It is a textual review aid, not a verified
