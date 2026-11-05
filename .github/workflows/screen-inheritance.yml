@@ -7,6 +7,7 @@ on:
       - packages/flutter_core/lib/models/screen.dart
       - packages/flutter_core/lib/models/screen_features.dart
       - packages/flutter_core/lib/models/screen_manager.dart
+      - packages/flutter_core/lib/routes/governance_router.dart
       - packages/flutter_core/test/screen_manager_test.dart
       - tools/mvc_generator/generate_screen.dart
       - scripts/tests/test_mvc_screen_generator.py
@@ -14,6 +15,7 @@ on:
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - apps/primecare_clinic/lib/core/routing/app_router.dart
       - packages/primecare_ui/test/managed_auth_routes_test.dart
       - packages/primecare_ui/test/prime_screen_inheritance_test.dart
       - packages/primecare_ui/lib/primecare_ui.dart
@@ -36,6 +38,8 @@ jobs:
       - run: flutter test test/screen_features_test.dart
         working-directory: packages/flutter_core
       - run: flutter analyze --no-fatal-infos lib/models/screen_manager.dart test/screen_manager_test.dart
+        working-directory: packages/flutter_core
+      - run: flutter analyze --no-fatal-infos lib/routes/governance_router.dart
         working-directory: packages/flutter_core
       - run: flutter test test/screen_manager_test.dart
         working-directory: packages/flutter_core

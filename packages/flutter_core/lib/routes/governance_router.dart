@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../models/domain_governance.dart';
+import '../models/screen.dart' show AppShellBoundary;
+import '../models/screen_manager.dart';
 import '../registry/governance_registry.dart';
 import '../registry/platform_role.dart';
 import '../registry/widgets/governance_master_layout.dart';
@@ -20,6 +22,7 @@ class GovernanceRouter {
     required PlatformApplication application,
     required PlatformRole activeRole,
     required String initialLocation,
+    required ScreenManager screenManager,
     GlobalKey<NavigatorState>? navigatorKey,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
@@ -87,8 +90,12 @@ class GovernanceRouter {
       routes: [
         GoRoute(
           path: CommonRoutes.authCallback,
-          builder: (context, state) => AuthCallbackView(
-            queryParameters: state.uri.queryParameters,
+          builder: (context, state) => AppShellBoundary(
+            child: ManagedScreenBoundary(
+              manager: screenManager,
+              screenId: CommonRoutes.authCallback,
+              builder: (_) => AuthCallbackView(queryParameters: state.uri.queryParameters),
+            ),
           ),
         ),
         ...publicRoutes,

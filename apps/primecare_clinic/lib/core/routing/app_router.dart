@@ -21,7 +21,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     application: ref.read(clinicApplicationProvider),
     additionalPublicRoutes: [
       GoRoute(path: CommonRoutes.globalSettings,
-        builder: (context, state) => const AppShellBoundary(child: GlobalSettingsScreen())),
+        builder: (context, state) => SharedAuthRoutes.managedPage(
+          CommonRoutes.globalSettings, (_) => const GlobalSettingsScreen())),
     ],
   );
 });

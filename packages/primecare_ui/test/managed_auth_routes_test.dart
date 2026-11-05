@@ -9,7 +9,7 @@ void main() {
   test('all rendered shared authentication routes have registrations', () {
     for (final path in [
       '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
-      '/language', '/auth/error', '/consent', '/success',
+      '/language', '/auth/error', '/auth/callback', '/common/settings', '/consent', '/success',
     ]) {
       expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
     }

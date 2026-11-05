@@ -52,6 +52,7 @@ class SharedAuthRouter {
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
     final router = GovernanceRouter.buildZeroTrustRouter(
       application: application,
+      screenManager: screenManager,
       activeRole: activeRole,
       initialLocation: navigation.location?.toString() ?? dashboard,
       navigatorKey: navigation.navigatorKey,
@@ -155,6 +156,8 @@ class SharedAuthRoutes {
     const ManagedScreenRegistration(id: '/mfa'),
     const ManagedScreenRegistration(id: '/language'),
     const ManagedScreenRegistration(id: '/auth/error'),
+    const ManagedScreenRegistration(id: '/auth/callback'),
+    const ManagedScreenRegistration(id: '/common/settings'),
     const ManagedScreenRegistration(id: '/consent'),
     const ManagedScreenRegistration(id: '/success'),
     ManagedScreenRegistration(id: platformAdministrationRoute),
