@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
@@ -89,7 +90,9 @@ void main() {
       pageKey: const ValueKey('login'),
     );
     final boundary = route.builder!(context, state) as AppShellBoundary;
-    expect(boundary.child, isA<LoginView>());
+    final managed = boundary.child as ManagedScreenBoundary;
+    expect(managed.screenId, CommonRoutes.login);
+    expect(managed.builder(context), isA<LoginView>());
     final legacy = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.ssoRedirect);
     final location = await legacy.redirect!(context, state);
