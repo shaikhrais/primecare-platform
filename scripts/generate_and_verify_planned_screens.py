@@ -307,7 +307,11 @@ def generate_planned_screens():
         conn.close()
         return
 
-    catalog, registered_routes = prepare_route_catalog(PROJECT_ROOT, planned_screens)
+    try:
+        catalog, registered_routes = prepare_route_catalog(PROJECT_ROOT, planned_screens)
+    except Exception:
+        conn.close()
+        raise
 
     new_exports = []
     generated_count = 0
