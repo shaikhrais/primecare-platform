@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/domain/src/page_template.ts'
       - 'packages/primecare_ui/web/page-*.ts'
       - 'packages/flutter_core/lib/page/**'

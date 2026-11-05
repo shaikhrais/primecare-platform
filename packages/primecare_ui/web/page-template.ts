@@ -1,3 +1,4 @@
+import {ThemeControlBase} from './theme-control-base';
 import {buildPageRoutes,resolvePageRoute,type RegisteredPageRoute,type PageAuthority} from '../../domain/src/page_template';
 import {pageTemplateStyles} from './page-template-styles';
 import {PageWorkspaceChrome} from './page-workspace-chrome';
@@ -8,13 +9,14 @@ export type PageLabels={breadcrumbs:string;openLeft:string;closeLeft:string;open
 export type PageOptions={scope:string;routes:unknown;authority:PageAuthority;currentRoute:string;labels:PageLabels;onNavigate:(route:string)=>void;chrome?:PageWorkspaceChrome};
 type Side='left'|'right';
 /** Exclusive, optional page host. Supplied business slots remain owned and authorized by the caller. */
-export class PageTemplateView {
+export class PageTemplateView extends ThemeControlBase {
  private options!:PageOptions;private route?:RegisteredPageRoute;private slots!:PageSlots;
- private open={left:false,right:false};private abort=new AbortController();private events=new AbortController();
+ private open={left:false,right:false};private events=new AbortController();
  private sides={} as Record<Side,HTMLElement>;private controls={} as Record<Side,HTMLButtonElement>;
  private dialogs={} as Record<Side,HTMLDialogElement>;private body!:HTMLElement;private content!:HTMLElement;
- private narrow:boolean;private dead=false;private epoch=0;private title:string;private changedTitle?:string;
- constructor(private root:HTMLElement,slots:PageSlots,options:PageOptions){
+ private narrow:boolean;private epoch=0;private title:string;private changedTitle?:string;
+ constructor(root:HTMLElement,slots:PageSlots,options:PageOptions){
+  super(root);
   if(root.hasAttribute('data-pc-page'))throw Error('Page already managed');this.title=root.ownerDocument.title;this.narrow=this.window.innerWidth<=1024;
   const doc=root.ownerDocument;if(!doc.querySelector('[data-pc-page-styles]')){const s=doc.createElement('style');s.dataset.pcPageStyles='';s.textContent=pageTemplateStyles;doc.head.append(s);}
   this.window.addEventListener('resize',this.resize,{signal:this.abort.signal});this.update(options,slots);
@@ -76,5 +78,5 @@ export class PageTemplateView {
  private closeDialog(side:Side){const dialog=this.dialogs[side];if(!dialog)return;const slot=this.slots[side];if(slot)this.sides[side]?.append(slot);dialog.close();dialog.remove();delete this.dialogs[side];this.controls[side]?.focus({preventScroll:true});}
  private closeDialogs(){for(const side of ['left','right'] as const)this.closeDialog(side);}
  private resize=()=>{if(!this.route||this.dead)return;const narrow=this.window.innerWidth<=1024;if(narrow!==this.narrow){this.closeDialogs();this.narrow=narrow;for(const side of ['left','right'] as const){if(this.temporary(side))this.open[side]=false;this.place(side);}}};
- dispose():void{if(this.dead)return;this.clear();this.dead=true;this.abort.abort();}
+ dispose():void{if(this.dead)return;this.clear();this.endControlScope();}
 }
