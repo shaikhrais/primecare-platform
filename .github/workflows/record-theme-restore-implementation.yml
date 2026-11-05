@@ -1,0 +1,61 @@
+name: Record tenant theme restore implementation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/*theme-restore-implementation.mjs'
+      - '.github/workflows/record-theme-restore-implementation.yml'
+permissions: {contents: read, actions: read}
+jobs:
+  isolated:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: test, POSTGRES_PASSWORD: isolated, POSTGRES_DB: theme_restore_record_test}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-restore-record --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/theme-restore-record/node_modules node_modules
+          node tools/governance-production/test-theme-restore-implementation.mjs
+        env:
+          THEME_RESTORE_RECORD_TEST_URL: postgresql://test:isolated@127.0.0.1:5432/theme_restore_record_test
+  production:
+    needs: isolated
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - name: Verify accepted deployment and unchanged implementation
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const owner=context.repo.owner,repo=context.repo.repo,run_id=41943120097,source='08d1259143a5daf19297d01b3e07e02def6e1607';
+            const run=(await github.rest.actions.getWorkflowRun({owner,repo,run_id})).data;
+            if(run.head_sha!==source||run.conclusion!=='success'||run.head_branch!=='main')throw Error('Accepted deployed source missing');
+            const jobs=(await github.rest.actions.listJobsForWorkflowRun({owner,repo,run_id,per_page:100})).data.jobs;
+            if(!['acceptance','publish'].every(name=>jobs.some(job=>job.name===name&&job.conclusion==='success')))throw Error('Acceptance or publication missing');
+            const paths=['packages/primecare_ui/web/advanced-theme-tenant-restore-control.ts','packages/primecare_ui/web/advanced-theme-tenant-restore.ts','packages/primecare_ui/web/theme-restore-storage.ts','packages/primecare_ui/web/theme-library.ts','packages/primecare_ui/web/theme-center.ts','packages/domain/src/advanced-theme-legacy-preview.ts','websites/typescript/src/tenant-dashboard/theme-preference-host.ts','scripts/test-tenant-dashboard-theme-migration.mjs','scripts/test-theme-idb-lock-browser.mjs'];
+            for(const path of paths){
+              const get=async ref=>(await github.rest.repos.getContent({owner,repo,path,ref})).data;
+              const [accepted,current]=await Promise.all([get(source),get(context.sha)]);
+              if(Array.isArray(accepted)||Array.isArray(current)||accepted.sha!==current.sha)throw Error('Implementation changed: '+path);
+            }
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/theme-restore-record --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/theme-restore-record/node_modules node_modules
+          node tools/governance-production/apply-theme-restore-implementation.mjs
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          RECORD_THEME_RESTORE_IMPLEMENTATION: '1'
