@@ -1,0 +1,31 @@
+name: Preview inherited theme controls
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/theme-controls-preview.yml', '.github/fixtures/theme-controls/**']
+permissions: {contents: read}
+jobs:
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Apply candidate only to isolated runner
+        run: |
+          cp .github/fixtures/theme-controls/*.ts packages/primecare_ui/web/
+          cp .github/fixtures/theme-controls/test-theme-control-base.mjs scripts/
+      - run: |
+          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
+          ln -s /tmp/theme-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+      - run: |
+          node --test scripts/test-theme-control-base.mjs
+          node scripts/test-data-controls-model.mjs
+          node scripts/test-data-controls-rich-ranges.mjs
+          node --test scripts/test-upload-removal.mjs
+          node scripts/test-data-controls-browser.mjs
+          node scripts/test-advanced-theme-model.mjs
+          node scripts/test-advanced-theme-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/data-controls.ts packages/primecare_ui/web/advanced-theme-editor.ts
