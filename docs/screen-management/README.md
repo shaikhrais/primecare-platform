@@ -1,8 +1,9 @@
 # Screen inheritance candidate inventory
 
 `direct-widget-exceptions.json` records classes named `*Screen`, `*View` or
-`*Page` that directly extend common Flutter or Riverpod widget bases in app and
-shared UI/core library directories. Run `python3 scripts/check_screen_inheritance.py`
+`*Page`, and classes in `*_screen.dart`, `*_view.dart` or `*_page.dart` files,
+that directly extend common Flutter or Riverpod widget bases in app and shared
+UI/core library directories. Run `python3 scripts/check_screen_inheritance.py`
 to report additions and removals by file, class and base. Review the changes and
 run the same command with `--update-baseline` only when the inventory change is
 intentional. CI checks the inventory on pull requests and main.

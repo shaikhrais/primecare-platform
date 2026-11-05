@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / 'docs/screen-management/direct-widget-exceptions.json'
 DIRECT = {'StatelessWidget', 'StatefulWidget', 'ConsumerWidget', 'ConsumerStatefulWidget', 'HookWidget', 'HookConsumerWidget'}
-DECLARATION = re.compile(r'\bclass\s+(\w+(?:Screen|View|Page))\s+extends\s+(\w+)\b')
+DECLARATION = re.compile(r'\bclass\s+(\w+)\s+extends\s+(\w+)\b')
 
 
 def scan(root):
@@ -21,7 +21,9 @@ def scan(root):
         for path in (root / base).glob('**/lib/**/*.dart'):
             relative = path.relative_to(root).as_posix()
             for name, parent in DECLARATION.findall(path.read_text(encoding='utf-8')):
-                if parent in DIRECT:
+                candidate_name = name.endswith(('Screen', 'View', 'Page'))
+                candidate_file = path.stem.endswith(('_screen', '_view', '_page'))
+                if parent in DIRECT and (candidate_name or candidate_file):
                     results.append({'file': relative, 'class': name, 'base': parent})
     return sorted(results, key=lambda item: (item['file'], item['class'], item['base']))
 

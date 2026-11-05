@@ -3981,8 +3981,18 @@
   },
   {
     "file": "packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart",
+    "class": "PlatformAdministrationLauncher",
+    "base": "ConsumerWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart",
     "class": "PlatformMasterScreen",
     "base": "ConsumerWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart",
+    "class": "_MasterForm",
+    "base": "StatefulWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/features/platform/platform_master_screen.dart",
@@ -4296,6 +4306,11 @@
   },
   {
     "file": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart",
+    "class": "GovernedWorkspaceEntry",
+    "base": "StatelessWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart",
     "class": "GovernedWorkspaceScreen",
     "base": "ConsumerWidget"
   },
@@ -4538,6 +4553,11 @@
     "file": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_compliance/clinical_director_compliance_screen.dart",
     "class": "ClinicalDirectorComplianceScreen",
     "base": "ConsumerWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart",
+    "class": "GovQuickActionBar",
+    "base": "StatefulWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_incident_review/clinical_director_incident_review_screen.dart",
@@ -4957,6 +4977,11 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/common/governance_operations4_k/governance_operations4_k_screen.dart",
     "class": "GovernanceOperations4KScreen",
+    "base": "ConsumerWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/screens/common/governed/governed_screen.dart",
+    "class": "Governed",
     "base": "ConsumerWidget"
   },
   {
@@ -6272,6 +6297,11 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/psw/psw_compliance/psw_compliance_screen.dart",
     "class": "PswComplianceScreen",
+    "base": "ConsumerWidget"
+  },
+  {
+    "file": "packages/primecare_ui/lib/src/screens/psw/psw_documents/psw_documents_screen.dart",
+    "class": "Documents",
     "base": "ConsumerWidget"
   },
   {

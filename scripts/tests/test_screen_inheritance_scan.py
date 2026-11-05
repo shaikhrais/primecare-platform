@@ -19,9 +19,12 @@ class ScreenScanTest(unittest.TestCase):
                             'class LoginView extends StatefulWidget {}\n'
                             'class ManagedScreen extends GovernedConsumerWidget {}\n'
                             'class Button extends StatelessWidget {}\n')
+            second = root / 'apps/example/lib/pages/root_screen.dart'
+            second.write_text('class Root extends ConsumerWidget {}\n')
             self.assertEqual(scan.scan(root), [
                 {'file': 'apps/example/lib/pages/example.dart', 'class': 'BookingScreen', 'base': 'ConsumerWidget'},
                 {'file': 'apps/example/lib/pages/example.dart', 'class': 'LoginView', 'base': 'StatefulWidget'},
+                {'file': 'apps/example/lib/pages/root_screen.dart', 'class': 'Root', 'base': 'ConsumerWidget'},
             ])
 
 
