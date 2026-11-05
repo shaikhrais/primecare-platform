@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_dashboard_screen_controller.dart';
+import 'patient_unavailable_text.dart';
 
 class PatientDashboardScreen extends GovernedConsumerWidget {
   @override
@@ -53,7 +54,7 @@ class PatientDashboardScreen extends GovernedConsumerWidget {
           Icon(Icons.info_outline, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(height: 16),
           Text(
-            'The patient dashboard is not available yet.',
+            patientUnavailableText(context, 'dashboard'),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ],
