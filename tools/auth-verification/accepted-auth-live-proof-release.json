@@ -6,5 +6,16 @@
   "worker": "primecare-auth-api",
   "deploymentId": "c33c9b9c-d816-4b31-a195-e95f82d98f92",
   "versionId": "bacbe97a-436c-43fb-8414-54821f322ee6",
-  "preferenceRuntimeActivated": false
+  "preferenceRuntimeActivated": false,
+  "reconciledActive": {
+    "source": "c0a49cd7c0942809aa19608e487c350a64624292",
+    "run": 41946577622,
+    "job": 126980181530,
+    "workflow": ".github/workflows/compare-generic-auth-release.yml",
+    "genericSource": "85f00097c01729c86451ff2107e93136ef767e85",
+    "deploymentId": "41f6bd47-afa2-411b-9f08-6da3d81d012e",
+    "versionId": "8f4f184e-b704-4ede-b2a6-8208c08b1935",
+    "bundleSha256": "c970ee27538562ea38b89f04680f4448ddbc7d90c1bea573dc2828374729eb3b",
+    "preferenceFlag": "absent"
+  }
 }

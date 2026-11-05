@@ -22,14 +22,14 @@
     ]
   },
   "activeReadback": {
-    "run": 41828657387,
-    "job": 126571763866,
-    "deploymentId": "c33c9b9c-d816-4b31-a195-e95f82d98f92",
-    "versionId": "bacbe97a-436c-43fb-8414-54821f322ee6",
+    "run": 41946577622,
+    "job": 126980181530,
+    "deploymentId": "41f6bd47-afa2-411b-9f08-6da3d81d012e",
+    "versionId": "8f4f184e-b704-4ede-b2a6-8208c08b1935",
     "trafficPercent": 100,
     "preferenceSyncEnabled": false
   },
-  "sourceAssociation": "Successful historical main release log records the same source SHA, current main SHA, uploaded auth worker and exact version observed in current Cloudflare readback",
+  "sourceAssociation": "Original accepted auth release retained; current provider code independently rebuilt and matched byte for byte after a later generic release.",
   "historicalSource": {
     "serviceApplicationPath": "cloudflare/workers/src/service-application.ts",
     "accountPreferencesImported": false,
@@ -51,5 +51,23 @@
     "run": 41828657387,
     "job": 126571763866,
     "sourceAssociation": "Successful auth candidate CI and independent provider deployment, binding, schedule, health and disabled-preference checks."
+  },
+  "historicalAcceptedReadback": {
+    "run": 41828657387,
+    "job": 126571763866,
+    "deploymentId": "c33c9b9c-d816-4b31-a195-e95f82d98f92",
+    "versionId": "bacbe97a-436c-43fb-8414-54821f322ee6",
+    "trafficPercent": 100,
+    "preferenceSyncEnabled": false
+  },
+  "reconciledActive": {
+    "comparisonRun": 41946577622,
+    "comparisonJob": 126980181530,
+    "comparisonSource": "c0a49cd7c0942809aa19608e487c350a64624292",
+    "genericReleaseRun": 41916019404,
+    "genericSource": "85f00097c01729c86451ff2107e93136ef767e85",
+    "bundleSha256": "c970ee27538562ea38b89f04680f4448ddbc7d90c1bea573dc2828374729eb3b",
+    "providerWrites": 0,
+    "humanApproved": false
   }
 }
