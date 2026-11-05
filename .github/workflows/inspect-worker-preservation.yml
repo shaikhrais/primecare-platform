@@ -8,6 +8,7 @@ on:
       - .github/workflows/inspect-worker-preservation.yml
       - scripts/check-generic-worker-deploy.mjs
       - scripts/generate-cloudflare-worker-config.mjs
+      - scripts/describe-worker-preservation.mjs
 
 permissions:
   contents: read
@@ -29,6 +30,8 @@ jobs:
         run: |
           node scripts/generate-cloudflare-worker-config.mjs
           node --test scripts/test-generic-worker-deploy.mjs
+      - name: Summarize non-secret live settings
+        run: node scripts/describe-worker-preservation.mjs
       - name: Compare each live Worker without making changes
         shell: bash
         run: |
