@@ -18,172 +18,172 @@
     "line": 125,
     "constructor": "ShellRoute",
     "class": "<nested route container>",
-    "digest": "d619ac5da18c8ef842fb515e4e1642210f036477a09f3ffd5c9adac2720144d5"
+    "digest": "e928ee7d6a40c6b47818e382f669ee983c8086f8440747b56d2117ef6434387d"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 170,
+    "line": 171,
     "constructor": "GoRoute",
     "class": "AdminScreenHealthScreen",
     "digest": "f151209e043463cb903f9efba86f8017ee4c3bb317d885cc5a024af8ad3fc7cd"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 171,
+    "line": 172,
     "constructor": "GoRoute",
     "class": "AdminRealityCheckScreen",
     "digest": "18fdcee5aae9604c789aa6925acc79ddf1da2f24f7e51ecbbc89764b944d7b8a"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 172,
+    "line": 173,
     "constructor": "GoRoute",
     "class": "AdminRoleCarouselScreen",
     "digest": "30d62c71cadfa4ca9d2fee76ef8246bba2cbb02bf01f11f8875f80bd055c4707"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 173,
+    "line": 174,
     "constructor": "GoRoute",
     "class": "AdminScreenshotGalleryScreen",
     "digest": "a575283489340764b2cdebf19f6f55a0e7f68df27b1c93de1be11cdbdbf745d9"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 174,
+    "line": 175,
     "constructor": "GoRoute",
     "class": "AuditDashboardScreen",
     "digest": "8e1c76a9951d1ed8df2f8f3840f7f994e93e2c4d03efd250c5b0c2c3db39a0d2"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 175,
+    "line": 176,
     "constructor": "GoRoute",
     "class": "ComplianceReviewsScreen",
     "digest": "fc915b73a117a4e2dfa3db7d147caf4578d183594d4792a2711556f8f1b462f1"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 176,
+    "line": 177,
     "constructor": "GoRoute",
     "class": "IncidentReportsScreen",
     "digest": "3a0cb9301437aff91a7edd5fd31750c1cb8586922d9742dbd789185e463453b7"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 177,
+    "line": 178,
     "constructor": "GoRoute",
     "class": "QualityMetricsScreen",
     "digest": "df07c1301e5b2d39beecdebacf83c12d2bdd9dccf1fbe22f7d3f06a284e532b1"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 178,
+    "line": 179,
     "constructor": "GoRoute",
     "class": "AuditLogScreen",
     "digest": "08e18454f22c351ed4aacd0150bf6e68b3880274a4f71b4edab2fdc3b02a3db9"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 179,
+    "line": 180,
     "constructor": "GoRoute",
     "class": "MonitoringScreen",
     "digest": "525b6ef9e39702b86592157bbdee15c88cdd0bcd09033da484d50c35c32f543b"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 180,
+    "line": 181,
     "constructor": "GoRoute",
     "class": "TicketCenterScreen",
     "digest": "5facd816822f9e1c01e7572074ca2ee328d6344124eb3aaf8e8a33ce90ae6ece"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 181,
+    "line": 182,
     "constructor": "GoRoute",
     "class": "ScreenStatusScreen",
     "digest": "b726b72f9d9e18667c154c3d74209d790a1492c70b8a5f0c8dade16701c21428"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 182,
+    "line": 183,
     "constructor": "GoRoute",
     "class": "SecurityHubScreen",
     "digest": "30f8e12c2556ab0eff610f3237e4c67a69ed29b18b09bc4a5d037d37000ef3c5"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 183,
+    "line": 184,
     "constructor": "GoRoute",
     "class": "SecuritySentinelScreen",
     "digest": "d071098b817ea45248f77855da48054593567d26fc5f3edd3e1d5905d7c07303"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 184,
+    "line": 185,
     "constructor": "GoRoute",
     "class": "VerificationCenterScreen",
     "digest": "6a4facb9f2579635579350dcbb2ce09a56650f739356a2306d9d99f15889fad6"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 185,
+    "line": 186,
     "constructor": "GoRoute",
     "class": "ClinicalReferenceScreen",
     "digest": "47418492f3035099031e3df60b4493a2a9b594ddddd677f181acce3f2f1c6ca4"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 188,
+    "line": 189,
     "constructor": "GoRoute",
     "class": "GrowthPipelineScreen",
     "digest": "0591d0c09e73526e63d9790f6b3e390b1eef74dff5c2037d10c4be90dd8cd0a8"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 189,
+    "line": 190,
     "constructor": "GoRoute",
     "class": "RegionalPerformanceScreen",
     "digest": "cc6be0864b24169d1706a1dae2acfb7159a3df9f477455d635343774b4fc6937"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 190,
+    "line": 191,
     "constructor": "GoRoute",
     "class": "LeadershipReportsScreen",
     "digest": "3da15349232c84b504e9ef65d0b65dfef12f5f859a61752a3d09ae990b45f994"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 191,
+    "line": 192,
     "constructor": "GoRoute",
     "class": "GovernanceHudScreen",
     "digest": "2ce7524da4d46c39dab9a11ecef51c3321356656282baf53540853f0d9686dde"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 192,
+    "line": 193,
     "constructor": "GoRoute",
     "class": "ControlCenterScreen",
     "digest": "fdedb57d2892e553da294e5ae27251ba3da86e2c7a94f5b613d82af95531e2a4"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 193,
+    "line": 194,
     "constructor": "GoRoute",
     "class": "ProposalsScreen",
     "digest": "41fd256c7b1781308738532199c9180beb459c0e0363b3eb2e22e0a7942baf06"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 199,
+    "line": 200,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "0e56486e4e1328b6aab481a16e80df8fb4543c22c6c99111c340067840a3e466"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
-    "line": 210,
+    "line": 211,
     "constructor": "GoRoute",
     "class": "<dynamic or nested builder>",
     "digest": "a0c8b858212be6ba6f74dbc948ae21c263625269eea83198205091a90640d81d"

@@ -160,7 +160,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
             body: AppShellBoundary(child: ManagedScreenBoundary(
               manager: screenManager,
-              screenId: matchedLocation,
+              // Use the registered route pattern for parameterized paths.
+              screenId: state.fullPath ?? matchedLocation,
               builder: (_) => child,
             )),
           );

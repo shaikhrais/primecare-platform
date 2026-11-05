@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_core/models/screen.dart';
 import 'package:flutter_core/flutter_core.dart'
     show ManagedScreenBoundary, ManagedScreenRegistration, ScreenManager;
@@ -55,6 +56,22 @@ void main() {
     ))));
     expect(tester.takeException().toString(), contains('custom manager'));
     expect(built, isFalse);
+  });
+
+  testWidgets('registered route pattern handles a concrete parameter', (tester) async {
+    final manager = ScreenManager([const ManagedScreenRegistration(id: '/clients/:id')]);
+    final router = GoRouter(initialLocation: '/clients/123', routes: [ShellRoute(
+      builder: (context, state, child) => AppShellBoundary(child: ManagedScreenBoundary(
+        manager: manager, screenId: state.fullPath ?? state.matchedLocation,
+        builder: (_) => child,
+      )),
+      routes: [GoRoute(path: '/clients/:id', builder: (_, state) => Text('Client ${state.pathParameters['id']}'))],
+    )]);
+    addTearDown(router.dispose);
+    await tester.pumpWidget(MaterialApp.router(routerConfig: router));
+    await tester.pumpAndSettle();
+    expect(find.text('Client 123'), findsOneWidget);
+    expect(tester.takeException(), isNull);
   });
 
   testWidgets('registered screen receives features and inherited updates', (tester) async {
