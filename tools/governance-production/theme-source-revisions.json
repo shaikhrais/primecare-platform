@@ -36,8 +36,12 @@
       "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
       "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
       "verification": {
-        "status": "unverified",
-        "scope": "Source revision recorded; browser lifecycle and concurrent-tab checks pending; no runtime or human approval."
+        "status": "isolated_tested",
+        "workspaceRun": 41939661252,
+        "workspaceJob": 126956898505,
+        "lifecycleRun": 41937613756,
+        "lifecycleJob": 126949958889,
+        "scope": "Isolated browser and database tests for Web Locks theme changes; no runtime activation or human approval. IndexedDB fallback requires its own test."
       },
       "previousRevision": {
         "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",

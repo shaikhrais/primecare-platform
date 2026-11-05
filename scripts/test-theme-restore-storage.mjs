@@ -61,3 +61,9 @@ test('competing restore copies use the same account lock',async(t)=>{
  const result=await Promise.allSettled([withThemeLibraryLock(key,()=>storeRestoreCopy(storage,key,document,ids[0])),withThemeLibraryLock(key,()=>storeRestoreCopy(storage,key,document,ids[1]))]);
  assert.equal(result[0].status,'fulfilled');assert.equal(result[1].status,'rejected');assert.equal(restoreCopyKeys(storage,key).length,1);
 });
+test('missing browser locking primitives fail closed',async(t)=>{
+ const priorNav=Object.getOwnPropertyDescriptor(globalThis,'navigator'),priorIdb=Object.getOwnPropertyDescriptor(globalThis,'indexedDB');
+ Object.defineProperty(globalThis,'navigator',{configurable:true,value:{}});Object.defineProperty(globalThis,'indexedDB',{configurable:true,value:undefined});
+ t.after(()=>{if(priorNav)Object.defineProperty(globalThis,'navigator',priorNav);else delete globalThis.navigator;if(priorIdb)Object.defineProperty(globalThis,'indexedDB',priorIdb);else delete globalThis.indexedDB;});
+ let executed=false;await assert.rejects(withThemeLibraryLock(key,()=>{executed=true;}),/theme_lock_unavailable/);assert.equal(executed,false);
+});

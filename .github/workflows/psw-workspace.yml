@@ -55,6 +55,7 @@ jobs:
           node scripts/test-tenant-workspace-layout.mjs
           node scripts/test-tenant-dashboard-theme-migration.mjs
           node scripts/test-theme-restore-storage.mjs
+          node scripts/test-theme-idb-lock-browser.mjs
           node scripts/test-shell-lifecycle.mjs
           node scripts/test-theme-library-recovery-browser.mjs
       - name: Verify tenant catalogue and HTML preview
