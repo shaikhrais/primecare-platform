@@ -109,7 +109,8 @@ void main() {
   testWidgets('verified account opens training; switching account hides old progress', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(const Scaffold(body:AdminTrainingLauncher()))));await tester.pumpAndSettle();
-    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();
+    await tester.tap(find.text('Detailed training and self-assessment'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount('learner-b');await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-submit')),findsNothing);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount(null);await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-export')),findsNothing);
   });
