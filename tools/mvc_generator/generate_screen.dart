@@ -119,7 +119,6 @@ class ${screenName}Model {
 String _generateControllerContent(String screenName, String snakeCaseName) {
   final lowerCamel = screenName[0].toLowerCase() + screenName.substring(1);
   return '''
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import '${snakeCaseName}_model.dart';
 
@@ -151,10 +150,7 @@ class ${screenName}Controller extends StateNotifier<${screenName}Model> {
 String _generateViewContent(String screenName, String snakeCaseName) {
   final lowerCamel = screenName[0].toLowerCase() + screenName.substring(1);
   return '''
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart';
-import 'package:easy_localization/easy_localization.dart';
 import '${snakeCaseName}_controller.dart';
 
 // Presentation registration is generated centrally; the owning application must wire and authorize the route.
