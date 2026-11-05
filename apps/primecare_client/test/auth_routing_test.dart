@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_client/core/routing/app_router.dart';
+import 'package:primecare_client/core/routing/client_routes.dart';
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -19,6 +20,14 @@ class ClientAuth extends AuthNotifier {
 }
 
 void main() {
+  test('client module routes have explicit presentation registrations', () {
+    for (final module in ClientApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
   testWidgets('client module route is managed while family route stays unavailable', (tester) async {
     final container = ProviderContainer(overrides: [authProvider.overrideWith(ClientAuth.new)]);
     addTearDown(container.dispose);

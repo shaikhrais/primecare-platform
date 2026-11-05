@@ -5,6 +5,7 @@ import '../features/auth/generated_managed_routes.g.dart';
 import '../features/platform/platform_master_catalog.g.dart';
 import '../features/workspace/workspace_routes_generated.dart';
 import '../theme/prime_theme.dart';
+import 'module_screen_registrations.dart';
 
 /// Shared presentation registrations. Authentication and permission decisions
 /// remain with the existing routers and services.
@@ -31,7 +32,8 @@ final ScreenManager primeCareScreenManager = ScreenManager([
   ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
 ], connections: {
   'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,
-}).withAdditionalRoutes(generatedManagedScreenRoutes);
+}).withAdditionalRoutes(moduleScreenRegistrations)
+  .withAdditionalRoutes(generatedManagedScreenRoutes);
 
 /// Adapter for an already-authorized standalone route or navigator page.
 Widget managedPrimeCarePage(String id, WidgetBuilder builder) => AppShellBoundary(

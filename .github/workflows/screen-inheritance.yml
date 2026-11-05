@@ -19,6 +19,7 @@ on:
       - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
       - packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart
+      - packages/primecare_ui/lib/src/screens/module_screen_registrations.dart
       - packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart
       - packages/primecare_ui/lib/src/routes/shared_routes.dart
       - packages/primecare_ui/lib/src/components/prime_components.dart
@@ -73,3 +74,7 @@ jobs:
         working-directory: packages/primecare_ui
       - run: flutter test test/governed_workspace_session_test.dart
         working-directory: packages/primecare_ui
+      - run: flutter pub get
+        working-directory: apps/primecare_client
+      - run: flutter test test/auth_routing_test.dart
+        working-directory: apps/primecare_client

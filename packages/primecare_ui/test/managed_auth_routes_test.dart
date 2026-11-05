@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:flutter_core/models/screen.dart';
 import 'package:flutter_core/models/screen_manager.dart';
+import 'package:flutter_core/registry/platform_screen_registry.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_catalog.g.dart';
@@ -34,6 +35,20 @@ void main() {
     for (final paths in governedWorkspaceRoleRoutes.values) {
       for (final path in paths) {
         expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
+      }
+    }
+  });
+
+  test('module routes use independent registrations', () {
+    expect(primeCareScreenManager.lookup('/offices/client/roles/client/book-appointment'), isNotNull);
+    expect(primeCareScreenManager.lookup('/not-registered-module-route'), isNull);
+  });
+
+  test('dynamic platform registry paths have presentation registrations', () {
+    for (final screen in PlatformScreenRegistry.screens.values) {
+      if (screen.routePath.isNotEmpty) {
+        expect(primeCareScreenManager.lookup(screen.routePath), isNotNull,
+          reason: '${screen.id}: ${screen.routePath}');
       }
     }
   });

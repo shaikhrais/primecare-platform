@@ -53,9 +53,9 @@ class SharedAuthRouter {
       navigation.navigatorKey = GlobalKey<NavigatorState>();
     }
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
-    final screenManager = SharedAuthRoutes.screenManager.withAdditionalRoutes(
-      application.modules.expand((module) => module.screens.map((screen) => screen.route)),
-    );
+    // Route metadata does not itself register a screen: the independent
+    // presentation catalog must contain the path before its builder can run.
+    final screenManager = SharedAuthRoutes.screenManager;
     final dashboard = auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
