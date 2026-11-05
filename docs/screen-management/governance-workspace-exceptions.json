@@ -1,9 +1,37 @@
 [
-  {"route":"/admin/reality-check","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/admin/role-screen-carousel","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/admin/screenshot-gallery","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/generated/corporate/ceo/growth-pipeline","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/generated/corporate/ceo/region-performance","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/generated/corporate/ceo/leadership-reports","reason":"No exact server workspace screen mapping","next":"Establish authoritative grants and test access."},
-  {"route":"/governance/placeholder","reason":"Fallback rather than a business screen","next":"Review fallback behavior when the route guard is implemented."}
+  {
+    "route": "/admin/reality-check",
+    "reason": "No exact server workspace screen mapping",
+    "next": "Establish authoritative grants and test access."
+  },
+  {
+    "route": "/admin/role-screen-carousel",
+    "reason": "No exact server workspace screen mapping",
+    "next": "Establish authoritative grants and test access."
+  },
+  {
+    "route": "/admin/screenshot-gallery",
+    "reason": "No exact server workspace screen mapping",
+    "next": "Establish authoritative grants and test access."
+  },
+  {
+    "route": "/generated/corporate/ceo/growth-pipeline",
+    "reason": "No exact mapping; ceo_growth_pipeline is CEO-scoped while similarly named generated growth_pipeline grants guest access.",
+    "next": "Resolve intended screen identity and authoritative grants; do not infer an alias from names."
+  },
+  {
+    "route": "/generated/corporate/ceo/region-performance",
+    "reason": "No exact mapping; ceo_region_performance is CEO-scoped while similarly named generated regional_performance grants guest access.",
+    "next": "Resolve intended screen identity and authoritative grants; do not infer an alias from names."
+  },
+  {
+    "route": "/generated/corporate/ceo/leadership-reports",
+    "reason": "No exact mapping; ceo_leadership_reports is CEO-scoped while similarly named generated leadership_reports grants guest access.",
+    "next": "Resolve intended screen identity and authoritative grants; do not infer an alias from names."
+  },
+  {
+    "route": "/governance/placeholder",
+    "reason": "Fallback rather than a business screen",
+    "next": "Review fallback behavior when the route guard is implemented."
+  }
 ]
