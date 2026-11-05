@@ -74,6 +74,8 @@ jobs:
         working-directory: packages/primecare_ui
       - run: flutter test test/governed_workspace_session_test.dart
         working-directory: packages/primecare_ui
+      - run: flutter test test/getting_started_guide_test.dart
+        working-directory: packages/primecare_ui
       - run: flutter pub get
         working-directory: apps/primecare_client
       - run: flutter test test/auth_routing_test.dart
