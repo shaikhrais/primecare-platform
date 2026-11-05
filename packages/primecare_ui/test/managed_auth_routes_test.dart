@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_catalog.g.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
+import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/routes/shared_routes.dart';
 
@@ -142,5 +143,31 @@ void main() {
     }
     expect(retries, 3);
     expect(tester.takeException(), isNull);
+  });
+
+  testWidgets('managed dashboard shared labels follow locale', (tester) async {
+    Widget app(String language) => PrimeTheme(data: const PrimeThemeData(), child: MaterialApp(
+      locale: Locale(language), supportedLocales: const [Locale('en'), Locale('fr'), Locale('es')],
+      localizationsDelegates: const [GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate, GlobalCupertinoLocalizations.delegate],
+      home: SharedAuthRoutes.managedPage('/login', (_) => const Scaffold(
+        body: SingleChildScrollView(child: Column(children: [
+          GovDashboardHero(title: 'Title', roleName: 'Role', description: 'Description'),
+          GovMetricCard(title: 'Metric', value: '42', trendLabel: 'Stable', progress: .5,
+            icon: Icons.analytics, brandColor: Colors.teal),
+        ])),
+      )),
+    ));
+    for (final row in [
+      ('en', 'ACTIVE & SECURE', 'Utilization'),
+      ('fr', 'ACTIF ET SÉCURISÉ', 'Utilisation'),
+      ('es', 'ACTIVO Y SEGURO', 'Utilización'),
+    ]) {
+      await tester.pumpWidget(app(row.$1));
+      await tester.pumpAndSettle();
+      expect(find.text(row.$2), findsOneWidget);
+      expect(find.text(row.$3), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    }
   });
 }

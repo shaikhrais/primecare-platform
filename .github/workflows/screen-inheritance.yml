@@ -20,6 +20,7 @@ on:
       - packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart
       - packages/primecare_ui/lib/src/routes/shared_routes.dart
       - packages/primecare_ui/lib/src/components/prime_components.dart
+      - packages/primecare_ui/lib/src/components/governance_components.dart
       - packages/primecare_ui/lib/src/localization/shared_control_text.dart
       - apps/primecare_clinic/lib/core/routing/app_router.dart
       - packages/primecare_ui/test/managed_auth_routes_test.dart

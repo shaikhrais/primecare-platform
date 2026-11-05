@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: [Component] - GovDashboardHero A premium header card with a gradient, role title, and security status.
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
+import '../localization/shared_control_text.dart';
 
 /// [Component] - GovDashboardHero
 /// A premium header card with a gradient, role title, and security status.
@@ -110,7 +111,7 @@ class GovDashboardHero extends StatelessWidget {
                             ),
                             const SizedBox(width: 6),
                             Flexible(child: Text(
-                              'ACTIVE & SECURE',
+                              sharedControlText(context, 'active_secure'),
                               style: theme.typography.bodySmall.copyWith(
                                 color: success,
                                 fontWeight: FontWeight.w700,
@@ -290,7 +291,7 @@ class GovMetricCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Flexible(child: Text(
-                            'Utilization',
+                            sharedControlText(context, 'utilization'),
                             style: theme.typography.bodySmall.copyWith(
                               color: theme.colors.outline,
                               fontSize: theme.scaleFont(10),
