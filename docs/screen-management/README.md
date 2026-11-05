@@ -46,9 +46,10 @@ It can miss indirect or generated routes and can match comments or strings; it
 does not evaluate routing behavior, enforce permissions or prove that existing
 sites are approved. A changed shell can also flag nested routes conservatively.
 
-The current static scan records 51 construction sites in six source files,
-including router containers so changes to their error builders are flagged.
-The following review concerns those source locations only; nested builders,
+The current static scan records 477 construction sites in 18 source files,
+including 426 `PrimeCareScreen` declarations and router containers so changes
+to their error builders are flagged. The following review concerns the six
+primary router and navigator source locations only; module metadata, nested builders,
 indirect registrations and runtime behavior can still escape a textual scan.
 
 | Route source | Current managed entry point | Verification still needed |

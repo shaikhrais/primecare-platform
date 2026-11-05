@@ -41,6 +41,16 @@ class RouteSitesTest(unittest.TestCase):
             self.assertEqual(before['class'], '<nested route container>')
             self.assertNotEqual(before['digest'], after['digest'])
 
+    def test_module_screen_metadata_is_reported(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            file = root / 'apps/example/lib/module.dart'
+            file.parent.mkdir(parents=True)
+            file.write_text("PrimeCareScreen(route: '/a', builder: (c) => const BookingScreen());")
+            row = scanner.scan(root)[0]
+            self.assertEqual(row['constructor'], 'PrimeCareScreen')
+            self.assertEqual(row['class'], 'BookingScreen')
+
 
 if __name__ == '__main__':
     unittest.main()

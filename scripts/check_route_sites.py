@@ -13,7 +13,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = ROOT / 'docs/screen-management/route-sites.json'
-START = re.compile(r'\b(GoRouter|GoRoute|ShellRoute|MaterialPageRoute|CupertinoPageRoute|PageRouteBuilder|ManagedPublicRoute)\s*(?:<[^>\n]+>)?\s*\(')
+START = re.compile(r'\b(GoRouter|GoRoute|ShellRoute|MaterialPageRoute|CupertinoPageRoute|PageRouteBuilder|ManagedPublicRoute|PrimeCareScreen)\s*(?:<[^>\n]+>)?\s*\(')
 TARGET = re.compile(r'=>\s*(?:const\s+)?([A-Z]\w*(?:Screen|View|Page))\s*\(')
 
 
