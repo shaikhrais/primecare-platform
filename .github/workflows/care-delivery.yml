@@ -74,7 +74,7 @@ jobs:
           git diff --exit-code packages/shared/src/care/registry.json cloudflare/workers/src/workspace-registry.json docs/care/openapi.json
       - name: Check care API and website types
         run: |
-          node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
+          node_modules/.bin/tsc --noEmit --allowImportingTsExtensions --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --types @cloudflare/workers-types cloudflare/workers/src/service.ts
           node_modules/.bin/tsc --noEmit --target ES2022 --module ESNext --moduleResolution bundler --resolveJsonModule --esModuleInterop --skipLibCheck --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
       - name: Check care alerts and shared sidebar at responsive breakpoints
         run: node scripts/test-sidebar-content-browser.mjs
