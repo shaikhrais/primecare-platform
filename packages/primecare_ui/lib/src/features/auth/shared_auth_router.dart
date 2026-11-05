@@ -11,6 +11,7 @@ import '../workspace/governed_workspace_screen.dart';
 import '../workspace/workspace_routes_generated.dart';
 import 'auth_experience.dart';
 import 'auth_navigation.dart';
+import 'generated_managed_routes.g.dart';
 import 'language_selection_view.dart';
 import 'forgot_password_view.dart';
 import 'reset_password_view.dart';
@@ -181,7 +182,7 @@ class SharedAuthRoutes {
     ...governedWorkspaceRoutes.keys.map((route) => ManagedScreenRegistration(id: route)),
   ], connections: {
     'PrimeTheme': (context) => context.dependOnInheritedWidgetOfExactType<PrimeTheme>() != null,
-  });
+  }).withAdditionalRoutes(generatedManagedScreenRoutes);
 
   static Widget managedPage(String id, WidgetBuilder builder) => AppShellBoundary(
     child: ManagedScreenBoundary(manager: screenManager, screenId: id, builder: builder),

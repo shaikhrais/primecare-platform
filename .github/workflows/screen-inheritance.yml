@@ -17,6 +17,7 @@ on:
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart
       - packages/primecare_ui/lib/src/routes/shared_routes.dart
       - packages/primecare_ui/lib/src/components/prime_components.dart
       - packages/primecare_ui/lib/src/localization/shared_control_text.dart
