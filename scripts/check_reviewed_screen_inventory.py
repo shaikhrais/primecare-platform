@@ -89,8 +89,8 @@ def summary(rows, manifest):
     lines += [f'| {category} | {count} |' for category, count in sorted(manifest['categories'].items())]
     lines += ['', '## Scope and next actions', '',
         '`inventory.csv` contains each exact file/class, reason, evidence location and next action. '
-        'It combines the initial 38 and three subsequent 100-entry static reviews. '
-        'The three 100-entry batches were the first scanner-ordered identities not in earlier batches.', '',
+        'It combines the initial 38 and four subsequent 100-entry static reviews. '
+        'The four 100-entry batches were the first scanner-ordered identities not in earlier batches.', '',
         'An exact owner-module declaration is **not production dispatch evidence**. '
         'A source-selected route is not proof of authorized access, API connectivity, working actions, '
         'localization, accessibility, or release readiness. Static classification is not tested behavior. '
@@ -101,7 +101,7 @@ def summary(rows, manifest):
         'The three embedded controls and abstract base are not standalone screen migration targets. '
         'Existing router boundaries must be preserved; a direct widget base alone does not prove missing management.', '',
         f"The {counts['module_declared_placeholder']} exact owner-module placeholders need dispatch/authorization investigation and authoritative "
-        f"requirements before implementation. The three 100-entry batches include {contents['false_completion_placeholder']} unsupported completion-text "
+        f"requirements before implementation. The four 100-entry batches include {contents['false_completion_placeholder']} unsupported completion-text "
         f"placeholders and {contents['section_scaffold_with_todo_placeholders']} scaffolds importing TODO sections. Neither is evidence of implemented business behavior.", '',
         '## Reproduce and maintain', '',
         'From the repository root:', '',
@@ -113,10 +113,11 @@ def summary(rows, manifest):
         'It fails closed when reviewed source changes. It does not auto-refresh source hashes or classify new candidates. '
         'After a deliberate source review, update the affected rows and hashes, then use '
         '`python3 scripts/check_reviewed_screen_inventory.py --write-summary` to regenerate this page.', '',
-        'The manifest records original batch commits and refreshed fields. All four classifications were rerun '
+        'The manifest records original batch commits and refreshed fields. All five classifications were rerun '
         'against the recorded source commit: 23 initial-batch rows needed current evidence line numbers; '
-        'the three 100-entry CSVs were unchanged. Hashes cover transitive barrel-resolution inputs too, so unrelated '
+        'the four 100-entry CSVs were unchanged. Hashes cover transitive barrel-resolution inputs too, so unrelated '
         'barrel edits may conservatively require review. Do not blindly rehash to silence the checker.', '',
+        'The Flutter counter-demo entry is separately classified as demo_scaffold; its MaterialApp home declaration is not a production route or implementation approval.', '',
         'The lexical scanner is library-only and can miss indirect inheritance or alternative naming. '
         'The import review is not a Dart analyzer or runtime route resolver. Test fixtures outside lib trees '
         'are outside the denominator. No completeness, dead-code or production-readiness claim follows.', '',

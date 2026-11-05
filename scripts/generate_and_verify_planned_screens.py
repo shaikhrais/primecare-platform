@@ -24,7 +24,18 @@ def valid_route(route):
 def prepare_route_catalog(project_root, planned_screens, *, check_state_output=True):
     """Validate all routes and output paths before generating any source."""
     root = Path(project_root).resolve()
-    catalog = root / CATALOG_RELATIVE
+    catalog = (root / CATALOG_RELATIVE).resolve()
+    if not catalog.is_relative_to(root):
+        raise ValueError('Generated route catalog is outside the project')
+
+    def check_directory_parents(target):
+        for parent in target.parents:
+            if parent == root:
+                break
+            if parent.exists() and not parent.is_dir():
+                raise ValueError(f'Generated output parent is not a directory: {parent.relative_to(root)}')
+
+    check_directory_parents(catalog)
     content = catalog.read_text(encoding='utf-8') if catalog.exists() else CATALOG_HEADER + '};\n'
     if not content.startswith(CATALOG_HEADER) or not content.endswith('};\n'):
         raise ValueError('Generated route catalog has an unexpected format')
@@ -34,6 +45,9 @@ def prepare_route_catalog(project_root, planned_screens, *, check_state_output=T
         if not match or not valid_route(match.group(1)) or match.group(1) in entries:
             raise ValueError('Generated route catalog has invalid or duplicate entries')
         entries.add(match.group(1))
+    # Reserve all emitted files before any writes. Distinct routes may still
+    # resolve to one source file, or to another screen's extracted state file.
+    outputs = {catalog}
     for screen in planned_screens:
         route = screen['route_path'] or ''
         if not valid_route(route):
@@ -41,12 +55,30 @@ def prepare_route_catalog(project_root, planned_screens, *, check_state_output=T
         if route in entries:
             raise ValueError(f'Duplicate generated route: {route}')
         entries.add(route)
-        output = (root / screen['expected_file_path']).resolve()
+        source_path = root / screen['expected_file_path']
+        output = source_path.resolve()
         if not output.is_relative_to(root) or output.exists():
             raise ValueError(f"Unsafe or existing output: {screen['expected_file_path']}")
-        model = root / 'packages/primecare_models/lib/src/generated_screen_states' / output.relative_to(root)
-        if check_state_output and model.exists():
-            raise ValueError(f'Generated state already exists: {model.relative_to(root)}')
+        targets = [output]
+        if check_state_output:
+            # Match write_screen_model's source-relative location before
+            # resolving traversal or symlink aliases in the state directory.
+            model = (root / 'packages/primecare_models/lib/src/generated_screen_states'
+                     / source_path.relative_to(root)).resolve()
+            if not model.is_relative_to(root):
+                raise ValueError('Generated state output is outside the project')
+            if model.exists():
+                raise ValueError(f'Generated state already exists: {model.relative_to(root)}')
+            targets.append(model)
+        for target in targets:
+            check_directory_parents(target)
+            if target in outputs:
+                raise ValueError(f'Duplicate generated output: {target.relative_to(root)}')
+            for reserved in outputs:
+                if target.is_relative_to(reserved) or reserved.is_relative_to(target):
+                    raise ValueError('Conflicting generated output paths: '
+                                     f'{target.relative_to(root)} and {reserved.relative_to(root)}')
+            outputs.add(target)
     return catalog, entries
 
 TEMPLATE = """// Governance - Category: view | Purpose: UI Screen component rendering the {screen_name} workspace interface.

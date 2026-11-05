@@ -188,11 +188,21 @@ writes are not one atomic transaction. Run generation against an isolated
 fixture first and review all generated code, registrations and database changes
 before using it with authoritative data.
 
+The two Python generators reserve source, extracted-state and route-catalog
+destinations before writing a batch. Distinct routes or screen codes that map
+to the same file fail preflight, including path aliases and source/state
+collisions. File targets cannot also serve as directories for another output,
+and existing parent paths must be directories. State and catalog paths outside
+the project are rejected. Isolated
+regression tests verify that rejected batches preserve database bytes, exports
+and source files; this is file-generation safety, not workflow verification or
+permission to use historical fixtures as live governance authority.
+
 ## Reviewed subset and remaining work
 
-[Reviewed candidate inventory](reviewed-candidates/README.md) records 338 exact
+[Reviewed candidate inventory](reviewed-candidates/README.md) records 438 exact
 file/class/base identities, source evidence, classification reasons and next
-review actions. Another 1,058 of the 1,396 scanner candidates remain unclassified.
+review actions. Another 958 of the 1,396 scanner candidates remain unclassified.
 Run `python3 scripts/check_reviewed_screen_inventory.py` to verify the reviewed
 source hashes and reproduce the counts. This is static review, not production
 dispatch, behavior testing, migration approval or completion evidence.

@@ -98,6 +98,17 @@ class ReviewedInventoryTests(unittest.TestCase):
         self.assertIn('3 unsupported completion-text', rendered)
         self.assertIn('1 scaffolds importing TODO sections', rendered)
 
+    def test_demo_is_separate_from_module_placeholder(self):
+        self.rows[0]['category'] = 'demo_scaffold'
+        self.rows[0]['binding'] = 'material_app_home_declared_exact'
+        self.rows[0]['content'] = 'flutter_counter_demo'
+        self.manifest['categories'] = {'demo_scaffold': 1}
+        self.assertEqual(self.check(), [])
+        rendered = summary(self.rows, self.manifest)
+        self.assertIn('| demo_scaffold | 1 |', rendered)
+        self.assertIn('0 exact owner-module placeholders', rendered)
+        self.assertIn('not a production route', rendered)
+
     def test_summary_deterministic(self):
         self.assertEqual(summary(self.rows, self.manifest), summary(self.rows, self.manifest))
         self.assertIn('not production dispatch evidence', summary(self.rows, self.manifest))

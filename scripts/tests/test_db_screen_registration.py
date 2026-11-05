@@ -1,4 +1,5 @@
 import importlib.util
+from contextlib import closing
 import sqlite3
 import sys
 import tempfile
@@ -16,7 +17,7 @@ spec.loader.exec_module(generator)
 def fixture(root, duplicate=False):
     database = root / '.agents/governance/governance.db'
     database.parent.mkdir(parents=True)
-    with sqlite3.connect(database) as db:
+    with closing(sqlite3.connect(database)) as db, db:
         db.executescript('''
           CREATE TABLE screens (id INTEGER PRIMARY KEY, screen_code TEXT, screen_name TEXT, route_path TEXT,
             actual_file_path TEXT, app_id INTEGER, role_id INTEGER, active INTEGER,
@@ -53,7 +54,7 @@ class DatabaseScreenRegistrationTest(unittest.TestCase):
                 generator.implement_creative_screens_from_db()
             catalog = root / 'packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart'
             self.assertIn("  '/example',", catalog.read_text())
-            with sqlite3.connect(database) as db:
+            with closing(sqlite3.connect(database)) as db, db:
                 row = db.execute('SELECT actual_file_path, runtime_verified, production_ready FROM screens').fetchone()
             self.assertTrue((root / row[0]).is_file())
             self.assertEqual(row[1:], (0, 0))
@@ -71,7 +72,7 @@ class DatabaseScreenRegistrationTest(unittest.TestCase):
                 generator.implement_creative_screens_from_db()
             self.assertEqual(output.read_text(), '// Generated directly from SQLite Database\nexisting content')
             self.assertFalse((root / 'packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart').exists())
-            with sqlite3.connect(database) as db:
+            with closing(sqlite3.connect(database)) as db, db:
                 self.assertIsNone(db.execute('SELECT actual_file_path FROM screens').fetchone()[0])
 
     def test_duplicate_routes_fail_before_writing_screens(self):
@@ -84,6 +85,24 @@ class DatabaseScreenRegistrationTest(unittest.TestCase):
                     generator.implement_creative_screens_from_db()
             self.assertFalse((root / 'packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart').exists())
             self.assertEqual(list((root / 'packages/primecare_ui/lib/src/features/generated_screens').glob('*.dart')), [])
+
+    def test_distinct_screen_codes_cannot_overwrite_one_output(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            database = fixture(root, duplicate=True)
+            with closing(sqlite3.connect(database)) as db, db:
+                db.execute("UPDATE screens SET screen_code='ExampleOne', route_path='/first' WHERE id=1")
+                db.execute("UPDATE screens SET screen_code='example_one', route_path='/second' WHERE id=2")
+            before = database.read_bytes()
+            handler = MagicMock()
+            with patch.object(generator, '__file__', str(root / 'scripts/implement_screens_from_db.py')), \
+                 patch.object(generator, 'ReportHandler', return_value=handler), \
+                 self.assertRaisesRegex(ValueError, 'Duplicate generated output'):
+                generator.implement_creative_screens_from_db()
+            self.assertEqual(database.read_bytes(), before)
+            self.assertFalse((root / 'packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart').exists())
+            self.assertEqual(list((root / 'packages/primecare_ui/lib/src/features/generated_screens').glob('*.dart')), [])
+            handler.generate_report.assert_not_called()
 
 
 if __name__ == '__main__':
