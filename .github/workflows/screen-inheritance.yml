@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - packages/flutter_core/lib/models/screen.dart
+      - packages/flutter_core/lib/flutter_core.dart
       - packages/flutter_core/lib/models/screen_features.dart
       - packages/flutter_core/lib/models/screen_manager.dart
       - packages/flutter_core/lib/routes/governance_router.dart

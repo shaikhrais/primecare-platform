@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/models/screen.dart';
-import 'package:flutter_core/models/screen_manager.dart';
+import 'package:flutter_core/flutter_core.dart'
+    show ManagedScreenBoundary, ManagedScreenRegistration, ScreenManager;
 
 void main() {
   test('rejects duplicate and empty registration ids', () {
