@@ -120,6 +120,7 @@ String _generateControllerContent(String screenName, String snakeCaseName) {
   final lowerCamel = screenName[0].toLowerCase() + screenName.substring(1);
   return '''
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 import '${snakeCaseName}_model.dart';
 
 final ${lowerCamel}ControllerProvider = StateNotifierProvider<${screenName}Controller, ${screenName}Model>((ref) {

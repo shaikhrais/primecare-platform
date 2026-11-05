@@ -39,6 +39,30 @@ class MvcGeneratorTest(unittest.TestCase):
             self.assertIn("  '/example/booking',", catalog.read_text())
             self.assertIn("  '/example/reports',", catalog.read_text())
 
+    @unittest.skipUnless(shutil.which('dart') and shutil.which('flutter'), 'Flutter SDK unavailable')
+    def test_generated_files_analyze_with_shared_packages(self):
+        with tempfile.TemporaryDirectory() as directory:
+            subprocess.run(['dart', str(GENERATOR), 'example', 'Booking'], cwd=directory,
+                           capture_output=True, text=True, check=True)
+            ui_package = GENERATOR.parents[2] / 'packages/primecare_ui'
+            Path(directory, 'pubspec.yaml').write_text(
+                "name: generated_fixture\n"
+                "environment:\n  sdk: ^3.11.3\n"
+                "dependencies:\n"
+                "  flutter:\n    sdk: flutter\n"
+                f"  primecare_ui:\n    path: {ui_package}\n"
+                "  flutter_riverpod: ^3.3.1\n"
+                "  easy_localization: ^3.0.8\n"
+            )
+            resolve = subprocess.run(['flutter', 'pub', 'get'], cwd=directory,
+                                     capture_output=True, text=True)
+            self.assertEqual(resolve.returncode, 0, resolve.stdout + resolve.stderr)
+            analysis = subprocess.run(
+                ['flutter', 'analyze', '--no-fatal-infos', 'apps/example/lib/features/booking'],
+                cwd=directory, capture_output=True, text=True,
+            )
+            self.assertEqual(analysis.returncode, 0, analysis.stdout + analysis.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()
