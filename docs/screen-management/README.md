@@ -106,6 +106,14 @@ direct-widget adapter needs explicit review before applying layout overrides.
 
 ## Known work requiring manual review
 
+`scripts/check_module_screen_registrations.py` compares statically declared
+application `PrimeCareScreen` routes with the independent module catalog. It
+reports the file, line and screen builder class when one can be identified;
+unresolvable route expressions fail for manual review. It is a textual scan,
+not a Dart parser: indirect constructors, dynamic dispatch, builder aliases,
+authorization and actual screen behavior require separate checks. The current
+422 declaration sites pass this check; this is not a count of verified screens.
+
 | Location | Class or generator | Reason and next action |
 | --- | --- | --- |
 | `apps/primecare_governance/lib/core/governance/route_registry.dart` | `appRouterProvider` | The shell has a registration adapter; verify native and dynamic workflows, access behavior and accessibility before release. |
