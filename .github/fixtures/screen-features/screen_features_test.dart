@@ -28,8 +28,8 @@ void main() {
   });
   testWidgets('manager reads inherited language, direction and theme', (tester) async {
     ScreenInheritanceManager? observed;
-    await tester.pumpWidget(MaterialApp(locale: const Locale('fr'), supportedLocales: const [Locale('en'), Locale('fr')], theme: ThemeData(colorSchemeSeed: Colors.teal), home: Builder(builder: (context) { observed = ScreenInheritanceManager.of(context); return const SizedBox(); })));
-    expect(observed!.locale.languageCode, 'fr');
+    await tester.pumpWidget(MaterialApp(locale: const Locale('en', 'CA'), supportedLocales: const [Locale('en', 'CA')], theme: ThemeData(colorSchemeSeed: Colors.teal), home: Builder(builder: (context) { observed = ScreenInheritanceManager.of(context); return const SizedBox(); })));
+    expect(observed!.locale, const Locale('en', 'CA'));
     expect(observed!.direction, TextDirection.ltr);
     expect(observed!.theme.colorScheme, isNotNull);
   });
