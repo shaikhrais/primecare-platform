@@ -3,10 +3,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:flutter_core/models/screen.dart';
+import 'package:flutter_core/models/screen_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_catalog.g.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
+import 'package:primecare_ui/src/routes/shared_routes.dart';
 
 void main() {
   test('all rendered shared authentication routes have registrations', () {
@@ -15,6 +18,7 @@ void main() {
       '/language', '/auth/error', '/auth/callback', '/common/settings', '/consent', '/success',
       '/internal/training/guide', '/internal/training/detail',
       '/internal/unauthorized-fallback', '/internal/access-denied',
+      '/admin/screenshot-inventory',
     ]) {
       expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
     }
@@ -28,6 +32,24 @@ void main() {
         expect(SharedAuthRoutes.screenManager.lookup(path), isNotNull, reason: path);
       }
     }
+  });
+
+  testWidgets('shared screenshot route uses its registered adapter', (tester) async {
+    final router = GoRouter(routes: sharedCommonRoutes, initialLocation: '/admin/screenshot-inventory');
+    addTearDown(router.dispose);
+    late BuildContext context;
+    await tester.pumpWidget(MaterialApp(home: Builder(builder: (value) {
+      context = value;
+      return const SizedBox();
+    })));
+    final route = sharedCommonRoutes.whereType<GoRoute>().single;
+    final state = GoRouterState(router.configuration,
+      uri: Uri.parse(route.path), matchedLocation: route.path,
+      fullPath: route.path, pathParameters: const {}, pageKey: const ValueKey('inventory'));
+    final shell = route.builder!(context, state) as AppShellBoundary;
+    final boundary = shell.child as ManagedScreenBoundary;
+    expect(boundary.screenId, '/admin/screenshot-inventory');
+    expect(boundary.manager.lookup(boundary.screenId), isNotNull);
   });
 
   testWidgets('adapter preserves application feature settings', (tester) async {
