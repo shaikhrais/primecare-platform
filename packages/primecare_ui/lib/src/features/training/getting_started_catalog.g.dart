@@ -83,3 +83,146 @@ const gettingStartedSteps = <Map<String, dynamic>>[
     ]
   }
 ];
+
+const gettingStartedTranslations = <String, List<Map<String, dynamic>>>{
+  "fr": [
+    {
+      "title": "Bienvenue dans votre espace de travail",
+      "body": "Après votre connexion, ouvrez votre tableau de bord. La formation explique le système ; elle n’est pas une première tâche obligatoire. Utilisez le menu de gauche pour passer d’un espace de travail à l’autre.",
+      "check": "Repérez le menu principal et le lien Compte.",
+      "domains": []
+    },
+    {
+      "title": "Organisation et locataires",
+      "body": "Une organisation est l’entreprise pour laquelle vous travaillez. PrimeCare utilise un locataire pour séparer les dossiers de chaque organisation. Un locataire principal peut regrouper des locataires liés ; cela ne partage pas leurs dossiers privés. Choisissez le bon locataire avant de modifier des dossiers.",
+      "check": "Vérifiez le nom du locataire avant de commencer.",
+      "domains": [
+        "Organisation / locataire : identité de l’entreprise et ses propres dossiers",
+        "Emplacements / territoires : lieux où l’entreprise exerce ses activités",
+        "Utilisateurs et rôles : personnes qui travaillent ici et accès de chacune"
+      ]
+    },
+    {
+      "title": "Personnes et accès",
+      "body": "Les comptes sont des identités de connexion. Un rôle détermine les tâches autorisées. Un client reçoit des services ; un prestataire ou un membre du personnel les fournit ou les soutient. Ce sont des responsabilités différentes.",
+      "check": "Identifiez votre rôle. Demandez à votre administrateur si un menu attendu est absent.",
+      "domains": [
+        "Clients : personnes recevant des services",
+        "Personnel et prestataires : personnes qui fournissent et soutiennent les soins",
+        "Administrateurs : personnes qui gèrent l’organisation et les accès"
+      ]
+    },
+    {
+      "title": "Services et travail quotidien",
+      "body": "Les services décrivent ce que propose l’organisation. Les rendez-vous ou visites relient un client, un prestataire admissible, un service et une heure. Seuls les écrans disponibles et autorisés peuvent enregistrer des modifications.",
+      "check": "Ouvrez un espace de travail disponible dans votre menu ; lisez ses instructions avant d’enregistrer.",
+      "domains": [
+        "Catalogue de services et planification",
+        "Plans de soins, visites et notes de service",
+        "Opérations, tâches et suivis"
+      ]
+    },
+    {
+      "title": "Appels, messages et téléphone du compte",
+      "body": "La vérification du téléphone du compte associe un numéro mobile à votre compte. Saisissez le code SMS dans l’écran du compte. La vérification d’appel est une étape distincte pour un appel connecté particulier. Ne dites pas les codes à l’IA.",
+      "check": "Ouvrez Compte et vérifiez l’état de votre téléphone. Ouvrez Appels seulement si votre rôle le permet.",
+      "domains": [
+        "Appels et accueil",
+        "SMS, courriel et autres canaux configurés",
+        "Vérification et historique des communications"
+      ]
+    },
+    {
+      "title": "Facturation, rapports et audit",
+      "body": "La facturation, les rapports et l’audit sont des espaces distincts. Un total au tableau de bord est un résumé, pas une preuve qu’un paiement ou un service est terminé. Vérifiez les dossiers enregistrés et les autorisations. Certains domaines peuvent ne pas être activés pour votre rôle.",
+      "check": "Repérez Rapports ou Audit s’ils figurent dans votre menu.",
+      "domains": [
+        "Factures, paiements et rapprochement lorsque disponibles",
+        "Rapports d’entreprise et de service",
+        "Historique d’audit et contrôles d’accès"
+      ]
+    },
+    {
+      "title": "Liste de vérification du premier jour",
+      "body": "Commencez par ces petites tâches : ouvrez votre tableau de bord, confirmez votre organisation, vérifiez votre rôle, vérifiez votre téléphone au besoin et trouvez l’espace de travail nécessaire aujourd’hui. Vous pouvez revenir à ce guide à tout moment.",
+      "check": "Utilisez Ouvrir le tableau de bord pour continuer. Les leçons détaillées restent accessibles sous le guide.",
+      "domains": [
+        "1. Ouvrir le tableau de bord",
+        "2. Confirmer l’organisation / le locataire",
+        "3. Vérifier le rôle et les accès",
+        "4. Vérifier le compte et l’état du téléphone",
+        "5. Trouver la tâche du jour"
+      ]
+    }
+  ],
+  "es": [
+    {
+      "title": "Bienvenido a tu espacio de trabajo",
+      "body": "Después de iniciar sesión, abre tu panel. La formación explica el sistema; no es una primera tarea obligatoria. Usa el menú de la izquierda para cambiar de área de trabajo.",
+      "check": "Busca el menú principal y el enlace Cuenta.",
+      "domains": []
+    },
+    {
+      "title": "Organización y entidades",
+      "body": "Una organización es la empresa para la que trabajas. PrimeCare usa una entidad para mantener separados los registros de cada organización. Una entidad principal puede agrupar entidades relacionadas; eso no comparte sus registros privados. Selecciona la entidad correcta antes de modificar registros.",
+      "check": "Comprueba el nombre de la entidad antes de empezar.",
+      "domains": [
+        "Organización / entidad: identidad de la empresa y sus propios registros",
+        "Ubicaciones / territorios: dónde opera la empresa",
+        "Usuarios y roles: quién trabaja aquí y a qué puede acceder cada persona"
+      ]
+    },
+    {
+      "title": "Personas y acceso",
+      "body": "Las cuentas son identidades para iniciar sesión. Un rol controla las tareas permitidas. Un cliente recibe servicios; un proveedor o miembro del personal los presta o apoya. Son responsabilidades diferentes.",
+      "check": "Identifica tu rol. Pregunta a tu administrador si falta un menú que esperabas ver.",
+      "domains": [
+        "Clientes: personas que reciben servicios",
+        "Personal y proveedores: personas que prestan y apoyan la atención",
+        "Administradores: personas que gestionan la organización y el acceso"
+      ]
+    },
+    {
+      "title": "Servicios y trabajo diario",
+      "body": "Los servicios describen lo que ofrece la organización. Las citas o visitas conectan a un cliente, un proveedor elegible, un servicio y una hora. Solo las pantallas disponibles y autorizadas pueden guardar cambios.",
+      "check": "Abre un área de trabajo disponible desde el menú; revisa sus instrucciones antes de guardar.",
+      "domains": [
+        "Catálogo de servicios y programación",
+        "Planes de atención, visitas y notas de servicio",
+        "Operaciones, tareas y seguimientos"
+      ]
+    },
+    {
+      "title": "Llamadas, mensajes y teléfono de la cuenta",
+      "body": "La verificación del teléfono de la cuenta vincula un número móvil a tu cuenta. Introduce el código SMS en la pantalla de la cuenta. La verificación de llamadas es un paso distinto para una llamada conectada específica. No digas los códigos a la IA.",
+      "check": "Abre Cuenta y comprueba el estado del teléfono. Abre Llamadas solo si tu rol lo permite.",
+      "domains": [
+        "Llamadas y recepción",
+        "SMS, correo y otros canales configurados",
+        "Verificación e historial de comunicaciones"
+      ]
+    },
+    {
+      "title": "Facturación, informes y auditoría",
+      "body": "La facturación, los informes y la auditoría son áreas distintas. Un total del panel es un resumen, no una prueba de que un pago o servicio se haya completado. Revisa los registros guardados y los permisos. Algunas áreas pueden no estar habilitadas para tu rol.",
+      "check": "Busca Informes o Auditoría si aparecen en tu menú.",
+      "domains": [
+        "Facturas, pagos y conciliación cuando estén habilitados",
+        "Informes de negocio y servicios",
+        "Historial de auditoría y controles de acceso"
+      ]
+    },
+    {
+      "title": "Lista para tu primer día",
+      "body": "Empieza con estas tareas pequeñas: abre tu panel, confirma tu organización, revisa tu rol, verifica tu teléfono si es necesario y encuentra el área de trabajo que necesitas hoy. Puedes volver a esta guía en cualquier momento.",
+      "check": "Usa Abrir panel para continuar. Las lecciones detalladas siguen disponibles debajo de la guía.",
+      "domains": [
+        "1. Abrir panel",
+        "2. Confirmar organización / entidad",
+        "3. Revisar rol y acceso",
+        "4. Revisar la cuenta y el estado del teléfono",
+        "5. Buscar la tarea de hoy"
+      ]
+    }
+  ]
+};

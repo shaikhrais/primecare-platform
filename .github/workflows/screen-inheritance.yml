@@ -18,6 +18,10 @@ on:
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/theme/prime_theme.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - packages/primecare_ui/lib/src/features/training/getting_started_guide.dart
+      - packages/primecare_ui/lib/src/features/training/getting_started_catalog.g.dart
+      - packages/primecare_ui/test/getting_started_guide_test.dart
+      - packages/shared/src/getting-started-guide-i18n.json
       - packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart
       - packages/primecare_ui/lib/src/screens/module_screen_registrations.dart
       - packages/primecare_ui/lib/src/screens/workspace_screen_registrations.dart

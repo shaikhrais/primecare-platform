@@ -30,14 +30,19 @@ class _GettingStartedGuideState extends State<GettingStartedGuide>{
   void dispose(){scroll.dispose();super.dispose();}
   @override
   Widget build(BuildContext context){
-    final item=gettingStartedSteps[step];
+    final original=gettingStartedSteps[step];
+    final language=Localizations.localeOf(context).languageCode;
+    final item=gettingStartedTranslations[language]?[step] ?? original;
+    String lessonText(String field, String fallback) => liveScreenText(context,
+      'getting_started_guide',language,'step_${step+1}_$field',fallback);
+    final domains=item['domains'] as List;
     return Scaffold(appBar:AppBar(title:Text(_guideLabel(context,'title'))),bottomNavigationBar:SafeArea(child:Padding(padding:const EdgeInsets.all(16),child:Row(children:[OutlinedButton(onPressed:step==0?null:()=>move(step-1),child:Text(_guideLabel(context,'back'))),const Spacer(),FilledButton(onPressed:step==gettingStartedSteps.length-1?null:()=>move(step+1),child:Text(_guideLabel(context,'next')))]))),body:ListView(controller:scroll,padding:const EdgeInsets.all(24),children:[
       Text(_guideLabel(context,'step',args:{'current':'${step+1}','total':'${gettingStartedSteps.length}'}),style:Theme.of(context).textTheme.labelLarge),
-      const SizedBox(height:12),Text(item['title'] as String,style:Theme.of(context).textTheme.headlineSmall),
-      const SizedBox(height:16),Text(item['body'] as String),
-      const SizedBox(height:16),for(final domain in item['domains'] as List)Padding(padding:const EdgeInsets.only(bottom:8),child:Text('• $domain')),
-      Card(child:Padding(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(_guideLabel(context,'try'),style:const TextStyle(fontWeight:FontWeight.bold)),const SizedBox(height:8),Text(item['check'] as String)]))),
-      const SizedBox(height:16),Image.network('https://primecare-clinic.pages.dev${item['image']}',height:260,fit:BoxFit.contain,semanticLabel:_guideLabel(context,'image_label'),errorBuilder:(_,__,___)=>Text(_guideLabel(context,'image_unavailable'))),
+      const SizedBox(height:12),Text(lessonText('title',item['title'] as String),style:Theme.of(context).textTheme.headlineSmall),
+      const SizedBox(height:16),Text(lessonText('body',item['body'] as String)),
+      const SizedBox(height:16),for(var i=0;i<domains.length;i++)Padding(padding:const EdgeInsets.only(bottom:8),child:Text('• ${lessonText('domain_$i',domains[i] as String)}')),
+      Card(child:Padding(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[Text(_guideLabel(context,'try'),style:const TextStyle(fontWeight:FontWeight.bold)),const SizedBox(height:8),Text(lessonText('check',item['check'] as String))]))),
+      const SizedBox(height:16),Image.network('https://primecare-clinic.pages.dev${original['image']}',height:260,fit:BoxFit.contain,semanticLabel:_guideLabel(context,'image_label'),errorBuilder:(_,__,___)=>Text(_guideLabel(context,'image_unavailable'))),
       const SizedBox(height:8),Text(_guideLabel(context,'image_notice')),const SizedBox(height:20),
       
       const SizedBox(height:20),PlatformAdministrationLauncher(label:_guideLabel(context,'dashboard')),

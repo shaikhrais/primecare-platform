@@ -27,10 +27,12 @@ void main(){
   locale.value=const Locale('fr');await tester.pumpAndSettle();
   expect(find.text('Guide de démarrage'),findsOneWidget);
   expect(find.text('Étape 2 sur ${gettingStartedSteps.length}'),findsOneWidget);
+  expect(find.text('Organisation et locataires'),findsOneWidget);
   expect(find.text('Étape suivante'),findsOneWidget);
   locale.value=const Locale('es');await tester.pumpAndSettle();
   expect(find.text('Guía para empezar'),findsOneWidget);
   expect(find.text('Paso 2 de ${gettingStartedSteps.length}'),findsOneWidget);
+  expect(find.text('Organización y entidades'),findsOneWidget);
   expect(find.text('Siguiente paso'),findsOneWidget);
   expect(tester.takeException(),isNull);
  });
