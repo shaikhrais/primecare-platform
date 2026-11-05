@@ -72,6 +72,50 @@ void main() {
     expect(built, isFalse);
   });
 
+  // Supply contexts explicitly so MaterialApp cannot hide a missing dependency.
+  for (final missing in ['layout', 'theme', 'language', 'responsive']) {
+    testWidgets('missing $missing alone blocks a registered builder', (tester) async {
+      var built = false;
+      Widget child = ManagedScreenBoundary(
+        manager: ScreenManager([const ManagedScreenRegistration(id: 'one')]),
+        screenId: 'one',
+        builder: (_) {
+          built = true;
+          return const SizedBox();
+        },
+      );
+      if (missing != 'layout') child = AppShellBoundary(child: child);
+      if (missing != 'theme') child = Theme(data: ThemeData(), child: child);
+      if (missing != 'language') {
+        child = Localizations(
+          locale: const Locale('en'),
+          delegates: const [DefaultWidgetsLocalizations.delegate],
+          child: child,
+        );
+      }
+      if (missing != 'responsive') {
+        child = MediaQuery(data: const MediaQueryData(), child: child);
+      }
+      // View (including pumpWidget's default wrapper) adds MediaQuery.
+      // RawView supplies only the render root, keeping each context explicit.
+      await tester.pumpWidget(
+        RawView(
+          view: tester.view,
+          child: Directionality(
+            textDirection: TextDirection.ltr,
+            child: child,
+          ),
+        ),
+        wrapWithView: false,
+      );
+      expect(
+        tester.takeException().toString(),
+        'Screen Manager: screen "one" is missing required connections: $missing.',
+      );
+      expect(built, isFalse);
+    });
+  }
+
   testWidgets('extended registrations retain required connections', (tester) async {
     var built = false;
     final manager = ScreenManager(

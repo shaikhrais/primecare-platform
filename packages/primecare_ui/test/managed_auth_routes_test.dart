@@ -109,6 +109,42 @@ void main() {
     expect(built, isFalse);
   });
 
+  // Exercise the real catalog after its workspace and module extensions.
+  // These are separate mount checks, not live dependency removal, state
+  // preservation, permission, or workflow tests.
+  for (final route in ['/admin/screen-health', '/admin/create-shift']) {
+    testWidgets('catalog route $route requires PrimeTheme across blocked and connected mounts', (tester) async {
+      var builds = 0;
+      final page = managedPrimeCarePage(route, (_) {
+        builds++;
+        return const SizedBox(key: Key('connected-catalog-page'));
+      });
+      final app = MaterialApp(home: page);
+
+      Future<void> expectBlocked() async {
+        final previousBuilds = builds;
+        await tester.pumpWidget(app);
+        expect(
+          tester.takeException().toString(),
+          'Screen Manager: screen "$route" is missing required connections: PrimeTheme.',
+        );
+        expect(builds, previousBuilds);
+        expect(find.byKey(const Key('connected-catalog-page')), findsNothing);
+      }
+
+      await expectBlocked();
+      await tester.pumpWidget(PrimeTheme(
+        data: const PrimeThemeData(),
+        bootstrap: false,
+        child: app,
+      ));
+      expect(tester.takeException(), isNull);
+      expect(builds, greaterThan(0));
+      expect(find.byKey(const Key('connected-catalog-page')), findsOneWidget);
+      await expectBlocked();
+    });
+  }
+
   testWidgets('managed shared buttons respond to theme and locale changes', (tester) async {
     Widget app(Color primary, Locale locale) => PrimeTheme(
       data: PrimeThemeData(colors: PrimeColors(primary: primary, onSurfaceVariant: primary)),
