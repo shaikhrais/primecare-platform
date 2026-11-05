@@ -14,5 +14,6 @@ jobs:
       - run: python3 -m unittest discover -s scripts/tests -p 'test_route_sites.py'
       - run: python3 -m unittest discover -s scripts/tests -p 'test_planned_screen_verification.py'
       - run: python3 -m unittest discover -s scripts/tests -p 'test_db_screen_registration.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_disabled_screen_generators.py'
       - run: python3 scripts/check_screen_inheritance.py
       - run: python3 scripts/check_route_sites.py
