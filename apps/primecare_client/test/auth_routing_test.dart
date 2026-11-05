@@ -4,6 +4,7 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_client/core/routing/app_router.dart';
 
 class GuestAuth extends AuthNotifier {
@@ -37,6 +38,9 @@ void main() {
     final boundary = route.builder!(context, state) as ManagedScreenBoundary;
     expect(boundary.screenId, route.path);
     expect(boundary.manager.lookup(route.path), isNotNull);
+    final dispatched = boundary.builder(context);
+    expect(dispatched, isA<GovernedWorkspaceScreen>());
+    expect((dispatched as GovernedWorkspaceScreen).route, route.path);
   });
   testWidgets('client login renders shared form without SSO bridge', (tester) async {
     final container = ProviderContainer(overrides: [
