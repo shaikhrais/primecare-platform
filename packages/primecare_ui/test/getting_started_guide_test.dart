@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:http/testing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_screen.dart';
 import 'package:primecare_ui/src/features/training/getting_started_guide.dart';
 import 'package:primecare_ui/src/features/training/getting_started_catalog.g.dart';
@@ -34,6 +39,28 @@ void main(){
   expect(find.text('Paso 2 de ${gettingStartedSteps.length}'),findsOneWidget);
   expect(find.text('Organización y entidades'),findsOneWidget);
   expect(find.text('Siguiente paso'),findsOneWidget);
+  expect(tester.takeException(),isNull);
+ });
+ testWidgets('live guide text updates without resetting progress',(tester)async{
+  SharedPreferences.setMockInitialValues({});
+  final initial={for(final lang in ['en','fr','es'])lang:{'step_2_title':'Original $lang'}};
+  final client=MockClient((request) async => http.Response(jsonEncode(
+    request.url.path.endsWith('/screen-text')
+      ? {'screens':[{'id':'getting_started_guide','version':0}]}
+      : {'screen':'getting_started_guide','version':0,'locales':initial}),200));
+  final store=LiveScreenTextStore(baseUrl:'https://fixture.test',client:client);
+  addTearDown(store.dispose);
+  await tester.pumpWidget(ProviderScope(overrides:[platformAdministrationAccessProvider.overrideWith((ref)async=>false)],
+    child:MaterialApp(home:LiveScreenTextScope(store:store,child:const GettingStartedGuide()))));
+  await tester.pumpAndSettle();
+  await tester.tap(find.text('Next step'));await tester.pumpAndSettle();
+  expect(find.text('Original en'),findsOneWidget);
+  await store.saveLocal('getting_started_guide',{
+    for(final lang in ['en','fr','es'])lang:{'step_2_title':'Updated $lang'},
+  });
+  await tester.pumpAndSettle();
+  expect(find.text('Updated en'),findsOneWidget);
+  expect(find.text('Step 2 of ${gettingStartedSteps.length}'),findsOneWidget);
   expect(tester.takeException(),isNull);
  });
 }
