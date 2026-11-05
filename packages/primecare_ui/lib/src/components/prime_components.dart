@@ -475,6 +475,7 @@ class PrimeButton extends StatelessWidget {
   final Color? textColor;
   final Color? borderColor;
   final bool isGhost;
+  final bool isSecondary;
   final String? dataCy;
 
   const PrimeButton({
@@ -488,6 +489,7 @@ class PrimeButton extends StatelessWidget {
     this.textColor,
     this.borderColor,
     this.isGhost = false,
+    this.isSecondary = false,
     this.dataCy,
   });
 
@@ -530,8 +532,7 @@ class PrimeButton extends StatelessWidget {
       isLoading: isLoading,
       isFullWidth: isFullWidth,
       color: Colors.transparent,
-      textColor: const Color(0xFF004AC6),
-      borderColor: const Color(0xFF004AC6).withValues(alpha: 0.2),
+      isSecondary: true,
       dataCy: dataCy,
     );
   }
@@ -554,7 +555,6 @@ class PrimeButton extends StatelessWidget {
       isLoading: isLoading,
       isFullWidth: isFullWidth,
       color: Colors.transparent,
-      textColor: const Color(0xFF434655),
       isGhost: true,
       dataCy: dataCy,
     );
@@ -566,9 +566,11 @@ class PrimeButton extends StatelessWidget {
     final buttonColor = color ?? theme.colors.primary;
     final actualTextColor =
         textColor ??
-        (color == Colors.transparent
+        (isGhost ? theme.colors.onSurfaceVariant : color == Colors.transparent
             ? theme.colors.primary
             : theme.colors.onPrimary);
+    final actualBorderColor = borderColor ??
+        (isSecondary ? theme.colors.primary.withValues(alpha: 0.2) : null);
 
     final child = Row(
       mainAxisSize: MainAxisSize.min,
@@ -620,8 +622,8 @@ class PrimeButton extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(theme.radiusDefault),
-              side: borderColor != null
-                  ? BorderSide(color: borderColor!)
+              side: actualBorderColor != null
+                  ? BorderSide(color: actualBorderColor)
                   : BorderSide.none,
             ),
             elevation: 0,

@@ -4,6 +4,8 @@ import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:flutter_core/models/screen.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:primecare_ui/src/features/platform/platform_master_catalog.g.dart';
+import 'package:primecare_ui/src/components/prime_components.dart';
+import 'package:primecare_ui/src/theme/prime_theme.dart';
 
 void main() {
   test('all rendered shared authentication routes have registrations', () {
@@ -48,5 +50,30 @@ void main() {
     })));
     expect(tester.takeException().toString(), contains('/unregistered'));
     expect(built, isFalse);
+  });
+
+  testWidgets('managed shared buttons respond to theme and locale changes', (tester) async {
+    Widget app(Color primary, Locale locale) => PrimeTheme(
+      data: PrimeThemeData(colors: PrimeColors(primary: primary, onSurfaceVariant: primary)),
+      child: MaterialApp(
+        locale: locale,
+        supportedLocales: const [Locale('en', 'US'), Locale('en', 'CA')],
+        home: SharedAuthRoutes.managedPage('/login', (context) => Scaffold(
+          body: Column(children: [
+            PrimeButton.secondary(label: Localizations.localeOf(context).countryCode == 'CA' ? 'Canadian' : 'American', onPressed: () {}),
+            PrimeButton.ghost(label: 'Ghost', onPressed: () {}),
+          ]),
+        )),
+      ),
+    );
+    await tester.pumpWidget(app(Colors.teal, const Locale('en', 'US')));
+    expect(find.text('American'), findsOneWidget);
+    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.teal);
+    await tester.pumpWidget(app(Colors.orange, const Locale('en', 'CA')));
+    await tester.pumpAndSettle();
+    expect(find.text('Canadian'), findsOneWidget);
+    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.orange);
+    expect(tester.widget<Text>(find.text('Ghost')).style!.color, Colors.orange);
+    expect(tester.takeException(), isNull);
   });
 }

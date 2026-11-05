@@ -15,6 +15,7 @@ on:
       - packages/primecare_ui/lib/src/application/base_primecare_app.dart
       - packages/primecare_ui/lib/src/theme/prime_screen_inheritance.dart
       - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - packages/primecare_ui/lib/src/components/prime_components.dart
       - apps/primecare_clinic/lib/core/routing/app_router.dart
       - packages/primecare_ui/test/managed_auth_routes_test.dart
       - packages/primecare_ui/test/prime_screen_inheritance_test.dart
@@ -52,6 +53,8 @@ jobs:
       - run: flutter test test/prime_screen_inheritance_test.dart
         working-directory: packages/primecare_ui
       - run: flutter analyze --no-fatal-infos lib/src/features/auth/shared_auth_router.dart test/managed_auth_routes_test.dart
+        working-directory: packages/primecare_ui
+      - run: flutter analyze --no-fatal-infos lib/src/components/prime_components.dart
         working-directory: packages/primecare_ui
       - run: flutter test test/managed_auth_routes_test.dart
         working-directory: packages/primecare_ui
