@@ -72,7 +72,7 @@ class GovernanceRouter {
           builder: (context, state) => ManagedScreenBoundary(
             manager: screenManager,
             screenId: path,
-            builder: (context) => governedScreenBuilder!(context, state),
+            builder: (context) => governedScreenBuilder(context, state),
           ),
         ));
       }
