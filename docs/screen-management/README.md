@@ -31,7 +31,8 @@ providers or controls are connected. Shared authentication route builders use
 an explicit adapter and route registrations. The shared workspace builder uses
 registrations derived from `governedWorkspaceRoutes` and the application's
 module definitions. A route missing from both sources fails closed. Standalone
-governance and other routes remain outside this boundary.
+governance uses an adapter for its shell and registry routes. Other route entry
+points remain outside this boundary.
 This first batch has not yet been validated by Flutter CI. Do not treat it as
 enforcement for all existing screens.
 
@@ -39,7 +40,7 @@ enforcement for all existing screens.
 
 | Location | Class or generator | Reason and next action |
 | --- | --- | --- |
-| `apps/primecare_governance/lib/core/governance/route_registry.dart` | `appRouterProvider` | Independent router with native and dynamic routes. Map its route IDs and layout adapter, then verify existing access behavior before enabling the boundary. |
+| `apps/primecare_governance/lib/core/governance/route_registry.dart` | `appRouterProvider` | The shell has a registration adapter; verify native and dynamic workflows, access behavior and accessibility before release. |
 | `packages/flutter_core/lib/routes/governance_router.dart` | `GovernanceRouter` | Compare every active module route with the workspace catalog and test role redirects and errors. Public callback and externally supplied routes still need explicit adapters. |
 | `packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart` | `SharedAuthRouter`, `SharedAuthRoutes` | Test real login, recovery, platform and workspace workflows; audit `additionalPublicRoutes` and callback/error paths. Registrations do not authorize users. |
 | `tools/mvc_generator/generate_screen.dart` | `_generateViewContent` | Generates a direct `ConsumerWidget` with hardcoded text. Update generation and registration together after choosing the route and layout contract. |

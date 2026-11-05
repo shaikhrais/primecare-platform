@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
 import '../ui/language_selector.dart';
@@ -23,8 +24,29 @@ import '../../features/executive/screens/governance_hud_screen.dart';
 import '../../features/executive/screens/control_center_screen.dart';
 import '../../features/executive/screens/proposals_screen.dart';
 
+// Presentation registrations only. The router's redirect remains responsible
+// for authentication, and data access remains protected by its existing API.
+const governanceNativeScreenRoutes = <String>{
+  '/admin/screen-health', '/admin/reality-check', '/admin/role-screen-carousel',
+  '/admin/screenshot-gallery', '/generated/audit-dashboard',
+  '/generated/compliance-reviews', '/generated/incident-reports',
+  '/generated/quality-metrics', '/governance/audit', '/governance/monitoring',
+  '/governance/tickets', '/governance/screen-status', '/governance/device-security',
+  '/governance/security', '/verification', '/governance/clinical-reference',
+  '/generated/corporate/ceo/growth-pipeline',
+  '/generated/corporate/ceo/region-performance',
+  '/generated/corporate/ceo/leadership-reports', '/governance/hud',
+  '/governance/control-center', '/proposals', '/governance/placeholder',
+};
+
+ScreenManager buildGovernanceScreenManager() =>
+    SharedAuthRoutes.screenManager.withAdditionalRoutes([
+      ...governanceNativeScreenRoutes,
+      ...ScreenRegistry.screens.values.map((screen) => screen.routePath).where((path) => path.isNotEmpty),
+    ]);
 
 final appRouterProvider = Provider<GoRouter>((ref) {
+  final screenManager = buildGovernanceScreenManager();
   return GoRouter(
     initialLocation: '/login',
     // Unknown deep links must not enter the global error/restart loop.
@@ -136,7 +158,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             ),
             drawer: const AppDrawer(),
             endDrawer: AuraNexusConsoleDrawer(activeScreenId: screenId),
-            body: child,
+            body: AppShellBoundary(child: ManagedScreenBoundary(
+              manager: screenManager,
+              screenId: matchedLocation,
+              builder: (_) => child,
+            )),
           );
         },
         routes: [

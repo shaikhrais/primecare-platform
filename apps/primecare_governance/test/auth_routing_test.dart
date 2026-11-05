@@ -37,6 +37,16 @@ void main() {
   test('static dashboard report cannot bypass app authentication', () {
     expect(File('web/dashboard.html').existsSync(), isFalse);
   });
+  test('governance shell routes are registered', () {
+    final container = ProviderContainer(overrides: [authProvider.overrideWith(GuestAuth.new)]);
+    addTearDown(container.dispose);
+    final router = container.read(appRouterProvider);
+    final shell = router.configuration.routes.whereType<ShellRoute>().single;
+    final manager = buildGovernanceScreenManager();
+    for (final route in shell.routes.whereType<GoRoute>()) {
+      expect(manager.lookup(route.path), isNotNull, reason: route.path);
+    }
+  });
   for (final initialized in [false, true]) {
     for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
