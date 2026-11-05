@@ -58,6 +58,13 @@ void main() {
       expect(manager.lookup(route.path), isNotNull, reason: route.path);
     }
   });
+  test('new registry metadata does not automatically register a governance route', () {
+    const id = 'TEST_UNREGISTERED_SCREEN';
+    const route = '/test-unregistered-governance-route';
+    ScreenRegistry.screens[id] = const ScreenMetadata(id: id, title: 'Test screen', routePath: route);
+    addTearDown(() => ScreenRegistry.screens.remove(id));
+    expect(buildGovernanceScreenManager().lookup(route), isNull);
+  });
   for (final initialized in [false, true]) {
     for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {

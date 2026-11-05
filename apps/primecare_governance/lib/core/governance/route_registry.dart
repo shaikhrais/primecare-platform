@@ -42,7 +42,6 @@ const governanceNativeScreenRoutes = <String>{
 ScreenManager buildGovernanceScreenManager() =>
     primeCareScreenManager.withAdditionalRoutes([
       ...governanceNativeScreenRoutes,
-      ...ScreenRegistry.screens.values.map((screen) => screen.routePath).where((path) => path.isNotEmpty),
     ]);
 
 final appRouterProvider = Provider<GoRouter>((ref) {
