@@ -27,6 +27,8 @@ by changing parent classes without testing their layout and behaviour.
 for a shell, a Flutter theme ancestor, locale/direction and media query before
 building, and supplies the registered feature settings. These checks establish
 only that those Flutter contexts exist; they do not prove PrimeCare-specific
-providers or controls are connected. It is not connected to production routes,
-does not cover public-page adapters, and has not yet been validated by Flutter
-CI. Do not treat it as enforcement for existing screens.
+providers or controls are connected. Shared authentication route builders use
+an explicit adapter and route registrations; the remaining production routes,
+including workspace and standalone governance routes, are not yet connected.
+This first batch has not yet been validated by Flutter CI. Do not treat it as
+enforcement for all existing screens.
