@@ -98,16 +98,19 @@ void main() {
           body: Column(children: [
             PrimeButton.secondary(label: Localizations.localeOf(context).countryCode == 'CA' ? 'Canadian' : 'American', onPressed: () {}),
             PrimeButton.ghost(label: 'Ghost', onPressed: () {}),
+            const TextField(key: Key('managed-draft')),
           ]),
         )),
       ),
     );
     await tester.pumpWidget(app(Colors.teal, const Locale('en', 'US')));
     expect(find.text('American'), findsOneWidget);
+    await tester.enterText(find.byKey(const Key('managed-draft')), 'keep draft');
     expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.teal);
     await tester.pumpWidget(app(Colors.orange, const Locale('en', 'CA')));
     await tester.pumpAndSettle();
     expect(find.text('Canadian'), findsOneWidget);
+    expect(find.text('keep draft'), findsOneWidget);
     expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.orange);
     expect(tester.widget<Text>(find.text('Ghost')).style!.color, Colors.orange);
     expect(tester.takeException(), isNull);
