@@ -22,6 +22,8 @@ jobs:
       GROWTH_TEST_DATABASE_URL: postgresql://growth_test:integration-only@localhost:5432/growth_test
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -54,7 +56,10 @@ jobs:
       - run: node --test scripts/test-growth-browser.mjs scripts/test-growth-admin-browser.mjs scripts/test-look-manager.mjs
       - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
       - run: python3 scripts/register-media-look.py --check && node scripts/test-media-look-browser.mjs
-      - run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-auth-recovery-web.py --check && python3 scripts/register-workspace-visual-review.py
+      # Historical fixtures cannot attest to the pinned production catalog.
+      # Live parity is a separate trusted-main manual production-reader check.
+      - name: Check isolated recovery fixtures and workspace visuals
+        run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-workspace-visual-review.py
       - run: node --test scripts/test-workspace-browser.mjs scripts/test-auth-recovery-web.mjs
       - run: node scripts/audit-workspace-role-browser.mjs
       - run: REVIEW_PHASE=after node scripts/review-admin-marketing-ui.mjs

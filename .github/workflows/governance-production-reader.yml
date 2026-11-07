@@ -31,13 +31,16 @@ jobs:
       - run: python tools/governance-production/test-export-parity.py
       - run: python scripts/test-theme-manifest.py
   production:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -52,6 +55,10 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: python tools/governance-production/verify-production-reader.py > /tmp/govt-reader-receipt.json
+      - name: Verify pinned production recovery catalog parity
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python scripts/register-auth-recovery-web.py --check
       - name: Exercise migrated diagnostics against production
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

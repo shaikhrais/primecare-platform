@@ -76,6 +76,46 @@ class LogicalDigestTests(unittest.TestCase):
             self.assertNotEqual(logical_digest(db), before)
 
 
+class RecoveryFixtureBoundary(unittest.TestCase):
+    def run_isolated(self, *args, fixture_mode=False, credential=None):
+        environment = dict(os.environ)
+        for name in ('PRODUCTION_DATABASE_URL', 'GOVERNANCE_DATABASE_URL',
+                     'GOVERNANCE_ALLOW_SQLITE_FIXTURES'):
+            environment.pop(name, None)
+        if fixture_mode:
+            environment['GOVERNANCE_ALLOW_SQLITE_FIXTURES'] = '1'
+        if credential:
+            # This is an inert sentinel. The guard must run before parsing or use.
+            environment[credential] = 'forbidden-test-sentinel'
+        return subprocess.run(
+            [sys.executable, str(ROOT / 'scripts/register-auth-recovery-web.py'), *args],
+            capture_output=True, text=True, env=environment,
+        )
+
+    def test_fixture_mode_rejects_each_production_credential_without_creating_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            database = Path(folder) / 'must-not-exist.db'
+            output = Path(folder) / 'must-not-exist.json'
+            for credential in ('PRODUCTION_DATABASE_URL', 'GOVERNANCE_DATABASE_URL'):
+                with self.subTest(credential=credential):
+                    result = self.run_isolated('--database', str(database), '--output', str(output),
+                                               fixture_mode=True, credential=credential)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn('Production credentials forbidden', result.stderr)
+                    self.assertFalse(database.exists())
+                    self.assertFalse(output.exists())
+
+    def test_explicit_historical_path_without_opt_in_fails_without_creating_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            database = Path(folder) / 'must-not-exist.db'
+            output = Path(folder) / 'must-not-exist.json'
+            result = self.run_isolated('--database', str(database), '--output', str(output))
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('require explicit GOVERNANCE_ALLOW_SQLITE_FIXTURES=1', result.stderr)
+            self.assertFalse(database.exists())
+            self.assertFalse(output.exists())
+
+
 class RecoveryGovernance(unittest.TestCase):
     def setUp(self):
         if os.environ.get('PRODUCTION_DATABASE_URL') or os.environ.get('GOVERNANCE_DATABASE_URL'):
@@ -130,6 +170,17 @@ class RecoveryGovernance(unittest.TestCase):
         source_digest = hashlib.sha256(self.database.read_bytes()).hexdigest()
         self.run_registrar('--check')
         self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(), source_digest)
+
+    def test_fixture_check_rejects_tampered_output_without_changing_either_file(self):
+        self.run_registrar()
+        policy = json.loads(self.output.read_text())
+        policy['routes']['forgot'] = '/tampered-fixture-route'
+        self.output.write_text(json.dumps(policy, indent=2, ensure_ascii=False) + '\n')
+        database_before = hashlib.sha256(self.database.read_bytes()).hexdigest()
+        output_before = self.output.read_bytes()
+        self.run_registrar('--check', success=False)
+        self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(), database_before)
+        self.assertEqual(self.output.read_bytes(), output_before)
 
     def test_previous_web_registration_is_reconciled_without_removing_native_sections(self):
         native_sections = {}

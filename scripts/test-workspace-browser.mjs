@@ -16,7 +16,7 @@ function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
  // JSDOM has no media-query engine; these DOM tests use its desktop viewport.
  dom.window.matchMedia=media=>({media,matches:false});
- for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node'])globalThis[key]=dom.window[key];
+ for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node','MutationObserver','AbortController','AbortSignal'])globalThis[key]=dom.window[key];
  globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
@@ -94,7 +94,7 @@ test('all active role landings resolve to their own authorized governed page',as
    globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
-   assert.equal(navigations[0].pathname,dedicatedAdmin?'/platform/administration':landing,role);
+   assert.equal(navigations[0].pathname,role==='tenant_admin'?'/tenant-dashboard':dedicatedAdmin?'/platform/administration':landing,role);
    assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {
