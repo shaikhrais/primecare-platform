@@ -17,9 +17,10 @@ class MetadataStore:
         self.pin=json.loads(PIN.read_text())
         if self.pin.get(slot)!=expected or not set(expected['tables'])<=ALLOWED or any(expected.get(k) is not False for k in ['schemaChanges','businessDataWrites','roleGrants','runtimeActivation']) or os.environ.get(expected['optInVariable'])!='1':raise GovernanceReadError('Exact metadata write scope required')
         if os.environ.get('GOVERNANCE_ALLOW_SQLITE_FIXTURES')=='1':raise GovernanceReadError('Production metadata cannot use SQLite fixtures')
-        primary,secondary=os.environ.get('GOVERNANCE_DATABASE_URL'),os.environ.get('PRODUCTION_DATABASE_URL')
-        if primary and secondary and primary!=secondary:raise GovernanceReadError('Conflicting governance database configuration')
-        url=urlsplit(primary or secondary or '')
+        production,legacy=os.environ.get('PRODUCTION_DATABASE_URL'),os.environ.get('GOVERNANCE_DATABASE_URL')
+        # Keep the legacy conflict guard without accepting it as a connection source.
+        if legacy and production and legacy!=production:raise GovernanceReadError('Conflicting governance database configuration')
+        url=urlsplit(production or '')
         if url.scheme not in ('postgres','postgresql') or url.hostname!='pooled.db.prisma.io' or url.path!='/postgres':raise GovernanceReadError('Pinned production metadata target required')
         ca=ssl.get_default_verify_paths().cafile
         if not ca or not Path(ca).is_file():raise GovernanceReadError('System CA bundle required')

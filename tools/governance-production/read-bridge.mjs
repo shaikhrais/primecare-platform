@@ -14,10 +14,11 @@ try{
   const f=JSON.parse(await readFile(process.argv[fixtureIndex+1],'utf8'));for(const s of f.setup)await embedded.exec(s);
   db={query:async(arg,values)=>{if(typeof arg==='string')return embedded.query(arg,values);const r=await embedded.query(arg.text,arg.values);return {fields:r.fields,rows:r.rows.map(row=>r.fields.map(field=>row[field.name]))};}};
  }else{
-  const primary=process.env.GOVERNANCE_DATABASE_URL,existing=process.env.PRODUCTION_DATABASE_URL;
-  if(primary&&existing&&primary!==existing)throw new GovernanceReaderFault('CONFLICTING_DATABASE_URLS');
-  if(!primary&&!existing)throw new GovernanceReaderFault('MISSING_DATABASE_URL');
-  let u;try{u=new URL(primary||existing);}catch{throw new GovernanceReaderFault('INVALID_DATABASE_URL');}
+  const production=process.env.PRODUCTION_DATABASE_URL,legacy=process.env.GOVERNANCE_DATABASE_URL;
+  // The legacy name is checked only for conflicts, never used as a connection source.
+  if(legacy&&production&&legacy!==production)throw new GovernanceReaderFault('CONFLICTING_DATABASE_URLS');
+  if(!production)throw new GovernanceReaderFault('MISSING_DATABASE_URL');
+  let u;try{u=new URL(production);}catch{throw new GovernanceReaderFault('INVALID_DATABASE_URL');}
   if(!['postgres:','postgresql:'].includes(u.protocol)||u.hostname!=='pooled.db.prisma.io'||u.pathname!=='/postgres')throw new GovernanceReaderFault('UNEXPECTED_DATABASE_TARGET');
   phase='connection';
   db=new pg.Client({connectionString:u.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});close=()=>db.end();await db.connect();

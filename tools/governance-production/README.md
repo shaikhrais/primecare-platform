@@ -72,3 +72,13 @@ gaps. This corrects JSON-only false negatives without changing any registry row,
 grant, route or acceptance flag. Ten report tests include all 21 actual Twilio
 definitions and prove that missing grants/screens still prevent completeness.
 Run `python3 tools/governance-production/test-communication-contract-report.py`.
+
+## Database connection names
+
+`PRODUCTION_DATABASE_URL` is the only production connection source. The governance reader, metadata store, workflow tracking store and audit require it; `GOVERNANCE_DATABASE_URL` alone is no longer accepted. A remaining legacy variable is checked for conflicts, and isolated fixture tools still reject either production variable. No database, schema, credential or permission is changed by this naming rule.
+
+Deployment maps the same production value to the existing Cloudflare Worker `DB_URL` binding, or to the Cloud Run `DATABASE_URL` binding through Secret Manager `primecare-database-url`. Keep these runtime bindings. They are not additional database sources. The older Prisma adapter also has an optional `PRISMA_DATABASE_URL` transport override; do not remove it without checking its runtime consumers and deployment configuration.
+
+`GROWTH_TEST_DATABASE_URL` and other test URLs belong to disposable test databases, not production secrets. CI supplies them from local PostgreSQL services. Tests create and drop schemas, so never substitute the production URL or remove the production-credential rejection guards.
+
+Before adopting this change outside GitHub Actions, ensure every governance caller supplies `PRODUCTION_DATABASE_URL`. Existing workflows already use that secret. A caller that supplies only the retired alias now fails closed. Stored-secret deletion and runtime redeployment require their own verified scope; source references cannot establish that an external secret is unused.

@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [tools/governance-production/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
+    paths: [tools/governance-production/**, tools/workflow-verification/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
   pull_request:
-    paths: [tools/governance-production/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
+    paths: [tools/governance-production/**, tools/workflow-verification/**, scripts/verify_screens.py, scripts/test-verify-screens.py, .github/workflows/governance-production-reader.yml]
 permissions:
   contents: read
 jobs:
@@ -27,7 +27,8 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
       - run: python tools/governance-production/test-ci-fixture.py
       - run: python tools/governance-production/test-production-reader.py
-      - run: node --test tools/governance-production/test-reader-errors.mjs
+      - run: node --test tools/governance-production/test-reader-errors.mjs tools/governance-production/test-production-url-configuration.mjs
+      - run: python tools/governance-production/test-production-url-configuration.py
       - run: python tools/governance-production/test-export-parity.py
       - run: python scripts/test-theme-manifest.py
   production:
