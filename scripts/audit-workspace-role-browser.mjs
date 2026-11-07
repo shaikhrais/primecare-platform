@@ -2,7 +2,7 @@
 import assert from 'node:assert/strict';import pg from 'pg';import {build} from 'esbuild';import {chromium} from 'playwright';import {createServer} from 'node:http';import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {mkdtemp,readFile,writeFile,mkdir} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';
 const connection=process.env.GROWTH_TEST_DATABASE_URL;if(!connection)throw Error('GROWTH_TEST_DATABASE_URL required');
 if(!['localhost','127.0.0.1','[::1]'].includes(new URL(connection).hostname)||process.env.PRODUCTION_DATABASE_URL)throw Error('Disposable loopback database required');
-const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8')),hierarchy=JSON.parse(await readFile('cloudflare/workers/src/admin-hierarchy.json','utf8'));
+const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8')),hierarchy=JSON.parse(await readFile('cloudflare/workers/src/admin-hierarchy.json','utf8')),accountPolicy=JSON.parse(await readFile('cloudflare/workers/src/account-policy.json','utf8'));
 const special=new Set(['/growth','/appearance-review','/platform/administration','/maintenance/configuration','/forgot-password','/reset-password']);
 const screens=registry.screens.filter(s=>s.renderer!=='account'&&!special.has(s.route)&&s.grants.some(g=>g.view===1)),roles=[...new Set(registry.screens.flatMap(s=>s.grants.filter(g=>g.view===1).map(g=>g.role)))].sort();
 const db=new pg.Client({connectionString:connection});await db.connect();const schema='visual_roles_'+Date.now();let server,browser,cleanup=false;const records=[],report={scope:'isolated shared-renderer structural audit through the authenticated account shell; not production route dispatch',catalogScreens:registry.screens.length,targetScreens:screens.length,roles:roles.length,apiCreatedAccounts:0,bootstrapFixtures:1,bootstrapAccounts:[{role:'central_admin',provenance:'Direct disposable SQL account/session; not API provisioning or sign-in evidence'}],checked:0,samples:[],records,cleanup:{verified:false},limitations:['Structural browser checks are not individual human approval or complete clinical workflow acceptance','Domain data/API dependencies remain as recorded in governance; no readiness flags changed','Account/MFA/consent and dedicated screens are separate surfaces, not generic workspace renderer passes','The /success account shell is the entry point; dedicated default landings are checked separately by test-workspace-browser.mjs','Every original target remains covered, including generic rendering of /care; this does not certify the dedicated /care production renderer']};
@@ -21,7 +21,12 @@ try{
  const tokens=new Map([['central_admin',rootToken]]);
  // Technical superuser is bootstrap-only. Keep this separate from API-created/sign-in evidence.
  if(roles.includes('code_admin')){
-  assert.equal(hierarchy.roles.code_admin?.bootstrapOnly,true,'Code Admin must remain bootstrap-only');
+  // Historical CI generators omit Code Admin from administration scope, while retaining its workspace grants.
+  // An omitted scope does not authorize provisioning; enforce the actual account policies and API rejection below.
+  const codePolicy=hierarchy.roles.code_admin;
+  if(codePolicy)assert.equal(codePolicy.bootstrapOnly,true,'Exported Code Admin scope must remain bootstrap-only');
+  else assert.equal(hierarchy.permissions.code_admin,undefined,'An omitted Code Admin scope must not receive administration permissions');
+  assert.ok(!accountPolicy.ceo.includes('code_admin'),'Account API must not accept Code Admin as an assignable role');
   assert.ok(Object.values(hierarchy.roles).every(policy=>!policy.assignable.includes('code_admin')),'No administrator may provision Code Admin');
   const deniedEmail='forbidden-code-admin@example.invalid',beforeCount=(await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n;
   const denied=await call('/platform/tenants/'+tenant+'/accounts',{email:deniedEmail,password:'Synthetic-'+crypto.randomUUID(),role:'code_admin'});
@@ -32,6 +37,8 @@ try{
   const id=crypto.randomUUID(),token=Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url');
   await db.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'bootstrap-code-admin@example.invalid','code_admin',$2,'active')",[id,rootTenant]);
   await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '2 hours')",[Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex'),id]);
+  if(!codePolicy){const scoped=await platformAdministration(new Request('https://fixture/platform',{headers:{authorization:'Bearer '+token}}),env,'/platform',{});assert.equal(scoped.status,403,'An omitted Code Admin scope must remain denied by the real administration API');}
+  report.codeAdminHierarchyScope=codePolicy?'registered_bootstrap_only':'omitted_and_api_denied';
   tokens.set('code_admin',token);report.bootstrapFixtures++;report.bootstrapAccounts.push({role:'code_admin',provenance:'Direct disposable SQL account/session; does not test Code Admin login, MFA, or production bootstrap'});
  }
  for(const role of roles){if(tokens.has(role))continue;assert.ok(hierarchy.roles.central_admin.assignable.includes(role),'role must be governably provisionable: '+role);await db.query('DELETE FROM platform_administration_rate');const email='visual-'+role+'@example.invalid',password='Synthetic-'+crypto.randomUUID();const response=await call('/platform/tenants/'+tenant+'/accounts',{email,password,role});assert.equal(response.status,201,await response.clone().text());report.apiCreatedAccounts++;
