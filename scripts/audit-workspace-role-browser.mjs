@@ -1,10 +1,11 @@
 /** Disposable SQL schema; real provisioning/auth/workspace handlers; no production accounts. */
 import assert from 'node:assert/strict';import pg from 'pg';import {build} from 'esbuild';import {chromium} from 'playwright';import {createServer} from 'node:http';import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {mkdtemp,readFile,writeFile,mkdir} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';
 const connection=process.env.GROWTH_TEST_DATABASE_URL;if(!connection)throw Error('GROWTH_TEST_DATABASE_URL required');
+if(!['localhost','127.0.0.1','[::1]'].includes(new URL(connection).hostname)||process.env.PRODUCTION_DATABASE_URL)throw Error('Disposable loopback database required');
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8')),hierarchy=JSON.parse(await readFile('cloudflare/workers/src/admin-hierarchy.json','utf8'));
 const special=new Set(['/growth','/appearance-review','/platform/administration','/maintenance/configuration','/forgot-password','/reset-password']);
 const screens=registry.screens.filter(s=>s.renderer!=='account'&&!special.has(s.route)&&s.grants.some(g=>g.view===1)),roles=[...new Set(registry.screens.flatMap(s=>s.grants.filter(g=>g.view===1).map(g=>g.role)))].sort();
-const db=new pg.Client({connectionString:connection});await db.connect();const schema='visual_roles_'+Date.now();let server,browser,cleanup=false;const records=[],report={scope:'isolated shared-renderer structural audit through the authenticated account shell; not production route dispatch',catalogScreens:registry.screens.length,targetScreens:screens.length,roles:roles.length,apiCreatedAccounts:0,bootstrapFixtures:1,checked:0,samples:[],records,cleanup:{verified:false},limitations:['Structural browser checks are not individual human approval or complete clinical workflow acceptance','Domain data/API dependencies remain as recorded in governance; no readiness flags changed','Account/MFA/consent and dedicated screens are separate surfaces, not generic workspace renderer passes','The /success account shell is the entry point; dedicated default landings are checked separately by test-workspace-browser.mjs','Every original target remains covered, including generic rendering of /care; this does not certify the dedicated /care production renderer']};
+const db=new pg.Client({connectionString:connection});await db.connect();const schema='visual_roles_'+Date.now();let server,browser,cleanup=false;const records=[],report={scope:'isolated shared-renderer structural audit through the authenticated account shell; not production route dispatch',catalogScreens:registry.screens.length,targetScreens:screens.length,roles:roles.length,apiCreatedAccounts:0,bootstrapFixtures:1,bootstrapAccounts:[{role:'central_admin',provenance:'Direct disposable SQL account/session; not API provisioning or sign-in evidence'}],checked:0,samples:[],records,cleanup:{verified:false},limitations:['Structural browser checks are not individual human approval or complete clinical workflow acceptance','Domain data/API dependencies remain as recorded in governance; no readiness flags changed','Account/MFA/consent and dedicated screens are separate surfaces, not generic workspace renderer passes','The /success account shell is the entry point; dedicated default landings are checked separately by test-workspace-browser.mjs','Every original target remains covered, including generic rendering of /care; this does not certify the dedicated /care production renderer']};
 const folder='test-results/workspace-review';await mkdir(folder,{recursive:true});
 try{
  await db.query(`CREATE SCHEMA ${schema};SET search_path TO ${schema}`);
@@ -18,9 +19,27 @@ try{
  const call=(path,body)=>platformAdministration(new Request('https://fixture'+path,{method:'POST',headers:{authorization:'Bearer '+rootToken,'content-type':'application/json','idempotency-key':crypto.randomUUID()},body:JSON.stringify(body)}),env,path,{});
  const tenantResponse=await call('/platform/tenants',{name:'Disposable visual review tenant',slug:'visual-review-'+Date.now()});assert.equal(tenantResponse.status,201,await tenantResponse.clone().text());const tenant=(await tenantResponse.json()).tenant.id;
  const tokens=new Map([['central_admin',rootToken]]);
- for(const role of roles){if(role==='central_admin')continue;assert.ok(hierarchy.roles.central_admin.assignable.includes(role),'role must be governably provisionable: '+role);await db.query('DELETE FROM platform_administration_rate');const email='visual-'+role+'@example.invalid',password='Synthetic-'+crypto.randomUUID();const response=await call('/platform/tenants/'+tenant+'/accounts',{email,password,role});assert.equal(response.status,201,await response.clone().text());report.apiCreatedAccounts++;
+ // Technical superuser is bootstrap-only. Keep this separate from API-created/sign-in evidence.
+ if(roles.includes('code_admin')){
+  assert.equal(hierarchy.roles.code_admin?.bootstrapOnly,true,'Code Admin must remain bootstrap-only');
+  assert.ok(Object.values(hierarchy.roles).every(policy=>!policy.assignable.includes('code_admin')),'No administrator may provision Code Admin');
+  const deniedEmail='forbidden-code-admin@example.invalid',beforeCount=(await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n;
+  const denied=await call('/platform/tenants/'+tenant+'/accounts',{email:deniedEmail,password:'Synthetic-'+crypto.randomUUID(),role:'code_admin'});
+  assert.equal(denied.status,400,await denied.clone().text());
+  assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n,beforeCount,'Rejected Code Admin creation must not add accounts');
+  assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM users WHERE email=$1',[deniedEmail])).rows[0].n,0);
+  report.provisioningBoundaries=[{actor:'central_admin',targetRole:'code_admin',status:denied.status,accountCreated:false}];
+  const id=crypto.randomUUID(),token=Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url');
+  await db.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'bootstrap-code-admin@example.invalid','code_admin',$2,'active')",[id,rootTenant]);
+  await db.query("INSERT INTO auth_sessions(token_hash,user_id,expires_at) VALUES($1,$2,NOW()+INTERVAL '2 hours')",[Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex'),id]);
+  tokens.set('code_admin',token);report.bootstrapFixtures++;report.bootstrapAccounts.push({role:'code_admin',provenance:'Direct disposable SQL account/session; does not test Code Admin login, MFA, or production bootstrap'});
+ }
+ for(const role of roles){if(tokens.has(role))continue;assert.ok(hierarchy.roles.central_admin.assignable.includes(role),'role must be governably provisionable: '+role);await db.query('DELETE FROM platform_administration_rate');const email='visual-'+role+'@example.invalid',password='Synthetic-'+crypto.randomUUID();const response=await call('/platform/tenants/'+tenant+'/accounts',{email,password,role});assert.equal(response.status,201,await response.clone().text());report.apiCreatedAccounts++;
   const session=await auth(new Request('https://fixture/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})}),{...env,SERVICE_NAME:'auth'},'/login',{});assert.equal(session.status,200,await session.clone().text());tokens.set(role,(await session.json()).token);
  }
+ assert.deepEqual([...tokens.keys()].sort(),roles,'Every governed role must retain a session and coverage');
+ assert.equal(report.bootstrapFixtures,report.bootstrapAccounts.length);
+ assert.equal(report.apiCreatedAccounts+report.bootstrapFixtures,roles.length);
  report.successfulSignIns=report.apiCreatedAccounts;
  report.accountsBeforeCleanup=(await db.query('SELECT COUNT(*)::int AS n FROM users')).rows[0].n;assert.equal(report.accountsBeforeCleanup,roles.length);
  report.workspaceRoleAccess=[];
