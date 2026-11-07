@@ -16,7 +16,7 @@ function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
  // JSDOM has no media-query engine; these DOM tests use its desktop viewport.
  dom.window.matchMedia=media=>({media,matches:false});
- for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node'])globalThis[key]=dom.window[key];
+ for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node','MutationObserver','AbortController','AbortSignal'])globalThis[key]=dom.window[key];
  globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
