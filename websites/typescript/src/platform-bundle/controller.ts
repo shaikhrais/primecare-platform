@@ -6,6 +6,7 @@ import {BundleClient,fileContent} from './client';
 import {bundlePanel} from './panel';
 import {FormDraft} from '../form-draft';
 export class BundleController{
+ get navigationPending(){return this.busy;}
  private client:BundleClient;private history:BundleHistoryController;private data:BundleData|null=null;private root:HTMLElement|null=null;private locale:BundleLocale='en';private tenant='';private tab='launch';private list='tickets';private offset=0;private search='';private notice='';private busy=false;
  private loadRevision=0;private attention:AttentionData|null=null;private attentionQuery={offset:0,search:'',kind:'all'};
  private drafts=new Map<string,{baseline:string;draft:FormDraft}>();
@@ -15,7 +16,8 @@ export class BundleController{
  mount(root:HTMLElement,locale:BundleLocale){this.capture();this.root=root;this.locale=locale;this.draw();}
  openWorkflow(item:AttentionItem){this.capture();this.tab=item.destination;this.list=item.destination==='routing'?'routes':'tickets';this.search=['support','routing'].includes(item.destination)?item.id:'';this.offset=0;}
  private capture(){if(!this.root)return;for(const form of this.root.querySelectorAll<HTMLFormElement>('form[data-cy]')){const draft=new FormDraft();draft.capture(form);this.drafts.set(form.dataset.cy!,{baseline:form.dataset.baseline??'',draft});}}
- private draw(){if(!this.root)return;this.capture();const root=this.root;root.innerHTML=bundlePanel(this.tab==='attention'?null:this.data,this.locale,this.notice,{list:this.list,search:this.search},this.tab,attentionPanel(this.attention,this.locale,this.attentionQuery),this.history.markup(this.locale));
+ private retainSession(){try{this.client.assertSession();return true;}catch{this.loadRevision++;this.data=null;this.attention=null;this.drafts.clear();this.history.reset();this.root?.replaceChildren();this.root=null;return false;}}
+ private draw(){if(!this.root||!this.retainSession())return;this.capture();const root=this.root;root.innerHTML=bundlePanel(this.tab==='attention'?null:this.data,this.locale,this.notice,{list:this.list,search:this.search},this.tab,attentionPanel(this.attention,this.locale,this.attentionQuery),this.history.markup(this.locale));
   for(const form of root.querySelectorAll<HTMLFormElement>('form[data-cy]')){const saved=this.drafts.get(form.dataset.cy!);if(saved?.baseline===(form.dataset.baseline??''))saved.draft.restore(form);else this.drafts.delete(form.dataset.cy!);}
   const bind=(key:string,work:(values:Record<string,string>,submitter:HTMLElement|null)=>Promise<void>)=>{const form=root.querySelector<HTMLFormElement>('[data-cy="'+key+'"]');if(form)form.onsubmit=e=>{e.preventDefault();const values=Object.fromEntries(new FormData(form)) as Record<string,string>;void this.run(async()=>{await work(values,(e as SubmitEvent).submitter);this.drafts.delete(key);root.querySelector<HTMLFormElement>('[data-cy="'+key+'"]')?.reset();await this.load();this.notice='saved';});};};
   root.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach(button=>button.onclick=()=>{if(this.busy)return;this.capture();this.tab=button.dataset.tab!;if(['support','routing'].includes(this.tab)){this.list=this.tab==='support'?'tickets':'routes';this.offset=0;this.data=null;}void this.run(()=>this.load());});
@@ -23,7 +25,7 @@ export class BundleController{
   const captureQueue=()=>{if(queueForm){const values=new FormData(queueForm);this.attentionQuery={offset:0,search:String(values.get('search')??''),kind:String(values.get('kind')??'all')};}};
   if(queueForm)queueForm.onsubmit=e=>{e.preventDefault();captureQueue();void this.run(()=>this.load());};
   for(const [key,step] of [['previous',-1],['next',1]] as const){const button=root.querySelector<HTMLButtonElement>('[data-cy=bundle-attention-'+key+']');if(button)button.onclick=()=>{this.attentionQuery.offset=Math.max(0,this.attentionQuery.offset+step*this.attention!.pagination.limit);void this.run(()=>this.load());};}
-  root.querySelectorAll<HTMLButtonElement>('[data-attention-open]').forEach(button=>button.onclick=()=>{if(this.busy)return;const item=this.attention?.items.find(i=>i.key===button.dataset.attentionOpen);if(item)this.openAttention?.(item);});
+  root.querySelectorAll<HTMLButtonElement>('[data-attention-open]').forEach(button=>button.onclick=()=>{if(this.busy||!this.retainSession())return;const item=this.attention?.items.find(i=>i.key===button.dataset.attentionOpen);if(item)this.openAttention?.(item);});
   const tenantPath='/tenants/'+encodeURIComponent(this.tenant||this.data?.tenantId||'');
   bind('bundle-training-form',async v=>{await this.client.send(tenantPath+'/launch',{version:this.data!.launch!.version,action:'training',evidence:v.evidence,confirmed:false});});
   bind('bundle-launch-form',async(v,button)=>{await this.client.send(tenantPath+'/launch',{version:this.data!.launch!.version,action:button?.dataset.action,evidence:v.evidence,confirmed:v.confirmed==='on'});});
@@ -43,5 +45,5 @@ export class BundleController{
   root.querySelectorAll<HTMLInputElement|HTMLTextAreaElement|HTMLSelectElement|HTMLButtonElement>('input,textarea,select,button').forEach(e=>e.disabled=this.busy||e.hasAttribute('data-protected'));
  }
  private error(error:unknown){const message=(error as Error).message;return ['conflict','forbidden','invalid_request','rate_limited','not_found','unavailable','routing_conflict','cannot_upload'].includes(message)?message:'failed';}
- private async run(work:()=>Promise<void>){if(this.busy)return;const focused=this.root?.contains(document.activeElement)?(document.activeElement as HTMLElement).dataset.cy:null;this.capture();this.busy=true;this.notice='working';this.draw();try{await work();if(this.notice==='working')this.notice='';}catch(error){this.notice=this.error(error);}finally{this.busy=false;this.draw();const status=this.root?.querySelector<HTMLElement>('[data-cy=bundle-notice]');if(this.notice&&status){status.tabIndex=-1;focusInWorkspace(this.root!,status);}else if(focused&&this.root)focusInWorkspace(this.root,this.root.querySelector<HTMLElement>('[data-cy="'+focused+'"]'));}}
+ private async run(work:()=>Promise<void>){if(this.busy||!this.retainSession())return;const focused=this.root?.contains(document.activeElement)?(document.activeElement as HTMLElement).dataset.cy:null;this.capture();this.busy=true;this.notice='working';this.draw();try{await work();if(this.notice==='working')this.notice='';}catch(error){this.notice=this.error(error);}finally{this.busy=false;this.draw();const status=this.root?.querySelector<HTMLElement>('[data-cy=bundle-notice]');if(this.notice&&status){status.tabIndex=-1;focusInWorkspace(this.root!,status);}else if(focused&&this.root)focusInWorkspace(this.root,this.root.querySelector<HTMLElement>('[data-cy="'+focused+'"]'));}}
 }

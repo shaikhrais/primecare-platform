@@ -1,0 +1,38 @@
+# Live care ScreenManager ownership integration
+
+## Source and bounded scope
+
+This unpublished batch extends the preserved patches 1–20 snapshot based on `fad8a62e1a32c642df26f50c7b45b2c521c62800`. It is not integrated with current remote main. The original repository and predecessor snapshot are unchanged. No branch, commit, push, PR, production query, governance change or deployment was performed.
+
+The existing TypeScript `/care` and `/psw` dispatcher now gates its initial private reads with its existing ScreenManager registration. The meaningful integration is the **live operations branch**: `renderPSW` → `renderLivePSW` → embedded `renderCare`, including the actual clinical forms and transport. Ownership does not grant clinical authority. Existing server capabilities, endpoints, authenticated identity, tenant query, coordinator charge header, actions, numeric versions, audit identifiers, labels and payload transformations remain authoritative and unchanged.
+
+The personal (`experience=personal`, PSW/HSW role) and database demo child renderers retain their prior client and rendering behavior. Their nested lifecycle integration is explicitly incomplete. Standalone `renderCare` callers do not acquire this live route owner implicitly. No new screen, route, permission, registry record, API, business action, localization text or production success has been invented.
+
+## Ownership and lifecycle
+
+- `care/ownership.ts` validates the connected root and owned nodes, renderer instance, exact path/query, session and coordinator charge marker before reads, retained controls and visible async results. It synchronously re-enters all four existing ScreenManager connections. A callback that replaces the root cannot cause the old owner to clear the replacement, even if it also changes route/session or throws.
+- The live route passes explicit child ownership to its clinical mount. Replacing either mount retires prior callbacks and pending results. Child checks reuse the parent registration; they do not register extra screens or revoke sibling registrations.
+- Managed clinical forms and all board controls recheck their owner, node containment, disabled state and hidden ancestors. Removed, hidden, obsolete and retained controls cannot write. A shared mutation lock blocks duplicate submits, refresh/remount and navigation controls while a clinical mutation is pending. Programmatic route departure still retires the owner.
+- Current 401 effects belong to the route, not the transport. Session removal and login-navigation exceptions are contained. Current forbidden reads or writes remove denied clinical affordances. Old 401/403 results cannot sign out a replacement session or disturb a newer owner. A malformed received clinical snapshot retires managed clinical controls rather than binding partially rendered forms or rethrowing during error redraw. Network failures retain existing safe drafts.
+- BFCache suspension holds effects until restoration revalidates the route. Nonpersisted departure releases owners, observers and history handlers. Clicking a link does not itself retire the document, so canceled navigation preserves a draft.
+- The embedded clinical renderer uses its actual existing shell but leaves hidden standalone shell utilities unmounted. Its parent supplies visible navigation. This live branch has inline clinical forms, not personal clinical dialogs. Personal/demo modal, cancellation and focus lifecycles remain outside this batch.
+
+## Writes, acknowledgements and retries
+
+`LiveCareClient` inherits the existing `CareClient` and keeps one instance across nested clinical remounts. An uncertain same-payload retry retains the existing idempotency key, including the coordinator charge identity; changed payloads retain the original new-key behavior. Changing charge context retires the old route and requires a fresh renderer.
+
+An actual successful mutation response is retained temporarily as an acknowledgement. Repeating that unconfirmed command retries the read instead of POSTing an acknowledged mutation again. A successfully rendered authorized snapshot removes the acknowledgement only when it reflects the returned record ID/version, using existing snapshot fields for staffing, cases/actions, clearances, timesheets, handovers, follow-ups and schedule series/cancellation. A filtered or stale read is not proof of reflection. Both acknowledged and reflected versions must be positive safe integer numbers; numeric strings, fractions, invalid or unsafe numbers never release an acknowledgement. This is covered through actual JSON serialization for staffing, clearances and handover acknowledgements. After reflection, an explicit identical versionless command reaches the server again with a new request identity and current authorization. Schedule previews always reach the server and never use mutation acknowledgements.
+
+Receipts are not fresh authorization, durable storage, or simulated success. They are cleared on route retirement. Already dispatched requests may still commit after local retirement; this change suppresses stale browser effects, not server execution. A full navigation/reload still relies on existing server versions/idempotency and is not a durable cross-reload retry implementation. A filtered snapshot can keep an acknowledgement pending until that record is actually observed or the route ends.
+
+## Verification and review
+
+`scripts/test-care-live-manager.mjs` bundles the actual dispatcher, calendar, clinical renderer, shell, views, ScreenManager and transports. Its isolated DOM and network fixtures cover 227 cases, including existing staffing, clinical start/task, timesheet and handover command shapes. The fixture uses existing server actions and synthetic records only. Existing tests and fixtures are preserved byte-for-byte. Both existing TypeScript release workflows add the isolated suite without changing publication authority or release conditions.
+
+Baseline actual-module reproduction showed a private workspace GET without a manager, and a stale same-token 401 clearing the session, navigating to login and replacing a newer root. Independent adversarial review also reproduced retained clinical actions and identified callback-replacement, receipt-lifetime, preview and denial/malformed-response issues; those informed additional checks and corrections.
+
+The final focused suite passes 227/227. Its complete predecessor replay reaches the actual live/clinical path and reports 45 passes, 182 expected failures, no cancellations or skips. Sixty-four failures concern ownership/receipt interfaces absent from the predecessor, including the 54 malformed-version checks; the other failures exercise existing route and clinical behavior. Independent actual-module lifecycle, failure-edge and reflection checks supplement this suite. Final combined, typecheck, browser-bundle, independent-review and source-hash evidence is supplied with this batch. These are source-level and controlled-DOM checks, not browser acceptance or release certification.
+
+## Release exclusions
+
+Actual browser layout, native focus/keyboard/navigation/BFCache behavior, accessibility, responsive and visual verification remain unverified. Earlier Chromium startup failed before navigation; this batch did not retry or bypass that failure. Live database authorization, current-main conflict integration, production governance/localization/design checks, remote CI and all publishing approval gates remain outstanding. The inherited strict TypeScript diagnostics are not marked resolved. The overall Screen Management System is not claimed complete or release-ready by this bounded batch.

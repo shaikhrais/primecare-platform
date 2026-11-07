@@ -50,6 +50,38 @@ for(const [name,Client,request] of domains){
   for(const [c,note] of [[a,'one'],[b,'one'],[a,'two'],[a,'one']])await assert.rejects(request(c,'/action',{note}));
   const keys=fetch.mock.calls.map(c=>c.arguments[1].headers['idempotency-key']);assert.equal(keys[0],keys[3]);assert.equal(new Set(keys.slice(0,3)).size,3);
  });
+ for(const phase of ['network','invalid-json','body-stream']){
+  test(`${name} rejects account replacement during ${phase} failure without clearing the new session`,async t=>{
+   const {values,redirects}=setup(t),c=new Client(gateway,token);
+   let reject,started;
+   const pending=new Promise((_resolve,rejectPromise)=>{reject=rejectPromise;});
+   const ready=new Promise(resolve=>{started=resolve;});
+   fetch.mock.mockImplementation(async()=>{
+    if(phase==='network'){started();return pending;}
+    if(phase==='invalid-json'){
+     values.set('primecare_session','replacement');
+     return new Response('invalid JSON',{status:401});
+    }
+    return {ok:false,status:401,json:()=>{started();return pending;}};
+   });
+   const requestResult=request(c,'/action',{note:'synthetic'});
+   const rejected=assert.rejects(requestResult,e=>e.message==='account_changed'&&(name!=='care'||e instanceof CareHttpError&&e.status===401));
+   if(phase!=='invalid-json'){
+    await ready;values.set('primecare_session','replacement');reject(Error('transport failed'));
+   }
+   await rejected;
+   assert.equal(values.get('primecare_session'),'replacement');assert.deepEqual(redirects,[]);
+  });
+ }
+ test(`${name} preserves same-session transport errors and retry identity`,async t=>{
+  const {values,redirects}=setup(t),c=new Client(gateway,token),failure=Error('synthetic network failure');
+  fetch.mock.mockImplementation(async()=>{throw failure;});
+  await assert.rejects(request(c,'/action',{note:'same'}),e=>e===failure);
+  fetch.mock.mockImplementation(async()=>Response.json({ok:true}));
+  await request(c,'/action',{note:'same'});
+  const keys=fetch.mock.calls.map(c=>c.arguments[1].headers['idempotency-key']);
+  assert.equal(keys[0],keys[1]);assert.equal(values.get('primecare_session'),token);assert.deepEqual(redirects,[]);
+ });
 }
 test('care retains typed failures without applying the growth login redirect',async t=>{
  const {redirects,values}=setup(t);fetch.mock.mockImplementation(async()=>Response.json({error:'forbidden'},{status:401}));

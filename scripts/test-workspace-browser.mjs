@@ -8,9 +8,9 @@ import {pathToFileURL} from 'node:url';
 import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const {JSDOM}=require(process.env.WORKSPACE_DOM_MODULE||'jsdom');
-const output=await build({entryPoints:['websites/typescript/src/workspace.ts'],bundle:true,write:false,platform:'node',format:'esm'});
+const output=await build({stdin:{contents:"export * from './websites/typescript/src/workspace';export {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';export {resolveManagedRoute} from './websites/typescript/src/managed-routes';",resolveDir:process.cwd()},bundle:true,write:false,platform:'node',format:'esm'});
 const bundlePath=join(await mkdtemp(join(tmpdir(),'workspace-browser-test-')),'workspace.mjs');await writeFile(bundlePath,output.outputFiles[0].text);
-const {renderWorkspace,inventoryCsv,loadWorkspace}=await import(pathToFileURL(bundlePath).href);
+const {renderWorkspace,inventoryCsv,loadWorkspace,ScreenManager,installScreenManager,resolveManagedRoute}=await import(pathToFileURL(bundlePath).href);
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
@@ -21,18 +21,32 @@ function browser(role='ceo') {
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
  const data={identity:{userId:'fixture',role},landing:registry.landings[role],screens,inventory:role==='ceo'?registry.screens:screens,resources:registry.resources,
+ actions:registry.screens.filter(s=>s.code==='MAINTENANCE_CONFIGURATION'&&s.grants.some(g=>g.role===role&&g.view===1)),
  overview:{activeAccounts:3,activeSessions:2,accountRoles:[{role:'ceo',count:1},{role:'rmt',count:2}],activity:[],metrics:[],scope:role==='ceo'?'organization':'personal'}};
  globalThis.fetch=async(url,options)=>{assert.equal(options.headers.authorization,'Bearer fixture-token');assert.ok(url.endsWith('/v1/governance/workspace'));return Response.json(data);};
- return {dom,root:document.querySelector('#app'),screens,data};
+ // This renderer-only DOM fixture supplies explicit presentation connections.
+ // The production main/bootstrap connections are exercised by test-typescript-screen-manager.mjs.
+ const root=document.querySelector('#app'),manager=new ScreenManager({layout(){},theme(){},language(){},responsive(){}});installScreenManager(root,manager);
+ manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
+ return {dom,root,screens,data};
 }
-test('CEO login landing renders real dashboard, every CEO route, governed sections and navigation',async()=>{
+test('CEO landing renders governed generic screens and hands dedicated screens to the dispatcher',async()=>{
  const {dom,root,screens}=browser();await renderWorkspace(root,'https://gateway.test');
  assert.equal(location.pathname,registry.landings.ceo);
  assert.ok(root.querySelector('[data-cy="screen-ceo_dashboard"]'));
  assert.ok(!root.textContent.includes('under construction'));
  assert.equal(root.querySelectorAll('[data-cy="workspace-overview"] .metric').length,4);
  for(const page of screens){
-  history.pushState({},'',page.route+'?enable-semantics=true');window.onpopstate();
+  if(resolveManagedRoute(page.route,'').adapter!=='workspace') {
+   const previous=globalThis.location,navigations=[];
+   globalThis.location={pathname:page.route,search:'?enable-semantics=true',replace:href=>navigations.push(new URL(href,dom.window.location.href))};
+   window.dispatchEvent(new window.PopStateEvent('popstate'));
+   assert.equal(navigations.length,1,page.code+' must navigate once without another history entry');
+   assert.equal(navigations[0].pathname,page.route);assert.equal(navigations[0].searchParams.get('enable-semantics'),'true');
+   assert.equal(root.querySelector(`[data-cy="screen-${page.code}"]`),null,page.code+' must not generic-render');
+   globalThis.location=previous;await renderWorkspace(root,'https://gateway.test');continue;
+  }
+  history.pushState({},'',page.route+'?enable-semantics=true');window.dispatchEvent(new window.PopStateEvent('popstate'));
   assert.ok(root.querySelector(`[data-cy="screen-${page.code}"]`),page.code);
   if(page.renderer==='dashboard'){for(const id of ['workspace-overview','workspace-organization','workspace-activity','workspace-delivery'])assert.ok(root.querySelector('[data-cy="'+id+'"]'),page.code+':'+id);}else for(const section of page.sections)assert.ok([...root.querySelectorAll('[data-cy]')].some(e=>e.dataset.cy===(section.testId||section.code)),page.code+':'+section.code);
  }
@@ -52,7 +66,7 @@ test('sidebar actions, search, pagination and unfinished filter work',async()=>{
 test('staff navigation contains no unauthorized CEO page and denied routes display no data',async()=>{
  const {dom,root}=browser('rmt');await renderWorkspace(root,'https://gateway.test');
  assert.equal(root.querySelector('[data-cy="sidebar-item-ceo_dashboard"]'),null);
- history.pushState({},'','/offices/corporate/roles/ceo/dashboard?enable-semantics=true');window.onpopstate();
+ history.pushState({},'','/offices/corporate/roles/ceo/dashboard?enable-semantics=true');window.dispatchEvent(new window.PopStateEvent('popstate'));
  assert.ok(root.querySelector('[data-cy="error-state"]'));assert.equal(root.querySelector('[data-cy="workspace-overview"]'),null);
  dom.window.close();
 });
@@ -88,13 +102,15 @@ test('all active role landings resolve to their own authorized governed page',as
   const {dom,root,data}=browser(role);
   const landing=registry.landings[role];
   const dedicatedAdmin=['code_admin','central_admin','tenant_admin','platform_admin'].includes(role);
-  if(['/care','/growth'].includes(landing)||dedicatedAdmin) {
+  if(resolveManagedRoute(landing,'').adapter!=='workspace'||dedicatedAdmin) {
    assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
-   const navigations=[];
-   globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
+   const navigations=[],methods=[];
+   const navigate=method=>href=>{methods.push(method);navigations.push(new URL(href,dom.window.location.href));};
+   globalThis.location={pathname:'/',search:dom.window.location.search,assign:navigate('assign'),replace:navigate('replace')};
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
    assert.equal(navigations[0].pathname,role==='tenant_admin'?'/tenant-dashboard':dedicatedAdmin?'/platform/administration':landing,role);
+   assert.deepEqual(methods,[dedicatedAdmin?'assign':'replace'],role+' automatic governed landing replaces the history entry');
    assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {

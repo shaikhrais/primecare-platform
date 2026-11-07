@@ -2,8 +2,9 @@ import {liveScreenText} from './screen-text';
 import {escapeHtml} from './workspace';
 type Definition={id:string;title:string;canExport:boolean;canEmail:boolean;supportsFilters:boolean};
 type Result={title:string;classification:string;generatedAt:string;scope:string;columns:{key:string;label:string}[];rows:Record<string,unknown>[]};
+type ReportOwner={isCurrent:()=>boolean;onLifecycle?:(dispose:()=>void,redraw:()=>void)=>void};
 /** Shared browser adapter for the existing server-authorized reporting contract. */
-export function reportPanel(gateway:string,endpoint:string,token:string,userId:string,initialLocale:'en'|'fr'|'es'='en'):HTMLElement {
+export function reportPanel(gateway:string,endpoint:string,token:string,userId:string,initialLocale:'en'|'fr'|'es'='en',owner?:ReportOwner):HTMLElement {
  if(endpoint!=='/v1/governance/reports')throw new Error('Invalid reporting endpoint');
  const root=document.createElement('section');root.className='section';root.dataset.cy='shared-reports';
  let locale=initialLocale as string,reports:Definition[]=[],labels:Record<string,string>={},selected='',search='',readiness='all',result:Result|null=null,busy=false,notice='';
@@ -15,8 +16,17 @@ export function reportPanel(gateway:string,endpoint:string,token:string,userId:s
  const pendingKey=()=>`primecare-report-pending:${userId}:${selected}`;
  const pending=()=>!!sessionStorage.getItem(pendingKey());
  const headers=()=>({authorization:'Bearer '+token});
+ let invalidated=false,definitionsDiscarded=false;let unsubscribe=()=>{};
+ const dispose=()=>{if(invalidated)return;invalidated=true;definitionsDiscarded=false;reports=[];labels={};selected='';search='';readiness='all';result=null;notice='';to='';subject='';message='';confirmed=false;busy=false;root.replaceChildren();unsubscribe();};
+ // Owner suspension preserves cached drafts. Explicit disposal or session changes
+ // are terminal; an obsolete continuation cannot download or commit delivery state.
+ function current(){
+  if(invalidated||owner&&!owner.isCurrent())return false;
+  try{if(token&&sessionStorage.getItem('primecare_session')===token)return true;}catch{/* Storage access failure invalidates private panel state too. */}
+  dispose();if(root.isConnected)location.reload();return false;
+ }
  function reset(){result=null;notice='';confirmed=false;}
- function draw(){const d=definition();root.innerHTML=`<h2>${label('title')}</h2>${reports.length?`<p><a data-cy="report-review-document" href="/assets/reviews/PrimeCare_Admin_Marketing_Review.pdf" download>${label('review_document')}</a></p>`:''}
+ function draw(){if(!current())return;const d=definition();root.innerHTML=`<h2>${label('title')}</h2>${reports.length?`<p><a data-cy="report-review-document" href="/assets/reviews/PrimeCare_Admin_Marketing_Review.pdf" download>${label('review_document')}</a></p>`:''}
  <div class="report-controls"><label>${label('language')}<select data-cy="report-language" ${busy?'disabled':''}>${['en','fr','es'].map(l=>`<option ${l===locale?'selected':''}>${l}</option>`).join('')}</select></label>
  <label>${label('report')}<select data-cy="report-select" ${busy?'disabled':''}>${reports.map(r=>`<option value="${escapeHtml(r.id)}" ${r.id===selected?'selected':''}>${escapeHtml(r.title)}</option>`).join('')}</select></label>
  <button data-cy="report-refresh" ${busy?'disabled':''}>${label('refresh')}</button></div>
@@ -26,17 +36,30 @@ export function reportPanel(gateway:string,endpoint:string,token:string,userId:s
  ${d?.canEmail?`<form data-cy="report-email-form"><label>${label('recipient')}<input type="email" required maxlength="254" data-cy="report-recipient" value="${escapeHtml(to)}" ${busy?'disabled':''}></label><label>${label('subject')}<input maxlength="150" data-cy="report-subject" value="${escapeHtml(subject)}" ${busy?'disabled':''}></label><label>${label('message')}<textarea maxlength="1000" data-cy="report-message" ${busy?'disabled':''}>${escapeHtml(message)}</textarea></label><label class="report-consent"><input type="checkbox" data-cy="report-confirm" ${confirmed?'checked':''} ${busy?'disabled':''}>${label('confirm')}</label><button type="submit" data-cy="report-email" ${busy||!result||!confirmed||pending()?'disabled':''}>${label('email')}</button></form>`:''}
  <output aria-live="polite" data-cy="report-status">${busy?label('working'):pending()?label('unknown'):escapeHtml(notice)}</output>`;
  const el=(id:string)=>root.querySelector<HTMLInputElement>(`[data-cy=${id}]`)!;
- el('report-language').onchange=()=>{locale=el('report-language').value;reset();void load();};
- el('report-select').onchange=()=>{selected=el('report-select').value;reset();draw();};
+ el('report-language').onchange=()=>{if(!current())return;locale=el('report-language').value;reset();void load();};
+ el('report-select').onchange=()=>{if(!current())return;selected=el('report-select').value;reset();draw();};
  el('report-refresh').onclick=()=>void load();
- if(d?.supportsFilters){el('report-search').oninput=()=>{search=el('report-search').value;reset();el('report-generate').disabled=busy;root.querySelector('[data-cy=report-result]')?.remove();for(const id of ['report-pdf','report-email']){const button=root.querySelector<HTMLButtonElement>(`[data-cy=${id}]`);if(button)button.disabled=true;}const checkbox=root.querySelector<HTMLInputElement>('[data-cy=report-confirm]');if(checkbox)checkbox.checked=false;};el('report-readiness').onchange=()=>{readiness=el('report-readiness').value;reset();draw();};}
- el('report-generate').onclick=()=>void action(async()=>{result=null;const r=await fetch(url+'/'+encodeURIComponent(selected)+'?'+new URLSearchParams(options()),{headers:headers(),cache:'no-store'});const data=await r.json();if(!r.ok||!Array.isArray(data.columns)||!Array.isArray(data.rows))throw new Error();result=data;});
- if(d?.canExport)el('report-pdf').onclick=()=>void action(async()=>{const r=await fetch(url+'/'+encodeURIComponent(selected)+'/pdf?'+new URLSearchParams(options()),{headers:headers(),cache:'no-store'});if(!r.ok)throw new Error();const bytes=new Uint8Array(await r.arrayBuffer());if(new TextDecoder().decode(bytes.slice(0,5))!=='%PDF-')throw new Error();const object=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));const a=document.createElement('a');a.href=object;a.download=selected+'.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(object),1000);});
- if(d?.canEmail){for(const [id,set] of [['report-recipient',(v:string)=>to=v],['report-subject',(v:string)=>subject=v],['report-message',(v:string)=>message=v]] as const){el(id).oninput=()=>{set(el(id).value);confirmed=false;el('report-confirm').checked=false;el('report-email').disabled=true;};}el('report-confirm').onchange=()=>{confirmed=el('report-confirm').checked;el('report-email').disabled=busy||!result||!confirmed||pending();};
- root.querySelector<HTMLFormElement>('[data-cy=report-email-form]')!.onsubmit=e=>{e.preventDefault();if(busy||!result||!confirmed||pending()||!d.canEmail)return;const key=crypto.randomUUID();sessionStorage.setItem(pendingKey(),key);void action(async()=>{const r=await fetch(url+'/'+encodeURIComponent(selected)+'/email',{method:'POST',headers:{...headers(),'content-type':'application/json','Idempotency-Key':key},body:JSON.stringify({...options(),to:to.trim(),subject,message,confirmed:true})});const data=await r.json();if(r.ok&&data.state==='accepted'){sessionStorage.removeItem(pendingKey());notice=labels.accepted;confirmed=false;}else if(r.status>=400&&r.status<500&&!['unknown','sending'].includes(data.state)){sessionStorage.removeItem(pendingKey());throw new Error();}else{notice=labels.unknown;}});};}
+ if(d?.supportsFilters){el('report-search').oninput=()=>{if(!current())return;search=el('report-search').value;reset();el('report-generate').disabled=busy;root.querySelector('[data-cy=report-result]')?.remove();for(const id of ['report-pdf','report-email']){const button=root.querySelector<HTMLButtonElement>(`[data-cy=${id}]`);if(button)button.disabled=true;}const checkbox=root.querySelector<HTMLInputElement>('[data-cy=report-confirm]');if(checkbox)checkbox.checked=false;};el('report-readiness').onchange=()=>{if(!current())return;readiness=el('report-readiness').value;reset();draw();};}
+ el('report-generate').onclick=()=>void action(async()=>{result=null;const r=await fetch(url+'/'+encodeURIComponent(selected)+'?'+new URLSearchParams(options()),{headers:headers(),cache:'no-store'});if(!current())return;const data=await r.json();if(!current())return;if(!r.ok||!Array.isArray(data.columns)||!Array.isArray(data.rows))throw new Error();result=data;});
+ if(d?.canExport)el('report-pdf').onclick=()=>void action(async()=>{const r=await fetch(url+'/'+encodeURIComponent(selected)+'/pdf?'+new URLSearchParams(options()),{headers:headers(),cache:'no-store'});if(!current())return;if(!r.ok)throw new Error();const bytes=new Uint8Array(await r.arrayBuffer());if(!current())return;if(new TextDecoder().decode(bytes.slice(0,5))!=='%PDF-')throw new Error();const object=URL.createObjectURL(new Blob([bytes],{type:'application/pdf'}));const a=document.createElement('a');a.href=object;a.download=selected+'.pdf';a.click();setTimeout(()=>URL.revokeObjectURL(object),1000);});
+ if(d?.canEmail){for(const [id,set] of [['report-recipient',(v:string)=>to=v],['report-subject',(v:string)=>subject=v],['report-message',(v:string)=>message=v]] as const){el(id).oninput=()=>{if(!current())return;set(el(id).value);confirmed=false;el('report-confirm').checked=false;el('report-email').disabled=true;};}el('report-confirm').onchange=()=>{if(!current())return;confirmed=el('report-confirm').checked;el('report-email').disabled=busy||!result||!confirmed||pending();};
+ root.querySelector<HTMLFormElement>('[data-cy=report-email-form]')!.onsubmit=e=>{e.preventDefault();if(!current()||busy||!result||!confirmed||pending()||!d.canEmail)return;const key=crypto.randomUUID();sessionStorage.setItem(pendingKey(),key);void action(async()=>{const r=await fetch(url+'/'+encodeURIComponent(selected)+'/email',{method:'POST',headers:{...headers(),'content-type':'application/json','Idempotency-Key':key},body:JSON.stringify({...options(),to:to.trim(),subject,message,confirmed:true})});if(!current())return;const data=await r.json();if(!current())return;if(r.ok&&data.state==='accepted'){sessionStorage.removeItem(pendingKey());notice=labels.accepted;confirmed=false;}else if(r.status>=400&&r.status<500&&!['unknown','sending'].includes(data.state)){sessionStorage.removeItem(pendingKey());throw new Error();}else{notice=labels.unknown;}});};}
  }
- async function action(work:()=>Promise<void>){if(busy)return;busy=true;notice='';draw();try{await work();}catch{notice=labels.error??'Report request failed.';}finally{busy=false;draw();}}
- async function load(){reset();reports=[];await action(async()=>{const r=await fetch(url+'?locale='+locale,{headers:headers(),cache:'no-store'});const data=await r.json();if(!r.ok||!Array.isArray(data.reports)||!data.resources)throw new Error();reports=data.reports;labels=data.resources;selected=reports.some(d=>d.id===selected)?selected:reports[0]?.id??'';reset();});}
- let attached=false;const unsubscribe=live.subscribe(()=>{if(root.isConnected)attached=true;else if(attached){unsubscribe();return;}if(!root.isConnected)return;if(!busy&&!root.querySelector('input:focus,textarea:focus,select:focus')){labels={...labels};draw();}});
+ async function action(work:()=>Promise<void>){if(!current()||busy)return;busy=true;notice='';draw();try{await work();}catch{if(!current())return;notice=labels.error??'Report request failed.';}finally{busy=false;draw();}}
+ // Only a definitions read discarded while hidden can resume automatically.
+ // Active failures keep their explicit retry, and user actions are never replayed.
+ function definitionsCurrent(){if(current())return true;if(!invalidated)definitionsDiscarded=true;return false;}
+ async function load(){
+  if(!current()||busy)return;definitionsDiscarded=false;reset();reports=[];
+  await action(async()=>{try{
+   const r=await fetch(url+'?locale='+locale,{headers:headers(),cache:'no-store'});if(!definitionsCurrent())return;
+   const data=await r.json();if(!definitionsCurrent())return;
+   if(!r.ok||!Array.isArray(data.reports)||!data.resources)throw new Error();reports=data.reports;labels=data.resources;selected=reports.some(d=>d.id===selected)?selected:reports[0]?.id??'';reset();
+  }catch(error){if(definitionsCurrent())throw error;}});
+  if(definitionsDiscarded&&current())resumePresentation();
+ }
+ const resumePresentation=()=>{if(!current())return;if(definitionsDiscarded&&!busy){void load();return;}draw();};
+ owner?.onLifecycle?.(dispose,resumePresentation);
+ let attached=false;unsubscribe=live.subscribe(()=>{if(!current())return;if(root.isConnected)attached=true;else if(attached){unsubscribe();return;}if(!root.isConnected)return;if(!busy&&!root.querySelector('input:focus,textarea:focus,select:focus')){labels={...labels};draw();}});
  void load();return root;
 }

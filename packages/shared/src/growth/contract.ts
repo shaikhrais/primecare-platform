@@ -36,7 +36,7 @@ export function planBody(v:Record<string,unknown>){
  if(days<0||days>=366)fail(400);
  if(!v.targets||typeof v.targets!=='object'||Array.isArray(v.targets))fail(400);
  const targets=v.targets as Record<string,unknown>;keys(targets,['tenant','client']);
- for(const pipeline of ['tenant','client'] as Pipeline[]){const counts=targets[pipeline];if(!Array.isArray(counts)||counts.length!==stages(pipeline).length)fail(400);for(let i=0;i<(counts as unknown[]).length;i++){integer((counts as unknown[])[i],1000000);if(i>0&&Number(counts[i])>Number(counts[i-1]))fail(400);}}
+ for(const pipeline of ['tenant','client'] as Pipeline[]){const counts=targets[pipeline];if(!Array.isArray(counts)||counts.length!==stages(pipeline).length)return fail(400);for(let i=0;i<counts.length;i++){integer(counts[i],1000000);if(i>0&&Number(counts[i])>Number(counts[i-1]))fail(400);}}
  return {start,end,targets,version:integer(v.version,2147483647)};
 }
 export function leadBody(v:Record<string,unknown>):Record<string,unknown>{

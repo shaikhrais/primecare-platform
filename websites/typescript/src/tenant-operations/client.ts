@@ -6,10 +6,17 @@ export type Overview={scope:'global'|'own';source:typeof registry.source;tenants
 export type Filters={search:string;filter:string;offset:number};
 export class OperationsClient{
  constructor(private gateway:string,private token:string){}
- async read(filters:Filters):Promise<Overview>{
+ assertSession(){if(sessionStorage.getItem('primecare_session')!==this.token)throw Error('account_changed');}
+ private async readForSession<T>(read:()=>Promise<T>,current:()=>void):Promise<T>{current();try{return await read();}finally{current();}}
+ async read(filters:Filters,assertOwner:()=>void=()=>{}):Promise<Overview>{
+  const current=()=>{this.assertSession();assertOwner();};current();
   const query=new URLSearchParams({search:filters.search,filter:filters.filter,offset:String(filters.offset)});
-  const response=await fetch(this.gateway.replace(/\/+$/,'')+registry.endpoint+'?'+query,{headers:{authorization:'Bearer '+this.token},cache:'no-store'});
-  if(response.status===401){sessionStorage.removeItem('primecare_session');location.assign('/login');throw Error('forbidden');}
-  if(!response.ok)throw Error(response.status===403?'forbidden':'failed');return await response.json();
+  const response=await this.readForSession(()=>fetch(this.gateway.replace(/\/+$/,'')+registry.endpoint+'?'+query,{headers:{authorization:'Bearer '+this.token},cache:'no-store'}),current);current();
+  if(response.status===401){
+   // Storage can be unavailable; its cleanup must not suppress login navigation.
+   try{sessionStorage.removeItem('primecare_session');}catch{}
+   location.assign('/login');throw Error('forbidden');
+  }
+  if(!response.ok)throw Error(response.status===403?'forbidden':'failed');const data=await this.readForSession(()=>response.json(),current);current();return data;
  }
 }

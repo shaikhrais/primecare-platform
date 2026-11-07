@@ -1,0 +1,39 @@
+name: Export Session Boundaries
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/session-export-boundaries.yml'
+      - 'websites/typescript/**'
+      - 'packages/**'
+      - 'scripts/test-platform-bundle-session.mjs'
+      - 'scripts/test-report-panel-session.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    paths:
+      - '.github/workflows/session-export-boundaries.yml'
+      - 'websites/typescript/**'
+      - 'packages/**'
+      - 'scripts/test-platform-bundle-session.mjs'
+      - 'scripts/test-report-panel-session.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+
+jobs:
+  session-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify export session boundaries without production credentials
+        run: node --test scripts/test-platform-bundle-session.mjs scripts/test-report-panel-session.mjs

@@ -1,7 +1,7 @@
 import {prepareWorkspaceRender,clearWorkspaceCustomizer,type WorkspaceCustomizerOptions} from './workspace-customizer';
 import {shellIcon} from './icons';
 import media from '../../shared/src/media/registry.json';
-import {mountLayoutCustomizer,clearLayoutCustomizer} from './layout-customizer';
+import {mountLayoutCustomizer,clearLayoutCustomizer,mountPresentationLayout} from './layout-customizer';
 import {BaseMediaLook,applyMediaTokens} from './media-look';
 import {bindSidebar} from './sidebar';
 import {mountNavigation,type NavigationLocale,type SearchEntry} from './navigation';
@@ -36,8 +36,9 @@ export function renderShell(root:HTMLElement,options:ShellContent):void {
  root.querySelector<HTMLElement>('[data-cy=app-topbar]')!.hidden=options.hideChrome===true;
  const footer=root.querySelector<HTMLElement>('[data-cy=app-footer]');if(footer)footer.hidden=options.hideChrome===true;
  shells.set(root,options);
+ mountPresentationLayout(root);
 }
-export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string,defaultTheme:Record<string,string>={},workspaceOptions?:WorkspaceCustomizerOptions):void {
+export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,scope:string,entries:()=>SearchEntry[],profileScope?:string,defaultTheme:Record<string,string>={},workspaceOptions?:WorkspaceCustomizerOptions,presentationCurrent?:()=>boolean):void {
  if(!utilityRoots.has(root)){utilityRoots.add(root);root.addEventListener('keydown',event=>{if(event.key!=='Escape'||root.querySelector('dialog[open]'))return;const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu){event.preventDefault();menu.open=false;menu.querySelector<HTMLElement>('summary')?.focus();}});root.addEventListener('click',event=>{const menu=root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities][open]');if(menu&&event.target instanceof Node&&!menu.contains(event.target)&&!(event.target instanceof Element&&event.target.closest('dialog[open]')))menu.open=false;});}
  document.documentElement.lang=locale;
  const labels=media.locales[locale];
@@ -48,7 +49,7 @@ export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,
  bindSidebar(root);
  mountNavigation(root.querySelector<HTMLElement>('[data-cy=global-navigation]')!,title,locale,scope,entries);
  if(!profileScope||!workspaceOptions)clearWorkspaceCustomizer(root);
- if(!profileScope)clearLayoutCustomizer(root);
- if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme,workspaceOptions);
+ if(!profileScope){clearLayoutCustomizer(root);mountPresentationLayout(root,defaultTheme);}
+ if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme,workspaceOptions,presentationCurrent);
  for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','refresh'],['[data-cy=platform-logout]','logout']] as const){const action=root.querySelector(selector);if(action&&!action.querySelector('svg'))action.insertAdjacentHTML('afterbegin',shellIcon(icon));}
 }

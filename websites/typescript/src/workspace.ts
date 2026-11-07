@@ -1,8 +1,8 @@
+import {requireScreenManager, showScreenConfigurationError, ScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
 import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
 import {mutationActorForScreen,accountCreationMarkup,bindAccountCreation} from './account-mutations-panel';
 import {tenantAccountsScreen,tenantAccountsMarkup,bindTenantAccounts} from './tenant-accounts-panel';
-import growthRegistry from '../../../packages/shared/src/growth/registry.json';
-import careRegistry from '../../../packages/shared/src/care/registry.json';
+import {resolveManagedRoute} from './managed-routes';
 import {openAdminTraining,trainingText} from './admin-training';
 import {DashboardMediaLook} from './media-look';
 import {liveScreenText} from './screen-text';
@@ -24,9 +24,13 @@ type Workspace = {identity:{userId:string;role:string};landing:string;screens:Pa
 export const escapeHtml = (value:unknown) => String(value??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]!));
 const routeUrl = (route:string) => {
   const url=new URL(route,document.baseURI),locale=document.documentElement.lang;
+  if(!route.startsWith('/')||route.startsWith('//')||/[?#\\\s\u0000-\u001f\u007f]/.test(route)||
+    url.origin!==new URL(document.baseURI).origin||url.pathname!==route)throw new ScreenConfigurationError('Invalid workspace route');
   if(locale==='fr'||locale==='es')url.searchParams.set('locale',locale);
   url.searchParams.delete('enable-semantics');url.searchParams.set('enable-semantics','true');
-  return url.pathname+'?'+url.searchParams;
+  const target=url.pathname+'?'+url.searchParams;
+  if(new URL(target,document.baseURI).origin!==url.origin)throw new ScreenConfigurationError('Invalid workspace route');
+  return target;
 };
 export async function loadWorkspace(gateway:string,token:string,send:typeof fetch=fetch):Promise<Workspace> {
   const response=await send(`${gateway}/v1/governance/workspace`,{headers:{authorization:'Bearer '+token},cache:'no-store'});
@@ -41,29 +45,118 @@ export function inventoryCsv(pages:Page[]):string {
     ...pages.map(p=>[p.code,p.name,p.appCode,p.role,p.route,p.lifecycle,p.productionReady?'Yes':'No',p.blockers.join('; ')])]
     .map(row=>row.map(quote).join(',')).join('\r\n');
 }
+const workspaceLoads=new WeakMap<HTMLElement,number>();
+const workspaceOwners=new WeakMap<HTMLElement,()=>void>();
+const workspaceRestores=new WeakMap<HTMLElement,Promise<void>>();
+// main.ts owns this document's dispatcher entry. Internal governed navigation
+// does not replace it or turn presentation metadata into an authorization grant.
+const workspaceEntries=new WeakMap<HTMLElement,ReturnType<typeof resolveManagedRoute>>();
+// This module already runs inside the workspace adapter, not the auth-portal fallback.
+const documentRoute=(route:string)=>resolveManagedRoute(route,'').adapter!=='workspace';
 export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<void> {
-  const token=sessionStorage.getItem('primecare_session');
-  if(!token){location.assign(routeUrl('/login'));return;}
+  const manager=requireScreenManager(root);
+  workspaceOwners.get(root)?.();workspaceRestores.delete(root);
+  const generation=(workspaceLoads.get(root)??0)+1;workspaceLoads.set(root,generation);
+  const eventTarget=root.ownerDocument.defaultView??window;
+  let retired=false,suspended=false;let disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
+  let renderVersion=0,dirtyForm=false;
+  const onInput=()=>{dirtyForm=true;};
+  const ownsRoot=()=>!retired&&workspaceLoads.get(root)===generation;
+  const isCurrent=()=>{if(!ownsRoot()||suspended)return false;if(root.isConnected===false){retire();return false;}return true;};
+  const callView=()=>new URLSearchParams(location.search).get('view')==='calls';
+  const initialRoute=location.pathname,initialCalls=callView();
+  const entry=workspaceEntries.get(root)??resolveManagedRoute(initialRoute,'');
+  const onHistory=()=>{
+    if(!isCurrent())return;
+    if((initialCalls||callView())&&(location.pathname!==initialRoute||callView()!==initialCalls)){if(sessionCurrent()&&enter(entry.id,entry.route))void renderWorkspace(root,gateway);}
+    else redraw();
+  };
+  const retire=()=>{
+    if(retired)return;retired=true;renderVersion++;
+    disposeCalls();disposeCalls=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
+    if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);manager.registerScope('workspace',[]);}
+  };
+  const fail=(error:unknown)=>{
+    if(ownsRoot()){retire();showScreenConfigurationError(root,error);}return false;
+  };
+  const enter=(id:string,route:string)=>{
+    if(!isCurrent())return false;
+    try{manager.enter(id,route);}catch(error){return fail(error);}
+    return isCurrent();
+  };
+  let token:string;
+  const sessionCurrent=()=>{
+    try{if(sessionStorage.getItem('primecare_session')===token)return true;}
+    catch{return fail(new ScreenConfigurationError('Session storage is unavailable'));}
+    retire();root.replaceChildren();location.reload();return false;
+  };
+  const leave=(event:PageTransitionEvent)=>{
+    if(!ownsRoot())return;
+    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};manager.registerScope('workspace',[]);
+    workspaceRestores.delete(root);
+    if(!event.persisted)retire();
+  };
+  const resume=(event:PageTransitionEvent)=>{
+    if(!event.persisted||!ownsRoot()||root.isConnected===false||workspaceRestores.has(root))return;
+    if(!sessionCurrent())return;
+    // Install the replacement lifecycle before awaiting either the grant read or
+    // calls import/start. Duplicate restoration events share this refresh.
+    const work=renderWorkspace(root,gateway);workspaceRestores.set(root,work);
+    void work.catch(error=>{if(workspaceRestores.get(root)===work)showScreenConfigurationError(root,error);}).finally(()=>{
+      if(workspaceRestores.get(root)===work)workspaceRestores.delete(root);
+    });
+  };
+  manager.registerScope('workspace',[]);
+  let storedToken:string|null;
+  try{storedToken=sessionStorage.getItem('primecare_session');}
+  catch{showScreenConfigurationError(root,new ScreenConfigurationError('Session storage is unavailable'));return;}
+  if(!storedToken){root.replaceChildren();location.assign(routeUrl('/login'));return;}
+  token=storedToken;
+  workspaceOwners.set(root,retire);eventTarget.addEventListener('pagehide',leave);eventTarget.addEventListener('pageshow',resume);eventTarget.addEventListener('popstate',onHistory);
+  if(!enter(entry.id,entry.route))return;
+  workspaceEntries.set(root,entry);
   root.innerHTML='<main aria-busy="true" data-cy="workspace-loading"><progress aria-label="Loading workspace"></progress></main>';
   let data:Workspace;
   try {data=await loadWorkspace(gateway,token);}
   catch(error) {
-    if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
-    if((error as {status?:number}).status===401){sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));return;}
+    if(!isCurrent())return;
+    if(!sessionCurrent()||!enter(entry.id,entry.route))return;
+    if((error as {status?:number}).status===401){sessionStorage.removeItem('primecare_session');retire();location.assign(routeUrl('/login'));return;}
     root.innerHTML=`<main data-cy="error-state" role="alert"><p>${escapeHtml((error as Error).message)}</p><button data-cy="workspace-retry">Retry</button></main>`;
-    root.querySelector('button')?.addEventListener('click',()=>void renderWorkspace(root,gateway));return;
+    root.querySelector('button')?.addEventListener('click',()=>{if(isCurrent()&&sessionCurrent()&&enter(entry.id,entry.route))void renderWorkspace(root,gateway);});return;
   }
-  if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+  if(!isCurrent())return;
+  if(!sessionCurrent()||!enter(entry.id,entry.route))return;
+  // Only the authenticated, server-filtered screens become presentation registrations.
+  // The broader inventory and public portal manifest must never be used for this snapshot.
+  try {
+    // Actions are not generic screen registrations, but their navigation URLs must
+    // obey the same canonical, same-origin path contract as authorized screens.
+    for(const page of [...data.screens,...(data.actions??[])])routeUrl(page.route);
+    manager.registerScope('workspace',[
+    ...data.screens.map(page=>({id:'governed:'+page.code,route:page.route,kind:'governed' as const,adapter:'workspace'})),
+    {id:'typescript:account',route:'/success',kind:'feature',adapter:'workspace-account'},
+  ]);}catch(error){fail(error);return;}
   const callScreens=data.screens.filter(s=>['psw_messages','patient_messages','communication','messaging'].includes(s.code));
   if(new URLSearchParams(location.search).get('view')==='calls'&&callScreens.some(s=>s.route===location.pathname)){
+    {const page=callScreens.find(s=>s.route===location.pathname)!;if(!enter('governed:'+page.code,page.route))return;}
     const {renderInternalCalls}=await import('./internal-calls');
-    await renderInternalCalls(root,gateway,{userId:data.identity.userId,role:data.identity.role,home:data.landing??'/',navigation:data.screens.map(s=>`<a href="${escapeHtml(routeUrl(s.route))}">${escapeHtml(s.name)}</a>`).join('')});return;
+    if(!isCurrent())return;
+    if(!sessionCurrent())return;
+    // The query and route can change while the lazy renderer is loading.
+    if(new URLSearchParams(location.search).get('view')!=='calls'||!callScreens.some(s=>s.route===location.pathname)){await renderWorkspace(root,gateway);return;}
+    {const page=callScreens.find(s=>s.route===location.pathname)!;if(!enter('governed:'+page.code,page.route))return;}
+    const callsRoute=location.pathname;
+    await renderInternalCalls(root,gateway,{isCurrent:()=>isCurrent()&&location.pathname===callsRoute&&callView()&&sessionCurrent()&&enter('governed:'+callScreens.find(s=>s.route===callsRoute)!.code,callsRoute),userId:data.identity.userId,role:data.identity.role,home:data.landing??'/',navigation:data.screens.map(s=>`<a href="${escapeHtml(routeUrl(s.route))}">${escapeHtml(s.name)}</a>`).join('')},panel=>{
+      if(!isCurrent()){panel.close();return;}disposeCalls=()=>panel.close();
+    });return;
   }
-  const reportPanels=new Map<string,HTMLElement>();
+  const reportPanels=new Map<string,HTMLElement>(),reportLifecycles=new Map<string,{dispose:()=>void;redraw:()=>void}>();
+  disposeReports=()=>{for(const lifecycle of reportLifecycles.values())lifecycle.dispose();reportLifecycles.clear();reportPanels.clear();};
   if(data.identity.role==='tenant_admin'&&location.pathname!=='/success'){location.assign(routeUrl('/tenant-dashboard'));return;}
   if(['code_admin','central_admin','platform_admin'].includes(data.identity.role)&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
-  if(['/','/dashboard'].includes(location.pathname)&&[careRegistry.route,growthRegistry.route].includes(data.landing)&&data.screens.some(s=>s.route===data.landing)){location.assign(routeUrl(data.landing));return;}
-  const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
+  const live=liveScreenText(gateway);root.addEventListener('input',onInput);
   let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;
   const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';
   const text=(key:string)=>live.text('workspace',locale,key,(workspaceCatalog.locales[locale] as Record<string,string>)[key]??data.resources['workspace.'+key]??key);
@@ -79,17 +172,43 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     <ul>${p.blockers.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul></details>`;
   const activities=()=>data.overview.activity.length?`<ul class="activity-list">${data.overview.activity.map(a=>`<li><strong>${escapeHtml(a.action.replaceAll('_',' '))}</strong><time datetime="${escapeHtml(a.created_at)}">${escapeHtml(new Date(a.created_at).toLocaleString())}</time></li>`).join('')}</ul>`:`<p class="empty">${t('empty')}</p>`;
   const chart=()=>`<div class="role-bars">${data.overview.accountRoles.map(r=>`<div><div><span>${escapeHtml(media.roleLabel(r.role))}</span><strong>${r.count}</strong></div><meter min="0" max="${Math.max(1,data.overview.activeAccounts)}" value="${r.count}" aria-label="${escapeHtml(media.roleLabel(r.role))}">${r.count}</meter></div>`).join('')}</div>`;
-  let disposeAccountReads=()=>{};let disposeAccountCreation=()=>{};
+  let handingOff=false;
+  const currentNavigation=()=>{
+    if(!isCurrent()||handingOff)return false;
+    return sessionCurrent();
+  };
+  const handoff=(route:string,replace=false)=>{
+    handingOff=true;renderVersion++;disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    if(replace)location.replace(routeUrl(route));else location.assign(routeUrl(route));
+  };
+  const navigate=(route:string,active:()=>boolean)=>{
+    if(!active())return;
+    if(documentRoute(route)){handoff(route);return;}
+    const url=routeUrl(route);
+    if(location.pathname+location.search!==url)history.pushState({},'',url);
+    draw();root.querySelector<HTMLElement>('h1')?.focus();
+  };
   const draw=()=>{
-    disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};
+    if(!currentNavigation())return;
+    const version=++renderVersion;
+    disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};
     const inventoryOpen=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]')?.open??false;
     let page=data.screens.find(s=>s.route===location.pathname);
     if(location.pathname==='/' || location.pathname==='/dashboard') {
       page=data.screens.find(s=>s.route===data.landing)??data.screens[0];
+      if(page&&documentRoute(page.route)){handoff(page.route,true);return;}
       if(page)history.replaceState({},'',routeUrl(page.route));
     }
     const account=location.pathname==='/success';
+    // Back/Forward can reach a document route in an older workspace history entry.
+    // Only the server-filtered screen/action snapshot may request this handoff.
+    if(!account&&documentRoute(location.pathname)&&(page||data.actions?.some(s=>s.route===location.pathname))){handoff(location.pathname,true);return;}
     if(!page&&!account){root.innerHTML=`<main data-cy="error-state"><h1>${t('forbidden')}</h1><a href="${escapeHtml(routeUrl(data.landing??'/'))}">${t('title')}</a></main>`;return;}
+    const id=account?'typescript:account':'governed:'+page!.code,route=location.pathname;
+    if(!enter(id,route))return;
+    // DOM handlers belong to this particular render, not just to its session.
+    // A removed control must not act on a replacement view with the same token.
+    const active=()=>version===renderVersion&&location.pathname===route&&currentNavigation()&&enter(id,route);
     const pending=data.inventory.filter(p=>p.blockers.length>0);
     const rows=data.inventory.filter(p=>(!pendingOnly||p.blockers.length>0)&&`${p.name} ${p.role} ${p.appCode} ${p.route}`.toLowerCase().includes(search.toLowerCase()));
     const countPages=Math.max(1,Math.ceil(rows.length/25));pageNumber=Math.min(pageNumber,countPages-1);
@@ -117,35 +236,41 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
       <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
       <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
-    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();if([careRegistry.route,growthRegistry.route].includes(a.dataset.route??'')){location.assign(a.href);return;}history.pushState({},'',a.href);draw();root.querySelector<HTMLElement>('h1')?.focus();});
+    root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
-      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId);reportPanels.set(page.code,panel);}
+      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,'en',{
+        // Cached report state survives same-screen shell redraws. Its active
+        // route and parent lifecycle, not a removed shell's version, own it.
+        isCurrent:()=>currentNavigation()&&location.pathname===route&&enter(id,route),
+        onLifecycle:(dispose,redraw)=>reportLifecycles.set(page!.code,{dispose,redraw}),
+      });if(!active())return;reportPanels.set(page.code,panel);}
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
+      reportLifecycles.get(page.code)?.redraw();if(!active())return;
     }
-    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>{if([careRegistry.route,growthRegistry.route].includes(s.route)){location.assign(routeUrl(s.route));return;}history.pushState({},'',routeUrl(s.route));draw();root.querySelector<HTMLElement>('h1')?.focus();}})),data.identity.role+':'+data.identity.userId);
-    root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>openAdminTraining(gateway,data.identity.userId);
-    root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>void renderWorkspace(root,gateway);
+    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)})),data.identity.role+':'+data.identity.userId);
+    root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId);};
+    root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>{if(active())void renderWorkspace(root,gateway);};
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async event=>{
-      if(signingOut)return;
-      if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+      if(signingOut||!active())return;
       signingOut=true;const button=event.currentTarget as HTMLButtonElement;button.disabled=true;
       try{await signOut(gateway,token);
-        if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
-        sessionStorage.removeItem('primecare_session');location.assign(routeUrl('/login'));
-      }catch{if(sessionStorage.getItem('primecare_session')!==token){location.reload();return;}
+        if(!active())return;
+        sessionStorage.removeItem('primecare_session');retire();root.replaceChildren();location.assign(routeUrl('/login'));
+      }catch{if(!active())return;
         button.textContent=text('request_failed');button.setAttribute('aria-live','polite');
-      }finally{signingOut=false;button.disabled=false;}
+      }finally{signingOut=false;if(active())button.disabled=false;}
     };
-    root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]')?.addEventListener('input',e=>{const input=e.currentTarget as HTMLInputElement;const cursor=input.selectionStart;search=input.value;pageNumber=0;draw();const next=root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]');next?.focus();next?.setSelectionRange(cursor,cursor);});
-    root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
-    root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{pageNumber--;draw();});
-    root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{pageNumber++;draw();});
-    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
+    root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]')?.addEventListener('input',e=>{if(!active())return;const input=e.currentTarget as HTMLInputElement;const cursor=input.selectionStart;search=input.value;pageNumber=0;draw();const next=root.querySelector<HTMLInputElement>('[data-cy="workspace-search"]');next?.focus();next?.setSelectionRange(cursor,cursor);});
+    root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{if(!active())return;pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
+    root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{if(!active())return;pageNumber--;draw();});
+    root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{if(!active())return;pageNumber++;draw();});
+    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&mutationActorForScreen(page.code,data.identity.role)&&!account){root.querySelector('main')!.insertAdjacentHTML('beforeend',accountCreationMarkup());disposeAccountCreation=bindAccountCreation(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
-    bindAccount(root,gateway,token,text('request_failed'),text('unavailable'));
+    disposeAccount=bindAccount(root,gateway,token,text('request_failed'),text('unavailable'),active);
   };
-  const unsubscribe=live.subscribe(()=>{if(!root.querySelector('[data-cy=workspace-organization]')){unsubscribe();return;}if(!dirtyForm&&!signingOut)draw();});
-  window.onpopstate=draw;draw();
+  redraw=draw;
+  stopLive=live.subscribe(()=>{if(!isCurrent()){stopLive();return;}if(!root.querySelector('[data-cy=workspace-organization]')){stopLive();return;}if(!dirtyForm&&!signingOut)draw();});
+  draw();
 }

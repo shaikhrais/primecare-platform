@@ -1,15 +1,30 @@
 import {renderShell,bindShell} from './shell';
 import {MaintenanceClient} from './maintenance-client';
+import {maintenanceOwner} from './maintenance-ownership';
 import catalog from '../../../packages/shared/src/maintenance.json';
 const escape=(value:unknown)=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]!));
 
 export async function renderMaintenance(root:HTMLElement,gateway:string){
- const locale=document.documentElement.lang,token=sessionStorage.getItem('primecare_session');
- const client=new MaintenanceClient(gateway,token??'',locale),c=client.controls,t=(key:keyof typeof catalog.locales.en)=>escape(client.text(key)),m=(value:unknown)=>escape(client.message(value));
- if(!token){location.assign(client.route('login'));return;}
- root.innerHTML=`<main class="auth-shell" data-cy="${c.screen}"><p role="status">${t('loading')}</p></main>`;
- try{
-  const identity=await client.identify(),data=await client.read();
+ const owner=maintenanceOwner(root),locale=document.documentElement.lang;
+ const client=new MaintenanceClient(gateway,owner.token??'',locale,owner.transportCurrent),c=client.controls,t=(key:keyof typeof catalog.locales.en)=>escape(client.text(key)),m=(value:unknown)=>escape(client.message(value));
+ if(!owner.current())return;
+ if(!owner.token){owner.navigate(client.route('login'));return;}
+ let busy=false;
+ const guardLinks=(current:()=>boolean)=>root.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{if(!current())event.preventDefault();}));
+ function unavailable(error:unknown,current:()=>boolean){
+  if(!current())return;
+  if(!owner.paint(()=>{root.innerHTML=`<main class="auth-shell" data-cy="${c.screen}"><section class="auth-card"><h1>${t('unavailable')}</h1><p role="alert">${escape(error instanceof Error?error.message:client.text('cannotConnect'))}</p><button type="button" data-cy="${c.refresh}">${t('refresh')}</button><a href="${client.route('login')}">${t('signin')}</a></section></main>`;}))return;
+  const retry=owner.capture();guardLinks(retry);
+  root.querySelector('[data-cy="'+c.refresh+'"]')?.addEventListener('click',()=>{if(retry()&&!busy){if(client.sessionExpired)owner.navigate(client.route('login'));else void load();}});
+ }
+ async function load(notice?:string){
+  if(!owner.current())return;
+  if(!owner.paint(()=>{root.innerHTML=`<main class="auth-shell" data-cy="${c.screen}"><p role="status">${t('loading')}</p></main>`;}))return;
+  const loading=owner.capture();
+  try{
+   const identity=await client.identify();await owner.wait();if(!loading())return;
+   const data=await client.read();await owner.wait();if(!loading())return;
+   if(!owner.paint(()=>{
   renderShell(root,{home:client.route('portal'),role:escape(identity.roles),navigation:`<a href="${client.route('configuration')}">${t('title')}</a><a href="${client.route('account')}">${t('account')}</a>`,controls:`<a href="${client.route('account')}">${t('account')}</a><a href="${client.route('portal')}">${t('portal')}</a><button id="signout" data-cy="${c.signout}">${t('signout')}</button>`,mainAttributes:`class="maintenance" data-cy="${c.screen}"`,content:`<h1>${t('title')}</h1><p>${t('intro')}</p>
    <output data-cy="${c.status}" aria-live="polite"></output><button type="button" data-cy="${c.refresh}">${t('refresh')}</button>
    <section class="section" data-cy="${c.pending}"><h2>${t('pendingTitle')}</h2><p>${data.emailReady?t('ready'):t('notReady')}</p><ol>${data.pending.map(task=>`<li>${m(task)}</li>`).join('')}</ol></section>
@@ -19,19 +34,53 @@ export async function renderMaintenance(root:HTMLElement,gateway:string){
    <section class="section" data-cy="${c.deployment}"><h2>${t('deployment')}</h2>${data.externalConfiguration.map(item=>`<h3>${m(item.name)}</h3><p>${m(item.value)}</p><p>${m(item.instructions)}</p>`).join('')}</section>
    ${client.canCreateMaintenance?`<form class="section" data-cy="${c.createAccount}"><h2>${t('createTitle')}</h2><p>${t('createHelp')}</p><label>${t('accountEmail')}<input name="email" data-cy="${c.accountEmail}" type="email" required maxlength="254"></label><label>${t('accountPassword')}<input name="password" data-cy="${c.accountPassword}" type="password" minlength="12" required autocomplete="new-password"></label><button data-cy="${c.createSubmit}">${t('createSubmit')}</button></form>`:''}
    <section class="section" data-cy="${c.audit}"><h2>${t('audit')}</h2><ul>${data.audit.length?data.audit.map(item=>`<li>${m(item.action)} · ${escape(item.created_at)}</li>`).join(''):`<li>${t('emptyAudit')}</li>`}</ul></section>`});
+   }))return;
+  const active=owner.capture();
   const cy=(id:string)=>root.querySelector<HTMLElement>('[data-cy="'+id+'"]')!;
-  bindShell(root,client.text('title'),client.locale,client.text('tasks'),()=>[{title:client.text('title'),detail:client.text('settingsDetail'),open:()=>cy(c.settings).scrollIntoView()},{title:client.text('account'),detail:client.text('account'),open:()=>location.assign(client.route('account'))}],identity.roles+':'+identity.userId);
+  owner.shell(active);
+  try{bindShell(root,client.text('title'),client.locale,client.text('tasks'),()=>active()?[{title:client.text('title'),detail:client.text('settingsDetail'),open:()=>{if(active())cy(c.settings).scrollIntoView();}},{title:client.text('account'),detail:client.text('account'),open:()=>{if(active())owner.navigate(client.route('account'));}}]:[],identity.roles+':'+identity.userId,{},undefined,active);}catch(error){owner.fail(error);return;}
+  if(!active())return;
+  guardLinks(active);
   const status=cy(c.status) as HTMLOutputElement;
-  const action=async(button:HTMLButtonElement,operation:()=>Promise<Record<string,unknown>>)=>{
-   const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')];buttons.forEach(item=>item.disabled=true);
-   try{const result=await operation();root.querySelectorAll<HTMLInputElement>('input[type=password]').forEach(input=>input.value='');await renderMaintenance(root,gateway);const refreshed=root.querySelector<HTMLOutputElement>('[data-cy="'+c.status+'"]');if(refreshed)refreshed.value=result.message?client.message(result.message):client.text('created');}
-   catch(error){status.value=error instanceof Error?error.message:client.text('failed');}
-   finally{buttons.forEach(item=>item.disabled=false);const save=root.querySelector<HTMLButtonElement>('[data-cy="'+c.save+'"]');if(save&&!data.settingsReady)save.disabled=true;}
+  if(notice)status.value=notice;
+  const allowed=(node:HTMLElement)=>active()&&!busy&&root.contains(node)&&!(node as HTMLButtonElement).disabled;
+  const action=async(node:HTMLElement,operation:()=>Promise<Record<string,unknown>>)=>{
+   if(!allowed(node))return;
+   busy=true;
+   const buttons=[...root.querySelectorAll<HTMLButtonElement>('button')],disabled=buttons.map(item=>item.disabled);buttons.forEach(item=>item.disabled=true);
+   try{
+    if(!active())return;
+    const result=await operation();await owner.wait();if(!active())return;
+    root.querySelectorAll<HTMLInputElement>('input[type=password]').forEach(input=>input.value='');
+    await load(result.message?client.message(result.message):client.text('created'));
+   }catch(error){if(client.sessionExpired)owner.sessionEnded();await owner.wait();if(client.sessionExpired)unavailable(error,active);else if(active())status.value=error instanceof Error?error.message:client.text('failed');}
+   finally{if(active())buttons.forEach((item,index)=>item.disabled=disabled[index]);busy=false;}
   };
-  cy(c.refresh).addEventListener('click',()=>void renderMaintenance(root,gateway));
-  cy(c.settings).addEventListener('submit',event=>{event.preventDefault();const form=event.currentTarget as HTMLFormElement,values=new FormData(form),templates:Record<string,Record<string,string>>={};form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('[data-template]').forEach(field=>{const id=field.dataset.template!;templates[id]??={};templates[id][field.dataset.field!]=field.value;});void action(cy(c.save) as HTMLButtonElement,()=>client.save({sender:values.get('sender'),revision:data.revision,templates}));});
-  cy(c.testEmail).addEventListener('click',()=>void action(cy(c.testEmail) as HTMLButtonElement,()=>client.testEmail()));
-  root.querySelector('[data-cy="'+c.createAccount+'"]')?.addEventListener('submit',event=>{event.preventDefault();const values=new FormData(event.currentTarget as HTMLFormElement);void action(cy(c.createSubmit) as HTMLButtonElement,()=>client.createAccount(values.get('email'),values.get('password')));});
-  cy(c.signout).addEventListener('click',async()=>{try{await client.logout();location.assign(client.route('login'));}catch{status.value=client.text('failed');}});
- }catch(error){root.innerHTML=`<main class="auth-shell" data-cy="${c.screen}"><section class="auth-card"><h1>${t('unavailable')}</h1><p role="alert">${escape(error instanceof Error?error.message:client.text('cannotConnect'))}</p><button type="button" data-cy="${c.refresh}">${t('refresh')}</button><a href="${client.route('login')}">${t('signin')}</a></section></main>`;root.querySelector('[data-cy="'+c.refresh+'"]')?.addEventListener('click',()=>void renderMaintenance(root,gateway));}
+  cy(c.refresh).addEventListener('click',event=>{if(allowed(event.currentTarget as HTMLElement))void load();});
+  cy(c.settings).addEventListener('submit',event=>{
+   event.preventDefault();const form=event.currentTarget as HTMLFormElement;
+   if(!allowed(form)||!data.settingsReady)return;
+   const values=new FormData(form),templates:Record<string,Record<string,string>>={};
+   form.querySelectorAll<HTMLInputElement|HTMLTextAreaElement>('[data-template]').forEach(field=>{const id=field.dataset.template!;templates[id]??={};templates[id][field.dataset.field!]=field.value;});
+   void action(form,()=>client.save({sender:values.get('sender'),revision:data.revision,templates}));
+  });
+  cy(c.testEmail).addEventListener('click',event=>{const button=event.currentTarget as HTMLElement;if(allowed(button))void action(button,()=>client.testEmail());});
+  root.querySelector('[data-cy="'+c.createAccount+'"]')?.addEventListener('submit',event=>{
+   event.preventDefault();const form=event.currentTarget as HTMLFormElement;
+   if(!allowed(form)||!client.canCreateMaintenance)return;
+   const values=new FormData(form);void action(form,()=>client.createAccount(values.get('email'),values.get('password')));
+  });
+  cy(c.signout).addEventListener('click',async event=>{
+   if(!allowed(event.currentTarget as HTMLElement))return;
+   busy=true;
+   try{await client.logout();owner.sessionEnded();await owner.wait();owner.navigate(client.route('login'),true);}
+   catch{await owner.wait();if(active())status.value=client.text('failed');}
+   finally{busy=false;}
+  });
+  }catch(error){
+   if(client.sessionExpired)owner.sessionEnded();
+   await owner.wait();unavailable(error,loading);
+  }
+ }
+ await load();
 }
