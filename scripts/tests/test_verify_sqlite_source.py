@@ -463,5 +463,168 @@ class VerifierTests(unittest.TestCase):
         self.assertEqual(error_output.getvalue(), 'SQLite source pilot rejected: unexpected-input-or-prerequisite\n')
 
 
+class GeneratedSourceGuardTests(unittest.TestCase):
+    def setUp(self):
+        self.addCleanup(patch.stopall)
+        patch.object(socket, "socket", side_effect=AssertionError("Network forbidden in fixtures")).start()
+        patch.object(socket, "create_connection", side_effect=AssertionError("Network forbidden in fixtures")).start()
+        temporary = tempfile.TemporaryDirectory()
+        self.addCleanup(temporary.cleanup)
+        self.workspace = Path(temporary.name).resolve()
+        self.state = self.workspace / "state"
+        self.state.mkdir()
+        self.name = "apps/primecare_clinic/linux/flutter/generated_plugin_registrant.cc"
+        self.file = self.workspace / self.name
+        self.file.parent.mkdir(parents=True)
+        self.old, self.new = b"tracked fixture\n", b"generated fixture\n"
+        def identity(data):
+            return {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
+                    "git_blob_sha1": pilot.blob(data)}
+        self.pins = {self.name: {"tracked": identity(self.old), "resolved": identity(self.new)}}
+        patch.object(pilot, "GENERATED_PINS", self.pins).start()
+        self.file.write_bytes(self.old)
+        self.file.chmod(0o644)
+        self.changes = []
+        self.staged_changes = []
+        self.tree = "100644 blob " + pilot.blob(self.old) + "\t" + self.name + "\0"
+        def git_output(command, cwd=None):
+            self.assertEqual(cwd, self.workspace)
+            if command[:3] == ["git", "ls-tree", "-z"]:
+                return self.tree
+            if "--cached" in command:
+                self.assertEqual(command, ["git", "diff", "--no-ext-diff", "--no-textconv",
+                                           "--name-only", "-z", "--cached", "HEAD", "--", "."])
+                return "".join(name + "\0" for name in self.staged_changes)
+            self.assertEqual(command, ["git", "diff", "--no-ext-diff", "--no-textconv",
+                                       "--name-only", "-z", "HEAD", "--", "."])
+            return "".join(name + "\0" for name in self.changes)
+        self.run = patch.object(pilot, "run", side_effect=git_output).start()
+        patch.object(pilot.subprocess, "Popen", side_effect=AssertionError("No fixture subprocess")).start()
+
+    def baseline(self):
+        pilot.capture_generated_checkout(self.workspace, self.state)
+        self.file.write_bytes(self.new)
+        self.changes = [self.name]
+        return pilot.capture_generated_baseline(self.workspace, self.state, "graph-pin", "lock-pin")
+
+    def configured(self):
+        generated = self.baseline()
+        before = {"graph_sha256": "graph-pin", "lock_sha256": "lock-pin", "generated_files": generated}
+        pubspec = self.workspace / pilot.APP / "pubspec.yaml"
+        pubspec.write_text("source-mode fixture\n")
+        pubspec.chmod(0o644)
+        self.changes.append(f"{pilot.APP}/pubspec.yaml")
+        return before, {"pubspec_after_sha256": pilot.sha(pubspec)}
+
+    def test_generated_checkout_and_resolution_are_recorded_separately(self):
+        before = self.baseline()
+        self.assertEqual(before["stage"], "after-initial-pub-get-before-source-configuration")
+        self.assertEqual(before["checkout"], pilot.expected_generated("tracked"))
+        self.assertEqual(before["resolved"], pilot.expected_generated("resolved"))
+        self.assertEqual((before["graph_sha256"], before["lock_sha256"]), ("graph-pin", "lock-pin"))
+
+    def test_generated_initial_checkout_rejects_unexpected_tracked_change(self):
+        self.changes = ["unexpected.dart"]
+        with self.assertRaisesRegex(pilot.Rejected, "^initial-tracked-drift$"):
+            pilot.capture_generated_checkout(self.workspace, self.state)
+
+    def test_generated_tracked_blob_and_mode_are_pinned(self):
+        for tree in (self.tree.replace("100644", "100755"), self.tree.replace(pilot.blob(self.old), "0" * 40)):
+            self.tree = tree
+            with self.assertRaisesRegex(pilot.Rejected, "^generated-head-preimage$"):
+                pilot.check_generated_head(self.workspace)
+
+    def test_generated_symlink_is_rejected(self):
+        target = self.workspace / "target"
+        target.write_bytes(self.old)
+        self.file.unlink()
+        self.file.symlink_to(target)
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-file-type$"):
+            pilot.generated_files(self.workspace, "tracked")
+
+    def test_generated_executable_mode_is_rejected(self):
+        self.file.chmod(0o755)
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-file-type$"):
+            pilot.generated_files(self.workspace, "tracked")
+
+    def test_generated_oversized_file_is_rejected_before_read(self):
+        with patch.object(pilot, "MAX_GENERATED_FILE", 2):
+            with self.assertRaisesRegex(pilot.Rejected, "^generated-file-size$"):
+                pilot.generated_files(self.workspace, "tracked")
+
+    def test_generated_unknown_resolution_output_is_rejected(self):
+        pilot.capture_generated_checkout(self.workspace, self.state)
+        self.file.write_bytes(b"different generator output\n")
+        self.changes = [self.name]
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-file-content$"):
+            pilot.capture_generated_baseline(self.workspace, self.state, "graph-pin", "lock-pin")
+
+    def test_generated_resolution_rejects_other_tracked_mutations(self):
+        pilot.capture_generated_checkout(self.workspace, self.state)
+        self.file.write_bytes(self.new)
+        self.changes = [self.name, "unexpected.dart"]
+        with self.assertRaisesRegex(pilot.Rejected, "^initial-resolution-tracked-drift$"):
+            pilot.capture_generated_baseline(self.workspace, self.state, "graph-pin", "lock-pin")
+
+    def test_generated_resolution_requires_original_checkout_record(self):
+        pilot.capture_generated_checkout(self.workspace, self.state)
+        (self.state / "generated-checkout.json").write_text('{}')
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-checkout-record$"):
+            pilot.capture_generated_baseline(self.workspace, self.state, "graph-pin", "lock-pin")
+
+    def test_generated_final_guard_accepts_only_exact_pinned_changes(self):
+        before, source = self.configured()
+        pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_later_content_drift(self):
+        before, source = self.configured()
+        self.file.write_bytes(b"later mutation\n")
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-file-content$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_later_executable_mode(self):
+        before, source = self.configured()
+        self.file.chmod(0o755)
+        with self.assertRaisesRegex(pilot.Rejected, "^generated-file-type$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_baseline_graph_or_lock_tampering(self):
+        before, source = self.configured()
+        for key in ("graph_sha256", "lock_sha256"):
+            with patch.dict(before["generated_files"], {key: "different"}):
+                with self.assertRaisesRegex(pilot.Rejected, "^generated-baseline-record$"):
+                    pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_other_tracked_mutations(self):
+        before, source = self.configured()
+        self.changes.append("unexpected.dart")
+        with self.assertRaisesRegex(pilot.Rejected, "^unexpected-tracked-drift$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_staged_mutation_even_with_matching_worktree(self):
+        before, source = self.configured()
+        self.staged_changes = [self.name]
+        with self.assertRaisesRegex(pilot.Rejected, "^staged-source-drift$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_configuration_mode_change(self):
+        before, source = self.configured()
+        (self.workspace / pilot.APP / "pubspec.yaml").chmod(0o755)
+        with self.assertRaisesRegex(pilot.Rejected, "^configuration-type$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_final_guard_rejects_unexpected_configuration_bytes(self):
+        before, source = self.configured()
+        (self.workspace / pilot.APP / "pubspec.yaml").write_text("other config\n")
+        with self.assertRaisesRegex(pilot.Rejected, "^configuration-drift$"):
+            pilot.guard_generated_source(self.workspace, before, source)
+
+    def test_generated_tracked_change_names_are_nul_delimited_without_duplicates(self):
+        for output in ("missing-terminator", "duplicate\0duplicate\0"):
+            with patch.object(pilot, "run", side_effect=["", output]):
+                with self.assertRaisesRegex(pilot.Rejected, "^tracked-change-format$"):
+                    pilot.tracked_changes(self.workspace)
+
+
 if __name__ == "__main__":
     unittest.main()

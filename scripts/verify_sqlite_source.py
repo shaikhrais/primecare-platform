@@ -38,6 +38,40 @@ PREIMAGES = {
     f"{APP}/pubspec.yaml": "526a535a32b24956e3a4d598ceb9cd4da7418516",
     f"{APP}/test/auth_routing_test.dart": "ff689f39721e2d2c458d6d1f4089aaf5a08172f0",
 }
+# Exact original/generated identities reconstructed from GitHub run 42473442695.
+# These five outputs are checked, never restored or broadly excluded.
+GENERATED_PINS = {'apps/primecare_clinic/ios/Runner/GeneratedPluginRegistrant.m': {'tracked': {'bytes': 5022,
+                                                                              'git_blob_sha1': 'dab3f2bddeb185ced499624a866cf5ce33dc8f08',
+                                                                              'sha256': 'cc8c323265e0c4d6a49b1aa1bdd6b7ad96f03cedf3c0180d81322bbd84eef80a'},
+                                                                  'resolved': {'bytes': 5010,
+                                                                               'git_blob_sha1': '1dec1dad0e9879ac16c27b45bb912788fd16fbaf',
+                                                                               'sha256': '95e8568b5a7d74372bc6777b2fa672bd288116f6d15974896996ccf3e8cfa051'}},
+ 'apps/primecare_clinic/linux/flutter/generated_plugin_registrant.cc': {'tracked': {'bytes': 1217,
+                                                                                    'git_blob_sha1': '5f3ef8516e64d6722545b09c7bc62be0233f0fea',
+                                                                                    'sha256': 'b3b1a3333be2553bcd41784c6fe3ca4cd03d8bcebb88222dbd7669bbc574f5a0'},
+                                                                        'resolved': {'bytes': 1496,
+                                                                                     'git_blob_sha1': 'a1d4325dd8588c6b592e40dde6f37abd60e9cf0e',
+                                                                                     'sha256': '62606a70c31d260baf33ddf8c26180790f64326def916884cd5de25d77455380'}},
+ 'apps/primecare_clinic/linux/flutter/generated_plugins.cmake': {'tracked': {'bytes': 814,
+                                                                             'git_blob_sha1': '51541247aeb0a02d6658be7efd4493ac5d3f1eb8',
+                                                                             'sha256': '3583bd8d4a5382e2f502df38e4b1137b2840ead9cc9713a81d12a13b55e7e196'},
+                                                                 'resolved': {'bytes': 836,
+                                                                              'git_blob_sha1': 'e22c77970463e6e7c63df364f43001bf75741df4',
+                                                                              'sha256': 'a9b628a624dac71550301eb24bb021f1212d8d3c615976824605869472877a5c'}},
+ 'apps/primecare_clinic/windows/flutter/generated_plugin_registrant.cc': {'tracked': {'bytes': 1167,
+                                                                                      'git_blob_sha1': '91d8b7dd8ed2b7e03f8bbec877165a698767707c',
+                                                                                      'sha256': '2ffe2cfe8a8fa50a54d64c129d179ba155b9944298a460fec6ddc498a47c20b9'},
+                                                                          'resolved': {'bytes': 1331,
+                                                                                       'git_blob_sha1': '0cee578ef15adb1902c42be9b438ca105d3e16ce',
+                                                                                       'sha256': 'db2f9031d4b57c5864d938d2c13c5a1af09c72d1dee3ec7c0f0b92b6c7946705'}},
+ 'apps/primecare_clinic/windows/flutter/generated_plugins.cmake': {'tracked': {'bytes': 869,
+                                                                               'git_blob_sha1': 'b8281a9884a7768a6d6d3e3939b3f4ca43ea8e96',
+                                                                               'sha256': 'e4fc586e95fe18328878b25b7d630a53e2b6ae26c036728b1864d139794e4297'},
+                                                                   'resolved': {'bytes': 893,
+                                                                                'git_blob_sha1': 'd4d1f7d86f17a960e7ff72c89cca474d3a274ee3',
+                                                                                'sha256': 'efbf9204fb94b907c87d2ef5aab049e3367649dff2039350db0f4b7236ecf675'}}}
+MAX_GENERATED_FILE = 16 * 1024
+
 HOOK_PREIMAGES = {
     "hook/build.dart": "7df76a598b3eec21fad1313a963de0c8771d4155",
     "lib/src/hook/compile/description.dart": "56339a7b7d7b190bbce3d364b649481c547a85c2",
@@ -277,6 +311,90 @@ def check_owned_cache():
     return cache
 
 
+def expected_generated(phase):
+    return {path: {**pins[phase], "mode": "100644"}
+            for path, pins in GENERATED_PINS.items()}
+
+
+def generated_files(workspace, phase):
+    records = {}
+    for name in GENERATED_PINS:
+        path = workspace / name
+        info = path.lstat()
+        require(stat.S_ISREG(info.st_mode) and stat.S_IMODE(info.st_mode) == 0o644
+                and path.resolve(strict=True) == path, "generated-file-type")
+        require(info.st_size <= MAX_GENERATED_FILE, "generated-file-size")
+        with path.open("rb") as stream:
+            data = bounded_read(stream, MAX_GENERATED_FILE)
+        records[name] = {"bytes": len(data), "sha256": hashlib.sha256(data).hexdigest(),
+                         "git_blob_sha1": blob(data), "mode": "100644"}
+    require(records == expected_generated(phase), "generated-file-content")
+    return records
+
+
+def check_generated_head(workspace):
+    output = run(["git", "ls-tree", "-z", "-r", "HEAD", "--", *GENERATED_PINS], cwd=workspace)
+    expected = {"100644 blob " + pins["tracked"]["git_blob_sha1"] + "\t" + path
+                for path, pins in GENERATED_PINS.items()}
+    entries = output.split("\0")
+    require(entries[-1] == "" and len(entries) == len(expected) + 1
+            and set(entries[:-1]) == expected, "generated-head-preimage")
+
+
+def tracked_changes(workspace):
+    require(run(["git", "diff", "--no-ext-diff", "--no-textconv", "--name-only",
+                 "-z", "--cached", "HEAD", "--", "."], cwd=workspace) == "", "staged-source-drift")
+    output = run(["git", "diff", "--no-ext-diff", "--no-textconv", "--name-only",
+                  "-z", "HEAD", "--", "."], cwd=workspace)
+    if not output:
+        return set()
+    entries = output.split("\0")
+    require(entries[-1] == "" and len(entries) <= 1025
+            and len(set(entries[:-1])) == len(entries) - 1, "tracked-change-format")
+    return set(entries[:-1])
+
+
+def capture_generated_checkout(workspace, state):
+    check_generated_head(workspace)
+    require(not tracked_changes(workspace), "initial-tracked-drift")
+    output_json(state / "generated-checkout.json", {
+        "stage": "before-initial-pub-get",
+        "files": generated_files(workspace, "tracked"),
+    })
+
+
+def capture_generated_baseline(workspace, state, graph_sha256, lock_sha256):
+    checkout = read_json(state / "generated-checkout.json")
+    require(checkout == {"stage": "before-initial-pub-get",
+                         "files": expected_generated("tracked")}, "generated-checkout-record")
+    check_generated_head(workspace)
+    require(tracked_changes(workspace) == set(GENERATED_PINS), "initial-resolution-tracked-drift")
+    return {
+        "stage": "after-initial-pub-get-before-source-configuration",
+        "checkout": checkout["files"], "resolved": generated_files(workspace, "resolved"),
+        "graph_sha256": graph_sha256, "lock_sha256": lock_sha256,
+    }
+
+
+def guard_generated_source(workspace, before, source):
+    expected = {
+        "stage": "after-initial-pub-get-before-source-configuration",
+        "checkout": expected_generated("tracked"), "resolved": expected_generated("resolved"),
+        "graph_sha256": before["graph_sha256"], "lock_sha256": before["lock_sha256"],
+    }
+    require(before["generated_files"] == expected, "generated-baseline-record")
+    check_generated_head(workspace)
+    require(generated_files(workspace, "resolved") == before["generated_files"]["resolved"],
+            "generated-file-drift")
+    pubspec = workspace / APP / "pubspec.yaml"
+    info = pubspec.lstat()
+    require(stat.S_ISREG(info.st_mode) and stat.S_IMODE(info.st_mode) == 0o644
+            and pubspec.resolve(strict=True) == pubspec, "configuration-type")
+    require(sha(pubspec) == source["pubspec_after_sha256"], "configuration-drift")
+    require(tracked_changes(workspace) == {*GENERATED_PINS, f"{APP}/pubspec.yaml"},
+            "unexpected-tracked-drift")
+
+
 def graph_identity(path):
     graph = read_json(path)
     packages = graph["packages"]
@@ -419,6 +537,9 @@ def preflight(workspace, state, graph):
     require(not (app / "pubspec_overrides.yaml").exists(), "dependency-overrides")
     require(not (app / ".dart_tool/hooks_runner").exists(), "existing-hook-cache")
     require(not (app / "build/native_assets").exists(), "existing-native-assets")
+    graph_sha256 = graph_identity(graph)
+    lock_sha256 = sha(app / "pubspec.lock")
+    generated = capture_generated_baseline(workspace, state, graph_sha256, lock_sha256)
     roots = package_roots(app)
     check_hook(roots)
     flutter = Path(shutil.which("flutter")).resolve(strict=True).parent.parent
@@ -427,7 +548,8 @@ def preflight(workspace, state, graph):
     packages = system_file_owners(paths.values())
     launchers = create_launchers(state, paths)
     snapshot = {
-        "graph_sha256": graph_identity(graph), "lock_sha256": sha(app / "pubspec.lock"),
+        "graph_sha256": graph_sha256, "lock_sha256": lock_sha256,
+        "generated_files": generated,
         "packages": package_file_identity(roots),
         "system_tools": {name: str(path) for name, path in paths.items()},
         "system_tool_realpaths": {name: str(path.resolve(strict=True)) for name, path in paths.items()},
@@ -442,6 +564,10 @@ def preflight(workspace, state, graph):
 def prepare(workspace, state):
     check_owned_cache()
     before = read_json(state / "before.json")
+    # The live fetch/configuration must start from the measured resolved baseline.
+    require(capture_generated_baseline(workspace, state, before["graph_sha256"],
+                                       before["lock_sha256"]) == before["generated_files"],
+            "generated-baseline-drift")
     check_launchers(before, state)
     def expired(signum, frame):
         raise Rejected("overall-timeout")
@@ -514,11 +640,12 @@ def recheck(workspace, state, graph):
     c_file = Path(source["source_path"])
     require(list(c_file.parent.iterdir()) == [c_file] and not c_file.is_symlink(), "source-directory")
     require(hashlib.sha3_256(c_file.read_bytes()).hexdigest() == SOURCE_SHA3, "source-drift")
+    guard_generated_source(workspace, before, source)
 
 
 def main():
     try:
-        require(len(sys.argv) == 2 and sys.argv[1] in {"initialize", "cache-check", "preflight", "prepare", "recheck"}, "usage")
+        require(len(sys.argv) == 2 and sys.argv[1] in {"initialize", "cache-check", "checkout-check", "preflight", "prepare", "recheck", "source-guard"}, "usage")
         action = sys.argv[1]
         if action == "initialize":
             initialize()
@@ -528,10 +655,16 @@ def main():
             return 0
         workspace = Path(os.environ["GITHUB_WORKSPACE"]).resolve(strict=True)
         state = Path(os.environ["PILOT_STATE"]).resolve(strict=True)
-        if action == "preflight":
+        if action == "checkout-check":
+            capture_generated_checkout(workspace, state)
+        elif action == "preflight":
             preflight(workspace, state, state / "graph-before.json")
         elif action == "prepare":
             prepare(workspace, state)
+        elif action == "source-guard":
+            guard_generated_source(workspace, read_json(state / "before.json"),
+                                   read_json(state / "source.json"))
+            print("Verified tracked-source guard: five pinned plugin outputs regenerated before source configuration and unchanged afterward.")
         else:
             recheck(workspace, state, state / "graph-after.json")
     except Rejected as error:

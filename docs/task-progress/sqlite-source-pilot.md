@@ -1,23 +1,25 @@
-# Private-review revision 2: clinic/Linux SQLite source pilot
+# Clinic/Linux SQLite source pilot
 
-Status: authored for independent review, not published, not run. No local tests,
-syntax checks, analyzer, compiler, source archive download or binary download were
-performed. A future GitHub Actions result is required before any runtime claim.
+Status: GitHub run 42473442695 established source-mode runtime evidence but failed
+the final tracked-file mutation guard. The generated-source guard correction
+below is authored for independent review and has not run. All tests, syntax
+validation, compilation and live source retrieval remain GitHub-only.
 
-Revision 1 remains an unchanged, unreviewed historical checkpoint. Revision 2
-addresses the independent review's Clang configuration, owned-cache identity,
-subprocess capture bound and raw-URL control-character findings. These changes
-require a new full source review and coordinator GO before publication.
+The reviewed compiler launchers, owned-cache identity checks, enforced subprocess
+capture bound and raw-URL controls remain intact. Any correction requires source
+review and explicit publication approval before another GitHub execution.
 
 ## Exact scope
 
-Add one pull-request workflow restricted to existing PR #222, its own repository,
+One pull-request workflow is restricted to existing PR #222, its own repository,
 and Linux x64 on GitHub-hosted ubuntu-24.04. Use Flutter 3.41.5, contents:read,
 fresh pilot-owned Pub cache/state, checkout credentials disabled, no secrets,
 no services, no deployment or production access. Preserve all existing workflows
-and app source files in Git. Do not create a branch. The only deliberate tracked
-modification inside the disposable CI checkout is an explicit hooks.user_defines
-section appended to the exact clinic pubspec preimage. A dedicated SQLite query
+and app source files in Git. Do not create a branch. Inside the disposable CI
+checkout, explicit hooks.user_defines configuration is appended to the exact
+clinic pubspec preimage. Flutter also regenerates the five strictly pinned plugin
+files described below; their changes are recorded and checked, not restored or
+published. A dedicated SQLite query
 probe is copied to a new test filename only inside that checkout.
 Two tiny compiler launchers are generated only in the owned CI state directory;
 only the job PATH is prepended with that directory. No system tool is replaced.
@@ -185,19 +187,78 @@ mock process/pipe/time interfaces, so they need neither sockets nor real childre
    directory, source dependency registration, no precompiled download path,
    and matching bytes in Flutter's native-assets mapping. Version/source-ID
    equality alone is explicitly insufficient evidence of source mode.
-8. Recheck dependency/config/input integrity and tracked changes. Retain only the
-   safe ownership/before/source/result JSON metadata for seven days, not archives
-   or C source.
+8. Recheck dependency/config/input integrity and strictly bound tracked changes
+   as described below. Retain only the safe ownership/before/source/result JSON
+   metadata for seven days, not archives or C source. Typed source inspection
+   and the final tracked-source guard are separate steps. The upload runs only
+   after successful source inspection and while not cancelled, even if the later
+   guard fails; such a failure still leaves the workflow red.
+
+## GitHub evidence and generated-source boundary
+
+At head c9acd37a2fb1e4dde777f80ee84b92c1bdfad86e,
+[run 42473442695](https://github.com/shaikhrais/primecare-platform/actions/runs/42473442695/job/128709370016)
+passed all 55 verifier fixtures and all six clinic routing/native-probe tests.
+The typed inspector confirmed the verified source input, compiled output and
+Flutter native-asset mapping. The job then failed its tracked-file diff guard.
+The result JSON was not printed or uploaded in that run. This is measured Linux
+source-mode evidence, not a successful overall pilot or release approval.
+
+The final diff contained exactly these five generated clinic files:
+
+- ios/Runner/GeneratedPluginRegistrant.m: add FileSelectorPlugin and remove
+  RootCheckerPlusPlugin, including corresponding imports.
+- linux/flutter/generated_plugin_registrant.cc and generated_plugins.cmake:
+  add file_selector_linux.
+- windows/flutter/generated_plugin_registrant.cc and generated_plugins.cmake:
+  add file_selector_windows.
+
+The paths above are relative to apps/primecare_clinic. Flutter 3.41.5
+[regenerates platform tooling after pub resolution](https://github.com/flutter/flutter/blob/3.41.5/packages/flutter_tools/lib/src/commands/packages.dart#L393-L397),
+[selecting existing enabled platform directories](https://github.com/flutter/flutter/blob/3.41.5/packages/flutter_tools/lib/src/project.dart#L364-L383).
+Its [plugin generator](https://github.com/flutter/flutter/blob/3.41.5/packages/flutter_tools/lib/src/flutter_plugins.dart#L1246-L1298)
+writes these registrants from resolved plugins. The old run did not capture an
+intermediate mutation snapshot, so it cannot prove which command first changed
+them.
+
+The guard now records a pristine tracked checkout before the first pub get,
+checking the five exact original Git blob IDs, SHA256 values, sizes and regular
+0644 file modes. Immediately after initial resolution and before source
+configuration, it requires exactly the five reviewed generated outputs and
+records their identities with the graph/lock hashes in before.json. Their full
+pins are reconstructed from official GitHub preimages and the exact CI diff;
+all five abbreviated generated blob IDs from that log match. These are not
+separately retained full-file hashes from the old runner.
+
+Later checks require byte-identical pinned generated outputs and an unchanged
+graph/lock. The only other permitted tracked change is the already-hashed clinic
+source-mode pubspec append. Unknown tracked changes, any staged mutation,
+symlinks, executable-mode changes and different generated bytes fail. No files
+are restored, committed by the pilot, or blanket-excluded. This explicitly tests
+with reviewed regenerated plugin files, not pristine checked-in registrants.
+
+The iOS removal is potentially security-relevant. Earlier
+[commit 4871b58b](https://github.com/shaikhrais/primecare-platform/commit/4871b58bb9f9c8e904aa7ff095bb1e16b9ab8f3a)
+removed root_checker_plus from flutter_core dependencies and moved Android root
+checks to SafeDevice to avoid conflicting Swift targets. Current
+[AppIntegrityService](https://github.com/shaikhrais/primecare-platform/blob/c9acd37a2fb1e4dde777f80ee84b92c1bdfad86e/packages/flutter_core/lib/src/security/app_integrity_service.dart)
+continues to use SafeDevice.isJailBroken on iOS, and the generated iOS
+SafeDevicePlugin import and registration remain present. Initial resolution in
+this run listed safe_device 1.4.1, file_selector 1.1.0, file_selector_ios 0.5.3+6,
+file_selector_linux 0.9.4+1 and file_selector_windows 0.9.3+6, with no
+root_checker_plus entry; the existing generated registrant was stale relative
+to those declarations. The Linux pilot neither tests iOS jailbreak detection
+nor establishes equivalent security behavior or iOS release readiness. It does
+not change those declarations, security code or tracked generated files.
 
 ## Review and remaining uncertainty
 
-All files remain unexecuted until reviewed and explicitly published by the
-coordinator to the existing PR. Publication must re-read the PR head and validate
-new-file absence plus unchanged pinned preimages. The first GitHub run may expose
-tool availability, dependency-resolution, parser/API or fixture mistakes. It may
-fail before compilation, during source compilation, during the original auth
-assertions, or during evidence verification. Report those stages separately.
-No source-build success or release readiness can be claimed from this document.
+The new generated-file guard and its focused fixtures are authored but unrun.
+All 55 previously executed fixtures remain unchanged. Review and publication of
+this correction must verify the current head and exact affected preimages.
+Only a subsequent GitHub run can validate the new snapshots, guard cases and
+conditional metadata retention. Report stage failures separately; the earlier
+source-mode success does not imply this correction passes or is release-ready.
 
 Current native failure is a delivery failure: the rejected digest matches the
 reviewed 504 HTML response (92 bytes), not a proven SQLite ABI defect. Preserve
