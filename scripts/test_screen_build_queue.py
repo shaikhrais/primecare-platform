@@ -11,6 +11,15 @@ class BuildQueueTests(unittest.TestCase):
     def test_literal_set(self):
         self.assertEqual(check.set_paths("const x = <String>{ '/a', // comment\n '/b', };", "x"), ["/a", "/b"])
 
+    def test_double_slashes_are_preserved_inside_route_literals(self):
+        text = "const x = <String>{ '/generated//clinic/dashboard', // comment\n '/b//c', };"
+        self.assertEqual(check.set_paths(text, 'x'), ['/generated//clinic/dashboard', '/b//c'])
+
+    def test_interpolation_escapes_and_invalid_separators_fail(self):
+        for body in ("'/a$variable',", r"'/a\\b',", "'/a' '/b'", ", '/a'", "'/a',,", "'/a', ...other"):
+            with self.subTest(body=body), self.assertRaises(ValueError):
+                check.set_paths('const x = <String>{' + body + '};', 'x')
+
     def test_unresolved_expression_and_duplicates_fail(self):
         for text in ("const x = <String>{ '/a', dynamicPath };",
                      "const x = <String>{ '/a', '/a' };", "no declaration"):
@@ -51,3 +60,4 @@ class BuildQueueTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

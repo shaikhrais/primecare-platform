@@ -17,11 +17,28 @@ def set_paths(text, name):
     match = re.search(r"const\s+" + re.escape(name) + r"\s*=\s*<String>\{(.*?)\};", text, re.S)
     if not match:
         raise ValueError(f"Missing explicit set: {name}")
-    body = re.sub(r"//[^\n]*", "", match.group(1))
-    paths = re.findall(r"'(/[^']*)'", body)
-    remainder = re.sub(r"'(/[^']*)'|[\s,]", "", body)
-    if remainder:
-        raise ValueError(f"Unsupported expression in {name}: manual review required")
+    # Tokenize literals before comments: existing route identities may contain
+    # double slashes. Removing // comments first would corrupt those strings.
+    body = match.group(1)
+    token = re.compile(r"\s+|//[^\n]*|'(/[^'\\$\r\n]*)'|,")
+    paths, position, needs_comma = [], 0, False
+    while position < len(body):
+        item = token.match(body, position)
+        if not item:
+            raise ValueError(f"Unsupported expression in {name}: manual review required")
+        position = item.end()
+        value = item.group(0)
+        if value.isspace() or value.startswith('//'):
+            continue
+        if value == ',':
+            if not needs_comma:
+                raise ValueError(f"Unexpected comma in {name}")
+            needs_comma = False
+        else:
+            if needs_comma:
+                raise ValueError(f"Missing comma in {name}")
+            paths.append(item.group(1))
+            needs_comma = True
     if len(paths) != len(set(paths)):
         raise ValueError(f"Duplicate path in {name}")
     return paths
@@ -81,3 +98,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
