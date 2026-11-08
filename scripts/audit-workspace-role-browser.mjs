@@ -59,24 +59,33 @@ try{
  browser=await chromium.launch({headless:true,executablePath:process.env.GROWTH_BROWSER_EXECUTABLE,args:['--no-sandbox']});
  const assigned=new Map();for(const s of screens){const role=s.grants.find(g=>g.view===1&&tokens.has(g.role))?.role;assert.ok(role,'role for '+s.code);const list=assigned.get(role)??[];list.push(s);assigned.set(role,list);}
  for(const [role,pages] of assigned)for(const width of [320,1440]){
-  const page=await browser.newPage({viewport:{width,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());await page.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.get(role));await page.goto(origin+'/success?enable-semantics=true');await page.locator('[data-cy=workspace-title]').waitFor();
+  const errors=[];
+  const openWorkspacePage=async()=>{
+   const next=await browser.newPage({viewport:{width,height:1000}});
+   try{next.on('pageerror',e=>errors.push(e.message));await next.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());await next.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.get(role));await next.goto(origin+'/success?enable-semantics=true');await next.locator('[data-cy=workspace-title]').waitFor();return next;}
+   catch(error){await next.close();throw error;}
+  };
+  let page=await openWorkspacePage();
   let captured=new Set();for(const screen of pages){if(width===320){const close=page.locator('[data-cy=sidebar-close]');if(!(await close.isVisible()))await page.locator('[data-cy=sidebar-toggle]').click();}
    const adapter=await page.evaluate(route=>globalThis.auditManagedRoute(route),screen.route);
    if(adapter!=='workspace'){
     // Observe the actual workspace document handoff without serving the shared
     // renderer at a dedicated URL. This is not dedicated renderer acceptance.
     const match=url=>url.origin===origin&&url.pathname===screen.route;
-    let finishAbort;const aborted=new Promise(resolve=>{finishAbort=resolve;});
-    const abortNavigation=async route=>{if(route.request().isNavigationRequest()){await route.abort();finishAbort();}else await route.continue();};
+    let finishAbort,failAbort,abortTimer;const aborted=new Promise((resolve,reject)=>{finishAbort=resolve;failAbort=reject;});
+    const abortNavigation=async route=>{if(route.request().isNavigationRequest()){try{await route.abort();finishAbort();}catch(error){failAbort(error);}}else await route.continue();};
     await page.route(match,abortNavigation);
     try{
-     const navigation=page.waitForRequest(request=>request.isNavigationRequest()&&match(new URL(request.url())));
-     await page.locator(`[data-cy=app-sidebar] [data-cy="sidebar-item-${screen.code}"]`).click({noWaitAfter:true});
-     const destination=new URL((await navigation).url());
-     assert.equal(destination.pathname,screen.route);assert.equal(destination.searchParams.get('enable-semantics'),'true');await aborted;
+     abortTimer=setTimeout(()=>failAbort(Error('Dedicated document abort did not complete: '+screen.route)),10000);
+     const [request]=await Promise.all([page.waitForRequest(request=>request.isNavigationRequest()&&match(new URL(request.url()))),aborted,Promise.resolve().then(()=>page.locator(`[data-cy=app-sidebar] [data-cy="sidebar-item-${screen.code}"]`).click({noWaitAfter:true}))]);
+     const destination=new URL(request.url());
+     assert.equal(destination.pathname,screen.route);assert.equal(destination.searchParams.get('enable-semantics'),'true');
      records.push({code:screen.code,route:screen.route,role,width,renderer:screen.renderer,adapter,coverage:'dedicated-route-handoff',handoffPass:true,structuralPass:null,dedicatedRendererAcceptance:'not_tested',domainReady:screen.productionReady});report.checked++;
-    }finally{await page.unroute(match,abortNavigation);}
-    await page.goto(origin+'/success?enable-semantics=true');await page.locator('[data-cy=workspace-title]').waitFor();
+    }finally{clearTimeout(abortTimer);await page.unroute(match,abortNavigation);}
+    // route.abort() acknowledges interception, not completion of Chromium's
+    // later error-document navigation. Retire that frame before opening the
+    // next authenticated shell; never race, retry or mask a failed reset.
+    await page.close();page=await openWorkspacePage();
     continue;
    }
    await page.locator(`[data-cy=app-sidebar] [data-cy="sidebar-item-${screen.code}"]`).click();await page.locator(`[data-cy="screen-${screen.code}"]`).waitFor();if(width===320&&await page.locator('[data-cy=sidebar-close]').isVisible())await page.locator('[data-cy=sidebar-close]').click();

@@ -49,7 +49,7 @@ jobs:
           env -i PATH="$PATH" HOME="$HOME" PYTHONDONTWRITEBYTECODE=1 python3 scripts/test-theme-manifest.py
           env -i PATH="$PATH" HOME="$HOME" PYTHONDONTWRITEBYTECODE=1 python3 scripts/test-browser-fixture-theme.py
       - name: Check real fixture bootstrap and bounded request arrival
-        run: env -i PATH="$PATH" HOME="$HOME" node --test scripts/test-platform-browser-fixture.mjs scripts/test-growth-browser-contracts.mjs
+        run: env -i PATH="$PATH" HOME="$HOME" node --test scripts/test-platform-browser-fixture.mjs scripts/test-growth-browser-contracts.mjs scripts/test-workspace-role-handoff.mjs
       - name: Register operations governance before export checks
         run: python3 scripts/register-workspace-governance.py
       - run: python3 scripts/register-admin-form-drafts.py --check && python3 scripts/register-admin-hierarchy.py --check && python3 scripts/register-growth-governance.py --check && python3 scripts/register-look-manager.py --check && python3 scripts/register-look-provider.py --check

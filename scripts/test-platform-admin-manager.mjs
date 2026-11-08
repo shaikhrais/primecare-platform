@@ -294,3 +294,69 @@ test('isolated recording schema applies the existing overview migrations in depe
  assert.match(statements[2],/CREATE TABLE IF NOT EXISTS platform_territory_catalog/);assert.match(statements[2],/CREATE TABLE IF NOT EXISTS platform_territory_sales/);assert.match(statements[2],/REFERENCES tenants\(id\)/);assert.match(statements[2],/REFERENCES users\(id\)/);assert.match(statements[2],/'uuid','text','character varying'/);
  const registry=JSON.parse(await readHistoryCallback('packages/shared/src/territories/registry.json','utf8'));assert.equal((statements[3].match(/^\('PC-REG-/gm)??[]).length,registry.catalog.length);for(const row of registry.catalog)assert.ok(statements[3].includes("('"+row.id+"',"));
 });
+
+
+// The broad platform fixture deliberately stubs the overview. These tests run
+// its actual module so asynchronous tenant reads cannot hide behind that stub.
+const {transform:compileAdminOverview}=await import('esbuild');
+const overviewSource=await readHistoryCallback('websites/typescript/src/approved-admin-dashboard.ts','utf8');
+const overviewImports="import {shellIcon} from './shell-icons';\nimport {escapeHtml as esc} from './workspace';\n";
+assert.ok(overviewSource.startsWith(overviewImports));
+const overviewPeripherals=`const shellIcon=()=>'';const esc=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));\n`;
+const overviewModule=await compileAdminOverview(overviewPeripherals+overviewSource.slice(overviewImports.length),{loader:'ts',format:'esm',target:'es2022'});
+const {mountAdminDashboard:mountActualAdminOverview}=await import('data:text/javascript;base64,'+Buffer.from(overviewModule.code).toString('base64'));
+const overviewTenant=id=>({id,name:id,slug:id,status:'active',counts:{accounts:1},checks:[],issues:[]});
+const guardedTenantReads=requests=>requests.filter(r=>r.method==='GET'&&/\/(accounts|masters|audit)$/.test(r.path));
+function actualOverviewFixture({rows=[overviewTenant('platform-root')],delayed=false,status=200,auditStatus=200}={}){
+ const requests=[],nodes=new Map();let token='synthetic-overview-session',release;
+ const host={innerHTML:'',isConnected:true,querySelectorAll(){return [];},querySelector(selector){if(!nodes.has(selector))nodes.set(selector,{onclick:null,textContent:'',innerHTML:'',addEventListener(){}});return nodes.get(selector);}};
+ globalThis.sessionStorage={getItem:key=>key==='primecare_session'?token:null};
+ globalThis.fetch=async(url,options={})=>{
+  const parsed=new URL(url);assert.equal(parsed.origin,'https://gateway.invalid');assert.equal(options.headers.authorization,'Bearer synthetic-overview-session');assert.equal(options.cache,'no-store');
+  const path=parsed.pathname;requests.push({method:options.method??'GET',path});
+  if(path==='/v1/governance/platform/operations'){
+   if(delayed)await new Promise(resolve=>release=resolve);
+   return Response.json({tenants:rows,summary:{total:rows.length,attention:0},pagination:{hasMore:false}},{status});
+  }
+  if(/^\/v1\/governance\/platform\/tenants\/[^/]+\/audit$/.test(path))return Response.json({events:[]},{status:auditStatus});
+  throw Error('Unexpected overview request '+path);
+ };
+ return {host,requests,run:(locale,options={})=>mountActualAdminOverview(host,'https://gateway.invalid','synthetic-overview-session',locale,{canOperations:true,...options}),release:()=>release(),invalidate:()=>token='changed-session'};
+}
+for(const locale of ['en','fr','es'])for(const selected of [undefined,''])for(const delayed of [false,true])test('actual overview waits for explicit tenant selection '+locale+' '+String(selected)+' delayed='+delayed,async()=>{
+ const f=actualOverviewFixture({delayed});const work=f.run(locale,{selected,directory:false});
+ assert.equal(guardedTenantReads(f.requests).length,0);if(delayed)f.release();await work;
+ assert.deepEqual(f.requests,[{method:'GET',path:'/v1/governance/platform/operations'}]);assert.equal(guardedTenantReads(f.requests).length,0);
+ assert.match(f.host.innerHTML,/Select an organization for its audit/);
+});
+for(const locale of ['en','fr','es'])test('actual overview honors explicit nonfirst selected tenant '+locale,async()=>{
+ const f=actualOverviewFixture({rows:[overviewTenant('tenant-a'),overviewTenant('tenant-b')],delayed:true});const work=f.run(locale,{selected:'tenant-b',directory:false});assert.equal(guardedTenantReads(f.requests).length,0);f.release();await work;
+ assert.deepEqual(guardedTenantReads(f.requests),[{method:'GET',path:'/v1/governance/platform/tenants/tenant-b/audit'}]);assert.equal(f.host.querySelector('[data-overview-activity-scope]').textContent,'tenant-b');
+});
+for(const locale of ['en','fr','es'])test('actual directory omits tenant audit even with explicit selection '+locale,async()=>{
+ const f=actualOverviewFixture();await f.run(locale,{selected:'platform-root',directory:true});assert.equal(guardedTenantReads(f.requests).length,0);
+});
+for(const status of [403,503])test('actual overview failure cannot start tenant reads '+status,async()=>{
+ const f=actualOverviewFixture({status});await f.run('en',{selected:'platform-root'});assert.equal(guardedTenantReads(f.requests).length,0);assert.match(f.host.innerHTML,/overview unavailable/);
+});
+for(const invalid of ['session','host'])test('actual overview retains '+invalid+' guard during pending response',async()=>{
+ const f=actualOverviewFixture({delayed:true});const work=f.run('en',{selected:'platform-root'});if(invalid==='session')f.invalidate();else f.host.isConnected=false;f.release();await work;assert.equal(guardedTenantReads(f.requests).length,0);
+});
+test('actual selected-tenant audit rejection does not retry or widen its scope',async()=>{
+ const f=actualOverviewFixture({rows:[overviewTenant('tenant-a'),overviewTenant('tenant-b')],auditStatus:403});await f.run('en',{selected:'tenant-b'});
+ assert.deepEqual(guardedTenantReads(f.requests),[{method:'GET',path:'/v1/governance/platform/tenants/tenant-b/audit'}]);assert.match(f.host.querySelector('[data-overview-activity]').textContent,/Audit activity unavailable/);
+});
+for(const locale of ['en','fr','es'])test('real platform renderer supplies unselected overview scope '+locale,async()=>{
+ const platform=browser({locale});await platform.render();assert.equal(platform.root.view,'tenants');assert.equal(platform.dashboard.selected,'');assert.equal(platform.dashboard.directory,false);
+ const options=platform.dashboard,overview=actualOverviewFixture({delayed:true});const work=overview.run(locale,options);overview.release();await work;assert.equal(guardedTenantReads(overview.requests).length,0);
+});
+const initialRecordingStep=recordingSource.split('\n').find(line=>line.startsWith(" await step('Sign in as platform administrator',"));assert.ok(initialRecordingStep);
+const recordingZeroGuard=initialRecordingStep.slice(initialRecordingStep.indexOf('assert.equal(requests.filter'),initialRecordingStep.lastIndexOf('});'));
+assert.ok(recordingZeroGuard.startsWith('assert.equal(requests.filter'));
+for(const path of ['/v1/governance/platform/tenants/platform-root/audit','/v1/governance/platform/tenants/tenant-b/accounts','/v1/governance/platform/tenants/tenant-b/masters'])test('recording zero guard diagnoses sanitized method/path '+path.split('/').at(-1),()=>{
+ const requests=[{method:'GET',path,headers:{authorization:'must-not-appear'},body:'must-not-appear'}];
+ assert.throws(()=>new Function('requests','assert',recordingZeroGuard)(requests,assert),error=>error.code==='ERR_ASSERTION'&&error.actual===1&&error.expected===0&&error.message.includes('Unexpected tenant reads before selection')&&error.message.includes(JSON.stringify({method:'GET',path}))&&!error.message.includes('must-not-appear'));
+});
+test('recording zero guard still excludes unrelated reads and mutation methods',()=>{
+ new Function('requests','assert',recordingZeroGuard)([{method:'GET',path:'/v1/governance/platform/operations'},{method:'POST',path:'/v1/governance/platform/tenants/tenant-b/accounts'}],assert);
+});
