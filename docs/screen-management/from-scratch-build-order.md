@@ -1,5 +1,10 @@
 # From-scratch platform screen build queue
 
+For the complete implementation phases, contract packet, access controls, reusable
+architecture, per-screen dependencies, CI matrix and release gates, see the
+[detailed development plan](detailed-development-plan.md). The queue below remains
+the stable ordering reference; the detailed plan does not mark any screen complete.
+
 The user requested sequential fresh builds: 1, then 2, then 3. Start with **Login**,
 then recovery, MFA and the shared foundation. Complete each screen's contract,
 implementation, GitHub Actions tests and review before advancing.
