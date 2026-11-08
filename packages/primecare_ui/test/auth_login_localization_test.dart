@@ -157,45 +157,48 @@ void main() {
     for (final locale in locales) {
       testWidgets('$app login validates and localizes real bool failures in $locale', (tester) async {
         final semantics = tester.ensureSemantics();
-        addTearDown(semantics.dispose);
-        final fixture = await mountLogin(tester, app: app, locale: locale);
-        final emptyText = resource(app, locale, 'enter_credentials_to_continue');
-        final failedText = resource(app, locale, 'authentication_failed');
-        expect(emptyText.trim(), isNotEmpty);
-        expect(failedText.trim(), isNotEmpty);
-        for (final values in [('', ''), ('   ', 'fixture-password'), ('fixture@example.test', '')]) {
-          await tester.enterText(input('login-email'), values.$1);
-          await tester.enterText(input('login-password'), values.$2);
-          await submit(tester);
-          expectNotice(tester, emptyText);
-          expect(fixture.state.errorReason, LoginErrorReason.missingCredentials);
-          expect(fixture.state.errorMessage, oldEmpty);
-          expect(fixture.state.isLoading, isFalse);
-          expect(fixture.api.requests, isEmpty);
-          expectGuest(fixture);
+        try {
+          final fixture = await mountLogin(tester, app: app, locale: locale);
+          final emptyText = resource(app, locale, 'enter_credentials_to_continue');
+          final failedText = resource(app, locale, 'authentication_failed');
+          expect(emptyText.trim(), isNotEmpty);
+          expect(failedText.trim(), isNotEmpty);
+          for (final values in [('', ''), ('   ', 'fixture-password'), ('fixture@example.test', '')]) {
+            await tester.enterText(input('login-email'), values.$1);
+            await tester.enterText(input('login-password'), values.$2);
+            await submit(tester);
+            expectNotice(tester, emptyText);
+            expect(fixture.state.errorReason, LoginErrorReason.missingCredentials);
+            expect(fixture.state.errorMessage, oldEmpty);
+            expect(fixture.state.isLoading, isFalse);
+            expect(fixture.api.requests, isEmpty);
+            expectGuest(fixture);
+          }
+          // Both rejected HTTP and thrown transport become false in AuthNotifier.
+          // Neither runs LoginController's separate catch-only branch.
+          for (final offline in [false, true]) {
+            fixture.api.offline = offline;
+            await enterCredentials(tester);
+            expect(fixture.state.errorReason, isNull);
+            await submit(tester);
+            expectNotice(tester, failedText);
+            expect(fixture.state.errorReason, LoginErrorReason.authenticationFailed);
+            expect(fixture.state.errorMessage, oldFailure);
+            expect(fixture.state.password, isEmpty);
+            expect(tester.widget<TextFormField>(input('login-password')).controller!.text, isEmpty);
+            expect(tester.widget<PrimeButton>(submitButton).isLoading, isFalse);
+            expectGuest(fixture);
+            expect(fixture.api.requests.last['path'], ApiConfig.endpoints['login']);
+            expect(fixture.api.requests.last['body'], {
+              'email': 'fixture@example.test', 'password': 'fixture-password',
+            });
+          }
+          expect(fixture.api.requests.length, 2);
+          expect(fixture.api.revoked, isEmpty);
+          await tester.pumpWidget(const SizedBox.shrink());
+        } finally {
+          semantics.dispose();
         }
-        // Both rejected HTTP and thrown transport become false in AuthNotifier.
-        // Neither runs LoginController's separate catch-only branch.
-        for (final offline in [false, true]) {
-          fixture.api.offline = offline;
-          await enterCredentials(tester);
-          expect(fixture.state.errorReason, isNull);
-          await submit(tester);
-          expectNotice(tester, failedText);
-          expect(fixture.state.errorReason, LoginErrorReason.authenticationFailed);
-          expect(fixture.state.errorMessage, oldFailure);
-          expect(fixture.state.password, isEmpty);
-          expect(tester.widget<TextFormField>(input('login-password')).controller!.text, isEmpty);
-          expect(tester.widget<PrimeButton>(submitButton).isLoading, isFalse);
-          expectGuest(fixture);
-          expect(fixture.api.requests.last['path'], ApiConfig.endpoints['login']);
-          expect(fixture.api.requests.last['body'], {
-            'email': 'fixture@example.test', 'password': 'fixture-password',
-          });
-        }
-        expect(fixture.api.requests.length, 2);
-        expect(fixture.api.revoked, isEmpty);
-        await tester.pumpWidget(const SizedBox.shrink());
       });
     }
   }
@@ -204,22 +207,25 @@ void main() {
     for (final rejected in [false, true]) {
       testWidgets('$app visible login error changes locale without resubmission rejected=$rejected', (tester) async {
         final semantics = tester.ensureSemantics();
-        addTearDown(semantics.dispose);
-        final fixture = await mountLogin(tester, app: app);
-        if (rejected) await enterCredentials(tester);
-        await submit(tester);
-        final before = fixture.state;
-        final calls = fixture.api.requests.length;
-        final key = rejected ? 'authentication_failed' : 'enter_credentials_to_continue';
-        for (final locale in ['fr', 'es', 'en']) {
-          await fixture.container.read(languageProvider.notifier).setLanguage(locale);
-          await tester.pumpAndSettle();
-          expectNotice(tester, resource(app, locale, key));
-          expect(identical(fixture.state, before), isTrue);
-          expect(fixture.api.requests.length, calls);
-          expectGuest(fixture);
+        try {
+          final fixture = await mountLogin(tester, app: app);
+          if (rejected) await enterCredentials(tester);
+          await submit(tester);
+          final before = fixture.state;
+          final calls = fixture.api.requests.length;
+          final key = rejected ? 'authentication_failed' : 'enter_credentials_to_continue';
+          for (final locale in ['fr', 'es', 'en']) {
+            await fixture.container.read(languageProvider.notifier).setLanguage(locale);
+            await tester.pumpAndSettle();
+            expectNotice(tester, resource(app, locale, key));
+            expect(identical(fixture.state, before), isTrue);
+            expect(fixture.api.requests.length, calls);
+            expectGuest(fixture);
+          }
+          await tester.pumpWidget(const SizedBox.shrink());
+        } finally {
+          semantics.dispose();
         }
-        await tester.pumpWidget(const SizedBox.shrink());
       });
     }
   }
@@ -260,45 +266,51 @@ void main() {
 
   testWidgets('late response after logout cannot install a session', (tester) async {
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-    final fixture = await mountLogin(tester, locale: 'es');
-    await enterCredentials(tester);
-    fixture.api.pending = Completer<ApiResponse>();
-    final login = fixture.controller.login();
-    await fixture.container.read(authProvider.notifier).logout();
-    fixture.api.pending!.complete(ApiResponse(statusCode: 200, data: {
-      'token': 'late-fixture-token', 'role': 'rmt', 'userId': 'fixture-user',
-    }));
-    await login;
-    await tester.pumpAndSettle();
-    expectGuest(fixture);
-    expect(fixture.api.revoked, ['late-fixture-token']);
-    expectNotice(tester, resource('clinic', 'es', 'authentication_failed'));
-    expect(fixture.state.password, isEmpty);
-    await tester.pumpWidget(const SizedBox.shrink());
+    try {
+      final fixture = await mountLogin(tester, locale: 'es');
+      await enterCredentials(tester);
+      fixture.api.pending = Completer<ApiResponse>();
+      final login = fixture.controller.login();
+      await fixture.container.read(authProvider.notifier).logout();
+      fixture.api.pending!.complete(ApiResponse(statusCode: 200, data: {
+        'token': 'late-fixture-token', 'role': 'rmt', 'userId': 'fixture-user',
+      }));
+      await login;
+      await tester.pumpAndSettle();
+      expectGuest(fixture);
+      expect(fixture.api.revoked, ['late-fixture-token']);
+      expectNotice(tester, resource('clinic', 'es', 'authentication_failed'));
+      expect(fixture.state.password, isEmpty);
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      semantics.dispose();
+    }
   });
 
   testWidgets('MFA cancellation uses existing false result without retaining password or session', (tester) async {
     final semantics = tester.ensureSemantics();
-    addTearDown(semantics.dispose);
-    final fixture = await mountLogin(tester, locale: 'fr');
-    fixture.api.response = ApiResponse(statusCode: 200, data: {
-      'status': 'mfa_required', 'purpose': 'verify',
-      'challenge': List.filled(43, 'a').join(),
-    });
-    await enterCredentials(tester);
-    final login = fixture.controller.login();
-    await tester.pump();
-    expect(fixture.container.read(mfaControllerProvider).pending, isTrue);
-    expect(fixture.state.password, isEmpty);
-    expect(fixture.state.errorReason, isNull);
-    fixture.container.read(mfaControllerProvider.notifier).cancel();
-    await login;
-    await tester.pumpAndSettle();
-    expectGuest(fixture);
-    expectNotice(tester, resource('clinic', 'fr', 'authentication_failed'));
-    expect(fixture.container.read(mfaControllerProvider).pending, isFalse);
-    await tester.pumpWidget(const SizedBox.shrink());
+    try {
+      final fixture = await mountLogin(tester, locale: 'fr');
+      fixture.api.response = ApiResponse(statusCode: 200, data: {
+        'status': 'mfa_required', 'purpose': 'verify',
+        'challenge': List.filled(43, 'a').join(),
+      });
+      await enterCredentials(tester);
+      final login = fixture.controller.login();
+      await tester.pump();
+      expect(fixture.container.read(mfaControllerProvider).pending, isTrue);
+      expect(fixture.state.password, isEmpty);
+      expect(fixture.state.errorReason, isNull);
+      fixture.container.read(mfaControllerProvider.notifier).cancel();
+      await login;
+      await tester.pumpAndSettle();
+      expectGuest(fixture);
+      expectNotice(tester, resource('clinic', 'fr', 'authentication_failed'));
+      expect(fixture.container.read(mfaControllerProvider).pending, isFalse);
+      await tester.pumpWidget(const SizedBox.shrink());
+    } finally {
+      semantics.dispose();
+    }
   });
 
   test('public construction and error replacement never inherit localization metadata', () async {
