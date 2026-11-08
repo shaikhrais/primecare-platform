@@ -1,0 +1,140 @@
+{
+  "schema_version": 1,
+  "scope": "native_governance_routes",
+  "source": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+  "inspected_commit": "877fff1e906b51b57175ca7214956a3e1f4a4111",
+  "screens": [
+    {
+      "order": 1,
+      "path": "/governance/screen-status",
+      "screen_class": "ScreenStatusScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 2,
+      "path": "/admin/screen-health",
+      "screen_class": "AdminScreenHealthScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 3,
+      "path": "/governance/audit",
+      "screen_class": "AuditLogScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 4,
+      "path": "/governance/tickets",
+      "screen_class": "TicketCenterScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 5,
+      "path": "/governance/monitoring",
+      "screen_class": "MonitoringScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 6,
+      "path": "/verification",
+      "screen_class": "VerificationCenterScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 7,
+      "path": "/governance/device-security",
+      "screen_class": "SecurityHubScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 8,
+      "path": "/governance/security",
+      "screen_class": "SecuritySentinelScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 9,
+      "path": "/generated/audit-dashboard",
+      "screen_class": "AuditDashboardScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 10,
+      "path": "/generated/compliance-reviews",
+      "screen_class": "ComplianceReviewsScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 11,
+      "path": "/generated/incident-reports",
+      "screen_class": "IncidentReportsScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 12,
+      "path": "/generated/quality-metrics",
+      "screen_class": "QualityMetricsScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 13,
+      "path": "/governance/clinical-reference",
+      "screen_class": "ClinicalReferenceScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 14,
+      "path": "/governance/control-center",
+      "screen_class": "ControlCenterScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 15,
+      "path": "/governance/hud",
+      "screen_class": "GovernanceHudScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 16,
+      "path": "/proposals",
+      "screen_class": "ProposalsScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 17,
+      "path": "/generated/corporate/ceo/growth-pipeline",
+      "screen_class": "GrowthPipelineScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 18,
+      "path": "/generated/corporate/ceo/region-performance",
+      "screen_class": "RegionalPerformanceScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 19,
+      "path": "/generated/corporate/ceo/leadership-reports",
+      "screen_class": "LeadershipReportsScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 20,
+      "path": "/admin/reality-check",
+      "screen_class": "AdminRealityCheckScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 21,
+      "path": "/admin/role-screen-carousel",
+      "screen_class": "AdminRoleCarouselScreen",
+      "status": "awaiting_production_contract"
+    },
+    {
+      "order": 22,
+      "path": "/admin/screenshot-gallery",
+      "screen_class": "AdminScreenshotGalleryScreen",
+      "status": "awaiting_production_contract"
+    }
+  ]
+}
