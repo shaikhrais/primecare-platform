@@ -45,6 +45,7 @@ jobs:
           env -i PATH="$PATH" HOME="$HOME" node --test scripts/test-look-browser-fixture.mjs
           env -i PATH="$PATH" HOME="$HOME" node scripts/qa-fast.mjs quick-unit
           env -i PATH="$PATH" HOME="$HOME" node --test scripts/test-growth-manager.mjs
+          env -i PATH="$PATH" HOME="$HOME" PYTHONDONTWRITEBYTECODE=1 NODE_DISABLE_COMPILE_CACHE=1 node --test scripts/test-platform-admin-transport.mjs
       - name: Validate authority, persistence, concurrency and rollback
         run: node --test scripts/test-platform-bootstrap.mjs scripts/test-platform-administration-postgres.mjs
       - uses: actions/setup-python@v5

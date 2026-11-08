@@ -148,3 +148,91 @@ test('accepted partner activation retains its version and refreshes existing met
 test('current digest rejection remains visible without sending or allocating a retry key',async t=>{
  const {f,form}=await formFixture();t.mock.method(crypto.subtle,'digest',async()=>{throw Error('digest unavailable');});const before=f.requests.length;submit(form);await settle();assert.ok(f.root.innerHTML.includes('digest unavailable'));assert.equal(f.requests.length,before);assert.equal(pendingKeys(f).length,0);assert.equal(form.resetCount??0,0);
 });
+
+// This role-specific demo hydration deliberately precedes tenant selection. It
+// is distinct from ordinary selected-tenant activity reads. The existing fixture
+// runs the actual admin owner/request/consume code, but stubs dashboard rendering
+// and HTTP; these checks do not grant permission or replace browser/server tests.
+const demoSlug='demo-primecare-maple-home-care';
+const demoId='demo/fixture ?';
+const demoAudit='https://gateway.invalid/v1/governance/platform/tenants/'+encodeURIComponent(demoId)+'/audit';
+const demoVersion='approved-code-admin-demo-v1';
+const demoData=id=>({version:demoVersion,tenantIds:{example:'tenant-b'},examples:{tenants:[{id:'example'}],calls:[{id,tenant:'example'}]}});
+const demoEvents=kind=>kind==='missing'?[{}, {current_state:{}}]:kind==='wrong'?[{current_state:{demoDataset:{...demoData('wrong'),version:demoVersion+'-next'}}}]:kind==='case'?[{current_state:{demoDataset:{...demoData('case'),version:demoVersion.toUpperCase()}}}]:[
+ {},{current_state:{demoDataset:{...demoData('wrong'),version:'other'}}},
+ {current_state:{demoDataset:demoData('first')}},{current_state:{demoDataset:demoData('second')}},
+];
+function demoFixture(options={},kind='valid'){
+ const f=browser({role:'code_admin',...options}),ordinary=f.respond;
+ f.data.tenants[0]={...f.data.tenants[0],id:demoId,slug:demoSlug};
+ f.respond=(url,request)=>url===demoAudit?Promise.resolve(Response.json({events:demoEvents(kind)})):ordinary(url,request);
+ return f;
+}
+async function selectDemoTenant(f){
+ const select=f.root.querySelector('[data-cy=platform-topbar-tenant]');assert.ok(select);assert.equal(select.disabled,false);
+ const before=f.root.renderCount;select.value='tenant-b';select.onchange({currentTarget:select});
+ await until(()=>f.root.renderCount>before);await settle();assert.equal(f.dashboard.selected,'tenant-b');
+}
+async function refreshDemo(f){
+ const before=f.root.renderCount,button=f.root.querySelector('[data-cy=platform-refresh]');assert.ok(button);assert.equal(button.disabled,false);button.onclick();
+ await until(()=>f.root.renderCount>before);await settle();
+}
+function assertDemoReads(f,expected){
+ const reads=f.requests.filter(r=>/\/(accounts|masters|audit)$/.test(new URL(r.url).pathname));
+ assert.equal(reads.length,expected);
+ for(const r of reads){assert.equal(r.url,demoAudit);assert.equal(r.options.method,'GET');assert.equal(r.options.cache,'no-store');assert.equal(r.options.headers.authorization,'Bearer '+token);assert.equal(r.options.body,undefined);assert.equal(r.options.headers['Idempotency-Key'],undefined);}
+ assert.deepEqual(pendingKeys(f),[]);
+}
+for(const locale of ['en','fr','es'])for(const selected of [false,true])for(const kind of ['valid','missing','wrong','case'])for(const synthetic of [false,true])test(`demo hydration ${locale}, ${selected?'selected':'unselected'}, ${kind} marker, ${synthetic?'synthetic':'ordinary'} actor`,async()=>{
+ const f=demoFixture({locale},kind);f.data.identity.userId=synthetic?'synthetic-demo-contract':'fixture-admin';
+ await f.render();assert.equal(f.dashboard.selected,'');assertDemoReads(f,1);
+ if(selected)await selectDemoTenant(f);
+ await refreshDemo(f);assertDemoReads(f,2);
+ assert.equal(f.dashboard.selected,selected?'tenant-b':'');assert.equal(f.dashboard.demoOnly,kind==='valid'&&!synthetic);
+ assert.deepEqual(f.dashboard.demoCalls,kind==='valid'?demoData('first').examples.calls:undefined);
+ assert.deepEqual(f.dashboard.demoOrder,kind==='valid'?['tenant-b']:undefined);
+ assert.equal(!!f.root.querySelector('[data-cy=platform-nav-calls]'),kind==='valid');
+ assert.equal(f.storage.getItem('primecare_session'),token);assert.deepEqual(f.assigned,[]);assert.equal(f.reloads(),0);
+});
+for(const role of ['code_admin','platform_admin'])for(const slug of [demoSlug,demoSlug.toUpperCase(),demoSlug+'-other'])for(const selected of [false,true])test(`demo lookup uses server role ${role} and exact slug ${slug}, ${selected?'selected':'unselected'}`,async()=>{
+ const f=demoFixture({role});f.data.tenants[0].slug=slug;await f.render();if(selected)await selectDemoTenant(f);await refreshDemo(f);
+ const match=role==='code_admin'&&slug===demoSlug;assertDemoReads(f,match?2:0);
+ assert.equal(f.dashboard.selected,selected?'tenant-b':'');assert.equal(f.dashboard.demoOnly,match);
+ assert.deepEqual(f.dashboard.demoCalls,match?demoData('first').examples.calls:undefined);
+ assert.equal(!!f.root.querySelector('[data-cy=platform-nav-calls]'),match);
+});
+test('accepted demo default does not overwrite an explicit overview filter choice on refresh',async()=>{
+ const f=demoFixture();await f.render();assert.equal(f.dashboard.demoOnly,true);f.dashboard.onDemoChange(false);assert.equal(f.dashboard.demoOnly,false);
+ await refreshDemo(f);assert.equal(f.dashboard.demoOnly,false);assert.deepEqual(f.dashboard.demoCalls,demoData('first').examples.calls);assertDemoReads(f,2);
+});
+test('Code Admin accounts hash remains unselected while its approved demo is hydrated',async()=>{
+ const f=demoFixture({hash:'#accounts'});await f.render();assert.equal(f.root.view,'organizations');assert.equal(f.dashboard.selected,'');assertDemoReads(f,1);
+});
+for(const view of ['accounts','masters','audit'])test(`tenant administrator ${view} hash retains its server-returned initial tenant without demo hydration`,async()=>{
+ const f=browser({role:'tenant_admin',hash:'#'+view});f.data.tenants[0].slug=demoSlug;await f.render();
+ assert.equal(f.root.view,view);assert.deepEqual(f.requests.map(r=>new URL(r.url).pathname),['/v1/governance/platform','/v1/governance/platform/tenants/tenant-a/'+view]);
+ assert.equal(f.storage.getItem('primecare_session'),token);assert.deepEqual(f.assigned,[]);
+});
+for(const selected of [false,true])for(const phase of ['fetch','body','consume'])for(const kind of ['valid','wrong'])test(`stale demo ${phase} rejects ${kind} marker with ${selected?'selected':'unselected'} owner`,async()=>{
+ const f=demoFixture(),pending=deferred(),ready=deferred();let bodyReads=0,eventReads=0,work;
+ if(selected){await f.render();await selectDemoTenant(f);}
+ const ordinary=f.respond,priorDashboard=f.dashboard;
+ const payload={get events(){eventReads++;return demoEvents(kind);}};
+ const response={status:200,get ok(){if(phase==='consume')queueMicrotask(()=>replace(f));return true;},json:()=>{bodyReads++;if(phase==='body'){ready.resolve();return pending.promise;}return Promise.resolve(payload);}};
+ f.respond=(url,options)=>{if(url!==demoAudit)return ordinary(url,options);if(phase==='fetch'){ready.resolve();return pending.promise;}return Promise.resolve(response);};
+ const before=f.requests.length,renders=f.root.renderCount;
+ if(selected)f.root.querySelector('[data-cy=platform-refresh]').onclick();else work=f.render();
+ if(phase!=='consume'){await ready.promise;replace(f);pending.resolve(phase==='fetch'?response:payload);}
+ if(work)await work;await until(()=>f.root.innerHTML.length===0);await settle();
+ assert.equal(eventReads,0);assert.equal(bodyReads,phase==='fetch'?0:1);assert.equal(f.root.renderCount,renders);assert.equal(f.dashboard,priorDashboard);
+ assert.deepEqual(f.loads,[]);assert.equal(f.requests.length,before+2);assert.equal(f.storage.getItem('primecare_session'),'replacement-session');assert.deepEqual(f.assigned,[]);assert.deepEqual(pendingKeys(f),[]);
+});
+for(const selected of [false,true])for(const status of [401,403])test(`current demo ${status} fails closed for ${selected?'selected':'unselected'} owner`,async()=>{
+ const f=demoFixture();if(selected){await f.render();await selectDemoTenant(f);}const ordinary=f.respond,priorDashboard=f.dashboard;
+ f.respond=(url,options)=>url===demoAudit?Promise.resolve(Response.json({error:'Demo audit denied'},{status})):ordinary(url,options);
+ const before=f.requests.length,renders=f.root.renderCount;
+ if(selected){f.root.querySelector('[data-cy=platform-refresh]').onclick();await until(()=>status===401?f.assigned.length===1:f.root.innerHTML.includes('Demo audit denied'));await settle();}else await f.render();
+ assert.equal(f.requests.length,before+2);assert.equal(f.root.renderCount,renders);assert.equal(f.dashboard,priorDashboard);assert.deepEqual(f.loads,[]);assert.deepEqual(pendingKeys(f),[]);
+ assert.equal(f.storage.getItem('primecare_session'),status===401?null:token);assert.deepEqual(f.assigned,status===401?['/login']:[]);
+ assert.ok(!f.root.innerHTML.includes('data-cy="platform-nav-calls"'));
+});
