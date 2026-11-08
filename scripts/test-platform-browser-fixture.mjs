@@ -1,0 +1,222 @@
+import {test} from 'node:test';
+import assert from 'node:assert/strict';
+import {readFile} from 'node:fs/promises';
+import {createRequire} from 'node:module';
+import {join, resolve} from 'node:path';
+import {build} from 'esbuild';
+import {EventEmitter} from 'node:events';
+import {waitForFixtureRequest} from './fixtures/browser-request-arrival.mjs';
+
+// Real manager, presentation bridge, layout/theme owners, client and controller.
+// DOM/CSS, transport and renderer probes below are synthetic, not browser/DB acceptance.
+if(Object.keys(process.env).some(key=>/(?:DATABASE_URL|DB_URL|CLOUDFLARE|CF_API|PGPASSWORD)/i.test(key)))throw Error('Database/Cloudflare credentials forbidden in platform fixture contracts');
+const read=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
+const helperPath='scripts/fixtures/platform-browser-bootstrap.ts';
+const helper=await read(helperPath),theme=JSON.parse(await readFile('packages/shared/src/solid-theme.json','utf8'));
+const runtime=await build({stdin:{contents:helper+`
+export {requireScreenManager,ScreenManager} from '../../packages/primecare_ui/web/screen-manager';
+export {resolveManagedRoute} from '../../websites/typescript/src/managed-routes';
+export {renderPlatformAdmin} from '../../websites/typescript/src/platform-admin';
+export {renderGrowth} from '../../websites/typescript/src/growth/dashboard';
+export {BundleController} from '../../websites/typescript/src/platform-bundle/controller';
+`,resolveDir:resolve('scripts/fixtures'),loader:'ts'},bundle:true,write:false,platform:'node',format:'cjs',metafile:true});
+const module={exports:{}};
+new Function('require','module','exports',runtime.outputFiles[0].text)(createRequire(import.meta.url),module,module.exports);
+const api=module.exports,AsyncFunction=Object.getPrototypeOf(async()=>{}).constructor;
+const restore=(name,descriptor)=>{if(descriptor)Object.defineProperty(globalThis,name,descriptor);else delete globalThis[name];};
+function global(t,name,value){const descriptor=Object.getOwnPropertyDescriptor(globalThis,name);Object.defineProperty(globalThis,name,{configurable:true,writable:true,value});t.after(()=>restore(name,descriptor));}
+
+function peripheral(t,path='/platform/administration',locale='en'){
+ const styles=()=>{const values=new Map();return {scrollbarColor:'',setProperty:(k,v)=>values.set(k,String(v)),getPropertyValue:k=>values.get(k)??'',removeProperty:k=>values.delete(k)};};
+ const events=new Map(),requests=[],storageReads=[],writes=[],values=new Map([['primecare_session','synthetic-session']]);
+ const doc={};
+ const element=()=>({ownerDocument:doc,style:styles(),dataset:{},attrs:new Map(),children:[],isConnected:true,
+  getAttribute(k){return this.attrs.get(k)??null;},setAttribute(k,v){this.attrs.set(k,String(v));},removeAttribute(k){this.attrs.delete(k);},
+  querySelector(){return null;},querySelectorAll(){return [];},contains(el){return el===this;},scrollTo(){},
+  replaceChildren(...children){this.children=children;},classList:{add(){},remove(){}}});
+ doc.documentElement=element();doc.documentElement.lang=locale;doc.body=element();doc.createElement=element;
+ const root=element();root.parentElement=doc.body;doc.querySelector=s=>s==='#app'?root:null;doc.getElementById=id=>id==='app'?root:null;
+ const address=new URL('https://fixture.invalid'+path+'?enable-semantics=true'),assigned=[];
+ const location={pathname:address.pathname,href:address.href,origin:address.origin,hash:'',search:address.search,assign:p=>assigned.push(p)};
+ let responsive='1';
+ const view={location,CSS:{supports:()=>true},scrollTo(){},addEventListener(name,fn){(events.get(name)??events.set(name,new Set()).get(name)).add(fn);},removeEventListener:(name,fn)=>events.get(name)?.delete(fn),getComputedStyle:host=>({getPropertyValue:k=>k==='--primecare-responsive-styles'?responsive:host.style.getPropertyValue(k)})};doc.defaultView=view;
+ const storage={getItem:k=>values.get(k)??null,setItem:(k,v)=>{writes.push(k);values.set(k,String(v));},removeItem:k=>{writes.push(k);values.delete(k);}};
+ for(const [name,value]of Object.entries({document:doc,window:view,location,sessionStorage:storage,localStorage:{getItem:k=>{storageReads.push(k);return null;},setItem:k=>writes.push(k)},getComputedStyle:view.getComputedStyle,fetch:async(...args)=>{requests.push(args);throw Error('Unexpected request from presentation bootstrap');}}))global(t,name,value);
+ t.after(()=>{for(const fn of [...events.get('pagehide')??[]])fn({persisted:false});});
+ return {root,doc,location,requests,storageReads,writes,values,assigned,setResponsive:v=>{responsive=v;}};
+}
+
+test('original direct renderer entry fails closed before any session or API authority',async t=>{
+ const f=peripheral(t);f.root.children=[{textContent:'previous private screen'}];
+ await assert.rejects(api.renderPlatformAdmin(f.root,location.origin),/Missing manager at route boundary/);
+ assert.equal(f.root.children.length,1);assert.match(f.root.children[0].textContent,/Missing manager/);
+ assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);assert.equal(f.values.get('primecare_session'),'synthetic-session');
+});
+
+test('original controller setup without storage reproduces the pre-fetch failure',async t=>{
+ const descriptor=Object.getOwnPropertyDescriptor(globalThis,'sessionStorage');delete globalThis.sessionStorage;t.after(()=>restore('sessionStorage',descriptor));
+ const requests=[];global(t,'fetch',async(...args)=>{requests.push(args);return Response.json({});});
+ await assert.rejects(new api.BundleController('https://fixture.invalid','synthetic-token').load('tenant-a'),error=>error instanceof ReferenceError&&/sessionStorage/.test(error.message));
+ assert.deepEqual(requests,[]);
+});
+
+test('source reproduction: direct Growth entry fails before its expected API request',async t=>{
+ const f=peripheral(t,'/growth');
+ await assert.rejects(api.renderGrowth(f.root,location.origin),/Missing manager at route boundary/);
+ assert.match(f.root.children[0].textContent,/Missing manager/);assert.deepEqual(f.requests,[]);
+});
+
+for(const path of ['/platform/administration','/growth','/enquire/fixture-key'])for(const locale of ['en','fr','es'])test(`real presentation bridge connects ${path} in ${locale} before rendering`,async t=>{
+ const f=peripheral(t,path,locale),before=structuredClone(theme);let rendered=0;
+ await api.presentPlatformFixture(f.root,theme,location.origin,()=>{
+  rendered++;const entry=api.resolveManagedRoute(path,'');assert.deepEqual(api.requireScreenManager(f.root).enter(entry.id,entry.route),entry);
+  assert.equal(f.root.dataset.layoutVersion,'1');assert.equal(f.doc.documentElement.dataset.surfaceStyle,'solid');
+  assert.equal(f.doc.documentElement.lang,locale);assert.equal(f.root.dir,'ltr');assert.ok(f.doc.documentElement.style.getPropertyValue('--color-primary'));
+  assert.ok(f.root.style.getPropertyValue('--layout-content-width'));assert.equal(f.root.getAttribute('data-pc-shell-environment'),'');
+ });
+ assert.equal(rendered,1);assert.deepEqual(theme,before);assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);
+ assert.ok(f.storageReads.every(k=>k.startsWith('primecare.screen-text.v1.')));assert.equal(f.values.get('primecare_session'),'synthetic-session');
+});
+
+test('fixture does not replace missing responsive CSS with a no-op connection',async t=>{
+ const f=peripheral(t);f.setResponsive('');let rendered=0;
+ await assert.rejects(api.presentPlatformFixture(f.root,theme,location.origin,()=>{rendered++;}),/Missing responsive stylesheet connection/);
+ assert.equal(rendered,0);assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);
+});
+test('fixture rejects missing theme before rendering',async t=>{
+ const f=peripheral(t);let rendered=0;
+ await assert.rejects(api.presentPlatformFixture(f.root,{},location.origin,()=>{rendered++;}),/Missing or invalid portal theme/);
+ assert.equal(rendered,0);assert.deepEqual(f.requests,[]);
+});
+test('fixture propagates a renderer rejection without replacing it with success',async t=>{
+ const f=peripheral(t),failure=Error('Synthetic renderer failure');
+ await assert.rejects(api.presentPlatformFixture(f.root,theme,location.origin,async()=>{throw failure;}),error=>error===failure);
+ assert.deepEqual(f.requests,[]);
+});
+test('installed fixture cannot overwrite an existing root manager',async t=>{
+ const f=peripheral(t);await api.presentPlatformFixture(f.root,theme,location.origin,()=>{});const manager=api.requireScreenManager(f.root);let rendered=0;
+ await assert.rejects(api.presentPlatformFixture(f.root,theme,location.origin,()=>{rendered++;}),/invalid_shell_environment|Root already has a manager/);
+ assert.equal(api.requireScreenManager(f.root),manager);assert.equal(rendered,0);
+});
+test('registration failure prevents fixture renderer invocation',async t=>{
+ const f=peripheral(t),failure=Error('Synthetic rejected entry registration');let rendered=0;
+ t.mock.method(api.ScreenManager.prototype,'registerScope',()=>{throw failure;});
+ await assert.rejects(api.presentPlatformFixture(f.root,theme,location.origin,()=>{rendered++;}),error=>error===failure);
+ assert.equal(rendered,0);assert.deepEqual(f.requests,[]);
+});
+
+const platformFixturePaths=['scripts/test-platform-bundle.mjs','scripts/test-platform-history.mjs','scripts/test-platform-attention.mjs','scripts/test-public-territory-intake.mjs','scripts/test-tenant-operations.mjs','scripts/test-territory-allocation.mjs','scripts/test-admin-growth-accessibility.mjs'];
+const fixturePaths=[...platformFixturePaths,'scripts/test-growth-browser.mjs','scripts/test-growth-admin-browser.mjs','scripts/review-admin-marketing-ui.mjs'];
+const sources=new Map(await Promise.all(fixturePaths.map(async path=>[path,await read(path)]))),compiled=new Map();
+async function entryFor(source){
+ const line=source.split('\n').find(line=>line.includes('stdin:{contents:')&&line.includes("platform:'browser'"));assert.ok(line,'Expected actual browser bundle');
+ let options;await new AsyncFunction('build','theme','assert',line)(async args=>{options=args;return {outputFiles:[],metafile:{inputs:{}}};},theme,assert);
+ assert.equal(options.write,false);return options.stdin.contents;
+}
+for(const [path,source]of sources)test(path+' retains its theme, stylesheet and real browser dependency boundaries',async()=>{
+ const entry=await entryFor(source);assert.match(entry,/presentPlatformFixture\(root,/);assert.ok(entry.includes(JSON.stringify(theme)));
+ assert.ok(source.indexOf('theme=')<source.indexOf('contents:`'),'Read the existing fixture theme before serializing it');
+ assert.match(source,/SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1/i);
+ assert.match(source,/readFile\('websites\/typescript\/src\/styles.css','utf8'\)/);
+ assert.doesNotMatch(entry,/new ScreenManager|installScreenManager|sessionStorage\.setItem/);
+ if(!compiled.has(entry)){
+  const result=await build({stdin:{contents:entry,resolveDir:process.cwd()},bundle:true,write:false,format:'iife',platform:'browser',metafile:true,plugins:[{name:'read-exact-bootstrap-source',setup(builder){builder.onResolve({filter:/^\.\/scripts\/fixtures\/platform-browser-bootstrap$/},()=>({path:helperPath,namespace:'fixture-entry'}));builder.onLoad({filter:/.*/,namespace:'fixture-entry'},()=>({contents:helper,loader:'ts',resolveDir:resolve('scripts/fixtures')}));}}]});
+  compiled.set(entry,Object.keys(result.metafile.inputs));
+ }
+ const inputs=compiled.get(entry);for(const required of ['websites/typescript/src/screen-presentation.ts','websites/typescript/src/managed-routes.ts','packages/primecare_ui/web/screen-manager.ts'])assert.ok(inputs.some(p=>p.endsWith(required)),required);
+ assert.ok(!inputs.some(p=>p.includes('platform-bundle/service')||p.includes('platform-bundle/routing.ts')||p.includes('node_modules/pg/')));
+});
+
+for(const [path,source]of sources){
+ const paths=path==='scripts/test-growth-browser.mjs'?['/growth','/enquire/fixture-key']:['scripts/test-growth-admin-browser.mjs','scripts/review-admin-marketing-ui.mjs'].includes(path)?['/platform/administration','/growth']:path.includes('public-territory')?['/platform/administration','/growth','/enquire/fixture-key']:path.includes('growth-accessibility')?['/platform/administration','/growth']:['/platform/administration'];
+ for(const route of paths)test(path+' dispatches its existing renderer for '+route,async t=>{
+  const f=peripheral(t,route),entry=await entryFor(source),starts=[],calls=[];
+  const present=(...args)=>{assert.equal(args[0],f.root);assert.deepEqual(args[1],theme);assert.equal(args[2],location.origin);const task=api.presentPlatformFixture(...args);starts.push(task);return task;};
+  const renderer=name=>(root,gateway)=>{assert.equal(root,f.root);assert.equal(gateway,location.origin);const routeEntry=api.resolveManagedRoute(route,'');api.requireScreenManager(root).enter(routeEntry.id,routeEntry.route);calls.push(name);};
+  const execute=entry.replace(/import\s+\{[^}]+\}\s+from\s+['"][^'"]+['"];?/g,'');
+  new Function('presentPlatformFixture','renderPlatformAdmin','renderGrowth','renderEnquiry',execute)(present,renderer('platform'),renderer('growth'),renderer('enquiry'));
+  await Promise.all(starts);assert.equal(starts.length,1);assert.deepEqual(calls,[route.startsWith('/enquire/')?'enquiry':route==='/growth'?'growth':'platform']);assert.deepEqual(f.requests,[]);
+ });
+}
+
+for(const existing of [false,true])test('the actual tenant race fixture restores '+(existing?'an existing':'an absent')+' storage global and keeps request assertions',async t=>{
+ const source=sources.get('scripts/test-platform-bundle.mjs'),start=source.indexOf(" await test('a delayed tenant read cannot overwrite the newer tenant selection'"),end=source.indexOf('\n // Actual browser',start);assert.ok(start>=0&&end>start);
+ const original=Object.getOwnPropertyDescriptor(globalThis,'sessionStorage');t.after(()=>restore('sessionStorage',original));
+ if(existing)Object.defineProperty(globalThis,'sessionStorage',{configurable:true,enumerable:true,writable:false,value:{getItem:()=> 'prior session'}});else delete globalThis.sessionStorage;
+ const before=Object.getOwnPropertyDescriptor(globalThis,'sessionStorage'),fetchBefore=globalThis.fetch,cleanups=[];let compilerCalls=0,testCalls=0;
+ try{
+  await new AsyncFunction('test','join','dir','build','require','assert','tenant','other',source.slice(start,end))(
+   async(_name,work)=>{testCalls++;await work({after:fn=>cleanups.push(fn)});},join,'/in-memory-only',async options=>{compilerCalls++;assert.deepEqual(options.entryPoints,['websites/typescript/src/platform-bundle/controller.ts']);assert.equal(options.platform,'node');},()=>({BundleController:api.BundleController}),assert,'tenant-a','tenant-b');
+ }finally{for(const cleanup of cleanups.reverse())await cleanup();}
+ assert.equal(testCalls,1);assert.equal(compilerCalls,1);assert.equal(globalThis.fetch,fetchBefore);assert.deepEqual(Object.getOwnPropertyDescriptor(globalThis,'sessionStorage'),before);
+ assert.match(source,/requests\.map/);assert.match(source,/authorization:'Bearer synthetic-token'/);assert.match(source,/cache:'no-store'/);
+});
+
+test('platform workflow selects the new fixture contracts and retains its real acceptance gates',async()=>{
+ const workflow=await read('.github/workflows/platform-admin-acceptance.yml'),triggers=workflow.split('permissions:')[0];
+ for(const path of [helperPath,'scripts/test-platform-browser-fixture.mjs'])assert.equal(triggers.split("'"+path+"'").length-1,2,path+' is covered by push and PR events');
+ for(const path of ['scripts/test-platform-browser-fixture.mjs','scripts/test-platform-bundle-session.mjs','scripts/test-platform-admin-manager.mjs','scripts/test-typescript-screen-manager.mjs','scripts/test-growth-manager.mjs','scripts/test-enquiry-manager.mjs','scripts/test-admin-child-sessions.mjs'])assert.ok(workflow.split('\n').some(line=>line.includes('env -i')&&line.includes('node --test')&&line.includes(path)),path);
+ for(const path of platformFixturePaths)assert.ok(workflow.includes('node --test '+path),path+' actual acceptance remains required');
+ assert.match(workflow,/test "\$\{\{ steps\.accessibility\.outcome \}\}" = success/);assert.match(workflow,/contents: read/);assert.doesNotMatch(workflow,/contents: write|write-all|id-token: write/);
+ assert.ok(workflow.includes('node scripts/test-platform-admin-browser.mjs'));assert.ok(workflow.includes('PLATFORM_TEST_IDENTITY=text node --test scripts/test-public-territory-intake.mjs'));
+});
+
+const growth=await read('scripts/test-growth-loading-browser.mjs');
+const growthEntryLine=growth.split('\n').find(line=>line.startsWith('const bundle=await build('));
+let growthEntry;
+await new AsyncFunction('build',growthEntryLine)(async options=>{growthEntry=options.stdin.contents;return {};});
+test('Growth loading fixture bundles the actual bridge and existing explicit synthetic theme',async()=>{
+ assert.match(growthEntry,/presentPlatformFixture\(root,fixtureTheme,gateway/);
+ assert.match(growthEntry,/scripts\/fixtures\/look-test-theme\.json/);
+ const built=await build({stdin:{contents:growthEntry,resolveDir:process.cwd()},bundle:true,write:false,format:'iife',platform:'browser',metafile:true,plugins:[{name:'read-exact-bootstrap-source',setup(builder){builder.onResolve({filter:/^\.\/scripts\/fixtures\/platform-browser-bootstrap$/},()=>({path:helperPath,namespace:'fixture-entry'}));builder.onLoad({filter:/.*/,namespace:'fixture-entry'},()=>({contents:helper,loader:'ts',resolveDir:resolve('scripts/fixtures')}));}}]});
+ const inputs=Object.keys(built.metafile.inputs);
+ for(const path of ['websites/typescript/src/growth/dashboard.ts','websites/typescript/src/screen-presentation.ts','packages/primecare_ui/web/screen-manager.ts','scripts/fixtures/look-test-theme.json'])assert.ok(inputs.some(p=>p.endsWith(path)),path);
+ assert.ok(!inputs.some(p=>p.includes('node_modules/pg/')||p.includes('cloudflare/workers/')),'Only existing browser dependencies are bundled');
+});
+test('Growth wrapper starts its renderer only after real presentation and keeps synthetic session setup explicit',async t=>{
+ const f=peripheral(t,'/growth'),fixtureTheme=JSON.parse(await readFile('scripts/fixtures/look-test-theme.json','utf8'));let calls=0;
+ const code=growthEntry.replace(/import\s+(?:\{[^}]+\}|\w+)\s+from\s+['"][^'"]+['"];?/g,'').replace('export function start','function start');
+ const start=new Function('presentPlatformFixture','renderGrowth','fixtureTheme',code+'\nreturn start;')(api.presentPlatformFixture,(root,gateway)=>{calls++;assert.equal(root,f.root);assert.equal(gateway,location.origin);const entry=api.resolveManagedRoute('/growth','');api.requireScreenManager(root).enter(entry.id,entry.route);},fixtureTheme);
+ await start(f.root,location.origin);assert.equal(calls,1);assert.deepEqual(f.requests,[]);
+ assert.match(growth,/sessionStorage\.setItem\("primecare_session","synthetic-renderer-session"\);void GrowthStateTest\.start/);
+ assert.match(growth,/for\(const locale of \['en','fr','es'\]\)for\(const width of \[320,1440\]\)/);
+ assert.match(growth,/assert\.deepEqual\(errors,\[\]\);assert\.equal\(requests,6\)/);
+ assert.match(growth,/timeoutMs:10000/);assert.match(growth,/await waitForFixtureRequest\(page,requestArrived/);assert.doesNotMatch(growth,/;await requestArrived;/);
+ assert.match(growth,/release\(\);const video=record\?page\.video\(\):null;await context\.close\(\)/);
+ assert.match(growth,/scripts\/fixtures\/browser-request-arrival\.mjs/);
+});
+
+const deferred=()=>{let resolve;const promise=new Promise(r=>{resolve=r;});return {promise,resolve};};
+function pageProbe(t){
+ const page=new EventEmitter(),cleared=[],original=globalThis.clearTimeout;
+ t.mock.method(globalThis,'clearTimeout',timer=>{cleared.push(timer);return original(timer);});
+ return {page,check:()=>{for(const name of ['pageerror','crash','close'])assert.equal(page.listenerCount(name),0,name+' listener removed');assert.equal(cleared.length,1,'Deadline timer cleared');}};
+}
+test('request arrival guard observes a successful early request and removes its timer/listeners',async t=>{
+ const {page,check}=pageProbe(t),request=deferred();
+ await waitForFixtureRequest(page,request.promise,async()=>{request.resolve();},{label:'Synthetic initial read',timeoutMs:50});check();
+});
+for(const name of ['pageerror','close','crash'])test('request arrival guard rejects '+name+' before an unresolved navigation/request can hang',{timeout:1000},async t=>{
+ const {page,check}=pageProbe(t),request=deferred();
+ await assert.rejects(waitForFixtureRequest(page,request.promise,()=>{page.emit(name,Error('Missing manager at route boundary'));return new Promise(()=>{});},{label:'Synthetic initial read',timeoutMs:100}),name==='pageerror'?/bootstrap failed: Missing manager/:new RegExp('page '+(name==='close'?'closed':'crashed')));check();
+});
+test('request arrival guard times out rather than waiting forever and removes listeners',{timeout:1000},async t=>{
+ const {page,check}=pageProbe(t);
+ await assert.rejects(waitForFixtureRequest(page,new Promise(()=>{}),async()=>{},{label:'Synthetic initial read',timeoutMs:5}),/Synthetic initial read: no request arrived within 5 ms/);check();
+});
+test('request arrival guard preserves navigation rejection and removes listeners',async t=>{
+ const {page,check}=pageProbe(t),failure=Error('Synthetic navigation rejected');
+ await assert.rejects(waitForFixtureRequest(page,new Promise(()=>{}),async()=>{throw failure;},{timeoutMs:50}),error=>error===failure);check();
+});
+test('request arrival guard cannot be configured with an unbounded deadline',async()=>{
+ for(const timeoutMs of [0,-1,Infinity,NaN])await assert.rejects(waitForFixtureRequest(new EventEmitter(),Promise.resolve(),async()=>{},{timeoutMs}),/finite positive/);
+});
+test('Founder Growth workflow enforces the same contract check and retains its original bounded browser job',async()=>{
+ const workflow=await read('.github/workflows/growth-marketing.yml'),triggers=workflow.split('permissions:')[0];
+ for(const path of [helperPath,'scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/look-test-theme.json','scripts/test-platform-browser-fixture.mjs'])assert.ok(triggers.includes("'"+path+"'"),path);
+ assert.match(workflow,/env -i[^\n]+node --test scripts\/test-platform-browser-fixture\.mjs/);
+ assert.match(workflow,/timeout-minutes: 20/);assert.match(workflow,/run: node scripts\/test-growth-loading-browser\.mjs/);
+ for(const path of ['scripts/test-growth-browser.mjs','scripts/test-growth-admin-browser.mjs'])assert.ok(workflow.split('\n').some(line=>line.includes('node --test')&&line.includes(path)),path+' actual acceptance retained');
+ assert.ok(workflow.includes('REVIEW_PHASE=after node scripts/review-admin-marketing-ui.mjs'));
+ assert.match(workflow,/contents: read/);assert.doesNotMatch(workflow,/contents: write|write-all|id-token: write/);
+});

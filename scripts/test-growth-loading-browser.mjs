@@ -1,3 +1,4 @@
+import {waitForFixtureRequest} from './fixtures/browser-request-arrival.mjs';
 import {emptyGrowthReadModel as data} from './fixtures/growth-read-model.mjs';
 /** Real Growth renderer with controlled HTTP failures; no login or database verification. */
 import assert from 'node:assert/strict';
@@ -11,12 +12,12 @@ const out='test-results/growth/loading';
 await mkdir(out,{recursive:true});
 const cy=id=>'[data-cy="'+id+'"]',hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const criterion='growth-shared-loading-error-layout',cases=[];
-const report={passed:false,scope:'Growth renderer shared layout, loading, HTTP and transport retry',wholeTaskVerified:false,criterion_results:{[criterion]:'failed'},cases,limitations:['Synthetic renderer session and HTTP fixtures; no real login, role grant, tenant-isolation or database verification','Initial loading uses the existing default EN locale; recovered errors exercise EN/FR/ES','No full accessibility, device installation or PWA verification']};
+const report={passed:false,scope:'Growth renderer shared layout, loading, HTTP and transport retry',wholeTaskVerified:false,criterion_results:{[criterion]:'failed'},cases,limitations:['Synthetic renderer session and HTTP fixtures; no real login, role grant, tenant-isolation or database verification','Initial loading uses the existing default EN locale; recovered errors exercise EN/FR/ES','No full accessibility, device installation or PWA verification','Presentation uses the explicit synthetic look-test-theme.json fixture, not production theme authority']};
 await writeFile(out+'/results.json',JSON.stringify(report,null,2)+'\n');
-const bundle=await build({stdin:{contents:"export {renderGrowth} from './websites/typescript/src/growth/dashboard';",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
+const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
 const css=await readFile('websites/typescript/src/styles.css'),policy=JSON.parse(await readFile('packages/shared/src/growth/registry.json'));
 const sources={};
-for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
+for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/fixtures/browser-request-arrival.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
 report.sources=sources;
 // Only the complete empty read model needed by the production renderer. It grants no mutation.
 
@@ -24,7 +25,7 @@ const server=createServer((req,res)=>{
  const path=new URL(req.url,'http://test').pathname;
  if(path==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}
  else if(path==='/styles.css'){res.setHeader('content-type','text/css');res.end(css);}
- else if(path==='/growth'){res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Growth state regression</title><link rel="stylesheet" href="/styles.css"></head><body><div id="app"></div><script src="/app.js"></script><script>sessionStorage.setItem("primecare_session","synthetic-renderer-session");void GrowthStateTest.renderGrowth(document.getElementById("app"),location.origin)</script></body></html>');}
+ else if(path==='/growth'){res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Growth state regression</title><link rel="stylesheet" href="/styles.css"></head><body><div id="app"></div><script src="/app.js"></script><script>sessionStorage.setItem("primecare_session","synthetic-renderer-session");void GrowthStateTest.start(document.getElementById("app"),location.origin)</script></body></html>');}
  else{res.writeHead(404);res.end();}
 });
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
@@ -58,7 +59,7 @@ try{
     else if(mode==='denied')await route.fulfill({status:403,contentType:'application/json',body:'{"error":"forbidden"}'});
     else await route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
    });
-   await page.goto(origin+'/growth?enable-semantics=true',{waitUntil:'domcontentloaded'});await requestArrived;
+   await waitForFixtureRequest(page,requestArrived,()=>page.goto(origin+'/growth?enable-semantics=true',{waitUntil:'domcontentloaded'}),{label:'Initial Growth read '+locale+' '+width+'px',timeoutMs:10000});
    if(record)await page.screenshot({path:out+'/initial-state.png'});
    await checkShell(true);assert.ok((await page.locator(cy('growth-loading')).innerText()).includes(policy.locales.en.loading));
    release();stage='initial-http-error';await page.locator(cy('growth-retry')).waitFor();await checkShell(false);
@@ -79,7 +80,7 @@ try{
    cases.push({locale,width,passed:true,initialLoadingShell:true,errorShell:true,retryRestoresChrome:true,emptyState:true,transportFailureRetry:true,deniedClearsContent:true,requests});
   }catch(error){
    cases.push({locale,width,passed:false,stage,requests,error:String(error),pageErrors:errors});
-   if(record)await page.screenshot({path:out+'/failure.png'});
+   if(record&&!page.isClosed())try{await page.screenshot({path:out+'/failure.png',timeout:5000});}catch(screenshotError){cases.at(-1).screenshotError=String(screenshotError);}
    throw error;
   }finally{
    release();const video=record?page.video():null;await context.close();
