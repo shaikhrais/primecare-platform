@@ -48,7 +48,7 @@ jobs:
       - name: Analyze production surface and actual-widget regression
         working-directory: packages/primecare_ui
         timeout-minutes: 5
-        run: flutter analyze lib/src/features/auth/auth_experience.dart test/auth_material_surface_test.dart test/auth_design_test.dart
+        run: flutter analyze lib/src/features/auth/auth_experience.dart test/auth_material_surface_test.dart test/auth_design_test.dart lib/src/features/auth/login_controller.dart test/auth_login_localization_test.dart
       - name: Prove exact baseline fails the ink-surface assertion
         working-directory: packages/primecare_ui
         shell: bash
@@ -165,7 +165,7 @@ jobs:
         run: |
           set -euo pipefail
           git diff --exit-code -- lib/src/features/auth/auth_experience.dart
-          flutter test --no-pub test/auth_material_surface_test.dart test/auth_mfa_test.dart test/auth_design_test.dart test/auth_live_screen_text_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart
+          flutter test --no-pub test/auth_material_surface_test.dart test/auth_mfa_test.dart test/auth_design_test.dart test/auth_live_screen_text_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart test/auth_login_localization_test.dart
       - name: Retain baseline-negative evidence
         if: ${{ always() && !cancelled() }}
         uses: actions/upload-artifact@v4

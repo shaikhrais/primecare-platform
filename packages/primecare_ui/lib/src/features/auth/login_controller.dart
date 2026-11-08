@@ -1,12 +1,16 @@
 // Governance - Category: controller | Purpose: Immutable state for the Login feature.
 import 'package:primecare_ui/primecare_ui.dart';
 
+/// Known login display reasons. Authentication still returns its existing bool.
+enum LoginErrorReason { missingCredentials, authenticationFailed }
+
 /// Immutable state for the Login feature.
 class LoginState {
   final String email;
   final String password;
   final bool isLoading;
   final String? errorMessage;
+  final LoginErrorReason? errorReason;
   final String? successMessage;
 
   const LoginState({
@@ -15,7 +19,28 @@ class LoginState {
     this.isLoading = false,
     this.errorMessage,
     this.successMessage,
+  }) : errorReason = null;
+
+  const LoginState._({
+    required this.email,
+    required this.password,
+    required this.isLoading,
+    required this.errorMessage,
+    required this.errorReason,
+    required this.successMessage,
   });
+
+  // Only known controller failures acquire a reason. Public construction and
+  // explicit error replacement keep their existing literal-message semantics.
+  LoginState _withLoginError(LoginErrorReason reason, String message) =>
+      LoginState._(
+        email: email,
+        password: password,
+        isLoading: isLoading,
+        errorMessage: message,
+        errorReason: reason,
+        successMessage: successMessage,
+      );
 
   LoginState copyWith({
     String? email,
@@ -26,11 +51,12 @@ class LoginState {
     bool clearError = false,
     bool clearSuccess = false,
   }) {
-    return LoginState(
+    return LoginState._(
       email: email ?? this.email,
       password: password ?? this.password,
       isLoading: isLoading ?? this.isLoading,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
+      errorReason: clearError || errorMessage != null ? null : this.errorReason,
       successMessage: clearSuccess ? null : (successMessage ?? this.successMessage),
     );
   }
@@ -61,7 +87,10 @@ class LoginController extends Notifier<LoginState> {
     final password = state.password;
 
     if (email.isEmpty || password.isEmpty) {
-      state = state.copyWith(errorMessage: 'Please enter both credentials.');
+      state = state._withLoginError(
+        LoginErrorReason.missingCredentials,
+        'Please enter both credentials.',
+      );
       return;
     }
 
@@ -79,8 +108,9 @@ class LoginController extends Notifier<LoginState> {
         state = state.copyWith(
           isLoading: false,
           password: '',
-          errorMessage:
-              'Authentication failed. Please verify your credentials.',
+        )._withLoginError(
+          LoginErrorReason.authenticationFailed,
+          'Authentication failed. Please verify your credentials.',
         );
       } else {
         state = state.copyWith(isLoading: false, password: '');
