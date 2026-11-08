@@ -7,6 +7,8 @@ on:
       - 'packages/primecare_ui/lib/src/features/auth/**'
       - 'packages/primecare_ui/test/auth*_test.dart'
       - '.github/workflows/auth-material-surface.yml'
+      - 'scripts/verify_auth_material_baseline.py'
+      - 'scripts/tests/test_verify_auth_material_baseline.py'
 
 permissions:
   contents: read
@@ -26,6 +28,11 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
           fetch-depth: 0
           persist-credentials: false
+      - name: Verify baseline oracle synthetic fixtures
+        timeout-minutes: 2
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 -m unittest discover -s scripts/tests -p 'test_verify_auth_material_baseline.py'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
@@ -151,26 +158,7 @@ jobs:
           status=$?
           set -e
           test "$status" -eq 1
-          python3 - <<'PY'
-          import json, os
-          from pathlib import Path
-          path = Path(os.environ['RUNNER_TEMP'], 'auth-material-baseline.jsonl')
-          limit = 2 * 1024 * 1024
-          assert path.stat().st_size <= limit, 'Baseline report exceeds limit'
-          with path.open('rb') as stream:
-              payload = stream.read(limit + 1)
-          assert len(payload) <= limit, 'Baseline report exceeds limit'
-          events = [json.loads(line) for line in payload.decode('utf-8').splitlines() if line.strip()]
-          tests = [e['test'] for e in events if e.get('type') == 'testStart' and e['test']['name'] == 'login help ink surface en 360.0']
-          assert len(tests) == 1, 'Expected exactly one real baseline test'
-          test_id = tests[0]['id']
-          errors = [e for e in events if e.get('type') == 'error']
-          assert errors and all(e.get('testID') == test_id and 'AUTH_INK_SURFACE:' in e.get('error', '') for e in errors), 'Baseline failed for an unrelated error'
-          failed = [e for e in events if e.get('type') == 'testDone' and e.get('result') in ('failure', 'error')]
-          assert len(failed) == 1 and failed[0]['testID'] == test_id, 'Unexpected baseline failures'
-          assert any(e.get('type') == 'done' and e.get('success') is False for e in events), 'Missing complete baseline result'
-          print('Baseline failed only the actual help-tile ink-surface assertion.')
-          PY
+          PYTHONDONTWRITEBYTECODE=1 python3 ../../scripts/verify_auth_material_baseline.py "$RUNNER_TEMP/auth-material-baseline.jsonl" "$RUNNER_TEMP/auth-material-baseline.stderr"
       - name: Verify restored source and run candidate plus unchanged shared auth scope
         working-directory: packages/primecare_ui
         shell: bash
