@@ -24,8 +24,6 @@ jobs:
     timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      PUB_CACHE: ${{ runner.temp }}/sqlite-source-pilot-pub
-      PILOT_STATE: ${{ runner.temp }}/sqlite-source-pilot-state
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,7 +33,14 @@ jobs:
         timeout-minutes: 2
         run: python3 -m unittest discover -s scripts/tests -p 'test_verify_sqlite_source.py'
       - name: Create fresh pilot-owned state and package cache
-        run: python3 scripts/verify_sqlite_source.py initialize
+        env:
+          PUB_CACHE: ${{ runner.temp }}/sqlite-source-pilot-pub
+          PILOT_STATE: ${{ runner.temp }}/sqlite-source-pilot-state
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_sqlite_source.py initialize
+          printf '%s\n' "PUB_CACHE=$PUB_CACHE" "PILOT_STATE=$PILOT_STATE" >> "$GITHUB_ENV"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
