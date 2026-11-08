@@ -64,15 +64,130 @@ jobs:
           channel: 'stable'
           cache: true
 
+      # GitHub-only pilot. No real distribution runs until vendor identity and
+      # the same wrapper's owned-file checksum rejection have both passed.
+      - name: Verify governance Gradle bootstrap
+        if: matrix.app == 'primecare_governance'
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_ACTIONS" = true
+          sdk="$(dirname "$(dirname "$(readlink -f "$(command -v flutter)")")")"
+          test "$(git -C "$sdk" rev-parse HEAD)" = 2c9eb20739dfec95e2c74bd3dfa4601b0a8a36aa
+          printf '%s  %s\n' \
+            d0f462d660f00a3d7d533eae6cb7f9fdbb39ac5efe6162e15fbbe5dd06c5c1a7 "$sdk/bin/internal/gradle_wrapper.version" \
+            6af097253f24a3c7bd3387864f10f90247facba657f793a4e49331587ce5cd2c "$sdk/packages/flutter_tools/lib/src/android/gradle_utils.dart" \
+            13d7b34afc89fcb3600049acf2a7a2b8451af836d2b9556bcecd7589e39f0193 "$sdk/packages/flutter_tools/lib/src/android/migrations/android_studio_java_gradle_conflict_migration.dart" \
+            | sha256sum --check --status
+          sdk_wrapper="$sdk/bin/cache/artifacts/gradle_wrapper"
+          sdk_jar="$sdk_wrapper/gradle/wrapper/gradle-wrapper.jar"
+          test -f "$sdk_jar"
+          test ! -L "$sdk_jar"
+          test "$(wc -c < "$sdk_jar")" -le 131072
+          jar_sha="$(sha256sum "$sdk_jar" | cut -d' ' -f1)"
+          printf 'Installed bootstrap JAR SHA-256: %s\n' "$jar_sha"
+          # Official Gradle 2.10 JAR identity, not the Gradle 8.14 ZIP identity.
+          # Any other installed JAR stops for review before Java is invoked.
+          test "$jar_sha" = 16caeaf66d57a0d1d2087fef6a97efa62de8da69afa5b908f40db35afc4342da
+
+          pilot="$(mktemp -d "$RUNNER_TEMP/governance-gradle-pilot.XXXXXX")"
+          [[ "$pilot" =~ ^/[A-Za-z0-9_./-]+$ ]]
+          mkdir -p "$pilot/negative/gradle/wrapper" "$pilot/negative/home" "$pilot/build-home"
+          printf 'Owned checksum mismatch fixture. Not a ZIP.\n' > "$pilot/negative/fake.zip"
+          fake_sha="$(sha256sum "$pilot/negative/fake.zip" | cut -d' ' -f1)"
+          bad_sha=0000000000000000000000000000000000000000000000000000000000000000
+          test "$fake_sha" != "$bad_sha"
+          cp "$sdk_jar" "$pilot/negative/gradle/wrapper/gradle-wrapper.jar"
+          printf '%s  %s\n' "$jar_sha" "$pilot/negative/gradle/wrapper/gradle-wrapper.jar" | sha256sum --check --status
+          printf '%s\n' \
+            'distributionBase=GRADLE_USER_HOME' 'distributionPath=wrapper/dists' \
+            'zipStoreBase=GRADLE_USER_HOME' 'zipStorePath=wrapper/dists' \
+            "distributionUrl=file\://$pilot/negative/fake.zip" \
+            "distributionSha256Sum=$bad_sha" \
+            > "$pilot/negative/gradle/wrapper/gradle-wrapper.properties"
+          # These JVM channels echo their values to stderr. Do not collect
+          # them or silently remove inherited settings for this diagnostic.
+          if [ -n "${JAVA_TOOL_OPTIONS-}${_JAVA_OPTIONS-}${JDK_JAVA_OPTIONS-}" ]; then
+            printf 'Inherited JVM diagnostic options need review; stopping.\n' >&2
+            exit 1
+          fi
+          fixture_status=0
+          (
+            ulimit -f 64
+            GRADLE_USER_HOME="$pilot/negative/home" \
+              timeout --kill-after=5s 30s "$JAVA_HOME/bin/java" \
+              -cp "$pilot/negative/gradle/wrapper/gradle-wrapper.jar" \
+              org.gradle.wrapper.GradleWrapperMain \
+              --gradle-user-home "$pilot/negative/home" --version
+          ) > "$pilot/negative.log" 2>&1 || fixture_status=$?
+          test "$fixture_status" -eq 1
+          test "$(wc -c < "$pilot/negative.log")" -le 16384
+          grep -Fxq 'Verification of Gradle distribution failed!' "$pilot/negative.log"
+          grep -Fxq "Expected checksum: '$bad_sha'" "$pilot/negative.log"
+          grep -Fxq "  Actual checksum: '$fake_sha'" "$pilot/negative.log"
+          if grep -Fq 'Unzipping ' "$pilot/negative.log"; then exit 1; fi
+          printf 'Owned-file checksum rejection: verified before extraction.\n'
+
+          android="$GITHUB_WORKSPACE/apps/primecare_governance/android"
+          printf '%s  %s\n' \
+            3d56dccd17b0d88feb0005274fbe6518066c7d8af4727c0e1df9a49a4dff1f61 "$android/gradle/wrapper/gradle-wrapper.properties" \
+            5539cf5f17c53900a72cf0065e450f0a8ba5b929dd2b364724c1296d0285d9dc "$android/gradle.properties" \
+            | sha256sum --check --status
+          # Match Flutter's copy-if-absent injection, without replacing its JAR.
+          for relative in gradlew gradlew.bat gradle/wrapper/gradle-wrapper.jar; do
+            test -f "$sdk_wrapper/$relative"
+            test ! -L "$sdk_wrapper/$relative"
+            test ! -L "$android/$relative"
+            if test -e "$android/$relative"; then
+              cmp -s "$sdk_wrapper/$relative" "$android/$relative"
+            else
+              cp "$sdk_wrapper/$relative" "$android/$relative"
+            fi
+          done
+          chmod u+x "$android/gradlew"
+          printf '%s  %s\n' "$jar_sha" "$android/gradle/wrapper/gradle-wrapper.jar" | sha256sum --check --status
+          sha256sum "$android/gradlew" "$android/gradlew.bat" \
+            "$android/gradle/wrapper/gradle-wrapper.jar" \
+            "$android/gradle/wrapper/gradle-wrapper.properties" "$android/gradle.properties" \
+            > "$pilot/binding.sha256"
+          printf 'GRADLE_PILOT_ROOT=%s\nGRADLE_PILOT_BINDING=%s\nGRADLE_USER_HOME=%s\n' \
+            "$pilot" "$pilot/binding.sha256" "$pilot/build-home" >> "$GITHUB_ENV"
+          printf 'Governance bootstrap and properties bound; real Gradle 8.14 delivery is still unverified.\n'
+
       - name: Build Android App Bundle (AAB)
         run: |
           cd apps/${{ matrix.app }}
           flutter pub get
+          if [ "${{ matrix.app }}" = primecare_governance ]; then
+            test "$GITHUB_ACTIONS" = true
+            test "$GRADLE_USER_HOME" = "$GRADLE_PILOT_ROOT/build-home"
+            test -d "$GRADLE_USER_HOME"
+            test ! -L "$GRADLE_USER_HOME"
+            sha256sum --check --status "$GRADLE_PILOT_BINDING"
+            # A Java system property would override GRADLE_USER_HOME; stop
+            # without printing or modifying inherited JVM/proxy options.
+            case "${JAVA_OPTS-} ${GRADLE_OPTS-} ${JAVA_TOOL_OPTIONS-} ${_JAVA_OPTIONS-} ${JDK_JAVA_OPTIONS-}" in
+              *gradle.user.home*) printf 'Unexpected Gradle home override; stopping.\n' >&2; exit 1 ;;
+            esac
+            test -z "$(find "$GRADLE_USER_HOME" -mindepth 1 -maxdepth 1 -print -quit)"
+          fi
           flutter build appbundle --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Build Android APK
         run: |
           cd apps/${{ matrix.app }}
+          if [ "${{ matrix.app }}" = primecare_governance ]; then
+            test "$GITHUB_ACTIONS" = true
+            test "$GRADLE_USER_HOME" = "$GRADLE_PILOT_ROOT/build-home"
+            test -d "$GRADLE_USER_HOME"
+            test ! -L "$GRADLE_USER_HOME"
+            sha256sum --check --status "$GRADLE_PILOT_BINDING"
+            # A Java system property would override GRADLE_USER_HOME; stop
+            # without printing or modifying inherited JVM/proxy options.
+            case "${JAVA_OPTS-} ${GRADLE_OPTS-} ${JAVA_TOOL_OPTIONS-} ${_JAVA_OPTIONS-} ${JDK_JAVA_OPTIONS-}" in
+              *gradle.user.home*) printf 'Unexpected Gradle home override; stopping.\n' >&2; exit 1 ;;
+            esac
+          fi
           flutter build apk --release --dart-define=API_BASE_URL=https://primecare-api-gateway.itpro-mohammed.workers.dev
 
       - name: Upload AAB Artifact
