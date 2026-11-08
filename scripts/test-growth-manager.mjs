@@ -1,3 +1,4 @@
+import {readFile} from 'node:fs/promises';
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
 import {fixture,deferred,invalidate,makeData} from './fixtures/growth-dom.mjs';
@@ -78,3 +79,44 @@ for(const missing of [true,false])test('navigation replacement survives throwing
 for(const key of ['canEditBrief','canEditContact','canConfirm','schemaReady','careReady'])test('malformed nested action flag '+key+' fails closed',async()=>{const f=fixture();if(key==='canEditBrief')f.data.campaigns[0][key]='yes';else if(key==='canEditContact')f.data.leads[0][key]='yes';else if(key==='careReady')f.data.business[key]='yes';else f.data.campaigns[0].readiness[key]='yes';await f.render();assert.equal(Boolean(f.cy('growth-error')),true);assert.equal(Boolean(f.cy('growth-lead-form')),false);});
 
 for(const accepted of [true,false])test('receipt recovery prevents native form navigation '+accepted,async()=>{const f=fixture();await f.render();f.respond=async(_u,o)=>o.method==='GET'?Response.json(f.data):accepted?Response.json({id:'unreflected-entry'}):Response.json({error:'unavailable'},{status:503});await f.fire(f.fill('growth-business-finance',{amount:'1'}),'submit');const event={type:'submit'};f.cy('growth-business-finance').dispatchEvent(event);await f.settle();assert.equal(event.defaultPrevented,true);assert.equal(f.writes().length,accepted?1:2);});
+
+// Existing browser acceptance must resolve the uncertain assignment before editing
+// milestone evidence. The renderer, transport, version reflection and bindings are real;
+// Playwright methods and the final read-only DB observation below are protocol models.
+const assignmentBrowserSource=await readFile('scripts/test-growth-browser.mjs','utf8');
+const assignmentStart=assignmentBrowserSource.indexOf('  // An uncertain assignment retains its original command');
+const assignmentEnd=assignmentBrowserSource.indexOf('  for(let i=0;i<4;i++){',assignmentStart);
+const assignmentCode=assignmentStart>=0&&assignmentEnd>assignmentStart?assignmentBrowserSource.slice(assignmentStart,assignmentEnd):'';
+const AssignmentFunction=Object.getPrototypeOf(async()=>{}).constructor;
+async function uncertainAssignment(locale='en',mode='success'){
+ const f=fixture();document.documentElement.lang=locale;await f.render();
+ const id='lead-A',marketer='user-A';f.cy('growth-evidence-'+id).value='Synthetic lead row draft';f.cy('growth-owner-'+id).value=marketer;f.cy('growth-due-'+id).value='2026-12-01T12:00';
+ const response=deferred();let attempts=0,predicate,queries=0;
+ const request=call=>({method:()=>call.options.method,postDataJSON:()=>JSON.parse(call.options.body),headers:()=>({...call.options.headers})});
+ f.respond=async(url,o)=>{
+  if(o.method==='GET')return Response.json(f.data);
+  assert.equal(url,'https://gateway.invalid/v1/governance/growth/leads/'+id);assert.equal(o.method,'PATCH');assert.equal(o.headers.authorization,'Bearer token-A');assert.equal(o.cache,'no-store');
+  if(++attempts===1)return Response.json({error:'unavailable'},{status:503});
+  const body=JSON.parse(o.body),status=mode==='retry-503'?503:200,result=status===200?{id,version:8}:{error:'unavailable'};
+  if(status===200&&mode!=='unreflected')f.data.leads[0]={...f.data.leads[0],version:8,owner_id:body.ownerId,due_at:body.dueAt};
+  const req=request(f.writes().at(-1));if(mode==='changed-key')req.headers=()=>({...o.headers,'idempotency-key':'wrong-key'});
+  const packet={url:()=>url,request:()=>req,status:()=>status,json:async()=>result};assert.ok(predicate(packet));response.resolve(packet);return Response.json(result,{status});
+ };
+ await f.fire(f.cy('growth-assign-'+id));const failedAssignment=request(f.writes()[0]);
+ assert.equal(f.writes().length,1);assert.equal(f.data.leads[0].version,7);assert.equal(f.cy('growth-evidence-'+id).value,'Synthetic lead row draft');assert.equal(f.cy('growth-evidence-'+id).disabled,true);assert.equal(f.cy('growth-owner-'+id).value,marketer);
+ const el=key=>({isDisabled:async()=>f.cy(key).disabled,isEnabled:async()=>!f.cy(key).disabled,inputValue:async()=>f.cy(key).value,click:async()=>{assert.equal(f.cy(key).disabled,false);if(mode==='click-failure'){setImmediate(()=>response.reject(Error('modeled response cancellation')));throw Error('modeled click failure');}await f.fire(f.cy(key));}});
+ const page={waitForResponse:fn=>{predicate=fn;return response.promise;},waitForFunction:async(fn,arg)=>assert.ok(fn(arg),'Authoritative version/unlock predicate failed')};
+ const db={query:async(sql,args)=>{queries++;assert.equal(sql,'SELECT stage,owner_id,version FROM growth_leads WHERE id=$1');assert.deepEqual(args,[id]);return {rows:[f.data.leads[0]]};}};
+ return {f,queries:()=>queries,run:()=>new AssignmentFunction('el','page','assert','failedAssignment','id','db','marketer',assignmentCode)(el,page,assert,failedAssignment,id,db,marketer)};
+}
+for(const locale of ['en','fr','es'])test('browser assignment retry follows actual recovery contract in '+locale,async()=>{
+ assert.ok(assignmentCode,'Browser must retry the retained assignment before its milestone loop');const {f,run,queries}=await uncertainAssignment(locale);await run();
+ assert.equal(f.writes().length,2);assert.equal(f.writes()[0].options.body,f.writes()[1].options.body);assert.equal(f.writes()[0].options.headers['idempotency-key'],f.writes()[1].options.headers['idempotency-key']);assert.equal(queries(),1);assert.equal(f.data.leads[0].stage,'new');assert.equal(f.cy('growth-evidence-lead-A').disabled,false);assert.equal(f.cy('growth-evidence-lead-A').value,'');assert.equal(f.sessionStorage.getItem('primecare_session'),'token-A');assert.deepEqual(f.assigned,[]);
+});
+for(const mode of ['retry-503','unreflected','changed-key','click-failure'])test('browser assignment retry rejects '+mode,async()=>{
+ assert.ok(assignmentCode);const {f,run,queries}=await uncertainAssignment('en',mode);await assert.rejects(run(),mode==='click-failure'?/modeled click failure/:assert.AssertionError);await f.settle();assert.equal(queries(),0);assert.equal(f.writes().length,mode==='click-failure'?1:2);
+ if(['retry-503','unreflected','click-failure'].includes(mode)){assert.equal(f.cy('growth-evidence-lead-A').disabled,true);assert.equal(f.cy('growth-evidence-lead-A').value,'Synthetic lead row draft');}
+});
+test('original milestone edit is blocked while uncertain assignment is unresolved',async()=>{
+ const {f}=await uncertainAssignment();const writes=f.writes().length,field=f.cy('growth-evidence-lead-A');assert.throws(()=>{assert.equal(field.disabled,false,'Ordinary browser fill requires enabled field');field.value='Synthetic milestone evidence 0';},assert.AssertionError);assert.equal(f.writes().length,writes);assert.equal(field.value,'Synthetic lead row draft');assert.equal(f.data.leads[0].version,7);
+});

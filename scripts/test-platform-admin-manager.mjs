@@ -231,3 +231,66 @@ for(const failure of [null,'navigation','held-selection','settle','new-response'
  if(failure==='response-wait')assert.match(probe.state.responseError.message,/synthetic response-wait failure/);
  if(!failure){assert.equal(probe.assertions.length,8);assert.deepEqual(probe.assertions.slice(-2),[['equal',0,0],['ok',true]]);assert.equal(probe.state.active,'tenant-b');}
 });
+
+
+// Recording reloads preserve the URL, not transient cross-tenant form selection.
+// This runs the real renderer/route guard with the existing isolated DOM/HTTP fixture.
+for(const locale of ['en','fr','es'])test('recording reload resolves an unselected Accounts hash safely in '+locale,async()=>{
+ const f=browser({locale});await f.render();const select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.value='tenant-a';select.onchange({currentTarget:select});await settle();await f.click('accounts');
+ assert.equal(f.root.view,'accounts');assert.ok(f.root.querySelector('[data-cy=platform-account-form]'));
+ const address=location.href,before=f.requests.length,history=[...f.historyStack];await f.render();
+ assert.equal(location.href,address);assert.equal(location.hash,'#accounts');assert.equal(document.documentElement.lang,locale);assert.deepEqual(f.historyStack,history);
+ assert.equal(f.root.view,'organizations');assert.ok(f.root.querySelector('[data-cy=admin-organizations]'));
+ assert.equal(f.root.querySelector('[data-cy=platform-account-form]'),null);assert.equal(f.root.querySelector('[data-cy=platform-tenant-form]'),null);
+ assert.equal(f.root.querySelector('[data-cy=platform-topbar-tenant]').value,'');assert.equal(f.dashboard.selected,'');assert.equal(f.dashboard.directory,true);
+ assert.deepEqual(f.requests.slice(before).map(r=>({url:r.url,method:r.options.method,cache:r.options.cache,authorization:r.options.headers.authorization})),[{url:'https://gateway.invalid/v1/governance/platform',method:'GET',cache:'no-store',authorization:'Bearer fixture-admin-token'}]);
+});
+test('tenant-scoped Accounts reload retains only its server-authorized tenant',async()=>{
+ const f=browser({hash:'#accounts',role:'tenant_admin'});f.data.tenants=f.data.tenants.slice(0,1);await f.render();const address=location.href,before=f.requests.length;await f.render();
+ assert.equal(location.href,address);assert.equal(f.root.view,'accounts');assert.ok(f.root.querySelector('[data-cy=platform-account-form]'));assert.equal(f.root.querySelector('[data-cy=platform-tenant-form]'),null);
+ assert.deepEqual(f.requests.slice(before).map(r=>r.url),['https://gateway.invalid/v1/governance/platform','https://gateway.invalid/v1/governance/platform/tenants/tenant-a/accounts']);
+ assert.ok(f.requests.slice(before).every(r=>r.options.method==='GET'&&r.options.cache==='no-store'&&r.options.headers.authorization==='Bearer fixture-admin-token'));
+});
+
+const recordingSource=await readHistoryCallback('scripts/test-platform-admin-browser.mjs','utf8');
+const recordingTitles=['Restore the Platform Admin sidebar after reload','Restore and export the personal theme'];
+const recordingSteps=recordingTitles.map(title=>{const line=recordingSource.split('\n').find(line=>line.startsWith(" await step('"+title+"',"));assert.ok(line,'Missing recording step '+title);return line;});
+const recordingHelperStart=recordingSource.indexOf('async function reloadPlatformOrganizations(){');
+const recordingHelper=recordingHelperStart<0?'':recordingSource.slice(recordingHelperStart,recordingSource.indexOf('\ntry{',recordingHelperStart));
+async function recordingReloadProbe(index,{status=200,styleFailure=false,reloadFailure=false}={}){
+ const f=browser();await f.render();const select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.value='tenant-a';select.onchange({currentTarget:select});await settle();await f.click('accounts');assert.equal(f.root.view,'accounts');let pending,closed=false;const events=[],checks=[];
+ const response={url:()=> 'http://127.0.0.1:4184/test-api/v1/governance/platform/operations?offset=0&filter=all&search=',request:()=>({method:()=> 'GET'}),status:()=>status};
+ const page={url:()=>location.href,waitForResponse:predicate=>new Promise((resolve,reject)=>{pending={resolve,reject,predicate};}),reload:async()=>{events.push('reload');if(reloadFailure)throw Error('synthetic reload failure');await f.render();if(pending){assert.equal(pending.predicate(response),true);const ready=pending;pending=null;ready.resolve(response);}},evaluate:async fn=>{assert.ok(fn.toString().includes('--radius-lg'));return styleFailure?'14px':'16px';},waitForEvent:async name=>{assert.equal(name,'download');return {saveAs:async path=>{assert.equal(path,'recording/PrimeCare_Theme.json');events.push('theme-export');}};}};
+ const form=id=>({
+  isVisible:async()=>{assert.equal(id,'appearance-open');return true;},
+  click:async()=>{assert.ok(['appearance-open','appearance-save','appearance-close','theme-center-apply','theme-center-export','theme-center-reset'].includes(id),id);events.push(id);},
+  inputValue:async()=>id==='platform-topbar-tenant'?f.root.querySelector('[data-cy='+id+']').value:(assert.equal(id,'appearance-sidebar'),'right'),
+  waitFor:async()=>{assert.ok(f.root.querySelector('[data-cy='+id+']'),'Missing '+id+' after actual guarded remount');events.push('ready:'+id);},
+  count:async()=>f.root.querySelector('[data-cy='+id+']')?1:0,
+  getAttribute:async name=>{assert.equal(id,'app-shell');assert.equal(name,'data-sidebar-position');return styleFailure?'left':'right';},
+  selectOption:async value=>{assert.equal(id,'theme-center-saved');assert.deepEqual(value,{label:'My PrimeCare Navy'});},
+ });
+ const check={equal:(...args)=>{checks.push(args);assert.equal(...args);}};
+ try{
+  await new HistoryAsyncFunction('step','page','form','assert','readFile','join','out','"use strict";\n'+recordingHelper+'\n'+recordingSteps[index])(async(_title,_instruction,work)=>work(),page,form,check,async(path,encoding)=>{assert.equal(path,'recording/PrimeCare_Theme.json');assert.equal(encoding,'utf8');return JSON.stringify({name:'My PrimeCare Navy',fontScale:1.125,radius:16});},(...parts)=>parts.join('/'),'recording');
+  assert.equal(events.filter(e=>e==='reload').length,1);assert.equal(events.includes('ready:admin-organizations'),true);assert.equal(new URL(location.href).hash,'#accounts');assert.equal(f.root.view,'organizations');
+  if(index===0){assert.ok(checks.some(([actual,expected])=>actual==='right'&&expected==='right'));assert.ok(events.includes('appearance-save'));}
+  else{assert.ok(checks.some(([actual,expected])=>actual==='16px'&&expected==='16px'));assert.ok(events.includes('theme-export'));assert.ok(events.includes('theme-center-reset'));}
+ }finally{closed=true;if(pending){pending.reject(Error('modeled response wait cancelled on close'));pending=null;}}
+ assert.equal(closed,true);
+}
+for(const [index,title]of recordingTitles.entries()){
+ test('exact recording step follows guarded reload: '+title,()=>recordingReloadProbe(index));
+ test('exact recording step observes response cancellation after reload rejection: '+title,()=>assert.rejects(recordingReloadProbe(index,{reloadFailure:true}),/synthetic reload failure/));
+ test('exact recording step still rejects failed presentation persistence: '+title,()=>assert.rejects(recordingReloadProbe(index,{styleFailure:true}),error=>error.code==='ERR_ASSERTION'&&(error.actual==='left'||error.actual==='14px')));
+ test('exact recording step requires a successful real overview response: '+title,()=>assert.rejects(recordingReloadProbe(index,{status:503}),error=>error.code==='ERR_ASSERTION'&&error.actual===503&&error.expected===200));
+}
+test('isolated recording schema applies the existing overview migrations in dependency order',async()=>{
+ const start=recordingSource.indexOf("await setup.query('CREATE TABLE tenants");const end=recordingSource.indexOf('\nawait setup.query("INSERT INTO tenants',start);assert.ok(start>=0&&end>start);const statements=[];
+ await new HistoryAsyncFunction('setup','readFile','"use strict";\n'+recordingSource.slice(start,end))({query:async sql=>statements.push(sql)},readHistoryCallback);
+ assert.match(statements[0],/CREATE TABLE tenants\(id text PRIMARY KEY/);assert.match(statements[0],/CREATE TABLE users\(id text PRIMARY KEY/);
+ const migrations=['20261011_platform_administration.sql','20261015_territory_allocation.sql','20261015_territory_catalog.sql','20261011_admin_reports.sql','20260928_auth_rate_limits.sql','20261003_auth_password_resets.sql'];
+ assert.equal(statements.length,migrations.length+1);for(const [index,name]of migrations.entries())assert.equal(statements[index+1],await readHistoryCallback('packages/database/migrations/'+name,'utf8'));
+ assert.match(statements[2],/CREATE TABLE IF NOT EXISTS platform_territory_catalog/);assert.match(statements[2],/CREATE TABLE IF NOT EXISTS platform_territory_sales/);assert.match(statements[2],/REFERENCES tenants\(id\)/);assert.match(statements[2],/REFERENCES users\(id\)/);assert.match(statements[2],/'uuid','text','character varying'/);
+ const registry=JSON.parse(await readHistoryCallback('packages/shared/src/territories/registry.json','utf8'));assert.equal((statements[3].match(/^\('PC-REG-/gm)??[]).length,registry.catalog.length);for(const row of registry.catalog)assert.ok(statements[3].includes("('"+row.id+"',"));
+});
