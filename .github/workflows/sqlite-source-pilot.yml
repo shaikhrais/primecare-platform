@@ -1,0 +1,104 @@
+name: SQLite Source Pilot (clinic Linux)
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/sqlite-source-pilot.yml'
+      - 'scripts/verify_sqlite_source.py'
+      - 'scripts/inspect_sqlite_source_pilot.dart'
+      - 'scripts/tests/test_verify_sqlite_source.py'
+      - 'scripts/tests/sqlite_source_probe_test.dart'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sqlite-source-pilot-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  clinic-linux-source:
+    if: github.event.pull_request.number == 222 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PUB_CACHE: ${{ runner.temp }}/sqlite-source-pilot-pub
+      PILOT_STATE: ${{ runner.temp }}/sqlite-source-pilot-state
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - name: Verify socket-free source verifier fixtures
+        timeout-minutes: 2
+        run: python3 -m unittest discover -s scripts/tests -p 'test_verify_sqlite_source.py'
+      - name: Create fresh pilot-owned state and package cache
+        run: python3 scripts/verify_sqlite_source.py initialize
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: false
+          pub-cache: false
+          pub-cache-path: ${{ runner.temp }}/sqlite-source-pilot-pub
+      - name: Verify setup preserved the exact owned package cache
+        run: python3 scripts/verify_sqlite_source.py cache-check
+      - name: Resolve only the clinic and verify prerequisites
+        timeout-minutes: 5
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd apps/primecare_clinic
+          flutter pub get
+          flutter pub deps --json > "$PILOT_STATE/graph-before.json"
+          cd ../..
+          python3 scripts/verify_sqlite_source.py preflight
+          printf '%s\n' "$PILOT_STATE/compiler" >> "$GITHUB_PATH"
+      - name: Verify official source and configure the owned clinic checkout
+        timeout-minutes: 3
+        run: python3 scripts/verify_sqlite_source.py prepare
+      - name: Enforce unchanged dependency resolution
+        timeout-minutes: 3
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd apps/primecare_clinic
+          flutter pub get --enforce-lockfile
+          flutter pub deps --json > "$PILOT_STATE/graph-after.json"
+          cd ../..
+          python3 scripts/verify_sqlite_source.py recheck
+      - name: Run original clinic routing assertions and isolated SQLite probe
+        timeout-minutes: 7
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/verify_sqlite_source.py recheck
+          test ! -e apps/primecare_clinic/test/sqlite_source_pilot_test.dart
+          cp scripts/tests/sqlite_source_probe_test.dart apps/primecare_clinic/test/sqlite_source_pilot_test.dart
+          cd apps/primecare_clinic
+          flutter test --no-pub test/auth_routing_test.dart test/sqlite_source_pilot_test.dart
+      - name: Prove source-mode output and unchanged graph
+        timeout-minutes: 2
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd apps/primecare_clinic
+          flutter pub deps --json > "$PILOT_STATE/graph-after.json"
+          cd ../..
+          python3 scripts/verify_sqlite_source.py recheck
+          dart --packages=apps/primecare_clinic/.dart_tool/package_config.json scripts/inspect_sqlite_source_pilot.dart
+          git diff --exit-code -- . ':!apps/primecare_clinic/pubspec.yaml'
+          cat "$PILOT_STATE/result.json"
+      - name: Retain safe pilot provenance metadata
+        uses: actions/upload-artifact@v4
+        with:
+          name: sqlite-source-pilot-${{ github.event.pull_request.head.sha }}
+          if-no-files-found: error
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/sqlite-source-pilot-state/ownership.json
+            ${{ runner.temp }}/sqlite-source-pilot-state/before.json
+            ${{ runner.temp }}/sqlite-source-pilot-state/source.json
+            ${{ runner.temp }}/sqlite-source-pilot-state/result.json

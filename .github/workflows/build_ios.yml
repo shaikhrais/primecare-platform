@@ -65,7 +65,7 @@ jobs:
           if [ ! -d ios/Runner.xcodeproj ]; then
             flutter create --platforms=ios .
           fi
-          flutter build ios --release --no-codesign
+          flutter build ios --release --no-codesign ${{ github.event_name == 'pull_request' && github.repository == 'shaikhrais/primecare-platform' && github.event.pull_request.number == 222 && github.event.pull_request.head.repo.full_name == github.repository && startsWith(github.workflow_ref, 'shaikhrais/primecare-platform/.github/workflows/build_ios.yml@') && '--verbose' || '' }}
 
       - name: Upload iOS App Artifact
         uses: actions/upload-artifact@v4
