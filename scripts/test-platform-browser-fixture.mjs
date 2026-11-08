@@ -5,7 +5,11 @@ import {createRequire} from 'node:module';
 import {join, resolve} from 'node:path';
 import {build} from 'esbuild';
 import {EventEmitter} from 'node:events';
+import {execFileSync} from 'node:child_process';
+import {waitForFixtureStartup} from './fixtures/browser-startup.mjs';
 import {waitForFixtureRequest} from './fixtures/browser-request-arrival.mjs';
+import {profiles as qaProfiles,commandFor as qaCommandFor} from './qa-fast.mjs';
+const qaInputs=['scripts/qa-fast.mjs','scripts/test-qa-fast.mjs','scripts/fixtures/qa-run-identity.mjs','scripts/test-look-browser-fixture.mjs','scripts/test-look-manager.mjs','scripts/fixtures/care-dom-base.mjs','scripts/fixtures/look-test-theme.json'];
 
 // Real manager, presentation bridge, layout/theme owners, client and controller.
 // DOM/CSS, transport and renderer probes below are synthetic, not browser/DB acceptance.
@@ -116,7 +120,8 @@ async function entryFor(source){
 for(const [path,source]of sources)test(path+' retains its theme, stylesheet and real browser dependency boundaries',async()=>{
  const entry=await entryFor(source);assert.match(entry,/presentPlatformFixture\(root,/);assert.ok(entry.includes(JSON.stringify(theme)));
  assert.ok(source.indexOf('theme=')<source.indexOf('contents:`'),'Read the existing fixture theme before serializing it');
- assert.match(source,/SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1/i);
+ assert.match(source,/execFileSync\('python3',\['scripts\/browser_fixture_theme\.py'\]\)/);
+ assert.doesNotMatch(source,/dict\(d\.execute\([^\n]*theme_design_tokens/i);
  assert.match(source,/readFile\('websites\/typescript\/src\/styles.css','utf8'\)/);
  assert.doesNotMatch(entry,/new ScreenManager|installScreenManager|sessionStorage\.setItem/);
  if(!compiled.has(entry)){
@@ -154,8 +159,14 @@ for(const existing of [false,true])test('the actual tenant race fixture restores
 
 test('platform workflow selects the new fixture contracts and retains its real acceptance gates',async()=>{
  const workflow=await read('.github/workflows/platform-admin-acceptance.yml'),triggers=workflow.split('permissions:')[0];
- for(const path of [helperPath,'scripts/test-platform-browser-fixture.mjs'])assert.equal(triggers.split("'"+path+"'").length-1,2,path+' is covered by push and PR events');
- for(const path of ['scripts/test-platform-browser-fixture.mjs','scripts/test-platform-bundle-session.mjs','scripts/test-platform-admin-manager.mjs','scripts/test-typescript-screen-manager.mjs','scripts/test-growth-manager.mjs','scripts/test-enquiry-manager.mjs','scripts/test-admin-child-sessions.mjs'])assert.ok(workflow.split('\n').some(line=>line.includes('env -i')&&line.includes('node --test')&&line.includes(path)),path);
+ for(const path of [helperPath,'scripts/test-platform-browser-fixture.mjs',...qaInputs])assert.equal(triggers.split("'"+path+"'").length-1,2,path+' is covered by push and PR events');
+ const selected=['scripts/test-platform-browser-fixture.mjs','scripts/test-platform-bundle-session.mjs','scripts/test-platform-admin-manager.mjs','scripts/test-typescript-screen-manager.mjs','scripts/test-enquiry-manager.mjs','scripts/test-admin-child-sessions.mjs'];
+ assert.deepEqual(qaProfiles['quick-unit'].files,selected,'Every former selected suite remains in the complete quick profile');
+ assert.deepEqual(qaCommandFor('quick-unit','node'),['node','--test','--test-reporter=tap','--test-concurrency=1','--test-timeout=60000',...selected]);
+ const step=workflow.split('      - name: Validate platform fixture bootstrap and fail-closed session boundaries')[1]?.split('\n      - ')[0];assert.ok(step,'Existing fixture step remains');
+ const commands=step.split('\n').map(line=>line.trim()).filter(line=>line&&!line.startsWith('run:'));
+ const isolated='env -i PATH="$PATH" HOME="$HOME" ';
+ assert.deepEqual(commands,[isolated+'node --test scripts/test-qa-fast.mjs',isolated+'node --test scripts/test-look-browser-fixture.mjs',isolated+'node scripts/qa-fast.mjs quick-unit',isolated+'node --test scripts/test-growth-manager.mjs'],'Runner regressions, Look contracts, six selected suites and the separate Growth suite each execute once');
  for(const path of platformFixturePaths)assert.ok(workflow.includes('node --test '+path),path+' actual acceptance remains required');
  assert.match(workflow,/test "\$\{\{ steps\.accessibility\.outcome \}\}" = success/);assert.match(workflow,/contents: read/);assert.doesNotMatch(workflow,/contents: write|write-all|id-token: write/);
  assert.ok(workflow.includes('node scripts/test-platform-admin-browser.mjs'));assert.ok(workflow.includes('PLATFORM_TEST_IDENTITY=text node --test scripts/test-public-territory-intake.mjs'));
@@ -213,10 +224,63 @@ test('request arrival guard cannot be configured with an unbounded deadline',asy
 });
 test('Founder Growth workflow enforces the same contract check and retains its original bounded browser job',async()=>{
  const workflow=await read('.github/workflows/growth-marketing.yml'),triggers=workflow.split('permissions:')[0];
- for(const path of [helperPath,'scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/look-test-theme.json','scripts/test-platform-browser-fixture.mjs'])assert.ok(triggers.includes("'"+path+"'"),path);
+ for(const path of [helperPath,'scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/look-test-theme.json','scripts/test-platform-browser-fixture.mjs',...qaInputs])assert.ok(triggers.includes("'"+path+"'"),path);
  assert.match(workflow,/env -i[^\n]+node --test scripts\/test-platform-browser-fixture\.mjs/);
- assert.match(workflow,/timeout-minutes: 20/);assert.match(workflow,/run: node scripts\/test-growth-loading-browser\.mjs/);
+ assert.match(workflow,/timeout-minutes: 20/);assert.match(workflow,/^\s+run: node scripts\/qa-fast\.mjs e2e-smoke$/m);
+ assert.deepEqual(qaCommandFor('e2e-smoke','node'),['node','scripts/test-growth-loading-browser.mjs'],'Smoke invokes the complete existing browser fixture');
  for(const path of ['scripts/test-growth-browser.mjs','scripts/test-growth-admin-browser.mjs'])assert.ok(workflow.split('\n').some(line=>line.includes('node --test')&&line.includes(path)),path+' actual acceptance retained');
  assert.ok(workflow.includes('REVIEW_PHASE=after node scripts/review-admin-marketing-ui.mjs'));
  assert.match(workflow,/contents: read/);assert.doesNotMatch(workflow,/contents: write|write-all|id-token: write/);
+});
+
+// A NULL CSS name is a governed non-CSS dimension, not a permissive theme fallback.
+test('legacy SQL-to-JSON theme fails closed in the actual bridge before rendering or requests',async t=>{
+ const f=peripheral(t);let rendered=0;
+ await assert.rejects(api.presentPlatformFixture(f.root,{...theme,null:'2'},location.origin,()=>{rendered++;}),/Missing or invalid portal theme/);
+ assert.equal(rendered,0);assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);
+});
+test('canonical governed CSS projection connects the actual bridge without changing approved values',async t=>{
+ const rows=Object.entries(theme).map(([css_variable_name,token_value])=>({theme_id:1,active:1,css_variable_name,token_value}));
+ rows.push({theme_id:1,active:1,css_variable_name:null,token_value:'2'});
+ const projected=JSON.parse(execFileSync('python3',['-c',"import json,sys;sys.path.insert(0,'scripts');from theme_manifest import css_theme;print(json.dumps(css_theme(json.load(sys.stdin))))"],{input:JSON.stringify(rows)}).toString());
+ assert.deepEqual(projected,theme);const f=peripheral(t);let rendered=0;
+ await api.presentPlatformFixture(f.root,projected,location.origin,()=>{const entry=api.resolveManagedRoute(location.pathname,'');api.requireScreenManager(f.root).enter(entry.id,entry.route);rendered++;});
+ assert.equal(rendered,1);assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);
+});
+
+test('startup guard waits for the actual readiness locator and removes listeners',async t=>{
+ const {page,check}=pageProbe(t),ready=deferred();let navigated=false,waited=false;
+ page.locator=selector=>{assert.equal(selector,'[data-cy="platform-language"]');return {waitFor:async options=>{assert.equal(navigated,true);assert.deepEqual(options,{state:'attached',timeout:50});waited=true;await ready.promise;}};};
+ let completed=false;const task=waitForFixtureStartup(page,async()=>{navigated=true;},{timeoutMs:50}).then(()=>{completed=true;});
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(waited,true);assert.equal(completed,false);ready.resolve();await task;check();
+});
+for(const name of ['pageerror','close','crash'])test('startup guard reports '+name+' while navigation never resolves',{timeout:1000},async t=>{
+ const {page,check}=pageProbe(t);
+ await assert.rejects(waitForFixtureStartup(page,()=>{page.emit(name,Error('Screen Manager: Missing or invalid portal theme'));return new Promise(()=>{});},{timeoutMs:100}),name==='pageerror'?/startup failed: Screen Manager: Missing or invalid portal theme/:new RegExp('page '+(name==='close'?'closed':'crashed')));check();
+});
+test('startup guard times out a missing control and cleans up',{timeout:1000},async t=>{
+ const {page,check}=pageProbe(t);page.locator=()=>({waitFor:()=>new Promise(()=>{})});
+ await assert.rejects(waitForFixtureStartup(page,async()=>{},{timeoutMs:5}),/platform-language.*not ready within 5 ms/);check();
+});
+for(const stage of ['navigation','readiness'])test('startup guard preserves '+stage+' rejection',async t=>{
+ const {page,check}=pageProbe(t),failure=Error('Synthetic '+stage+' failed');
+ page.locator=()=>({waitFor:async()=>{throw failure;}});
+ await assert.rejects(waitForFixtureStartup(page,async()=>{if(stage==='navigation')throw failure;},{timeoutMs:50}),error=>error===failure);check();
+});
+test('startup guard cannot be configured with an unbounded deadline',async()=>{
+ for(const timeoutMs of [0,-1,Infinity,NaN])await assert.rejects(waitForFixtureStartup(new EventEmitter(),async()=>{},{timeoutMs}),/finite positive/);
+});
+test('both failing Platform browser groups retain assertions and close pages after startup failure',()=>{
+ const source=sources.get('scripts/test-platform-bundle.mjs');
+ assert.equal(source.split("await waitForFixtureStartup(page,()=>page.goto(base+'/platform/administration?enable-semantics=true'))").length-1,2);
+ assert.match(source,/t\.after\(\(\)=>page\.close\(\)\);page\.on\('pageerror'/);
+ assert.match(source,/finally\{await page\.close\(\);\}/);
+ assert.match(source,/assert\.deepEqual\(errors,\[\]\)/);
+});
+test('both acceptance workflows select and enforce canonical fixture theme and startup checks',async()=>{
+ for(const path of ['.github/workflows/platform-admin-acceptance.yml','.github/workflows/growth-marketing.yml']){
+  const source=await read(path),triggers=source.split('permissions:')[0];
+  for(const input of ['scripts/browser_fixture_theme.py','scripts/theme_manifest.py','scripts/test-theme-manifest.py','scripts/test-browser-fixture-theme.py','scripts/fixtures/browser-startup.mjs'])assert.ok(triggers.includes("'"+input+"'"),path+': '+input);
+  for(const script of ['scripts/test-theme-manifest.py','scripts/test-browser-fixture-theme.py'])assert.ok(source.includes('python3 '+script),path+': '+script);
+ }
 });

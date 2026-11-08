@@ -38,10 +38,11 @@ def check(role):
   driver=webdriver.Chrome(options=options);driver.set_page_load_timeout(45)
   origin=role['primary_app_url'];assert origin and urlsplit(origin).hostname.endswith('.pages.dev')
   phase='login_fields';driver.get(origin+'/login?enable-semantics=true');wait=WebDriverWait(driver,35)
-  email=wait.until(EC.presence_of_element_located((By.XPATH,"//input[starts-with(@aria-label,'login-email')]")))
-  pwd=driver.find_element(By.XPATH,"//input[starts-with(@aria-label,'login-password')]")
+  # TypeScript uses native localized labels; retain Flutter's semantics selectors.
+  email=wait.until(EC.presence_of_element_located((By.XPATH,"//input[@data-cy='login-email' or starts-with(@aria-label,'login-email')]")))
+  pwd=driver.find_element(By.XPATH,"//input[@data-cy='login-password' or starts-with(@aria-label,'login-password')]")
   email.send_keys(role['test_email']);pwd.send_keys(password)
-  driver.find_element(By.XPATH,"//*[@aria-label='login-submit']").click()
+  driver.find_element(By.XPATH,"//*[@data-cy='login-submit' or @aria-label='login-submit']").click()
   phase='dashboard_navigation';wait.until(lambda d:urlsplit(d.current_url).path!='/login')
   path=urlsplit(driver.current_url).path;result['actual_path']=path;result['expected_path']=role['post_login_route']
   text=driver.find_element(By.TAG_NAME,'body').text

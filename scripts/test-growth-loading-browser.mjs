@@ -7,17 +7,19 @@ import {createServer} from 'node:http';
 import {mkdir,readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import {launchCareBrowser} from './care-browser-launch.mjs';
+import {smokeOutput} from './fixtures/qa-run-identity.mjs';
 
-const out='test-results/growth/loading';
+const runId=process.env.QA_FAST_RUN_ID,out=smokeOutput(runId);
 await mkdir(out,{recursive:true});
 const cy=id=>'[data-cy="'+id+'"]',hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const criterion='growth-shared-loading-error-layout',cases=[];
 const report={passed:false,scope:'Growth renderer shared layout, loading, HTTP and transport retry',wholeTaskVerified:false,criterion_results:{[criterion]:'failed'},cases,limitations:['Synthetic renderer session and HTTP fixtures; no real login, role grant, tenant-isolation or database verification','Initial loading uses the existing default EN locale; recovered errors exercise EN/FR/ES','No full accessibility, device installation or PWA verification','Presentation uses the explicit synthetic look-test-theme.json fixture, not production theme authority']};
+if(runId!==undefined)report.runId=runId;
 await writeFile(out+'/results.json',JSON.stringify(report,null,2)+'\n');
 const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
 const css=await readFile('websites/typescript/src/styles.css'),policy=JSON.parse(await readFile('packages/shared/src/growth/registry.json'));
 const sources={};
-for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/fixtures/browser-request-arrival.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
+for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/growth-read-model.mjs','scripts/fixtures/qa-run-identity.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
 report.sources=sources;
 // Only the complete empty read model needed by the production renderer. It grants no mutation.
 
@@ -94,5 +96,5 @@ finally{
  await browser.close();await new Promise(r=>server.close(r));
  await writeFile(out+'/results.json',JSON.stringify(report,null,2)+'\n');
 }
-console.log(JSON.stringify({passed:report.passed,cases:cases.length,wholeTaskVerified:false,report:out+'/results.json',...(failure?{failure:String(failure)}:{})}));
+console.log(JSON.stringify({passed:report.passed,cases:cases.length,wholeTaskVerified:false,report:out+'/results.json',...(runId!==undefined?{runId,reportSha256:hash(await readFile(out+'/results.json'))}:{}),...(failure?{failure:String(failure)}:{})}));
 if(failure)throw failure;

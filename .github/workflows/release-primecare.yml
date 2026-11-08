@@ -135,7 +135,7 @@ jobs:
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-coordinator-demo-manager.mjs
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-growth-manager.mjs
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-enquiry-manager.mjs
-          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-screen-lifecycle.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-screen-lifecycle.mjs scripts/test-auth-screen-labels.mjs
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-recovery-lifecycle.mjs
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-typescript-strict-contracts.mjs
           env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test --test-concurrency=1 scripts/test-maintenance-manager.mjs

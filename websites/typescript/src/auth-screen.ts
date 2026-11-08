@@ -77,9 +77,9 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
     content: `<div class="auth-media-layout">${media.render()}<div class="auth-form-pane">
     <form class="auth-card" data-cy="login-form" aria-label="">
       ${media.brand()}<p class="eyebrow">${media.text('signin')}</p><h1></h1><p class="auth-media-support">${media.text('support')}</p>
-      <label><span data-auth-text="email"></span><span class="media-field">${media.icon('mail','media-login-mail')}<input name="email" type="email" required autocomplete="username" data-cy="login-email" aria-label="login-email"></span></label>
-      <label><span data-auth-text="password"></span><span class="media-field">${media.icon('key','media-login-key')}<input name="password" type="password" required autocomplete="current-password" data-cy="login-password" aria-label="login-password"></span></label>
-      <button class="media-signin" type="submit" data-cy="login-submit" aria-label="login-submit"><span data-auth-text="login"></span>${media.icon('arrow','media-login-arrow')}</button>
+      <label><span data-auth-text="email"></span><span class="media-field">${media.icon('mail','media-login-mail')}<input name="email" type="email" required autocomplete="username" data-cy="login-email"></span></label>
+      <label><span data-auth-text="password"></span><span class="media-field">${media.icon('key','media-login-key')}<input name="password" type="password" required autocomplete="current-password" data-cy="login-password"></span></label>
+      <button class="media-signin" type="submit" data-cy="login-submit"><span data-auth-text="login"></span>${media.icon('arrow','media-login-arrow')}</button>
       <output class="status" aria-live="polite" data-cy="api-status"></output>
       <a data-cy="login-forgot" href="${recovery.routes.forgot}?${recoveryQuery}" data-auth-text="forgot"></a>
     </form></div></div>`});
