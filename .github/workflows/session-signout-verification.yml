@@ -6,6 +6,8 @@ on:
       - 'websites/typescript/src/auth-client.ts'
       - 'websites/typescript/src/platform-admin.ts'
       - 'scripts/test-session-signout*.mjs'
+      - 'scripts/test-browser-ci-fixture-contracts.mjs'
+      - 'tools/workflow-verification/specs/auth.logout.fixture.json'
       - 'cloudflare/workers/src/auth.ts'
       - 'cloudflare/workers/src/gateway.ts'
       - 'cloudflare/workers/src/service-application.ts'
@@ -15,6 +17,8 @@ on:
       - 'websites/typescript/src/auth-client.ts'
       - 'websites/typescript/src/platform-admin.ts'
       - 'scripts/test-session-signout*.mjs'
+      - 'scripts/test-browser-ci-fixture-contracts.mjs'
+      - 'tools/workflow-verification/specs/auth.logout.fixture.json'
       - 'cloudflare/workers/src/auth.ts'
       - 'cloudflare/workers/src/gateway.ts'
       - 'cloudflare/workers/src/service-application.ts'
@@ -46,7 +50,7 @@ jobs:
           ln -s /tmp/signout-tools/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - name: Confirm session transport and preserve credential-login regressions
-        run: node --test scripts/test-session-signout-client.mjs scripts/test-auth-client.mjs
+        run: node --test scripts/test-session-signout-client.mjs scripts/test-auth-client.mjs scripts/test-browser-ci-fixture-contracts.mjs
       - name: Native browser failure, retry, revocation and session replacement
         env:
           LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser

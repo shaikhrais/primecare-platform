@@ -16,7 +16,7 @@ const policy=JSON.parse(await readFile('packages/shared/src/auth-recovery.json',
 Element.prototype.reset=function(){for(const field of this.querySelectorAll('input'))field.value='';};
 Object.defineProperty(Element.prototype,'elements',{get(){return {namedItem:name=>this.querySelector('[name='+name+']')};}});
 let sequence=0;
-async function fixture({mode='reset',delay='',failure=0,locale='en',generated=false,session=null}={}){
+async function fixture({mode='reset',delay='',failure=0,locale='en',generated=false,session=null,recoveryCatalog=null}={}){
  const path=(generated?'/generated':'')+policy.routes[mode],b=createBrowser(`https://fixture.invalid${path}?locale=${locale}&enable-semantics=true`);
  b.doc.documentElement.lang=locale;b.doc.defaultView.MutationObserver=globalThis.MutationObserver;
  if(session)b.sessionStorage.setItem('primecare_session',session);else b.sessionStorage.removeItem('primecare_session');
@@ -25,7 +25,7 @@ async function fixture({mode='reset',delay='',failure=0,locale='en',generated=fa
  globalThis.fetch=async(url,init={})=>{const endpoint=new URL(url).pathname;if(endpoint.includes('screen-text'))return Response.json({screens:[]});calls.push({endpoint,init});if(delay==='response')await pending;
  const body=mode==='forgot'?{message:'Synthetic generic response'}:{status:'password_reset',reauthenticationRequired:true};return {ok:!failure,status:failure||200,json:async()=>{if(delay==='json')await pending;return body;}};};
  const services=Object.fromEntries(['layout','theme','language','responsive'].map(name=>[name,()=>{}]));const manager=new code.ScreenManager(services);code.installScreenManager(b.root,manager);const entry=code.resolveManagedRoute(path,'co');manager.registerScope('entry',[entry]);
- const gateway='https://recovery-fixture-'+(++sequence)+'.invalid';const store=code.liveScreenText(gateway);store.seed({auth});let dispose;
+ const gateway='https://recovery-fixture-'+(++sequence)+'.invalid';const store=code.liveScreenText(gateway);store.seed({auth,...(recoveryCatalog?{password_recovery:recoveryCatalog}:{})});let dispose;
  await manager.present(entry.id,entry.route,()=>{dispose=code.renderAuthRecovery(b.root,gateway,'Fixture',mode,locale);});
  const form=b.cy('recovery-form'),button=b.cy('recovery-submit'),status=b.cy('recovery-status');
  const fill=()=>{for(const [name,value]of Object.entries({email:'synthetic@example.invalid',code:'ABCDEF123456',newPassword:'Synthetic-only-password',confirmation:'Synthetic-only-password'})){const field=form.querySelector('[name='+name+']');if(field)field.value=value;}};fill();
@@ -48,3 +48,17 @@ for(const pending of [false,true])test('unreadable storage retires recovery '+pe
 test('mode must match existing managed route before mounting',async()=>{const f=await fixture({mode:'forgot'});assert.throws(()=>code.renderAuthRecovery(f.root,'https://fixture.invalid','Fixture','reset','en'),/route mismatch/);f.submit();await f.settle();assert.equal(f.calls.length,0);});
 for(const failure of [0,503])test('repeated BFCache retains queued outcome '+failure,async()=>{const f=await fixture({delay:'response',failure});f.submit();await f.settle();f.mutate('bfcache');f.release();await f.settle();const before=f.status.value;f.event('pageshow',{persisted:true});f.mutate('bfcache');await f.settle();assert.equal(f.status.value,before);assert.equal(f.button.disabled,true);f.event('pageshow',{persisted:true});await f.settle();assert.equal(f.status.value,policy.locales.en[failure?'recovery_unavailable':'reset_success']);assert.equal(f.button.disabled,false);assert.equal(f.calls.length,1);f.dispose();});
 test('initial unreadable storage fails closed with safe error surface',async()=>{const f=await fixture();f.sessionStorage.getItem=()=>{throw Error('Fixture storage unavailable');};assert.throws(()=>code.renderAuthRecovery(f.root,'https://fixture.invalid','Fixture','reset','en'),/storage unavailable/);assert.equal(f.cy('recovery-form'),null);assert.equal(f.form.querySelector('[name=newPassword]').value,'');f.submit();await f.settle();assert.equal(f.calls.length,0);});
+
+const resolvedRecovery=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).password_recovery;
+for(const locale of ['en','fr','es'])for(const resolved of [false,true])test('recovery catalog and fallback contracts '+locale+' resolved='+resolved,async()=>{
+ const f=await fixture({locale,recoveryCatalog:resolved?resolvedRecovery:null});
+ const expected={...policy.locales[locale],...(resolved?resolvedRecovery[locale]:{})};
+ f.form.querySelector('[name=confirmation]').value='Synthetic-mismatch-password';f.submit();await f.settle();
+ assert.equal(f.status.value,expected.password_mismatch);assert.equal(f.calls.length,0);
+ assert.equal(f.form.querySelector('[name=newPassword]').value,'Synthetic-only-password');
+ f.fill();f.submit();await f.settle();assert.equal(f.calls.length,1);assert.equal(f.status.value,expected.reset_success);f.dispose();
+});
+for(const locale of ['en','fr','es'])test('resolved catalog retains unregistered failure fallback '+locale,async()=>{
+ const f=await fixture({locale,recoveryCatalog:resolvedRecovery,failure:503});f.submit();await f.settle();
+ assert.equal(f.status.value,policy.locales[locale].recovery_unavailable);assert.equal(f.calls.length,1);f.dispose();
+});

@@ -61,7 +61,8 @@ try{
   res.writeHead(404);res.end();
  }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
  browser=await browserType.launch({headless:true});receipt.browser_version=browser.version();
- const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).platform_administration;
+ const screenTextDefaults=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8'));
+ const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=screenTextDefaults.platform_administration;
  const baseline=process.env.AUTH_PASSWORD_BASELINE==='1';receipt.baseline=baseline;
  const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,resets:(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_password_audit ORDER BY id')).rows});
  const login=async(email,pw=password)=>{const response=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password:pw})});assert.equal(response.status,200);return(await response.json()).token;};
@@ -113,7 +114,11 @@ try{
 
  if(!baseline){
   receipt.limitations.push('Recovery email acceptance uses an explicit isolated EMAIL binding; this receipt does not prove Cloudflare inbox delivery. Deployed owned-inbox proof remains separate.');
-  const recoveryText=JSON.parse(await readFile('packages/shared/src/auth-recovery.json','utf8')).locales;
+  // The isolated service resolves registered catalog keys; unregistered keys keep policy fallbacks.
+  const recoveryFallback=JSON.parse(await readFile('packages/shared/src/auth-recovery.json','utf8')).locales;
+  const recoveryCatalog=screenTextDefaults.password_recovery;
+  assert.deepEqual(recoveryCatalog,JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/password_recovery.json','utf8')).locales);
+  const recoveryText=Object.fromEntries(['en','fr','es'].map(locale=>[locale,{...recoveryFallback[locale],...recoveryCatalog[locale]}]));
   const authText=JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/auth.json','utf8')).locales;
   const email='platform@example.invalid',nextPassword='Synthetic-recovery!Password-2026';
   const recoveryReady=page=>page.waitForFunction(()=>document.querySelector('[data-cy=recovery-submit]')?.disabled===false);
@@ -133,6 +138,14 @@ try{
    if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
    try{
     await page.goto(origin+'/forgot-password?locale='+locale+'&enable-semantics=true');await cy(page,'recovery-form').waitFor();
+    // Wait for the controlled catalog download, so strict no-request checks exclude bootstrap traffic.
+    await page.waitForFunction(({gateway,screens,recovery})=>{
+     try{
+      const cached=JSON.parse(localStorage.getItem('primecare.screen-text.v1.'+encodeURIComponent(gateway))??'null');
+      return screens.every(screen=>cached?.catalogs?.some(c=>c.screen===screen&&c.version===0))&&
+       JSON.stringify(cached.catalogs.find(c=>c.screen==='password_recovery')?.locales)===JSON.stringify(recovery);
+     }catch{return false;}
+    },{gateway:origin,screens:Object.keys(screenTextDefaults),recovery:recoveryCatalog});
     await checkForm(page,'recovery-form',locale,receipt.recoveryAccessibility,'forgot');
     const before=await snapshot();
     rejectRecoveryDelivery=true;

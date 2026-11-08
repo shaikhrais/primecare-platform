@@ -296,3 +296,13 @@ for(const ending of ['active','retired','suspended','replacement','detached'])te
  if(ending==='replacement')f.doc.querySelector=()=>new Element(f.doc);if(ending==='detached')f.root.isConnected=false;
  f.root.innerHTML='renderer-output';f.complete();await startupTick();assert.equal(f.root.innerHTML,'renderer-output');f.cleaned();globalThis.__rendererWait=undefined;
 });
+
+test('explicit sign-out fixture reaches login without relaxing missing-theme rejection',async()=>{
+ const fixture=JSON.parse(await readFile('tools/workflow-verification/specs/auth.logout.fixture.json','utf8'));
+ const syntheticTheme=JSON.parse(await readFile('scripts/fixtures/look-test-theme.json','utf8'));
+ assert.equal(fixture.fixture_only,true);assert.equal(fixture.theme_evidence.fixture_only,true);
+ assert.equal(fixture.theme_evidence.source,'scripts/fixtures/look-test-theme.json');assert.deepEqual(fixture.theme,syntheticTheme);
+ await runEntry('/login',true,fixture.theme);assert.deepEqual(globalThis.__rendered,['./portal-install','./auth-screen']);
+ const missing={...fixture.theme};delete missing['--color-primary'];
+ const root=await runEntry('/login',true,missing);assert.deepEqual(globalThis.__rendered,['./portal-install']);assert.match(root.innerHTML,/Screen Manager/);
+});
