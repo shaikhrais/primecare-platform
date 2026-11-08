@@ -102,6 +102,31 @@ class ReviewedScreenGeneratorTest(unittest.TestCase):
         (self.root / 'scratch').symlink_to(self.root, target_is_directory=True)
         with self.assertRaises(ValueError): GEN.generate(self.root, self.request, write=True)
 
+    def test_source_bound_double_slash_route_is_preserved_not_aliased(self):
+        route = '/generated//fixture/screen'
+        self.request['contract']['route'] = route
+        self.sync_source()
+        _, artifacts = GEN.generate(self.root, self.request)
+        review = json.loads(artifacts['review.json'])
+        self.assertEqual(review['contract']['route'], route)
+        e2e = next(v for k, v in artifacts.items() if k.startswith('integration_test/'))
+        self.assertIn(route + '?enable-semantics=true', e2e)
+        # Similar-looking paths are distinct identities, never inferred aliases.
+        self.request['contract']['route'] = '/generated/fixture/screen'
+        with self.assertRaisesRegex(ValueError, 'exactly match source'):
+            GEN.generate(self.root, self.request)
+
+    def test_malformed_route_separators_and_injection_still_fail(self):
+        for route in ('//external/path', '/a///b', '/a/../b', '/a/./b',
+                      '/a//', '/a/$value', '/a?query=1', '/a#fragment',
+                      '/a\\nb', "/a'quote"):
+            with self.subTest(route=route):
+                self.request = fixture(self.root)
+                self.request['contract']['route'] = route
+                self.sync_source()
+                with self.assertRaisesRegex(ValueError, 'Invalid contract identity: route'):
+                    GEN.generate(self.root, self.request)
+
     def test_duplicate_json_keys_rejected(self):
         path = self.root / 'duplicate.json'
         path.write_text('{"version": 1, "version": 2}')

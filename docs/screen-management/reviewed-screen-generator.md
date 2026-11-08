@@ -33,6 +33,10 @@ The selected contract requires exactly these keys:
   source code. Include expected positive, negative, tenant/ownership, interrupted
   session and accessibility scenarios in `tests`.
 
+Existing internal double-slash route identities are preserved exactly. They are
+not normalized or treated as aliases of single-slash paths. Leading `//`, triple
+separators, dot segments and code/query interpolation remain rejected.
+
 The utility checks source integrity, exact selected-object equality, required
 fields, safe identity syntax and output paths. **A matching hash does not prove
 governance approval, live production parity, policy completeness or permission

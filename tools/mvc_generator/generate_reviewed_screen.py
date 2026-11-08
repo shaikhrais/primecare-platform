@@ -97,10 +97,12 @@ def validate(root, request):
         raise ValueError('Contract does not exactly match source metadata')
     if not isinstance(contract, dict) or set(contract) != {'app', 'className', 'route', 'screenCode', 'titleKey', 'semanticsLabel', 'slots'}:
         raise ValueError('Incomplete screen contract identity')
+    # Existing registered identities include internal double slashes. Preserve
+    # them verbatim; leading //, traversal and normalization remain unsupported.
     patterns = {'app': r'primecare_[a-z][a-z0-9_]*', 'className': r'[A-Z][A-Za-z0-9]*',
                 'screenCode': r'[a-z][a-z0-9_]*', 'titleKey': r'[A-Za-z][A-Za-z0-9_.]*',
                 'semanticsLabel': r'[a-z][a-z0-9]*(?:-[a-z0-9]+)*',
-                'route': r'/(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*)(?:/(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*))*'}
+                'route': r'/(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*)(?:/{1,2}(?:[A-Za-z0-9_-]+|:[A-Za-z_][A-Za-z0-9_]*))*'}
     for key, pattern in patterns.items():
         if not isinstance(contract[key], str) or not re.fullmatch(pattern, contract[key]):
             raise ValueError('Invalid contract identity: ' + key)
