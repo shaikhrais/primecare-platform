@@ -132,3 +132,102 @@ for(const kind of ['bundle','operations','territories'])test('initial '+kind+' f
  const work=f.render();await ready.promise;delete f.connections.theme;pending.reject(Error('ordinary service unavailable'));await work;
  assert.match(error(f),/Missing theme/);assert.equal(f.root.innerHTML,'');assert.equal(f.live.size,0);
 });
+
+for(const kind of ['bundle','operations','territories'])test('busy '+kind+' selection restores the displayed tenant without changing active scope',async()=>{
+ const f=browser({hash:'#'+kind});await f.render();
+ let select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.value='tenant-a';select.onchange({currentTarget:select});await settle();
+ assert.deepEqual(f.loads.at(-1),kind==='bundle'?[kind,'tenant-a']:[kind]);
+ const held=deferred(),pending=f.controllers[kind].run(()=>held.promise),before=[...f.loads],requests=f.requests.length;
+ select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.value='tenant-b';
+ try{
+  select.onchange({currentTarget:select});await settle();
+  assert.equal(select.value,'tenant-a','A rejected native select event must still display the active tenant');
+  assert.deepEqual(f.loads,before);assert.equal(f.requests.length,requests);assert.match(f.root.innerHTML,/value="tenant-a" selected/);
+ }finally{held.resolve();await pending;}
+ select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.value='tenant-b';select.onchange({currentTarget:select});await settle();
+ assert.equal(f.loads.length,before.length+1);assert.deepEqual(f.loads.at(-1),kind==='bundle'?[kind,'tenant-b']:[kind]);assert.match(f.root.innerHTML,/value="tenant-b" selected/);
+});
+
+for(const kind of ['bundle','operations','territories'])test('busy '+kind+' language selection restores the applied locale',async()=>{
+ const f=browser({hash:'#'+kind,locale:'fr'});await f.render();
+ const held=deferred(),pending=f.controllers[kind].run(()=>held.promise),before=[...f.loads],requests=f.requests.length;
+ let select=f.root.querySelector('[data-cy=platform-language]');select.value='es';
+ try{
+  select.onchange({currentTarget:select});await settle();
+  assert.equal(select.value,'fr','A rejected language event must still display the applied locale');
+  assert.equal(document.documentElement.lang,'fr');assert.deepEqual(f.loads,before);assert.equal(f.requests.length,requests);
+ }finally{held.resolve();await pending;}
+ select=f.root.querySelector('[data-cy=platform-language]');select.value='es';select.onchange({currentTarget:select});await settle();
+ assert.equal(document.documentElement.lang,'es');assert.match(f.root.innerHTML,/value="es" selected/);
+});
+
+// Execute the exact acceptance callback in strict mode. This models Playwright's
+// asynchronous route lifecycle only; it is not browser or PostgreSQL acceptance.
+const {readFile:readHistoryCallback}=await import('node:fs/promises');
+const {EventEmitter:HistoryEvents}=await import('node:events');
+const {waitForFixtureRequest}=await import('./fixtures/browser-request-arrival.mjs');
+const historyCallbackSource=await readHistoryCallback('scripts/test-platform-history.mjs','utf8');
+const callbackStart=historyCallbackSource.indexOf(" await test('busy history keeps tenant selection consistent");
+const callbackEnd=historyCallbackSource.indexOf('\n}finally{if(browser)',callbackStart);
+assert.ok(callbackStart>=0&&callbackEnd>callbackStart,'Expected exact browser acceptance callback');
+const historyCallback=historyCallbackSource.slice(callbackStart,callbackEnd);
+const HistoryAsyncFunction=Object.getPrototypeOf(async()=>{}).constructor;
+function historyCallbackProbe(failure){
+ const events=[],assertions=[],timers=new Set(),state={active:'',busy:false,visible:false,closed:false,routeStarted:false,routeSettled:false,fulfilled:false};
+ const page=new HistoryEvents();let routed,responseWait;
+ const response={fixture:'actual held response identity'};
+ const fail=stage=>{if(failure===stage)throw Error('synthetic '+stage+' failure');};
+ page.addInitScript=async(_script,token)=>assert.equal(token,'session-fixture');
+ page.goto=async url=>{assert.equal(url,'https://fixture.invalid/platform/administration?enable-semantics=true');fail('navigation');};
+ page.route=async(pattern,handler)=>{assert.equal(pattern,'**/platform/bundle/tenants/*/history?*');routed=handler;};
+ page.waitForResponse=predicate=>new Promise((resolve,reject)=>{state.responseStarted=true;responseWait={predicate,resolve:value=>{state.responseSettled=true;resolve(value);},reject:error=>{state.responseSettled=true;state.responseError=error;reject(error);}};});
+ page.waitForFunction=async check=>{
+  if(check.toString().includes('bundle-refresh')){fail('settle');await state.routeOutcome;assert.equal(state.busy,false);}
+ };
+ page.close=async()=>{events.push('close');state.closed=true;state.cancelFetch?.();if(responseWait&&!state.responseSettled)responseWait.reject(Error('synthetic response wait cancelled by page close'));};
+ page.locator=selector=>{
+  const id=selector.match(/^\[data-cy="([^"]+)"\]$/)?.[1];assert.ok(id);
+  return {
+   async selectOption(value){
+    assert.equal(id,'platform-topbar-tenant');
+    if(state.busy){fail('held-selection');return;}
+    if(responseWait)fail('accepted-selection');
+    state.active=value;state.visible=false;
+    if(responseWait){const r={url:()=> 'https://fixture.invalid/v1/governance/platform/bundle/tenants/tenant-b?list=tickets',request:()=>({method:()=> 'GET'}),status:()=>failure==='new-response'?503:200};assert.equal(responseWait.predicate(r),true);if(failure==='response-wait')responseWait.reject(Error('synthetic response-wait failure'));else responseWait.resolve(r);}
+   },
+   async inputValue(){assert.equal(id,'platform-topbar-tenant');return state.active;},
+   async waitFor(){assert.equal(id,'bundle-launch-state');},
+   async click(){
+    if(id==='platform-nav-bundle')return;
+    assert.equal(id,'bundle-history-launch');assert.ok(routed);state.busy=true;state.routeStarted=true;
+    const task=routed({fetch:async()=>{events.push('fetch');fail('route-fetch');if(failure==='stalled-fetch')return new Promise((_,reject)=>{state.cancelFetch=()=>reject(Error('synthetic fetch cancelled by close'));});return response;},fulfill:async value=>{assert.equal(state.closed,false,'The route must finish before closing its page');assert.equal(value.response,response);fail('route-fulfill');events.push('fulfill');state.fulfilled=true;state.visible=true;state.busy=false;}});
+    // Observe both outcomes immediately, without making the click wait for the hold.
+    state.routeOutcome=Promise.resolve(task).then(()=>{state.routeSettled=true;},error=>{state.routeSettled=true;state.routeError=error;});
+   },
+   async count(){assert.equal(id,'bundle-history-viewer');return state.visible?1:0;},
+   async innerText(){assert.ok(['bundle-history-viewer','bundle-board'].includes(id));return state.active==='tenant-a'||failure==='isolation'?'Synthetic launch handover':'Tenant B content';},
+  };
+ };
+ const acceptanceAssert={equal:(...args)=>{assertions.push(['equal',...args]);assert.equal(...args);},ok:(...args)=>{assertions.push(['ok',...args]);assert.ok(...args);}};
+ const execute=()=>new HistoryAsyncFunction('test','db','browser','tokens','admin','base','tenant','other','assert','waitForFixtureRequest','setTimeout','clearTimeout','"use strict";\n'+historyCallback)(
+  async(_name,work)=>work(),{query:async sql=>assert.equal(sql,'DELETE FROM platform_bundle_rate')},{newPage:async()=>page},new Map([['admin','session-fixture']]),'admin','https://fixture.invalid','tenant-a','tenant-b',acceptanceAssert,async(...args)=>{try{return await waitForFixtureRequest(args[0],args[1],args[2],{...args[3],timeoutMs:20});}catch(error){state.arrivalFailure=error;throw error;}},(work,delay)=>{assert.equal(delay,1000);const timer=setTimeout(work,20);timers.add(timer);return timer;},timer=>{timers.delete(timer);clearTimeout(timer);});
+ return {execute,state,page,events,assertions,timers};
+}
+for(const failure of [null,'navigation','held-selection','settle','new-response','isolation','route-fetch','route-fulfill','stalled-fetch','accepted-selection','response-wait'])test('exact history browser callback lifecycle '+(failure??'success'),{timeout:1000},async()=>{
+ const probe=historyCallbackProbe(failure);
+ if(failure)await assert.rejects(probe.execute(),error=>failure==='stalled-fetch'?/Timed out draining held history route/.test(error.message):failure==='new-response'?error.code==='ERR_ASSERTION'&&error.actual===503&&error.expected===200:failure==='isolation'?error.code==='ERR_ASSERTION'&&error.actual===false:new RegExp('synthetic '+failure+' failure').test(error.message));
+ else await probe.execute();
+ await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(probe.state.closed,true);assert.equal(probe.timers.size,0);assert.equal(probe.events.filter(value=>value==='close').length,1);
+ for(const name of ['pageerror','close','crash'])assert.equal(probe.page.listenerCount(name),0);
+ if(probe.state.routeStarted){
+  assert.equal(probe.state.routeSettled,true,'A started route must drain even after early failure');
+  if(failure==='stalled-fetch'){assert.match(probe.state.arrivalFailure.message,/no request arrived within 20 ms/);assert.match(probe.state.routeError.message,/fetch cancelled by close/);assert.equal(probe.state.fulfilled,false);}
+  else if(['route-fetch','route-fulfill'].includes(failure)){assert.match(probe.state.routeError.message,new RegExp('synthetic '+failure+' failure'));assert.equal(probe.state.fulfilled,false);}
+  else{assert.equal(probe.state.routeError,undefined);assert.equal(probe.state.fulfilled,true);assert.ok(probe.events.indexOf('fulfill')<probe.events.indexOf('close'),'Resolve the hold and drain fulfillment before closing');}
+ }
+ if(probe.state.responseStarted)assert.equal(probe.state.responseSettled,true,'A started response waiter must settle, including page-close cancellation');
+ if(failure==='accepted-selection'){assert.match(probe.state.responseError.message,/response wait cancelled by page close/);assert.equal(probe.state.active,'tenant-a');}
+ if(failure==='response-wait')assert.match(probe.state.responseError.message,/synthetic response-wait failure/);
+ if(!failure){assert.equal(probe.assertions.length,8);assert.deepEqual(probe.assertions.slice(-2),[['equal',0,0],['ok',true]]);assert.equal(probe.state.active,'tenant-b');}
+});

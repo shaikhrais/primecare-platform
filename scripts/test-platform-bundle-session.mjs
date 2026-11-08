@@ -169,3 +169,46 @@ for(const operation of ['json','download'])test(`bundle queued replacement after
  await assert.rejects(operation==='json'?client.send('/fixture'):client.download('tenant','doc','private.pdf'),/account_changed/);
  assert.equal(values.get('primecare_session'),'replacement');assert.deepEqual(downloads,[]);assert.deepEqual(objects,[]);assert.deepEqual(redirects,[]);
 });
+
+// Real bundle/history controllers, client, panels and forms. Synthetic DOM/HTTP
+// only; these concurrent public load() probes do not bypass the UI's busy guard.
+const {createBrowser:historyBrowser,Element:HistoryElement}=await import('./fixtures/care-dom-base.mjs');
+const {BundleController:HistoryBundleController}=await importBundle({entryPoints:['websites/typescript/src/platform-bundle/controller.ts']});
+function historyFixture(t){
+ const names=['document','window','location','history','sessionStorage','localStorage','MutationObserver','Element','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLTextAreaElement','HTMLDialogElement','FormData','addEventListener','removeEventListener','fetch'];
+ const descriptors=new Map(names.map(name=>[name,Object.getOwnPropertyDescriptor(globalThis,name)]));
+ const f=historyBrowser('https://fixture.invalid/platform/administration?enable-semantics=true#bundle');
+ globalThis.HTMLSelectElement=HistoryElement;globalThis.HTMLTextAreaElement=HistoryElement;
+ const properties={elements:{configurable:true,get(){const fields=this.querySelectorAll('input,select,textarea');fields.namedItem=name=>fields.find(field=>field.getAttribute('name')===name)??null;return fields;}},scrollIntoView:{configurable:true,value(){}},getBoundingClientRect:{configurable:true,value:()=>({top:0,bottom:0})}};
+ const previous=new Map(Object.keys(properties).map(key=>[key,Object.getOwnPropertyDescriptor(HistoryElement.prototype,key)]));Object.defineProperties(HistoryElement.prototype,properties);
+ t.after(()=>{f.event('pagehide',{persisted:false});for(const[key,descriptor]of previous)if(descriptor)Object.defineProperty(HistoryElement.prototype,key,descriptor);else delete HistoryElement.prototype[key];for(const[name,descriptor]of descriptors)if(descriptor)Object.defineProperty(globalThis,name,descriptor);else delete globalThis[name];});
+ return f;
+}
+const historyBoard=tenantId=>({tenantId,global:true,checkedAt:'2026-01-01T00:00:00Z',summary:{tickets:0,routes:0,renewals:0},launch:{version:1,state:'draft',checks:[],trainingEvidence:'',canSubmit:false,canApprove:false,canRequestChanges:false},documents:[],tickets:[],routes:[],owners:[],audit:[{id:'board-'+tenantId,action:'launch_training',created_at:'2026-01-01T00:00:00Z',evidence:'BOARD '+tenantId}],pagination:{offset:0,limit:20,total:0,hasMore:false}});
+const oldHistory=()=>({kind:'launch',tenantId:'tenant-a',items:[{id:'old-private',action:'launch_training',created_at:'2026-01-01T00:00:00Z',evidence:'PRIVATE TENANT A HISTORY'}],pagination:{offset:0,limit:20,total:1,hasMore:false}});
+for(const phase of ['fetch','body'])for(const rejects of [false,true])test('genuine tenant switch rejects delayed history '+phase+' '+(rejects?'failure':'success'),{timeout:1000},async t=>{
+ const f=historyFixture(t),held=deferred(),arrived=deferred(),requests=[];
+ globalThis.fetch=async(url,options)=>{
+  requests.push({url,options});
+  if(url.includes('/history?')){
+   if(phase==='fetch'){arrived.resolve();return held.promise;}
+   return {ok:true,status:200,json:()=>{arrived.resolve();return held.promise;}};
+  }
+  return Response.json(historyBoard(url.includes('/tenants/tenant-b?')?'tenant-b':'tenant-a'));
+ };
+ const controller=new HistoryBundleController(gateway,'token-A');await controller.load('tenant-a');controller.mount(f.root,'en');
+ const button=f.cy('bundle-history-launch');assert.ok(button);const pending=button.onclick();await arrived.promise;
+ assert.equal(controller.navigationPending,true);assert.equal(f.root.querySelectorAll('[data-cy=bundle-history-viewer]').length,1);
+ try{
+  await controller.load('tenant-b');controller.mount(f.root,'en');
+  assert.equal(f.root.querySelectorAll('[data-cy=bundle-history-viewer]').length,0);assert.match(f.root.innerHTML,/BOARD tenant-b/);assert.doesNotMatch(f.root.innerHTML,/PRIVATE TENANT A HISTORY|BOARD tenant-a/);
+ }finally{
+  if(rejects)held.reject(Error('old tenant history failed'));else held.resolve(phase==='fetch'?Response.json(oldHistory()):oldHistory());
+  await pending;
+ }
+ assert.equal(controller.navigationPending,false);assert.equal(f.root.querySelectorAll('[data-cy=bundle-history-viewer]').length,0);
+ assert.match(f.root.innerHTML,/BOARD tenant-b/);assert.doesNotMatch(f.root.innerHTML,/PRIVATE TENANT A HISTORY|BOARD tenant-a/);
+ assert.deepEqual(requests.map(r=>new URL(r.url).pathname),['/v1/governance/platform/bundle/tenants/tenant-a','/v1/governance/platform/bundle/tenants/tenant-a/history','/v1/governance/platform/bundle/tenants/tenant-b']);
+ for(const {options}of requests){assert.equal(options.method,'GET');assert.equal(options.cache,'no-store');assert.deepEqual(options.headers,{authorization:'Bearer token-A'});}
+ assert.equal(f.sessionStorage.getItem('primecare_session'),'token-A');
+});
