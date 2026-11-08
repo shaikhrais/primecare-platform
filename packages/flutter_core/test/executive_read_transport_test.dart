@@ -227,13 +227,15 @@ void main() {
         final h = _Harness(cachedData: _staleData);
         h.fail(DioExceptionType.connectionError);
         final response = switch (method) {
-          'POST' => await h.client.post(path, body: {}),
-          'PUT' => await h.client.put(path, body: {}),
-          'PATCH' => await h.client.patch(path, body: {}),
+          'POST' => await h.client.post(path, body: <String, dynamic>{}),
+          'PUT' => await h.client.put(path, body: <String, dynamic>{}),
+          'PATCH' => await h.client.patch(path, body: <String, dynamic>{}),
           _ => await h.client.delete(path),
         };
         expect(response.statusCode, 200);
-        expect(response.data['status'], 'offline_fallback');
+        expect(response.data, isA<Map<String, dynamic>>());
+        final data = response.data as Map<String, dynamic>;
+        expect(data['status'], 'offline_fallback');
         h.expectUncached();
       });
     }
@@ -254,7 +256,9 @@ void main() {
     h.fail(DioExceptionType.connectionError);
     final response = await h.client.get('/v1/unrelated-fixture');
     expect(response.statusCode, 200);
-    expect(response.data['status'], 'offline_fallback');
+    expect(response.data, isA<Map<String, dynamic>>());
+    final data = response.data as Map<String, dynamic>;
+    expect(data['status'], 'offline_fallback');
     expect(h.cache.reads, 1);
     expect(h.cache.writes, 0);
   });
