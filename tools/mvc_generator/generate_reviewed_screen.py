@@ -200,9 +200,9 @@ void main() {
     'logout, Back and stale requests do not restore protected data',
     'locale and theme changes preserve accessible controls',
   ]) {
-    testWidgets(scenario, (tester) async {
+    testWidgets('$scenario (starter: $blocked)', (tester) async {
       fail('Implement this scenario against the isolated application harness');
-    }, skip: blocked);
+    }, skip: true);
   }
 }
 '''

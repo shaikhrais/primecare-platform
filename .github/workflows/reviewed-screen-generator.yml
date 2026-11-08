@@ -38,5 +38,5 @@ jobs:
         if: always()
         run: |
           echo 'Generated code is an abstract review scaffold, not an implemented business screen.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Unit tests and Dart analysis are exercised by the fixture test. E2E files are starters, analyzed only; no device/backend E2E coverage is claimed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Unit tests and Dart analysis are configured to run in the fixture test; see step results for execution status. E2E files are starters, analyzed only; no device/backend E2E coverage is claimed.' >> "$GITHUB_STEP_SUMMARY"
           echo 'No database credentials, deployment, route registration or production writes are used.' >> "$GITHUB_STEP_SUMMARY"

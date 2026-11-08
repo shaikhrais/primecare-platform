@@ -57,7 +57,8 @@ class ReviewedScreenGeneratorTest(unittest.TestCase):
         self.assertIn('extends BaseScreenState<FixtureScreenState>', artifacts['lib/features/fixture_screen/fixture_screen_state.dart'])
         self.assertIn('extends GovernedConsumerWidget', artifacts['lib/features/fixture_screen/fixture_screen_view.dart'])
         self.assertIn('abstract class FixtureScreenController', artifacts['lib/features/fixture_screen/fixture_screen_controller.dart'])
-        self.assertIn('skip: blocked', artifacts['integration_test/fixture_screen_starter_test.dart'])
+        self.assertIn('skip: true', artifacts['integration_test/fixture_screen_starter_test.dart'])
+        self.assertIn('starter: $blocked', artifacts['integration_test/fixture_screen_starter_test.dart'])
         self.assertIn('fail(', artifacts['integration_test/fixture_screen_starter_test.dart'])
         self.assertNotIn('Future.delayed', ''.join(artifacts.values()))
 
@@ -137,6 +138,8 @@ class ReviewedScreenGeneratorTest(unittest.TestCase):
                         ['flutter', 'analyze', '--no-fatal-infos', 'lib', 'test', 'integration_test'],
                         ['flutter', 'test', 'test']):
             result = subprocess.run(command, cwd=output, text=True, capture_output=True, timeout=600)
+            print('Generated fixture command:', ' '.join(command), flush=True)
+            print(result.stdout, flush=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         # E2E starters are analyzed, not counted as executed integration tests.
 
