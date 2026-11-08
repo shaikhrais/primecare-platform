@@ -69,12 +69,15 @@ class PrimeAuthExperience extends ConsumerWidget {
               ],
               DecoratedBox(
                 decoration: BoxDecoration(color: theme.colors.surface, borderRadius: BorderRadius.circular(theme.radiusLg), boxShadow: theme.shadowsSurface1),
-                child: desktop
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: desktop
                     ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         const Expanded(child: _BrandPanel()),
                         Expanded(child: Padding(padding: EdgeInsets.all(gap.xxl), child: form)),
                       ])
                     : Padding(padding: EdgeInsets.all(gap.lg), child: form),
+                ),
               ),
               SizedBox(height: gap.lg),
               Text(_copy(context, 'footer'), textAlign: TextAlign.center, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
