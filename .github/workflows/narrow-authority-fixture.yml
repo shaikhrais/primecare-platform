@@ -2,6 +2,8 @@ name: Narrow authority isolated PostgreSQL and TLS
 on:
   pull_request:
     paths:
+      - tools/governance-production/login_production_candidate.py
+      - tools/governance-production/test-login-production-candidate.py
       - tools/governance-production/login_bootstrap_fixture.py
       - tools/governance-production/test-login-bootstrap-postgres.py
       - tools/governance-production/login-bootstrap-fixture.md
@@ -23,6 +25,8 @@ on:
   push:
     branches: [codex/screen-management]
     paths:
+      - tools/governance-production/login_production_candidate.py
+      - tools/governance-production/test-login-production-candidate.py
       - tools/governance-production/login_bootstrap_fixture.py
       - tools/governance-production/test-login-bootstrap-postgres.py
       - tools/governance-production/login-bootstrap-fixture.md
@@ -108,6 +112,11 @@ jobs:
           env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
           NARROW_READER_ISOLATED_CI=1
           timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-bootstrap-postgres.py
+      - name: Run inactive Login production candidate against synthetic fixture
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-production-candidate.py
       - name: Remove disposable fixture
         if: always()
         run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true
