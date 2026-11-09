@@ -3,7 +3,8 @@
 ## Status and purpose
 
 This standalone, additive candidate prepares a narrowly scoped metadata read.
-No workflow invokes it. It does not change the existing production reader,
+No workflow invokes its production CLI. The isolated fixture lane below imports
+it for synthetic tests only. It does not change the existing production reader,
 register a screen/API/grant, publish anything, or establish a release gate pass.
 Current production data, credential availability/privileges, environment
 protections, deployed behavior and seven-route authority remain unverified.
@@ -189,3 +190,47 @@ and API identities/ownership with authorized business policy, then separately
 test real actor/role/tenant access, revocation, failures versus legitimate empty
 business data, source-to-runtime connection, Flutter navigation/accessibility,
 and required CI. No current fixture or metadata-only result closes those gates.
+
+## Isolated native PostgreSQL/TLS lane (not a production run)
+
+`.github/workflows/narrow-authority-fixture.yml` runs the offline mock suite
+and `test-narrow-authority-postgres.py` on GitHub-hosted Ubuntu 24.04 with
+PostgreSQL 16 and psycopg 3.2.13. It has read-only repository permissions,
+no production environment, no secret references, no artifact upload and no
+production CLI invocation. The only database transport is fixed loopback,
+port 55432. Its disposable database contains fabricated metadata only.
+
+The native harness pins the unmodified reader to Git blob
+`f41eb82f2fde0faac2654f740b5de81917c83490`. A mismatch stops before importing
+the reader. This detects source drift; it is not an approval, dependency
+attestation or proof of trusted production execution. Test-only connections
+substitute localhost, a generated local certificate and synthetic credentials
+through the internal dependency seam. The production URL parser and CLI have
+no added target, schema, CA or fixture override.
+
+The native cases execute every fixed table projection with typed and tagged
+storage, populated and empty result metadata, malformed tags, oversized text,
+manifest drift and rollback checks. During the actual reader transaction a
+savepoint probe verifies that writes are rejected and isolation is repeatable
+read. Verified TLS succeeds; incorrect hostname and untrusted CA must produce
+their specific certificate rejection, followed by a valid connection. These
+fixtures exercise the expected imported representation, not the complete
+export/import pipeline or any production database.
+
+Trust authentication is limited to the disposable container; production
+password authentication and credential privilege are not tested. Actions and
+container tags remain mutable and Python dependencies are version-pinned,
+not hash-locked. Production dependency/source review and trusted ref approval
+remain open. Passing this lane never establishes route authority or release
+readiness.
+
+Before a credentialed run, an authorized owner must approve the exact reviewed
+reader bytes and trusted immutable execution ref; the fixed seven-route,
+eleven-relation metadata-only scope; the pinned database/schema destination;
+the existing least-privilege read-only credential; and the fixed sanitized
+receipt destination. Independently verify protected workflow/environment
+approvals, dependency hashes, provider TLS/CA compatibility and credential
+privileges. Do not add production credentials to this fixture workflow or
+relax the existing candidate controls to make a connection succeed. No current
+approval or fixture result authorizes seeding, changing grants, deployment,
+merging or running the broader production workflow.
