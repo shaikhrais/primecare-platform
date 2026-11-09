@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import io
 import json
+import re
 from pathlib import Path
 import types
 import unittest
@@ -70,16 +71,19 @@ class CandidateTests(unittest.TestCase):
                 self.assertFalse(out[key])
 
     def test_pin_and_manifest_shape_fail_before_scope_reads(self):
-        for mutation in ('hash', 'format', 'duplicate', 'column', 'storage'):
+        for mutation in ('hash', 'body', 'format', 'duplicate', 'relation', 'duplicate_column', 'column', 'storage'):
             self.install()
             if mutation == 'hash':
                 self.digest = '0' * 64
             else:
                 if mutation == 'format': self.manifest['format'] = 'synthetic'
+                if mutation == 'body': self.manifest['extra'] = 'tampered'
+                if mutation == 'relation': self.manifest['tables'].pop()
+                if mutation == 'duplicate_column': self.manifest['tables'][0]['columns'].append(self.manifest['tables'][0]['columns'][0])
                 if mutation == 'duplicate': self.manifest['tables'].append(self.manifest['tables'][0])
                 if mutation == 'column': self.manifest['tables'][0]['columns'].pop()
                 if mutation == 'storage': self.manifest['tables'][0]['columns'][0]['storage_types'] = ['blob']
-                self.digest = hashlib.sha256(reader.canonical(self.manifest)).hexdigest()
+                if mutation != 'body': self.digest = hashlib.sha256(reader.canonical(self.manifest)).hexdigest()
                 self.db.execute(f'UPDATE {self.table("source_manifest")} SET manifest_sha256=%s, manifest=%s',
                     (self.digest, Jsonb(self.manifest)))
             observed = harness.ObservedDB(self.db)
@@ -119,6 +123,9 @@ class CandidateTests(unittest.TestCase):
         with patch.object(reader, '_read_snapshot') as run:
             with self.assertRaisesRegex(reader.Fault, '^READONLY_UNVERIFIED$'): reader.read_candidate(db)
             info.transaction_status = 0
+            db.autocommit = False
+            with self.assertRaisesRegex(reader.Fault, '^READONLY_UNVERIFIED$'): reader.read_candidate(db)
+            db.autocommit = True
             db.pgconn.ssl_in_use = False
             with self.assertRaisesRegex(reader.Fault, '^TLS_REQUIRED$'): reader.read_candidate(db)
             run.assert_not_called()
@@ -213,6 +220,78 @@ class CandidateTests(unittest.TestCase):
             self.db.execute('RESET ROLE')
         self.db.execute(f'DROP OWNED BY login_candidate_select')
         self.db.execute('DROP ROLE login_candidate_select')
+
+    def test_query_inventory_scopes_budgets_and_cleanup(self):
+        self.install(); observed = harness.ObservedDB(self.db); self.read(observed)
+        self.assertEqual((reader.MAX_ROWS, reader.MAX_FIELD, reader.MAX_QUERIES, reader.MAX_BYTES), (64, 8192, 16, 1048576))
+        expected_fields = {
+            'auth_route_registry': 'id route_code route_path flow_type',
+            'screens': 'id app_id role_id screen_code route_path actual_file_path active',
+            'apps': 'id app_code active', 'screen_api_links': 'screen_id api_id',
+            'api_endpoints': 'id app_id endpoint_code http_method route_path service_name auth_required permission_key rate_limit_key request_schema response_schema implementation_status',
+            'api_endpoint_registry': 'id api_id endpoint_code method endpoint_path',
+        }
+        self.assertEqual({t: list(f) for t, f in reader.FIELDS.items()}, {t: f.split() for t, f in expected_fields.items()})
+        expected = [(sql, ()) for sql in [
+            'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY', 'SET LOCAL search_path=pg_catalog',
+            "SET LOCAL statement_timeout='5s'", "SET LOCAL lock_timeout='1s'",
+            "SET LOCAL idle_in_transaction_session_timeout='10s'",
+            "SELECT current_setting('transaction_read_only') AS readonly",
+            'SELECT CASE WHEN octet_length(manifest_sha256)<=64 THEN manifest_sha256 ELSE NULL END AS manifest_sha256,'
+            'CASE WHEN octet_length(manifest::text)<=1048576 THEN manifest ELSE NULL END AS manifest '
+            'FROM "governance_68b0b02dd1215f58630d2c1a".govt_source_manifest LIMIT 2']]
+        def selected(table, predicate, values):
+            columns = expected_fields[table].split(); projected = []
+            for name in columns:
+                col = '"' + name + '"'
+                if name not in ('id', 'app_id', 'role_id', 'screen_id', 'api_id', 'active', 'auth_required'):
+                    col = f'CASE WHEN octet_length({col})<=8192 THEN {col} ELSE (1/(length({col})-length({col})))::text END'
+                projected.append(col + ' AS "' + name + '"')
+            expected.append(('SELECT ' + ','.join('"' + name + '"' for name in columns) +
+                ' FROM (SELECT ' + ','.join(projected) + ' FROM "governance_68b0b02dd1215f58630d2c1a"."govt_' + table +
+                '") AS scoped WHERE ' + predicate + ' LIMIT 65', tuple(values)))
+        selected('auth_route_registry', '("route_code" IN (%s)) OR ("route_path" IN (%s))', ['login', '/login'])
+        selected('screens', '("screen_code" IN (%s,%s)) OR ("route_path" IN (%s))', ['login', 'auth_login_web', '/login'])
+        selected('apps', '("id" IN (%s,%s))', [20, 21])
+        selected('screen_api_links', '("screen_id" IN (%s,%s))', [10, 11])
+        selected('api_endpoints', ' OR '.join(['("http_method" IN (%s) AND "route_path" IN (%s))'] * 4),
+            ['POST', '/v1/auth/login', 'GET', '/v1/auth/me', 'POST', '/v1/auth/me', 'POST', '/v1/auth/logout'])
+        selected('api_endpoint_registry', '("api_id" IN (%s,%s,%s,%s))', [30, 31, 32, 33])
+        expected.append(('ROLLBACK', ()))
+        self.assertEqual(observed.calls, expected)
+        self.install('tagged'); tagged_db = harness.ObservedDB(self.db); self.read(tagged_db)
+        tagged_expected = []
+        for sql, values in expected:
+            if 'AS scoped WHERE' in sql:
+                table = re.search(r'\."govt_([a-z_]+)"', sql)[1]
+                projections = []
+                for name in expected_fields[table].split():
+                    kind = 'integer' if name in ('id', 'app_id', 'role_id', 'screen_id', 'api_id', 'active', 'auth_required') else 'text'
+                    typ = 'bigint' if kind == 'integer' else 'text'; col = '"' + name + '"'
+                    col = (f"CASE WHEN {col} IS NULL OR ({col}->>'t'='null' AND {col}->'v'='null'::jsonb) "
+                           f"THEN NULL::{typ} WHEN {col}->>'t'='{kind}' AND jsonb_typeof({col}->'v')='string' "
+                           f"THEN ({col}->>'v')::{typ} ELSE (1/(length({col}::text)-length({col}::text)))::{typ} END")
+                    if kind == 'text': col = f'CASE WHEN octet_length({col})<=8192 THEN {col} ELSE (1/(length({col})-length({col})))::text END'
+                    projections.append(col + ' AS "' + name + '"')
+                sql = sql.split(' FROM (SELECT ')[0] + ' FROM (SELECT ' + ','.join(projections) + \
+                    ' FROM "governance_68b0b02dd1215f58630d2c1a"."govt_' + table + '") AS scoped WHERE ' + sql.split('AS scoped WHERE ')[1]
+            tagged_expected.append((sql, values))
+        self.assertEqual(tagged_db.calls, tagged_expected)
+        tables = set()
+        for sql, values in observed.calls:
+            self.assertNotIn('SELECT *', sql)
+            self.assertNotIn('COMMIT', sql)
+            if 'AS scoped WHERE' in sql:
+                tables.update(re.findall(r'\."govt_([a-z_]+)"', sql))
+                self.assertTrue(values); self.assertTrue(sql.endswith('LIMIT 65'))
+        self.assertEqual(tables, set(reader.FIELDS))
+        self.assertEqual(observed.calls[-1][0], 'ROLLBACK')
+        self.assertLessEqual(len(observed.calls), reader.MAX_QUERIES + 1)
+        for field, value, reason in [('queries', reader.MAX_QUERIES, 'QUERY_LIMIT'),
+                                   ('start', -100, 'TIME_LIMIT'), ('bytes', reader.MAX_BYTES, 'BYTE_LIMIT')]:
+            session = reader._Session(self.db); setattr(session, field, value)
+            with self.assertRaisesRegex(reader.Fault, '^' + reason + '$'):
+                session.query('SELECT 1 AS n', (), ('n',))
 
 
 if __name__ == '__main__':
