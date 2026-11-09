@@ -1,0 +1,37 @@
+name: One-shot Login metadata status (disabled)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: login-metadata-read-once
+  cancel-in-progress: false
+jobs:
+  read-status:
+    # Activation and any credential binding require separate action-time approval.
+    if: ${{ false }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    # No environment or credential is attached while disabled.
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: 6dfc553521e9f2a69c89b330356a3b21bdc53f1a
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.16'
+      - name: Prepare locked runtime without credentials
+        run: |
+          set -eu
+          python -m venv /tmp/login-read-venv
+          /tmp/login-read-venv/bin/python -m pip install --disable-pip-version-check --require-hashes --only-binary=:all: -r tools/governance-production/narrow-fixture-requirements.txt
+          mkdir -m 700 /tmp/login-read-home /tmp/login-read-tmp
+      - name: Fixed status-only read (unbound)
+        run: |
+          set -eu
+          ulimit -c 0
+          env -i PATH="$PATH" HOME=/tmp/login-read-home TMPDIR=/tmp/login-read-tmp \
+            timeout --kill-after=5s 65 \
+            prlimit --as=536870912 --cpu=60 --nofile=128 -- \
+            /tmp/login-read-venv/bin/python tools/governance-production/login_read_once.py

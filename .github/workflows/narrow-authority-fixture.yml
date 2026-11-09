@@ -2,6 +2,7 @@ name: Narrow authority isolated PostgreSQL and TLS
 on:
   pull_request:
     paths:
+      - .github/workflows/login-read-once.yml
       - tools/governance-production/login_read_once.py
       - tools/governance-production/test-login-read-once.py
       - tools/governance-production/login_production_candidate.py
@@ -27,6 +28,7 @@ on:
   push:
     branches: [codex/screen-management]
     paths:
+      - .github/workflows/login-read-once.yml
       - tools/governance-production/login_read_once.py
       - tools/governance-production/test-login-read-once.py
       - tools/governance-production/login_production_candidate.py
@@ -126,6 +128,15 @@ jobs:
           env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
           NARROW_READER_ISOLATED_CI=1
           timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-read-once.py
+      - name: Smoke test proposed one-shot resource limits without credentials
+        run: |
+          set -eu
+          ulimit -c 0
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp \
+            NARROW_READER_ISOLATED_CI=1 \
+            timeout --kill-after=5s 65 \
+            prlimit --as=536870912 --cpu=60 --nofile=128 -- \
+            /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-read-once.py
       - name: Remove disposable fixture
         if: always()
         run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true
