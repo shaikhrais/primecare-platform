@@ -2,13 +2,7 @@ name: Narrow authority isolated PostgreSQL and TLS
 on:
   pull_request:
     paths:
-      - tools/governance-production/narrow_authority_reader.py
-      - tools/governance-production/test-narrow-authority-reader.py
-      - tools/governance-production/test-narrow-authority-postgres.py
-      - .github/workflows/narrow-authority-fixture.yml
-  push:
-    branches: [codex/screen-management]
-    paths:
+      - tools/governance-production/narrow-authority-reader.md
       - tools/governance-production/narrow_authority_reader.py
       - tools/governance-production/test-narrow-authority-reader.py
       - tools/governance-production/test-narrow-authority-postgres.py
