@@ -171,13 +171,17 @@ class CandidateTests(unittest.TestCase):
         for table, values in expected.items():
             self.assertEqual(next(v for sql, v in observed.calls if '"govt_' + table + '"' in sql), values)
         self.assertEqual(len(observed.calls), 14)
+        # Type-preserving probe works for typed/tagged/mixed id columns.
+        # Prove it is valid in writable mode before testing read-only rejection.
+        mutation = f'UPDATE {self.table("apps")} SET id=id WHERE FALSE'
+        self.db.execute(mutation)
         probed = []
         rejected = []
         def write(sql):
             if 'govt_source_manifest' in sql:
                 probed.append(True)
                 try:
-                    self.db.execute(f'INSERT INTO {self.table("apps")} (id) VALUES (987654)')
+                    self.db.execute(mutation)
                 except ReadOnlySqlTransaction:
                     rejected.append(True)
                     raise
