@@ -1,0 +1,29 @@
+name: Synthetic table inventory and encryption tests
+on:
+  push:
+    branches: [work/table-inventory-synthetic-20261109]
+    paths: [tools/table-inventory-prep/**, .github/workflows/table-inventory-synthetic.yml]
+  pull_request:
+    paths: [tools/table-inventory-prep/**, .github/workflows/table-inventory-synthetic.yml]
+permissions:
+  contents: read
+jobs:
+  synthetic-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          persist-credentials: false
+      - name: Install encryption library for synthetic tests
+        run: python3 -m pip install cryptography==44.0.3
+      - name: Run synthetic tests only
+        working-directory: tools/table-inventory-prep
+        run: python3 -m unittest discover -v
+      - name: Upload synthetic ciphertext only
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: synthetic-inventory-envelope
+          path: tools/table-inventory-prep/synthetic-envelope.json
+          if-no-files-found: error
+          retention-days: 1
