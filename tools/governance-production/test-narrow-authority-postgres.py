@@ -213,6 +213,32 @@ class PostgresTests(unittest.TestCase):
                 with connection() as verified:
                     self.assertTrue(verified.pgconn.ssl_in_use)
 
+    def test_minimal_select_role_and_denied_read_are_distinct(self):
+        digest = self.install()
+        role = 'synthetic_narrow_readonly'
+        self.db.execute(f'CREATE ROLE {role} NOLOGIN NOSUPERUSER NOCREATEDB '
+                        'NOCREATEROLE NOINHERIT NOREPLICATION NOBYPASSRLS')
+        try:
+            self.db.execute(f'GRANT USAGE ON SCHEMA "{reader.SCHEMA}" TO {role}')
+            for name in [reader.MANIFEST_TABLE] + ['govt_' + t for t in reader.FIELDS]:
+                self.db.execute(f'GRANT SELECT ON "{reader.SCHEMA}"."{name}" TO {role}')
+            self.db.execute(f'SET ROLE {role}')
+            self.assertTrue(self.read(digest)['screens'])
+            # Privilege restriction is independent of transaction read-only.
+            with self.assertRaises(psycopg.errors.InsufficientPrivilege):
+                self.db.execute(f'DELETE FROM "{reader.SCHEMA}".govt_screens')
+            with self.assertRaises(psycopg.errors.InsufficientPrivilege):
+                self.db.execute(f'CREATE TABLE "{reader.SCHEMA}".forbidden(id int)')
+            self.db.execute('RESET ROLE')
+            self.db.execute(f'REVOKE SELECT ON "{reader.SCHEMA}".govt_screens FROM {role}')
+            self.db.execute(f'SET ROLE {role}')
+            with self.assertRaisesRegex(reader.Fault, '^READ_DENIED$'):
+                self.read(digest)
+        finally:
+            self.db.execute('RESET ROLE')
+            self.db.execute(f'DROP OWNED BY {role}')
+            self.db.execute(f'DROP ROLE {role}')
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)
