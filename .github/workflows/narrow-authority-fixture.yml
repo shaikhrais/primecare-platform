@@ -2,6 +2,8 @@ name: Narrow authority isolated PostgreSQL and TLS
 on:
   pull_request:
     paths:
+      - tools/governance-production/login_read_once.py
+      - tools/governance-production/test-login-read-once.py
       - tools/governance-production/login_production_candidate.py
       - tools/governance-production/test-login-production-candidate.py
       - tools/governance-production/login_bootstrap_fixture.py
@@ -25,6 +27,8 @@ on:
   push:
     branches: [codex/screen-management]
     paths:
+      - tools/governance-production/login_read_once.py
+      - tools/governance-production/test-login-read-once.py
       - tools/governance-production/login_production_candidate.py
       - tools/governance-production/test-login-production-candidate.py
       - tools/governance-production/login_bootstrap_fixture.py
@@ -117,6 +121,11 @@ jobs:
           env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
           NARROW_READER_ISOLATED_CI=1
           timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-production-candidate.py
+      - name: Test one-shot wrapper without production credentials
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-read-once.py
       - name: Remove disposable fixture
         if: always()
         run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true
