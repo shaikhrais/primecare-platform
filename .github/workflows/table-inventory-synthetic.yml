@@ -16,10 +16,13 @@ jobs:
         with:
           persist-credentials: false
       - name: Install encryption library for synthetic tests
-        run: python3 -m pip install cryptography==44.0.3
+        run: |
+          python3 -m venv /tmp/table-inventory-venv
+          /tmp/table-inventory-venv/bin/python -m pip install cryptography==44.0.3
+          /tmp/table-inventory-venv/bin/python -m pip check
       - name: Run synthetic tests only
         working-directory: tools/table-inventory-prep
-        run: python3 -m unittest discover -v
+        run: /tmp/table-inventory-venv/bin/python -m unittest discover -v
       - name: Upload synthetic ciphertext only
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
