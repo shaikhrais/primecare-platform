@@ -1,0 +1,75 @@
+name: Narrow authority isolated PostgreSQL and TLS
+on:
+  pull_request:
+    paths:
+      - tools/governance-production/narrow_authority_reader.py
+      - tools/governance-production/test-narrow-authority-reader.py
+      - tools/governance-production/test-narrow-authority-postgres.py
+      - .github/workflows/narrow-authority-fixture.yml
+  push:
+    branches: [codex/screen-management]
+    paths:
+      - tools/governance-production/narrow_authority_reader.py
+      - tools/governance-production/test-narrow-authority-reader.py
+      - tools/governance-production/test-narrow-authority-postgres.py
+      - .github/workflows/narrow-authority-fixture.yml
+permissions:
+  contents: read
+jobs:
+  isolated-fixture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    # No production environment, secrets, deployment, or artifacts in this lane.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install fixture driver only
+        run: python -m pip install --disable-pip-version-check 'psycopg[binary]==3.2.13'
+      - name: Prepare disposable loopback TLS fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -m 700 /tmp/narrow-reader-home /tmp/narrow-reader-tmp
+          mkdir -m 755 /tmp/narrow-reader-fixture
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 \
+            -keyout /tmp/narrow-reader-fixture/server.key \
+            -out /tmp/narrow-reader-fixture/server.crt \
+            -subj /CN=localhost -addext subjectAltName=DNS:localhost >/dev/null 2>&1
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 \
+            -keyout /tmp/narrow-reader-fixture/untrusted.key \
+            -out /tmp/narrow-reader-fixture/untrusted.crt \
+            -subj /CN=untrusted-fixture >/dev/null 2>&1
+          chmod 600 /tmp/narrow-reader-fixture/*.key
+          sudo chown 999:999 /tmp/narrow-reader-fixture/server.key
+          docker run --detach --name narrow-reader-postgres \
+            -p 127.0.0.1:55432:5432 \
+            -e POSTGRES_HOST_AUTH_METHOD=trust \
+            -v /tmp/narrow-reader-fixture:/fixture:ro \
+            postgres:16-bookworm \
+            -c ssl=on -c ssl_cert_file=/fixture/server.crt \
+            -c ssl_key_file=/fixture/server.key >/dev/null
+          ready=false
+          for attempt in $(seq 1 60); do
+            if docker exec narrow-reader-postgres pg_isready -h 127.0.0.1 -p 5432 -U postgres >/dev/null 2>&1; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+          test "$ready" = true
+      - name: Run offline mock regressions
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          python tools/governance-production/test-narrow-authority-reader.py
+      - name: Run native PostgreSQL and TLS fixture tests
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout 240 python tools/governance-production/test-narrow-authority-postgres.py
+      - name: Remove disposable fixture
+        if: always()
+        run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true
