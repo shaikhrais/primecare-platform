@@ -1,5 +1,11 @@
 # From-scratch platform screen build queue
 
+## Plan-only publication and branch workflow
+
+This document is extracted from draft PR #222 at `d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501`. Descriptions of existing code, generators, checks and inventories below refer to that unmerged source baseline, not necessarily to main. Only the two planning documents and their two queue JSON snapshots are included here. No application code, CI configuration, production data, permissions or release approval is included. Code and supporting-guide links are pinned to that source revision. Queue JSON source references and counts retain their original inspection provenance and are not a current-main parity claim.
+
+The delivery workflow is one screen per branch and pull request, starting with Login. Run tests in GitHub Actions, obtain the applicable reviews, and merge each screen only after its checks pass and it is release-ready. Establish shared dependencies through separately reviewed changes before a dependent screen can pass. Publishing this plan does not merge or approve PR #222. A four-hour completion target is not a verified estimate and does not waive contract, test, review or release gates.
+
 For the complete implementation phases, contract packet, access controls, reusable
 architecture, per-screen dependencies, CI matrix and release gates, see the
 [detailed development plan](detailed-development-plan.md). The queue below remains
@@ -173,7 +179,7 @@ Riverpod/GoRouter architecture, not a new state-management migration.
   catalog entry is not proof of dispatch or authorization.
 - **Appearance, language and controls:** use existing `PrimeTheme`, Flutter
   theme, Easy Localization/live-screen text, responsive wrappers and
-  `primecare_ui` controls described in [the shared responsibilities](README.md#shared-responsibilities).
+  `primecare_ui` controls described in [the shared responsibilities](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/docs/screen-management/README.md#shared-responsibilities).
   Reuse layout primitives; do not copy hardcoded labels, fabricated metrics or
   simulated business actions from old screens.
 - **State and transport:** keep business/API behavior behind the established
@@ -187,7 +193,7 @@ Riverpod/GoRouter architecture, not a new state-management migration.
   behavior. Extract only genuinely shared setup after review; keep each screen's
   assertions and real translation resources explicit.
 - **Scaffolding:** use a reviewed manual starter first. The generator limitations
-  in [the inventory](README.md) still apply. Do not re-enable the disabled
+  in [the inventory](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/docs/screen-management/README.md) still apply. Do not re-enable the disabled
   30-screen scaffolder or use the broken legacy generator. Consider automation
   only after a second completed screen demonstrates stable boilerplate.
 

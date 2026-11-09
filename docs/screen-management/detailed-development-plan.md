@@ -1,18 +1,24 @@
 # PrimeCare Screen Manager: detailed development and delivery plan
 
+## Plan-only publication and branch workflow
+
+This document is extracted from draft PR #222 at `d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501`. Descriptions of existing code, generators, checks and inventories below refer to that unmerged source baseline, not necessarily to main. Only the two planning documents and their two queue JSON snapshots are included here. No application code, CI configuration, production data, permissions or release approval is included. Code and supporting-guide links are pinned to that source revision. Queue JSON source references and counts retain their original inspection provenance and are not a current-main parity claim.
+
+The delivery workflow is one screen per branch and pull request, starting with Login. Run tests in GitHub Actions, obtain the applicable reviews, and merge each screen only after its checks pass and it is release-ready. Establish shared dependencies through separately reviewed changes before a dependent screen can pass. Publishing this plan does not merge or approve PR #222. A four-hour completion target is not a verified estimate and does not waive contract, test, review or release gates.
+
 ## 1. Purpose, scope and starting evidence
 
 Build each approved PrimeCare screen from its authoritative business and governance contract, using the existing shared architecture, and replace existing behavior only after evidence-based acceptance. “From scratch” means a fresh, reviewed screen implementation, not a rewrite of authentication, authorization, transport, shell, theme or localization.
 
-This is an implementation plan, not a claim that implementation, production inspection or release verification has happened. It extends [the build order](from-scratch-build-order.md) and [the source-bound scaffold guide](reviewed-screen-generator.md). Repository evidence was inspected at **559c4de8b83814d18bba757f36d17a0b323b59e6**, on existing draft [PR #222](https://github.com/shaikhrais/primecare-platform/pull/222), branch `codex/screen-management`. This documentation change creates no new branch and changes no runtime code, grants, production data or deployment.
+This is an implementation plan, not a claim that implementation, production inspection or release verification has happened. It extends [the build order](from-scratch-build-order.md) and [the source-bound scaffold guide](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/docs/screen-management/reviewed-screen-generator.md). Repository evidence was inspected at **559c4de8b83814d18bba757f36d17a0b323b59e6**, on existing draft [PR #222](https://github.com/shaikhrais/primecare-platform/pull/222), branch `codex/screen-management`. The original plan was written on PR #222; this separate plan-only publication changes no runtime code, grants, production data or deployment.
 
 ### Verified facts and their limits
 
 - [platform-build-queue.json](platform-build-queue.json) contains **1,329 route/config entries**, not 1,329 confirmed distinct screens. Its original inspection commit is recorded in the file. Keep this denominator separate from implementation progress.
 - The first 12 entries establish access and shared foundations. Entries 13–34 correspond to the 22 concrete native governance builders in [native-build-order.json](native-build-order.json). The rest are a deterministic provisional inventory, not an approved dependency order.
-- [ScreenManager](../../packages/flutter_core/lib/models/screen_manager.dart) checks explicit registration and presentation contexts. [The shared catalog](../../packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart) combines explicit, workspace, module and generated presentation registrations. Neither authorizes business access.
-- [The governance router](../../apps/primecare_governance/lib/core/governance/route_registry.dart) redirects unauthenticated users, but its authenticated native-route dispatch is not a complete per-route authorization guard. This remains a release blocker, not a task solved by inheritance.
-- [The generator](../../tools/mvc_generator/generate_reviewed_screen.py) produces abstract state/controller/view scaffolding, state tests, skipped E2E starters and a review record. It does not create a working business screen or register a route.
+- [ScreenManager](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/packages/flutter_core/lib/models/screen_manager.dart) checks explicit registration and presentation contexts. [The shared catalog](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart) combines explicit, workspace, module and generated presentation registrations. Neither authorizes business access.
+- [The governance router](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/apps/primecare_governance/lib/core/governance/route_registry.dart) redirects unauthenticated users, but its authenticated native-route dispatch is not a complete per-route authorization guard. This remains a release blocker, not a task solved by inheritance.
+- [The generator](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/tools/mvc_generator/generate_reviewed_screen.py) produces abstract state/controller/view scaffolding, state tests, skipped E2E starters and a review record. It does not create a working business screen or register a route.
 - The source-bound generator verifies a hash and selected-object equality. It does not prove source approval, production parity, current grants or endpoint enforcement. Its nested metadata slots require nonempty objects, not a complete semantic policy schema.
 - No production contract was read for this plan. No local test, app, generator or production workflow was executed. CI evidence for the final documentation commit must be reported separately; historical green runs do not establish current-head readiness.
 
@@ -137,9 +143,9 @@ Build a private matrix of actor × route/action × tenant/owner scope × expecte
 
 This phase is **planned, not performed**.
 
-The existing [production reader workflow](../../.github/workflows/governance-production-reader.yml) has an offline test job and a production job gated to manual dispatch on main with the production environment. Its broad diagnostics are not a narrowly scoped full-screen contract export. Do not dispatch it simply to retrieve Login metadata.
+The existing [production reader workflow](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/.github/workflows/governance-production-reader.yml) has an offline test job and a production job gated to manual dispatch on main with the production environment. Its broad diagnostics are not a narrowly scoped full-screen contract export. Do not dispatch it simply to retrieve Login metadata.
 
-The separate [seven-route diagnostic candidate](../../tools/governance-production/narrow-authority-reader.md) is not invoked by a workflow, does not cover Login/sections/elements/localization, and cannot establish complete screen authority. It still requires independent source review, actual PostgreSQL fixture validation, TLS/driver validation, dependency provenance and trusted execution controls before credentialed use.
+The separate [seven-route diagnostic candidate](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/tools/governance-production/narrow-authority-reader.md) is not invoked by a workflow, does not cover Login/sections/elements/localization, and cannot establish complete screen authority. It still requires independent source review, actual PostgreSQL fixture validation, TLS/driver validation, dependency provenance and trusted execution controls before credentialed use.
 
 Required preparation:
 
@@ -181,7 +187,7 @@ For each async action: capture the relevant session/scope identity, prevent dupl
 
 Use the existing tool; do not re-enable unsafe legacy bulk generation.
 
-1. Prepare a reviewed source-bound request with exactly `version`, `source` and `contract`, following [the generator guide](reviewed-screen-generator.md). The contract includes all eleven slots: businessRequirement, role, screen, sections, elements, apis, permission, theme, localization, tests and documentation.
+1. Prepare a reviewed source-bound request with exactly `version`, `source` and `contract`, following [the generator guide](https://github.com/shaikhrais/primecare-platform/blob/d37dfa7e137d6ec23c7c9b2f084f7c8b809ed501/docs/screen-management/reviewed-screen-generator.md). The contract includes all eleven slots: businessRequirement, role, screen, sections, elements, apis, permission, theme, localization, tests and documentation.
 2. Preview without `--write`; inspect identity, source hash/pointer and output paths. Execute generator/test verification only in GitHub Actions for this work.
 3. Generate into an absent `scratch/screen-scaffolds/<app>/<screenCode>/` directory. No overwrite/force operation. Interrupted output needs explicit review, not automatic deletion.
 4. Review all six artifacts. The controller and view are abstract; the E2E file contains skipped failures, not completed coverage. Preserve `abstract_scaffold_only` and unverified statuses until implementation evidence exists.
