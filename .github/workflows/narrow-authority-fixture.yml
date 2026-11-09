@@ -23,9 +23,10 @@ jobs:
         with:
           python-version: '3.12.16'
       - name: Install fixture driver only
-        run: >-
-          python -m pip install --disable-pip-version-check --require-hashes
-          --only-binary=:all: -r tools/governance-production/narrow-fixture-requirements.txt
+        run: |
+          python -m venv /tmp/narrow-reader-venv
+          /tmp/narrow-reader-venv/bin/python -m pip install --disable-pip-version-check --require-hashes \
+            --only-binary=:all: -r tools/governance-production/narrow-fixture-requirements.txt
       - name: Prepare disposable loopback TLS fixture
         shell: bash
         run: |
@@ -61,12 +62,12 @@ jobs:
       - name: Run offline mock regressions
         run: >-
           env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
-          python tools/governance-production/test-narrow-authority-reader.py
+          /tmp/narrow-reader-venv/bin/python tools/governance-production/test-narrow-authority-reader.py
       - name: Run native PostgreSQL and TLS fixture tests
         run: >-
           env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
           NARROW_READER_ISOLATED_CI=1
-          timeout 240 python tools/governance-production/test-narrow-authority-postgres.py
+          timeout 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-narrow-authority-postgres.py
       - name: Remove disposable fixture
         if: always()
         run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true
