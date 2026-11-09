@@ -218,11 +218,22 @@ fixtures exercise the expected imported representation, not the complete
 export/import pipeline or any production database.
 
 Trust authentication is limited to the disposable container; production
-password authentication and credential privilege are not tested. Actions and
-container tags remain mutable and Python dependencies are version-pinned,
-not hash-locked. Production dependency/source review and trusted ref approval
-remain open. Passing this lane never establishes route authority or release
-readiness.
+password authentication and credential privilege are not tested. An additional
+synthetic NOLOGIN role receives schema USAGE and SELECT on only the twelve
+physical relations (manifest plus eleven logical tables). The fixture verifies
+a successful read, write/DDL refusal independent of transaction read-only, and
+READ_DENIED after a required SELECT privilege is removed. This is not evidence
+about any existing production account.
+
+The fixture now pins checkout/setup-python to the action commit SHAs observed
+in the passing run, Python to 3.12.16 and PostgreSQL to the observed image digest.
+`narrow-fixture-requirements.txt` locks psycopg, psycopg-binary and
+typing-extensions wheel hashes from their official PyPI release-file pages;
+pip requires hashes and binary distributions. The binary wheel lock deliberately
+supports only CPython 3.12 Linux x86_64. These pins detect dependency drift, not
+package vulnerabilities. The GitHub runner OS, system CA and OpenSSL remain
+runner-managed; no claim of a fully immutable or audited runtime is made.
+Passing this lane never establishes route authority or release readiness.
 
 Before a credentialed run, an authorized owner must approve the exact reviewed
 reader bytes and trusted immutable execution ref; the fixed seven-route,
@@ -234,3 +245,37 @@ privileges. Do not add production credentials to this fixture workflow or
 relax the existing candidate controls to make a connection succeed. No current
 approval or fixture result authorizes seeding, changing grants, deployment,
 merging or running the broader production workflow.
+
+## Exact-source review and unresolved production trust boundary
+
+Independent static review of Git blob
+`f41eb82f2fde0faac2654f740b5de81917c83490` found no demonstrated SQL injection
+or deliberate application write path. It does not approve a credentialed run.
+The following must be established independently:
+
+- The manifest authenticates its own structure, not current physical tables,
+  ownership, RLS policies, views or row contents. A view or policy may execute
+  functions; read-only SQL is not an external-side-effect sandbox. Verify the
+  fixed relations are the intended trusted physical schema before use.
+- Provider hostname verification does not establish the intended tenant/account
+  behind a shared pool. Confirm existing credential provenance and exact
+  project/database/schema binding without printing credentials.
+- Environment filtering does not authenticate Python imports, native libraries
+  or CA bytes. Use an approved immutable execution ref, reviewed dependencies,
+  restricted runner and independently verified environment protection.
+- Row/byte limits detect oversized results after allocation. Python signals
+  are not an independent hard deadline while native code is blocked. A future
+  runner must enforce external wall-clock and memory limits in addition to
+  database timeouts; a timeout cannot become a successful receipt.
+
+Repository rulesets inspection returned an empty list on 2026-11-09. The
+connector could not read main branch-protection settings (403 integration
+permission). Neither observation establishes the absence or presence of
+protected environment approval. No protections were changed or bypassed.
+
+The permitted next production action remains a separately approved,
+metadata-only diagnostic using the exact reviewed reader and an existing
+least-privilege credential in an owner-approved protected runner. It must not
+register screens, seed data, change permissions, follow arbitrary schemas,
+publish grant rows or deploy. Approving code publication or these fixture tests
+does not provide the missing execution-control evidence.
