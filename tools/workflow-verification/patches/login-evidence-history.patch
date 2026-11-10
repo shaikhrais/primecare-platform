@@ -1,0 +1,53 @@
+diff --git a/tools/workflow-verification/execution.py b/tools/workflow-verification/execution.py
+index 993c303f..5329efdf 100644
+--- a/tools/workflow-verification/execution.py
++++ b/tools/workflow-verification/execution.py
+@@ -256,7 +256,7 @@ def _verified_proof(flow_id, definition, definition_sha, result, root):
+     return evaluation
+ 
+ 
+-def record_attempt(db, flow_id, result, source_root=ROOT):
++def record_attempt(db, flow_id, result, source_root=ROOT, *, update_current=True):
+     """Record one attempt atomically. Returns attempt ID and live status counts.
+ 
+     Nonverified result keys: status, test_status, scope, next_action,
+@@ -277,6 +277,8 @@ def record_attempt(db, flow_id, result, source_root=ROOT):
+     This preserves original reports and does not promote workflow status. Stale
+     source/spec/evidence invalidates closure until a new focused rerun is saved.
+     """
++    if type(update_current) is not bool:
++        raise ValueError("update_current must be boolean.")
+     prepare(db)
+     root = Path(source_root).resolve()
+     definition, definition_sha = _flow(db, flow_id)
+@@ -357,6 +359,8 @@ def record_attempt(db, flow_id, result, source_root=ROOT):
+         if any(issue_id not in resolves for issue_id in _open_issues(db, flow_id, root)):
+             raise ValueError('Verified requires current focused resolution of every recorded open issue.')
+     gate_result = _verified_proof(flow_id, definition, definition_sha, result, root) if status == 'verified' else None
++    # Historical imports append immutable evidence without replacing a newer
++    # or chronologically unknown current checkpoint/status. No validator is bypassed.
+     # Status is explicit. Recording a narrower later attempt conservatively
+     # downgrades completion while preserving the prior full receipt in history.
+     if not db.in_transaction:
+@@ -378,13 +382,14 @@ def record_attempt(db, flow_id, result, source_root=ROOT):
+                                 for item in evidence])
+         db.executemany('''INSERT INTO virtual_workflow_issue_resolutions(issue_id,attempt_id,resolution_note)
+             VALUES(?,?,?)''', [(issue_id, attempt_id, result['resolution_note']) for issue_id in resolves])
+-        db.execute('''UPDATE virtual_workflow_definitions SET verification_status=?,
+-          test_status=?,blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?''',
+-          (status, result['test_status'], encoded(blockers), flow_id))
+-        db.execute('''INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action)
+-          VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,
+-          next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP''',
+-          (flow_id, attempt_id, result['next_action']))
++        if update_current:
++            db.execute('''UPDATE virtual_workflow_definitions SET verification_status=?,
++              test_status=?,blocker_json=?,updated_at=CURRENT_TIMESTAMP WHERE flow_id=?''',
++              (status, result['test_status'], encoded(blockers), flow_id))
++            db.execute('''INSERT INTO virtual_workflow_checkpoints(flow_id,attempt_id,next_action)
++              VALUES(?,?,?) ON CONFLICT(flow_id) DO UPDATE SET attempt_id=excluded.attempt_id,
++              next_action=excluded.next_action,invalidation_json='[]',updated_at=CURRENT_TIMESTAMP''',
++              (flow_id, attempt_id, result['next_action']))
+         db.execute('RELEASE workflow_attempt')
+     except Exception:
+         db.execute('ROLLBACK TO workflow_attempt')

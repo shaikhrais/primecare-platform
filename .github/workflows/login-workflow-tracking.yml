@@ -1,0 +1,104 @@
+name: Prepare login workflow tracking evidence
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/workflow-verification/execution.py'
+      - 'tools/workflow-verification/production_store.py'
+      - 'tools/workflow-verification/*login*evidence.py'
+      - 'tools/workflow-verification/patches/login-evidence-history.patch'
+      - '.github/workflows/login-workflow-tracking.yml'
+  workflow_run:
+    workflows: ['Verify login session replacement regression']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      run_id:
+        description: 'Original login-session race GitHub run ID'
+        required: true
+        default: '42803664362'
+      run_attempt:
+        description: 'Original run attempt (0 means latest)'
+        required: true
+        default: '1'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: workflow
+          POSTGRES_PASSWORD: isolated-integration-only
+          POSTGRES_DB: workflow_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U workflow" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      WORKFLOW_TEST_DATABASE_URL: postgresql://workflow:isolated-integration-only@localhost:5432/workflow_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install isolated test dependencies
+        run: |
+          pip install -r tools/governance-production/requirements.txt PyYAML==6.0.2
+          npm install --prefix /tmp/login-tracking-test-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/login-tracking-test-tools/node_modules node_modules
+      - name: Apply pending history-only API patch in disposable test checkout
+        run: |
+          git apply --check tools/workflow-verification/patches/login-evidence-history.patch
+          git apply tools/workflow-verification/patches/login-evidence-history.patch
+          sha256sum tools/workflow-verification/patches/login-evidence-history.patch tools/workflow-verification/execution.py
+      - name: Validate unchanged gates and native metadata safeguards
+        run: |
+          python tools/workflow-verification/test_execution.py
+          python tools/workflow-verification/test_gates.py
+          python tools/workflow-verification/test_production_store.py
+          python tools/workflow-verification/test_login_evidence.py
+          python tools/workflow-verification/test_collect_login_evidence.py
+          if test -f tools/workflow-verification/test_audit_production.py; then python tools/workflow-verification/test_audit_production.py; fi
+          python tools/governance-production/test-production-reader.py
+  collect:
+    needs: tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install PyYAML==6.0.2
+      - name: Collect original run evidence without production credentials
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SOURCE_RUN_ID: ${{ github.event.workflow_run.id || inputs.run_id || '42803664362' }}
+          SOURCE_RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt || inputs.run_attempt || '1' }}
+        run: |
+          python tools/workflow-verification/collect_login_evidence.py --run-id "$SOURCE_RUN_ID" --run-attempt "$SOURCE_RUN_ATTEMPT"
+      - name: Preserve validated input for the existing protected metadata writer
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: login-tracking-input-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results/login-tracking
+          retention-days: 90
+          if-no-files-found: error
+      - name: Report exact persistence gate
+        run: |
+          echo 'Evidence collected and preserved. Production persistence is not enabled by this secret-free workflow.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Use the existing protected production metadata writer only after its specific integration is authorized. No attempt/checkpoint save is claimed here.' >> "$GITHUB_STEP_SUMMARY"
