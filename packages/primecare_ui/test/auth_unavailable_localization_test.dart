@@ -36,10 +36,9 @@ void main() {
   });
 
   for (final language in messages.keys) {
-    testWidgets('unavailable MFA and reset show $language text and keep success false', (tester) async {
+    testWidgets('reset shows $language text and challenge-free MFA stays inactive', (tester) async {
       await tester.pumpWidget(ProviderScope(child: localized(Scaffold(
         body: Consumer(builder: (context, ref, _) => Column(children: [
-          Text(ref.watch(mfaControllerProvider).errorMessage ?? ''),
           Text(ref.watch(resetPasswordControllerProvider).errorMessage ?? ''),
         ])),
       ), language: language)));
@@ -56,9 +55,13 @@ void main() {
       reset.onConfirmPasswordChanged('synthetic-fixture-only');
       await reset.submit();
       await tester.pumpAndSettle();
-      expect(container.read(mfaControllerProvider).isVerified, isFalse);
+      final mfaState = container.read(mfaControllerProvider);
+      expect(mfaState.pending, isFalse);
+      expect(mfaState.code, isEmpty);
+      expect(mfaState.isLoading, isFalse);
+      expect(mfaState.failed, isFalse);
       expect(container.read(resetPasswordControllerProvider).isSuccess, isFalse);
-      expect(find.text(messages[language]!), findsNWidgets(2));
+      expect(find.text(messages[language]!), findsOneWidget);
       expect(find.text('auth_flow_unavailable'), findsNothing);
       expect(tester.takeException(), isNull);
     });

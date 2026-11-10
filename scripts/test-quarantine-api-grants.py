@@ -88,4 +88,36 @@ class QuarantineTest(unittest.TestCase):
             source.write_text(source.read_text()+'\n// unreviewed drift')
             with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
 
+class ProductionConsumerReviewTest(unittest.TestCase):
+    def test_current_reviewed_consumers_and_each_source_drift(self):
+        import tempfile,shutil
+        repository=Path(__file__).resolve().parents[1]
+        review_path=Path('docs/business/evidence/communication-runtime-reader-review.json')
+        reviews=json.loads((repository/review_path).read_text())
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            (root/review_path).parent.mkdir(parents=True)
+            (root/review_path).write_text(json.dumps(reviews))
+            for relative in reviews:
+                target=root/relative;target.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(repository/relative,target)
+            self.assertEqual(set(m.consumer_preflight(root)['runtimeReferences']),set(reviews))
+            for relative in reviews:
+                target=root/relative;original=target.read_bytes()
+                target.write_bytes(original+b'\n// unreviewed source change')
+                with self.subTest(source=relative):
+                    with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+                target.write_bytes(original)
+
+    def test_unknown_consumer_cannot_self_register_a_matching_hash(self):
+        import tempfile,hashlib
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);relative='services/unknown.ts';source=root/relative
+            source.parent.mkdir(parents=True);source.write_text('SELECT * FROM api_permissions')
+            review=root/'docs/business/evidence/communication-runtime-reader-review.json'
+            review.parent.mkdir(parents=True)
+            review.write_text(json.dumps({relative:{'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+                'authority':'pinned-production-postgresql','historicalCatalogAccess':False}}))
+            with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+
 if __name__=='__main__':unittest.main()

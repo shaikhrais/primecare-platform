@@ -60,8 +60,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     await renderInternalCalls(root,gateway,{userId:data.identity.userId,role:data.identity.role,home:data.landing??'/',navigation:data.screens.map(s=>`<a href="${escapeHtml(routeUrl(s.route))}">${escapeHtml(s.name)}</a>`).join('')});return;
   }
   const reportPanels=new Map<string,HTMLElement>();
-  if(data.identity.role==='tenant_admin'&&location.pathname!=='/success'){location.assign(routeUrl('/tenant-dashboard'));return;}
-  if(['code_admin','central_admin','platform_admin'].includes(data.identity.role)&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
+  if(data.identity.role==='tenant_admin'&&['/','/dashboard'].includes(location.pathname)){location.assign(routeUrl('/tenant-dashboard'));return;}
+  if(['code_admin','central_admin','platform_admin'].includes(data.identity.role)&&['/','/dashboard'].includes(location.pathname)){location.assign(routeUrl('/platform/administration'));return;}
   if(['/','/dashboard'].includes(location.pathname)&&[careRegistry.route,growthRegistry.route].includes(data.landing)&&data.screens.some(s=>s.route===data.landing)){location.assign(routeUrl(data.landing));return;}
   const live=liveScreenText(gateway);let dirtyForm=false;root.addEventListener('input',()=>dirtyForm=true);
   let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;

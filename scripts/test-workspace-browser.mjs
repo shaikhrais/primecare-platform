@@ -12,11 +12,12 @@ const output=await build({entryPoints:['websites/typescript/src/workspace.ts'],b
 const bundlePath=join(await mkdtemp(join(tmpdir(),'workspace-browser-test-')),'workspace.mjs');await writeFile(bundlePath,output.outputFiles[0].text);
 const {renderWorkspace,inventoryCsv,loadWorkspace}=await import(pathToFileURL(bundlePath).href);
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
+const adminEntryRoutes=JSON.parse(await readFile('packages/shared/src/admin-entry-routes.json','utf8'));
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
  // JSDOM has no media-query engine; these DOM tests use its desktop viewport.
  dom.window.matchMedia=media=>({media,matches:false});
- for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node'])globalThis[key]=dom.window[key];
+ for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','Element','Node','MutationObserver','AbortController','AbortSignal'])globalThis[key]=dom.window[key];
  globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
  globalThis.sessionStorage.setItem('primecare_session','fixture-token');
  const screens=registry.screens.filter(s=>s.renderer!=='account'&&s.grants.some(g=>g.role===role&&g.view));
@@ -87,14 +88,14 @@ test('all active role landings resolve to their own authorized governed page',as
  for(const role of Object.keys(registry.landings)) {
   const {dom,root,data}=browser(role);
   const landing=registry.landings[role];
-  const dedicatedAdmin=['code_admin','central_admin','tenant_admin','platform_admin'].includes(role);
+  const dedicatedAdmin=Object.hasOwn(adminEntryRoutes,role);
   if(['/care','/growth'].includes(landing)||dedicatedAdmin) {
    assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
    const navigations=[];
    globalThis.location={pathname:'/',search:dom.window.location.search,assign:href=>navigations.push(new URL(href,dom.window.location.href))};
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
-   assert.equal(navigations[0].pathname,dedicatedAdmin?'/platform/administration':landing,role);
+   assert.equal(navigations[0].pathname,dedicatedAdmin?adminEntryRoutes[role]:landing,role);
    assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   } else {
@@ -104,6 +105,22 @@ test('all active role landings resolve to their own authorized governed page',as
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   }
   dom.window.close();
+ }
+});
+
+test('admin deep links retain registered page access and reject ungranted routes',async()=>{
+ for(const role of ['central_admin','platform_admin','tenant_admin']){
+  const {dom,root,data}=browser(role);
+  try{
+   const page=data.screens.find(s=>s.renderer!=='account'&&!Object.values(adminEntryRoutes).includes(s.route));
+   assert.ok(page,'registered shared page for '+role);
+   history.replaceState({},'',page.route+'?enable-semantics=true');
+   await renderWorkspace(root,'https://gateway.test');
+   assert.ok(root.querySelector(`[data-cy="screen-${page.code}"]`),role+' direct page');
+   history.pushState({},'','/ungranted-test-route?enable-semantics=true');window.onpopstate();
+   assert.ok(root.querySelector('[data-cy="error-state"]'),role+' denied route');
+   assert.equal(root.querySelector('[data-cy="workspace-overview"]'),null);
+  }finally{dom.window.close();}
  }
 });
 
