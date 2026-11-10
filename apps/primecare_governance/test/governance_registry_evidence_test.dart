@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
 import 'package:primecare_governance/core/governance/registries/invalid_registry_placeholders.dart';
-import 'package:primecare_ui/primecare_ui.dart' as ui;
+import 'package:primecare_ui/src/registry/screen_registry.dart' as ui;
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 
 void main() {
