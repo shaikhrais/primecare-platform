@@ -10,6 +10,7 @@ import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/training/admin_training_progress.dart';
 import 'package:primecare_ui/src/features/training/admin_training_screen.dart';
 import 'package:primecare_ui/src/features/training/admin_training_launcher.dart';
+import 'package:primecare_ui/src/features/training/getting_started_guide.dart';
 import 'package:primecare_ui/src/features/training/localization/admin_training_catalog_generated.dart';
 import 'package:primecare_ui/src/features/reports/report_pdf_exporter.dart';
 import 'auth_design_test.dart' show localized;
@@ -109,7 +110,8 @@ void main() {
   testWidgets('verified account opens training; switching account hides old progress', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
     await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(const Scaffold(body:AdminTrainingLauncher()))));await tester.pumpAndSettle();
-    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();expect(find.byType(GettingStartedGuide),findsOneWidget);
+    final detailed=find.text('Detailed training and self-assessment');await tester.ensureVisible(detailed);await tester.tap(detailed);await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount('learner-b');await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-submit')),findsNothing);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount(null);await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-export')),findsNothing);
   });
