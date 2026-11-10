@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart' as registry;
+import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 
@@ -91,6 +92,13 @@ void main() {
     api.data = {...projection(), 'screens': [], 'inventory': [{'route': path}]};
     for (final target in governanceNativeScreenRoutes) {
       expect(await redirect(target), CommonRoutes.authError, reason: target);
+    }
+    for (final record in CoreGovernanceRegistry.unresolvedMetadata.values) {
+      final invented = '/reconciled/${record.id.toLowerCase()}';
+      expect(shell.routes.whereType<GoRoute>().any((route) => route.path == invented), isFalse);
+      api.data = {...projection(), 'screens': [{'route': invented}]};
+      expect(await redirect(invented), CommonRoutes.authError,
+        reason: 'A server response cannot create an executable route for unresolved metadata');
     }
     api.data = projection();
     final pending = api.pending = Completer<ApiResponse>();

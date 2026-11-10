@@ -8,7 +8,15 @@ void main() {
     CoreGovernanceRegistry.registerScreens();
     expect(CoreGovernanceRegistry.screens.values.any(
       (screen) => !screen.isRenderOk || screen.testPassRate < 100), isTrue);
+    expect({...PlatformScreenRegistry.screens.keys,
+      ...CoreGovernanceRegistry.unresolvedMetadata.keys},
+      CoreGovernanceRegistry.screens.keys.toSet(), reason: 'No source records are discarded');
     for (final source in CoreGovernanceRegistry.screens.values) {
+      if (CoreGovernanceRegistry.unresolvedMetadata.containsKey(source.id)) {
+        expect(PlatformScreenRegistry.getById(source.id), isNull);
+        expect(CoreGovernanceRegistry.unresolvedMetadata[source.id]!.toJson(), source.toJson());
+        continue;
+      }
       final expected = source.routePath.isEmpty
           ? source.copyWith(route: '/reconciled/${source.id.toLowerCase()}') : source;
       expect(PlatformScreenRegistry.getById(source.id)!.toJson(), expected.toJson(),
@@ -33,4 +41,33 @@ void main() {
     expect(actual.isAccessibilityVerified, isFalse);
     expect(actual.lastVerificationHash, 'HASH_PENDING');
   });
+
+  test('blank records remain auditable and never acquire routes or administrator access', () {
+    PlatformScreenRegistry.clearRegistry();
+    const unresolved = ScreenMetadata(id: 'FIXTURE_UNRESOLVED', title: '');
+    PlatformScreenRegistry.registerScreens([unresolved]);
+    CoreGovernanceRegistry.registerScreens();
+    expect(PlatformScreenRegistry.getById(unresolved.id), isNull);
+    final retained = CoreGovernanceRegistry.unresolvedMetadata[unresolved.id]!;
+    expect(retained.toJson(), unresolved.toJson());
+    expect(retained.routePath, isEmpty);
+    expect(retained.allowedRoles, isEmpty);
+    expect(retained.lastVerificationHash, 'HASH_PENDING');
+    expect(() => CoreGovernanceRegistry.unresolvedMetadata.clear(), throwsUnsupportedError);
+  });
+
+
+  test('previous fabricated routes and administrator roles cannot revive an unresolved source record', () {
+    PlatformScreenRegistry.clearRegistry();
+    final unresolved = CoreGovernanceRegistry.screens.values.firstWhere((screen) =>
+      screen.title.isEmpty && screen.featureName.isEmpty && screen.routePath.isEmpty &&
+      screen.allowedRoles.isEmpty);
+    PlatformScreenRegistry.registerScreens([
+      unresolved.copyWith(route: '/invented-fixture', roles: ['ADMIN'], testPassRate: 100),
+    ]);
+    CoreGovernanceRegistry.registerScreens();
+    expect(PlatformScreenRegistry.getById(unresolved.id), isNull);
+    expect(CoreGovernanceRegistry.unresolvedMetadata[unresolved.id]!.toJson(), unresolved.toJson());
+  });
+
 }

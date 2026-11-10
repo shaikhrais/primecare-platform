@@ -3,8 +3,36 @@
 import 'package:flutter_core/flutter_core.dart';
 
 class CoreGovernanceRegistry {
+  static final Map<String, ScreenMetadata> _unresolvedMetadata = {};
+
+  /// Retained for audit/reconciliation; these records cannot become routes.
+  static Map<String, ScreenMetadata> get unresolvedMetadata =>
+      Map.unmodifiable(_unresolvedMetadata);
+
+  static bool _isUnroutableMetadata(ScreenMetadata screen) =>
+      screen.title.trim().isEmpty && screen.featureName.trim().isEmpty &&
+      screen.routePath.trim().isEmpty && screen.allowedRoles.isEmpty;
+
   static void registerScreens() {
-    PlatformScreenRegistry.registerScreens(screens.values.toList());
+    _unresolvedMetadata.clear();
+    for (final record in screens.values) {
+      if (_isUnroutableMetadata(record)) {
+        _unresolvedMetadata[record.id] = record;
+      } else {
+        PlatformScreenRegistry.registerScreens([record]);
+      }
+    }
+    for (final id in _unresolvedMetadata.keys) {
+      PlatformScreenRegistry.screens.remove(id);
+    }
+    // The shared registry also starts with legacy metadata. Preserve invalid
+    // records for audit instead of inventing routes or administrator grants.
+    for (final record in PlatformScreenRegistry.allScreens) {
+      if (_isUnroutableMetadata(record)) {
+        _unresolvedMetadata[record.id] = record;
+        PlatformScreenRegistry.screens.remove(record.id);
+      }
+    }
     normalizeRegistryRoutes();
   }
 

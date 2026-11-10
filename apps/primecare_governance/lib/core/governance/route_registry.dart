@@ -47,16 +47,7 @@ const governanceNativeScreenRoutes = <String>{
 // catalogs. Keep this explicit: newly loaded metadata must not register itself.
 // These entries preserve rendering only; they do not supply role/API grants.
 const governanceRegistryScreenRoutes = <String>{
-  '/reconciled/screen_ceo_dashboard_labels',
-  '/reconciled/screen_cfo_dashboard_labels',
-  '/reconciled/screen_clinical_director_labels',
-  '/reconciled/screen_clinical_labels',
-  '/reconciled/screen_command_center_labels',
   '/reconciled/screen_common_dashboard_labels',
-  '/reconciled/screen_cto_dashboard_labels',
-  '/reconciled/screen_marketing_dashboard_labels',
-  '/reconciled/screen_regional_manager_labels',
-  '/reconciled/screen_support_dashboard_labels',
   '/roles/customer_support/dashboard',
   '/roles/family_member/dashboard',
   '/roles/guest/dashboard',

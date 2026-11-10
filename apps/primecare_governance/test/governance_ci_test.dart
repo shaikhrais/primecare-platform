@@ -23,6 +23,12 @@ void main() {
         'source': 'checked-in registry metadata; not a production database audit',
         'commit': Platform.environment['GITHUB_SHA'],
         'totalScreens': report.totalScreens,
+        'catalogRecordCount': report.totalScreens + CoreGovernanceRegistry.unresolvedMetadata.length,
+        'unresolvedMetadataCount': CoreGovernanceRegistry.unresolvedMetadata.length,
+        'unresolvedMetadata': [for (final record in CoreGovernanceRegistry.unresolvedMetadata.values) {
+          'screenId': record.id, 'reason': 'Missing title, feature, route and role metadata',
+          'nextAction': 'Reconcile authoritative metadata before enabling a route; do not guess grants',
+        }],
         'productionReadyScreens': report.productionReadyScreens,
         'blockedScreens': report.blockedScreens,
         'healthScore': report.overallHealthScore,
@@ -39,6 +45,11 @@ void main() {
           'nextAction': issue.suggestion,
         }],
       }));
+    });
+
+    test('No Unresolved Registry Metadata', () {
+      expect(CoreGovernanceRegistry.unresolvedMetadata, isEmpty,
+        reason: 'Quarantined metadata must be reconciled before release; see the readiness artifact.');
     });
 
     test('Zero Critical Issues', () {
