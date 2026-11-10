@@ -181,6 +181,19 @@ class RecoveryGovernance(unittest.TestCase):
         self.run_registrar('--check', success=False)
         self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(), database_before)
         self.assertEqual(self.output.read_bytes(), output_before)
+    def test_fixture_check_compares_contract_without_claiming_production_authority(self):
+        self.run_registrar()
+        policy = json.loads(self.output.read_text())
+        policy['authority'] = {'source': 'synthetic-production-provenance-only'}
+        self.output.write_text(json.dumps(policy))
+        before = self.dump()
+        self.run_registrar('--check')
+        self.assertEqual(self.dump(), before)
+        self.assertEqual(json.loads(self.output.read_text()), policy)
+        policy['routes']['login'] = '/unreviewed-login'
+        self.output.write_text(json.dumps(policy))
+        self.run_registrar('--check', success=False)
+        self.assertEqual(self.dump(), before)
 
     def test_previous_web_registration_is_reconciled_without_removing_native_sections(self):
         native_sections = {}

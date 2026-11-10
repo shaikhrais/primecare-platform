@@ -10,7 +10,9 @@
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
     "activation": false,
-    "nativeTest": "scripts/test-communication-endpoint-policy.mjs"
+    "nativeTest": "scripts/test-communication-endpoint-policy.mjs",
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "cloudflare/workers/src/account-preferences.ts": {
     "sha256": "78d84679eb24a90cd30cf3839438816c5ecebea069c0f857d34f44d7a2ddd140",
@@ -24,7 +26,9 @@
       "Feature flag and implemented-unverified marker are both required; production activation remains disabled"
     ],
     "nativeTest": "scripts/test-preference-service.mjs",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "cloudflare/workers/src/vapi-administration-policy.ts": {
     "sha256": "0017c1e549c987557ca08ab1b2693b84c3de963c543825fd03d991d143e33d7f",
@@ -35,7 +39,9 @@
       "Query builder relies on caller for authenticated session, pinned manifest validation and unique-result enforcement; no historical catalog access"
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "cloudflare/workers/src/look/access.ts": {
     "sha256": "7e3e433e56d3db4ea478d6dc439541a53f6ac0ace677822c0fbf72ea642b1a25",
@@ -47,7 +53,9 @@
       "Privileged global review visibility is intentional caller-level scope, not tenant isolation certified by this review"
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "packages/database/migrations/20261025_internal_call_context.sql": {
     "sha256": "5e5fc628eca2617091e2ae16570e891b37c8f2973f40011f43fa52fd4488436c",
@@ -59,7 +67,9 @@
       "Installation requires the authorized runner to validate manifest, generated source and function ACL; quarantine admission does not authorize installation"
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "packages/database/migrations/20261025_internal_call_permission_indexes.sql": {
     "sha256": "60631596bca9749dccd3245ac84315633b48e773dbabcb4b9be420d234ee6160",
@@ -70,7 +80,9 @@
       "DDL has no embedded manifest check; authorized runner must enforce target/source/manifest and execution privileges; statements require execution outside a transaction"
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   },
   "packages/shared/src/communications/internal-call-context-query.mjs": {
     "sha256": "1eb79fb10dd74bb9b38de3059f18910338d8482a11a2bdbca1a11b7a6b81aeba",
@@ -81,6 +93,8 @@
       "Caller must validate returned identity, grants and manifest before using context; no independent connection or session transport authority"
     ],
     "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
-    "activation": false
+    "activation": false,
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   }
 }

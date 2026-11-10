@@ -49,6 +49,7 @@ await context.route('**/*',async route=>{assert.equal(new URL(route.request().ur
 await context.addInitScript(()=>{
  const install=()=>{if(document.getElementById('test-caption'))return;const b=document.createElement('div');b.id='test-caption';b.style.cssText='position:fixed;bottom:0;left:0;right:0;z-index:99999;padding:18px 26px;background:#102b46;color:white;font:18px Arial;box-shadow:0 -2px 6px #999';b.textContent=sessionStorage.getItem('test_caption')||'PrimeCare ADMIN | ISOLATED TEST WEBSITE | Synthetic data only';document.body.append(b);};new MutationObserver(install).observe(document,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',install);
 });
+async function openWorkspaceUtilities(){const menu=page.locator('[data-cy=shell-utilities]');if(!await menu.evaluate(e=>e.open))await menu.locator(':scope > summary').click();}
 async function caption(message){await page.evaluate(m=>{sessionStorage.setItem('test_caption',m);const b=document.getElementById('test-caption');if(b)b.textContent=m;},message);}
 async function step(task,instruction,work,status='PASS'){
  const id=++stepNumber;await caption(`${id}. ${task} | ${instruction} | TEST DATA ONLY`);const start=new Date().toISOString();

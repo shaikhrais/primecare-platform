@@ -11,6 +11,7 @@ import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/training/admin_training_progress.dart';
 import 'package:primecare_ui/src/features/training/admin_training_screen.dart';
 import 'package:primecare_ui/src/features/training/admin_training_launcher.dart';
+import 'package:primecare_ui/src/features/training/getting_started_guide.dart';
 import 'package:primecare_ui/src/features/training/localization/admin_training_catalog_generated.dart';
 import 'package:primecare_ui/src/features/reports/report_pdf_exporter.dart';
 import 'auth_design_test.dart' show localized;

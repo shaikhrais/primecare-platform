@@ -1,0 +1,116 @@
+# Baseline job success means defect reproduction, not acceptance.
+# No production credentials, deployment or tracking writes.
+name: Verify login session replacement regression
+'on':
+  workflow_dispatch: null
+  pull_request:
+    paths:
+    - websites/typescript/src/auth-screen.ts
+    - scripts/test-login-session-ownership.mjs
+    - .github/workflows/verify-login-session-race.yml
+    - tools/workflow-verification/patches/login-session-race.patch
+  push:
+    branches:
+    - main
+    paths:
+    - websites/typescript/src/auth-screen.ts
+    - scripts/test-login-session-ownership.mjs
+    - .github/workflows/verify-login-session-race.yml
+    - tools/workflow-verification/patches/login-session-race.patch
+permissions:
+  contents: read
+jobs:
+  login-race:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+        - label: main-baseline
+          source: efbef42cb06b85688fe8a11fb03bc73617004771
+          baseline: '1'
+        - label: unmerged-candidate
+          source: ${{ github.event.pull_request.head.sha || github.sha }}
+          baseline: '0'
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports:
+        - 5432:5432
+        options: --health-cmd "pg_isready -U primecare -d login_browser" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        path: verification
+        persist-credentials: false
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ matrix.source }}
+        path: runtime
+        persist-credentials: false
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '24'
+    - name: Apply common regression probe to pinned runtime source
+      run: |
+        set -euo pipefail
+        test "$(git -C runtime rev-parse HEAD)" = "${{ matrix.source }}"
+        cp verification/scripts/test-auth-password-workflow.mjs runtime/scripts/test-auth-password-workflow.mjs
+        (cd runtime && git apply --check ../verification/tools/workflow-verification/patches/login-session-race.patch && git apply ../verification/tools/workflow-verification/patches/login-session-race.patch)
+        node --check runtime/scripts/test-auth-password-workflow.mjs
+        sha256sum runtime/scripts/test-auth-password-workflow.mjs
+    - name: Install isolated browser and database dependencies
+      working-directory: runtime
+      run: |
+        npm install --prefix "$RUNNER_TEMP/login-race-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 axe-core@4.10.3 @twilio/voice-sdk@2.18.5 jsdom@26
+        ln -s "$RUNNER_TEMP/login-race-tools/node_modules" node_modules
+        node_modules/.bin/playwright install --with-deps chromium
+    - name: Verify candidate session ownership and authentication transport
+      if: matrix.baseline == '0'
+      working-directory: runtime
+      run: node --test scripts/test-login-session-ownership.mjs scripts/test-auth-client.mjs
+    - name: Use explicit isolated metadata fixture without production credentials
+      run: |
+        mkdir -p test-results/auth-password
+        node --input-type=module <<'JS'
+        import {writeFile} from 'node:fs/promises';
+        import {createHash} from 'node:crypto';
+        const url='https://primecare-clinic.pages.dev/portal.json?enable-semantics=true';
+        const response=await fetch(url,{signal:AbortSignal.timeout(30000)});
+        if(!response.ok)throw Error('Deployed theme unavailable: '+response.status);
+        const portal=await response.json(),rawTheme=portal.theme;
+        if(!rawTheme||typeof rawTheme!=='object'||Array.isArray(rawTheme))throw Error('Invalid deployed theme object');
+        const theme=Object.fromEntries(Object.entries(rawTheme).filter(([k,v])=>k.startsWith('--')&&typeof v==='string'&&v.trim()));
+        console.log('DEPLOYED_THEME_SUMMARY '+JSON.stringify({project:portal.project,total:Object.keys(rawTheme).length,cssVariables:Object.keys(theme).length,ignoredKeys:Object.keys(rawTheme).filter(k=>!Object.hasOwn(theme,k))}));
+        if(Object.keys(theme).length<10)throw Error('Insufficient deployed CSS theme variables');
+        for(const key of ['--spacing-sm','--spacing-md','--spacing-xl','--font-size-body','--color-primary','--color-surface'])if(!theme[key])throw Error('Missing deployed theme token: '+key);
+        const fixture={fixture_only:true,flows:[],theme};
+        fixture.theme_evidence={url,sha256:createHash('sha256').update(JSON.stringify(theme)).digest('hex'),portal_project:portal.project};
+        await writeFile('test-results/auth-password/governance.json',JSON.stringify(fixture,null,2));
+        JS
+      working-directory: runtime
+    - name: Exercise actual login screen and native PostgreSQL race
+      working-directory: runtime
+      env:
+        LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        AUTH_PASSWORD_TEST_FIXTURE: '1'
+        AUTH_PASSWORD_BROWSER: chromium
+        AUTH_LOGIN_LIFECYCLE: '1'
+        AUTH_LOGIN_LIFECYCLE_ONLY: '1'
+        AUTH_LOGIN_RACE_BASELINE: ${{ matrix.baseline }}
+        VERIFICATION_SOURCE_SHA: ${{ matrix.source }}
+        VERIFICATION_TEST_SHA: ${{ github.sha }}
+      run: node scripts/test-auth-password-workflow.mjs
+    - name: Preserve baseline failures and candidate results separately
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: login-session-race-${{ matrix.label }}-attempt-${{ github.run_attempt }}
+        path: runtime/test-results/auth-password
+        if-no-files-found: error
+        retention-days: 30

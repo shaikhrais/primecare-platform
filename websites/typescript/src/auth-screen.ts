@@ -29,7 +29,9 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
     }
     return fetch(input, init);
   };
-  const route = location.pathname + location.search, startingSession = sessionStorage.getItem('primecare_session');
+  const route = location.pathname + location.search;
+  let startingSession: string | null = null, initialStorageUnavailable = false;
+  try {startingSession = sessionStorage.getItem('primecare_session');} catch {initialStorageUnavailable = true; /* Submit reports unavailable storage before exchanging credentials. */}
   const events = root.ownerDocument.defaultView ?? window, lifetime = new AbortController();
   let loginForm: HTMLFormElement | undefined;
   let alive = true, suspended = false, stop = () => {}, nodes: Node[] = [], observer: MutationObserver | undefined;
@@ -53,7 +55,7 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
   function current() {
     if (suspended || !owned()) return false;
     let sameSession = false;
-    try {sameSession = sessionStorage.getItem('primecare_session') === startingSession;} catch {}
+    try {sameSession = sessionStorage.getItem('primecare_session') === startingSession;} catch {return initialStorageUnavailable && owned();}
     if (location.pathname + location.search !== route || !sameSession) {dispose(); root.replaceChildren(); return false;}
     try {manager.enter(entry.id, entry.route);} catch (error) {if (owned()) {dispose(); showScreenConfigurationError(root, error);} return false;}
     return owned();
@@ -110,6 +112,8 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
     const fields = new FormData(form);
     let provisionalToken: string | null = null, committed = false;
     try {
+      sessionStorage.getItem('primecare_session');
+      initialStorageUnavailable = false;
       const confirmed = await authenticate(gateway, String(fields.get('email') || ''), String(fields.get('password') || ''),send,async challenge => {
         await wait(); if (!current()) throw Error('Retired authentication');
         form.reset(); form.hidden = true;

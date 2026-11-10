@@ -1,0 +1,145 @@
+diff --git a/scripts/test-auth-password-workflow.mjs b/scripts/test-auth-password-workflow.mjs
+index 126d80f3d..61bc9d134 100644
+--- a/scripts/test-auth-password-workflow.mjs
++++ b/scripts/test-auth-password-workflow.mjs
+@@ -6,14 +6,24 @@ import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {create
+ const browserName=process.env.AUTH_PASSWORD_BROWSER||'chromium';
+ const browserType={chromium,firefox,webkit}[browserName];
+ if(!browserType)throw Error('Unsupported auth password browser');
++const lifecycleOnly=process.env.AUTH_LOGIN_LIFECYCLE_ONLY==='1';
++if(lifecycleOnly&&process.env.AUTH_LOGIN_LIFECYCLE!=='1')throw Error('Lifecycle-only mode requires AUTH_LOGIN_LIFECYCLE=1');
+ const out=process.env.AUTH_PASSWORD_BASELINE==='1'?'test-results/auth-password-baseline':'test-results/auth-password';await mkdir(out,{recursive:true});
+ if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in browser fixture');
+ const connection=process.env.LOGIN_BROWSER_DATABASE_URL,url=new URL(connection);if(!['localhost','127.0.0.1'].includes(url.hostname)||url.pathname!='/login_browser')throw Error('Loopback login_browser database required');
+ const db=new pg.Client({connectionString:connection});await db.connect();const schema='login_'+randomUUID().replaceAll('-','');await db.query('CREATE SCHEMA '+schema);await db.query('SET search_path TO '+schema);url.searchParams.set('options','-c search_path='+schema);
+ const dir=await mkdtemp(join(tmpdir(),'primecare-login-main-')),require=createRequire(import.meta.url),digest=v=>createHash('sha256').update(v).digest('hex');
+-const receipt={workflow_id:'auth.change-password',passed:false,wholeTaskVerified:false,scope:'scoped',browser:browserName,commit:process.env.VERIFICATION_SOURCE_SHA??process.env.GITHUB_SHA,workflow_run_sha:process.env.GITHUB_SHA,started_at:new Date().toISOString(),cases:[],recoveryCases:[],recoveryAccessibility:[],accessibility:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},failures:[],limitations:['Isolated native PostgreSQL and actual main/gateway/service; not deployed edge execution.','Current production definition is bound; source/specification reconciliation and independent reviews remain required.','This receipt covers only the named desktop browser engine; native OS, mobile Safari and PWA acceptance remain unverified.']};
++const receipt={workflow_id:lifecycleOnly?'auth.credential-login':'auth.change-password',passed:false,wholeTaskVerified:false,scope:'scoped',browser:browserName,commit:process.env.VERIFICATION_SOURCE_SHA??process.env.GITHUB_SHA,workflow_run_sha:process.env.GITHUB_SHA,started_at:new Date().toISOString(),cases:[],recoveryCases:[],recoveryAccessibility:[],accessibility:[],apiChecks:[],trace:[],navigation:[],source_bindings:{},failures:[],limitations:['Isolated native PostgreSQL and actual main/gateway/service; not deployed edge execution.','Current production definition is bound; source/specification reconciliation and independent reviews remain required.','This receipt covers only the named desktop browser engine; native OS, mobile Safari and PWA acceptance remain unverified.']};
+ let server,browser,bridgeFailure;const password='Synthetic-only!Login-2026',actor=randomUUID(),tenant=randomUUID(),foreign=randomUUID(),admin=randomUUID(),denied=randomUUID();
+-const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));const definition=policy.flows.find(r=>r.flow_id===receipt.workflow_id);assert.ok(definition);receipt.definition_sha256=definition.definition_sha256;receipt.theme_evidence=policy.theme_evidence;
++const policy=JSON.parse(await readFile(out+'/governance.json','utf8'));if(lifecycleOnly){
++ receipt.definition_sha256=null;
++ receipt.definition_binding_status='pending-live-catalog-reconciliation';
++ receipt.limitations[1]='Credential-login live catalog definition reconciliation and independent reviews remain pending; the fixture supplies theme only.';
++}else{
++ const definition=policy.flows.find(r=>r.flow_id===receipt.workflow_id);assert.ok(definition);receipt.definition_sha256=definition.definition_sha256;
++}
++receipt.theme_evidence=policy.theme_evidence;
++receipt.harness_sha256=digest(await readFile('scripts/test-auth-password-workflow.mjs'));
+ assert.ok(Object.keys(policy.theme||{}).length>=10,'Representative governed theme required for browser layout and accessibility');
+ if(policy.fixture_only){assert.equal(process.env.AUTH_PASSWORD_TEST_FIXTURE,'1');receipt.limitations.push('Explicit isolated metadata fixture, not a live production authority read.');}
+ try{
+@@ -24,7 +34,7 @@ try{
+  const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
+  const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
+  const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
+- const paths=[...Object.entries(front.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),...Object.entries(back.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),'websites/typescript/src/styles.css',...['20260926_auth_sessions.sql','20260928_auth_rate_limits.sql','20260928_auth_password_audit.sql','20261003_auth_password_resets.sql','20261003_maintenance_configuration.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
++ const paths=[...Object.entries(front.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),...Object.entries(back.metafile.inputs).map(([name,input])=>esbuildInputPath(name,input)),'websites/typescript/src/styles.css',...['20260926_auth_sessions.sql','20260928_auth_rate_limits.sql','20260928_auth_password_audit.sql','20261003_auth_password_resets.sql','20261003_maintenance_configuration.sql','20261011_platform_administration.sql','20261013_screen_text.sql'].map(f=>'packages/database/migrations/'+f)];paths.push('scripts/test-auth-password-workflow.mjs');for(const path of paths)if(path!=='<stdin>'&&!path.includes('node_modules/'))receipt.source_bindings[path]=digest(await readFile(path));
+  const archive=process.env.CLINIC_REHEARSAL_ARCHIVE;
+  const archivedFiles=new Map();
+  if(archive){
+@@ -40,7 +50,9 @@ try{
+  }
+  let rejectRecoveryDelivery=false;const recoveryDeliveries=[];
+  const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},EMAIL_FROM:'fixture@example.invalid',EMAIL:{send:async message=>{if(rejectRecoveryDelivery)throw Error('Isolated delivery outage');recoveryDeliveries.push(message);return {messageId:'isolated-'+randomUUID()};}}},css=await readFile('websites/typescript/src/styles.css','utf8');
+- server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
++ let loginIdentityGate=null;
++ server=createServer(async(req,res)=>{let identityGate;try{const requestUrl=new URL(req.url,'http://fixture');
++  if(requestUrl.pathname==='/v1/auth/me'&&loginIdentityGate){identityGate=loginIdentityGate;loginIdentityGate=null;}
+   if(archive&&!requestUrl.pathname.startsWith('/v1/')){
+    const path=requestUrl.pathname.slice(1);
+    const name=['','login','forgot-password','reset-password','platform/administration'].includes(path)?'index.html':path;
+@@ -57,15 +69,80 @@ try{
+   if(['/login','/forgot-password','/reset-password','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+   if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+    const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+-   const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
++   const response=await gateway.fetch(request,bindings);const responseBody=await response.text();receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});
++   if(identityGate){identityGate.reached({token:headers.get('authorization')?.replace(/^Bearer /,''),status:response.status,authenticated:JSON.parse(responseBody).status==='authenticated'});await identityGate.held;}
++   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(responseBody);identityGate?.finished();return;}
+   res.writeHead(404);res.end();
+- }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
++ }catch(error){bridgeFailure=error;identityGate?.reached({error:true});identityGate?.finished();res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+  browser=await browserType.launch({headless:true});receipt.browser_version=browser.version();
+  const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).platform_administration;
+  const baseline=process.env.AUTH_PASSWORD_BASELINE==='1';receipt.baseline=baseline;
+  const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,resets:(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_password_audit ORDER BY id')).rows});
+  const login=async(email,pw=password)=>{const response=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password:pw})});assert.equal(response.status,200);return(await response.json()).token;};
+  const me=token=>fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+token}});
++ // Hold only the real identity response, after its server-side session exists.
++ // A newer login must not be replaced by this older pending credential attempt.
++ receipt.loginLifecycleCases=[];
++ receipt.loginLifecycleOnly=lifecycleOnly;
++ receipt.loginLifecycleExpectation=process.env.AUTH_LOGIN_LIFECYCLE==='1'?(process.env.AUTH_LOGIN_RACE_BASELINE==='1'?'baseline-defect':'candidate-fixed'):'not-run';
++ receipt.limitations.push('Login lifecycle regression is opt-in; a candidate pass does not establish that main contains the fix.');
++ receipt.limitations.push('Replacement state is deliberate fault injection: a real second API login supplies the token written into sessionStorage; this is not a second UI login journey.');
++ if(lifecycleOnly){receipt.probe_scope='login-session-replacement-regression-only';receipt.limitations.push('Password and recovery acceptance cases were not executed in lifecycle-only mode.');}
++ receipt.loginLifecycleBaseline=process.env.AUTH_LOGIN_LIFECYCLE==='1'&&process.env.AUTH_LOGIN_RACE_BASELINE==='1';
++ if(process.env.AUTH_LOGIN_RACE_BASELINE==='1')assert.equal(process.env.AUTH_LOGIN_LIFECYCLE,'1','Baseline mode requires the lifecycle probe');
++ for(const locale of (process.env.AUTH_LOGIN_LIFECYCLE==='1'?['en','fr','es']:[])){
++  await db.query('DELETE FROM auth_sessions;DELETE FROM auth_rate_limits');
++  const context=await browser.newContext({...(archive?{serviceWorkers:'block'}:{}),recordVideo:{dir:out+'/login-lifecycle-raw'}}),page=await context.newPage();
++  if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
++  let release,provisionalToken;
++  try{
++   await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy(page,'login-form').waitFor();
++   let reached,finished;
++   const held=new Promise(r=>release=r),started=new Promise(r=>reached=r),responseFinished=new Promise(r=>finished=r);
++   const bounded=async(pending,label)=>{
++    let timer;
++    try{return await Promise.race([pending,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Timed out waiting for '+label)),30000);})]);}
++    finally{clearTimeout(timer);}
++   };
++   // Hold the real HTTP response after gateway/service/DB confirmation, before
++   // the browser receives it. No browser response interception or fulfillment.
++   loginIdentityGate={held,reached,finished};
++   await cy(page,'login-email').fill('platform@example.invalid');await cy(page,'login-password').fill(password);await cy(page,'login-submit').click();
++   const identity=await bounded(started,'the held HTTP identity response');
++   assert.equal(identity.error,undefined);assert.equal(identity.status,200);assert.equal(identity.authenticated,true);
++   provisionalToken=identity.token;assert.equal(typeof provisionalToken,'string');
++   const replacement=await login('tenant-admin@example.invalid');
++   await page.evaluate(t=>sessionStorage.setItem('primecare_session',t),replacement);
++   const logout=process.env.AUTH_LOGIN_RACE_BASELINE==='1'?null:page.waitForResponse(r=>r.url().endsWith('/v1/auth/logout'));
++   // Handle cancellation even if the intercepted response fails before logout is awaited.
++   logout?.catch(()=>{});
++   release();await bounded(responseFinished,'HTTP identity response delivery');
++   if(process.env.AUTH_LOGIN_RACE_BASELINE==='1'){
++    await page.waitForFunction(token=>sessionStorage.getItem('primecare_session')===token,provisionalToken);
++    assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),provisionalToken);
++    assert.equal((await me(provisionalToken)).status,200);assert.equal((await me(replacement)).status,200);
++    receipt.loginLifecycleCases.push({locale,defectReproduced:true,olderLoginOverwritesReplacement:true,provisionalSessionActive:true});
++    receipt.failures.push({criterion_id:'ui.login-session-replacement',locale,expected:'Preserve the newer browser session and revoke the older provisional token.',actual:'The older pending login overwrites the newer browser session and both server sessions remain active.'});
++   }else{
++    assert.equal((await logout).status(),200);
++    assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),replacement);
++    assert.equal(new URL(page.url()).pathname,'/login');
++    assert.equal((await me(provisionalToken)).status,401);assert.equal((await me(replacement)).status,200);
++    assert.equal((await db.query('SELECT count(*)::int n FROM auth_sessions')).rows[0].n,1);
++    receipt.loginLifecycleCases.push({locale,replacementSessionPreserved:true,provisionalSessionRevoked:true,noStaleNavigation:true});
++   }
++   await page.screenshot({path:out+'/login-lifecycle-'+locale+'.png',fullPage:true});
++  }catch(error){
++   // Record comparisons only: never put session tokens in the evidence artifact.
++   receipt.loginLifecycleFailure={locale,identityTokenObserved:typeof provisionalToken==='string',
++    browserOwnsIdentityToken:await page.evaluate(token=>sessionStorage.getItem('primecare_session')===token,provisionalToken??null).catch(()=>null),
++    stayedOnLogin:new URL(page.url()).pathname==='/login',
++    statusVisible:await cy(page,'api-status').isVisible().catch(()=>false)};
++   await page.screenshot({path:out+'/login-lifecycle-'+locale+'-failure.png',fullPage:true}).catch(()=>{});
++   throw error;
++  }finally{loginIdentityGate=null;release?.();const video=page.video();await context.close();if(video)await video.saveAs(out+'/login-lifecycle-'+locale+'.webm');}
++ }
++ if(!lifecycleOnly){
+  const submit=async(page,current= password,next='Synthetic-new!Password-2026')=>{
+   await cy(page,'current-password').fill(current);await page.keyboard.press('Tab');
+   assert.equal(await cy(page,'new-password').evaluate(el=>el===document.activeElement),true,'Tab reaches new password');
+@@ -198,7 +275,8 @@ try{
+   receipt.crossTenantManagement={foreignStatus:blocked.status,localStatus:allowed.status,deniedRequestPreservedRows:true};
+   console.log('CLINIC_CROSS_TENANT '+JSON.stringify(receipt.crossTenantManagement));
+  }
++ }
+  if(bridgeFailure)throw bridgeFailure;for(const [path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);
+- receipt.passed=!baseline;receipt.probeCompleted=baseline;receipt.criterion_results=baseline?{}:{'ui.password-change-confirmation':'passed','ui.password-change-session-replacement':'passed','ui.password-change-localized-failure':'passed'};
++ receipt.passed=!baseline&&process.env.AUTH_LOGIN_RACE_BASELINE!=='1';receipt.probeCompleted=baseline||process.env.AUTH_LOGIN_RACE_BASELINE==='1';receipt.criterion_results=lifecycleOnly?(receipt.loginLifecycleBaseline?{}:{'ui.login-session-replacement':'passed'}):baseline?{}:{'ui.password-change-confirmation':'passed','ui.password-change-session-replacement':'passed','ui.password-change-localized-failure':'passed'};
+ }catch(error){receipt.error=error.message;console.error(error);process.exitCode=1;}
+-finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.finished_at=new Date().toISOString();receipt.cleanup='Isolated synthetic schema dropped; production business data untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log('AUTH_PASSWORD_RESULT '+JSON.stringify({passed:receipt.passed,browser:receipt.browser,browser_version:receipt.browser_version,theme_evidence:receipt.theme_evidence,accessibility:receipt.accessibility,recoveryCases:receipt.recoveryCases,recoveryAccessibility:receipt.recoveryAccessibility,baseline:receipt.baseline,probeCompleted:receipt.probeCompleted,cases:receipt.cases,failures:receipt.failures,error:receipt.error,wholeTaskVerified:false}));}
++finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('DROP SCHEMA '+schema+' CASCADE');await db.end();receipt.finished_at=new Date().toISOString();receipt.cleanup='Isolated synthetic schema dropped; production business data untouched';await writeFile(out+'/results.json',JSON.stringify(receipt,null,2));console.log('AUTH_PASSWORD_RESULT '+JSON.stringify({passed:receipt.passed,browser:receipt.browser,browser_version:receipt.browser_version,theme_evidence:receipt.theme_evidence,accessibility:receipt.accessibility,recoveryCases:receipt.recoveryCases,recoveryAccessibility:receipt.recoveryAccessibility,baseline:receipt.baseline,probeCompleted:receipt.probeCompleted,loginLifecycleExpectation:receipt.loginLifecycleExpectation,loginLifecycleOnly:receipt.loginLifecycleOnly,cases:receipt.cases,loginLifecycleCases:receipt.loginLifecycleCases,failures:receipt.failures,error:receipt.error,wholeTaskVerified:false}));}

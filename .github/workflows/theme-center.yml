@@ -42,6 +42,16 @@ jobs:
         env:
           GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
         run: python3 tools/governance-production/prepare-ci-fixture.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Generate web oracle fixtures required by the complete Flutter test suite
+        run: |
+          npm install --prefix /tmp/theme-native-fixtures --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s /tmp/theme-native-fixtures/node_modules node_modules
+          node scripts/page-template-fixtures.mjs
+          node scripts/advanced-theme-fixtures.mjs
+          node scripts/workspace-navigation-fixtures.mjs
+          node scripts/workspace-native-contract-fixtures.mjs
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get

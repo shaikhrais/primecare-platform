@@ -16,6 +16,7 @@ SOURCE_DB = Path(os.environ.get('PRIMECARE_BINDINGS_TEST_DATABASE', m.ROOT / '.a
 
 
 INPUT_FILES = (
+    'scripts/register-admin-reports.py',
     'cloudflare/workers/src/admin-hierarchy.json',
     'cloudflare/workers/src/report-registry.json',
     'cloudflare/workers/src/reporting.ts',
@@ -217,6 +218,53 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Unreviewed metadata trigger'):
+            self.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+
+class CurrentReportAuthorityTest(unittest.TestCase):
+    """Current registered Code Admin contract, isolated from historical parity units."""
+    def setUp(self):
+        self.db = sqlite3.connect(':memory:')
+        with sqlite3.connect('file:' + str(SOURCE_DB.resolve()) + '?mode=ro', uri=True) as source:
+            source.backup(self.db)
+        copied = self.db
+        # Reproduce the current, already registered Code Admin parent-screen
+        # policy only in this disposable historical test copy. No live grants.
+        hierarchy = json.loads((m.ROOT / 'cloudflare/workers/src/admin-hierarchy.json').read_text())
+        permission = hierarchy['permissions']['code_admin']
+        copied.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration')")
+        copied.execute("INSERT OR IGNORE INTO role_screen_permissions(role_id,screen_id,can_view,can_create,can_edit) SELECT r.id,s.id,?,?,? FROM roles r,screens s WHERE r.role_code='code_admin' AND s.screen_code='PLATFORM_ADMINISTRATION'",
+                       tuple(int(permission[key]) for key in ('view','create','edit')))
+        for table in reversed(tuple(m.SCHEMA)):
+            copied.execute('DROP TABLE IF EXISTS ' + table)
+        copied.commit()
+
+    def tearDown(self):
+        self.db.close()
+
+    def reconcile(self, db, scopes):
+        return m.reconcile(db, scopes)
+
+    def assert_snapshot_equal(self, before):
+        self.assertEqual(snapshot(self.db), before)
+
+    def test_code_admin_email_is_denied_and_conflicting_grant_is_not_rewritten(self):
+        self.reconcile(self.db, ('reports',))
+        role = self.db.execute("SELECT id FROM roles WHERE role_code='code_admin'").fetchone()[0]
+        self.assertEqual(self.db.execute("SELECT can_view,can_export,can_email FROM shared_report_grants WHERE report_id='platform_administration' AND role_id=?", (role,)).fetchone(), (1, 1, 0))
+        self.db.execute("UPDATE shared_report_grants SET can_email=1 WHERE role_id=?", (role,))
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
+            self.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+    def test_code_admin_parent_view_is_required(self):
+        self.db.execute("UPDATE role_screen_permissions SET can_view=0 WHERE role_id=(SELECT id FROM roles WHERE role_code='code_admin')")
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
             self.reconcile(self.db, ('reports',))
         self.assert_snapshot_equal(before)
 

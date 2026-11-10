@@ -154,8 +154,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   }
   const reportPanels=new Map<string,HTMLElement>(),reportLifecycles=new Map<string,{dispose:()=>void;redraw:()=>void}>();
   disposeReports=()=>{for(const lifecycle of reportLifecycles.values())lifecycle.dispose();reportLifecycles.clear();reportPanels.clear();};
-  if(data.identity.role==='tenant_admin'&&location.pathname!=='/success'){location.assign(routeUrl('/tenant-dashboard'));return;}
-  if(['code_admin','central_admin','platform_admin'].includes(data.identity.role)&&location.pathname!=='/success'){location.assign(routeUrl('/platform/administration'));return;}
+  if(data.identity.role==='tenant_admin'&&['/','/dashboard'].includes(location.pathname)){location.assign(routeUrl('/tenant-dashboard'));return;}
+  if(['code_admin','central_admin','platform_admin'].includes(data.identity.role)&&['/','/dashboard'].includes(location.pathname)){location.assign(routeUrl('/platform/administration'));return;}
   const live=liveScreenText(gateway);root.addEventListener('input',onInput);
   let search='';let pendingOnly=false;let pageNumber=0;let signingOut=false;
   const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';

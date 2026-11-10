@@ -12,6 +12,7 @@ const output=await build({stdin:{contents:"export * from './websites/typescript/
 const bundlePath=join(await mkdtemp(join(tmpdir(),'workspace-browser-test-')),'workspace.mjs');await writeFile(bundlePath,output.outputFiles[0].text);
 const {renderWorkspace,inventoryCsv,loadWorkspace,ScreenManager,installScreenManager,resolveManagedRoute}=await import(pathToFileURL(bundlePath).href);
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
+const adminEntryRoutes=JSON.parse(await readFile('packages/shared/src/admin-entry-routes.json','utf8'));
 function browser(role='ceo') {
  const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-corporate.pages.dev/?enable-semantics=true'});
  // JSDOM has no media-query engine; these DOM tests use its desktop viewport.
@@ -28,7 +29,7 @@ function browser(role='ceo') {
  // The production main/bootstrap connections are exercised by test-typescript-screen-manager.mjs.
  const root=document.querySelector('#app'),manager=new ScreenManager({layout(){},theme(){},language(){},responsive(){}});installScreenManager(root,manager);
  manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
- return {dom,root,screens,data};
+ return {dom,root,screens,data,manager};
 }
 test('CEO landing renders governed generic screens and hands dedicated screens to the dispatcher',async()=>{
  const {dom,root,screens}=browser();await renderWorkspace(root,'https://gateway.test');
@@ -101,7 +102,7 @@ test('all active role landings resolve to their own authorized governed page',as
  for(const role of Object.keys(registry.landings)) {
   const {dom,root,data}=browser(role);
   const landing=registry.landings[role];
-  const dedicatedAdmin=['code_admin','central_admin','tenant_admin','platform_admin'].includes(role);
+  const dedicatedAdmin=Object.hasOwn(adminEntryRoutes,role);
   if(resolveManagedRoute(landing,'').adapter!=='workspace'||dedicatedAdmin) {
    assert.ok(data.screens.some(screen=>screen.route===landing),role+' must have a granted landing');
    const navigations=[],methods=[];
@@ -109,7 +110,7 @@ test('all active role landings resolve to their own authorized governed page',as
    globalThis.location={pathname:'/',search:dom.window.location.search,assign:navigate('assign'),replace:navigate('replace')};
    await renderWorkspace(root,'https://gateway.test');
    assert.equal(navigations.length,1,role+' must navigate once');
-   assert.equal(navigations[0].pathname,role==='tenant_admin'?'/tenant-dashboard':dedicatedAdmin?'/platform/administration':landing,role);
+   assert.equal(navigations[0].pathname,dedicatedAdmin?adminEntryRoutes[role]:landing,role);
    assert.deepEqual(methods,[dedicatedAdmin?'assign':'replace'],role+' automatic governed landing replaces the history entry');
    assert.equal(navigations[0].searchParams.get('enable-semantics'),'true',role+' redirect retains semantics');
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
@@ -120,6 +121,28 @@ test('all active role landings resolve to their own authorized governed page',as
    assert.equal(root.querySelector('[data-cy="error-state"]'),null,role);
   }
   dom.window.close();
+ }
+});
+
+test('admin deep links retain registered page access and reject ungranted routes',async()=>{
+ for(const role of ['central_admin','platform_admin','tenant_admin']){
+  const {dom,root,data,manager}=browser(role);
+  try{
+   const page=data.screens.find(s=>s.renderer!=='account'&&!Object.values(adminEntryRoutes).includes(s.route));
+   assert.ok(page,'registered page for '+role);
+   history.replaceState({},'',page.route+'?enable-semantics=true');
+   manager.registerScope('entry',[resolveManagedRoute(page.route,'')]);
+   const navigations=[];
+   globalThis.location={pathname:page.route,search:dom.window.location.search,replace:href=>navigations.push(new URL(href,dom.window.location.href)),assign:href=>navigations.push(new URL(href,dom.window.location.href))};
+   await renderWorkspace(root,'https://gateway.test');
+   if(resolveManagedRoute(page.route,'').adapter==='workspace')assert.ok(root.querySelector(`[data-cy="screen-${page.code}"]`),role+' direct page');
+   else assert.deepEqual(navigations.map(url=>url.pathname),[page.route],role+' dedicated deep link handoff');
+   globalThis.location={pathname:'/ungranted-test-route',search:'?enable-semantics=true'};
+   manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
+   await renderWorkspace(root,'https://gateway.test');
+   assert.ok(root.querySelector('[data-cy="error-state"]'),role+' denied route');
+   assert.equal(root.querySelector('[data-cy="workspace-overview"]'),null);
+  }finally{dom.window.close();}
  }
 });
 

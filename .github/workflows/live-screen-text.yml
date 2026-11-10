@@ -36,7 +36,7 @@ jobs:
       - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs scripts/test-screen-text-cache.mjs scripts/test-admin-training.mjs scripts/test-admin-training-browser.mjs
       - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable cloudflare/workers/src/screen-text.ts websites/typescript/src/main.ts
   flutter:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
