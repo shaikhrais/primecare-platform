@@ -9,7 +9,7 @@ import 'auth_design_test.dart' show localized;
 class CeoAuthFixture extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
-    role: 'ceo', userId:'ceo-learner', userName: 'ceo@example.test', token: 'test-token');
+    role: 'ceo', userId:'ceo-learner', tenantId:'ceo-tenant', userName: 'ceo@example.test', token: 'test-token');
 }
 
 class CeoWorkspaceApi extends Fake implements ApiClient {
@@ -68,6 +68,8 @@ void main() {
     final api=CeoWorkspaceApi('en');
     await tester.pumpWidget(ProviderScope(overrides:[authProvider.overrideWith(CeoAuthFixture.new),apiClientProvider.overrideWithValue(api)],child:localized(const CeoDashboardScreen())));
     await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-training')));await tester.pumpAndSettle();
+    final detailed=find.text('Detailed training and self-assessment');
+    await tester.ensureVisible(detailed);await tester.tap(detailed);await tester.pumpAndSettle();
     expect(find.textContaining('Lessons passed'),findsOneWidget);expect(api.calls,['/v1/governance/workspace']);expect(tester.takeException(),isNull);
   });
   test('CEO dashboard excludes guests and ordinary client roles', () {
