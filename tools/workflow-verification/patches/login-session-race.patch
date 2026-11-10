@@ -83,7 +83,7 @@ diff --git a/scripts/test-auth-password-workflow.mjs b/scripts/test-auth-passwor
 +   logout?.catch(()=>{});
 +   release();await bounded(routeFinished,'identity response delivery');if(routeFailure)throw routeFailure;
 +   if(process.env.AUTH_LOGIN_RACE_BASELINE==='1'){
-+    await cy(page,'platform-language').waitFor();
++    await page.waitForFunction(token=>sessionStorage.getItem('primecare_session')===token,provisionalToken);
 +    assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),provisionalToken);
 +    assert.equal((await me(provisionalToken)).status,200);assert.equal((await me(replacement)).status,200);
 +    receipt.loginLifecycleCases.push({locale,defectReproduced:true,olderLoginOverwritesReplacement:true,provisionalSessionActive:true});
