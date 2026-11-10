@@ -5,7 +5,7 @@ import 'package:flutter_core/flutter_core.dart';
 class CoreGovernanceRegistry {
   static void registerScreens() {
     PlatformScreenRegistry.registerScreens(screens.values.toList());
-    applyProductionReadiness();
+    normalizeRegistryRoutes();
   }
 
   static final Map<String, ScreenMetadata> screens = {
@@ -3888,42 +3888,15 @@ class CoreGovernanceRegistry {
     ),
   };
 
-  static void applyProductionReadiness() {
-    final allScreens = PlatformScreenRegistry.allScreens;
-    for (final screen in allScreens) {
-      final route = screen.routePath.isEmpty
-          ? '/reconciled/${screen.id.toLowerCase()}'
-          : screen.routePath;
-      final roles = screen.allowedRoles.isEmpty
-          ? ['ADMIN']
-          : screen.allowedRoles;
-      PlatformScreenRegistry.registerScreens([
-        screen.copyWith(
-          lifecycleStatus: LifecycleStatus.completed,
-          route: route,
-          roles: roles,
-          isRenderOk: true,
-          userApprovedLayout: true,
-          testPassRate: 100.0,
-          isPhiCompliant: true,
-          isLocalizationReady: true,
-          isDesktopVerified: true,
-          isAccessibilityVerified: true,
-          isPerformanceVerified: true,
-          accessibilityScore: 95.0,
-          performanceScore: 90.0,
-          translatedLanguages: ['en', 'fr', 'es', 'ar'],
-          isFullyTranslated: true,
-          hasAllTranslations: true,
-          isAuditCompliant: true,
-          isDataBindingVerified: true,
-          isSecurityVerified: true,
-          isTelemetryVerified: true,
-          isNavigationVerified: true,
-          lastVerificationHash: 'VERIFIED_BY_CI',
-          uatApprover: 'QA_TEAM',
-        ),
-      ]);
+  // Legacy metadata may omit a route. Normalize only that presentation path;
+  // registration cannot manufacture test results, reviews or verification.
+  static void normalizeRegistryRoutes() {
+    for (final screen in PlatformScreenRegistry.allScreens) {
+      if (screen.routePath.isEmpty) {
+        PlatformScreenRegistry.registerScreens([
+          screen.copyWith(route: '/reconciled/${screen.id.toLowerCase()}'),
+        ]);
+      }
     }
   }
 }
