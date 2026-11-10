@@ -269,10 +269,14 @@ void main() {
       });
 
       test('disposed controller does not save a completed PDF', () async {
-        await container.read(governanceDashboardControllerProvider.future);
-        final controller = container.read(governanceDashboardControllerProvider.notifier);
+        final disposedContainer = ProviderContainer(overrides: [
+          governancePdfExportProvider.overrideWithValue(
+            container.read(governancePdfExportProvider)),
+        ]);
+        await disposedContainer.read(governanceDashboardControllerProvider.future);
+        final controller = disposedContainer.read(governanceDashboardControllerProvider.notifier);
         final pending = controller.exportReport('pdf', dummyReport);
-        container.invalidate(governanceDashboardControllerProvider);
+        disposedContainer.dispose();
         expect(await pending, isNull);
         expect(saveCalls, 0);
       });
