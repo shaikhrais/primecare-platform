@@ -17,7 +17,7 @@ class PlatformReadinessViewer extends ConsumerWidget {
       if (aPending != bPending) return aPending ? -1 : 1;
       return a.id.compareTo(b.id);
     });
-    return ListView.builder(
+    return Material(child: ListView.builder(
       itemCount: screens.length + 1,
       itemBuilder: (context, index) {
         if (index == 0) {
@@ -38,6 +38,6 @@ class PlatformReadinessViewer extends ConsumerWidget {
             ? Icons.check_circle_outline : Icons.pending_outlined),
         );
       },
-    );
+    ));
   }
 }
