@@ -24,7 +24,11 @@ try{
   // Code Admin is bootstrap-only in the existing policy, never API-assignable.
   // Keep this disposable seed separate from API-created account/sign-in counts.
   if(role==='code_admin'){
-   assert.equal(hierarchy.roles[role]?.bootstrapOnly,true);assert.equal(hierarchy.roles.central_admin.assignable.includes(role),false);
+   const definitionText=await readFile('tools/governance-production/code-admin-registration.json','utf8'),definition=JSON.parse(definitionText);
+   assert.equal(definition.roleCode,role);assert.equal(definition.bootstrapOnly,true);
+   assert.ok(Object.values(hierarchy.roles).every(policy=>!policy.assignable.includes(role)),'Bootstrap-only role is never API-assignable');
+   report.bootstrapDefinitionSha256=Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(definitionText))).toString('hex');
+   if(!hierarchy.roles[role])report.limitations.push('Historical hierarchy lacks Code Admin: canonical registration defines its synthetic bootstrap only; platform-administration acceptance is not covered.');
    const id=crypto.randomUUID(),token=Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url');
    await db.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'code-admin-bootstrap@example.invalid',$2,$3,'active')",[id,role,tenant]);
    await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+INTERVAL '2 hours')",[Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex'),id]);
