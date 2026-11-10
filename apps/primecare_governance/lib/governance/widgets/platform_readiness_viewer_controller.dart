@@ -1,31 +1,31 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for PlatformReadinessViewerController
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
+import '../../core/governance/governance_provider.dart';
+import '../models/governance_report.dart';
+import '../services/production_readiness_service.dart';
+import '../services/screen_governance_reporter.dart';
 
-final platformReadinessViewerControllerProvider = NotifierProvider<PlatformReadinessViewerController, AsyncValue<Map<String, dynamic>>>(() {
-  return PlatformReadinessViewerController();
-});
+/// A read-only registry analysis, never a production verification receipt.
+class PlatformReadinessSnapshot {
+  static const source = 'registry metadata analysis; not production verification';
+  final Map<String, ScreenMetadata> screens;
+  final Map<String, List<String>> pendingEvidence;
+  final GovernanceReport report;
 
-class PlatformReadinessViewerController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
+  PlatformReadinessSnapshot._(this.screens, this.pendingEvidence, this.report);
 
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
+  factory PlatformReadinessSnapshot.fromScreens(Map<String, ScreenMetadata> source) {
+    final screens = Map<String, ScreenMetadata>.unmodifiable(source);
+    final blockers = Map<String, List<String>>.unmodifiable({
+      for (final screen in screens.values)
+        screen.id: List<String>.unmodifiable(
+          ProductionReadinessService.readinessBlockers(screen)),
     });
-  }
-
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
+    return PlatformReadinessSnapshot._(
+      screens, blockers, ScreenGovernanceReporter.scan(screens));
   }
 }
+
+final platformReadinessViewerControllerProvider = Provider<PlatformReadinessSnapshot>(
+  (ref) => PlatformReadinessSnapshot.fromScreens(
+    ref.watch(governanceProvider).allScreens),
+);

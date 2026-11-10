@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
+import 'governance_kpi_grid.dart';
 import 'platform_readiness_viewer_controller.dart';
 
 class PlatformReadinessViewer extends ConsumerWidget {
@@ -7,33 +7,37 @@ class PlatformReadinessViewer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(platformReadinessViewerControllerProvider);
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('PlatformReadinessViewer'),
-      ),
-      body: state.when(
-        data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
-      ),
-    );
-  }
-
-  Widget _buildContent(BuildContext context, dynamic data) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
-          const SizedBox(height: 16),
-          Text(
-            'PlatformReadinessViewer is now fully implemented.',
-            style: Theme.of(context).textTheme.headlineSmall,
-          ),
-        ],
-      ),
+    final snapshot = ref.watch(platformReadinessViewerControllerProvider);
+    if (snapshot.screens.isEmpty) {
+      return Center(child: Text('common.no_data'.tr()));
+    }
+    final screens = snapshot.screens.values.toList()..sort((a, b) {
+      final aPending = snapshot.pendingEvidence[a.id]!.isNotEmpty;
+      final bPending = snapshot.pendingEvidence[b.id]!.isNotEmpty;
+      if (aPending != bPending) return aPending ? -1 : 1;
+      return a.id.compareTo(b.id);
+    });
+    return ListView.builder(
+      itemCount: screens.length + 1,
+      itemBuilder: (context, index) {
+        if (index == 0) {
+          return Column(children: [
+            const Text(PlatformReadinessSnapshot.source),
+            GovernanceKPIGrid(report: snapshot.report),
+          ]);
+        }
+        final screen = screens[index - 1];
+        final pending = snapshot.pendingEvidence[screen.id]!;
+        return ListTile(
+          key: ValueKey('readiness-${screen.id}'),
+          title: Text(screen.id),
+          subtitle: Text([
+            screen.title, screen.routePath, ...pending,
+          ].where((value) => value.isNotEmpty).join('\n')),
+          trailing: Icon(pending.isEmpty
+            ? Icons.check_circle_outline : Icons.pending_outlined),
+        );
+      },
     );
   }
 }
