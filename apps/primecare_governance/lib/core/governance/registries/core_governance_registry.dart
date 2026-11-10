@@ -1,9 +1,21 @@
 // Governance - Category: service | Purpose: Generated Registry - Do Not Edit Manually
 // Generated Registry - Do Not Edit Manually
 import 'package:flutter_core/flutter_core.dart';
+import 'invalid_registry_placeholders.dart';
 
 class CoreGovernanceRegistry {
   static final Map<String, ScreenMetadata> _unresolvedMetadata = {};
+  static final Map<String, ScreenMetadata> _retiredMetadata = {};
+
+  static Map<String, ScreenMetadata> get retiredMetadata => Map.unmodifiable(_retiredMetadata);
+
+  static void _retainInvalidRecord(ScreenMetadata record) {
+    if (InvalidRegistryPlaceholders.matches(record)) {
+      _retiredMetadata[record.id] = record;
+    } else {
+      _unresolvedMetadata[record.id] = record;
+    }
+  }
 
   /// Retained for audit/reconciliation; these records cannot become routes.
   static Map<String, ScreenMetadata> get unresolvedMetadata =>
@@ -15,21 +27,22 @@ class CoreGovernanceRegistry {
 
   static void registerScreens() {
     _unresolvedMetadata.clear();
+    _retiredMetadata.clear();
     for (final record in screens.values) {
       if (_isUnroutableMetadata(record)) {
-        _unresolvedMetadata[record.id] = record;
+        _retainInvalidRecord(record);
       } else {
         PlatformScreenRegistry.registerScreens([record]);
       }
     }
-    for (final id in _unresolvedMetadata.keys) {
+    for (final id in {..._unresolvedMetadata.keys, ..._retiredMetadata.keys}) {
       PlatformScreenRegistry.screens.remove(id);
     }
     // The shared registry also starts with legacy metadata. Preserve invalid
     // records for audit instead of inventing routes or administrator grants.
     for (final record in PlatformScreenRegistry.allScreens) {
       if (_isUnroutableMetadata(record)) {
-        _unresolvedMetadata[record.id] = record;
+        _retainInvalidRecord(record);
         PlatformScreenRegistry.screens.remove(record.id);
       }
     }

@@ -23,7 +23,13 @@ void main() {
         'source': 'checked-in registry metadata; not a production database audit',
         'commit': Platform.environment['GITHUB_SHA'],
         'totalScreens': report.totalScreens,
-        'catalogRecordCount': report.totalScreens + CoreGovernanceRegistry.unresolvedMetadata.length,
+        'catalogRecordCount': report.totalScreens + CoreGovernanceRegistry.unresolvedMetadata.length + CoreGovernanceRegistry.retiredMetadata.length,
+        'retiredMetadataCount': CoreGovernanceRegistry.retiredMetadata.length,
+        'retiredMetadata': [for (final record in CoreGovernanceRegistry.retiredMetadata.values) {
+          'screenId': record.id, 'disposition': 'retired-invalid-executable-placeholder',
+          'reason': 'Exact known blank record; no title, feature, route, roles or widget binding',
+          'workflowVerified': false,
+        }],
         'unresolvedMetadataCount': CoreGovernanceRegistry.unresolvedMetadata.length,
         'unresolvedMetadata': [for (final record in CoreGovernanceRegistry.unresolvedMetadata.values) {
           'screenId': record.id, 'reason': 'Missing title, feature, route and role metadata',

@@ -93,7 +93,8 @@ void main() {
     for (final target in governanceNativeScreenRoutes) {
       expect(await redirect(target), CommonRoutes.authError, reason: target);
     }
-    for (final record in CoreGovernanceRegistry.unresolvedMetadata.values) {
+    for (final record in [...CoreGovernanceRegistry.unresolvedMetadata.values,
+      ...CoreGovernanceRegistry.retiredMetadata.values]) {
       final invented = '/reconciled/${record.id.toLowerCase()}';
       expect(shell.routes.whereType<GoRoute>().any((route) => route.path == invented), isFalse);
       api.data = {...projection(), 'screens': [{'route': invented}]};
