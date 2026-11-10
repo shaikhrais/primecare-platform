@@ -102,7 +102,46 @@ jobs:
           path: test-results/login-tracking
           retention-days: 90
           if-no-files-found: error
-      - name: Report exact persistence gate
+      - name: Report collector scope
         run: |
-          echo 'Evidence collected and preserved. Production persistence is not enabled by this secret-free workflow.' >> "$GITHUB_STEP_SUMMARY"
-          echo 'Use the existing protected production metadata writer only after its specific integration is authorized. No attempt/checkpoint save is claimed here.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Evidence collected and preserved. Persistence runs separately in the protected production job; this collector has no database credentials.' >> "$GITHUB_STEP_SUMMARY"
+  production:
+    needs: [tests, collect]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    environment: production
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install -r tools/governance-production/requirements.txt
+      - name: Restore validated evidence from this run
+        uses: actions/download-artifact@v4
+        with:
+          name: login-tracking-input-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results/login-tracking
+      - name: Save scoped tracking metadata and read it back after commit
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess, sys
+          packets = list(Path('test-results/login-tracking').glob('*/packet.json'))
+          if len(packets) != 1:
+              raise RuntimeError('Expected exactly one validated collector packet from this run.')
+          subprocess.run([sys.executable, 'tools/workflow-verification/record_login_evidence.py', '--packet', str(packets[0])], check=True)
+          PY
+      - name: Preserve committed tracking readback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: login-tracking-readback-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results/login-tracking/*/production-readback.json
+          if-no-files-found: error
+          retention-days: 90
