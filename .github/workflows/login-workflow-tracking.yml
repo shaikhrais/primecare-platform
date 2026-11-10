@@ -1,5 +1,10 @@
 name: Prepare login workflow tracking evidence
 on:
+  pull_request:
+    paths:
+      - 'tools/workflow-verification/**'
+      - 'tools/governance-production/**'
+      - '.github/workflows/login-workflow-tracking.yml'
   push:
     branches: [main]
     paths:
@@ -55,11 +60,10 @@ jobs:
           pip install -r tools/governance-production/requirements.txt PyYAML==6.0.2
           npm install --prefix /tmp/login-tracking-test-tools --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
           ln -s /tmp/login-tracking-test-tools/node_modules node_modules
-      - name: Apply pending history-only API patch in disposable test checkout
+      - name: Verify the checked-in history-only API
         run: |
-          git apply --check tools/workflow-verification/patches/login-evidence-history.patch
-          git apply tools/workflow-verification/patches/login-evidence-history.patch
-          sha256sum tools/workflow-verification/patches/login-evidence-history.patch tools/workflow-verification/execution.py
+          python -c "import inspect, sys; sys.path.insert(0, 'tools/workflow-verification'); from execution import record_attempt; assert 'update_current' in inspect.signature(record_attempt).parameters"
+          sha256sum tools/workflow-verification/execution.py
       - name: Validate unchanged gates and native metadata safeguards
         run: |
           python tools/workflow-verification/test_execution.py
