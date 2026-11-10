@@ -1,10 +1,13 @@
 // Governance - Category: test | Purpose: Core implementation file for the Governance Ci Test platform logic.
+import 'dart:convert';
+import 'dart:io';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/core/governance/screen_registry.dart';
 import 'package:primecare_governance/governance/services/screen_governance_reporter.dart';
 import 'package:primecare_governance/governance/models/governance_report.dart';
 import 'package:primecare_governance/core/governance/registries/core_governance_registry.dart';
 import 'package:primecare_ui/primecare_ui.dart' as ui;
+import 'package:primecare_governance/governance/services/production_readiness_service.dart';
 
 void main() {
   group('Architectural Governance CI Gate', () {
@@ -14,6 +17,28 @@ void main() {
       CoreGovernanceRegistry.registerScreens();
       ui.ScreenRegistry.bootstrap();
       report = ScreenGovernanceReporter.scan(ScreenRegistry.screens);
+      final output = File('test-results/governance-readiness.json');
+      output.parent.createSync(recursive: true);
+      output.writeAsStringSync(const JsonEncoder.withIndent('  ').convert({
+        'source': 'checked-in registry metadata; not a production database audit',
+        'commit': Platform.environment['GITHUB_SHA'],
+        'totalScreens': report.totalScreens,
+        'productionReadyScreens': report.productionReadyScreens,
+        'blockedScreens': report.blockedScreens,
+        'healthScore': report.overallHealthScore,
+        'criticalIssues': report.criticalIssues,
+        'releaseThresholds': {'criticalIssues': 0, 'minimumHealth': 80, 'minimumReadyRatio': 0.5},
+        'screens': [for (final screen in ScreenRegistry.screens.values) {
+          'screenId': screen.id, 'route': screen.routePath,
+          'metadataReady': ProductionReadinessService.isReady(screen),
+          'pendingEvidence': ProductionReadinessService.readinessBlockers(screen),
+        }],
+        'issues': [for (final issue in report.issues) {
+          'id': issue.id, 'screenId': issue.screenId, 'title': issue.title,
+          'severity': issue.severity.name, 'problem': issue.issue,
+          'nextAction': issue.suggestion,
+        }],
+      }));
     });
 
     test('Zero Critical Issues', () {

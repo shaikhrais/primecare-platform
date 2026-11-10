@@ -9,7 +9,7 @@ class ProductionReadinessService {
         !s.isRenderOk ||
         !s.isAccessibilityVerified ||
         !s.isPerformanceVerified ||
-        s.lastVerificationHash == 'HASH_PENDING';
+        !_hasVerificationReference(s);
 
     if (s.deploymentEnvironment == 'production' && isMissingVitals) {
       issues.add(
@@ -46,8 +46,6 @@ class ProductionReadinessService {
             severity: AuditSeverity.high,
             metadata: {
               'owner': s.assignedDeveloper,
-              'fixProperty': 'isLocalizationReady',
-              'fixValue': 'true',
             },
           ),
         );
@@ -95,15 +93,34 @@ class ProductionReadinessService {
     return issues;
   }
 
-  static bool isReady(ScreenMetadata s) {
-    return s.isRenderOk &&
-        s.isAccessibilityVerified &&
-        s.isPerformanceVerified &&
-        s.testPassRate >= 95 &&
-        s.lastVerificationHash != 'HASH_PENDING' &&
-        s.uatApprover != 'Antigravity-AI' &&
-        s.lifecycleStatus == LifecycleStatus.completed &&
-        s.isLocalizationReady &&
-        s.isPhiCompliant;
+  static bool isReady(ScreenMetadata screen) => readinessBlockers(screen).isEmpty;
+
+  /// Pending evidence, not permission to certify a screen by changing flags.
+  static List<String> readinessBlockers(ScreenMetadata screen) => [
+    if (!screen.isRenderOk) 'render-unverified',
+    if (!screen.isAccessibilityVerified) 'accessibility-unverified',
+    if (!screen.isPerformanceVerified) 'performance-unverified',
+    if (!screen.testPassRate.isFinite || screen.testPassRate < 95 || screen.testPassRate > 100)
+      'test-evidence-invalid-or-below-95-percent',
+    if (!_hasVerificationReference(screen)) 'verification-reference-missing-or-placeholder',
+    if (!_hasReviewReference(screen)) 'review-reference-missing-or-placeholder',
+    if (screen.lifecycleStatus != LifecycleStatus.completed) 'lifecycle-not-completed',
+    if (!screen.isLocalizationReady) 'localization-unverified',
+    if (!screen.isPhiCompliant) 'phi-compliance-unverified',
+  ];
+
+  // Necessary metadata checks only, not independent proof of acceptance.
+  // The old startup routine wrote these placeholders without tests or review.
+  static bool _hasVerificationReference(ScreenMetadata screen) {
+    final value = screen.lastVerificationHash.trim().toLowerCase();
+    return value.isNotEmpty &&
+        !{'hash_pending', 'verified_by_ci', 'pending', 'none'}.contains(value);
   }
+
+  static bool _hasReviewReference(ScreenMetadata screen) {
+    final value = screen.uatApprover.trim().toLowerCase();
+    return value.isNotEmpty &&
+        !{'none', 'pending', 'unassigned', 'antigravity-ai', 'qa_team'}.contains(value);
+  }
+
 }

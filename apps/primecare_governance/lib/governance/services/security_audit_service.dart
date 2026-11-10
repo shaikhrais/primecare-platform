@@ -16,7 +16,7 @@ class SecurityAuditService {
           subsystem: 'primecare_governance',
           registry: 'Security',
           issue: 'No roles assigned to screen. Accessible by none.',
-          suggestion: 'Assign at least one valid role (e.g., admin, manager).',
+          suggestion: 'Reconcile the exact screen identity and grants with authoritative governance metadata; keep access denied until resolved.',
           severity: AuditSeverity.critical,
           metadata: {
             'owner': s.assignedDeveloper,
@@ -38,13 +38,10 @@ class SecurityAuditService {
           subsystem: 'primecare_governance',
           registry: 'Security',
           issue: 'High-security screen is not PHI compliant.',
-          suggestion: 'Perform PHI audit and set isPhiCompliant to true.',
+          suggestion: 'Complete a PHI review and attach its evidence before recording compliance.',
           severity: AuditSeverity.critical,
-          autoRemediable: true,
           metadata: {
             'owner': s.assignedDeveloper,
-            'fixProperty': 'isPhiCompliant',
-            'fixValue': 'true',
           },
         ),
       );
@@ -61,13 +58,10 @@ class SecurityAuditService {
           subsystem: 'primecare_governance',
           registry: 'Compliance',
           issue: 'Sensitive data screen lacks Unsaved Change Guard.',
-          suggestion: 'Implement UnsavedChangeGuard in the UI and update registry.',
+          suggestion: 'Implement and test UnsavedChangeGuard, then record the verified result.',
           severity: AuditSeverity.medium,
-          autoRemediable: true,
           metadata: {
             'owner': s.assignedDeveloper,
-            'fixProperty': 'hasUnsavedChangeGuard',
-            'fixValue': 'true',
           },
         ),
       );
