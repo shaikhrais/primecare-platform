@@ -120,7 +120,7 @@ def consumer_preflight(root):
         for p in (root/area).rglob('*'):
             if p.is_file() and p.suffix in ('.py','.ts','.dart','.js','.mjs','.sql') and 'api_permissions' in p.read_text(errors='replace'):
                 relative=str(p.relative_to(root));entry=reviews.get(relative,{})
-                if (relative in ('cloudflare/workers/src/business-tasks/endpoint-policy.ts','cloudflare/workers/src/account-preferences.ts') and
+                if (relative in ('cloudflare/workers/src/business-tasks/endpoint-policy.ts', 'cloudflare/workers/src/account-preferences.ts', 'cloudflare/workers/src/vapi-administration-policy.ts', 'cloudflare/workers/src/look/access.ts', 'packages/shared/src/communications/internal-call-context-query.mjs', 'packages/database/migrations/20261025_internal_call_context.sql', 'packages/database/migrations/20261025_internal_call_permission_indexes.sql') and
                     entry.get('sha256')==hashlib.sha256(p.read_bytes()).hexdigest() and
                     entry.get('authority')=='pinned-production-postgresql' and entry.get('historicalCatalogAccess') is False):
                     reviewed.append(relative)
