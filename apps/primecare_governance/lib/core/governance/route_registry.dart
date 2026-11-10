@@ -1,5 +1,7 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/src/network/api_client.dart';
+import 'governance_route_access.dart';
 import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
@@ -25,7 +27,7 @@ import '../../features/executive/screens/control_center_screen.dart';
 import '../../features/executive/screens/proposals_screen.dart';
 
 // Presentation registrations only. The router's redirect remains responsible
-// for authentication, and data access remains protected by its existing API.
+// for authentication and exact server-filtered route grants. APIs retain data authorization.
 const governanceNativeScreenRoutes = <String>{
   '/admin/screen-health', '/admin/reality-check', '/admin/role-screen-carousel',
   '/admin/screenshot-gallery', '/generated/audit-dashboard',
@@ -70,6 +72,11 @@ ScreenManager buildGovernanceScreenManager() =>
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final screenManager = buildGovernanceScreenManager();
+  final sessionRefresh = ValueNotifier<int>(0);
+  ref.listen(authProvider.select((session) => (session.isAuthenticated,
+      session.userId, session.tenantId, session.token, session.role)),
+      (previous, next) {sessionRefresh.value++;});
+  ref.onDispose(sessionRefresh.dispose);
   return GoRouter(
     initialLocation: '/login',
     // Unknown deep links must not enter the global error/restart loop.
@@ -78,8 +85,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           ? CommonRoutes.authError
           : CommonRoutes.login);
     },
-    refreshListenable: authListenable,
-    redirect: (context, state) {
+    refreshListenable: Listenable.merge([authListenable, sessionRefresh]),
+    redirect: (context, state) async {
       final session = ref.read(authProvider);
       if (!session.isInitialized) {
         return SharedAuthRoutes.publicPaths.contains(state.uri.path)
@@ -96,45 +103,37 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       
       if (!isAuth && !isLoggingIn &&
           !SharedAuthRoutes.publicPaths.contains(state.uri.path)) return '/login';
-      if (isAuth && isLoggingIn) {
-        final role = ref.read(authProvider).role ?? '';
-        final targetRoute = AuthNotifier.getDashboardRouteForRole(role);
-        
-        final screenRoutes = ScreenRegistry.screens.values.map((s) => s.routePath).toList();
-        
-        // Exact match
-        if (screenRoutes.contains(targetRoute)) return targetRoute;
-
-        // Try matching the end of the path (Governance registry paths omit office prefixes)
-        try {
-          final matchingPath = screenRoutes.firstWhere((p) => targetRoute.endsWith(p));
-          return matchingPath;
-        } catch (_) {}
-
-        // Fallback 1: Screen ID contains the role key
-        final roleKey = role.toUpperCase().replaceAll(' ', '').replaceAll('_', '');
-        try {
-          final matchingScreen = ScreenRegistry.screens.values.firstWhere((s) => s.id.contains(roleKey));
-          return matchingScreen.routePath;
-        } catch (_) {}
-
-        // Fallback 2: Admin/CEO fallback (prioritize a Dashboard)
-        if (roleKey == 'ADMIN' || roleKey == 'SUPERADMIN' || roleKey == 'CEO') {
-          try {
-            final adminDashboard = ScreenRegistry.screens.values.firstWhere((s) => s.id.contains('DASHBOARD'));
-            return adminDashboard.routePath;
-          } catch (_) {}
+      if (isAuth && (isLoggingIn ||
+          (!SharedAuthRoutes.publicPaths.contains(state.uri.path) &&
+           !{'/consent', '/success'}.contains(state.uri.path)))) {
+        final scope = (session.userId, session.tenantId, session.token, session.role);
+        bool current() {
+          final latest = ref.read(authProvider);
+          return latest.isAuthenticated &&
+              (latest.userId, latest.tenantId, latest.token, latest.role) == scope;
         }
-
-        // Fallback 3: Universal fallback for all other roles - first authorized screen
-        try {
-          final authorizedScreen = ScreenRegistry.screens.values.firstWhere((s) {
-            return s.roles.contains(roleKey) || s.roles.contains('ALL');
-          });
-          return authorizedScreen.routePath;
-        } catch (_) {}
-
-        return '/governance/placeholder';
+        if (scope.$1 == null || scope.$1!.isEmpty || scope.$2 == null ||
+            scope.$2!.isEmpty || scope.$3 == null || scope.$3!.isEmpty ||
+            scope.$4 == null || scope.$4!.isEmpty) return CommonRoutes.authError;
+        final destination = await authorizeGovernanceRoute(
+          path: state.fullPath ?? state.uri.path,
+          landing: isLoggingIn,
+          userId: scope.$1!, role: scope.$4!,
+          availableRoutes: {
+            ...governanceNativeScreenRoutes,
+            ...ScreenRegistry.screens.values.map((screen) => screen.routePath),
+          }.where((path) => screenManager.lookup(path) != null).toSet(),
+          isCurrent: current,
+          loadWorkspace: () async {
+            final response = await ref.read(apiClientProvider).get('/v1/governance/workspace');
+            return response.statusCode == 200 ? response.data : null;
+          },
+        );
+        // A changed account must never consume a response for the old session.
+        if (!current()) return ref.read(authProvider).isAuthenticated
+            ? CommonRoutes.authError : CommonRoutes.login;
+        if (destination == null) return CommonRoutes.authError;
+        return isLoggingIn ? destination : null;
       }
       return null;
     },
