@@ -2,6 +2,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/src/network/api_client.dart';
 import 'governance_route_access.dart';
+import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
+import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import '../ui/dynamic_screen_view.dart';
@@ -72,6 +74,17 @@ ScreenManager buildGovernanceScreenManager() =>
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final screenManager = buildGovernanceScreenManager();
+  final existingPaths = {
+    ...governanceNativeScreenRoutes,
+    ...ScreenRegistry.screens.values.map((screen) => screen.routePath),
+    ...SharedAuthRoutes.publicPaths,
+    CommonRoutes.authCallback, '/consent', '/success', '/',
+  };
+  // Reuse exact generated workspace paths, not aliases for legacy native paths.
+  // Registration supplies presentation only; the redirect still requires the
+  // authenticated server projection for every navigation.
+  final workspacePaths = governedWorkspaceRoutes.keys
+      .where((path) => !existingPaths.contains(path)).toSet();
   final sessionRefresh = ValueNotifier<int>(0);
   ref.listen(authProvider.select((session) => (session.isAuthenticated,
       session.userId, session.tenantId, session.token, session.role)),
@@ -121,6 +134,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           userId: scope.$1!, role: scope.$4!,
           availableRoutes: {
             ...governanceNativeScreenRoutes,
+            ...workspacePaths,
             ...ScreenRegistry.screens.values.map((screen) => screen.routePath),
           }.where((path) => screenManager.lookup(path) != null).toSet(),
           isCurrent: current,
@@ -214,6 +228,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(path: '/governance/hud', builder: (context, state) => const GovernanceHudScreen()),
           GoRoute(path: '/governance/control-center', builder: (context, state) => const ControlCenterScreen()),
           GoRoute(path: '/proposals', builder: (context, state) => const ProposalsScreen()),
+
+          // Existing canonical workspace routes absent from the legacy registry.
+          // Dedicated/auth routes are excluded by the generated catalog or above.
+          ...workspacePaths.map((path) => GoRoute(
+            path: path,
+            builder: (context, state) => GovernedWorkspaceScreen(route: path),
+          )),
 
           // Dynamic Registry-Driven Routes
           ...ScreenRegistry.screens.values

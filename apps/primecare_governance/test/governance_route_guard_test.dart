@@ -5,6 +5,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
+import 'package:primecare_governance/core/governance/registries/index.dart' as registry;
+import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
+import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 
 class GuardAuth extends AuthNotifier {
   @override
@@ -31,6 +34,7 @@ class GuardApi implements ApiClient {
 }
 
 void main() {
+  setUpAll(registry.Registry.registerAll);
   const path = '/admin/screen-health';
   Map<String, dynamic> projection() => {
     'identity': {'userId': 'fixture-user', 'role': 'fixture-role'},
@@ -53,6 +57,32 @@ void main() {
         fullPath: target, pathParameters: const {}, pageKey: ValueKey(target)));
     expect(await redirect(path), isNull);
     expect(await redirect('/login'), path);
+    // These exact workspace identities already exist in the generated catalog.
+    // Clinical landings and CEO business routes must use their exact bindings.
+    const canonical = '/offices/clinical/roles/rmt/dashboard';
+    final shell = router.configuration.routes.whereType<ShellRoute>().single;
+    for (final target in [canonical,
+      '/offices/corporate/roles/ceo/growth-pipeline',
+      '/offices/corporate/roles/ceo/region-performance',
+      '/offices/corporate/roles/ceo/leadership-reports']) {
+      expect(governedWorkspaceRoutes.containsKey(target), isTrue);
+      final mounted = shell.routes.whereType<GoRoute>().where((route) => route.path == target);
+      expect(mounted, hasLength(1), reason: target);
+      final route = mounted.single;
+      final state = GoRouterState(router.configuration, uri: Uri.parse(target),
+        matchedLocation: target, fullPath: target, pathParameters: const {},
+        pageKey: ValueKey(target));
+      final screen = route.builder!(context, state) as GovernedWorkspaceScreen;
+      expect(screen.route, target);
+      api.data = {...projection(), 'landing': target, 'screens': [{'route': target}]};
+      expect(await redirect('/login'), target);
+      expect(await redirect(target), isNull);
+      api.data = {...projection(), 'landing': target, 'screens': [],
+        'inventory': [{'route': target}]};
+      expect(await redirect('/login'), CommonRoutes.authError);
+      expect(await redirect(target), CommonRoutes.authError);
+    }
+    api.data = projection();
     for (final code in [401, 403, 500]) {
       api.status = code;
       expect(await redirect(path), CommonRoutes.authError);
