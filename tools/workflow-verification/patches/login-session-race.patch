@@ -1,5 +1,5 @@
 diff --git a/scripts/test-auth-password-workflow.mjs b/scripts/test-auth-password-workflow.mjs
-index 126d80f3d..11b952954 100644
+index 126d80f3d..61bc9d134 100644
 --- a/scripts/test-auth-password-workflow.mjs
 +++ b/scripts/test-auth-password-workflow.mjs
 @@ -6,14 +6,24 @@ import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {create
@@ -38,7 +38,31 @@ index 126d80f3d..11b952954 100644
   const archive=process.env.CLINIC_REHEARSAL_ARCHIVE;
   const archivedFiles=new Map();
   if(archive){
-@@ -66,6 +76,73 @@ try{
+@@ -40,7 +50,9 @@ try{
+  }
+  let rejectRecoveryDelivery=false;const recoveryDeliveries=[];
+  const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},EMAIL_FROM:'fixture@example.invalid',EMAIL:{send:async message=>{if(rejectRecoveryDelivery)throw Error('Isolated delivery outage');recoveryDeliveries.push(message);return {messageId:'isolated-'+randomUUID()};}}},css=await readFile('websites/typescript/src/styles.css','utf8');
+- server=createServer(async(req,res)=>{try{const requestUrl=new URL(req.url,'http://fixture');
++ let loginIdentityGate=null;
++ server=createServer(async(req,res)=>{let identityGate;try{const requestUrl=new URL(req.url,'http://fixture');
++  if(requestUrl.pathname==='/v1/auth/me'&&loginIdentityGate){identityGate=loginIdentityGate;loginIdentityGate=null;}
+   if(archive&&!requestUrl.pathname.startsWith('/v1/')){
+    const path=requestUrl.pathname.slice(1);
+    const name=['','login','forgot-password','reset-password','platform/administration'].includes(path)?'index.html':path;
+@@ -57,15 +69,80 @@ try{
+   if(['/login','/forgot-password','/reset-password','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
+   if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
+    const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
+-   const response=await gateway.fetch(request,bindings);receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});res.writeHead(response.status,Object.fromEntries(response.headers));res.end(await response.text());return;}
++   const response=await gateway.fetch(request,bindings);const responseBody=await response.text();receipt.trace.push({path:requestUrl.pathname,method:req.method,status:response.status});
++   if(identityGate){identityGate.reached({token:headers.get('authorization')?.replace(/^Bearer /,''),status:response.status,authenticated:JSON.parse(responseBody).status==='authenticated'});await identityGate.held;}
++   res.writeHead(response.status,Object.fromEntries(response.headers));res.end(responseBody);identityGate?.finished();return;}
+   res.writeHead(404);res.end();
+- }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
++ }catch(error){bridgeFailure=error;identityGate?.reached({error:true});identityGate?.finished();res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
+  browser=await browserType.launch({headless:true});receipt.browser_version=browser.version();
+  const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).platform_administration;
+  const baseline=process.env.AUTH_PASSWORD_BASELINE==='1';receipt.baseline=baseline;
   const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,resets:(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_password_audit ORDER BY id')).rows});
   const login=async(email,pw=password)=>{const response=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password:pw})});assert.equal(response.status,200);return(await response.json()).token;};
   const me=token=>fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+token}});
@@ -59,30 +83,26 @@ index 126d80f3d..11b952954 100644
 +  let release,provisionalToken;
 +  try{
 +   await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy(page,'login-form').waitFor();
-+   let reached,finished,routeFailure;
-+   const held=new Promise(r=>release=r),started=new Promise(r=>reached=r),routeFinished=new Promise(r=>finished=r);
++   let reached,finished;
++   const held=new Promise(r=>release=r),started=new Promise(r=>reached=r),responseFinished=new Promise(r=>finished=r);
 +   const bounded=async(pending,label)=>{
 +    let timer;
 +    try{return await Promise.race([pending,new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('Timed out waiting for '+label)),30000);})]);}
 +    finally{clearTimeout(timer);}
 +   };
-+   await page.route('**/v1/auth/me',async route=>{
-+    try{
-+     provisionalToken=route.request().headers().authorization.replace(/^Bearer /,'');
-+     const response=await route.fetch({timeout:25000});assert.equal(response.status(),200);const body=await response.body();assert.equal(JSON.parse(body.toString()).status,'authenticated');reached();await held;await route.fulfill({status:response.status(),headers:response.headers(),body});
-+    }catch(error){
-+     routeFailure=error;reached();
-+     try{await route.abort('failed');}catch{/* The browser context may already be closing. */}
-+    }finally{finished();}
-+   },{times:1});
++   // Hold the real HTTP response after gateway/service/DB confirmation, before
++   // the browser receives it. No browser response interception or fulfillment.
++   loginIdentityGate={held,reached,finished};
 +   await cy(page,'login-email').fill('platform@example.invalid');await cy(page,'login-password').fill(password);await cy(page,'login-submit').click();
-+   await bounded(started,'the intercepted identity response');if(routeFailure)throw routeFailure;
++   const identity=await bounded(started,'the held HTTP identity response');
++   assert.equal(identity.error,undefined);assert.equal(identity.status,200);assert.equal(identity.authenticated,true);
++   provisionalToken=identity.token;assert.equal(typeof provisionalToken,'string');
 +   const replacement=await login('tenant-admin@example.invalid');
 +   await page.evaluate(t=>sessionStorage.setItem('primecare_session',t),replacement);
 +   const logout=process.env.AUTH_LOGIN_RACE_BASELINE==='1'?null:page.waitForResponse(r=>r.url().endsWith('/v1/auth/logout'));
 +   // Handle cancellation even if the intercepted response fails before logout is awaited.
 +   logout?.catch(()=>{});
-+   release();await bounded(routeFinished,'identity response delivery');if(routeFailure)throw routeFailure;
++   release();await bounded(responseFinished,'HTTP identity response delivery');
 +   if(process.env.AUTH_LOGIN_RACE_BASELINE==='1'){
 +    await page.waitForFunction(token=>sessionStorage.getItem('primecare_session')===token,provisionalToken);
 +    assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),provisionalToken);
@@ -106,7 +126,7 @@ index 126d80f3d..11b952954 100644
 +    statusVisible:await cy(page,'api-status').isVisible().catch(()=>false)};
 +   await page.screenshot({path:out+'/login-lifecycle-'+locale+'-failure.png',fullPage:true}).catch(()=>{});
 +   throw error;
-+  }finally{release?.();const video=page.video();await context.close();if(video)await video.saveAs(out+'/login-lifecycle-'+locale+'.webm');}
++  }finally{loginIdentityGate=null;release?.();const video=page.video();await context.close();if(video)await video.saveAs(out+'/login-lifecycle-'+locale+'.webm');}
 + }
 + if(!lifecycleOnly){
   const submit=async(page,current= password,next='Synthetic-new!Password-2026')=>{
