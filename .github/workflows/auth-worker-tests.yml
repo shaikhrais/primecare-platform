@@ -54,7 +54,7 @@ jobs:
       - name: Unit tests
         run: node scripts/verify-api-batches.mjs
       - name: Type check Workers
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+        run: node_modules/.bin/tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Real PostgreSQL session lifecycle
         env:
           AUTH_TEST_ID_TYPE: ${{ matrix.identity }}

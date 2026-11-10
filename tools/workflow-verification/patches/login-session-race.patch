@@ -69,7 +69,7 @@ index 126d80f3d..11b952954 100644
 +   await page.route('**/v1/auth/me',async route=>{
 +    try{
 +     provisionalToken=route.request().headers().authorization.replace(/^Bearer /,'');
-+     const response=await route.fetch({timeout:25000});assert.equal(response.status(),200);reached();await held;await route.fulfill({response});
++     const response=await route.fetch({timeout:25000});assert.equal(response.status(),200);const body=await response.body();assert.equal(JSON.parse(body.toString()).status,'authenticated');reached();await held;await route.fulfill({status:response.status(),headers:response.headers(),body});
 +    }catch(error){
 +     routeFailure=error;reached();
 +     try{await route.abort('failed');}catch{/* The browser context may already be closing. */}
