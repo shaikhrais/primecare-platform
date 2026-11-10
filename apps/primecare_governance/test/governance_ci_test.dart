@@ -78,5 +78,5 @@ void main() {
             'Less than 50% of screens are production-ready. Architectural debt is too high.',
       );
     });
-  });
+  }, tags: ['release-readiness']);
 }
