@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "inspected_commit": "877fff1e906b51b57175ca7214956a3e1f4a4111",
+  "inspected_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
   "count_unit": "unique_registered_route_paths_not_verified_screens",
   "numbering_policy": "Preserve numbers once assigned; append new paths. Retain retired entries with an explicit retired status.",
   "entries": [
@@ -8839,7 +8839,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1055,
@@ -8847,7 +8850,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1056,
@@ -8855,7 +8861,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1057,
@@ -8863,7 +8872,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1058,
@@ -8871,7 +8883,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1059,
@@ -8887,7 +8902,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1061,
@@ -8895,7 +8913,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1062,
@@ -8903,7 +8924,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1063,
@@ -8911,7 +8935,10 @@
       "sources": [
         "apps/primecare_governance/lib/core/governance/route_registry.dart"
       ],
-      "status": "awaiting_production_contract"
+      "status": "retired",
+      "retirement_reason": "Synthetic route removed; blank metadata retained as unresolved. Not completed or verified.",
+      "retired_at_commit": "c4dd20cc97694d571309a961b72e3b2c8598744f",
+      "metadata_status": "unresolved"
     },
     {
       "number": 1064,
