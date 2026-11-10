@@ -48,11 +48,19 @@ export function renderAuth(root: HTMLElement, gateway: string, portalName: strin
     submitting = true;
     statusKey = 'loading'; drawText();
     const fields = new FormData(form);
+    const startingSession = sessionStorage.getItem('primecare_session');
     let provisionalToken: string | null = null;
     try {
       const confirmed = await authenticate(gateway, String(fields.get('email') || ''), String(fields.get('password') || ''),fetch,async challenge=>{form.reset();form.hidden=true;try{return await requestMfa(form.parentElement!,challenge,locale,code=>verifyMfa(gateway,challenge.challenge,code));}finally{form.hidden=false;form.querySelector<HTMLInputElement>('[name=email]')?.focus();}});
       provisionalToken = confirmed.token;
       const claims = confirmed.identity;
+      // A newer sign-in owns browser storage while this request is pending.
+      // Retire only our provisional server session and leave its UI untouched.
+      const currentSession = sessionStorage.getItem('primecare_session');
+      if (currentSession !== startingSession) {
+        if (currentSession !== provisionalToken) await revokeProvisionalSession(gateway, provisionalToken);
+        return;
+      }
       sessionStorage.setItem('primecare_session', provisionalToken);
       statusKey = 'success_title'; drawText();
       const returnUrl = new URLSearchParams(location.search).get('returnUrl');
