@@ -108,6 +108,22 @@ test('all active role landings resolve to their own authorized governed page',as
  }
 });
 
+test('admin deep links retain registered page access and reject ungranted routes',async()=>{
+ for(const role of ['central_admin','platform_admin','tenant_admin']){
+  const {dom,root,data}=browser(role);
+  try{
+   const page=data.screens.find(s=>s.renderer!=='account'&&!Object.values(adminEntryRoutes).includes(s.route));
+   assert.ok(page,'registered shared page for '+role);
+   history.replaceState({},'',page.route+'?enable-semantics=true');
+   await renderWorkspace(root,'https://gateway.test');
+   assert.ok(root.querySelector(`[data-cy="screen-${page.code}"]`),role+' direct page');
+   history.pushState({},'','/ungranted-test-route?enable-semantics=true');window.onpopstate();
+   assert.ok(root.querySelector('[data-cy="error-state"]'),role+' denied route');
+   assert.equal(root.querySelector('[data-cy="workspace-overview"]'),null);
+  }finally{dom.window.close();}
+ }
+});
+
 test('delayed workspace responses cannot render or clear a replacement account session',async()=>{
  for(const status of [200,401]){
   const {dom,root,data}=browser('rmt');let release,reached,reloads=0;const redirects=[];

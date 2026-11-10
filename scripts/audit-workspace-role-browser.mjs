@@ -1,8 +1,10 @@
 /** Disposable SQL schema; real provisioning/auth/workspace handlers; no production accounts. */
 import assert from 'node:assert/strict';import pg from 'pg';import {build} from 'esbuild';import {chromium} from 'playwright';import {createServer} from 'node:http';import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';import {mkdtemp,readFile,writeFile,mkdir} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';
 const connection=process.env.GROWTH_TEST_DATABASE_URL;if(!connection)throw Error('GROWTH_TEST_DATABASE_URL required');
+if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL)throw Error('Production credentials forbidden in role audit fixture');
+const fixtureUrl=new URL(connection);if(!['localhost','127.0.0.1'].includes(fixtureUrl.hostname)||fixtureUrl.pathname!=='/growth_test')throw Error('Loopback growth_test database required');
 const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8')),hierarchy=JSON.parse(await readFile('cloudflare/workers/src/admin-hierarchy.json','utf8'));
-const special=new Set(['/growth','/appearance-review','/platform/administration','/maintenance/configuration','/forgot-password','/reset-password']);
+const special=new Set(['/growth','/appearance-review','/platform/administration','/tenant-dashboard','/maintenance/configuration','/forgot-password','/reset-password']);
 const screens=registry.screens.filter(s=>s.renderer!=='account'&&!special.has(s.route)&&s.grants.some(g=>g.view===1)),roles=[...new Set(registry.screens.flatMap(s=>s.grants.filter(g=>g.view===1).map(g=>g.role)))].sort();
 const db=new pg.Client({connectionString:connection});await db.connect();const schema='visual_roles_'+Date.now();let server,browser,cleanup=false;const records=[],report={scope:'isolated disposable test schema; not the live website',catalogScreens:registry.screens.length,targetScreens:screens.length,roles:roles.length,apiCreatedAccounts:0,bootstrapFixtures:1,checked:0,samples:[],records,cleanup:{verified:false},limitations:['Structural browser checks are not individual human approval or complete clinical workflow acceptance','Domain data/API dependencies remain as recorded in governance; no readiness flags changed','Account/MFA/consent and dedicated screens are separate surfaces, not generic workspace renderer passes']};
 const folder='test-results/workspace-review';await mkdir(folder,{recursive:true});
@@ -18,7 +20,17 @@ try{
  const call=(path,body)=>platformAdministration(new Request('https://fixture'+path,{method:'POST',headers:{authorization:'Bearer '+rootToken,'content-type':'application/json','idempotency-key':crypto.randomUUID()},body:JSON.stringify(body)}),env,path,{});
  const tenantResponse=await call('/platform/tenants',{name:'Disposable visual review tenant',slug:'visual-review-'+Date.now()});assert.equal(tenantResponse.status,201,await tenantResponse.clone().text());const tenant=(await tenantResponse.json()).tenant.id;
  const tokens=new Map([['central_admin',rootToken]]);
- for(const role of roles){if(role==='central_admin')continue;assert.ok(hierarchy.roles.central_admin.assignable.includes(role),'role must be governably provisionable: '+role);await db.query('DELETE FROM platform_administration_rate');const email='visual-'+role+'@example.invalid',password='Synthetic-'+crypto.randomUUID();const response=await call('/platform/tenants/'+tenant+'/accounts',{email,password,role});assert.equal(response.status,201,await response.clone().text());report.apiCreatedAccounts++;
+ for(const role of roles){if(role==='central_admin')continue;
+  // Code Admin is bootstrap-only in the existing policy, never API-assignable.
+  // Keep this disposable seed separate from API-created account/sign-in counts.
+  if(role==='code_admin'){
+   assert.equal(hierarchy.roles[role]?.bootstrapOnly,true);assert.equal(hierarchy.roles.central_admin.assignable.includes(role),false);
+   const id=crypto.randomUUID(),token=Buffer.from(crypto.getRandomValues(new Uint8Array(32))).toString('base64url');
+   await db.query("INSERT INTO users(id,email,roles,tenant_id,status) VALUES($1,'code-admin-bootstrap@example.invalid',$2,$3,'active')",[id,role,tenant]);
+   await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+INTERVAL '2 hours')",[Buffer.from(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(token))).toString('hex'),id]);
+   tokens.set(role,token);report.bootstrapFixtures++;continue;
+  }
+  assert.ok(hierarchy.roles.central_admin.assignable.includes(role),'role must be governably provisionable: '+role);await db.query('DELETE FROM platform_administration_rate');const email='visual-'+role+'@example.invalid',password='Synthetic-'+crypto.randomUUID();const response=await call('/platform/tenants/'+tenant+'/accounts',{email,password,role});assert.equal(response.status,201,await response.clone().text());report.apiCreatedAccounts++;
   const session=await auth(new Request('https://fixture/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})}),{...env,SERVICE_NAME:'auth'},'/login',{});assert.equal(session.status,200,await session.clone().text());tokens.set(role,(await session.json()).token);
  }
  report.successfulSignIns=report.apiCreatedAccounts;
@@ -33,7 +45,7 @@ try{
  browser=await chromium.launch({headless:true,executablePath:process.env.GROWTH_BROWSER_EXECUTABLE,args:['--no-sandbox']});
  const assigned=new Map();for(const s of screens){const role=s.grants.find(g=>g.view===1&&tokens.has(g.role))?.role;assert.ok(role,'role for '+s.code);const list=assigned.get(role)??[];list.push(s);assigned.set(role,list);}
  for(const [role,pages] of assigned)for(const width of [320,1440]){
-  const page=await browser.newPage({viewport:{width,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());await page.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.get(role));await page.goto(origin+'/?enable-semantics=true');await page.locator('[data-cy=workspace-title]').waitFor();
+  const page=await browser.newPage({viewport:{width,height:1000}}),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());await page.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.get(role));await page.goto(origin+pages[0].route+'?enable-semantics=true');await page.locator('[data-cy=workspace-title]').waitFor();
   let captured=new Set();for(const screen of pages){if(width===320){const close=page.locator('[data-cy=sidebar-close]');if(!(await close.isVisible()))await page.locator('[data-cy=sidebar-toggle]').click();}
    await page.locator(`[data-cy=app-sidebar] [data-cy="sidebar-item-${screen.code}"]`).click();await page.locator(`[data-cy="screen-${screen.code}"]`).waitFor();if(width===320&&await page.locator('[data-cy=sidebar-close]').isVisible())await page.locator('[data-cy=sidebar-close]').click();
    const result=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,heading:document.querySelector('[data-cy=workspace-title]')?.textContent,sections:document.querySelectorAll('main>section').length,overflowElements:[...document.querySelectorAll('main *')].filter(e=>e.getBoundingClientRect().right>innerWidth+1).slice(0,6).map(e=>({tag:e.tagName,testId:e.getAttribute('data-cy'),text:e.textContent?.slice(0,120)}))}));
