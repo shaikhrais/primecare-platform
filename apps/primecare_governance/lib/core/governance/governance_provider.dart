@@ -140,6 +140,7 @@ class GovernanceState {
   final double integrityScore;
   final Map<String, List<bool>> categorizedCoverage;
   final Map<String, double> featureHealth;
+  final bool telemetryAvailable;
   final double apiUptime;
   final int dbConnections;
   final Map<String, dynamic> liveServiceHealth;
@@ -201,6 +202,7 @@ class GovernanceState {
     required this.integrityScore,
     required this.categorizedCoverage,
     required this.featureHealth,
+    this.telemetryAvailable = false,
     required this.apiUptime,
     required this.dbConnections,
     required this.liveServiceHealth,
@@ -258,6 +260,7 @@ class GovernanceState {
     double? integrityScore,
     Map<String, List<bool>>? categorizedCoverage,
     Map<String, double>? featureHealth,
+    bool? telemetryAvailable,
     double? apiUptime,
     int? dbConnections,
     Map<String, dynamic>? liveServiceHealth,
@@ -315,6 +318,7 @@ class GovernanceState {
       integrityScore: integrityScore ?? this.integrityScore,
       categorizedCoverage: categorizedCoverage ?? this.categorizedCoverage,
       featureHealth: featureHealth ?? this.featureHealth,
+      telemetryAvailable: telemetryAvailable ?? this.telemetryAvailable,
       apiUptime: apiUptime ?? this.apiUptime,
       dbConnections: dbConnections ?? this.dbConnections,
       liveServiceHealth: liveServiceHealth ?? this.liveServiceHealth,
@@ -357,14 +361,10 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
   Timer? _automationTimer;
 
   // Persist live metrics across rebuilds
-  double _currentApiUptime = 99.9;
-  int _currentDbConnections = 4;
-  Map<String, dynamic> _currentServiceHealth = {
-    'Auth-Service': 'healthy',
-    'Staffing-Engine': 'healthy',
-    'Registry-Sync': 'healthy',
-    'Audit-Runner': 'healthy',
-  };
+  bool _currentTelemetryAvailable = false;
+  double _currentApiUptime = 0;
+  int _currentDbConnections = 0;
+  Map<String, dynamic> _currentServiceHealth = {};
   List<GovernanceEvent> _currentEvents = [];
 
   @override
@@ -379,6 +379,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     });
 
     return _calculateState(
+      telemetryAvailable: _currentTelemetryAvailable,
       apiUptime: _currentApiUptime,
       dbConnections: _currentDbConnections,
       liveServiceHealth: _currentServiceHealth,
@@ -409,7 +410,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     try {
       final historyService = ref.read(governanceHistoryServiceProvider);
       final trend = await historyService.getHealthTrend();
-      state = state.copyWith(healthTrend: trend);
+      if (ref.mounted) state = state.copyWith(healthTrend: trend);
     } catch (e) {
       AppLogger.e('History load failed: $e');
     }
@@ -420,46 +421,55 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     final service = ref.read(governanceApiServiceProvider);
     final stream = service.telemetryStream;
     _telemetrySubscription = stream.listen((data) {
-      final List<dynamic>? eventData = data['events'];
-
-      if (eventData != null && eventData.isNotEmpty) {
-        for (final e in eventData) {
-          _currentEvents.insert(
-            0,
-            GovernanceEvent(
-              type: e['type'] ?? 'info',
-              message: e['message'] ?? '',
-              level: _parseEventLevel(e['level']),
-              source: e['source'],
-              timestamp:
-                  DateTime.tryParse(e['timestamp'] ?? '') ?? DateTime.now(),
-            ),
-          );
-        }
-        // Keep only last 50 events
-        if (_currentEvents.length > 50) {
-          _currentEvents = _currentEvents.sublist(0, 50);
-        }
+      if (!ref.mounted) return;
+      final uptime = data['api_uptime'];
+      final connections = data['db_connections'];
+      final health = data['service_health'];
+      final events = data['events'] ?? const [];
+      if (uptime is! num || !uptime.isFinite || uptime < 0 || uptime > 100 ||
+          connections is! int || connections < 0 || health is! Map ||
+          health.entries.any((e) => e.key is! String || (e.key as String).isEmpty ||
+            e.value is! String || (e.value as String).isEmpty) ||
+          events is! List || events.any((e) => e is! Map ||
+            e['type'] is! String || e['message'] is! String || e['level'] is! String ||
+            e['timestamp'] is! String || DateTime.tryParse(e['timestamp']) == null)) {
+        _markTelemetryUnavailable();
+        return;
       }
+      for (final e in events) {
+        _currentEvents.insert(0, GovernanceEvent(
+          type: e['type'], message: e['message'], level: _parseEventLevel(e['level']),
+          source: e['source'] is String ? e['source'] : null,
+          timestamp: DateTime.parse(e['timestamp']),
+        ));
+      }
+      if (_currentEvents.length > 50) _currentEvents = _currentEvents.sublist(0, 50);
+      _currentApiUptime = uptime.toDouble();
+      _currentDbConnections = connections;
+      _currentServiceHealth = Map<String, dynamic>.unmodifiable(health);
+      _currentTelemetryAvailable = true;
+      state = state.copyWith(telemetryAvailable: true,
+        apiUptime: _currentApiUptime, dbConnections: _currentDbConnections,
+        liveServiceHealth: _currentServiceHealth, recentEvents: List.from(_currentEvents));
+    }, onError: (Object error, StackTrace stack) {
+      _markTelemetryUnavailable();
+    }, onDone: _markTelemetryUnavailable);
+  }
 
-      _currentApiUptime = data['api_uptime']?.toDouble() ?? _currentApiUptime;
-      _currentDbConnections = data['db_connections'] ?? _currentDbConnections;
-      _currentServiceHealth = Map<String, dynamic>.from(
-        data['service_health'] ?? _currentServiceHealth,
-      );
-
-      state = state.copyWith(
-        apiUptime: _currentApiUptime,
-        dbConnections: _currentDbConnections,
-        liveServiceHealth: _currentServiceHealth,
-        recentEvents: List.from(_currentEvents),
-      );
-    });
+  void _markTelemetryUnavailable() {
+    if (!ref.mounted) return;
+    _currentTelemetryAvailable = false;
+    _currentApiUptime = 0;
+    _currentDbConnections = 0;
+    _currentServiceHealth = {};
+    state = state.copyWith(telemetryAvailable: false, apiUptime: 0,
+      dbConnections: 0, liveServiceHealth: const {});
   }
 
   GovernanceState _calculateState({
     List<Map<String, dynamic>>? existingTrend,
     List<GovernanceEvent>? existingEvents,
+    bool? telemetryAvailable,
     double? apiUptime,
     int? dbConnections,
     Map<String, dynamic>? liveServiceHealth,
@@ -581,16 +591,10 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       integrityScore: avgScore,
       categorizedCoverage: {},
       featureHealth: {},
+      telemetryAvailable: telemetryAvailable ?? false,
       apiUptime: apiUptime ?? 0.0,
-      dbConnections: dbConnections ?? 4,
-      liveServiceHealth:
-          liveServiceHealth ??
-          {
-            'Auth-Service': 'healthy',
-            'Staffing-Engine': 'healthy',
-            'Registry-Sync': 'healthy',
-            'Audit-Runner': 'healthy',
-          },
+      dbConnections: dbConnections ?? 0,
+      liveServiceHealth: liveServiceHealth ?? const {},
       recentEvents: existingEvents ?? const [],
       productionReadyScreensCount: governanceReport.productionReadyScreens
           .toInt(),
@@ -877,6 +881,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           ...telemetryEvents,
           ...state.recentEvents,
         ].take(50).toList(),
+        telemetryAvailable: state.telemetryAvailable,
         apiUptime: state.apiUptime,
         dbConnections: state.dbConnections,
         liveServiceHealth: state.liveServiceHealth,
@@ -893,6 +898,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       );
 
       // Sync private fields with state
+      _currentTelemetryAvailable = state.telemetryAvailable;
       _currentApiUptime = state.apiUptime;
       _currentDbConnections = state.dbConnections;
       _currentServiceHealth = state.liveServiceHealth;
@@ -924,7 +930,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       final apiService = ref.read(governanceApiServiceProvider);
       final response = await apiService.executeAction(actionKey);
 
-      if (response.success) {
+      if (response.success && ref.mounted) {
         // If it was a sync action, refresh the local state
         if (actionKey.contains('sync')) {
           refresh();
@@ -939,7 +945,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
         error: e.toString(),
       );
     } finally {
-      state = state.copyWith(isSyncing: false);
+      if (ref.mounted) state = state.copyWith(isSyncing: false);
     }
   }
 

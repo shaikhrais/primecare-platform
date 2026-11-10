@@ -158,7 +158,7 @@ class _GovernanceDashboardContentState
             dashboardState,
             report,
           ),
-          const PlatformDiscoveryViewer(baseUrl: 'http://localhost:8700/api/governance'),
+          const PlatformDiscoveryViewer(),
           const PlatformReadinessViewer(),
           GovernancePatchManager(issues: filteredIssues),
         ],
