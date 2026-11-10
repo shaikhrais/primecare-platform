@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+    paths: [tools/workflow-verification/audit_development_state.py, tools/workflow-verification/test_development_audit.py, tools/governance-production/**, .github/workflows/governance-production-reader.yml]
   pull_request:
-    paths: [tools/governance-production/**, .github/workflows/governance-production-reader.yml]
+    paths: [tools/workflow-verification/audit_development_state.py, tools/workflow-verification/test_development_audit.py, tools/governance-production/**, .github/workflows/governance-production-reader.yml]
 permissions:
   contents: read
 jobs:
@@ -23,6 +23,7 @@ jobs:
           npm install --prefix /tmp/govt-reader --ignore-scripts --no-audit --no-fund pg@8.11.3 @electric-sql/pglite@0.3.14
           ln -s /tmp/govt-reader/node_modules node_modules
           pip install -r tools/governance-production/requirements.txt
+      - run: python tools/workflow-verification/test_development_audit.py
       - run: python tools/governance-production/test-ci-fixture.py
       - run: python tools/governance-production/test-production-reader.py
       - run: node --test tools/governance-production/test-reader-errors.mjs
@@ -61,7 +62,13 @@ jobs:
           python scripts/audit-api-grant-integrity.py
           python scripts/export_governed_openapi.py --output /tmp/govt-openapi.json --report /tmp/govt-api-readiness.json --handbook /tmp/govt-api-reference.md
           python scripts/export-typescript-websites.py --output /tmp/govt-portals --gateway https://primecare-api-gateway.itpro-mohammed.workers.dev > /tmp/govt-portal-summary.json
+      - name: Read aggregate development and saved-attempt coverage
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: python tools/workflow-verification/audit_development_state.py > /tmp/development-state-summary.json
       - uses: actions/upload-artifact@v4
         with:
           name: govt-reader-production-receipt
-          path: /tmp/govt-reader-receipt.json
+          path: |
+            /tmp/govt-reader-receipt.json
+            /tmp/development-state-summary.json
