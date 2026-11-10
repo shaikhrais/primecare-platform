@@ -31,3 +31,22 @@ for(const replacement of ['newer-token',null,'provisional-token'])test(`pending 
  assert.deepEqual(navigation,[]);
  dom.window.close();
 });
+test('unavailable browser storage rejects before credential exchange and permits retry',async()=>{
+ const dom=new JSDOM('<main></main>',{url:'https://fixture.invalid/login'});
+ const storage=dom.window.sessionStorage;
+ Object.assign(globalThis,{document:dom.window.document,FormData:dom.window.FormData,sessionStorage:{getItem(){throw new Error('Storage denied')}}});
+ const navigation=[];globalThis.location={search:'',assign:value=>navigation.push(value)};
+ let calls=0;globalThis.loginProbe={authenticate:async()=>{calls++;return {token:'confirmed-token',identity:{roles:'psw',userId:'fixture',status:'authenticated'}}},revoke:async()=>{}};
+ const root=document.querySelector('main');renderAuth(root,'https://gateway.invalid','Fixture','en');
+ const form=root.querySelector('[data-cy=login-form]');
+ form.dispatchEvent(new dom.window.Event('submit',{cancelable:true}));
+ await new Promise(setImmediate);
+ assert.equal(calls,0);assert.deepEqual(navigation,[]);
+ assert.notEqual(root.querySelector('[data-cy=api-status]').value,'');
+ globalThis.sessionStorage=storage;
+ form.dispatchEvent(new dom.window.Event('submit',{cancelable:true}));
+ await new Promise(setImmediate);
+ assert.equal(calls,1);assert.equal(storage.getItem('primecare_session'),'confirmed-token');
+ assert.equal(navigation.length,1);
+ dom.window.close();
+});
