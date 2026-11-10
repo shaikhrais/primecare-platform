@@ -4,6 +4,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
 import '../models/governance_report.dart';
+import '../services/governance_exporter.dart';
+import 'package:primecare_ui/src/features/reports/report_pdf_exporter.dart';
+
+final governancePdfExportProvider = Provider<ReportPdfExport>(
+  (ref) => ReportPdfExporter().export,
+);
 
 class GovernanceDashboardState {
   final AuditSeverity? selectedSeverity;
@@ -85,23 +91,29 @@ class GovernanceDashboardController extends AsyncNotifier<GovernanceDashboardSta
   }
 
   Future<String?> exportReport(String format, GovernanceReport report) async {
-    if (state.value == null) return null;
+    if (state.value == null || state.value!.isExporting) return null;
     state = AsyncValue.data(state.value!.copyWith(isExporting: true));
     try {
-      await Future<void>.delayed(const Duration(milliseconds: 50)); // Simulated work yielding
       if (format == 'json') {
-        return '{"totalScreens":${report.totalScreens}}';
+        return GovernanceExporter.toJson(report);
       } else if (format == 'csv') {
-        return 'Severity,Category,Screen,Route,Message,Fix,Owner,DetectedAt';
+        return GovernanceExporter.toCsv(report);
       } else if (format == 'html') {
-        return '<!DOCTYPE html><html><body><h1>PrimeCare Platform Governance Report</h1></body></html>';
+        return GovernanceExporter.toHtml(report);
       } else if (format == 'pdf') {
-        return 'Professional PDF Report Generated';
-      } else {
-        return '# PrimeCare Platform Governance Report';
+        final bytes = await GovernanceExporter.toPdf(report);
+        if (!ref.mounted) return null;
+        const filename = 'primecare-governance-report.pdf';
+        final saved = await ref.read(governancePdfExportProvider)(bytes, filename);
+        return saved ? filename : null;
+      } else if (format == 'markdown') {
+        return GovernanceExporter.toMarkdown(report);
       }
+      throw ArgumentError.value(format, 'format', 'Unsupported report format');
     } finally {
-      state = AsyncValue.data(state.value!.copyWith(isExporting: false));
+      if (ref.mounted && state.value != null) {
+        state = AsyncValue.data(state.value!.copyWith(isExporting: false));
+      }
     }
   }
 }

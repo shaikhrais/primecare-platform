@@ -1,4 +1,5 @@
 // Governance - Category: test | Purpose: UI Screen component rendering the Governance Dashboard Controller Test workspace interface.
+import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/controllers/governance_dashboard_controller.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -83,12 +84,25 @@ void main() {
   group('GovernanceDashboardController Comprehensive Suite', () {
     late ProviderContainer container;
     late MockGovernanceNotifier mockGovernanceNotifier;
+    late bool saveResult;
+    late bool failSave;
+    late int saveCalls;
 
     setUp(() {
       mockGovernanceNotifier = MockGovernanceNotifier();
+      saveResult = true;
+      failSave = false;
+      saveCalls = 0;
       container = ProviderContainer(
         overrides: [
           governanceProvider.overrideWith(() => mockGovernanceNotifier),
+          governancePdfExportProvider.overrideWithValue((bytes, filename) async {
+            saveCalls++;
+            if (failSave) throw StateError('fixture save failure');
+            expect(ascii.decode(bytes.take(5).toList()), '%PDF-');
+            expect(filename, 'primecare-governance-report.pdf');
+            return saveResult;
+          }),
         ],
       );
     });
@@ -235,7 +249,32 @@ void main() {
         final controller = container.read(governanceDashboardControllerProvider.notifier);
 
         final result = await controller.exportReport('pdf', dummyReport);
-        expect(result, equals('Professional PDF Report Generated'));
+        expect(result, equals('primecare-governance-report.pdf'));
+      });
+
+      test('cancelled PDF save returns no success and clears exporting', () async {
+        saveResult = false;
+        await container.read(governanceDashboardControllerProvider.future);
+        final controller = container.read(governanceDashboardControllerProvider.notifier);
+        expect(await controller.exportReport('pdf', dummyReport), isNull);
+        expect(container.read(governanceDashboardControllerProvider).value?.isExporting, isFalse);
+      });
+
+      test('PDF save failure propagates and clears exporting for retry', () async {
+        failSave = true;
+        await container.read(governanceDashboardControllerProvider.future);
+        final controller = container.read(governanceDashboardControllerProvider.notifier);
+        await expectLater(controller.exportReport('pdf', dummyReport), throwsStateError);
+        expect(container.read(governanceDashboardControllerProvider).value?.isExporting, isFalse);
+      });
+
+      test('disposed controller does not save a completed PDF', () async {
+        await container.read(governanceDashboardControllerProvider.future);
+        final controller = container.read(governanceDashboardControllerProvider.notifier);
+        final pending = controller.exportReport('pdf', dummyReport);
+        container.invalidate(governanceDashboardControllerProvider);
+        expect(await pending, isNull);
+        expect(saveCalls, 0);
       });
 
       test('exportReport sets isExporting flag during execution', () async {
