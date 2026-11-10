@@ -277,7 +277,7 @@ def main():
             used_jobs.add(job['id'])
         job_dir = output / label
         result = {'run': run, 'job': job, 'matrix': entry, 'artifact': None, 'receipt': None,
-                  'receipt_path': None, 'receipt_sha256': None, 'source_bindings': {}, 'evidence': [], 'validation_errors': [],
+                  'receipt_path': None, 'receipt_sha256': None, 'source_bindings': {}, 'original_source_files': {}, 'evidence': [], 'validation_errors': [],
                   'environment': {'runner_labels': job.get('labels', []) if job else [],
                                   'runner_name': job.get('runner_name') if job else None,
                                   'runner_os': definition.get('runs-on'), 'browser': 'chromium',
