@@ -71,7 +71,7 @@ class CollectorTests(unittest.TestCase):
                 redirect.redirect_request(request, None, 302, 'Found', {}, destination)
 
     def workflow(self, entries):
-        return json.dumps({'jobs': {'login-race': {'strategy': {'matrix': {'include': entries}}}}).encode()
+        return json.dumps({'jobs': {'login-race': {'strategy': {'matrix': {'include': entries}}}}}).encode()
 
     def entry(self, **overrides):
         return {'label': 'candidate', 'source': 'a' * 40, 'baseline': '0', **overrides}
