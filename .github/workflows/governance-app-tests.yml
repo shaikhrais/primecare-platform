@@ -19,7 +19,7 @@ jobs:
           cache: true
       - run: flutter pub get
         working-directory: apps/primecare_governance
-      - run: flutter test --exclude-tags=release-readiness
+      - run: flutter test
         working-directory: apps/primecare_governance
   release-readiness:
     name: Production readiness gate
@@ -36,7 +36,7 @@ jobs:
         working-directory: apps/primecare_governance
       # This remains a failing check until real release evidence exists.
       # No continue-on-error, event exclusion, or threshold override.
-      - run: flutter test test/governance_ci_test.dart --tags=release-readiness
+      - run: flutter test test/release/governance_readiness_gate.dart
         working-directory: apps/primecare_governance
       - name: Preserve readiness blockers even when the release gate fails
         if: always()

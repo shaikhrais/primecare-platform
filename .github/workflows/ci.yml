@@ -143,15 +143,10 @@ jobs:
             fi
             echo "::group::Test $dir"
             if [ "$dir" = "apps/primecare_governance" ]; then
-              # Whole-product readiness runs as its own visible check
-              # in governance-app-tests.yml, not as a unit-test success claim.
-              (cd "$dir" && flutter pub get && flutter test --no-pub --exclude-tags=release-readiness)
-              result=$?
               echo "| Release readiness | $dir | SEPARATE CHECK: Production readiness gate |" >> dart-ci-report.md
-            else
-              (cd "$dir" && flutter pub get && flutter test --no-pub)
-              result=$?
             fi
+            (cd "$dir" && flutter pub get && flutter test --no-pub)
+            result=$?
             echo "::endgroup::"
             if [ "$result" -eq 0 ]; then
               echo "| Flutter tests | $dir | PASS |" >> dart-ci-report.md
