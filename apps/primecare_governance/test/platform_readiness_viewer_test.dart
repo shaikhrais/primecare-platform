@@ -17,6 +17,8 @@ void main() {
     expect(snapshot.report.productionReadyScreens, 0);
     expect(snapshot.report.blockedScreens, 1);
     expect(snapshot.pendingEvidence[fixture.id], contains('render-unverified'));
+    expect(snapshot.pendingEvidence[fixture.id], contains('mobile-unverified'));
+    expect(snapshot.pendingEvidence[fixture.id], contains('desktop-unverified'));
     expect(snapshot.pendingEvidence[fixture.id], contains('review-reference-missing-or-placeholder'));
     expect(fixture.toJson(), before);
   });

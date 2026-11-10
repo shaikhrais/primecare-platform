@@ -7,6 +7,7 @@ void main() {
   const fixture = ScreenMetadata(id: 'EVIDENCE_FIXTURE', title: 'Fixture',
     route: '/fixture', roles: ['fixture'], lifecycleStatus: LifecycleStatus.completed,
     isRenderOk: true, isAccessibilityVerified: true, isPerformanceVerified: true,
+    isMobileVerified: true, isDesktopVerified: true,
     testPassRate: 98, isLocalizationReady: true, isPhiCompliant: true,
     lastVerificationHash: 'fixture-reference-only', uatApprover: 'fixture-reviewer');
 
@@ -31,11 +32,29 @@ void main() {
     for (final incomplete in [fixture.copyWith(isRenderOk: false),
       fixture.copyWith(isAccessibilityVerified: false),
       fixture.copyWith(isPerformanceVerified: false), fixture.copyWith(testPassRate: 94),
+      fixture.copyWith(isMobileVerified: false), fixture.copyWith(isDesktopVerified: false),
       fixture.copyWith(testPassRate: double.nan), fixture.copyWith(testPassRate: double.infinity),
       fixture.copyWith(testPassRate: 101),
       fixture.copyWith(isLocalizationReady: false), fixture.copyWith(isPhiCompliant: false),
       fixture.copyWith(lifecycleStatus: LifecycleStatus.design)]) {
       expect(ProductionReadinessService.isReady(incomplete), isFalse);
+    }
+  });
+
+  test('device findings and readiness agree without manufacturing verification', () {
+    for (final mobile in [false, true]) {
+      for (final desktop in [false, true]) {
+        final screen = fixture.copyWith(deploymentEnvironment: 'production',
+          isMobileVerified: mobile, isDesktopVerified: desktop);
+        final before = screen.toJson();
+        final blockers = ProductionReadinessService.readinessBlockers(screen);
+        expect(blockers.contains('mobile-unverified'), !mobile);
+        expect(blockers.contains('desktop-unverified'), !desktop);
+        expect(ProductionReadinessService.isReady(screen), mobile && desktop);
+        expect(ProductionReadinessService.scan(screen).any((issue) =>
+          issue.id.startsWith('prod_missing_device_verif_')), !mobile || !desktop);
+        expect(screen.toJson(), before);
+      }
     }
   });
 

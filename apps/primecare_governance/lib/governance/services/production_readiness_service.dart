@@ -100,6 +100,8 @@ class ProductionReadinessService {
     if (!screen.isRenderOk) 'render-unverified',
     if (!screen.isAccessibilityVerified) 'accessibility-unverified',
     if (!screen.isPerformanceVerified) 'performance-unverified',
+    if (!screen.isMobileVerified) 'mobile-unverified',
+    if (!screen.isDesktopVerified) 'desktop-unverified',
     if (!screen.testPassRate.isFinite || screen.testPassRate < 95 || screen.testPassRate > 100)
       'test-evidence-invalid-or-below-95-percent',
     if (!_hasVerificationReference(screen)) 'verification-reference-missing-or-placeholder',
