@@ -42,10 +42,16 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text('keep this draft'), findsOneWidget);
     final primary = tester.widget<Text>(find.text('Saved appearance')).style!.color!;
-    expect(primary, Colors.black);
+    final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
+    expect(primary, material.colorScheme.onPrimary);
+    final gradient = tester.widget<Container>(find.descendant(
+      of: find.byType(GovDashboardHero), matching: find.byType(Container)).first)
+        .decoration! as BoxDecoration;
+    for (final stop in gradient.gradient!.colors) {
+      expect(themeContrastRatio(primary, stop), greaterThanOrEqualTo(4.5));
+    }
     final cards = tester.widgetList<Card>(find.byType(Card));
     expect(cards.length, 2);
-    final material = tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!;
     final input = material.inputDecorationTheme;
     expect(input.fillColor, material.colorScheme.surface);
     expect(themeContrastRatio(input.fillColor!, material.colorScheme.onSurface), greaterThanOrEqualTo(4.5));
