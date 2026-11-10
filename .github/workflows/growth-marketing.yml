@@ -52,7 +52,10 @@ jobs:
       - run: node --test scripts/test-growth-browser.mjs scripts/test-growth-admin-browser.mjs scripts/test-look-manager.mjs
       - run: GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 node scripts/build-typescript-websites.mjs
       - run: python3 scripts/register-media-look.py --check && node scripts/test-media-look-browser.mjs
-      - run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-auth-recovery-web.py --check && python3 scripts/register-workspace-visual-review.py
+      - name: Check recovery and visual bindings against the isolated historical fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: python3 scripts/test-auth-recovery-governance.py && python3 scripts/register-auth-recovery-web.py --check && python3 scripts/register-workspace-visual-review.py
       - run: node --test scripts/test-workspace-browser.mjs scripts/test-auth-recovery-web.mjs
       - run: node scripts/audit-workspace-role-browser.mjs
       - run: REVIEW_PHASE=after node scripts/review-admin-marketing-ui.mjs

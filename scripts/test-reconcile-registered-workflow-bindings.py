@@ -30,6 +30,13 @@ class AdditiveBindingsTest(unittest.TestCase):
         with sqlite3.connect('file:' + str(SOURCE_DB.resolve()) + '?mode=ro', uri=True) as source:
             copied = sqlite3.connect(':memory:')
             source.backup(copied)
+        # Reproduce the current, already registered Code Admin parent-screen
+        # policy only in this disposable historical test copy. No live grants.
+        hierarchy = json.loads((m.ROOT / 'cloudflare/workers/src/admin-hierarchy.json').read_text())
+        permission = hierarchy['permissions']['code_admin']
+        copied.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration')")
+        copied.execute("INSERT OR IGNORE INTO role_screen_permissions(role_id,screen_id,can_view,can_create,can_edit) SELECT r.id,s.id,?,?,? FROM roles r,screens s WHERE r.role_code='code_admin' AND s.screen_code='PLATFORM_ADMINISTRATION'",
+                       tuple(int(permission[key]) for key in ('view','create','edit')))
         # Normalize missing metadata only in this disposable copy, so insertion
         # and failure tests still execute after live metadata was reconciled.
         for table in reversed(tuple(m.SCHEMA)):
@@ -105,6 +112,25 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
+            m.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+    def test_code_admin_email_is_denied_and_conflicting_grant_is_not_rewritten(self):
+        m.reconcile(self.db, ('reports',))
+        role = self.db.execute("SELECT id FROM roles WHERE role_code='code_admin'").fetchone()[0]
+        self.assertEqual(self.db.execute("SELECT can_view,can_export,can_email FROM shared_report_grants WHERE report_id='platform_administration' AND role_id=?", (role,)).fetchone(), (1, 1, 0))
+        self.db.execute("UPDATE shared_report_grants SET can_email=1 WHERE role_id=?", (role,))
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
+            m.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+    def test_code_admin_parent_view_is_required(self):
+        self.db.execute("UPDATE role_screen_permissions SET can_view=0 WHERE role_id=(SELECT id FROM roles WHERE role_code='code_admin')")
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
             m.reconcile(self.db, ('reports',))
         self.assert_snapshot_equal(before)
 

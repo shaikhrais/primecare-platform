@@ -124,6 +124,7 @@ class Reconciler:
         return self.one('SELECT id FROM api_endpoints WHERE app_id=? AND route_path=? AND http_method=?', (app, path, method), 'registered API')[0]
 
     def reports(self):
+        self.source('scripts/register-admin-reports.py')
         self.source('cloudflare/workers/src/reporting.ts')
         self.source('websites/typescript/src/reports.ts')
         contract = self.load('cloudflare/workers/src/report-registry.json')
@@ -136,7 +137,9 @@ class Reconciler:
                 JOIN runtime_catalog_permissions p ON p.role_id=r.id WHERE r.active=1 AND p.can_view_organization=1''')},
             'page_readiness': {r[0] for r in self.db.execute('''SELECT r.role_code FROM roles r WHERE r.active=1
                 AND EXISTS(SELECT 1 FROM role_screen_permissions p WHERE p.role_id=r.id AND p.can_view=1)''')},
-            'platform_administration': {'platform_admin'},
+            'platform_administration': {'platform_admin'} | {r[0] for r in self.db.execute('''SELECT r.role_code FROM roles r
+                JOIN role_screen_permissions p ON p.role_id=r.id JOIN screens s ON s.id=p.screen_id
+                WHERE r.role_code='code_admin' AND r.active=1 AND s.screen_code='PLATFORM_ADMINISTRATION' AND p.can_view=1''')},
         }
         for definition in contract['definitions']:
             rid = definition['report_id']
@@ -147,6 +150,10 @@ class Reconciler:
             for grant in grants:
                 if any(type(grant[k]) is not int or grant[k] not in (0, 1) for k in ('view', 'export', 'email')):
                     raise ValueError('Invalid existing report grant')
+                # Existing registrar grants Code Admin view/export, never email.
+                if grant['role'] == 'code_admin' and (rid not in ('page_readiness', 'platform_administration')
+                        or (grant['view'], grant['export'], grant['email']) != (1, 1, 0)):
+                    raise ValueError('Existing Code Admin report authority differs from source registry')
                 self.row('shared_report_grants', {'report_id': rid, 'role_id': self.role(grant['role'])}, {'can_view': grant['view'], 'can_export': grant['export'], 'can_email': grant['email']})
         surfaces = []
         for surface in contract['surfaces']:

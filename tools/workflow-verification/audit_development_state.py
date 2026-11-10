@@ -15,7 +15,7 @@ def audit(db, registry):
         'organization_summary': {r[0] for r in db.execute('SELECT r.role_code FROM roles r JOIN runtime_catalog_permissions p ON p.role_id=r.id WHERE r.active=1 AND p.can_view_organization=1')},
         'page_readiness': {r[0] for r in db.execute('SELECT r.role_code FROM roles r WHERE r.active=1 AND EXISTS(SELECT 1 FROM role_screen_permissions p WHERE p.role_id=r.id AND p.can_view=1)')},
         # Mirrors the existing reconciler; this is a comparison, not a grant.
-        'platform_administration': {'platform_admin'},
+        'platform_administration': {'platform_admin'} | {r[0] for r in db.execute("SELECT r.role_code FROM roles r JOIN role_screen_permissions p ON p.role_id=r.id JOIN screens s ON s.id=p.screen_id WHERE r.role_code='code_admin' AND r.active=1 AND s.screen_code='PLATFORM_ADMINISTRATION' AND p.can_view=1")},
     }
     for definition in registry['definitions']:
         name = definition['report_id']
