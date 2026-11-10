@@ -1,24 +1,13 @@
 /** Actual marketing renderer; controlled HTTP, no production records or provider sends. */
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {build} from 'esbuild';
-import {JSDOM} from 'jsdom';
-import {mkdtemp,writeFile} from 'node:fs/promises';
-import {tmpdir} from 'node:os';
-import {join} from 'node:path';
-import {pathToFileURL} from 'node:url';
+import {createGrowthDOM,presentGrowth,closeGrowthDOM} from './fixtures/growth-jsdom.mjs';
 import {emptyGrowthReadModel} from './fixtures/growth-read-model.mjs';
 
-const bundle=await build({entryPoints:['websites/typescript/src/growth/dashboard.ts'],bundle:true,write:false,platform:'node',format:'esm'});
-const file=join(await mkdtemp(join(tmpdir(),'growth-report-drafts-')),'dashboard.mjs');
-await writeFile(file,bundle.outputFiles[0].text);
-const {renderGrowth}=await import(pathToFileURL(file).href);
 const tick=()=>new Promise(resolve=>setImmediate(resolve));
 
 for(const mode of ['report','statement','report-pdf','statement-pdf','failed-report','changed-tenant','changed-role','create-campaign'])await test('CEO unfinished campaign and lead drafts: '+mode,async()=>{
- const dom=new JSDOM('<div id="app"></div>',{url:'https://primecare-clinic.pages.dev/growth?enable-semantics=true'});
- for(const key of ['window','document','location','history','sessionStorage','localStorage','HTMLElement','HTMLInputElement','HTMLSelectElement','HTMLButtonElement','HTMLDetailsElement','HTMLFormElement','Element','Node','FormData'])globalThis[key]=dom.window[key];
- globalThis.getComputedStyle=dom.window.getComputedStyle.bind(dom.window);
+ const dom=createGrowthDOM('https://primecare-clinic.pages.dev/growth?enable-semantics=true');
  sessionStorage.setItem('primecare_session','synthetic-session');
  const data=structuredClone(emptyGrowthReadModel);Object.assign(data.capabilities,{createLead:true,createCampaign:true,manageCampaignMoney:true});data.canReport=true;
  data.canEditPlan=true;data.canManageIntake=true;
@@ -35,7 +24,7 @@ for(const mode of ['report','statement','report-pdf','statement-pdf','failed-rep
  };
  const root=document.querySelector('#app'),el=id=>root.querySelector('[data-cy="'+id+'"]');
  try{
-  await renderGrowth(root,'https://gateway.test');
+  await presentGrowth(root,'https://gateway.test');
   for(const [key,target] of [['business_ops','business'],['plan','plan'],['intake','intake']]){
    assert.equal(el('growth-nav-'+key)?.dataset.growthTarget,target,'business workflow has a direct authorized navigation entry');
    assert.equal(el('growth-'+target)?.id,'growth-'+target);
@@ -55,5 +44,5 @@ for(const mode of ['report','statement','report-pdf','statement-pdf','failed-rep
   if(mode==='changed-tenant')assert.equal(el('growth-lead-name').value,'','drafts never cross tenant scope');
   if(mode==='create-campaign')assert.equal(calls.filter(c=>c.method==='POST').length,1,'successful create is not replayed');
   assert.deepEqual(errors,[]);
- }finally{dom.window.close();}
+ }finally{closeGrowthDOM(dom);}
 });
