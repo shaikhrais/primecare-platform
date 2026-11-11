@@ -676,15 +676,7 @@ class PswCareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-dashboard-btn-generate-report',
-                        child: ElevatedButton(
-                          key: const Key('psw-dashboard-btn-generate-report'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Psw Dashboard Btn Generate Report executed successfully.'),
-                          child: PrimeText('Psw Dashboard Btn Generate Report'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-dashboard-btn-generate-report'), label: 'Psw Dashboard Btn Generate Report'.tr(), onPressed:  () => controller.addLog('Action: Psw Dashboard Btn Generate Report executed successfully.')),
                       ),
                     ),
                   ),
@@ -696,15 +688,7 @@ class PswCareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-dashboard-btn-update-record',
-                        child: ElevatedButton(
-                          key: const Key('psw-dashboard-btn-update-record'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Psw Dashboard Btn Update Record executed successfully.'),
-                          child: PrimeText('Psw Dashboard Btn Update Record'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-dashboard-btn-update-record'), label: 'Psw Dashboard Btn Update Record'.tr(), onPressed:  () => controller.addLog('Action: Psw Dashboard Btn Update Record executed successfully.')),
                       ),
                     ),
                   ),
@@ -716,15 +700,7 @@ class PswCareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-dashboard-btn-collaborate',
-                        child: ElevatedButton(
-                          key: const Key('psw-dashboard-btn-collaborate'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Psw Dashboard Btn Collaborate executed successfully.'),
-                          child: PrimeText('Psw Dashboard Btn Collaborate'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-dashboard-btn-collaborate'), label: 'Psw Dashboard Btn Collaborate'.tr(), onPressed:  () => controller.addLog('Action: Psw Dashboard Btn Collaborate executed successfully.')),
                       ),
                     ),
                   ),

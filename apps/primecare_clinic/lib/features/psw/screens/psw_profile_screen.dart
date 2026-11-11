@@ -676,15 +676,7 @@ class PswProfileScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswprofile-btn-save',
-                        child: ElevatedButton(
-                          key: const Key('pswprofile-btn-save'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswprofile Btn Save executed successfully.'),
-                          child: PrimeText('Pswprofile Btn Save'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswprofile-btn-save'), label: 'Pswprofile Btn Save'.tr(), onPressed:  () => controller.addLog('Action: Pswprofile Btn Save executed successfully.')),
                       ),
                     ),
                   ),
@@ -696,15 +688,7 @@ class PswProfileScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswprofile-btn-edit',
-                        child: ElevatedButton(
-                          key: const Key('pswprofile-btn-edit'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswprofile Btn Edit executed successfully.'),
-                          child: PrimeText('Pswprofile Btn Edit'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswprofile-btn-edit'), label: 'Pswprofile Btn Edit'.tr(), onPressed:  () => controller.addLog('Action: Pswprofile Btn Edit executed successfully.')),
                       ),
                     ),
                   ),
@@ -716,15 +700,7 @@ class PswProfileScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswprofile-btn-update-password',
-                        child: ElevatedButton(
-                          key: const Key('pswprofile-btn-update-password'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswprofile Btn Update Password executed successfully.'),
-                          child: PrimeText('Pswprofile Btn Update Password'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswprofile-btn-update-password'), label: 'Pswprofile Btn Update Password'.tr(), onPressed:  () => controller.addLog('Action: Pswprofile Btn Update Password executed successfully.')),
                       ),
                     ),
                   ),

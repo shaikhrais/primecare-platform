@@ -676,15 +676,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'tasklist-btn-add',
-                        child: ElevatedButton(
-                          key: const Key('tasklist-btn-add'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Tasklist Btn Add executed successfully.'),
-                          child: PrimeText('Tasklist Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('tasklist-btn-add'), label: 'Tasklist Btn Add'.tr(), onPressed:  () => controller.addLog('Action: Tasklist Btn Add executed successfully.')),
                       ),
                     ),
                   ),
@@ -696,15 +688,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'tasklist-btn-add-item',
-                        child: ElevatedButton(
-                          key: const Key('tasklist-btn-add-item'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Tasklist Btn Add Item executed successfully.'),
-                          child: PrimeText('Tasklist Btn Add Item'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('tasklist-btn-add-item'), label: 'Tasklist Btn Add Item'.tr(), onPressed:  () => controller.addLog('Action: Tasklist Btn Add Item executed successfully.')),
                       ),
                     ),
                   ),

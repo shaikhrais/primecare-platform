@@ -391,15 +391,7 @@ class RegionalBdmReportsScreen extends GovernedConsumerWidget {
               child: SizedBox(
                 width: double.infinity,
                 height: 48,
-                child: ElevatedButton(
-                  key: const Key('regional_bdm_reports-action-btn'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colors.primary,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                  ),
-                  onPressed: () => controller.addLog('General action executed.'),
-                  child: PrimeText('Synchronize Database'.tr(), style: const TextStyle(color: Colors.white)),
-                ),
+                child: PrimeButton(key:  const Key('regional_bdm_reports-action-btn'), label: 'Synchronize Database'.tr(), onPressed:  () => controller.addLog('General action executed.')),
               ),
             ),
 

@@ -414,15 +414,7 @@ class PswReportsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswreports-btn-generate',
-                        child: ElevatedButton(
-                          key: const Key('pswreports-btn-generate'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswreports Btn Generate executed successfully.'),
-                          child: PrimeText('Pswreports Btn Generate'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswreports-btn-generate'), label: 'Pswreports Btn Generate'.tr(), onPressed:  () => controller.addLog('Action: Pswreports Btn Generate executed successfully.')),
                       ),
                     ),
                   ),

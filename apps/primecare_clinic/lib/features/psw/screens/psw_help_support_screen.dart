@@ -676,15 +676,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswhelp-btn-submit-feedback',
-                        child: ElevatedButton(
-                          key: const Key('pswhelp-btn-submit-feedback'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswhelp Btn Submit Feedback executed successfully.'),
-                          child: PrimeText('Pswhelp Btn Submit Feedback'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswhelp-btn-submit-feedback'), label: 'Pswhelp Btn Submit Feedback'.tr(), onPressed:  () => controller.addLog('Action: Pswhelp Btn Submit Feedback executed successfully.')),
                       ),
                     ),
                   ),
@@ -696,15 +688,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswhelp-btn-access-faqs',
-                        child: ElevatedButton(
-                          key: const Key('pswhelp-btn-access-faqs'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswhelp Btn Access Faqs executed successfully.'),
-                          child: PrimeText('Pswhelp Btn Access Faqs'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswhelp-btn-access-faqs'), label: 'Pswhelp Btn Access Faqs'.tr(), onPressed:  () => controller.addLog('Action: Pswhelp Btn Access Faqs executed successfully.')),
                       ),
                     ),
                   ),
@@ -716,15 +700,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswhelp-btn-contact-support',
-                        child: ElevatedButton(
-                          key: const Key('pswhelp-btn-contact-support'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswhelp Btn Contact Support executed successfully.'),
-                          child: PrimeText('Pswhelp Btn Contact Support'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswhelp-btn-contact-support'), label: 'Pswhelp Btn Contact Support'.tr(), onPressed:  () => controller.addLog('Action: Pswhelp Btn Contact Support executed successfully.')),
                       ),
                     ),
                   ),

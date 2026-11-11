@@ -414,15 +414,7 @@ class PswCheckInScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswcheckin-btn-checkin',
-                        child: ElevatedButton(
-                          key: const Key('pswcheckin-btn-checkin'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswcheckin Btn Checkin executed successfully.'),
-                          child: PrimeText('Pswcheckin Btn Checkin'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswcheckin-btn-checkin'), label: 'Pswcheckin Btn Checkin'.tr(), onPressed:  () => controller.addLog('Action: Pswcheckin Btn Checkin executed successfully.')),
                       ),
                     ),
                   ),
@@ -434,15 +426,7 @@ class PswCheckInScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswcheckin-btn-help',
-                        child: ElevatedButton(
-                          key: const Key('pswcheckin-btn-help'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswcheckin Btn Help executed successfully.'),
-                          child: PrimeText('Pswcheckin Btn Help'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswcheckin-btn-help'), label: 'Pswcheckin Btn Help'.tr(), onPressed:  () => controller.addLog('Action: Pswcheckin Btn Help executed successfully.')),
                       ),
                     ),
                   ),

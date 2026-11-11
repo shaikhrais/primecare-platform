@@ -414,15 +414,7 @@ class PswMessagingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-messaging-btn-refresh',
-                        child: ElevatedButton(
-                          key: const Key('psw-messaging-btn-refresh'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Psw Messaging Btn Refresh executed successfully.'),
-                          child: PrimeText('Psw Messaging Btn Refresh'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-messaging-btn-refresh'), label: 'Psw Messaging Btn Refresh'.tr(), onPressed:  () => controller.addLog('Action: Psw Messaging Btn Refresh executed successfully.')),
                       ),
                     ),
                   ),
@@ -434,15 +426,7 @@ class PswMessagingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-messaging-btn-send',
-                        child: ElevatedButton(
-                          key: const Key('psw-messaging-btn-send'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Psw Messaging Btn Send executed successfully.'),
-                          child: PrimeText('Psw Messaging Btn Send'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-messaging-btn-send'), label: 'Psw Messaging Btn Send'.tr(), onPressed:  () => controller.addLog('Action: Psw Messaging Btn Send executed successfully.')),
                       ),
                     ),
                   ),

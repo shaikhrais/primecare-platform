@@ -414,15 +414,7 @@ class PswSystemLogsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswlogs-btn-export',
-                        child: ElevatedButton(
-                          key: const Key('pswlogs-btn-export'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswlogs Btn Export executed successfully.'),
-                          child: PrimeText('Pswlogs Btn Export'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswlogs-btn-export'), label: 'Pswlogs Btn Export'.tr(), onPressed:  () => controller.addLog('Action: Pswlogs Btn Export executed successfully.')),
                       ),
                     ),
                   ),
@@ -434,15 +426,7 @@ class PswSystemLogsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'pswlogs-btn-report',
-                        child: ElevatedButton(
-                          key: const Key('pswlogs-btn-report'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Pswlogs Btn Report executed successfully.'),
-                          child: PrimeText('Pswlogs Btn Report'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('pswlogs-btn-report'), label: 'Pswlogs Btn Report'.tr(), onPressed:  () => controller.addLog('Action: Pswlogs Btn Report executed successfully.')),
                       ),
                     ),
                   ),

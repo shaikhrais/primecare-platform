@@ -676,15 +676,7 @@ class RnChartingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'rn-charting-btn-submit-feedback',
-                        child: ElevatedButton(
-                          key: const Key('rn-charting-btn-submit-feedback'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Rn Charting Btn Submit Feedback executed successfully.'),
-                          child: PrimeText('Rn Charting Btn Submit Feedback'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('rn-charting-btn-submit-feedback'), label: 'Rn Charting Btn Submit Feedback'.tr(), onPressed:  () => controller.addLog('Action: Rn Charting Btn Submit Feedback executed successfully.')),
                       ),
                     ),
                   ),
@@ -696,15 +688,7 @@ class RnChartingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'rn-charting-btn-refresh',
-                        child: ElevatedButton(
-                          key: const Key('rn-charting-btn-refresh'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Rn Charting Btn Refresh executed successfully.'),
-                          child: PrimeText('Rn Charting Btn Refresh'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('rn-charting-btn-refresh'), label: 'Rn Charting Btn Refresh'.tr(), onPressed:  () => controller.addLog('Action: Rn Charting Btn Refresh executed successfully.')),
                       ),
                     ),
                   ),
