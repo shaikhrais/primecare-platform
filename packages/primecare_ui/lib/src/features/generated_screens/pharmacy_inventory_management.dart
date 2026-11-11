@@ -105,7 +105,7 @@ class PharmacyInventoryManagementScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the Primecare Clinic module to enable Guest personnel to oversee, audit, and coordinate operations related to pharmacy inventory management.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Guest, I want to access the Pharmacy Inventory Management within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
+                  Text('User Story: As a Guest, I want to access the Pharmacy Inventory Management within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
