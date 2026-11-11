@@ -20,7 +20,7 @@ void main() {
         await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
           child: MaterialApp(home: Scaffold(body: SingleChildScrollView(child: SizedBox(width: 600,
             child: PremiumHealthPanelFixture(modelName: 'Care', data: populated ? {'id': 1} : {},
-              themeColor: Colors.blue))))))));
+              themeColor: Colors.blue)))))));
         await tester.pumpAndSettle();
         final label = populated ? 'Nominal' : 'Offline';
         final text = tester.widget<Text>(find.text(label));
@@ -48,12 +48,12 @@ void main() {
         await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
           child: MaterialApp(home: const Scaffold(body: SizedBox(width: 360,
             child: PremiumTrendCardFixture(title: 'Care visits', value: '42', change: '+4%',
-              isPositive: true, icon: Icons.favorite, color: Colors.blue)))))));
+              isPositive: true, icon: Icons.favorite, color: Colors.blue))))));
         // Exercise both ternary branches against a live replacement of the theme.
         await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
           child: MaterialApp(home: Scaffold(body: SizedBox(width: 360,
             child: PremiumTrendCardFixture(title: 'Care visits', value: '42', change: '+4%',
-              isPositive: positive, icon: Icons.favorite, color: Colors.blue)))))));
+              isPositive: positive, icon: Icons.favorite, color: Colors.blue))))));
         await tester.pumpAndSettle();
         final role = positive ? colors.success : colors.warning;
         final icon = tester.widget<Icon>(find.byWidgetPredicate((widget) =>
