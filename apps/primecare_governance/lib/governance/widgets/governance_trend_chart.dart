@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Trend Chart platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
@@ -54,7 +55,7 @@ class GovernanceTrendChart extends StatelessWidget {
                   ),
                 ],
               ),
-              _buildTrendIndicator(),
+              _buildTrendIndicator(context),
             ],
           ),
           const SizedBox(height: 32),
@@ -177,18 +178,19 @@ class GovernanceTrendChart extends StatelessWidget {
     );
   }
 
-  Widget _buildTrendIndicator() {
+  Widget _buildTrendIndicator(BuildContext context) {
     if (trendData.length < 2) return const SizedBox.shrink();
 
     final current = trendData.last['score'] as double;
     final previous = trendData[trendData.length - 2]['score'] as double;
     final diff = current - previous;
     final isUp = diff >= 0;
+    final trendPalette = PrimeSemanticPalette.of(context, isUp ? PrimeSemanticTone.success : PrimeSemanticTone.error);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: (isUp ? Colors.green : Colors.red).withValues(alpha: 0.1),
+        color: trendPalette.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -197,7 +199,7 @@ class GovernanceTrendChart extends StatelessWidget {
           PrimeIcon(
             isUp ? Icons.trending_up : Icons.trending_down,
             size: 16,
-            color: isUp ? Colors.green : Colors.red,
+            color: trendPalette.onSurface,
           ),
           const SizedBox(width: 4),
           PrimeText(
@@ -205,7 +207,7 @@ class GovernanceTrendChart extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 12,
               fontWeight: FontWeight.bold,
-              color: isUp ? Colors.green : Colors.red,
+              color: trendPalette.onSurface,
             ),
           ),
         ],

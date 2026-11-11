@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE 1. Log to centralized telemetry (placeholder) 2. Show user feedback
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
@@ -20,9 +21,9 @@ class ActionManifest {
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       PrimeSnackBar(
-        content: Row(
+        content: DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onAccent), child: Row(
           children: [
-            const PrimeIcon(Icons.engineering, color: Colors.white),
+            PrimeIcon(Icons.engineering, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onAccent),
             const SizedBox(width: 8),
             Expanded(
               child: PrimeText(
@@ -30,8 +31,8 @@ class ActionManifest {
               ),
             ),
           ],
-        ),
-        backgroundColor: Colors.orange.shade800,
+        )),
+        backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).accent,
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 3),
       ),

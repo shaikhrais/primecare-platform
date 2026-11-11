@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;
@@ -139,10 +140,8 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                               color: palette.primary,
                               border: Border.all(
                                 color: isSelected
-                                    ? (palette.brightness == Brightness.dark
-                                        ? Colors.white
-                                        : Colors.black87)
-                                    : Colors.transparent,
+                                    ? readableThemeForeground(palette.primary, palette.textPrimary)
+                                    : Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                                 width: 3,
                               ),
                               boxShadow: [
@@ -214,7 +213,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                           side: BorderSide(
-                            color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade200,
+                            color: isSelected ? Theme.of(context).primaryColor : Theme.of(context).colorScheme.outlineVariant,
                             width: isSelected ? 2 : 1,
                           ),
                         ),
@@ -224,7 +223,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                               await context.setLocale(Locale(lang));
                             }
                             await ref.read(languageProvider.notifier).setLanguage(lang);
-                            
+
                             // Automatically adjust RTL layout direction for Arabic
                             if (lang == 'ar') {
                               notifier.updateDirection(TextDirection.rtl);

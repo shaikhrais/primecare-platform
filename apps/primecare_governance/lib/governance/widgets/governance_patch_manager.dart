@@ -1,3 +1,5 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Patch Manager platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeSnackBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
@@ -23,7 +25,7 @@ class GovernancePatchManager extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
           child: Row(
             children: [
-              const PrimeIcon(Icons.build_circle, color: Colors.blue),
+              PrimeIcon(Icons.build_circle, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase),
               const SizedBox(width: 12),
               PrimeText(
                 'governance.patchManager.title'.tr(),
@@ -55,14 +57,14 @@ class GovernancePatchManager extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 24.0),
             padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
-              color: Colors.black87,
+              color: Theme.of(context).colorScheme.inverseSurface,
               borderRadius: BorderRadius.circular(12),
             ),
             child: SingleChildScrollView(
               child: PrimeText(
                 script,
-                style: const TextStyle(
-                  color: Colors.greenAccent,
+                style: TextStyle(
+                  color: readableThemeForeground(Theme.of(context).colorScheme.inverseSurface, PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent),
                   fontFamily: 'monospace',
                   fontSize: 12,
                 ),
@@ -74,9 +76,9 @@ class GovernancePatchManager extends StatelessWidget {
           padding: const EdgeInsets.all(24.0),
           child: PrimeText(
             'governance.patchManager.manualReviewNote'.tr(),
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 11,
-              color: Colors.grey,
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
               fontStyle: FontStyle.italic,
             ),
           ),

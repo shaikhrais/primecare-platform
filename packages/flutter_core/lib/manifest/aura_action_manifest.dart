@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
@@ -83,19 +84,19 @@ class AuraActionManifest {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
-        backgroundColor: const Color(0xFF1E293B),
+        backgroundColor: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
-          side: const BorderSide(color: Colors.white10),
+          side: BorderSide(color: Theme.of(context).colorScheme.outlineVariant),
         ),
         title: Row(
           children: [
-            const PrimeIcon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
+            PrimeIcon(LucideIcons.sparkles, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase),
             const SizedBox(width: 12),
             PrimeText(
               title,
               style: GoogleFonts.inter(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -103,21 +104,21 @@ class AuraActionManifest {
         ),
         content: PrimeText(
           description,
-          style: GoogleFonts.inter(color: Colors.white70),
+          style: GoogleFonts.inter(color: Theme.of(context).colorScheme.onSurfaceVariant),
         ),
         actions: [
           PrimeTextButton(
             onPressed: () => Navigator.pop(context),
             child: PrimeText(
               'DISMISS',
-              style: GoogleFonts.inter(color: Colors.white38),
+              style: GoogleFonts.inter(color: Theme.of(context).colorScheme.onSurfaceVariant),
             ),
           ),
           PrimeElevatedButton(
             onPressed: () => Navigator.pop(context),
             style: PrimeElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF818CF8),
-              foregroundColor: Colors.white,
+              backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent,
+              foregroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -132,8 +133,8 @@ class AuraActionManifest {
   static void _showDefaultAction(BuildContext context, String action) {
     ScaffoldMessenger.of(context).showSnackBar(
       PrimeSnackBar(
-        content: PrimeText('Aura is preparing mitigation for: $action'),
-        backgroundColor: const Color(0xFF6366F1),
+        content: DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent), child: PrimeText('Aura is preparing mitigation for: $action')),
+        backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent,
         behavior: SnackBarBehavior.floating,
       ),
     );

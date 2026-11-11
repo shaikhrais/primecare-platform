@@ -149,7 +149,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
         if(![LogicalKeyboardKey.enter,LogicalKeyboardKey.space,LogicalKeyboardKey.arrowDown,LogicalKeyboardKey.arrowUp].contains(event.logicalKey))return KeyEventResult.ignored;
         final roots=widget.model.nodes.where((n)=>!n.disabled).toList();if(roots.isEmpty)return KeyEventResult.ignored;
         if(groups.isNotEmpty)_submenus[groups.first.id]!.open();_focusAfter(event.logicalKey==LogicalKeyboardKey.arrowUp?roots.last.id:roots.first.id,prefix:'menu:');return KeyEventResult.handled;
-      },child:DecoratedBox(decoration:BoxDecoration(border:Border.all(color:_menuEntryFocus.hasPrimaryFocus?Theme.of(context).colorScheme.primary:Colors.transparent,width:2)),
+      },child:DecoratedBox(decoration:BoxDecoration(border:Border.all(color:_menuEntryFocus.hasPrimaryFocus?Theme.of(context).colorScheme.primary:Theme.of(context).colorScheme.surface.withValues(alpha: 0),width:2)),
         child:SingleChildScrollView(scrollDirection:Axis.horizontal,child:bar)));
   }
   KeyEventResult _railKey(String id,KeyEvent event){

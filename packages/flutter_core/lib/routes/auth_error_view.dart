@@ -1,4 +1,5 @@
-/* 
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
+/*
 PRIME:SCREEN=auth_error
 PRIME:DESIGN=DESIGN_APPROVED
 PRIME:HTML=HTML_RESPONSIVE_DONE
@@ -45,10 +46,10 @@ class AuthErrorView extends GovernedScreen {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const PrimeIcon(
+              PrimeIcon(
                 Icons.error_outline_rounded,
                 size: 64,
-                color: Colors.red,
+                color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase,
               ),
               const SizedBox(height: 24),
               PrimeText(

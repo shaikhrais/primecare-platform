@@ -1,3 +1,5 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAppBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
@@ -64,16 +66,15 @@ class GovernanceMasterLayout extends ConsumerWidget {
     final theme=applyPersonalThemeData(tenant.branding,settings.theme);
 
     final themeColors = theme.extension<GovernanceThemeColors>();
-    
+
     // Dynamic top bar colors
     final topbarBg = themeColors?.topbarBackground ?? theme.scaffoldBackgroundColor;
-    final isTopbarDark = ThemeData.estimateBrightnessForColor(topbarBg) == Brightness.dark;
-    final defaultTopbarTextColor = isTopbarDark ? Colors.white : (theme.textTheme.titleMedium?.color ?? Colors.black87);
-    final defaultTopbarIconColor = isTopbarDark ? Colors.white : theme.primaryColor;
-    
+    final defaultTopbarTextColor = readableThemeForeground(topbarBg, theme.colorScheme.onSurface);
+    final defaultTopbarIconColor = readableThemeForeground(topbarBg, theme.primaryColor);
+
     final topbarTextColor = themeColors?.topbarTextColor ?? defaultTopbarTextColor;
     final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;
-    final topbarSecondaryTextColor = (themeColors?.topbarTextColor ?? (isTopbarDark ? Colors.white70 : theme.hintColor)).withValues(alpha: 0.7);
+    final topbarSecondaryTextColor = readableThemeForeground(topbarBg, themeColors?.topbarTextColor ?? theme.hintColor);
 
     // Build horizontal nav row (used for LayoutStyle.horizontal)
     Widget buildHorizontalNav() {
@@ -93,8 +94,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
           itemCount: modules.length,
           itemBuilder: (context, index) {
             final module = modules[index];
-            final textColor = themeColors?.sidebarTextColor ?? (isTopbarDark ? Colors.white70 : Colors.black87);
-            
+            final textColor = readableThemeForeground(themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor, themeColors?.sidebarTextColor ?? theme.colorScheme.onSurface);
+
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
               child: PrimeTextButton.icon(
@@ -246,7 +247,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       child: PrimeAppBar(
                         elevation: 0,
                         backgroundColor: topbarBg,
-                        surfaceTintColor: Colors.transparent,
+                        surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
                         iconTheme: IconThemeData(color: topbarIconColor),
                         title: Row(
                           children: [
@@ -284,7 +285,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             onTap: () {
                               showDialog<void>(
                                 context: context,
-                                barrierColor: Colors.black.withValues(alpha: 0.5),
+                                barrierColor: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),
                                 builder: (context) => _RoleSwitcherDialog(
                                   activeRole: activeRole,
                                   ref: ref,
@@ -536,11 +537,10 @@ class GovernanceMasterLayout extends ConsumerWidget {
   }) {
     final themeColors = theme.extension<GovernanceThemeColors>();
     final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
-    final isSidebarDark = ThemeData.estimateBrightnessForColor(sidebarBg) == Brightness.dark;
-    
-    final defaultSidebarTextColor = isSidebarDark ? Colors.white : (theme.textTheme.bodyMedium?.color ?? Colors.black87);
-    final defaultSidebarIconColor = isSidebarDark ? Colors.white70 : (theme.iconTheme.color ?? theme.primaryColor).withValues(alpha: 0.6);
-    
+
+    final defaultSidebarTextColor = readableThemeForeground(sidebarBg, theme.colorScheme.onSurface);
+    final defaultSidebarIconColor = readableThemeForeground(sidebarBg, theme.iconTheme.color ?? theme.primaryColor);
+
     final sidebarTextColor = themeColors?.sidebarTextColor ?? defaultSidebarTextColor;
     final sidebarSelectedTextColor = themeColors?.sidebarSelectedTextColor ?? theme.primaryColor;
     final sidebarIconColor = themeColors?.sidebarIconColor ?? defaultSidebarIconColor;
@@ -611,14 +611,14 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           screen.requiredRole == null ||
                           screen.requiredRole == activeRole)
                       .map((screen) {
-                    
+
                     String currentRoute = '';
                     try {
                       currentRoute = GoRouterState.of(context).uri.toString();
                     } catch (_) {
                       currentRoute = '';
                     }
-                    
+
                     final isSelected = currentRoute == screen.route;
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -689,7 +689,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     if (isDrawer) {
       return Drawer(
         backgroundColor: sidebarBg,
-        surfaceTintColor: Colors.transparent,
+        surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
         child: sidebarContent,
       );
@@ -770,7 +770,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
     final sortedCategories = grouped.keys.toList()..sort();
 
     return Dialog(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
       elevation: 0,
       child: Center(
         child: Container(
@@ -787,7 +787,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withValues(alpha: 0.25),
+                color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.25),
                 blurRadius: 30,
                 offset: const Offset(0, 15),
               ),
@@ -1030,15 +1030,15 @@ class _RoleTileState extends State<_RoleTile> {
   Color _getAccessColor(String accessLevel) {
     switch (accessLevel.toLowerCase()) {
       case 'admin':
-        return Colors.redAccent;
+        return PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent;
       case 'compliance':
-        return Colors.purpleAccent;
+        return PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent;
       case 'write':
-        return Colors.blueAccent;
+        return PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent;
       case 'read':
-        return Colors.greenAccent;
+        return PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent;
       default:
-        return Colors.grey;
+        return Theme.of(context).colorScheme.surfaceContainerHigh;
     }
   }
 
@@ -1137,7 +1137,7 @@ class _RoleTileState extends State<_RoleTile> {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: accessColor.withValues(alpha: 0.1),
+                  color: PrimeSemanticPalette.tint(context, accessColor, alpha: .1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(
                     color: accessColor.withValues(alpha: 0.25),
@@ -1146,7 +1146,7 @@ class _RoleTileState extends State<_RoleTile> {
                 child: PrimeText(
                   widget.roleMeta.accessLevel.toUpperCase(),
                   style: theme.textTheme.labelSmall?.copyWith(
-                    color: accessColor,
+                    color: PrimeSemanticPalette.onTint(context, accessColor, alpha: .1),
                     fontWeight: FontWeight.bold,
                     fontSize: 9,
                   ),

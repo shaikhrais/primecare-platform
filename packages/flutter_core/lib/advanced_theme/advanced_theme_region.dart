@@ -1,7 +1,8 @@
+import 'package:flutter_core/theme/theme_color_codec.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton, PrimeTextButton;
 import 'package:flutter/material.dart';
 import 'advanced_theme_model.dart';
-Color _color(String hex)=>Color(int.parse(themeHex(hex).substring(1),radix:16)|0xff000000);
+Color _color(String hex)=>themeHexColor(themeHex(hex));
 class AdvancedThemeTokens extends ThemeExtension<AdvancedThemeTokens> {
  final AdvancedTheme theme;final String region;
  const AdvancedThemeTokens(this.theme,this.region);

@@ -1,4 +1,4 @@
-/* 
+/*
 PRIME:SCREEN=default_not_implemented
 PRIME:DESIGN=DESIGN_APPROVED
 PRIME:HTML=HTML_RESPONSIVE_DONE
@@ -302,7 +302,7 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
     final primaryColor = theme.primaryColor;
 
     return PrimeScaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
       body: Stack(
         children: [
           // Dynamic Mesh Gradient Background
@@ -345,10 +345,10 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
                 width: 500,
                 padding: const EdgeInsets.all(48),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.7),
+                  color: Theme.of(context).colorScheme.surfaceContainerLow,
                   borderRadius: BorderRadius.circular(32),
                   border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.5),
+                    color: Theme.of(context).colorScheme.outlineVariant,
                   ),
                   boxShadow: [
                     BoxShadow(
