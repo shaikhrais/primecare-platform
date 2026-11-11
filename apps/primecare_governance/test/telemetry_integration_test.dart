@@ -93,6 +93,27 @@ void main() {
       expect(unavailable.pendingProposalsCount, isNull);
     });
 
+    test('project manifests cannot fabricate integrity grades or scanned inventory', () {
+      final state = makeContainer().read(governanceProvider);
+      expect(state.integrityScore, isNull);
+      for (final project in state.projects) {
+        expect(project.source, contains('declared-manifest-only'));
+        expect(project.healthScore, isNull);
+        expect(project.status, 'Unverified');
+        expect(project.warningCount, isNull);
+        expect(project.errorCount, isNull);
+        expect(project.criticalCount, isNull);
+        expect(project.folders, isNull);
+        expect(project.largeFiles, isNull);
+        expect(project.emptyFiles, isNull);
+        expect(project.duplicateFiles, isNull);
+        expect(project.unusedFiles, isNull);
+        expect(project.widgets, isNull);
+        expect(project.totalScreens, isNull);
+        expect(project.lastCheckedAt, isNull);
+      }
+    });
+
     test('manual refresh never replaces invalid remote timestamps with current time', () async {
       final container = makeContainer();
       for (final timestamp in [null, '', 'not-a-time', '2026-11-10', '2026-11-10T12:00:00']) {

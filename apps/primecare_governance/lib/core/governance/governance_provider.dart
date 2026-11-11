@@ -44,35 +44,37 @@ class ProjectHealthSummary {
   final ui.PlatformProject project;
   final String name;
   final bool isUi;
-  final double healthScore;
+  final double? healthScore;
   final String status;
-  final int warningCount;
-  final int errorCount;
-  final int criticalCount;
+  final int? warningCount;
+  final int? errorCount;
+  final int? criticalCount;
   final List<String> issues;
   final List<String> suggestions;
   final int loc;
   final int files;
-  final int folders;
-  final int largeFiles;
-  final int emptyFiles;
-  final int duplicateFiles;
-  final int unusedFiles;
+  final int? folders;
+  final int? largeFiles;
+  final int? emptyFiles;
+  final int? duplicateFiles;
+  final int? unusedFiles;
   final Map<String, int> mvc;
   final int models;
   final int views;
   final int controllers;
-  final int services;
-  final int repositories;
-  final int providers;
-  final int widgets;
-  final int totalScreens;
-  final int brokenRoutes;
-  final int missingForms;
-  final int failedApis;
-  final DateTime lastCheckedAt;
+  final int? services;
+  final int? repositories;
+  final int? providers;
+  final int? widgets;
+  final int? totalScreens;
+  final int? brokenRoutes;
+  final int? missingForms;
+  final int? failedApis;
+  final DateTime? lastCheckedAt;
+  final String source;
 
   ProjectHealthSummary({
+    this.source = 'declared-manifest-only; runtime integrity unverified',
     required this.project,
     required this.name,
     required this.isUi,
@@ -137,7 +139,7 @@ class GovernanceState {
   final bool isBackgroundSyncing;
   final bool hasDrift;
   final List<String> driftIssues;
-  final double integrityScore;
+  final double? integrityScore;
   final Map<String, List<bool>> categorizedCoverage;
   final Map<String, double> featureHealth;
   final bool telemetryAvailable;
@@ -259,7 +261,7 @@ class GovernanceState {
     bool? isBackgroundSyncing,
     bool? hasDrift,
     List<String>? driftIssues,
-    double? integrityScore,
+    Object? integrityScore = _notProvided,
     Map<String, List<bool>>? categorizedCoverage,
     Map<String, double>? featureHealth,
     bool? telemetryAvailable,
@@ -318,7 +320,7 @@ class GovernanceState {
       isBackgroundSyncing: isBackgroundSyncing ?? this.isBackgroundSyncing,
       hasDrift: hasDrift ?? this.hasDrift,
       driftIssues: driftIssues ?? this.driftIssues,
-      integrityScore: integrityScore ?? this.integrityScore,
+      integrityScore: identical(integrityScore, _notProvided) ? this.integrityScore : integrityScore as double?,
       categorizedCoverage: categorizedCoverage ?? this.categorizedCoverage,
       featureHealth: featureHealth ?? this.featureHealth,
       telemetryAvailable: telemetryAvailable ?? this.telemetryAvailable,
@@ -509,41 +511,40 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           isUi: isUi,
           healthScore: score,
           status: ui.IntegrityService.getIntegrityStatus(project),
-          warningCount: (100 - score).toInt() ~/ 10,
-          errorCount: score < 60 ? 1 : 0,
-          criticalCount: score < 40 ? 1 : 0,
+          warningCount: null,
+          errorCount: null,
+          criticalCount: null,
           issues: ui.IntegrityService.getProjectIssues(project),
           suggestions: ui.IntegrityService.getProjectSuggestions(project),
           loc: loc,
           files: fileCount,
-          folders: fileCount ~/ 5 + 1,
-          largeFiles: loc > 1000 ? 1 : 0,
-          emptyFiles: 0,
-          duplicateFiles: 0,
-          unusedFiles: 0,
+          folders: null,
+          largeFiles: null,
+          emptyFiles: null,
+          duplicateFiles: null,
+          unusedFiles: null,
           mvc: mvc,
           models: mvc['M'] ?? 0,
           views: mvc['V'] ?? 0,
           controllers: mvc['C'] ?? 0,
-          services: isUi ? 0 : (mvc['C'] ?? 0) ~/ 2,
-          repositories: isUi ? 0 : (mvc['M'] ?? 0),
-          providers: isUi ? (mvc['C'] ?? 0) : 0,
-          widgets: isUi ? (mvc['V'] ?? 0) * 3 : 0,
-          totalScreens: isUi ? (mvc['V'] ?? 0) : 0,
-          brokenRoutes: 0,
-          missingForms: 0,
-          failedApis: 0,
-          lastCheckedAt: DateTime.now(),
+          services: null,
+          repositories: null,
+          providers: null,
+          widgets: null,
+          totalScreens: null,
+          brokenRoutes: null,
+          missingForms: null,
+          failedApis: null,
+          lastCheckedAt: null,
         ),
       );
     }
 
     final auditReports = ui.ScreenRegistry.auditRegistry();
     final hasDrift = auditReports.any((r) => !r.isHealthy);
-    final avgScore = summaries.isEmpty
-        ? 100.0
-        : summaries.map((s) => s.healthScore).reduce((a, b) => a + b) /
-              summaries.length;
+    final double? avgScore = summaries.isEmpty || summaries.any((s) => s.healthScore == null)
+        ? null
+        : summaries.map((s) => s.healthScore!).reduce((a, b) => a + b) / summaries.length;
 
     // Group discovered forms by feature
     final Map<String, List<bool>> categorizedCoverage = {};
@@ -569,7 +570,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       projects: summaries,
       totalLoc: summaries.fold(0, (sum, s) => sum + s.loc),
       totalFiles: summaries.fold(0, (sum, s) => sum + s.files),
-      totalScreens: summaries.fold(0, (sum, s) => sum + s.totalScreens),
+      totalScreens: local.ScreenRegistry.screens.length,
       registeredScreens: ui.ScreenRegistry.getAllScreens().length,
       missingScreens: auditReports.where((r) => !r.isHealthy).length,
       brokenScreens: 0,

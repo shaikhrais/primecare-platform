@@ -189,7 +189,7 @@ class _GovernanceDashboardContentState
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'Live architectural audit of ${ScreenRegistry.screens.length} platform screens',
+                    'Checked-in app registry: ${ScreenRegistry.screens.length} screens; acceptance evidence pending',
                     style: const TextStyle(color: Colors.grey),
                   ),
                 ],
