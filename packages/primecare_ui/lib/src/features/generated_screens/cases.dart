@@ -68,7 +68,7 @@ class CasesState {
 // --- Controller (Notifier) ---
 class CasesController extends StateNotifier<CasesState> {
   final Ref ref;
-  CasesController()
+  CasesController(this.ref)
       : super(
           CasesState(
             isLoading: false,

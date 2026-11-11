@@ -53,7 +53,7 @@ class ComplianceAlert {
 // --- Controller (Notifier) ---
 class ComplianceHubController extends StateNotifier<ComplianceHubState> {
   final Ref ref;
-  ComplianceHubController()
+  ComplianceHubController(this.ref)
       : super(
           ComplianceHubState(
             isScanning: false,
