@@ -138,7 +138,7 @@ class IntakeCoordinatorNewIntakesScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('intake_coordinator_new_intakes-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

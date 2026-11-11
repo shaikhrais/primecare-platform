@@ -138,7 +138,7 @@ class HeadOfMarketingFunnelAnalyticsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('head_of_marketing_funnel_analytics-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

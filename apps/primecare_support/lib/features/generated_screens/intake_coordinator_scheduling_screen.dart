@@ -138,7 +138,7 @@ class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('intake_coordinator_scheduling-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

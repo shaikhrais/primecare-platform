@@ -138,7 +138,7 @@ class TrainingCoordinatorCoursesScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('training_coordinator_courses-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

@@ -107,7 +107,7 @@ class GovernanceKPIGrid extends StatelessWidget {
               color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: Icon(icon, color: color, size: 24),
+            child: PrimeIcon(icon, color: color, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(

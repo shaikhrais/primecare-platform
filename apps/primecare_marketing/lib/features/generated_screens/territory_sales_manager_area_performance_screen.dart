@@ -138,7 +138,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget 
           actions: [
             IconButton(
               key: const Key('territory_sales_manager_area_performance-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],
