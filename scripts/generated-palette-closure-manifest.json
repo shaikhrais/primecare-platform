@@ -1,0 +1,338 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/campaign_analytics.dart",
+    "sha256": "9a872f3c93affb74b85316528743f670fc66bcd2aaee94313a2b285a61fcaaa1",
+    "calls": 8,
+    "edits": [
+      {
+        "begin": 9505,
+        "end": 9516,
+        "old": "Colors.teal",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 9962,
+        "end": 9973,
+        "old": "Colors.blue",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 10415,
+        "end": 10427,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 10989,
+        "end": 11002,
+        "old": "Colors.purple",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).accent"
+      },
+      {
+        "begin": 12819,
+        "end": 12831,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 12926,
+        "end": 12986,
+        "old": "Colors.blue\n                                    : Colors.gre",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primar"
+      },
+      {
+        "begin": 12987,
+        "end": 12987,
+        "old": "",
+        "new": ").accent\n                                    : PrimeActionPalette.of(context, PrimeActionTone.muted).accent"
+      },
+      {
+        "begin": 13251,
+        "end": 13251,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 13262,
+        "end": 13284,
+        "old": ".withValues(alpha: 0.1",
+        "new": ""
+      },
+      {
+        "begin": 13790,
+        "end": 13790,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 13801,
+        "end": 13801,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 14894,
+        "end": 14894,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 14905,
+        "end": 14927,
+        "old": ".withValues(alpha: 0.1",
+        "new": ""
+      },
+      {
+        "begin": 15346,
+        "end": 15346,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 15357,
+        "end": 15357,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 16537,
+        "end": 16549,
+        "old": "Colors.black",
+        "new": "Theme.of(context).colorScheme.scrim"
+      },
+      {
+        "begin": 17605,
+        "end": 17605,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 17614,
+        "end": 17636,
+        "old": ".withValues(alpha: 0.1",
+        "new": ""
+      },
+      {
+        "begin": 17751,
+        "end": 17751,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 17760,
+        "end": 17760,
+        "old": "",
+        "new": ")"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cases.dart",
+    "sha256": "af09dead0f850bde54dae1bfb2f89bb57877b2e6c558b4eb42c8aae84f02c3d3",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 8861,
+        "end": 8873,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 8933,
+        "end": 8943,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent"
+      },
+      {
+        "begin": 9002,
+        "end": 9012,
+        "old": "Colors.ora",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warni"
+      },
+      {
+        "begin": 9014,
+        "end": 9015,
+        "old": "e",
+        "new": ").accent"
+      },
+      {
+        "begin": 11271,
+        "end": 11271,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 11284,
+        "end": 11288,
+        "old": ".wit",
+        "new": "),\n                                                  borderRadius: BorderRadius.circular(4),\n                                                ),\n                                                c"
+      },
+      {
+        "begin": 11289,
+        "end": 11293,
+        "old": "Opac",
+        "new": "ild: Text(\n                                                  c.sever"
+      },
+      {
+        "begin": 11296,
+        "end": 11497,
+        "old": "(0.1),\n                                                  borderRadius: BorderRadius.circular(4),\n                                                ),\n                                                child",
+        "new": ",\n                                                  style"
+      },
+      {
+        "begin": 11503,
+        "end": 11563,
+        "old": "(\n                                                  c.severi",
+        "new": "S"
+      },
+      {
+        "begin": 11565,
+        "end": 11624,
+        "old": ",\n                                                  style: ",
+        "new": "le(\n                                                    color: PrimeActionPalette.on"
+      },
+      {
+        "begin": 11625,
+        "end": 11625,
+        "old": "",
+        "new": "int(cont"
+      },
+      {
+        "begin": 11628,
+        "end": 11693,
+        "old": "Style(\n                                                    color:",
+        "new": ","
+      },
+      {
+        "begin": 11707,
+        "end": 11707,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 19935,
+        "end": 19940,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 20057,
+        "end": 20057,
+        "old": "",
+        "new": ", style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.success).onAccent)"
+      },
+      {
+        "begin": 20113,
+        "end": 20125,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/enterprise_overview.dart",
+    "sha256": "e726a09154205f7aba3c11f19a0778dfc06b5c50035e28e7b57459bb2af9697d",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 6112,
+        "end": 6124,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent"
+      },
+      {
+        "begin": 6391,
+        "end": 6404,
+        "old": "Colors.purple",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).accent"
+      },
+      {
+        "begin": 6687,
+        "end": 6698,
+        "old": "Colors.teal",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 11699,
+        "end": 11711,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/strategic_kpis.dart",
+    "sha256": "591ca302bbc69aa29820d17826b76caa3e7d74b2a489afdeade4e4f0609ae14e",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 6317,
+        "end": 6328,
+        "old": "Colors.blue",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 6602,
+        "end": 6614,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 6878,
+        "end": 6891,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 7165,
+        "end": 7175,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/audit_logs.dart",
+    "sha256": "7b0d456023a634231be84fd317e42e72535287ec2ffb49bcf3abdc5b6b531427",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 6881,
+        "end": 6892,
+        "old": "Colors.teal",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 7224,
+        "end": 7236,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 7568,
+        "end": 7581,
+        "old": "Colors.indigo",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/policy_manager.dart",
+    "sha256": "dc034a0d85754a992347284c0e0226e6eeb69f321ef446c3fde255944b0d759a",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 10252,
+        "end": 10264,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 12297,
+        "end": 12309,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      }
+    ]
+  }
+]
