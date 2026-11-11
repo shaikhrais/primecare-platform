@@ -93,6 +93,7 @@ ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w
 CONTROL_IMPLEMENTATIONS = {
     'packages/primecare_ui_foundation/lib/src/prime_circular_progress_indicator.dart': ('CircularProgressIndicator',),
     'packages/primecare_ui_foundation/lib/src/prime_scaffold.dart': ('Scaffold',),
+    'packages/primecare_ui_foundation/lib/src/prime_text_field.dart': ('TextField',),
     'packages/primecare_ui_foundation/lib/src/prime_icon_button.dart': ('IconButton',),
     'packages/primecare_ui_foundation/lib/src/prime_rich_text.dart': ('RichText',),
     'packages/primecare_ui_foundation/lib/src/prime_text.dart': ('Text',),

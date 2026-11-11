@@ -18,7 +18,7 @@ class SharedCircularProgressTest(unittest.TestCase):
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),11)
         for row in m.MANIFEST:
             latest=(ROOT/row['path']).read_text()
-            current=history.before_shared_scaffolds(latest,row['path'])
+            current=history.before_shared_scaffolds(history.before_shared_text_fields(latest,row['path']),row['path'])
             original=history.before_circular_progress(current,row['path'])
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'])
             self.assertEqual(m.migrate(original),(current,row['calls']))
@@ -28,7 +28,7 @@ class SharedCircularProgressTest(unittest.TestCase):
 
     def test_edited_sources_are_not_migrated(self):
         for row in m.MANIFEST:
-            current=history.before_shared_scaffolds((ROOT/row['path']).read_text(),row['path'])
+            current=history.before_shared_scaffolds(history.before_shared_text_fields((ROOT/row['path']).read_text(),row['path']),row['path'])
             original=history.before_circular_progress(current,row['path'])
             for changed in [original+'\n',original+'\nclass PrimeCircularProgressIndicator {}\n']:
                 self.assertEqual(m.migrate(changed),(changed,0))

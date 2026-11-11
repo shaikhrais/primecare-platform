@@ -1,0 +1,14 @@
+{
+  "apps/primecare_governance/lib/core/ui/app_components.dart": ["63769a010f87b82406859951059acb88fa77925dc2fdf254450fe525bafc75d8", 1],
+  "apps/primecare_governance/lib/core/ui/dynamic_screen_view.dart": ["7ddea3b2571c5465449b3c51821afb4c91efb93e6c4c61786dac1ff7d4c3edc8", 1],
+  "apps/primecare_governance/lib/features/audit/screens/screen_status_screen.dart": ["cc6b0d4f04b3bdbfbde1681f2d0b8d67b3b78832f270ef3b6e4446e317caa54c", 1],
+  "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart": ["ee9e1bc353934e1236efcdf32b5a2ce879a03f25773d11c3b7d8281c5ec34178", 1],
+  "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart": ["bf86e210af73581cccd6b363bbec2a132386eb6ce1401089a47c9826778aff70", 1],
+  "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart": ["322d8a745081e24c353ff71d7aa0d741e1df538b8ee3ec1d814a293778cb3b75", 1],
+  "packages/flutter_core/lib/data_controls/prime_data_controls.dart": ["9ebd8175be24780cdd683da23e531c33ed2d40f73b29cdb26d1934a5a348a359", 5],
+  "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart": ["20606a8cb5f34cca058e1c4516e4ac69f17807ff3719452951ac45f5707c5d87", 1],
+  "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart": ["c04b1a14411745e6cc439869ea0e9d868ad59b340f091b95b0f8dd67014e960b", 3],
+  "packages/flutter_core/lib/routes/sso_redirect_view.dart": ["039ef2f2155421d72efc8dc28d4e33e84746ab8a06e35a03abc114b1958103e1", 1],
+  "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart": ["c68178a50b469f8ccb9264c17a6cfdc4d416629ed9c748713c2877b899cbd3ad", 1],
+  "packages/flutter_core/lib/work_modules/prime_work_module.dart": ["e4dfd24c4f0fdf97d5e26a2dd32052cf844038692d22b5ac0696ce6f5a4fd864", 2]
+}

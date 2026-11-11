@@ -115,6 +115,12 @@ class SharedUiBoundaryTest(unittest.TestCase):
         self.assertEqual([f[2] for f in boundary.violations(source, True)],
                          ['Scaffold', 'Scaffold', 'AppBar'])
 
+    def test_text_field_delegate_allows_only_text_field_and_no_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'packages/primecare_ui_foundation/lib/src/prime_text_field.dart';path.parent.mkdir(parents=True)
+            path.write_text('TextField(controller: controller); Text(label); AppBar(); Colors.red;')
+            self.assertEqual([f[3] for f in boundary.scan(root)],['Text','AppBar','Colors.red'])
+
     def test_extended_primitive_implementations_are_exact_and_color_strict(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

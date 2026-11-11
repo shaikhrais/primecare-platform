@@ -31,6 +31,20 @@ def before_circular_progress(source,path):
     return reverse_manifest(source,path,'shared-circular-progress-manifest.json')
 
 
+def before_shared_text_fields(source,path):
+    manifest_path=ROOT/'scripts/shared-text-fields-manifest.json'
+    script_path=ROOT/'scripts/migrate-shared-text-fields.py'
+    if not manifest_path.exists() or not script_path.exists():return source
+    row=json.loads(manifest_path.read_text()).get(path)
+    if row is None:return source
+    spec=importlib.util.spec_from_file_location('shared_text_field_history',script_path)
+    migration=importlib.util.module_from_spec(spec);spec.loader.exec_module(migration)
+    original,count=migration.reverse_source(path,source,row[1])
+    if count!=row[1] or hashlib.sha256(original.encode()).hexdigest()!=row[0]:
+        raise AssertionError('Shared text field output drift: '+path)
+    return original
+
+
 def before_shared_scaffolds(source,path):
     manifest_path=ROOT/'scripts/shared-scaffold-constructors-manifest.json'
     script_path=ROOT/'scripts/migrate-shared-scaffolds.py'
@@ -46,6 +60,7 @@ def before_shared_scaffolds(source,path):
 
 
 def before_control_extensions(source,path):
+    source=before_shared_text_fields(source,path)
     source=before_shared_scaffolds(source,path)
     source=before_circular_progress(source,path)
     return reverse_manifest(source,path,'shared-control-extensions-manifest.json')

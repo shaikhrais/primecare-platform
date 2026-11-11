@@ -20,7 +20,7 @@ class SharedControlExtensionsTest(unittest.TestCase):
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),50)
         for row in m.MANIFEST:
             latest=(ROOT/row['path']).read_text()
-            current=history.before_circular_progress(history.before_shared_scaffolds(latest,row['path']),row['path'])
+            current=history.before_circular_progress(history.before_shared_scaffolds(history.before_shared_text_fields(latest,row['path']),row['path']),row['path'])
             original=history.before_control_extensions(latest,row['path'])
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'])
             self.assertEqual(m.migrate(original),(current,row['calls']))

@@ -8,12 +8,15 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('scaffolds', ROOT/'scripts/migrate-shared-scaffolds.py')
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
+spec = importlib.util.spec_from_file_location('history', ROOT/'scripts/reviewed_migration_history.py')
+history = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(history)
 MANIFEST = json.loads((ROOT/'scripts/shared-scaffold-constructors-manifest.json').read_text())
 
 
 class SharedScaffoldMigrationTest(unittest.TestCase):
     def original_and_updated(self, path, original_sha, expected):
-        current = (ROOT/path).read_text()
+        current = history.before_shared_text_fields((ROOT/path).read_text(), path)
         if m.digest(current) == original_sha:
             original = current
             updated, count = m.migrate_source(path, original, original_sha, expected)
