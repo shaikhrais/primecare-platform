@@ -19,15 +19,18 @@ CONTROLS = ('Text', 'RichText', 'TextField', 'TextFormField', 'ElevatedButton',
     'AppBar', 'BottomAppBar', 'NavigationBar', 'NavigationRail', 'Drawer', 'AlertDialog',
     'SimpleDialog', 'SnackBar', 'DataTable', 'PaginatedDataTable', 'TabBar', 'Chip',
     'ActionChip', 'ChoiceChip', 'FilterChip', 'InputChip', 'PopupMenuButton',
-    'CupertinoButton', 'CupertinoTextField', 'CupertinoSwitch', 'CupertinoPageScaffold')
+    'FloatingActionButton', 'CupertinoButton', 'CupertinoTextField', 'CupertinoSwitch', 'CupertinoPageScaffold')
 DIRECT = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*(?:\.\s*\w+\s*)?\(')
-COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO)\s*\(|Colors\s*\.\s*\w+)')
+TEAR_OFF = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*\.\s*(?:new|rich|icon|tonal|tonalIcon|adaptive|large|small|extended)\b(?!\s*\()')
+COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\(|Colors\s*\.\s*\w+)')
 THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_core/lib/theme/')
 
 
 def violations(source, application):
     code = LEX.sub(lambda m: ''.join('\n' if c == '\n' else ' ' for c in m[0]), source)
     findings = [(m.start(), 'shared-control', m[1]) for m in DIRECT.finditer(code)] if application else []
+    if application:
+        findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code)]
     findings += [(m.start(), 'theme-color', m[0]) for m in COLOR.finditer(code)]
     return [(source.count('\n', 0, pos) + 1, rule, symbol) for pos, rule, symbol in sorted(findings)]
 

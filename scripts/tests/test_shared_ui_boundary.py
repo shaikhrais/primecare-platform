@@ -1,5 +1,6 @@
 import importlib.util
 import unittest
+import tempfile
 from pathlib import Path
 
 spec = importlib.util.spec_from_file_location('boundary', Path(__file__).parents[1] / 'check-shared-ui-boundary.py')
@@ -23,3 +24,32 @@ class SharedUiBoundaryTest(unittest.TestCase):
 
     def test_line_numbers_survive_multiline_comments(self):
         self.assertEqual(boundary.violations('/* first\n second */\nText(label);', True)[0][0], 3)
+
+    def test_constructor_tearoffs_cannot_bypass_shared_library(self):
+        source = 'final a = ui.Text.new; final b = Text.rich; final c = FloatingActionButton.extended;'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)],
+                         ['Text', 'Text', 'FloatingActionButton'])
+        self.assertEqual(boundary.violations(source, False), [])
+
+    def test_modern_color_constructor_and_emergency_button_fail(self):
+        self.assertEqual([f[1] for f in boundary.violations(
+            'final color = Color.from(alpha: 1, red: 0, green: 0, blue: 0); FloatingActionButton.large();', True)],
+            ['theme-color', 'shared-control'])
+
+    def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = {
+                'apps/demo/lib/view.dart': 'Text("direct");',
+                'apps/demo/test/view_test.dart': 'Text("test fixture");',
+                'packages/primecare_ui/lib/src/components/card.dart': 'Text("shared"); Colors.white;',
+                'packages/primecare_ui/lib/src/theme/palette.dart': 'Color(1);',
+            }
+            for relative, source in sources.items():
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(source, encoding='utf-8')
+            self.assertEqual([(f[0], f[2]) for f in boundary.scan(root)], [
+                ('apps/demo/lib/view.dart', 'shared-control'),
+                ('packages/primecare_ui/lib/src/components/card.dart', 'theme-color'),
+            ])

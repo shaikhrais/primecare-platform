@@ -10,6 +10,8 @@ import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/components/clinical_glass_panel.dart';
+import 'package:primecare_ui/src/components/prime_components.dart' as shared;
+import 'package:primecare_ui/src/components/layouts/responsive_grid_layout.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'fixtures/generated_theme_fixture.dart';
 
@@ -32,6 +34,59 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('shared buttons and data cards follow all palettes and preserve actions', (tester) async {
+    const base = PrimeThemeData();
+    var presses = 0;
+    for (final preset in themeCenterPresetNames) {
+      final profile = PersonalTheme(name: 'Controls', preset: preset, fontScale: 1.5);
+      final material = applyPersonalThemeData(base.toThemeData(), profile);
+      final prime = resolvePersonalPrimeTheme(base, material, profile);
+      await tester.pumpWidget(PrimeTheme(data: prime, child: MaterialApp(theme: material,
+        home: Scaffold(body: SingleChildScrollView(child: Column(children: [
+          shared.PrimeButton.primary(label: 'Primary action', onPressed: () => presses++),
+          shared.PrimeButton.secondary(label: 'Secondary action', onPressed: () {}),
+          shared.PrimeButton.ghost(label: 'Ghost action', onPressed: () {}),
+          shared.PrimeButton(label: 'Custom surface action', color: prime.colors.surface, onPressed: () {}),
+          const shared.PrimeButton(label: 'Disabled action'),
+          SizedBox(height: 200, child: shared.PrimeCareStatCard(title: 'Shared stat', value: '42',
+            icon: Icons.analytics, iconColor: prime.colors.primary, deltaSuffix: '+1')),
+          SizedBox(height: 220, child: DenseHighResTable(title: 'Shared table',
+            headers: const ['Value'], rows: const [[Text('Record')]])),
+          shared.EmergencyFab(onPressed: () {}),
+        ]))))));
+      await tester.pumpAndSettle();
+      for (final label in ['Primary action', 'Secondary action', 'Ghost action', 'Custom surface action']) {
+        final text = tester.widget<Text>(find.text(label));
+        final background = label == 'Primary action' ? prime.colors.primary : prime.colors.surface;
+        expect(themeContrastRatio(background, text.style!.color!), greaterThanOrEqualTo(4.5),
+          reason: '$preset: $label');
+      }
+      final secondary = tester.widget<ElevatedButton>(find.ancestor(
+        of: find.text('Secondary action'), matching: find.byType(ElevatedButton)));
+      expect(secondary.style!.backgroundColor!.resolve({})!.a, 0, reason: preset);
+      final disabled = tester.widget<ElevatedButton>(find.ancestor(
+        of: find.text('Disabled action'), matching: find.byType(ElevatedButton)));
+      expect(disabled.onPressed, isNull);
+      expect(tester.widget<Text>(find.text('Disabled action')).style!.color,
+        prime.colors.onSurface.withValues(alpha: 0.38));
+      for (final type in [shared.PrimeCareStatCard, DenseHighResTable]) {
+        final decorations = tester.widgetList<Container>(find.descendant(of: find.byType(type),
+          matching: find.byType(Container))).map((widget) => widget.decoration).whereType<BoxDecoration>();
+        expect(decorations.any((decoration) => decoration.color == prime.colors.surface), isTrue,
+          reason: '$preset: $type');
+      }
+      final emergency = tester.widget<FloatingActionButton>(find.byType(FloatingActionButton));
+      expect(emergency.backgroundColor, prime.colors.error);
+      expect(emergency.foregroundColor, material.colorScheme.onError);
+      final before = presses;
+      await tester.ensureVisible(find.text('Primary action'));
+      await tester.tap(find.text('Primary action'));
+      expect(presses, before + 1);
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
+
   testWidgets('clinical panel follows every palette and wraps scaled mobile headings', (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;

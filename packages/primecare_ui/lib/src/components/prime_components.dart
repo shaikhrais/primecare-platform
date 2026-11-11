@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: [Component] - Standardized Card for PrimeCare Platform.
 import 'package:primecare_ui/primecare_ui.dart';
 import '../localization/shared_control_text.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 
 /// [Component] - Standardized Card for PrimeCare Platform.
 class PrimeCareCard extends StatelessWidget {
@@ -277,7 +278,7 @@ class ActionableInsightCard extends StatelessWidget {
   Color _getImpactColor(PrimeThemeData theme, InsightImpact impact) {
     switch (impact) {
       case InsightImpact.positive:
-        return Colors.green;
+        return theme.colors.success;
       case InsightImpact.caution:
         return theme.colors.warning;
       case InsightImpact.critical:
@@ -427,7 +428,7 @@ class PrimeCareStatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider),
         boxShadow: theme.shadowsSurface1,
@@ -450,7 +451,7 @@ class PrimeCareStatCard extends StatelessWidget {
                 Text(
                   deltaSuffix!,
                   style: theme.typography.labelBold.copyWith(
-                    color: Colors.green,
+                    color: theme.colors.success,
                   ),
                 ),
             ],
@@ -532,7 +533,6 @@ class PrimeButton extends StatelessWidget {
       icon: icon,
       isLoading: isLoading,
       isFullWidth: isFullWidth,
-      color: Colors.transparent,
       isSecondary: true,
       dataCy: dataCy,
     );
@@ -555,7 +555,6 @@ class PrimeButton extends StatelessWidget {
       icon: icon,
       isLoading: isLoading,
       isFullWidth: isFullWidth,
-      color: Colors.transparent,
       isGhost: true,
       dataCy: dataCy,
     );
@@ -564,12 +563,17 @@ class PrimeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final buttonColor = color ?? theme.colors.primary;
-    final actualTextColor =
-        textColor ??
-        (isGhost ? theme.colors.onSurfaceVariant : color == Colors.transparent
-            ? theme.colors.primary
-            : theme.colors.onPrimary);
+    final transparent = isGhost || isSecondary || color?.a == 0;
+    final buttonColor = color ??
+        (transparent ? theme.colors.primary.withValues(alpha: 0) : theme.colors.primary);
+    final foreground = textColor ?? readableThemeForeground(
+      transparent ? theme.colors.surface : buttonColor,
+      isGhost ? theme.colors.onSurfaceVariant :
+          (transparent ? theme.colors.primary : theme.colors.onPrimary),
+    );
+    final actualTextColor = onPressed == null && !isLoading
+        ? theme.colors.onSurface.withValues(alpha: 0.38)
+        : foreground;
     final actualBorderColor = borderColor ??
         (isSecondary ? theme.colors.primary.withValues(alpha: 0.2) : null);
 
@@ -604,6 +608,7 @@ class PrimeButton extends StatelessWidget {
         return TextButton(key: const Key('prime_components_textbutton_button_1'), 
           onPressed: isLoading ? null : onPressed,
           style: TextButton.styleFrom(
+            foregroundColor: actualTextColor,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(theme.radiusDefault),
@@ -656,7 +661,7 @@ class EmergencyFab extends StatelessWidget {
     return FloatingActionButton.large(
       onPressed: onPressed,
       backgroundColor: theme.colors.error,
-      foregroundColor: Colors.white,
+      foregroundColor: Theme.of(context).colorScheme.onError,
       child: const Icon(LucideIcons.alertTriangle),
     );
   }

@@ -83,7 +83,7 @@ class DenseHighResTable extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider),
         boxShadow: theme.shadowsSurface1,
