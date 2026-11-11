@@ -23,6 +23,8 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_buttons.py
       - name: Verify semantic status migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_status.py
+      - name: Verify generated status import cleanup
+        run: python3 -m unittest discover -s scripts/tests -p test_clean_shared_status_imports.py
       - name: Verify conservative loading migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_loading.py
       - name: Verify generated template theme migration

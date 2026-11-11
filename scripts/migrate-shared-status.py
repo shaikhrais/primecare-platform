@@ -13,6 +13,9 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location('buttons', Path(__file__).with_name('migrate-shared-buttons.py'))
 buttons = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(buttons)
+cleanup_spec = importlib.util.spec_from_file_location('status_imports', Path(__file__).with_name('clean-shared-status-imports.py'))
+status_imports = importlib.util.module_from_spec(cleanup_spec)
+cleanup_spec.loader.exec_module(status_imports)
 CALL = re.compile(r'(?<![\w.])(Icon|Text|PrimeText)\s*\(')
 ROLES = {'LucideIcons.alertTriangle': ('Colors.red', 'error'), 'LucideIcons.inbox': ('Colors.grey', 'muted'),
          'Icons.error': ('Colors.red', 'error'), 'Icons.error_outline': ('Colors.red', 'error'),
@@ -97,6 +100,8 @@ def migrate(source, add_import=False, status_import=STATUS_IMPORT):
         source = source[:begin] + replacement + source[finish:]
     if edits and not has_shared and status_import.strip() not in source:
         source = source[:material[0].start()] + status_import + source[material[0].start():]
+    if edits:
+        source, _ = status_imports.clean(source)
     return source, len(edits)
 
 

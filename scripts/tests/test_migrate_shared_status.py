@@ -52,14 +52,14 @@ Icon(LucideIcons.inbox, /* keep this */ color: Colors.grey);'''
         result, count = status.migrate(source, add_import=True)
         self.assertEqual(count, 1)
         self.assertIn('PrimeStatusIcon(Icons.error_outline, tone: PrimeStatusTone.error)', result)
-        self.assertTrue(result.startswith('library example;\n' + status.STATUS_IMPORT))
+        self.assertTrue(result.startswith("library example;\nimport 'package:primecare_ui/src/components/prime_status.dart' show PrimeStatusIcon, PrimeStatusTone;"))
         self.assertEqual(status.migrate(result, add_import=True), (result, 0))
 
     def test_app_migration_uses_public_api_and_is_idempotent(self):
         source = "import 'package:flutter/material.dart';\nIcon(Icons.error, color: Colors.red);"
         result, count = status.migrate(source, add_import=True, status_import=status.PUBLIC_STATUS_IMPORT)
         self.assertEqual(count, 1)
-        self.assertIn(status.PUBLIC_STATUS_IMPORT, result)
+        self.assertIn("import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;", result)
         self.assertNotIn('primecare_ui/src/', result)
         self.assertEqual(status.migrate(result, add_import=True, status_import=status.PUBLIC_STATUS_IMPORT), (result, 0))
 
