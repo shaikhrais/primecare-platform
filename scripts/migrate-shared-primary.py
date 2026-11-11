@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Migrate exact generated primary actions to the themed shared PrimeButton.
 
-Only primary-token backgrounds, radius-eight shapes and white-only text styles
+Scans app libraries and shared feature/screen libraries. Only primary-token
+backgrounds, radius-eight shapes and white-only Text/PrimeText label styles
 qualify. Shared defaults take ownership of shape and readable foreground color.
 Other signatures remain errors in the boundary gate. Dry run is the default.
 """
@@ -21,9 +22,9 @@ def migrate(source):
         return source, 0
     if not any(code[m.start():].startswith('import') for m in b.text.MATERIAL.finditer(source)):
         return source, 0
-    if re.search(r'\bpart\b|\b(?:class|typedef|mixin|enum|extension)\s+(?:ElevatedButton|PrimeButton|PrimeText)\b', code):
+    if re.search(r'\bpart\b|\b(?:class|typedef|mixin|enum|extension)\s+(?:ElevatedButton|PrimeButton|PrimeText|Text|TextStyle|Colors)\b', code):
         return source, 0
-    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+(?:ElevatedButton|PrimeButton)\s*\(|\b(?:ElevatedButton|PrimeButton)\s*=', code):
+    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+(?:ElevatedButton|PrimeButton|PrimeText|Text|TextStyle|Colors)\s*\(|\b(?:ElevatedButton|PrimeButton|PrimeText|Text|TextStyle|Colors)\s*=', code):
         return source, 0
     for m in re.finditer(r'\bElevatedButton\b', code):
         if not re.match(r'\s*(?:\(|\.styleFrom\s*\()', code[m.end():]):
@@ -46,7 +47,7 @@ def migrate(source):
             if not {'style','onPressed','child'} <= named.keys(): continue
             if re.sub(r'\s+','',code[slice(*named['style'])]) != STYLE: continue
             start,stop=named['child']
-            child=re.match(r'\s*(?:const\s+)?PrimeText\s*\(',code[start:stop])
+            child=re.match(r'\s*(?:const\s+)?(?:PrimeText|Text)\s*\(',code[start:stop])
             if not child: continue
             parsed_child=b.arguments(code,start+child.end())
             if not parsed_child: continue
@@ -64,7 +65,10 @@ def migrate(source):
 
 def main():
     p=argparse.ArgumentParser(description=__doc__);p.add_argument('--root',type=Path,default=Path(__file__).resolve().parents[1]);p.add_argument('--apply',action='store_true');a=p.parse_args();root=a.root.resolve();files=[];calls=0
-    for path in sorted((root/'apps').glob('*/lib/**/*.dart')):
+    paths = set((root/'apps').glob('*/lib/**/*.dart'))
+    for relative in ('packages/primecare_ui/lib/src/features', 'packages/primecare_ui/lib/src/screens'):
+        paths.update((root/relative).rglob('*.dart'))
+    for path in sorted(paths):
         if path.is_symlink() or not path.resolve().is_relative_to(root): continue
         updated,count=migrate(path.read_text())
         if count:

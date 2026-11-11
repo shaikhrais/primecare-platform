@@ -16,3 +16,23 @@ class MigrationTest(unittest.TestCase):
  def test_does_not_rewrite_comments_or_strings(self):
   source=PREFIX+'// '+CALL+'\nfinal example = "'+CALL+'";'
   self.assertEqual(m.migrate(source),(source,0))
+ def test_material_text_label_preserves_key_translation_and_callback(self):
+  source=PREFIX+CALL.replace('child: PrimeText(', 'child: Text(')
+  result,count=m.migrate(source)
+  self.assertEqual(count,1)
+  self.assertIn("PrimeButton(key:  key, label: 'Save'.tr(), onPressed:  () => save(record))",result)
+  self.assertNotIn('Colors.white',result)
+  self.assertEqual(m.migrate(result),(result,0))
+ def test_material_text_overrides_and_shadowed_symbols_are_rejected(self):
+  call=CALL.replace('child: PrimeText(', 'child: Text(')
+  for source in [call.replace('color: Colors.white','color: Colors.white, fontSize: 12'),
+                 call.replace('child: Text(', 'child: other.Text('),
+                 call.replace('child: Text(', 'child: Text(key: key,'),
+                 'class Text {}'+call,'class TextStyle {}'+call,'class Colors {}'+call,
+                 'final Text = makeText;'+call,'Widget Text(dynamic value) => other;'+call]:
+   self.assertEqual(m.migrate(PREFIX+source),(PREFIX+source,0))
+ def test_material_text_null_callback_is_retained(self):
+  source=PREFIX+CALL.replace('child: PrimeText(', 'child: Text(').replace('() => save(record)','null')
+  updated,count=m.migrate(source)
+  self.assertEqual(count,1)
+  self.assertIn('onPressed:  null',updated)
