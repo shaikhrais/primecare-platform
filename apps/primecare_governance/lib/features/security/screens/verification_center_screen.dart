@@ -456,15 +456,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-logs-btn-\${d.appName}',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-logs-btn-\${d.appName}'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Logs Btn \${D.Appname} executed successfully.'),
-                          child: PrimeText('Data Cy Logs Btn \${D.Appname}'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-logs-btn-\${d.appName}'), label: 'Data Cy Logs Btn \${D.Appname}'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Logs Btn \${D.Appname} executed successfully.')),
                       ),
                     ),
                   ),
@@ -476,15 +468,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-logs-close-btn',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-logs-close-btn'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Logs Close Btn executed successfully.'),
-                          child: PrimeText('Data Cy Logs Close Btn'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-logs-close-btn'), label: 'Data Cy Logs Close Btn'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Logs Close Btn executed successfully.')),
                       ),
                     ),
                   ),
@@ -496,15 +480,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-logs-close-text-btn',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-logs-close-text-btn'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Logs Close Text Btn executed successfully.'),
-                          child: PrimeText('Data Cy Logs Close Text Btn'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-logs-close-text-btn'), label: 'Data Cy Logs Close Text Btn'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Logs Close Text Btn executed successfully.')),
                       ),
                     ),
                   ),
