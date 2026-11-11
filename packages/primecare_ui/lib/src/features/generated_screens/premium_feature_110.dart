@@ -95,7 +95,7 @@ class PremiumFeature110 extends GovernedConsumerWidget {
               change: '-2.4 ms', // .tr() LocaleKeys.
               isPositive: true,
               icon: Icons.speed,
-              color: Color(0xFF0EA5E9),
+              color: theme.colors.primary,
             ),
             _StatCard(
               title: 'Data Ingestion Rate', // .tr() LocaleKeys.
@@ -103,7 +103,7 @@ class PremiumFeature110 extends GovernedConsumerWidget {
               change: '+18.4%', // .tr() LocaleKeys.
               isPositive: true,
               icon: Icons.cloud_download,
-              color: Color(0xFF10B981),
+              color: theme.colors.success,
             ),
             _StatCard(
               title: 'Governance Violations', // .tr() LocaleKeys.
@@ -111,7 +111,7 @@ class PremiumFeature110 extends GovernedConsumerWidget {
               change: '0.00%', // .tr() LocaleKeys.
               isPositive: true,
               icon: Icons.gavel,
-              color: Color(0xFFF59E0B),
+              color: theme.colors.warning,
             ),
           ],
           mainContent: Column(
@@ -145,9 +145,9 @@ class PremiumFeature110 extends GovernedConsumerWidget {
                     data: data,
                     themeColor: theme.colors.primary,
                   ),
-                  const _AuditPanel(
+                  _AuditPanel(
                     modelName: 'WebhookDelivery',
-                    themeColor: Colors.amber,
+                    themeColor: theme.colors.warning,
                   ),
                 ],
               ),
@@ -166,19 +166,19 @@ class PremiumFeature110 extends GovernedConsumerWidget {
                 QuickActionItem(
                   label: 'Trigger Audit', // .tr() LocaleKeys.
                   icon: Icons.shield,
-                  color: const Color(0xFF0EA5E9),
+                  color: theme.colors.primary,
                   onTap: () {},
                 ),
                 QuickActionItem(
                   label: 'Sync Schema', // .tr() LocaleKeys.
                   icon: Icons.sync,
-                  color: const Color(0xFF10B981),
+                  color: theme.colors.success,
                   onTap: () {},
                 ),
                 QuickActionItem(
                   label: 'Export Logs', // .tr() LocaleKeys.
                   icon: Icons.download,
-                  color: const Color(0xFFF59E0B),
+                  color: theme.colors.warning,
                   onTap: () {},
                 ),
               ],
@@ -191,7 +191,7 @@ class PremiumFeature110 extends GovernedConsumerWidget {
                   description: 'Synchronized telemetry mapping against database node.', // .tr() LocaleKeys.
                   time: '2m ago', // .tr() LocaleKeys.
                   icon: Icons.cloud_done,
-                  color: Color(0xFF10B981),
+                  color: theme.colors.success,
                 ),
                 PortalActivityItem(
                   title: 'Zero-Trust Audit Log', // .tr() LocaleKeys.
@@ -205,7 +205,7 @@ class PremiumFeature110 extends GovernedConsumerWidget {
                   description: 'Established active stream listener on /v1/premium/webhookdelivery.', // .tr() LocaleKeys.
                   time: '3h ago', // .tr() LocaleKeys.
                   icon: Icons.play_arrow,
-                  color: Color(0xFF0EA5E9),
+                  color: theme.colors.primary,
                 ),
               ],
             ),
