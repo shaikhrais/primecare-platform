@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Represents a generic field in the Schema Generic Form Schema Definition
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 /// Represents a generic field in the Schema
@@ -40,7 +41,7 @@ class SchemaFormEngine<T> extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(schema.title, style: Theme.of(context).textTheme.headlineSmall),
+        PrimeText(schema.title, style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 16),
         ...schema.fields.map((field) {
           if (field is TextFieldSchema) {
@@ -61,7 +62,7 @@ class SchemaFormEngine<T> extends StatelessWidget {
           onPressed: () {
             onSave({});
           },
-          child: const Text('Save'),
+          child: const PrimeText('Save'),
         ),
       ],
     );

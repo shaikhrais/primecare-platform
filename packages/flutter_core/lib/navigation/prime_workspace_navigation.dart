@@ -1,6 +1,7 @@
 import '../original_assets.dart';
 import 'dart:convert';
 import 'dart:math' as math;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'workspace_navigation_model.dart';
@@ -72,8 +73,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     return Row(mainAxisSize:MainAxisSize.min,children:[
       if(icon!=null)...[SizedBox(width:24,height:24,child:icon),if(!folded)const SizedBox(width:8)],
       if(folded&&icon==null)const PrimeOriginalAsset('placeholder-circle',size:20),
-      if(!folded)Flexible(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[Text(n.label),if(n.subtitle!=null)Text(n.subtitle!,style:Theme.of(context).textTheme.labelSmall)])),
-      if(!folded&&n.badge!=null)...[const SizedBox(width:8),Text(n.badge!)],
+      if(!folded)Flexible(child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[PrimeText(n.label),if(n.subtitle!=null)PrimeText(n.subtitle!,style:Theme.of(context).textTheme.labelSmall)])),
+      if(!folded&&n.badge!=null)...[const SizedBox(width:8),PrimeText(n.badge!)],
     ]);
   }
   List<WorkspaceNavigationNode> _visible(List<WorkspaceNavigationNode> list){return [for(final n in list)...[if(!n.disabled)n,if(n.kind=='group'&&_expanded.contains(n.id))..._visible(n.children)]];}

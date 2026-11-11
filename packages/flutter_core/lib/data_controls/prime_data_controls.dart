@@ -1,4 +1,5 @@
 import '../original_assets.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';import 'package:flutter/semantics.dart';import '../component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,PrimeCatalogueAction;import 'data_controls_model.dart';import 'upload_task.dart';
 export 'data_controls_model.dart';export 'upload_task.dart';
 class PrimeDataKit {final CatalogueLabels labels;final String scope;PrimeDataKit(this.labels,this.scope){if(scope.trim().isEmpty)throw ArgumentError('scope_required');}
@@ -6,7 +7,7 @@ class PrimeDataKit {final CatalogueLabels labels;final String scope;PrimeDataKit
  Widget field(String kind,TextEditingController controller,{bool required=false,double? min,double? max,double? step,String? pattern,DateTime? firstDate,DateTime? lastDate})=>Builder(builder:(context){
  Future<void> pick()async{if(kind=='date'&&firstDate!=null&&lastDate!=null){final parsed=DateTime.tryParse(controller.text),initial=parsed!=null&&!parsed.isBefore(firstDate)&&!parsed.isAfter(lastDate)?parsed:firstDate;final date=await showDatePicker(context:context,initialDate:initial,firstDate:firstDate,lastDate:lastDate);if(date!=null&&context.mounted)controller.text='${date.year.toString().padLeft(4,'0')}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';}else if(kind=='time'){final parts=controller.text.split(':'),valid=fieldError(controller.text,'time')==null&&parts.length==2;final time=await showTimePicker(context:context,initialTime:valid?TimeOfDay(hour:int.parse(parts[0]),minute:int.parse(parts[1])):TimeOfDay.now());if(time!=null&&context.mounted)controller.text='${time.hour.toString().padLeft(2,'0')}:${time.minute.toString().padLeft(2,'0')}';}}
  return labels.identify(kind,'prime_text_field',TextFormField(controller:controller,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&firstDate!=null&&lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:IconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:pick)):null),onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,validator:(v){final error=fieldError(v??'',kind,required:required,min:min,max:max,step:step,pattern:pattern);return error==null?null:labels.text(error);}));});
- Widget form(GlobalKey<FormState> key,List<Widget> children,Future<void> Function()? save)=>labels.identify('form','prime_card',Form(key:key,child:Column(mainAxisSize:MainAxisSize.min,children:[...children,button('submit',save==null?null:()async{if(!key.currentState!.validate())throw StateError('invalid_form');await save();}),if(save==null)Text(labels.text('unsupported'))])));
+ Widget form(GlobalKey<FormState> key,List<Widget> children,Future<void> Function()? save)=>labels.identify('form','prime_card',Form(key:key,child:Column(mainAxisSize:MainAxisSize.min,children:[...children,button('submit',save==null?null:()async{if(!key.currentState!.validate())throw StateError('invalid_form');await save();}),if(save==null)PrimeText(labels.text('unsupported'))])));
 }
 class PrimeVirtualTable extends StatefulWidget {
   final CatalogueLabels labels;
@@ -156,7 +157,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
       },
     );
     final header = stickyRow([
-      cell(Text(l.text('selectRow')), widget.actionWidth),
+      cell(PrimeText(l.text('selectRow')), widget.actionWidth),
       for (final c in columns)
         cell(
           Semantics(
@@ -169,7 +170,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
                   model.sort(c.key);
                   refresh();
                 },
-                child: Text(c.label),
+                child: PrimeText(c.label),
               ),
               suffix: '-${c.key}',
             ),
@@ -199,7 +200,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
             'columns',
             'prime_card',
             ExpansionTile(
-              title: Text(l.text('columns')),
+              title: PrimeText(l.text('columns')),
               children: [
                 for (final c in model.columns)
                   Column(
@@ -209,7 +210,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
                         'visible',
                         'prime_checkbox_web',
                         CheckboxListTile(
-                          title: Text(c.label),
+                          title: PrimeText(c.label),
                           value: c.visible,
                           onChanged: (v) {
                             try {
@@ -418,7 +419,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
           ),
           Semantics(
             liveRegion: true,
-            child: Text(
+            child: PrimeText(
               '${page.total == 0 ? l.text('empty') : '${page.start + 1}–${page.start + page.rows.length} / ${page.total}'}; ${l.text('selected')}: ${model.selected.length}',
             ),
           ),
@@ -433,7 +434,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
 }
 
 class PrimeDataAutocomplete extends StatefulWidget {final CatalogueLabels labels;final String scope;final Future<List<({String value,String label})>> Function(String)? load;final ValueChanged<String>? selected;const PrimeDataAutocomplete({super.key,required this.labels,required this.scope,this.load,this.selected});@override State<PrimeDataAutocomplete> createState()=>_PrimeDataAutocompleteState();}
-class _PrimeDataAutocompleteState extends State<PrimeDataAutocomplete>{int generation=0;String? status;@override void didUpdateWidget(covariant PrimeDataAutocomplete old){super.didUpdateWidget(old);if(old.scope!=widget.scope){generation++;status=null;}}@override void dispose(){generation++;super.dispose();}@override Widget build(BuildContext context){final l=widget.labels;return Column(mainAxisSize:MainAxisSize.min,children:[l.identify('autocomplete','prime_text_field',Autocomplete<({String value,String label})>(key:ValueKey(widget.scope),displayStringForOption:(v)=>v.label,optionsBuilder:(text)async{final g=++generation;if(widget.load==null)return [];setState(()=>status='loading');try{final result=await widget.load!(text.text);if(!mounted||g!=generation)return [];if(result.length>100||result.map((v)=>v.value).toSet().length!=result.length||result.any((v)=>v.label.isEmpty))throw StateError('invalid_options');setState(()=>status=result.isEmpty?'empty':null);return result;}catch(_){if(mounted&&g==generation)setState(()=>status='error');return [];}},onSelected:(v)=>widget.selected?.call(v.value),fieldViewBuilder:(context,controller,node,submit)=>TextField(controller:controller,focusNode:node,enabled:widget.load!=null,onSubmitted:(_)=>submit(),decoration:InputDecoration(labelText:l.text('autocomplete'))))),if(widget.load==null)Text(l.text('unsupported')),if(status!=null)Semantics(liveRegion:true,child:Text(l.text(status!)))]);}}
+class _PrimeDataAutocompleteState extends State<PrimeDataAutocomplete>{int generation=0;String? status;@override void didUpdateWidget(covariant PrimeDataAutocomplete old){super.didUpdateWidget(old);if(old.scope!=widget.scope){generation++;status=null;}}@override void dispose(){generation++;super.dispose();}@override Widget build(BuildContext context){final l=widget.labels;return Column(mainAxisSize:MainAxisSize.min,children:[l.identify('autocomplete','prime_text_field',Autocomplete<({String value,String label})>(key:ValueKey(widget.scope),displayStringForOption:(v)=>v.label,optionsBuilder:(text)async{final g=++generation;if(widget.load==null)return [];setState(()=>status='loading');try{final result=await widget.load!(text.text);if(!mounted||g!=generation)return [];if(result.length>100||result.map((v)=>v.value).toSet().length!=result.length||result.any((v)=>v.label.isEmpty))throw StateError('invalid_options');setState(()=>status=result.isEmpty?'empty':null);return result;}catch(_){if(mounted&&g==generation)setState(()=>status='error');return [];}},onSelected:(v)=>widget.selected?.call(v.value),fieldViewBuilder:(context,controller,node,submit)=>TextField(controller:controller,focusNode:node,enabled:widget.load!=null,onSubmitted:(_)=>submit(),decoration:InputDecoration(labelText:l.text('autocomplete'))))),if(widget.load==null)PrimeText(l.text('unsupported')),if(status!=null)Semantics(liveRegion:true,child:PrimeText(l.text(status!)))]);}}
 class PrimeStructuredEditor extends StatefulWidget {
  final CatalogueLabels labels;final String scope;final Object document;final Future<void> Function(Map<String,Object?>)? save;
  final bool Function(String)? imageAllowed;final Widget Function(String,String)? imageBuilder;final Future<void> Function(String)? openLink;
@@ -471,7 +472,7 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
    });
   });
   return Column(mainAxisSize:MainAxisSize.min,children:[
-   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',TextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:Text('${i+1}')),suffix:'-block-$i')]),
+   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',TextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:PrimeText('${i+1}')),suffix:'-block-$i')]),
    l.identify('editor','prime_textarea_web',TextField(controller:text,maxLines:5,maxLength:32768,decoration:InputDecoration(labelText:l.text('editor')),onChanged:(_){try{sync();setState(()=>editorStatus=null);}catch(_){setState(()=>editorStatus='invalid');}})),
    Wrap(children:[format('bold'),format('italic'),format('list')]),
    l.identify('link','prime_text_field',TextField(controller:link,decoration:InputDecoration(labelText:l.text('link')))),
@@ -480,13 +481,13 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
    kit.button('addImage',widget.imageAllowed==null||widget.imageBuilder==null?null:()async{sync();final url=safeHttps(image.text);if(!widget.imageAllowed!(url)||(blocks[index]['text'] as String).trim().isEmpty)throw StateError('denied_image');setState(()=>blocks[index]['image']={'url':url,'alt':blocks[index]['text']});}),
    kit.button('addBlock',()async{sync();if(blocks.length>=200)throw StateError('too_many_blocks');setState((){blocks.add({'text':'','bold':false,'italic':false,'kind':'paragraph'});index=blocks.length-1;setText('');});}),
    kit.button('save',widget.save==null?null:()async{sync();await widget.save!(validateDocument(doc));}),
-   if(widget.save==null)Text(l.text('unsupported')),
-   if(editorStatus!=null)Semantics(liveRegion:true,child:Text(l.text(editorStatus!))),
-   if(linkStatus!=null)Semantics(liveRegion:true,child:Text(l.text(linkStatus!))),
+   if(widget.save==null)PrimeText(l.text('unsupported')),
+   if(editorStatus!=null)Semantics(liveRegion:true,child:PrimeText(l.text(editorStatus!))),
+   if(linkStatus!=null)Semantics(liveRegion:true,child:PrimeText(l.text(linkStatus!))),
    l.identify('editorPreview','prime_card',Column(mainAxisSize:MainAxisSize.min,children:[for(final b in blocks)Column(mainAxisSize:MainAxisSize.min,children:[
     previewText(b),
-    if(b['link']!=null)widget.openLink==null?SelectableText(b['link'] as String):Semantics(link:true,child:TextButton(onPressed:linkBusy?null:()=>activateLink(b['link'] as String),child:Text(b['link'] as String))),
-    if(b['image'] is Map)widget.imageAllowed?.call((b['image'] as Map)['url'] as String)==true&&widget.imageBuilder!=null?widget.imageBuilder!((b['image'] as Map)['url'] as String,(b['image'] as Map)['alt'] as String):Text((b['image'] as Map)['alt'] as String)
+    if(b['link']!=null)widget.openLink==null?SelectableText(b['link'] as String):Semantics(link:true,child:TextButton(onPressed:linkBusy?null:()=>activateLink(b['link'] as String),child:PrimeText(b['link'] as String))),
+    if(b['image'] is Map)widget.imageAllowed?.call((b['image'] as Map)['url'] as String)==true&&widget.imageBuilder!=null?widget.imageBuilder!((b['image'] as Map)['url'] as String,(b['image'] as Map)['alt'] as String):PrimeText((b['image'] as Map)['alt'] as String)
    ])]))
   ]);
  }
@@ -506,15 +507,15 @@ class _PrimeUploadControlState extends State<PrimeUploadControl>{
  @override Widget build(BuildContext context){
   final l=widget.labels,kit=PrimeDataKit(l,widget.scope),canRemove=widget.removalPort!=null&&widget.receiptPort!=null;
   return Column(mainAxisSize:MainAxisSize.min,children:[
-   l.identify('upload','prime_text_field',TextButton(onPressed:widget.pick==null||['uploading','removing','remove-error'].contains(task.status)?null:()async{final g=++generation;try{final files=await widget.pick!();if(!mounted||g!=generation)return;task.choose(files);setState(()=>invalid=false);}catch(_){if(mounted&&g==generation)setState(()=>invalid=true);}},child:Text(l.text('upload')))),
-   for(var i=0;i<task.files.length;i++)Row(children:[Expanded(child:Text(task.files[i].name)),kit.button('remove',()async=>task.removeSelection(i),suffix:'-selected-$i',disabled:task.status!='ready')]),
+   l.identify('upload','prime_text_field',TextButton(onPressed:widget.pick==null||['uploading','removing','remove-error'].contains(task.status)?null:()async{final g=++generation;try{final files=await widget.pick!();if(!mounted||g!=generation)return;task.choose(files);setState(()=>invalid=false);}catch(_){if(mounted&&g==generation)setState(()=>invalid=true);}},child:PrimeText(l.text('upload')))),
+   for(var i=0;i<task.files.length;i++)Row(children:[Expanded(child:PrimeText(task.files[i].name)),kit.button('remove',()async=>task.removeSelection(i),suffix:'-selected-$i',disabled:task.status!='ready')]),
    kit.button('send',widget.port==null?null:()async{await task.send();if(task.status!='success')throw StateError('upload_not_acknowledged');},disabled:task.status!='ready'),
    kit.button('cancel',()async=>task.cancel(),disabled:task.status!='uploading'),
    kit.button('retry',widget.retrySafe&&widget.port!=null?()async{await task.send();if(task.status!='success')throw StateError('upload_not_acknowledged');}:null,disabled:!['error','cancelled'].contains(task.status)),
    if(task.receiptId!=null)kit.button('remove',canRemove?()async{await task.removeUpload();if(task.status!='removed')throw StateError('removal_not_verified');}:null,suffix:'-receipt',disabled:!['success','remove-error'].contains(task.status)),
-   if(task.receiptId!=null&&!canRemove)Text(l.text('unsupported')),
+   if(task.receiptId!=null&&!canRemove)PrimeText(l.text('unsupported')),
    l.identify('progress','prime_card',LinearProgressIndicator(value:task.progress,semanticsLabel:l.text('progress'))),
-   Semantics(liveRegion:true,child:Text(invalid?l.text('invalid'):widget.port==null||widget.pick==null?l.text('unsupported'):['success','removed'].contains(task.status)?l.text('success'):['error','remove-error'].contains(task.status)?l.text('error'):['uploading','removing'].contains(task.status)?l.text('loading'):task.files.map((f)=>f.name).join(', '))),
+   Semantics(liveRegion:true,child:PrimeText(invalid?l.text('invalid'):widget.port==null||widget.pick==null?l.text('unsupported'):['success','removed'].contains(task.status)?l.text('success'):['error','remove-error'].contains(task.status)?l.text('error'):['uploading','removing'].contains(task.status)?l.text('loading'):task.files.map((f)=>f.name).join(', '))),
   ]);
  }
 }

@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 import 'dart:convert';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'page_template_model.dart';
@@ -57,17 +59,17 @@ class _PrimePageTemplateState extends State<PrimePageTemplate> {
   }
   void _showDrawer(String side){
     final nav=Navigator.of(context);final generation=_generation;
-    final route=DialogRoute<void>(context:context,barrierDismissible:false,builder:(_){if(!mounted||generation!=_generation||widget.route==null)return const SizedBox.shrink();return PopScope<void>(canPop:false,onPopInvokedWithResult:(didPop,result){if(!didPop)_closeDrawer();},child:Focus(onKeyEvent:(_,event){if(event is KeyDownEvent&&event.logicalKey==LogicalKeyboardKey.escape){_closeDrawer();return KeyEventResult.handled;}return KeyEventResult.ignored;},child:Align(alignment:side=='left'?Alignment.centerLeft:Alignment.centerRight,child:SizedBox(width:math.min(_config(side).width.toDouble(),math.max(0,MediaQuery.sizeOf(context).width-widget.metrics.drawerEdgeGap)),child:Drawer(child:SafeArea(child:ValueListenableBuilder<int>(valueListenable:_updates,builder:(_,value,child)=>Column(children:[Align(alignment:AlignmentDirectional.centerEnd,child:IconButton(autofocus:true,tooltip:_label(side,true),onPressed:_closeDrawer,icon:const Icon(Icons.close))),Expanded(child:SingleChildScrollView(child:_slot(side,_child(side)??const SizedBox.shrink())))]))))))));});
+    final route=DialogRoute<void>(context:context,barrierDismissible:false,builder:(_){if(!mounted||generation!=_generation||widget.route==null)return const SizedBox.shrink();return PopScope<void>(canPop:false,onPopInvokedWithResult:(didPop,result){if(!didPop)_closeDrawer();},child:Focus(onKeyEvent:(_,event){if(event is KeyDownEvent&&event.logicalKey==LogicalKeyboardKey.escape){_closeDrawer();return KeyEventResult.handled;}return KeyEventResult.ignored;},child:Align(alignment:side=='left'?Alignment.centerLeft:Alignment.centerRight,child:SizedBox(width:math.min(_config(side).width.toDouble(),math.max(0,MediaQuery.sizeOf(context).width-widget.metrics.drawerEdgeGap)),child:Drawer(child:SafeArea(child:ValueListenableBuilder<int>(valueListenable:_updates,builder:(_,value,child)=>Column(children:[Align(alignment:AlignmentDirectional.centerEnd,child:IconButton(autofocus:true,tooltip:_label(side,true),onPressed:_closeDrawer,icon:const PrimeIcon(Icons.close))),Expanded(child:SingleChildScrollView(child:_slot(side,_child(side)??const SizedBox.shrink())))]))))))));});
     setState((){_dialog=route;_navigator=nav;_modalSide=side;_open[side]=true;});
     nav.push(route).whenComplete((){if(mounted&&generation==_generation&&identical(_dialog,route)){setState((){_dialog=null;_navigator=null;_modalSide=null;_open[side]=false;});}});
   }
   void _navigate(PageBreadcrumb crumb,int generation){if(!mounted||generation!=_generation||crumb.route==null||!(widget.route?.breadcrumbs.any((c)=>c.id==crumb.id&&c.route==crumb.route)??false))return;widget.onNavigate(crumb.route!);}
   Widget _header(){final route=widget.route!,generation=_generation;
     return Padding(padding:widget.metrics.headerPadding,child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
-      Focus(focusNode:_headingFocus,skipTraversal:true,child:Semantics(header:true,child:Text(route.title,style:Theme.of(context).textTheme.headlineSmall))),
-      Semantics(label:widget.labels.breadcrumbs,container:true,child:Wrap(children:[for(final crumb in route.breadcrumbs)if(crumb.route!=null)TextButton(key:ValueKey('page-breadcrumb-${crumb.id}'),onPressed:()=>_navigate(crumb,generation),child:Text(crumb.label))else Text(crumb.label)])),
+      Focus(focusNode:_headingFocus,skipTraversal:true,child:Semantics(header:true,child:PrimeText(route.title,style:Theme.of(context).textTheme.headlineSmall))),
+      Semantics(label:widget.labels.breadcrumbs,container:true,child:Wrap(children:[for(final crumb in route.breadcrumbs)if(crumb.route!=null)TextButton(key:ValueKey('page-breadcrumb-${crumb.id}'),onPressed:()=>_navigate(crumb,generation),child:PrimeText(crumb.label))else PrimeText(crumb.label)])),
       if(widget.header!=null)_slot('header',widget.header!),
-      Wrap(spacing:widget.metrics.gap,runSpacing:widget.metrics.runGap,children:[if(widget.actions!=null)_slot('actions',widget.actions!),for(final side in ['left','right'])if(_child(side)!=null&&_config(side).mode!='none')TextButton(key:ValueKey('page-toggle-$side'),focusNode:_triggers[side],onPressed:()=>_toggle(side),child:Text(_label(side,_open[side]!)))])
+      Wrap(spacing:widget.metrics.gap,runSpacing:widget.metrics.runGap,children:[if(widget.actions!=null)_slot('actions',widget.actions!),for(final side in ['left','right'])if(_child(side)!=null&&_config(side).mode!='none')TextButton(key:ValueKey('page-toggle-$side'),focusNode:_triggers[side],onPressed:()=>_toggle(side),child:PrimeText(_label(side,_open[side]!)))])
     ]));
   }
   @override Widget build(BuildContext context){

@@ -1,5 +1,7 @@
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE A premium, high-density dashboard split layout designed for large displays. On desktop and w...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import '../../config/screen_breakpoints.dart';
 import 'responsive_grid.dart';
@@ -149,7 +151,7 @@ class QuickActionsPanel extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            PrimeText(
               title,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -189,10 +191,10 @@ class QuickActionsPanel extends StatelessWidget {
                         CircleAvatar(
                           radius: 16,
                           backgroundColor: action.color.withOpacity(0.15),
-                          child: Icon(action.icon, color: action.color, size: 16),
+                          child: PrimeIcon(action.icon, color: action.color, size: 16),
                         ),
                         const SizedBox(height: 8),
-                        Text(
+                        PrimeText(
                           action.label,
                           style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.w600,
@@ -259,7 +261,7 @@ class RecentActivityFeed extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            PrimeText(
               title,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.bold,
@@ -289,7 +291,7 @@ class RecentActivityFeed extends StatelessWidget {
                             shape: BoxShape.circle,
                           ),
                           child: Center(
-                            child: Icon(
+                            child: PrimeIcon(
                               activity.icon,
                               color: activity.color,
                               size: 14,
@@ -314,7 +316,7 @@ class RecentActivityFeed extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Expanded(
-                                child: Text(
+                                child: PrimeText(
                                   activity.title,
                                   style: theme.textTheme.bodyMedium?.copyWith(
                                     fontWeight: FontWeight.w600,
@@ -323,7 +325,7 @@ class RecentActivityFeed extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              Text(
+                              PrimeText(
                                 activity.time,
                                 style: theme.textTheme.labelSmall?.copyWith(
                                   color: scheme.onSurfaceVariant,
@@ -332,7 +334,7 @@ class RecentActivityFeed extends StatelessWidget {
                             ],
                           ),
                           const SizedBox(height: 4),
-                          Text(
+                          PrimeText(
                             activity.description,
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: scheme.onSurfaceVariant,
@@ -401,14 +403,14 @@ class AiInsightsCard extends StatelessWidget {
                   color: foreground.withValues(alpha: .18),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(aiIcon, color: foreground, size: 18),
+                child: PrimeIcon(aiIcon, color: foreground, size: 18),
               ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'AI ASSISTANT',
                       style: theme.textTheme.labelSmall?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -416,7 +418,7 @@ class AiInsightsCard extends StatelessWidget {
                         letterSpacing: 1.2,
                       ),
                     ),
-                    Text(
+                    PrimeText(
                       heading,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -439,7 +441,7 @@ class AiInsightsCard extends StatelessWidget {
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(top: 3.0),
-                    child: Icon(
+                    child: PrimeIcon(
                       Icons.check_circle_outline,
                       color: foreground,
                       size: 14,
@@ -447,7 +449,7 @@ class AiInsightsCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 10),
                   Expanded(
-                    child: Text(
+                    child: PrimeText(
                       suggestion,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: foreground,

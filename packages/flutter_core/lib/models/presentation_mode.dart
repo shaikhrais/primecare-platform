@@ -1,3 +1,5 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -12,7 +14,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
   // 1. Get Details based on screenType
   String title = 'Financial Ledger';
   String screenLabel = 'Ledger Overview';
-  Widget bodyContent = const Center(child: Text('Dashboard under construction'));
+  Widget bodyContent = const Center(child: PrimeText('Dashboard under construction'));
   
   if (normalizedType.contains('cfodashboard')) {
     title = 'CFO Strategic Finance HUD';
@@ -125,9 +127,9 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
             children: [
               Row(
                 children: [
-                  const Icon(LucideIcons.activity, color: Color(0xFF38BDF8), size: 18),
+                  const PrimeIcon(LucideIcons.activity, color: Color(0xFF38BDF8), size: 18),
                   const SizedBox(width: 8),
-                  const Text(
+                  const PrimeText(
                     'PrimeCare Enterprise Platform',
                     style: TextStyle(
                       color: Colors.white,
@@ -143,7 +145,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                     color: const Color(0xFF475569),
                   ),
                   const SizedBox(width: 8),
-                  Text(
+                  PrimeText(
                     'Role: $roleLabel',
                     style: const TextStyle(
                       color: Color(0xFF94A3B8),
@@ -155,7 +157,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
               ),
               Row(
                 children: [
-                  Text(
+                  PrimeText(
                     'Screen: $screenLabel',
                     style: const TextStyle(
                       color: Color(0xFF38BDF8),
@@ -170,7 +172,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                       color: const Color(0xFF0369A1), // Sky 700
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const Text(
+                    child: const PrimeText(
                       'Demo Preview',
                       style: TextStyle(
                         color: Colors.white,
@@ -211,10 +213,10 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                               ),
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: const Icon(LucideIcons.shieldAlert, color: Colors.white, size: 16),
+                            child: const PrimeIcon(LucideIcons.shieldAlert, color: Colors.white, size: 16),
                           ),
                           const SizedBox(width: 10),
-                          const Text(
+                          const PrimeText(
                             'PRIMECARE',
                             style: TextStyle(
                               color: Colors.white,
@@ -259,7 +261,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                Text(
+                                PrimeText(
                                   'Sarah Jenkins',
                                   style: TextStyle(
                                     color: Colors.white,
@@ -268,7 +270,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                                   ),
                                   overflow: TextOverflow.ellipsis,
                                 ),
-                                Text(
+                                PrimeText(
                                   'Chief Financial Officer',
                                   style: TextStyle(
                                     color: Color(0xFF64748B),
@@ -311,9 +313,9 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(LucideIcons.shieldCheck, color: Color(0xFF38BDF8), size: 12),
+                            PrimeIcon(LucideIcons.shieldCheck, color: Color(0xFF38BDF8), size: 12),
                             SizedBox(width: 6),
-                            Text(
+                            PrimeText(
                               'PrimeCare Demo Preview',
                               style: TextStyle(
                                 color: Colors.white,
@@ -351,14 +353,14 @@ Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Row(
               children: [
-                Icon(
+                PrimeIcon(
                   icon,
                   color: isActive ? Colors.white : const Color(0xFF94A3B8),
                   size: 16,
                 ),
                 const SizedBox(width: 10),
                 Expanded(
-                  child: Text(
+                  child: PrimeText(
                     text,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -403,7 +405,7 @@ Widget _buildAvatar(String name, int index) {
       border: Border.all(color: colors[index % colors.length], width: 1.5),
     ),
     alignment: Alignment.center,
-    child: Text(
+    child: PrimeText(
       initials,
       style: TextStyle(
         color: colors[index % colors.length],
@@ -438,7 +440,7 @@ Widget _buildBadge(String text, String type) {
       color: bg,
       borderRadius: BorderRadius.circular(12),
     ),
-    child: Text(
+    child: PrimeText(
       text,
       style: TextStyle(
         color: fg,
@@ -471,7 +473,7 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              PrimeText(
                 c['label']!,
                 style: const TextStyle(
                   color: Color(0xFF64748B),
@@ -480,7 +482,7 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
+              PrimeText(
                 c['value']!,
                 style: const TextStyle(
                   color: Color(0xFF0F172A),
@@ -491,14 +493,14 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
               const SizedBox(height: 4),
               Row(
                 children: [
-                  Icon(
+                  PrimeIcon(
                     c['trend'] == 'up' ? LucideIcons.trendingUp : LucideIcons.trendingDown,
                     color: c['trend'] == 'up' ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
                     size: 12,
                   ),
                   const SizedBox(width: 4),
                   Expanded(
-                    child: Text(
+                    child: PrimeText(
                       c['change']!,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -543,7 +545,7 @@ Widget _buildSectionCard({required String title, required Widget child}) {
           decoration: const BoxDecoration(
             border: Border(bottom: BorderSide(color: Color(0xFFF1F5F9))),
           ),
-          child: Text(
+          child: PrimeText(
             title,
             style: const TextStyle(
               color: Color(0xFF0F172A),
@@ -597,7 +599,7 @@ Widget _buildCustomChart(List<double> values, List<String> labels, Color color) 
                 ),
               ),
               const SizedBox(height: 6),
-              Text(
+              PrimeText(
                 labels[idx],
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -658,10 +660,10 @@ Widget buildCfoDashboardContent(BuildContext context) {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(LucideIcons.checkCircle2, color: Color(0xFF16A34A), size: 14),
+                        const PrimeIcon(LucideIcons.checkCircle2, color: Color(0xFF16A34A), size: 14),
                         const SizedBox(width: 8),
                         Expanded(
-                          child: Text(
+                          child: PrimeText(
                             actions[idx],
                             style: const TextStyle(fontSize: 11, color: Color(0xFF475569)),
                           ),
@@ -690,11 +692,11 @@ Widget buildCfoDashboardContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Debit Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Amount', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Debit Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Amount', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -722,10 +724,10 @@ Widget buildCfoDashboardContent(BuildContext context) {
               final statuses = ['balanced', 'balanced', 'balanced', 'balanced', 'balanced', 'discrepancy', 'balanced', 'balanced'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('TX-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(descriptions[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('TX-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(descriptions[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -778,10 +780,10 @@ Widget _buildCfoAnalyticsContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Indicator KPI', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Target Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Current Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Indicator KPI', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Target Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Current Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -799,9 +801,9 @@ Widget _buildCfoAnalyticsContent(BuildContext context) {
               final currents = ['72.4%', '\$480k', '22 Days', '8.4x', '28 Days', '100%', '100%', '12.8%'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(indicators[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(targets[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(currents[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(indicators[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(targets[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(currents[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge('OPTIMAL', 'success'),
@@ -841,11 +843,11 @@ Widget _buildCfoWorkflowContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Workflow ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Process Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Initiator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Priority', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Workflow State', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Workflow ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Process Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Initiator', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Priority', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Workflow State', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -873,9 +875,9 @@ Widget _buildCfoWorkflowContent(BuildContext context) {
               final statusBadges = ['WAITING_SIGN', 'PENDING_BANK', 'VERIFIED', 'COMPLETED', 'DISCREPANCY', 'WAITING_SIGN', 'AUDIT_RUN', 'COMPLETED'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('WF-2026-90${idx+1}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(workflowNames[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(initiators[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('WF-2026-90${idx+1}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(workflowNames[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(initiators[idx], style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -922,11 +924,11 @@ Widget _buildCfoRevenueContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Transaction Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Source Origin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Plaid Account Match', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Amount Recd', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Ledger Sync', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Transaction Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Source Origin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Plaid Account Match', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Amount Recd', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Ledger Sync', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -953,10 +955,10 @@ Widget _buildCfoRevenueContent(BuildContext context) {
               final amounts = [42500.0, 15000.0, 24500.0, 4890.0, 18240.0, 112500.0, 3200.0, 8900.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('REV-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(origins[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('REV-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(origins[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge('BALANCED', 'success'),
@@ -993,11 +995,11 @@ Widget _buildCfoExpensesContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Voucher ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Vendor Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Ledger Offset', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Amount Paid', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Remit Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Voucher ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Vendor Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Ledger Offset', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Amount Paid', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Remit Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1025,10 +1027,10 @@ Widget _buildCfoExpensesContent(BuildContext context) {
               final statuses = ['balanced', 'balanced', 'balanced', 'balanced', 'balanced', 'balanced', 'balanced', 'discrepancy'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('EXP-2026-80${idx+1}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(categories[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(offsets[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('EXP-2026-80${idx+1}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(categories[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(offsets[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1072,12 +1074,12 @@ Widget _buildCfoPayrollContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('User', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Employee Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Branch Role', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Hours', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Gross Pay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Audit Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('User', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Employee Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Branch Role', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Hours', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Gross Pay', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Audit Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1109,10 +1111,10 @@ Widget _buildCfoPayrollContent(BuildContext context) {
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
                     child: Center(child: _buildAvatar(names[idx], idx)),
                   ),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(names[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(roles[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(hours[idx].toString(), style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${(hours[idx]*rates[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(names[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(roles[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(hours[idx].toString(), style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(hours[idx]*rates[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1133,13 +1135,13 @@ Widget _buildCfoPayrollContent(BuildContext context) {
           children: [
             OutlinedButton(
               onPressed: () {},
-              child: const Text('Export Payroll Audit Report'),
+              child: const PrimeText('Export Payroll Audit Report'),
             ),
             const SizedBox(width: 12),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF16A34A)),
               onPressed: () {},
-              child: const Text('Approve All Batches Sign-off', style: TextStyle(color: Colors.white)),
+              child: const PrimeText('Approve All Batches Sign-off', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -1174,12 +1176,12 @@ Widget _buildCfoInvoicesContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Invoice #', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Client Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Date Issued', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Amount Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Outstanding', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Filing Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Invoice #', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Client Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Date Issued', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Amount Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Outstanding', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Filing Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1199,11 +1201,11 @@ Widget _buildCfoInvoicesContent(BuildContext context) {
               final statuses = ['PAID', 'UNPAID', 'PAID', 'PENDING', 'PAID', 'PAID', 'OVERDUE', 'PAID'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('INV-2026-0${idx+100}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(dates[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${outstanding[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('INV-2026-0${idx+100}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(dates[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${outstanding[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1239,12 +1241,12 @@ Widget _buildCfoTaxContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Posting Period', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('CRA Account Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Collected Tax', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Offset Credits', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Net Tax Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Remit Sign', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Posting Period', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('CRA Account Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Collected Tax', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Offset Credits', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Net Tax Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Remit Sign', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1254,11 +1256,11 @@ Widget _buildCfoTaxContent(BuildContext context) {
               final statuses = ['READY', 'REMITTED', 'REMITTED', 'REMITTED', 'REMITTED', 'REMITTED', 'REMITTED', 'REMITTED'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(periods[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('2200 - GST/HST Payable', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${collected[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${paidItc[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${(collected[idx]-paidItc[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(periods[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('2200 - GST/HST Payable', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${collected[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${paidItc[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(collected[idx]-paidItc[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1278,15 +1280,15 @@ Widget _buildCfoTaxContent(BuildContext context) {
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
             ElevatedButton.icon(
-              icon: const Icon(LucideIcons.fileText),
-              label: const Text('Export CRA Remittance Form (GST34)'),
+              icon: const PrimeIcon(LucideIcons.fileText),
+              label: const PrimeText('Export CRA Remittance Form (GST34)'),
               onPressed: () {},
             ),
             const SizedBox(width: 12),
             ElevatedButton(
               style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0284C7)),
               onPressed: () {},
-              child: const Text('Execute CRA Bank Transfer Payout', style: TextStyle(color: Colors.white)),
+              child: const PrimeText('Execute CRA Bank Transfer Payout', style: TextStyle(color: Colors.white)),
             ),
           ],
         ),
@@ -1313,12 +1315,12 @@ Widget _buildCfoProfitabilityContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Total Inflow Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Total Outflow Expense', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Net Branch Yield', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Profit Margin %', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Status Badge', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Total Inflow Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Total Outflow Expense', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Net Branch Yield', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Profit Margin %', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Status Badge', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1336,11 +1338,11 @@ Widget _buildCfoProfitabilityContent(BuildContext context) {
               final expenses = [84200.0, 61000.0, 54000.0, 49000.0, 45000.0, 42000.0, 38500.0, 36000.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(branches[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${revenues[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${expenses[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${(revenues[idx]-expenses[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(branches[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${revenues[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${expenses[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(revenues[idx]-expenses[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge('OPTIMAL', 'success'),
@@ -1377,11 +1379,11 @@ Widget _buildCfoCashflowContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Forecast Target Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Projection Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Expected Inflow', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Expected Outflow', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Net Reserve Buffer', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Forecast Target Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Projection Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Expected Inflow', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Expected Outflow', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Net Reserve Buffer', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1391,11 +1393,11 @@ Widget _buildCfoCashflowContent(BuildContext context) {
               final outflows = [124500.0, 15000.0, 12000.0, 124500.0, 18000.0, 10000.0, 124500.0, 22000.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(dates[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(types[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${inflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFF16A34A)))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${outflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFFDC2626)))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${(inflows[idx]-outflows[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(dates[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(types[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${inflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFF16A34A)))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${outflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFFDC2626)))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(inflows[idx]-outflows[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 ],
               );
             }),
@@ -1441,11 +1443,11 @@ Widget _buildFinancialDashboardContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Ledger Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Bank Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Reconciliation status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Ledger Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Bank Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Reconciliation status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1464,10 +1466,10 @@ Widget _buildFinancialDashboardContent(BuildContext context) {
               final bankBals = [1245000.0, 114800.0, 51210.0, 124500.0, 4200.0, 14200.0, 142000.0, 500000.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(names[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${ledgerBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(names[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${ledgerBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1510,11 +1512,11 @@ Widget _buildCfoAccountsPayableContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Vendor Payable Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Account code', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Voucher Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Payment status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Vendor Payable Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Account code', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Voucher Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Payment status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1542,10 +1544,10 @@ Widget _buildCfoAccountsPayableContent(BuildContext context) {
               final statuses = ['PENDING_BANK', 'VERIFIED', 'VERIFIED', 'COMPLETED', 'VERIFIED', 'COMPLETED', 'COMPLETED', 'DISCREPANCY'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('AP-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(descriptions[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('AP-2026-00${idx+1}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(descriptions[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1588,11 +1590,11 @@ Widget _buildCfoAccountsReceivableContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Invoice Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Client Account Detail', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Claim Amount', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Aging Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Invoice Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Client Account Detail', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Claim Amount', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Aging Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1610,10 +1612,10 @@ Widget _buildCfoAccountsReceivableContent(BuildContext context) {
               final statuses = ['PAID', 'UNPAID', 'PAID', 'PENDING', 'PAID', 'PAID', 'OVERDUE', 'PAID'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text('AR-2026-0${idx+100}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(details[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('1200 - Accounts Receivable', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('AR-2026-0${idx+100}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(details[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('1200 - Accounts Receivable', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1666,11 +1668,11 @@ Widget _buildCfoFinancialOverviewContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Ledger Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Bank Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Reconciliation status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Ledger Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Bank Balance', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Reconciliation status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1689,10 +1691,10 @@ Widget _buildCfoFinancialOverviewContent(BuildContext context) {
               final bankBals = [1245000.0, 114800.0, 51210.0, 124500.0, 4200.0, 14200.0, 142000.0, 500000.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(names[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${ledgerBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(accounts[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(names[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${ledgerBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1736,12 +1738,12 @@ Widget _buildCfoFranchiseFinancialsContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Gross Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Operating Expense', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Royalty (7%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('EBITDA Margin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Gross Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Operating Expense', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Royalty (7%)', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('EBITDA Margin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1759,11 +1761,11 @@ Widget _buildCfoFranchiseFinancialsContent(BuildContext context) {
               final expenses = [84200.0, 61000.0, 54000.0, 49000.0, 45000.0, 42000.0, 38500.0, 36000.0];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(branches[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${revenues[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${expenses[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${(revenues[idx]*0.07).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(branches[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${revenues[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${expenses[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(revenues[idx]*0.07).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge('ACTIVE', 'success'),
@@ -1803,11 +1805,11 @@ Widget _buildCfoReportsContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Report Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Report Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Format', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('File Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Filing Action', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Report Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Report Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Format', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('File Size', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Filing Action', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1835,10 +1837,10 @@ Widget _buildCfoReportsContent(BuildContext context) {
               final sizes = ['2.4 MB', '4.8 MB', '1.2 MB', '5.6 MB', '820 KB', '3.1 MB', '1.8 MB', '1.1 MB'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(reports[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(descs[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(formats[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(sizes[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(reports[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(descs[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(formats[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(sizes[idx], style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge('EXPORTED', 'success'),
@@ -1871,12 +1873,12 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
             const TableRow(
               decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
               children: [
-                Padding(padding: EdgeInsets.all(10), child: Text('Tax Liability Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Jurisdiction Agency', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Filing Period', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Amount Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Filing Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
-                Padding(padding: EdgeInsets.all(10), child: Text('Action Remit', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Tax Liability Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Jurisdiction Agency', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Filing Period', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Amount Due', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Filing Status', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
+                Padding(padding: EdgeInsets.all(10), child: PrimeText('Action Remit', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
               ],
             ),
             ...List.generate(8, (idx) {
@@ -1896,10 +1898,10 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
               final statuses = ['READY', 'READY', 'ESTIMATE', 'COMPUTED', 'READY', 'REMITTED', 'REMITTED', 'REMITTED'];
               return TableRow(
                 children: [
-                  Padding(padding: const EdgeInsets.all(10), child: Text(types[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(agencies[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text(periods[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: Text('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(types[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(agencies[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText(periods[idx], style: const TextStyle(fontSize: 11))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
                     child: _buildBadge(
@@ -1909,7 +1911,7 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: Text(
+                    child: PrimeText(
                       statuses[idx] == 'REMITTED' ? 'Archived' : 'Sign and Submit',
                       style: TextStyle(
                         fontSize: 10,

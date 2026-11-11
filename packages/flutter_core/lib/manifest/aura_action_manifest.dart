@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
 import 'package:google_fonts/google_fonts.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 
 /// Centralized service for mapping Aura anomalies to platform mitigation tasks.
@@ -88,7 +89,7 @@ class AuraActionManifest {
           children: [
             const Icon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
             const SizedBox(width: 12),
-            Text(
+            PrimeText(
               title,
               style: GoogleFonts.inter(
                 color: Colors.white,
@@ -97,14 +98,14 @@ class AuraActionManifest {
             ),
           ],
         ),
-        content: Text(
+        content: PrimeText(
           description,
           style: GoogleFonts.inter(color: Colors.white70),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child: Text(
+            child: PrimeText(
               'DISMISS',
               style: GoogleFonts.inter(color: Colors.white38),
             ),
@@ -118,7 +119,7 @@ class AuraActionManifest {
                 borderRadius: BorderRadius.circular(12),
               ),
             ),
-            child: const Text('EXECUTE MITIGATION'),
+            child: const PrimeText('EXECUTE MITIGATION'),
           ),
         ],
       ),
@@ -128,7 +129,7 @@ class AuraActionManifest {
   static void _showDefaultAction(BuildContext context, String action) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        content: Text('Aura is preparing mitigation for: $action'),
+        content: PrimeText('Aura is preparing mitigation for: $action'),
         backgroundColor: const Color(0xFF6366F1),
         behavior: SnackBarBehavior.floating,
       ),

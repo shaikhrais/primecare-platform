@@ -1,5 +1,7 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE 1. Log to centralized telemetry (placeholder) 2. Show user feedback
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 
 class ActionManifest {
@@ -19,10 +21,10 @@ class ActionManifest {
       SnackBar(
         content: Row(
           children: [
-            const Icon(Icons.engineering, color: Colors.white),
+            const PrimeIcon(Icons.engineering, color: Colors.white),
             const SizedBox(width: 8),
             Expanded(
-              child: Text(
+              child: PrimeText(
                 'Action "$actionLabel" is currently pending API integration.',
               ),
             ),

@@ -1,6 +1,8 @@
 import '../../theme/theme_center_theme_data.dart';
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE The central Governance Layout for all PrimeCare portals. It automatically pulls sidebar and ...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import '../../theme/app_theme.dart';
 import '../../theme/theme_settings_provider.dart';
@@ -94,8 +96,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                   foregroundColor: textColor,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                 ),
-                icon: Icon(module.icon, size: 16),
-                label: Text(module.name),
+                icon: PrimeIcon(module.icon, size: 16),
+                label: PrimeText(module.name),
                 onPressed: () {
                   if (module.screens.isNotEmpty) {
                     context.go(module.screens.first.route);
@@ -248,20 +250,20 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                 color: topbarIconColor.withValues(alpha: 0.1),
                                 borderRadius: BorderRadius.circular(12),
                               ),
-                              child: Icon(LucideIcons.shieldCheck, color: topbarIconColor),
+                              child: PrimeIcon(LucideIcons.shieldCheck, color: topbarIconColor),
                             ),
                             const SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
+                                PrimeText(
                                   tenant.name,
                                   style: theme.textTheme.titleMedium?.copyWith(
                                     fontWeight: FontWeight.bold,
                                     color: topbarTextColor,
                                   ),
                                 ),
-                                Text(
+                                PrimeText(
                                   application.name,
                                   style: theme.textTheme.labelSmall?.copyWith(
                                     color: topbarSecondaryTextColor,
@@ -297,9 +299,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                 ),
                                 child: Row(
                                   children: [
-                                    Icon(LucideIcons.user, size: 14, color: topbarTextColor),
+                                    PrimeIcon(LucideIcons.user, size: 14, color: topbarTextColor),
                                     const SizedBox(width: 8),
-                                    Text(
+                                    PrimeText(
                                       activeRole.displayName,
                                       style: theme.textTheme.labelMedium?.copyWith(
                                         color: topbarTextColor,
@@ -307,7 +309,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 4),
-                                    Icon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),
+                                    PrimeIcon(LucideIcons.chevronDown, size: 12, color: topbarTextColor),
                                     const SizedBox(width: 12),
                                     Container(
                                       width: 1,
@@ -320,18 +322,18 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                         final govRole = GovernanceRole(activeRole);
                                         return Row(
                                           children: [
-                                            Icon(LucideIcons.layers, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
+                                            PrimeIcon(LucideIcons.layers, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
                                             const SizedBox(width: 4),
-                                            Text(
+                                            PrimeText(
                                               'Role Items: ${govRole.totalSidebarItems}',
                                               style: theme.textTheme.labelSmall?.copyWith(
                                                 color: topbarTextColor.withValues(alpha: 0.8),
                                               ),
                                             ),
                                             const SizedBox(width: 12),
-                                            Icon(LucideIcons.appWindow, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
+                                            PrimeIcon(LucideIcons.appWindow, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),
                                             const SizedBox(width: 4),
-                                            Text(
+                                            PrimeText(
                                               'App Total: ${govRole.totalAppSidebarItems}',
                                               style: theme.textTheme.labelSmall?.copyWith(
                                                 color: topbarTextColor.withValues(alpha: 0.8),
@@ -363,9 +365,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      Icon(LucideIcons.languages, color: topbarIconColor, size: 20),
+                                      PrimeIcon(LucideIcons.languages, color: topbarIconColor, size: 20),
                                       const SizedBox(width: 6),
-                                      Text(
+                                      PrimeText(
                                         ref.watch(languageProvider).toUpperCase(),
                                         style: theme.textTheme.labelMedium?.copyWith(
                                           fontWeight: FontWeight.bold,
@@ -389,7 +391,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       container: false,
                                       child: KeyedSubtree(
                                         key: const Key('topbar-language-option-en'),
-                                        child: Text('English (EN)', style: theme.textTheme.bodyMedium),
+                                        child: PrimeText('English (EN)', style: theme.textTheme.bodyMedium),
                                       ),
                                     ),
                                   ),
@@ -400,7 +402,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       container: false,
                                       child: KeyedSubtree(
                                         key: const Key('topbar-language-option-fr'),
-                                        child: Text('Français (FR)', style: theme.textTheme.bodyMedium),
+                                        child: PrimeText('Français (FR)', style: theme.textTheme.bodyMedium),
                                       ),
                                     ),
                                   ),
@@ -411,7 +413,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                       container: false,
                                       child: KeyedSubtree(
                                         key: const Key('topbar-language-option-es'),
-                                        child: Text('Español (ES)', style: theme.textTheme.bodyMedium),
+                                        child: PrimeText('Español (ES)', style: theme.textTheme.bodyMedium),
                                       ),
                                     ),
                                   ),
@@ -423,7 +425,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           Builder(
                             builder: (scaffoldContext) {
                               return IconButton(
-                                icon: Icon(LucideIcons.settings, color: topbarIconColor),
+                                icon: PrimeIcon(LucideIcons.settings, color: topbarIconColor),
                                 onPressed: () {
                                   Scaffold.of(scaffoldContext).openEndDrawer();
                                 },
@@ -465,11 +467,11 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(
+                                        PrimeText(
                                           ref.watch(authProvider).userName ?? 'System User',
                                           style: theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold),
                                         ),
-                                        Text(
+                                        PrimeText(
                                           ref.watch(authProvider).role ?? 'Guest',
                                           style: theme.textTheme.labelSmall,
                                         ),
@@ -477,7 +479,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                     ),
                                   ),
                                   if (['ceo', 'maintenance'].contains(ref.watch(authProvider).role))
-                                    const PopupMenuItem<String>(value: 'maintenance', child: Text('IT maintenance')),
+                                    const PopupMenuItem<String>(value: 'maintenance', child: PrimeText('IT maintenance')),
                                   const PopupMenuDivider(),
                                   PopupMenuItem<String>(
                                     value: 'logout',
@@ -488,9 +490,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                                         key: const Key('topbar-logout-button'),
                                         child: Row(
                                           children: [
-                                            Icon(LucideIcons.logOut, size: 18, color: theme.colorScheme.error),
+                                            PrimeIcon(LucideIcons.logOut, size: 18, color: theme.colorScheme.error),
                                             const SizedBox(width: 12),
-                                            Text(tr('login_button'), style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error)),
+                                            PrimeText(tr('login_button'), style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.error)),
                                           ],
                                         ),
                                       ),
@@ -576,7 +578,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     child: Row(
                       mainAxisAlignment: collapsed ? MainAxisAlignment.center : MainAxisAlignment.start,
                       children: [
-                        Icon(
+                        PrimeIcon(
                           module.icon,
                           size: 18,
                           color: sidebarIconColor.withValues(alpha: 0.8),
@@ -584,7 +586,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         if (!collapsed) ...[
                           const SizedBox(width: 12),
                           Expanded(
-                            child: Text(
+                            child: PrimeText(
                               module.name.toUpperCase(),
                               overflow: TextOverflow.ellipsis,
                               style: theme.textTheme.labelSmall?.copyWith(
@@ -624,7 +626,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         selectedTileColor: sidebarSelectedTileColor,
                         leading: Tooltip(
                           message: collapsed ? screen.title : '',
-                          child: Icon(
+                          child: PrimeIcon(
                             screen.icon ?? LucideIcons.circle,
                             size: 18,
                             color: isSelected ? sidebarSelectedIconColor : sidebarIconColor,
@@ -632,7 +634,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         ),
                         title: collapsed
                             ? null
-                            : Text(
+                            : PrimeText(
                                 screen.title,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -659,7 +661,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
-                                content: Text(
+                                content: PrimeText(
                                   tr('governance.unauthorized_access'),
                                 ),
                               ),
@@ -799,7 +801,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                         color: theme.primaryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(
+                      child: PrimeIcon(
                         LucideIcons.shieldAlert,
                         color: theme.primaryColor,
                         size: 20,
@@ -810,7 +812,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          PrimeText(
                             'Cross-Role Intelligence Switcher',
                             style: theme.textTheme.titleMedium?.copyWith(
                               fontWeight: FontWeight.bold,
@@ -818,7 +820,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                             ),
                           ),
                           const SizedBox(height: 4),
-                          Text(
+                          PrimeText(
                             'Select a simulated active role to update navigation topology',
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.7),
@@ -828,7 +830,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                       ),
                     ),
                     IconButton(
-                      icon: const Icon(LucideIcons.x, size: 18),
+                      icon: const PrimeIcon(LucideIcons.x, size: 18),
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ],
@@ -850,7 +852,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                     hintStyle: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.5),
                     ),
-                    prefixIcon: Icon(
+                    prefixIcon: PrimeIcon(
                       LucideIcons.search,
                       size: 16,
                       color: theme.primaryColor.withValues(alpha: 0.7),
@@ -863,7 +865,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                                 _searchQuery = '';
                               });
                             },
-                            child: Icon(
+                            child: PrimeIcon(
                               LucideIcons.xCircle,
                               size: 16,
                               color: theme.primaryColor.withValues(alpha: 0.7),
@@ -899,13 +901,13 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(
+                            PrimeIcon(
                               LucideIcons.searchCode,
                               size: 40,
                               color: theme.primaryColor.withValues(alpha: 0.4),
                             ),
                             const SizedBox(height: 12),
-                            Text(
+                            PrimeText(
                               'No matching roles found',
                               style: theme.textTheme.bodyMedium?.copyWith(
                                 color: theme.textTheme.bodyMedium?.color?.withValues(alpha: 0.6),
@@ -926,7 +928,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8),
-                                child: Text(
+                                child: PrimeText(
                                   category.toUpperCase(),
                                   style: theme.textTheme.titleSmall?.copyWith(
                                     color: theme.primaryColor,
@@ -977,13 +979,13 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    PrimeText(
                       'Total Mapped: ${allRoles.length} Roles',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.textTheme.labelSmall?.color?.withValues(alpha: 0.6),
                       ),
                     ),
-                    Text(
+                    PrimeText(
                       'Filtered: ${filteredRoles.length}',
                       style: theme.textTheme.labelSmall?.copyWith(
                         color: theme.primaryColor,
@@ -1084,7 +1086,7 @@ class _RoleTileState extends State<_RoleTile> {
                       : theme.primaryColor.withValues(alpha: 0.04),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(
+                child: PrimeIcon(
                   widget.isSelected ? LucideIcons.checkCircle2 : LucideIcons.shield,
                   color: widget.isSelected ? theme.primaryColor : theme.primaryColor.withValues(alpha: 0.7),
                   size: 16,
@@ -1097,7 +1099,7 @@ class _RoleTileState extends State<_RoleTile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       widget.roleMeta.role.displayName,
                       style: theme.textTheme.bodyMedium?.copyWith(
                         fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.w600,
@@ -1107,13 +1109,13 @@ class _RoleTileState extends State<_RoleTile> {
                     const SizedBox(height: 2),
                     Row(
                       children: [
-                        Icon(
+                        PrimeIcon(
                           LucideIcons.globe,
                           size: 10,
                           color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.5),
                         ),
                         const SizedBox(width: 4),
-                        Text(
+                        PrimeText(
                           widget.roleMeta.defaultPortal,
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: theme.textTheme.bodySmall?.color?.withValues(alpha: 0.6),
@@ -1135,7 +1137,7 @@ class _RoleTileState extends State<_RoleTile> {
                     color: accessColor.withValues(alpha: 0.25),
                   ),
                 ),
-                child: Text(
+                child: PrimeText(
                   widget.roleMeta.accessLevel.toUpperCase(),
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: accessColor,

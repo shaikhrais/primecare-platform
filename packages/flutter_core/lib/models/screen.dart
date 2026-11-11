@@ -19,6 +19,8 @@ import '../registry/platform_role.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../registry/intents/app_screen_intent.dart';
 import 'platform_types.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
@@ -363,14 +365,14 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
                         color: primaryColor.withValues(alpha: 0.1),
                         shape: BoxShape.circle,
                       ),
-                      child: Icon(
+                      child: PrimeIcon(
                         LucideIcons.penTool,
                         size: 64,
                         color: primaryColor,
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Text(
+                    PrimeText(
                       tr('governance.screen_under_construction'),
                       style: theme.textTheme.headlineMedium?.copyWith(
                         fontWeight: FontWeight.bold,
@@ -379,7 +381,7 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 12),
-                    Text(
+                    PrimeText(
                       title,
                       style: theme.textTheme.titleMedium?.copyWith(
                         color: theme.hintColor,
@@ -407,8 +409,8 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
                     const SizedBox(height: 48),
                     ElevatedButton.icon(
                       onPressed: () => context.pop(),
-                      icon: const Icon(LucideIcons.arrowLeft, size: 18),
-                      label: const Text('Back to Dashboard'),
+                      icon: const PrimeIcon(LucideIcons.arrowLeft, size: 18),
+                      label: const PrimeText('Back to Dashboard'),
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 32,
@@ -440,7 +442,7 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
       left: left,
       child: Opacity(
         opacity: opacity,
-        child: Icon(icon, size: 120),
+        child: PrimeIcon(icon, size: 120),
       ),
     );
   }
@@ -450,9 +452,9 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Icon(icon, size: 16, color: theme.primaryColor),
+        PrimeIcon(icon, size: 16, color: theme.primaryColor),
         const SizedBox(width: 12),
-        Text(
+        PrimeText(
           text,
           style: theme.textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w500,
