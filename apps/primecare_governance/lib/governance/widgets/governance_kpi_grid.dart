@@ -116,7 +116,7 @@ class GovernanceKPIGrid extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                PrimeText(
                   label,
                   style: const TextStyle(
                     fontSize: 12,
@@ -125,7 +125,7 @@ class GovernanceKPIGrid extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                PrimeText(
                   value,
                   style: const TextStyle(
                     fontSize: 20,

@@ -180,21 +180,21 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_task_list_get-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_task_create_post-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_task_update_patch-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
                   Semantics(
@@ -233,13 +233,13 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                           children: [
                             const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
                             const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
+                            PrimeText(state.error!, style: const TextStyle(color: Colors.red)),
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
                               child: ElevatedButton(
                                 onPressed: () => controller.refreshData(),
-                                child: Text('Retry'.tr()),
+                                child: PrimeText('Retry'.tr()),
                               ),
                             ),
                           ],
@@ -257,7 +257,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                           children: [
                             const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
                             const SizedBox(height: 16),
-                            Text('No data available.'.tr(), style: theme.typography.h4),
+                            PrimeText('No data available.'.tr(), style: theme.typography.h4),
                           ],
                         ),
                       ),
@@ -280,9 +280,9 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Pswtasklist Content'.tr(), style: theme.typography.h4),
+                            PrimeText('Pswtasklist Content'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -308,8 +308,8 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Load Psw Task List Data'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-task'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Load Psw Task List Data'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-task'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -319,7 +319,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -342,7 +342,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -360,7 +360,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -374,11 +374,11 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -391,22 +391,22 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_psw_task_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -435,8 +435,8 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Create New Psw Task Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-task'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Create New Psw Task Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-task'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -446,7 +446,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -469,7 +469,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -487,7 +487,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -501,11 +501,11 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -518,22 +518,22 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_psw_task_create_post-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_create_post-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_create_post-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_create_post-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -562,8 +562,8 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Update Existing Psw Task Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-task/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Update Existing Psw Task Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-task/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -573,7 +573,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -596,7 +596,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -614,7 +614,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -628,11 +628,11 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -645,22 +645,22 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_psw_task_update_patch-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_update_patch-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_update_patch-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_psw_task_update_patch-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -692,7 +692,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Tasklist Btn Add executed successfully.'),
-                          child: Text('Tasklist Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Tasklist Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -712,7 +712,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Tasklist Btn Add Item executed successfully.'),
-                          child: Text('Tasklist Btn Add Item'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Tasklist Btn Add Item'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -730,7 +730,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
+                    PrimeText('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -738,12 +738,12 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-loading'),
                           onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Load'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-error'),
                           onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Error'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -753,12 +753,12 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-empty'),
                           onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Empty'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-success'),
                           onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Success'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -779,7 +779,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'Operational Action Logs',
                       style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
@@ -790,12 +790,12 @@ class PswTaskListScreen extends GovernedConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            PrimeText(
                               '• ',
                               style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
                             ),
                             Expanded(
-                              child: Text(
+                              child: PrimeText(
                                 log.tr(),
                                 style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                               ),

@@ -180,21 +180,21 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                   Offstage(
                     child: Cy(
                       id: 'api_v1_status_list_get-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_status_create_post-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_status_update_patch-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
                   Semantics(
@@ -233,13 +233,13 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                           children: [
                             const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
                             const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
+                            PrimeText(state.error!, style: const TextStyle(color: Colors.red)),
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
                               child: ElevatedButton(
                                 onPressed: () => controller.refreshData(),
-                                child: Text('Retry'.tr()),
+                                child: PrimeText('Retry'.tr()),
                               ),
                             ),
                           ],
@@ -257,7 +257,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                           children: [
                             const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
                             const SizedBox(height: 16),
-                            Text('No data available.'.tr(), style: theme.typography.h4),
+                            PrimeText('No data available.'.tr(), style: theme.typography.h4),
                           ],
                         ),
                       ),
@@ -298,9 +298,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Tab Strings'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Tab Strings'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -319,9 +319,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Lang Chip \$Langcode'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Lang Chip \$Langcode'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -340,9 +340,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Screen Item \${Screen.Screenname}'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Screen Item \${Screen.Screenname}'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -361,9 +361,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Tab Components'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Tab Components'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -382,9 +382,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy App Dropdown'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy App Dropdown'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -403,9 +403,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Tabs Bar'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Tabs Bar'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -424,9 +424,9 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Data Cy Tab Compliance'.tr(), style: theme.typography.h4),
+                            PrimeText('Data Cy Tab Compliance'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -452,8 +452,8 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Load Status List Data'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/status'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Load Status List Data'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/status'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -463,7 +463,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -486,7 +486,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -504,7 +504,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -518,11 +518,11 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -535,22 +535,22 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_status_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -579,8 +579,8 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Create New Status Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/status'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Create New Status Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/status'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -590,7 +590,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -613,7 +613,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -631,7 +631,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -645,11 +645,11 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -662,22 +662,22 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_status_create_post-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_create_post-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_create_post-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_create_post-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -706,8 +706,8 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Update Existing Status Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/status/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Update Existing Status Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/status/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -717,7 +717,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -740,7 +740,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     const Icon(LucideIcons.alertTriangle, color: Colors.red),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
+                                      child: PrimeText(
                                         state.error!,
                                         style: const TextStyle(color: Colors.red),
                                       ),
@@ -758,7 +758,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -772,11 +772,11 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -789,22 +789,22 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                                 TextButton(
                                   key: const Key('api_v1_status_update_patch-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  child: PrimeText('Load'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_update_patch-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  child: PrimeText('Error'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_update_patch-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  child: PrimeText('Empty'.tr()),
                                 ),
                                 TextButton(
                                   key: const Key('api_v1_status_update_patch-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  child: PrimeText('Success'.tr()),
                                 ),
                               ],
                             ),
@@ -836,7 +836,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Screen Status Btn Refresh executed successfully.'),
-                          child: Text('Screen Status Btn Refresh'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Screen Status Btn Refresh'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -856,7 +856,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Data Cy Tab Buttons executed successfully.'),
-                          child: Text('Data Cy Tab Buttons'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Data Cy Tab Buttons'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -874,7 +874,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
+                    PrimeText('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -882,12 +882,12 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-loading'),
                           onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Load'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-error'),
                           onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Error'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -897,12 +897,12 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-empty'),
                           onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Empty'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-success'),
                           onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Success'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -923,7 +923,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'Operational Action Logs',
                       style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
@@ -934,12 +934,12 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            PrimeText(
                               '• ',
                               style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
                             ),
                             Expanded(
-                              child: Text(
+                              child: PrimeText(
                                 log.tr(),
                                 style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                               ),
