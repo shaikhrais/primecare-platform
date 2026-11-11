@@ -1,6 +1,7 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Production-grade error boundary that captures all unhandled exceptions across three vectors:...
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -176,7 +177,7 @@ class SystemHealingPlaceholder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Scaffold(
+    return PrimeScaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: Column(

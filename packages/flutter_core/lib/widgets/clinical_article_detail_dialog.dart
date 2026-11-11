@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Article Detail Dialog platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
@@ -17,7 +18,7 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog.fullscreen(
-      child: Scaffold(
+      child: PrimeScaffold(
         appBar: AppBar(
           title: PrimeText(article.title),
           leading: PrimeIconButton(

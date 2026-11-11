@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 05_USER_INTERFACE A reusable recovery screen for handling domain logistics failures. This widget provides a co...
 // Layer: 05_USER_INTERFACE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
@@ -67,7 +68,7 @@ class SystemRecoveryMode extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
-    return Scaffold(
+    return PrimeScaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: SingleChildScrollView(
