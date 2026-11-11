@@ -49,6 +49,9 @@ def planned_edits(source):
         body=by_open.get(method.end()-1)
         if not body or not body[3] or body[3][3] is not None:
             continue
+        owner=body[3]
+        if not re.search(r'\bclass\s+PremiumFeature\d+\s+extends\s+GovernedConsumerWidget\s*$',code[max(0,owner[0]-150):owner[0]]):
+            continue
         prefix=code[body[0]+1:body[1]]
         if not re.match(r'\s*final theme = context\.theme;',prefix) or len(re.findall(r'\btheme\s*=',prefix))!=1 or re.search(r'\b(?:const|var|final)\s+\w+\s+theme\b|\bconst\s+\w+(?:\s+\w+)?\s*=|[(,]\s*theme\s*[,)]|\btheme\s*=>',prefix):
             continue

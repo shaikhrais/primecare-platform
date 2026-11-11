@@ -38,6 +38,7 @@ class BrandBindingMigrationTest(unittest.TestCase):
                         ('class _StatCard ', 'class OtherCard '),('size: 100','size: 101')]:
             source=self.before.replace(old,new);self.assertEqual(m.migrate(source),(source,0))
         for source in ["part 'other.dart';\n"+self.before,self.before+'class Color {}',
+                       self.before.replace('PremiumFeature112','OtherFeature')+'class PremiumFeature999 extends GovernedConsumerWidget {}',
                        self.before.replace('final dataState =','theme = other; final dataState ='),
                        self.before+'Widget _StatCard() => other;',
                        self.before.replace('final dataState =','final fn = (theme) => theme; final dataState =')]:
