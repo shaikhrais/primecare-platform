@@ -121,13 +121,10 @@ class MonitoringScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'monitoring-screen',
-      child: Scaffold(
-        key: const Key('monitoring-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('monitoring-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'monitoring-title',
             child: PrimeText(
               key: const Key('monitoring-title'),
@@ -135,6 +132,7 @@ class MonitoringScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('monitoring-refresh-btn'),
@@ -142,7 +140,6 @@ class MonitoringScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'monitoring-content',
           child: ResponsiveSplitDashboard(

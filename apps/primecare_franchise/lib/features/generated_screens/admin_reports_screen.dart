@@ -121,13 +121,10 @@ class AdminReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'admin_reports-screen',
-      child: Scaffold(
-        key: const Key('admin_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('admin_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'admin_reports-title',
             child: PrimeText(
               key: const Key('admin_reports-title'),
@@ -135,6 +132,7 @@ class AdminReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('admin_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class AdminReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'admin_reports-content',
           child: ResponsiveSplitDashboard(

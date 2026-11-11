@@ -121,13 +121,10 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
 
     return Cy(
       id: 'scheduler_coordinator_provider_availability-screen',
-      child: Scaffold(
-        key: const Key('scheduler_coordinator_provider_availability-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('scheduler_coordinator_provider_availability-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'scheduler_coordinator_provider_availability-title',
             child: PrimeText(
               key: const Key('scheduler_coordinator_provider_availability-title'),
@@ -135,6 +132,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('scheduler_coordinator_provider_availability-refresh-btn'),
@@ -142,7 +140,6 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'scheduler_coordinator_provider_availability-content',
           child: ResponsiveSplitDashboard(

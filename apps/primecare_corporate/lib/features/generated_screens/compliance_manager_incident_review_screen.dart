@@ -121,13 +121,10 @@ class ComplianceManagerIncidentReviewScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'compliance_manager_incident_review-screen',
-      child: Scaffold(
-        key: const Key('compliance_manager_incident_review-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('compliance_manager_incident_review-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'compliance_manager_incident_review-title',
             child: PrimeText(
               key: const Key('compliance_manager_incident_review-title'),
@@ -135,6 +132,7 @@ class ComplianceManagerIncidentReviewScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('compliance_manager_incident_review-refresh-btn'),
@@ -142,7 +140,6 @@ class ComplianceManagerIncidentReviewScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'compliance_manager_incident_review-content',
           child: ResponsiveSplitDashboard(

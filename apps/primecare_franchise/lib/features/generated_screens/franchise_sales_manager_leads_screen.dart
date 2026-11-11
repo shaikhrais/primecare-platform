@@ -121,13 +121,10 @@ class FranchiseSalesManagerLeadsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_sales_manager_leads-screen',
-      child: Scaffold(
-        key: const Key('franchise_sales_manager_leads-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_sales_manager_leads-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_sales_manager_leads-title',
             child: PrimeText(
               key: const Key('franchise_sales_manager_leads-title'),
@@ -135,6 +132,7 @@ class FranchiseSalesManagerLeadsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_sales_manager_leads-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseSalesManagerLeadsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_sales_manager_leads-content',
           child: ResponsiveSplitDashboard(

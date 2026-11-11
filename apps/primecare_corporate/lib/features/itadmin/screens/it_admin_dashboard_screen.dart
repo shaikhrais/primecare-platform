@@ -121,13 +121,10 @@ class ItAdminDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'it_admin_dashboard-screen',
-      child: Scaffold(
-        key: const Key('it_admin_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('it_admin_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'it_admin_dashboard-title',
             child: PrimeText(
               key: const Key('it_admin_dashboard-title'),
@@ -135,6 +132,7 @@ class ItAdminDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('it_admin_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class ItAdminDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'it_admin_dashboard-content',
           child: ResponsiveSplitDashboard(

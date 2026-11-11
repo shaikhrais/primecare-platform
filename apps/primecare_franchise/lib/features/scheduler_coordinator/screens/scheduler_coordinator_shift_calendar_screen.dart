@@ -121,13 +121,10 @@ class SchedulerCoordinatorShiftCalendarScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'scheduler_coordinator_shift_calendar-screen',
-      child: Scaffold(
-        key: const Key('scheduler_coordinator_shift_calendar-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('scheduler_coordinator_shift_calendar-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'scheduler_coordinator_shift_calendar-title',
             child: PrimeText(
               key: const Key('scheduler_coordinator_shift_calendar-title'),
@@ -135,6 +132,7 @@ class SchedulerCoordinatorShiftCalendarScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('scheduler_coordinator_shift_calendar-refresh-btn'),
@@ -142,7 +140,6 @@ class SchedulerCoordinatorShiftCalendarScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'scheduler_coordinator_shift_calendar-content',
           child: ResponsiveSplitDashboard(

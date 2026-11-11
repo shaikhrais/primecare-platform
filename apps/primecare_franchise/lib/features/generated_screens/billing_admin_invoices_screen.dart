@@ -121,13 +121,10 @@ class BillingAdminInvoicesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'billing_admin_invoices-screen',
-      child: Scaffold(
-        key: const Key('billing_admin_invoices-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('billing_admin_invoices-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'billing_admin_invoices-title',
             child: PrimeText(
               key: const Key('billing_admin_invoices-title'),
@@ -135,6 +132,7 @@ class BillingAdminInvoicesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('billing_admin_invoices-refresh-btn'),
@@ -142,7 +140,6 @@ class BillingAdminInvoicesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'billing_admin_invoices-content',
           child: ResponsiveSplitDashboard(

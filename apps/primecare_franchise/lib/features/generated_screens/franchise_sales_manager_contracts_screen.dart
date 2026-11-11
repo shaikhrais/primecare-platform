@@ -121,13 +121,10 @@ class FranchiseSalesManagerContractsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_sales_manager_contracts-screen',
-      child: Scaffold(
-        key: const Key('franchise_sales_manager_contracts-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_sales_manager_contracts-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_sales_manager_contracts-title',
             child: PrimeText(
               key: const Key('franchise_sales_manager_contracts-title'),
@@ -135,6 +132,7 @@ class FranchiseSalesManagerContractsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_sales_manager_contracts-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseSalesManagerContractsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_sales_manager_contracts-content',
           child: ResponsiveSplitDashboard(

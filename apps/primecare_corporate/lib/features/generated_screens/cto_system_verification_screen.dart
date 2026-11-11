@@ -121,13 +121,10 @@ class CtoSystemVerificationScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_system_verification-screen',
-      child: Scaffold(
-        key: const Key('cto_system_verification-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_system_verification-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_system_verification-title',
             child: PrimeText(
               key: const Key('cto_system_verification-title'),
@@ -135,6 +132,7 @@ class CtoSystemVerificationScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_system_verification-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoSystemVerificationScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_system_verification-content',
           child: ResponsiveSplitDashboard(

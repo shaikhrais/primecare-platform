@@ -121,13 +121,10 @@ class AssessmentsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'assessments-screen',
-      child: Scaffold(
-        key: const Key('assessments-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('assessments-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'assessments-title',
             child: PrimeText(
               key: const Key('assessments-title'),
@@ -135,6 +132,7 @@ class AssessmentsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('assessments-refresh-btn'),
@@ -142,7 +140,6 @@ class AssessmentsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'assessments-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class CooServiceDeliveryScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'coo_service_delivery-screen',
-      child: Scaffold(
-        key: const Key('coo_service_delivery-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('coo_service_delivery-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'coo_service_delivery-title',
             child: PrimeText(
               key: const Key('coo_service_delivery-title'),
@@ -135,6 +132,7 @@ class CooServiceDeliveryScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('coo_service_delivery-refresh-btn'),
@@ -142,7 +140,6 @@ class CooServiceDeliveryScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'coo_service_delivery-content',
           child: ResponsiveSplitDashboard(

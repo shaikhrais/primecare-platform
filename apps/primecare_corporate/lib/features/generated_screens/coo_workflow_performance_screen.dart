@@ -121,13 +121,10 @@ class CooWorkflowPerformanceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'coo_workflow_performance-screen',
-      child: Scaffold(
-        key: const Key('coo_workflow_performance-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('coo_workflow_performance-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'coo_workflow_performance-title',
             child: PrimeText(
               key: const Key('coo_workflow_performance-title'),
@@ -135,6 +132,7 @@ class CooWorkflowPerformanceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('coo_workflow_performance-refresh-btn'),
@@ -142,7 +140,6 @@ class CooWorkflowPerformanceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'coo_workflow_performance-content',
           child: ResponsiveSplitDashboard(

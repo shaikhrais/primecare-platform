@@ -121,13 +121,10 @@ class AuditLogScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'audit_log-screen',
-      child: Scaffold(
-        key: const Key('audit_log-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('audit_log-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'audit_log-title',
             child: PrimeText(
               key: const Key('audit_log-title'),
@@ -135,6 +132,7 @@ class AuditLogScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('audit_log-refresh-btn'),
@@ -142,7 +140,6 @@ class AuditLogScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'audit_log-content',
           child: ResponsiveSplitDashboard(

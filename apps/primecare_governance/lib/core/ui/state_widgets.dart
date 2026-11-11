@@ -121,13 +121,10 @@ class NoAccessScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'no_access-screen',
-      child: Scaffold(
-        key: const Key('no_access-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('no_access-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'no_access-title',
             child: PrimeText(
               key: const Key('no_access-title'),
@@ -135,6 +132,7 @@ class NoAccessScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('no_access-refresh-btn'),
@@ -142,7 +140,6 @@ class NoAccessScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'no_access-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class FranchiseSalesManagerProposalsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_sales_manager_proposals-screen',
-      child: Scaffold(
-        key: const Key('franchise_sales_manager_proposals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_sales_manager_proposals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_sales_manager_proposals-title',
             child: PrimeText(
               key: const Key('franchise_sales_manager_proposals-title'),
@@ -135,6 +132,7 @@ class FranchiseSalesManagerProposalsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_sales_manager_proposals-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseSalesManagerProposalsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_sales_manager_proposals-content',
           child: ResponsiveSplitDashboard(

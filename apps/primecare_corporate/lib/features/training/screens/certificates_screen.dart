@@ -121,13 +121,10 @@ class CertificatesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'certificates-screen',
-      child: Scaffold(
-        key: const Key('certificates-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('certificates-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'certificates-title',
             child: PrimeText(
               key: const Key('certificates-title'),
@@ -135,6 +132,7 @@ class CertificatesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('certificates-refresh-btn'),
@@ -142,7 +140,6 @@ class CertificatesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'certificates-content',
           child: ResponsiveSplitDashboard(

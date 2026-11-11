@@ -121,13 +121,10 @@ class OperationsManagerDailyOperationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'operations_manager_daily_operations-screen',
-      child: Scaffold(
-        key: const Key('operations_manager_daily_operations-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('operations_manager_daily_operations-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'operations_manager_daily_operations-title',
             child: PrimeText(
               key: const Key('operations_manager_daily_operations-title'),
@@ -135,6 +132,7 @@ class OperationsManagerDailyOperationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('operations_manager_daily_operations-refresh-btn'),
@@ -142,7 +140,6 @@ class OperationsManagerDailyOperationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'operations_manager_daily_operations-content',
           child: ResponsiveSplitDashboard(

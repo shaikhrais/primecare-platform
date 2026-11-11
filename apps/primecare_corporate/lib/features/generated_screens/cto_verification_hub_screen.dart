@@ -121,13 +121,10 @@ class CtoVerificationHubScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_verification_hub-screen',
-      child: Scaffold(
-        key: const Key('cto_verification_hub-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_verification_hub-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_verification_hub-title',
             child: PrimeText(
               key: const Key('cto_verification_hub-title'),
@@ -135,6 +132,7 @@ class CtoVerificationHubScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_verification_hub-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoVerificationHubScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_verification_hub-content',
           child: ResponsiveSplitDashboard(

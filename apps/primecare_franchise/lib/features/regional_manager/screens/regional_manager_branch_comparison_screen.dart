@@ -121,13 +121,10 @@ class RegionalManagerBranchComparisonScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_manager_branch_comparison-screen',
-      child: Scaffold(
-        key: const Key('regional_manager_branch_comparison-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_manager_branch_comparison-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_manager_branch_comparison-title',
             child: PrimeText(
               key: const Key('regional_manager_branch_comparison-title'),
@@ -135,6 +132,7 @@ class RegionalManagerBranchComparisonScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_manager_branch_comparison-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalManagerBranchComparisonScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_manager_branch_comparison-content',
           child: ResponsiveSplitDashboard(

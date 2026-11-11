@@ -121,13 +121,10 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'audit_sandbox-screen',
-      child: Scaffold(
-        key: const Key('audit_sandbox-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('audit_sandbox-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'audit_sandbox-title',
             child: PrimeText(
               key: const Key('audit_sandbox-title'),
@@ -135,6 +132,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('audit_sandbox-refresh-btn'),
@@ -142,7 +140,6 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'audit_sandbox-content',
           child: ResponsiveSplitDashboard(

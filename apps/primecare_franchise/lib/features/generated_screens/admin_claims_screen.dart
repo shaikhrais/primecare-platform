@@ -121,13 +121,10 @@ class AdminClaimsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'admin_claims-screen',
-      child: Scaffold(
-        key: const Key('admin_claims-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('admin_claims-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'admin_claims-title',
             child: PrimeText(
               key: const Key('admin_claims-title'),
@@ -135,6 +132,7 @@ class AdminClaimsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('admin_claims-refresh-btn'),
@@ -142,7 +140,6 @@ class AdminClaimsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'admin_claims-content',
           child: ResponsiveSplitDashboard(

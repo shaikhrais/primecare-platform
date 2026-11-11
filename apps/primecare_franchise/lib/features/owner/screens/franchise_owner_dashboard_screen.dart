@@ -121,13 +121,10 @@ class FranchiseOwnerDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_owner_dashboard-screen',
-      child: Scaffold(
-        key: const Key('franchise_owner_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_owner_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_owner_dashboard-title',
             child: PrimeText(
               key: const Key('franchise_owner_dashboard-title'),
@@ -135,6 +132,7 @@ class FranchiseOwnerDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_owner_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseOwnerDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_owner_dashboard-content',
           child: ResponsiveSplitDashboard(

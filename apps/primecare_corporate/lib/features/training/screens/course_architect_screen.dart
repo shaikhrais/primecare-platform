@@ -121,13 +121,10 @@ class CourseArchitectScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'course_architect-screen',
-      child: Scaffold(
-        key: const Key('course_architect-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('course_architect-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'course_architect-title',
             child: PrimeText(
               key: const Key('course_architect-title'),
@@ -135,6 +132,7 @@ class CourseArchitectScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('course_architect-refresh-btn'),
@@ -142,7 +140,6 @@ class CourseArchitectScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'course_architect-content',
           child: ResponsiveSplitDashboard(

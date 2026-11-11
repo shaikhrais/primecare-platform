@@ -121,13 +121,10 @@ class CtoIntegrationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_integrations-screen',
-      child: Scaffold(
-        key: const Key('cto_integrations-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_integrations-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_integrations-title',
             child: PrimeText(
               key: const Key('cto_integrations-title'),
@@ -135,6 +132,7 @@ class CtoIntegrationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_integrations-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoIntegrationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_integrations-content',
           child: ResponsiveSplitDashboard(

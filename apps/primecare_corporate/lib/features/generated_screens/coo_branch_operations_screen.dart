@@ -121,13 +121,10 @@ class CooBranchOperationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'coo_branch_operations-screen',
-      child: Scaffold(
-        key: const Key('coo_branch_operations-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('coo_branch_operations-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'coo_branch_operations-title',
             child: PrimeText(
               key: const Key('coo_branch_operations-title'),
@@ -135,6 +132,7 @@ class CooBranchOperationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('coo_branch_operations-refresh-btn'),
@@ -142,7 +140,6 @@ class CooBranchOperationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'coo_branch_operations-content',
           child: ResponsiveSplitDashboard(

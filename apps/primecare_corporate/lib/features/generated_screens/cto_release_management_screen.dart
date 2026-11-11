@@ -121,13 +121,10 @@ class CtoReleaseManagementScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_release_management-screen',
-      child: Scaffold(
-        key: const Key('cto_release_management-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_release_management-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_release_management-title',
             child: PrimeText(
               key: const Key('cto_release_management-title'),
@@ -135,6 +132,7 @@ class CtoReleaseManagementScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_release_management-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoReleaseManagementScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_release_management-content',
           child: ResponsiveSplitDashboard(

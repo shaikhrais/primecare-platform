@@ -121,13 +121,10 @@ class TrainingDirectorCourseLibraryScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_director_course_library-screen',
-      child: Scaffold(
-        key: const Key('training_director_course_library-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_director_course_library-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_director_course_library-title',
             child: PrimeText(
               key: const Key('training_director_course_library-title'),
@@ -135,6 +132,7 @@ class TrainingDirectorCourseLibraryScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_director_course_library-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingDirectorCourseLibraryScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_director_course_library-content',
           child: ResponsiveSplitDashboard(

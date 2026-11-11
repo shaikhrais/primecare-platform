@@ -121,13 +121,10 @@ class AdminRefundsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'admin_refunds-screen',
-      child: Scaffold(
-        key: const Key('admin_refunds-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('admin_refunds-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'admin_refunds-title',
             child: PrimeText(
               key: const Key('admin_refunds-title'),
@@ -135,6 +132,7 @@ class AdminRefundsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('admin_refunds-refresh-btn'),
@@ -142,7 +140,6 @@ class AdminRefundsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'admin_refunds-content',
           child: ResponsiveSplitDashboard(

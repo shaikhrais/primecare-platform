@@ -121,13 +121,10 @@ class HrHiringStaffDocumentsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'hr_hiring_staff_documents-screen',
-      child: Scaffold(
-        key: const Key('hr_hiring_staff_documents-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('hr_hiring_staff_documents-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'hr_hiring_staff_documents-title',
             child: PrimeText(
               key: const Key('hr_hiring_staff_documents-title'),
@@ -135,6 +132,7 @@ class HrHiringStaffDocumentsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('hr_hiring_staff_documents-refresh-btn'),
@@ -142,7 +140,6 @@ class HrHiringStaffDocumentsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'hr_hiring_staff_documents-content',
           child: ResponsiveSplitDashboard(

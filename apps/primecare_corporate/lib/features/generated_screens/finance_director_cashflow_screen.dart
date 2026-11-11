@@ -121,13 +121,10 @@ class FinanceDirectorCashflowScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'finance_director_cashflow-screen',
-      child: Scaffold(
-        key: const Key('finance_director_cashflow-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('finance_director_cashflow-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'finance_director_cashflow-title',
             child: PrimeText(
               key: const Key('finance_director_cashflow-title'),
@@ -135,6 +132,7 @@ class FinanceDirectorCashflowScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('finance_director_cashflow-refresh-btn'),
@@ -142,7 +140,6 @@ class FinanceDirectorCashflowScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'finance_director_cashflow-content',
           child: ResponsiveSplitDashboard(

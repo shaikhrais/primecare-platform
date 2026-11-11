@@ -121,13 +121,10 @@ class CtoAuditLogsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_audit_logs-screen',
-      child: Scaffold(
-        key: const Key('cto_audit_logs-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_audit_logs-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_audit_logs-title',
             child: PrimeText(
               key: const Key('cto_audit_logs-title'),
@@ -135,6 +132,7 @@ class CtoAuditLogsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_audit_logs-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoAuditLogsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_audit_logs-content',
           child: ResponsiveSplitDashboard(

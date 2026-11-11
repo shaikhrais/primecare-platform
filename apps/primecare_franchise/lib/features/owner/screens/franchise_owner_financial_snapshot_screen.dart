@@ -121,13 +121,10 @@ class FranchiseOwnerFinancialSnapshotScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_owner_financial_snapshot-screen',
-      child: Scaffold(
-        key: const Key('franchise_owner_financial_snapshot-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_owner_financial_snapshot-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_owner_financial_snapshot-title',
             child: PrimeText(
               key: const Key('franchise_owner_financial_snapshot-title'),
@@ -135,6 +132,7 @@ class FranchiseOwnerFinancialSnapshotScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_owner_financial_snapshot-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseOwnerFinancialSnapshotScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_owner_financial_snapshot-content',
           child: ResponsiveSplitDashboard(

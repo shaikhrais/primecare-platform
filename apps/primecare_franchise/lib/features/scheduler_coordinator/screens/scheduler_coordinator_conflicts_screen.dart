@@ -121,13 +121,10 @@ class SchedulerCoordinatorConflictsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'scheduler_coordinator_conflicts-screen',
-      child: Scaffold(
-        key: const Key('scheduler_coordinator_conflicts-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('scheduler_coordinator_conflicts-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'scheduler_coordinator_conflicts-title',
             child: PrimeText(
               key: const Key('scheduler_coordinator_conflicts-title'),
@@ -135,6 +132,7 @@ class SchedulerCoordinatorConflictsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('scheduler_coordinator_conflicts-refresh-btn'),
@@ -142,7 +140,6 @@ class SchedulerCoordinatorConflictsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'scheduler_coordinator_conflicts-content',
           child: ResponsiveSplitDashboard(

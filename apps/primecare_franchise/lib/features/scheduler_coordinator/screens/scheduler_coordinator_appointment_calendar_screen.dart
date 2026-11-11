@@ -121,13 +121,10 @@ class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidg
 
     return Cy(
       id: 'scheduler_coordinator_appointment_calendar-screen',
-      child: Scaffold(
-        key: const Key('scheduler_coordinator_appointment_calendar-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('scheduler_coordinator_appointment_calendar-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'scheduler_coordinator_appointment_calendar-title',
             child: PrimeText(
               key: const Key('scheduler_coordinator_appointment_calendar-title'),
@@ -135,6 +132,7 @@ class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidg
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('scheduler_coordinator_appointment_calendar-refresh-btn'),
@@ -142,7 +140,6 @@ class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidg
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'scheduler_coordinator_appointment_calendar-content',
           child: ResponsiveSplitDashboard(

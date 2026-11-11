@@ -121,13 +121,10 @@ class CtoFeatureAdoptionScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_feature_adoption-screen',
-      child: Scaffold(
-        key: const Key('cto_feature_adoption-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_feature_adoption-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_feature_adoption-title',
             child: PrimeText(
               key: const Key('cto_feature_adoption-title'),
@@ -135,6 +132,7 @@ class CtoFeatureAdoptionScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_feature_adoption-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoFeatureAdoptionScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_feature_adoption-content',
           child: ResponsiveSplitDashboard(

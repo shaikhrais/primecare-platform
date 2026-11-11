@@ -121,13 +121,10 @@ class SchedulerCoordinatorBookingRequestsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'scheduler_coordinator_booking_requests-screen',
-      child: Scaffold(
-        key: const Key('scheduler_coordinator_booking_requests-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('scheduler_coordinator_booking_requests-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'scheduler_coordinator_booking_requests-title',
             child: PrimeText(
               key: const Key('scheduler_coordinator_booking_requests-title'),
@@ -135,6 +132,7 @@ class SchedulerCoordinatorBookingRequestsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('scheduler_coordinator_booking_requests-refresh-btn'),
@@ -142,7 +140,6 @@ class SchedulerCoordinatorBookingRequestsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'scheduler_coordinator_booking_requests-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class CtoReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_reports-screen',
-      child: Scaffold(
-        key: const Key('cto_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_reports-title',
             child: PrimeText(
               key: const Key('cto_reports-title'),
@@ -135,6 +132,7 @@ class CtoReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_reports-content',
           child: ResponsiveSplitDashboard(

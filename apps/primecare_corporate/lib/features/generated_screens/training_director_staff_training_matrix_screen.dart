@@ -121,13 +121,10 @@ class TrainingDirectorStaffTrainingMatrixScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_director_staff_training_matrix-screen',
-      child: Scaffold(
-        key: const Key('training_director_staff_training_matrix-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_director_staff_training_matrix-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_director_staff_training_matrix-title',
             child: PrimeText(
               key: const Key('training_director_staff_training_matrix-title'),
@@ -135,6 +132,7 @@ class TrainingDirectorStaffTrainingMatrixScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_director_staff_training_matrix-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingDirectorStaffTrainingMatrixScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_director_staff_training_matrix-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class AdminReconciliationScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'admin_reconciliation-screen',
-      child: Scaffold(
-        key: const Key('admin_reconciliation-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('admin_reconciliation-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'admin_reconciliation-title',
             child: PrimeText(
               key: const Key('admin_reconciliation-title'),
@@ -135,6 +132,7 @@ class AdminReconciliationScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('admin_reconciliation-refresh-btn'),
@@ -142,7 +140,6 @@ class AdminReconciliationScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'admin_reconciliation-content',
           child: ResponsiveSplitDashboard(

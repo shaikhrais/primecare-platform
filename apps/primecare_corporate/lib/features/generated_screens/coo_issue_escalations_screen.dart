@@ -121,13 +121,10 @@ class CooIssueEscalationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'coo_issue_escalations-screen',
-      child: Scaffold(
-        key: const Key('coo_issue_escalations-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('coo_issue_escalations-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'coo_issue_escalations-title',
             child: PrimeText(
               key: const Key('coo_issue_escalations-title'),
@@ -135,6 +132,7 @@ class CooIssueEscalationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('coo_issue_escalations-refresh-btn'),
@@ -142,7 +140,6 @@ class CooIssueEscalationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'coo_issue_escalations-content',
           child: ResponsiveSplitDashboard(

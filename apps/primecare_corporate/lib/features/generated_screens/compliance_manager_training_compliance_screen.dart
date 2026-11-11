@@ -121,13 +121,10 @@ class ComplianceManagerTrainingComplianceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'compliance_manager_training_compliance-screen',
-      child: Scaffold(
-        key: const Key('compliance_manager_training_compliance-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('compliance_manager_training_compliance-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'compliance_manager_training_compliance-title',
             child: PrimeText(
               key: const Key('compliance_manager_training_compliance-title'),
@@ -135,6 +132,7 @@ class ComplianceManagerTrainingComplianceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('compliance_manager_training_compliance-refresh-btn'),
@@ -142,7 +140,6 @@ class ComplianceManagerTrainingComplianceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'compliance_manager_training_compliance-content',
           child: ResponsiveSplitDashboard(

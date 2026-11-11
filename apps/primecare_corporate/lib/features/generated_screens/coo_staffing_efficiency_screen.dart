@@ -121,13 +121,10 @@ class CooStaffingEfficiencyScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'coo_staffing_efficiency-screen',
-      child: Scaffold(
-        key: const Key('coo_staffing_efficiency-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('coo_staffing_efficiency-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'coo_staffing_efficiency-title',
             child: PrimeText(
               key: const Key('coo_staffing_efficiency-title'),
@@ -135,6 +132,7 @@ class CooStaffingEfficiencyScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('coo_staffing_efficiency-refresh-btn'),
@@ -142,7 +140,6 @@ class CooStaffingEfficiencyScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'coo_staffing_efficiency-content',
           child: ResponsiveSplitDashboard(

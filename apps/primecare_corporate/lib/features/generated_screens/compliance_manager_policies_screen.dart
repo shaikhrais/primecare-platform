@@ -121,13 +121,10 @@ class ComplianceManagerPoliciesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'compliance_manager_policies-screen',
-      child: Scaffold(
-        key: const Key('compliance_manager_policies-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('compliance_manager_policies-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'compliance_manager_policies-title',
             child: PrimeText(
               key: const Key('compliance_manager_policies-title'),
@@ -135,6 +132,7 @@ class ComplianceManagerPoliciesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('compliance_manager_policies-refresh-btn'),
@@ -142,7 +140,6 @@ class ComplianceManagerPoliciesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'compliance_manager_policies-content',
           child: ResponsiveSplitDashboard(

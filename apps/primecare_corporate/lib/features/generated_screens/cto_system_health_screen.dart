@@ -121,13 +121,10 @@ class CtoSystemHealthScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_system_health-screen',
-      child: Scaffold(
-        key: const Key('cto_system_health-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_system_health-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_system_health-title',
             child: PrimeText(
               key: const Key('cto_system_health-title'),
@@ -135,6 +132,7 @@ class CtoSystemHealthScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_system_health-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoSystemHealthScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_system_health-content',
           child: ResponsiveSplitDashboard(

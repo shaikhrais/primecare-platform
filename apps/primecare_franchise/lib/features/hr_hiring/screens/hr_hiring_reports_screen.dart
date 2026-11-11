@@ -121,13 +121,10 @@ class HrHiringReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'hr_hiring_reports-screen',
-      child: Scaffold(
-        key: const Key('hr_hiring_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('hr_hiring_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'hr_hiring_reports-title',
             child: PrimeText(
               key: const Key('hr_hiring_reports-title'),
@@ -135,6 +132,7 @@ class HrHiringReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('hr_hiring_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class HrHiringReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'hr_hiring_reports-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class TrainingDirectorReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_director_reports-screen',
-      child: Scaffold(
-        key: const Key('training_director_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_director_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_director_reports-title',
             child: PrimeText(
               key: const Key('training_director_reports-title'),
@@ -135,6 +132,7 @@ class TrainingDirectorReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_director_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingDirectorReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_director_reports-content',
           child: ResponsiveSplitDashboard(

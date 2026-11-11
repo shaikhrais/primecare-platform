@@ -121,13 +121,10 @@ class OperationsManagerServiceQualityScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'operations_manager_service_quality-screen',
-      child: Scaffold(
-        key: const Key('operations_manager_service_quality-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('operations_manager_service_quality-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'operations_manager_service_quality-title',
             child: PrimeText(
               key: const Key('operations_manager_service_quality-title'),
@@ -135,6 +132,7 @@ class OperationsManagerServiceQualityScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('operations_manager_service_quality-refresh-btn'),
@@ -142,7 +140,6 @@ class OperationsManagerServiceQualityScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'operations_manager_service_quality-content',
           child: ResponsiveSplitDashboard(

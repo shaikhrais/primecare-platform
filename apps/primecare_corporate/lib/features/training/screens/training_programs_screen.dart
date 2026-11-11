@@ -121,13 +121,10 @@ class TrainingProgramsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_programs-screen',
-      child: Scaffold(
-        key: const Key('training_programs-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_programs-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_programs-title',
             child: PrimeText(
               key: const Key('training_programs-title'),
@@ -135,6 +132,7 @@ class TrainingProgramsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_programs-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingProgramsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_programs-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class FranchiseOwnerHiringScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'franchise_owner_hiring-screen',
-      child: Scaffold(
-        key: const Key('franchise_owner_hiring-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('franchise_owner_hiring-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'franchise_owner_hiring-title',
             child: PrimeText(
               key: const Key('franchise_owner_hiring-title'),
@@ -135,6 +132,7 @@ class FranchiseOwnerHiringScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('franchise_owner_hiring-refresh-btn'),
@@ -142,7 +140,6 @@ class FranchiseOwnerHiringScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'franchise_owner_hiring-content',
           child: ResponsiveSplitDashboard(

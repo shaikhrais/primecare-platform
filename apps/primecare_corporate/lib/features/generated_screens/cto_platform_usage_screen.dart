@@ -121,13 +121,10 @@ class CtoPlatformUsageScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cto_platform_usage-screen',
-      child: Scaffold(
-        key: const Key('cto_platform_usage-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cto_platform_usage-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cto_platform_usage-title',
             child: PrimeText(
               key: const Key('cto_platform_usage-title'),
@@ -135,6 +132,7 @@ class CtoPlatformUsageScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cto_platform_usage-refresh-btn'),
@@ -142,7 +140,6 @@ class CtoPlatformUsageScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cto_platform_usage-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class TrainingAnalyticsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_analytics-screen',
-      child: Scaffold(
-        key: const Key('training_analytics-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_analytics-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_analytics-title',
             child: PrimeText(
               key: const Key('training_analytics-title'),
@@ -135,6 +132,7 @@ class TrainingAnalyticsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_analytics-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingAnalyticsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_analytics-content',
           child: ResponsiveSplitDashboard(

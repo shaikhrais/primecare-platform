@@ -121,13 +121,10 @@ class MarketingManagerCampaignsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'marketing_manager_campaigns-screen',
-      child: Scaffold(
-        key: const Key('marketing_manager_campaigns-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('marketing_manager_campaigns-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'marketing_manager_campaigns-title',
             child: PrimeText(
               key: const Key('marketing_manager_campaigns-title'),
@@ -135,6 +132,7 @@ class MarketingManagerCampaignsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('marketing_manager_campaigns-refresh-btn'),
@@ -142,7 +140,6 @@ class MarketingManagerCampaignsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'marketing_manager_campaigns-content',
           child: ResponsiveSplitDashboard(

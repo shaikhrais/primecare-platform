@@ -121,13 +121,10 @@ class ComplianceManagerCredentialTrackingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'compliance_manager_credential_tracking-screen',
-      child: Scaffold(
-        key: const Key('compliance_manager_credential_tracking-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('compliance_manager_credential_tracking-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'compliance_manager_credential_tracking-title',
             child: PrimeText(
               key: const Key('compliance_manager_credential_tracking-title'),
@@ -135,6 +132,7 @@ class ComplianceManagerCredentialTrackingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('compliance_manager_credential_tracking-refresh-btn'),
@@ -142,7 +140,6 @@ class ComplianceManagerCredentialTrackingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'compliance_manager_credential_tracking-content',
           child: ResponsiveSplitDashboard(

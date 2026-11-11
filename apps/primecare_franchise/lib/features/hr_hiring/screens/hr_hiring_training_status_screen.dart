@@ -121,13 +121,10 @@ class HrHiringTrainingStatusScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'hr_hiring_training_status-screen',
-      child: Scaffold(
-        key: const Key('hr_hiring_training_status-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('hr_hiring_training_status-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'hr_hiring_training_status-title',
             child: PrimeText(
               key: const Key('hr_hiring_training_status-title'),
@@ -135,6 +132,7 @@ class HrHiringTrainingStatusScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('hr_hiring_training_status-refresh-btn'),
@@ -142,7 +140,6 @@ class HrHiringTrainingStatusScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'hr_hiring_training_status-content',
           child: ResponsiveSplitDashboard(

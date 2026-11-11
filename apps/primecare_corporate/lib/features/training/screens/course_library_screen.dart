@@ -121,13 +121,10 @@ class CourseLibraryScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'course_library-screen',
-      child: Scaffold(
-        key: const Key('course_library-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('course_library-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'course_library-title',
             child: PrimeText(
               key: const Key('course_library-title'),
@@ -135,6 +132,7 @@ class CourseLibraryScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('course_library-refresh-btn'),
@@ -142,7 +140,6 @@ class CourseLibraryScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'course_library-content',
           child: ResponsiveSplitDashboard(

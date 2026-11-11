@@ -121,13 +121,10 @@ class TrainerAssignmentsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'trainer_assignments-screen',
-      child: Scaffold(
-        key: const Key('trainer_assignments-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('trainer_assignments-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'trainer_assignments-title',
             child: PrimeText(
               key: const Key('trainer_assignments-title'),
@@ -135,6 +132,7 @@ class TrainerAssignmentsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('trainer_assignments-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainerAssignmentsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'trainer_assignments-content',
           child: ResponsiveSplitDashboard(

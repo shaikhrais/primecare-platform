@@ -121,13 +121,10 @@ class TrainingDirectorCourseArchitectScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_director_course_architect-screen',
-      child: Scaffold(
-        key: const Key('training_director_course_architect-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_director_course_architect-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_director_course_architect-title',
             child: PrimeText(
               key: const Key('training_director_course_architect-title'),
@@ -135,6 +132,7 @@ class TrainingDirectorCourseArchitectScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_director_course_architect-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingDirectorCourseArchitectScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_director_course_architect-content',
           child: ResponsiveSplitDashboard(
