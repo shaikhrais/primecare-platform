@@ -7,6 +7,10 @@ on:
       - docs/appearance/theme-batches-main-audit-snapshot.json
       - docs/task-progress/primecare-theme-implementation-batches.json
       - scripts/build-theme-developer-catalogue.py
+      - scripts/audit-shared-skeleton-equivalents.py
+      - docs/appearance/shared-skeleton-equivalents.md
+      - packages/primecare_ui/web/component-catalogue.ts
+      - packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart
       - scripts/check-theme-release.py
       - scripts/audit-theme-batches.py
       - packages/primecare_ui/catalogs/developer-catalogue.json
@@ -14,7 +18,7 @@ on:
 permissions: {contents: read}
 concurrency:
   group: theme-catalogue-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   integrity:
     runs-on: ubuntu-latest
@@ -33,6 +37,7 @@ jobs:
           PY
       - run: |
           python scripts/build-theme-developer-catalogue.py --check
+          python scripts/audit-shared-skeleton-equivalents.py --check
           python scripts/audit-theme-batches.py --check
           python scripts/check-theme-release.py --output docs/appearance/theme-release-gates.json
       - uses: actions/upload-artifact@v4
