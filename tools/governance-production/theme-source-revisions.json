@@ -110,11 +110,21 @@
     {
       "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
       "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
-      "currentSha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
-      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "currentSha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
+      "sourceCommit": "ba846b798cf9ecfed8d17a32c0cf9dd4780bae5c",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
         "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+        "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
+        "currentSha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
+        "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+        "verification": {
+          "status": "source_revision_only_runtime_unverified",
+          "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        }
       }
     },
     {
