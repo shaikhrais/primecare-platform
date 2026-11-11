@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Trend Chart platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -193,7 +194,7 @@ class GovernanceTrendChart extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(
+          PrimeIcon(
             isUp ? Icons.trending_up : Icons.trending_down,
             size: 16,
             color: isUp ? Colors.green : Colors.red,
@@ -225,7 +226,7 @@ class GovernanceTrendChart extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
+            PrimeIcon(
               Icons.analytics_outlined,
               size: 48,
               color: Theme.of(

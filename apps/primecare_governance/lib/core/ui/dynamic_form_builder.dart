@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Core implementation file for the Dynamic Form Builder platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 import 'app_components.dart';
@@ -87,7 +88,7 @@ class DynamicFormBuilder extends StatelessWidget {
           formControlName: config.name,
           decoration: InputDecoration(
             labelText: config.label,
-            prefixIcon: const Icon(Icons.email),
+            prefixIcon: const PrimeIcon(Icons.email),
           ),
         ),
         FieldType.dropdown => ReactiveDropdownField<String>(
@@ -109,7 +110,7 @@ class DynamicFormBuilder extends StatelessWidget {
           readOnly: true,
           decoration: InputDecoration(
             labelText: config.label,
-            suffixIcon: const Icon(Icons.calendar_today),
+            suffixIcon: const PrimeIcon(Icons.calendar_today),
           ),
           onTap: (control) async {
             // Implementation for date picker

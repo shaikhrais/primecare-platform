@@ -23,7 +23,7 @@ class LanguageSelector extends ConsumerWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.language, size: 16, color: theme.colors.primary),
+            PrimeIcon(Icons.language, size: 16, color: theme.colors.primary),
             const SizedBox(width: 4),
             Text(
               currentLang.toUpperCase(),

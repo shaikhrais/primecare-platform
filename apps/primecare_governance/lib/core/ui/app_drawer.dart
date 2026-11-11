@@ -95,7 +95,7 @@ class AppDrawer extends ConsumerWidget {
       color: theme.colors.errorContainer.withValues(alpha: 0.3),
       child: Row(
         children: [
-          Icon(
+          PrimeIcon(
             Icons.theater_comedy_outlined,
             color: theme.colors.error,
             size: 18,
@@ -123,7 +123,7 @@ class AppDrawer extends ConsumerWidget {
             ),
           ),
           IconButton(key: const Key('app_drawer_iconbutton_button_1'), 
-            icon: Icon(Icons.close, size: 16, color: theme.colors.error),
+            icon: PrimeIcon(Icons.close, size: 16, color: theme.colors.error),
             onPressed: () =>
                 ref.read(roleImpersonationProvider.notifier).impersonate(null),
             visualDensity: VisualDensity.compact,
@@ -205,7 +205,7 @@ class AppDrawer extends ConsumerWidget {
               color: theme.colors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(theme.radiusXs),
             ),
-            child: Icon(
+            child: PrimeIcon(
               Icons.shield_outlined,
               color: theme.colors.primary,
               size: 24,
@@ -254,7 +254,7 @@ class AppDrawer extends ConsumerWidget {
             letterSpacing: 1.2,
           ),
         ),
-        leading: Icon(
+        leading: PrimeIcon(
           _getRoleIcon(role),
           color: theme.colors.primary,
           size: 18,
@@ -266,7 +266,7 @@ class AppDrawer extends ConsumerWidget {
           return ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
-            leading: Icon(
+            leading: PrimeIcon(
               screen.icon ?? Icons.circle_outlined,
               color: theme.colors.primary.withValues(alpha: 0.5),
               size: 14,
@@ -332,7 +332,7 @@ class AppDrawer extends ConsumerWidget {
       dense: true,
       visualDensity: VisualDensity.compact,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-      leading: Icon(
+      leading: PrimeIcon(
         screen.icon ?? Icons.circle_outlined,
         color: theme.colors.primary,
         size: 18,
@@ -359,7 +359,7 @@ class AppDrawer extends ConsumerWidget {
           CircleAvatar(
             backgroundColor: theme.colors.surfaceContainer,
             radius: 18,
-            child: Icon(
+            child: PrimeIcon(
               Icons.person_outline,
               color: theme.colors.primary,
               size: 20,
@@ -389,7 +389,7 @@ class AppDrawer extends ConsumerWidget {
           Cy(
             id: 'logout-button',
             child: IconButton(key: const Key('app_drawer_iconbutton_button_2'), 
-              icon: Icon(
+              icon: PrimeIcon(
                 Icons.logout_outlined,
                 color: theme.colors.error,
                 size: 20,

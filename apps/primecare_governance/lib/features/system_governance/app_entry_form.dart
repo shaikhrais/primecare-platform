@@ -89,7 +89,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
   Widget _buildDeploymentChip(dynamic theme, String label, IconData icon) {
     return FilterChip(
       label: Text(label),
-      avatar: Icon(icon, size: 18),
+      avatar: PrimeIcon(icon, size: 18),
       selected: false,
       onSelected: (val) {},
       backgroundColor: theme.colors.background,

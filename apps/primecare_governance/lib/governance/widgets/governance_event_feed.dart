@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: [GovernanceEventFeed] - A high-fidelity real-time telemetry feed showing architectural and security events as they ha...
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../core/governance/governance_provider.dart';
@@ -35,7 +36,7 @@ class GovernanceEventFeed extends StatelessWidget {
             children: [
               const Row(
                 children: [
-                  Icon(Icons.bolt_rounded, color: Colors.amber, size: 24),
+                  PrimeIcon(Icons.bolt_rounded, color: Colors.amber, size: 24),
                   SizedBox(width: 12),
                   PrimeText(
                     'Live Telemetry Feed',
@@ -80,7 +81,7 @@ class GovernanceEventFeed extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
+                    PrimeIcon(
                       Icons.sensors_off_rounded,
                       color: Colors.grey,
                       size: 48,
@@ -130,7 +131,7 @@ class _EventItem extends StatelessWidget {
             color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(icon, color: color, size: 20),
+          child: PrimeIcon(icon, color: color, size: 20),
         ),
         const SizedBox(width: 16),
         Expanded(

@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -64,7 +65,7 @@ class DevToolbox extends ConsumerWidget {
                       context.push(screen.routePath);
                     }
                   },
-                  icon: const Icon(Icons.analytics_outlined, size: 18),
+                  icon: const PrimeIcon(Icons.analytics_outlined, size: 18),
                   label: PrimeText('governance.devToolbox.systemVerify'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],
@@ -81,7 +82,7 @@ class DevToolbox extends ConsumerWidget {
                         context.go(screen.routePath);
                       }
                     },
-                    icon: const Icon(Icons.logout, size: 18),
+                    icon: const PrimeIcon(Icons.logout, size: 18),
                     label: PrimeText('governance.devToolbox.exitDemo'.tr()),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.red[700],

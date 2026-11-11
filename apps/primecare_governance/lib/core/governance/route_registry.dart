@@ -171,7 +171,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                   builder: (context) => IconButton(
                     key: const Key('route_registry_iconbutton_button_1'),
                     onPressed: () => Scaffold.of(context).openEndDrawer(),
-                    icon: const Icon(LucideIcons.search),
+                    icon: const PrimeIcon(LucideIcons.search),
                   ),
                 ),
                 const CircleAvatar(

@@ -50,7 +50,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('physiciandashboard-btn-1'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.performAction(),
             ),
           ],
@@ -126,7 +126,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                     shadowColor: theme.colors.primary.withValues(alpha: 0.3),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
                   ),
-                  icon: const Icon(LucideIcons.playCircle, size: 18),
+                  icon: const PrimeIcon(LucideIcons.playCircle, size: 18),
                   onPressed: () => controller.performAction(),
                   label: Text('Execute: Button 1'.tr()),
                 ),
