@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAppBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
@@ -242,7 +243,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     container: true,
                     child: KeyedSubtree(
                       key: const Key('app-topbar'),
-                      child: AppBar(
+                      child: PrimeAppBar(
                         elevation: 0,
                         backgroundColor: topbarBg,
                         surfaceTintColor: Colors.transparent,

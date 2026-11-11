@@ -163,7 +163,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final screenId = screen?.id ?? 'UNKNOWN';
 
           return PrimeScaffold(
-            appBar: AppBar(
+            appBar: PrimeAppBar(
               title: PrimeText(title),
               actions: [
                 const LanguageSelector(),
