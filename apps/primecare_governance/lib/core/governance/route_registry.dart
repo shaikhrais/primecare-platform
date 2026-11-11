@@ -163,7 +163,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
 
           return Scaffold(
             appBar: AppBar(
-              title: Text(title),
+              title: PrimeText(title),
               actions: [
                 const LanguageSelector(),
                 const SizedBox(width: 8),
@@ -245,7 +245,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           GoRoute(
             path: '/governance/placeholder',
             builder: (context, state) => const Scaffold(
-              body: Center(child: Text('Initializing Registry...')),
+              body: Center(child: PrimeText('Initializing Registry...')),
             ),
           ),
         ],

@@ -105,7 +105,7 @@ class AppDrawer extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                PrimeText(
                   'AUDIT MODE ACTIVE'.tr(),
                   style: theme.typography.labelSmall.copyWith(
                     color: theme.colors.error,
@@ -113,7 +113,7 @@ class AppDrawer extends ConsumerWidget {
                     letterSpacing: 1.1,
                   ),
                 ),
-                Text(
+                PrimeText(
                   'Impersonating: $role'.tr(),
                   style: theme.typography.bodySmall.copyWith(
                     color: theme.colors.onErrorContainer,
@@ -146,7 +146,7 @@ class AppDrawer extends ConsumerWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          PrimeText(
             'AURA VISION MODES'.tr(),
             style: theme.typography.bodySmall.copyWith(
               color: theme.colors.onSurfaceVariant,
@@ -215,14 +215,14 @@ class AppDrawer extends ConsumerWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              PrimeText(
                 'PRIMECARE',
                 style: theme.typography.h3.copyWith(
                   fontWeight: FontWeight.w900,
                   letterSpacing: 1.5,
                 ),
               ),
-              Text(
+              PrimeText(
                 'GOVERNANCE',
                 style: theme.typography.bodySmall.copyWith(
                   color: theme.colors.onSurfaceVariant,
@@ -246,7 +246,7 @@ class AppDrawer extends ConsumerWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-        title: Text(
+        title: PrimeText(
           role.replaceAll('_', ' ').toUpperCase(),
           style: theme.typography.bodySmall.copyWith(
             color: theme.colors.onSurfaceVariant,
@@ -271,7 +271,7 @@ class AppDrawer extends ConsumerWidget {
               color: theme.colors.primary.withValues(alpha: 0.5),
               size: 14,
             ),
-            title: Text(screen.title.tr(), style: theme.typography.bodySmall),
+            title: PrimeText(screen.title.tr(), style: theme.typography.bodySmall),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(theme.radiusXs),
             ),
@@ -310,7 +310,7 @@ class AppDrawer extends ConsumerWidget {
     final theme = context.theme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      child: Text(
+      child: PrimeText(
         title,
         style: TextStyle(
           color: theme.colors.onSurfaceVariant,
@@ -337,7 +337,7 @@ class AppDrawer extends ConsumerWidget {
         color: theme.colors.primary,
         size: 18,
       ),
-      title: Text(
+      title: PrimeText(
         screen.title.tr(),
         style: theme.typography.bodyMedium.copyWith(
           fontWeight: FontWeight.w500,
@@ -371,13 +371,13 @@ class AppDrawer extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
+                PrimeText(
                   authState.userName ?? 'Admin User'.tr(),
                   style: theme.typography.bodyMedium.copyWith(
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                Text(
+                PrimeText(
                   authState.role ?? 'System Auditor'.tr(),
                   style: theme.typography.bodySmall.copyWith(
                     color: theme.colors.onSurfaceVariant,
@@ -430,7 +430,7 @@ class _VisionButton extends StatelessWidget {
               : theme.colors.surfaceContainer,
           borderRadius: BorderRadius.circular(theme.radiusXs),
         ),
-        child: Text(
+        child: PrimeText(
           label,
           style: TextStyle(
             color: isSelected

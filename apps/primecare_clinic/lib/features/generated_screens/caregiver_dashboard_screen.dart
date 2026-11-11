@@ -40,7 +40,7 @@ class CaregiverDashboardScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(label: 'data-cy:caregiverdashboard-title', container: true, child: Container(child:  Text(
+          title: Semantics(label: 'data-cy:caregiverdashboard-title', container: true, child: Container(child:  PrimeText(
             key: const Key('caregiverdashboard-title'),
             'Caregiver Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

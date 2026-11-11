@@ -21,7 +21,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          PrimeText(
             'Register and manage high-level application instances across the platform.',
             style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
           ),
@@ -45,12 +45,12 @@ class _AppEntryFormState extends State<AppEntryForm> {
               border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
             ),
             items: ['Draft', 'Active', 'Deprecated']
-                .map((e) => DropdownMenuItem(value: e, child: Text(e)))
+                .map((e) => DropdownMenuItem(value: e, child: PrimeText(e)))
                 .toList(),
             onChanged: (val) => setState(() => _status = val!),
           ),
           const SizedBox(height: 24),
-          Text(
+          PrimeText(
             'Deployment Readiness',
             style: theme.typography.h3.copyWith(color: theme.colors.primary),
           ),
@@ -70,7 +70,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
           ElevatedButton(key: const Key('app_entry_form_elevatedbutton_button_1'), 
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('Application ${_nameController.text} registered successfully under ${_status}!')),
+                SnackBar(content: PrimeText('Application ${_nameController.text} registered successfully under ${_status}!')),
               );
             },
             style: ElevatedButton.styleFrom(
@@ -79,7 +79,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),
-            child: const Text('Register Application', style: TextStyle(fontWeight: FontWeight.bold)),
+            child: const PrimeText('Register Application', style: TextStyle(fontWeight: FontWeight.bold)),
           ),
         ],
       ),
@@ -88,7 +88,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
 
   Widget _buildDeploymentChip(dynamic theme, String label, IconData icon) {
     return FilterChip(
-      label: Text(label),
+      label: PrimeText(label),
       avatar: PrimeIcon(icon, size: 18),
       selected: false,
       onSelected: (val) {},

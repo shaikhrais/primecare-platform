@@ -47,7 +47,7 @@ class RpnDashboardScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(label: 'data-cy:rpndashboard-title', container: true, child: Container(child:  Text(
+          title: Semantics(label: 'data-cy:rpndashboard-title', container: true, child: Container(child:  PrimeText(
             key: const Key('rpndashboard-title'),
             'Rpn Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

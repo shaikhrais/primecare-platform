@@ -42,7 +42,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  Text(
+          title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  PrimeText(
             key: const Key('physiciandashboard-title'),
             'Physician Dashboard',
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
@@ -128,7 +128,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                   ),
                   icon: const PrimeIcon(LucideIcons.playCircle, size: 18),
                   onPressed: () => controller.performAction(),
-                  label: Text('Execute: Button 1'.tr()),
+                  label: PrimeText('Execute: Button 1'.tr()),
                 ),
               ),
               const SizedBox(height: 24),
@@ -151,7 +151,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'Operational Audit Logs',
                       style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
@@ -161,12 +161,12 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          PrimeText(
                             '• ',
                             style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
                           ),
                           Expanded(
-                            child: Text(
+                            child: PrimeText(
                               'System initialized & security sync complete.',
                               style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                             ),
@@ -185,7 +185,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
                         onPressed: () => controller.performAction(),
-                        child: Text(
+                        child: PrimeText(
                           'Execute Operational Audit Scan',
                           style: theme.typography.button.copyWith(color: Colors.white),
                         ),
@@ -197,7 +197,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
             ],
           ),
           loading: () => const Center(child: CircularProgressIndicator()),
-          error: (err, stack) => Center(child: Text('Error: $err')),
+          error: (err, stack) => Center(child: PrimeText('Error: $err')),
         ),
       ),
     );

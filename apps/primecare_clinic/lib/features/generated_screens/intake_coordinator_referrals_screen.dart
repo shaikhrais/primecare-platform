@@ -43,7 +43,7 @@ class IntakeCoordinatorReferralsScreen extends GovernedConsumerWidget {
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
-          title: Semantics(label: 'data-cy:intakecoordinatorreferrals-title', container: true, child: Container(child:  Text(
+          title: Semantics(label: 'data-cy:intakecoordinatorreferrals-title', container: true, child: Container(child:  PrimeText(
             key: const Key('intakecoordinatorreferrals-title'),
             title,
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
@@ -70,12 +70,12 @@ class IntakeCoordinatorReferralsScreen extends GovernedConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      PrimeText(
                         title,
                         style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                       ),
                       const SizedBox(height: 12),
-                      Text(
+                      PrimeText(
                         'Governed operational interface to monitor patient parameters, review compliance posture, and maintain Zero-Trust synchronization.',
                         style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                       ),

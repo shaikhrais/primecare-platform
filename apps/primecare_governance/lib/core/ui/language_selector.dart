@@ -25,7 +25,7 @@ class LanguageSelector extends ConsumerWidget {
           children: [
             PrimeIcon(Icons.language, size: 16, color: theme.colors.primary),
             const SizedBox(width: 4),
-            Text(
+            PrimeText(
               currentLang.toUpperCase(),
               style: theme.typography.labelMedium.copyWith(
                 fontWeight: FontWeight.bold,
@@ -48,6 +48,6 @@ class LanguageSelector extends ConsumerWidget {
   }
 
   PopupMenuItem<String> _buildItem(String code, String name) {
-    return PopupMenuItem(value: code, child: Text(name));
+    return PopupMenuItem(value: code, child: PrimeText(name));
   }
 }
