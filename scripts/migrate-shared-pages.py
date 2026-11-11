@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Migrate only plain Scaffold(appBar: AppBar(title: ...), body: ...) shells.
 
-No scaffold/app-bar keys, options, type references or part files qualify.
+Only literal local scaffold keys qualify; custom options, dynamic/GlobalKeys,
+app-bar keys, type references and part files remain unchanged.
 Bodies, title widgets, const parents and callback expressions remain unchanged.
 Dry-run by default; --path scopes writes, --add-imports permits narrow imports.
 """
@@ -52,8 +53,14 @@ def migrate(source, add_import=False):
             continue
         parts, end = parsed
         fields = named_arguments(code, parts)
-        if not fields or set(fields) != {'appBar', 'body'}:
+        if not fields or set(fields) not in ({'appBar', 'body'}, {'key', 'appBar', 'body'}):
             continue
+        key_edit = None
+        if 'key' in fields:
+            start, end, _, key_start, key_end = fields['key']
+            if not re.fullmatch(r"const\s+Key\(\s*(?:'[^'\n$]*'|\"[^\"\n$]*\")\s*\)", source[start:end].strip()):
+                continue
+            key_edit = (key_start, key_end, 'scaffoldKey')
         value_start, value_end, _, name_start, name_end = fields['appBar']
         appbar = re.match(r'\s*AppBar\s*\(', code[value_start:value_end])
         if not appbar:
@@ -76,6 +83,8 @@ def migrate(source, add_import=False):
         edits.extend([(call.start(), call.start() + len('Scaffold'), 'PrimePageScaffold'),
                       (name_start, name_end, 'title'),
                       (value_start, value_end, ' ' + source[begin:finish].strip())])
+        if key_edit:
+            edits.append(key_edit)
         count += 1
     for begin, end, replacement in sorted(edits, reverse=True):
         source = source[:begin] + replacement + source[end:]

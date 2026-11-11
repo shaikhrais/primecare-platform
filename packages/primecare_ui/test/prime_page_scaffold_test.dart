@@ -10,6 +10,21 @@ import 'package:primecare_ui/src/components/prime_icon.dart';
 import 'package:primecare_ui/src/components/prime_text.dart';
 
 void main() {
+  testWidgets('basic shell key identifies inner Scaffold and retains its state across theme changes', (tester) async {
+    Widget page(ThemeData theme) => MaterialApp(theme: theme, home: const PrimePageScaffold(
+      key: Key('wrapper'), scaffoldKey: Key('care-scaffold'),
+      title: PrimeText('Care'), body: TextField(key: Key('keyed-draft'))));
+    await tester.pumpWidget(page(ThemeData.light()));
+    expect(tester.widget(find.byKey(const Key('wrapper'))), isA<PrimePageScaffold>());
+    final state = tester.state<ScaffoldState>(find.byKey(const Key('care-scaffold')));
+    await tester.enterText(find.byKey(const Key('keyed-draft')), 'Retain notes');
+    await tester.pumpWidget(page(ThemeData.dark()));
+    await tester.pumpAndSettle();
+    expect(tester.state<ScaffoldState>(find.byKey(const Key('care-scaffold'))), same(state));
+    expect(find.text('Retain notes'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('shared workspace preserves keyed scaffold, header rendering and refresh', (tester) async {
     for (final preset in themeCenterPresetNames) {
       final theme = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Workspace', preset: preset));

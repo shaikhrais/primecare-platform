@@ -57,3 +57,25 @@ class PageMigrationTests(unittest.TestCase):
         result,count=m.migrate(source)
         self.assertEqual(count,1)
         self.assertEqual(m.b.text.boundary.violations(result,True),[])
+
+
+class KeyedPageMigrationTests(unittest.TestCase):
+    def test_literal_key_stays_on_inner_scaffold(self):
+        source = PREFIX + "Scaffold(key: const Key('care'), appBar: AppBar(title: heading), body: content);"
+        result, count = m.migrate(source)
+        self.assertEqual(count, 1)
+        self.assertEqual(result, PREFIX + "PrimePageScaffold(scaffoldKey: const Key('care'), title: heading, body: content);")
+        self.assertEqual(m.migrate(result), (result, 0))
+
+    def test_dynamic_global_value_and_interpolated_keys_stay(self):
+        for key in ['globalKey', 'const ValueKey(1)', "Key('care')", "const Key('$id')"]:
+            source = PREFIX + f'Scaffold(key: {key}, appBar: AppBar(title: heading), body: content);'
+            self.assertEqual(m.migrate(source), (source, 0))
+
+    def test_narrow_import_keyed_page_retains_callbacks(self):
+        source = "import 'package:flutter/material.dart';\nScaffold(key: const Key('care'), appBar: AppBar(title: heading), body: buildBody(() => save()));"
+        result, count = m.migrate(source, add_import=True)
+        self.assertEqual(count, 1)
+        self.assertIn(m.IMPORT, result)
+        self.assertIn('body: buildBody(() => save())', result)
+        self.assertEqual(m.migrate(result, add_import=True), (result, 0))
