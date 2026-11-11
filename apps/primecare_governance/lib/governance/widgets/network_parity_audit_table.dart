@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Network Parity Audit Table platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
 
@@ -23,11 +24,11 @@ class NetworkParityAuditTable extends ConsumerWidget {
             children: [
               Icon(Icons.check_circle_outline, color: Colors.green, size: 48),
               SizedBox(height: 16),
-              Text(
+              PrimeText(
                 'Zero-Error Platform Parity',
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Text(
+              PrimeText(
                 'All backend controllers and network endpoints are in 100% parity with the registry.',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey),
@@ -54,12 +55,12 @@ class NetworkParityAuditTable extends ConsumerWidget {
             ),
             columnSpacing: 24,
             columns: const [
-              DataColumn(label: Text('Subsystem')),
-              DataColumn(label: Text('Type')),
-              DataColumn(label: Text('Identity')),
-              DataColumn(label: Text('Message')),
-              DataColumn(label: Text('Recommendation')),
-              DataColumn(label: Text('Action')),
+              DataColumn(label: PrimeText('Subsystem')),
+              DataColumn(label: PrimeText('Type')),
+              DataColumn(label: PrimeText('Identity')),
+              DataColumn(label: PrimeText('Message')),
+              DataColumn(label: PrimeText('Recommendation')),
+              DataColumn(label: PrimeText('Action')),
             ],
             rows: issues.map((issue) {
               final metadata = issue.metadata;
@@ -76,7 +77,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                         color: Colors.blue.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
+                      child: PrimeText(
                         issue.subsystem.toUpperCase(),
                         style: const TextStyle(
                           color: Colors.blue,
@@ -93,7 +94,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                         color: color.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Text(
+                      child: PrimeText(
                         (metadata['type'] ?? 'drift').toString().replaceAll('_', ' ').toUpperCase(),
                         style: TextStyle(
                           color: color,
@@ -104,7 +105,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     ),
                   ),
                   DataCell(
-                    Text(
+                    PrimeText(
                       identity,
                       style: const TextStyle(
                         fontWeight: FontWeight.bold,
@@ -116,7 +117,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                   DataCell(
                     SizedBox(
                       width: 200,
-                      child: Text(
+                      child: PrimeText(
                         issue.issue,
                         style: const TextStyle(fontSize: 12),
                       ),
@@ -125,7 +126,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                   DataCell(
                     SizedBox(
                       width: 250,
-                      child: Text(
+                      child: PrimeText(
                         issue.suggestion,
                         style: const TextStyle(
                           fontSize: 12,

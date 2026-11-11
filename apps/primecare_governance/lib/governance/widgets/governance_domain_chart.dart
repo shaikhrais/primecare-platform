@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Domain Chart platform logic.
 import 'package:fl_chart/fl_chart.dart';
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
 
@@ -40,7 +41,7 @@ class GovernanceDomainChart extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          const PrimeText(
             'Issue Distribution by Category',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),

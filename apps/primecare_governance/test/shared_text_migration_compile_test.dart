@@ -230,6 +230,16 @@ import 'package:primecare_governance/core/ui/app_drawer.dart' as sharedIconDrawe
 import 'package:primecare_governance/core/ui/language_selector.dart' as sharedIconLanguage;
 import 'package:primecare_governance/features/system_governance/app_entry_form.dart' as sharedIconEntry;
 
+import 'package:primecare_governance/governance/widgets/governance_compliance_checklist.dart' as coreBarrelText1;
+import 'package:primecare_governance/governance/widgets/governance_dashboard.dart' as coreBarrelText2;
+import 'package:primecare_governance/governance/widgets/governance_domain_chart.dart' as coreBarrelText3;
+import 'package:primecare_governance/governance/widgets/governance_filter_bar.dart' as coreBarrelText4;
+import 'package:primecare_governance/governance/widgets/governance_issue_table.dart' as coreBarrelText5;
+import 'package:primecare_governance/governance/widgets/governance_patch_manager.dart' as coreBarrelText6;
+import 'package:primecare_governance/governance/widgets/network_parity_audit_table.dart' as coreBarrelText7;
+import 'package:primecare_governance/governance/widgets/platform_discovery_viewer.dart' as coreBarrelText8;
+import 'package:primecare_governance/governance/widgets/platform_readiness_viewer.dart' as coreBarrelText9;
+
 void main() {
   test('migrated consumer libraries compile', () {
     const migratedTypes = <Type>[
@@ -459,8 +469,17 @@ void main() {
       sharedIconDrawer.AppDrawer,
       sharedIconLanguage.LanguageSelector,
       sharedIconEntry.AppEntryForm,
+      coreBarrelText1.GovernanceComplianceChecklist,
+      coreBarrelText2.GovernanceDashboard,
+      coreBarrelText3.GovernanceDomainChart,
+      coreBarrelText4.GovernanceFilterBar,
+      coreBarrelText5.GovernanceIssueTable,
+      coreBarrelText6.GovernancePatchManager,
+      coreBarrelText7.NetworkParityAuditTable,
+      coreBarrelText8.PlatformDiscoveryViewer,
+      coreBarrelText9.PlatformReadinessViewer,
     ];
     expect(keyedIconRoutes.governanceNativeScreenRoutes, isNotEmpty);
-    expect(migratedTypes, hasLength(226));
+    expect(migratedTypes, hasLength(235));
   });
 }

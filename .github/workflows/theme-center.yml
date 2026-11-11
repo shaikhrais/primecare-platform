@@ -85,7 +85,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_franchise, primecare_governance, primecare_marketing, primecare_support]
+        app: [primecare_business_development, primecare_client, primecare_clinic, primecare_corporate, primecare_franchise, primecare_enterprise_blueprint, primecare_governance, primecare_marketing, primecare_support]
     steps:
       - uses: actions/checkout@v4
       - name: Prepare isolated historical governance test fixture

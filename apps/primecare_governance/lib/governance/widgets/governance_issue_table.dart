@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
 import 'package:url_launcher/url_launcher.dart';
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/services/platform_env_service.dart';
 import '../services/registry_patch_engine.dart';
@@ -29,15 +30,15 @@ class GovernanceIssueTable extends ConsumerWidget {
             ),
             columnSpacing: 24,
             columns: [
-              DataColumn(label: Text('governance.issueTable.severity'.tr())),
-              DataColumn(label: Text('governance.issueTable.category'.tr())),
-              DataColumn(label: Text('governance.issueTable.screen'.tr())),
-              DataColumn(label: Text('governance.issueTable.issue'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.severity'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.category'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.screen'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.issue'.tr())),
               DataColumn(
-                label: Text('governance.issueTable.suggestedFix'.tr()),
+                label: PrimeText('governance.issueTable.suggestedFix'.tr()),
               ),
-              DataColumn(label: Text('governance.issueTable.owner'.tr())),
-              DataColumn(label: Text('governance.issueTable.actions'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.owner'.tr())),
+              DataColumn(label: PrimeText('governance.issueTable.actions'.tr())),
             ],
             rows: issues
                 .map(
@@ -45,7 +46,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                     cells: [
                       DataCell(_buildSeverityBadge(issue.severity)),
                       DataCell(
-                        Text(
+                        PrimeText(
                           issue.category.name.toUpperCase(),
                           style: const TextStyle(
                             fontSize: 10,
@@ -58,14 +59,14 @@ class GovernanceIssueTable extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
+                            PrimeText(
                               issue.title,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 12,
                               ),
                             ),
-                            Text(
+                            PrimeText(
                               issue.routePath,
                               style: const TextStyle(
                                 fontSize: 10,
@@ -78,7 +79,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                       DataCell(
                         SizedBox(
                           width: 250,
-                          child: Text(
+                          child: PrimeText(
                             issue.issue,
                             style: const TextStyle(fontSize: 12),
                           ),
@@ -87,7 +88,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                       DataCell(
                         SizedBox(
                           width: 250,
-                          child: Text(
+                          child: PrimeText(
                             issue.suggestion,
                             style: const TextStyle(
                               fontSize: 12,
@@ -97,7 +98,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                         ),
                       ),
                       DataCell(
-                        Text(
+                        PrimeText(
                           issue.metadata['owner'] ?? 'Unassigned',
                           style: const TextStyle(fontSize: 12),
                         ),
@@ -138,7 +139,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                       SnackBar(
-                                        content: Text(
+                                        content: PrimeText(
                                           success
                                               ? 'governance.issueTable.fixSuccess'
                                                     .tr(
@@ -169,7 +170,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                               onPressed: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text(
+                                    content: PrimeText(
                                       'governance.issueTable.remediationInitiated'
                                           .tr(args: [issue.title]),
                                     ),
@@ -217,7 +218,7 @@ class GovernanceIssueTable extends ConsumerWidget {
         borderRadius: BorderRadius.circular(4),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
-      child: Text(
+      child: PrimeText(
         severity.name.toUpperCase(),
         style: TextStyle(
           color: color,
