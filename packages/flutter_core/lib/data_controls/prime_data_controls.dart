@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../original_assets.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';import 'package:flutter/semantics.dart';import '../component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,PrimeCatalogueAction;import 'data_controls_model.dart';import 'upload_task.dart';
@@ -165,7 +166,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
             child: l.identify(
               'sort',
               'prime_button',
-              TextButton(
+              PrimeTextButton(
                 onPressed: () {
                   model.sort(c.key);
                   refresh();
@@ -472,7 +473,7 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
    });
   });
   return Column(mainAxisSize:MainAxisSize.min,children:[
-   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',TextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:PrimeText('${i+1}')),suffix:'-block-$i')]),
+   Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',PrimeTextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:PrimeText('${i+1}')),suffix:'-block-$i')]),
    l.identify('editor','prime_textarea_web',TextField(controller:text,maxLines:5,maxLength:32768,decoration:InputDecoration(labelText:l.text('editor')),onChanged:(_){try{sync();setState(()=>editorStatus=null);}catch(_){setState(()=>editorStatus='invalid');}})),
    Wrap(children:[format('bold'),format('italic'),format('list')]),
    l.identify('link','prime_text_field',TextField(controller:link,decoration:InputDecoration(labelText:l.text('link')))),
@@ -486,7 +487,7 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
    if(linkStatus!=null)Semantics(liveRegion:true,child:PrimeText(l.text(linkStatus!))),
    l.identify('editorPreview','prime_card',Column(mainAxisSize:MainAxisSize.min,children:[for(final b in blocks)Column(mainAxisSize:MainAxisSize.min,children:[
     previewText(b),
-    if(b['link']!=null)widget.openLink==null?SelectableText(b['link'] as String):Semantics(link:true,child:TextButton(onPressed:linkBusy?null:()=>activateLink(b['link'] as String),child:PrimeText(b['link'] as String))),
+    if(b['link']!=null)widget.openLink==null?SelectableText(b['link'] as String):Semantics(link:true,child:PrimeTextButton(onPressed:linkBusy?null:()=>activateLink(b['link'] as String),child:PrimeText(b['link'] as String))),
     if(b['image'] is Map)widget.imageAllowed?.call((b['image'] as Map)['url'] as String)==true&&widget.imageBuilder!=null?widget.imageBuilder!((b['image'] as Map)['url'] as String,(b['image'] as Map)['alt'] as String):PrimeText((b['image'] as Map)['alt'] as String)
    ])]))
   ]);
@@ -507,7 +508,7 @@ class _PrimeUploadControlState extends State<PrimeUploadControl>{
  @override Widget build(BuildContext context){
   final l=widget.labels,kit=PrimeDataKit(l,widget.scope),canRemove=widget.removalPort!=null&&widget.receiptPort!=null;
   return Column(mainAxisSize:MainAxisSize.min,children:[
-   l.identify('upload','prime_text_field',TextButton(onPressed:widget.pick==null||['uploading','removing','remove-error'].contains(task.status)?null:()async{final g=++generation;try{final files=await widget.pick!();if(!mounted||g!=generation)return;task.choose(files);setState(()=>invalid=false);}catch(_){if(mounted&&g==generation)setState(()=>invalid=true);}},child:PrimeText(l.text('upload')))),
+   l.identify('upload','prime_text_field',PrimeTextButton(onPressed:widget.pick==null||['uploading','removing','remove-error'].contains(task.status)?null:()async{final g=++generation;try{final files=await widget.pick!();if(!mounted||g!=generation)return;task.choose(files);setState(()=>invalid=false);}catch(_){if(mounted&&g==generation)setState(()=>invalid=true);}},child:PrimeText(l.text('upload')))),
    for(var i=0;i<task.files.length;i++)Row(children:[Expanded(child:PrimeText(task.files[i].name)),kit.button('remove',()async=>task.removeSelection(i),suffix:'-selected-$i',disabled:task.status!='ready')]),
    kit.button('send',widget.port==null?null:()async{await task.send();if(task.status!='success')throw StateError('upload_not_acknowledged');},disabled:task.status!='ready'),
    kit.button('cancel',()async=>task.cancel(),disabled:task.status!='uploading'),

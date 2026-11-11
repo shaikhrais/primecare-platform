@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class DevToolbox extends ConsumerWidget {
               spacing: 8,
               runSpacing: 8,
               children: [
-                ElevatedButton.icon(
+                PrimeElevatedButton.icon(
                   onPressed: () {
                     final screen = ScreenRegistry.getById(
                       'VERIFICATION_CENTER',
@@ -67,14 +68,14 @@ class DevToolbox extends ConsumerWidget {
                   },
                   icon: const PrimeIcon(Icons.analytics_outlined, size: 18),
                   label: PrimeText('governance.devToolbox.systemVerify'.tr()),
-                  style: ElevatedButton.styleFrom(
+                  style: PrimeElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],
                     foregroundColor: Colors.white,
                   ),
                 ),
 
                 if (EnvConfig.environment == Environment.demo)
-                  TextButton.icon(
+                  PrimeTextButton.icon(
                     onPressed: () {
                       // Logic to clear demo session and go back to login
                       final screen = ScreenRegistry.getById('LOGIN');
@@ -84,7 +85,7 @@ class DevToolbox extends ConsumerWidget {
                     },
                     icon: const PrimeIcon(Icons.logout, size: 18),
                     label: PrimeText('governance.devToolbox.exitDemo'.tr()),
-                    style: TextButton.styleFrom(
+                    style: PrimeTextButton.styleFrom(
                       foregroundColor: Colors.red[700],
                     ),
                   ),

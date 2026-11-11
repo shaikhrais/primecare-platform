@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -103,16 +104,16 @@ class AuraActionManifest {
           style: GoogleFonts.inter(color: Colors.white70),
         ),
         actions: [
-          TextButton(
+          PrimeTextButton(
             onPressed: () => Navigator.pop(context),
             child: PrimeText(
               'DISMISS',
               style: GoogleFonts.inter(color: Colors.white38),
             ),
           ),
-          ElevatedButton(
+          PrimeElevatedButton(
             onPressed: () => Navigator.pop(context),
-            style: ElevatedButton.styleFrom(
+            style: PrimeElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF818CF8),
               foregroundColor: Colors.white,
               shape: RoundedRectangleBorder(

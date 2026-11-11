@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the App Entry Form platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:primecare_ui/primecare_ui.dart';
 
 class AppEntryForm extends StatefulWidget {
@@ -67,13 +68,13 @@ class _AppEntryFormState extends State<AppEntryForm> {
             ],
           ),
           const SizedBox(height: 32),
-          ElevatedButton(key: const Key('app_entry_form_elevatedbutton_button_1'), 
+          PrimeElevatedButton(key: const Key('app_entry_form_elevatedbutton_button_1'),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: PrimeText('Application ${_nameController.text} registered successfully under ${_status}!')),
               );
             },
-            style: ElevatedButton.styleFrom(
+            style: PrimeElevatedButton.styleFrom(
               backgroundColor: theme.colors.primary,
               foregroundColor: Colors.white,
               minimumSize: const Size(double.infinity, 50),

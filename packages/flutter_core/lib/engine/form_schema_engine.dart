@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Represents a generic field in the Schema Generic Form Schema Definition
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
@@ -58,7 +59,7 @@ class SchemaFormEngine<T> extends StatelessWidget {
           }
           return const SizedBox.shrink();
         }),
-        ElevatedButton(
+        PrimeElevatedButton(
           onPressed: () {
             onSave({});
           },

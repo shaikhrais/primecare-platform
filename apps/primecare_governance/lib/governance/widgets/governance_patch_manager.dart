@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Patch Manager platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:flutter/services.dart';
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -30,7 +31,7 @@ class GovernancePatchManager extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              ElevatedButton.icon(
+              PrimeElevatedButton.icon(
                 icon: const Icon(Icons.copy),
                 label: PrimeText('governance.patchManager.copyScript'.tr()),
                 onPressed: () {

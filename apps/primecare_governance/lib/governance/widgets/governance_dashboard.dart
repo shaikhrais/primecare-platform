@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/services.dart';
@@ -201,7 +202,7 @@ class _GovernanceDashboardContentState
                 children: [
                   if (governanceState.hasDrift ||
                       governanceState.brokenScreens > 0)
-                    OutlinedButton.icon(
+                    PrimeOutlinedButton.icon(
                       onPressed: governanceState.isSyncing
                           ? null
                           : () => ref
@@ -220,7 +221,7 @@ class _GovernanceDashboardContentState
                             )
                           : const Icon(Icons.auto_fix_high_rounded, size: 20),
                       label: PrimeText('governance.dashboard.auto_remediate'.tr()),
-                      style: OutlinedButton.styleFrom(
+                      style: PrimeOutlinedButton.styleFrom(
                         foregroundColor: Colors.blue,
                         side: const BorderSide(color: Colors.blue),
                       ),
@@ -287,11 +288,11 @@ class _GovernanceDashboardContentState
                       ),
                     ),
                   ),
-                  ElevatedButton.icon(
+                  PrimeElevatedButton.icon(
                     onPressed: _refreshReport,
                     icon: const Icon(Icons.refresh_rounded),
                     label: PrimeText('governance.dashboard.rescan'.tr()),
-                    style: ElevatedButton.styleFrom(
+                    style: PrimeElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(

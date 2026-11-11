@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 
@@ -63,14 +64,14 @@ class GovernanceFilterBar extends StatelessWidget {
           ),
 
           if (selectedSeverity != null || selectedCategory != null)
-            TextButton.icon(
+            PrimeTextButton.icon(
               onPressed: onClear,
               icon: const Icon(Icons.clear_all_rounded, size: 18),
               label: PrimeText(
                 'governance.filterBar.clearFilters'.tr(),
                 style: const TextStyle(fontSize: 12),
               ),
-              style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+              style: PrimeTextButton.styleFrom(foregroundColor: Colors.redAccent),
             ),
         ],
       ),

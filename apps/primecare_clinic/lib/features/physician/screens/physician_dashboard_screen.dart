@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:primecare_ui/primecare_ui.dart';
 import 'physician_dashboard_screen_controller.dart';
 
@@ -117,9 +118,9 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
               SizedBox(
                 width: double.infinity,
                 height: 48,
-                child: ElevatedButton.icon(
+                child: PrimeElevatedButton.icon(
                   key: const Key('physiciandashboard-btn-2'),
-                  style: ElevatedButton.styleFrom(
+                  style: PrimeElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primaryContainer,
                     foregroundColor: Colors.white,
                     elevation: 4,
@@ -178,9 +179,9 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       height: 48,
-                      child: ElevatedButton(
+                      child: PrimeElevatedButton(
                         key: const Key('physiciandashboard-btn-3'),
-                        style: ElevatedButton.styleFrom(
+                        style: PrimeElevatedButton.styleFrom(
                           backgroundColor: theme.colors.primary,
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         ),
