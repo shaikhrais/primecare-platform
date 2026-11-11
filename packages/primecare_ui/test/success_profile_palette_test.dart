@@ -28,6 +28,22 @@ void main() {
   expect(section.getPortalUrlForRole('governance'),'https://primecare-governance.pages.dev');
   expect(section.getPortalUrlForRole('unknown'),'/login');
  });
+ testWidgets('actual portal cards retain role gating at narrow widths and 3x text', (tester) async {
+  tester.view.physicalSize=const Size(1800,3000);tester.view.devicePixelRatio=1;
+  addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
+  for(final width in [320.0,600.0,1600.0])for(final scale in [1.0,2.0,3.0])for(final role in ['admin','client']) {
+   final auth=ProfilePaletteAuth(role);
+   await tester.pumpWidget(ProviderScope(key:ValueKey('$width/$scale/$role'),overrides:[authProvider.overrideWith(()=>auth)],
+    child:PrimeTheme(data:const PrimeThemeData(),bootstrap:false,child:localized(Scaffold(
+     body:MediaQuery(data:MediaQueryData(textScaler:TextScaler.linear(scale)),child:SingleChildScrollView(
+      child:SizedBox(width:width,child:const SuccessProfileActionBarSection()))))))));
+   await tester.pumpAndSettle();
+   final tiles=tester.widgetList<InkWell>(find.byType(InkWell)).toList();
+   expect(tiles,hasLength(8));expect(tiles.where((w)=>w.onTap!=null),hasLength(role=='admin' ? 8:1));
+   expect(find.byIcon(LucideIcons.lock),findsNWidgets(role=='admin' ? 0:7));
+   expect(tester.takeException(),isNull,reason:'$width/$scale/$role');
+  }
+ });
  testWidgets('all four actual sections retain theme, access gating and logout behavior', (tester) async {
   tester.view.physicalSize=const Size(1800,2000);tester.view.devicePixelRatio=1;
   addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
@@ -55,6 +71,14 @@ void main() {
        expect(tiles,hasLength(8));
        expect(tiles.where((w)=>w.onTap!=null),hasLength(role=='admin' ? 8:1));
        expect(find.byIcon(LucideIcons.lock),findsNWidgets(role=='admin' ? 0:7));
+       if(role=='admin') {
+        for(final tile in find.byType(InkWell).evaluate()) {
+         for(final text in find.descendant(of:find.byWidget(tile.widget),matching:find.byType(Text)).evaluate()) {
+          final style=(text.widget as Text).style;
+          if(style?.color!=null)expect(themeContrastRatio(style!.color!,PrimeActionPalette.of(text,PrimeActionTone.primary).accent),greaterThanOrEqualTo(4.5));
+         }
+        }
+       }
       }
       if(index==1) {
        expect(find.text('Test Person'),findsOneWidget);

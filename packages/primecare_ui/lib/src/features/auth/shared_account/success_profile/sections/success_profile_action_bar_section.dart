@@ -130,18 +130,11 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
       },
     ];
 
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-        maxCrossAxisExtent: 400,
-        mainAxisSpacing: 24,
-        crossAxisSpacing: 24,
-        childAspectRatio: 1.35,
-      ),
-      itemCount: portalApps.length,
-      itemBuilder: (context, index) {
-        final app = portalApps[index];
+    return PrimeContentGrid(
+      maxCrossAxisExtent: 400,
+      spacing: 24,
+      runSpacing: 24,
+      children: [for (final app in portalApps) Builder(builder: (context) {
         final name = app['name'] as String;
         final url = app['url'] as String;
         final icon = app['icon'] as IconData;
@@ -212,14 +205,14 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                               ),
                               child: Icon(
                                 LucideIcons.lock,
-                                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                 size: 14,
                               ),
                             )
                           else
                             Icon(
                               LucideIcons.arrowRight,
-                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                               size: 18,
                             ),
                         ],
@@ -229,21 +222,19 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                         name,
                         style: theme.typography.h3.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                         ),
                       ),
                       const SizedBox(height: 8),
-                      Expanded(
-                        child: Text(
-                          description,
-                          style: theme.typography.bodyMedium.copyWith(
-                            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
-                            fontSize: 12,
-                            height: 1.4,
-                          ),
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
+                      Text(
+                        description,
+                        style: theme.typography.bodyMedium.copyWith(
+                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
+                          fontSize: 12,
+                          height: 1.4,
                         ),
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
@@ -252,7 +243,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
             ),
           ),
         );
-      },
+      })],
     );
   }
 }

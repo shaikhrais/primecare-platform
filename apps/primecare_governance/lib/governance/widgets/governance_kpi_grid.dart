@@ -10,13 +10,10 @@ class GovernanceKPIGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.extent(
+    return PrimeContentGrid(
       maxCrossAxisExtent: 320,
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisSpacing: 16,
-      mainAxisSpacing: 16,
-      mainAxisExtent: 110 * MediaQuery.textScalerOf(context).scale(1),
+      spacing: 16,
+      runSpacing: 16,
       children: [
         _buildKPI(
           context,
