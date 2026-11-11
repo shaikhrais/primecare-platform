@@ -969,15 +969,7 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'risk-register-btn-add',
-                        child: ElevatedButton(
-                          key: const Key('risk-register-btn-add'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Risk Register Btn Add executed successfully.'),
-                          child: PrimeText('Risk Register Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('risk-register-btn-add'), label: 'Risk Register Btn Add'.tr(), onPressed:  () => controller.addLog('Action: Risk Register Btn Add executed successfully.')),
                       ),
                     ),
                   ),
@@ -989,15 +981,7 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'risk-register-btn-export',
-                        child: ElevatedButton(
-                          key: const Key('risk-register-btn-export'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Risk Register Btn Export executed successfully.'),
-                          child: PrimeText('Risk Register Btn Export'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('risk-register-btn-export'), label: 'Risk Register Btn Export'.tr(), onPressed:  () => controller.addLog('Action: Risk Register Btn Export executed successfully.')),
                       ),
                     ),
                   ),
