@@ -412,31 +412,15 @@ class OperationsManagerServiceQualityScreen extends GovernedConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
-                          key: const Key('sim-btn-loading'),
-                          onPressed: () => controller.toggleLoading(),
-                          child: PrimeText('Load'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-error'),
-                          onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: PrimeText('Error'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
+                        PrimeButton(key:  const Key('sim-btn-loading'), isGhost: true, label: 'Load'.tr(), onPressed:  () => controller.toggleLoading()),
+                        PrimeButton(key:  const Key('sim-btn-error'), isGhost: true, label: 'Error'.tr(), onPressed:  () => controller.toggleError('Simulated network failure')),
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
-                          key: const Key('sim-btn-empty'),
-                          onPressed: () => controller.toggleEmpty(),
-                          child: PrimeText('Empty'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-success'),
-                          onPressed: () => controller.toggleSuccess(),
-                          child: PrimeText('Success'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
+                        PrimeButton(key:  const Key('sim-btn-empty'), isGhost: true, label: 'Empty'.tr(), onPressed:  () => controller.toggleEmpty()),
+                        PrimeButton(key:  const Key('sim-btn-success'), isGhost: true, label: 'Success'.tr(), onPressed:  () => controller.toggleSuccess()),
                       ],
                     ),
                   ],
