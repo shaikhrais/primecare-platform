@@ -1,0 +1,722 @@
+[
+  {
+    "path": "apps/primecare_clinic/lib/features/physician/screens/physician_dashboard_screen.dart",
+    "sha256": "6913fe132956d19b30288dc1097ebfbb75b6bcbf2b5829ca3ceb86168ed4e65a",
+    "calls": 1,
+    "counts": {
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 1849,
+        "end": 1859,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_enterprise_blueprint/lib/main.dart",
+    "sha256": "e5d954c962fee46d6303a796210b820edd408eb96d5a1b7a9b767604b2615b1b",
+    "calls": 3,
+    "counts": {
+      "Icon": 2,
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 166,
+        "end": 166,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;\n"
+      },
+      {
+        "begin": 3464,
+        "end": 3474,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 3523,
+        "end": 3527,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 5022,
+        "end": 5026,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+    "sha256": "6103ec1e3f413d78f07536187d098ce919b691d090b93dff8a53c2e1422d1052",
+    "calls": 1,
+    "counts": {
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 128,
+        "end": 128,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 8342,
+        "end": 8352,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
+    "sha256": "2db13d85e312f786f3abb6d4b4c3318ca09b057487646f3895cdf66b5f8ded5e",
+    "calls": 2,
+    "counts": {
+      "IconButton": 2
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 111,
+        "end": 111,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 4919,
+        "end": 4929,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 4979,
+        "end": 4980,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 13270,
+        "end": 13280,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 13330,
+        "end": 13331,
+        "old": " ",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_compliance_checklist.dart",
+    "sha256": "e4bb96aa9bc70e6ef61a2371bbbe7ae86d0866aab57a6051a8e0d7b30a0f8aef",
+    "calls": 1,
+    "counts": {
+      "Icon": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 153,
+        "end": 153,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 2543,
+        "end": 2547,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
+    "sha256": "565828fd1f3eb0ebe3274ea7e983ccc09a3930a058225c70d142d98b5abc49b3",
+    "calls": 5,
+    "counts": {
+      "Icon": 5
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 118,
+        "end": 118,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 7528,
+        "end": 7532,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 9941,
+        "end": 9945,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 10689,
+        "end": 10693,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 15419,
+        "end": 15423,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 17735,
+        "end": 17739,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_filter_bar.dart",
+    "sha256": "96c799a5a81024579867622cb43f976193a10a92ba974941d5ff4154451123d4",
+    "calls": 3,
+    "counts": {
+      "Icon": 3
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 113,
+        "end": 113,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 1290,
+        "end": 1294,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 2362,
+        "end": 2366,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 4057,
+        "end": 4061,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_issue_table.dart",
+    "sha256": "2bef1c5e698ff5a2d63e4e25260ca3b5c743e414f760b27d8af93048a759be91",
+    "calls": 6,
+    "counts": {
+      "Icon": 3,
+      "IconButton": 3
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 114,
+        "end": 114,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;\n"
+      },
+      {
+        "begin": 4644,
+        "end": 4654,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 4716,
+        "end": 4717,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 4762,
+        "end": 4766,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 5400,
+        "end": 5410,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 5472,
+        "end": 5473,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 5518,
+        "end": 5522,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 7701,
+        "end": 7711,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 7773,
+        "end": 7774,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 7817,
+        "end": 7821,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_patch_manager.dart",
+    "sha256": "7ed43d7f723af28a30c84ffad16be709379c0b1a1572e2284a61a230da1182ac",
+    "calls": 2,
+    "counts": {
+      "Icon": 2
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 116,
+        "end": 116,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 943,
+        "end": 947,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 1362,
+        "end": 1366,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/network_parity_audit_table.dart",
+    "sha256": "26c04d51773325d0097309889a125323b4a4b7aa95a7b2e1389a93274d27cc80",
+    "calls": 3,
+    "counts": {
+      "Icon": 2,
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 118,
+        "end": 118,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;\n"
+      },
+      {
+        "begin": 971,
+        "end": 975,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 5517,
+        "end": 5527,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 5593,
+        "end": 5594,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 5623,
+        "end": 5627,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_discovery_viewer.dart",
+    "sha256": "cb5fa7613356047dfb4c9c29f4ba89b27dd27ea6dc9b3ea4557a7cf3e4241a57",
+    "calls": 1,
+    "counts": {
+      "Icon": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 1037,
+        "end": 1041,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_readiness_viewer.dart",
+    "sha256": "b3ce53c1d7b0c39619f7ae07d114fdb6947d79fb92ef3bbf12ff863319806309",
+    "calls": 1,
+    "counts": {
+      "Icon": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 1564,
+        "end": 1568,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+    "sha256": "cfe121310352794e8ff7264086be66114412c6a68ea48f2f3603fc210c250719",
+    "calls": 2,
+    "counts": {
+      "IconButton": 2
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 2535,
+        "end": 2545,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 15953,
+        "end": 15963,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "sha256": "728c94929afd6e11c7e687ac7328c5d4dc064184a0c22977c348b5ca7ecf3be1",
+    "calls": 1,
+    "counts": {
+      "Icon": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 194,
+        "end": 194,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;\n"
+      },
+      {
+        "begin": 3222,
+        "end": 3226,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "sha256": "8d7bc1525b20d5bb485f4e3e3ce8772fdfbc19c59eddb3bbdb5fee5710ec825b",
+    "calls": 4,
+    "counts": {
+      "IconButton": 4
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 13979,
+        "end": 13989,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 15023,
+        "end": 15033,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 15288,
+        "end": 15298,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 16684,
+        "end": 16694,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+    "sha256": "3f36d466eb6ba8d3740aaa6ed9c71275c2ece16ca4eac84c18198d81f127fd56",
+    "calls": 1,
+    "counts": {
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 6390,
+        "end": 6400,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "sha256": "704fee992e511c84519fbd029d539fc03361ee1da35067bce84b56cbb2af7e06",
+    "calls": 2,
+    "counts": {
+      "IconButton": 2
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 19841,
+        "end": 19851,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 37195,
+        "end": 37205,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "sha256": "296ca5ffab6b6c43f769f095d6a6a883e90725d7bcb4e13a7438fa6aab81d2b5",
+    "calls": 1,
+    "counts": {
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 1971,
+        "end": 1981,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "986056d952a5c321a40ad79bb8cb7d7b7b611febeb1af77b472b58f534b30cde",
+    "calls": 3,
+    "counts": {
+      "Icon": 2,
+      "IconButton": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 439,
+        "end": 439,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon, PrimeIconButton;\n"
+      },
+      {
+        "begin": 2710,
+        "end": 2720,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 2744,
+        "end": 2748,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      },
+      {
+        "begin": 5923,
+        "end": 5927,
+        "old": "Icon",
+        "new": "PrimeIcon"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/widgets/clinical_article_detail_dialog.dart",
+    "sha256": "6faa6f4a961add52a181e7721e8952c6a686e272c360bc7f036713d5e94747fb",
+    "calls": 2,
+    "counts": {
+      "IconButton": 2
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 122,
+        "end": 122,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;\n"
+      },
+      {
+        "begin": 915,
+        "end": 925,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      },
+      {
+        "begin": 1081,
+        "end": 1091,
+        "old": "IconButton",
+        "new": "PrimeIconButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/widgets/clinical_term_highlighter.dart",
+    "sha256": "e8675aa96586f67f015fe1250a814f9c56eced9bc966b4c693b8d454352cfa7f",
+    "calls": 4,
+    "counts": {
+      "Text": 3,
+      "RichText": 1
+    },
+    "parts": [
+      {
+        "path": "packages/flutter_core/lib/widgets/clinical_term_highlighter.g.dart",
+        "sha256": "e011fbe8f0d9ab670a07aec98d2cfd73194546df36ddbbd13d8bf1f6da288e9e"
+      }
+    ],
+    "edits": [
+      {
+        "begin": 117,
+        "end": 117,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeRichText, PrimeText;\n"
+      },
+      {
+        "begin": 1046,
+        "end": 1050,
+        "old": "Text",
+        "new": "PrimeText"
+      },
+      {
+        "begin": 2385,
+        "end": 2393,
+        "old": "RichText",
+        "new": "PrimeRichText"
+      },
+      {
+        "begin": 2511,
+        "end": 2515,
+        "old": "Text",
+        "new": "PrimeText"
+      },
+      {
+        "begin": 2583,
+        "end": 2587,
+        "old": "Text",
+        "new": "PrimeText"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+    "sha256": "fbf5127eefd16b74268a447ce8d21619618efe0aeac90fc312c0e57369ef19fb",
+    "calls": 1,
+    "counts": {
+      "Text": 1
+    },
+    "parts": [],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;\n"
+      },
+      {
+        "begin": 4433,
+        "end": 4437,
+        "old": "Text",
+        "new": "PrimeText"
+      }
+    ]
+  }
+]

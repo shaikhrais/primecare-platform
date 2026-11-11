@@ -101,6 +101,27 @@ class SharedUiBoundaryTest(unittest.TestCase):
                             'OutlinedButton.styleFrom(); Scaffold(); Colors.red;')
             self.assertEqual([f[3] for f in boundary.scan(root)], ['Scaffold', 'Colors.red'])
 
+    def test_extended_primitive_implementations_are_exact_and_color_strict(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            for filename, source in [('prime_icon_button.dart', 'IconButton(icon: icon); Text(label); Colors.red;'),
+                                     ('prime_rich_text.dart', 'RichText(text: span); Icon(icon); Colors.blue;')]:
+                path=root/'packages/primecare_ui_foundation/lib/src'/filename
+                path.parent.mkdir(parents=True,exist_ok=True);path.write_text(source)
+            self.assertEqual([f[3] for f in boundary.scan(root)], ['Text', 'Colors.red', 'Icon', 'Colors.blue'])
+
+    def test_real_pdf_namespace_is_distinct_from_material_and_shadowed_names(self):
+        prefix = "import 'package:pdf/widgets.dart' as pw;\n"
+        source = prefix+'pw.Text("Report"); typedef PdfText = pw.Text; Icon(Icons.menu); Colors.red;'
+        self.assertEqual([f[2] for f in boundary.violations(source,True)], ['Icon','Colors.red'])
+        for source in ["import 'package:flutter/material.dart' as pw; pw.Text('UI');",
+                       '// '+prefix+"pw.Text('UI');",
+                       prefix+"final pw = service; pw.Text('UI');",
+                       prefix+"Widget f(Object pw) => pw.Text('UI');",
+                       prefix+"material.Text('UI');",
+                       prefix+"part 'shadow.dart'; pw.Text('UI');"]:
+            self.assertIn('Text',[f[2] for f in boundary.violations(source,True)])
+
     def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

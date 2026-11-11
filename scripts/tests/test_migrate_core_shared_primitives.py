@@ -8,6 +8,9 @@ import subprocess
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
+history_spec=importlib.util.spec_from_file_location('history',ROOT/'scripts/reviewed_migration_history.py')
+history=importlib.util.module_from_spec(history_spec);history_spec.loader.exec_module(history)
+
 spec = importlib.util.spec_from_file_location('core_migration', ROOT/'scripts/migrate-core-shared-primitives.py')
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
@@ -24,6 +27,7 @@ def original_source(source):
 
 
 def before_later_button_migration(source, path):
+    source=history.before_control_extensions(source,path)
     manifest = ROOT/'scripts/shared-button-families-manifest.json'
     if not manifest.exists():
         return source

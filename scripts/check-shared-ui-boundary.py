@@ -91,6 +91,8 @@ TEAR_OFF = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*\.\
 COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\(|Colors\s*\.\s*\w+)')
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
 CONTROL_IMPLEMENTATIONS = {
+    'packages/primecare_ui_foundation/lib/src/prime_icon_button.dart': ('IconButton',),
+    'packages/primecare_ui_foundation/lib/src/prime_rich_text.dart': ('RichText',),
     'packages/primecare_ui_foundation/lib/src/prime_text.dart': ('Text',),
     'packages/primecare_ui_foundation/lib/src/prime_icon.dart': ('Icon',),
     'packages/primecare_ui_foundation/lib/src/prime_material_buttons.dart':
@@ -99,15 +101,37 @@ CONTROL_IMPLEMENTATIONS = {
 THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_core/lib/theme/')
 
 
+def pdf_widget_aliases(source, code):
+    if re.search(r'\bpart\b',code):
+        return set()
+    aliases=set()
+    pattern=re.compile(r"\bimport\s+(['\"])package:pdf/widgets\.dart\1\s+as\s+(\w+)\s*;")
+    for match in pattern.finditer(source):
+        if not code[match.start():].startswith('import'):
+            continue
+        alias=match[2]
+        # A declaration/parameter shadowing the namespace makes ownership
+        # ambiguous. Only the actual import and qualified uses may occur.
+        if all(match.start()<=token.start()<match.end() or
+               re.match(r'\s*\.',code[token.end():])
+               for token in re.finditer(r'\b'+re.escape(alias)+r'\b',code)):
+            aliases.add(alias)
+    return aliases
+
+
 def violations(source, application):
     code = executable_code(source)
-    findings = [(m.start(), 'shared-control', m[1]) for m in DIRECT.finditer(code)] if application else []
+    pdf_aliases=pdf_widget_aliases(source,code) if application else set()
+    def is_pdf(position):
+        prefix=re.search(r'(\w+)\s*\.\s*$',code[:position])
+        return bool(prefix and prefix[1] in pdf_aliases)
+    findings = [(m.start(), 'shared-control', m[1]) for m in DIRECT.finditer(code) if not is_pdf(m.start())] if application else []
     if application:
-        findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code)]
+        findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code) if not is_pdf(m.start())]
     findings += [(m.start(), 'theme-color', m[0]) for m in COLOR.finditer(code)]
     for match in ALIASES.finditer(code):
         symbol = match[1]
-        if symbol == 'Color' or application and symbol in CONTROLS:
+        if symbol == 'Color' or application and symbol in CONTROLS and not is_pdf(match.start(1)):
             findings.append((match.start(1), 'theme-color' if symbol == 'Color' else 'shared-control', symbol))
     return [(source.count('\n', 0, pos) + 1, rule, symbol) for pos, rule, symbol in sorted(findings)]
 

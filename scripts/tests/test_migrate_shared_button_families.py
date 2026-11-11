@@ -5,6 +5,9 @@ import re
 import unittest
 
 ROOT=Path(__file__).resolve().parents[2]
+history_spec=importlib.util.spec_from_file_location('history',ROOT/'scripts/reviewed_migration_history.py')
+history=importlib.util.module_from_spec(history_spec);history_spec.loader.exec_module(history)
+
 s=importlib.util.spec_from_file_location('buttons',ROOT/'scripts/migrate-shared-button-families.py')
 m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 s=importlib.util.spec_from_file_location('previous',ROOT/'scripts/tests/test_migrate_clinical_semantic_palette.py')
@@ -19,7 +22,7 @@ class SharedButtonFamiliesTest(unittest.TestCase):
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),75)
         self.assertEqual(sum(r['findings'] for r in m.MANIFEST),67)
         for row in m.MANIFEST:
-            current=(ROOT/row['path']).read_text();original=old.reverse(current,row)
+            current=history.before_control_extensions((ROOT/row['path']).read_text(),row['path']);original=old.reverse(current,row)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'],row['path'])
             self.assertEqual(m.migrate(original),(current,row['calls']))
             self.assertEqual(m.migrate(current),(current,0))
@@ -32,7 +35,7 @@ class SharedButtonFamiliesTest(unittest.TestCase):
 
     def test_edited_sources_rejected(self):
         for row in m.MANIFEST:
-            original=old.reverse((ROOT/row['path']).read_text(),row)
+            original=old.reverse(history.before_control_extensions((ROOT/row['path']).read_text(),row['path']),row)
             for changed in [original+'\n',original+'\nclass PrimeTextButton {}\n']:
                 self.assertEqual(m.migrate(changed),(changed,0))
 

@@ -9,6 +9,7 @@ class PrimeText extends StatelessWidget {
   final TextAlign? textAlign;
   final int? maxLines;
   final TextOverflow? overflow;
+  final String? semanticsLabel;
 
   const PrimeText(this.data, {
     super.key,
@@ -16,6 +17,7 @@ class PrimeText extends StatelessWidget {
     this.textAlign,
     this.maxLines,
     this.overflow,
+    this.semanticsLabel,
   });
 
   @override
@@ -25,6 +27,7 @@ class PrimeText extends StatelessWidget {
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,
+      semanticsLabel: semanticsLabel,
     );
   }
 }
