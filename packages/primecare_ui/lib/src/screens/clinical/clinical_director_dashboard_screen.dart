@@ -386,7 +386,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
               trendLabel: state.activeOutbreaks == 0 ? 'Optimal' : 'Active Quarantine',
               progress: state.activeOutbreaks == 0 ? 1.0 : 0.0,
               icon: LucideIcons.shieldAlert,
-              brandColor: state.activeOutbreaks == 0 ? const Color(0xFF16A34A) : const Color(0xFFB91C1C),
+              brandColor: state.activeOutbreaks == 0 ?  PrimeActionPalette.of(context, PrimeActionTone.success).onBase :  PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
             ),
             GovMetricCard(
               title: 'Falls Today'.tr(),
@@ -394,7 +394,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
               trendLabel: state.fallsToday == 0 ? 'No falls' : 'Requires Review',
               progress: state.fallsToday == 0 ? 1.0 : 0.3,
               icon: LucideIcons.alertTriangle,
-              brandColor: state.fallsToday == 0 ? const Color(0xFF16A34A) : const Color(0xFFEAB308),
+              brandColor: state.fallsToday == 0 ?  PrimeActionPalette.of(context, PrimeActionTone.success).onBase :  PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
             ),
           ],
           mainContent: Column(
@@ -474,13 +474,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                 color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(theme.radiusMd),
                 border: Border.all(color: theme.colors.border),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.03),
-                    blurRadius: 10,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
+                boxShadow: context.theme.shadowsSurface1,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -524,18 +518,18 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                           ? null
                           : () => controller.runComplianceScan(),
                       child: state.isLoading
-                          ? const SizedBox(
+                          ?  SizedBox(
                               height: 20,
                               width: 20,
                               child: CircularProgressIndicator(
                                 key: Key('clinicaldirectordashboard-loading'),
                                 strokeWidth: 2,
-                                valueColor: AlwaysStoppedAnimation(Colors.white),
+                                valueColor: AlwaysStoppedAnimation(PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
                               ),
                             )
                           : Text(
                               'Execute Incident Audit Scan'.tr(),
-                              style: theme.typography.button.copyWith(color: Colors.white),
+                              style: theme.typography.button.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
                             ),
                     ),
                   ),
@@ -574,7 +568,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
         child: Text(
           label.tr(),
           style: theme.typography.labelBold.copyWith(
-            color: isActive ? Colors.white : theme.colors.onSurface,
+            color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent : theme.colors.onSurface,
             fontSize: 13,
           ),
         ),
@@ -775,12 +769,12 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                              color: const Color(0xFFFEE2E2),
+                              color:  PrimeActionPalette.of(context, PrimeActionTone.error).surface,
                               borderRadius: BorderRadius.circular(100),
                             ),
                             child: Text(
                               (resident['status'] as String? ?? '').toUpperCase().tr(),
-                              style: const TextStyle(color: Color(0xFFB91C1C), fontWeight: FontWeight.bold, fontSize: 9),
+                              style:  TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onSurface, fontWeight: FontWeight.bold, fontSize: 9),
                             ),
                           ),
                         ],
@@ -818,13 +812,13 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: isWarning ? const Color(0xFFFEF3C7) : const Color(0xFFDCFCE7),
+                color: isWarning ?  PrimeActionPalette.of(context, PrimeActionTone.warning).surface :  PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                 borderRadius: BorderRadius.circular(100),
               ),
               child: Text(
                 status.toUpperCase().tr(),
                 style: TextStyle(
-                  color: isWarning ? const Color(0xFFB45309) : const Color(0xFF15803D),
+                  color: isWarning ?  PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface :  PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
                   fontWeight: FontWeight.bold,
                   fontSize: 10,
                 ),
@@ -904,7 +898,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                           child: LinearProgressIndicator(
                             value: load / 100.0,
                             backgroundColor: theme.colors.border,
-                            color: isOverload ? const Color(0xFFB91C1C) : theme.colors.primary,
+                            color: isOverload ?  PrimeActionPalette.of(context, PrimeActionTone.error).onBase : theme.colors.primary,
                             minHeight: 8,
                           ),
                         ),
@@ -912,9 +906,9 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              const Icon(LucideIcons.alertTriangle, color: Color(0xFFB91C1C), size: 14),
+                               Icon(LucideIcons.alertTriangle, color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase, size: 14),
                               const SizedBox(width: 6),
-                              Text('Burnout warning: High schedule load or missed breaks.'.tr(), style: const TextStyle(color: Color(0xFFB91C1C), fontSize: 11)),
+                              Text('Burnout warning: High schedule load or missed breaks.'.tr(), style:  TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase, fontSize: 11)),
                             ],
                           ),
                         ],
@@ -1068,7 +1062,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
         Row(
           children: [
             Expanded(
-              child: _buildFinancialSummaryCard(context, title: 'Operating Margin', value: '${state.profitMargin.toStringAsFixed(1)}%', icon: LucideIcons.percent, color: const Color(0xFF16A34A)),
+              child: _buildFinancialSummaryCard(context, title: 'Operating Margin', value: '${state.profitMargin.toStringAsFixed(1)}%', icon: LucideIcons.percent, color:  PrimeActionPalette.of(context, PrimeActionTone.success).accent),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -1076,7 +1070,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: _buildFinancialSummaryCard(context, title: 'Outstanding Claims', value: '\$${state.outstandingPayments.toStringAsFixed(2)}', icon: LucideIcons.receipt, color: const Color(0xFFEAB308)),
+              child: _buildFinancialSummaryCard(context, title: 'Outstanding Claims', value: '\$${state.outstandingPayments.toStringAsFixed(2)}', icon: LucideIcons.receipt, color:  PrimeActionPalette.of(context, PrimeActionTone.warning).accent),
             ),
           ],
         ),
@@ -1185,16 +1179,16 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                     child: Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: isLow ? const Color(0xFFFEF3C7) : theme.colors.background,
+                        color: isLow ?  PrimeActionPalette.of(context, PrimeActionTone.warning).surface : theme.colors.background,
                         borderRadius: BorderRadius.circular(theme.radiusSm),
-                        border: Border.all(color: isLow ? const Color(0xFFFDE68A) : theme.colors.border),
+                        border: Border.all(color: isLow ?  PrimeActionPalette.of(context, PrimeActionTone.warning).border : theme.colors.border),
                       ),
                       child: Row(
                         children: [
-                          Icon(isLow ? LucideIcons.alertTriangle : LucideIcons.packageCheck, color: isLow ? const Color(0xFFB45309) : const Color(0xFF15803D), size: 20),
+                          Icon(isLow ? LucideIcons.alertTriangle : LucideIcons.packageCheck, color: isLow ?  PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface :  PrimeActionPalette.of(context, PrimeActionTone.success).onSurface, size: 20),
                           const SizedBox(width: 12),
                           Expanded(child: Text(name.tr(), style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold))),
-                          Text(level.tr(), style: theme.typography.bodySmall.copyWith(color: isLow ? const Color(0xFFB45309) : const Color(0xFF15803D), fontWeight: FontWeight.bold)),
+                          Text(level.tr(), style: theme.typography.bodySmall.copyWith(color: isLow ?  PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface :  PrimeActionPalette.of(context, PrimeActionTone.success).onSurface, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     ),
@@ -1242,20 +1236,20 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
                   final message = flag['message'] as String? ?? '';
                   final type = flag['type'] as String? ?? '';
 
-                  Color tintColor = const Color(0xFF2563EB);
-                  Color bgTint = const Color(0xFFEFF6FF);
-                  Color borderTint = const Color(0xFFBFDBFE);
+                  Color tintColor =  PrimeActionPalette.of(context, PrimeActionTone.primary).onBase;
+                  Color bgTint =  PrimeActionPalette.of(context, PrimeActionTone.primary).surface;
+                  Color borderTint =  PrimeActionPalette.of(context, PrimeActionTone.primary).border;
                   IconData icon = LucideIcons.info;
 
                   if (level == 'danger') {
-                    tintColor = const Color(0xFFB91C1C);
-                    bgTint = const Color(0xFFFEE2E2);
-                    borderTint = const Color(0xFFFECACA);
+                    tintColor =  PrimeActionPalette.of(context, PrimeActionTone.error).onBase;
+                    bgTint =  PrimeActionPalette.of(context, PrimeActionTone.error).surface;
+                    borderTint =  PrimeActionPalette.of(context, PrimeActionTone.error).border;
                     icon = LucideIcons.xCircle;
                   } else if (level == 'warning') {
-                    tintColor = const Color(0xFFB45309);
-                    bgTint = const Color(0xFFFEF3C7);
-                    borderTint = const Color(0xFFFDE68A);
+                    tintColor =  PrimeActionPalette.of(context, PrimeActionTone.warning).onBase;
+                    bgTint =  PrimeActionPalette.of(context, PrimeActionTone.warning).surface;
+                    borderTint =  PrimeActionPalette.of(context, PrimeActionTone.warning).border;
                     icon = LucideIcons.alertTriangle;
                   }
 
@@ -1329,7 +1323,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
               title: Row(
                 children: [
-                  const Icon(LucideIcons.alertTriangle, color: Color(0xFFDC2626), size: 28),
+                   Icon(LucideIcons.alertTriangle, color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase, size: 28),
                   const SizedBox(width: 10),
                   Text('Trigger Safety Code'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
                 ],
@@ -1402,8 +1396,8 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFDC2626),
-                    foregroundColor: Colors.white,
+                    backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.error).accent,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {
@@ -1411,7 +1405,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                     Navigator.pop(dialogContext);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: const Color(0xFFDC2626),
+                        backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.error).accent,
                         content: Text('Clinical dashboard actions are unavailable.'.tr()),
                       ),
                     );
@@ -1443,7 +1437,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
               title: Row(
                 children: [
-                  const Icon(LucideIcons.fileSpreadsheet, color: Color(0xFFDC2626), size: 28),
+                   Icon(LucideIcons.fileSpreadsheet, color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase, size: 28),
                   const SizedBox(width: 10),
                   Text('Report New Incident'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
                 ],
@@ -1540,7 +1534,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {
@@ -1584,7 +1578,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
               title: Row(
                 children: [
-                  const Icon(LucideIcons.userMinus, color: Color(0xFF2563EB), size: 28),
+                   Icon(LucideIcons.userMinus, color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase, size: 28),
                   const SizedBox(width: 10),
                   Text('Register Staff Call-Off'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
                 ],
@@ -1651,8 +1645,8 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF2563EB),
-                    foregroundColor: Colors.white,
+                    backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {
@@ -1664,7 +1658,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                     Navigator.pop(dialogContext);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                        backgroundColor: const Color(0xFF2563EB),
+                        backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                         content: Text('Clinical dashboard actions are unavailable.'.tr()),
                       ),
                     );
@@ -1694,7 +1688,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
               title: Row(
                 children: [
-                  const Icon(LucideIcons.search, color: Color(0xFF16A34A), size: 28),
+                   Icon(LucideIcons.search, color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase, size: 28),
                   const SizedBox(width: 10),
                   Text('Resident Search Station'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
                 ],
@@ -1755,7 +1749,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                               Navigator.pop(dialogContext);
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
-                                  backgroundColor: const Color(0xFF16A34A),
+                                  backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                                   content: Text('Clinical dashboard actions are unavailable.'.tr()),
                                 ),
                               );
@@ -1794,7 +1788,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusMd)),
               title: Row(
                 children: [
-                  const Icon(LucideIcons.clipboardList, color: Color(0xFFEA580C), size: 28),
+                   Icon(LucideIcons.clipboardList, color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase, size: 28),
                   const SizedBox(width: 10),
                   Text('Missing Documentation Hub'.tr(), style: theme.typography.h3.copyWith(color: theme.colors.onSurface)),
                 ],
@@ -1826,8 +1820,8 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                             subtitle: Text(log['task']!.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                             trailing: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFFEA580C),
-                                foregroundColor: Colors.white,
+                                backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
+                                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.warning).onAccent,
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                               ),
@@ -1838,7 +1832,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
                                 });
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    backgroundColor: const Color(0xFFEA580C),
+                                    backgroundColor:  PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                                     content: Text('ADL task signed and synchronized!'.tr()),
                                   ),
                                 );
@@ -1874,37 +1868,37 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
       {
         'label': 'Emergency',
         'icon': LucideIcons.alertTriangle,
-        'color': const Color(0xFFDC2626),
-        'bg': const Color(0xFFFEE2E2),
-        'border': const Color(0xFFFCA5A5),
+        'color':  PrimeActionPalette.of(context, PrimeActionTone.error).onSurface,
+        'bg':  PrimeActionPalette.of(context, PrimeActionTone.error).surface,
+        'border':  PrimeActionPalette.of(context, PrimeActionTone.error).border,
       },
       {
         'label': 'Staffing',
         'icon': LucideIcons.users,
-        'color': const Color(0xFF2563EB),
-        'bg': const Color(0xFFDBEAFE),
-        'border': const Color(0xFF93C5FD),
+        'color':  PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface,
+        'bg':  PrimeActionPalette.of(context, PrimeActionTone.primary).surface,
+        'border':  PrimeActionPalette.of(context, PrimeActionTone.primary).border,
       },
       {
         'label': 'Resident',
         'icon': LucideIcons.heart,
-        'color': const Color(0xFF16A34A),
-        'bg': const Color(0xFFDCFCE7),
-        'border': const Color(0xFF86EFAC),
+        'color':  PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
+        'bg':  PrimeActionPalette.of(context, PrimeActionTone.success).surface,
+        'border':  PrimeActionPalette.of(context, PrimeActionTone.success).border,
       },
       {
         'label': 'Compliance',
         'icon': LucideIcons.clipboardList,
-        'color': const Color(0xFFEA580C),
-        'bg': const Color(0xFFFFEDD5),
-        'border': const Color(0xFFFDBA74),
+        'color':  PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
+        'bg':  PrimeActionPalette.of(context, PrimeActionTone.warning).surface,
+        'border':  PrimeActionPalette.of(context, PrimeActionTone.warning).border,
       },
       {
         'label': 'Operations',
         'icon': LucideIcons.cog,
-        'color': const Color(0xFF4B5563),
-        'bg': const Color(0xFFF3F4F6),
-        'border': const Color(0xFFD1D5DB),
+        'color':  PrimeActionPalette.of(context, PrimeActionTone.muted).onSurface,
+        'bg':  PrimeActionPalette.of(context, PrimeActionTone.muted).surface,
+        'border':  PrimeActionPalette.of(context, PrimeActionTone.muted).border,
       },
     ];
 
@@ -2062,13 +2056,7 @@ class _GovQuickActionBarState extends State<GovQuickActionBar> {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.03),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: context.theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

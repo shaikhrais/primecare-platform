@@ -38,7 +38,7 @@ class DocumentVault extends GovernedStatelessWidget {
                   trendLabel: 'Zero issues detected',
                   progress: 1.0,
                   icon: LucideIcons.shieldCheck,
-                  brandColor: Colors.green,
+                  brandColor: theme.colors.success,
                 ),
               ),
             ],
