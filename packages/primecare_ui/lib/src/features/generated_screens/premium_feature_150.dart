@@ -19,22 +19,22 @@ class PremiumFeature150 extends GovernedConsumerWidget {
     final dataState = ref.watch(premiumFeature150Provider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor:  theme.colors.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colors.surface,
         elevation: 0,
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: const Color(0xFF6366F1).withOpacity(0.1),
+                color:  theme.colors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Text(
+              child:  Text(
                 'PREMIUM', // .tr() LocaleKeys.
                 style: TextStyle(
-                  color: Color(0xFF6366F1),
+                  color: theme.colors.primary,
                   fontSize: 11,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.0,
@@ -44,8 +44,8 @@ class PremiumFeature150 extends GovernedConsumerWidget {
             const SizedBox(width: 12),
             Text(
               'Feature 150 - OrganizationNode', // .tr() LocaleKeys.
-              style: const TextStyle(
-                color: Color(0xFF0F172A),
+              style:  TextStyle(
+                color: theme.colors.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
               ),
@@ -54,11 +54,11 @@ class PremiumFeature150 extends GovernedConsumerWidget {
         ),
         actions: [
           IconButton(key: const Key('premium_feature_150_iconbutton_button_1'), 
-            icon: const Icon(Icons.tune, color: Color(0xFF64748B)),
+            icon:  Icon(Icons.tune, color: theme.colors.onSurfaceVariant),
             onPressed: () {},
           ),
           IconButton(key: const Key('premium_feature_150_iconbutton_button_2'), 
-            icon: const Icon(Icons.notifications_outlined, color: Color(0xFF64748B)),
+            icon:  Icon(Icons.notifications_outlined, color: theme.colors.onSurfaceVariant),
             onPressed: () {},
           ),
           const SizedBox(width: 8),
@@ -74,7 +74,7 @@ class PremiumFeature150 extends GovernedConsumerWidget {
               const SizedBox(height: 16),
               Text(
                 'Hydration Failure: $error', // .tr() LocaleKeys.
-                style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                style:  TextStyle(color: theme.colors.error, fontWeight: FontWeight.bold),
               ),
             ],
           ),
@@ -117,12 +117,12 @@ class PremiumFeature150 extends GovernedConsumerWidget {
           mainContent: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+               Text(
                 'Analytical Intelligence Dashboard', // .tr() LocaleKeys.
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF0F172A),
+                  color: theme.colors.onSurface,
                   letterSpacing: -0.5,
                 ),
               ),
@@ -131,7 +131,7 @@ class PremiumFeature150 extends GovernedConsumerWidget {
                 'Live operational data and security posture auditing for OrganizationNode schema bindings.', // .tr() LocaleKeys.
                 style: TextStyle(
                   fontSize: 13.5,
-                  color: Colors.blueGrey.shade400,
+                  color: theme.colors.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 24),
@@ -243,9 +243,10 @@ class _StatCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
@@ -322,10 +323,10 @@ class _StatCard extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(
                     value,
-                    style: const TextStyle(
+                    style:  TextStyle(
                       fontSize: 28,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF1E293B),
+                      color: theme.colors.onSurface,
                       letterSpacing: -0.5,
                     ),
                   ),
@@ -335,7 +336,7 @@ class _StatCard extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: Colors.blueGrey.shade400,
+                      color: theme.colors.onSurfaceVariant,
                     ),
                   ),
                 ],
@@ -361,11 +362,12 @@ class _TelemetryPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: Colors.blueGrey.shade50, width: 1.5),
+        side: BorderSide(color: theme.colors.outline, width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(28.0),
@@ -397,10 +399,10 @@ class _TelemetryPanel extends StatelessWidget {
                     ),
                     Text(
                       '$modelName Data Drift Monitor', // .tr() LocaleKeys.
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF0F172A),
+                        color: theme.colors.onSurface,
                       ),
                     ),
                   ],
@@ -411,9 +413,9 @@ class _TelemetryPanel extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: Colors.grey.shade50,
+                color: theme.colors.surfaceContainerLow,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: Colors.grey.shade100),
+                border: Border.all(color: theme.colors.outline),
               ),
               child: Column(
                 children: [
@@ -476,11 +478,12 @@ class _AuditPanel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Card(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(24),
-        side: BorderSide(color: Colors.blueGrey.shade50, width: 1.5),
+        side: BorderSide(color: theme.colors.outline, width: 1.5),
       ),
       child: Padding(
         padding: const EdgeInsets.all(28.0),
@@ -512,10 +515,10 @@ class _AuditPanel extends StatelessWidget {
                     ),
                     Text(
                       '$modelName Audit Ledger', // .tr() LocaleKeys.
-                      style: const TextStyle(
+                      style:  TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
-                        color: Color(0xFF0F172A),
+                        color: theme.colors.onSurface,
                       ),
                     ),
                   ],
@@ -575,6 +578,7 @@ class _TelemetryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     return Row(
       children: [
         Icon(icon, color: color, size: 18),
@@ -590,10 +594,10 @@ class _TelemetryRow extends StatelessWidget {
         const Spacer(),
         Text(
           value,
-          style: const TextStyle(
+          style:  TextStyle(
             fontSize: 13.5,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1E293B),
+            color: theme.colors.onSurface,
           ),
         ),
       ],
