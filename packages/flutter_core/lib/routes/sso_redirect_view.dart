@@ -14,6 +14,7 @@ PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon, PrimeIconButton;
@@ -134,7 +135,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(height: 16),
-                TextField(
+                PrimeTextField(
                   controller: _urlController,
                   decoration: const InputDecoration(
                     labelText: 'Identity Provider URL',

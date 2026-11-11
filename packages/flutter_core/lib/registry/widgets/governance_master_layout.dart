@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
@@ -843,7 +844,7 @@ class _RoleSwitcherDialogState extends State<_RoleSwitcherDialog> {
               // Search Bar
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextField(
+                child: PrimeTextField(
                   controller: _searchController,
                   onChanged: (val) {
                     setState(() {

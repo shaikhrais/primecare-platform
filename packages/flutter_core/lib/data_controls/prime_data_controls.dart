@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../original_assets.dart';
@@ -189,7 +190,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
           l.identify(
             'filter',
             'prime_text_field',
-            TextField(
+            PrimeTextField(
               controller: filter,
               decoration: InputDecoration(labelText: l.text('filter')),
               onChanged: (value) {
@@ -436,7 +437,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
 }
 
 class PrimeDataAutocomplete extends StatefulWidget {final CatalogueLabels labels;final String scope;final Future<List<({String value,String label})>> Function(String)? load;final ValueChanged<String>? selected;const PrimeDataAutocomplete({super.key,required this.labels,required this.scope,this.load,this.selected});@override State<PrimeDataAutocomplete> createState()=>_PrimeDataAutocompleteState();}
-class _PrimeDataAutocompleteState extends State<PrimeDataAutocomplete>{int generation=0;String? status;@override void didUpdateWidget(covariant PrimeDataAutocomplete old){super.didUpdateWidget(old);if(old.scope!=widget.scope){generation++;status=null;}}@override void dispose(){generation++;super.dispose();}@override Widget build(BuildContext context){final l=widget.labels;return Column(mainAxisSize:MainAxisSize.min,children:[l.identify('autocomplete','prime_text_field',Autocomplete<({String value,String label})>(key:ValueKey(widget.scope),displayStringForOption:(v)=>v.label,optionsBuilder:(text)async{final g=++generation;if(widget.load==null)return [];setState(()=>status='loading');try{final result=await widget.load!(text.text);if(!mounted||g!=generation)return [];if(result.length>100||result.map((v)=>v.value).toSet().length!=result.length||result.any((v)=>v.label.isEmpty))throw StateError('invalid_options');setState(()=>status=result.isEmpty?'empty':null);return result;}catch(_){if(mounted&&g==generation)setState(()=>status='error');return [];}},onSelected:(v)=>widget.selected?.call(v.value),fieldViewBuilder:(context,controller,node,submit)=>TextField(controller:controller,focusNode:node,enabled:widget.load!=null,onSubmitted:(_)=>submit(),decoration:InputDecoration(labelText:l.text('autocomplete'))))),if(widget.load==null)PrimeText(l.text('unsupported')),if(status!=null)Semantics(liveRegion:true,child:PrimeText(l.text(status!)))]);}}
+class _PrimeDataAutocompleteState extends State<PrimeDataAutocomplete>{int generation=0;String? status;@override void didUpdateWidget(covariant PrimeDataAutocomplete old){super.didUpdateWidget(old);if(old.scope!=widget.scope){generation++;status=null;}}@override void dispose(){generation++;super.dispose();}@override Widget build(BuildContext context){final l=widget.labels;return Column(mainAxisSize:MainAxisSize.min,children:[l.identify('autocomplete','prime_text_field',Autocomplete<({String value,String label})>(key:ValueKey(widget.scope),displayStringForOption:(v)=>v.label,optionsBuilder:(text)async{final g=++generation;if(widget.load==null)return [];setState(()=>status='loading');try{final result=await widget.load!(text.text);if(!mounted||g!=generation)return [];if(result.length>100||result.map((v)=>v.value).toSet().length!=result.length||result.any((v)=>v.label.isEmpty))throw StateError('invalid_options');setState(()=>status=result.isEmpty?'empty':null);return result;}catch(_){if(mounted&&g==generation)setState(()=>status='error');return [];}},onSelected:(v)=>widget.selected?.call(v.value),fieldViewBuilder:(context,controller,node,submit)=>PrimeTextField(controller:controller,focusNode:node,enabled:widget.load!=null,onSubmitted:(_)=>submit(),decoration:InputDecoration(labelText:l.text('autocomplete'))))),if(widget.load==null)PrimeText(l.text('unsupported')),if(status!=null)Semantics(liveRegion:true,child:PrimeText(l.text(status!)))]);}}
 class PrimeStructuredEditor extends StatefulWidget {
  final CatalogueLabels labels;final String scope;final Object document;final Future<void> Function(Map<String,Object?>)? save;
  final bool Function(String)? imageAllowed;final Widget Function(String,String)? imageBuilder;final Future<void> Function(String)? openLink;
@@ -475,11 +476,11 @@ class _PrimeStructuredEditorState extends State<PrimeStructuredEditor>{
   });
   return Column(mainAxisSize:MainAxisSize.min,children:[
    Wrap(children:[for(var i=0;i<blocks.length;i++)l.identify('editor','prime_textarea_web',PrimeTextButton(onPressed:(){try{sync();setState((){index=i;setText(blocks[index]['text'] as String);editorStatus=null;});}catch(_){setState(()=>editorStatus='invalid');}},child:PrimeText('${i+1}')),suffix:'-block-$i')]),
-   l.identify('editor','prime_textarea_web',TextField(controller:text,maxLines:5,maxLength:32768,decoration:InputDecoration(labelText:l.text('editor')),onChanged:(_){try{sync();setState(()=>editorStatus=null);}catch(_){setState(()=>editorStatus='invalid');}})),
+   l.identify('editor','prime_textarea_web',PrimeTextField(controller:text,maxLines:5,maxLength:32768,decoration:InputDecoration(labelText:l.text('editor')),onChanged:(_){try{sync();setState(()=>editorStatus=null);}catch(_){setState(()=>editorStatus='invalid');}})),
    Wrap(children:[format('bold'),format('italic'),format('list')]),
-   l.identify('link','prime_text_field',TextField(controller:link,decoration:InputDecoration(labelText:l.text('link')))),
+   l.identify('link','prime_text_field',PrimeTextField(controller:link,decoration:InputDecoration(labelText:l.text('link')))),
    kit.button('addLink',()async{sync();final url=safeHttps(link.text);setState(()=>blocks[index]['link']=url);}),
-   l.identify('image','prime_text_field',TextField(controller:image,decoration:InputDecoration(labelText:l.text('image')))),
+   l.identify('image','prime_text_field',PrimeTextField(controller:image,decoration:InputDecoration(labelText:l.text('image')))),
    kit.button('addImage',widget.imageAllowed==null||widget.imageBuilder==null?null:()async{sync();final url=safeHttps(image.text);if(!widget.imageAllowed!(url)||(blocks[index]['text'] as String).trim().isEmpty)throw StateError('denied_image');setState(()=>blocks[index]['image']={'url':url,'alt':blocks[index]['text']});}),
    kit.button('addBlock',()async{sync();if(blocks.length>=200)throw StateError('too_many_blocks');setState((){blocks.add({'text':'','bold':false,'italic':false,'kind':'paragraph'});index=blocks.length-1;setText('');});}),
    kit.button('save',widget.save==null?null:()async{sync();await widget.save!(validateDocument(doc));}),
