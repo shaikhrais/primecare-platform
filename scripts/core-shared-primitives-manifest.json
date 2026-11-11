@@ -1,0 +1,188 @@
+[
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "sha256": "dac80b0f6ce458d318ff54331afb84006c2cff8e292402002fb0bbb164406dc2",
+    "text": 9,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+    "sha256": "37550282220df8333b107ab13c6d11710201e777839adaf3682f33340dbbbc60",
+    "text": 16,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+    "sha256": "a5043726cb2630f00be67a815aff3df05ba71377f37c6ce371a33d5d097eda46",
+    "text": 5,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+    "sha256": "55990524788bd6d990a014f54c0abd1595a133484b464699ee5dc9391f494d2b",
+    "text": 6,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+    "sha256": "4e20b0d02c0aeb8796b0c5952f7b425f678a59853e0352f24ae55cc462ff9186",
+    "text": 13,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+    "sha256": "1ede1626ca69cd14a6dcd0ab789d56a1d0cefb53f5d1c94a88ae67024c201704",
+    "text": 18,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/engine/form_schema_engine.dart",
+    "sha256": "0713dd5944edcbc5b2ad4c61182142ccd2ebafa6d3ebcb7d20fb248aabad68a4",
+    "text": 2,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/action_manifest.dart",
+    "sha256": "4ffa85a3ee0dbc37e35b2dc544d523a40caef20562355714278e41ccbadc5a0c",
+    "text": 1,
+    "icons": 1
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "sha256": "06825a7474003fd7d8f209d63d3831e19bf5f4d1155e0d48276fb12bcbf2aaf6",
+    "text": 5,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/models/presentation_mode.dart",
+    "sha256": "be593b573633eceae0d91f6dc9f51702fecc4858229904af58e481aef7b3ec8e",
+    "text": 184,
+    "icons": 7
+  },
+  {
+    "path": "packages/flutter_core/lib/models/screen.dart",
+    "sha256": "e88364d54c17717034219cac088696d9121121cf6866da5d1a07390d47b2be11",
+    "text": 4,
+    "icons": 4
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "sha256": "71eb12dae4556bf9a451f819c07881e0c920a1253de0a2c0163f0f043d742435",
+    "text": 3,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+    "sha256": "94a23ef9d366349f8e167d77564e22a4eff05b40ac897e370e25353260279785",
+    "text": 4,
+    "icons": 1
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "sha256": "4a99aaa49c9bc78e6774e88cdb5c4c282b9d1868c7fad5716ba574c2a22f4c9f",
+    "text": 26,
+    "icons": 18
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/responsive_split_dashboard.dart",
+    "sha256": "945b6364ab30966d557e7782bcfec8a0a3bb4f2ab5849b92432c862b1248278e",
+    "text": 9,
+    "icons": 4
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+    "sha256": "0e090eed8f8c75d9a204b8617c5a20cbb4672efdce858705d4b598eec703df77",
+    "text": 28,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "sha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
+    "text": 14,
+    "icons": 8
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_callback_view.dart",
+    "sha256": "bb9cd50357634513a1f2727d92f2955a60a73c97310421adb1d7e2ab955cc901",
+    "text": 1,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_error_view.dart",
+    "sha256": "b2293e5aa80293a04818b810bee7cdbf02a8eedb67b33ba69a748804f36349c1",
+    "text": 3,
+    "icons": 1
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/clinic_login_bridge.dart",
+    "sha256": "4c95eef8b195d2b53a2fd50571136eeb771a99981556fdaa38cffbe31ade5181",
+    "text": 1,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_navigator.dart",
+    "sha256": "0abeb138fafbcea323e3b7f8b61decf6ef1a7496b6b84717b53fbcd5f95b0e2c",
+    "text": 1,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_router.dart",
+    "sha256": "c66ff2a371dd4345c55fd3dc94599860dfd73427836a762e29eca657b12188aa",
+    "text": 4,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "2dd6fad2aa536cc0e3dfb1cf73b40dfd9aad477b66ba6ad14eeccb3b1d3b12f7",
+    "text": 9,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/security/shortcuts/quick_access_manager.dart",
+    "sha256": "25097a9f06adb077f16f3ac78c8001748c1c797e71c33fe0a37b9e8f7922d525",
+    "text": 2,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+    "sha256": "54882595ba9aef584b75e1d9ae142968d5afa03ac403e0954f7f9577e902d145",
+    "text": 6,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/src/localization/localization_scaffold.dart",
+    "sha256": "2d44bcb526ab2073790d72e3c6a7743d23875d0ffa0bf67498ea8a1896ea8b34",
+    "text": 1,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/src/resilience/app_error_boundary.dart",
+    "sha256": "041a0fda73a32cbcf092fc12abb357b4b2691187f2dec21a9bf8fa6140ba32ce",
+    "text": 2,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/src/resilience/system_recovery_mode.dart",
+    "sha256": "a06d2d06586f2d887863ec644d76859ccfd11b6682458a8408504d1078a7f92d",
+    "text": 9,
+    "icons": 4
+  },
+  {
+    "path": "packages/flutter_core/lib/widgets/clinical_article_detail_dialog.dart",
+    "sha256": "605bc2b98544429ead072691907cb8a9b1827d03a887e761ce562226efdc3bed",
+    "text": 3,
+    "icons": 2
+  },
+  {
+    "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+    "sha256": "230be3f4155fbe4dd7499090122d48f18e2d324414aff2c79c64a1dd8df2518a",
+    "text": 12,
+    "icons": 0
+  },
+  {
+    "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+    "sha256": "31452e20afe7a008839b4491db3b6e409859c2c696ed3565f1d9255d8ffc10a3",
+    "text": 0,
+    "icons": 1
+  }
+]

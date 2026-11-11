@@ -74,6 +74,24 @@ class SharedUiBoundaryTest(unittest.TestCase):
             'final color = Color.from(alpha: 1, red: 0, green: 0, blue: 0); FloatingActionButton.large();', True)],
             ['theme-color', 'shared-control'])
 
+    def test_foundation_allows_only_the_two_actual_underlying_implementations(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = {
+                'packages/primecare_ui_foundation/lib/src/prime_text.dart': 'Text(label); Icon(Icons.star); Colors.red;',
+                'packages/primecare_ui_foundation/lib/src/prime_icon.dart': 'Icon(icon); Text(label); Colors.blue;',
+                'packages/primecare_ui_foundation/lib/feature.dart': 'Text(label); Icon(icon);',
+                'packages/flutter_core/lib/feature.dart': 'Text(label); Icon(icon);',
+            }
+            for relative, source in sources.items():
+                path = root/relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(source)
+            findings = boundary.scan(root)
+            self.assertEqual(len(findings), 8)
+            self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_text.dart')], ['Icon', 'Colors.red'])
+            self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_icon.dart')], ['Text', 'Colors.blue'])
+
     def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

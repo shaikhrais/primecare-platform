@@ -90,6 +90,10 @@ DIRECT = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*(?:\.
 TEAR_OFF = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*\.\s*(?:new|rich|icon|tonal|tonalIcon|adaptive|large|small|extended)\b(?!\s*\()')
 COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\(|Colors\s*\.\s*\w+)')
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
+CONTROL_IMPLEMENTATIONS = {
+    'packages/primecare_ui_foundation/lib/src/prime_text.dart': 'Text',
+    'packages/primecare_ui_foundation/lib/src/prime_icon.dart': 'Icon',
+}
 THEME_DEFINITION = ('packages/primecare_ui/lib/src/theme/', 'packages/flutter_core/lib/theme/')
 
 
@@ -116,6 +120,10 @@ def scan(root):
             if relative.startswith(THEME_DEFINITION):
                 continue
             for line, rule, symbol in violations(path.read_text(encoding='utf-8'), not relative.startswith('packages/primecare_ui/lib/')):
+                # Only the exact relocated primitive may build its underlying
+                # Material constructor. Other controls and all colors still fail.
+                if rule == 'shared-control' and symbol == CONTROL_IMPLEMENTATIONS.get(relative):
+                    continue
                 result.append((relative, line, rule, symbol))
     return result
 

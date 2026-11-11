@@ -5,6 +5,8 @@ version: 1.0.0+1
 environment:
   sdk: ^3.11.3
 dependencies:
+  primecare_ui_foundation:
+    path: ../primecare_ui_foundation
   primecare_models:
     path: ../primecare_models
   flutter:
