@@ -36,13 +36,13 @@ jobs:
         working-directory: apps/primecare_governance
       # This remains a failing check until real release evidence exists.
       # No continue-on-error, event exclusion, or threshold override.
-      - run: flutter test test/release/governance_readiness_gate.dart
+      - run: flutter test test/release/governance_readiness_gate.dart test/release/blueprint_registry_parity_gate.dart
         working-directory: apps/primecare_governance
       - name: Preserve readiness blockers even when the release gate fails
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: governance-readiness-${{ github.sha }}
-          path: apps/primecare_governance/test-results/governance-readiness.json
+          path: apps/primecare_governance/test-results/*.json
           if-no-files-found: error
           retention-days: 30

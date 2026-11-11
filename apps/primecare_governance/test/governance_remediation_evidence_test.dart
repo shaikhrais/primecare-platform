@@ -113,6 +113,15 @@ class CoreGovernanceRegistry {
     }
   });
 
+  test('audits from a package directory resolve the same repository and findings', () async {
+    final nested = CrossSubsystemAuditor(projectRoot: '${root.path}/apps/primecare_governance');
+    expect(Directory(nested.projectRoot).resolveSymbolicLinksSync(), root.resolveSymbolicLinksSync());
+    final fromRoot = await auditor.auditScreenRegistryParity();
+    final fromPackage = await nested.auditScreenRegistryParity();
+    expect(fromPackage.map((i) => i.id).toList(), fromRoot.map((i) => i.id).toList());
+    expect(fromPackage.any((i) => i.id == 'registry_files_missing'), isFalse);
+  });
+
   test('legacy drift entry point cannot inject a generic provider or invented registration', () async {
     final before = snapshot();
     final resolved = await GovernanceRemediationEngine(null, projectRoot: root.path).remediateDrift();

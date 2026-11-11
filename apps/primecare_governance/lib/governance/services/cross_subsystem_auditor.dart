@@ -18,7 +18,20 @@ typedef AuditIssue = PlatformAuditIssue;
 class CrossSubsystemAuditor {
   final String projectRoot;
 
-  CrossSubsystemAuditor({required this.projectRoot});
+  CrossSubsystemAuditor({required String projectRoot})
+      : projectRoot = _repositoryRoot(projectRoot);
+
+  static String _repositoryRoot(String path) {
+    var directory = Directory(path).absolute;
+    while (true) {
+      if (File(p.join(directory.path, '.agents/governance/blueprints.yaml')).existsSync() &&
+          Directory(p.join(directory.path, 'packages')).existsSync()) {
+        return directory.path;
+      }
+      if (directory.parent.path == directory.path) return p.normalize(path);
+      directory = directory.parent;
+    }
+  }
 
   /// Runs the full suite of cross-subsystem audits.
   Future<List<AuditIssue>> runFullAuditSuite({
