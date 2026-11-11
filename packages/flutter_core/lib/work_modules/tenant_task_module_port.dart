@@ -56,8 +56,8 @@ class TenantTaskModulePort implements WorkPort {
     final items=<Map<String,Object?>>[];int total;bool partial;
     if(module=='contacts'){
       final rows=<Map<String,Object?>>[
-        for(final user in (raw['users'] as List).cast<Map>()){'id':'staff:${user['id']}','title':user['name'],'meta':user['email']??''},
-        for(final client in (raw['clients'] as List).cast<Map>()){'id':'client:${client['id']}','title':client['name'],'meta':''},
+        for(final user in (raw['users'] as List).cast<Map<dynamic,dynamic>>()){'id':'staff:${user['id']}','title':user['name'],'meta':user['email']??''},
+        for(final client in (raw['clients'] as List).cast<Map<dynamic,dynamic>>()){'id':'client:${client['id']}','title':client['name'],'meta':''},
       ].where((r)=>'${r['title']} ${r['meta']}'.toLowerCase().contains(search.toLowerCase())).toList();
       total=rows.length;for(final row in rows.skip(offset).take(100)){items.add({...row,'version':1,'body':'','date':'','lane':'','actions':<Object?>[]});}
       partial=raw['directoryTruncated']==true||total>items.length;
@@ -90,7 +90,7 @@ class TenantTaskModulePort implements WorkPort {
   @override Future<WorkReceipt> mutate(WorkCommand command,String requestId)async{
     _open();final raw=_raw;if(module=='contacts'||raw==null)throw const WorkFailure('denied',403);
     if(!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',caseSensitive:false).hasMatch(requestId))throw const WorkFailure('invalid',400);
-    final tasks=(raw['tasks'] as List).cast<Map>().where((t)=>'${t['id']}'==command.itemId).toList();
+    final tasks=(raw['tasks'] as List).cast<Map<dynamic,dynamic>>().where((t)=>'${t['id']}'==command.itemId).toList();
     if(tasks.length!=1)throw const WorkFailure('denied',403);final task=tasks.single;
     final fingerprint=canonicalPreference(command.toJson());var payload=_payloads[requestId];
     if(payload!=null&&payload.fingerprint!=fingerprint)throw const WorkFailure('conflict',409);
@@ -112,18 +112,18 @@ class TenantTaskModulePort implements WorkPort {
     Map<String,dynamic> response;
     try{response=_check(await transport(TenantTaskRequest('POST',{'dataset':scope.dataset},body:payload.body,requestId:requestId)));}
     on WorkFailure catch(e){if([400,403,404,409].contains(e.status))_payloads.remove(requestId);rethrow;}
-    final acknowledged=(response['tasks'] as List).cast<Map>().where((t)=>'${t['id']}'==command.itemId).toList();
+    final acknowledged=(response['tasks'] as List).cast<Map<dynamic,dynamic>>().where((t)=>'${t['id']}'==command.itemId).toList();
     if(acknowledged.length>1||acknowledged.isNotEmpty&&acknowledged.single['version']!=command.version+1)throw const WorkFailure('conflict',409);
     return WorkReceipt(command.itemId,command.version+1,command.action,Map.unmodifiable(payload.expected));
   }
   @override Future<Object?> readItem(String id)async{
     _open();final raw=_raw;if(raw==null)throw const WorkFailure('unavailable');
-    final original=(raw['tasks'] as List).cast<Map>().where((t)=>'${t['id']}'==id).toList();if(original.length!=1)throw const WorkFailure('unavailable');
+    final original=(raw['tasks'] as List).cast<Map<dynamic,dynamic>>().where((t)=>'${t['id']}'==id).toList();if(original.length!=1)throw const WorkFailure('unavailable');
     final pending=_payloads.values.where((p)=>p.itemId==id).firstOrNull;
     for(var offset=0;offset<=10000;offset+=100){
       final fresh=_check(await transport(TenantTaskRequest('GET',{'dataset':scope.dataset,'search':pending?.search??original.single['title'] as String,'taskOffset':'$offset','status':'all'})));
-      if((fresh['tasks'] as List).cast<Map>().any((t)=>'${t['id']}'==id)){final snapshot=_project(fresh,offset);_raw=fresh;_payloads.removeWhere((_,p)=>p.itemId==id);return snapshot.toJson();}
-      final page=fresh['taskPage'];if(offset+(fresh['tasks'] as List).cast<Map>().length>=(page is Map?page['total'] as int? ?? 0:0))break;
+      if((fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().any((t)=>'${t['id']}'==id)){final snapshot=_project(fresh,offset);_raw=fresh;_payloads.removeWhere((_,p)=>p.itemId==id);return snapshot.toJson();}
+      final page=fresh['taskPage'];if(offset+(fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().length>=(page is Map?page['total'] as int? ?? 0:0))break;
     }
     throw const WorkFailure('conflict',409);
   }

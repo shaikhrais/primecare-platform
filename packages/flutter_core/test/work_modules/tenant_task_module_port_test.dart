@@ -17,7 +17,7 @@ void main(){
  final scope=PreferenceScope.fromJson(oracle['scope']),labels=Map<String,String>.from(oracle['labels'] as Map);
  Map<String,dynamic> clone(Object? value)=>Map<String,dynamic>.from(jsonDecode(jsonEncode(value)) as Map);
  TenantTaskModulePort port(String module,TenantTaskTransport transport)=>TenantTaskModulePort(scope:scope,module:module,labels:labels,transport:transport);
- final first=clone((oracle['cases'] as List).cast<Map>().firstWhere((c)=>c['name']=='tasks-open-manager')['raw']);
+ final first=clone((oracle['cases'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager')['raw']);
  WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
  test('60 native projections match the existing shared web adapter exactly',()async{
   for(final value in oracle['cases'] as List){final c=value as Map,p=port(c['module'] as String,(_ )async=>clone(c['raw']));
@@ -33,14 +33,14 @@ void main(){
   }
  });
  test('lost acknowledgements replay the original receipt once through the native session',()async{
-  final c=(oracle['mutations'] as List).cast<Map>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),keys=<String>[],bodies=<Object?>[];var changed=false,lost=true,writes=0;
+  final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),keys=<String>[],bodies=<Object?>[];var changed=false,lost=true,writes=0;
   final p=port('tasks',(r)async{if(r.method=='POST'){keys.add(r.requestId!);bodies.add(r.body);if(!changed){writes++;changed=true;}if(lost){lost=false;throw const WorkFailure('error');}}return clone(c[changed?'reply':'raw']);});
   final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=>c['key'] as String);await session.load();
   final cmd=command(c['command'] as Map);await expectLater(session.submit(cmd.itemId,cmd.action,cmd.fields),throwsA(isA<WorkFailure>()));expect(session.pending,isNotNull);
   await session.retryPending();expect(session.status,'success');expect(writes,1);expect(keys.length,2);expect(keys[0],keys[1]);expect(bodies[0],bodies[1]);session.dispose();
  });
  test('acknowledged saves retry readback without another mutation',()async{
-  final c=(oracle['mutations'] as List).cast<Map>().firstWhere((c)=>c['name']=='tasks-open-manager-edit');var changed=false,failRead=true,writes=0;
+  final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit');var changed=false,failRead=true,writes=0;
   final p=port('tasks',(r)async{if(r.method=='POST'){changed=true;writes++;}else if(changed&&failRead){failRead=false;throw const WorkFailure('error');}return clone(c[changed?'reply':'raw']);});
   final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=>c['key'] as String);await session.load();final cmd=command(c['command'] as Map);
   await expectLater(session.submit(cmd.itemId,cmd.action,cmd.fields),throwsA(isA<WorkFailure>()));expect(session.pendingReceipt,isNotNull);
@@ -52,7 +52,7 @@ void main(){
    final p=port('tasks',(_)async=>raw);await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','denied')));p.dispose();
   }
   for(final selfOwner in [true,false]){
-   final raw=clone(first),task=(raw['tasks'] as List).cast<Map>().single;task['status']='submitted';task['owner_id']=selfOwner?'manager':'worker';task['submitted_by']=selfOwner?'worker':'manager';task['actions']=['complete','return'];
+   final raw=clone(first),task=(raw['tasks'] as List).cast<Map<dynamic,dynamic>>().single;task['status']='submitted';task['owner_id']=selfOwner?'manager':'worker';task['submitted_by']=selfOwner?'worker':'manager';task['actions']=['complete','return'];
    final guarded=port('tasks',(_)async=>raw),snapshot=WorkSnapshot.fromJson(await guarded.read(const WorkQuery()),scope,'tasks');expect(snapshot.items.single.actions.any((a)=>a.id=='complete'),false);if(!selfOwner)expect(snapshot.items.single.actions.any((a)=>a.id=='return'),false);
    await expectLater(guarded.mutate(WorkCommand('task1',1,'complete',{'body':'Independent approval required'}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));guarded.dispose();
   }
@@ -60,7 +60,7 @@ void main(){
   for(final cmd in [WorkCommand('task1',99,'edit',{'title':'New title','body':'Note','date':'2026-11-02'}),WorkCommand('task1',1,'edit',{'role':'admin'}),WorkCommand('task1',1,'invented',{'body':'No grant'})]){await expectLater(p.mutate(cmd,'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));}expect(posts,0);p.dispose();
  });
  test('readback follows renamed tasks across bounded pages and fails on missing identity',()async{
-  final c=(oracle['mutations'] as List).cast<Map>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),offsets=<String>[];var changed=false;
+  final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),offsets=<String>[];var changed=false;
   final p=port('tasks',(r)async{if(r.method=='POST'){changed=true;return clone(c['reply']);}if(!changed)return clone(c['raw']);offsets.add(r.filters['taskOffset']!);expect(r.filters['search'],'Updated task');final raw=clone(c['reply']);raw['taskPage']={'total':201};if(r.filters['taskOffset']!='200')raw['tasks']=<Object?>[];return raw;});
   await p.read(const WorkQuery());await p.mutate(command(c['command'] as Map),c['key'] as String);expect((await p.readItem('task1') as Map)['offset'],200);expect(offsets,['0','100','200']);await expectLater(p.readItem('missing'),throwsA(isA<WorkFailure>()));p.dispose();
  });
@@ -70,8 +70,8 @@ void main(){
  });
  test('a delayed older query cannot replace the newer native adapter context',()async{
   final old=Completer<Object?>(),latest=Completer<Object?>();var reads=0;final posted=<Map<String,Object?>?>[];
-  final p=port('tasks',(r)async{if(r.method=='POST'){posted.add(r.body);final next=clone(first);(next['tasks'] as List).cast<Map>().single['version']=3;return next;}return (++reads==1?old:latest).future;});
-  final a=p.read(const WorkQuery('old')),b=p.read(const WorkQuery('new'));final fresh=clone(first);(fresh['tasks'] as List).cast<Map>().single['version']=2;
+  final p=port('tasks',(r)async{if(r.method=='POST'){posted.add(r.body);final next=clone(first);(next['tasks'] as List).cast<Map<dynamic,dynamic>>().single['version']=3;return next;}return (++reads==1?old:latest).future;});
+  final a=p.read(const WorkQuery('old')),b=p.read(const WorkQuery('new'));final fresh=clone(first);(fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().single['version']=2;
   latest.complete(fresh);await b;old.complete(first);await expectLater(a,throwsA(isA<WorkFailure>()));
   await p.mutate(WorkCommand('task1',2,'edit',{'title':'New task','body':'Updated note','date':'2026-11-02'}),'00000000-0000-4000-8000-000000000001');expect(posted.single!['version'],2);p.dispose();
  });
@@ -94,7 +94,7 @@ void main(){
   }
  });
  test('authenticated factory completes the native session HTTP save and independent readback',()async{
-  final c=(oracle['mutations'] as List).cast<Map>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),methods=<String>[];var changed=false;
+  final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),methods=<String>[];var changed=false;
   final client=WireClient((r)async{methods.add(r.method);if(r.method=='POST'){changed=true;expect(jsonDecode((r as http.Request).body),(c['request'] as Map)['body']);}return http.StreamedResponse(Stream.value(utf8.encode(jsonEncode(c[changed?'reply':'raw']))),200);});
   final p=TenantTaskModulePort.authenticated(origin:Uri.parse('https://fixture.test'),token:'captured',scope:scope,module:'tasks',labels:labels,currentToken:()=> 'captured',currentScope:()=>scope,client:client);
   final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=>c['key'] as String);await session.load();final cmd=command(c['command'] as Map);await session.submit(cmd.itemId,cmd.action,cmd.fields);
@@ -102,7 +102,7 @@ void main(){
  });
  test('demo writes preserve workspace revision and requests cannot override dataset',()async{
   final demoScope=PreferenceScope(scope.tenantId,scope.userId,scope.role,'demo'),raw=clone(first)..['dataset']='demo'..['synthetic']=true..['workspaceVersion']=7;TenantTaskRequest? posted;
-  final p=TenantTaskModulePort(scope:demoScope,module:'notes',labels:labels,transport:(r)async{if(r.method=='POST'){posted=r;final reply=clone(raw);(reply['tasks'] as List).cast<Map>().single['version']=2;return reply;}return raw;});
+  final p=TenantTaskModulePort(scope:demoScope,module:'notes',labels:labels,transport:(r)async{if(r.method=='POST'){posted=r;final reply=clone(raw);(reply['tasks'] as List).cast<Map<dynamic,dynamic>>().single['version']=2;return reply;}return raw;});
   await p.read(const WorkQuery());await p.mutate(WorkCommand('task1',1,'edit',{'body':'Updated note'}),'00000000-0000-4000-8000-000000000001');expect(posted!.body!['workspaceVersion'],7);expect(posted!.filters['dataset'],'demo');p.dispose();
   final wire=TenantTaskHttpTransport(origin:Uri.parse('https://fixture.test'),token:'captured',scope:scope,currentToken:()=> 'captured',currentScope:()=>scope);
   await expectLater(wire.call(TenantTaskRequest('GET',{'dataset':'demo'})),throwsA(isA<WorkFailure>()));wire.dispose();
