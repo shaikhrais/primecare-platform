@@ -21,5 +21,7 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p 'test_migrate_*.py'
       - name: Verify generated status import cleanup
         run: python3 -m unittest discover -s scripts/tests -p test_clean_shared_status_imports.py
+      - name: Verify premium progress theme migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_premium_progress.py
       - name: Reject direct controls and colors outside shared theme definitions
         run: python3 scripts/check-shared-ui-boundary.py
