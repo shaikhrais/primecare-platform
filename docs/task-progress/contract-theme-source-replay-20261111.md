@@ -1,0 +1,11 @@
+# Exact theme migration proof for contract sources
+
+Batch summary: verify 189 already-published presentation migrations by replaying their reviewed utilities against immutable original sources. Extend the existing governance component amendment with nine exact reversible theme hunks. Historical source hashes and all operation decisions stay unchanged.
+
+The contract gate failed because 190 current UI sources differ from their historical evidence. Read-only review confirmed that commit 4e6195c51e639e362b2884e4de435578960f0983 contains the exact historical bytes for all 190 paths. No original hash was refreshed. The replay proof pins 29 utility/dependency files and eight deterministic pipelines for 189 exact paths: 179 premium templates and ten other already-reviewed palette/shared-control consumers. Every step must perform its reviewed count; the resulting entire file must equal current bytes. Added code, endpoint changes, label drift, a changed utility/manifest or a wrong historical source fails verification.
+
+The remaining governance component change was separately reviewed: existing shadow, semantic status/surface and readable foreground tokens replace fixed presentation colors. Its previous three localization hunks remain intact; nine new reversible hunks reconstruct that same prior reviewed revision, then the unchanged original hash. The amendment count stays 12, its maximum stays 20, and the per-entry maximum stays 30. No baseline, broad package exemption, waiver or arbitrary color normalization is introduced.
+
+The contract planner retains all 293 original source hashes, exact operation identities, authority dispositions and stages, with zero implementation/retirement credits. Its generated plan must remain byte-for-byte unchanged. The three existing CI callers explicitly fetch the immutable source commit without checking it out. Missing historical data fails closed.
+
+This batch adds source-proof verification, not a new feature or runtime acceptance. Source findings remain 0. Full feature acceptance remains 0/72 complete and 72 pending; production screen/workflow readiness is unchanged. Current-head native/browser and contract CI must still pass before acceptance is claimed.
