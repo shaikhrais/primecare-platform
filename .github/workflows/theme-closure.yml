@@ -21,6 +21,8 @@ on:
       - scripts/test-theme-adoption-preflight.mjs
       - scripts/test-tenant-workspace-layout.mjs
       - scripts/tenant-dashboard-fixture.mjs
+      - scripts/fixtures/tenant-presentation-theme.ts
+      - scripts/test-tenant-work-module-host.mjs
       - .github/workflows/theme-closure.yml
       - scripts/build-theme-execution-ledger.py
       - scripts/build-theme-service-contract-triage.py

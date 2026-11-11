@@ -19,6 +19,7 @@ const helperPath='scripts/fixtures/platform-browser-bootstrap.ts';
 const helper=await read(helperPath),theme=JSON.parse(await readFile('packages/shared/src/solid-theme.json','utf8'));
 const runtime=await build({stdin:{contents:helper+`
 export {requireScreenManager,ScreenManager} from '../../packages/primecare_ui/web/screen-manager';
+export {tenantPresentationTheme} from './tenant-presentation-theme';
 export {resolveManagedRoute} from '../../websites/typescript/src/managed-routes';
 export {renderPlatformAdmin} from '../../websites/typescript/src/platform-admin';
 export {renderGrowth} from '../../websites/typescript/src/growth/dashboard';
@@ -29,6 +30,17 @@ new Function('require','module','exports',runtime.outputFiles[0].text)(createReq
 const api=module.exports,AsyncFunction=Object.getPrototypeOf(async()=>{}).constructor;
 const restore=(name,descriptor)=>{if(descriptor)Object.defineProperty(globalThis,name,descriptor);else delete globalThis[name];};
 function global(t,name,value){const descriptor=Object.getOwnPropertyDescriptor(globalThis,name);Object.defineProperty(globalThis,name,{configurable:true,writable:true,value});t.after(()=>restore(name,descriptor));}
+
+test('tenant fixture palette passes real presentation bootstrap and retains strict theme validation',async t=>{
+ const f=peripheral(t,'/tenant-dashboard');
+ assert.ok(Object.isFrozen(api.tenantPresentationTheme));
+ assert.equal(api.tenantPresentationTheme['--color-primary'],theme['--color-primary']);
+ let rendered=0;
+ await api.presentPlatformFixture(f.root,api.tenantPresentationTheme,location.origin,()=>{rendered++;});
+ assert.equal(rendered,1);
+ const entry=api.resolveManagedRoute('/tenant-dashboard','');
+ assert.deepEqual(api.requireScreenManager(f.root).enter(entry.id,entry.route),entry);
+});
 
 function peripheral(t,path='/platform/administration',locale='en'){
  const styles=()=>{const values=new Map();return {scrollbarColor:'',setProperty:(k,v)=>values.set(k,String(v)),getPropertyValue:k=>values.get(k)??'',removeProperty:k=>values.delete(k)};};
