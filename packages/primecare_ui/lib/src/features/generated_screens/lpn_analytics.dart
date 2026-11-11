@@ -101,7 +101,7 @@ class LpnAnalyticsScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the PrimeCare UI Client module to enable Licensed Practical Nurse (LPN) personnel to oversee, audit, and coordinate operations related to licensed practical nurse (lpn) analytics.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Licensed Practical Nurse (LPN), I want to access the Licensed Practical Nurse (LPN) Analytics within the PrimeCare UI Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
+                  Text('User Story: As a Licensed Practical Nurse (LPN), I want to access the Licensed Practical Nurse (LPN) Analytics within the PrimeCare UI Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
