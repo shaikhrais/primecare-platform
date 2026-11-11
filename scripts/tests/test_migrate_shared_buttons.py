@@ -1,5 +1,8 @@
 import importlib.util
 import unittest
+import subprocess
+import sys
+import tempfile
 from pathlib import Path
 
 spec = importlib.util.spec_from_file_location('buttons', Path(__file__).parents[1] / 'migrate-shared-buttons.py')
@@ -9,6 +12,52 @@ IMPORTS = "import 'package:flutter/material.dart';\nimport 'package:primecare_ui
 
 
 class SharedButtonMigrationTest(unittest.TestCase):
+    def test_tearoffs_require_type_review_before_migrating_other_calls(self):
+        for suffix in ['final ctor = TextButton.new;', 'final ctor = TextButton.icon;']:
+            source = IMPORTS + suffix + "TextButton(onPressed: go, child: PrimeText('x'));"
+            self.assertEqual(buttons.migrate(source), (source, 0))
+
+    def test_cli_rejects_escape_scopes_and_skips_symlinked_sources(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory) / 'repo'
+            lib = root / 'apps' / 'sample' / 'lib'
+            lib.mkdir(parents=True)
+            source = IMPORTS + "TextButton(onPressed: go, child: PrimeText('x'))"
+            external = Path(directory) / 'external.dart'
+            external.write_text(source)
+            (lib / 'linked.dart').symlink_to(external)
+            outside_dir = Path(directory) / 'outside'
+            outside_dir.mkdir()
+            (outside_dir / 'screen.dart').write_text(source)
+            (lib / 'linked_directory').symlink_to(outside_dir, target_is_directory=True)
+            command = [sys.executable, buttons.__file__, '--root', str(root), '--apply']
+            result = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(external.read_text(), source)
+            self.assertEqual((outside_dir / 'screen.dart').read_text(), source)
+            for scope in ['../external.dart', 'apps/sample/lib/linked.dart', 'apps/sample/lib/linked_directory']:
+                result = subprocess.run(command + ['--path', scope], capture_output=True, text=True)
+                self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(external.read_text(), source)
+
+    def test_cli_dry_run_and_scoped_application(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            lib = root / 'apps' / 'sample' / 'lib'
+            lib.mkdir(parents=True)
+            source = IMPORTS + "TextButton(onPressed: go, child: PrimeText('x'))"
+            selected, other = lib / 'selected.dart', lib / 'other.dart'
+            selected.write_text(source)
+            other.write_text(source)
+            command = [sys.executable, buttons.__file__, '--root', str(root), '--path', 'apps/sample/lib/selected.dart']
+            result = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(selected.read_text(), source)
+            result = subprocess.run(command + ['--apply'], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertIn('PrimeButton(', selected.read_text())
+            self.assertEqual(other.read_text(), source)
+
     def test_preserves_callback_key_localization_and_const(self):
         source = IMPORTS + "const TextButton(key: Key('id'), onPressed: null, child: PrimeText('Retry'.tr()))"
         result, count = buttons.migrate(source)
