@@ -129,7 +129,7 @@ class CfoFranchiseFinancialsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cfo_franchise_financials-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cfo_franchise_financials-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class CfoFinancialOverviewScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cfo_financial_overview-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cfo_financial_overview-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

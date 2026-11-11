@@ -129,7 +129,7 @@ class TerritoryExpansionManagerExpansionPlansScreen extends GovernedConsumerWidg
           elevation: 0,
           title: Cy(
             id: 'territory_expansion_manager_expansion_plans-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_expansion_manager_expansion_plans-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

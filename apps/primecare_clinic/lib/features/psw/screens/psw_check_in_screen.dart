@@ -129,7 +129,7 @@ class PswCheckInScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'psw_check_in-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('psw_check_in-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

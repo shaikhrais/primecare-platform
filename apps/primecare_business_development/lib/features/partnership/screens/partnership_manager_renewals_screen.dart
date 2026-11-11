@@ -129,7 +129,7 @@ class PartnershipManagerRenewalsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'partnership_manager_renewals-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('partnership_manager_renewals-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

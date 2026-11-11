@@ -129,7 +129,7 @@ class CeoOrganizationMapScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_organization_map-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_organization_map-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class CredentialTrackingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'credential_tracking-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('credential_tracking-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

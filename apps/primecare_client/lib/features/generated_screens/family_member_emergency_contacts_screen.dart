@@ -129,7 +129,7 @@ class FamilyMemberEmergencyContactsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'family_member_emergency_contacts-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('family_member_emergency_contacts-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class IntakeCoordinatorAssessmentsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'intake_coordinator_assessments-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('intake_coordinator_assessments-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

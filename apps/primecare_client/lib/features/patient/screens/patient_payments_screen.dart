@@ -129,7 +129,7 @@ class PatientPaymentsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'patient_payments-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('patient_payments-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

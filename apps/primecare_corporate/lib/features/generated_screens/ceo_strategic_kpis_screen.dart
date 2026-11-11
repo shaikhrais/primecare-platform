@@ -129,7 +129,7 @@ class CeoStrategicKpisScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_strategic_kpis-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_strategic_kpis-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

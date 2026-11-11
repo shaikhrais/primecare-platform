@@ -129,7 +129,7 @@ class PatientTreatmentHistoryScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'patient_treatment_history-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('patient_treatment_history-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

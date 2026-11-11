@@ -129,7 +129,7 @@ class ClientMyAppointmentsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'client_my_appointments-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('client_my_appointments-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class PswReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'psw_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('psw_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

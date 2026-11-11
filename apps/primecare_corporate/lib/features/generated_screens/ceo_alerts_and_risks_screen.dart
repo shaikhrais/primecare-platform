@@ -129,7 +129,7 @@ class CeoAlertsAndRisksScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_alerts_and_risks-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_alerts_and_risks-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

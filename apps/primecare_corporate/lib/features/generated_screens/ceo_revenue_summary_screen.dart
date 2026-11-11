@@ -129,7 +129,7 @@ class CeoRevenueSummaryScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_revenue_summary-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_revenue_summary-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

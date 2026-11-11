@@ -129,7 +129,7 @@ class AiChatbotScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ai_chatbot-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ai_chatbot-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

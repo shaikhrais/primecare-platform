@@ -129,7 +129,7 @@ class FamilyMemberBillingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'family_member_billing-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('family_member_billing-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

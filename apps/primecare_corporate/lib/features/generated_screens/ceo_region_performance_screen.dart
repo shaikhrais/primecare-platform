@@ -129,7 +129,7 @@ class CeoRegionPerformanceScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_region_performance-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_region_performance-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

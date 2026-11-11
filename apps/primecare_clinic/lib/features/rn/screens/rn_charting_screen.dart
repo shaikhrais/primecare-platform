@@ -129,7 +129,7 @@ class RnChartingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'rn_charting-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('rn_charting-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

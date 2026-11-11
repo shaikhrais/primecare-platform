@@ -129,7 +129,7 @@ class PatientCareTeamScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'patient_care_team-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('patient_care_team-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

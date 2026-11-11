@@ -129,7 +129,7 @@ class CeoFranchiseOverviewScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_franchise_overview-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_franchise_overview-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

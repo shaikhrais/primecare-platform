@@ -139,7 +139,7 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'risk_register-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('risk_register-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

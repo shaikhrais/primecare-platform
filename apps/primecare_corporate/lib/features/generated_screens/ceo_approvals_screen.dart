@@ -129,7 +129,7 @@ class CeoApprovalsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ceo_approvals-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ceo_approvals-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class InfectionControlDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'infection_control_dashboard-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('infection_control_dashboard-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

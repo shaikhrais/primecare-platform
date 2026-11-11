@@ -129,7 +129,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'psw_help_support-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('psw_help_support-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

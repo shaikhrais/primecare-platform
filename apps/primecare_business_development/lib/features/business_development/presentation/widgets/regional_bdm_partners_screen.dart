@@ -129,7 +129,7 @@ class RegionalBdmPartnersScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'regional_bdm_partners-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('regional_bdm_partners-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

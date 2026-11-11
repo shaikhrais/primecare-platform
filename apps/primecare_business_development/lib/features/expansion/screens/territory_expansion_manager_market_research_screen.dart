@@ -129,7 +129,7 @@ class TerritoryExpansionManagerMarketResearchScreen extends GovernedConsumerWidg
           elevation: 0,
           title: Cy(
             id: 'territory_expansion_manager_market_research-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_expansion_manager_market_research-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

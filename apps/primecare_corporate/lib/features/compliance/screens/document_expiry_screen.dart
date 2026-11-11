@@ -129,7 +129,7 @@ class DocumentExpiryScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'document_expiry-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('document_expiry-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

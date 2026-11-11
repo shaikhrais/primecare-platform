@@ -129,7 +129,7 @@ class PoliciesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'policies-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('policies-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class TerritoryExpansionManagerReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'territory_expansion_manager_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_expansion_manager_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

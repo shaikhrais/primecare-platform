@@ -129,7 +129,7 @@ class TerritoryExpansionManagerOpenTerritoriesScreen extends GovernedConsumerWid
           elevation: 0,
           title: Cy(
             id: 'territory_expansion_manager_open_territories-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_expansion_manager_open_territories-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

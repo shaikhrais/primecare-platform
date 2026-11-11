@@ -129,7 +129,7 @@ class PswCareDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'psw_care_dashboard-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('psw_care_dashboard-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

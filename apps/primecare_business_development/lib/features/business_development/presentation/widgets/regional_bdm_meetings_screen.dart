@@ -129,7 +129,7 @@ class RegionalBdmMeetingsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'regional_bdm_meetings-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('regional_bdm_meetings-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

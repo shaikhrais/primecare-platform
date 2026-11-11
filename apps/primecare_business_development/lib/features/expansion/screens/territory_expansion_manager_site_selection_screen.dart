@@ -129,7 +129,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
           elevation: 0,
           title: Cy(
             id: 'territory_expansion_manager_site_selection-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_expansion_manager_site_selection-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

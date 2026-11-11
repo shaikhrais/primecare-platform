@@ -129,7 +129,7 @@ class FamilyLovedOneScheduleScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'family_loved_one_schedule-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('family_loved_one_schedule-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

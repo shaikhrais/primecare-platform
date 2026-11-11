@@ -129,7 +129,7 @@ class NurseDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'nurse_dashboard-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('nurse_dashboard-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

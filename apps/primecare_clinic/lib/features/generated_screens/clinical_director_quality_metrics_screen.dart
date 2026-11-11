@@ -129,7 +129,7 @@ class ClinicalDirectorQualityMetricsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'clinical_director_quality_metrics-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('clinical_director_quality_metrics-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
