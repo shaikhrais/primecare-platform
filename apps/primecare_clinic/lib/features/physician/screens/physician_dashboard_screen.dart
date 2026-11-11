@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:primecare_ui/primecare_ui.dart';
 import 'physician_dashboard_screen_controller.dart';
@@ -49,7 +50,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
             style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
           ))),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('physiciandashboard-btn-1'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.performAction(),

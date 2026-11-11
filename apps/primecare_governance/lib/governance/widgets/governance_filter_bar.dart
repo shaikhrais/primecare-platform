@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -33,7 +34,7 @@ class GovernanceFilterBar extends StatelessWidget {
         runSpacing: 12,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          const Icon(Icons.filter_list_rounded, color: Colors.grey, size: 20),
+          const PrimeIcon(Icons.filter_list_rounded, color: Colors.grey, size: 20),
 
           // Severity Filter
           _buildFilterChip<AuditSeverity>(
@@ -66,7 +67,7 @@ class GovernanceFilterBar extends StatelessWidget {
           if (selectedSeverity != null || selectedCategory != null)
             PrimeTextButton.icon(
               onPressed: onClear,
-              icon: const Icon(Icons.clear_all_rounded, size: 18),
+              icon: const PrimeIcon(Icons.clear_all_rounded, size: 18),
               label: PrimeText(
                 'governance.filterBar.clearFilters'.tr(),
                 style: const TextStyle(fontSize: 12),
@@ -119,7 +120,7 @@ class GovernanceFilterBar extends StatelessWidget {
                 color: selectedValue != null ? Colors.blue : null,
               ),
             ),
-            const Icon(Icons.arrow_drop_down, size: 18),
+            const PrimeIcon(Icons.arrow_drop_down, size: 18),
           ],
         ),
       ),

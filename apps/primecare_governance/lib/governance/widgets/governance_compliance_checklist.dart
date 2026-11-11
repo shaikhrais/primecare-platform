@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Compliance Checklist platform logic.
 // unnecessary import removed
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import '../models/governance_report.dart';
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -67,7 +68,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 12.0),
       child: Row(
         children: [
-          Icon(
+          PrimeIcon(
             isPassed ? Icons.check_circle_rounded : Icons.warning_amber_rounded,
             color: isPassed ? Colors.green : Colors.orange,
             size: 28,

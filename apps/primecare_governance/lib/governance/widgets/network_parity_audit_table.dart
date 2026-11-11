@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Network Parity Audit Table platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
@@ -22,7 +23,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
         child: const Center(
           child: Column(
             children: [
-              Icon(Icons.check_circle_outline, color: Colors.green, size: 48),
+              PrimeIcon(Icons.check_circle_outline, color: Colors.green, size: 48),
               SizedBox(height: 16),
               PrimeText(
                 'Zero-Error Platform Parity',
@@ -137,8 +138,8 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     ),
                   ),
                   DataCell(
-                    IconButton(key: const Key('network_parity_audit_table_iconbutton_button_1'), 
-                      icon: Icon(
+                    PrimeIconButton(key: const Key('network_parity_audit_table_iconbutton_button_1'),
+                      icon: PrimeIcon(
                         issue.autoRemediable ? Icons.auto_fix_high : Icons.build,
                         color: Colors.blue,
                         size: 20,

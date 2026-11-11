@@ -1,4 +1,5 @@
 // Governance - Category: middleware | Purpose: Routing definition mapping client endpoints, paths, layouts, and access guards.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/src/network/api_client.dart';
 import 'governance_route_access.dart';
@@ -168,7 +169,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
                 const LanguageSelector(),
                 const SizedBox(width: 8),
                 Builder(
-                  builder: (context) => IconButton(
+                  builder: (context) => PrimeIconButton(
                     key: const Key('route_registry_iconbutton_button_1'),
                     onPressed: () => Scaffold.of(context).openEndDrawer(),
                     icon: const PrimeIcon(LucideIcons.search),

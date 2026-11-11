@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'platform_discovery_viewer_controller.dart';
@@ -21,7 +22,7 @@ class PlatformDiscoveryViewer extends ConsumerWidget {
         final service = services[index];
         return ListTile(key: ValueKey('discovery-${service.key}'),
           title: PrimeText(service.key), subtitle: PrimeText(service.value),
-          trailing: Icon(service.value == 'healthy'
+          trailing: PrimeIcon(service.value == 'healthy'
             ? Icons.check_circle_outline : Icons.info_outline));
       },
     ));

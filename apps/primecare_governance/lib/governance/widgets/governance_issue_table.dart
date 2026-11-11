@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -108,8 +109,8 @@ class GovernanceIssueTable extends ConsumerWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             if (issue.metadata['sourcePath'] != null)
-                              IconButton(key: const Key('governance_issue_table_iconbutton_button_1'), 
-                                icon: const Icon(Icons.code, size: 18),
+                              PrimeIconButton(key: const Key('governance_issue_table_iconbutton_button_1'),
+                                icon: const PrimeIcon(Icons.code, size: 18),
                                 tooltip: 'Open in VS Code',
                                 onPressed: () async {
                                   final uri = env.getVSCodeUri(
@@ -121,8 +122,8 @@ class GovernanceIssueTable extends ConsumerWidget {
                                 },
                               ),
                             if (issue.metadata['fixProperty'] != null)
-                              IconButton(key: const Key('governance_issue_table_iconbutton_button_2'), 
-                                icon: const Icon(
+                              PrimeIconButton(key: const Key('governance_issue_table_iconbutton_button_2'),
+                                icon: const PrimeIcon(
                                   Icons.auto_fix_high_rounded,
                                   size: 18,
                                   color: Colors.green,
@@ -160,8 +161,8 @@ class GovernanceIssueTable extends ConsumerWidget {
                                   }
                                 },
                               ),
-                            IconButton(key: const Key('governance_issue_table_iconbutton_button_3'), 
-                              icon: const Icon(
+                            PrimeIconButton(key: const Key('governance_issue_table_iconbutton_button_3'),
+                              icon: const PrimeIcon(
                                 Icons.build,
                                 size: 18,
                                 color: Colors.blue,

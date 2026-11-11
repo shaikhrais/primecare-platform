@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Group screens by primary Role (as defined in ScreenMetadata.role)
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
 import 'package:primecare_governance/core/governance/screen_registry.dart';
@@ -122,7 +123,7 @@ class AppDrawer extends ConsumerWidget {
               ],
             ),
           ),
-          IconButton(key: const Key('app_drawer_iconbutton_button_1'), 
+          PrimeIconButton(key: const Key('app_drawer_iconbutton_button_1'),
             icon: PrimeIcon(Icons.close, size: 16, color: theme.colors.error),
             onPressed: () =>
                 ref.read(roleImpersonationProvider.notifier).impersonate(null),
@@ -388,7 +389,7 @@ class AppDrawer extends ConsumerWidget {
           ),
           Cy(
             id: 'logout-button',
-            child: IconButton(key: const Key('app_drawer_iconbutton_button_2'), 
+            child: PrimeIconButton(key: const Key('app_drawer_iconbutton_button_2'),
               icon: PrimeIcon(
                 Icons.logout_outlined,
                 color: theme.colors.error,

@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -219,7 +220,7 @@ class _GovernanceDashboardContentState
                                 strokeWidth: 2,
                               ),
                             )
-                          : const Icon(Icons.auto_fix_high_rounded, size: 20),
+                          : const PrimeIcon(Icons.auto_fix_high_rounded, size: 20),
                       label: PrimeText('governance.dashboard.auto_remediate'.tr()),
                       style: PrimeOutlinedButton.styleFrom(
                         foregroundColor: Colors.blue,
@@ -271,7 +272,7 @@ class _GovernanceDashboardContentState
                               child: CircularProgressIndicator(strokeWidth: 2),
                             )
                           else
-                            const Icon(
+                            const PrimeIcon(
                               Icons.download_rounded,
                               color: Colors.blue,
                               size: 20,
@@ -290,7 +291,7 @@ class _GovernanceDashboardContentState
                   ),
                   PrimeElevatedButton.icon(
                     onPressed: _refreshReport,
-                    icon: const Icon(Icons.refresh_rounded),
+                    icon: const PrimeIcon(Icons.refresh_rounded),
                     label: PrimeText('governance.dashboard.rescan'.tr()),
                     style: PrimeElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
@@ -415,7 +416,7 @@ class _GovernanceDashboardContentState
                 child: TextField(key: const Key('governance_dashboard_textfield_input_1'), 
                   decoration: InputDecoration(
                     hintText: 'Search screens...',
-                    prefixIcon: const Icon(Icons.search),
+                    prefixIcon: const PrimeIcon(Icons.search),
                     filled: true,
                     fillColor: Theme.of(context).cardColor,
                     border: OutlineInputBorder(
@@ -474,7 +475,7 @@ class _GovernanceDashboardContentState
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.security, size: 14, color: Colors.green),
+                    PrimeIcon(Icons.security, size: 14, color: Colors.green),
                     SizedBox(width: 4),
                     PrimeText(
                       'ZERO-TRUST ENFORCED',
