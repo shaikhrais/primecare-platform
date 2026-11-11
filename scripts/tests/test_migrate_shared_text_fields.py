@@ -1,12 +1,14 @@
-import importlib.util,json,unittest
+import importlib.util,json,unittest,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 spec=importlib.util.spec_from_file_location('fields',ROOT/'scripts/migrate-shared-text-fields.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
+sys.path.insert(0,str(ROOT/'scripts'))
+import reviewed_migration_history as history
 MANIFEST=json.loads((ROOT/'scripts/shared-text-fields-manifest.json').read_text())
 
 class SharedTextFieldMigrationTest(unittest.TestCase):
  def pair(self,path,sha,count):
-  current=(ROOT/path).read_text()
+  current=history.before_governance_palette((ROOT/path).read_text(),path)
   if m.digest(current)==sha:original=current;updated,actual=m.migrate_source(path,current,sha,count)
   else:original,actual=m.reverse_source(path,current,count);updated=current
   self.assertEqual(m.digest(original),sha);return original,updated,actual

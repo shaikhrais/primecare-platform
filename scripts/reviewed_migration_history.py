@@ -31,7 +31,12 @@ def before_circular_progress(source,path):
     return reverse_manifest(source,path,'shared-circular-progress-manifest.json')
 
 
+def before_governance_palette(source,path):
+    return reverse_manifest(source,path,'governance-widgets-palette-manifest.json')
+
+
 def before_shared_text_fields(source,path):
+    source=before_governance_palette(source,path)
     manifest_path=ROOT/'scripts/shared-text-fields-manifest.json'
     script_path=ROOT/'scripts/migrate-shared-text-fields.py'
     if not manifest_path.exists() or not script_path.exists():return source

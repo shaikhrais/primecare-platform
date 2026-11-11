@@ -1,0 +1,7 @@
+# Governance widgets palette batch
+
+100 fixed colors in seven widgets: domain chart, live event feed, issue table, network parity table, KPI grid, filter bar and dashboard. Keep categories distinct from severity: domain categories use primary/secondary; event levels and issue severity retain success/warning/error roles. Compose icon/badge tints on the actual theme card surface. Resolve pie title text against its own category slice, and hero text/progress against the primary backdrop. Preserve counts, filters, fix actions, exports and issue data.
+
+KPI cards retain their 110-pixel extent at 1x and grow with text scale to avoid a fixed-height overflow. Color helpers receive BuildContext explicitly. Exact input hashes and reversible receipts compose with prior progress/scaffold/text-field migrations. Native regression must compile all seven actual consumers and render chart, KPI, events and filter callbacks; native acceptance remains pending. Publish utility/validation and source files in parts on current main, no new branch or baseline exemptions.
+
+Validation: 261 combined migration tests and 24 boundary tests pass. Exact source receipts preserve earlier progress/scaffold/text-field migrations. Second migration pass makes zero changes. Native coverage includes every issue severity, all populated category slices, the empty chart, both text scales and filter callbacks. Native execution remains pending CI. Strict source scan: 439 -> 339 violations; no exemptions added.
