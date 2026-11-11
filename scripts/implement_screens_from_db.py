@@ -60,7 +60,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
             children: [
               Row(
                 children: [
-                  Icon(Icons.dashboard_customize_outlined, color: {theme['primary']}, size: 20),
+                  PrimeIcon(Icons.dashboard_customize_outlined, color: {theme['primary']}, size: 20),
                   const SizedBox(width: 8),
                   PrimeText(
                     '{sec_name}',

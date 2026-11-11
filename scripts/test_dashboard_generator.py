@@ -31,6 +31,7 @@ class GeneratorSafetyTests(unittest.TestCase):
         self.assertEqual(boundary.violations(dart, True), [])
         self.assertIn('ScreenScaffold(', dart)
         self.assertIn('PrimeText(', dart)
+        self.assertIn('PrimeIcon(Icons.dashboard_customize_outlined', dart)
         self.assertIn('PrimeButton.secondary(', dart)
         self.assertIn('boxShadow: theme.shadowsSurface1', dart)
 

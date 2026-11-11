@@ -91,7 +91,7 @@ class ThemeFixtureScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
+                  PrimeIcon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   PrimeText(
                     'Data',

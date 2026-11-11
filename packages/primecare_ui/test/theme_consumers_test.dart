@@ -12,6 +12,7 @@ import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/components/clinical_glass_panel.dart';
 import 'package:primecare_ui/src/components/prime_components.dart' as shared;
 import 'package:primecare_ui/src/components/prime_text.dart';
+import 'package:primecare_ui/src/components/prime_icon.dart';
 import 'package:primecare_ui/src/components/layouts/responsive_grid_layout.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'fixtures/generated_theme_fixture.dart';
@@ -35,6 +36,31 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('shared icons retain inherited and explicit theme colors across palettes', (tester) async {
+    for (final preset in themeCenterPresetNames) {
+      final material = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Icon', preset: preset));
+      await tester.pumpWidget(MaterialApp(theme: material, home: Scaffold(body: IconTheme(
+        data: IconThemeData(color: material.colorScheme.secondary, size: 29),
+        child: Row(children: [
+          const PrimeIcon(Icons.star, key: Key('inherited-icon')),
+          PrimeIcon(Icons.dashboard_customize_outlined, key: const Key('explicit-icon'),
+            color: material.colorScheme.primary, size: 20, semanticLabel: 'Section'),
+        ]),
+      ))));
+      await tester.pump();
+      final inherited = tester.widget<RichText>(find.descendant(
+        of: find.byKey(const Key('inherited-icon')), matching: find.byType(RichText)));
+      expect(inherited.text.style!.color, material.colorScheme.secondary, reason: preset);
+      expect(inherited.text.style!.fontSize, 29, reason: preset);
+      final explicit = tester.widget<Icon>(find.descendant(
+        of: find.byKey(const Key('explicit-icon')), matching: find.byType(Icon)));
+      expect(explicit.color, material.colorScheme.primary, reason: preset);
+      expect(explicit.size, 20);
+      expect(explicit.semanticLabel, 'Section');
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
   testWidgets('inherited shared text preserves enabled and disabled button styles across all palettes', (tester) async {
     for (final preset in themeCenterPresetNames) {
       final material = applyPersonalThemeData(ThemeData(),
