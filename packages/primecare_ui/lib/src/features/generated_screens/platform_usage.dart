@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -91,7 +92,7 @@ class PlatformUsageController extends StateNotifier<PlatformUsageState> {
                 children: [
                   Row(
                     children: [
-                      Icon(LucideIcons.power, color: Colors.green),
+                      Icon(LucideIcons.power, color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase),
                       const SizedBox(width: 10),
                       Text(
                         'Safe Reboot Completed',
@@ -191,7 +192,7 @@ class PlatformUsage extends GovernedConsumerWidget {
                     title: 'Active User Sessions',
                     value: '3,380 sessions',
                     icon: LucideIcons.laptop,
-                    color: Colors.blue,
+                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -200,7 +201,7 @@ class PlatformUsage extends GovernedConsumerWidget {
                     title: 'System Node Health',
                     value: '98.4% uptime',
                     icon: LucideIcons.heartPulse,
-                    color: Colors.green,
+                    color: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -209,7 +210,7 @@ class PlatformUsage extends GovernedConsumerWidget {
                     title: 'Current Traffic Peak',
                     value: '142 reqs/s',
                     icon: LucideIcons.zap,
-                    color: Colors.amber,
+                    color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                   ),
                 ),
               ],
@@ -303,7 +304,7 @@ class PlatformUsage extends GovernedConsumerWidget {
 
             // Log Console Window Card
             Card(
-              color: Colors.black.withValues(alpha: 0.9),
+              color: context.theme.colors.inverseSurface,
               elevation: 0,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               child: Container(
@@ -311,28 +312,28 @@ class PlatformUsage extends GovernedConsumerWidget {
                 padding: const EdgeInsets.all(16),
                 height: 180,
                 child: filteredLogs.isEmpty
-                    ? const Center(
+                    ?  Center(
                         child: Text(
                           'No logs matching selected level filter.',
-                          style: TextStyle(color: Colors.grey, fontFamily: 'monospace', fontSize: 12),
+                          style: TextStyle(color: context.theme.colors.inverseOnSurface, fontFamily: 'monospace', fontSize: 12),
                         ),
                       )
                     : ListView.builder(
                         itemCount: filteredLogs.length,
                         itemBuilder: (context, index) {
                           final log = filteredLogs[index];
-                          Color logColor = Colors.green;
+                          Color logColor = PrimeActionPalette.of(context, PrimeActionTone.success).accent;
                           if (log.startsWith('WARN:')) {
-                            logColor = Colors.orange;
+                            logColor = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
                           } else if (log.startsWith('ERROR:')) {
-                            logColor = Colors.red;
+                            logColor = PrimeActionPalette.of(context, PrimeActionTone.error).accent;
                           }
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 6.0),
                             child: Text(
                               log,
                               style: TextStyle(
-                                color: logColor,
+                                color: readableThemeForeground(context.theme.colors.inverseSurface, logColor),
                                 fontFamily: 'monospace',
                                 fontSize: 12,
                               ),
@@ -350,8 +351,8 @@ class PlatformUsage extends GovernedConsumerWidget {
               height: 50,
               child: ElevatedButton(key: const Key('platform_usage_elevatedbutton_button_2'), 
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.redAccent,
-                  foregroundColor: Colors.white,
+                  backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).accent,
+                  foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
@@ -361,12 +362,12 @@ class PlatformUsage extends GovernedConsumerWidget {
                     ? null
                     : () => controller.executeSafeSystemReboot(context),
                 child: state.isRebooting
-                    ? const SizedBox(
+                    ?  SizedBox(
                         height: 20,
                         width: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          valueColor: AlwaysStoppedAnimation<Color>(PrimeActionPalette.of(context, PrimeActionTone.error).onAccent),
                         ),
                       )
                     : Row(
@@ -417,10 +418,10 @@ class _StatCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, color),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: color, size: 20),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, color), size: 20),
             ),
             const SizedBox(height: 14),
             Text(

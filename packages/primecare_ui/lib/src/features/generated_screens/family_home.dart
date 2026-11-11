@@ -174,9 +174,9 @@ class FamilyHome extends GovernedConsumerWidget {
                 margin: const EdgeInsets.only(bottom: 24),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade50,
+                  color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                   borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: Colors.green.shade300),
+                  border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.success).border),
                 ),
                 child: Row(
                   children: [
@@ -185,11 +185,11 @@ class FamilyHome extends GovernedConsumerWidget {
                     Expanded(
                       child: Text(
                         'Visit request submitted successfully!',
-                        style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
+                        style: theme.typography.bodyMedium.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface),
                       ),
                     ),
                     IconButton(key: const Key('family_home_iconbutton_button_1'), 
-                      icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
+                      icon:  Icon(LucideIcons.x, size: 16, color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface),
                       onPressed: controller.dismissNotification,
                     ),
                   ],
@@ -222,15 +222,15 @@ class FamilyHome extends GovernedConsumerWidget {
                           Container(
                             width: 10,
                             height: 10,
-                            decoration: const BoxDecoration(
-                              color: Colors.green,
+                            decoration:  BoxDecoration(
+                              color: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                               shape: BoxShape.circle,
                             ),
                           ),
                           const SizedBox(width: 8),
                           Text(
                             'CAREGIVER CURRENTLY ON-SITE',
-                            style: theme.typography.labelBold.copyWith(color: Colors.green),
+                            style: theme.typography.labelBold.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase),
                           ),
                         ],
                       ),
@@ -296,7 +296,7 @@ class FamilyHome extends GovernedConsumerWidget {
                           const SizedBox(width: 8),
                           Text(
                             'GPS Check-in Verified',
-                            style: theme.typography.bodySmall.copyWith(color: Colors.green),
+                            style: theme.typography.bodySmall.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase),
                           ),
                         ],
                       ),
@@ -381,8 +381,8 @@ class FamilyHome extends GovernedConsumerWidget {
               itemBuilder: (context, index) {
                 final log = state.dailyLogs[index];
                 Color statusColor = theme.colors.primary;
-                if (log['status'] == 'success') statusColor = Colors.green;
-                if (log['status'] == 'warning') statusColor = Colors.orange;
+                if (log['status'] == 'success') statusColor = PrimeActionPalette.of(context, PrimeActionTone.success).accent;
+                if (log['status'] == 'warning') statusColor = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
 
                 return IntrinsicHeight(
                   child: Row(
@@ -394,14 +394,14 @@ class FamilyHome extends GovernedConsumerWidget {
                           Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              color: statusColor.withValues(alpha: 0.1),
+                              color: PrimeActionPalette.tintSurface(context, statusColor),
                               shape: BoxShape.circle,
                             ),
                             child: Container(
                               width: 10,
                               height: 10,
                               decoration: BoxDecoration(
-                                color: statusColor,
+                                color: PrimeActionPalette.onTint(context, statusColor),
                                 shape: BoxShape.circle,
                               ),
                             ),
@@ -410,7 +410,7 @@ class FamilyHome extends GovernedConsumerWidget {
                             child: Container(
                               width: 2,
                               color: index == state.dailyLogs.length - 1
-                                  ? Colors.transparent
+                                  ? context.theme.colors.surface.withValues(alpha: 0)
                                   : theme.colors.divider,
                             ),
                           ),
@@ -436,12 +436,12 @@ class FamilyHome extends GovernedConsumerWidget {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                     decoration: BoxDecoration(
-                                      color: statusColor.withValues(alpha: 0.1),
+                                      color: PrimeActionPalette.tintSurface(context, statusColor),
                                       borderRadius: BorderRadius.circular(theme.radiusSm),
                                     ),
                                     child: Text(
                                       log['type'] as String,
-                                      style: theme.typography.bodySmall.copyWith(color: statusColor, fontWeight: FontWeight.bold),
+                                      style: theme.typography.bodySmall.copyWith(color: PrimeActionPalette.onTint(context, statusColor), fontWeight: FontWeight.bold),
                                     ),
                                   ),
                                   Text(
@@ -487,7 +487,7 @@ class FamilyHome extends GovernedConsumerWidget {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: context.theme.colors.surface.withValues(alpha: 0),
       builder: (context) {
         return StatefulBuilder(
           builder: (context, setState) {
@@ -593,7 +593,7 @@ class FamilyHome extends GovernedConsumerWidget {
                     child: ElevatedButton(key: const Key('family_home_elevatedbutton_button_1'), 
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
-                        foregroundColor: Colors.white,
+                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(theme.radiusDefault),

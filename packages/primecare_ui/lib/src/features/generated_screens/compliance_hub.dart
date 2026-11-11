@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -148,7 +149,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                     trendLabel: 'Increased from 94.8% baseline',
                     progress: state.complianceScore / 100,
                     icon: LucideIcons.shieldCheck,
-                    brandColor: state.complianceScore >= 95 ? Colors.green : theme.colors.primary,
+                    brandColor: state.complianceScore >= 95 ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : theme.colors.primary,
                   ),
                 ),
                 const SizedBox(width: 16),
@@ -159,7 +160,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                     trendLabel: state.alerts.isEmpty ? 'All metrics clear!' : 'Requires immediate reviews',
                     progress: state.alerts.isEmpty ? 1.0 : 0.5,
                     icon: LucideIcons.alertTriangle,
-                    brandColor: state.alerts.any((a) => a.severity == 'High') ? Colors.red : Colors.orange,
+                    brandColor: state.alerts.any((a) => a.severity == 'High') ? PrimeActionPalette.of(context, PrimeActionTone.error).accent : PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                   ),
                 ),
               ],
@@ -197,13 +198,13 @@ class ComplianceHub extends GovernedConsumerWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                               decoration: BoxDecoration(
-                                color: state.alerts.isEmpty ? Colors.green.withOpacity(0.1) : Colors.red.withOpacity(0.1),
+                                color: state.alerts.isEmpty ? PrimeActionPalette.of(context, PrimeActionTone.success).surface : PrimeActionPalette.of(context, PrimeActionTone.error).surface,
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
                                 state.alerts.isEmpty ? 'Clear' : '${state.alerts.length} Warnings',
                                 style: theme.typography.labelSmall.copyWith(
-                                  color: state.alerts.isEmpty ? Colors.green : Colors.red,
+                                  color: state.alerts.isEmpty ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.error).onSurface,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
@@ -231,7 +232,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                                 color: theme.colors.background,
                                 borderRadius: BorderRadius.circular(theme.radiusSm),
                                 border: Border.all(
-                                  color: isHigh ? Colors.red.withOpacity(0.3) : theme.colors.border,
+                                  color: isHigh ? PrimeActionPalette.of(context, PrimeActionTone.error).border : theme.colors.border,
                                 ),
                               ),
                               child: Column(
@@ -245,7 +246,7 @@ class ComplianceHub extends GovernedConsumerWidget {
                                           alert.title,
                                           style: theme.typography.bodyMedium.copyWith(
                                             fontWeight: FontWeight.bold,
-                                            color: isHigh ? Colors.red : theme.colors.onSurface,
+                                            color: isHigh ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : theme.colors.onSurface,
                                           ),
                                         ),
                                       ),
@@ -302,10 +303,10 @@ class ComplianceHub extends GovernedConsumerWidget {
                                 padding: const EdgeInsets.only(bottom: 6.0),
                                 child: Text(
                                   '> $log',
-                                  style: const TextStyle(
+                                  style:  TextStyle(
                                     fontFamily: 'monospace',
                                     fontSize: 12,
-                                    color: Colors.greenAccent,
+                                    color: readableThemeForeground(context.theme.colors.background, context.theme.colors.success),
                                   ),
                                 ),
                               );
@@ -324,12 +325,12 @@ class ComplianceHub extends GovernedConsumerWidget {
                             ),
                             onPressed: state.isScanning ? null : () => controller.runTelemetryScan(),
                             child: state.isScanning
-                                ? const SizedBox(
+                                ?  SizedBox(
                                     height: 18,
                                     width: 18,
                                     child: CircularProgressIndicator(
                                       strokeWidth: 2,
-                                      valueColor: AlwaysStoppedAnimation(Colors.white),
+                                      valueColor: AlwaysStoppedAnimation(PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
                                     ),
                                   )
                                 : const Text('Run Telemetry Scan'),
