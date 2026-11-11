@@ -3,6 +3,7 @@
 // Path: apps/primecare_governance/lib/governance/services/cross_subsystem_auditor.dart
 
 import 'dart:io';
+import 'blueprint_component_evidence.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -613,9 +614,10 @@ class CrossSubsystemAuditor {
         }
 
         final implementedComps = screenData.components;
-        final missingComps = requiredComps
-            .where((c) => !implementedComps.contains(c))
-            .toList();
+        final missingComps = BlueprintComponentEvidence.missingImplemented(
+          requiredComponents: requiredComps,
+          implementedComponents: implementedComps,
+        );
 
         if (missingComps.isNotEmpty) {
           issues.add(

@@ -6,6 +6,7 @@ import 'package:path/path.dart' as p;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:yaml/yaml.dart';
+import 'package:primecare_governance/governance/services/blueprint_component_evidence.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';
 
 void main() {
@@ -88,17 +89,17 @@ void main() {
 
           final implemented = screen.implementedComponents;
           final pending = screen.pendingComponents;
-          final allComponents = [...implemented, ...pending];
-
-          final missingComps = required
-              .where((c) => !allComponents.contains(c))
-              .toList();
+          // Pending declarations identify backlog; they are never implementation.
+          final missingComps = BlueprintComponentEvidence.missingImplemented(
+            requiredComponents: required.cast<String>(),
+            implementedComponents: implemented,
+          );
 
           if (missingComps.isNotEmpty) {
             print(
               'DRIFT: Screen ${screen.id} is missing expected components from $blueprintId: $missingComps',
             );
-            findings.add({'screenId': screen.id, 'blueprintId': blueprintId, 'status': 'component-drift', 'missingComponents': missingComps});
+            findings.add({'screenId': screen.id, 'blueprintId': blueprintId, 'status': 'component-drift', 'missingComponents': missingComps, 'pendingComponents': missingComps.where(pending.contains).toList()});
             driftCount++;
           } else {
             print(
