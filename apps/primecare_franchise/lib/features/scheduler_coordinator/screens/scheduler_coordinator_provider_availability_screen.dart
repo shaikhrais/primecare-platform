@@ -166,7 +166,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
                 trendLabel: 'Optimal',
                 progress: 0.97,
                 icon: LucideIcons.zap,
-                brandColor: Color(0xFFEAB308),
+                brandColor: theme.colors.warning,
               ),
             ],
             mainContent: SingleChildScrollView(
