@@ -77,56 +77,56 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
         'url': 'https://primecare-corporate.pages.dev',
         'icon': LucideIcons.building,
         'description': 'Executive leadership, financial planning, HR, legal, compliance, and training management.',
-        'color': const Color(0xFF60A5FA), // Blue
+        'color': PrimeActionPalette.of(context, PrimeActionTone.primary).accent, // Blue
       },
       {
         'name': 'Business Development',
         'url': 'https://primecare-business-development.pages.dev',
         'icon': LucideIcons.trendingUp,
         'description': 'Partnerships, regional growth, franchise sales, market research, and expansion planning.',
-        'color': const Color(0xFF818CF8), // Indigo
+        'color': PrimeActionPalette.of(context, PrimeActionTone.secondary).accent, // Indigo
       },
       {
         'name': 'Franchise Operations',
         'url': 'https://primecare-franchise.pages.dev',
         'icon': LucideIcons.briefcase,
         'description': 'Local franchise ownership, office operations, local hiring, and client billing.',
-        'color': const Color(0xFF22D3EE), // Cyan
+        'color': PrimeActionPalette.of(context, PrimeActionTone.primary).accent, // Cyan
       },
       {
         'name': 'Customer Support',
         'url': 'https://primecare-support.pages.dev',
         'icon': LucideIcons.phone,
         'description': 'VIP concierge care coordination, premium client support, and ticket management.',
-        'color': const Color(0xFFFBBF24), // Amber
+        'color': PrimeActionPalette.of(context, PrimeActionTone.primary).accent, // Amber
       },
       {
         'name': 'Marketing & Outreach',
         'url': 'https://primecare-marketing.pages.dev',
         'icon': LucideIcons.megaphone,
         'description': 'Local marketing campaigns, community events, partnerships, and brand assets.',
-        'color': const Color(0xFFC084FC), // Purple
+        'color': PrimeActionPalette.of(context, PrimeActionTone.secondary).accent, // Purple
       },
       {
         'name': 'Clinical Intelligence',
         'url': 'https://primecare-clinic.pages.dev',
         'icon': LucideIcons.stethoscope,
         'description': 'Clinical director oversight, caregiver schedules, client vitals, and treatment plans.',
-        'color': const Color(0xFF34D399), // Emerald/Green
+        'color': PrimeActionPalette.of(context, PrimeActionTone.primary).accent, // Emerald/Green
       },
       {
         'name': 'Client Care Portal',
         'url': 'https://primecare-client.pages.dev',
         'icon': LucideIcons.heart,
         'description': 'Client appointments, loved one schedules, care team updates, and family billing.',
-        'color': const Color(0xFFF472B6), // Pink/Rose
+        'color': PrimeActionPalette.of(context, PrimeActionTone.secondary).accent, // Pink/Rose
       },
       {
         'name': 'Platform Governance',
         'url': 'https://primecare-governance.pages.dev',
         'icon': LucideIcons.shieldCheck,
         'description': 'System integrity verification, infrastructure auditing, and dynamic blueprints.',
-        'color': const Color(0xFF2DD4BF), // Teal
+        'color': PrimeActionPalette.of(context, PrimeActionTone.primary).accent, // Teal
       },
     ];
 
@@ -156,13 +156,13 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
           child: Container(
             decoration: BoxDecoration(
               color: isAuthorized 
-                  ? Colors.white.withValues(alpha: 0.03)
-                  : Colors.white.withValues(alpha: 0.01),
+                  ? PrimeActionPalette.of(context, PrimeActionTone.primary).accent
+                  : PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
               borderRadius: BorderRadius.circular(16),
               border: Border.all(
                 color: isAuthorized 
                     ? accentColor.withValues(alpha: 0.25)
-                    : Colors.white.withValues(alpha: 0.05),
+                    : PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                 width: 1.5,
               ),
               boxShadow: isAuthorized ? [
@@ -174,7 +174,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
               ] : null,
             ),
             child: Material(
-              color: Colors.transparent,
+              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
                 onTap: isAuthorized ? () {
@@ -191,7 +191,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                           Container(
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
-                              color: accentColor.withValues(alpha: 0.1),
+                              color: PrimeActionPalette.tintSurface(context, accentColor),
                               shape: BoxShape.circle,
                               border: Border.all(
                                 color: accentColor.withValues(alpha: 0.2),
@@ -199,7 +199,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                             ),
                             child: Icon(
                               icon,
-                              color: accentColor,
+                              color: PrimeActionPalette.onTint(context, accentColor),
                               size: 24,
                             ),
                           ),
@@ -207,19 +207,19 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                             Container(
                               padding: const EdgeInsets.all(6),
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.05),
+                                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                                 shape: BoxShape.circle,
                               ),
-                              child: const Icon(
+                              child: Icon(
                                 LucideIcons.lock,
-                                color: Colors.white54,
+                                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                                 size: 14,
                               ),
                             )
                           else
-                            const Icon(
+                            Icon(
                               LucideIcons.arrowRight,
-                              color: Colors.white54,
+                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                               size: 18,
                             ),
                         ],
@@ -229,7 +229,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                         name,
                         style: theme.typography.h3.copyWith(
                           fontWeight: FontWeight.bold,
-                          color: Colors.white,
+                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                         ),
                       ),
                       const SizedBox(height: 8),
@@ -237,7 +237,7 @@ class SuccessProfileActionBarSection extends ConsumerWidget {
                         child: Text(
                           description,
                           style: theme.typography.bodyMedium.copyWith(
-                            color: Colors.white.withValues(alpha: 0.5),
+                            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                             fontSize: 12,
                             height: 1.4,
                           ),

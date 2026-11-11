@@ -15,21 +15,21 @@ class SuccessProfileIdentitySummarySection extends ConsumerWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             borderRadius: BorderRadius.circular(32),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             ),
           ),
           child: Row(
             children: [
               CircleAvatar(
                 radius: 14,
-                backgroundColor: Colors.white.withValues(alpha: 0.1),
+                backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                 child: Text(
                   (authState.userName ?? 'U')[0].toUpperCase(),
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: TextStyle(
+                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
@@ -39,7 +39,7 @@ class SuccessProfileIdentitySummarySection extends ConsumerWidget {
               Text(
                 authState.userName ?? 'auth_success_default_user'.tr(),
                 style: theme.typography.bodyMedium.copyWith(
-                  color: Colors.white,
+                  color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -47,14 +47,14 @@ class SuccessProfileIdentitySummarySection extends ConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                 decoration: BoxDecoration(
-                  color: Colors.greenAccent.withValues(alpha: 0.15),
+                  color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                   borderRadius: BorderRadius.circular(12),
-                  border: Border.all(color: Colors.greenAccent.withValues(alpha: 0.3)),
+                  border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent),
                 ),
                 child: Text(
                   (authState.role ?? 'Guest').toUpperCase(),
                   style: theme.typography.labelSmall.copyWith(
-                    color: Colors.greenAccent,
+                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
                   ),
@@ -66,7 +66,7 @@ class SuccessProfileIdentitySummarySection extends ConsumerWidget {
         const SizedBox(width: 12),
         IconButton(
           tooltip: 'auth_success_sign_out'.tr(),
-          icon: const Icon(LucideIcons.logOut, color: Colors.redAccent),
+          icon: Icon(LucideIcons.logOut, color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent),
           onPressed: () async {
             await ref.read(authProvider.notifier).logout();
           },
