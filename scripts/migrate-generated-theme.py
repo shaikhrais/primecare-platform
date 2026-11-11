@@ -14,7 +14,7 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location('boundary', Path(__file__).with_name('check-shared-ui-boundary.py'))
 boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
-COLOR = re.compile(r'\b(?:Color\s*\(\s*0xFF([0-9A-Fa-f]{6})\s*\)|Colors\s*\.\s*(white|black))')
+COLOR = re.compile(r'\b(?:Color\s*\(\s*0xFF([0-9A-Fa-f]{6})\s*\)|Colors\s*\.\s*(white|black)\b)')
 CONST_CALL = re.compile(r'\bconst\s+(?:\w+\s*\.\s*)?\w+(?:\s*<[^;{}()]*>)?(?:\s*\.\s*\w+)?\s*\(|\bconst\s*[\[{]')
 # Roles come from the existing generated template's use, never a nearest-color match.
 RULES = {
@@ -30,8 +30,35 @@ for constructor in ('TextStyle',):
   RULES[(constructor, 'color', color)] = 'onSurfaceVariant'
 for constructor in ('BoxDecoration', 'Border.all', 'TextStyle', 'Icon', 'ElevatedButton.styleFrom'):
  RULES[(constructor, 'color' if constructor != 'ElevatedButton.styleFrom' else 'backgroundColor', '0284C7')] = 'primary'
+# These are the same generated layout in role-specific legacy accent palettes.
+TEMPLATE_ACCENTS = ('0284C7', 'E11D48', '2563EB', '059669', '7C3AED', 'D97706')
+for background in ('FFF1F2', 'EFF6FF', 'F0FDF4', 'F5F3FF', 'FFFBEB'):
+ RULES[('Scaffold', 'backgroundColor', background)] = 'background'
+for constructor in ('BoxDecoration', 'Border.all', 'TextStyle', 'Icon', 'ElevatedButton.styleFrom'):
+ for accent in TEMPLATE_ACCENTS:
+  RULES[(constructor, 'color' if constructor != 'ElevatedButton.styleFrom' else 'backgroundColor', accent)] = 'primary'
 for constructor in ('BoxDecoration', 'TextStyle'):
  RULES[(constructor, 'color', '10B981')] = 'success'
+
+# Only the exact repeated generated low-elevation shadow qualifies.
+SHADOW = re.compile(r'\bboxShadow\s*:\s*(?P<value>(?:const\s*)?\[\s*'
+ r'(?:const\s*)?BoxShadow\(\s*color\s*:\s*Colors\.black\.withOpacity\(0\.02\),\s*'
+ r'blurRadius\s*:\s*10,\s*offset\s*:\s*(?:const\s*)?Offset\(0,\s*4\),?\s*\),?\s*\])')
+
+
+def inverse_panel(parents, code, all_frames):
+ containers = [f for f in parents if f[2] == 'Container']
+ if not containers:
+  return False
+ nearest = max(containers, key=lambda f:f[0])
+ for decoration in all_frames:
+  if decoration[2] != 'BoxDecoration' or decoration[3] is not nearest:
+   continue
+  if not re.search(r'\bdecoration\s*:\s*(?:const\s*)?BoxDecoration\s*$', code[nearest[0]+1:decoration[0]]):
+   continue
+  if re.match(r'\s*color\s*:\s*(?:const\s*)?Color\(0xFF0F172A\)', code[decoration[0]+1:decoration[1]]):
+   return True
+ return False
 
 
 def frames(code):
@@ -72,6 +99,8 @@ def migrate(source):
  by_open = {f[0]:f for f in all_frames}
  edits, removed, count = [], set(), 0
  for match in COLOR.finditer(code, body[0]+1, body[1]):
+  if '/*' in source[match.start():match.end()] or '//' in source[match.start():match.end()]:
+   continue
   parents = [f for f in all_frames if f[0] < match.start() < f[1]]
   parent = max(parents, key=lambda f:f[0]) if parents else None
   if not parent:
@@ -81,7 +110,13 @@ def migrate(source):
   named = re.search(r'\b(\w+)\s*:\s*(?:const\s*)?$', prefix)
   value = match[1].upper() if match[1] else match[2]
   role = RULES.get((parent[2], named[1], value)) if named else None
-  if not role and parent[2] == 'TextStyle' and named and named[1] == 'color' and value == 'white' and any(f[2] == 'ElevatedButton' and re.search(r'backgroundColor\s*:\s*(?:const\s+)?Color\s*\(\s*0xFF0284C7\s*\)', code[f[0]:f[1]]) for f in parents):
+  if parent[2] == 'BoxDecoration' and named and named[1] == 'color' and value == '0F172A' and inverse_panel(parents, code, all_frames):
+   role = 'inverseSurface'
+  if parent[2] == 'TextStyle' and named and named[1] == 'color' and value in ('white', '94A3B8', '34D399', '60A5FA') and inverse_panel(parents, code, all_frames):
+   # These audit-panel labels carry their meaning in text. Resolve every label
+   # against the paired inverse foreground instead of keeping low-contrast tints.
+   role = 'inverseOnSurface'
+  if not role and parent[2] == 'TextStyle' and named and named[1] == 'color' and value == 'white' and any(f[2] == 'ElevatedButton' and re.search(r'backgroundColor\s*:\s*(?:const\s+)?Color\s*\(\s*0xFF(?:'+'|'.join(TEMPLATE_ACCENTS)+r')\s*\)', code[f[0]:f[1]]) for f in parents):
    role = 'onPrimary'
   if not role:
    continue
@@ -90,6 +125,20 @@ def migrate(source):
   for start, end, opening in consts:
    frame = by_open.get(opening)
    if frame and body[0] < start <= match.start() and frame[1] >= match.end()-1:
+    removed.add((start,end,''))
+ for match in SHADOW.finditer(code, body[0]+1, body[1]):
+  parents = [f for f in all_frames if f[0] < match.start() < f[1]]
+  parent = max(parents, key=lambda f:f[0]) if parents else None
+  if not parent or parent[2] != 'BoxDecoration':
+   continue
+  begin, finish = match.span('value')
+  if '/*' in source[match.start():finish] or '//' in source[match.start():finish]:
+   continue
+  edits.append((begin, finish, 'theme.shadowsSurface1'))
+  count += 1
+  for start, end, opening in consts:
+   frame = by_open.get(opening)
+   if frame and body[0] < start < begin and frame[1] >= finish-1:
     removed.add((start,end,''))
  for start,end,replacement in sorted(edits+list(removed), reverse=True):
   source = source[:start]+replacement+source[end:]
