@@ -89,7 +89,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
     final falseProgressCount = _allScreens.where((s) => s.falseProgress).length;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: context.theme.colors.surface.withValues(alpha: 0),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -211,7 +211,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('Zero Interaction'),
                 value: zeroCount.toString(),
                 icon: LucideIcons.mousePointer,
-                color: Colors.red,
+                color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                 width: cardWidth,
               ),
               _buildStatCard(
@@ -219,7 +219,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('Low Interaction'),
                 value: lowCount.toString(),
                 icon: LucideIcons.activity,
-                color: Colors.orange,
+                color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                 width: cardWidth,
               ),
               _buildStatCard(
@@ -227,7 +227,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('clearPurpose'),
                 value: clearCount.toString(),
                 icon: LucideIcons.shieldCheck,
-                color: Colors.green,
+                color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                 width: cardWidth,
               ),
               _buildStatCard(
@@ -235,7 +235,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('Unclear Purpose'),
                 value: unclearCount.toString(),
                 icon: LucideIcons.helpCircle,
-                color: Colors.amber,
+                color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                 width: cardWidth,
               ),
               _buildStatCard(
@@ -243,7 +243,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('No User Value'),
                 value: noUserValueCount.toString(),
                 icon: LucideIcons.trash2,
-                color: Colors.red.shade800,
+                color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                 width: cardWidth,
               ),
               _buildStatCard(
@@ -251,7 +251,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                 title: _filterText('False Progress'),
                 value: falseCount.toString(),
                 icon: LucideIcons.alertOctagon,
-                color: Colors.purple,
+                color: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase,
                 width: cardWidth,
               ),
             ],
@@ -439,9 +439,9 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
         borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(
           color: isZero
-              ? Colors.red.withValues(alpha: 0.15)
+              ? PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.15)
               : isLow
-                  ? Colors.orange.withValues(alpha: 0.15)
+                  ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.15)
                   : theme.dividerColor.withValues(alpha: 0.08),
           width: isReview ? 1.5 : 1,
         ),
@@ -497,7 +497,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                 decoration: BoxDecoration(
-                  color: (isZero ? Colors.red : isLow ? Colors.orange : Colors.green).withValues(alpha: 0.1),
+                  color: (isZero ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : isLow ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase).withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
@@ -505,7 +505,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     Icon(
                       LucideIcons.mousePointer,
                       size: 14,
-                      color: isZero ? Colors.red : isLow ? Colors.orange : Colors.green,
+                      color: isZero ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : isLow ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                     ),
                     const SizedBox(width: 6),
                     Text(
@@ -513,7 +513,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                       style: theme.textTheme.bodySmall?.copyWith(
                         fontWeight: FontWeight.bold,
                         fontSize: context.theme.scaleFont(12),
-                        color: isZero ? Colors.red : isLow ? Colors.orange : Colors.green,
+                        color: isZero ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : isLow ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                   ],
@@ -540,9 +540,9 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.red.withValues(alpha: 0.05),
+                color: PrimeActionPalette.of(context, PrimeActionTone.error).surface,
                 borderRadius: BorderRadius.circular(context.theme.radiusDefault),
-                border: Border.all(color: Colors.red.withValues(alpha: 0.15)),
+                border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.15)),
               ),
               child: Row(
                 children: [
@@ -552,7 +552,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
                     child: Text(
                       _filterText('zeroAlert'),
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.red,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.error).onSurface,
                         fontSize: context.theme.scaleFont(12),
                         fontWeight: FontWeight.w600,
                       ),
@@ -566,19 +566,19 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.orange.withValues(alpha: 0.05),
+                color: PrimeActionPalette.of(context, PrimeActionTone.warning).surface,
                 borderRadius: BorderRadius.circular(context.theme.radiusDefault),
-                border: Border.all(color: Colors.orange.withValues(alpha: 0.15)),
+                border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.15)),
               ),
               child: Row(
                 children: [
-                  const Icon(LucideIcons.helpCircle, color: Colors.orange, size: 18),
+                   Icon(LucideIcons.helpCircle, color: PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface, size: 18),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
                       _filterText('lowAlert'),
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: Colors.orange,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
                         fontSize: context.theme.scaleFont(12),
                         fontWeight: FontWeight.w600,
                       ),
@@ -674,31 +674,31 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
   }
 
   Widget _buildPurposeStatusPill(String status) {
-    Color bg = Colors.grey.withValues(alpha: 0.12);
-    Color border = Colors.grey.withValues(alpha: 0.3);
-    Color text = Colors.grey.shade800;
+    Color bg = PrimeActionPalette.of(context, PrimeActionTone.muted).surface;
+    Color border = PrimeActionPalette.of(context, PrimeActionTone.muted).accent.withValues(alpha: 0.3);
+    Color text = PrimeActionPalette.of(context, PrimeActionTone.muted).onSurface;
 
     switch (status) {
       case 'CLEAR_PURPOSE':
-        bg = Colors.green.withValues(alpha: 0.12);
-        border = Colors.green.withValues(alpha: 0.3);
-        text = Colors.green.shade800;
+        bg = PrimeActionPalette.of(context, PrimeActionTone.success).surface;
+        border = PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3);
+        text = PrimeActionPalette.of(context, PrimeActionTone.success).onSurface;
         break;
       case 'UNCLEAR_PURPOSE':
-        bg = Colors.amber.withValues(alpha: 0.12);
-        border = Colors.amber.withValues(alpha: 0.3);
-        text = Colors.amber.shade800;
+        bg = PrimeActionPalette.of(context, PrimeActionTone.warning).surface;
+        border = PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.3);
+        text = PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface;
         break;
       case 'DUPLICATE_PURPOSE':
-        bg = Colors.purple.withValues(alpha: 0.12);
-        border = Colors.purple.withValues(alpha: 0.3);
-        text = Colors.purple.shade800;
+        bg = PrimeActionPalette.of(context, PrimeActionTone.secondary).surface;
+        border = PrimeActionPalette.of(context, PrimeActionTone.secondary).accent.withValues(alpha: 0.3);
+        text = PrimeActionPalette.of(context, PrimeActionTone.secondary).onSurface;
         break;
       case 'NO_USER_VALUE':
       default:
-        bg = Colors.red.withValues(alpha: 0.12);
-        border = Colors.red.withValues(alpha: 0.3);
-        text = Colors.red.shade800;
+        bg = PrimeActionPalette.of(context, PrimeActionTone.error).surface;
+        border = PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.3);
+        text = PrimeActionPalette.of(context, PrimeActionTone.error).onSurface;
         break;
     }
 
@@ -726,16 +726,16 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
       decoration: BoxDecoration(
-        color: Colors.red.withValues(alpha: 0.12),
+        color: PrimeActionPalette.of(context, PrimeActionTone.error).surface,
         borderRadius: BorderRadius.circular(context.theme.radiusDefault),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.3)),
+        border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.3)),
       ),
       child: Text(
         _filterText('needsReview'),
         style: Theme.of(context).textTheme.labelSmall?.copyWith(
           fontSize: context.theme.scaleFont(8),
           fontWeight: FontWeight.bold,
-          color: Colors.red,
+          color: PrimeActionPalette.of(context, PrimeActionTone.error).onSurface,
         ),
       ),
     );

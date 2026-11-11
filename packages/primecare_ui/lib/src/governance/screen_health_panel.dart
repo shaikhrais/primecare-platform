@@ -78,7 +78,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
                 duration: const Duration(milliseconds: 200),
                 opacity: _isPanelOpen ? 1.0 : 0.0,
                 child: Container(
-                  color: Colors.black.withValues(alpha: 0.3),
+                  color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.3),
                 ),
               ),
             ),
@@ -104,7 +104,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.15),
+                    color: Theme.of(context).shadowColor.withValues(alpha: 0.15),
                     blurRadius: 25,
                     offset: const Offset(-5, 5),
                   ),
@@ -128,7 +128,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
           child: FloatingActionButton(
             mini: isMobile,
             backgroundColor: _isPanelOpen ? theme.colorScheme.error : theme.primaryColor,
-            foregroundColor: Colors.white,
+            foregroundColor: (_isPanelOpen ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.onPrimary),
             elevation: 8,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
@@ -271,13 +271,13 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
                   padding: const EdgeInsets.symmetric(vertical: 8),
                   child: Row(
                     children: [
-                      Icon(LucideIcons.checkCircle2, color: Colors.green, size: 16),
+                      Icon(LucideIcons.checkCircle2, color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase, size: 16),
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
                           'All features fully verified and complete.',
                           style: theme.textTheme.bodyMedium?.copyWith(
-                            color: Colors.green.shade700,
+                            color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                           ),
                         ),
                       ),
@@ -291,7 +291,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(LucideIcons.minusCircle, color: Colors.amber.shade700, size: 16),
+                        Icon(LucideIcons.minusCircle, color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase, size: 16),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
@@ -382,10 +382,10 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: isReady ? Colors.green.withValues(alpha: 0.15) : Colors.amber.withValues(alpha: 0.15),
+        color: isReady ? PrimeActionPalette.of(context, PrimeActionTone.success).surface : PrimeActionPalette.of(context, PrimeActionTone.warning).surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: isReady ? Colors.green.withValues(alpha: 0.3) : Colors.amber.withValues(alpha: 0.3),
+          color: isReady ? PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3) : PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.3),
         ),
       ),
       child: Text(
@@ -393,7 +393,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
         style: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          color: isReady ? Colors.green.shade800 : Colors.amber.shade800,
+          color: isReady ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
         ),
       ),
     );
@@ -432,7 +432,7 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
         children: [
           Icon(
             checked ? LucideIcons.check : LucideIcons.x,
-            color: checked ? Colors.green : Colors.red,
+            color: checked ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
             size: 14,
           ),
           const SizedBox(width: 10),
@@ -451,9 +451,9 @@ class _ScreenHealthOverlayWrapperState extends ConsumerState<ScreenHealthOverlay
   }
 
   Color _getProgressColor(int percent, ThemeData theme) {
-    if (percent >= 100) return Colors.green;
+    if (percent >= 100) return PrimeActionPalette.of(context, PrimeActionTone.success).accent;
     if (percent >= 60) return theme.primaryColor;
-    if (percent >= 30) return Colors.amber;
-    return Colors.red;
+    if (percent >= 30) return PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
+    return PrimeActionPalette.of(context, PrimeActionTone.error).accent;
   }
 }
