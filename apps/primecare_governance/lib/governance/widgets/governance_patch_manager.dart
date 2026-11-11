@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Patch Manager platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeSnackBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:flutter/services.dart';
@@ -38,7 +39,7 @@ class GovernancePatchManager extends StatelessWidget {
                 onPressed: () {
                   Clipboard.setData(ClipboardData(text: script));
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    PrimeSnackBar(
                       content: PrimeText(
                         'governance.patchManager.copiedSuccess'.tr(),
                       ),

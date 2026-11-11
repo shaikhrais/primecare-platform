@@ -71,7 +71,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
           PrimeElevatedButton(key: const Key('app_entry_form_elevatedbutton_button_1'),
             onPressed: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: PrimeText('Application ${_nameController.text} registered successfully under ${_status}!')),
+                PrimeSnackBar(content: PrimeText('Application ${_nameController.text} registered successfully under ${_status}!')),
               );
             },
             style: PrimeElevatedButton.styleFrom(

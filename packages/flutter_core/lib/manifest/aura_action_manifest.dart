@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:google_fonts/google_fonts.dart';
@@ -130,7 +131,7 @@ class AuraActionManifest {
 
   static void _showDefaultAction(BuildContext context, String action) {
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      PrimeSnackBar(
         content: PrimeText('Aura is preparing mitigation for: $action'),
         backgroundColor: const Color(0xFF6366F1),
         behavior: SnackBarBehavior.floating,

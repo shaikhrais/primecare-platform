@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE 1. Log to centralized telemetry (placeholder) 2. Show user feedback
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class ActionManifest {
     // 2. Show user feedback
     ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      PrimeSnackBar(
         content: Row(
           children: [
             const PrimeIcon(Icons.engineering, color: Colors.white),

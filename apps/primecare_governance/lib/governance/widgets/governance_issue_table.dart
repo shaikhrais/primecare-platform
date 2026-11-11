@@ -138,7 +138,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                                       );
                                   if (context.mounted) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
+                                      PrimeSnackBar(
                                         content: PrimeText(
                                           success
                                               ? 'governance.issueTable.fixSuccess'
@@ -170,7 +170,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                               tooltip: 'Manual Remediate',
                               onPressed: () {
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
+                                  PrimeSnackBar(
                                     content: PrimeText(
                                       'governance.issueTable.remediationInitiated'
                                           .tr(args: [issue.title]),

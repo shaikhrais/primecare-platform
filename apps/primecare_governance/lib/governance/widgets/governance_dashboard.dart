@@ -78,7 +78,7 @@ class _GovernanceDashboardContentState
         }
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          PrimeSnackBar(
             content: PrimeText(
               'governance.dashboard.reportExported'.tr(args: [format]),
               style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
@@ -91,7 +91,7 @@ class _GovernanceDashboardContentState
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: PrimeText('common.error'.tr())),
+        PrimeSnackBar(content: PrimeText('common.error'.tr())),
       );
     }
   }
