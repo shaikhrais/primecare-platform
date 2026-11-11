@@ -215,7 +215,7 @@ class FamilyMemberCareUpdatesScreen extends GovernedConsumerWidget {
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -330,7 +330,7 @@ class FamilyMemberCareUpdatesScreen extends GovernedConsumerWidget {
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_family_member_care_updates_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
@@ -454,7 +454,7 @@ class FamilyMemberCareUpdatesScreen extends GovernedConsumerWidget {
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_family_member_care_updates_create_post-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
@@ -578,7 +578,7 @@ class FamilyMemberCareUpdatesScreen extends GovernedConsumerWidget {
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_family_member_care_updates_update_patch-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )

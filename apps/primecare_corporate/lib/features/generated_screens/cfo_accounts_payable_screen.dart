@@ -201,7 +201,7 @@ class CfoAccountsPayableScreen extends GovernedConsumerWidget {
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -316,7 +316,7 @@ class CfoAccountsPayableScreen extends GovernedConsumerWidget {
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_cfo_accounts_payable_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )

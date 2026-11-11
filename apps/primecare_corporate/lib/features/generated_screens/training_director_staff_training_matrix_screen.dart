@@ -201,7 +201,7 @@ class TrainingDirectorStaffTrainingMatrixScreen extends GovernedConsumerWidget {
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -295,7 +295,7 @@ class TrainingDirectorStaffTrainingMatrixScreen extends GovernedConsumerWidget {
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_training_director_staff_training_matrix_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )

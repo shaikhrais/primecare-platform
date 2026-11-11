@@ -201,7 +201,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -295,7 +295,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_territory_expansion_manager_site_selection_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
