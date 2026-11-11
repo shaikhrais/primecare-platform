@@ -54,6 +54,7 @@ def before_governance_palette(source,path):
 
 
 def before_shared_text_fields(source,path):
+    source=reverse_manifest(source,path,'presentation-palette-manifest.json')
     source=before_governance_palette(source,path)
     manifest_path=ROOT/'scripts/shared-text-fields-manifest.json'
     script_path=ROOT/'scripts/migrate-shared-text-fields.py'

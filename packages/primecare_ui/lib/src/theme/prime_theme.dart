@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
@@ -606,6 +607,7 @@ class PrimeThemeData {
       scaffoldBackgroundColor: colors.background,
       dividerColor: colors.divider,
       extensions: [
+        PrimeSemanticStatusColors(success:colors.success,successContainer:colors.successContainer,warning:colors.warning,warningContainer:colors.warningContainer),
         GovernanceThemeColors(
           sidebarBackground: colors.sidebarBackground,
           topbarBackground: colors.topbarBackground,

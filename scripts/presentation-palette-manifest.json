@@ -1,0 +1,2043 @@
+[
+  {
+    "path": "packages/flutter_core/lib/models/presentation_mode.dart",
+    "sha256": "fc9c9d75f416428020ef76e710676e4f0901ee7c68fa469d9b62145bb79732a7",
+    "calls": 115,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import '../theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 886,
+        "end": 888,
+        "old": "  ",
+        "new": ""
+      },
+      {
+        "begin": 1095,
+        "end": 1097,
+        "old": "  ",
+        "new": ""
+      },
+      {
+        "begin": 5261,
+        "end": 5267,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 5269,
+        "end": 5284,
+        "old": "lor(0xFFF1F5F9)",
+        "new": "ntainerLow"
+      },
+      {
+        "begin": 5477,
+        "end": 5483,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 5517,
+        "end": 5534,
+        "old": "Color(0xFF0F172A)",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 5617,
+        "end": 5634,
+        "old": "Color(0xFF334155)",
+        "new": "Theme.of(context).colorScheme.outlineVariant"
+      },
+      {
+        "begin": 5912,
+        "end": 5918,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 5957,
+        "end": 5969,
+        "old": "Color(0xFF38",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).on"
+      },
+      {
+        "begin": 5970,
+        "end": 5974,
+        "old": "DF8)",
+        "new": "ase"
+      },
+      {
+        "begin": 6049,
+        "end": 6055,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 6186,
+        "end": 6197,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.onSurfac"
+      },
+      {
+        "begin": 6535,
+        "end": 6605,
+        "old": "const Color(0xFF475569),\n                  ),\n                  const ",
+        "new": "Theme.of(context).color"
+      },
+      {
+        "begin": 6606,
+        "end": 6606,
+        "old": "",
+        "new": "cheme.outlineVariant,\n                  ),\n                  const S"
+      },
+      {
+        "begin": 6721,
+        "end": 6727,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 6767,
+        "end": 6784,
+        "old": "Color(0xFF94A3B8)",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 7100,
+        "end": 7106,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 7146,
+        "end": 7158,
+        "old": "Color(0xFF38",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).on"
+      },
+      {
+        "begin": 7159,
+        "end": 7163,
+        "old": "DF8)",
+        "new": "ase"
+      },
+      {
+        "begin": 7531,
+        "end": 7554,
+        "old": "const Color(0xFF0369A1)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 7679,
+        "end": 7685,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 7805,
+        "end": 7843,
+        "old": "Colors.white,\n                        ",
+        "new": "PrimeSemanticPalette.o"
+      },
+      {
+        "begin": 7844,
+        "end": 7844,
+        "old": "",
+        "new": "(context, PrimeSemanticTone.primary).onAccent,\n                        f"
+      },
+      {
+        "begin": 8054,
+        "end": 8062,
+        "old": "        ",
+        "new": ""
+      },
+      {
+        "begin": 8351,
+        "end": 8374,
+        "old": "const Color(0xFF1E293B)",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 9001,
+        "end": 9007,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 9064,
+        "end": 9075,
+        "old": "Color(0xFF3",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent],\n                              ),\n                              borderRadius: "
+      },
+      {
+        "begin": 9076,
+        "end": 9079,
+        "old": "82F",
+        "new": "orderRadius.circular("
+      },
+      {
+        "begin": 9082,
+        "end": 9277,
+        "old": " Color(0xFF06B6D4)],\n                              ),\n                              borderRadius: BorderRadius.circular(6),\n                            ),\n                            child: const",
+        "new": "\n                            ),\n                            child:"
+      },
+      {
+        "begin": 9320,
+        "end": 9332,
+        "old": "Colors.white",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent"
+      },
+      {
+        "begin": 9452,
+        "end": 9458,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 9594,
+        "end": 9605,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.onSurfac"
+      },
+      {
+        "begin": 9896,
+        "end": 9916,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 9997,
+        "end": 9997,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10119,
+        "end": 10119,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10235,
+        "end": 10235,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10355,
+        "end": 10355,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10478,
+        "end": 10478,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10600,
+        "end": 10600,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10712,
+        "end": 10712,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 10839,
+        "end": 10839,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 11004,
+        "end": 11004,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 11127,
+        "end": 11127,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 11254,
+        "end": 11254,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 11390,
+        "end": 11390,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 11470,
+        "end": 11490,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 11527,
+        "end": 11547,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 11772,
+        "end": 11795,
+        "old": "const Color(0xFF0F172A)",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 11995,
+        "end": 11995,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 12094,
+        "end": 12100,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 12522,
+        "end": 12533,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.onSurfac"
+      },
+      {
+        "begin": 12989,
+        "end": 13006,
+        "old": "Color(0xFF64748B)",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 13421,
+        "end": 13435,
+        "old": "              ",
+        "new": ""
+      },
+      {
+        "begin": 13796,
+        "end": 13816,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 14172,
+        "end": 14195,
+        "old": "const Color(0xCC0F172A)",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 14341,
+        "end": 14430,
+        "old": "const Color(0x33FFFFFF)),\n                        ),\n                        child: const",
+        "new": "Theme.of(context).colorScheme.outlineVariant),\n                        ),\n                        child:"
+      },
+      {
+        "begin": 14602,
+        "end": 14614,
+        "old": "Color(0xFF38",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).on"
+      },
+      {
+        "begin": 14615,
+        "end": 14619,
+        "old": "DF8)",
+        "new": "ase"
+      },
+      {
+        "begin": 14862,
+        "end": 14873,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.onSurfac"
+      },
+      {
+        "begin": 15348,
+        "end": 15348,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 15610,
+        "end": 15648,
+        "old": "const Color(0xFF0284C7) : Colors.trans",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone."
+      },
+      {
+        "begin": 15649,
+        "end": 15654,
+        "old": "arent",
+        "new": "rimary).accent : Theme.of(context).colorScheme.surface.withValues(alpha: 0)"
+      },
+      {
+        "begin": 15952,
+        "end": 15985,
+        "old": "Colors.white : const Color(0xFF94",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).on"
+      },
+      {
+        "begin": 15986,
+        "end": 15990,
+        "old": "3B8)",
+        "new": "ccent : Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 16334,
+        "end": 16372,
+        "old": "Colors.white : const Color(0xFFCBD5E1)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent : Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 16822,
+        "end": 16822,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 16871,
+        "end": 16894,
+        "old": "const Color(0xFFEF4444)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 16907,
+        "end": 16930,
+        "old": "const Color(0xFFF97316)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 16946,
+        "end": 16969,
+        "old": "const Color(0xFFF59E0B)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 16985,
+        "end": 17008,
+        "old": "const Color(0xFF10B981)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 17023,
+        "end": 17046,
+        "old": "const Color(0xFF06B6D4)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 17060,
+        "end": 17083,
+        "old": "const Color(0xFF3B82F6)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 17097,
+        "end": 17120,
+        "old": "const Color(0xFF8B5CF6)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 17136,
+        "end": 17159,
+        "old": "const Color(0xFFEC4899)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 17353,
+        "end": 17353,
+        "old": "",
+        "new": "PrimeSemanticPalette.tint(context, "
+      },
+      {
+        "begin": 17382,
+        "end": 17383,
+        "old": ".",
+        "new": "),\n      shape: BoxShape.circle,\n      border: Border.all(color: colors[index % colors.length], "
+      },
+      {
+        "begin": 17385,
+        "end": 17392,
+        "old": "thOpaci",
+        "new": "dth: 1.5),\n    ),\n    alignment: Alignment.center,\n    child: PrimeText(\n      initials,\n      s"
+      },
+      {
+        "begin": 17394,
+        "end": 17417,
+        "old": "(0.2),\n      shape: Box",
+        "new": "le: Text"
+      },
+      {
+        "begin": 17418,
+        "end": 17462,
+        "old": "hape.circle,\n      border: Border.all(color:",
+        "new": "tyle(\n        color: PrimeSemanticPalette.onTint(context,"
+      },
+      {
+        "begin": 17492,
+        "end": 17653,
+        "old": ", width: 1.5),\n    ),\n    alignment: Alignment.center,\n    child: PrimeText(\n      initials,\n      style: TextStyle(\n        color: colors[index % colors.length]",
+        "new": ")"
+      },
+      {
+        "begin": 17757,
+        "end": 17757,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 17798,
+        "end": 17803,
+        "old": "const",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.muted).surface;\n "
+      },
+      {
+        "begin": 17809,
+        "end": 17821,
+        "old": "(0xFFF1F5F9)",
+        "new": " fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.muted).onSurface"
+      },
+      {
+        "begin": 17823,
+        "end": 17863,
+        "old": "  Color fg = const Color(0xFF475569);\n  ",
+        "new": ""
+      },
+      {
+        "begin": 17900,
+        "end": 17923,
+        "old": "const Color(0xFFDCFCE7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).surface"
+      },
+      {
+        "begin": 17934,
+        "end": 17957,
+        "old": "const Color(0xFF166534)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onSurface"
+      },
+      {
+        "begin": 18002,
+        "end": 18025,
+        "old": "const Color(0xFFFEF3C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).surface"
+      },
+      {
+        "begin": 18036,
+        "end": 18059,
+        "old": "const Color(0xFF92400E)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onSurface"
+      },
+      {
+        "begin": 18103,
+        "end": 18126,
+        "old": "const Color(0xFFFEE2E2)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).surface"
+      },
+      {
+        "begin": 18137,
+        "end": 18160,
+        "old": "const Color(0xFF991B1B)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onSurface"
+      },
+      {
+        "begin": 18202,
+        "end": 18225,
+        "old": "const Color(0xFFE0F2FE)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).surface"
+      },
+      {
+        "begin": 18236,
+        "end": 18259,
+        "old": "const Color(0xFF0369A1)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onSurface"
+      },
+      {
+        "begin": 18265,
+        "end": 18267,
+        "old": "  ",
+        "new": ""
+      },
+      {
+        "begin": 18639,
+        "end": 18639,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 18920,
+        "end": 18920,
+        "old": "",
+        "new": "Theme.of(context).colorScheme.surface,\n            borderRadius: BorderRadius.circular(10),\n            border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),\n            boxShadow: [\n              BoxShadow(\n                color: Theme.of(context).shadow"
+      },
+      {
+        "begin": 18925,
+        "end": 18926,
+        "old": "s",
+        "new": ""
+      },
+      {
+        "begin": 18928,
+        "end": 18956,
+        "old": "hite,\n            borderRadi",
+        "new": "ithVal"
+      },
+      {
+        "begin": 18957,
+        "end": 19142,
+        "old": "s: BorderRadius.circular(10),\n            border: Border.all(color: const Color(0xFFE2E8F0)),\n            boxShadow: [\n              BoxShadow(\n                color: Colors.black.withO",
+        "new": "es(al"
+      },
+      {
+        "begin": 19143,
+        "end": 19149,
+        "old": "acity(",
+        "new": "ha: "
+      },
+      {
+        "begin": 19460,
+        "end": 19466,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 19502,
+        "end": 19519,
+        "old": "Color(0xFF64748B)",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 19754,
+        "end": 19760,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 19796,
+        "end": 19813,
+        "old": "Color(0xFF0F172A)",
+        "new": "Theme.of(context).colorScheme.onSurface"
+      },
+      {
+        "begin": 20187,
+        "end": 20236,
+        "old": "const Color(0xFF16A34A) : const Color(0xFFDC2626)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase : PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      },
+      {
+        "begin": 20617,
+        "end": 20666,
+        "old": "const Color(0xFF16A34A) : const Color(0xFFDC2626)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase : PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      },
+      {
+        "begin": 20962,
+        "end": 20962,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 21148,
+        "end": 21148,
+        "old": "",
+        "new": "Theme.of(context).colorScheme.surface,\n      borderRadius: BorderRadius.circular(10),\n      border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),\n      boxShadow: [\n        BoxShadow(\n          color: Theme.of(context).shadow"
+      },
+      {
+        "begin": 21153,
+        "end": 21154,
+        "old": "s",
+        "new": ""
+      },
+      {
+        "begin": 21156,
+        "end": 21178,
+        "old": "hite,\n      borderRadi",
+        "new": "ithVal"
+      },
+      {
+        "begin": 21179,
+        "end": 21340,
+        "old": "s: BorderRadius.circular(10),\n      border: Border.all(color: const Color(0xFFE2E8F0)),\n      boxShadow: [\n        BoxShadow(\n          color: Colors.black.withO",
+        "new": "es(al"
+      },
+      {
+        "begin": 21341,
+        "end": 21347,
+        "old": "acity(",
+        "new": "ha: "
+      },
+      {
+        "begin": 21651,
+        "end": 21657,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 21725,
+        "end": 21742,
+        "old": "Color(0xFFF1F5F9)",
+        "new": "Theme.of(context).colorScheme.outlineVariant"
+      },
+      {
+        "begin": 21825,
+        "end": 21831,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 21863,
+        "end": 21880,
+        "old": "Color(0xFF0F172A)",
+        "new": "Theme.of(context).colorScheme.onSurface"
+      },
+      {
+        "begin": 22138,
+        "end": 22138,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 23731,
+        "end": 23737,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 23773,
+        "end": 23790,
+        "old": "Color(0xFF64748B)",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 24284,
+        "end": 24284,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 24920,
+        "end": 24920,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 25024,
+        "end": 25024,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 25094,
+        "end": 25117,
+        "old": "const Color(0xFF0284C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 25242,
+        "end": 25242,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 26050,
+        "end": 26056,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 26099,
+        "end": 26116,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase"
+      },
+      {
+        "begin": 26334,
+        "end": 26340,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 26371,
+        "end": 26388,
+        "old": "Color(0xFF475569)",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 26625,
+        "end": 26625,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 26770,
+        "end": 26776,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 26779,
+        "end": 26784,
+        "old": "or(0x",
+        "new": "umnWidth(1.2),\n            1: "
+      },
+      {
+        "begin": 26785,
+        "end": 26785,
+        "old": "",
+        "new": "lexColumnWidth(2.5),\n            2: "
+      },
+      {
+        "begin": 26786,
+        "end": 26786,
+        "old": "",
+        "new": "lexColumnWidth(1.5),\n            3: "
+      },
+      {
+        "begin": 26787,
+        "end": 26787,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 26788,
+        "end": 26788,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 26789,
+        "end": 26789,
+        "old": "",
+        "new": "lexColumnWidth(1."
+      },
+      {
+        "begin": 26790,
+        "end": 26795,
+        "old": "F9), ",
+        "new": "),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 26796,
+        "end": 26819,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 26820,
+        "end": 26857,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 26859,
+        "end": 27082,
+        "old": "lumnWidth(1.2),\n            1: FlexColumnWidth(2.5),\n            2: FlexColumnWidth(1.5),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.5),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 27084,
+        "end": 27150,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 29864,
+        "end": 29864,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 30294,
+        "end": 30294,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 30838,
+        "end": 30838,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 30942,
+        "end": 30942,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 31012,
+        "end": 31035,
+        "old": "const Color(0xFFEF4444)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 31160,
+        "end": 31160,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 31260,
+        "end": 31260,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 31333,
+        "end": 31356,
+        "old": "const Color(0xFF10B981)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent"
+      },
+      {
+        "begin": 31431,
+        "end": 31431,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 31545,
+        "end": 31551,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 31553,
+        "end": 31570,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 31571,
+        "end": 31695,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 33600,
+        "end": 33600,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 33902,
+        "end": 33902,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 34397,
+        "end": 34397,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 34526,
+        "end": 34532,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 34535,
+        "end": 34540,
+        "old": "or(0x",
+        "new": "umnWidth(1.2),\n            1: "
+      },
+      {
+        "begin": 34541,
+        "end": 34541,
+        "old": "",
+        "new": "lexColumnWidth(2.5),\n            2: "
+      },
+      {
+        "begin": 34542,
+        "end": 34542,
+        "old": "",
+        "new": "lexColumnWidth(1.5),\n            3: "
+      },
+      {
+        "begin": 34543,
+        "end": 34543,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 34544,
+        "end": 34544,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 34545,
+        "end": 34551,
+        "old": "5F9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 34552,
+        "end": 34575,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 34576,
+        "end": 34613,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 34615,
+        "end": 34838,
+        "old": "lumnWidth(1.2),\n            1: FlexColumnWidth(2.5),\n            2: FlexColumnWidth(1.5),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 34840,
+        "end": 34906,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 37466,
+        "end": 37466,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 37783,
+        "end": 37783,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 38241,
+        "end": 38241,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 38731,
+        "end": 38731,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 38826,
+        "end": 38826,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 38900,
+        "end": 38923,
+        "old": "const Color(0xFF10B981)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent"
+      },
+      {
+        "begin": 38959,
+        "end": 38959,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 39069,
+        "end": 39075,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 39077,
+        "end": 39094,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 39095,
+        "end": 39219,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 41849,
+        "end": 41849,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 42152,
+        "end": 42152,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 42665,
+        "end": 42665,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 42747,
+        "end": 42747,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 42817,
+        "end": 42840,
+        "old": "const Color(0xFFEF4444)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 42876,
+        "end": 42876,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 42992,
+        "end": 42998,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 43000,
+        "end": 43017,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 43018,
+        "end": 43142,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 45851,
+        "end": 45851,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 46279,
+        "end": 46279,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 46785,
+        "end": 46785,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 46929,
+        "end": 46935,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 46938,
+        "end": 46943,
+        "old": "or(0x",
+        "new": "umnWidth(0.5),\n            1: "
+      },
+      {
+        "begin": 46944,
+        "end": 46944,
+        "old": "",
+        "new": "lexColumnWidth(1.8),\n            2: "
+      },
+      {
+        "begin": 46945,
+        "end": 46945,
+        "old": "",
+        "new": "lexColumnWidth(1.5),\n            3: "
+      },
+      {
+        "begin": 46946,
+        "end": 46946,
+        "old": "",
+        "new": "lexColumnWidth(0.8),\n            4: FlexColumnWidth("
+      },
+      {
+        "begin": 46947,
+        "end": 46947,
+        "old": "",
+        "new": ".2),\n            5: "
+      },
+      {
+        "begin": 46948,
+        "end": 46954,
+        "old": "5F9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 46955,
+        "end": 46978,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 46979,
+        "end": 47016,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 47018,
+        "end": 47278,
+        "old": "lumnWidth(0.5),\n            1: FlexColumnWidth(1.8),\n            2: FlexColumnWidth(1.5),\n            3: FlexColumnWidth(0.8),\n            4: FlexColumnWidth(1.2),\n            5: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 47280,
+        "end": 47346,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 49418,
+        "end": 49418,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 50206,
+        "end": 50206,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 50902,
+        "end": 50925,
+        "old": "const Color(0xFF16A34A)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent"
+      },
+      {
+        "begin": 50980,
+        "end": 50986,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 51053,
+        "end": 51065,
+        "old": "Colors.white",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onAccent"
+      },
+      {
+        "begin": 51290,
+        "end": 51290,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 51803,
+        "end": 51803,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 51917,
+        "end": 51923,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 51926,
+        "end": 51931,
+        "old": "or(0x",
+        "new": "umnWidth(1.0),\n            1: "
+      },
+      {
+        "begin": 51932,
+        "end": 51932,
+        "old": "",
+        "new": "lexColumnWidth(2.0),\n            2: "
+      },
+      {
+        "begin": 51933,
+        "end": 51933,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            3: "
+      },
+      {
+        "begin": 51934,
+        "end": 51934,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 51935,
+        "end": 51935,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 51936,
+        "end": 51936,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            "
+      },
+      {
+        "begin": 51937,
+        "end": 51937,
+        "old": "",
+        "new": ": "
+      },
+      {
+        "begin": 51938,
+        "end": 51942,
+        "old": "9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 51943,
+        "end": 51966,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 51967,
+        "end": 52004,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 52006,
+        "end": 52266,
+        "old": "lumnWidth(1.0),\n            1: FlexColumnWidth(2.0),\n            2: FlexColumnWidth(1.2),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.2),\n            5: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 52268,
+        "end": 52334,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 55146,
+        "end": 55146,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 55591,
+        "end": 55591,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 56105,
+        "end": 56105,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 56221,
+        "end": 56227,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 56229,
+        "end": 56246,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 56247,
+        "end": 56371,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 58833,
+        "end": 58833,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 59592,
+        "end": 59615,
+        "old": "const Color(0xFF0284C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 59670,
+        "end": 59676,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 59747,
+        "end": 59759,
+        "old": "Colors.white",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent"
+      },
+      {
+        "begin": 59989,
+        "end": 59989,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 60477,
+        "end": 60477,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 60600,
+        "end": 60606,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 60608,
+        "end": 60625,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 60626,
+        "end": 60750,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 63381,
+        "end": 63381,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 63683,
+        "end": 63683,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 64201,
+        "end": 64201,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 64292,
+        "end": 64292,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 64374,
+        "end": 64397,
+        "old": "const Color(0xFF0284C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 64433,
+        "end": 64433,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 64545,
+        "end": 64551,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 64553,
+        "end": 64570,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 64571,
+        "end": 64695,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 66535,
+        "end": 66541,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 66572,
+        "end": 66589,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase"
+      },
+      {
+        "begin": 66720,
+        "end": 66726,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 66757,
+        "end": 66774,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      },
+      {
+        "begin": 67247,
+        "end": 67247,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 67805,
+        "end": 67805,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 67897,
+        "end": 67897,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 68006,
+        "end": 68029,
+        "old": "const Color(0xFF0284C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 68154,
+        "end": 68154,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 68245,
+        "end": 68245,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 68332,
+        "end": 68355,
+        "old": "const Color(0xFFEF4444)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 68430,
+        "end": 68430,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 68548,
+        "end": 68554,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 68556,
+        "end": 68573,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 68574,
+        "end": 68698,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 71090,
+        "end": 71090,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 71567,
+        "end": 71567,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 72075,
+        "end": 72075,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 72199,
+        "end": 72205,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 72208,
+        "end": 72213,
+        "old": "or(0x",
+        "new": "umnWidth(1.0),\n            1: "
+      },
+      {
+        "begin": 72214,
+        "end": 72214,
+        "old": "",
+        "new": "lexColumnWidth(2.0),\n            2: "
+      },
+      {
+        "begin": 72215,
+        "end": 72215,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            3: "
+      },
+      {
+        "begin": 72216,
+        "end": 72216,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 72217,
+        "end": 72217,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 72218,
+        "end": 72224,
+        "old": "5F9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 72225,
+        "end": 72248,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 72249,
+        "end": 72286,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 72288,
+        "end": 72511,
+        "old": "lumnWidth(1.0),\n            1: FlexColumnWidth(2.0),\n            2: FlexColumnWidth(1.2),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 72513,
+        "end": 72579,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 75405,
+        "end": 75405,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 75862,
+        "end": 75862,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 76364,
+        "end": 76364,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 76501,
+        "end": 76507,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 76510,
+        "end": 76515,
+        "old": "or(0x",
+        "new": "umnWidth(1.0),\n            1: "
+      },
+      {
+        "begin": 76516,
+        "end": 76516,
+        "old": "",
+        "new": "lexColumnWidth(2.0),\n            2: "
+      },
+      {
+        "begin": 76517,
+        "end": 76517,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            3: "
+      },
+      {
+        "begin": 76518,
+        "end": 76518,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 76519,
+        "end": 76519,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 76520,
+        "end": 76526,
+        "old": "5F9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 76527,
+        "end": 76550,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 76551,
+        "end": 76588,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 76590,
+        "end": 76813,
+        "old": "lumnWidth(1.0),\n            1: FlexColumnWidth(2.0),\n            2: FlexColumnWidth(1.2),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 76815,
+        "end": 76881,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 79229,
+        "end": 79229,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 79688,
+        "end": 79688,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 80246,
+        "end": 80246,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 80338,
+        "end": 80338,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 80447,
+        "end": 80470,
+        "old": "const Color(0xFF0284C7)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 80595,
+        "end": 80595,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 80686,
+        "end": 80686,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 80773,
+        "end": 80796,
+        "old": "const Color(0xFFEF4444)",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent"
+      },
+      {
+        "begin": 80871,
+        "end": 80871,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 80989,
+        "end": 80995,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 80997,
+        "end": 81014,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 81015,
+        "end": 81139,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 83531,
+        "end": 83531,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 84012,
+        "end": 84012,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 84547,
+        "end": 84547,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 84678,
+        "end": 84684,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 84687,
+        "end": 84692,
+        "old": "or(0x",
+        "new": "umnWidth(1.2),\n            1: "
+      },
+      {
+        "begin": 84693,
+        "end": 84693,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            2: "
+      },
+      {
+        "begin": 84694,
+        "end": 84694,
+        "old": "",
+        "new": "lexColumnWidth(1.2),\n            3: "
+      },
+      {
+        "begin": 84695,
+        "end": 84695,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 84696,
+        "end": 84696,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 84697,
+        "end": 84697,
+        "old": "",
+        "new": "lexColumnWidth(1.0),\n            "
+      },
+      {
+        "begin": 84698,
+        "end": 84698,
+        "old": "",
+        "new": ": "
+      },
+      {
+        "begin": 84699,
+        "end": 84703,
+        "old": "9), ",
+        "new": "lexColumnWidth(1.0),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 84704,
+        "end": 84727,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 84728,
+        "end": 84765,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 84767,
+        "end": 85027,
+        "old": "lumnWidth(1.2),\n            1: FlexColumnWidth(1.2),\n            2: FlexColumnWidth(1.2),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.0),\n            5: FlexColumnWidth(1.0),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 85029,
+        "end": 85095,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 87694,
+        "end": 87694,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 87994,
+        "end": 87994,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 88484,
+        "end": 88484,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 88604,
+        "end": 88610,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          columnWidths: const {\n            0: Flex"
+      },
+      {
+        "begin": 88613,
+        "end": 88618,
+        "old": "or(0x",
+        "new": "umnWidth(1.2),\n            1: "
+      },
+      {
+        "begin": 88619,
+        "end": 88619,
+        "old": "",
+        "new": "lexColumnWidth(2.5),\n            2: "
+      },
+      {
+        "begin": 88620,
+        "end": 88620,
+        "old": "",
+        "new": "lexColumnWidth(1.0),\n            3: "
+      },
+      {
+        "begin": 88621,
+        "end": 88621,
+        "old": "",
+        "new": "lexColumnWidth("
+      },
+      {
+        "begin": 88622,
+        "end": 88622,
+        "old": "",
+        "new": ".2),\n            4: "
+      },
+      {
+        "begin": 88623,
+        "end": 88629,
+        "old": "5F9), ",
+        "new": "lexColumnWidth(1.2),\n          },\n          children: [\n            TableRo"
+      },
+      {
+        "begin": 88630,
+        "end": 88653,
+        "old": "idth: 1),\n          col",
+        "new": "(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.s"
+      },
+      {
+        "begin": 88654,
+        "end": 88691,
+        "old": "mnWidths: const {\n            0: Flex",
+        "new": "rface"
+      },
+      {
+        "begin": 88693,
+        "end": 88916,
+        "old": "lumnWidth(1.2),\n            1: FlexColumnWidth(2.5),\n            2: FlexColumnWidth(1.0),\n            3: FlexColumnWidth(1.2),\n            4: FlexColumnWidth(1.2),\n          },\n          children: [\n            const TableR",
+        "new": "ntainerL"
+      },
+      {
+        "begin": 88918,
+        "end": 88984,
+        "old": "(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 91818,
+        "end": 91818,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 92129,
+        "end": 92129,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 92631,
+        "end": 92631,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 92757,
+        "end": 92763,
+        "old": "const ",
+        "new": "Theme.of(context).colorScheme.outlineVariant, width: 1),\n          children: [\n            TableRow(\n              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 92765,
+        "end": 92782,
+        "old": "lor(0xFFF1F5F9), ",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 92783,
+        "end": 92907,
+        "old": "idth: 1),\n          children: [\n            const TableRow(\n              decoration: BoxDecoration(color: Color(0xFFF8FAFC)",
+        "new": ""
+      },
+      {
+        "begin": 95771,
+        "end": 95771,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 96270,
+        "end": 96284,
+        "old": "const Color(0x",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant : PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase,\n                        fontWeight: "
+      },
+      {
+        "begin": 96285,
+        "end": 96346,
+        "old": "F64748B) : const Color(0xFF0284C7),\n                        f",
+        "new": ""
+      },
+      {
+        "begin": 96355,
+        "end": 96367,
+        "old": ": FontWeight",
+        "new": ""
+      }
+    ]
+  }
+]
