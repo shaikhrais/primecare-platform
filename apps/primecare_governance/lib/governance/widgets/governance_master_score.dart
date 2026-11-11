@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Master Score platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import '../models/governance_report.dart';
@@ -33,7 +34,7 @@ class GovernanceMasterScore extends StatelessWidget {
           SizedBox(
             width: 200,
             height: 200,
-            child: CircularProgressIndicator(
+            child: PrimeCircularProgressIndicator(
               value: score / 100,
               strokeWidth: 12,
               backgroundColor: Colors.grey.withValues(alpha: 0.1),

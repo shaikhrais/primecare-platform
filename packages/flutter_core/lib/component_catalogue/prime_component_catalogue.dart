@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'dart:async';import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';
@@ -32,7 +33,7 @@ class PrimeComponentKit {
  Widget tooltip(String message)=>PrimeCatalogueTooltip(key:ValueKey(scope),labels:labels,message:message);
  Widget tabs(List<String> keys,List<Widget> children,double height){if(keys.length!=children.length||keys.isEmpty||!height.isFinite||height<=0)throw ArgumentError('Bounded tabs required');return labels.identify('tabs','prime_card',DefaultTabController(length:keys.length,child:SizedBox(height:height,child:Column(children:[TabBar(tabs:[for(final key in keys)labels.identify(key,'prime_button',Tab(text:labels.text(key)))]),Expanded(child:TabBarView(children:children))]))));}
  Widget form(GlobalKey<FormState> key,List<Widget> fields,Future<void> Function() submit,{required double minColumnWidth,required double gap})=>labels.identify('form','prime_card',Form(key:key,child:PrimeResponsiveForm(minColumnWidth:minColumnWidth,gap:gap,children:[...fields,button('confirm',()async{if(key.currentState!.validate()){await submit();}else{throw StateError('invalid_form');}},suffix:'-form')])));
- Widget state(String key,{VoidCallback? retry})=>labels.identify(key,'prime_card',Semantics(liveRegion:key!='loading',child:Column(mainAxisSize:MainAxisSize.min,children:[PrimeText(labels.text(key)),if(['loading','splash'].contains(key))CircularProgressIndicator(semanticsLabel:labels.text(key)),if(key=='error'&&retry!=null)button('retry',()async=>retry())])));
+ Widget state(String key,{VoidCallback? retry})=>labels.identify(key,'prime_card',Semantics(liveRegion:key!='loading',child:Column(mainAxisSize:MainAxisSize.min,children:[PrimeText(labels.text(key)),if(['loading','splash'].contains(key))PrimeCircularProgressIndicator(semanticsLabel:labels.text(key)),if(key=='error'&&retry!=null)button('retry',()async=>retry())])));
  Widget feedback(String message,VoidCallback dismiss,{bool error=false})=>labels.identify('toast','prime_card',Builder(builder:(context){final colors=Theme.of(context).colorScheme;return Semantics(liveRegion:true,label:labels.text(error?'error':'toast'),child:Card(color:error?colors.errorContainer:null,child:Column(mainAxisSize:MainAxisSize.min,children:[PrimeText(message,style:error?TextStyle(color:colors.onErrorContainer):null),button('close',()async=>dismiss(),suffix:'-toast')]))); }));
  Widget preview(Widget child)=>card('preview',child);
 }

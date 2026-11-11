@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
@@ -103,7 +104,7 @@ class _GovernanceDashboardContentState
     final report = governanceState.report;
 
     if (report == null) {
-      return const Center(child: CircularProgressIndicator());
+      return const Center(child: PrimeCircularProgressIndicator());
     }
 
     final dashboardStateAsync = ref.watch(governanceDashboardControllerProvider);
@@ -216,7 +217,7 @@ class _GovernanceDashboardContentState
                           ? const SizedBox(
                               width: 16,
                               height: 16,
-                              child: CircularProgressIndicator(
+                              child: PrimeCircularProgressIndicator(
                                 strokeWidth: 2,
                               ),
                             )
@@ -269,7 +270,7 @@ class _GovernanceDashboardContentState
                             const SizedBox(
                               width: 16,
                               height: 16,
-                              child: CircularProgressIndicator(strokeWidth: 2),
+                              child: PrimeCircularProgressIndicator(strokeWidth: 2),
                             )
                           else
                             const PrimeIcon(
@@ -538,7 +539,7 @@ class _GovernanceDashboardContentState
             ),
           ),
           const SizedBox(width: 32),
-          CircularProgressIndicator(
+          PrimeCircularProgressIndicator(
             value: report.totalScreens > 0
                 ? report.productionReadyScreens / report.totalScreens
                 : 0,

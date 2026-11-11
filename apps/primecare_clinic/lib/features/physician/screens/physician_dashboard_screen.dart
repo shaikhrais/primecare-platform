@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:primecare_ui/primecare_ui.dart';
@@ -198,7 +199,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
               ),
             ],
           ),
-          loading: () => const Center(child: CircularProgressIndicator()),
+          loading: () => const Center(child: PrimeCircularProgressIndicator()),
           error: (err, stack) => Center(child: PrimeText('Error: $err')),
         ),
       ),
