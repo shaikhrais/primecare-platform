@@ -89,7 +89,7 @@ class ClinicalDirectorIncidentReviewScreen extends GovernedConsumerWidget {
                     children: [
                       Text(
                         'Target Role: Clinical Director',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF881337), fontSize: 14),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: theme.colors.onSurface, fontSize: 14),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),

@@ -89,7 +89,7 @@ class LocalMarketingManagerAnalyticsScreen extends GovernedConsumerWidget {
                     children: [
                       Text(
                         'Target Role: Local Marketing Manager',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF78350F), fontSize: 14),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: theme.colors.onSurface, fontSize: 14),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
