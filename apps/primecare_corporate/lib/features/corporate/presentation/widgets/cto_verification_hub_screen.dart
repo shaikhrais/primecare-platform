@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_verification_hub_screen_controller.dart';
@@ -12,10 +13,8 @@ class CtoVerificationHubScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(ctoVerificationHubScreenControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const PrimeText('CtoVerificationHub'),
-      ),
+    return PrimePageScaffold(
+      title: const PrimeText('CtoVerificationHub'),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

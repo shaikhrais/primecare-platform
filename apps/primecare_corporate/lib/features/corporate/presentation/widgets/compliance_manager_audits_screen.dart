@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_audits_screen_controller.dart';
@@ -12,10 +13,8 @@ class ComplianceManagerAuditsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(complianceManagerAuditsScreenControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const PrimeText('ComplianceManagerAudits'),
-      ),
+    return PrimePageScaffold(
+      title: const PrimeText('ComplianceManagerAudits'),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

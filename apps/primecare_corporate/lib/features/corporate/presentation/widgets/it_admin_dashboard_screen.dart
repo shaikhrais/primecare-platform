@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'it_admin_dashboard_screen_controller.dart';
@@ -12,10 +13,8 @@ class ItAdminDashboardScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(itAdminDashboardScreenControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const PrimeText('ItAdminDashboard'),
-      ),
+    return PrimePageScaffold(
+      title: const PrimeText('ItAdminDashboard'),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

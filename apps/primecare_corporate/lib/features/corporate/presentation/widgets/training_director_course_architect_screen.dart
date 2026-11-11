@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'training_director_course_architect_screen_controller.dart';
@@ -12,10 +13,8 @@ class TrainingDirectorCourseArchitectScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(trainingDirectorCourseArchitectScreenControllerProvider);
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const PrimeText('TrainingDirectorCourseArchitect'),
-      ),
+    return PrimePageScaffold(
+      title: const PrimeText('TrainingDirectorCourseArchitect'),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),
