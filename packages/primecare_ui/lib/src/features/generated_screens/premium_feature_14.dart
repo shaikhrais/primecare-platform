@@ -429,9 +429,8 @@ class _TelemetryPanel extends StatelessWidget {
                   const SizedBox(height: 12),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(6),
-                    child: LinearProgressIndicator(
+                    child: PrimeLinearProgressIndicator(
                       value: data.isEmpty ? 0.35 : 0.94,
-                      backgroundColor: Colors.grey.shade200,
                       valueColor: AlwaysStoppedAnimation<Color>(themeColor),
                       minHeight: 8,
                     ),
