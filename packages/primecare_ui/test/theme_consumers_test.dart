@@ -11,6 +11,7 @@ import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/components/clinical_glass_panel.dart';
 import 'package:primecare_ui/src/components/prime_components.dart' as shared;
+import 'package:primecare_ui/src/components/prime_text.dart';
 import 'package:primecare_ui/src/components/layouts/responsive_grid_layout.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'fixtures/generated_theme_fixture.dart';
@@ -43,6 +44,7 @@ void main() {
       final prime = resolvePersonalPrimeTheme(base, material, profile);
       await tester.pumpWidget(PrimeTheme(data: prime, child: MaterialApp(theme: material,
         home: Scaffold(body: SingleChildScrollView(child: Column(children: [
+          const PrimeText('Inherited shared text'),
           shared.PrimeButton.primary(label: 'Primary action', onPressed: () => presses++),
           shared.PrimeButton.secondary(label: 'Secondary action', onPressed: () {}),
           shared.PrimeButton.ghost(label: 'Ghost action', onPressed: () {}),
@@ -55,6 +57,9 @@ void main() {
           shared.EmergencyFab(onPressed: () {}),
         ]))))));
       await tester.pumpAndSettle();
+      final inheritedText = tester.widget<Text>(find.text('Inherited shared text'));
+      expect(inheritedText.style!.color, prime.typography.bodyMedium.color, reason: preset);
+      expect(inheritedText.style!.fontSize, prime.typography.bodyMedium.fontSize, reason: preset);
       for (final label in ['Primary action', 'Secondary action', 'Ghost action', 'Custom surface action']) {
         final text = tester.widget<Text>(find.text(label));
         final background = label == 'Primary action' ? prime.colors.primary : prime.colors.surface;
