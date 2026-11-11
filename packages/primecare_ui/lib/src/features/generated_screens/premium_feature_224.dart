@@ -520,7 +520,7 @@ class _AuditPanel extends StatelessWidget {
             const SizedBox(height: 24),
             const Row(
               children: [
-                _StatusBadge(label: 'HIPAA Compliant', color: const Color(0xFF10B981)), // .tr() LocaleKeys.
+                PrimeStatusBadge('HIPAA Compliant', tone: PrimeStatusTone.success), // .tr() LocaleKeys.
                 SizedBox(width: 8),
                 _StatusBadge(label: 'GDPR Verified', color: Colors.blue), // .tr() LocaleKeys.
                 SizedBox(width: 8),
