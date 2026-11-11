@@ -1,0 +1,4233 @@
+[
+  {
+    "name": "Drawer",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/drawer.dart",
+    "sdk_sha256": "6ac39673f1538697bdb3a4839e31a513106a9234656065fc13c8d22390c396df",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "width",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": false
+          },
+          {
+            "name": "semanticLabel",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.backgroundColor,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.shape,\n    this.width,\n    this.child,\n    this.semanticLabel,\n    this.clipBehavior,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "FloatingActionButton",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/floating_action_button.dart",
+    "sdk_sha256": "cb478527aa8449901dda380699bc1090e4ff172e132884834154b0b6de120c3a",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "foregroundColor",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "splashColor",
+            "required": false
+          },
+          {
+            "name": "heroTag",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "focusElevation",
+            "required": false
+          },
+          {
+            "name": "hoverElevation",
+            "required": false
+          },
+          {
+            "name": "highlightElevation",
+            "required": false
+          },
+          {
+            "name": "disabledElevation",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "mini",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "isExtended",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.child,\n    this.tooltip,\n    this.foregroundColor,\n    this.backgroundColor,\n    this.focusColor,\n    this.hoverColor,\n    this.splashColor,\n    this.heroTag = const _DefaultHeroTag(),\n    this.elevation,\n    this.focusElevation,\n    this.hoverElevation,\n    this.highlightElevation,\n    this.disabledElevation,\n    required this.onPressed,\n    this.mouseCursor,\n    this.mini = false,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.materialTapTargetSize,\n    this.isExtended = false,\n    this.enableFeedback,\n  }"
+      },
+      {
+        "name": ".small",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "foregroundColor",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "splashColor",
+            "required": false
+          },
+          {
+            "name": "heroTag",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "focusElevation",
+            "required": false
+          },
+          {
+            "name": "hoverElevation",
+            "required": false
+          },
+          {
+            "name": "highlightElevation",
+            "required": false
+          },
+          {
+            "name": "disabledElevation",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.child,\n    this.tooltip,\n    this.foregroundColor,\n    this.backgroundColor,\n    this.focusColor,\n    this.hoverColor,\n    this.splashColor,\n    this.heroTag = const _DefaultHeroTag(),\n    this.elevation,\n    this.focusElevation,\n    this.hoverElevation,\n    this.highlightElevation,\n    this.disabledElevation,\n    required this.onPressed,\n    this.mouseCursor,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.materialTapTargetSize,\n    this.enableFeedback,\n  }"
+      },
+      {
+        "name": ".large",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "foregroundColor",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "splashColor",
+            "required": false
+          },
+          {
+            "name": "heroTag",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "focusElevation",
+            "required": false
+          },
+          {
+            "name": "hoverElevation",
+            "required": false
+          },
+          {
+            "name": "highlightElevation",
+            "required": false
+          },
+          {
+            "name": "disabledElevation",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.child,\n    this.tooltip,\n    this.foregroundColor,\n    this.backgroundColor,\n    this.focusColor,\n    this.hoverColor,\n    this.splashColor,\n    this.heroTag = const _DefaultHeroTag(),\n    this.elevation,\n    this.focusElevation,\n    this.hoverElevation,\n    this.highlightElevation,\n    this.disabledElevation,\n    required this.onPressed,\n    this.mouseCursor,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.materialTapTargetSize,\n    this.enableFeedback,\n  }"
+      },
+      {
+        "name": ".extended",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "foregroundColor",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "heroTag",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "focusElevation",
+            "required": false
+          },
+          {
+            "name": "hoverElevation",
+            "required": false
+          },
+          {
+            "name": "splashColor",
+            "required": false
+          },
+          {
+            "name": "highlightElevation",
+            "required": false
+          },
+          {
+            "name": "disabledElevation",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "isExtended",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "extendedIconLabelSpacing",
+            "required": false
+          },
+          {
+            "name": "extendedPadding",
+            "required": false
+          },
+          {
+            "name": "extendedTextStyle",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.tooltip,\n    this.foregroundColor,\n    this.backgroundColor,\n    this.focusColor,\n    this.hoverColor,\n    this.heroTag = const _DefaultHeroTag(),\n    this.elevation,\n    this.focusElevation,\n    this.hoverElevation,\n    this.splashColor,\n    this.highlightElevation,\n    this.disabledElevation,\n    required this.onPressed,\n    this.mouseCursor,\n    this.shape,\n    this.isExtended = true,\n    this.materialTapTargetSize,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.extendedIconLabelSpacing,\n    this.extendedPadding,\n    this.extendedTextStyle,\n    Widget? icon,\n    required Widget label,\n    this.enableFeedback,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "ListTile",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/list_tile.dart",
+    "sdk_sha256": "c4bb1cb930916acf0031c004c56df40b7c363bf7b8fc04a13e9a98fde4a7e03a",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "leading",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "trailing",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "selectedColor",
+            "required": false
+          },
+          {
+            "name": "iconColor",
+            "required": false
+          },
+          {
+            "name": "textColor",
+            "required": false
+          },
+          {
+            "name": "titleTextStyle",
+            "required": false
+          },
+          {
+            "name": "subtitleTextStyle",
+            "required": false
+          },
+          {
+            "name": "leadingAndTrailingTextStyle",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "onLongPress",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "splashColor",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "titleAlignment",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.leading,\n    this.title,\n    this.subtitle,\n    this.trailing,\n    this.isThreeLine,\n    this.dense,\n    this.visualDensity,\n    this.shape,\n    this.style,\n    this.selectedColor,\n    this.iconColor,\n    this.textColor,\n    this.titleTextStyle,\n    this.subtitleTextStyle,\n    this.leadingAndTrailingTextStyle,\n    this.contentPadding,\n    this.enabled = true,\n    this.onTap,\n    this.onLongPress,\n    this.onFocusChange,\n    this.mouseCursor,\n    this.selected = false,\n    this.focusColor,\n    this.hoverColor,\n    this.splashColor,\n    this.focusNode,\n    this.autofocus = false,\n    this.tileColor,\n    this.selectedTileColor,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.titleAlignment,\n    this.internalAddSemanticForOnTap = true,\n    this.statesController,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "DropdownButton",
+    "generic": true,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/dropdown.dart",
+    "sdk_sha256": "5195efbbe19db2de447414f363c56cea6a5b6438e7dc38c1b324d66c7f2e1509",
+    "constructors": [
+      {
+        "name": "",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "items",
+            "required": true
+          },
+          {
+            "name": "selectedItemBuilder",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": false
+          },
+          {
+            "name": "hint",
+            "required": false
+          },
+          {
+            "name": "disabledHint",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "underline",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "iconDisabledColor",
+            "required": false
+          },
+          {
+            "name": "iconEnabledColor",
+            "required": false
+          },
+          {
+            "name": "iconSize",
+            "required": false
+          },
+          {
+            "name": "isDense",
+            "required": false
+          },
+          {
+            "name": "isExpanded",
+            "required": false
+          },
+          {
+            "name": "itemHeight",
+            "required": false
+          },
+          {
+            "name": "menuWidth",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "dropdownColor",
+            "required": false
+          },
+          {
+            "name": "menuMaxHeight",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "alignment",
+            "required": false
+          },
+          {
+            "name": "borderRadius",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "barrierDismissible",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "dropdownMenuItemMouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.items,\n    this.selectedItemBuilder,\n    this.value,\n    this.hint,\n    this.disabledHint,\n    required this.onChanged,\n    this.onTap,\n    this.elevation = 8,\n    this.style,\n    this.underline,\n    this.icon,\n    this.iconDisabledColor,\n    this.iconEnabledColor,\n    this.iconSize = 24.0,\n    this.isDense = false,\n    this.isExpanded = false,\n    this.itemHeight = kMinInteractiveDimension,\n    this.menuWidth,\n    this.focusColor,\n    this.focusNode,\n    this.autofocus = false,\n    this.dropdownColor,\n    this.menuMaxHeight,\n    this.enableFeedback,\n    this.alignment = AlignmentDirectional.centerStart,\n    this.borderRadius,\n    this.padding,\n    this.barrierDismissible = true,\n    this.mouseCursor,\n    this.dropdownMenuItemMouseCursor,\n    // When adding new arguments, consider adding similar arguments to\n    // DropdownButtonFormField.\n  }"
+      }
+    ]
+  },
+  {
+    "name": "DropdownButtonFormField",
+    "generic": true,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/dropdown.dart",
+    "sdk_sha256": "5195efbbe19db2de447414f363c56cea6a5b6438e7dc38c1b324d66c7f2e1509",
+    "constructors": [
+      {
+        "name": "",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "items",
+            "required": true
+          },
+          {
+            "name": "selectedItemBuilder",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": false
+          },
+          {
+            "name": "initialValue",
+            "required": false
+          },
+          {
+            "name": "hint",
+            "required": false
+          },
+          {
+            "name": "disabledHint",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "iconDisabledColor",
+            "required": false
+          },
+          {
+            "name": "iconEnabledColor",
+            "required": false
+          },
+          {
+            "name": "iconSize",
+            "required": false
+          },
+          {
+            "name": "isDense",
+            "required": false
+          },
+          {
+            "name": "isExpanded",
+            "required": false
+          },
+          {
+            "name": "itemHeight",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "dropdownColor",
+            "required": false
+          },
+          {
+            "name": "decoration",
+            "required": false
+          },
+          {
+            "name": "onSaved",
+            "required": false
+          },
+          {
+            "name": "validator",
+            "required": false
+          },
+          {
+            "name": "errorBuilder",
+            "required": false
+          },
+          {
+            "name": "forceErrorText",
+            "required": false
+          },
+          {
+            "name": "autovalidateMode",
+            "required": false
+          },
+          {
+            "name": "menuMaxHeight",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "alignment",
+            "required": false
+          },
+          {
+            "name": "borderRadius",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "barrierDismissible",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "dropdownMenuItemMouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required List<DropdownMenuItem<T>>? items,\n    DropdownButtonBuilder? selectedItemBuilder,\n    @Deprecated(\n      'Use initialValue instead. '\n      'This will set the initial value for the form field. '\n      'This feature was deprecated after v3.33.0-1.0.pre.',\n    )\n    T? value,\n    T? initialValue,\n    Widget? hint,\n    Widget? disabledHint,\n    required this.onChanged,\n    VoidCallback? onTap,\n    int elevation = 8,\n    TextStyle? style,\n    Widget? icon,\n    Color? iconDisabledColor,\n    Color? iconEnabledColor,\n    double iconSize = 24.0,\n    bool isDense = true,\n    bool isExpanded = false,\n    double? itemHeight,\n    Color? focusColor,\n    FocusNode? focusNode,\n    bool autofocus = false,\n    Color? dropdownColor,\n    InputDecoration? decoration,\n    super.onSaved,\n    super.validator,\n    super.errorBuilder,\n    super.forceErrorText,\n    AutovalidateMode? autovalidateMode,\n    double? menuMaxHeight,\n    bool? enableFeedback,\n    AlignmentGeometry alignment = AlignmentDirectional.centerStart,\n    BorderRadius? borderRadius,\n    EdgeInsetsGeometry? padding,\n    this.barrierDismissible = true,\n    this.mouseCursor,\n    this.dropdownMenuItemMouseCursor,\n    // When adding new arguments, consider adding similar arguments to\n    // DropdownButton.\n  }"
+      }
+    ]
+  },
+  {
+    "name": "PopupMenuButton",
+    "generic": true,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/popup_menu.dart",
+    "sdk_sha256": "a7a4bbd1cdcddeedd142bea257d4b255d3d6c52689cd474e05ff36efcf47b45f",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "itemBuilder",
+            "required": true
+          },
+          {
+            "name": "initialValue",
+            "required": false
+          },
+          {
+            "name": "onOpened",
+            "required": false
+          },
+          {
+            "name": "onSelected",
+            "required": false
+          },
+          {
+            "name": "onCanceled",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "menuPadding",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": false
+          },
+          {
+            "name": "borderRadius",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "iconSize",
+            "required": false
+          },
+          {
+            "name": "offset",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "iconColor",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "constraints",
+            "required": false
+          },
+          {
+            "name": "position",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "useRootNavigator",
+            "required": false
+          },
+          {
+            "name": "popUpAnimationStyle",
+            "required": false
+          },
+          {
+            "name": "routeSettings",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "requestFocus",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.itemBuilder,\n    this.initialValue,\n    this.onOpened,\n    this.onSelected,\n    this.onCanceled,\n    this.tooltip,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.padding = const EdgeInsets.all(8.0),\n    this.menuPadding,\n    this.child,\n    this.borderRadius,\n    this.splashRadius,\n    this.icon,\n    this.iconSize,\n    this.offset = Offset.zero,\n    this.enabled = true,\n    this.shape,\n    this.color,\n    this.iconColor,\n    this.enableFeedback,\n    this.constraints,\n    this.position,\n    this.clipBehavior = Clip.none,\n    this.useRootNavigator = false,\n    this.popUpAnimationStyle,\n    this.routeSettings,\n    this.style,\n    this.requestFocus,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "TextFormField",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/text_form_field.dart",
+    "sdk_sha256": "e8617241af1590cc3a0d5b6955579024945d00b15da97831aa41dce6fba92054",
+    "constructors": [
+      {
+        "name": "",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "groupId",
+            "required": false
+          },
+          {
+            "name": "controller",
+            "required": false
+          },
+          {
+            "name": "initialValue",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "forceErrorText",
+            "required": false
+          },
+          {
+            "name": "decoration",
+            "required": false
+          },
+          {
+            "name": "keyboardType",
+            "required": false
+          },
+          {
+            "name": "textCapitalization",
+            "required": false
+          },
+          {
+            "name": "textInputAction",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "strutStyle",
+            "required": false
+          },
+          {
+            "name": "textDirection",
+            "required": false
+          },
+          {
+            "name": "textAlign",
+            "required": false
+          },
+          {
+            "name": "textAlignVertical",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "readOnly",
+            "required": false
+          },
+          {
+            "name": "toolbarOptions",
+            "required": false
+          },
+          {
+            "name": "showCursor",
+            "required": false
+          },
+          {
+            "name": "obscuringCharacter",
+            "required": false
+          },
+          {
+            "name": "obscureText",
+            "required": false
+          },
+          {
+            "name": "autocorrect",
+            "required": false
+          },
+          {
+            "name": "smartDashesType",
+            "required": false
+          },
+          {
+            "name": "smartQuotesType",
+            "required": false
+          },
+          {
+            "name": "enableSuggestions",
+            "required": false
+          },
+          {
+            "name": "maxLengthEnforcement",
+            "required": false
+          },
+          {
+            "name": "maxLines",
+            "required": false
+          },
+          {
+            "name": "minLines",
+            "required": false
+          },
+          {
+            "name": "expands",
+            "required": false
+          },
+          {
+            "name": "maxLength",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": false
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "onTapAlwaysCalled",
+            "required": false
+          },
+          {
+            "name": "onTapOutside",
+            "required": false
+          },
+          {
+            "name": "onTapUpOutside",
+            "required": false
+          },
+          {
+            "name": "onEditingComplete",
+            "required": false
+          },
+          {
+            "name": "onFieldSubmitted",
+            "required": false
+          },
+          {
+            "name": "onSaved",
+            "required": false
+          },
+          {
+            "name": "validator",
+            "required": false
+          },
+          {
+            "name": "errorBuilder",
+            "required": false
+          },
+          {
+            "name": "inputFormatters",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "ignorePointers",
+            "required": false
+          },
+          {
+            "name": "cursorWidth",
+            "required": false
+          },
+          {
+            "name": "cursorHeight",
+            "required": false
+          },
+          {
+            "name": "cursorRadius",
+            "required": false
+          },
+          {
+            "name": "cursorColor",
+            "required": false
+          },
+          {
+            "name": "cursorErrorColor",
+            "required": false
+          },
+          {
+            "name": "keyboardAppearance",
+            "required": false
+          },
+          {
+            "name": "scrollPadding",
+            "required": false
+          },
+          {
+            "name": "enableInteractiveSelection",
+            "required": false
+          },
+          {
+            "name": "selectAllOnFocus",
+            "required": false
+          },
+          {
+            "name": "selectionControls",
+            "required": false
+          },
+          {
+            "name": "buildCounter",
+            "required": false
+          },
+          {
+            "name": "scrollPhysics",
+            "required": false
+          },
+          {
+            "name": "autofillHints",
+            "required": false
+          },
+          {
+            "name": "autovalidateMode",
+            "required": false
+          },
+          {
+            "name": "scrollController",
+            "required": false
+          },
+          {
+            "name": "restorationId",
+            "required": false
+          },
+          {
+            "name": "enableIMEPersonalizedLearning",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "contextMenuBuilder",
+            "required": false
+          },
+          {
+            "name": "spellCheckConfiguration",
+            "required": false
+          },
+          {
+            "name": "magnifierConfiguration",
+            "required": false
+          },
+          {
+            "name": "undoController",
+            "required": false
+          },
+          {
+            "name": "onAppPrivateCommand",
+            "required": false
+          },
+          {
+            "name": "cursorOpacityAnimates",
+            "required": false
+          },
+          {
+            "name": "selectionHeightStyle",
+            "required": false
+          },
+          {
+            "name": "selectionWidthStyle",
+            "required": false
+          },
+          {
+            "name": "dragStartBehavior",
+            "required": false
+          },
+          {
+            "name": "contentInsertionConfiguration",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "scribbleEnabled",
+            "required": false
+          },
+          {
+            "name": "stylusHandwritingEnabled",
+            "required": false
+          },
+          {
+            "name": "canRequestFocus",
+            "required": false
+          },
+          {
+            "name": "hintLocales",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.groupId = EditableText,\n    this.controller,\n    String? initialValue,\n    FocusNode? focusNode,\n    super.forceErrorText,\n    InputDecoration? decoration = const InputDecoration(),\n    TextInputType? keyboardType,\n    TextCapitalization textCapitalization = TextCapitalization.none,\n    TextInputAction? textInputAction,\n    TextStyle? style,\n    StrutStyle? strutStyle,\n    TextDirection? textDirection,\n    TextAlign textAlign = TextAlign.start,\n    TextAlignVertical? textAlignVertical,\n    bool autofocus = false,\n    bool readOnly = false,\n    @Deprecated(\n      'Use `contextMenuBuilder` instead. '\n      'This feature was deprecated after v3.3.0-0.5.pre.',\n    )\n    ToolbarOptions? toolbarOptions,\n    bool? showCursor,\n    String obscuringCharacter = '\u2022',\n    bool obscureText = false,\n    bool autocorrect = true,\n    SmartDashesType? smartDashesType,\n    SmartQuotesType? smartQuotesType,\n    bool enableSuggestions = true,\n    MaxLengthEnforcement? maxLengthEnforcement,\n    int? maxLines = 1,\n    int? minLines,\n    bool expands = false,\n    int? maxLength,\n    this.onChanged,\n    GestureTapCallback? onTap,\n    bool onTapAlwaysCalled = false,\n    TapRegionCallback? onTapOutside,\n    TapRegionUpCallback? onTapUpOutside,\n    VoidCallback? onEditingComplete,\n    ValueChanged<String>? onFieldSubmitted,\n    super.onSaved,\n    super.validator,\n    super.errorBuilder,\n    List<TextInputFormatter>? inputFormatters,\n    bool? enabled,\n    bool? ignorePointers,\n    double cursorWidth = 2.0,\n    double? cursorHeight,\n    Radius? cursorRadius,\n    Color? cursorColor,\n    Color? cursorErrorColor,\n    Brightness? keyboardAppearance,\n    EdgeInsets scrollPadding = const EdgeInsets.all(20.0),\n    bool? enableInteractiveSelection,\n    bool? selectAllOnFocus,\n    TextSelectionControls? selectionControls,\n    InputCounterWidgetBuilder? buildCounter,\n    ScrollPhysics? scrollPhysics,\n    Iterable<String>? autofillHints,\n    AutovalidateMode? autovalidateMode,\n    ScrollController? scrollController,\n    super.restorationId,\n    bool enableIMEPersonalizedLearning = true,\n    MouseCursor? mouseCursor,\n    EditableTextContextMenuBuilder? contextMenuBuilder = _defaultContextMenuBuilder,\n    SpellCheckConfiguration? spellCheckConfiguration,\n    TextMagnifierConfiguration? magnifierConfiguration,\n    UndoHistoryController? undoController,\n    AppPrivateCommandCallback? onAppPrivateCommand,\n    bool? cursorOpacityAnimates,\n    ui.BoxHeightStyle? selectionHeightStyle,\n    ui.BoxWidthStyle? selectionWidthStyle,\n    DragStartBehavior dragStartBehavior = DragStartBehavior.start,\n    ContentInsertionConfiguration? contentInsertionConfiguration,\n    MaterialStatesController? statesController,\n    Clip clipBehavior = Clip.hardEdge,\n    @Deprecated(\n      'Use `stylusHandwritingEnabled` instead. '\n      'This feature was deprecated after v3.27.0-0.2.pre.',\n    )\n    bool scribbleEnabled = true,\n    bool stylusHandwritingEnabled = EditableText.defaultStylusHandwritingEnabled,\n    bool canRequestFocus = true,\n    List<Locale>? hintLocales,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "FilterChip",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/filter_chip.dart",
+    "sdk_sha256": "3609e41968bbf8e2ca80ac5242376c8c11d50c89fec3c19e0949f198972582b2",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "avatar",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "onSelected",
+            "required": true
+          },
+          {
+            "name": "deleteIcon",
+            "required": false
+          },
+          {
+            "name": "onDeleted",
+            "required": false
+          },
+          {
+            "name": "deleteIconColor",
+            "required": false
+          },
+          {
+            "name": "deleteButtonTooltipMessage",
+            "required": false
+          },
+          {
+            "name": "pressElevation",
+            "required": false
+          },
+          {
+            "name": "disabledColor",
+            "required": false
+          },
+          {
+            "name": "selectedColor",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "iconTheme",
+            "required": false
+          },
+          {
+            "name": "selectedShadowColor",
+            "required": false
+          },
+          {
+            "name": "showCheckmark",
+            "required": false
+          },
+          {
+            "name": "checkmarkColor",
+            "required": false
+          },
+          {
+            "name": "avatarBorder",
+            "required": false
+          },
+          {
+            "name": "avatarBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "deleteIconBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "chipAnimationStyle",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.avatar,\n    required this.label,\n    this.labelStyle,\n    this.labelPadding,\n    this.selected = false,\n    required this.onSelected,\n    this.deleteIcon,\n    this.onDeleted,\n    this.deleteIconColor,\n    this.deleteButtonTooltipMessage,\n    this.pressElevation,\n    this.disabledColor,\n    this.selectedColor,\n    this.tooltip,\n    this.side,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.color,\n    this.backgroundColor,\n    this.padding,\n    this.visualDensity,\n    this.materialTapTargetSize,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.iconTheme,\n    this.selectedShadowColor,\n    this.showCheckmark,\n    this.checkmarkColor,\n    this.avatarBorder = const CircleBorder(),\n    this.avatarBoxConstraints,\n    this.deleteIconBoxConstraints,\n    this.chipAnimationStyle,\n    this.mouseCursor,\n  }"
+      },
+      {
+        "name": ".elevated",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "avatar",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "onSelected",
+            "required": true
+          },
+          {
+            "name": "deleteIcon",
+            "required": false
+          },
+          {
+            "name": "onDeleted",
+            "required": false
+          },
+          {
+            "name": "deleteIconColor",
+            "required": false
+          },
+          {
+            "name": "deleteButtonTooltipMessage",
+            "required": false
+          },
+          {
+            "name": "pressElevation",
+            "required": false
+          },
+          {
+            "name": "disabledColor",
+            "required": false
+          },
+          {
+            "name": "selectedColor",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "iconTheme",
+            "required": false
+          },
+          {
+            "name": "selectedShadowColor",
+            "required": false
+          },
+          {
+            "name": "showCheckmark",
+            "required": false
+          },
+          {
+            "name": "checkmarkColor",
+            "required": false
+          },
+          {
+            "name": "avatarBorder",
+            "required": false
+          },
+          {
+            "name": "avatarBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "deleteIconBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "chipAnimationStyle",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.avatar,\n    required this.label,\n    this.labelStyle,\n    this.labelPadding,\n    this.selected = false,\n    required this.onSelected,\n    this.deleteIcon,\n    this.onDeleted,\n    this.deleteIconColor,\n    this.deleteButtonTooltipMessage,\n    this.pressElevation,\n    this.disabledColor,\n    this.selectedColor,\n    this.tooltip,\n    this.side,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.color,\n    this.backgroundColor,\n    this.padding,\n    this.visualDensity,\n    this.materialTapTargetSize,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.iconTheme,\n    this.selectedShadowColor,\n    this.showCheckmark,\n    this.checkmarkColor,\n    this.avatarBorder = const CircleBorder(),\n    this.avatarBoxConstraints,\n    this.deleteIconBoxConstraints,\n    this.chipAnimationStyle,\n    this.mouseCursor,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "TabBar",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/tabs.dart",
+    "sdk_sha256": "e8ec6b605a9ae54232f21c31887cd7b7928989b1fbda584694d7f967d5d4a446",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "tabs",
+            "required": true
+          },
+          {
+            "name": "controller",
+            "required": false
+          },
+          {
+            "name": "isScrollable",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "indicatorColor",
+            "required": false
+          },
+          {
+            "name": "automaticIndicatorColorAdjustment",
+            "required": false
+          },
+          {
+            "name": "indicatorWeight",
+            "required": false
+          },
+          {
+            "name": "indicatorPadding",
+            "required": false
+          },
+          {
+            "name": "indicator",
+            "required": false
+          },
+          {
+            "name": "indicatorSize",
+            "required": false
+          },
+          {
+            "name": "dividerColor",
+            "required": false
+          },
+          {
+            "name": "dividerHeight",
+            "required": false
+          },
+          {
+            "name": "labelColor",
+            "required": false
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "unselectedLabelColor",
+            "required": false
+          },
+          {
+            "name": "unselectedLabelStyle",
+            "required": false
+          },
+          {
+            "name": "dragStartBehavior",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "physics",
+            "required": false
+          },
+          {
+            "name": "splashFactory",
+            "required": false
+          },
+          {
+            "name": "splashBorderRadius",
+            "required": false
+          },
+          {
+            "name": "tabAlignment",
+            "required": false
+          },
+          {
+            "name": "textScaler",
+            "required": false
+          },
+          {
+            "name": "indicatorAnimation",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.tabs,\n    this.controller,\n    this.isScrollable = false,\n    this.padding,\n    this.indicatorColor,\n    this.automaticIndicatorColorAdjustment = true,\n    this.indicatorWeight = 2.0,\n    this.indicatorPadding = EdgeInsets.zero,\n    this.indicator,\n    this.indicatorSize,\n    this.dividerColor,\n    this.dividerHeight,\n    this.labelColor,\n    this.labelStyle,\n    this.labelPadding,\n    this.unselectedLabelColor,\n    this.unselectedLabelStyle,\n    this.dragStartBehavior = DragStartBehavior.start,\n    this.overlayColor,\n    this.mouseCursor,\n    this.enableFeedback,\n    this.onTap,\n    this.onHover,\n    this.onFocusChange,\n    this.physics,\n    this.splashFactory,\n    this.splashBorderRadius,\n    this.tabAlignment,\n    this.textScaler,\n    this.indicatorAnimation,\n  }"
+      },
+      {
+        "name": ".secondary",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "tabs",
+            "required": true
+          },
+          {
+            "name": "controller",
+            "required": false
+          },
+          {
+            "name": "isScrollable",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "indicatorColor",
+            "required": false
+          },
+          {
+            "name": "automaticIndicatorColorAdjustment",
+            "required": false
+          },
+          {
+            "name": "indicatorWeight",
+            "required": false
+          },
+          {
+            "name": "indicatorPadding",
+            "required": false
+          },
+          {
+            "name": "indicator",
+            "required": false
+          },
+          {
+            "name": "indicatorSize",
+            "required": false
+          },
+          {
+            "name": "dividerColor",
+            "required": false
+          },
+          {
+            "name": "dividerHeight",
+            "required": false
+          },
+          {
+            "name": "labelColor",
+            "required": false
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "unselectedLabelColor",
+            "required": false
+          },
+          {
+            "name": "unselectedLabelStyle",
+            "required": false
+          },
+          {
+            "name": "dragStartBehavior",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "onTap",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "physics",
+            "required": false
+          },
+          {
+            "name": "splashFactory",
+            "required": false
+          },
+          {
+            "name": "splashBorderRadius",
+            "required": false
+          },
+          {
+            "name": "tabAlignment",
+            "required": false
+          },
+          {
+            "name": "textScaler",
+            "required": false
+          },
+          {
+            "name": "indicatorAnimation",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.tabs,\n    this.controller,\n    this.isScrollable = false,\n    this.padding,\n    this.indicatorColor,\n    this.automaticIndicatorColorAdjustment = true,\n    this.indicatorWeight = 2.0,\n    this.indicatorPadding = EdgeInsets.zero,\n    this.indicator,\n    this.indicatorSize,\n    this.dividerColor,\n    this.dividerHeight,\n    this.labelColor,\n    this.labelStyle,\n    this.labelPadding,\n    this.unselectedLabelColor,\n    this.unselectedLabelStyle,\n    this.dragStartBehavior = DragStartBehavior.start,\n    this.overlayColor,\n    this.mouseCursor,\n    this.enableFeedback,\n    this.onTap,\n    this.onHover,\n    this.onFocusChange,\n    this.physics,\n    this.splashFactory,\n    this.splashBorderRadius,\n    this.tabAlignment,\n    this.textScaler,\n    this.indicatorAnimation,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "DataTable",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/data_table.dart",
+    "sdk_sha256": "aa1a11501ffa1f2d0dfdf2d76f57208b307e5492f84eac9893f7d92f4b5c428c",
+    "constructors": [
+      {
+        "name": "",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "columns",
+            "required": true
+          },
+          {
+            "name": "sortColumnIndex",
+            "required": false
+          },
+          {
+            "name": "sortAscending",
+            "required": false
+          },
+          {
+            "name": "onSelectAll",
+            "required": false
+          },
+          {
+            "name": "decoration",
+            "required": false
+          },
+          {
+            "name": "dataRowColor",
+            "required": false
+          },
+          {
+            "name": "dataRowHeight",
+            "required": false
+          },
+          {
+            "name": "dataRowMinHeight",
+            "required": false
+          },
+          {
+            "name": "dataRowMaxHeight",
+            "required": false
+          },
+          {
+            "name": "dataTextStyle",
+            "required": false
+          },
+          {
+            "name": "headingRowColor",
+            "required": false
+          },
+          {
+            "name": "headingRowHeight",
+            "required": false
+          },
+          {
+            "name": "headingTextStyle",
+            "required": false
+          },
+          {
+            "name": "horizontalMargin",
+            "required": false
+          },
+          {
+            "name": "columnSpacing",
+            "required": false
+          },
+          {
+            "name": "showCheckboxColumn",
+            "required": false
+          },
+          {
+            "name": "showBottomBorder",
+            "required": false
+          },
+          {
+            "name": "dividerThickness",
+            "required": false
+          },
+          {
+            "name": "rows",
+            "required": true
+          },
+          {
+            "name": "checkboxHorizontalMargin",
+            "required": false
+          },
+          {
+            "name": "border",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.columns,\n    this.sortColumnIndex,\n    this.sortAscending = true,\n    this.onSelectAll,\n    this.decoration,\n    this.dataRowColor,\n    @Deprecated(\n      'Migrate to use dataRowMinHeight and dataRowMaxHeight instead. '\n      'This feature was deprecated after v3.7.0-5.0.pre.',\n    )\n    double? dataRowHeight,\n    double? dataRowMinHeight,\n    double? dataRowMaxHeight,\n    this.dataTextStyle,\n    this.headingRowColor,\n    this.headingRowHeight,\n    this.headingTextStyle,\n    this.horizontalMargin,\n    this.columnSpacing,\n    this.showCheckboxColumn = true,\n    this.showBottomBorder = false,\n    this.dividerThickness,\n    required this.rows,\n    this.checkboxHorizontalMargin,\n    this.border,\n    this.clipBehavior = Clip.none,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "CheckboxListTile",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/checkbox_list_tile.dart",
+    "sdk_sha256": "e07301b42ebd3191810105422675e6a1b82a3bcf3373598599ff2b4da3363a60",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "checkColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "isError",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "tristate",
+            "required": false
+          },
+          {
+            "name": "checkboxShape",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "checkboxSemanticLabel",
+            "required": false
+          },
+          {
+            "name": "checkboxScaleFactor",
+            "required": false
+          },
+          {
+            "name": "titleAlignment",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    required this.onChanged,\n    this.mouseCursor,\n    this.activeColor,\n    this.fillColor,\n    this.checkColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.visualDensity,\n    this.focusNode,\n    this.autofocus = false,\n    this.shape,\n    this.side,\n    this.isError = false,\n    this.enabled,\n    this.tileColor,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.contentPadding,\n    this.tristate = false,\n    this.checkboxShape,\n    this.selectedTileColor,\n    this.onFocusChange,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.checkboxSemanticLabel,\n    this.checkboxScaleFactor = 1.0,\n    this.titleAlignment,\n    this.internalAddSemanticForOnTap = false,\n  }"
+      },
+      {
+        "name": ".adaptive",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "checkColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "isError",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "tristate",
+            "required": false
+          },
+          {
+            "name": "checkboxShape",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "checkboxSemanticLabel",
+            "required": false
+          },
+          {
+            "name": "checkboxScaleFactor",
+            "required": false
+          },
+          {
+            "name": "titleAlignment",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    required this.onChanged,\n    this.mouseCursor,\n    this.activeColor,\n    this.fillColor,\n    this.checkColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.visualDensity,\n    this.focusNode,\n    this.autofocus = false,\n    this.shape,\n    this.side,\n    this.isError = false,\n    this.enabled,\n    this.tileColor,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.contentPadding,\n    this.tristate = false,\n    this.checkboxShape,\n    this.selectedTileColor,\n    this.onFocusChange,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.checkboxSemanticLabel,\n    this.checkboxScaleFactor = 1.0,\n    this.titleAlignment,\n    this.internalAddSemanticForOnTap = false,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "RadioListTile",
+    "generic": true,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/radio_list_tile.dart",
+    "sdk_sha256": "2f6368b3933293745e7e198655ab47fc356f3a89d4a879bc38b280763011594a",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "groupValue",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "toggleable",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "radioScaleFactor",
+            "required": false
+          },
+          {
+            "name": "titleAlignment",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          },
+          {
+            "name": "radioBackgroundColor",
+            "required": false
+          },
+          {
+            "name": "radioSide",
+            "required": false
+          },
+          {
+            "name": "radioInnerRadius",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    @Deprecated(\n      'Use a RadioGroup ancestor to manage group value instead. '\n      'This feature was deprecated after v3.32.0-0.0.pre.',\n    )\n    this.groupValue,\n    @Deprecated(\n      'Use RadioGroup to handle value change instead. '\n      'This feature was deprecated after v3.32.0-0.0.pre.',\n    )\n    this.onChanged,\n    this.mouseCursor,\n    this.toggleable = false,\n    this.activeColor,\n    this.fillColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.autofocus = false,\n    this.contentPadding,\n    this.shape,\n    this.tileColor,\n    this.selectedTileColor,\n    this.visualDensity,\n    this.focusNode,\n    this.onFocusChange,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.radioScaleFactor = 1.0,\n    this.titleAlignment,\n    this.enabled,\n    this.internalAddSemanticForOnTap = false,\n    this.radioBackgroundColor,\n    this.radioSide,\n    this.radioInnerRadius,\n  }"
+      },
+      {
+        "name": ".adaptive",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "groupValue",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "toggleable",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "radioScaleFactor",
+            "required": false
+          },
+          {
+            "name": "enabled",
+            "required": false
+          },
+          {
+            "name": "useCupertinoCheckmarkStyle",
+            "required": false
+          },
+          {
+            "name": "titleAlignment",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          },
+          {
+            "name": "radioBackgroundColor",
+            "required": false
+          },
+          {
+            "name": "radioSide",
+            "required": false
+          },
+          {
+            "name": "radioInnerRadius",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    @Deprecated(\n      'Use a RadioGroup ancestor to manage group value instead. '\n      'This feature was deprecated after v3.32.0-0.0.pre.',\n    )\n    this.groupValue,\n    @Deprecated(\n      'Use RadioGroup to handle value change instead. '\n      'This feature was deprecated after v3.32.0-0.0.pre.',\n    )\n    this.onChanged,\n    this.mouseCursor,\n    this.toggleable = false,\n    this.activeColor,\n    this.fillColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.autofocus = false,\n    this.contentPadding,\n    this.shape,\n    this.tileColor,\n    this.selectedTileColor,\n    this.visualDensity,\n    this.focusNode,\n    this.onFocusChange,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.radioScaleFactor = 1.0,\n    this.enabled,\n    this.useCupertinoCheckmarkStyle = false,\n    this.titleAlignment,\n    this.internalAddSemanticForOnTap = false,\n    this.radioBackgroundColor,\n    this.radioSide,\n    this.radioInnerRadius,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "SwitchListTile",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/switch_list_tile.dart",
+    "sdk_sha256": "4c93adb5063c0b19e3cc447645cda360db5ffcf6dccd33678dcd13667c95347f",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "activeThumbColor",
+            "required": false
+          },
+          {
+            "name": "activeTrackColor",
+            "required": false
+          },
+          {
+            "name": "inactiveThumbColor",
+            "required": false
+          },
+          {
+            "name": "inactiveTrackColor",
+            "required": false
+          },
+          {
+            "name": "activeThumbImage",
+            "required": false
+          },
+          {
+            "name": "onActiveThumbImageError",
+            "required": false
+          },
+          {
+            "name": "inactiveThumbImage",
+            "required": false
+          },
+          {
+            "name": "onInactiveThumbImageError",
+            "required": false
+          },
+          {
+            "name": "thumbColor",
+            "required": false
+          },
+          {
+            "name": "trackColor",
+            "required": false
+          },
+          {
+            "name": "trackOutlineColor",
+            "required": false
+          },
+          {
+            "name": "thumbIcon",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "dragStartBehavior",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    required this.onChanged,\n    @Deprecated(\n      'Use activeThumbColor instead. '\n      'This feature was deprecated after v3.31.0-2.0.pre.',\n    )\n    this.activeColor,\n    this.activeThumbColor,\n    this.activeTrackColor,\n    this.inactiveThumbColor,\n    this.inactiveTrackColor,\n    this.activeThumbImage,\n    this.onActiveThumbImageError,\n    this.inactiveThumbImage,\n    this.onInactiveThumbImageError,\n    this.thumbColor,\n    this.trackColor,\n    this.trackOutlineColor,\n    this.thumbIcon,\n    this.materialTapTargetSize,\n    this.dragStartBehavior = DragStartBehavior.start,\n    this.mouseCursor,\n    this.overlayColor,\n    this.splashRadius,\n    this.focusNode,\n    this.onFocusChange,\n    this.autofocus = false,\n    this.tileColor,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.contentPadding,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.shape,\n    this.selectedTileColor,\n    this.visualDensity,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.hoverColor,\n    this.internalAddSemanticForOnTap = false,\n  }"
+      },
+      {
+        "name": ".adaptive",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "activeThumbColor",
+            "required": false
+          },
+          {
+            "name": "activeTrackColor",
+            "required": false
+          },
+          {
+            "name": "inactiveThumbColor",
+            "required": false
+          },
+          {
+            "name": "inactiveTrackColor",
+            "required": false
+          },
+          {
+            "name": "activeThumbImage",
+            "required": false
+          },
+          {
+            "name": "onActiveThumbImageError",
+            "required": false
+          },
+          {
+            "name": "inactiveThumbImage",
+            "required": false
+          },
+          {
+            "name": "onInactiveThumbImageError",
+            "required": false
+          },
+          {
+            "name": "thumbColor",
+            "required": false
+          },
+          {
+            "name": "trackColor",
+            "required": false
+          },
+          {
+            "name": "trackOutlineColor",
+            "required": false
+          },
+          {
+            "name": "thumbIcon",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "dragStartBehavior",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "applyCupertinoTheme",
+            "required": false
+          },
+          {
+            "name": "tileColor",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "subtitle",
+            "required": false
+          },
+          {
+            "name": "isThreeLine",
+            "required": false
+          },
+          {
+            "name": "dense",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "secondary",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": false
+          },
+          {
+            "name": "controlAffinity",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "selectedTileColor",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "enableFeedback",
+            "required": false
+          },
+          {
+            "name": "horizontalTitleGap",
+            "required": false
+          },
+          {
+            "name": "minVerticalPadding",
+            "required": false
+          },
+          {
+            "name": "minLeadingWidth",
+            "required": false
+          },
+          {
+            "name": "minTileHeight",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "internalAddSemanticForOnTap",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    required this.onChanged,\n    @Deprecated(\n      'Use activeThumbColor or activeTrackColor instead. '\n      'This feature was deprecated after v3.31.0-2.0.pre.',\n    )\n    this.activeColor,\n    this.activeThumbColor,\n    this.activeTrackColor,\n    this.inactiveThumbColor,\n    this.inactiveTrackColor,\n    this.activeThumbImage,\n    this.onActiveThumbImageError,\n    this.inactiveThumbImage,\n    this.onInactiveThumbImageError,\n    this.thumbColor,\n    this.trackColor,\n    this.trackOutlineColor,\n    this.thumbIcon,\n    this.materialTapTargetSize,\n    this.dragStartBehavior = DragStartBehavior.start,\n    this.mouseCursor,\n    this.overlayColor,\n    this.splashRadius,\n    this.focusNode,\n    this.onFocusChange,\n    this.autofocus = false,\n    this.applyCupertinoTheme,\n    this.tileColor,\n    this.title,\n    this.subtitle,\n    this.isThreeLine,\n    this.dense,\n    this.contentPadding,\n    this.secondary,\n    this.selected = false,\n    this.controlAffinity,\n    this.shape,\n    this.selectedTileColor,\n    this.visualDensity,\n    this.enableFeedback,\n    this.horizontalTitleGap,\n    this.minVerticalPadding,\n    this.minLeadingWidth,\n    this.minTileHeight,\n    this.hoverColor,\n    this.internalAddSemanticForOnTap = false,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "Slider",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/slider.dart",
+    "sdk_sha256": "1039faa109261967177628f473fb410643ede0e8f70e960655ea5d8d006689ee",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "secondaryTrackValue",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "onChangeStart",
+            "required": false
+          },
+          {
+            "name": "onChangeEnd",
+            "required": false
+          },
+          {
+            "name": "min",
+            "required": false
+          },
+          {
+            "name": "max",
+            "required": false
+          },
+          {
+            "name": "divisions",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "inactiveColor",
+            "required": false
+          },
+          {
+            "name": "secondaryActiveColor",
+            "required": false
+          },
+          {
+            "name": "thumbColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "semanticFormatterCallback",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "allowedInteraction",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "showValueIndicator",
+            "required": false
+          },
+          {
+            "name": "year2023",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    this.secondaryTrackValue,\n    required this.onChanged,\n    this.onChangeStart,\n    this.onChangeEnd,\n    this.min = 0.0,\n    this.max = 1.0,\n    this.divisions,\n    this.label,\n    this.activeColor,\n    this.inactiveColor,\n    this.secondaryActiveColor,\n    this.thumbColor,\n    this.overlayColor,\n    this.mouseCursor,\n    this.semanticFormatterCallback,\n    this.focusNode,\n    this.autofocus = false,\n    this.allowedInteraction,\n    this.padding,\n    this.showValueIndicator,\n    @Deprecated(\n      'Set this flag to false to opt into the 2024 slider appearance. Defaults to true. '\n      'In the future, this flag will default to false. Use SliderThemeData to customize individual properties. '\n      'This feature was deprecated after v3.27.0-0.2.pre.',\n    )\n    this.year2023,\n  }"
+      },
+      {
+        "name": ".adaptive",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "secondaryTrackValue",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "onChangeStart",
+            "required": false
+          },
+          {
+            "name": "onChangeEnd",
+            "required": false
+          },
+          {
+            "name": "min",
+            "required": false
+          },
+          {
+            "name": "max",
+            "required": false
+          },
+          {
+            "name": "divisions",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "inactiveColor",
+            "required": false
+          },
+          {
+            "name": "secondaryActiveColor",
+            "required": false
+          },
+          {
+            "name": "thumbColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "semanticFormatterCallback",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "allowedInteraction",
+            "required": false
+          },
+          {
+            "name": "showValueIndicator",
+            "required": false
+          },
+          {
+            "name": "year2023",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    this.secondaryTrackValue,\n    required this.onChanged,\n    this.onChangeStart,\n    this.onChangeEnd,\n    this.min = 0.0,\n    this.max = 1.0,\n    this.divisions,\n    this.label,\n    this.mouseCursor,\n    this.activeColor,\n    this.inactiveColor,\n    this.secondaryActiveColor,\n    this.thumbColor,\n    this.overlayColor,\n    this.semanticFormatterCallback,\n    this.focusNode,\n    this.autofocus = false,\n    this.allowedInteraction,\n    this.showValueIndicator,\n    @Deprecated(\n      'Set this flag to false to opt into the 2024 slider appearance. Defaults to true. '\n      'In the future, this flag will default to false. Use SliderThemeData to customize individual properties. '\n      'This feature was deprecated after v3.27.0-0.1.pre.',\n    )\n    this.year2023,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "Checkbox",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/checkbox.dart",
+    "sdk_sha256": "99f2b459065c6395e4e04128db2ad722634e9c73890e3488c9051bfa6e2d2c58",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "tristate",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "checkColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "isError",
+            "required": false
+          },
+          {
+            "name": "semanticLabel",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    this.tristate = false,\n    required this.onChanged,\n    this.mouseCursor,\n    this.activeColor,\n    this.fillColor,\n    this.checkColor,\n    this.focusColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.visualDensity,\n    this.focusNode,\n    this.autofocus = false,\n    this.shape,\n    this.side,\n    this.isError = false,\n    this.semanticLabel,\n  }"
+      },
+      {
+        "name": ".adaptive",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": true
+          },
+          {
+            "name": "tristate",
+            "required": false
+          },
+          {
+            "name": "onChanged",
+            "required": true
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          },
+          {
+            "name": "activeColor",
+            "required": false
+          },
+          {
+            "name": "fillColor",
+            "required": false
+          },
+          {
+            "name": "checkColor",
+            "required": false
+          },
+          {
+            "name": "focusColor",
+            "required": false
+          },
+          {
+            "name": "hoverColor",
+            "required": false
+          },
+          {
+            "name": "overlayColor",
+            "required": false
+          },
+          {
+            "name": "splashRadius",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "isError",
+            "required": false
+          },
+          {
+            "name": "semanticLabel",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required this.value,\n    this.tristate = false,\n    required this.onChanged,\n    this.mouseCursor,\n    this.activeColor,\n    this.fillColor,\n    this.checkColor,\n    this.focusColor,\n    this.hoverColor,\n    this.overlayColor,\n    this.splashRadius,\n    this.materialTapTargetSize,\n    this.visualDensity,\n    this.focusNode,\n    this.autofocus = false,\n    this.shape,\n    this.side,\n    this.isError = false,\n    this.semanticLabel,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "LinearProgressIndicator",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/progress_indicator.dart",
+    "sdk_sha256": "418b48bc58cd82e1eca8e5c2fcee365a9a21f226f88a46f4722b124763da5058",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "value",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "valueColor",
+            "required": false
+          },
+          {
+            "name": "minHeight",
+            "required": false
+          },
+          {
+            "name": "semanticsLabel",
+            "required": false
+          },
+          {
+            "name": "semanticsValue",
+            "required": false
+          },
+          {
+            "name": "borderRadius",
+            "required": false
+          },
+          {
+            "name": "stopIndicatorColor",
+            "required": false
+          },
+          {
+            "name": "stopIndicatorRadius",
+            "required": false
+          },
+          {
+            "name": "trackGap",
+            "required": false
+          },
+          {
+            "name": "year2023",
+            "required": false
+          },
+          {
+            "name": "controller",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    super.value,\n    super.backgroundColor,\n    super.color,\n    super.valueColor,\n    this.minHeight,\n    super.semanticsLabel,\n    super.semanticsValue,\n    this.borderRadius,\n    this.stopIndicatorColor,\n    this.stopIndicatorRadius,\n    this.trackGap,\n    @Deprecated(\n      'Set this flag to false to opt into the 2024 progress indicator appearance. Defaults to true. '\n      'In the future, this flag will default to false. Use ProgressIndicatorThemeData to customize individual properties. '\n      'This feature was deprecated after v3.26.0-0.1.pre.',\n    )\n    this.year2023,\n    this.controller,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "ChoiceChip",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/choice_chip.dart",
+    "sdk_sha256": "82f0e174418eb76de8c87cc413a01c59de240df6c3f81aa5f684ba6bff074f74",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "avatar",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "onSelected",
+            "required": false
+          },
+          {
+            "name": "pressElevation",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": true
+          },
+          {
+            "name": "selectedColor",
+            "required": false
+          },
+          {
+            "name": "disabledColor",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "iconTheme",
+            "required": false
+          },
+          {
+            "name": "selectedShadowColor",
+            "required": false
+          },
+          {
+            "name": "showCheckmark",
+            "required": false
+          },
+          {
+            "name": "checkmarkColor",
+            "required": false
+          },
+          {
+            "name": "avatarBorder",
+            "required": false
+          },
+          {
+            "name": "avatarBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "chipAnimationStyle",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.avatar,\n    required this.label,\n    this.labelStyle,\n    this.labelPadding,\n    this.onSelected,\n    this.pressElevation,\n    required this.selected,\n    this.selectedColor,\n    this.disabledColor,\n    this.tooltip,\n    this.side,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.color,\n    this.backgroundColor,\n    this.padding,\n    this.visualDensity,\n    this.materialTapTargetSize,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.iconTheme,\n    this.selectedShadowColor,\n    this.showCheckmark,\n    this.checkmarkColor,\n    this.avatarBorder = const CircleBorder(),\n    this.avatarBoxConstraints,\n    this.chipAnimationStyle,\n    this.mouseCursor,\n  }"
+      },
+      {
+        "name": ".elevated",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "avatar",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "labelStyle",
+            "required": false
+          },
+          {
+            "name": "labelPadding",
+            "required": false
+          },
+          {
+            "name": "onSelected",
+            "required": false
+          },
+          {
+            "name": "pressElevation",
+            "required": false
+          },
+          {
+            "name": "selected",
+            "required": true
+          },
+          {
+            "name": "selectedColor",
+            "required": false
+          },
+          {
+            "name": "disabledColor",
+            "required": false
+          },
+          {
+            "name": "tooltip",
+            "required": false
+          },
+          {
+            "name": "side",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "color",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "padding",
+            "required": false
+          },
+          {
+            "name": "visualDensity",
+            "required": false
+          },
+          {
+            "name": "materialTapTargetSize",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "iconTheme",
+            "required": false
+          },
+          {
+            "name": "selectedShadowColor",
+            "required": false
+          },
+          {
+            "name": "showCheckmark",
+            "required": false
+          },
+          {
+            "name": "checkmarkColor",
+            "required": false
+          },
+          {
+            "name": "avatarBorder",
+            "required": false
+          },
+          {
+            "name": "avatarBoxConstraints",
+            "required": false
+          },
+          {
+            "name": "chipAnimationStyle",
+            "required": false
+          },
+          {
+            "name": "mouseCursor",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.avatar,\n    required this.label,\n    this.labelStyle,\n    this.labelPadding,\n    this.onSelected,\n    this.pressElevation,\n    required this.selected,\n    this.selectedColor,\n    this.disabledColor,\n    this.tooltip,\n    this.side,\n    this.shape,\n    this.clipBehavior = Clip.none,\n    this.focusNode,\n    this.autofocus = false,\n    this.color,\n    this.backgroundColor,\n    this.padding,\n    this.visualDensity,\n    this.materialTapTargetSize,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.iconTheme,\n    this.selectedShadowColor,\n    this.showCheckmark,\n    this.checkmarkColor,\n    this.avatarBorder = const CircleBorder(),\n    this.avatarBoxConstraints,\n    this.chipAnimationStyle,\n    this.mouseCursor,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "FilledButton",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/filled_button.dart",
+    "sdk_sha256": "05989883e6ed9a663fdc16c17c3d1eb91ad0753d00c3571bd60b4b1f812b8b49",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "onLongPress",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": true
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required super.onPressed,\n    super.onLongPress,\n    super.onHover,\n    super.onFocusChange,\n    super.style,\n    super.focusNode,\n    super.autofocus = false,\n    super.clipBehavior = Clip.none,\n    super.statesController,\n    required super.child,\n  }"
+      },
+      {
+        "name": ".icon",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "onLongPress",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "iconAlignment",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required super.onPressed,\n    super.onLongPress,\n    super.onHover,\n    super.onFocusChange,\n    super.style,\n    super.focusNode,\n    super.autofocus = false,\n    super.clipBehavior = Clip.none,\n    super.statesController,\n    Widget? icon,\n    required Widget label,\n    IconAlignment? iconAlignment,\n  }"
+      },
+      {
+        "name": ".tonal",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "onLongPress",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          },
+          {
+            "name": "child",
+            "required": true
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required super.onPressed,\n    super.onLongPress,\n    super.onHover,\n    super.onFocusChange,\n    super.style,\n    super.focusNode,\n    super.autofocus = false,\n    super.clipBehavior = Clip.none,\n    super.statesController,\n    required super.child,\n  }"
+      },
+      {
+        "name": ".tonalIcon",
+        "const": false,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "onPressed",
+            "required": true
+          },
+          {
+            "name": "onLongPress",
+            "required": false
+          },
+          {
+            "name": "onHover",
+            "required": false
+          },
+          {
+            "name": "onFocusChange",
+            "required": false
+          },
+          {
+            "name": "style",
+            "required": false
+          },
+          {
+            "name": "focusNode",
+            "required": false
+          },
+          {
+            "name": "autofocus",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "statesController",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "label",
+            "required": true
+          },
+          {
+            "name": "iconAlignment",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    required super.onPressed,\n    super.onLongPress,\n    super.onHover,\n    super.onFocusChange,\n    super.style,\n    super.focusNode,\n    super.autofocus = false,\n    super.clipBehavior = Clip.none,\n    super.statesController,\n    Widget? icon,\n    required Widget label,\n    IconAlignment? iconAlignment,\n  }"
+      }
+    ]
+  },
+  {
+    "name": "AlertDialog",
+    "generic": false,
+    "sdk_url": "https://raw.githubusercontent.com/flutter/flutter/3.41.5/packages/flutter/lib/src/material/dialog.dart",
+    "sdk_sha256": "7aa1a456d8528544f91cc2c4aa14ee875172253facf2a7ab6220868bb4085b92",
+    "constructors": [
+      {
+        "name": "",
+        "const": true,
+        "parameters": [
+          {
+            "name": "key",
+            "required": false
+          },
+          {
+            "name": "icon",
+            "required": false
+          },
+          {
+            "name": "iconPadding",
+            "required": false
+          },
+          {
+            "name": "iconColor",
+            "required": false
+          },
+          {
+            "name": "title",
+            "required": false
+          },
+          {
+            "name": "titlePadding",
+            "required": false
+          },
+          {
+            "name": "titleTextStyle",
+            "required": false
+          },
+          {
+            "name": "content",
+            "required": false
+          },
+          {
+            "name": "contentPadding",
+            "required": false
+          },
+          {
+            "name": "contentTextStyle",
+            "required": false
+          },
+          {
+            "name": "actions",
+            "required": false
+          },
+          {
+            "name": "actionsPadding",
+            "required": false
+          },
+          {
+            "name": "actionsAlignment",
+            "required": false
+          },
+          {
+            "name": "actionsOverflowAlignment",
+            "required": false
+          },
+          {
+            "name": "actionsOverflowDirection",
+            "required": false
+          },
+          {
+            "name": "actionsOverflowButtonSpacing",
+            "required": false
+          },
+          {
+            "name": "buttonPadding",
+            "required": false
+          },
+          {
+            "name": "backgroundColor",
+            "required": false
+          },
+          {
+            "name": "elevation",
+            "required": false
+          },
+          {
+            "name": "shadowColor",
+            "required": false
+          },
+          {
+            "name": "surfaceTintColor",
+            "required": false
+          },
+          {
+            "name": "semanticLabel",
+            "required": false
+          },
+          {
+            "name": "insetPadding",
+            "required": false
+          },
+          {
+            "name": "clipBehavior",
+            "required": false
+          },
+          {
+            "name": "shape",
+            "required": false
+          },
+          {
+            "name": "alignment",
+            "required": false
+          },
+          {
+            "name": "constraints",
+            "required": false
+          },
+          {
+            "name": "scrollable",
+            "required": false
+          }
+        ],
+        "sdk_signature": "{\n    super.key,\n    this.icon,\n    this.iconPadding,\n    this.iconColor,\n    this.title,\n    this.titlePadding,\n    this.titleTextStyle,\n    this.content,\n    this.contentPadding,\n    this.contentTextStyle,\n    this.actions,\n    this.actionsPadding,\n    this.actionsAlignment,\n    this.actionsOverflowAlignment,\n    this.actionsOverflowDirection,\n    this.actionsOverflowButtonSpacing,\n    this.buttonPadding,\n    this.backgroundColor,\n    this.elevation,\n    this.shadowColor,\n    this.surfaceTintColor,\n    this.semanticLabel,\n    this.insetPadding,\n    this.clipBehavior,\n    this.shape,\n    this.alignment,\n    this.constraints,\n    this.scrollable = false,\n  }"
+      }
+    ]
+  }
+]

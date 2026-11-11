@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer;
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -36,11 +37,11 @@ void main(){
   tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
   final routes=<String>[];Future<void> mount(RegisteredPageRoute? r,{String scope='actor'})async{await tester.pumpWidget(MaterialApp(home:Scaffold(body:PrimePageTemplate(route:r,scope:scope,labels:labels,metrics:metrics,content:const Column(children:[TextField(key:ValueKey('main')),SizedBox(height:1500)]),left:const TextField(key:ValueKey('side')),right:const Text('Right'),onNavigate:routes.add))));await tester.pumpAndSettle();}
   await mount(route(left:'responsive',right:'temporary'));await tester.enterText(find.byKey(const ValueKey('side')),'Sidebar draft');final old=tester.widget<PrimeTextButton>(find.byKey(const ValueKey('page-breadcrumb-home'))).onPressed!;
-  tester.view.physicalSize=const Size(390,844);await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();expect(find.text('Sidebar draft'),findsOneWidget);await tester.sendKeyEvent(LogicalKeyboardKey.escape);await tester.pumpAndSettle();expect(find.byType(Drawer),findsNothing);expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('page-toggle-left'))).focusNode!.hasFocus,true);
-  await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();await mount(route(left:'none',right:'temporary',open:false));expect(find.byType(Drawer),findsNothing);
+  tester.view.physicalSize=const Size(390,844);await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();expect(find.text('Sidebar draft'),findsOneWidget);await tester.sendKeyEvent(LogicalKeyboardKey.escape);await tester.pumpAndSettle();expect(find.byType(PrimeDrawer),findsNothing);expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('page-toggle-left'))).focusNode!.hasFocus,true);
+  await tester.tap(find.byKey(const ValueKey('page-toggle-left')));await tester.pumpAndSettle();await mount(route(left:'none',right:'temporary',open:false));expect(find.byType(PrimeDrawer),findsNothing);
   tester.view.physicalSize=const Size(1500,960);await mount(route(left:'responsive',right:'temporary'));expect(find.text('Sidebar draft'),findsOneWidget);final scroll=tester.widget<SingleChildScrollView>(find.byKey(const ValueKey('page-content-scroll'))).controller!;scroll.jumpTo(300);await tester.pumpAndSettle();
   await mount(route(id:'page_two',path:'/two?tab=details',left:'responsive',right:'temporary'),scope:'other');old();expect(routes,isEmpty);expect(scroll.offset,0);expect(find.text('Sidebar draft'),findsNothing);expect(tester.takeException(),isNull);
-  await tester.tap(find.byKey(const ValueKey('page-toggle-right')));await tester.pumpAndSettle();expect(find.byType(Drawer),findsOneWidget);await mount(null,scope:'denied');expect(find.byType(Drawer),findsNothing);expect(find.byKey(const ValueKey('main')),findsNothing);expect(tester.takeException(),isNull);
+  await tester.tap(find.byKey(const ValueKey('page-toggle-right')));await tester.pumpAndSettle();expect(find.byType(PrimeDrawer),findsOneWidget);await mount(null,scope:'denied');expect(find.byType(PrimeDrawer),findsNothing);expect(find.byKey(const ValueKey('main')),findsNothing);expect(tester.takeException(),isNull);
  });
  testWidgets('route chrome hides geometry and focus without changing saved workspace preferences',(tester)async{
   tester.view.physicalSize=const Size(1500,960);tester.view.devicePixelRatio=1;addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);

@@ -89,8 +89,10 @@ CONTROLS = ('Icon', 'CircularProgressIndicator', 'LinearProgressIndicator', 'Tex
 DIRECT = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*(?:\.\s*\w+\s*)?\(')
 TEAR_OFF = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*\.\s*(?:new|rich|icon|tonal|tonalIcon|adaptive|large|small|extended)\b(?!\s*\()')
 COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\(|Colors\s*\.\s*\w+)')
+INHERITS = re.compile(r'\b(?:extends|implements|with)\s+(?:(\w+)\s*\.\s*)?('+'|'.join(CONTROLS)+r')\b')
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
 CONTROL_IMPLEMENTATIONS = {
+    'packages/primecare_ui_foundation/lib/src/prime_material_controls.dart': ('Drawer', 'FloatingActionButton', 'ListTile', 'DropdownButton', 'DropdownButtonFormField', 'PopupMenuButton', 'TextFormField', 'FilterChip', 'TabBar', 'DataTable', 'CheckboxListTile', 'RadioListTile', 'SwitchListTile', 'Slider', 'Checkbox', 'LinearProgressIndicator', 'ChoiceChip', 'FilledButton', 'AlertDialog'),
     'packages/primecare_ui_foundation/lib/src/prime_circular_progress_indicator.dart': ('CircularProgressIndicator',),
     'packages/primecare_ui_foundation/lib/src/prime_scaffold.dart': ('Scaffold',),
     'packages/primecare_ui_foundation/lib/src/prime_text_field.dart': ('TextField',),
@@ -137,6 +139,7 @@ def violations(source, application):
                 if not is_pdf(m.start()) and not is_read_only_accessor(m)] if application else []
     if application:
         findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code) if not is_pdf(m.start())]
+        findings.extend((m.start(),'shared-control',m[2]) for m in INHERITS.finditer(code) if m[1] not in pdf_aliases)
     findings += [(m.start(), 'theme-color', m[0]) for m in COLOR.finditer(code)]
     for match in ALIASES.finditer(code):
         symbol = match[1]

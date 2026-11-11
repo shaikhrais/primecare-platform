@@ -168,6 +168,14 @@ class SharedUiBoundaryTest(unittest.TestCase):
             path.write_text('CircularProgressIndicator(value: value); Card(); Colors.red;')
             self.assertEqual([f[3] for f in boundary.scan(root)], ['Card','Colors.red'])
 
+    def test_material_inheritance_cannot_bypass_shared_library(self):
+        for source in ['class Direct extends Slider {}','class Direct extends material.ListTile {}','class Direct implements DropdownButton<String> {}']:
+            self.assertIn('shared-control',[row[1] for row in boundary.violations(source,True)])
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'packages/primecare_ui_foundation/lib/src/prime_material_controls.dart';path.parent.mkdir(parents=True)
+            path.write_text('class PrimeSlider extends Slider {} AppBar(); Colors.red;')
+            self.assertEqual([row[3] for row in boundary.scan(root)],['AppBar','Colors.red'])
+
     def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

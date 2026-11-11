@@ -1,0 +1,132 @@
+[
+  {
+    "path": "apps/primecare_enterprise_blueprint/lib/main.dart",
+    "name": "MyApp",
+    "fixture": "apps/primecare_enterprise_blueprint/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_components.dart",
+    "name": "AppButton",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
+    "name": "AppDrawer",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
+    "name": "DevToolbox",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/language_selector.dart",
+    "name": "LanguageSelector",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/features/system_governance/app_entry_form.dart",
+    "name": "AppEntryForm",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
+    "name": "GovernanceDashboard",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_filter_bar.dart",
+    "name": "GovernanceFilterBar",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_issue_table.dart",
+    "name": "GovernanceIssueTable",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/network_parity_audit_table.dart",
+    "name": "NetworkParityAuditTable",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_discovery_viewer.dart",
+    "name": "PlatformDiscoveryViewer",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_readiness_viewer.dart",
+    "name": "PlatformReadinessViewer",
+    "fixture": "apps/primecare_governance/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+    "name": "AdvancedThemeTokens",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "name": "PrimeAdvancedThemeEditor",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+    "name": "CatalogueLabels",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+    "name": "PrimeChart",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+    "name": "PrimeDataKit",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/engine/form_schema_engine.dart",
+    "name": "SchemaField",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "name": "AuraActionManifest",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "name": "WorkspaceNavigationLabels",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+    "name": "PageTemplateMetrics",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "name": "GovernanceMasterLayout",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+    "name": "ThemeCenterPanel",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "name": "ThemeSettingsDrawer",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "name": "SsoRedirectView",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+    "name": "PrimeWorkModule",
+    "fixture": "packages/flutter_core/test/remaining_material_controls_compile_test.dart"
+  }
+]

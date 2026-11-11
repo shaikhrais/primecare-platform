@@ -1,0 +1,834 @@
+[
+  {
+    "path": "apps/primecare_enterprise_blueprint/lib/main.dart",
+    "sha256": "03d3028faf6d1196fdb1b6e8e5da09eb62e88612fd3b07713860b5f7765e0329",
+    "updated_sha256": "568c56698c4d5955800d6da23e1ce2b76b970561c7c9490d7e3e48f9899ff781",
+    "calls": 1,
+    "symbols": [
+      "FloatingActionButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeFloatingActionButton;\n"
+      },
+      {
+        "begin": 5305,
+        "end": 5305,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_components.dart",
+    "sha256": "d6c16e84e05cdbb32844d8f8f07ea205de4de0be886a14ed5e2078fad5d140f9",
+    "updated_sha256": "949fd260f55f31e04d3f4ca910654f002f8d51e3e5579d36abf0a9d00785e8b2",
+    "calls": 1,
+    "symbols": [
+      "DataTable"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;\n"
+      },
+      {
+        "begin": 2687,
+        "end": 2687,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
+    "sha256": "da12fb88059d1effd689c5fe6a9dd00749bd958af6befbe5061090c7ed1ca210",
+    "updated_sha256": "b8d3944191f50683d46c396544aa0e96daff0c858c5285cca6bdb0eb15df935a",
+    "calls": 3,
+    "symbols": [
+      "Drawer",
+      "ListTile"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDrawer, PrimeListTile;\n"
+      },
+      {
+        "begin": 1517,
+        "end": 1517,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 9660,
+        "end": 9660,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 11596,
+        "end": 11596,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
+    "sha256": "1dde5abf9ccf1e881d8445ab3df5408172995b837f22e66c782bf0abc1a8be8f",
+    "updated_sha256": "c5adfe033d2c28d821e9d69e20dc67c528b6630a13dd36f5383369fc221058ff",
+    "calls": 1,
+    "symbols": [
+      "DropdownButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDropdownButton;\n"
+      },
+      {
+        "begin": 1610,
+        "end": 1610,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/language_selector.dart",
+    "sha256": "61ee2556d000a9d08bc812d787a4fff8df08225e77bb2a510780222631601b4f",
+    "updated_sha256": "571ccc838d9ed5be18f3c4c0e8a60260518ea34ce77e1f645a3de20341a32351",
+    "calls": 1,
+    "symbols": [
+      "PopupMenuButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton;\n"
+      },
+      {
+        "begin": 508,
+        "end": 508,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/features/system_governance/app_entry_form.dart",
+    "sha256": "0000f204a50caac595cc66f090ee301d75f2f207888eff305132cd3881046b82",
+    "updated_sha256": "2df1407e1628875d91b22a22c8594851c9e4ea7722e21b1c236fad0465af523e",
+    "calls": 3,
+    "symbols": [
+      "DropdownButtonFormField",
+      "FilterChip",
+      "TextFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDropdownButtonFormField, PrimeFilterChip, PrimeTextFormField;\n"
+      },
+      {
+        "begin": 1068,
+        "end": 1068,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 1470,
+        "end": 1470,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 3766,
+        "end": 3766,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
+    "sha256": "59e099795e5ebd693f8dfa8aebefe947644df965013a217e4d66a3140491a635",
+    "updated_sha256": "cfd281be8769234652fca19cedc1c93351113fe1b43c2e61125c6077534640b7",
+    "calls": 2,
+    "symbols": [
+      "PopupMenuButton",
+      "TabBar"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton, PrimeTabBar;\n"
+      },
+      {
+        "begin": 4730,
+        "end": 4730,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 8262,
+        "end": 8262,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_filter_bar.dart",
+    "sha256": "c6c759c8312ad01d706fa2413b58dd3c18dfd310c1fef8addb95c958b93f868c",
+    "updated_sha256": "3365cde9673670dcef8ee136a042c3ff602fab307b643dd464bd8d37827a8514",
+    "calls": 1,
+    "symbols": [
+      "PopupMenuButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton;\n"
+      },
+      {
+        "begin": 2860,
+        "end": 2860,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_issue_table.dart",
+    "sha256": "49a693af1d41c8e806faa92e662402139b234787a913793828972cece9658f81",
+    "updated_sha256": "8f65b2a835369334d7c4ccd3fffe13c20dd5b308c4d43a28d5c597ca8d982499",
+    "calls": 1,
+    "symbols": [
+      "DataTable"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;\n"
+      },
+      {
+        "begin": 1051,
+        "end": 1051,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/network_parity_audit_table.dart",
+    "sha256": "4f59a73a1481216187e1183f2fccb8ef6ddd50627520fac502981f12b0f026d0",
+    "updated_sha256": "2f5bb3181fbb5ea09f755992a8578ae69b36119d6ce254740596434c72dbb45f",
+    "calls": 1,
+    "symbols": [
+      "DataTable"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;\n"
+      },
+      {
+        "begin": 2051,
+        "end": 2051,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_discovery_viewer.dart",
+    "sha256": "c289abd180c013315f1f6d347ba80a819e4f345f6122a280e12a3d58f8fd97b7",
+    "updated_sha256": "8f38a57fe067f1d5de5a253d832c908180d4a0981e7df89e63f00e985b884d50",
+    "calls": 1,
+    "symbols": [
+      "ListTile"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeListTile;\n"
+      },
+      {
+        "begin": 952,
+        "end": 952,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/platform_readiness_viewer.dart",
+    "sha256": "498b7269331fe89153750048f99e5c4d592adb5afad826bb848209c8f0e7aabe",
+    "updated_sha256": "9a06618655433c44cc0a6c932a550d9795da40c9799bfc32657788e2fedab2e9",
+    "calls": 1,
+    "symbols": [
+      "ListTile"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeListTile;\n"
+      },
+      {
+        "begin": 1360,
+        "end": 1360,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+    "sha256": "5272396fb7c491e5e9924977381d1417cdb2be3d2ce095359fbf7195fc8daf3d",
+    "updated_sha256": "6f6f0fec13d9cf1c4fa80a11a03a2b5f917a82fa33cf1fb5dbf01a90243b5cb4",
+    "calls": 1,
+    "symbols": [
+      "FilledButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeFilledButton;\n"
+      },
+      {
+        "begin": 3059,
+        "end": 3059,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "sha256": "9ac631a65bec9deb7d7c5f727482c75170ac29c6c3494722f022aed4c49d5e45",
+    "updated_sha256": "b9afbd60c1b14ab9c5514ea1db469af65f177e2f1fd5d12f8c14217ed112cf20",
+    "calls": 2,
+    "symbols": [
+      "DropdownButtonFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDropdownButtonFormField;\n"
+      },
+      {
+        "begin": 5945,
+        "end": 5945,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 7044,
+        "end": 7044,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+    "sha256": "646502be6f245c36ca1d228849f1b31432b93a19db04dae98d67bd24b4338347",
+    "updated_sha256": "9390d6878f10eff785a730240aa8b6f3f1c15bcfdadd1d2fe204b95c767350e8",
+    "calls": 7,
+    "symbols": [
+      "CheckboxListTile",
+      "DropdownButtonFormField",
+      "PopupMenuButton",
+      "RadioListTile",
+      "SwitchListTile",
+      "TabBar",
+      "TextFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckboxListTile, PrimeDropdownButtonFormField, PrimePopupMenuButton, PrimeRadioListTile, PrimeSwitchListTile, PrimeTabBar, PrimeTextFormField;\n"
+      },
+      {
+        "begin": 4946,
+        "end": 4946,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5388,
+        "end": 5388,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5802,
+        "end": 5802,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 6702,
+        "end": 6702,
+        "old": "",
+        "new": "rimeP"
+      },
+      {
+        "begin": 7632,
+        "end": 7632,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 9912,
+        "end": 9912,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 10334,
+        "end": 10334,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+    "sha256": "795df6484709af557be184c0e8ae91844a2c8939a5867ad01e43d0a6a3719374",
+    "updated_sha256": "3bb7d6a9e9b22312c84392da896ee054f23bea86312a84ab3f5b6c84c7ff33c1",
+    "calls": 3,
+    "symbols": [
+      "DataTable",
+      "DropdownButtonFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDataTable, PrimeDropdownButtonFormField;\n"
+      },
+      {
+        "begin": 2794,
+        "end": 2794,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 9076,
+        "end": 9076,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 9382,
+        "end": 9382,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+    "sha256": "83cac18f684afd3ec5d314f10b86452bcbdd87d3a5d9cf881e14ceddd00c43d0",
+    "updated_sha256": "1be19110f27daab6c5db2df7d0993b7110a6ac138c508850ddd3dbf2c0a74ede",
+    "calls": 5,
+    "symbols": [
+      "Checkbox",
+      "CheckboxListTile",
+      "LinearProgressIndicator",
+      "Slider",
+      "TextFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeLinearProgressIndicator, PrimeSlider, PrimeTextFormField;\n"
+      },
+      {
+        "begin": 2321,
+        "end": 2321,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 9676,
+        "end": 9676,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 11972,
+        "end": 11972,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 15381,
+        "end": 15381,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 30980,
+        "end": 30980,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/engine/form_schema_engine.dart",
+    "sha256": "5e2edf8f5e3eb6b4f5e31b0e2eaff2f2150888f4f1c2db8f310d3ca0b9fc1f8b",
+    "updated_sha256": "df927fa2ae8ca6a972375d0a9e801fdd3a63226e518c39febfbcd7098b777302",
+    "calls": 1,
+    "symbols": [
+      "TextFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextFormField;\n"
+      },
+      {
+        "begin": 1661,
+        "end": 1661,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "sha256": "567fdd2977424a2b2f47a18ff78912b054875731daf2bca8243f4543bf9f5a37",
+    "updated_sha256": "8ce51abfc42f7c6fbfc844c25de0f6c88759a31edccf77c2f4f617275cd1e6b6",
+    "calls": 1,
+    "symbols": [
+      "AlertDialog"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAlertDialog;\n"
+      },
+      {
+        "begin": 3182,
+        "end": 3182,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "sha256": "4eab1337091c04a96c6e32480c698debdf4ee962c84d02e5cd89549e62992974",
+    "updated_sha256": "f6c4a7bdc17fdcad4930e3c614c741b682b2fecaa7b23d5857648972f57d3a08",
+    "calls": 1,
+    "symbols": [
+      "Drawer"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer;\n"
+      },
+      {
+        "begin": 15946,
+        "end": 15946,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+    "sha256": "061fae5dd4b8323d835bd3108aafedfa9357e958d961f2e5b6ccab8da796157e",
+    "updated_sha256": "fa5ce050bc6da69cfeb228592f752889723ad8f56c006c9a15cba7dc525854b6",
+    "calls": 1,
+    "symbols": [
+      "Drawer"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer;\n"
+      },
+      {
+        "begin": 6392,
+        "end": 6392,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "sha256": "634b7e0c9bbba19449e646fac616c40acee74bd7fb48dab1ea0547052681b640",
+    "updated_sha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+    "calls": 4,
+    "symbols": [
+      "Drawer",
+      "ListTile",
+      "PopupMenuButton"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;\n"
+      },
+      {
+        "begin": 16205,
+        "end": 16205,
+        "old": "",
+        "new": "rimeP"
+      },
+      {
+        "begin": 21120,
+        "end": 21120,
+        "old": "",
+        "new": "rimeP"
+      },
+      {
+        "begin": 29752,
+        "end": 29752,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 32540,
+        "end": 32540,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+    "sha256": "308b0a45dacdda8ca66ad77af93bbeaa0a7713c412719357041e3e2b93731123",
+    "updated_sha256": "82ee718470fe4f06b83e77b1a8454a79a98905e4c780502f8bc2aa5f33ce286e",
+    "calls": 12,
+    "symbols": [
+      "AlertDialog",
+      "DropdownButtonFormField",
+      "FilledButton",
+      "ListTile",
+      "PopupMenuButton",
+      "Slider"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAlertDialog, PrimeDropdownButtonFormField, PrimeFilledButton, PrimeListTile, PrimePopupMenuButton, PrimeSlider;\n"
+      },
+      {
+        "begin": 1694,
+        "end": 1694,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 1943,
+        "end": 1943,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 2480,
+        "end": 2480,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 2655,
+        "end": 2655,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 3030,
+        "end": 3030,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 3182,
+        "end": 3182,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 3694,
+        "end": 3694,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5016,
+        "end": 5016,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5703,
+        "end": 5703,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5958,
+        "end": 5958,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 6254,
+        "end": 6254,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 6411,
+        "end": 6411,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "sha256": "dfb1d8c5b335b4814eaf41997a9c4a0bcf5b264f090d357d314cb34e8a5afba9",
+    "updated_sha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
+    "calls": 3,
+    "symbols": [
+      "Drawer",
+      "SwitchListTile"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeSwitchListTile;\n"
+      },
+      {
+        "begin": 1501,
+        "end": 1501,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 12788,
+        "end": 12788,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 13347,
+        "end": 13347,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "441cc735fa1f777cc1e3cdb59fd78150cb4b384334c24e3f636503e57058e1f7",
+    "updated_sha256": "375ab3531bb08e5e15a5a6b58957927d2e658be6e654c54799ad889b7d39868e",
+    "calls": 2,
+    "symbols": [
+      "ChoiceChip",
+      "SwitchListTile"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeChoiceChip, PrimeSwitchListTile;\n"
+      },
+      {
+        "begin": 5524,
+        "end": 5524,
+        "old": "",
+        "new": "Prime"
+      },
+      {
+        "begin": 5944,
+        "end": 5944,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+    "sha256": "d8ff4ea6253501c190b6be28d54dd5f7da015af414aeea4930d7820651293fd4",
+    "updated_sha256": "87bb43f9b0fa01ddf41ff883c80f5dcd6e7d10d001b3f49237e07d02b4f3c01e",
+    "calls": 1,
+    "symbols": [
+      "DropdownButtonFormField"
+    ],
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDropdownButtonFormField;\n"
+      },
+      {
+        "begin": 7745,
+        "end": 7745,
+        "old": "",
+        "new": "Prime"
+      }
+    ]
+  }
+]

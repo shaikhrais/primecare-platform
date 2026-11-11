@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeListTile;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:primecare_governance/governance/widgets/platform_discovery_viewer.dart';
@@ -51,7 +52,7 @@ void main() {
         PlatformDiscoverySnapshot.fromObservation(available: true, services: {})),
     ], child: governanceTestApp(const PlatformDiscoveryViewer())));
     await tester.pumpAndSettle();
-    expect(find.byType(ListTile), findsNothing);
+    expect(find.byType(PrimeListTile), findsNothing);
     expect(find.byIcon(Icons.check_circle_outline), findsNothing);
     expect(tester.takeException(), isNull);
   });
