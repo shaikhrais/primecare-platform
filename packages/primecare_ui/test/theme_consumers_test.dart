@@ -9,6 +9,7 @@ import 'package:flutter_core/theme/theme_config_generated.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
+import 'package:primecare_ui/src/components/clinical_glass_panel.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'fixtures/generated_theme_fixture.dart';
 
@@ -31,6 +32,35 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('clinical panel follows every palette and wraps scaled mobile headings', (tester) async {
+    tester.view.physicalSize = const Size(390, 844);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.resetPhysicalSize);
+    addTearDown(tester.view.resetDevicePixelRatio);
+    const base = PrimeThemeData();
+    const title = 'Clinical dashboard heading with enough detail to wrap';
+    for (final preset in themeCenterPresetNames) {
+      final profile = PersonalTheme(name: 'Panel', preset: preset, fontScale: 1.5);
+      final material = applyPersonalThemeData(base.toThemeData(), profile);
+      final prime = resolvePersonalPrimeTheme(base, material, profile);
+      await tester.pumpWidget(PrimeTheme(data: prime, child: MaterialApp(theme: material,
+        home: const Scaffold(body: ClinicalGlassPanel(title: title,
+          icon: Icons.health_and_safety, child: SizedBox(height: 20))))));
+      await tester.pumpAndSettle();
+      final heading = tester.widget<Text>(find.text(title));
+      expect(heading.style!.color, prime.colors.onSurface, reason: preset);
+      expect(heading.style!.fontSize, prime.typography.bodyLarge.fontSize, reason: preset);
+      final decorations = tester.widgetList<Container>(find.descendant(
+        of: find.byType(ClinicalGlassPanel), matching: find.byType(Container)))
+        .map((widget) => widget.decoration).whereType<BoxDecoration>().toList();
+      final shadow = decorations.expand((decoration) => decoration.boxShadow ?? <BoxShadow>[]).single;
+      expect(shadow.color, material.colorScheme.shadow.withValues(alpha: 0.2), reason: preset);
+      final gradient = decorations.map((decoration) => decoration.gradient).whereType<LinearGradient>().single;
+      expect(gradient.colors.last, prime.colors.primary.withValues(alpha: 0), reason: preset);
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
   test('tenant palette adapters retain readable surfaces and semantic foregrounds', () {
     for (final preset in themeCenterPresetNames) {
       final palette = ThemeConfig.getAppPalette(preset);
