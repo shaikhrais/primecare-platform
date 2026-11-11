@@ -242,6 +242,26 @@ class PrimeColors {
   Color get warningContainer => warning.withValues(alpha: 0.15);
 
   PrimeColors copyWith({
+    Color? inversePrimary,
+    Color? secondaryContainer,
+    Color? tertiaryContainer,
+    Color? surfaceDim,
+    Color? surfaceBright,
+    Color? inverseSurface,
+    Color? inverseOnSurface,
+    Color? surfaceTint,
+    Color? primaryFixed,
+    Color? primaryFixedDim,
+    Color? onPrimaryFixed,
+    Color? onPrimaryFixedVariant,
+    Color? secondaryFixed,
+    Color? secondaryFixedDim,
+    Color? onSecondaryFixed,
+    Color? onSecondaryFixedVariant,
+    Color? tertiaryFixed,
+    Color? tertiaryFixedDim,
+    Color? onTertiaryFixed,
+    Color? onTertiaryFixedVariant,
     Color? primary,
     Color? onPrimary,
     Color? primaryContainer,
@@ -284,6 +304,26 @@ class PrimeColors {
     Color? onErrorContainer,
   }) {
     return PrimeColors(
+      inversePrimary: inversePrimary ?? this.inversePrimary,
+      secondaryContainer: secondaryContainer ?? this.secondaryContainer,
+      tertiaryContainer: tertiaryContainer ?? this.tertiaryContainer,
+      surfaceDim: surfaceDim ?? this.surfaceDim,
+      surfaceBright: surfaceBright ?? this.surfaceBright,
+      inverseSurface: inverseSurface ?? this.inverseSurface,
+      inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
+      surfaceTint: surfaceTint ?? this.surfaceTint,
+      primaryFixed: primaryFixed ?? this.primaryFixed,
+      primaryFixedDim: primaryFixedDim ?? this.primaryFixedDim,
+      onPrimaryFixed: onPrimaryFixed ?? this.onPrimaryFixed,
+      onPrimaryFixedVariant: onPrimaryFixedVariant ?? this.onPrimaryFixedVariant,
+      secondaryFixed: secondaryFixed ?? this.secondaryFixed,
+      secondaryFixedDim: secondaryFixedDim ?? this.secondaryFixedDim,
+      onSecondaryFixed: onSecondaryFixed ?? this.onSecondaryFixed,
+      onSecondaryFixedVariant: onSecondaryFixedVariant ?? this.onSecondaryFixedVariant,
+      tertiaryFixed: tertiaryFixed ?? this.tertiaryFixed,
+      tertiaryFixedDim: tertiaryFixedDim ?? this.tertiaryFixedDim,
+      onTertiaryFixed: onTertiaryFixed ?? this.onTertiaryFixed,
+      onTertiaryFixedVariant: onTertiaryFixedVariant ?? this.onTertiaryFixedVariant,
       primary: primary ?? this.primary,
       onPrimary: onPrimary ?? this.onPrimary,
       primaryContainer: primaryContainer ?? this.primaryContainer,
@@ -501,6 +541,10 @@ class RuntimePrimeTypography extends PrimeTypography {
 }
 
 class PrimeThemeData {
+  /// Preserve the complete resolved Material theme, including dark mode,
+  /// semantic foregrounds and component themes, when adapting back to Flutter.
+  final ThemeData? materialTheme;
+
   /// Explicit legacy sizes must still follow the user's saved text scale.
   double scaleFont(double size) => typography is RuntimePrimeTypography
       ? size * (typography as RuntimePrimeTypography).personal.fontScale
@@ -519,6 +563,7 @@ class PrimeThemeData {
   final List<BoxShadow> shadowsSurface2;
 
   const PrimeThemeData({
+    this.materialTheme,
     this.colors = const PrimeColors(),
     this.typography = const PrimeTypography(),
     this.spacing = const PrimeSpacing(),
@@ -547,6 +592,7 @@ class PrimeThemeData {
 
   /// Converts PrimeThemeData to standard Flutter ThemeData for global application.
   ThemeData toThemeData() {
+    if (materialTheme != null) return materialTheme!;
     return ThemeData(
       useMaterial3: true,
       primaryColor: colors.primary,

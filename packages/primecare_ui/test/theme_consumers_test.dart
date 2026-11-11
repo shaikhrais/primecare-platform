@@ -6,6 +6,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
+import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/components/governance_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
@@ -30,6 +31,46 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  test('all resolved themes retain Material brightness and semantic roles on round trip', () {
+    const base = PrimeThemeData();
+    for (final preset in themeCenterPresetNames) {
+      final profile = PersonalTheme(name: 'Round trip', preset: preset,
+        fontScale: 1.5, radius: 20).validated();
+      final material = applyPersonalThemeData(base.toThemeData(), profile);
+      final prime = resolvePersonalPrimeTheme(base, material, profile);
+      final restored = prime.toThemeData();
+      expect(restored, same(material), reason: preset);
+      expect(restored.brightness, material.brightness, reason: preset);
+      expect(restored.colorScheme, material.colorScheme, reason: preset);
+      expect(restored.textTheme, material.textTheme, reason: preset);
+      expect(restored.inputDecorationTheme, material.inputDecorationTheme, reason: preset);
+      expect(prime.colors.errorContainer, material.colorScheme.errorContainer);
+      expect(prime.colors.onErrorContainer, material.colorScheme.onErrorContainer);
+      expect(prime.colors.secondaryContainer, material.colorScheme.secondaryContainer);
+      expect(prime.colors.inverseSurface, material.colorScheme.inverseSurface);
+      expect(prime.colors.inverseOnSurface, material.colorScheme.onInverseSurface);
+    }
+  });
+
+  test('copying colors preserves custom semantic and fixed tokens', () {
+    const custom = Color(0xff123456);
+    const original = PrimeColors(secondaryContainer: custom, tertiaryContainer: custom,
+      inversePrimary: custom, inverseSurface: custom, inverseOnSurface: custom,
+      surfaceDim: custom, surfaceBright: custom, surfaceTint: custom,
+      primaryFixed: custom, onPrimaryFixed: custom, secondaryFixed: custom,
+      onSecondaryFixed: custom, tertiaryFixed: custom, onTertiaryFixed: custom);
+    final copied = original.copyWith(primary: Colors.red);
+    expect(copied.primary, Colors.red);
+    for (final value in [copied.secondaryContainer, copied.tertiaryContainer,
+      copied.inversePrimary, copied.inverseSurface, copied.inverseOnSurface,
+      copied.surfaceDim, copied.surfaceBright, copied.surfaceTint,
+      copied.primaryFixed, copied.onPrimaryFixed, copied.secondaryFixed,
+      copied.onSecondaryFixed, copied.tertiaryFixed, copied.onTertiaryFixed]) {
+      expect(value, custom);
+    }
+    expect(copied.copyWith(secondaryContainer: Colors.blue).secondaryContainer, Colors.blue);
+  });
+
   testWidgets('shared panels switch theme without dropping input and fit large mobile text', (tester) async {
     tester.view.physicalSize = const Size(390, 844);
     tester.view.devicePixelRatio = 1;
