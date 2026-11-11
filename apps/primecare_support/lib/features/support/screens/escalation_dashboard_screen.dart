@@ -129,7 +129,7 @@ class EscalationDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'escalation_dashboard-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('escalation_dashboard-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

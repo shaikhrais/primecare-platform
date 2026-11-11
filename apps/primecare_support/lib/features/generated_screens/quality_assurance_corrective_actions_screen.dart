@@ -129,7 +129,7 @@ class QualityAssuranceCorrectiveActionsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'quality_assurance_corrective_actions-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('quality_assurance_corrective_actions-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

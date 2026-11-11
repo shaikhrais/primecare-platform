@@ -129,7 +129,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'verification_center-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('verification_center-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

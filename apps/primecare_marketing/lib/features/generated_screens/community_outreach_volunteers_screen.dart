@@ -129,7 +129,7 @@ class CommunityOutreachVolunteersScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'community_outreach_volunteers-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('community_outreach_volunteers-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

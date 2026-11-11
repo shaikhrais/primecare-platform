@@ -129,7 +129,7 @@ class HeadOfMarketingFunnelAnalyticsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'head_of_marketing_funnel_analytics-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('head_of_marketing_funnel_analytics-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

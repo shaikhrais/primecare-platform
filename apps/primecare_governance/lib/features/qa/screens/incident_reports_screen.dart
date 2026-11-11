@@ -129,7 +129,7 @@ class IncidentReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'incident_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('incident_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

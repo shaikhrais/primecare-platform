@@ -129,7 +129,7 @@ class ComplianceReviewsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'compliance_reviews-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('compliance_reviews-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

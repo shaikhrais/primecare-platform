@@ -129,7 +129,7 @@ class HeadOfMarketingPerformanceReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'head_of_marketing_performance_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('head_of_marketing_performance_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

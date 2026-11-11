@@ -129,7 +129,7 @@ class QualityAssuranceComplaintsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'quality_assurance_complaints-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('quality_assurance_complaints-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

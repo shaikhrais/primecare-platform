@@ -129,7 +129,7 @@ class QualityAssuranceComplianceChecksScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'quality_assurance_compliance_checks-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('quality_assurance_compliance_checks-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

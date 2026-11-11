@@ -129,7 +129,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'screen_status-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('screen_status-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

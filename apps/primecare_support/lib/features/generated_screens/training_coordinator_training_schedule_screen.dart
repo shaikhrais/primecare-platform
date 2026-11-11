@@ -129,7 +129,7 @@ class TrainingCoordinatorTrainingScheduleScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'training_coordinator_training_schedule-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('training_coordinator_training_schedule-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

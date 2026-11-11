@@ -129,7 +129,7 @@ class GrowthPipelineScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'growth_pipeline-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('growth_pipeline-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

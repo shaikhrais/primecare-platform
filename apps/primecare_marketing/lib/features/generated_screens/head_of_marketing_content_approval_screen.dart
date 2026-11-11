@@ -129,7 +129,7 @@ class HeadOfMarketingContentApprovalScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'head_of_marketing_content_approval-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('head_of_marketing_content_approval-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

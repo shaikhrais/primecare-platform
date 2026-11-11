@@ -129,7 +129,7 @@ class GovernanceHudScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'governance_hud-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('governance_hud-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

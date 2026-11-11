@@ -129,7 +129,7 @@ class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'intake_coordinator_scheduling-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('intake_coordinator_scheduling-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class TicketCenterScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'ticket_center-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('ticket_center-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

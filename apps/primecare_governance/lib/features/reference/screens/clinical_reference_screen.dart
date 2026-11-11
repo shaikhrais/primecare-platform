@@ -129,7 +129,7 @@ class ClinicalReferenceScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'clinical_reference-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('clinical_reference-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

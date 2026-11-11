@@ -129,7 +129,7 @@ class TerritorySalesManagerConversionsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'territory_sales_manager_conversions-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('territory_sales_manager_conversions-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class CustomerSupportIssueCategoriesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'customer_support_issue_categories-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('customer_support_issue_categories-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

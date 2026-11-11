@@ -129,7 +129,7 @@ class ItAdministratorDashboardScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'it_administrator_dashboard-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('it_administrator_dashboard-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

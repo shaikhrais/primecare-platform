@@ -129,7 +129,7 @@ class LocalMarketingManagerCampaignsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'local_marketing_manager_campaigns-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('local_marketing_manager_campaigns-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
