@@ -1,0 +1,55 @@
+{
+  "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+  "runtimeActivated": false,
+  "humanApproved": false,
+  "sourceRevisionsRefreshed": [
+    "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "packages/primecare_ui/web/layout-customizer.ts",
+    "packages/primecare_ui/web/shell.ts",
+    "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "packages/primecare_ui/web/theme-center.ts",
+    "packages/primecare_ui/lib/src/components/prime_components.dart"
+  ],
+  "reviewedRouteSites": [
+    {
+      "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+      "constructor": "GoRouter",
+      "class": "<nested route container>",
+      "previousDigest": "39dc39b7c20dfe3fb4307777b2eba8ccae831ea1b06f3d4a25742b701ee34fcd",
+      "currentDigest": "5d8d30d23ac3a889091f9fe9b4851772a688603a64e29d1065ad5a525c408132",
+      "reason": "Shared scaffold/app-bar wrappers and inherited error foregrounds; routes, redirects and permission policy unchanged."
+    },
+    {
+      "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+      "constructor": "ShellRoute",
+      "class": "<nested route container>",
+      "previousDigest": "d62058bfd8a467cc7ff6ca862eeea69e8a13fa347c19eff1cb292883c3b447af",
+      "currentDigest": "9a9fdf479cd95dadb38b659b10a106bda59f2541d44bee0a29725484542a8bc8",
+      "reason": "Shared scaffold/app-bar wrappers and inherited error foregrounds; routes, redirects and permission policy unchanged."
+    },
+    {
+      "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+      "constructor": "GoRoute",
+      "class": "<dynamic or nested builder>",
+      "previousDigest": "a0c8b858212be6ba6f74dbc948ae21c263625269eea83198205091a90640d81d",
+      "currentDigest": "f3b83a957dbd9fe8d05a038480ab9db2f5a41736f481fce48c50cf59ec1bac6c",
+      "reason": "Shared scaffold/app-bar wrappers and inherited error foregrounds; routes, redirects and permission policy unchanged."
+    },
+    {
+      "file": "packages/flutter_core/lib/routes/governance_router.dart",
+      "constructor": "GoRoute",
+      "class": "<dynamic or nested builder>",
+      "previousDigest": "cd820d82f2cd58f763f36cc5d71c1f7e7559576779f4517ed8f57d8d18f9fd98",
+      "currentDigest": "8e45321c8d3e21be63cf18b6df6f78915236f6b773e8d37f04a8211b678fc5a0",
+      "reason": "Shared scaffold/app-bar wrappers and inherited error foregrounds; routes, redirects and permission policy unchanged."
+    },
+    {
+      "file": "packages/flutter_core/lib/routes/governance_router.dart",
+      "constructor": "GoRouter",
+      "class": "<nested route container>",
+      "previousDigest": "93b6b5c6b533ded8600711a2c21eab46195c530166a4722e1f1b37dda7d51074",
+      "currentDigest": "6cc76d78e20034800d3f86064b1584588416a23bae7b7521efdfa477df3aa24e",
+      "reason": "Shared scaffold/app-bar wrappers and inherited error foregrounds; routes, redirects and permission policy unchanged."
+    }
+  ]
+}

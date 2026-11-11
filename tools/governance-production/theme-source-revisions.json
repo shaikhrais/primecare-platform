@@ -8,20 +8,40 @@
     {
       "path": "packages/primecare_ui/web/layout-customizer.ts",
       "originalSha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0",
-      "currentSha256": "41e179b4d9465d5309d08c19e648a0dd03b04d5b6e11d93bf5dc84cf119e7bfe",
-      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      "currentSha256": "e90fb60802be87c8a6535705efa2b340715c5c3be247f7f18f21dae654824dcf",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/primecare_ui/web/layout-customizer.ts",
+        "originalSha256": "7cbfb6bffc549ad33b28afa5505dda1fe4407f0a3e880983def2b7179796ece0",
+        "currentSha256": "41e179b4d9465d5309d08c19e648a0dd03b04d5b6e11d93bf5dc84cf119e7bfe",
+        "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      }
     },
     {
       "path": "packages/primecare_ui/web/shell.ts",
       "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
-      "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
-      "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+      "currentSha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
       "verification": {
-        "run": 41483421280,
-        "browserJob": 125407379803,
-        "modelChecks": 2,
-        "browserCases": 12,
-        "scope": "Isolated shared-shell footer/description binding in EN/FR/ES, LTR/RTL at390/1440px; actual tenant/PostgreSQL acceptance41483793034; not production or human approval"
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/primecare_ui/web/shell.ts",
+        "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
+        "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
+        "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+        "verification": {
+          "run": 41483421280,
+          "browserJob": 125407379803,
+          "modelChecks": 2,
+          "browserCases": 12,
+          "scope": "Isolated shared-shell footer/description binding in EN/FR/ES, LTR/RTL at390/1440px; actual tenant/PostgreSQL acceptance41483793034; not production or human approval"
+        }
       }
     },
     {
@@ -33,31 +53,41 @@
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
       "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
-      "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
-      "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
+      "currentSha256": "aa790012fedad8d65edd4dc2afcd87b6f2cf5a069e61a4d71eaef9513d331bd9",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
       "verification": {
-        "status": "isolated_tested",
-        "workspaceRun": 41939661252,
-        "workspaceJob": 126956898505,
-        "lifecycleRun": 41937613756,
-        "lifecycleJob": 126949958889,
-        "scope": "Isolated browser and database tests for Web Locks theme changes; no runtime activation or human approval. IndexedDB fallback requires its own test."
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
       },
       "previousRevision": {
-        "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
-        "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+        "path": "packages/primecare_ui/web/theme-center.ts",
+        "originalSha256": "49630ae9495d06fd4af7a71930d87549c8ea25d53ef24d5072904b8d471c9591",
+        "currentSha256": "f0ad32cc7a81d568d49117bc205f2226e1bea5f52f09a96fb2cef1d9e45e2e9a",
+        "sourceCommit": "6c69a6128810798b30fcfd7314737dd802f9a49f",
         "verification": {
-          "run": 41472788148,
-          "browserJob": 125372855548,
-          "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
-        }
-      },
-      "intermediateRevision": {
-        "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
-        "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
-        "verification": {
-          "status": "unverified",
-          "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+          "status": "isolated_tested",
+          "workspaceRun": 41939661252,
+          "workspaceJob": 126956898505,
+          "lifecycleRun": 41937613756,
+          "lifecycleJob": 126949958889,
+          "scope": "Isolated browser and database tests for Web Locks theme changes; no runtime activation or human approval. IndexedDB fallback requires its own test."
+        },
+        "previousRevision": {
+          "sourceCommit": "0a2554db9d9e881b1854ddc6e7d158c6d74ffe94",
+          "currentSha256": "e5fc2c937b3c382ed98327c18e6815373f495b9bddb4fbdcae33741f4ab703ac",
+          "verification": {
+            "run": 41472788148,
+            "browserJob": 125372855548,
+            "scope": "Isolated Theme Center unreadable-library recovery in EN/FR/ES; not production or human approval"
+          }
+        },
+        "intermediateRevision": {
+          "sourceCommit": "b43fdbd4c469480e7d5df3c84886326e98b063df",
+          "currentSha256": "b780c7b21ffafebce1a61c820efa963e83c1f42b013786995df91f26a0db6e10",
+          "verification": {
+            "status": "unverified",
+            "scope": "Source revision recorded; cross-tab browser and release checks pending; no runtime or human approval."
+          }
         }
       }
     },
@@ -66,6 +96,36 @@
       "originalSha256": "4b98f1896e26a123e7ca53194582eb6d8c3887d0324a3f531cf3f8cf16991ecf",
       "currentSha256": "54e05ab76583f4f60114eb572d5511ef374e4c0886cab76becd23346b6687dbb",
       "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "originalSha256": "4a99aaa49c9bc78e6774e88cdb5c4c282b9d1868c7fad5716ba574c2a22f4c9f",
+      "currentSha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      }
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+      "originalSha256": "ae180dd26f37275bba2ded57961e162b91378324a7a1b40b11a0a1a59614d9a7",
+      "currentSha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      }
+    },
+    {
+      "path": "packages/primecare_ui/lib/src/components/prime_components.dart",
+      "originalSha256": "5df10705f6b84438c88fa8c67f8530d739c2fd2eeb4cde036640b91d17f03e5a",
+      "currentSha256": "6ec82143db6541bf810bec4b0f0df93ab469aeb1c08f7273b239537972e503f5",
+      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+      }
     }
   ]
 }
