@@ -1,7 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
-import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeTextButton;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceFilterBar extends StatelessWidget {
@@ -25,16 +23,16 @@ class GovernanceFilterBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: context.theme.colors.outlineVariant),
       ),
       child: Wrap(
         spacing: 16,
         runSpacing: 12,
         crossAxisAlignment: WrapCrossAlignment.center,
         children: [
-          const PrimeIcon(Icons.filter_list_rounded, color: Colors.grey, size: 20),
+          PrimeIcon(Icons.filter_list_rounded, color: context.theme.colors.onSurfaceVariant, size: 20),
 
           // Severity Filter
           _buildFilterChip<AuditSeverity>(
@@ -72,7 +70,7 @@ class GovernanceFilterBar extends StatelessWidget {
                 'governance.filterBar.clearFilters'.tr(),
                 style: const TextStyle(fontSize: 12),
               ),
-              style: PrimeTextButton.styleFrom(foregroundColor: Colors.redAccent),
+              style: PrimeTextButton.styleFrom(foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).onBase),
             ),
         ],
       ),
@@ -101,11 +99,11 @@ class GovernanceFilterBar extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(
           color: selectedValue != null
-              ? Colors.blue.withValues(alpha: 0.1)
-              : Colors.grey.withValues(alpha: 0.05),
+              ? PrimeActionPalette.of(context, PrimeActionTone.primary).surface
+              : context.theme.colors.surfaceContainerHigh,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: selectedValue != null ? Colors.blue : Colors.transparent,
+            color: selectedValue != null ? PrimeActionPalette.of(context, PrimeActionTone.primary).accent : context.theme.colors.surface.withValues(alpha: 0),
           ),
         ),
         child: Row(
@@ -117,7 +115,7 @@ class GovernanceFilterBar extends StatelessWidget {
                 fontWeight: selectedValue != null
                     ? FontWeight.bold
                     : FontWeight.normal,
-                color: selectedValue != null ? Colors.blue : null,
+                color: selectedValue != null ? PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface : null,
               ),
             ),
             const PrimeIcon(Icons.arrow_drop_down, size: 18),

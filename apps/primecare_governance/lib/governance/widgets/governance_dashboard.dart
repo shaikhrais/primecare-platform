@@ -1,10 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
-import 'package:primecare_ui/primecare_ui.dart' show PrimeTextField;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/services.dart';
 import '../../core/governance/screen_registry.dart';
@@ -86,8 +81,9 @@ class _GovernanceDashboardContentState
           SnackBar(
             content: PrimeText(
               'governance.dashboard.reportExported'.tr(args: [format]),
+              style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
             ),
-            backgroundColor: Colors.blue,
+            backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             behavior: SnackBarBehavior.floating,
           ),
         );
@@ -131,21 +127,21 @@ class _GovernanceDashboardContentState
     }).toList();
 
     return PrimeScaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: context.theme.colors.surface.withValues(alpha: 0),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(48),
         child: Container(
           decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
+            color: context.theme.colors.surface,
             border: Border(
-              bottom: BorderSide(color: Colors.grey.withValues(alpha: 0.1)),
+              bottom: BorderSide(color: context.theme.colors.outlineVariant),
             ),
           ),
           child: TabBar(
             controller: _tabController,
-            labelColor: Colors.blue,
-            unselectedLabelColor: Colors.grey,
-            indicatorColor: Colors.blue,
+            labelColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+            unselectedLabelColor: context.theme.colors.surfaceContainerHigh,
+            indicatorColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             tabs: const [
               Tab(text: 'Architecture Audit'),
               Tab(text: 'Microservice Mesh'),
@@ -196,7 +192,7 @@ class _GovernanceDashboardContentState
                   ),
                   PrimeText(
                     'Checked-in app registry: ${ScreenRegistry.screens.length} screens; acceptance evidence pending',
-                    style: const TextStyle(color: Colors.grey),
+                    style: TextStyle(color: context.theme.colors.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -226,8 +222,8 @@ class _GovernanceDashboardContentState
                           : const PrimeIcon(Icons.auto_fix_high_rounded, size: 20),
                       label: PrimeText('governance.dashboard.auto_remediate'.tr()),
                       style: PrimeOutlinedButton.styleFrom(
-                        foregroundColor: Colors.blue,
-                        side: const BorderSide(color: Colors.blue),
+                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
+                        side: BorderSide(color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent),
                       ),
                     ),
                   PopupMenuButton<String>(
@@ -262,7 +258,7 @@ class _GovernanceDashboardContentState
                         vertical: 10,
                       ),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.blue),
+                        border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
@@ -275,16 +271,16 @@ class _GovernanceDashboardContentState
                               child: PrimeCircularProgressIndicator(strokeWidth: 2),
                             )
                           else
-                            const PrimeIcon(
+                            PrimeIcon(
                               Icons.download_rounded,
-                              color: Colors.blue,
+                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                               size: 20,
                             ),
                           const SizedBox(width: 8),
-                          const PrimeText(
+                          PrimeText(
                             'Export',
                             style: TextStyle(
-                              color: Colors.blue,
+                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -297,8 +293,8 @@ class _GovernanceDashboardContentState
                     icon: const PrimeIcon(Icons.refresh_rounded),
                     label: PrimeText('governance.dashboard.rescan'.tr()),
                     style: PrimeElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue,
-                      foregroundColor: Colors.white,
+                      backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                      foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
                         vertical: 12,
@@ -421,17 +417,17 @@ class _GovernanceDashboardContentState
                     hintText: 'Search screens...',
                     prefixIcon: const PrimeIcon(Icons.search),
                     filled: true,
-                    fillColor: Theme.of(context).cardColor,
+                    fillColor: context.theme.colors.surface,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                        color: Colors.grey.withValues(alpha: 0.1),
+                        color: context.theme.colors.outlineVariant,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide(
-                        color: Colors.grey.withValues(alpha: 0.1),
+                        color: context.theme.colors.outlineVariant,
                       ),
                     ),
                   ),
@@ -454,7 +450,7 @@ class _GovernanceDashboardContentState
               ),
               PrimeText(
                 'Showing ${filteredIssues.length} of ${report.totalIssues} issues',
-                style: const TextStyle(color: Colors.grey, fontSize: 12),
+                style: TextStyle(color: context.theme.colors.onSurfaceVariant, fontSize: 12),
               ),
             ],
           ),
@@ -472,18 +468,18 @@ class _GovernanceDashboardContentState
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.1),
+                  color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    PrimeIcon(Icons.security, size: 14, color: Colors.green),
+                    PrimeIcon(Icons.security, size: 14, color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface),
                     SizedBox(width: 4),
                     PrimeText(
                       'ZERO-TRUST ENFORCED',
                       style: TextStyle(
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -509,7 +505,7 @@ class _GovernanceDashboardContentState
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [Colors.blue.shade900, Colors.blue.shade700],
+          colors: [PrimeActionPalette.of(context, PrimeActionTone.primary).accent, PrimeActionPalette.of(context, PrimeActionTone.primary).accent],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -521,10 +517,10 @@ class _GovernanceDashboardContentState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const PrimeText(
+                PrimeText(
                   'Production Readiness Status',
                   style: TextStyle(
-                    color: Colors.white,
+                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -533,7 +529,7 @@ class _GovernanceDashboardContentState
                 PrimeText(
                   '${report.productionReadyScreens} screens meet all production quality gates. ${report.blockedScreens} screens are currently blocked by critical or high-severity issues.',
                   style: TextStyle(
-                    color: Colors.white.withValues(alpha: 0.8),
+                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     fontSize: 14,
                   ),
                 ),
@@ -545,8 +541,8 @@ class _GovernanceDashboardContentState
             value: report.totalScreens > 0
                 ? report.productionReadyScreens / report.totalScreens
                 : 0,
-            backgroundColor: Colors.white.withValues(alpha: 0.2),
-            valueColor: const AlwaysStoppedAnimation<Color>(Colors.greenAccent),
+            backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent.withValues(alpha: 0.2),
+            valueColor: AlwaysStoppedAnimation<Color>(PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
             strokeWidth: 8,
           ),
         ],
