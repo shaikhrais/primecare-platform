@@ -143,14 +143,14 @@ class ComplianceManagerComplianceCasesScreen extends GovernedConsumerWidget {
         body: Cy(
           id: 'compliance_manager_compliance_cases-content',
           child: ResponsiveSplitDashboard(
-            metrics: const [
+            metrics:  [
               GovMetricCard(
                 title: 'Operational Status',
                 value: 'Active',
                 trendLabel: 'Optimal',
                 progress: 0.92,
                 icon: LucideIcons.activity,
-                brandColor: Color(0xFF0D9488),
+                brandColor: theme.colors.success,
               ),
               GovMetricCard(
                 title: 'Security Sync',
@@ -158,7 +158,7 @@ class ComplianceManagerComplianceCasesScreen extends GovernedConsumerWidget {
                 trendLabel: 'Secured',
                 progress: 1.0,
                 icon: LucideIcons.shieldCheck,
-                brandColor: Color(0xFF16A34A),
+                brandColor: theme.colors.success,
               ),
               GovMetricCard(
                 title: 'Latency Telemetry',
