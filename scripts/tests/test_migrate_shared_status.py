@@ -63,6 +63,30 @@ Icon(LucideIcons.inbox, /* keep this */ color: Colors.grey);'''
         self.assertNotIn('primecare_ui/src/', result)
         self.assertEqual(status.migrate(result, add_import=True, status_import=status.PUBLIC_STATUS_IMPORT), (result, 0))
 
+    def test_explicit_check_and_warning_pairs_use_existing_semantic_tokens(self):
+        for icon, color, tone in [('Icons.check_circle_outline', 'Colors.green', 'success'),
+                                  ('LucideIcons.checkCircle2', 'Colors.green', 'success'),
+                                  ('Icons.warning', 'Colors.amber', 'warning')]:
+            source = IMPORTS + f'const Icon({icon}, color: {color}, size: 64);'
+            result, count = status.migrate(source)
+            self.assertEqual(count, 1)
+            self.assertIn(f'const PrimeStatusIcon({icon}, tone: PrimeStatusTone.{tone}, size: 64)', result)
+            self.assertEqual(status.migrate(result), (result, 0))
+
+    def test_unmatched_check_color_and_decorative_green_stay_for_review(self):
+        for call in ['Icon(Icons.check_circle_outline, color: Colors.red)',
+                     'Icon(Icons.star, color: Colors.green)',
+                     'Icon(Icons.warning, color: Colors.green)']:
+            source = IMPORTS + call
+            self.assertEqual(status.migrate(source), (source, 0))
+
+    def test_local_function_or_variable_shadow_is_not_rewritten(self):
+        for prefix in ['Widget Icon(dynamic icon, {dynamic color}) => widget;',
+                       'final Icon = createIcon;',
+                       'Widget PrimeStatusIcon(dynamic icon, {dynamic tone}) => widget;']:
+            source = IMPORTS + prefix + 'Icon(Icons.check_circle_outline, color: Colors.green);'
+            self.assertEqual(status.migrate(source), (source, 0))
+
 
 if __name__ == '__main__':
     unittest.main()

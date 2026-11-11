@@ -19,6 +19,8 @@ void main() {
           style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
           child: Column(children: [
             DashboardLoadingWidget(),
+            PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success),
+            PrimeStatusIcon(Icons.warning_amber, tone: PrimeStatusTone.warning),
             PrimeStatusIcon(Icons.warning, tone: PrimeStatusTone.error, size: 48),
             PrimeStatusIcon(Icons.inbox, tone: PrimeStatusTone.muted, size: 64),
             PrimeStatusText('Available error message', tone: PrimeStatusTone.error),
@@ -27,6 +29,8 @@ void main() {
       )));
       await tester.pump();
       expect(tester.widget<CircularProgressIndicator>(find.byType(CircularProgressIndicator)).color, prime.colors.primary, reason: preset);
+      expect(tester.widget<Icon>(find.byIcon(Icons.check_circle_outline)).color, prime.colors.success, reason: preset);
+      expect(tester.widget<Icon>(find.byIcon(Icons.warning_amber)).color, prime.colors.warning, reason: preset);
       final error = tester.widget<Icon>(find.byIcon(Icons.warning));
       final empty = tester.widget<Icon>(find.byIcon(Icons.inbox));
       expect(error.color, prime.colors.error, reason: preset);

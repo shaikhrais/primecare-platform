@@ -384,6 +384,10 @@ import 'package:primecare_ui/src/screens/common/shared_screen_stubs.dart' as mig
 import 'package:primecare_ui/src/screens/management/screen_progress_dashboard.dart' as migrated381;
 import 'package:primecare_ui/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart' as migrated382;
 import 'package:primecare_ui/src/screens/psw/psw_dashboard/sections/psw_dashboard_data_list_section.dart' as migrated383;
+import 'package:primecare_ui/src/features/generated_screens/family_home.dart' as migrated384;
+import 'package:primecare_ui/src/features/generated_screens/operations_board.dart' as migrated385;
+import 'package:primecare_ui/src/features/generated_screens/region_dashboard.dart' as migrated386;
+import 'package:primecare_ui/src/features/generated_screens/tax_remittance.dart' as migrated387;
 
 void main() {
   test('migrated shared status libraries compile', () {
@@ -772,7 +776,11 @@ void main() {
       migrated381.ScreenProgressDashboardScreenState,
       migrated382.CareDashboardScreenState,
       migrated383.PswDashboardDataListSection,
+      migrated384.FamilyHomeController,
+      migrated385.OperationsBoardController,
+      migrated386.RegionDashboardController,
+      migrated387.TaxRemittanceController,
     ];
-    expect(migratedTypes, hasLength(384));
+    expect(migratedTypes, hasLength(388));
   });
 }

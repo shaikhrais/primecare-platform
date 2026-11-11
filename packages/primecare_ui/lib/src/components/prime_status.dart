@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import '../theme/prime_theme.dart';
 
 /// Semantic status roles resolved from the inherited product theme.
-enum PrimeStatusTone { error, muted }
+enum PrimeStatusTone { error, muted, success, warning }
 
 Color _statusColor(BuildContext context, PrimeStatusTone tone) => switch (tone) {
+  PrimeStatusTone.success => context.theme.colors.success,
+  PrimeStatusTone.warning => context.theme.colors.warning,
   PrimeStatusTone.error => context.theme.colors.error,
   PrimeStatusTone.muted => context.theme.colors.onSurfaceVariant,
 };

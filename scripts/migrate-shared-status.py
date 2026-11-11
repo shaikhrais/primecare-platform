@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Replace exact generated error/empty-state color patterns with shared controls.
 
-No arbitrary color mapping: only alertTriangle/red, inbox/grey and the exact
+No arbitrary color mapping: only explicit error/empty/check/warning icon pairs and the exact
 state.error! message with a red-only TextStyle qualify. Const parents are retained.
 """
 import argparse
@@ -16,7 +16,13 @@ spec.loader.exec_module(buttons)
 CALL = re.compile(r'(?<![\w.])(Icon|Text|PrimeText)\s*\(')
 ROLES = {'LucideIcons.alertTriangle': ('Colors.red', 'error'), 'LucideIcons.inbox': ('Colors.grey', 'muted'),
          'Icons.error': ('Colors.red', 'error'), 'Icons.error_outline': ('Colors.red', 'error'),
-         'Icons.inbox': ('Colors.grey', 'muted')}
+         'Icons.inbox': ('Colors.grey', 'muted'),
+         'Icons.check_circle_outline': ('Colors.green', 'success'),
+         'Icons.check_circle': ('Colors.green', 'success'),
+         'LucideIcons.checkCircle2': ('Colors.green', 'success'),
+         'LucideIcons.checkCircle': ('Colors.green', 'success'),
+         'Icons.warning': ('Colors.amber', 'warning'),
+         'Icons.warning_amber': ('Colors.amber', 'warning')}
 STATUS_IMPORT = "import 'package:primecare_ui/src/components/prime_status.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;\n"
 
 
@@ -30,6 +36,10 @@ def migrate(source, add_import=False, status_import=STATUS_IMPORT):
     if not has_shared and not (add_import and material):
         return source, 0
     if re.search(r'\b(?:class|typedef|mixin|enum|extension)\s+(?:Icon|Text|PrimeText|PrimeStatusIcon|PrimeStatusText|PrimeStatusTone)\b|\bpart\b', code):
+        return source, 0
+    # Local functions/variables can shadow imported constructors.
+    names = r'(?:Icon|Text|PrimeText|PrimeStatusIcon|PrimeStatusText|PrimeStatusTone)'
+    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+' + names + r'\s*\(|\b' + names + r'\s*=', code):
         return source, 0
     # Concrete types, constructor aliases and tear-offs need resolved review.
     for name in ('Icon', 'Text'):

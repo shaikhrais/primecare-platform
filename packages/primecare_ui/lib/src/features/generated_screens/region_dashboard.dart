@@ -601,7 +601,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                       child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
-                                          Icon(LucideIcons.checkCircle2, color: Colors.green, size: 36),
+                                          PrimeStatusIcon(LucideIcons.checkCircle2, tone: PrimeStatusTone.success, size: 36),
                                           const SizedBox(height: 8),
                                           Text(
                                             'All regional rosters assigned!',
