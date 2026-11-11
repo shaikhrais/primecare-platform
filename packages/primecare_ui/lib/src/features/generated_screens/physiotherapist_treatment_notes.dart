@@ -35,23 +35,23 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
     final dataState = ref.watch(physiotherapist_treatment_notesDataProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F9FF),
+      backgroundColor:  theme.colors.background,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colors.surface,
         elevation: 1,
         title: Row(
           children: [
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFF0284C7).withOpacity(0.1),
+                color:  theme.colors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFF0284C7).withOpacity(0.3)),
+                border: Border.all(color:  theme.colors.primary.withOpacity(0.3)),
               ),
               child: Text(
                 'CI',
-                style: const TextStyle(
-                  color: Color(0xFF0284C7),
+                style:  TextStyle(
+                  color: theme.colors.primary,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
@@ -60,8 +60,8 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             const SizedBox(width: 12),
             Text(
               'PhysiotherapistTreatmentNotesScreen',
-              style: const TextStyle(
-                color: Color(0xFF0F172A),
+              style:  TextStyle(
+                color: theme.colors.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
@@ -79,9 +79,9 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color:  theme.colors.outline),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,19 +91,19 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                     children: [
                       Text(
                         'Target Role: Physiotherapist',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: Color(0xFF0C4A6E), fontSize: 14),
+                        style:  TextStyle(fontWeight: FontWeight.bold, color: theme.colors.onSurface, fontSize: 14),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child: const Text('100% READY', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                        decoration: BoxDecoration(color:  theme.colors.success.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                        child:  Text('100% READY', style: TextStyle(color: theme.colors.success, fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Text('Provides a dedicated management interface within the Primecare Clinic module to enable Physiotherapist personnel to oversee, audit, and coordinate operations related to physiotherapisttreatmentnotesscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
+                  Text('Provides a dedicated management interface within the Primecare Clinic module to enable Physiotherapist personnel to oversee, audit, and coordinate operations related to physiotherapisttreatmentnotesscreen.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Physiotherapist, I want to access the PhysiotherapistTreatmentNotesScreen within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Physiotherapist, I want to access the PhysiotherapistTreatmentNotesScreen within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
                 ],
               ),
             ),
@@ -115,16 +115,10 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color:  theme.colors.outline),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,23 +128,23 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF0284C7), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Header Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0284C7).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'HEADER',
-                  style: const TextStyle(color: Color(0xFF0284C7), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -158,7 +152,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Title panel for patient clinical notes.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -170,7 +164,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -178,13 +172,13 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0284C7),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -198,16 +192,10 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color:  theme.colors.outline),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,31 +205,31 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF0284C7), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Client Context Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0284C7).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'SUMMARY',
-                  style: const TextStyle(color: Color(0xFF0284C7), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 6),
           Text(
-            'Summary card of the client's medical/care profile.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            'Summary card of the client\'s medical/care profile.',
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -253,7 +241,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -261,13 +249,13 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0284C7),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -281,16 +269,10 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color:  theme.colors.outline),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -300,23 +282,23 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF0284C7), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Notes Form Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0284C7).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'FORM',
-                  style: const TextStyle(color: Color(0xFF0284C7), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -324,7 +306,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Text area and input selectors to compose notes.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -336,7 +318,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -344,13 +326,13 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0284C7),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -364,16 +346,10 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color:  theme.colors.outline),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,23 +359,23 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF0284C7), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Notes History Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0284C7).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'LIST',
-                  style: const TextStyle(color: Color(0xFF0284C7), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -407,7 +383,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'List of chronological historical records.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -419,7 +395,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -427,13 +403,13 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0284C7),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -447,16 +423,10 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        border: Border.all(color:  theme.colors.outline),
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -466,23 +436,23 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF0284C7), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Action Bar Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF0284C7).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'ACTION_BAR',
-                  style: const TextStyle(color: Color(0xFF0284C7), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -490,7 +460,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Save note, lock, or print actions.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -502,7 +472,7 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -510,13 +480,13 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF0284C7),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -532,22 +502,22 @@ class PhysiotherapistTreatmentNotesScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F172A),
+                color:  theme.colors.inverseSurface,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                   Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: theme.colors.inverseOnSurface, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
                   ...["\u2022 Mapped API: GET /v1/physiotherapist-treatment-notes", "\u2022 Mapped API: POST /v1/physiotherapist-treatment-notes", "\u2022 Mapped API: PATCH /v1/physiotherapist-treatment-notes/:id"].map((apiStr) => Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                    child: Text(apiStr, style:  TextStyle(color: theme.colors.inverseOnSurface, fontSize: 11, fontFamily: 'monospace')),
                   )),
                   const SizedBox(height: 4),
-                  const Text('• Cypress Selector: data-cy="screen-physiotherapist-treatment-notes"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
+                   Text('• Cypress Selector: data-cy="screen-physiotherapist-treatment-notes"', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  const Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                   Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12)),
                 ],
               ),
             ),
