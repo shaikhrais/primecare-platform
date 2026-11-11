@@ -1,6 +1,7 @@
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Domain Chart platform logic.
 import 'package:fl_chart/fl_chart.dart';
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../models/governance_report.dart';
 
@@ -22,21 +23,21 @@ class GovernanceDomainChart extends StatelessWidget {
         value: e.value.toDouble(),
         title: '${e.key.name.toUpperCase()}\n${e.value}',
         radius: 100,
-        titleStyle: const TextStyle(
+        titleStyle: TextStyle(
           fontSize: 10,
           fontWeight: FontWeight.bold,
-          color: Colors.white,
+          color: readableThemeForeground(_getCategoryColor(context, e.key), context.theme.colors.onSurface),
         ),
-        color: _getCategoryColor(e.key),
+        color: _getCategoryColor(context, e.key),
       );
     }).toList();
 
     return Container(
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: context.theme.colors.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -55,7 +56,8 @@ class GovernanceDomainChart extends StatelessWidget {
                         PieChartSectionData(
                           value: 1,
                           title: 'No Issues',
-                          color: Colors.grey,
+                          color: context.theme.colors.surfaceContainerHigh,
+                          titleStyle: TextStyle(color: readableThemeForeground(context.theme.colors.surfaceContainerHigh, context.theme.colors.onSurface)),
                         ),
                       ]
                     : data,
@@ -69,42 +71,42 @@ class GovernanceDomainChart extends StatelessWidget {
     );
   }
 
-  Color _getCategoryColor(GovernanceCategory category) {
+  Color _getCategoryColor(BuildContext context, GovernanceCategory category) {
     switch (category) {
       case GovernanceCategory.audit:
-        return Colors.blue;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.render:
-        return Colors.pink;
+        return PrimeActionPalette.of(context, PrimeActionTone.secondary).accent;
       case GovernanceCategory.routing:
-        return Colors.orange;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.rbac:
-        return Colors.red;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.lifecycle:
-        return Colors.green;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.component:
-        return Colors.purple;
+        return PrimeActionPalette.of(context, PrimeActionTone.secondary).accent;
       case GovernanceCategory.testing:
-        return Colors.indigo;
+        return PrimeActionPalette.of(context, PrimeActionTone.secondary).accent;
       case GovernanceCategory.accessibility:
-        return Colors.teal;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.performance:
-        return Colors.cyan;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.security:
-        return Colors.amber;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.production:
-        return Colors.deepOrange;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.ownership:
-        return Colors.grey;
+        return context.theme.colors.surfaceContainerHigh;
       case GovernanceCategory.compliance:
-        return Colors.brown;
+        return PrimeActionPalette.of(context, PrimeActionTone.secondary).accent;
       case GovernanceCategory.api:
-        return Colors.blueGrey;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.data:
-        return Colors.lime;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.localization:
-        return Colors.lightBlue;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
       case GovernanceCategory.responsive:
-        return Colors.deepPurple;
+        return PrimeActionPalette.of(context, PrimeActionTone.secondary).accent;
     }
   }
 }

@@ -1,6 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: [GovernanceEventFeed] - A high-fidelity real-time telemetry feed showing architectural and security events as they ha...
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../core/governance/governance_provider.dart';
@@ -17,12 +17,12 @@ class GovernanceEventFeed extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: context.theme.colors.outlineVariant),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -34,9 +34,9 @@ class GovernanceEventFeed extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
-                  PrimeIcon(Icons.bolt_rounded, color: Colors.amber, size: 24),
+                  PrimeIcon(Icons.bolt_rounded, color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase, size: 24),
                   SizedBox(width: 12),
                   PrimeText(
                     'Live Telemetry Feed',
@@ -47,7 +47,7 @@ class GovernanceEventFeed extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.green.withValues(alpha: 0.1),
+                  color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -55,16 +55,16 @@ class GovernanceEventFeed extends StatelessWidget {
                     Container(
                       width: 8,
                       height: 8,
-                      decoration: const BoxDecoration(
-                        color: Colors.green,
+                      decoration: BoxDecoration(
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                         shape: BoxShape.circle,
                       ),
                     ),
                     const SizedBox(width: 6),
-                    const PrimeText(
+                    PrimeText(
                       'Live',
                       style: TextStyle(
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
                         fontSize: 12,
                         fontWeight: FontWeight.bold,
                       ),
@@ -76,20 +76,20 @@ class GovernanceEventFeed extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           if (events.isEmpty)
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     PrimeIcon(
                       Icons.sensors_off_rounded,
-                      color: Colors.grey,
+                      color: context.theme.colors.onSurfaceVariant,
                       size: 48,
                     ),
                     SizedBox(height: 16),
                     PrimeText(
                       'No events detected yet',
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: context.theme.colors.onSurfaceVariant),
                     ),
                   ],
                 ),
@@ -119,7 +119,7 @@ class _EventItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = _getEventColor(event.level);
+    final color = _getEventColor(context, event.level);
     final icon = _getEventIcon(event.type);
 
     return Row(
@@ -128,10 +128,10 @@ class _EventItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.1),
+            color: PrimeActionPalette.tintSurface(context, color),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: PrimeIcon(icon, color: color, size: 20),
+          child: PrimeIcon(icon, color: PrimeActionPalette.onTint(context, color), size: 20),
         ),
         const SizedBox(width: 16),
         Expanded(
@@ -146,13 +146,13 @@ class _EventItem extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 10,
                       fontWeight: FontWeight.bold,
-                      color: color,
+                      color: readableThemeForeground(context.theme.colors.surface, color),
                       letterSpacing: 1.2,
                     ),
                   ),
                   PrimeText(
                     DateFormat('HH:mm:ss').format(event.timestamp),
-                    style: const TextStyle(fontSize: 10, color: Colors.grey),
+                    style: TextStyle(fontSize: 10, color: context.theme.colors.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -171,18 +171,18 @@ class _EventItem extends StatelessWidget {
     );
   }
 
-  Color _getEventColor(GovernanceEventLevel level) {
+  Color _getEventColor(BuildContext context, GovernanceEventLevel level) {
     switch (level) {
       case GovernanceEventLevel.critical:
       case GovernanceEventLevel.error:
-        return Colors.red;
+        return PrimeActionPalette.of(context, PrimeActionTone.error).accent;
       case GovernanceEventLevel.warning:
-        return Colors.amber;
+        return PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
       case GovernanceEventLevel.success:
-        return Colors.green;
+        return PrimeActionPalette.of(context, PrimeActionTone.success).accent;
       case GovernanceEventLevel.info:
       case GovernanceEventLevel.all:
-        return Colors.blue;
+        return PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
     }
   }
 

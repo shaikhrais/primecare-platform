@@ -1,7 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
-import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/services/platform_env_service.dart';
 import '../services/registry_patch_engine.dart';
@@ -17,9 +16,9 @@ class GovernanceIssueTable extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.withValues(alpha: 0.1)),
+        border: Border.all(color: context.theme.colors.outlineVariant),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -27,7 +26,7 @@ class GovernanceIssueTable extends ConsumerWidget {
           scrollDirection: Axis.horizontal,
           child: DataTable(
             headingRowColor: WidgetStateProperty.all(
-              Colors.grey.withValues(alpha: 0.05),
+              context.theme.colors.surfaceContainerHigh,
             ),
             columnSpacing: 24,
             columns: [
@@ -45,7 +44,7 @@ class GovernanceIssueTable extends ConsumerWidget {
                 .map(
                   (issue) => DataRow(
                     cells: [
-                      DataCell(_buildSeverityBadge(issue.severity)),
+                      DataCell(_buildSeverityBadge(context, issue.severity)),
                       DataCell(
                         PrimeText(
                           issue.category.name.toUpperCase(),
@@ -69,9 +68,9 @@ class GovernanceIssueTable extends ConsumerWidget {
                             ),
                             PrimeText(
                               issue.routePath,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 10,
-                                color: Colors.grey,
+                                color: context.theme.colors.onSurfaceVariant,
                               ),
                             ),
                           ],
@@ -91,9 +90,9 @@ class GovernanceIssueTable extends ConsumerWidget {
                           width: 250,
                           child: PrimeText(
                             issue.suggestion,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 12,
-                              color: Colors.blue,
+                              color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                             ),
                           ),
                         ),
@@ -123,10 +122,10 @@ class GovernanceIssueTable extends ConsumerWidget {
                               ),
                             if (issue.metadata['fixProperty'] != null)
                               PrimeIconButton(key: const Key('governance_issue_table_iconbutton_button_2'),
-                                icon: const PrimeIcon(
+                                icon: PrimeIcon(
                                   Icons.auto_fix_high_rounded,
                                   size: 18,
-                                  color: Colors.green,
+                                  color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                                 ),
                                 tooltip: 'Auto-Fix Registry',
                                 onPressed: () async {
@@ -152,20 +151,21 @@ class GovernanceIssueTable extends ConsumerWidget {
                                                     )
                                               : 'governance.issueTable.fixFailed'
                                                     .tr(args: [issue.screenId]),
+                                          style: TextStyle(color: PrimeActionPalette.of(context, success ? PrimeActionTone.success : PrimeActionTone.error).onAccent),
                                         ),
                                         backgroundColor: success
-                                            ? Colors.green
-                                            : Colors.red,
+                                            ? PrimeActionPalette.of(context, PrimeActionTone.success).accent
+                                            : PrimeActionPalette.of(context, PrimeActionTone.error).accent,
                                       ),
                                     );
                                   }
                                 },
                               ),
                             PrimeIconButton(key: const Key('governance_issue_table_iconbutton_button_3'),
-                              icon: const PrimeIcon(
+                              icon: PrimeIcon(
                                 Icons.build,
                                 size: 18,
-                                color: Colors.blue,
+                                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                               ),
                               tooltip: 'Manual Remediate',
                               onPressed: () {
@@ -192,37 +192,37 @@ class GovernanceIssueTable extends ConsumerWidget {
     );
   }
 
-  Widget _buildSeverityBadge(AuditSeverity severity) {
+  Widget _buildSeverityBadge(BuildContext context, AuditSeverity severity) {
     Color color;
     switch (severity) {
       case AuditSeverity.critical:
-        color = Colors.red;
+        color = PrimeActionPalette.of(context, PrimeActionTone.error).accent;
         break;
       case AuditSeverity.high:
-        color = Colors.orange;
+        color = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
         break;
       case AuditSeverity.medium:
-        color = Colors.amber;
+        color = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
         break;
       case AuditSeverity.low:
-        color = Colors.blue;
+        color = PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
         break;
       case AuditSeverity.info:
-        color = Colors.teal;
+        color = PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
         break;
     }
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
+        color: PrimeActionPalette.tintSurface(context, color),
         borderRadius: BorderRadius.circular(4),
         border: Border.all(color: color.withValues(alpha: 0.3)),
       ),
       child: PrimeText(
         severity.name.toUpperCase(),
         style: TextStyle(
-          color: color,
+          color: PrimeActionPalette.onTint(context, color),
           fontSize: 10,
           fontWeight: FontWeight.bold,
         ),
