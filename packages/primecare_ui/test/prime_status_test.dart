@@ -6,6 +6,7 @@ import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
+import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 
 void main() {
   testWidgets('status controls resolve every palette and retain inherited typography', (tester) async {

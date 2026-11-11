@@ -5,6 +5,7 @@ import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui/src/components/prime_loading_indicator.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
+import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 
 void main() {
   testWidgets('const indicator follows inherited palette changes', (tester) async {
