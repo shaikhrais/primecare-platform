@@ -655,15 +655,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-btn-dispatch',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-btn-dispatch'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Btn Dispatch executed successfully.'),
-                          child: PrimeText('Data Cy Btn Dispatch'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-btn-dispatch'), label: 'Data Cy Btn Dispatch'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Btn Dispatch executed successfully.')),
                       ),
                     ),
                   ),
@@ -675,15 +667,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-btn-upload-proof',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-btn-upload-proof'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Btn Upload Proof executed successfully.'),
-                          child: PrimeText('Data Cy Btn Upload Proof'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-btn-upload-proof'), label: 'Data Cy Btn Upload Proof'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Btn Upload Proof executed successfully.')),
                       ),
                     ),
                   ),
@@ -695,15 +679,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'control_center_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('control_center_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: PrimeText('Control_Center_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('control_center_screen_iconbutton_button_1'), label: 'Control_Center_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -715,15 +691,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'control_center_screen_iconbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('control_center_screen_iconbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_2 executed successfully.'),
-                          child: PrimeText('Control_Center_Screen_Iconbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('control_center_screen_iconbutton_button_2'), label: 'Control_Center_Screen_Iconbutton_Button_2'.tr(), onPressed:  () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_2 executed successfully.')),
                       ),
                     ),
                   ),

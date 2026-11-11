@@ -673,15 +673,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamic_screen_view_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('dynamic_screen_view_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamic_Screen_View_Iconbutton_Button_1 executed successfully.'),
-                          child: PrimeText('Dynamic_Screen_View_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamic_screen_view_iconbutton_button_1'), label: 'Dynamic_Screen_View_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Dynamic_Screen_View_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -693,15 +685,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamic_screen_view_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('dynamic_screen_view_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamic_Screen_View_Textbutton_Button_1 executed successfully.'),
-                          child: PrimeText('Dynamic_Screen_View_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamic_screen_view_textbutton_button_1'), label: 'Dynamic_Screen_View_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Dynamic_Screen_View_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

@@ -393,15 +393,7 @@ class NoAccessScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'state_widgets_elevatedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('state_widgets_elevatedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: State_Widgets_Elevatedbutton_Button_1 executed successfully.'),
-                          child: PrimeText('State_Widgets_Elevatedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('state_widgets_elevatedbutton_button_1'), label: 'State_Widgets_Elevatedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: State_Widgets_Elevatedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

@@ -820,15 +820,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'screen-status-btn-refresh',
-                        child: ElevatedButton(
-                          key: const Key('screen-status-btn-refresh'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Screen Status Btn Refresh executed successfully.'),
-                          child: PrimeText('Screen Status Btn Refresh'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('screen-status-btn-refresh'), label: 'Screen Status Btn Refresh'.tr(), onPressed:  () => controller.addLog('Action: Screen Status Btn Refresh executed successfully.')),
                       ),
                     ),
                   ),
@@ -840,15 +832,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data-cy-tab-buttons',
-                        child: ElevatedButton(
-                          key: const Key('data-cy-tab-buttons'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data Cy Tab Buttons executed successfully.'),
-                          child: PrimeText('Data Cy Tab Buttons'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data-cy-tab-buttons'), label: 'Data Cy Tab Buttons'.tr(), onPressed:  () => controller.addLog('Action: Data Cy Tab Buttons executed successfully.')),
                       ),
                     ),
                   ),
