@@ -36,6 +36,25 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('key-first migrated titles retain rendered style across palettes', (tester) async {
+    for (final preset in themeCenterPresetNames) {
+      final material = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Title', preset: preset));
+      final style = material.textTheme.headlineSmall!.copyWith(color: material.colorScheme.onSurface);
+      await tester.pumpWidget(MaterialApp(theme: material, home: Scaffold(body: Column(children: [
+        Text(key: const Key('original-title'), 'Care title', style: style),
+        PrimeText(key: const Key('migrated-title'), 'Care title', style: style),
+      ]))));
+      RichText rendered(String key) => tester.widget<RichText>(find.descendant(
+        of: find.byKey(Key(key)), matching: find.byType(RichText)));
+      final original = rendered('original-title');
+      final migrated = rendered('migrated-title');
+      expect(migrated.text.toPlainText(), original.text.toPlainText(), reason: preset);
+      expect(migrated.text.style, original.text.style, reason: preset);
+      expect(migrated.textScaler, original.textScaler, reason: preset);
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
   testWidgets('shared icons retain inherited and explicit theme colors across palettes', (tester) async {
     for (final preset in themeCenterPresetNames) {
       final material = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Icon', preset: preset));

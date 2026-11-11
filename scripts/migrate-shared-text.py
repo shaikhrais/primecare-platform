@@ -20,7 +20,7 @@ CALL = re.compile(r'(?<![\w.])Text\s*\(')
 PARAMETERS = {'key', 'style', 'textAlign', 'maxLines', 'overflow'}
 
 
-def compatible(code, start):
+def compatible(code, start, source):
     """Accept one positional argument and only the wrapper's named arguments."""
     stack, parts, begin = [], [], start
     pairs = {')': '(', ']': '[', '}': '{'}
@@ -32,27 +32,30 @@ def compatible(code, start):
             if not stack:
                 if char != ')':
                     return False
-                parts.append(code[begin:pos])
+                parts.append((begin, pos))
                 break
             if stack.pop() != pairs[char]:
                 return False
         elif char == ',' and not stack:
-            parts.append(code[begin:pos])
+            parts.append((begin, pos))
             begin = pos + 1
     else:
         return False
-    # String arguments are masked, so an empty first part is still positional.
-    if not parts or re.match(r'\s*\w+\s*:', parts[0]):
-        return False
-    seen = set()
-    for part in parts[1:]:
-        if not part.strip():
+    # Dart permits named arguments before the positional label. Inspect source
+    # slices to distinguish a masked string label from an empty trailing slot.
+    seen, positional = set(), 0
+    for begin, end in parts:
+        part = code[begin:end]
+        if not source[begin:end].strip():
             continue
         match = re.match(r'\s*(\w+)\s*:', part)
-        if not match or match[1] not in PARAMETERS or match[1] in seen:
+        if not match:
+            positional += 1
+            continue
+        if match[1] not in PARAMETERS or match[1] in seen:
             return False
         seen.add(match[1])
-    return True
+    return positional == 1
 
 
 def migrate(source, add_import=False):
@@ -79,7 +82,7 @@ def migrate(source, add_import=False):
         return source, 0
     edits = [m.start() for m in CALL.finditer(code)
              if not code[:m.start()].rstrip().endswith('.')
-             and compatible(code, m.end())]
+             and compatible(code, m.end(), source)]
     for offset in reversed(edits):
         source = source[:offset] + 'PrimeText' + source[offset + 4:]
     if edits and not has_shared:

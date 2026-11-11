@@ -9,6 +9,25 @@ IMPORTS = "import 'package:flutter/material.dart';\nimport 'package:primecare_ui
 
 
 class SharedTextMigrationTest(unittest.TestCase):
+    def test_named_key_before_label_preserves_source_order_and_expressions(self):
+        source = IMPORTS + "Text(key: const Key('title'), state.title, style: theme.typography.h3);"
+        result, count = migration.migrate(source)
+        self.assertEqual(count, 1)
+        self.assertEqual(result, source.replace('Text(', 'PrimeText('))
+        self.assertEqual(migration.migrate(result), (result, 0))
+
+    def test_literal_labels_after_named_arguments_and_trailing_commas(self):
+        for label in ["'hello'", '""', "'hello ${user.name}'"]:
+            source = IMPORTS + f'Text(key: key, style: style, {label},);'
+            result, count = migration.migrate(source)
+            self.assertEqual(count, 1)
+            self.assertEqual(result, source.replace('Text(', 'PrimeText('))
+
+    def test_missing_duplicate_and_unsupported_arguments_stay(self):
+        for call in ["Text(key: key)", "Text(key: key, 'a', 'b')", "Text(key: a, key: b, 'x')", "Text(softWrap: false, 'x')"]:
+            source = IMPORTS + call
+            self.assertEqual(migration.migrate(source), (source, 0))
+
     def test_explicit_concrete_types_and_tearoffs_require_type_review(self):
         for suffix in ['final List<Text> labels = [Text("x")];',
                        'Text label = Text("x");',
