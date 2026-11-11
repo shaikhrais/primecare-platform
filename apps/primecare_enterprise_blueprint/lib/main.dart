@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
+import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -69,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
-    return Scaffold(
+    return PrimeScaffold(
       endDrawer: const ThemeSettingsDrawer(tenantDefaultPreset: 'default'),
       appBar: AppBar(
         // TRY THIS: Try changing the color here to a specific color (to

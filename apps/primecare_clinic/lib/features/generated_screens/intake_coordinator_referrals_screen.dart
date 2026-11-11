@@ -38,7 +38,7 @@ class IntakeCoordinatorReferralsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'intakecoordinatorreferrals-screen',
-      child: Scaffold(
+      child: PrimeScaffold(
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,

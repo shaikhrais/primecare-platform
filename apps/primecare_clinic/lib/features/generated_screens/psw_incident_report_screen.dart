@@ -42,7 +42,7 @@ class PswIncidentReportScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'pswincidentreport-screen',
-      child: Scaffold(
+      child: PrimeScaffold(
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,

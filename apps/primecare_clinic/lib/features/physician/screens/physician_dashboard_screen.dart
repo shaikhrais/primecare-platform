@@ -40,7 +40,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'physiciandashboard-screen',
-      child: Scaffold(
+      child: PrimeScaffold(
         backgroundColor: theme.colors.dashboardBackground,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,

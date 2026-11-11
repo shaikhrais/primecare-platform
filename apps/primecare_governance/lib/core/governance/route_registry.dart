@@ -162,7 +162,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           final title = screen?.title ?? 'Platform Governance';
           final screenId = screen?.id ?? 'UNKNOWN';
 
-          return Scaffold(
+          return PrimeScaffold(
             appBar: AppBar(
               title: PrimeText(title),
               actions: [
@@ -245,7 +245,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           // This prevents the 'routes.isNotEmpty' assertion failure in go_router
           GoRoute(
             path: '/governance/placeholder',
-            builder: (context, state) => const Scaffold(
+            builder: (context, state) => const PrimeScaffold(
               body: Center(child: PrimeText('Initializing Registry...')),
             ),
           ),

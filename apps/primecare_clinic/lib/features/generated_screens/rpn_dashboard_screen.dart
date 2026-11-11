@@ -42,7 +42,7 @@ class RpnDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'rpndashboard-screen',
-      child: Scaffold(
+      child: PrimeScaffold(
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,

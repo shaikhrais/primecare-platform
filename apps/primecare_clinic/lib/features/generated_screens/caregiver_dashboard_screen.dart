@@ -35,7 +35,7 @@ class CaregiverDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'caregiverdashboard-screen',
-      child: Scaffold(
+      child: PrimeScaffold(
         backgroundColor: theme.colors.background,
         appBar: AppBar(
           backgroundColor: theme.colors.surface,
