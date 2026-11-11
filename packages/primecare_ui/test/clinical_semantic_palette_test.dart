@@ -36,6 +36,7 @@ void main() {
         expect(palette.border, palette.accent.withValues(alpha: .3));
         expect(palette.accent, switch (tone) {
           PrimeActionTone.primary => prime.colors.primary,
+          PrimeActionTone.secondary => prime.colors.secondary,
           PrimeActionTone.success => prime.colors.success,
           PrimeActionTone.warning => prime.colors.warning,
           PrimeActionTone.error => prime.colors.error,

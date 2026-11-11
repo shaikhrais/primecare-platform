@@ -3,7 +3,7 @@ import '../theme/prime_theme.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 
 /// Existing semantic theme roles paired with readable surface and action text.
-enum PrimeActionTone { primary, success, warning, error, muted }
+enum PrimeActionTone { primary, success, warning, error, muted, secondary }
 
 class PrimeActionPalette {
   final Color accent;
@@ -23,6 +23,7 @@ class PrimeActionPalette {
     final colors = context.theme.colors;
     final (accent, surface) = switch (tone) {
       PrimeActionTone.primary => (colors.primary, colors.primaryContainer),
+      PrimeActionTone.secondary => (colors.secondary, colors.secondaryContainer),
       PrimeActionTone.success => (colors.success, colors.successContainer),
       PrimeActionTone.warning => (colors.warning,
           Color.alphaBlend(colors.warningContainer, colors.surface)),

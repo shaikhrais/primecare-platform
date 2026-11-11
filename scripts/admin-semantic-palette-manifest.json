@@ -1,0 +1,534 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/governance/screen_health_panel.dart",
+    "sha256": "16f10e67d6d3e5718e8ffe0fb5090e7f24df09047ba52ed455f27693026ac0ca",
+    "calls": 17,
+    "edits": [
+      {
+        "begin": 2778,
+        "end": 2813,
+        "old": "Colors.black.withValues(alpha: 0.3)",
+        "new": "Theme.of(context).colorScheme.scrim.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 3778,
+        "end": 3814,
+        "old": "Colors.black.withValues(alpha: 0.15)",
+        "new": "Theme.of(context).shadowColor.withValues(alpha: 0.15)"
+      },
+      {
+        "begin": 4583,
+        "end": 4595,
+        "old": "Colors.white",
+        "new": "(_isPanelOpen ? Theme.of(context).colorScheme.onError : Theme.of(context).colorScheme.onPrimary)"
+      },
+      {
+        "begin": 9523,
+        "end": 9535,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 9842,
+        "end": 9863,
+        "old": "Colors.green.shade700",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 10373,
+        "end": 10394,
+        "old": "Colors.amber.shade700",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 13909,
+        "end": 13945,
+        "old": "Colors.green.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).surface"
+      },
+      {
+        "begin": 13948,
+        "end": 13984,
+        "old": "Colors.amber.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 14090,
+        "end": 14125,
+        "old": "Colors.green.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 14128,
+        "end": 14163,
+        "old": "Colors.amber.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 14368,
+        "end": 14389,
+        "old": "Colors.green.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 14392,
+        "end": 14413,
+        "old": "Colors.amber.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 15492,
+        "end": 15504,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 15507,
+        "end": 15517,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 16042,
+        "end": 16054,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 16136,
+        "end": 16148,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent"
+      },
+      {
+        "begin": 16161,
+        "end": 16171,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/admin/admin_reality_check_screen.dart",
+    "sha256": "4fce3eae959a70bb30338ebf55d028dc6db4a5587cd03bc9d0178fb93ce78d6f",
+    "calls": 43,
+    "edits": [
+      {
+        "begin": 3745,
+        "end": 3763,
+        "old": "Colors.transparent",
+        "new": "context.theme.colors.surface.withValues(alpha: 0)"
+      },
+      {
+        "begin": 8104,
+        "end": 8114,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 8386,
+        "end": 8399,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 8673,
+        "end": 8685,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 8963,
+        "end": 8975,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 9251,
+        "end": 9270,
+        "old": "Colors.red.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 9547,
+        "end": 9560,
+        "old": "Colors.purple",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase"
+      },
+      {
+        "begin": 16219,
+        "end": 16253,
+        "old": "Colors.red.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.15)"
+      },
+      {
+        "begin": 16296,
+        "end": 16333,
+        "old": "Colors.orange.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.15)"
+      },
+      {
+        "begin": 18372,
+        "end": 18382,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 18393,
+        "end": 18406,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 18409,
+        "end": 18421,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 18727,
+        "end": 18737,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 18748,
+        "end": 18761,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 18764,
+        "end": 18776,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 19199,
+        "end": 19209,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 19220,
+        "end": 19233,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 19236,
+        "end": 19248,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 19978,
+        "end": 20012,
+        "old": "Colors.red.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 20138,
+        "end": 20172,
+        "old": "Colors.red.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.15)"
+      },
+      {
+        "begin": 20604,
+        "end": 20614,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onSurface"
+      },
+      {
+        "begin": 21061,
+        "end": 21098,
+        "old": "Colors.orange.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 21224,
+        "end": 21261,
+        "old": "Colors.orange.withValues(alpha: 0.15)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.15)"
+      },
+      {
+        "begin": 21353,
+        "end": 21358,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 21395,
+        "end": 21408,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 21671,
+        "end": 21684,
+        "old": "Colors.orange",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 25190,
+        "end": 25225,
+        "old": "Colors.grey.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).surface"
+      },
+      {
+        "begin": 25246,
+        "end": 25280,
+        "old": "Colors.grey.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 25299,
+        "end": 25319,
+        "old": "Colors.grey.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).onSurface"
+      },
+      {
+        "begin": 25385,
+        "end": 25421,
+        "old": "Colors.green.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).surface"
+      },
+      {
+        "begin": 25440,
+        "end": 25475,
+        "old": "Colors.green.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 25492,
+        "end": 25513,
+        "old": "Colors.green.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 25573,
+        "end": 25609,
+        "old": "Colors.amber.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 25628,
+        "end": 25663,
+        "old": "Colors.amber.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 25680,
+        "end": 25701,
+        "old": "Colors.amber.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 25763,
+        "end": 25800,
+        "old": "Colors.purple.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).surface"
+      },
+      {
+        "begin": 25819,
+        "end": 25855,
+        "old": "Colors.purple.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 25872,
+        "end": 25894,
+        "old": "Colors.purple.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).onSurface"
+      },
+      {
+        "begin": 25967,
+        "end": 26001,
+        "old": "Colors.red.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 26020,
+        "end": 26053,
+        "old": "Colors.red.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 26070,
+        "end": 26089,
+        "old": "Colors.red.shade800",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onSurface"
+      },
+      {
+        "begin": 26948,
+        "end": 26982,
+        "old": "Colors.red.withValues(alpha: 0.12)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 27092,
+        "end": 27125,
+        "old": "Colors.red.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 27361,
+        "end": 27371,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onSurface"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/admin/admin_role_carousel_screen.dart",
+    "sha256": "eca9f4a4fcea07dd934474d1e85a747cfd3a97bfc4eb01bacdaa82147dc12fd2",
+    "calls": 12,
+    "edits": [
+      {
+        "begin": 6811,
+        "end": 6829,
+        "old": "Colors.transparent",
+        "new": "context.theme.colors.surface.withValues(alpha: 0)"
+      },
+      {
+        "begin": 11487,
+        "end": 11499,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 11824,
+        "end": 11834,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 12224,
+        "end": 12236,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 24404,
+        "end": 24414,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 24463,
+        "end": 24475,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 24514,
+        "end": 24524,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 24527,
+        "end": 24539,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 24865,
+        "end": 24900,
+        "old": "Colors.green.withValues(alpha: 0.3)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3)"
+      },
+      {
+        "begin": 29460,
+        "end": 29470,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 32051,
+        "end": 32056,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 32088,
+        "end": 32098,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 35094,
+        "end": 35099,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 35125,
+        "end": 35135,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/admin/admin_screenshot_gallery_screen.dart",
+    "sha256": "e6bf5674ca01930b67801c1550f444d83636a9b3177a367a2c978aaf9f1bf854",
+    "calls": 9,
+    "edits": [
+      {
+        "begin": 3246,
+        "end": 3634,
+        "old": "ShaderMask(\n              shaderCallback: (bounds) => LinearGradient(\n                colors: [readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary), readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary)],\n              ).createShader(bounds),\n              child: const Icon(LucideIcons.image, size: 28, color: Colors.white),\n            )",
+        "new": "Icon(LucideIcons.image, size: 28, color: readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary))"
+      },
+      {
+        "begin": 14207,
+        "end": 14222,
+        "old": "Colors.red[400]",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 14590,
+        "end": 14605,
+        "old": "Colors.red[400]",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 16732,
+        "end": 16766,
+        "old": "Colors.teal.withValues(alpha: 0.1)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).surface"
+      },
+      {
+        "begin": 17068,
+        "end": 17085,
+        "old": "Colors.tealAccent",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.secondary).onSurface"
+      },
+      {
+        "begin": 18467,
+        "end": 18479,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 18482,
+        "end": 18494,
+        "old": "Colors.amber",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 18736,
+        "end": 18746,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 18749,
+        "end": 18760,
+        "old": "Colors.blue",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onBase"
+      }
+    ]
+  }
+]
