@@ -270,7 +270,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
                     id: 'dynamic_screen_view_textfield_input_1',
-                    child: TextField(
+                    child: PrimeTextField(
                       key: const Key('dynamic_screen_view_textfield_input_1'),
                       maxLines: 1,
                       decoration: InputDecoration(

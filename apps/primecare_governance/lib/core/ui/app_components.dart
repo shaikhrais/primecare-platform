@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the App Components platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeTextField;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class AppInput extends StatelessWidget {
       children: [
         PrimeText(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 8),
-        TextField(key: const Key('app_components_textfield_input_1'), 
+        PrimeTextField(key: const Key('app_components_textfield_input_1'),
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(

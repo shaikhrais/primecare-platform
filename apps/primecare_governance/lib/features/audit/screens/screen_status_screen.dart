@@ -270,7 +270,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
                   padding: const EdgeInsets.only(bottom: 16.0),
                   child: Cy(
                     id: 'data-cy-screen-search-input',
-                    child: TextField(
+                    child: PrimeTextField(
                       key: const Key('data-cy-screen-search-input'),
                       maxLines: 1,
                       decoration: InputDecoration(

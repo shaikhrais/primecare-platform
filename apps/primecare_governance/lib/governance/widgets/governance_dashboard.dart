@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeTextField;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
@@ -415,7 +416,7 @@ class _GovernanceDashboardContentState
               ),
               SizedBox(
                 width: 300,
-                child: TextField(key: const Key('governance_dashboard_textfield_input_1'), 
+                child: PrimeTextField(key: const Key('governance_dashboard_textfield_input_1'),
                   decoration: InputDecoration(
                     hintText: 'Search screens...',
                     prefixIcon: const PrimeIcon(Icons.search),
