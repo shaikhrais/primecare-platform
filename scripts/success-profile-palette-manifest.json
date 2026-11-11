@@ -1,0 +1,384 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/success_profile/sections/success_profile_action_bar_section.dart",
+    "sha256": "5d585d84e313f0302109c41ebfa56af3475c4ab3139a1bc2ce34bc7b13269e78",
+    "calls": 17,
+    "edits": [
+      {
+        "begin": 3509,
+        "end": 3522,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 3523,
+        "end": 3527,
+        "old": "FF60",
+        "new": "t, Prime"
+      },
+      {
+        "begin": 3528,
+        "end": 3532,
+        "old": "5FA)",
+        "new": "ctionTone.primary).accent"
+      },
+      {
+        "begin": 3838,
+        "end": 3851,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 3852,
+        "end": 3861,
+        "old": "FF818CF8)",
+        "new": "t, PrimeActionTone.secondary).accent"
+      },
+      {
+        "begin": 4148,
+        "end": 4161,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 4162,
+        "end": 4171,
+        "old": "FF22D3EE)",
+        "new": "t, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 4446,
+        "end": 4459,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 4460,
+        "end": 4469,
+        "old": "FFFBBF24)",
+        "new": "t, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 4752,
+        "end": 4765,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 4766,
+        "end": 4775,
+        "old": "FFC084FC)",
+        "new": "t, PrimeActionTone.secondary).accent"
+      },
+      {
+        "begin": 5068,
+        "end": 5081,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 5082,
+        "end": 5091,
+        "old": "FF34D399)",
+        "new": "t, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 5377,
+        "end": 5390,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 5391,
+        "end": 5400,
+        "old": "FFF472B6)",
+        "new": "t, PrimeActionTone.secondary).accent"
+      },
+      {
+        "begin": 5692,
+        "end": 5705,
+        "old": "const Color(0",
+        "new": "PrimeActionPalette.of(conte"
+      },
+      {
+        "begin": 5706,
+        "end": 5715,
+        "old": "FF2DD4BF)",
+        "new": "t, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 6749,
+        "end": 6842,
+        "old": "Colors.white.withValues(alpha: 0.03)\n                  : Colors.white.withValues(alpha: 0.01)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent\n                  : PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 7050,
+        "end": 7086,
+        "old": "Colors.white.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 7451,
+        "end": 7466,
+        "old": "Colors.transpar",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).acc"
+      },
+      {
+        "begin": 8256,
+        "end": 8256,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 8267,
+        "end": 8289,
+        "old": ".withValues(alpha: 0.1",
+        "new": ""
+      },
+      {
+        "begin": 8649,
+        "end": 8649,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 8660,
+        "end": 8660,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 9006,
+        "end": 9042,
+        "old": "Colors.white.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 9170,
+        "end": 9176,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 9271,
+        "end": 9285,
+        "old": "Colors.white54",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 9451,
+        "end": 9457,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 9554,
+        "end": 9568,
+        "old": "Colors.white54",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 9950,
+        "end": 9962,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 10279,
+        "end": 10314,
+        "old": "Colors.white.withValues(alpha: 0.5)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/success_profile/sections/success_profile_identity_summary_section.dart",
+    "sha256": "d9daaf99253eaf19cbe18b12729b96379deda2cfa786672394d125ba9bc255c6",
+    "calls": 9,
+    "edits": [
+      {
+        "begin": 607,
+        "end": 643,
+        "old": "Colors.white.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 751,
+        "end": 786,
+        "old": "Colors.white.withValues(alpha: 0.1)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 951,
+        "end": 986,
+        "old": "Colors.white.withValues(alpha: 0.1)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 1106,
+        "end": 1112,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1150,
+        "end": 1162,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 1522,
+        "end": 1534,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 1833,
+        "end": 1845,
+        "old": "Colors.green",
+        "new": "Prime"
+      },
+      {
+        "begin": 1847,
+        "end": 1875,
+        "old": "cent.withValues(alpha: 0.15)",
+        "new": "tionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 1980,
+        "end": 1992,
+        "old": "Colors.green",
+        "new": "Prime"
+      },
+      {
+        "begin": 1994,
+        "end": 2021,
+        "old": "cent.withValues(alpha: 0.3)",
+        "new": "tionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 2223,
+        "end": 2235,
+        "old": "Colors.green",
+        "new": "Prime"
+      },
+      {
+        "begin": 2236,
+        "end": 2236,
+        "old": "",
+        "new": "ctionPalette.of(context, PrimeActionTone.primary).a"
+      },
+      {
+        "begin": 2542,
+        "end": 2548,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 2580,
+        "end": 2590,
+        "old": "Colors.red",
+        "new": "Prime"
+      },
+      {
+        "begin": 2592,
+        "end": 2625,
+        "old": "cent),\n          onPressed: () as",
+        "new": "tionPalette.of(context, PrimeActionTone.primar"
+      },
+      {
+        "begin": 2626,
+        "end": 2626,
+        "old": "",
+        "new": ").accent),\n          onPressed: () asy"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/success_profile/sections/success_profile_header_section.dart",
+    "sha256": "ebcfd2af2410ac625d06de7e3d0bc6e050a6f9f00782d8ca64fbaadedfcc7d23",
+    "calls": 5,
+    "edits": [
+      {
+        "begin": 438,
+        "end": 458,
+        "old": "Colors.white.withVal",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent,\n            borderRadi"
+      },
+      {
+        "begin": 459,
+        "end": 473,
+        "old": "es(alpha: 0.05",
+        "new": "s: BorderRadius.circular(8"
+      },
+      {
+        "begin": 494,
+        "end": 500,
+        "old": "Radius",
+        "new": ""
+      },
+      {
+        "begin": 508,
+        "end": 668,
+        "old": "Radius.circular(8),\n            border: Border.all(\n              color: Colors.white.withValues(alpha: 0.1),\n            ),\n          ),\n          child: const",
+        "new": ".all(\n              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,\n            ),\n          ),\n          child:"
+      },
+      {
+        "begin": 731,
+        "end": 743,
+        "old": "Colors.green",
+        "new": "Prime"
+      },
+      {
+        "begin": 744,
+        "end": 744,
+        "old": "",
+        "new": "ctionPalette.of(context, PrimeActionTone.primary).a"
+      },
+      {
+        "begin": 1057,
+        "end": 1092,
+        "old": "Colors.white.withValues(alpha: 0.5)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 1377,
+        "end": 1389,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/success_profile/sections/success_profile_details_form_section.dart",
+    "sha256": "db78366f589eb083417479330cf3fcbdd88eb308550cc0b7277b5f3f07f181c6",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 692,
+        "end": 704,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 953,
+        "end": 976,
+        "old": "Colors.white.withValues",
+        "new": "PrimeActionPalette.of"
+      },
+      {
+        "begin": 977,
+        "end": 987,
+        "old": "alpha: 0.6",
+        "new": "context, PrimeActionTone.primary"
+      },
+      {
+        "begin": 988,
+        "end": 988,
+        "old": "",
+        "new": ".accent"
+      }
+    ]
+  }
+]
