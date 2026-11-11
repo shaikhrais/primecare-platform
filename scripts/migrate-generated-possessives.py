@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Repair three exact invalid generated strings and apply established palette roles."""
+"""Repair reviewed exact invalid generated strings and apply established palette roles."""
 import argparse
 import hashlib
 import importlib.util
@@ -11,19 +11,20 @@ spec = importlib.util.spec_from_file_location('palette', Path(__file__).with_nam
 palette = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(palette)
 MANIFEST = json.loads(Path(__file__).with_name('generated-possessive-manifest.json').read_text())
-HASHES = {row['sha256'] for row in MANIFEST}
+BY_HASH = {row['sha256']: row for row in MANIFEST}
 OLD = "'Summary card of the client's medical/care profile.'"
 NEW = "'Summary card of the client\\'s medical/care profile.'"
 HEADING = re.compile(r"(Text\(\n                        'Target Role: [^'\n$]+',\n                        style: )const (TextStyle\(fontWeight: FontWeight.bold, color: )Color\(0xFF881337\)(, fontSize: 14\),\n                      \))")
 
 
 def migrate(source):
-    if hashlib.sha256(source.encode()).hexdigest() not in HASHES or source.count(OLD) != 1:
+    row = BY_HASH.get(hashlib.sha256(source.encode()).hexdigest())
+    if row is None or source.count(OLD) != 1:
         return source, 0
     fixed = source.replace(OLD, NEW)
     updated, count = palette.migrate(fixed)
     updated, headings = HEADING.subn(r'\1\2theme.colors.onSurface\3', updated)
-    if count != 72 or headings != 1 or not palette.frames(palette.boundary.executable_code(updated)):
+    if count != row['paletteEdits'] or headings != row['headingEdits'] or not palette.frames(palette.boundary.executable_code(updated)):
         return source, 0
     return updated, count + headings
 

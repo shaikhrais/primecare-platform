@@ -1,14 +1,50 @@
 [
   {
     "path": "packages/primecare_ui/lib/src/features/generated_screens/adjustment_notes.dart",
-    "sha256": "90c7a98a8939ef653750be18c7598dea9f8fcd30e8af6338342d26a667c5398c"
+    "sha256": "90c7a98a8939ef653750be18c7598dea9f8fcd30e8af6338342d26a667c5398c",
+    "paletteEdits": 72,
+    "headingEdits": 1
   },
   {
     "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_treatment_notes.dart",
-    "sha256": "535bd78990bbeda5b69d40df72129669cf8093497476cafb393c2fb0e63bef08"
+    "sha256": "535bd78990bbeda5b69d40df72129669cf8093497476cafb393c2fb0e63bef08",
+    "paletteEdits": 72,
+    "headingEdits": 1
   },
   {
     "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_treatment_notes.dart",
-    "sha256": "89f73a0507b73daa624d691e13a644880b45971e289fb8376a1e3356a1a6090d"
+    "sha256": "89f73a0507b73daa624d691e13a644880b45971e289fb8376a1e3356a1a6090d",
+    "paletteEdits": 72,
+    "headingEdits": 1
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/caregiver_visit_notes.dart",
+    "sha256": "7cefe632def11ee77f7e4b35a076de5d0dd967cf154fce95999de5481a8ba90f",
+    "paletteEdits": 73,
+    "headingEdits": 0
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/physiotherapist_treatment_notes.dart",
+    "sha256": "321b71a0c8a48c8c936de5bfd422f9d7a7a94809bde0f00e925f5c900217bc6b",
+    "paletteEdits": 73,
+    "headingEdits": 0
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/psw_daily_notes.dart",
+    "sha256": "169fc01eda5365290ac2608f56c199c0899e433a6be26d3b909f2b7bfef49c22",
+    "paletteEdits": 73,
+    "headingEdits": 0
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/psw_visit_notes.dart",
+    "sha256": "8fc2576ea6a7f60c40a294f433ce94391fd408b9d3fa19df764f646f81caa3f4",
+    "paletteEdits": 73,
+    "headingEdits": 0
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/regional_bdm_competitor_notes.dart",
+    "sha256": "b87b3ee26c48cc08266b2d84d2e0586a83ec9816593487ec8d1870b51f75ab41",
+    "paletteEdits": 73,
+    "headingEdits": 0
   }
 ]

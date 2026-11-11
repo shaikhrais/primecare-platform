@@ -1,5 +1,6 @@
 import importlib.util
 import json
+import re
 from pathlib import Path
 import unittest
 
@@ -10,7 +11,7 @@ spec.loader.exec_module(m)
 
 
 class GeneratedPossessiveTest(unittest.TestCase):
-    def test_three_actual_invalid_sources_repaired_and_migrated(self):
+    def test_all_actual_invalid_sources_repaired_and_migrated(self):
         for row in m.MANIFEST:
             original = json.loads((ROOT/'scripts/tests/fixtures/generated_possessives'/Path(row['path']).with_suffix('.json').name).read_text())['source']
             self.assertFalse(m.palette.frames(m.palette.boundary.executable_code(original)))
@@ -33,10 +34,10 @@ class GeneratedPossessiveTest(unittest.TestCase):
         for row in m.MANIFEST:
             source = json.loads((ROOT/'scripts/tests/fixtures/generated_possessives'/Path(row['path']).with_suffix('.json').name).read_text())['source']
             for changed in [source+'\n', source.replace('context.theme','otherTheme'),
-                            source.replace("client's", "patient's"), source.replace('0xFF881337','0xFF000000')]:
+                            source.replace("client's", "patient's"), re.sub(r'0xFF[0-9A-F]{6}', '0xFF000000', source, count=1)]:
                 self.assertEqual(m.migrate(changed), (changed, 0))
 
-    def test_new_compile_fixture_references_all_three_actual_classes(self):
+    def test_new_compile_fixture_references_all_actual_classes(self):
         fixture = (ROOT/'packages/primecare_ui/test/generated_possessives_compile_test.dart').read_text()
         for row in m.MANIFEST:
             self.assertIn('src/features/generated_screens/'+Path(row['path']).name, fixture)
