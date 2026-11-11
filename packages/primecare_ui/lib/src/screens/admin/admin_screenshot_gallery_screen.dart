@@ -112,12 +112,7 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
       appBar: AppBar(
         title: Row(
           children: [
-            ShaderMask(
-              shaderCallback: (bounds) => LinearGradient(
-                colors: [readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary), readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary)],
-              ).createShader(bounds),
-              child: const Icon(LucideIcons.image, size: 28, color: Colors.white),
-            ),
+            Icon(LucideIcons.image, size: 28, color: readableThemeForeground(theme.colorScheme.surface, theme.colorScheme.primary)),
             const SizedBox(width: 12),
             Text(
               'Visual Verification Gallery',
@@ -392,13 +387,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                             Icon(
                               screen.renderSuccess ? LucideIcons.image : LucideIcons.alertTriangle,
                               size: 48,
-                              color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : Colors.red[400],
+                              color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                             ),
                             const SizedBox(height: 8),
                             Text(
                               screen.renderSuccess ? 'Preview Image Loading' : 'Rendering Failed',
                               style: TextStyle(
-                                color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : Colors.red[400],
+                                color: screen.renderSuccess ? theme.colorScheme.onSurfaceVariant : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -443,13 +438,13 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Colors.teal.withValues(alpha: 0.1),
+                          color: PrimeActionPalette.of(context, PrimeActionTone.secondary).surface,
                           borderRadius: BorderRadius.circular(context.theme.radiusDefault),
                         ),
                         child: Text(
                           'VISUAL_${screen.visualQualityScore}',
                           style: TextStyle(
-                            color: Colors.tealAccent,
+                            color: PrimeActionPalette.of(context, PrimeActionTone.secondary).onSurface,
                             fontSize: (theme.textTheme.bodyMedium?.fontSize ?? 14) * 10 / 14,
                             fontWeight: FontWeight.bold,
                           ),
@@ -481,12 +476,12 @@ class _AdminScreenshotGalleryScreenState extends ConsumerState<AdminScreenshotGa
                     children: [
                       _buildStatusChip(
                         label: screen.productionReady ? 'PROD READY' : 'INCOMPLETE',
-                        color: screen.productionReady ? Colors.green : Colors.amber,
+                        color: screen.productionReady ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                       const SizedBox(width: 8),
                       _buildStatusChip(
                         label: screen.hardFail ? 'NEEDS REDESIGN' : 'STABLE',
-                        color: screen.hardFail ? Colors.red : Colors.blue,
+                        color: screen.hardFail ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ],
                   ),

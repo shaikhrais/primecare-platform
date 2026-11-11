@@ -170,7 +170,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
     final needingReviewCount = _allScreens.where((s) => s.needsReview).length;
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: context.theme.colors.surface.withValues(alpha: 0),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -299,7 +299,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 value: '$prodReady / $incomplete',
                 subtitle: _t('target'),
                 icon: LucideIcons.checkCircle2,
-                color: Colors.green,
+                color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                 width: cardWidth,
               ),
               _buildKpiCard(
@@ -308,7 +308,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 value: '$falseProgress / $zeroInteraction',
                 subtitle: _t('actionRequired'),
                 icon: LucideIcons.alertTriangle,
-                color: Colors.red,
+                color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                 width: cardWidth,
               ),
               _buildKpiCard(
@@ -317,7 +317,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                 value: '${avgProgress.toStringAsFixed(1)}% / ${avgInteractive.toStringAsFixed(1)}',
                 subtitle: _t('reviewCount', args: {'count': '$needingReview'}),
                 icon: LucideIcons.activity,
-                color: Colors.amber,
+                color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                 width: cardWidth,
               ),
             ],
@@ -644,10 +644,10 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
 
   Widget _buildScreenCarouselCard(ThemeData theme, bool isDark, ScreenHealthStatus screen) {
     final statusColor = screen.hardFail
-        ? Colors.red
+        ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase
         : (screen.productionReady
-            ? Colors.green
-            : (screen.isPlaceholder ? Colors.red : Colors.amber));
+            ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase
+            : (screen.isPlaceholder ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.warning).onBase));
 
     return Container(
       width: 350,
@@ -657,7 +657,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
         borderRadius: BorderRadius.circular(context.theme.radiusDefault),
         border: Border.all(
           color: screen.productionReady
-              ? Colors.green.withValues(alpha: 0.3)
+              ? PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.3)
               : theme.dividerColor.withValues(alpha: 0.1),
         ),
       ),
@@ -754,7 +754,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                         GoRouter.of(context).go(screen.routePath);
                       } catch (e) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text(_t('cannotNavigate', args: {'error': '$e'})), backgroundColor: Colors.red),
+                          SnackBar(content: Text(_t('cannotNavigate', args: {'error': '$e'})), backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).onBase),
                         );
                       }
                     },
@@ -827,7 +827,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
         return AlertDialog(
           title: Row(
             children: [
-              const Icon(LucideIcons.heart, color: Colors.red),
+               Icon(LucideIcons.heart, color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase),
               const SizedBox(width: 8),
               Text(_t('healthTitle', args: {'name': screen.screenName})),
             ],
@@ -867,7 +867,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
                           padding: const EdgeInsets.only(bottom: 2),
                           child: Row(
                             children: [
-                              const Icon(Icons.close, color: Colors.red, size: 14),
+                               Icon(Icons.close, color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase, size: 14),
                               const SizedBox(width: 6),
                               Expanded(
                                 child: Text(
