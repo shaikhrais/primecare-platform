@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/prime_theme.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
+import 'prime_text.dart';
 
 /// Semantic status roles resolved from the inherited product theme.
 enum PrimeStatusTone { error, muted, success, warning }
@@ -41,4 +43,32 @@ class PrimeStatusText extends StatelessWidget {
   Widget build(BuildContext context) => Text(data,
     style: TextStyle(color: _statusColor(context, tone)),
   );
+}
+
+/// Compact semantic badge whose colors follow the current product theme.
+class PrimeStatusBadge extends StatelessWidget {
+  final String label;
+  final PrimeStatusTone tone;
+
+  const PrimeStatusBadge(this.label, {super.key, required this.tone});
+
+  @override
+  Widget build(BuildContext context) {
+    final status = _statusColor(context, tone);
+    final tint = status.withValues(alpha: 0.08);
+    final background = Color.alphaBlend(tint, context.theme.colors.surface);
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      decoration: BoxDecoration(
+        color: tint,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: status.withValues(alpha: 0.15)),
+      ),
+      child: PrimeText(label, style: TextStyle(
+        color: readableThemeForeground(background, status),
+        fontSize: 10.5,
+        fontWeight: FontWeight.bold,
+      )),
+    );
+  }
 }

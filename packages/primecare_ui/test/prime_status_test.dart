@@ -16,6 +16,37 @@ import 'fixtures/premium_health_panel_fixture.dart';
 import 'fixtures/governance_status_metrics_fixture.dart';
 
 void main() {
+  testWidgets('semantic badge retains geometry and readable text while live theme changes', (tester) async {
+    const badgeKey = ValueKey('semantic-badge');
+    const badge = PrimeStatusBadge('Existing status', key: badgeKey, tone: PrimeStatusTone.success);
+    for (final colors in [
+      const PrimeColors(),
+      const PrimeColors(surface: Colors.black, success: Colors.yellow),
+      const PrimeColors(surface: Colors.white, success: Colors.cyan),
+    ]) {
+      await tester.pumpWidget(PrimeTheme(
+        data: PrimeThemeData(colors: colors), bootstrap: false,
+        child: MaterialApp(home: Scaffold(backgroundColor: colors.surface, body: badge)),
+      ));
+      await tester.pumpAndSettle();
+      final text = tester.widget<Text>(find.text('Existing status'));
+      final container = tester.widget<Container>(find.descendant(
+        of: find.byKey(badgeKey), matching: find.byType(Container)).first);
+      final decoration = container.decoration! as BoxDecoration;
+      final tint = colors.success.withValues(alpha: .08);
+      final background = Color.alphaBlend(tint, colors.surface);
+      expect(container.padding, const EdgeInsets.symmetric(horizontal: 10, vertical: 6));
+      expect(decoration.color, tint);
+      expect(decoration.borderRadius, BorderRadius.circular(12));
+      expect((decoration.border! as Border).top.color, colors.success.withValues(alpha: .15));
+      expect(text.style!.fontSize, 10.5);
+      expect(text.style!.fontWeight, FontWeight.bold);
+      expect(text.style!.color, readableThemeForeground(background, colors.success));
+      expect(themeContrastRatio(text.style!.color!, background), greaterThanOrEqualTo(4.5));
+      expect(tester.takeException(), isNull);
+    }
+  });
+
   testWidgets('shared trend label keeps size and weight while remaining readable on live theme tints', (tester) async {
     Widget host(PrimeColors colors, bool positive, String label) => PrimeTheme(
       data: PrimeThemeData(colors: colors),
