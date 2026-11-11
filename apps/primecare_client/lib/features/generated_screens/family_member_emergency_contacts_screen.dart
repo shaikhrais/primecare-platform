@@ -121,13 +121,10 @@ class FamilyMemberEmergencyContactsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'family_member_emergency_contacts-screen',
-      child: Scaffold(
-        key: const Key('family_member_emergency_contacts-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('family_member_emergency_contacts-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'family_member_emergency_contacts-title',
             child: PrimeText(
               key: const Key('family_member_emergency_contacts-title'),
@@ -135,6 +132,7 @@ class FamilyMemberEmergencyContactsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('family_member_emergency_contacts-refresh-btn'),
@@ -142,7 +140,6 @@ class FamilyMemberEmergencyContactsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'family_member_emergency_contacts-content',
           child: ResponsiveSplitDashboard(

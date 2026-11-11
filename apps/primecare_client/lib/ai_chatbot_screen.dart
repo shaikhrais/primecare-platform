@@ -121,13 +121,10 @@ class AiChatbotScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ai_chatbot-screen',
-      child: Scaffold(
-        key: const Key('ai_chatbot-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ai_chatbot-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ai_chatbot-title',
             child: PrimeText(
               key: const Key('ai_chatbot-title'),
@@ -135,6 +132,7 @@ class AiChatbotScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ai_chatbot-refresh-btn'),
@@ -142,7 +140,6 @@ class AiChatbotScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ai_chatbot-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class FamilyDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'family_dashboard-screen',
-      child: Scaffold(
-        key: const Key('family_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('family_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'family_dashboard-title',
             child: PrimeText(
               key: const Key('family_dashboard-title'),
@@ -135,6 +132,7 @@ class FamilyDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('family_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class FamilyDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'family_dashboard-content',
           child: ResponsiveSplitDashboard(

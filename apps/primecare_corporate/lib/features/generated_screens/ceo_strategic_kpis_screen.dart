@@ -121,13 +121,10 @@ class CeoStrategicKpisScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ceo_strategic_kpis-screen',
-      child: Scaffold(
-        key: const Key('ceo_strategic_kpis-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ceo_strategic_kpis-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ceo_strategic_kpis-title',
             child: PrimeText(
               key: const Key('ceo_strategic_kpis-title'),
@@ -135,6 +132,7 @@ class CeoStrategicKpisScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ceo_strategic_kpis-refresh-btn'),
@@ -142,7 +140,6 @@ class CeoStrategicKpisScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ceo_strategic_kpis-content',
           child: ResponsiveSplitDashboard(

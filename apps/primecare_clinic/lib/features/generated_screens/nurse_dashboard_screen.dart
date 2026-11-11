@@ -121,13 +121,10 @@ class NurseDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'nurse_dashboard-screen',
-      child: Scaffold(
-        key: const Key('nurse_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('nurse_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'nurse_dashboard-title',
             child: PrimeText(
               key: const Key('nurse_dashboard-title'),
@@ -135,6 +132,7 @@ class NurseDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('nurse_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class NurseDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'nurse_dashboard-content',
           child: ResponsiveSplitDashboard(

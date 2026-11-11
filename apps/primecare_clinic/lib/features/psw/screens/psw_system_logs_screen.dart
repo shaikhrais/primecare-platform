@@ -121,13 +121,10 @@ class PswSystemLogsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_system_logs-screen',
-      child: Scaffold(
-        key: const Key('psw_system_logs-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_system_logs-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_system_logs-title',
             child: PrimeText(
               key: const Key('psw_system_logs-title'),
@@ -135,6 +132,7 @@ class PswSystemLogsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_system_logs-refresh-btn'),
@@ -142,7 +140,6 @@ class PswSystemLogsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_system_logs-content',
           child: ResponsiveSplitDashboard(

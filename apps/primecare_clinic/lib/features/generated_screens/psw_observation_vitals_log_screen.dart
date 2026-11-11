@@ -121,13 +121,10 @@ class PswObservationVitalsLogScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_observation_vitals_log-screen',
-      child: Scaffold(
-        key: const Key('psw_observation_vitals_log-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_observation_vitals_log-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_observation_vitals_log-title',
             child: PrimeText(
               key: const Key('psw_observation_vitals_log-title'),
@@ -135,6 +132,7 @@ class PswObservationVitalsLogScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_observation_vitals_log-refresh-btn'),
@@ -142,7 +140,6 @@ class PswObservationVitalsLogScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_observation_vitals_log-content',
           child: ResponsiveSplitDashboard(

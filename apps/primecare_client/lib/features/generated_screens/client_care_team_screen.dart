@@ -121,13 +121,10 @@ class ClientCareTeamScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'client_care_team-screen',
-      child: Scaffold(
-        key: const Key('client_care_team-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('client_care_team-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'client_care_team-title',
             child: PrimeText(
               key: const Key('client_care_team-title'),
@@ -135,6 +132,7 @@ class ClientCareTeamScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('client_care_team-refresh-btn'),
@@ -142,7 +140,6 @@ class ClientCareTeamScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'client_care_team-content',
           child: ResponsiveSplitDashboard(

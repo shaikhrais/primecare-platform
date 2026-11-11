@@ -146,13 +146,10 @@ class PswNotificationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_notifications-screen',
-      child: Scaffold(
-        key: const Key('psw_notifications-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_notifications-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_notifications-title',
             child: PrimeText(
               key: const Key('psw_notifications-title'),
@@ -160,6 +157,7 @@ class PswNotificationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_notifications-refresh-btn'),
@@ -167,7 +165,6 @@ class PswNotificationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_notifications-content',
           child: ResponsiveSplitDashboard(

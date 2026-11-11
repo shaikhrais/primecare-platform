@@ -121,13 +121,10 @@ class CfoAccountsPayableScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cfo_accounts_payable-screen',
-      child: Scaffold(
-        key: const Key('cfo_accounts_payable-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cfo_accounts_payable-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cfo_accounts_payable-title',
             child: PrimeText(
               key: const Key('cfo_accounts_payable-title'),
@@ -135,6 +132,7 @@ class CfoAccountsPayableScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cfo_accounts_payable-refresh-btn'),
@@ -142,7 +140,6 @@ class CfoAccountsPayableScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cfo_accounts_payable-content',
           child: ResponsiveSplitDashboard(

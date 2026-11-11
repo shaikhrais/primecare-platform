@@ -121,13 +121,10 @@ class RnChartingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'rn_charting-screen',
-      child: Scaffold(
-        key: const Key('rn_charting-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('rn_charting-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'rn_charting-title',
             child: PrimeText(
               key: const Key('rn_charting-title'),
@@ -135,6 +132,7 @@ class RnChartingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('rn_charting-refresh-btn'),
@@ -142,7 +140,6 @@ class RnChartingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'rn_charting-content',
           child: ResponsiveSplitDashboard(

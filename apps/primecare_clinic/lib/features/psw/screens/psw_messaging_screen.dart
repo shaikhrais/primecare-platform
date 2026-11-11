@@ -121,13 +121,10 @@ class PswMessagingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_messaging-screen',
-      child: Scaffold(
-        key: const Key('psw_messaging-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_messaging-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_messaging-title',
             child: PrimeText(
               key: const Key('psw_messaging-title'),
@@ -135,6 +132,7 @@ class PswMessagingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_messaging-refresh-btn'),
@@ -142,7 +140,6 @@ class PswMessagingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_messaging-content',
           child: ResponsiveSplitDashboard(

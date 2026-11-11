@@ -121,13 +121,10 @@ class CfoFinancialOverviewScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cfo_financial_overview-screen',
-      child: Scaffold(
-        key: const Key('cfo_financial_overview-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cfo_financial_overview-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cfo_financial_overview-title',
             child: PrimeText(
               key: const Key('cfo_financial_overview-title'),
@@ -135,6 +132,7 @@ class CfoFinancialOverviewScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cfo_financial_overview-refresh-btn'),
@@ -142,7 +140,6 @@ class CfoFinancialOverviewScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cfo_financial_overview-content',
           child: ResponsiveSplitDashboard(

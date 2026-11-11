@@ -121,13 +121,10 @@ class CeoDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ceo_dashboard-screen',
-      child: Scaffold(
-        key: const Key('ceo_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ceo_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ceo_dashboard-title',
             child: PrimeText(
               key: const Key('ceo_dashboard-title'),
@@ -135,6 +132,7 @@ class CeoDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ceo_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class CeoDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ceo_dashboard-content',
           child: ResponsiveSplitDashboard(

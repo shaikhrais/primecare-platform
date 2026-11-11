@@ -121,13 +121,10 @@ class PartnershipManagerOutreachScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'partnership_manager_outreach-screen',
-      child: Scaffold(
-        key: const Key('partnership_manager_outreach-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('partnership_manager_outreach-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'partnership_manager_outreach-title',
             child: PrimeText(
               key: const Key('partnership_manager_outreach-title'),
@@ -135,6 +132,7 @@ class PartnershipManagerOutreachScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('partnership_manager_outreach-refresh-btn'),
@@ -142,7 +140,6 @@ class PartnershipManagerOutreachScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'partnership_manager_outreach-content',
           child: ResponsiveSplitDashboard(

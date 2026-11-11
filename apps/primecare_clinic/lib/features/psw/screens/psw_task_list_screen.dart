@@ -121,13 +121,10 @@ class PswTaskListScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_task_list-screen',
-      child: Scaffold(
-        key: const Key('psw_task_list-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_task_list-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_task_list-title',
             child: PrimeText(
               key: const Key('psw_task_list-title'),
@@ -135,6 +132,7 @@ class PswTaskListScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_task_list-refresh-btn'),
@@ -142,7 +140,6 @@ class PswTaskListScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_task_list-content',
           child: ResponsiveSplitDashboard(

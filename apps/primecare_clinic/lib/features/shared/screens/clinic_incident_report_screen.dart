@@ -121,13 +121,10 @@ class ClinicIncidentReportScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'clinic_incident_report-screen',
-      child: Scaffold(
-        key: const Key('clinic_incident_report-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('clinic_incident_report-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'clinic_incident_report-title',
             child: PrimeText(
               key: const Key('clinic_incident_report-title'),
@@ -135,6 +132,7 @@ class ClinicIncidentReportScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('clinic_incident_report-refresh-btn'),
@@ -142,7 +140,6 @@ class ClinicIncidentReportScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'clinic_incident_report-content',
           child: ResponsiveSplitDashboard(

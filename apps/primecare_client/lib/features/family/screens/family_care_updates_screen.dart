@@ -121,13 +121,10 @@ class FamilyCareUpdatesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'family_care_updates-screen',
-      child: Scaffold(
-        key: const Key('family_care_updates-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('family_care_updates-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'family_care_updates-title',
             child: PrimeText(
               key: const Key('family_care_updates-title'),
@@ -135,6 +132,7 @@ class FamilyCareUpdatesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('family_care_updates-refresh-btn'),
@@ -142,7 +140,6 @@ class FamilyCareUpdatesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'family_care_updates-content',
           child: ResponsiveSplitDashboard(

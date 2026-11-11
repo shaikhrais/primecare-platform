@@ -121,13 +121,10 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_daily_notes-screen',
-      child: Scaffold(
-        key: const Key('psw_daily_notes-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_daily_notes-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_daily_notes-title',
             child: PrimeText(
               key: const Key('psw_daily_notes-title'),
@@ -135,6 +132,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_daily_notes-refresh-btn'),
@@ -142,7 +140,6 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_daily_notes-content',
           child: ResponsiveSplitDashboard(

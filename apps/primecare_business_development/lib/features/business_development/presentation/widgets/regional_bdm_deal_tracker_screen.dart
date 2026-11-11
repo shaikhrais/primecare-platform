@@ -121,13 +121,10 @@ class RegionalBdmDealTrackerScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_bdm_deal_tracker-screen',
-      child: Scaffold(
-        key: const Key('regional_bdm_deal_tracker-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_bdm_deal_tracker-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_bdm_deal_tracker-title',
             child: PrimeText(
               key: const Key('regional_bdm_deal_tracker-title'),
@@ -135,6 +132,7 @@ class RegionalBdmDealTrackerScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_bdm_deal_tracker-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalBdmDealTrackerScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_bdm_deal_tracker-content',
           child: ResponsiveSplitDashboard(

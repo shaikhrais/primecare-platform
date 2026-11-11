@@ -121,13 +121,10 @@ class CeoAlertsAndRisksScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ceo_alerts_and_risks-screen',
-      child: Scaffold(
-        key: const Key('ceo_alerts_and_risks-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ceo_alerts_and_risks-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ceo_alerts_and_risks-title',
             child: PrimeText(
               key: const Key('ceo_alerts_and_risks-title'),
@@ -135,6 +132,7 @@ class CeoAlertsAndRisksScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ceo_alerts_and_risks-refresh-btn'),
@@ -142,7 +140,6 @@ class CeoAlertsAndRisksScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ceo_alerts_and_risks-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class FamilyLovedOneScheduleScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'family_loved_one_schedule-screen',
-      child: Scaffold(
-        key: const Key('family_loved_one_schedule-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('family_loved_one_schedule-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'family_loved_one_schedule-title',
             child: PrimeText(
               key: const Key('family_loved_one_schedule-title'),
@@ -135,6 +132,7 @@ class FamilyLovedOneScheduleScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('family_loved_one_schedule-refresh-btn'),
@@ -142,7 +140,6 @@ class FamilyLovedOneScheduleScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'family_loved_one_schedule-content',
           child: ResponsiveSplitDashboard(

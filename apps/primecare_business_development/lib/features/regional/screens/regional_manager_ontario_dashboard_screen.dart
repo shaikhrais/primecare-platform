@@ -121,13 +121,10 @@ class RegionalManagerOntarioDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_manager_ontario_dashboard-screen',
-      child: Scaffold(
-        key: const Key('regional_manager_ontario_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_manager_ontario_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_manager_ontario_dashboard-title',
             child: PrimeText(
               key: const Key('regional_manager_ontario_dashboard-title'),
@@ -135,6 +132,7 @@ class RegionalManagerOntarioDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_manager_ontario_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalManagerOntarioDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_manager_ontario_dashboard-content',
           child: ResponsiveSplitDashboard(

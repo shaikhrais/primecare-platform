@@ -121,13 +121,10 @@ class PswPatientProfileScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_patient_profile-screen',
-      child: Scaffold(
-        key: const Key('psw_patient_profile-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_patient_profile-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_patient_profile-title',
             child: PrimeText(
               key: const Key('psw_patient_profile-title'),
@@ -135,6 +132,7 @@ class PswPatientProfileScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_patient_profile-refresh-btn'),
@@ -142,7 +140,6 @@ class PswPatientProfileScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_patient_profile-content',
           child: ResponsiveSplitDashboard(

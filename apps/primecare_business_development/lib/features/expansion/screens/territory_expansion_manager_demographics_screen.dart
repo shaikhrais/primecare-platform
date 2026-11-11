@@ -121,13 +121,10 @@ class TerritoryExpansionManagerDemographicsScreen extends GovernedConsumerWidget
 
     return Cy(
       id: 'territory_expansion_manager_demographics-screen',
-      child: Scaffold(
-        key: const Key('territory_expansion_manager_demographics-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_expansion_manager_demographics-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_expansion_manager_demographics-title',
             child: PrimeText(
               key: const Key('territory_expansion_manager_demographics-title'),
@@ -135,6 +132,7 @@ class TerritoryExpansionManagerDemographicsScreen extends GovernedConsumerWidget
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_expansion_manager_demographics-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritoryExpansionManagerDemographicsScreen extends GovernedConsumerWidget
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_expansion_manager_demographics-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class ClinicHistoryLogsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'clinic_history_logs-screen',
-      child: Scaffold(
-        key: const Key('clinic_history_logs-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('clinic_history_logs-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'clinic_history_logs-title',
             child: PrimeText(
               key: const Key('clinic_history_logs-title'),
@@ -135,6 +132,7 @@ class ClinicHistoryLogsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('clinic_history_logs-refresh-btn'),
@@ -142,7 +140,6 @@ class ClinicHistoryLogsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'clinic_history_logs-content',
           child: ResponsiveSplitDashboard(

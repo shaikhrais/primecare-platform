@@ -121,13 +121,10 @@ class PoliciesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'policies-screen',
-      child: Scaffold(
-        key: const Key('policies-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('policies-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'policies-title',
             child: PrimeText(
               key: const Key('policies-title'),
@@ -135,6 +132,7 @@ class PoliciesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('policies-refresh-btn'),
@@ -142,7 +140,6 @@ class PoliciesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'policies-content',
           child: ResponsiveSplitDashboard(

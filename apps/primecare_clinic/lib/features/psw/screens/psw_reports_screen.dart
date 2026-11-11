@@ -121,13 +121,10 @@ class PswReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_reports-screen',
-      child: Scaffold(
-        key: const Key('psw_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_reports-title',
             child: PrimeText(
               key: const Key('psw_reports-title'),
@@ -135,6 +132,7 @@ class PswReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class PswReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_reports-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class ClientProfileScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'client_profile-screen',
-      child: Scaffold(
-        key: const Key('client_profile-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('client_profile-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'client_profile-title',
             child: PrimeText(
               key: const Key('client_profile-title'),
@@ -135,6 +132,7 @@ class ClientProfileScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('client_profile-refresh-btn'),
@@ -142,7 +140,6 @@ class ClientProfileScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'client_profile-content',
           child: ResponsiveSplitDashboard(

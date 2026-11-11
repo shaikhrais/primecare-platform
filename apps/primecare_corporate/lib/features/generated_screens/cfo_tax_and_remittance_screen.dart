@@ -121,13 +121,10 @@ class CfoTaxAndRemittanceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cfo_tax_and_remittance-screen',
-      child: Scaffold(
-        key: const Key('cfo_tax_and_remittance-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cfo_tax_and_remittance-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cfo_tax_and_remittance-title',
             child: PrimeText(
               key: const Key('cfo_tax_and_remittance-title'),
@@ -135,6 +132,7 @@ class CfoTaxAndRemittanceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cfo_tax_and_remittance-refresh-btn'),
@@ -142,7 +140,6 @@ class CfoTaxAndRemittanceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cfo_tax_and_remittance-content',
           child: ResponsiveSplitDashboard(

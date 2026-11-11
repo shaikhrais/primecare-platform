@@ -121,13 +121,10 @@ class ClinicalDirectorStaffingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'clinical_director_staffing-screen',
-      child: Scaffold(
-        key: const Key('clinical_director_staffing-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('clinical_director_staffing-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'clinical_director_staffing-title',
             child: PrimeText(
               key: const Key('clinical_director_staffing-title'),
@@ -135,6 +132,7 @@ class ClinicalDirectorStaffingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('clinical_director_staffing-refresh-btn'),
@@ -142,7 +140,6 @@ class ClinicalDirectorStaffingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'clinical_director_staffing-content',
           child: ResponsiveSplitDashboard(

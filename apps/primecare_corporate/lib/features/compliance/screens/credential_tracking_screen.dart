@@ -121,13 +121,10 @@ class CredentialTrackingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'credential_tracking-screen',
-      child: Scaffold(
-        key: const Key('credential_tracking-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('credential_tracking-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'credential_tracking-title',
             child: PrimeText(
               key: const Key('credential_tracking-title'),
@@ -135,6 +132,7 @@ class CredentialTrackingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('credential_tracking-refresh-btn'),
@@ -142,7 +140,6 @@ class CredentialTrackingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'credential_tracking-content',
           child: ResponsiveSplitDashboard(

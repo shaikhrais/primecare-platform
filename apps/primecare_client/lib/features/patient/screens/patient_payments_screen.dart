@@ -121,13 +121,10 @@ class PatientPaymentsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'patient_payments-screen',
-      child: Scaffold(
-        key: const Key('patient_payments-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('patient_payments-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'patient_payments-title',
             child: PrimeText(
               key: const Key('patient_payments-title'),
@@ -135,6 +132,7 @@ class PatientPaymentsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('patient_payments-refresh-btn'),
@@ -142,7 +140,6 @@ class PatientPaymentsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'patient_payments-content',
           child: ResponsiveSplitDashboard(

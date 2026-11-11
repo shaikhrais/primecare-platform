@@ -121,13 +121,10 @@ class RegionalBdmMeetingsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_bdm_meetings-screen',
-      child: Scaffold(
-        key: const Key('regional_bdm_meetings-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_bdm_meetings-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_bdm_meetings-title',
             child: PrimeText(
               key: const Key('regional_bdm_meetings-title'),
@@ -135,6 +132,7 @@ class RegionalBdmMeetingsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_bdm_meetings-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalBdmMeetingsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_bdm_meetings-content',
           child: ResponsiveSplitDashboard(

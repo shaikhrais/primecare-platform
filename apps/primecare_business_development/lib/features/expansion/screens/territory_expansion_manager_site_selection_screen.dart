@@ -121,13 +121,10 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
 
     return Cy(
       id: 'territory_expansion_manager_site_selection-screen',
-      child: Scaffold(
-        key: const Key('territory_expansion_manager_site_selection-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_expansion_manager_site_selection-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_expansion_manager_site_selection-title',
             child: PrimeText(
               key: const Key('territory_expansion_manager_site_selection-title'),
@@ -135,6 +132,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_expansion_manager_site_selection-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_expansion_manager_site_selection-content',
           child: ResponsiveSplitDashboard(

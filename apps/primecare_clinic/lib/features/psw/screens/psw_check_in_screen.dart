@@ -121,13 +121,10 @@ class PswCheckInScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_check_in-screen',
-      child: Scaffold(
-        key: const Key('psw_check_in-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_check_in-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_check_in-title',
             child: PrimeText(
               key: const Key('psw_check_in-title'),
@@ -135,6 +132,7 @@ class PswCheckInScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_check_in-refresh-btn'),
@@ -142,7 +140,6 @@ class PswCheckInScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_check_in-content',
           child: ResponsiveSplitDashboard(

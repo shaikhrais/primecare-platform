@@ -121,13 +121,10 @@ class InfectionControlDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'infection_control_dashboard-screen',
-      child: Scaffold(
-        key: const Key('infection_control_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('infection_control_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'infection_control_dashboard-title',
             child: PrimeText(
               key: const Key('infection_control_dashboard-title'),
@@ -135,6 +132,7 @@ class InfectionControlDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('infection_control_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class InfectionControlDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'infection_control_dashboard-content',
           child: ResponsiveSplitDashboard(

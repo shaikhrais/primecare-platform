@@ -121,13 +121,10 @@ class RegionalBdmTasksScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_bdm_tasks-screen',
-      child: Scaffold(
-        key: const Key('regional_bdm_tasks-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_bdm_tasks-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_bdm_tasks-title',
             child: PrimeText(
               key: const Key('regional_bdm_tasks-title'),
@@ -135,6 +132,7 @@ class RegionalBdmTasksScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_bdm_tasks-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalBdmTasksScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_bdm_tasks-content',
           child: ResponsiveSplitDashboard(

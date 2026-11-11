@@ -121,13 +121,10 @@ class DocumentExpiryScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'document_expiry-screen',
-      child: Scaffold(
-        key: const Key('document_expiry-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('document_expiry-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'document_expiry-title',
             child: PrimeText(
               key: const Key('document_expiry-title'),
@@ -135,6 +132,7 @@ class DocumentExpiryScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('document_expiry-refresh-btn'),
@@ -142,7 +140,6 @@ class DocumentExpiryScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'document_expiry-content',
           child: ResponsiveSplitDashboard(

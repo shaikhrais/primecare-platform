@@ -121,13 +121,10 @@ class CeoApprovalsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ceo_approvals-screen',
-      child: Scaffold(
-        key: const Key('ceo_approvals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ceo_approvals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ceo_approvals-title',
             child: PrimeText(
               key: const Key('ceo_approvals-title'),
@@ -135,6 +132,7 @@ class CeoApprovalsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ceo_approvals-refresh-btn'),
@@ -142,7 +140,6 @@ class CeoApprovalsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ceo_approvals-content',
           child: ResponsiveSplitDashboard(

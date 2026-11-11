@@ -121,13 +121,10 @@ class FamilyBillingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'family_billing-screen',
-      child: Scaffold(
-        key: const Key('family_billing-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('family_billing-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'family_billing-title',
             child: PrimeText(
               key: const Key('family_billing-title'),
@@ -135,6 +132,7 @@ class FamilyBillingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('family_billing-refresh-btn'),
@@ -142,7 +140,6 @@ class FamilyBillingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'family_billing-content',
           child: ResponsiveSplitDashboard(

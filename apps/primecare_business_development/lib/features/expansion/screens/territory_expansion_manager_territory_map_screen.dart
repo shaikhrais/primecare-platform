@@ -121,13 +121,10 @@ class TerritoryExpansionManagerTerritoryMapScreen extends GovernedConsumerWidget
 
     return Cy(
       id: 'territory_expansion_manager_territory_map-screen',
-      child: Scaffold(
-        key: const Key('territory_expansion_manager_territory_map-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_expansion_manager_territory_map-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_expansion_manager_territory_map-title',
             child: PrimeText(
               key: const Key('territory_expansion_manager_territory_map-title'),
@@ -135,6 +132,7 @@ class TerritoryExpansionManagerTerritoryMapScreen extends GovernedConsumerWidget
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_expansion_manager_territory_map-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritoryExpansionManagerTerritoryMapScreen extends GovernedConsumerWidget
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_expansion_manager_territory_map-content',
           child: ResponsiveSplitDashboard(

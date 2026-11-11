@@ -121,13 +121,10 @@ class ComplianceReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'compliance_reports-screen',
-      child: Scaffold(
-        key: const Key('compliance_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('compliance_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'compliance_reports-title',
             child: PrimeText(
               key: const Key('compliance_reports-title'),
@@ -135,6 +132,7 @@ class ComplianceReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('compliance_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class ComplianceReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'compliance_reports-content',
           child: ResponsiveSplitDashboard(

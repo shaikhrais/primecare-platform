@@ -121,13 +121,10 @@ class PswScheduleScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_schedule-screen',
-      child: Scaffold(
-        key: const Key('psw_schedule-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_schedule-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_schedule-title',
             child: PrimeText(
               key: const Key('psw_schedule-title'),
@@ -135,6 +132,7 @@ class PswScheduleScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_schedule-refresh-btn'),
@@ -142,7 +140,6 @@ class PswScheduleScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_schedule-content',
           child: ResponsiveSplitDashboard(

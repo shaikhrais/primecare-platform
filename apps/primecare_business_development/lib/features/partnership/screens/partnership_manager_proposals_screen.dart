@@ -121,13 +121,10 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'partnership_manager_proposals-screen',
-      child: Scaffold(
-        key: const Key('partnership_manager_proposals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('partnership_manager_proposals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'partnership_manager_proposals-title',
             child: PrimeText(
               key: const Key('partnership_manager_proposals-title'),
@@ -135,6 +132,7 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('partnership_manager_proposals-refresh-btn'),
@@ -142,7 +140,6 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'partnership_manager_proposals-content',
           child: ResponsiveSplitDashboard(

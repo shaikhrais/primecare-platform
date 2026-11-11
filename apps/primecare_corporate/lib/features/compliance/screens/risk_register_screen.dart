@@ -131,13 +131,10 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'risk_register-screen',
-      child: Scaffold(
-        key: const Key('risk_register-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('risk_register-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'risk_register-title',
             child: PrimeText(
               key: const Key('risk_register-title'),
@@ -145,6 +142,7 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('risk_register-refresh-btn'),
@@ -152,7 +150,6 @@ class RiskRegisterScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'risk_register-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class PswVisitChecklistScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_visit_checklist-screen',
-      child: Scaffold(
-        key: const Key('psw_visit_checklist-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_visit_checklist-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_visit_checklist-title',
             child: PrimeText(
               key: const Key('psw_visit_checklist-title'),
@@ -135,6 +132,7 @@ class PswVisitChecklistScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_visit_checklist-refresh-btn'),
@@ -142,7 +140,6 @@ class PswVisitChecklistScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_visit_checklist-content',
           child: ResponsiveSplitDashboard(

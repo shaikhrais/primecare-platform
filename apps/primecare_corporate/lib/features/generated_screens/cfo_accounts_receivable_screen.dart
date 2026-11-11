@@ -121,13 +121,10 @@ class CfoAccountsReceivableScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'cfo_accounts_receivable-screen',
-      child: Scaffold(
-        key: const Key('cfo_accounts_receivable-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('cfo_accounts_receivable-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'cfo_accounts_receivable-title',
             child: PrimeText(
               key: const Key('cfo_accounts_receivable-title'),
@@ -135,6 +132,7 @@ class CfoAccountsReceivableScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('cfo_accounts_receivable-refresh-btn'),
@@ -142,7 +140,6 @@ class CfoAccountsReceivableScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'cfo_accounts_receivable-content',
           child: ResponsiveSplitDashboard(

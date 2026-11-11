@@ -121,13 +121,10 @@ class PartnershipManagerActiveDealsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'partnership_manager_active_deals-screen',
-      child: Scaffold(
-        key: const Key('partnership_manager_active_deals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('partnership_manager_active_deals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'partnership_manager_active_deals-title',
             child: PrimeText(
               key: const Key('partnership_manager_active_deals-title'),
@@ -135,6 +132,7 @@ class PartnershipManagerActiveDealsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('partnership_manager_active_deals-refresh-btn'),
@@ -142,7 +140,6 @@ class PartnershipManagerActiveDealsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'partnership_manager_active_deals-content',
           child: ResponsiveSplitDashboard(

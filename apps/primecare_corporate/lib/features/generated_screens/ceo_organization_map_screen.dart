@@ -121,13 +121,10 @@ class CeoOrganizationMapScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ceo_organization_map-screen',
-      child: Scaffold(
-        key: const Key('ceo_organization_map-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ceo_organization_map-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ceo_organization_map-title',
             child: PrimeText(
               key: const Key('ceo_organization_map-title'),
@@ -135,6 +132,7 @@ class CeoOrganizationMapScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ceo_organization_map-refresh-btn'),
@@ -142,7 +140,6 @@ class CeoOrganizationMapScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ceo_organization_map-content',
           child: ResponsiveSplitDashboard(

@@ -121,13 +121,10 @@ class PartnershipManagerRenewalsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'partnership_manager_renewals-screen',
-      child: Scaffold(
-        key: const Key('partnership_manager_renewals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('partnership_manager_renewals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'partnership_manager_renewals-title',
             child: PrimeText(
               key: const Key('partnership_manager_renewals-title'),
@@ -135,6 +132,7 @@ class PartnershipManagerRenewalsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('partnership_manager_renewals-refresh-btn'),
@@ -142,7 +140,6 @@ class PartnershipManagerRenewalsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'partnership_manager_renewals-content',
           child: ResponsiveSplitDashboard(

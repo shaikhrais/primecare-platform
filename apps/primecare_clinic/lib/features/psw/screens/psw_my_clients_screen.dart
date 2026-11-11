@@ -121,13 +121,10 @@ class PswMyClientsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'psw_my_clients-screen',
-      child: Scaffold(
-        key: const Key('psw_my_clients-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('psw_my_clients-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'psw_my_clients-title',
             child: PrimeText(
               key: const Key('psw_my_clients-title'),
@@ -135,6 +132,7 @@ class PswMyClientsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('psw_my_clients-refresh-btn'),
@@ -142,7 +140,6 @@ class PswMyClientsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'psw_my_clients-content',
           child: ResponsiveSplitDashboard(

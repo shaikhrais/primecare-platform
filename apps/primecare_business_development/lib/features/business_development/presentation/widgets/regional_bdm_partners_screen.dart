@@ -121,13 +121,10 @@ class RegionalBdmPartnersScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_bdm_partners-screen',
-      child: Scaffold(
-        key: const Key('regional_bdm_partners-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_bdm_partners-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_bdm_partners-title',
             child: PrimeText(
               key: const Key('regional_bdm_partners-title'),
@@ -135,6 +132,7 @@ class RegionalBdmPartnersScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_bdm_partners-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalBdmPartnersScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_bdm_partners-content',
           child: ResponsiveSplitDashboard(

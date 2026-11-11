@@ -121,13 +121,10 @@ class PatientBookAppointmentScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'patient_book_appointment-screen',
-      child: Scaffold(
-        key: const Key('patient_book_appointment-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('patient_book_appointment-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'patient_book_appointment-title',
             child: PrimeText(
               key: const Key('patient_book_appointment-title'),
@@ -135,6 +132,7 @@ class PatientBookAppointmentScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('patient_book_appointment-refresh-btn'),
@@ -142,7 +140,6 @@ class PatientBookAppointmentScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'patient_book_appointment-content',
           child: ResponsiveSplitDashboard(

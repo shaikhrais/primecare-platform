@@ -121,13 +121,10 @@ class AuditsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'audits-screen',
-      child: Scaffold(
-        key: const Key('audits-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('audits-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'audits-title',
             child: PrimeText(
               key: const Key('audits-title'),
@@ -135,6 +132,7 @@ class AuditsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('audits-refresh-btn'),
@@ -142,7 +140,6 @@ class AuditsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'audits-content',
           child: ResponsiveSplitDashboard(

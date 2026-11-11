@@ -121,13 +121,10 @@ class PatientMyAppointmentsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'patient_my_appointments-screen',
-      child: Scaffold(
-        key: const Key('patient_my_appointments-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('patient_my_appointments-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'patient_my_appointments-title',
             child: PrimeText(
               key: const Key('patient_my_appointments-title'),
@@ -135,6 +132,7 @@ class PatientMyAppointmentsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('patient_my_appointments-refresh-btn'),
@@ -142,7 +140,6 @@ class PatientMyAppointmentsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'patient_my_appointments-content',
           child: ResponsiveSplitDashboard(

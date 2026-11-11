@@ -121,13 +121,10 @@ class RnMessagingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'rn_messaging-screen',
-      child: Scaffold(
-        key: const Key('rn_messaging-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('rn_messaging-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'rn_messaging-title',
             child: PrimeText(
               key: const Key('rn_messaging-title'),
@@ -135,6 +132,7 @@ class RnMessagingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('rn_messaging-refresh-btn'),
@@ -142,7 +140,6 @@ class RnMessagingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'rn_messaging-content',
           child: ResponsiveSplitDashboard(
