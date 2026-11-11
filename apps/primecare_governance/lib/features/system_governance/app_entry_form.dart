@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDropdownButtonFormField, PrimeFilterChip, PrimeTextFormField;
 // Governance - Category: service | Purpose: Core implementation file for the App Entry Form platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;
 import 'package:primecare_ui/primecare_ui.dart';
@@ -27,7 +28,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
             style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
           ),
           const SizedBox(height: 24),
-          TextFormField(
+          PrimeTextFormField(
             controller: _nameController,
             decoration: InputDecoration(
               labelText: 'Application Name',
@@ -37,7 +38,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
             ),
           ),
           const SizedBox(height: 16),
-          DropdownButtonFormField<String>(
+          PrimeDropdownButtonFormField<String>(
             initialValue: _status,
             decoration: InputDecoration(
               labelText: 'Lifecycle Status',
@@ -88,7 +89,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
   }
 
   Widget _buildDeploymentChip(dynamic theme, String label, IconData icon) {
-    return FilterChip(
+    return PrimeFilterChip(
       label: PrimeText(label),
       avatar: PrimeIcon(icon, size: 18),
       selected: false,

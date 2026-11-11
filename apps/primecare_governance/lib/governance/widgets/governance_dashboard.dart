@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton, PrimeTabBar;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
 import 'package:flutter_core/flutter_core.dart';
@@ -137,7 +138,7 @@ class _GovernanceDashboardContentState
               bottom: BorderSide(color: context.theme.colors.outlineVariant),
             ),
           ),
-          child: TabBar(
+          child: PrimeTabBar(
             controller: _tabController,
             labelColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             unselectedLabelColor: context.theme.colors.surfaceContainerHigh,
@@ -226,7 +227,7 @@ class _GovernanceDashboardContentState
                         side: BorderSide(color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent),
                       ),
                     ),
-                  PopupMenuButton<String>(
+                  PrimePopupMenuButton<String>(
                     onSelected: (format) => _exportReport(format, report),
                     itemBuilder: (context) => [
                       PopupMenuItem(

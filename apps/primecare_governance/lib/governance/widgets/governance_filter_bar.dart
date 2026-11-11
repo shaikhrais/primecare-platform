@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
 import 'package:flutter_core/flutter_core.dart';
@@ -84,7 +85,7 @@ class GovernanceFilterBar extends StatelessWidget {
     T? selectedValue,
     Function(T?) onSelected,
   ) {
-    return PopupMenuButton<T?>(
+    return PrimePopupMenuButton<T?>(
       onSelected: onSelected,
       itemBuilder: (context) => [
         PopupMenuItem<T?>(

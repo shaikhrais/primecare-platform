@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;
 // Governance - Category: service | Purpose: Core implementation file for the App Components platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeTextField;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
@@ -102,7 +103,7 @@ class AppTable extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: DataTable(
+      child: PrimeDataTable(
         columns: columns.map((c) => DataColumn(label: PrimeText(c))).toList(),
         rows: rows
             .map(

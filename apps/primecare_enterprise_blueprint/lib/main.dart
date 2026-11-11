@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeFloatingActionButton;
 import 'package:flutter_core/theme/theme_config_generated.dart';
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
 import 'package:primecare_ui/primecare_ui.dart' show PrimeAppBar;
@@ -114,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: PrimeFloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: const PrimeIcon(Icons.add),

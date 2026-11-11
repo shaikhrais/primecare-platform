@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton;
 // Governance - Category: service | Purpose: Core implementation file for the Language Selector platform logic.
 import 'package:primecare_governance/core/i18n/language_provider.dart';
 import 'package:primecare_ui/primecare_ui.dart' hide languageProvider;
@@ -10,7 +11,7 @@ class LanguageSelector extends ConsumerWidget {
     final theme = context.theme;
     final currentLang = ref.watch(languageProvider);
 
-    return PopupMenuButton<String>(
+    return PrimePopupMenuButton<String>(
       onSelected: (lang) {
         ref.read(languageProvider.notifier).setLanguage(lang);
       },

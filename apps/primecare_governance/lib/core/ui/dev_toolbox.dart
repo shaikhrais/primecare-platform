@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDropdownButton;
 import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCard;
@@ -37,7 +38,7 @@ class DevToolbox extends ConsumerWidget {
               children: [
                 PrimeText('governance.devToolbox.env'.tr()),
                 const SizedBox(width: 8),
-                DropdownButton<Environment>(
+                PrimeDropdownButton<Environment>(
                   value: EnvConfig.environment,
                   items: Environment.values
                       .map(

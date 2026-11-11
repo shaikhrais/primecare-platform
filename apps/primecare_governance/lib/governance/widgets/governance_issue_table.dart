@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Issue Table platform logic.
 import 'package:url_launcher/url_launcher.dart';
@@ -24,7 +25,7 @@ class GovernanceIssueTable extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: DataTable(
+          child: PrimeDataTable(
             headingRowColor: WidgetStateProperty.all(
               context.theme.colors.surfaceContainerHigh,
             ),

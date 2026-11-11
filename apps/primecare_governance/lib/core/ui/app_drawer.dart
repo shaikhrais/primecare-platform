@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDrawer, PrimeListTile;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: service | Purpose: Group screens by primary Role (as defined in ScreenMetadata.role)
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
@@ -36,7 +37,7 @@ class AppDrawer extends ConsumerWidget {
 
     return Cy(
       id: 'app-sidebar',
-      child: Drawer(
+      child: PrimeDrawer(
         backgroundColor: theme.colors.surface,
         width: 300,
         child: Column(
@@ -265,7 +266,7 @@ class AppDrawer extends ConsumerWidget {
         collapsedIconColor: theme.colors.onSurfaceVariant,
         childrenPadding: const EdgeInsets.only(left: 12),
         children: screens.map((screen) {
-          return ListTile(
+          return PrimeListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
             leading: PrimeIcon(
@@ -330,7 +331,7 @@ class AppDrawer extends ConsumerWidget {
 
     if (screen == null) return const SizedBox.shrink();
 
-    return ListTile(
+    return PrimeListTile(
       dense: true,
       visualDensity: VisualDensity.compact,
       contentPadding: const EdgeInsets.symmetric(horizontal: 16),
