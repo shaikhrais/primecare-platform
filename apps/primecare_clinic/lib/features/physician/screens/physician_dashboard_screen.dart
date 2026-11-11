@@ -60,14 +60,14 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
         ),
         body: state.when(
           data: (data) => ResponsiveSplitDashboard(
-            metrics: const [
+            metrics: [
               GovMetricCard(
                 title: 'Active Operations',
                 value: 'Active',
                 trendLabel: 'Optimal',
                 progress: 0.92,
                 icon: LucideIcons.activity,
-                brandColor: Color(0xFF0D9488),
+                brandColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
               ),
               GovMetricCard(
                 title: 'Security Clearance',
@@ -75,7 +75,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                 trendLabel: 'Approved',
                 progress: 1.0,
                 icon: LucideIcons.shieldCheck,
-                brandColor: Color(0xFF16A34A),
+                brandColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
               ),
               GovMetricCard(
                 title: 'System Latency',
@@ -83,7 +83,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                 trendLabel: 'Optimal',
                 progress: 0.98,
                 icon: LucideIcons.zap,
-                brandColor: Color(0xFFEAB308),
+                brandColor: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
               ),
               GovMetricCard(
                 title: 'Data Integrity',
@@ -91,7 +91,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                 trendLabel: 'Secure',
                 progress: 0.99,
                 icon: LucideIcons.database,
-                brandColor: Color(0xFF2563EB),
+                brandColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
               ),
             ],
             mainContent: Column(
@@ -124,7 +124,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                   key: const Key('physiciandashboard-btn-2'),
                   style: PrimeElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primaryContainer,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface,
                     elevation: 4,
                     shadowColor: theme.colors.primary.withValues(alpha: 0.3),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(100)),
@@ -145,7 +145,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                   border: Border.all(color: theme.colors.border),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.03),
+                      color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.03),
                       blurRadius: 10,
                       offset: const Offset(0, 4),
                     ),
@@ -190,7 +190,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
                         onPressed: () => controller.performAction(),
                         child: PrimeText(
                           'Execute Operational Audit Scan',
-                          style: theme.typography.button.copyWith(color: Colors.white),
+                          style: theme.typography.button.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent),
                         ),
                       ),
                     ),

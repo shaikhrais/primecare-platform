@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: service | Purpose: Group screens by primary Role (as defined in ScreenMetadata.role)
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
@@ -245,7 +246,7 @@ class AppDrawer extends ConsumerWidget {
   ) {
     final theme = context.theme;
     return Theme(
-      data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+      data: Theme.of(context).copyWith(dividerColor: context.theme.colors.surface.withValues(alpha: 0)),
       child: ExpansionTile(
         title: PrimeText(
           role.replaceAll('_', ' ').toUpperCase(),

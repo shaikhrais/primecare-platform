@@ -135,7 +135,7 @@ class AppLoadingOverlay extends StatelessWidget {
         child,
         if (isLoading)
           Container(
-            color: Colors.black.withValues(alpha: 0.3),
+            color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.3),
             child: const DashboardLoadingWidget(),
           ),
       ],

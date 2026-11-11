@@ -90,7 +90,7 @@ class RpnDashboardScreen extends GovernedConsumerWidget {
                         trendLabel: 'Zero exceptions logged',
                         progress: 1.0,
                         icon: LucideIcons.shieldCheck,
-                        brandColor: Colors.green,
+                        brandColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                       ),
                     ),
                   ],

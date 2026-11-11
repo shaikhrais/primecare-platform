@@ -76,7 +76,7 @@ class _AppEntryFormState extends State<AppEntryForm> {
             },
             style: PrimeElevatedButton.styleFrom(
               backgroundColor: theme.colors.primary,
-              foregroundColor: Colors.white,
+              foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               minimumSize: const Size(double.infinity, 50),
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
             ),

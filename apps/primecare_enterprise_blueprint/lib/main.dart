@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/theme_config_generated.dart';
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
 import 'package:primecare_ui/primecare_ui.dart' show PrimeAppBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
@@ -19,7 +20,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final personal = ref.watch(themeSettingsProvider).personalTheme;
-    final branding = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple));
+    final branding = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: (personal == null ? Theme.of(context).colorScheme.primary : ThemeConfig.getAppPalette(personal.preset).primary)));
     return MaterialApp(
       title: 'Flutter Demo',
       localizationsDelegates: context.localizationDelegates,

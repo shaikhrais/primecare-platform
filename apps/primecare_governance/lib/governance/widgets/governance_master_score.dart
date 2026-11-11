@@ -1,3 +1,5 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Master Score platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
@@ -12,14 +14,14 @@ class GovernanceMasterScore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final score = report.overallHealthScore;
-    final color = _getScoreColor(score);
+    final color = _getScoreColor(context, score);
 
     return Container(
       width: 240,
       height: 240,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Theme.of(context).cardColor,
+        color: Theme.of(context).colorScheme.surface,
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.2),
@@ -37,7 +39,7 @@ class GovernanceMasterScore extends StatelessWidget {
             child: PrimeCircularProgressIndicator(
               value: score / 100,
               strokeWidth: 12,
-              backgroundColor: Colors.grey.withValues(alpha: 0.1),
+              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHigh,
               valueColor: AlwaysStoppedAnimation<Color>(color),
               strokeCap: StrokeCap.round,
             ),
@@ -50,15 +52,15 @@ class GovernanceMasterScore extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 48,
                   fontWeight: FontWeight.bold,
-                  color: color,
+                  color: readableThemeForeground(Theme.of(context).colorScheme.surface, color),
                 ),
               ),
-              const PrimeText(
+              PrimeText(
                 'HEALTH SCORE',
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
-                  color: Colors.grey,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   letterSpacing: 2,
                 ),
               ),
@@ -69,7 +71,7 @@ class GovernanceMasterScore extends StatelessWidget {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: color.withValues(alpha: 0.1),
+                  color: PrimeSemanticPalette.tint(context, color, alpha: .1),
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: PrimeText(
@@ -77,7 +79,7 @@ class GovernanceMasterScore extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.bold,
-                    color: color,
+                    color: PrimeSemanticPalette.onTint(context, color, alpha: .1),
                   ),
                 ),
               ),
@@ -88,11 +90,11 @@ class GovernanceMasterScore extends StatelessWidget {
     );
   }
 
-  Color _getScoreColor(double score) {
-    if (score >= 90) return Colors.green;
-    if (score >= 75) return Colors.blue;
-    if (score >= 50) return Colors.orange;
-    return Colors.red;
+  Color _getScoreColor(BuildContext context, double score) {
+    if (score >= 90) return PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent;
+    if (score >= 75) return PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent;
+    if (score >= 50) return PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).accent;
+    return PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent;
   }
 
   String _getScoreLabel(double score) {

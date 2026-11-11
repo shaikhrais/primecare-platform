@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCard;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;
@@ -21,7 +22,7 @@ class DevToolbox extends ConsumerWidget {
 
     return PrimeCard(
       margin: const EdgeInsets.all(16),
-      color: Colors.amber[50],
+      color: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -70,8 +71,8 @@ class DevToolbox extends ConsumerWidget {
                   icon: const PrimeIcon(Icons.analytics_outlined, size: 18),
                   label: PrimeText('governance.devToolbox.systemVerify'.tr()),
                   style: PrimeElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue[800],
-                    foregroundColor: Colors.white,
+                    backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent,
+                    foregroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent,
                   ),
                 ),
 
@@ -87,7 +88,7 @@ class DevToolbox extends ConsumerWidget {
                     icon: const PrimeIcon(Icons.logout, size: 18),
                     label: PrimeText('governance.devToolbox.exitDemo'.tr()),
                     style: PrimeTextButton.styleFrom(
-                      foregroundColor: Colors.red[700],
+                      foregroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase,
                     ),
                   ),
               ],

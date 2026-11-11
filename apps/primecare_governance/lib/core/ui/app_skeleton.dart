@@ -17,13 +17,13 @@ class AppSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
+      baseColor: Color.alphaBlend(Theme.of(context).colorScheme.onSurface.withValues(alpha: .08), Theme.of(context).colorScheme.surface),
+      highlightColor: Color.alphaBlend(Theme.of(context).colorScheme.onSurface.withValues(alpha: .02), Theme.of(context).colorScheme.surface),
       child: Container(
         width: width ?? double.infinity,
         height: height,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
       ),
