@@ -60,7 +60,7 @@ void main() {
       final data=tester.widget<PieChart>(find.byType(PieChart)).data;
       expect(data.sections,hasLength(mode==0 ? GovernanceCategory.values.length:1));
       expect(data.sections.fold<double>(0,(sum,s)=>sum+s.value),mode==0 ? GovernanceCategory.values.length.toDouble():1.0);
-      for(final section in data.sections) {expect(themeContrastRatio(section.titleStyle.color!,section.color),greaterThanOrEqualTo(4.5));}
+      for(final section in data.sections) {expect(themeContrastRatio(section.titleStyle!.color!,section.color),greaterThanOrEqualTo(4.5));}
      }
      if(mode==1){expect(find.text('Total Screens'),findsOneWidget);expect(find.text('20'),findsOneWidget);}
      if(mode==2){for(final level in GovernanceEventLevel.values){expect(find.text('Event ${level.name}'),findsOneWidget);}}
