@@ -44,7 +44,7 @@ class RpnDashboardScreen extends GovernedConsumerWidget {
       id: 'rpndashboard-screen',
       child: PrimeScaffold(
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
+        appBar: PrimeAppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(label: 'data-cy:rpndashboard-title', container: true, child: Container(child:  PrimeText(

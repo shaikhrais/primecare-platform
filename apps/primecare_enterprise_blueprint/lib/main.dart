@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
+import 'package:primecare_ui/primecare_ui.dart' show PrimeAppBar;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
@@ -72,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return PrimeScaffold(
       endDrawer: const ThemeSettingsDrawer(tenantDefaultPreset: 'default'),
-      appBar: AppBar(
+      appBar: PrimeAppBar(
         // TRY THIS: Try changing the color here to a specific color (to
         // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
         // change color while the other colors stay the same.

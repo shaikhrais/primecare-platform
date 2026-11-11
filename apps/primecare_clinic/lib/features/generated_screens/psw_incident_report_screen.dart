@@ -44,7 +44,7 @@ class PswIncidentReportScreen extends GovernedConsumerWidget {
       id: 'pswincidentreport-screen',
       child: PrimeScaffold(
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
+        appBar: PrimeAppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(label: 'data-cy:pswincidentreport-title', container: true, child: Container(child:  PrimeText(

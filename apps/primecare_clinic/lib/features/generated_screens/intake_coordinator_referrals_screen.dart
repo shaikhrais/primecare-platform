@@ -40,7 +40,7 @@ class IntakeCoordinatorReferralsScreen extends GovernedConsumerWidget {
       id: 'intakecoordinatorreferrals-screen',
       child: PrimeScaffold(
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
+        appBar: PrimeAppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(label: 'data-cy:intakecoordinatorreferrals-title', container: true, child: Container(child:  PrimeText(

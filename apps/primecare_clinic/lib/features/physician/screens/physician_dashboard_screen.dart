@@ -42,7 +42,7 @@ class PhysicianDashboardScreen extends GovernedConsumerWidget {
       id: 'physiciandashboard-screen',
       child: PrimeScaffold(
         backgroundColor: theme.colors.dashboardBackground,
-        appBar: AppBar(
+        appBar: PrimeAppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  PrimeText(

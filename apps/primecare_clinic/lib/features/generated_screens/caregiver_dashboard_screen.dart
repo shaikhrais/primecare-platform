@@ -37,7 +37,7 @@ class CaregiverDashboardScreen extends GovernedConsumerWidget {
       id: 'caregiverdashboard-screen',
       child: PrimeScaffold(
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
+        appBar: PrimeAppBar(
           backgroundColor: theme.colors.surface,
           elevation: 0,
           title: Semantics(label: 'data-cy:caregiverdashboard-title', container: true, child: Container(child:  PrimeText(
