@@ -307,14 +307,7 @@ class _StatCard extends StatelessWidget {
                               size: 12,
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              change,
-                              style: TextStyle(
-                                color: isPositive ? const Color(0xFF047857) : Colors.amber.shade700,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            PrimeTrendLabel(change, isPositive: isPositive),
                           ],
                         ),
                       ),
