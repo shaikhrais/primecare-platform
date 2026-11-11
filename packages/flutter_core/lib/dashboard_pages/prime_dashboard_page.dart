@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'dashboard_page_model.dart';
@@ -12,7 +13,7 @@ class PrimeDashboardPage extends StatelessWidget {
     if (value == null || value.trim().isEmpty) throw ArgumentError('missing_label:$key');
     return value;
   }
-  @override Widget build(BuildContext context) => Card(child: Padding(
+  @override Widget build(BuildContext context) => PrimeCard(child: Padding(
     padding: const EdgeInsets.all(16),
     child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
       Semantics(container: true, header: true, child: PrimeText(text(projection.family), style: Theme.of(context).textTheme.titleLarge)),
@@ -32,7 +33,7 @@ class PrimeSupportingPage extends StatelessWidget {
   @override Widget build(BuildContext context) {
     final status = supportingPageStatus(kind), title = labels[kind], message = labels[status];
     if (title == null || title.trim().isEmpty || message == null || message.trim().isEmpty) throw ArgumentError('missing_label');
-    return Card(child: Padding(padding: const EdgeInsets.all(16), child: Column(
+    return PrimeCard(child: Padding(padding: const EdgeInsets.all(16), child: Column(
       mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Semantics(container: true, header: true, child: PrimeText(title, style: Theme.of(context).textTheme.titleLarge)),
         Semantics(container: true, liveRegion: true, child: PrimeText(message)),

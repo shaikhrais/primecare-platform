@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'record_page_model.dart';
@@ -11,7 +12,7 @@ class PrimeRecordPage extends StatelessWidget {
     if (value == null || value.trim().isEmpty) throw ArgumentError('missing_label:$key');
     return value;
   }
-  @override Widget build(BuildContext context) => Card(child: Padding(
+  @override Widget build(BuildContext context) => PrimeCard(child: Padding(
     padding: const EdgeInsets.all(16), child: Column(
       mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
         Semantics(container: true, header: true, child: PrimeText(text(projection.kind), style: Theme.of(context).textTheme.titleLarge)),

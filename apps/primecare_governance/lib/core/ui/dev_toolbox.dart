@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeCard;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
@@ -18,7 +19,7 @@ class DevToolbox extends ConsumerWidget {
       return const SizedBox.shrink();
     }
 
-    return Card(
+    return PrimeCard(
       margin: const EdgeInsets.all(16),
       color: Colors.amber[50],
       child: Padding(
