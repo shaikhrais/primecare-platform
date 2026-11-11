@@ -37,7 +37,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFFFF1F2),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colors.surface,
         elevation: 1,
         title: Row(
           children: [
@@ -60,8 +60,8 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
             const SizedBox(width: 12),
             Text(
               'CarePlanReviewScreen',
-              style: const TextStyle(
-                color: Color(0xFF0F172A),
+              style:  TextStyle(
+                color: theme.colors.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
@@ -79,9 +79,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color:  theme.colors.outline),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,15 +95,15 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child: const Text('100% READY', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                        decoration: BoxDecoration(color:  theme.colors.success.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                        child:  Text('100% READY', style: TextStyle(color: theme.colors.success, fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Text('Provides a dedicated management interface within the Primecare Clinic module to enable Registered Nurse (RN) personnel to oversee, audit, and coordinate operations related to careplanreviewscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
+                  Text('Provides a dedicated management interface within the Primecare Clinic module to enable Registered Nurse (RN) personnel to oversee, audit, and coordinate operations related to careplanreviewscreen.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Registered Nurse (RN), I want to access the CarePlanReviewScreen within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Registered Nurse (RN), I want to access the CarePlanReviewScreen within the Primecare Clinic application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
                 ],
               ),
             ),
@@ -115,9 +115,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -138,7 +138,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Header Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -158,7 +158,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Screen header with title, subtitle, and layout structure.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -170,7 +170,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -198,9 +198,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -221,7 +221,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Filter Bar Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -241,7 +241,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Advanced search input, status filters, and date picker controls.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -253,7 +253,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -281,9 +281,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -304,7 +304,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Data Table Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -324,7 +324,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Responsive tabular grid showing records and operation details.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -336,7 +336,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -364,9 +364,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -387,7 +387,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Pagination Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -407,7 +407,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Controls to navigate across paginated list records.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -419,7 +419,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -447,9 +447,9 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -470,7 +470,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Action Bar Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -490,7 +490,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Row of administrative button triggers (create, export, refresh).',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -502,7 +502,7 @@ class CarePlanReviewScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(

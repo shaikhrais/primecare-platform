@@ -69,7 +69,7 @@ jobs:
       - run: python3 scripts/audit-ui-localization.py
       - run: flutter pub get
         working-directory: packages/primecare_ui
-      - run: flutter test test/prime_status_test.dart test/shared_status_migration_compile_test.dart test/theme_consumers_test.dart test/base_primecare_app_test.dart test/admin_role_carousel_localization_test.dart test/auth_unavailable_localization_test.dart test/admin_reality_filter_localization_test.dart
+      - run: flutter test test/generated_theme_part_1_compile_test.dart test/prime_status_test.dart test/shared_status_migration_compile_test.dart test/theme_consumers_test.dart test/base_primecare_app_test.dart test/admin_role_carousel_localization_test.dart test/auth_unavailable_localization_test.dart test/admin_reality_filter_localization_test.dart
         working-directory: packages/primecare_ui
       - run: flutter pub get
         working-directory: apps/primecare_enterprise_blueprint
