@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A factory class to construct strict "Zero-Trust" routing configurations. Builds a strictly-g...
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAppBar;
@@ -154,7 +155,7 @@ class GovernanceRouter {
                 children: [
                   PrimeText(
                     tr('governance.unauthorized_route_message'),
-                    style: const TextStyle(color: Colors.red, fontSize: 18),
+                    style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase, fontSize: 18),
                   ),
                   if (state.error != null) ...[
                     const SizedBox(height: 10),
@@ -162,7 +163,7 @@ class GovernanceRouter {
                       padding: const EdgeInsets.all(16.0),
                       child: PrimeText(
                         'Error: ${state.error}',
-                        style: const TextStyle(color: Colors.orange, fontFamily: 'monospace'),
+                        style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onBase, fontFamily: 'monospace'),
                         textAlign: TextAlign.center,
                       ),
                     ),

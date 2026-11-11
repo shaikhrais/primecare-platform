@@ -15,7 +15,7 @@ class ConsentConsentContentSection extends StatelessWidget {
           'auth_consent_authorize_title'.tr(),
           style: theme.typography.h2.copyWith(
             fontWeight: FontWeight.bold,
-            color: Colors.white,
+            color: context.theme.colors.onSurface,
           ),
           textAlign: TextAlign.center,
         ),
@@ -23,7 +23,7 @@ class ConsentConsentContentSection extends StatelessWidget {
         Text(
           'auth_flow_unavailable'.tr(),
           style: theme.typography.bodyMedium.copyWith(
-            color: Colors.white.withValues(alpha: 0.6),
+            color: context.theme.colors.onSurfaceVariant,
           ),
           textAlign: TextAlign.center,
         ),

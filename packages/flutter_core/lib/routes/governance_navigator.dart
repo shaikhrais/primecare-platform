@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A high-fidelity navigator that enforces platform governance policies. Instead of navigating ...
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
@@ -36,8 +37,8 @@ class GovernanceNavigator {
       // Fallback: Show system recovery or a simple snackbar in debug
       ScaffoldMessenger.of(context).showSnackBar(
         PrimeSnackBar(
-          content: PrimeText('Cannot navigate: ${health.message}'),
-          backgroundColor: Colors.redAccent,
+          content: DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child: PrimeText('Cannot navigate: ${health.message}')),
+          backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent,
         ),
       );
       return;

@@ -13,24 +13,24 @@ class ConsentHeaderSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(24),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
             shape: BoxShape.circle,
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: context.theme.colors.outlineVariant,
               width: 1.5,
             ),
           ),
-          child: const Icon(
+          child: Icon(
             LucideIcons.shieldCheck,
             size: 56,
-            color: Colors.greenAccent,
+            color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
           ),
         ),
         const SizedBox(height: 32),
         Text(
           'PRIMECARE IDENTITY'.tr(),
           style: theme.typography.labelMedium.copyWith(
-            color: Colors.white.withValues(alpha: 0.5),
+            color: context.theme.colors.onSurfaceVariant,
             letterSpacing: 4.0,
             fontWeight: FontWeight.w900,
           ),

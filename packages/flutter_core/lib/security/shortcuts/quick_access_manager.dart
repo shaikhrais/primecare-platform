@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Processes a keyboard event and checks if it matches a registered shortcut.
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -13,7 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class QuickAccessManager {
   static final QuickAccessManager instance = QuickAccessManager._internal();
-  
+
   QuickAccessManager._internal();
 
   int _failedAttempts = 0;
@@ -60,7 +61,7 @@ class QuickAccessManager {
       _lastAttemptTime = DateTime.now();
       _sessionRiskScore += 15.0; // Increase risk score
       _logAccess(rule, false, currentUserRole.role.name, telemetry);
-      
+
       if (_failedAttempts >= _maxFailedAttemptsBeforeLockout) {
         print('[SECURITY CRITICAL] Repeated unauthorized shortcut attempts. Risk Score: $_sessionRiskScore');
         if (onLockout != null) onLockout();
@@ -144,16 +145,16 @@ class _QuickAccessBoundaryState extends ConsumerState<QuickAccessBoundary> {
         onAccessDenied: (rule) {
           ScaffoldMessenger.of(context).showSnackBar(
             PrimeSnackBar(
-              content: PrimeText('Unauthorized access. Incident logged.'),
-              backgroundColor: Colors.red,
+              content: DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child: PrimeText('Unauthorized access. Incident logged.')),
+              backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent,
             ),
           );
         },
         onLockout: () {
           ScaffoldMessenger.of(context).showSnackBar(
             PrimeSnackBar(
-              content: PrimeText('SYSTEM LOCKED: Multiple unauthorized access attempts detected. Risk incident reported.'),
-              backgroundColor: Colors.red[900],
+              content: DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child: PrimeText('SYSTEM LOCKED: Multiple unauthorized access attempts detected. Risk incident reported.')),
+              backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent,
               duration: Duration(seconds: 10),
             ),
           );

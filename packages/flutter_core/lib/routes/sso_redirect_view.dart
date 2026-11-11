@@ -1,4 +1,4 @@
-/* 
+/*
 PRIME:SCREEN=sso_redirect
 PRIME:DESIGN=DESIGN_APPROVED
 PRIME:HTML=HTML_RESPONSIVE_DONE
@@ -125,7 +125,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   PrimeText(
                     'Auth Provider: $_selectedProvider',
                     textAlign: TextAlign.center,
-                    style: const TextStyle(color: Colors.grey, fontSize: 13),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant, fontSize: 13),
                   ),
                   const SizedBox(height: 24),
                 ],

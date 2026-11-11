@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: widget | Purpose: Core LocalizationScaffold widget that wraps and validates rendering components.
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class LocalizationScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasLocalization = EasyLocalization.of(context) != null;
-    
+
     // Assert strictly to fail test cases and alert developers during debug
     assert(
       hasLocalization,
@@ -28,11 +29,11 @@ class LocalizationScaffold extends StatelessWidget {
     );
 
     if (!hasLocalization) {
-      return const Material(
+      return Material(
         child: Center(
           child: PrimeText(
             'Missing Localization Context. Component cannot be rendered.',
-            style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+            style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase, fontWeight: FontWeight.bold),
           ),
         ),
       );
