@@ -1,6 +1,7 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Compliance Checklist platform logic.
 // unnecessary import removed
 import '../models/governance_report.dart';
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceComplianceChecklist extends StatelessWidget {
@@ -20,7 +21,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          const PrimeText(
             'Platform Compliance Scorecard',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
           ),
@@ -76,7 +77,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
+                PrimeText(
                   title,
                   style: TextStyle(
                     fontSize: 16,
@@ -84,7 +85,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
                     color: isPassed ? null : Colors.orange,
                   ),
                 ),
-                Text(
+                PrimeText(
                   description,
                   style: const TextStyle(fontSize: 12, color: Colors.grey),
                 ),
@@ -92,7 +93,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
             ),
           ),
           if (isPassed)
-            const Text(
+            const PrimeText(
               'PASSED',
               style: TextStyle(
                 color: Colors.green,
@@ -101,7 +102,7 @@ class GovernanceComplianceChecklist extends StatelessWidget {
               ),
             )
           else
-            const Text(
+            const PrimeText(
               'FAILED',
               style: TextStyle(
                 color: Colors.orange,

@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Filter Bar platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 
 class GovernanceFilterBar extends StatelessWidget {
@@ -65,7 +66,7 @@ class GovernanceFilterBar extends StatelessWidget {
             TextButton.icon(
               onPressed: onClear,
               icon: const Icon(Icons.clear_all_rounded, size: 18),
-              label: Text(
+              label: PrimeText(
                 'governance.filterBar.clearFilters'.tr(),
                 style: const TextStyle(fontSize: 12),
               ),
@@ -88,10 +89,10 @@ class GovernanceFilterBar extends StatelessWidget {
       itemBuilder: (context) => [
         PopupMenuItem<T?>(
           value: null,
-          child: Text('governance.filterBar.all'.tr()),
+          child: PrimeText('governance.filterBar.all'.tr()),
         ),
         ...values.map(
-          (v) => PopupMenuItem<T?>(value: v, child: Text(v.name.toUpperCase())),
+          (v) => PopupMenuItem<T?>(value: v, child: PrimeText(v.name.toUpperCase())),
         ),
       ],
       child: Container(
@@ -107,7 +108,7 @@ class GovernanceFilterBar extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Text(
+            PrimeText(
               label,
               style: TextStyle(
                 fontSize: 12,

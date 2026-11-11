@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: This widget is the root of your application. This is the theme of your application. TRY THIS: Try running your applic...
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:flutter_core/registry/widgets/theme_settings_drawer.dart';
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: PrimeText(widget.title),
         actions: [Builder(builder: (context) => IconButton(
           tooltip: 'Theme Center', icon: const Icon(Icons.palette_outlined),
           onPressed: () => Scaffold.of(context).openEndDrawer(),
@@ -101,8 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: .center,
           children: [
-            const Text('You have pushed the button this many times:'),
-            Text(
+            const PrimeText('You have pushed the button this many times:'),
+            PrimeText(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),

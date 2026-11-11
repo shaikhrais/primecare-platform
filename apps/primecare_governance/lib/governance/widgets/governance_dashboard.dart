@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter/services.dart';
 import '../../core/governance/screen_registry.dart';
@@ -78,7 +79,7 @@ class _GovernanceDashboardContentState
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(
+            content: PrimeText(
               'governance.dashboard.reportExported'.tr(args: [format]),
             ),
             backgroundColor: Colors.blue,
@@ -89,7 +90,7 @@ class _GovernanceDashboardContentState
     } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('common.error'.tr())),
+        SnackBar(content: PrimeText('common.error'.tr())),
       );
     }
   }
@@ -184,11 +185,11 @@ class _GovernanceDashboardContentState
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  const PrimeText(
                     'Architecture Governance',
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  Text(
+                  PrimeText(
                     'Checked-in app registry: ${ScreenRegistry.screens.length} screens; acceptance evidence pending',
                     style: const TextStyle(color: Colors.grey),
                   ),
@@ -218,7 +219,7 @@ class _GovernanceDashboardContentState
                               ),
                             )
                           : const Icon(Icons.auto_fix_high_rounded, size: 20),
-                      label: Text('governance.dashboard.auto_remediate'.tr()),
+                      label: PrimeText('governance.dashboard.auto_remediate'.tr()),
                       style: OutlinedButton.styleFrom(
                         foregroundColor: Colors.blue,
                         side: const BorderSide(color: Colors.blue),
@@ -229,25 +230,25 @@ class _GovernanceDashboardContentState
                     itemBuilder: (context) => [
                       PopupMenuItem(
                         value: 'pdf',
-                        child: Text('governance.dashboard.export_pdf'.tr()),
+                        child: PrimeText('governance.dashboard.export_pdf'.tr()),
                       ),
                       PopupMenuItem(
                         value: 'html',
-                        child: Text('governance.dashboard.export_html'.tr()),
+                        child: PrimeText('governance.dashboard.export_html'.tr()),
                       ),
                       PopupMenuItem(
                         value: 'markdown',
-                        child: Text(
+                        child: PrimeText(
                           'governance.dashboard.export_markdown'.tr(),
                         ),
                       ),
                       PopupMenuItem(
                         value: 'json',
-                        child: Text('governance.dashboard.export_json'.tr()),
+                        child: PrimeText('governance.dashboard.export_json'.tr()),
                       ),
                       PopupMenuItem(
                         value: 'csv',
-                        child: Text('governance.dashboard.export_csv'.tr()),
+                        child: PrimeText('governance.dashboard.export_csv'.tr()),
                       ),
                     ],
                     child: Container(
@@ -275,7 +276,7 @@ class _GovernanceDashboardContentState
                               size: 20,
                             ),
                           const SizedBox(width: 8),
-                          const Text(
+                          const PrimeText(
                             'Export',
                             style: TextStyle(
                               color: Colors.blue,
@@ -289,7 +290,7 @@ class _GovernanceDashboardContentState
                   ElevatedButton.icon(
                     onPressed: _refreshReport,
                     icon: const Icon(Icons.refresh_rounded),
-                    label: Text('governance.dashboard.rescan'.tr()),
+                    label: PrimeText('governance.dashboard.rescan'.tr()),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue,
                       foregroundColor: Colors.white,
@@ -442,11 +443,11 @@ class _GovernanceDashboardContentState
             alignment: WrapAlignment.spaceBetween,
             runSpacing: 8,
             children: [
-              const Text(
+              const PrimeText(
                 'Detected Architectural Issues',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
+              PrimeText(
                 'Showing ${filteredIssues.length} of ${report.totalIssues} issues',
                 style: const TextStyle(color: Colors.grey, fontSize: 12),
               ),
@@ -459,7 +460,7 @@ class _GovernanceDashboardContentState
             alignment: WrapAlignment.spaceBetween,
             runSpacing: 8,
             children: [
-              const Text(
+              const PrimeText(
                 'Network Parity & Backend Audit',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
@@ -474,7 +475,7 @@ class _GovernanceDashboardContentState
                   children: [
                     Icon(Icons.security, size: 14, color: Colors.green),
                     SizedBox(width: 4),
-                    Text(
+                    PrimeText(
                       'ZERO-TRUST ENFORCED',
                       style: TextStyle(
                         color: Colors.green,
@@ -515,7 +516,7 @@ class _GovernanceDashboardContentState
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                const PrimeText(
                   'Production Readiness Status',
                   style: TextStyle(
                     color: Colors.white,
@@ -524,7 +525,7 @@ class _GovernanceDashboardContentState
                   ),
                 ),
                 const SizedBox(height: 8),
-                Text(
+                PrimeText(
                   '${report.productionReadyScreens} screens meet all production quality gates. ${report.blockedScreens} screens are currently blocked by critical or high-severity issues.',
                   style: TextStyle(
                     color: Colors.white.withValues(alpha: 0.8),
