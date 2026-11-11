@@ -116,13 +116,7 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,13 +193,7 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -282,13 +270,7 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -365,13 +347,7 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -447,22 +423,22 @@ class PartnershipManagerProposalsScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F172A),
+                color:  theme.colors.inverseSurface,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                   Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: theme.colors.inverseOnSurface, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
                   ...["\u2022 Mapped API: GET /v1/partnership-manager-proposals"].map((apiStr) => Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                    child: Text(apiStr, style:  TextStyle(color: theme.colors.inverseOnSurface, fontSize: 11, fontFamily: 'monospace')),
                   )),
                   const SizedBox(height: 4),
-                  const Text('• Cypress Selector: data-cy="screen-partnership-manager-proposals"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
+                   Text('• Cypress Selector: data-cy="screen-partnership-manager-proposals"', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  const Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                   Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12)),
                 ],
               ),
             ),
