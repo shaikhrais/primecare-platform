@@ -1,0 +1,788 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/agent_dispatch.dart",
+    "sha256": "a62ec2290f80a5e2aad9c753f33eec9a371969cb86a4046f316de3c041a146cc",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/appointment.dart",
+    "sha256": "e57fb283c0fcba50e8c441c8ccd3bfd9ed456258428bfed111d9be2b3d7caf96",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/audit.dart",
+    "sha256": "990834b41cb8b63a3c2c231af189c7edabe04b02b5d42b3d614e7d57e224b7d0",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/billing.dart",
+    "sha256": "884e6ec2ea3556c332585287af223ed93180e26471f65ac06ec246b25c82b227",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_overview.dart",
+    "sha256": "41939c2d66f799d3990a081272478686d208f577e25cf266aece322f8ca21f99",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/brand_management.dart",
+    "sha256": "ed11a7f89f2cd39e1af86a7ebed4a20d265311915f5a5c151596a49b53443dcf",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/care_plan.dart",
+    "sha256": "f453759fca8f2c729d90b980684b00014a31745bcd85917afcbbfb2cc84299ba",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/care_plan_review.dart",
+    "sha256": "c1a25cb0eeaab436df38ecad54289bb84bdebf139a29c8765eca47ecbe8316f7",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/care_updates.dart",
+    "sha256": "e583655ef9888e9533ff840e705f99994bb8393c8bca0900821ec43a7b81d729",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_analytics.dart",
+    "sha256": "fe6589982085ce6235c35d2f01ee2eb5e7c0f9a9db30c55c6c998c95382d5027",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_cashflow.dart",
+    "sha256": "690bb73c3ccfa7de2afcf8ab3f3ff29cfe9f021adfa3962d4860358e0c2fedbc",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_compliance.dart",
+    "sha256": "b2d99ae5c2aadc8b8de4c6ec1ad49c16834273ba4f5e284b2663114f187d477a",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_expenses.dart",
+    "sha256": "14a3d1e4a2347737a4eb52d6c63f740ca3ddd6e6c4406666d1400c8193e972b8",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_invoices.dart",
+    "sha256": "3f0e0da2582261185b4e79c01b9dac45a313bf84fb11e2dab9274cf5f0d935cf",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_payroll.dart",
+    "sha256": "b0d3d5eb239f470a4c150cad08bdc5cf9a90489352d7f78e2363fbcee35141f2",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_profitability.dart",
+    "sha256": "a0c750efc097b4b7d2f5d84113b8a4ee23f3ef8a4883b90829b26a6f9f05befe",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_revenue.dart",
+    "sha256": "4015fd7fbe8c06bba61dfe1a93c274aeac0a3a9fe937471d67490de8fe7e44fc",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_tax.dart",
+    "sha256": "065219dd304686f6998783cd4816f06c877c4021c4cbfe514aaa01e61e4dd3c1",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_workflow.dart",
+    "sha256": "8c053ef978aaa48402d19ea3e3b94a90a2d76c827db4dc75dfc969f67e86507e",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractic_assessment.dart",
+    "sha256": "e1a25e1eb1a2dfae8679588341bc324e98fa572bb49687004389ea46f8cfd8d3",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractic_progress_tracking.dart",
+    "sha256": "daa797af32e07095a3b7fbf76ee7fc0ccafc809e56cb96fa69c252d6f55bc934",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_analytics.dart",
+    "sha256": "a147848caa8af95f2b87dafe1b291a8df86991f2634f61ed977968426da21a0a",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_appointments.dart",
+    "sha256": "65511440c15b2238511dbb90f9942dbed7082cb8c70be12f5064fd4cfc26cd75",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_assessment.dart",
+    "sha256": "69b255b49dfa3041eab707f611bfe66ae03062b4253def7951617cd8a371dfcf",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_billing_link.dart",
+    "sha256": "daa07d5b05d25ad6e1809000f7e628cd550b93108573c968193660e1d84bc487",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_client_intake.dart",
+    "sha256": "d59efcd7f5bfd44274e1f24764b0be28a1bac2e65fc708f27967ad5ed96279c6",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_command_center.dart",
+    "sha256": "43fa18ea74e0e46b2ff4f802914b73e59c28ddeaef291f5c4b8dce385b076b8d",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_compliance.dart",
+    "sha256": "dd681734b6a9d5e59d54ab2f04a248c741aa2b6fdeccb208ed1b96a629cd750a",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_exercise_plan.dart",
+    "sha256": "ebbbf396fef1150ce973f987af13e6a18e035352dfdf9499bb9b0acb328b94fc",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_reports.dart",
+    "sha256": "14fbeac8fab52599e6324ca40c2ea56ace521b48fccf1da07694ec0c6ff1b035",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_workflow.dart",
+    "sha256": "b1149fb3f1507a3c6b0f20ba63b232162fb32beac2449809ddc2d845be8a7ffd",
+    "role": "Chiropractor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/ciso_analytics.dart",
+    "sha256": "b0c2b34cd5928ba55f561775c228350684dec831aa719e4745e181261a78a047",
+    "role": "Chief Information Security Officer (CISO)",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/ciso_compliance.dart",
+    "sha256": "0a97a966b98fef1caf6dcd384ab63f4fec1acc0d91f4d0bd61422caf09100c91",
+    "role": "Chief Information Security Officer (CISO)",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/ciso_workflow.dart",
+    "sha256": "27aa986c6b58b81eacaf0ad97df2c73958263c3940eeb9ec1dd36a2e8b2e5dcc",
+    "role": "Chief Information Security Officer (CISO)",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/client_progress.dart",
+    "sha256": "d92c6138f7781d500995355972ca6404c4d6f08f233cd54262bcb6c4092f30a3",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinic_analytics.dart",
+    "sha256": "122b7c99c4a8356240bd8c14dd5b5315c1f271bb30d93bece19288b123764e05",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinic_compliance.dart",
+    "sha256": "d90bbb0143c159b11300974b9af3d037e10da61a10807ff855f53bf620f8aed3",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinic_workflow.dart",
+    "sha256": "7f3c59e4c100fb42a8bb2bc83d39ea04db8d3315c4e29fd76086dc9ff4b33fbc",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_analytics.dart",
+    "sha256": "1ff5f3afce918c1037486b0580fa02c151406241053b4e4276b89e7fd16ffadc",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_compliance.dart",
+    "sha256": "aa2b66edfda89b466ce27632c26028c1df38271ee2bd9914bf43108f21502fd5",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_approvals.dart",
+    "sha256": "fc469339d88e3f3d20f3c159363f2cc0172030d10b615ad7defd96eeb4b46c19",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_compliance.dart",
+    "sha256": "e99700cc87a6f608d17308356d404681409283692fbc77a24df0c2247c33f2cc",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_incident_review.dart",
+    "sha256": "a6e9ec7e751e3196072a5fff60f7ea4a9f3c4608bf8a13687de7921ddf1f0033",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_performance.dart",
+    "sha256": "ebf984fab1ffcbc6957a32488e805f6d904d2229f1c5bdc9524f3edf61fd8039",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_reports.dart",
+    "sha256": "019b3a8bc02409e1a6d45baef3005ca2ad50ad38c4503cd38240dbdedbf5599f",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_staff_quality.dart",
+    "sha256": "6bdcad72dd033a12812809a6d8bed9d05ee7e5b3d0449c8cd598cd559c25ac73",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_operations4_k.dart",
+    "sha256": "c43e5e5aec83c0e0c9aaa73fb541d55d3f2ca6521138e0f2d1d895cb8d7baeb7",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_quality.dart",
+    "sha256": "ed41643a1081c1e84f5882ffaa0ffec8bc076a4cb865ade63ac7c5e1986cbee0",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_workflow.dart",
+    "sha256": "388ceb3c78734a379445119fd6dcec141c8c876e65e4407bc724db5b073ba300",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/compliance_review.dart",
+    "sha256": "9c8df25baff0b57aa4ef0d32ccb3b56aa486e0e8a0714599c7eab27611d53bf2",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/documents.dart",
+    "sha256": "e810216b18e6a62d7b8738430cb601a00f4cc06921c24b3a051e1b590fd134b0",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/drift_findings.dart",
+    "sha256": "129f285a1f2c28829141d044d5b3c1c6702767b28ce746820206630d041e4b28",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/emergency_contacts.dart",
+    "sha256": "65d3ea5d52515b9f08db1a2db706c400bb701511c482d7da46c2823ec57cc34e",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/expense_management.dart",
+    "sha256": "594180dba68339759e058efcecf6da900f3d2c7325ffe904dce39246c3c447df",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/family_member_analytics.dart",
+    "sha256": "115a2f80f6a181198098b1739bbfd6b180fceb1fcc15ade5dd060407488cee2b",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/family_member_compliance.dart",
+    "sha256": "ee016090645f52f9ea7c4a8d529b8e9e1d0d62fa1c59f69dcccaa624af647089",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/family_member_workflow.dart",
+    "sha256": "b641026148f29bf417eccd170f8a97f82ab55638e6a42884c5a03f2400f0799f",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/family_overview.dart",
+    "sha256": "90e2454b89fae5b028c7dddb2a5129cc6444158464955c8b6f9be9684305ca84",
+    "role": "Family Member",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/finance_director_analytics.dart",
+    "sha256": "e88cfebb399e5d6d6042236e656f6a62a6ba7718b4c650aaa19c626cb5848afc",
+    "role": "Finance Director",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/finance_director_compliance.dart",
+    "sha256": "78bb1ac01db97740fe091c1792d9fe9e7eae1fc06dffe2814a90cda2da5ee19e",
+    "role": "Finance Director",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/finance_director_workflow.dart",
+    "sha256": "125594414c44401af75db5b9aa3df0988e80311298bbd8d032329a742e5d06bb",
+    "role": "Finance Director",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/financial_operations4_k.dart",
+    "sha256": "c4c61fad22fbd59b652890e2feae342b8cc44527033497a51b8623e362af15d2",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/franchise_sales_analytics.dart",
+    "sha256": "96e6a2c4930f1de6edd1955232f0e59aad82796da534d20c41e409d5e625499b",
+    "role": "Franchise Sales Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/franchise_sales_workflow.dart",
+    "sha256": "ec99a8ec60ef2c35a01608558cbc49c25d6735323692df94ef6b026853eb5105",
+    "role": "Franchise Sales Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/governance_control_room.dart",
+    "sha256": "cbf9f0f0980744301fa0e65137b0d65d2f8f6179220a12085049075387037bce",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/governance_officer_analytics.dart",
+    "sha256": "1e201dff4e7e0ad883da1c406791b5babdf5035fb8082e5f666157261301afe8",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/governance_officer_compliance.dart",
+    "sha256": "ec20a9fb7332b36b680aa9827abc833ff262095fb6e1c3d1c98bfe1c209a460c",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/governance_officer_workflow.dart",
+    "sha256": "122dc8893e7e4aa32181a7bfb226da0e6743844f19b9685e1a37690298a28952",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/governance_operations4_k.dart",
+    "sha256": "72327634917029dac24993136226df9b6bfe95a90090fe9428b815b40a296f95",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/head_of_marketing_analytics.dart",
+    "sha256": "cd5c9c117a502338b4ff5ec72525a58f018eab0f1f8c4396ea01461331153483",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/head_of_marketing_compliance.dart",
+    "sha256": "205721d7e527787eb921be2d81db6dbe3fe76c5d9e915dbc3b059d7fef79dc7c",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/head_of_marketing_workflow.dart",
+    "sha256": "4c870228fff88bff2651eeee75e037135c0c0a22d0701658999d1f4f307fed63",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/home_care_plan.dart",
+    "sha256": "8b9d95246f6390125d1f5c122312a7990dd1b503ebf0e89fd16ed310385b4e63",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/incident_oversight.dart",
+    "sha256": "d345c3b7bf013e44acc4d33af052e75a278f591625ca175bc1cd41e94da2244a",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/incident_review.dart",
+    "sha256": "e8394c66f9f7ad4358d08c424bdfdc98d9e39d5639745ef9cd00245e44307d19",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/lead_analytics.dart",
+    "sha256": "be15e7f8348b418e0032675cab8988a6e2291d23e5ff9310943b6e2f95f53aa6",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/local_marketing_manager_analytics.dart",
+    "sha256": "36786a9f05930c067fc779db91a433be40df296067229f3cfc4dcd2d3385a272",
+    "role": "Local Marketing Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/local_marketing_manager_compliance.dart",
+    "sha256": "d724de5d24e146c0aa7acea378ce95a16bc97c633eddf80c953315faff273281",
+    "role": "Local Marketing Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/local_marketing_manager_workflow.dart",
+    "sha256": "991f1578992a6e2327296d3e818d3c7352cd428b4f94125f213cf24f7f40903d",
+    "role": "Local Marketing Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/massage_assessment.dart",
+    "sha256": "b9a47d29057dd59a9c97cdcc0e21ca2143e9ab604f9f3fad42b352bb576f3e04",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/medication_administration.dart",
+    "sha256": "75eada129d867888f0df224bbcf1e8461e5f1fb7d517d371cc44f38b88acab5e",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_analytics.dart",
+    "sha256": "26a3a82428aaca91109ea5d73a581a44ea59a0052a10515dc172302350f2a5ac",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_appointments.dart",
+    "sha256": "cab327f9d3280dfcb7aaf6bafeb9a7649fe5aac0c7668f79e646c616e7529022",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_billing.dart",
+    "sha256": "07604de3237b1161566848261f5ae76ee908be0bc0735641efeb6d930528553f",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_care_plan.dart",
+    "sha256": "eb76566ca1d201caaf998ab5f48e17de56ab392ccb1816c9f5313af92edb7643",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_command_center.dart",
+    "sha256": "e629bde411224ab7c7ab525dc0dd53ade6daef270d9e57f5f66497ca30e46dc3",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_compliance.dart",
+    "sha256": "c10883739e2e9654489a525badae9de589909a889a32fcf0125d6be6197f5698",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_documents.dart",
+    "sha256": "6d5e51a5d04621d0c96bf8ae5caae6647506607aabed6d5e53f5cd716ff288ed",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_messages.dart",
+    "sha256": "ec8918445a572bef55b1aad7489689f1a68a65917c9c156f67f91e22517231e9",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_profile.dart",
+    "sha256": "031f08a9b3e34057cb3210cd24e68590247a7c0958f7390f9325b18ffdf610de",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/patient_workflow.dart",
+    "sha256": "322c1884d3e6f94e733e6aad2283c6fd7f3efcb2fba6c5b53ab51343b28d9797",
+    "role": "Patient",
+    "color": "1E3A8A"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/payroll.dart",
+    "sha256": "e946a209f836b90e2ecb995ddda6ec11fe680aa36820c263be670c2b2b5b1c1a",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/pending_task_queue.dart",
+    "sha256": "240bdf0251c9cc075f0028e07e2549a9a59efa66db78eb5eca08781a2b7d1a49",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/release_operations.dart",
+    "sha256": "f550c93bdca4e1747dbd1f3f3c7f35a43057c748ddb01dd91702e2ade909bb7d",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/responsive_preview.dart",
+    "sha256": "8abbbfc7f9eeb9ad0fd19b246f1afac62cbc960811bd5e778767cd302dfbd9e5",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/revenue.dart",
+    "sha256": "d9fbc1b777a100339c0e50afc7e56eb367f8cce584e751293a8a15e064626f48",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_analytics.dart",
+    "sha256": "8f414fec9906213db67d805bf423fa5b61c3f4b1cbfdc859959a1a190a32e61e",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_appointments.dart",
+    "sha256": "1380183b0183b2411040ac89af378cd78947530c28bb0628e250bf401f75f5b5",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_assessment.dart",
+    "sha256": "1d93fa1e59fa6cf80d17441c0ccc8f1aca6be7429081cdac89352e9f629c0ec0",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_billing_link.dart",
+    "sha256": "be26c2abf5aaf090588053315cf32fe1a35935aed281aab296bd89f02f50f7af",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_client_intake.dart",
+    "sha256": "63041fee10011bb5c07f572064e1acaaf75d38d58651009de97fa05c176291f5",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_command_center.dart",
+    "sha256": "315683619acc8a8e2808384128a4a18d2951a95976fe97bf136f7efb5f78e1b5",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_compliance.dart",
+    "sha256": "22ce785bbf3a5806a42de075efa79e750abc4acd6a0ae4afeb8411309c821aab",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_exercise_plan.dart",
+    "sha256": "35368178a519d9ea78da4b7376a9f653f0854710239e010cfd1ae6c87a440c63",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_reports.dart",
+    "sha256": "7fc41b0766684f0868c896e822c714bb44e8e1e157d83e8b4993c53a8bf82a24",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_workflow.dart",
+    "sha256": "e823fea7eb96a1344ecb968d3f130e726d280140bd678941717870007bfb6845",
+    "role": "Registered Massage Therapist (RMT)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_analytics.dart",
+    "sha256": "ac70817080d084673c6f6d65747c86afeb8a2e12ef9472fe685ee6e2c1fed2e3",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_assessments.dart",
+    "sha256": "d8ae8fc67216c6a31cbf484e2cdd1ba5bf60eee9192ca51e2fa88e4950f851f2",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_care_plan_review.dart",
+    "sha256": "861e8628903406b529c4e3129017a957ff119de8141a95a56532f6e4f85aec70",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_care_plans.dart",
+    "sha256": "f6a815cc1119629cf43e2065ad244cde17cc0748cd1aca7bf378edacda7501ec",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_command_center.dart",
+    "sha256": "0e2dcb5173fc4cac812e64c7830fbe530437e9e7652bd70160c58e4d6aca694d",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_compliance.dart",
+    "sha256": "aa4fb8d06f4ea500c27a827fb263688b0dd083db3b11224100a27f8e26d07486",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_field_supervisor_analytics.dart",
+    "sha256": "53972e65292e761e91b0b36f00e52d3357aa8cf6e08e727f66475260e894d865",
+    "role": "Registered Nurse (RN) Field Supervisor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_field_supervisor_workflow.dart",
+    "sha256": "badd59107c131624b108ff2200c69d50cec036c0bbf0ab7d95b7aeea7dd0af85",
+    "role": "Registered Nurse (RN) Field Supervisor",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_incident_review.dart",
+    "sha256": "751d85116618097131b5ada6bbd76de9e7fd510e3f4d9998e353edfd2483b42a",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_medications.dart",
+    "sha256": "25cf3331fe5f37272b9f8ed79e5b35d12e369aa404a588956021399a03660f35",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_patient_charting.dart",
+    "sha256": "c72f9f8fee2801d29ade2eb83846509055c83d1158272512d38cb3e2c261609c",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_reports.dart",
+    "sha256": "698d6bf47c4504199a90fb669aef9985f28199404533eacc6e818531b622bc5f",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_tasks.dart",
+    "sha256": "15f537ddbefc67aa7d3f49205f0413252a5efa2d0e28176b9dee6a569e9a457e",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_vitals.dart",
+    "sha256": "37fc4eb80baa86076465087d0ad71115fcf345b238d3e6123b4bac5f7605b956",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rn_workflow.dart",
+    "sha256": "5ff5b1048c68d1613e5f68357ad750718d799099c357864c85483e30d31aeefd",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/runtime_verification.dart",
+    "sha256": "8fec77655ef396478da84b538e99217827624885dd7c2d3fccca29b0f26cd184",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/shift_report.dart",
+    "sha256": "a3313ba3af82dbf3ba3da797c4e6fefeee216fc1b736dabd892f3b5163e759dc",
+    "role": "Registered Nurse (RN)",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/social_media.dart",
+    "sha256": "bf85eabce5970a97d0d68fe4978944d04b0f9d8ae8a8c24e3c7b0abbef0b54c8",
+    "role": "Head of Marketing",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/staff_performance.dart",
+    "sha256": "032ea2eedd794e1ac38c1bea886982b549bad819f5bdaf1dc86ffcd5363c1146",
+    "role": "Clinical Director",
+    "color": "881337"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/tax_compliance.dart",
+    "sha256": "92eab4cad86edab18e78858b1a21ce9f92f3e57fc4dbad14ac6ce01ba7e0083d",
+    "role": "Chief Financial Officer (CFO)",
+    "color": "064E3B"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/territory_sales_manager_analytics.dart",
+    "sha256": "f238b39a9bdf64995ca0d35c468eaf31fe70b64b998cb9783412a78524861252",
+    "role": "Territory Sales Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/territory_sales_manager_compliance.dart",
+    "sha256": "227c78f73ee34c5ce0796ff93674cc3694d0bbbd1bf84946597aa7c014246996",
+    "role": "Territory Sales Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/territory_sales_manager_workflow.dart",
+    "sha256": "ee36c0a8555ec46b89f7718b49a9b0c38c69e6329e5b5951cedb55e35918b93c",
+    "role": "Territory Sales Manager",
+    "color": "78350F"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/workflow_execution.dart",
+    "sha256": "74928039d37d9db21b923cb6195bcebb677e32ca14dabc13db7349bf13442ad1",
+    "role": "Governance Officer",
+    "color": "4C1D95"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/xray_review.dart",
+    "sha256": "7c44a8cb6108341964ff06cb4003bbfe7fee3f5f5ff98bbd841e868e402d236d",
+    "role": "Chiropractor",
+    "color": "881337"
+  }
+]
