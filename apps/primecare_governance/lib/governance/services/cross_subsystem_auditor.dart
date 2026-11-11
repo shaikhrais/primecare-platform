@@ -97,8 +97,8 @@ class CrossSubsystemAuditor {
               subsystem: 'primecare_ui',
               registry: 'primeCareFormProvider',
               issue: 'Missing binding for Form: $value',
-              suggestion: 'Run ASTPatchEngine to inject missing switch-case.',
-              autoRemediable: true,
+              suggestion: 'Connect the registered form to its actual provider and verify its behavior.',
+              autoRemediable: false,
               metadata: {
                 'type': 'missing_form_provider',
                 'form': value,
@@ -354,8 +354,8 @@ class CrossSubsystemAuditor {
             subsystem: 'primecare_governance',
             registry: 'Localization',
             issue: 'L10n Audit Drift: hasAllTranslations is ${screen.hasAllTranslations} but actual coverage is $hasAll',
-            suggestion: 'Update hasAllTranslations flag in CoreGovernanceRegistry.',
-            autoRemediable: true,
+            suggestion: 'Verify the actual language bundles before updating translation evidence.',
+            autoRemediable: false,
             metadata: {
               'type': 'l10n_flag_drift',
               'screenId': screen.id,
@@ -395,8 +395,8 @@ class CrossSubsystemAuditor {
             subsystem: 'primecare_governance',
             registry: 'Compliance',
             issue: 'Compliance Drift for "${screen.title}": isAuditCompliant is ${screen.isAuditCompliant} but article pass rate requires $actuallyCompliant',
-            suggestion: 'Update isAuditCompliant status in CoreGovernanceRegistry to reflect article compliance.',
-            autoRemediable: true,
+            suggestion: 'Reconcile compliance evidence and required reviews before updating the audit status.',
+            autoRemediable: false,
             metadata: {
               'type': 'compliance_drift',
               'screenId': screen.id,
@@ -458,9 +458,9 @@ class CrossSubsystemAuditor {
       id: 'feature_drift_${screen.id}_$field',
       subsystem: 'primecare_governance',
       registry: 'FeatureVerification',
-      issue: 'Verification Drift for "${screen.title}": $field is false but implementation is present.',
-      suggestion: 'Update $field to $value in CoreGovernanceRegistry.',
-      autoRemediable: true,
+      issue: 'Unverified source candidate for "${screen.title}": $field has a static source match only.',
+      suggestion: 'Execute focused acceptance tests for $field; a source string is not verification evidence.',
+      autoRemediable: false,
       metadata: {
         'type': 'feature_flag_drift',
         'screenId': screen.id,
@@ -573,8 +573,8 @@ class CrossSubsystemAuditor {
               subsystem: 'primecare_governance',
               registry: 'CoreGovernanceRegistry',
               issue: 'Mapped screen not found: $screenId (tried $normalizedId)',
-              suggestion: 'Register $normalizedId in CoreGovernanceRegistry.',
-              autoRemediable: true,
+              suggestion: 'Reconcile the screen identity, route and permissions with pinned production metadata before registration.',
+              autoRemediable: false,
               metadata: {
                 'type': 'missing_registration',
                 'screenId': normalizedId,
@@ -612,8 +612,8 @@ class CrossSubsystemAuditor {
               registry: 'CoreGovernanceRegistry',
               issue: 'Structural Drift in $normalizedId: Missing $missingComps',
               suggestion:
-                  'Implement missing components to match blueprint $blueprintId.',
-              autoRemediable: true,
+                  'Implement and verify missing components to match blueprint $blueprintId; changing metadata is not implementation.',
+              autoRemediable: false,
               metadata: {
                 'type': 'structural_drift',
                 'screenId': normalizedId,
