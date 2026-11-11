@@ -75,7 +75,7 @@ class PolicyState {
 // --- Controller (Notifier) ---
 class PolicyController extends StateNotifier<PolicyState> {
   final Ref ref;
-  PolicyController()
+  PolicyController(this.ref)
       : super(
           PolicyState(
             isLoading: false,
