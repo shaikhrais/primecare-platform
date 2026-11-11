@@ -80,14 +80,14 @@ class PremiumFeature215 extends GovernedConsumerWidget {
           ),
         ),
         data: (data) => ResponsiveSplitDashboard(
-          metrics: const [
+          metrics:  [
             _StatCard(
               title: 'Telemetry Node Health', // .tr() LocaleKeys.
               value: '99.98%', // .tr() LocaleKeys.
               change: '+0.02%', // .tr() LocaleKeys.
               isPositive: true,
               icon: Icons.hub,
-              color: Color(0xFF6366F1),
+              color: theme.colors.primary,
             ),
             _StatCard(
               title: 'API Request Latency', // .tr() LocaleKeys.
@@ -143,7 +143,7 @@ class PremiumFeature215 extends GovernedConsumerWidget {
                   _TelemetryPanel(
                     modelName: 'ResolutionFeedbackNode',
                     data: data,
-                    themeColor: const Color(0xFF6366F1),
+                    themeColor: theme.colors.primary,
                   ),
                   const _AuditPanel(
                     modelName: 'ResolutionFeedbackNode',
@@ -160,7 +160,7 @@ class PremiumFeature215 extends GovernedConsumerWidget {
                 QuickActionItem(
                   label: 'Purge Buffers', // .tr() LocaleKeys.
                   icon: Icons.cleaning_services,
-                  color: const Color(0xFF6366F1),
+                  color: theme.colors.primary,
                   onTap: () {},
                 ),
                 QuickActionItem(
@@ -183,7 +183,7 @@ class PremiumFeature215 extends GovernedConsumerWidget {
                 ),
               ],
             ),
-            const RecentActivityFeed(
+             RecentActivityFeed(
               title: 'Governance Audit Trail', // .tr() LocaleKeys.
               activities: [
                 PortalActivityItem(
@@ -198,7 +198,7 @@ class PremiumFeature215 extends GovernedConsumerWidget {
                   description: 'Verified tenant credentials with secure authentication.', // .tr() LocaleKeys.
                   time: '1h ago', // .tr() LocaleKeys.
                   icon: Icons.lock,
-                  color: Color(0xFF6366F1),
+                  color: theme.colors.primary,
                 ),
                 PortalActivityItem(
                   title: 'Telemetry Session Start', // .tr() LocaleKeys.
