@@ -38,7 +38,7 @@ void main() {
     final field = tester.widget<TextField>(finder);
     expect(field.controller, same(controller));
     expect(field.focusNode, same(focusNode));
-    expect(field.decoration.labelText, 'Reviewed input');
+    expect(field.decoration?.labelText, 'Reviewed input');
     expect(field.keyboardType, TextInputType.emailAddress);
     expect(field.maxLines, 1);
     expect(field.maxLength, 40);

@@ -28,13 +28,13 @@ void main() {
     const animation=AlwaysStoppedAnimation<Color>(Colors.green);
     await tester.pumpWidget(const MaterialApp(home:Scaffold(body:PrimeCircularProgressIndicator(
       value:.42,valueColor:animation,backgroundColor:Colors.grey,strokeWidth:12,
-      strokeCap:StrokeCap.round,semanticsLabel:'Readiness',semanticsValue:'42 percent',
+      strokeCap:StrokeCap.round,semanticsLabel:'Readiness',semanticsValue:'42',
     ))));
     final delegate=tester.widget<CircularProgressIndicator>(find.byType(CircularProgressIndicator));
     expect(delegate.value,.42);expect(delegate.valueColor,same(animation));
     expect(delegate.backgroundColor,Colors.grey);expect(delegate.strokeWidth,12);
     expect(delegate.strokeCap,StrokeCap.round);expect(delegate.semanticsLabel,'Readiness');
-    expect(delegate.semanticsValue,'42 percent');expect(tester.takeException(),isNull);
+    expect(delegate.semanticsValue,'42');expect(tester.takeException(),isNull);
     await tester.pumpWidget(const MaterialApp(home:Scaffold(body:PrimeCircularProgressIndicator(color:Colors.orange))));
     expect(tester.widget<CircularProgressIndicator>(find.byType(CircularProgressIndicator)).color,Colors.orange);
     await tester.pumpWidget(const SizedBox.shrink());

@@ -6,12 +6,12 @@ void main() {
   testWidgets('PrimeScaffold delegates reviewed fields and inherited defaults',
       (tester) async {
     const body = SizedBox(key: Key('body'));
-    const appBar = AppBar(title: Text('Title'));
+    final appBar = AppBar(title: const Text('Title'));
     const fab = FloatingActionButton(onPressed: null);
     const drawer = Drawer(key: Key('drawer'));
     const endDrawer = Drawer(key: Key('end-drawer'));
 
-    await tester.pumpWidget(const MaterialApp(
+    await tester.pumpWidget(MaterialApp(
       home: PrimeScaffold(
         appBar: appBar,
         body: body,

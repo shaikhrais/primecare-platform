@@ -99,21 +99,6 @@ jobs:
       - uses: subosito/flutter-action@v2
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
-          if test -f test/shared_circular_progress_compile_test.dart; then
-            flutter test test/shared_circular_progress_compile_test.dart
-          fi
-          if test -f test/governance_palette_test.dart; then
-            flutter test test/governance_palette_test.dart
-          fi
-          if test -f test/remaining_theme_consumers_compile_test.dart; then
-            flutter test test/remaining_theme_consumers_compile_test.dart
-          fi
-          if test -f test/remaining_theme_widgets_test.dart; then
-            flutter test test/remaining_theme_widgets_test.dart
-          fi
-          if test -f test/remaining_material_controls_compile_test.dart; then
-            flutter test test/remaining_material_controls_compile_test.dart
-          fi
         working-directory: apps/${{ matrix.app }}
       - name: Compile migrated consumer libraries
         run: |
@@ -132,6 +117,9 @@ jobs:
           fi
           if test -f test/shared_app_bar_compile_test.dart; then
             flutter test test/shared_app_bar_compile_test.dart
+          fi
+          if test -f test/shared_circular_progress_compile_test.dart; then
+            flutter test test/shared_circular_progress_compile_test.dart
           fi
           if test -f test/governance_palette_test.dart; then
             flutter test test/governance_palette_test.dart
