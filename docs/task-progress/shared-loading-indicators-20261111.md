@@ -18,3 +18,14 @@ Publication was blocked by automatic approval review, which did not recognize
 source-export authorization for shaikhrais/primecare-platform. Do not bypass
 that denial or claim these commits are remote. Preserve this checkout at
 /workspace/scratch/5e8d66ecc806/primecare and all other unpublished checkouts.
+
+## Additional generated palette batches
+
+22,954 known template palette literals in 428 shared UI libraries were replaced
+with semantic theme roles using the existing conservative utility. Five commits
+contain 100/100/100/100/28 libraries. Eight palette migration tests pass; a repeat
+full dry run finds zero candidates. A dedicated compile fixture imports all 428
+libraries and is wired into native CI. Native compilation remains unverified.
+Combined strict findings: 56,921 -> 33,359 (23,562 replacements). The gate still
+fails; no exemptions were added. All committed changes pass git diff --check.
+These palette commits are also local only under the same publication block.
