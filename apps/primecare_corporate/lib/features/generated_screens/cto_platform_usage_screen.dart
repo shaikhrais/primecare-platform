@@ -129,7 +129,7 @@ class CtoPlatformUsageScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_platform_usage-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_platform_usage-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

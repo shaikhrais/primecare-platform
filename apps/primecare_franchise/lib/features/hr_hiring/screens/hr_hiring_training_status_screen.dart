@@ -129,7 +129,7 @@ class HrHiringTrainingStatusScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'hr_hiring_training_status-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('hr_hiring_training_status-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

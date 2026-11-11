@@ -129,7 +129,7 @@ class MarketingManagerCampaignsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'marketing_manager_campaigns-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('marketing_manager_campaigns-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class OperationsManagerReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'operations_manager_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('operations_manager_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

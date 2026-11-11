@@ -129,7 +129,7 @@ class CourseArchitectScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'course_architect-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('course_architect-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

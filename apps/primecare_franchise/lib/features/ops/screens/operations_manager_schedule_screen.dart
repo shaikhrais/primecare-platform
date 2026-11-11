@@ -129,7 +129,7 @@ class OperationsManagerScheduleScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'operations_manager_schedule-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('operations_manager_schedule-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

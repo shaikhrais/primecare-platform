@@ -129,7 +129,7 @@ class RegionalManagerBranchComparisonScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'regional_manager_branch_comparison-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('regional_manager_branch_comparison-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

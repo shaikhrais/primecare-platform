@@ -129,7 +129,7 @@ class StaffTrainingMatrixScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'staff_training_matrix-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('staff_training_matrix-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

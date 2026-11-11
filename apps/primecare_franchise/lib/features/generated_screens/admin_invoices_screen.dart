@@ -129,7 +129,7 @@ class AdminInvoicesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'admin_invoices-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('admin_invoices-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

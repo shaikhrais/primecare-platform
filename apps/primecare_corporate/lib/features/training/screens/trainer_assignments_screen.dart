@@ -129,7 +129,7 @@ class TrainerAssignmentsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'trainer_assignments-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('trainer_assignments-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

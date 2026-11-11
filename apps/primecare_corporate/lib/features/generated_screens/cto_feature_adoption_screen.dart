@@ -129,7 +129,7 @@ class CtoFeatureAdoptionScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_feature_adoption-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_feature_adoption-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

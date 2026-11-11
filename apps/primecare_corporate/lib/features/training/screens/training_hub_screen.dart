@@ -129,7 +129,7 @@ class TrainingHubScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'training_hub-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('training_hub-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

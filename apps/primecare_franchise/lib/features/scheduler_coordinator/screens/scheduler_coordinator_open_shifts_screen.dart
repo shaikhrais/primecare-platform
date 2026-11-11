@@ -129,7 +129,7 @@ class SchedulerCoordinatorOpenShiftsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'scheduler_coordinator_open_shifts-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('scheduler_coordinator_open_shifts-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

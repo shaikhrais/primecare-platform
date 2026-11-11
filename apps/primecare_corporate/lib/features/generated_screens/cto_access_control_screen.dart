@@ -129,7 +129,7 @@ class CtoAccessControlScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_access_control-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_access_control-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

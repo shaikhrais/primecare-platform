@@ -129,7 +129,7 @@ class ComplianceTrainingScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'compliance_training-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('compliance_training-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

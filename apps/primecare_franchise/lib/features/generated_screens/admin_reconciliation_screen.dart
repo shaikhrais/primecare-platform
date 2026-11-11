@@ -129,7 +129,7 @@ class AdminReconciliationScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'admin_reconciliation-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('admin_reconciliation-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

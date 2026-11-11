@@ -129,7 +129,7 @@ class CooReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'coo_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('coo_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

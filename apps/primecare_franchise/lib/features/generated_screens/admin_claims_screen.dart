@@ -129,7 +129,7 @@ class AdminClaimsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'admin_claims-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('admin_claims-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

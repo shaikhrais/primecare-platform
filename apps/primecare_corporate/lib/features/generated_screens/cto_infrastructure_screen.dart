@@ -129,7 +129,7 @@ class CtoInfrastructureScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_infrastructure-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_infrastructure-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

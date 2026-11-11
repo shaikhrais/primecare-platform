@@ -129,7 +129,7 @@ class CooStaffingEfficiencyScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'coo_staffing_efficiency-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('coo_staffing_efficiency-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

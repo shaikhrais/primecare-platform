@@ -129,7 +129,7 @@ class FranchiseSalesManagerDiscoveryCallsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'franchise_sales_manager_discovery_calls-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('franchise_sales_manager_discovery_calls-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

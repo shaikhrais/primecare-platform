@@ -129,7 +129,7 @@ class CooBranchOperationsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'coo_branch_operations-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('coo_branch_operations-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

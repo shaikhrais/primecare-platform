@@ -129,7 +129,7 @@ class HrHiringReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'hr_hiring_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('hr_hiring_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

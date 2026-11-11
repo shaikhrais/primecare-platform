@@ -129,7 +129,7 @@ class AssessmentsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'assessments-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('assessments-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

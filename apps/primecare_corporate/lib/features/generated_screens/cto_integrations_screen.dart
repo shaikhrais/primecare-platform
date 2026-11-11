@@ -129,7 +129,7 @@ class CtoIntegrationsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_integrations-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_integrations-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

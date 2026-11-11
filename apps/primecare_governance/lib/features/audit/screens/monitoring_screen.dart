@@ -129,7 +129,7 @@ class MonitoringScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'monitoring-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('monitoring-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

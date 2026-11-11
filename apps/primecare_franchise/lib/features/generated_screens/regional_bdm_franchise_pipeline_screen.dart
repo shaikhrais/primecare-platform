@@ -129,7 +129,7 @@ class RegionalBdmFranchisePipelineScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'regional_bdm_franchise_pipeline-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('regional_bdm_franchise_pipeline-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

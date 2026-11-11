@@ -129,7 +129,7 @@ class CooIssueEscalationsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'coo_issue_escalations-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('coo_issue_escalations-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

@@ -129,7 +129,7 @@ class FinanceDirectorCashflowScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'finance_director_cashflow-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('finance_director_cashflow-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

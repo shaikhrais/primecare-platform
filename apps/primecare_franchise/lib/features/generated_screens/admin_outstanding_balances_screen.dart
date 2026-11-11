@@ -129,7 +129,7 @@ class AdminOutstandingBalancesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'admin_outstanding_balances-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('admin_outstanding_balances-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

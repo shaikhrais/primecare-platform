@@ -129,7 +129,7 @@ class NoAccessScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'no_access-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('no_access-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

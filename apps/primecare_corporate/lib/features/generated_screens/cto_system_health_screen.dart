@@ -129,7 +129,7 @@ class CtoSystemHealthScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_system_health-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_system_health-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

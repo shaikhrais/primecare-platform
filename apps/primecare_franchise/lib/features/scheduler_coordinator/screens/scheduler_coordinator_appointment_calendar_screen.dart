@@ -129,7 +129,7 @@ class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidg
           elevation: 0,
           title: Cy(
             id: 'scheduler_coordinator_appointment_calendar-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('scheduler_coordinator_appointment_calendar-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

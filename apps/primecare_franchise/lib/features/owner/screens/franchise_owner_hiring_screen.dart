@@ -129,7 +129,7 @@ class FranchiseOwnerHiringScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'franchise_owner_hiring-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('franchise_owner_hiring-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

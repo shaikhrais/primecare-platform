@@ -129,7 +129,7 @@ class TrainingDirectorCertificatesScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'training_director_certificates-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('training_director_certificates-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

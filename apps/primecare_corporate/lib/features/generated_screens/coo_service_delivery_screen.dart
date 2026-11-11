@@ -129,7 +129,7 @@ class CooServiceDeliveryScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'coo_service_delivery-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('coo_service_delivery-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

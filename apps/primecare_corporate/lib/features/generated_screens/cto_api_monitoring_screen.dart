@@ -129,7 +129,7 @@ class CtoApiMonitoringScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'cto_api_monitoring-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('cto_api_monitoring-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

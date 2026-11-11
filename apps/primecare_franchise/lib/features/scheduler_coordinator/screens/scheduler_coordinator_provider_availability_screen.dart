@@ -129,7 +129,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
           elevation: 0,
           title: Cy(
             id: 'scheduler_coordinator_provider_availability-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('scheduler_coordinator_provider_availability-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

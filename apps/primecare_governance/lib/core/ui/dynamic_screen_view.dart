@@ -129,7 +129,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'audit_sandbox-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('audit_sandbox-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),

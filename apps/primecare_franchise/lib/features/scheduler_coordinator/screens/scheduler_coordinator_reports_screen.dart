@@ -129,7 +129,7 @@ class SchedulerCoordinatorReportsScreen extends GovernedConsumerWidget {
           elevation: 0,
           title: Cy(
             id: 'scheduler_coordinator_reports-title',
-            child: Text(
+            child: PrimeText(
               key: const Key('scheduler_coordinator_reports-title'),
               state.title,
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
