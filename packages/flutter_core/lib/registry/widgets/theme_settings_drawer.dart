@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;
 import 'theme_center_panel.dart';
 import '../../theme/theme_contrast.dart';
@@ -46,7 +47,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                         ),
                   )),
-                  IconButton(
+                  PrimeIconButton(
                     icon: const PrimeIcon(LucideIcons.x, size: 20),
                     onPressed: () => Navigator.of(context).pop(),
                   ),

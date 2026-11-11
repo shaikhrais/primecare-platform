@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Term Highlighter platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeRichText, PrimeText;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -30,7 +31,7 @@ class ClinicalTermHighlighter extends ConsumerWidget {
     return titlesAsync.when(
       data: (List<String> titles) {
         if (titles.isEmpty)
-          return Text(text, style: style, textAlign: textAlign);
+          return PrimeText(text, style: style, textAlign: textAlign);
 
         // Sort titles by length descending to match longest terms first
         final sortedTitles = List<String>.from(titles)
@@ -66,13 +67,13 @@ class ClinicalTermHighlighter extends ConsumerWidget {
           },
         );
 
-        return RichText(
+        return PrimeRichText(
           textAlign: textAlign,
           text: TextSpan(children: spans),
         );
       },
-      loading: () => Text(text, style: style, textAlign: textAlign),
-      error: (_, __) => Text(text, style: style, textAlign: textAlign),
+      loading: () => PrimeText(text, style: style, textAlign: textAlign),
+      error: (_, __) => PrimeText(text, style: style, textAlign: textAlign),
     );
   }
 

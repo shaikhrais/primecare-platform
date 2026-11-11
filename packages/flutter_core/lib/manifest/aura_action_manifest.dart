@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -88,7 +89,7 @@ class AuraActionManifest {
         ),
         title: Row(
           children: [
-            const Icon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
+            const PrimeIcon(LucideIcons.sparkles, color: Color(0xFF818CF8)),
             const SizedBox(width: 12),
             PrimeText(
               title,

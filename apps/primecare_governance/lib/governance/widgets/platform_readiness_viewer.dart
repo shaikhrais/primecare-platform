@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'governance_kpi_grid.dart';
@@ -35,7 +36,7 @@ class PlatformReadinessViewer extends ConsumerWidget {
           subtitle: PrimeText([
             screen.title, screen.routePath, ...pending,
           ].where((value) => value.isNotEmpty).join('\n')),
-          trailing: Icon(pending.isEmpty
+          trailing: PrimeIcon(pending.isEmpty
             ? Icons.check_circle_outline : Icons.pending_outlined),
         );
       },

@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Article Detail Dialog platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -19,12 +20,12 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: PrimeText(article.title),
-          leading: IconButton(
+          leading: PrimeIconButton(
             icon: const PrimeIcon(LucideIcons.x),
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               icon: const PrimeIcon(LucideIcons.externalLink),
               tooltip: 'Open in browser',
               onPressed: () async {

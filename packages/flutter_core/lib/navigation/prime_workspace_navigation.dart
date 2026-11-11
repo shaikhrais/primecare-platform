@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../original_assets.dart';
 import 'dart:convert';
@@ -165,7 +166,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   Widget _rail(){
     final groups=widget.model.nodes.where((n)=>n.kind=='group').toList();final selected=widget.model.find(_selected??'');
     return Row(crossAxisAlignment:CrossAxisAlignment.start,children:[SizedBox(width:72,child:Column(mainAxisSize:MainAxisSize.min,children:[for(final group in groups)
-      Focus(onKeyEvent:(_,e)=>_railKey(group.id,e),child:Semantics(selected:group.id==_selected,child:Tooltip(message:group.label,child:IconButton(focusNode:_boundNode(group.id,(event)=>_railKey(group.id,event)),key:ValueKey('workspace-navigation-tab-${group.id}'),
+      Focus(onKeyEvent:(_,e)=>_railKey(group.id,e),child:Semantics(selected:group.id==_selected,child:Tooltip(message:group.label,child:PrimeIconButton(focusNode:_boundNode(group.id,(event)=>_railKey(group.id,event)),key:ValueKey('workspace-navigation-tab-${group.id}'),
         onPressed:group.disabled?null:(){_node(group.id).requestFocus();_mutate(()=>_selected=group.id);},icon:group.icon!=null?(widget.iconBuilder?.call(group.icon!)??const PrimeOriginalAsset('folder')):const PrimeOriginalAsset('folder')))))])),
       Expanded(child:Column(mainAxisSize:MainAxisSize.min,children:[if(selected!=null&&!selected.disabled)_vertical(selected.children),_vertical(widget.model.nodes.where((n)=>n.kind=='item').toList())])),
     ]);
@@ -174,8 +175,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     final folded=!drawer&&widget.mode=='folded'&&!_wide;
     final contents=widget.mode=='rail'&&!drawer?_rail():_vertical(widget.model.nodes,folded:folded,prefix:drawer?'drawer:':'');
     return SizedBox(width:drawer?null:widget.mode=='rail'?340:folded?64:260,child:SingleChildScrollView(child:Column(mainAxisSize:MainAxisSize.min,children:[
-      if(drawer)Align(alignment:AlignmentDirectional.centerEnd,child:IconButton(tooltip:widget.labels.close,onPressed:(){final route=_dialog,nav=_navigator;if(route!=null&&nav!=null&&route.isActive)nav.removeRoute(route);_dialog=null;_navigator=null;},icon:const PrimeOriginalAsset('close'))),
-      if(!drawer&&widget.mode=='folded')IconButton(tooltip:_pinned?widget.labels.unpin:widget.labels.pin,
+      if(drawer)Align(alignment:AlignmentDirectional.centerEnd,child:PrimeIconButton(tooltip:widget.labels.close,onPressed:(){final route=_dialog,nav=_navigator;if(route!=null&&nav!=null&&route.isActive)nav.removeRoute(route);_dialog=null;_navigator=null;},icon:const PrimeOriginalAsset('close'))),
+      if(!drawer&&widget.mode=='folded')PrimeIconButton(tooltip:_pinned?widget.labels.unpin:widget.labels.pin,
         onPressed:()=>_mutate(()=>_pinned=!_pinned),icon:PrimeOriginalAsset('pin-panel',strokeScale:_pinned?1.4:1)),
       contents,
     ])));
@@ -190,7 +191,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     if(widget.scope.trim().isEmpty||!['vertical','horizontal-header','horizontal-footer'].contains(widget.family)||!['expanded','folded','rail'].contains(widget.mode))throw StateError('Invalid navigation presentation');
     _activeId=widget.model.active(widget.currentRoute);
     if(!_narrow&&_dialog!=null)_closeDialogLater();
-    if(_narrow)return IconButton(tooltip:widget.labels.open,onPressed:_openDrawer,icon:const PrimeOriginalAsset('menu'));
+    if(_narrow)return PrimeIconButton(tooltip:widget.labels.open,onPressed:_openDrawer,icon:const PrimeOriginalAsset('menu'));
     return Semantics(label:widget.labels.navigation,container:true,child:KeyedSubtree(key:ValueKey('${widget.scope}:${jsonEncode(widget.model.toJson())}'),
       child:MouseRegion(onEnter:(_)=>_mutate(()=>_hover=true),onExit:(_)=>_mutate(()=>_hover=false),
         child:Focus(onFocusChange:(focused)=>_mutate(()=>_focused=focused),child:widget.family=='vertical'?_panel():_horizontal()))));
