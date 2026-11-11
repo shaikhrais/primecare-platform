@@ -52,6 +52,8 @@ class SharedButtonFamiliesTest(unittest.TestCase):
         self.assertNotRegex(code,r'Colors\.|\bColor\(')
         self.assertIn('this.clipBehavior = Clip.none',code)
         self.assertIn('required this.child',code)
+        self.assertEqual(code.count('icon: icon!,'),3)
+        self.assertEqual(code.count('child: child!,'),3)
 
     def test_actual_compile_imports_cover_every_consumer(self):
         for row in m.MANIFEST:

@@ -106,7 +106,7 @@ class PrimeTextButton extends StatelessWidget {
         autofocus: autofocus,
         clipBehavior: clipBehavior,
         statesController: statesController,
-        icon: icon, label: label!, iconAlignment: iconAlignment,
+        icon: icon!, label: label!, iconAlignment: iconAlignment,
       );
     }
     return TextButton(
@@ -119,7 +119,7 @@ class PrimeTextButton extends StatelessWidget {
       autofocus: autofocus,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      child: child,
+      child: child!,
     );
   }
 }
@@ -228,7 +228,7 @@ class PrimeElevatedButton extends StatelessWidget {
         autofocus: autofocus,
         clipBehavior: clipBehavior,
         statesController: statesController,
-        icon: icon, label: label!, iconAlignment: iconAlignment,
+        icon: icon!, label: label!, iconAlignment: iconAlignment,
       );
     }
     return ElevatedButton(
@@ -241,7 +241,7 @@ class PrimeElevatedButton extends StatelessWidget {
       autofocus: autofocus,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      child: child,
+      child: child!,
     );
   }
 }
@@ -350,7 +350,7 @@ class PrimeOutlinedButton extends StatelessWidget {
         autofocus: autofocus,
         clipBehavior: clipBehavior,
         statesController: statesController,
-        icon: icon, label: label!, iconAlignment: iconAlignment,
+        icon: icon!, label: label!, iconAlignment: iconAlignment,
       );
     }
     return OutlinedButton(
@@ -363,7 +363,7 @@ class PrimeOutlinedButton extends StatelessWidget {
       autofocus: autofocus,
       clipBehavior: clipBehavior,
       statesController: statesController,
-      child: child,
+      child: child!,
     );
   }
 }

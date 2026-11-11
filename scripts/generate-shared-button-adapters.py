@@ -37,10 +37,10 @@ def generate():
         out+='  );\n\n  @override\n  Widget build(BuildContext context) {\n'
         out+='    if (_iconVariant) {\n      return '+kind+'.icon(\n'
         for _,field in COMMON:out+='        '+field+': '+field+',\n'
-        out+='        icon: icon, label: label!, iconAlignment: iconAlignment,\n      );\n    }\n'
+        out+='        icon: icon!, label: label!, iconAlignment: iconAlignment,\n      );\n    }\n'
         out+='    return '+kind+'(\n'
         for _,field in COMMON:out+='      '+field+': '+field+',\n'
-        out+='      child: child,\n    );\n  }\n}\n\n'
+        out+='      child: child!,\n    );\n  }\n}\n\n'
     return out.rstrip()+'\n'
 
 
