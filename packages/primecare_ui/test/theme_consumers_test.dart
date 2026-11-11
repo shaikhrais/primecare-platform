@@ -75,7 +75,31 @@ void main() {
       expect(prime.colors.secondaryContainer, material.colorScheme.secondaryContainer);
       expect(prime.colors.inverseSurface, material.colorScheme.inverseSurface);
       expect(prime.colors.inverseOnSurface, material.colorScheme.onInverseSurface);
+      expect(prime.colors.surfaceContainer, material.colorScheme.surfaceContainer, reason: preset);
+      expect(prime.colors.surfaceContainerLow, material.colorScheme.surfaceContainerLow, reason: preset);
+      expect(prime.colors.surfaceContainerHigh, material.colorScheme.surfaceContainerHigh, reason: preset);
+      expect(prime.colors.surfaceContainerLowest, material.colorScheme.surfaceContainerLowest, reason: preset);
+      expect(prime.colors.surfaceContainerHighest, material.colorScheme.surfaceContainerHighest, reason: preset);
     }
+  });
+
+  test('personal adapter preserves distinct Material surface elevation roles', () {
+    const base = PrimeThemeData();
+    final material = ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal).copyWith(
+      surface: const Color(0xff101010),
+      surfaceContainerLowest: const Color(0xff202020),
+      surfaceContainerLow: const Color(0xff303030),
+      surfaceContainer: const Color(0xff404040),
+      surfaceContainerHigh: const Color(0xff505050),
+      surfaceContainerHighest: const Color(0xff606060),
+    ));
+    final colors = resolvePersonalPrimeTheme(base, material, PersonalTheme(name: 'Surfaces', preset: 'default')).colors;
+    expect(colors.surface, material.colorScheme.surface);
+    expect(colors.surfaceContainerLowest, material.colorScheme.surfaceContainerLowest);
+    expect(colors.surfaceContainerLow, material.colorScheme.surfaceContainerLow);
+    expect(colors.surfaceContainer, material.colorScheme.surfaceContainer);
+    expect(colors.surfaceContainerHigh, material.colorScheme.surfaceContainerHigh);
+    expect(colors.surfaceContainerHighest, material.colorScheme.surfaceContainerHighest);
   });
 
   test('copying colors preserves custom semantic and fixed tokens', () {
