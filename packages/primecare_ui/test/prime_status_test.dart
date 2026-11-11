@@ -44,7 +44,7 @@ void main() {
     }
   });
 
-  testWidgets('generated Active and Clear metrics use live success color and retain values', (tester) async {
+  testWidgets('generated metrics use live success and warning colors and retain values', (tester) async {
     Widget host(PrimeColors colors) => PrimeTheme(
       data: PrimeThemeData(colors: colors),
       bootstrap: false,
@@ -56,12 +56,16 @@ void main() {
         ),
       ),
     );
-    for (final colors in [const PrimeColors(), const PrimeColors(success: Colors.purple)]) {
+    for (final colors in [const PrimeColors(), const PrimeColors(success: Colors.purple, warning: Colors.cyan)]) {
       await tester.pumpWidget(host(colors));
       await tester.pumpAndSettle();
       final icons = tester.widgetList<Icon>(find.byWidgetPredicate((widget) => widget is Icon && widget.size == 20)).toList();
-      expect(icons, hasLength(2));
-      expect(icons.every((icon) => icon.color == colors.success), isTrue);
+      expect(icons, hasLength(3));
+      expect(icons.take(2).every((icon) => icon.color == colors.success), isTrue);
+      expect(icons.last.color, colors.warning);
+      expect(find.text('Latency Telemetry'), findsOneWidget);
+      expect(find.text('14ms'), findsOneWidget);
+      expect(find.text('97%'), findsOneWidget);
       expect(find.text('Operational Status'), findsOneWidget);
       expect(find.text('Active'), findsOneWidget);
       expect(find.text('Security Sync'), findsOneWidget);

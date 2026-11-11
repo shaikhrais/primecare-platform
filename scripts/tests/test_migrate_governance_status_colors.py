@@ -21,6 +21,17 @@ class GovernanceStatusColorsTest(unittest.TestCase):
         self.assertEqual(result, source.replace('Color(0xFF0D9488)', 'theme.colors.success').replace('Color(0xFF16A34A)', 'theme.colors.success'))
         self.assertEqual(m.migrate(result), (result, 0))
 
+    def test_exact_latency_card_resolves_warning_and_is_idempotent(self):
+        card = "GovMetricCard(title: 'Latency Telemetry', value: '14ms', trendLabel: 'Optimal', progress: 0.97, icon: LucideIcons.zap, brandColor: Color(0xFFEAB308))"
+        source = screen('return '+card)
+        result, count = m.migrate(source)
+        self.assertEqual(count, 1)
+        self.assertEqual(result, source.replace('Color(0xFFEAB308)', 'theme.colors.warning'))
+        self.assertEqual(m.migrate(result), (result, 0))
+        for old, new in [("'14ms'", "'200ms'"), ('0.97', '0.5'), ('LucideIcons.zap', 'LucideIcons.activity'), ('EAB308', 'FF0000')]:
+            changed = source.replace(old, new)
+            self.assertEqual(m.migrate(changed), (changed, 0))
+
     def test_const_ancestors_are_removed_only_when_needed(self):
         source = screen('return const Column(children: ['+ACTIVE+', const SizedBox(height: 12)])')
         result, count = m.migrate(source)

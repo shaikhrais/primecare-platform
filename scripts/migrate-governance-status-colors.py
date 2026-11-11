@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Move exact generated Active/Clear metric card colors to the success theme role.
+"""Move exact generated metric card colors to inherited semantic theme roles.
 
 Only the known title/value/trend/progress/icon/color signatures qualify, inside a
 buildScreen with an existing context.theme binding. Other metrics remain visible
@@ -16,12 +16,15 @@ t = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(t)
 # Exact known generated status cards; never infer status from a nearby color.
 CARDS = (
-    ('Operational Status', 'Active', 'Optimal', '0.92', 'activity', '0D9488'),
-    ('Security Sync', 'Clear', 'Secured', '1.0', 'shieldCheck', '16A34A'),
+    ('Operational Status', 'Active', 'Optimal', '0.92', 'activity', '0D9488', 'success'),
+    ('Security Sync', 'Clear', 'Secured', '1.0', 'shieldCheck', '16A34A', 'success'),
+    ('Latency Telemetry', '14ms', 'Optimal', '0.97', 'zap', 'EAB308', 'warning'),
 )
 PATTERNS = []
-for title, value, trend, progress, icon, color in CARDS:
+ROLES = {}
+for title, value, trend, progress, icon, color, role in CARDS:
     PATTERNS.append(re.compile(r"(?<![\w.])GovMetricCard\s*\(\s*title\s*:\s*'"+re.escape(title)+r"'\s*,\s*value\s*:\s*'"+value+r"'\s*,\s*trendLabel\s*:\s*'"+trend+r"'\s*,\s*progress\s*:\s*"+re.escape(progress)+r'\s*,\s*icon\s*:\s*LucideIcons\.'+icon+r'\s*,\s*brandColor\s*:\s*(?P<color>(?:const\s+)?Color\(0xFF'+color+r'\))\s*,?\s*\)'))
+    ROLES[PATTERNS[-1]] = role
 
 
 def migrate(source):
@@ -55,7 +58,7 @@ def migrate(source):
                 if not code[match.start():].startswith('GovMetricCard') or code[:match.start()].rstrip().endswith('.'):
                     continue
                 start, end = match.span('color')
-                edits.append((start, end, 'theme.colors.success'))
+                edits.append((start, end, 'theme.colors.' + ROLES[pattern]))
                 for begin, finish, frame in consts:
                     if frame and body[0] < begin <= start and frame[1] >= end-1:
                         removed.add((begin, finish, ''))

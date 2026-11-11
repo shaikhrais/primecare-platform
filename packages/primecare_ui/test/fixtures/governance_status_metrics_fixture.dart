@@ -1,4 +1,4 @@
-// Exact generated Active/Clear card calls inside a minimal build context.
+// Exact generated Active/Clear/Latency card calls inside a minimal build context.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class GovernanceStatusMetricsFixture extends StatelessWidget {
@@ -22,6 +22,9 @@ GovMetricCard(
                 icon: LucideIcons.shieldCheck,
                 brandColor: theme.colors.success,
               ),
+      GovMetricCard(title: 'Latency Telemetry', value: '14ms',
+        trendLabel: 'Optimal', progress: 0.97, icon: LucideIcons.zap,
+        brandColor: theme.colors.warning),
     ]);
   }
 }
