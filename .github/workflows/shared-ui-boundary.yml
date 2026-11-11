@@ -41,6 +41,8 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_generated_typography.py
       - name: Verify conservative shared icon migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_icons.py
+      - name: Verify conservative shared icon action migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_icon_buttons.py
       - name: Verify conservative shared page migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_pages.py
       - name: Reject direct controls and colors outside shared theme definitions

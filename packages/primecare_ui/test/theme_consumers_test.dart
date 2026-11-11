@@ -13,6 +13,7 @@ import 'package:primecare_ui/src/components/clinical_glass_panel.dart';
 import 'package:primecare_ui/src/components/prime_components.dart' as shared;
 import 'package:primecare_ui/src/components/prime_text.dart';
 import 'package:primecare_ui/src/components/prime_icon.dart';
+import 'package:primecare_ui/src/components/prime_icon_button.dart';
 import 'package:primecare_ui/src/components/layouts/responsive_grid_layout.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'fixtures/generated_theme_fixture.dart';
@@ -36,6 +37,31 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('shared icon actions preserve themes, target size and callbacks', (tester) async {
+    for (final preset in themeCenterPresetNames) {
+      final material = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Action', preset: preset));
+      var taps = 0;
+      await tester.pumpWidget(MaterialApp(theme: material, home: Scaffold(body: Row(children: [
+        IconButton(key: const Key('original-action'), icon: const PrimeIcon(Icons.refresh), onPressed: () {}),
+        PrimeIconButton(key: const Key('shared-action'), icon: const PrimeIcon(Icons.refresh), onPressed: () { taps++; }),
+        const PrimeIconButton(key: Key('disabled-action'), icon: PrimeIcon(Icons.refresh), onPressed: null),
+      ]))));
+      final sharedButton = find.descendant(of: find.byKey(const Key('shared-action')), matching: find.byType(IconButton));
+      final disabledButton = find.descendant(of: find.byKey(const Key('disabled-action')), matching: find.byType(IconButton));
+      expect(tester.getSize(sharedButton), tester.getSize(find.byKey(const Key('original-action'))), reason: preset);
+      RichText rendered(Finder root) => tester.widget<RichText>(find.descendant(of: root, matching: find.byType(RichText)));
+      expect(rendered(sharedButton).text.style, rendered(find.byKey(const Key('original-action'))).text.style, reason: preset);
+      await tester.tap(find.byKey(const Key('shared-action')));
+      await tester.pump();
+      expect(taps, 1, reason: preset);
+      expect(tester.widget<IconButton>(disabledButton).onPressed, isNull);
+      await tester.tap(find.byKey(const Key('disabled-action')));
+      await tester.pump();
+      expect(taps, 1, reason: preset);
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
   testWidgets('key-first migrated titles retain rendered style across palettes', (tester) async {
     for (final preset in themeCenterPresetNames) {
       final material = applyPersonalThemeData(ThemeData(), PersonalTheme(name: 'Title', preset: preset));
