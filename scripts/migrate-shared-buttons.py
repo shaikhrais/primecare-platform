@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Replace plain TextButton labels with existing shared PrimeButton ghost controls.
+"""Replace plain text/elevated button labels with existing shared PrimeButton controls.
 
 Only key/onPressed/child signatures with an unstyled PrimeText child qualify.
 Dry run is the default; unsupported options stay visible to the strict gate.
@@ -13,7 +13,7 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location('text_migration', Path(__file__).with_name('migrate-shared-text.py'))
 text = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(text)
-CALL = re.compile(r'(?<![\w.])TextButton\s*\(')
+CALL = re.compile(r'(?<![\w.])(TextButton|ElevatedButton)\s*\(')
 SHARED = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*;")
 
 
@@ -44,12 +44,12 @@ def migrate(source):
         return source, 0
     if not any(code[m.start():].startswith('import') for m in text.MATERIAL.finditer(source)):
         return source, 0
-    if re.search(r'\b(?:class|typedef|mixin|enum)\s+(?:TextButton|PrimeButton|PrimeText)\b|\bpart\b', code):
+    if re.search(r'\b(?:class|typedef|mixin|enum)\s+(?:TextButton|ElevatedButton|PrimeButton|PrimeText)\b|\bpart\b', code):
         return source, 0
-    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+TextButton\s*\(|\bTextButton\s*=|\bextension\s+(?:type\s+)?(?:TextButton|PrimeButton)\b', code):
+    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+(?:TextButton|ElevatedButton)\s*\(|\b(?:TextButton|ElevatedButton)\s*=|\bextension\s+(?:type\s+)?(?:TextButton|ElevatedButton|PrimeButton)\b', code):
         return source, 0
-    if re.search(r'\bTextButton\s*\.\s*\w+\b(?!\s*\()', code) or any(
-        not re.match(r'\s*(?:\(|\.)', code[m.end():]) for m in re.finditer(r'\bTextButton\b', code)
+    if re.search(r'\b(?:TextButton|ElevatedButton)\s*\.\s*\w+\b(?!\s*\()', code) or any(
+        not re.match(r'\s*(?:\(|\.)', code[m.end():]) for m in re.finditer(r'\b(?:TextButton|ElevatedButton)\b', code)
     ):
         return source, 0
     edits, count = [], 0
@@ -91,8 +91,8 @@ def migrate(source):
             if CALL.search(code[arg_begin:arg_end]):
                 continue
             # Keep the label expression byte-for-byte, including localization calls.
-            edits.extend([(call.start(), call.start() + len('TextButton'), 'PrimeButton'),
-                          (call.end(), call.end(), 'isGhost: true, '),
+            edits.extend([(call.start(), call.start() + len(call[1]), 'PrimeButton'),
+                          (call.end(), call.end(), 'isGhost: true, ' if call[1] == 'TextButton' else ''),
                           (begin + label.start(1), begin + label.end(1), 'label'),
                           (value_start, child_end + 1, ' ' + source[arg_begin:arg_end])])
             count += 1

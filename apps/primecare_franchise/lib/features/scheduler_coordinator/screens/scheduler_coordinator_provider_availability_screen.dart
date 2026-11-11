@@ -223,9 +223,9 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
-                              child: ElevatedButton(
+                              child: PrimeButton(
                                 onPressed: () => controller.refreshData(),
-                                child: PrimeText('Retry'.tr()),
+                                label: 'Retry'.tr(),
                               ),
                             ),
                           ],

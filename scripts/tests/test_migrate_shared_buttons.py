@@ -95,6 +95,23 @@ class SharedButtonMigrationTest(unittest.TestCase):
         self.assertIn("label: 'inner'", result)
         self.assertIn("label: 'outer'", result)
 
+    def test_primary_action_preserves_callback_key_and_localized_label(self):
+        source = IMPORTS + "ElevatedButton(key: actionKey, onPressed: () => retry(id), child: const PrimeText('Retry'));"
+        result, count = buttons.migrate(source)
+        self.assertEqual(count, 1)
+        self.assertEqual(result, IMPORTS + "PrimeButton(key: actionKey, onPressed: () => retry(id), label: 'Retry');")
+        self.assertEqual(buttons.migrate(result), (result, 0))
+
+    def test_primary_action_unsupported_options_and_ownership_are_retained(self):
+        for call in ["ElevatedButton(style: style, onPressed: go, child: PrimeText('Go'))",
+                     "ElevatedButton(onLongPress: hold, onPressed: go, child: PrimeText('Go'))",
+                     "ElevatedButton(onPressed: go, child: PrimeText('Go', style: style))",
+                     "ui.ElevatedButton(onPressed: go, child: PrimeText('Go'))",
+                     "final ctor = ElevatedButton.new; ElevatedButton(onPressed: go, child: PrimeText('Go'))",
+                     "class ElevatedButton {} ElevatedButton(onPressed: go, child: PrimeText('Go'))"]:
+            source = IMPORTS + call
+            self.assertEqual(buttons.migrate(source), (source, 0))
+
 
 if __name__ == '__main__':
     unittest.main()
