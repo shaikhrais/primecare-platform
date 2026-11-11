@@ -51,78 +51,18 @@ class AppErrorBoundary {
           errorStr.contains('xmlhttprequest error');
 
       if (isOfflineError) {
-        return Container(
-          margin: const EdgeInsets.all(16.0),
-          padding: const EdgeInsets.all(16.0),
-          decoration: BoxDecoration(
-            color: const Color(0xFFFEF2F2), // Light red/offline bg
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFFCA5A5)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Row(
-                children: [
-                  Icon(Icons.wifi_off_rounded, color: Color(0xFFEF4444), size: 24),
-                  SizedBox(width: 12),
-                  Expanded(
-                    child: Text(
-                      'System Unavailable',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF991B1B),
-                        decoration: TextDecoration.none,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              const Text(
-                'Server is unreachable. Please check your connection.',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Color(0xFF7F1D1D),
-                  decoration: TextDecoration.none,
-                ),
-              ),
-              if (onReset != null) ...[
-                const SizedBox(height: 12),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton.icon(
-                    onPressed: onReset,
-                    icon: const Icon(Icons.refresh, size: 16, color: Color(0xFF991B1B)),
-                    label: const Text('Retry', style: TextStyle(color: Color(0xFF991B1B))),
-                    style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      minimumSize: Size.zero,
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                  ),
-                ),
-              ],
-            ],
-          ),
-        );
+        return SystemOfflinePanel(onReset: onReset);
       }
 
       // 🛠️ MECHANICAL FIX ATTEMPT
       final didTriggerHeal = SystemRecoveryManager.attemptAutoHeal(onReset);
       if (didTriggerHeal) {
-        return const MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: SystemHealingPlaceholder(),
-        );
+        return const _InheritedRecoveryApp(child: SystemHealingPlaceholder());
       }
 
       // If auto-healing fails or max attempts reached, show the full diagnostic trail
-      return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark(),
-        home: SystemRecoveryMode(
+      return _InheritedRecoveryApp(
+        child: SystemRecoveryMode(
           error: details.exception,
           stackTrace: details.stack,
           onAttemptReset: () {
@@ -233,20 +173,21 @@ class SystemHealingPlaceholder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: const Color(0xFF0D1117),
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircularProgressIndicator(
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.cyanAccent),
+            CircularProgressIndicator(
+              color: theme.colorScheme.primary,
             ),
             const SizedBox(height: 24),
             Text(
               'MECHANICAL FIX IN PROGRESS...',
-              style: TextStyle(
-                color: Colors.cyanAccent.withValues(alpha: 0.8),
+              style: theme.textTheme.titleMedium?.copyWith(
+                color: theme.colorScheme.onSurface,
                 fontWeight: FontWeight.bold,
                 letterSpacing: 2.0,
               ),
@@ -254,9 +195,8 @@ class SystemHealingPlaceholder extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               'Attempting to clear system error #${SystemRecoveryManager.healCount}',
-              style: TextStyle(
-                color: Colors.white.withValues(alpha: 0.5),
-                fontSize: 12,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
           ],
@@ -343,4 +283,17 @@ class BoundaryTelemetryDrain extends ConsumerWidget {
       );
     }
   }
+}
+
+/// Preserve the active product appearance while giving recovery UI a navigator.
+class _InheritedRecoveryApp extends StatelessWidget {
+  final Widget child;
+  const _InheritedRecoveryApp({required this.child});
+
+  @override
+  Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
+    theme: Theme.of(context),
+    home: child,
+  );
 }

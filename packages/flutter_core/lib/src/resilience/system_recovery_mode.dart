@@ -1,6 +1,50 @@
 // Governance - Category: service | Purpose: Layer: 05_USER_INTERFACE A reusable recovery screen for handling domain logistics failures. This widget provides a co...
 // Layer: 05_USER_INTERFACE
 import 'package:flutter/material.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
+
+/// Shared inline connection recovery panel using the active semantic palette.
+class SystemOfflinePanel extends StatelessWidget {
+  final VoidCallback? onReset;
+  const SystemOfflinePanel({super.key, this.onReset});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    return Container(
+      margin: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: colors.errorContainer,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: colors.error),
+      ),
+      child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Row(children: [
+          Icon(Icons.wifi_off_rounded, color: colors.onErrorContainer, size: 24),
+          const SizedBox(width: 12),
+          Expanded(child: Text('System Unavailable',
+            style: theme.textTheme.titleMedium?.copyWith(
+              color: colors.onErrorContainer, decoration: TextDecoration.none))),
+        ]),
+        const SizedBox(height: 8),
+        Text('Server is unreachable. Please check your connection.',
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: colors.onErrorContainer, decoration: TextDecoration.none)),
+        if (onReset != null) ...[
+          const SizedBox(height: 12),
+          Align(alignment: Alignment.centerRight, child: TextButton.icon(
+            onPressed: onReset,
+            icon: const Icon(Icons.refresh, size: 16),
+            label: const Text('Retry'),
+            style: TextButton.styleFrom(foregroundColor: colors.onErrorContainer),
+          )),
+        ],
+      ]),
+    );
+  }
+}
 
 /// A reusable recovery screen for handling domain logistics failures.
 /// This widget provides a consistent UI for error states across legacy and generated screens.
@@ -18,25 +62,26 @@ class SystemRecoveryMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     return Scaffold(
-      backgroundColor: const Color(0xFF0F172A), // slate-900
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              Icon(
                 Icons.shield_outlined,
-                color: Colors.amberAccent,
+                color: colors.primary,
                 size: 64,
               ),
               const SizedBox(height: 24),
-              const Text(
+              Text(
                 'System Recovery Mode',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+                style: theme.textTheme.headlineSmall?.copyWith(
+                  color: colors.onSurface,
                   fontWeight: FontWeight.bold,
                   letterSpacing: -0.5,
                 ),
@@ -45,7 +90,7 @@ class SystemRecoveryMode extends StatelessWidget {
               Text(
                 'A critical interface failure was intercepted. The session state has been protected and a diagnostic trail has been generated below.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Color(0xFF94A3B8), fontSize: 16),
+                style: theme.textTheme.bodyLarge?.copyWith(color: colors.onSurfaceVariant),
               ),
               const SizedBox(height: 32),
 
@@ -56,8 +101,8 @@ class SystemRecoveryMode extends StatelessWidget {
               ElevatedButton(
                 onPressed: onAttemptReset,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF2563EB),
-                  foregroundColor: Colors.white,
+                  backgroundColor: colors.primary,
+                  foregroundColor: colors.onPrimary,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 48,
                     vertical: 20,
@@ -69,7 +114,8 @@ class SystemRecoveryMode extends StatelessWidget {
                 ),
                 child: Text(
                   'Attempt Interface Reset',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium?.copyWith(color: colors.onPrimary, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -80,51 +126,50 @@ class SystemRecoveryMode extends StatelessWidget {
   }
 
   Widget _buildDiagnosticTrail(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.4),
+        color: colors.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.05)),
+        border: Border.all(color: colors.outlineVariant),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(Icons.terminal_rounded, color: Colors.amber, size: 18),
+              Icon(Icons.terminal_rounded, color: colors.primary, size: 18),
               SizedBox(width: 12),
-              Text(
+              Expanded(child: Text(
                 'FULL DIAGNOSTIC TRAIL (SEND TO AGENT)',
-                style: TextStyle(
-                  color: Colors.amber,
+                style: theme.textTheme.labelSmall?.copyWith(
+                  color: colors.primary,
                   fontWeight: FontWeight.w900,
-                  fontSize: 11,
                   letterSpacing: 1.2,
                 ),
-              ),
+              )),
             ],
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 16),
-            child: Divider(color: Colors.white10, height: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            child: Divider(color: colors.outlineVariant, height: 1),
           ),
           Text(
             'EXCEPTION:',
-            style: TextStyle(
-              color: Color(0xFF64748B),
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: colors.onSurfaceVariant,
               fontWeight: FontWeight.bold,
-              fontSize: 10,
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 8),
           SelectableText(
             error.toString(),
-            style: const TextStyle(
-              color: Colors.redAccent,
-              fontSize: 13,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: readableThemeForeground(colors.surfaceContainerHighest, colors.error),
               fontFamily: 'monospace',
               fontWeight: FontWeight.w600,
             ),
@@ -132,19 +177,17 @@ class SystemRecoveryMode extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             'STACK TRACE:',
-            style: TextStyle(
-              color: Color(0xFF64748B),
+            style: theme.textTheme.labelSmall?.copyWith(
+              color: colors.onSurfaceVariant,
               fontWeight: FontWeight.bold,
-              fontSize: 10,
               letterSpacing: 0.5,
             ),
           ),
           const SizedBox(height: 8),
           SelectableText(
             stackTrace?.toString() ?? 'No stack trace captured.',
-            style: TextStyle(
-              color: Colors.white.withValues(alpha: 0.6),
-              fontSize: 11,
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: colors.onSurfaceVariant,
               fontFamily: 'monospace',
               height: 1.6,
             ),
