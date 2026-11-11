@@ -6,6 +6,9 @@ import re
 import unittest
 
 ROOT=Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0,str(ROOT/'scripts'))
+from reviewed_migration_history import before_controller_ref_aliases
 s=importlib.util.spec_from_file_location('finance',ROOT/'scripts/migrate-finance-semantic-palette.py')
 m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 s=importlib.util.spec_from_file_location('previous',ROOT/'scripts/tests/test_migrate_clinical_semantic_palette.py')
@@ -17,7 +20,7 @@ class FinanceSemanticPaletteTest(unittest.TestCase):
         self.assertEqual(len(m.MANIFEST),12)
         self.assertEqual(sum(r['calls'] for r in m.MANIFEST),142)
         for row in m.MANIFEST:
-            current=(ROOT/row['path']).read_text();original=previous.reverse(current,row)
+            current=before_controller_ref_aliases((ROOT/row['path']).read_text(),row['path']);original=previous.reverse(current,row)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256'])
             self.assertEqual(m.migrate(original),(current,row['calls']))
             self.assertEqual(m.migrate(current),(current,0))
@@ -29,7 +32,7 @@ class FinanceSemanticPaletteTest(unittest.TestCase):
 
     def test_unreviewed_source_rejected(self):
         for row in m.MANIFEST:
-            source=previous.reverse((ROOT/row['path']).read_text(),row)
+            source=previous.reverse(before_controller_ref_aliases((ROOT/row['path']).read_text(),row['path']),row)
             for changed in [source+'\n',source+'\nclass PrimeActionPalette {}\n']:
                 self.assertEqual(m.migrate(changed),(changed,0))
 
@@ -40,7 +43,7 @@ class FinanceSemanticPaletteTest(unittest.TestCase):
         theme=importlib.util.module_from_spec(spec);spec.loader.exec_module(theme)
         metadata=json.loads((ROOT/'scripts/finance-semantic-palette-fixture-map.json').read_text())
         for row in metadata:
-            source=(ROOT/row['path']).read_text()
+            source=before_controller_ref_aliases((ROOT/row['path']).read_text(),row['path'])
             self.assertIn(row['path'].split('/lib/')[1],compile)
             if 'className' in row:
                 start=source.index('class '+row['className']+' extends StatelessWidget');opening=source.index('{',start)

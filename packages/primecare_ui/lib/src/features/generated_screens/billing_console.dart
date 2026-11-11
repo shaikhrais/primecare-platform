@@ -43,7 +43,7 @@ class BillingConsoleState {
 
 // --- Controller ---
 class BillingConsoleController extends StateNotifier<BillingConsoleState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   BillingConsoleController(this._ref)

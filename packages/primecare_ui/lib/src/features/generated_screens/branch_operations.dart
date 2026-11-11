@@ -39,7 +39,7 @@ class BranchOperationsState {
 
 // --- Controller ---
 class BranchOperationsController extends StateNotifier<BranchOperationsState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   BranchOperationsController(this._ref)

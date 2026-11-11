@@ -43,7 +43,7 @@ class RevenueTrackerState {
 
 // --- Controller ---
 class RevenueTrackerController extends StateNotifier<RevenueTrackerState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   RevenueTrackerController(this._ref)

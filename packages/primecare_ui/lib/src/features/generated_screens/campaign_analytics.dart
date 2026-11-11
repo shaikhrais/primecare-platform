@@ -43,7 +43,7 @@ class CampaignAnalyticsState {
 
 // --- Controller ---
 class CampaignAnalyticsController extends StateNotifier<CampaignAnalyticsState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   CampaignAnalyticsController(this._ref)

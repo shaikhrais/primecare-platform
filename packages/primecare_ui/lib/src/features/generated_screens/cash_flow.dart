@@ -43,7 +43,7 @@ class CashFlowState {
 
 // --- Controller ---
 class CashFlowController extends StateNotifier<CashFlowState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   CashFlowController(this._ref)

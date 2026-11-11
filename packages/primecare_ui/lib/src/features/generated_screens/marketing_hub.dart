@@ -47,7 +47,7 @@ class MarketingHubState {
 
 // --- Controller ---
 class MarketingHubController extends StateNotifier<MarketingHubState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   MarketingHubController(this._ref)

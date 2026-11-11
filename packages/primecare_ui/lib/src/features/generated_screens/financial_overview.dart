@@ -39,7 +39,7 @@ class FinancialOverviewState {
 
 // --- Controller ---
 class FinancialOverviewController extends StateNotifier<FinancialOverviewState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   FinancialOverviewController(this._ref)

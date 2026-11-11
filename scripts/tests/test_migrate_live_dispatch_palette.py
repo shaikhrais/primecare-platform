@@ -4,6 +4,9 @@ import unittest
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
+import sys
+sys.path.insert(0,str(ROOT/'scripts'))
+from reviewed_migration_history import before_controller_ref_aliases
 spec = importlib.util.spec_from_file_location('dispatch', ROOT/'scripts/migrate-live-dispatch-palette.py')
 m = importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
 spec = importlib.util.spec_from_file_location('boundary', ROOT/'scripts/check-shared-ui-boundary.py')
@@ -13,7 +16,7 @@ b = importlib.util.module_from_spec(spec); spec.loader.exec_module(b)
 class LiveDispatchPaletteTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        current = (ROOT/m.SOURCE).read_text()
+        current = before_controller_ref_aliases((ROOT/m.SOURCE).read_text(),m.SOURCE)
         cls.original, reversed_count = m.reverse_migrate(current)
         if not reversed_count:
             cls.original = current

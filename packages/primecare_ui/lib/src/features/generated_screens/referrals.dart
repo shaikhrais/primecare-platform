@@ -31,7 +31,7 @@ class ReferralsState {
 
 // --- Controller ---
 class ReferralsController extends StateNotifier<ReferralsState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   ReferralsController(this._ref)

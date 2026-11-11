@@ -39,7 +39,7 @@ class ComplianceStatusState {
 
 // --- Controller ---
 class ComplianceStatusController extends StateNotifier<ComplianceStatusState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   ComplianceStatusController(this._ref)

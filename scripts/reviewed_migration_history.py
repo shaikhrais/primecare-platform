@@ -6,7 +6,23 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_controller_ref_aliases(source,path):
+    manifest=ROOT/'scripts/controller-ref-alias-manifest.json'
+    if not manifest.exists():return source
+    row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)
+    if row is None or hashlib.sha256(source.encode()).hexdigest()!=row['updated_sha256']:
+        return source
+    edits=[];delta=0
+    for edit in row['edits']:
+        begin=edit['begin']+delta
+        if source[begin:begin+len(edit['new'])]!=edit['new']:raise AssertionError('Controller reference output drift: '+path)
+        edits.append((begin,begin+len(edit['new']),edit['old']));delta+=len(edit['new'])-(edit['end']-edit['begin'])
+    for a,b,value in reversed(edits):source=source[:a]+value+source[b:]
+    if hashlib.sha256(source.encode()).hexdigest()!=row['sha256']:raise AssertionError('Controller reference input drift: '+path)
+    return source
+
 def before_remaining_material_controls(source,path):
+    source=before_controller_ref_aliases(source,path)
     manifest=ROOT/'scripts/remaining-material-controls-manifest.json'
     if not manifest.exists():return source
     row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)

@@ -745,7 +745,7 @@
   {
     "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
     "sha256": "dfb1d8c5b335b4814eaf41997a9c4a0bcf5b264f090d357d314cb34e8a5afba9",
-    "updated_sha256": "1f555926ed3393a699d43aea71ad57c52996dd2656402f32107629762bc45979",
+    "updated_sha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
     "calls": 3,
     "symbols": [
       "Drawer",
@@ -757,6 +757,12 @@
         "end": 0,
         "old": "",
         "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeSwitchListTile;\n"
+      },
+      {
+        "begin": 357,
+        "end": 399,
+        "old": ".dart';\nimport '../../theme/theme_contrast",
+        "new": ""
       },
       {
         "begin": 1501,
@@ -776,7 +782,9 @@
         "old": "",
         "new": "Prime"
       }
-    ]
+    ],
+    "removed_duplicate_import": "import '../../theme/theme_contrast.dart';\n",
+    "duplicate_import_anchor": "import 'theme_center_panel.dart';\n"
   },
   {
     "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",

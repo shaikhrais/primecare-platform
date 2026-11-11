@@ -39,7 +39,7 @@ class IncidentReviewsState {
 
 // --- Controller ---
 class IncidentReviewsController extends StateNotifier<IncidentReviewsState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   IncidentReviewsController(this._ref)

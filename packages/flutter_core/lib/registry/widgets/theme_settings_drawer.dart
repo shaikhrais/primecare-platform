@@ -4,7 +4,6 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;
 import 'theme_center_panel.dart';
-import '../../theme/theme_contrast.dart';
 import '../../theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;

@@ -39,7 +39,7 @@ class RegionPerformanceState {
 
 // --- Controller ---
 class RegionPerformanceController extends StateNotifier<RegionPerformanceState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   RegionPerformanceController(this._ref)

@@ -37,7 +37,7 @@ class PlatformUsageState {
 
 // --- Controller ---
 class PlatformUsageController extends StateNotifier<PlatformUsageState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   PlatformUsageController(this._ref)

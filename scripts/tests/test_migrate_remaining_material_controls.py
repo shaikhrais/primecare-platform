@@ -18,6 +18,8 @@ class RemainingMaterialControlsTest(unittest.TestCase):
     normalized=re.sub(r'\b'+shared+r'\b',symbol,normalized)
    if 'duplicate_import_cleanup' in row:
     line=row['duplicate_import_cleanup'];self.assertEqual(normalized.count(line),1);normalized=normalized.replace(line,line+line,1)
+   if 'removed_duplicate_import' in row:
+    self.assertNotIn(row['removed_duplicate_import'],normalized);normalized=normalized.replace(row['duplicate_import_anchor'],row['duplicate_import_anchor']+row['removed_duplicate_import'],1)
    self.assertEqual(normalized,original)
  def test_pinned_sdk_generator_is_current_and_forwards_required_parameters(self):
   rows=json.loads((ROOT/'scripts/shared-material-controls-api-3.41.5.json').read_text());self.assertEqual(len(rows),19)

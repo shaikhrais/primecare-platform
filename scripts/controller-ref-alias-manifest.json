@@ -1,0 +1,287 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_console.dart",
+    "controller": "BillingConsoleController",
+    "sha256": "bdb825e51dab1f23a97f6743f0764876eefed49632e8695aa90385b836568e88",
+    "updated_sha256": "4b515fabb03c13dfdf1f3af06b2dbaf03b2b14242c9ae8514e653d4696fcfafe",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1582,
+        "end": 1596,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/branch_operations.dart",
+    "controller": "BranchOperationsController",
+    "sha256": "fd51069f3e381dee71b189eedecf14a3674ae24fdbe6d843b90698070dc356a9",
+    "updated_sha256": "7a5d85238cf35a8fe2888a40e9e6a9e788d8705ffcb947d1ad9233feb5d28cd6",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1452,
+        "end": 1466,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/business_overview.dart",
+    "controller": "BusinessOverviewController",
+    "sha256": "c19f5614d1b662dce778164d62fe64b21d3efd708f0f75a8bbbf678fa845c741",
+    "updated_sha256": "ba6c908593230cf5d7f5f59a8efd069bd5ebbbf050686dc398885eb22d4426c5",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1581,
+        "end": 1595,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/campaign_analytics.dart",
+    "controller": "CampaignAnalyticsController",
+    "sha256": "332cd045097d211881e55ca627492be00f681005783ca71e7bc1c47b51e1fd9a",
+    "updated_sha256": "a042d2f90c665c048a05613e0a19ed75e74a6df3fccb3831fbbe922d565b349f",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1429,
+        "end": 1443,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cash_flow.dart",
+    "controller": "CashFlowController",
+    "sha256": "07d64579b9fce347816d654436472a3ef8468031f854b62f2199fa5160fb2382",
+    "updated_sha256": "ae37a4eb4cacb36c8cfbcd4a25abcd1da20229f143df11beb9f8e2c5c1d700d4",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1390,
+        "end": 1404,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/compliance_status.dart",
+    "controller": "ComplianceStatusController",
+    "sha256": "1d473db56e5ad10662141b3a501222ee496b49347d222e5461caf40b1ce98d3d",
+    "updated_sha256": "e007e96b030f7e44b13c68dd3fc69ef5fe2f7b91f7e6271a023a02b449e7a3d1",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1494,
+        "end": 1508,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/financial_overview.dart",
+    "controller": "FinancialOverviewController",
+    "sha256": "8600932185a6ccbd8bc9d64727ca7b76a3a5547ecf7cd2a0a43da77e4cc7cc93",
+    "updated_sha256": "33f0dfe14d3450bbe78e87a009d59518119d4e59bee6a85804eb77c9fc212ae4",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1406,
+        "end": 1420,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/financial_performance.dart",
+    "controller": "FinancialPerformanceController",
+    "sha256": "3a796026903190292115257b59b9755d717ddf0a3a4b5eab1b08c75d4ea60800",
+    "updated_sha256": "799de8129a4560b2615b2c455ad009b4ac5953a23978b74005a9048e0703fbf3",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 2052,
+        "end": 2066,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/incident_reviews.dart",
+    "controller": "IncidentReviewsController",
+    "sha256": "b66d8ea6f047c32e8eae8ff6896130c96194e804bbe23069b98280e799c5b614",
+    "updated_sha256": "216e64cb03294e3e62e48906e6cce1fd56663d35135258c5e2217ad3eb31957d",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1382,
+        "end": 1396,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/intake_pipeline.dart",
+    "controller": "IntakePipelineController",
+    "sha256": "46dccc8f836370f2d120a572351104f90755f66a9b7f9be7fa4aaa6bb7dd551e",
+    "updated_sha256": "d7f1e4737e8ea83f67f3c604ac1e730d4b7faf72bbe3f5fe4ac3d66fd30bb63a",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1394,
+        "end": 1408,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/invoices.dart",
+    "controller": "InvoicesController",
+    "sha256": "344e15543a763fa78119f03537a4c84d34faf3d99b8662dcbd51e5685bfaff14",
+    "updated_sha256": "d3c65a4c2f7f5fc0a0fd6cb8cf1a3d61b7aa3f4e31b35fe5f8114c81dc044bd3",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1633,
+        "end": 1647,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/live_dispatch_map.dart",
+    "controller": "LiveDispatchMapController",
+    "sha256": "a004a5be83a24aa8ee812102b82746cf67789e8cb69f707c9ea4eeb3218e80c6",
+    "updated_sha256": "aaa57d00b434590c60a87afe0bb8760a606f0de0694cca0b17907aeb89e7ef9e",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1550,
+        "end": 1564,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/marketing_hub.dart",
+    "controller": "MarketingHubController",
+    "sha256": "2e9cd48137a86453909dc98dfc8fb8fd5005f8959127c851d52e3976b5be9246",
+    "updated_sha256": "9be03877da009c31886849f672fd78759309be73ebd9c678aa398aef39c38227",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1572,
+        "end": 1586,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/pending_assessments.dart",
+    "controller": "PendingAssessmentsController",
+    "sha256": "1958691c07e4cbef13929c7c72ec455fb44c8b0fc7323397a6081eaf570f4ce2",
+    "updated_sha256": "c448756c2376de9a291e8e0badf7f4b828476c0704593c70c1b9a37815bdcbb6",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1290,
+        "end": 1304,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/platform_usage.dart",
+    "controller": "PlatformUsageController",
+    "sha256": "e5c5d2cedecf85b8edbec97a464a51cfb6f6a042f8c113a66e6ead28feec6388",
+    "updated_sha256": "eec3d3aaee038d8290d7187d65bac0a2e940cd14e09ba7509d378d4aa4236ea0",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1368,
+        "end": 1382,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/profitability.dart",
+    "controller": "ProfitabilityController",
+    "sha256": "af022016950aa2c0b6b8c2012e0ba0b2199dc673749eb5cb7a4389cb6cbce312",
+    "updated_sha256": "513d79edd64b07c6a6af982dd1489936faaf791fa046976fc12bfab03a3d9e91",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1624,
+        "end": 1638,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/referrals.dart",
+    "controller": "ReferralsController",
+    "sha256": "66037a27a02b16d3a9ea37ab5ac0064738ca56fc1bc59756a85cc45356826220",
+    "updated_sha256": "cb2b7062dd62cdc255e33a51f7bc3c7e2ce48703042cfe21e62d0eea0d533c0e",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1000,
+        "end": 1014,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/region_performance.dart",
+    "controller": "RegionPerformanceController",
+    "sha256": "4d964cabb781f99634acc864170557775bd08cb9ebdf50cbb2babbe7ad0ce9eb",
+    "updated_sha256": "ff5b58760f510e362698c6078aff17ebc119d4e6bdc4b002f65d0865345ae67f",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1465,
+        "end": 1479,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/revenue_tracker.dart",
+    "controller": "RevenueTrackerController",
+    "sha256": "53aaff110f3e1588074ddf1a25426f81aa765747b99c4605fa0bdf7379c1ce56",
+    "updated_sha256": "a4110378b6d351ce4f680727bb356082814dc6e3de9de2fe027dc80c3284814d",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1550,
+        "end": 1564,
+        "old": "final Ref ref;",
+        "new": "Ref get ref => _ref;"
+      }
+    ]
+  }
+]

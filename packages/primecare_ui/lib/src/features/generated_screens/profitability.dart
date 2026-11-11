@@ -43,7 +43,7 @@ class ProfitabilityState {
 
 // --- Controller ---
 class ProfitabilityController extends StateNotifier<ProfitabilityState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   ProfitabilityController(this._ref)

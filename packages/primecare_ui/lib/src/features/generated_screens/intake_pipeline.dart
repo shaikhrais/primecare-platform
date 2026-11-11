@@ -39,7 +39,7 @@ class IntakePipelineState {
 
 // --- Controller ---
 class IntakePipelineController extends StateNotifier<IntakePipelineState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   IntakePipelineController(this._ref)

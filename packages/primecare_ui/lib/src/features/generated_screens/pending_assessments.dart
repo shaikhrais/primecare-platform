@@ -35,7 +35,7 @@ class PendingAssessmentsState {
 
 // --- Controller ---
 class PendingAssessmentsController extends StateNotifier<PendingAssessmentsState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   PendingAssessmentsController(this._ref)

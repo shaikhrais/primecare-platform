@@ -43,7 +43,7 @@ class BusinessOverviewState {
 
 // --- Controller ---
 class BusinessOverviewController extends StateNotifier<BusinessOverviewState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   BusinessOverviewController(this._ref)

@@ -47,7 +47,7 @@ class InvoicesState {
 
 // --- Controller ---
 class InvoicesController extends StateNotifier<InvoicesState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   InvoicesController(this._ref)

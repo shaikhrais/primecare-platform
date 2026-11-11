@@ -43,7 +43,7 @@ class LiveDispatchMapState {
 
 // --- Controller ---
 class LiveDispatchMapController extends StateNotifier<LiveDispatchMapState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   LiveDispatchMapController(this._ref)
