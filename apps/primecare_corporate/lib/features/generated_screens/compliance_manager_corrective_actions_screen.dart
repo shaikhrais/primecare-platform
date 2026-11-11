@@ -136,7 +136,7 @@ class ComplianceManagerCorrectiveActionsScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('compliance_manager_corrective_actions-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

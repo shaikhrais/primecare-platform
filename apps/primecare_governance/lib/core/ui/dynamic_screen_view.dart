@@ -136,7 +136,7 @@ class AuditSandboxScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('audit_sandbox-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

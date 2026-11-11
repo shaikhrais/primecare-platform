@@ -136,7 +136,7 @@ class ComplianceTrainingScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('compliance_training-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

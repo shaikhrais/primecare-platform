@@ -136,7 +136,7 @@ class SchedulerCoordinatorConflictsScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('scheduler_coordinator_conflicts-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

@@ -136,7 +136,7 @@ class HrHiringStaffDocumentsScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('hr_hiring_staff_documents-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

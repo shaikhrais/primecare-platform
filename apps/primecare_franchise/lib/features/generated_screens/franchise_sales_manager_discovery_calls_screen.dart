@@ -136,7 +136,7 @@ class FranchiseSalesManagerDiscoveryCallsScreen extends GovernedConsumerWidget {
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('franchise_sales_manager_discovery_calls-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

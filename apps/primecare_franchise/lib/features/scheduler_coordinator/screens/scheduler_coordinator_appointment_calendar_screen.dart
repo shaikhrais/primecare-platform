@@ -136,7 +136,7 @@ class SchedulerCoordinatorAppointmentCalendarScreen extends GovernedConsumerWidg
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('scheduler_coordinator_appointment_calendar-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
