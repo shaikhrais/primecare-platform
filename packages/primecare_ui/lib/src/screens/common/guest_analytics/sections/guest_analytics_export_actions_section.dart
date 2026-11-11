@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusText, PrimeStatusTone;
 import 'package:flutter/material.dart';
 
 class GuestAnalyticsExportActionsSection extends StatelessWidget {
@@ -16,7 +17,7 @@ class GuestAnalyticsExportActionsSection extends StatelessWidget {
           children: const [
             Text('Export Actions Section', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            Text('Clinical Care Operations Status.', style: TextStyle(color: Colors.grey)),
+            PrimeStatusText('Clinical Care Operations Status.', tone: PrimeStatusTone.muted),
           ],
         ),
       ),
