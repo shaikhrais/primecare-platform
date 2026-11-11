@@ -487,21 +487,21 @@ class _AuditPanel extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: Colors.amber.withOpacity(0.08),
+                    color: theme.colors.warning.withOpacity(0.08),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.gavel, color: Colors.amber, size: 20),
+                  child: PrimeIcon(Icons.gavel, color: theme.colors.warning, size: 20),
                 ),
                 const SizedBox(width: 14),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
+                    PrimeText(
                       'COMPLIANCE & GOVERNANCE', // .tr() LocaleKeys.
                       style: TextStyle(
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
-                        color: Colors.amber,
+                        color: theme.colors.warning,
                         letterSpacing: 1.2,
                       ),
                     ),
