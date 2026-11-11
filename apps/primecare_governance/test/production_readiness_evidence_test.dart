@@ -41,6 +41,19 @@ void main() {
     }
   });
 
+  test('pending work cannot be hidden by completed lifecycle or evidence flags', () {
+    final screen = fixture.copyWith(
+      implementedComponents: ['shell.app_bar'],
+      pendingComponents: ['shell.app_bar', 'layout.kpi_grid']);
+    final before = screen.toJson();
+    expect(ProductionReadinessService.isReady(screen), isFalse);
+    expect(ProductionReadinessService.readinessBlockers(screen), [
+      'component-pending:shell.app_bar', 'component-pending:layout.kpi_grid']);
+    expect(screen.toJson(), before);
+    expect(ProductionReadinessService.isReady(screen.copyWith(pendingComponents: [])),
+      isTrue, reason: 'Synthetic predicate fixture only; not production evidence');
+  });
+
   test('device findings and readiness agree without manufacturing verification', () {
     for (final mobile in [false, true]) {
       for (final desktop in [false, true]) {

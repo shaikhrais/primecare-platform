@@ -49,6 +49,22 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('viewer exposes exact pending component work', (tester) async {
+    final pending = fixture.copyWith(pendingComponents: ['shell.app_bar']);
+    final snapshot = PlatformReadinessSnapshot.fromScreens({pending.id: pending});
+    await tester.pumpWidget(ProviderScope(overrides: [
+      platformReadinessViewerControllerProvider.overrideWithValue(snapshot),
+    ], child: governanceTestApp(const PlatformReadinessViewer())));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(
+      find.byKey(const ValueKey('readiness-READINESS_FIXTURE')), 300,
+      scrollable: find.byType(Scrollable).first);
+    expect(find.textContaining('component-pending:shell.app_bar'), findsOneWidget);
+    expect(snapshot.report.blockedScreens, 1);
+    expect(snapshot.report.productionReadyScreens, 0);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('empty inventory never renders an all-ready state', (tester) async {
     await tester.pumpWidget(ProviderScope(overrides: [
       platformReadinessViewerControllerProvider.overrideWithValue(

@@ -97,6 +97,8 @@ class ProductionReadinessService {
 
   /// Pending evidence, not permission to certify a screen by changing flags.
   static List<String> readinessBlockers(ScreenMetadata screen) => [
+    for (final component in screen.pendingComponents.toSet())
+      'component-pending:$component',
     if (!screen.isRenderOk) 'render-unverified',
     if (!screen.isAccessibilityVerified) 'accessibility-unverified',
     if (!screen.isPerformanceVerified) 'performance-unverified',
