@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
@@ -7,8 +8,32 @@ import 'package:primecare_ui/src/components/prime_status.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
+import 'fixtures/api_error_border_fixture.dart';
 
 void main() {
+  testWidgets('API error panel border changes with theme and keeps retry callback', (tester) async {
+    const base = PrimeThemeData();
+    var retries = 0;
+    for (final preset in themeCenterPresetNames) {
+      final profile = PersonalTheme(name: 'Error panel', preset: preset);
+      final material = applyPersonalThemeData(base.toThemeData(), profile);
+      final prime = resolvePersonalPrimeTheme(base, material, profile);
+      await tester.pumpWidget(ProviderScope(child: PrimeTheme(data: prime, child: MaterialApp(theme: material,
+        home: Scaffold(body: ApiErrorBorderFixture(onRetry: () { retries++; }))))));
+      await tester.pumpAndSettle();
+      final panel = tester.widget<Container>(find.byKey(const Key('error-panel')));
+      final border = (panel.decoration! as BoxDecoration).border! as Border;
+      expect(border.top.color, prime.colors.error, reason: preset);
+      expect(border.top.width, 1);
+      expect(find.text('Could not load care details'), findsOneWidget);
+      final before = retries;
+      await tester.tap(find.text('Retry'));
+      await tester.pumpAndSettle();
+      expect(retries, before + 1, reason: preset);
+      expect(tester.takeException(), isNull, reason: preset);
+    }
+  });
+
   testWidgets('status controls resolve every palette and retain inherited typography', (tester) async {
     const base = PrimeThemeData();
     for (final preset in themeCenterPresetNames) {
