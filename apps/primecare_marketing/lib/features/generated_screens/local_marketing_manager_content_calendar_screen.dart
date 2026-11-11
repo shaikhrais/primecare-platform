@@ -136,7 +136,7 @@ class LocalMarketingManagerContentCalendarScreen extends GovernedConsumerWidget 
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('local_marketing_manager_content_calendar-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
