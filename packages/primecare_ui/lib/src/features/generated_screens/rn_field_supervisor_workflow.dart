@@ -103,7 +103,7 @@ class RnFieldSupervisorWorkflowScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 10),
                   Text('Provides a dedicated management interface within the PrimeCare UI Client module to enable Registered Nurse (RN) Field Supervisor personnel to oversee, audit, and coordinate operations related to registered nurse (rn) field supervisor compliance workflow.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Registered Nurse (RN) Field Supervisor, I want to access the Registered Nurse (RN) Field Supervisor Compliance Workflow within the PrimeCare UI Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
+                  Text('User Story: As a Registered Nurse (RN) Field Supervisor, I want to access the Registered Nurse (RN) Field Supervisor Compliance Workflow within the PrimeCare UI Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
