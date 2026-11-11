@@ -95,6 +95,20 @@ class PrimeTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_iconVariant && icon == null) {
+      return TextButton(
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        style: style,
+        focusNode: focusNode,
+        autofocus: autofocus,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        child: label!,
+      );
+    }
     if (_iconVariant) {
       return TextButton.icon(
         onPressed: onPressed,
@@ -217,6 +231,20 @@ class PrimeElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_iconVariant && icon == null) {
+      return ElevatedButton(
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        style: style,
+        focusNode: focusNode,
+        autofocus: autofocus,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        child: label!,
+      );
+    }
     if (_iconVariant) {
       return ElevatedButton.icon(
         onPressed: onPressed,
@@ -339,6 +367,20 @@ class PrimeOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (_iconVariant && icon == null) {
+      return OutlinedButton(
+        onPressed: onPressed,
+        onLongPress: onLongPress,
+        onHover: onHover,
+        onFocusChange: onFocusChange,
+        style: style,
+        focusNode: focusNode,
+        autofocus: autofocus,
+        clipBehavior: clipBehavior,
+        statesController: statesController,
+        child: label!,
+      );
+    }
     if (_iconVariant) {
       return OutlinedButton.icon(
         onPressed: onPressed,

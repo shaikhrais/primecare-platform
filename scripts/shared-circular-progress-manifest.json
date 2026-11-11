@@ -1,0 +1,172 @@
+[
+  {
+    "path": "apps/primecare_clinic/lib/features/physician/screens/physician_dashboard_screen.dart",
+    "sha256": "a370f3819bd9c7e0c291abe2538b1e54057a3dfd94c4e13931c0886011249848",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 8270,
+        "end": 8295,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
+    "sha256": "b699482df5e269c68e516b13c7c0799baa1db61ae37dc04ece869662de7a672a",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 118,
+        "end": 118,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 3345,
+        "end": 3370,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      },
+      {
+        "begin": 7420,
+        "end": 7445,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      },
+      {
+        "begin": 9872,
+        "end": 9897,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      },
+      {
+        "begin": 19960,
+        "end": 19985,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_master_score.dart",
+    "sha256": "a65e470eb3df4c4c62f9b5e61afb99e814a36ec064933d7ce771b1d9d0f801f6",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 115,
+        "end": 115,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 1070,
+        "end": 1095,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+    "sha256": "9f0d339ceea45cc85071a49abdf151491f3493ca062457d3ce97ef02c28c1ba8",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 8237,
+        "end": 8262,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_callback_view.dart",
+    "sha256": "999b2387b014dfffc128f9eab3ad1e35a5f6d3c429016deb0da381b25d2a76b8",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 96,
+        "end": 96,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 2813,
+        "end": 2838,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/clinic_login_bridge.dart",
+    "sha256": "7c12652500063fa742f92cf3fc6ebaf74d2fedd6c70b7fd4c0848cb818331359",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 324,
+        "end": 324,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 3038,
+        "end": 3063,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "e2d1013a00404c6e749c5dfabe944eae87d22de9ffda570a6e8c08874c1356ff",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 439,
+        "end": 439,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 3497,
+        "end": 3522,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/src/resilience/app_error_boundary.dart",
+    "sha256": "b6cecba684a15de461e759d8255e41894db38a3f48db1483d6384764e9435fb2",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 194,
+        "end": 194,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;\n"
+      },
+      {
+        "begin": 6433,
+        "end": 6458,
+        "old": "CircularProgressIndicator",
+        "new": "PrimeCircularProgressIndicator"
+      }
+    ]
+  }
+]

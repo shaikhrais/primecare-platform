@@ -640,3 +640,5 @@ export 'package:primecare_ui_foundation/primecare_ui_foundation.dart'
     show PrimeTextButton, PrimeElevatedButton, PrimeOutlinedButton;
 
 export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeRichText;
+
+export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;

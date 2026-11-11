@@ -47,6 +47,32 @@ void main() {
     }
   });
 
+  testWidgets('nullable icon variants retain a plain label without null assertions', (tester) async {
+    var taps=0;
+    void pressed(){taps++;}
+    final originals=<Widget>[
+      TextButton(onPressed:pressed,child:const Text('Action')),
+      ElevatedButton(onPressed:pressed,child:const Text('Action')),
+      OutlinedButton(onPressed:pressed,child:const Text('Action')),
+    ];
+    final shared=<Widget>[
+      PrimeTextButton.icon(onPressed:pressed,icon:null,label:const PrimeText('Action')),
+      PrimeElevatedButton.icon(onPressed:pressed,icon:null,label:const PrimeText('Action')),
+      PrimeOutlinedButton.icon(onPressed:pressed,icon:null,label:const PrimeText('Action')),
+    ];
+    for(var i=0;i<shared.length;i++){
+      await tester.pumpWidget(MaterialApp(home:Scaffold(body:Column(children:[
+        KeyedSubtree(key:const Key('plain'),child:originals[i]),
+        KeyedSubtree(key:const Key('nullable'),child:shared[i]),
+      ]))));
+      await tester.pumpAndSettle();
+      expect(tester.getSize(find.byKey(const Key('nullable'))),tester.getSize(find.byKey(const Key('plain'))));
+      final before=taps;
+      await tester.tap(find.byKey(const Key('nullable')));await tester.pumpAndSettle();
+      expect(taps,before+1);expect(tester.takeException(),isNull);
+    }
+  });
+
   test('style factories retain every supplied state and size option', () {
     const foreground = Colors.indigo;
     const background = Colors.amber;

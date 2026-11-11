@@ -122,6 +122,14 @@ class SharedUiBoundaryTest(unittest.TestCase):
                        prefix+"part 'shadow.dart'; pw.Text('UI');"]:
             self.assertIn('Text',[f[2] for f in boundary.violations(source,True)])
 
+    def test_progress_renderer_allows_no_other_controls_or_literal_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            path=root/'packages/primecare_ui_foundation/lib/src/prime_circular_progress_indicator.dart'
+            path.parent.mkdir(parents=True)
+            path.write_text('CircularProgressIndicator(value: value); Card(); Colors.red;')
+            self.assertEqual([f[3] for f in boundary.scan(root)], ['Card','Colors.red'])
+
     def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
