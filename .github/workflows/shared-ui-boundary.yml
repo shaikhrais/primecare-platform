@@ -29,5 +29,7 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_generated_theme.py
       - name: Verify generated primary action migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_primary.py
+      - name: Verify compact action migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_compact_actions.py
       - name: Reject direct controls and colors outside shared theme definitions
         run: python3 scripts/check-shared-ui-boundary.py
