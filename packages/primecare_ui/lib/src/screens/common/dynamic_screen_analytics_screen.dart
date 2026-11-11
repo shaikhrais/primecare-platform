@@ -457,15 +457,7 @@ class DynamicScreenAnalyticsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamicanalytics-btn-2',
-                        child: ElevatedButton(
-                          key: const Key('dynamicanalytics-btn-2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamicanalytics Btn 2 executed successfully.'),
-                          child: Text('Dynamicanalytics Btn 2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamicanalytics-btn-2'), label: 'Dynamicanalytics Btn 2'.tr(), onPressed:  () => controller.addLog('Action: Dynamicanalytics Btn 2 executed successfully.')),
                       ),
                     ),
                   ),
@@ -477,15 +469,7 @@ class DynamicScreenAnalyticsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamicanalytics-btn-1',
-                        child: ElevatedButton(
-                          key: const Key('dynamicanalytics-btn-1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamicanalytics Btn 1 executed successfully.'),
-                          child: Text('Dynamicanalytics Btn 1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamicanalytics-btn-1'), label: 'Dynamicanalytics Btn 1'.tr(), onPressed:  () => controller.addLog('Action: Dynamicanalytics Btn 1 executed successfully.')),
                       ),
                     ),
                   ),

@@ -436,15 +436,7 @@ class ScreenNotImplementedScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'sharedstubs-btn-trigger-scan',
-                        child: ElevatedButton(
-                          key: const Key('sharedstubs-btn-trigger-scan'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Sharedstubs Btn Trigger Scan executed successfully.'),
-                          child: Text('Sharedstubs Btn Trigger Scan'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('sharedstubs-btn-trigger-scan'), label: 'Sharedstubs Btn Trigger Scan'.tr(), onPressed:  () => controller.addLog('Action: Sharedstubs Btn Trigger Scan executed successfully.')),
                       ),
                     ),
                   ),
@@ -456,15 +448,7 @@ class ScreenNotImplementedScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'sharedstubs-btn-manual-refresh',
-                        child: ElevatedButton(
-                          key: const Key('sharedstubs-btn-manual-refresh'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Sharedstubs Btn Manual Refresh executed successfully.'),
-                          child: Text('Sharedstubs Btn Manual Refresh'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('sharedstubs-btn-manual-refresh'), label: 'Sharedstubs Btn Manual Refresh'.tr(), onPressed:  () => controller.addLog('Action: Sharedstubs Btn Manual Refresh executed successfully.')),
                       ),
                     ),
                   ),

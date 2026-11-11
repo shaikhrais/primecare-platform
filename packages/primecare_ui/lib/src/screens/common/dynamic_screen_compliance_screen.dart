@@ -470,15 +470,7 @@ class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamiccompliance-btn-3',
-                        child: ElevatedButton(
-                          key: const Key('dynamiccompliance-btn-3'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamiccompliance Btn 3 executed successfully.'),
-                          child: Text('Dynamiccompliance Btn 3'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamiccompliance-btn-3'), label: 'Dynamiccompliance Btn 3'.tr(), onPressed:  () => controller.addLog('Action: Dynamiccompliance Btn 3 executed successfully.')),
                       ),
                     ),
                   ),
@@ -490,15 +482,7 @@ class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamiccompliance-btn-1',
-                        child: ElevatedButton(
-                          key: const Key('dynamiccompliance-btn-1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamiccompliance Btn 1 executed successfully.'),
-                          child: Text('Dynamiccompliance Btn 1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamiccompliance-btn-1'), label: 'Dynamiccompliance Btn 1'.tr(), onPressed:  () => controller.addLog('Action: Dynamiccompliance Btn 1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -510,15 +494,7 @@ class DynamicScreenComplianceScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'dynamiccompliance-btn-2',
-                        child: ElevatedButton(
-                          key: const Key('dynamiccompliance-btn-2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Dynamiccompliance Btn 2 executed successfully.'),
-                          child: Text('Dynamiccompliance Btn 2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('dynamiccompliance-btn-2'), label: 'Dynamiccompliance Btn 2'.tr(), onPressed:  () => controller.addLog('Action: Dynamiccompliance Btn 2 executed successfully.')),
                       ),
                     ),
                   ),

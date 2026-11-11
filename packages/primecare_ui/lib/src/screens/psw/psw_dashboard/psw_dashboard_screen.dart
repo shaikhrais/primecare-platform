@@ -436,15 +436,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-start-shift-btn',
-                        child: ElevatedButton(
-                          key: const Key('psw-start-shift-btn'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Start/End Shift Action Button executed successfully.'),
-                          child: Text('Start/End Shift Action Button'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-start-shift-btn'), label: 'Start/End Shift Action Button'.tr(), onPressed:  () => controller.addLog('Action: Start/End Shift Action Button executed successfully.')),
                       ),
                     ),
                   ),
@@ -456,15 +448,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-report-incident-btn',
-                        child: ElevatedButton(
-                          key: const Key('psw-report-incident-btn'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Report Incident Action Button executed successfully.'),
-                          child: Text('Report Incident Action Button'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-report-incident-btn'), label: 'Report Incident Action Button'.tr(), onPressed:  () => controller.addLog('Action: Report Incident Action Button executed successfully.')),
                       ),
                     ),
                   ),
@@ -476,15 +460,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'psw-view-vitals-btn',
-                        child: ElevatedButton(
-                          key: const Key('psw-view-vitals-btn'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Log Vitals Action Button executed successfully.'),
-                          child: Text('Log Vitals Action Button'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('psw-view-vitals-btn'), label: 'Log Vitals Action Button'.tr(), onPressed:  () => controller.addLog('Action: Log Vitals Action Button executed successfully.')),
                       ),
                     ),
                   ),

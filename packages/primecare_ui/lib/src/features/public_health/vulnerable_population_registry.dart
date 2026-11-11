@@ -740,15 +740,7 @@ class VulnerablePopulationRegistryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'registry-btn-report',
-                        child: ElevatedButton(
-                          key: const Key('registry-btn-report'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Registry Btn Report executed successfully.'),
-                          child: Text('Registry Btn Report'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('registry-btn-report'), label: 'Registry Btn Report'.tr(), onPressed:  () => controller.addLog('Action: Registry Btn Report executed successfully.')),
                       ),
                     ),
                   ),
@@ -760,15 +752,7 @@ class VulnerablePopulationRegistryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'registry-btn-add',
-                        child: ElevatedButton(
-                          key: const Key('registry-btn-add'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Registry Btn Add executed successfully.'),
-                          child: Text('Registry Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('registry-btn-add'), label: 'Registry Btn Add'.tr(), onPressed:  () => controller.addLog('Action: Registry Btn Add executed successfully.')),
                       ),
                     ),
                   ),
