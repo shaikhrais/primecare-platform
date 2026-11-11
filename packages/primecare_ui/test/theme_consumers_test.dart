@@ -35,6 +35,27 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  testWidgets('inherited shared text preserves enabled and disabled button styles across all palettes', (tester) async {
+    for (final preset in themeCenterPresetNames) {
+      final material = applyPersonalThemeData(ThemeData(),
+        PersonalTheme(name: 'Migration', preset: preset, fontScale: 1.5));
+      for (final disabled in [false, true]) {
+        await tester.pumpWidget(MaterialApp(theme: material, home: Scaffold(body: Column(children: [
+          ElevatedButton(key: const Key('reference-button'), onPressed: disabled ? null : () {},
+            child: const Text('Reference label')),
+          ElevatedButton(key: const Key('migrated-button'), onPressed: disabled ? null : () {},
+            child: const PrimeText('Migrated label')),
+        ]))));
+        await tester.pumpAndSettle();
+        final reference = tester.widget<RichText>(find.descendant(
+          of: find.byKey(const Key('reference-button')), matching: find.byType(RichText)));
+        final migrated = tester.widget<RichText>(find.descendant(
+          of: find.byKey(const Key('migrated-button')), matching: find.byType(RichText)));
+        expect(migrated.text.style, reference.text.style, reason: '$preset disabled=$disabled');
+        expect(tester.takeException(), isNull, reason: preset);
+      }
+    }
+  });
   testWidgets('shared buttons and data cards follow all palettes and preserve actions', (tester) async {
     const base = PrimeThemeData();
     var presses = 0;
@@ -57,9 +78,10 @@ void main() {
           shared.EmergencyFab(onPressed: () {}),
         ]))))));
       await tester.pumpAndSettle();
-      final inheritedText = tester.widget<Text>(find.text('Inherited shared text'));
-      expect(inheritedText.style!.color, prime.typography.bodyMedium.color, reason: preset);
-      expect(inheritedText.style!.fontSize, prime.typography.bodyMedium.fontSize, reason: preset);
+      final inheritedText = tester.widget<RichText>(find.descendant(
+        of: find.byType(PrimeText), matching: find.byType(RichText)));
+      expect(inheritedText.text.style!.color, material.textTheme.bodyMedium!.color, reason: preset);
+      expect(inheritedText.text.style!.fontSize, material.textTheme.bodyMedium!.fontSize, reason: preset);
       for (final label in ['Primary action', 'Secondary action', 'Ghost action', 'Custom surface action']) {
         final text = tester.widget<Text>(find.text(label));
         final background = label == 'Primary action' ? prime.colors.primary : prime.colors.surface;

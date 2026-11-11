@@ -9,6 +9,23 @@ IMPORTS = "import 'package:flutter/material.dart';\nimport 'package:primecare_ui
 
 
 class SharedTextMigrationTest(unittest.TestCase):
+    def test_explicit_concrete_types_and_tearoffs_require_type_review(self):
+        for suffix in ['final List<Text> labels = [Text("x")];',
+                       'Text label = Text("x");',
+                       'final ctor = Text.new; Text("x");',
+                       'Widget Text(String label) => other; Text("x");']:
+            source = IMPORTS + suffix
+            self.assertEqual(migration.migrate(source), (source, 0))
+
+    def test_raw_strings_and_nested_comments_remain_unchanged(self):
+        source = IMPORTS + '/* outer /* inner */ Text("example") */ final x = r"${Text(1)}";'
+        self.assertEqual(migration.migrate(source), (source, 0))
+
+    def test_boundary_check_accepts_replaced_consumer_calls(self):
+        source = IMPORTS + 'Text("Name", key: Key("name"));'
+        result, count = migration.migrate(source)
+        self.assertEqual(count, 1)
+        self.assertEqual(migration.boundary.violations(result, True), [])
     def test_preserves_arguments_const_and_callbacks(self):
         source = IMPORTS + "const Text('Hi', key: ValueKey('id'), style: TextStyle(fontSize: 18), maxLines: 2, overflow: TextOverflow.ellipsis, textAlign: TextAlign.center)"
         result, count = migration.migrate(source)

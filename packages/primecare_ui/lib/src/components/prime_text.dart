@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../theme/prime_theme.dart';
 
 /// Shared text control for generated and application content.
-/// Follows the active typography while retaining caller styles and text scaling.
+/// Retains inherited theme typography, including button foregrounds and disabled
+/// styles, caller overrides and text scaling.
 class PrimeText extends StatelessWidget {
   final String data;
   final TextStyle? style;
@@ -21,7 +21,7 @@ class PrimeText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(data,
-      style: style ?? context.theme.typography.bodyMedium,
+      style: style,
       textAlign: textAlign,
       maxLines: maxLines,
       overflow: overflow,

@@ -68,6 +68,14 @@ def migrate(source):
         return source, 0
     if re.search(r'\bpart\b', code):
         return source, 0
+    # Preserve files whose concrete Text type or constructor references may
+    # constrain inferred consumers. These need resolved Dart type review.
+    if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+Text\s*\(|\bText\s*=|\bextension\s+(?:type\s+)?(?:Text|PrimeText)\b', code):
+        return source, 0
+    if re.search(r'\bText\s*\.\s*\w+\b(?!\s*\()', code) or any(
+        not re.match(r'\s*(?:\(|\.)', code[match.end():]) for match in re.finditer(r'\bText\b', code)
+    ):
+        return source, 0
     edits = [m.start() for m in CALL.finditer(code)
              if not code[:m.start()].rstrip().endswith('.')
              and compatible(code, m.end())]
@@ -80,9 +88,19 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--apply', action='store_true')
+    parser.add_argument('--path', action='append', help='Optional app lib file/directory relative to root; repeat for more scopes')
     args = parser.parse_args()
+    root = args.root.resolve()
+    paths = set()
+    for relative in args.path or ['apps']:
+        path = root / relative
+        if path.is_symlink() or not path.resolve().is_relative_to(root / 'apps'):
+            parser.error('paths must stay inside apps without symlink escapes')
+        paths.update([path] if path.is_file() else path.rglob('*.dart'))
     files, calls = [], 0
-    for path in sorted((args.root / 'apps').glob('*/lib/**/*.dart')):
+    for path in sorted(paths):
+        if path.suffix != '.dart' or 'lib' not in path.relative_to(root).parts or path.is_symlink() or not path.resolve().is_relative_to(root / 'apps'):
+            continue
         original = path.read_text(encoding='utf-8')
         updated, count = migrate(original)
         if not count:
@@ -90,7 +108,7 @@ def main():
         if args.apply:
             path.write_text(updated, encoding='utf-8')
         calls += count
-        files.append(path.relative_to(args.root).as_posix())
+        files.append(path.relative_to(root).as_posix())
     print(json.dumps({'applied': args.apply, 'calls': calls, 'files': files}, indent=2))
 
 
