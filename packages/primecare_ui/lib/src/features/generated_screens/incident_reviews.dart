@@ -226,7 +226,7 @@ class IncidentReviews extends GovernedConsumerWidget {
                         title: 'Pending Resolution',
                         value: '$pendingCount reviews',
                         icon: LucideIcons.clock,
-                        color: Colors.amber,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -235,7 +235,7 @@ class IncidentReviews extends GovernedConsumerWidget {
                         title: 'Critical Severity Escalations',
                         value: '$criticalCount active',
                         icon: LucideIcons.shieldAlert,
-                        color: criticalCount > 0 ? Colors.red : Colors.green,
+                        color: criticalCount > 0 ? PrimeActionPalette.of(context, PrimeActionTone.error).accent : PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                       ),
                     ),
                   ],
@@ -318,12 +318,12 @@ class IncidentReviews extends GovernedConsumerWidget {
                             final isResolved = status == 'Resolved Compliance Passed';
 
                             final severityColor = isCritical
-                                ? Colors.red
+                                ? PrimeActionPalette.of(context, PrimeActionTone.error).accent
                                 : isHigh
-                                    ? Colors.orange
-                                    : Colors.blue;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent
+                                    : PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
 
-                            final statusColor = isResolved ? Colors.green : Colors.amber;
+                            final statusColor = isResolved ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
 
                             return Container(
                               margin: const EdgeInsets.only(bottom: 12),
@@ -336,10 +336,10 @@ class IncidentReviews extends GovernedConsumerWidget {
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: severityColor.withValues(alpha: 0.1),
+                                    backgroundColor: PrimeActionPalette.tintSurface(context, severityColor),
                                     child: Icon(
                                       isCritical ? LucideIcons.octagon : LucideIcons.alertTriangle,
-                                      color: severityColor,
+                                      color: PrimeActionPalette.onTint(context, severityColor),
                                     ),
                                   ),
                                   const SizedBox(width: 16),
@@ -369,14 +369,14 @@ class IncidentReviews extends GovernedConsumerWidget {
                                             Container(
                                               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                               decoration: BoxDecoration(
-                                                color: severityColor.withValues(alpha: 0.1),
+                                                color: PrimeActionPalette.tintSurface(context, severityColor),
                                                 borderRadius: BorderRadius.circular(8),
                                                 border: Border.all(color: severityColor.withValues(alpha: 0.2)),
                                               ),
                                               child: Text(
                                                 '$severity Severity',
                                                 style: TextStyle(
-                                                  color: severityColor,
+                                                  color: PrimeActionPalette.onTint(context, severityColor),
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 10,
                                                 ),
@@ -410,7 +410,7 @@ class IncidentReviews extends GovernedConsumerWidget {
                                           : () => controller.resolveIncident(id),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: theme.colors.primary,
-                                        foregroundColor: Colors.white,
+                                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(theme.radiusMd),
@@ -422,14 +422,14 @@ class IncidentReviews extends GovernedConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                       decoration: BoxDecoration(
-                                        color: statusColor.withValues(alpha: 0.1),
+                                        color: PrimeActionPalette.tintSurface(context, statusColor),
                                         borderRadius: BorderRadius.circular(theme.radiusMd),
                                         border: Border.all(color: statusColor.withValues(alpha: 0.2)),
                                       ),
                                       child: Text(
                                         status,
                                         style: theme.typography.bodySmall.copyWith(
-                                          color: statusColor,
+                                          color: PrimeActionPalette.onTint(context, statusColor),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -445,7 +445,7 @@ class IncidentReviews extends GovernedConsumerWidget {
           ),
           if (state.isResolving)
             Container(
-              color: Colors.black.withValues(alpha: 0.25),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.25),
               child: Center(
                 child: Card(
                   color: theme.colors.surface,
@@ -507,8 +507,8 @@ class _MetricCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color)),
           ),
           const SizedBox(width: 16),
           Column(

@@ -238,7 +238,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                         value: '$highCount',
                         subtitle: 'Immediate action required',
                         icon: LucideIcons.alertTriangle,
-                        color: Colors.red,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.error).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -248,7 +248,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                         value: '$openCount',
                         subtitle: 'Awaiting dispatcher assign',
                         icon: LucideIcons.clock,
-                        color: Colors.amber,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                       ),
                     ),
                   ],
@@ -319,9 +319,9 @@ class OperationsBoard extends GovernedConsumerWidget {
                       final isHigh = alert['severity'] == 'high';
                       final isResolved = alert['status'] == 'Resolved';
 
-                      Color severityColor = Colors.green;
-                      if (alert['severity'] == 'high') severityColor = Colors.red;
-                      if (alert['severity'] == 'medium') severityColor = Colors.amber;
+                      Color severityColor = PrimeActionPalette.of(context, PrimeActionTone.success).accent;
+                      if (alert['severity'] == 'high') severityColor = PrimeActionPalette.of(context, PrimeActionTone.error).accent;
+                      if (alert['severity'] == 'medium') severityColor = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
 
                       return Container(
                         margin: const EdgeInsets.only(bottom: 12),
@@ -331,7 +331,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                           borderRadius: BorderRadius.circular(theme.radiusMd),
                           border: Border.all(
                             color: isHigh && !isResolved
-                                ? Colors.red.shade200
+                                ? PrimeActionPalette.of(context, PrimeActionTone.error).border
                                 : theme.colors.border,
                           ),
                         ),
@@ -341,12 +341,12 @@ class OperationsBoard extends GovernedConsumerWidget {
                             Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: severityColor.withValues(alpha: 0.1),
+                                color: PrimeActionPalette.tintSurface(context, severityColor),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Icon(
                                 isHigh ? LucideIcons.shieldAlert : LucideIcons.shieldAlert,
-                                color: severityColor,
+                                color: PrimeActionPalette.onTint(context, severityColor),
                                 size: 20,
                               ),
                             ),
@@ -368,13 +368,13 @@ class OperationsBoard extends GovernedConsumerWidget {
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                         decoration: BoxDecoration(
-                                          color: severityColor.withValues(alpha: 0.1),
+                                          color: PrimeActionPalette.tintSurface(context, severityColor),
                                           borderRadius: BorderRadius.circular(12),
                                         ),
                                         child: Text(
                                           alert['severity'].toString().toUpperCase(),
                                           style: theme.typography.bodyMedium.copyWith(
-                                            color: severityColor,
+                                            color: PrimeActionPalette.onTint(context, severityColor),
                                             fontWeight: FontWeight.bold,
                                             fontSize: 10,
                                           ),
@@ -424,7 +424,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                                     onPressed: () => controller.acknowledgeAlert((alert['id'] as String)),
                                     style: ElevatedButton.styleFrom(
                                       backgroundColor: theme.colors.primary,
-                                      foregroundColor: Colors.white,
+                                      foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.circular(theme.radiusMd),
                                       ),
@@ -457,7 +457,7 @@ class OperationsBoard extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.1),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -497,8 +497,8 @@ class _MetricCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color)),
           ),
           const SizedBox(width: 16),
           Column(
@@ -559,7 +559,7 @@ class _FilterButton extends StatelessWidget {
         child: Text(
           label,
           style: theme.typography.bodyMedium.copyWith(
-            color: isActive ? Colors.white : theme.colors.onSurface,
+            color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent : theme.colors.onSurface,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),

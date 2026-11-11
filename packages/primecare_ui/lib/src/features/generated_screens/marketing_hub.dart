@@ -247,7 +247,7 @@ class MarketingHub extends GovernedConsumerWidget {
                         title: 'Active Campaigns',
                         value: '${state.activeCount}',
                         icon: LucideIcons.rocket,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -256,7 +256,7 @@ class MarketingHub extends GovernedConsumerWidget {
                         title: 'Average CAC Index',
                         value: '\$${state.avgCac.toStringAsFixed(2)}',
                         icon: LucideIcons.calculator,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -265,7 +265,7 @@ class MarketingHub extends GovernedConsumerWidget {
                         title: 'Campaign Referrals Generated',
                         value: '${state.leadsTotal}',
                         icon: LucideIcons.userPlus2,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                       ),
                     ),
                   ],
@@ -334,7 +334,7 @@ class MarketingHub extends GovernedConsumerWidget {
                           itemBuilder: (context, index) {
                             final camp = filtered[index];
                             final isActive = camp['status'] == 'Active';
-                            final statusColor = isActive ? Colors.green : Colors.grey;
+                            final statusColor = isActive ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : PrimeActionPalette.of(context, PrimeActionTone.muted).accent;
 
                             return Card(
                               margin: const EdgeInsets.only(bottom: 16),
@@ -364,13 +364,13 @@ class MarketingHub extends GovernedConsumerWidget {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
-                                                  color: statusColor.withValues(alpha: 0.1),
+                                                  color: PrimeActionPalette.tintSurface(context, statusColor),
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                                 child: Text(
                                                   (camp['status'] as String).toUpperCase(),
                                                   style: TextStyle(
-                                                    color: statusColor,
+                                                    color: PrimeActionPalette.onTint(context, statusColor),
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 10,
                                                   ),
@@ -429,8 +429,8 @@ class MarketingHub extends GovernedConsumerWidget {
                                     ElevatedButton(key: const Key('marketing_hub_elevatedbutton_button_2'), 
                                       onPressed: () => controller.toggleCampaign((camp['id'] as String)),
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor: isActive ? Colors.grey : theme.colors.primary,
-                                        foregroundColor: Colors.white,
+                                        backgroundColor: isActive ? PrimeActionPalette.of(context, PrimeActionTone.muted).accent : theme.colors.primary,
+                                        foregroundColor: isActive ? PrimeActionPalette.of(context, PrimeActionTone.muted).onAccent : PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                       ),
                                       child: Text(isActive ? 'Pause' : 'Activate'),
                                     ),
@@ -446,7 +446,7 @@ class MarketingHub extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -529,7 +529,7 @@ class MarketingHub extends GovernedConsumerWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
               child: const Text('Launch'),
             ),
@@ -570,10 +570,10 @@ class _MarketingCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
