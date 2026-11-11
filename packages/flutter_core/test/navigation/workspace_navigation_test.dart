@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'package:flutter_core/workspace.dart';
 import 'package:flutter_core/workspace_navigation.dart';
 
@@ -36,10 +37,10 @@ void main(){
    final group=find.byKey(const ValueKey('workspace-navigation-work'));await tester.ensureVisible(group);
    final forward=dir==TextDirection.rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight;
    if(family=='vertical'){
-    tester.widget<TextButton>(group).focusNode!.requestFocus();await tester.pumpAndSettle();
+    tester.widget<PrimeTextButton>(group).focusNode!.requestFocus();await tester.pumpAndSettle();
     await tester.sendKeyEvent(forward);await tester.pumpAndSettle();
-    expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true);
-    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Nested group focus');await tester.sendKeyEvent(forward);await tester.pumpAndSettle();expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Nested destination focus');
+    expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-home'))).focusNode!.hasFocus,true);
+    await tester.sendKeyEvent(LogicalKeyboardKey.arrowDown);await tester.pumpAndSettle();expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-team'))).focusNode!.hasFocus,true,reason:'Nested group focus');await tester.sendKeyEvent(forward);await tester.pumpAndSettle();expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-people'))).focusNode!.hasFocus,true,reason:'Nested destination focus');
    }else{
     tester.widget<Focus>(find.byKey(const ValueKey('workspace-navigation-menu-entry'))).focusNode!.requestFocus();await tester.pumpAndSettle();
     await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();
@@ -63,9 +64,9 @@ void main(){
   Future<void> mount(TextDirection dir,String scope)async{await tester.pumpWidget(MaterialApp(home:Directionality(textDirection:dir,child:Scaffold(body:PrimeWorkspaceNavigation(model:m,scope:scope,currentRoute:'/second',family:'horizontal-header',labels:labels,onNavigate:routes.add)))));await tester.pumpAndSettle();}
   for(final dir in [TextDirection.ltr,TextDirection.rtl]){
    await mount(dir,'actor');tester.widget<Focus>(find.byKey(const ValueKey('workspace-navigation-menu-entry'))).focusNode!.requestFocus();await tester.pumpAndSettle();await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();
-   expect(tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-first'))).focusNode!.hasFocus,true);
+   expect(tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-first'))).focusNode!.hasFocus,true);
    await tester.sendKeyEvent(dir==TextDirection.rtl?LogicalKeyboardKey.arrowLeft:LogicalKeyboardKey.arrowRight);await tester.pumpAndSettle();
-   final second=tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-second')));expect(second.focusNode!.hasFocus,true);await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.last,'/second');
+   final second=tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-second')));expect(second.focusNode!.hasFocus,true);await tester.sendKeyEvent(LogicalKeyboardKey.enter);await tester.pumpAndSettle();expect(routes.last,'/second');
    final before=routes.length,old=second.onPressed!;await mount(dir,'other');old();expect(routes.length,before);expect(tester.takeException(),isNull);
   }
  });
@@ -77,7 +78,7 @@ void main(){
    navigation:PrimeWorkspaceNavigation(model:m,scope:'actor',currentRoute:'/app',mode:'folded',pinned:false,labels:labels,onNavigate:(_){},onExpandedChanged:(expanded){final next=expanded?248.0:64.0;if(next!=width)setFrame(()=>width=next);}),
    toolbar:const Text('Toolbar'),main:const TextField(key:ValueKey('form')),panels:const {})))));await tester.pumpAndSettle();
   expect(tester.getSize(find.byType(PrimeWorkspaceNavigation)).width,64);
-  tester.widget<TextButton>(find.byKey(const ValueKey('workspace-navigation-work'))).focusNode!.requestFocus();await tester.pumpAndSettle();expect(tester.getSize(find.byType(PrimeWorkspaceNavigation)).width,248);
+  tester.widget<PrimeTextButton>(find.byKey(const ValueKey('workspace-navigation-work'))).focusNode!.requestFocus();await tester.pumpAndSettle();expect(tester.getSize(find.byType(PrimeWorkspaceNavigation)).width,248);
   await tester.tap(find.byKey(const ValueKey('form')));await tester.pumpAndSettle();expect(tester.getSize(find.byType(PrimeWorkspaceNavigation)).width,64);expect(c.current.navigationWidth,248);
  });
  testWidgets('rail keyboard, folded pin and mobile drawer revoke old destinations', (tester)async{

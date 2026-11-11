@@ -101,6 +101,20 @@ class SharedUiBoundaryTest(unittest.TestCase):
                             'OutlinedButton.styleFrom(); Scaffold(); Colors.red;')
             self.assertEqual([f[3] for f in boundary.scan(root)], ['Scaffold', 'Colors.red'])
 
+    def test_scaffold_delegate_allows_only_scaffold_and_no_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root/'packages/primecare_ui_foundation/lib/src/prime_scaffold.dart'
+            path.parent.mkdir(parents=True)
+            path.write_text('Scaffold(body: body); AppBar(); Text(label); Colors.red;')
+            self.assertEqual([f[3] for f in boundary.scan(root)],
+                             ['AppBar', 'Text', 'Colors.red'])
+
+    def test_scaffold_state_lookup_is_not_a_constructor_but_construction_still_fails(self):
+        source = 'Scaffold(); Scaffold.of(context); Scaffold.new(); AppBar();'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)],
+                         ['Scaffold', 'Scaffold', 'AppBar'])
+
     def test_extended_primitive_implementations_are_exact_and_color_strict(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)

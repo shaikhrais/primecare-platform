@@ -92,6 +92,7 @@ COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
 CONTROL_IMPLEMENTATIONS = {
     'packages/primecare_ui_foundation/lib/src/prime_circular_progress_indicator.dart': ('CircularProgressIndicator',),
+    'packages/primecare_ui_foundation/lib/src/prime_scaffold.dart': ('Scaffold',),
     'packages/primecare_ui_foundation/lib/src/prime_icon_button.dart': ('IconButton',),
     'packages/primecare_ui_foundation/lib/src/prime_rich_text.dart': ('RichText',),
     'packages/primecare_ui_foundation/lib/src/prime_text.dart': ('Text',),
@@ -126,7 +127,10 @@ def violations(source, application):
     def is_pdf(position):
         prefix=re.search(r'(\w+)\s*\.\s*$',code[:position])
         return bool(prefix and prefix[1] in pdf_aliases)
-    findings = [(m.start(), 'shared-control', m[1]) for m in DIRECT.finditer(code) if not is_pdf(m.start())] if application else []
+    def is_read_only_accessor(match):
+        return match[1] == 'Scaffold' and re.match(r'Scaffold\s*\.\s*of\s*\(', code[match.start():match.end()])
+    findings = [(m.start(), 'shared-control', m[1]) for m in DIRECT.finditer(code)
+                if not is_pdf(m.start()) and not is_read_only_accessor(m)] if application else []
     if application:
         findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code) if not is_pdf(m.start())]
     findings += [(m.start(), 'theme-color', m[0]) for m in COLOR.finditer(code)]
