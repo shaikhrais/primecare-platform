@@ -17,14 +17,14 @@ class SuccessProfileDetailsFormSection extends ConsumerWidget {
           'Welcome to PrimeCare, ${authState.userName ?? "User"}.',
           style: theme.typography.h1.copyWith(
             fontWeight: FontWeight.w800,
-            color: Colors.white,
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
           ),
         ),
         const SizedBox(height: 8),
         Text(
           'Launch your authorized workspace portals. Locked apps require role privilege upgrades.',
           style: theme.typography.bodyMedium.copyWith(
-            color: Colors.white.withValues(alpha: 0.6),
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
           ),
         ),
       ],

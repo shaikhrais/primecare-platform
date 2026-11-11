@@ -12,15 +12,15 @@ class SuccessProfileHeaderSection extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.05),
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: Colors.white.withValues(alpha: 0.1),
+              color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             ),
           ),
-          child: const Icon(
+          child: Icon(
             LucideIcons.shieldCheck,
-            color: Colors.greenAccent,
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
             size: 28,
           ),
         ),
@@ -31,7 +31,7 @@ class SuccessProfileHeaderSection extends StatelessWidget {
             Text(
               'PRIMECARE HQ',
               style: theme.typography.labelMedium.copyWith(
-                color: Colors.white.withValues(alpha: 0.5),
+                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                 letterSpacing: 2.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -40,7 +40,7 @@ class SuccessProfileHeaderSection extends StatelessWidget {
               'Application Hub',
               style: theme.typography.h2.copyWith(
                 fontWeight: FontWeight.bold,
-                color: Colors.white,
+                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
               ),
             ),
           ],
