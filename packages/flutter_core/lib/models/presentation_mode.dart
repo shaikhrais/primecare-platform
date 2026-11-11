@@ -1,3 +1,4 @@
+import '../theme/prime_semantic_palette.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -12,12 +13,12 @@ bool screenshotPresentationMode = false;
 Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenType) {
   // Normalize screenType to handle instances like "CfoDashboardScreen"
   final normalizedType = screenType.replaceAll('_', '').toLowerCase();
-  
+
   // 1. Get Details based on screenType
   String title = 'Financial Ledger';
   String screenLabel = 'Ledger Overview';
   Widget bodyContent = const Center(child: PrimeText('Dashboard under construction'));
-  
+
   if (normalizedType.contains('cfodashboard')) {
     title = 'CFO Strategic Finance HUD';
     screenLabel = 'Financial Dashboard';
@@ -110,17 +111,17 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
 
   // 2. Wrap screen in SaaS presentation wrapper
   return PrimeScaffold(
-    backgroundColor: const Color(0xFFF1F5F9), // Slate 100
+    backgroundColor: Theme.of(context).colorScheme.surfaceContainerLow, // Slate 100
     body: Column(
       children: [
         // PART 7 - AUTO SCREEN TITLE HEADER
         Container(
           width: double.infinity,
           height: 48,
-          decoration: const BoxDecoration(
-            color: Color(0xFF0F172A), // Slate 900
+          decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface, // Slate 900
             border: Border(
-              bottom: BorderSide(color: Color(0xFF334155), width: 1),
+              bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
             ),
           ),
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -129,12 +130,12 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
             children: [
               Row(
                 children: [
-                  const PrimeIcon(LucideIcons.activity, color: Color(0xFF38BDF8), size: 18),
+                  PrimeIcon(LucideIcons.activity, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase, size: 18),
                   const SizedBox(width: 8),
-                  const PrimeText(
+                  PrimeText(
                     'PrimeCare Enterprise Platform',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onSurface,
                       fontWeight: FontWeight.bold,
                       fontSize: 13,
                       letterSpacing: 0.5,
@@ -144,13 +145,13 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                   Container(
                     height: 16,
                     width: 1,
-                    color: const Color(0xFF475569),
+                    color: Theme.of(context).colorScheme.outlineVariant,
                   ),
                   const SizedBox(width: 8),
                   PrimeText(
                     'Role: $roleLabel',
-                    style: const TextStyle(
-                      color: Color(0xFF94A3B8),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                     ),
@@ -161,8 +162,8 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                 children: [
                   PrimeText(
                     'Screen: $screenLabel',
-                    style: const TextStyle(
-                      color: Color(0xFF38BDF8),
+                    style: TextStyle(
+                      color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase,
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
                     ),
@@ -171,13 +172,13 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                     decoration: BoxDecoration(
-                      color: const Color(0xFF0369A1), // Sky 700
+                      color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, // Sky 700
                       borderRadius: BorderRadius.circular(4),
                     ),
-                    child: const PrimeText(
+                    child: PrimeText(
                       'Demo Preview',
                       style: TextStyle(
-                        color: Colors.white,
+                        color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent,
                         fontWeight: FontWeight.bold,
                         fontSize: 10,
                       ),
@@ -188,7 +189,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
             ],
           ),
         ),
-        
+
         // Main App Layout (Sidebar + Body)
         Expanded(
           child: Row(
@@ -197,7 +198,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
               // Left Sidebar (Stripe-like)
               Container(
                 width: 220,
-                color: const Color(0xFF1E293B), // Slate 800
+                color: Theme.of(context).colorScheme.surface, // Slate 800
                 padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,18 +211,18 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                           Container(
                             padding: const EdgeInsets.all(6),
                             decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                colors: [Color(0xFF3B82F6), Color(0xFF06B6D4)],
+                              gradient: LinearGradient(
+                                colors: [PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent],
                               ),
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: const PrimeIcon(LucideIcons.shieldAlert, color: Colors.white, size: 16),
+                            child: PrimeIcon(LucideIcons.shieldAlert, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent, size: 16),
                           ),
                           const SizedBox(width: 10),
-                          const PrimeText(
+                          PrimeText(
                             'PRIMECARE',
                             style: TextStyle(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.onSurface,
                               fontWeight: FontWeight.w800,
                               fontSize: 14,
                               letterSpacing: 1.0,
@@ -230,35 +231,35 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                         ],
                       ),
                     ),
-                    
+
                     // Sidebar Menu Items
-                    _buildSidebarItem(LucideIcons.layoutDashboard, 'Dashboard', normalizedType.contains('cfodashboard')),
-                    _buildSidebarItem(LucideIcons.barChart2, 'Analytics', normalizedType.contains('cfoanalytics')),
-                    _buildSidebarItem(LucideIcons.gitPullRequest, 'Workflows', normalizedType.contains('cfoworkflow')),
-                    _buildSidebarItem(LucideIcons.arrowUpRight, 'Revenue Streams', normalizedType.contains('cforevenue')),
-                    _buildSidebarItem(LucideIcons.arrowDownLeft, 'Expenses Log', normalizedType.contains('cfoexpenses')),
-                    _buildSidebarItem(LucideIcons.users, 'Payroll Run', normalizedType.contains('cfopayroll')),
-                    _buildSidebarItem(LucideIcons.fileSpreadsheet, 'Invoice Control', normalizedType.contains('cfoinvoices')),
-                    _buildSidebarItem(LucideIcons.calculator, 'Tax & Compliance', normalizedType.contains('cfotax') || normalizedType.contains('taxandremittance')),
-                    _buildSidebarItem(LucideIcons.pieChart, 'Profitability', normalizedType.contains('cfoprofitability')),
-                    _buildSidebarItem(LucideIcons.trendingUp, 'Cashflow Projections', normalizedType.contains('cfocashflow')),
-                    _buildSidebarItem(LucideIcons.building, 'Franchise Financials', normalizedType.contains('cfofranchisefinancials')),
-                    _buildSidebarItem(LucideIcons.files, 'Financial Reports', normalizedType.contains('cforeports')),
-                    
+                    _buildSidebarItem(context, LucideIcons.layoutDashboard, 'Dashboard', normalizedType.contains('cfodashboard')),
+                    _buildSidebarItem(context, LucideIcons.barChart2, 'Analytics', normalizedType.contains('cfoanalytics')),
+                    _buildSidebarItem(context, LucideIcons.gitPullRequest, 'Workflows', normalizedType.contains('cfoworkflow')),
+                    _buildSidebarItem(context, LucideIcons.arrowUpRight, 'Revenue Streams', normalizedType.contains('cforevenue')),
+                    _buildSidebarItem(context, LucideIcons.arrowDownLeft, 'Expenses Log', normalizedType.contains('cfoexpenses')),
+                    _buildSidebarItem(context, LucideIcons.users, 'Payroll Run', normalizedType.contains('cfopayroll')),
+                    _buildSidebarItem(context, LucideIcons.fileSpreadsheet, 'Invoice Control', normalizedType.contains('cfoinvoices')),
+                    _buildSidebarItem(context, LucideIcons.calculator, 'Tax & Compliance', normalizedType.contains('cfotax') || normalizedType.contains('taxandremittance')),
+                    _buildSidebarItem(context, LucideIcons.pieChart, 'Profitability', normalizedType.contains('cfoprofitability')),
+                    _buildSidebarItem(context, LucideIcons.trendingUp, 'Cashflow Projections', normalizedType.contains('cfocashflow')),
+                    _buildSidebarItem(context, LucideIcons.building, 'Franchise Financials', normalizedType.contains('cfofranchisefinancials')),
+                    _buildSidebarItem(context, LucideIcons.files, 'Financial Reports', normalizedType.contains('cforeports')),
+
                     const Spacer(),
-                    
+
                     // User Profile at bottom of sidebar
                     Container(
                       padding: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
-                        color: const Color(0xFF0F172A),
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Row(
                         children: [
-                          _buildAvatar('Sarah Jenkins', 0),
+                          _buildAvatar(context, 'Sarah Jenkins', 0),
                           const SizedBox(width: 8),
-                          const Expanded(
+                          Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
@@ -266,7 +267,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                                 PrimeText(
                                   'Sarah Jenkins',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onSurface,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 11,
                                   ),
@@ -275,7 +276,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                                 PrimeText(
                                   'Chief Financial Officer',
                                   style: TextStyle(
-                                    color: Color(0xFF64748B),
+                                    color: Theme.of(context).colorScheme.onSurfaceVariant,
                                     fontSize: 9,
                                   ),
                                   overflow: TextOverflow.ellipsis,
@@ -289,7 +290,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                   ],
                 ),
               ),
-              
+
               // Main Screen Body
               Expanded(
                 child: Stack(
@@ -300,7 +301,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                         child: bodyContent,
                       ),
                     ),
-                    
+
                     // PART 6 - WATERMARK
                     Positioned(
                       bottom: 12,
@@ -308,19 +309,19 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
-                          color: const Color(0xCC0F172A), // Slate 900 with opacity
+                          color: Theme.of(context).colorScheme.surface, // Slate 900 with opacity
                           borderRadius: BorderRadius.circular(6),
-                          border: Border.all(color: const Color(0x33FFFFFF)),
+                          border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            PrimeIcon(LucideIcons.shieldCheck, color: Color(0xFF38BDF8), size: 12),
+                            PrimeIcon(LucideIcons.shieldCheck, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase, size: 12),
                             SizedBox(width: 6),
                             PrimeText(
                               'PrimeCare Demo Preview',
                               style: TextStyle(
-                                color: Colors.white,
+                                color: Theme.of(context).colorScheme.onSurface,
                                 fontSize: 10,
                                 fontWeight: FontWeight.bold,
                                 letterSpacing: 0.5,
@@ -341,7 +342,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
   );
 }
 
-Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
+Widget _buildSidebarItem(BuildContext context, IconData icon, String text, bool isActive) {
   return Container(
     margin: const EdgeInsets.only(bottom: 4),
     child: Row(
@@ -349,7 +350,7 @@ Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
         Expanded(
           child: Container(
             decoration: BoxDecoration(
-              color: isActive ? const Color(0xFF0284C7) : Colors.transparent, // Sky 600
+              color: isActive ? PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent : Theme.of(context).colorScheme.surface.withValues(alpha: 0), // Sky 600
               borderRadius: BorderRadius.circular(6),
             ),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
@@ -357,7 +358,7 @@ Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
               children: [
                 PrimeIcon(
                   icon,
-                  color: isActive ? Colors.white : const Color(0xFF94A3B8),
+                  color: isActive ? PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent : Theme.of(context).colorScheme.onSurfaceVariant,
                   size: 16,
                 ),
                 const SizedBox(width: 10),
@@ -367,7 +368,7 @@ Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: isActive ? Colors.white : const Color(0xFFCBD5E1),
+                      color: isActive ? PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent : Theme.of(context).colorScheme.onSurfaceVariant,
                       fontSize: 12,
                       fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
                     ),
@@ -386,23 +387,23 @@ Widget _buildSidebarItem(IconData icon, String text, bool isActive) {
 // UI Enhancement Helpers & Beautiful Mock Components
 // ----------------------------------------------------
 
-Widget _buildAvatar(String name, int index) {
+Widget _buildAvatar(BuildContext context, String name, int index) {
   final colors = [
-    const Color(0xFFEF4444), // Red
-    const Color(0xFFF97316), // Orange
-    const Color(0xFFF59E0B), // Yellow
-    const Color(0xFF10B981), // Green
-    const Color(0xFF06B6D4), // Cyan
-    const Color(0xFF3B82F6), // Blue
-    const Color(0xFF8B5CF6), // Purple
-    const Color(0xFFEC4899), // Pink
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, // Red
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent, // Orange
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent, // Yellow
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, // Green
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, // Cyan
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent, // Blue
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent, // Purple
+    PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent, // Pink
   ];
   final initials = name.split(' ').map((e) => e[0]).take(2).join('').toUpperCase();
   return Container(
     width: 24,
     height: 24,
     decoration: BoxDecoration(
-      color: colors[index % colors.length].withOpacity(0.2),
+      color: PrimeSemanticPalette.tint(context, colors[index % colors.length]),
       shape: BoxShape.circle,
       border: Border.all(color: colors[index % colors.length], width: 1.5),
     ),
@@ -410,7 +411,7 @@ Widget _buildAvatar(String name, int index) {
     child: PrimeText(
       initials,
       style: TextStyle(
-        color: colors[index % colors.length],
+        color: PrimeSemanticPalette.onTint(context, colors[index % colors.length]),
         fontWeight: FontWeight.bold,
         fontSize: 10,
       ),
@@ -418,24 +419,24 @@ Widget _buildAvatar(String name, int index) {
   );
 }
 
-Widget _buildBadge(String text, String type) {
-  Color bg = const Color(0xFFF1F5F9);
-  Color fg = const Color(0xFF475569);
-  
+Widget _buildBadge(BuildContext context, String text, String type) {
+  Color bg = PrimeSemanticPalette.of(context, PrimeSemanticTone.muted).surface;
+  Color fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.muted).onSurface;
+
   if (type == 'success') {
-    bg = const Color(0xFFDCFCE7);
-    fg = const Color(0xFF166534);
+    bg = PrimeSemanticPalette.of(context, PrimeSemanticTone.success).surface;
+    fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onSurface;
   } else if (type == 'warning') {
-    bg = const Color(0xFFFEF3C7);
-    fg = const Color(0xFF92400E);
+    bg = PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).surface;
+    fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onSurface;
   } else if (type == 'danger') {
-    bg = const Color(0xFFFEE2E2);
-    fg = const Color(0xFF991B1B);
+    bg = PrimeSemanticPalette.of(context, PrimeSemanticTone.error).surface;
+    fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onSurface;
   } else if (type == 'info') {
-    bg = const Color(0xFFE0F2FE);
-    fg = const Color(0xFF0369A1);
+    bg = PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).surface;
+    fg = PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onSurface;
   }
-  
+
   return Container(
     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
     decoration: BoxDecoration(
@@ -453,7 +454,7 @@ Widget _buildBadge(String text, String type) {
   );
 }
 
-Widget _buildKpiRow(List<Map<String, String>> cards) {
+Widget _buildKpiRow(BuildContext context, List<Map<String, String>> cards) {
   return Row(
     children: cards.map((c) {
       return Expanded(
@@ -461,12 +462,12 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
           margin: const EdgeInsets.only(right: 12),
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: const Color(0xFFE2E8F0)),
+            border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.02),
+                color: Theme.of(context).shadowColor.withValues(alpha: 0.02),
                 blurRadius: 6,
                 offset: const Offset(0, 3),
               ),
@@ -477,8 +478,8 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
             children: [
               PrimeText(
                 c['label']!,
-                style: const TextStyle(
-                  color: Color(0xFF64748B),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
                 ),
@@ -486,8 +487,8 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
               const SizedBox(height: 6),
               PrimeText(
                 c['value']!,
-                style: const TextStyle(
-                  color: Color(0xFF0F172A),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurface,
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
@@ -497,7 +498,7 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
                 children: [
                   PrimeIcon(
                     c['trend'] == 'up' ? LucideIcons.trendingUp : LucideIcons.trendingDown,
-                    color: c['trend'] == 'up' ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
+                    color: c['trend'] == 'up' ? PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase : PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase,
                     size: 12,
                   ),
                   const SizedBox(width: 4),
@@ -507,7 +508,7 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: c['trend'] == 'up' ? const Color(0xFF16A34A) : const Color(0xFFDC2626),
+                        color: c['trend'] == 'up' ? PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase : PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase,
                         fontSize: 10,
                         fontWeight: FontWeight.bold,
                       ),
@@ -523,17 +524,17 @@ Widget _buildKpiRow(List<Map<String, String>> cards) {
   );
 }
 
-Widget _buildSectionCard({required String title, required Widget child}) {
+Widget _buildSectionCard(BuildContext context, {required String title, required Widget child}) {
   return Container(
     width: double.infinity,
     margin: const EdgeInsets.only(top: 20),
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: Theme.of(context).colorScheme.surface,
       borderRadius: BorderRadius.circular(10),
-      border: Border.all(color: const Color(0xFFE2E8F0)),
+      border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.02),
+          color: Theme.of(context).shadowColor.withValues(alpha: 0.02),
           blurRadius: 8,
           offset: const Offset(0, 4),
         ),
@@ -544,13 +545,13 @@ Widget _buildSectionCard({required String title, required Widget child}) {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(color: Color(0xFFF1F5F9))),
+          decoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)),
           ),
           child: PrimeText(
             title,
-            style: const TextStyle(
-              color: Color(0xFF0F172A),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onSurface,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
@@ -565,7 +566,7 @@ Widget _buildSectionCard({required String title, required Widget child}) {
   );
 }
 
-Widget _buildCustomChart(List<double> values, List<String> labels, Color color) {
+Widget _buildCustomChart(BuildContext context, List<double> values, List<String> labels, Color color) {
   double maxVal = values.reduce((curr, next) => curr > next ? curr : next);
   return Container(
     height: 150,
@@ -605,8 +606,8 @@ Widget _buildCustomChart(List<double> values, List<String> labels, Color color) 
                 labels[idx],
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  color: Color(0xFF64748B),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onSurfaceVariant,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
@@ -627,7 +628,7 @@ Widget buildCfoDashboardContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Revenue This Month', 'value': '\$184,250', 'trend': 'up', 'change': '+12.4% vs last month'},
         {'label': 'Payroll Pending', 'value': '27 Approvals', 'trend': 'down', 'change': 'Requires CFO sign-off'},
         {'label': 'Tax Filing Status', 'value': 'Ready', 'trend': 'up', 'change': 'Q2 HST remit calculated'},
@@ -638,14 +639,14 @@ Widget buildCfoDashboardContent(BuildContext context) {
         children: [
           Expanded(
             flex: 2,
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Monthly Cash Inflow and Invoices Status',
-              child: _buildCustomChart([30, 45, 60, 55, 80, 95], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], const Color(0xFF0284C7)),
+              child: _buildCustomChart(context, [30, 45, 60, 55, 80, 95], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent),
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Recent Executive Log Actions',
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -662,12 +663,12 @@ Widget buildCfoDashboardContent(BuildContext context) {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const PrimeIcon(LucideIcons.checkCircle2, color: Color(0xFF16A34A), size: 14),
+                        PrimeIcon(LucideIcons.checkCircle2, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase, size: 14),
                         const SizedBox(width: 8),
                         Expanded(
                           child: PrimeText(
                             actions[idx],
-                            style: const TextStyle(fontSize: 11, color: Color(0xFF475569)),
+                            style: TextStyle(fontSize: 11, color: Theme.of(context).colorScheme.onSurfaceVariant),
                           ),
                         ),
                       ],
@@ -679,10 +680,10 @@ Widget buildCfoDashboardContent(BuildContext context) {
           ),
         ],
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Action Queue — Pending High Priority Invoices & Reimbursements',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.2),
             1: FlexColumnWidth(2.5),
@@ -691,8 +692,8 @@ Widget buildCfoDashboardContent(BuildContext context) {
             4: FlexColumnWidth(1.5),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -732,7 +733,7 @@ Widget buildCfoDashboardContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx].toUpperCase(),
                       statuses[idx] == 'balanced' ? 'success' : 'warning',
                     ),
@@ -751,7 +752,7 @@ Widget _buildCfoAnalyticsContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Operating Margin', 'value': '34.2%', 'trend': 'up', 'change': '+2.1% YoY growth'},
         {'label': 'Cost Reduction YTD', 'value': '-\$45,800', 'trend': 'up', 'change': 'Medical supplier renegotiations'},
         {'label': 'Forecast Accuracy', 'value': '98.4%', 'trend': 'up', 'change': 'AI Cash Flow projections'},
@@ -760,27 +761,27 @@ Widget _buildCfoAnalyticsContent(BuildContext context) {
       Row(
         children: [
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Consolidated Expense Forecast vs Actual',
-              child: _buildCustomChart([50, 60, 48, 72, 85, 90], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], const Color(0xFFEF4444)),
+              child: _buildCustomChart(context, [50, 60, 48, 72, 85, 90], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent),
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Revenue Projection 12-Month Outlook',
-              child: _buildCustomChart([80, 85, 95, 110, 120, 135], ['Q1', 'Q2', 'Q3', 'Q4', 'Q1-27', 'Q2-27'], const Color(0xFF10B981)),
+              child: _buildCustomChart(context, [80, 85, 95, 110, 120, 135], ['Q1', 'Q2', 'Q3', 'Q4', 'Q1-27', 'Q2-27'], PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent),
             ),
           ),
         ],
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Detailed KPI Performance Matrix',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Indicator KPI', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Target Value', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -808,7 +809,7 @@ Widget _buildCfoAnalyticsContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(currents[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge('OPTIMAL', 'success'),
+                    child: _buildBadge(context, 'OPTIMAL', 'success'),
                   ),
                 ],
               );
@@ -824,16 +825,16 @@ Widget _buildCfoWorkflowContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Pending Approvals', 'value': '12 Invoices', 'trend': 'down', 'change': '-4 processed in last 2h'},
         {'label': 'Average SLA Time', 'value': '4.2 Hours', 'trend': 'up', 'change': '99.8% compliance level'},
         {'label': 'Triggered Audits', 'value': '0 Alerts', 'trend': 'down', 'change': 'Secure ledger validation'},
         {'label': 'Rejected Claims', 'value': '2 Batches', 'trend': 'up', 'change': 'Returned to billing admin'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Active CFO Approval & Reconciliation Workflows',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.2),
             1: FlexColumnWidth(2.5),
@@ -842,8 +843,8 @@ Widget _buildCfoWorkflowContent(BuildContext context) {
             4: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Workflow ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Process Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -882,14 +883,14 @@ Widget _buildCfoWorkflowContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(initiators[idx], style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       priorities[idx],
                       priorities[idx] == 'URGENT' ? 'danger' : (priorities[idx] == 'HIGH' ? 'warning' : 'info'),
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statusBadges[idx],
                       statusBadges[idx] == 'COMPLETED' || statusBadges[idx] == 'VERIFIED' ? 'success' : 'warning',
                     ),
@@ -908,23 +909,23 @@ Widget _buildCfoRevenueContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Gross Inflows YTD', 'value': '\$1,842,500', 'trend': 'up', 'change': '+14.6% year-over-year'},
         {'label': 'Client Copayments', 'value': '\$84,250', 'trend': 'up', 'change': '96% collection efficiency'},
         {'label': 'Royalty Revenue', 'value': '\$120,400', 'trend': 'up', 'change': '12 active branches'},
         {'label': 'Outstanding Invoices', 'value': '\$28,490', 'trend': 'down', 'change': '30-day collection cycle'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Monthly Cash Inflow Streams (Consolidated)',
-        child: _buildCustomChart([85, 98, 120, 115, 142, 184], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], const Color(0xFF10B981)),
+        child: _buildCustomChart(context, [85, 98, 120, 115, 142, 184], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent),
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Revenue Sources Detail Logs',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Transaction Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Source Origin', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -963,7 +964,7 @@ Widget _buildCfoRevenueContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge('BALANCED', 'success'),
+                    child: _buildBadge(context, 'BALANCED', 'success'),
                   ),
                 ],
               );
@@ -979,23 +980,23 @@ Widget _buildCfoExpensesContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Total Expenses YTD', 'value': '\$542,800', 'trend': 'up', 'change': 'Within +/- 2% budget margins'},
         {'label': 'Supplier Liabilities', 'value': '\$12,400', 'trend': 'down', 'change': 'Bulk discount negotiated'},
         {'label': 'Wages & Salaries', 'value': '\$184,250', 'trend': 'up', 'change': 'All Allied Health payroll run'},
         {'label': 'Discrepancy Alerts', 'value': '1 Flag', 'trend': 'up', 'change': 'Plaid Ledger sync audit notice'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Monthly Cash Outflow Expenses',
-        child: _buildCustomChart([52, 60, 58, 48, 62, 74], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], const Color(0xFFEF4444)),
+        child: _buildCustomChart(context, [52, 60, 58, 48, 62, 74], ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent),
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Corporate Outflow Expenses Ledger',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Voucher ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Vendor Category', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1035,7 +1036,7 @@ Widget _buildCfoExpensesContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx].toUpperCase(),
                       statuses[idx] == 'balanced' ? 'success' : 'warning',
                     ),
@@ -1054,16 +1055,16 @@ Widget _buildCfoPayrollContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Active Employees', 'value': '245 Staff', 'trend': 'up', 'change': '+12 new hires this period'},
         {'label': 'Total Payroll Run', 'value': '\$124,500', 'trend': 'up', 'change': 'Bi-weekly billing cycle'},
         {'label': 'Pending Approvals', 'value': '27 Approvals', 'trend': 'down', 'change': 'Awaiting CFO authorization'},
         {'label': 'Average Hour Rate', 'value': '\$42.50/hr', 'trend': 'up', 'change': 'Standard Allied Health rate'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Clinical Allied Health Staff Payroll Registry (Active Period)',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(0.5),
             1: FlexColumnWidth(1.8),
@@ -1073,8 +1074,8 @@ Widget _buildCfoPayrollContent(BuildContext context) {
             5: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('User', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Employee Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1111,7 +1112,7 @@ Widget _buildCfoPayrollContent(BuildContext context) {
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
-                    child: Center(child: _buildAvatar(names[idx], idx)),
+                    child: Center(child: _buildAvatar(context, names[idx], idx)),
                   ),
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(names[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(roles[idx], style: const TextStyle(fontSize: 11))),
@@ -1119,7 +1120,7 @@ Widget _buildCfoPayrollContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(hours[idx]*rates[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.w600))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       idx == 4 ? 'DISCREPANCY' : 'APPROVED',
                       idx == 4 ? 'warning' : 'success',
                     ),
@@ -1141,9 +1142,9 @@ Widget _buildCfoPayrollContent(BuildContext context) {
             ),
             const SizedBox(width: 12),
             PrimeElevatedButton(
-              style: PrimeElevatedButton.styleFrom(backgroundColor: const Color(0xFF16A34A)),
+              style: PrimeElevatedButton.styleFrom(backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent),
               onPressed: () {},
-              child: const PrimeText('Approve All Batches Sign-off', style: TextStyle(color: Colors.white)),
+              child: PrimeText('Approve All Batches Sign-off', style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onAccent)),
             ),
           ],
         ),
@@ -1156,16 +1157,16 @@ Widget _buildCfoInvoicesContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Total Invoiced', 'value': '\$213,890', 'trend': 'up', 'change': '+8.2% vs previous period'},
         {'label': 'Collected Balance', 'value': '\$185,400', 'trend': 'up', 'change': 'Outstanding amount: \$28,490'},
         {'label': 'Pending Insurance', 'value': '\$18,240', 'trend': 'down', 'change': 'Awaiting clearing validation'},
         {'label': 'Overdue Accounts', 'value': '4 Clients', 'trend': 'down', 'change': 'Automatic collection notice active'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Receivables Invoice Control Hub',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.0),
             1: FlexColumnWidth(2.0),
@@ -1175,8 +1176,8 @@ Widget _buildCfoInvoicesContent(BuildContext context) {
             5: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Invoice #', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Client Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1210,7 +1211,7 @@ Widget _buildCfoInvoicesContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${outstanding[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx],
                       statuses[idx] == 'PAID' ? 'success' : (statuses[idx] == 'PENDING' ? 'info' : 'danger'),
                     ),
@@ -1229,19 +1230,19 @@ Widget _buildCfoTaxContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'GST/HST Collected', 'value': '\$85,420', 'trend': 'up', 'change': 'Corporate Sales Revenue Q2'},
         {'label': 'Paid Input Tax Credits (ITC)', 'value': '\$34,210', 'trend': 'down', 'change': 'Supplier expenses offset'},
         {'label': 'Net CRA Remittance Due', 'value': '\$51,210', 'trend': 'up', 'change': 'Filing Period: Q2-2026'},
         {'label': 'Remittance Status', 'value': 'Ready', 'trend': 'up', 'change': 'Awaiting bank transfer sign-off'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'GST/HST Compliance Posting Ledger',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Posting Period', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('CRA Account Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1265,7 +1266,7 @@ Widget _buildCfoTaxContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(collected[idx]-paidItc[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx],
                       statuses[idx] == 'READY' ? 'warning' : 'success',
                     ),
@@ -1288,9 +1289,9 @@ Widget _buildCfoTaxContent(BuildContext context) {
             ),
             const SizedBox(width: 12),
             PrimeElevatedButton(
-              style: PrimeElevatedButton.styleFrom(backgroundColor: const Color(0xFF0284C7)),
+              style: PrimeElevatedButton.styleFrom(backgroundColor: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent),
               onPressed: () {},
-              child: const PrimeText('Execute CRA Bank Transfer Payout', style: TextStyle(color: Colors.white)),
+              child: PrimeText('Execute CRA Bank Transfer Payout', style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onAccent)),
             ),
           ],
         ),
@@ -1303,19 +1304,19 @@ Widget _buildCfoProfitabilityContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'EBITDA Margin', 'value': '24.2%', 'trend': 'up', 'change': '+1.8% YoY Improvement'},
         {'label': 'Net Profit Yield', 'value': '\$312,500', 'trend': 'up', 'change': 'Consolidated operations Q2'},
         {'label': 'Branch Profit Goal', 'value': '12/12 Met', 'trend': 'up', 'change': 'All branches positive yield'},
         {'label': 'Return on Assets (ROA)', 'value': '14.5%', 'trend': 'up', 'change': '+0.8% asset valuation'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Corporate Franchise Profitability Matrix',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Total Inflow Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1347,7 +1348,7 @@ Widget _buildCfoProfitabilityContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge('OPTIMAL', 'success'),
+                    child: _buildBadge(context, 'OPTIMAL', 'success'),
                   ),
                 ],
               );
@@ -1363,23 +1364,23 @@ Widget _buildCfoCashflowContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Starting Cash Balance', 'value': '\$1,124,500', 'trend': 'up', 'change': 'As of June 01, 2026'},
         {'label': 'Cash Inflows (Reconciled)', 'value': '\$320,000', 'trend': 'up', 'change': 'Sales & client copays'},
         {'label': 'Cash Outflows (Paid)', 'value': '\$195,000', 'trend': 'down', 'change': 'Payroll & supplier payments'},
         {'label': 'Net Position End Period', 'value': '\$1,249,500', 'trend': 'up', 'change': 'Net Increase: +\$125,000'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: '30-Day Automated Cash Flow Projections',
-        child: _buildCustomChart([70, 75, 80, 88, 92, 98], ['06-05', '06-10', '06-15', '06-20', '06-25', '06-30'], const Color(0xFF0284C7)),
+        child: _buildCustomChart(context, [70, 75, 80, 88, 92, 98], ['06-05', '06-10', '06-15', '06-20', '06-25', '06-30'], PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent),
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Cashflow Projections Registry',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Forecast Target Date', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Projection Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1397,8 +1398,8 @@ Widget _buildCfoCashflowContent(BuildContext context) {
                 children: [
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(dates[idx], style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(types[idx], style: const TextStyle(fontSize: 11))),
-                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${inflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFF16A34A)))),
-                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${outflows[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, color: Color(0xFFDC2626)))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${inflows[idx].toStringAsFixed(2)}', style: TextStyle(fontSize: 11, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase))),
+                  Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${outflows[idx].toStringAsFixed(2)}', style: TextStyle(fontSize: 11, color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase))),
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${(inflows[idx]-outflows[idx]).toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                 ],
               );
@@ -1414,7 +1415,7 @@ Widget _buildFinancialDashboardContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Consolidated Cash Reserves', 'value': '\$1,245,000', 'trend': 'up', 'change': '+12.4% vs last period'},
         {'label': 'YTD Net Revenue', 'value': '\$1,842,500', 'trend': 'up', 'change': 'Operational growth metrics'},
         {'label': 'Working Capital', 'value': '\$922,000', 'trend': 'up', 'change': 'Consolidated balance sheet'},
@@ -1423,27 +1424,27 @@ Widget _buildFinancialDashboardContent(BuildContext context) {
       Row(
         children: [
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Revenue Streams Composition',
-              child: _buildCustomChart([80, 45, 30, 20, 15, 10], ['Insurance', 'Franchise Fee', 'Co-Pay', 'Gov Payout', 'Private Direct', 'Other'], const Color(0xFF0284C7)),
+              child: _buildCustomChart(context, [80, 45, 30, 20, 15, 10], ['Insurance', 'Franchise Fee', 'Co-Pay', 'Gov Payout', 'Private Direct', 'Other'], PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent),
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Corporate Outflows Profile',
-              child: _buildCustomChart([68, 12, 8, 5, 4, 3], ['Wages', 'Supplies', 'Rent', 'Travel', 'IT Software', 'Other'], const Color(0xFFEF4444)),
+              child: _buildCustomChart(context, [68, 12, 8, 5, 4, 3], ['Wages', 'Supplies', 'Rent', 'Travel', 'IT Software', 'Other'], PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent),
             ),
           ),
         ],
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Secure Ledger Reconciliation Status',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1474,7 +1475,7 @@ Widget _buildFinancialDashboardContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       ledgerBals[idx] == bankBals[idx] ? 'RECONCILED' : 'DISCREPANCY',
                       ledgerBals[idx] == bankBals[idx] ? 'success' : 'warning',
                     ),
@@ -1493,16 +1494,16 @@ Widget _buildCfoAccountsPayableContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Total Accounts Payable', 'value': '\$12,400', 'trend': 'down', 'change': 'Sanitization supplies bulk'},
         {'label': 'Vendor Payouts Pending', 'value': '3 Invoices', 'trend': 'down', 'change': 'Awaiting CFO sign-off'},
         {'label': 'Corporate Rent Lease', 'value': '\$4,200', 'trend': 'up', 'change': 'Payment scheduled June 30'},
         {'label': 'Plaid Ledger Sync', 'value': 'Balanced', 'trend': 'up', 'change': 'Zero discrepancy flags'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Supplier & Vendor Accounts Payable Ledger',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.0),
             1: FlexColumnWidth(2.0),
@@ -1511,8 +1512,8 @@ Widget _buildCfoAccountsPayableContent(BuildContext context) {
             4: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Tx ID', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Vendor Payable Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1552,7 +1553,7 @@ Widget _buildCfoAccountsPayableContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx],
                       statuses[idx] == 'COMPLETED' || statuses[idx] == 'VERIFIED' ? 'success' : 'warning',
                     ),
@@ -1571,16 +1572,16 @@ Widget _buildCfoAccountsReceivableContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Receivables Outstanding', 'value': '\$114,800', 'trend': 'up', 'change': 'Billing claims clearing'},
         {'label': 'Collection Efficiency', 'value': '98.4%', 'trend': 'up', 'change': '96% collection target'},
         {'label': 'Overdue Payments', 'value': '\$4,890', 'trend': 'down', 'change': 'CFO collections warning sent'},
         {'label': 'Plaid Ledger Inflows', 'value': 'Verified', 'trend': 'up', 'change': 'Double-entry books sync'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Outstanding Client Claims & Receivables Aging Schedule',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.0),
             1: FlexColumnWidth(2.0),
@@ -1589,8 +1590,8 @@ Widget _buildCfoAccountsReceivableContent(BuildContext context) {
             4: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Invoice Ref', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Client Account Detail', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1620,7 +1621,7 @@ Widget _buildCfoAccountsReceivableContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx],
                       statuses[idx] == 'PAID' ? 'success' : (statuses[idx] == 'PENDING' ? 'info' : 'danger'),
                     ),
@@ -1639,7 +1640,7 @@ Widget _buildCfoFinancialOverviewContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Consolidated Cash Reserves', 'value': '\$1,245,000', 'trend': 'up', 'change': '+12.4% vs last period'},
         {'label': 'YTD Net Revenue', 'value': '\$1,842,500', 'trend': 'up', 'change': 'Operational growth metrics'},
         {'label': 'Working Capital', 'value': '\$922,000', 'trend': 'up', 'change': 'Consolidated balance sheet'},
@@ -1648,27 +1649,27 @@ Widget _buildCfoFinancialOverviewContent(BuildContext context) {
       Row(
         children: [
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Revenue Streams Composition',
-              child: _buildCustomChart([80, 45, 30, 20, 15, 10], ['Insurance', 'Franchise Fee', 'Co-Pay', 'Gov Payout', 'Private Direct', 'Other'], const Color(0xFF0284C7)),
+              child: _buildCustomChart(context, [80, 45, 30, 20, 15, 10], ['Insurance', 'Franchise Fee', 'Co-Pay', 'Gov Payout', 'Private Direct', 'Other'], PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent),
             ),
           ),
           const SizedBox(width: 16),
           Expanded(
-            child: _buildSectionCard(
+            child: _buildSectionCard(context,
               title: 'Corporate Outflows Profile',
-              child: _buildCustomChart([68, 12, 8, 5, 4, 3], ['Wages', 'Supplies', 'Rent', 'Travel', 'IT Software', 'Other'], const Color(0xFFEF4444)),
+              child: _buildCustomChart(context, [68, 12, 8, 5, 4, 3], ['Wages', 'Supplies', 'Rent', 'Travel', 'IT Software', 'Other'], PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).accent),
             ),
           ),
         ],
       ),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Secure Ledger Reconciliation Status',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('GL Account', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Account Name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1699,7 +1700,7 @@ Widget _buildCfoFinancialOverviewContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${bankBals[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       ledgerBals[idx] == bankBals[idx] ? 'RECONCILED' : 'DISCREPANCY',
                       ledgerBals[idx] == bankBals[idx] ? 'success' : 'warning',
                     ),
@@ -1718,16 +1719,16 @@ Widget _buildCfoFranchiseFinancialsContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Consolidated Franchise Revenue', 'value': '\$512,400', 'trend': 'up', 'change': '+14.6% vs previous period'},
         {'label': 'Franchise Royalties Collected', 'value': '\$142,000', 'trend': 'up', 'change': '12 active franchise locations'},
         {'label': 'Consolidated Margins', 'value': '28.4%', 'trend': 'up', 'change': 'EBITDA Target 25.0%'},
         {'label': 'Underperforming Branches', 'value': '0 Locations', 'trend': 'down', 'change': 'All branches positive yield'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Franchise Branch Financial Breakdown & Royalties',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.2),
             1: FlexColumnWidth(1.2),
@@ -1737,8 +1738,8 @@ Widget _buildCfoFranchiseFinancialsContent(BuildContext context) {
             5: FlexColumnWidth(1.0),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Franchise Branch', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Gross Revenue', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1770,7 +1771,7 @@ Widget _buildCfoFranchiseFinancialsContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('${((revenues[idx]-expenses[idx])/revenues[idx]*100).toStringAsFixed(1)}%', style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge('ACTIVE', 'success'),
+                    child: _buildBadge(context, 'ACTIVE', 'success'),
                   ),
                 ],
               );
@@ -1786,16 +1787,16 @@ Widget _buildCfoReportsContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'Reports Generated', 'value': '142 Reports', 'trend': 'up', 'change': 'Audit logs matched'},
         {'label': 'Pending Audits', 'value': '0 Flags', 'trend': 'down', 'change': 'All corporate books clean'},
         {'label': 'Last Export', 'value': 'Today 08:14', 'trend': 'up', 'change': 'CFO ledger reconciliation'},
         {'label': 'Compliance Standing', 'value': '100% Score', 'trend': 'up', 'change': 'CRA/Tax requirements met'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Secure Financial Exports & Audits Hub',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           columnWidths: const {
             0: FlexColumnWidth(1.2),
             1: FlexColumnWidth(2.5),
@@ -1804,8 +1805,8 @@ Widget _buildCfoReportsContent(BuildContext context) {
             4: FlexColumnWidth(1.2),
           },
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Report Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Report Description', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1845,7 +1846,7 @@ Widget _buildCfoReportsContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText(sizes[idx], style: const TextStyle(fontSize: 11))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge('EXPORTED', 'success'),
+                    child: _buildBadge(context, 'EXPORTED', 'success'),
                   ),
                 ],
               );
@@ -1861,19 +1862,19 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      _buildKpiRow([
+      _buildKpiRow(context, [
         {'label': 'GST/HST Payable Q2', 'value': '\$51,210', 'trend': 'up', 'change': 'Net CRA remittance due'},
         {'label': 'Payroll Tax Pending', 'value': '\$24,500', 'trend': 'up', 'change': 'Source deductions sign-off'},
         {'label': 'Corporate Tax Estimate', 'value': '\$110,000', 'trend': 'up', 'change': 'Filing Period: Q2-2026'},
         {'label': 'Remitted Year-to-Date', 'value': '\$380,000', 'trend': 'up', 'change': '100% compliant filings'},
       ]),
-      _buildSectionCard(
+      _buildSectionCard(context,
         title: 'Government Tax Filing & Remittance Schedule',
         child: Table(
-          border: TableBorder.all(color: const Color(0xFFF1F5F9), width: 1),
+          border: TableBorder.all(color: Theme.of(context).colorScheme.outlineVariant, width: 1),
           children: [
-            const TableRow(
-              decoration: BoxDecoration(color: Color(0xFFF8FAFC)),
+            TableRow(
+              decoration: BoxDecoration(color: Theme.of(context).colorScheme.surfaceContainerLow),
               children: [
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Tax Liability Type', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
                 Padding(padding: EdgeInsets.all(10), child: PrimeText('Jurisdiction Agency', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 11))),
@@ -1906,7 +1907,7 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
                   Padding(padding: const EdgeInsets.all(10), child: PrimeText('\$${amounts[idx].toStringAsFixed(2)}', style: const TextStyle(fontSize: 11, fontWeight: FontWeight.bold))),
                   Padding(
                     padding: const EdgeInsets.all(8),
-                    child: _buildBadge(
+                    child: _buildBadge(context,
                       statuses[idx],
                       statuses[idx] == 'REMITTED' ? 'success' : 'warning',
                     ),
@@ -1917,7 +1918,7 @@ Widget _buildCfoTaxAndRemittanceContent(BuildContext context) {
                       statuses[idx] == 'REMITTED' ? 'Archived' : 'Sign and Submit',
                       style: TextStyle(
                         fontSize: 10,
-                        color: statuses[idx] == 'REMITTED' ? const Color(0xFF64748B) : const Color(0xFF0284C7),
+                        color: statuses[idx] == 'REMITTED' ? Theme.of(context).colorScheme.onSurfaceVariant : PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBase,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
