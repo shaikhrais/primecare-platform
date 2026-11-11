@@ -13,13 +13,15 @@ on:
       - 'packages/flutter_core/test/component_catalogue/**'
       - 'packages/primecare_ui/lib/component_catalogue.dart'
       - 'scripts/*component-catalogue*.mjs'
+      - 'scripts/audit-shared-skeleton-equivalents.py'
+      - 'docs/appearance/shared-skeleton-equivalents.md'
       - 'tools/governance-production/test-metadata-store.py'
       - '.github/workflows/component-catalogue.yml'
   workflow_dispatch:
 permissions: {contents: read}
 concurrency:
   group: component-catalogue-tests-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   web:
     runs-on: ubuntu-24.04

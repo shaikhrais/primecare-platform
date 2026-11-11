@@ -40,6 +40,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Validate native workflow command separation
         run: python3 -m unittest discover -s scripts/tests -p test_theme_workflow_commands.py
+      - name: Verify shared skeleton source mappings
+        run: python3 scripts/audit-shared-skeleton-equivalents.py --check
       - name: Prepare isolated historical governance test fixture
         env:
           GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
