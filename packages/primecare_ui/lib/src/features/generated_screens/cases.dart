@@ -243,9 +243,9 @@ class Cases extends GovernedConsumerWidget {
                               final isMed = c.severity == 'Medium';
                               final isResolved = c.status == 'Resolved';
 
-                              Color severityColor = Colors.green;
-                              if (isHigh) severityColor = Colors.red;
-                              if (isMed) severityColor = Colors.orange;
+                              Color severityColor = PrimeActionPalette.of(context, PrimeActionTone.success).accent;
+                              if (isHigh) severityColor = PrimeActionPalette.of(context, PrimeActionTone.error).accent;
+                              if (isMed) severityColor = PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
 
                               return Card(
                                 color: theme.colors.background,
@@ -280,13 +280,13 @@ class Cases extends GovernedConsumerWidget {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
-                                                  color: severityColor.withOpacity(0.1),
+                                                  color: PrimeActionPalette.tintSurface(context, severityColor),
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                                 child: Text(
                                                   c.severity,
                                                   style: TextStyle(
-                                                    color: severityColor,
+                                                    color: PrimeActionPalette.onTint(context, severityColor),
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.bold,
                                                   ),
@@ -437,9 +437,9 @@ class Cases extends GovernedConsumerWidget {
                                 titleController.clear();
                                 descriptionController.clear();
                                 ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Incident submitted to active investigations directory.'),
-                                    backgroundColor: Colors.green,
+                                   SnackBar(
+                                    content: Text('Incident submitted to active investigations directory.', style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.success).onAccent)),
+                                    backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                                   ),
                                 );
                               }

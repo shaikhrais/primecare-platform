@@ -170,19 +170,19 @@ class EnterpriseOverview extends GovernedConsumerWidget {
                     title: 'Open Scheduling Shifts',
                     value: metrics.kpis['Nationwide Open Shifts']?.toString() ?? 'N/A',
                     icon: LucideIcons.calendarClock,
-                    iconColor: Colors.amber,
+                    iconColor: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                   ),
                   PrimeCareStatCard(
                     title: 'Active Caregivers',
                     value: metrics.kpis['Active Caregivers']?.toString() ?? 'N/A',
                     icon: LucideIcons.users,
-                    iconColor: Colors.purple,
+                    iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
                   ),
                   PrimeCareStatCard(
                     title: 'Total Active Clients',
                     value: metrics.kpis['Direct Client Case Count']?.toString() ?? 'N/A',
                     icon: LucideIcons.folderHeart,
-                    iconColor: Colors.teal,
+                    iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                   ),
                 ],
               ),
@@ -302,7 +302,7 @@ class EnterpriseOverview extends GovernedConsumerWidget {
           child: Text(
             efficiency,
             style: theme.typography.bodyMedium.copyWith(
-              color: Colors.green,
+              color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
               fontWeight: FontWeight.bold,
             ),
           ),

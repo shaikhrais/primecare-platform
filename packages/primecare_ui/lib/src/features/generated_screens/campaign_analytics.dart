@@ -268,7 +268,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                         value: '\$${calculatedSpend.toStringAsFixed(0)}',
                         subtitle: 'Campaign budget deployed',
                         icon: LucideIcons.dollarSign,
-                        iconColor: Colors.teal,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -278,7 +278,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                         value: calculatedClicks.toString(),
                         subtitle: 'Client touchpoints',
                         icon: LucideIcons.mousePointerClick,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -288,7 +288,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                         value: calculatedConversions.toString(),
                         subtitle: 'Completed assessments',
                         icon: LucideIcons.checkSquare,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -300,7 +300,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                             : '\$0.0',
                         subtitle: 'Cost per Acquisition',
                         icon: LucideIcons.badgeAlert,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
                       ),
                     ),
                   ],
@@ -338,16 +338,16 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                             final item = filteredCampaigns[index];
                             final status = item['status'] as String;
                             final statusColor = status == 'Active'
-                                ? Colors.green
+                                ? PrimeActionPalette.of(context, PrimeActionTone.success).accent
                                 : status == 'Completed'
-                                    ? Colors.blue
-                                    : Colors.grey;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.primary).accent
+                                    : PrimeActionPalette.of(context, PrimeActionTone.muted).accent;
 
                             return ListTile(
                               leading: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: statusColor.withValues(alpha: 0.1),
+                                  color: PrimeActionPalette.tintSurface(context, statusColor),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
@@ -356,7 +356,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                                       : item['channel'] == 'Paid Social'
                                           ? LucideIcons.share2
                                           : LucideIcons.mail,
-                                  color: statusColor,
+                                  color: PrimeActionPalette.onTint(context, statusColor),
                                   size: 16,
                                 ),
                               ),
@@ -375,14 +375,14 @@ class CampaignAnalytics extends GovernedConsumerWidget {
                                   Container(
                                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                     decoration: BoxDecoration(
-                                      color: statusColor.withValues(alpha: 0.1),
+                                      color: PrimeActionPalette.tintSurface(context, statusColor),
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(color: statusColor.withValues(alpha: 0.3)),
                                     ),
                                     child: Text(
                                       status,
                                       style: TextStyle(
-                                        color: statusColor,
+                                        color: PrimeActionPalette.onTint(context, statusColor),
                                         fontWeight: FontWeight.bold,
                                         fontSize: 11,
                                       ),
@@ -408,7 +408,7 @@ class CampaignAnalytics extends GovernedConsumerWidget {
           ),
           if (state.isFiltering)
             Container(
-              color: Colors.black.withValues(alpha: 0.05),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.05),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -451,10 +451,10 @@ class _AnalyticsKpiCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor), size: 24),
             ),
             const SizedBox(width: 12),
             Expanded(
