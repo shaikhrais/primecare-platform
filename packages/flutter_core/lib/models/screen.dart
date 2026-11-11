@@ -15,6 +15,7 @@ PRIME:NEXT_ACTION=
 */
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Base class for governed consumer widgets. Enforces layout invariants by making it impossible...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
 import '../registry/platform_role.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -300,7 +301,7 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
     final theme = Theme.of(context);
     final primaryColor = theme.primaryColor;
 
-    return Scaffold(
+    return PrimeScaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
         children: [

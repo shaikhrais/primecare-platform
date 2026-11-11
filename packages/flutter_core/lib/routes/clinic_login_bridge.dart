@@ -14,6 +14,7 @@ PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -119,7 +120,7 @@ class _ClinicLoginBridgeState extends GovernedConsumerState<ClinicLoginBridge> {
 
   @override
   Widget buildScreen(BuildContext context) {
-    return Scaffold(
+    return PrimeScaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

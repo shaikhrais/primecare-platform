@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A factory class to construct strict "Zero-Trust" routing configurations. Builds a strictly-g...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -91,7 +92,7 @@ class GovernanceRouter {
           builder: (context, state) => ManagedScreenBoundary(
             manager: screenManager,
             screenId: '/internal/unauthorized-fallback',
-            builder: (_) => Scaffold(
+            builder: (_) => PrimeScaffold(
               body: Center(child: PrimeText(tr('governance.unauthorized_route_message'))),
             ),
           ),
@@ -144,7 +145,7 @@ class GovernanceRouter {
           child: ManagedScreenBoundary(
             manager: screenManager,
             screenId: '/internal/access-denied',
-            builder: (_) => Scaffold(
+            builder: (_) => PrimeScaffold(
             appBar: AppBar(title: PrimeText(tr('governance.access_denied'))),
             body: Center(
               child: Column(

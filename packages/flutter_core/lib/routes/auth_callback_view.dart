@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Handle SSO authorization callback logic on Web.
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -78,7 +79,7 @@ class _AuthCallbackViewState extends GovernedConsumerState<AuthCallbackView> {
 
   @override
   Widget buildScreen(BuildContext context) {
-    return Scaffold(
+    return PrimeScaffold(
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

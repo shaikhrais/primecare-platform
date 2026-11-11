@@ -13,6 +13,7 @@ PRIME:PROGRESS=100
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
@@ -37,7 +38,7 @@ class AuthErrorView extends GovernedScreen {
   @override
   Widget buildGovernedView(BuildContext context, WidgetRef ref) {
     final textTheme = Theme.of(context).textTheme;
-    return Scaffold(
+    return PrimeScaffold(
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(24.0),

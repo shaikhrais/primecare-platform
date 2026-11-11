@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
@@ -108,7 +109,7 @@ Widget buildPresentationScreen(BuildContext context, dynamic ref, String screenT
     }
 
   // 2. Wrap screen in SaaS presentation wrapper
-  return Scaffold(
+  return PrimeScaffold(
     backgroundColor: const Color(0xFFF1F5F9), // Slate 100
     body: Column(
       children: [

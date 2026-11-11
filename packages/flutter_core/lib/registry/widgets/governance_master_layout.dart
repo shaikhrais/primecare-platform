@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../../theme/theme_center_theme_data.dart';
@@ -217,7 +218,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
             container: true,
             child: KeyedSubtree(
               key: const Key('app-shell'),
-              child: Scaffold(
+              child: PrimeScaffold(
                 endDrawer: ThemeSettingsDrawer(tenantDefaultPreset: defaultPreset),
                 drawer: isHandheld
                     ? _buildSidebar(

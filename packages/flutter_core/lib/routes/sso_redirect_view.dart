@@ -15,6 +15,7 @@ PRIME:NEXT_ACTION=
 */
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon, PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -88,7 +89,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
 
   @override
   Widget buildScreen(BuildContext context) {
-    return Scaffold(
+    return PrimeScaffold(
       appBar: AppBar(
         title: const PrimeText('Single Sign-On Portal'),
         leading: PrimeIconButton(

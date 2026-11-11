@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: UI Screen component rendering the Governance Dashboard workspace interface.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeCircularProgressIndicator;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeScaffold;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
@@ -128,7 +129,7 @@ class _GovernanceDashboardContentState
       return matchesSeverity && matchesCategory && matchesSearch;
     }).toList();
 
-    return Scaffold(
+    return PrimeScaffold(
       backgroundColor: Colors.transparent,
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(48),
