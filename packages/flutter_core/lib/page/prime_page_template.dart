@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'dart:math' as math;
@@ -84,7 +85,7 @@ class _PrimePageTemplateState extends State<PrimePageTemplate> {
       final contentScroll=route.layout.scroll=='content',pageScroll=route.layout.scroll=='page';
       if((contentScroll||pageScroll)&&!constraints.hasBoundedHeight)throw FlutterError('Page/content scrolling requires a bounded page host');
       final width=constraints.hasBoundedWidth?constraints.maxWidth:MediaQuery.sizeOf(context).width;
-      Widget content() {final child=Padding(padding:widget.metrics.contentPadding,child:_slot('content',widget.content));return route.layout.template=='carded'?Card(margin:EdgeInsets.zero,child:child):child;}
+      Widget content() {final child=Padding(padding:widget.metrics.contentPadding,child:_slot('content',widget.content));return route.layout.template=='carded'?PrimeCard(margin:EdgeInsets.zero,child:child):child;}
       bool inline(String side)=>_modalSide!=side&&_child(side)!=null&&_config(side).mode!='none'&&_open[side]!&&!_temporary(side);
       Widget sidebar(String side)=>SizedBox(width:math.min(_config(side).width.toDouble(),width*widget.metrics.sidebarFraction),child:contentScroll?SingleChildScrollView(child:_slot(side,_child(side)!)):_slot(side,_child(side)!));
       final row=Row(textDirection:TextDirection.ltr,crossAxisAlignment:contentScroll?CrossAxisAlignment.stretch:CrossAxisAlignment.start,children:[if(inline('left'))sidebar('left'),Expanded(child:contentScroll?SingleChildScrollView(key:ValueKey('page-content-scroll'),controller:_contentScroll,child:content()):content()),if(inline('right'))sidebar('right')]);

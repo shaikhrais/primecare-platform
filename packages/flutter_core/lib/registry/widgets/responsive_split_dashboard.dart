@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE A premium, high-density dashboard split layout designed for large displays. On desktop and w...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -138,7 +139,7 @@ class QuickActionsPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    return Card(
+    return PrimeCard(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: theme.cardTheme.shape is RoundedRectangleBorder
@@ -248,7 +249,7 @@ class RecentActivityFeed extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final scheme = theme.colorScheme;
-    return Card(
+    return PrimeCard(
       elevation: 2,
       shape: RoundedRectangleBorder(
         borderRadius: theme.cardTheme.shape is RoundedRectangleBorder

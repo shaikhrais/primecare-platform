@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;
 import 'theme_center_panel.dart';
@@ -207,7 +208,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                       }
                       final isSelected = activeLang == lang;
 
-                      return Card(
+                      return PrimeCard(
                         elevation: 0,
                         margin: const EdgeInsets.only(bottom: 8),
                         shape: RoundedRectangleBorder(
@@ -347,7 +348,7 @@ class _LayoutOptionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return Card(
+    return PrimeCard(
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 10),
       shape: RoundedRectangleBorder(
