@@ -5,6 +5,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
+import 'package:primecare_ui/src/components/prime_telemetry_row.dart';
 import 'package:primecare_ui/src/components/prime_trend_label.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
@@ -16,6 +17,31 @@ import 'fixtures/premium_health_panel_fixture.dart';
 import 'fixtures/governance_status_metrics_fixture.dart';
 
 void main() {
+  testWidgets('shared telemetry row wraps and follows live theme accents and text colors', (tester) async {
+    for (final colors in [const PrimeColors(), const PrimeColors(primary: Colors.yellow,
+      onSurface: Colors.white, onSurfaceVariant: Colors.cyan, surface: Colors.black)]) {
+      for (final scale in [1.0, 2.0]) {
+        await tester.pumpWidget(PrimeTheme(data: PrimeThemeData(colors: colors), bootstrap: false,
+          child: MaterialApp(home: MediaQuery(data: MediaQueryData(textScaler: TextScaler.linear(scale)),
+            child: Scaffold(backgroundColor: colors.surface, body: SingleChildScrollView(
+              child: SizedBox(width: 320, child: PrimeTelemetryRow(
+                label: 'Regional synchronization protocol', value: 'Existing informational value',
+                icon: Icons.sync, color: colors.primary))))))));
+        await tester.pumpAndSettle();
+        final icon = tester.widget<Icon>(find.byIcon(Icons.sync));
+        expect(icon.color, colors.primary);
+        expect(icon.size, 18);
+        final label = tester.widget<Text>(find.text('Regional synchronization protocol'));
+        final value = tester.widget<Text>(find.text('Existing informational value'));
+        expect(label.style!.color, colors.onSurfaceVariant);
+        expect(value.style!.color, colors.onSurface);
+        expect(label.style!.fontSize, 13.5);
+        expect(value.style!.fontWeight, FontWeight.bold);
+        expect(tester.takeException(), isNull, reason: '$scale');
+      }
+    }
+  });
+
   testWidgets('semantic badge retains geometry and readable text while live theme changes', (tester) async {
     const badgeKey = ValueKey('semantic-badge');
     const badge = PrimeStatusBadge('Existing status', key: badgeKey, tone: PrimeStatusTone.success);

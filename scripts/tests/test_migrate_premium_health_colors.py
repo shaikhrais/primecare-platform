@@ -52,20 +52,17 @@ class HealthFixtureCoverageTest(unittest.TestCase):
     def test_fixture_matches_every_generated_health_panel_and_row(self):
         root = Path(__file__).resolve().parents[2]
         fixture = (root/'packages/primecare_ui/test/fixtures/premium_health_panel_fixture.dart').read_text()
-        fixture = fixture[fixture.index('class PremiumHealthPanelFixture '):].replace('PremiumHealthPanelFixture', '_TelemetryPanel').replace('PremiumHealthRowFixture', '_TelemetryRow')
-        panel, row = fixture.split('\n\nclass _TelemetryRow ', 1)
-        row = 'class _TelemetryRow '+row
+        panel = fixture[fixture.index('class PremiumHealthPanelFixture '):].replace('PremiumHealthPanelFixture', '_TelemetryPanel').strip()
         covered = 0
         for path in (root/'packages/primecare_ui/lib/src/features/generated_screens').glob('premium_feature_*.dart'):
             source, count = m.migrate(path.read_text())
             begin = source.index('class _TelemetryPanel ')
-            end = source.index('\nclass _AuditPanel', begin)
-            self.assertEqual(source[begin:end].strip(), panel.strip(), path.name)
-            begin = source.index('class _TelemetryRow ')
-            end = source.index('\nclass _StatusBadge', begin)
-            self.assertEqual(source[begin:end].strip(), row.strip(), path.name)
+            end = source.index('class _AuditPanel ', begin)
+            self.assertEqual(source[begin:end].strip(), panel, path.name)
+            self.assertNotIn('class _TelemetryRow ', source, path.name)
+            self.assertEqual(source[begin:end].count('PrimeTelemetryRow('), 3, path.name)
             covered += 1
-        self.assertGreater(covered, 0)
+        self.assertEqual(covered, 251)
 
 if __name__ == '__main__':
     unittest.main()

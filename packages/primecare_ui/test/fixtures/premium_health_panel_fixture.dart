@@ -1,4 +1,4 @@
-// Exact generated health panel and row helpers, renamed only for behavioral coverage.
+// Exact generated health panel with the production shared row renderer.
 import 'package:primecare_ui/primecare_ui.dart';
 
 class PremiumHealthPanelFixture extends StatelessWidget {
@@ -92,71 +92,29 @@ class PremiumHealthPanelFixture extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            const PremiumHealthRowFixture(
+            PrimeTelemetryRow(
               label: 'Sync Frequency', // .tr() LocaleKeys.
               value: 'Real-time (12ms)', // .tr() LocaleKeys.
               icon: Icons.sync,
-              color: Colors.blue,
+              color: theme.colors.primary,
             ),
             const Divider(height: 24),
-            const PremiumHealthRowFixture(
+            PrimeTelemetryRow(
               label: 'Drift Coefficient', // .tr() LocaleKeys.
               value: '0.0034 delta', // .tr() LocaleKeys.
               icon: Icons.trending_up,
-              color: Colors.purple,
+              color: theme.colors.secondary,
             ),
             const Divider(height: 24),
-            const PremiumHealthRowFixture(
+            PrimeTelemetryRow(
               label: 'System Isolation', // .tr() LocaleKeys.
               value: 'Strict Tenant Isolation', // .tr() LocaleKeys.
               icon: Icons.security,
-              color: const Color(0xFF10B981),
+              color: theme.colors.success,
             ),
           ],
         ),
       ),
-    );
-  }
-}
-
-class PremiumHealthRowFixture extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
-
-  const PremiumHealthRowFixture({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Row(
-      children: [
-        Icon(icon, color: color, size: 18),
-        const SizedBox(width: 12),
-        Expanded(child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13.5,
-            fontWeight: FontWeight.w500,
-            color: theme.colors.onSurfaceVariant,
-          ),
-        )),
-        const SizedBox(width: 12),
-        Flexible(child: Text(
-          value,
-          style:  TextStyle(
-            fontSize: 13.5,
-            fontWeight: FontWeight.bold,
-            color: theme.colors.onSurface,
-          ),
-        )),
-      ],
     );
   }
 }
