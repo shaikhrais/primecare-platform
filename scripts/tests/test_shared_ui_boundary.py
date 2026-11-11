@@ -8,6 +8,38 @@ boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
 
 class SharedUiBoundaryTest(unittest.TestCase):
+    def test_executable_string_interpolations_are_checked(self):
+        source = 'final label = "value ${Text(\"inside\").data} ${Colors.red}";'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Text', 'Colors.red'])
+
+    def test_nested_strings_and_map_literals_preserve_interpolation_code(self):
+        source = 'final label = "${{\"label\": \"${Colors.blue}\"}.toString()}";'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Colors.blue'])
+
+    def test_raw_and_escaped_interpolations_are_only_text(self):
+        for source in [r'final x = r"${Text(1)} ${Colors.red}";',
+                       r'final x = R"${Colors.red}";',
+                       r'final x = "\${Colors.red}";']:
+            with self.subTest(source=source):
+                self.assertEqual(boundary.violations(source, True), [])
+
+    def test_nested_block_comments_do_not_create_false_violations(self):
+        source = '/* outer /* inner */ Text("example"); Colors.red; */\nText("live");'
+        self.assertEqual(boundary.violations(source, True), [(2, 'shared-control', 'Text')])
+
+    def test_multiline_interpolation_keeps_original_diagnostic_line(self):
+        source = 'final x = """text\n${\nColor(1)\n}\n""";'
+        self.assertEqual(boundary.violations(source, False), [(3, 'theme-color', 'Color(')])
+
+    def test_control_and_color_typedef_aliases_are_rejected_at_definition(self):
+        source = 'typedef Label = ui.Text; typedef Tint = Color; typedef Selection<T> = ui.DropdownButton<T>;'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Text', 'Color', 'DropdownButton'])
+        self.assertEqual([f[2] for f in boundary.violations(source, False)], ['Color'])
+
+    def test_shared_aliases_and_inert_quoted_comment_markers_pass(self):
+        source = 'typedef SharedLabel = PrimeText; final x = "/* Text( */ // Colors.red";'
+        self.assertEqual(boundary.violations(source, True), [])
+
     def test_direct_alias_named_and_generic_controls_fail(self):
         findings = boundary.violations('ui.Text("Name"); FilledButton.tonal(onPressed: null); DropdownButton<String>();', True)
         self.assertEqual([f[2] for f in findings], ['Text', 'FilledButton', 'DropdownButton'])
