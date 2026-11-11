@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Route compatible app Icon calls through PrimeIcon. Dry run by default.
 
-Only unrestricted Material/shared imports qualify. Concrete Icon type references,
+The shared barrel supplies Material and PrimeIcon, including unrelated hide lists.
+Otherwise an unrestricted Material import plus --add-imports opts into a narrow
+PrimeIcon import for declared shared-library consumers. Concrete Icon type references,
 constructor tear-offs, part files, aliases and unsupported parameters need review.
 """
 import argparse
@@ -13,14 +15,21 @@ spec = importlib.util.spec_from_file_location('buttons', Path(__file__).with_nam
 b = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(b)
 PARAMETERS = {'key', 'color', 'size', 'semanticLabel', 'textDirection'}
+BARREL = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:hide\s+([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*)?;")
 CALL = re.compile(r'(?<![\w.])Icon\s*\(')
 
 
-def migrate(source):
+def migrate(source, add_import=False):
     code = b.text.boundary.executable_code(source)
-    for pattern in (b.SHARED, b.text.MATERIAL):
-        if not any(code[m.start():].startswith('import') for m in pattern.finditer(source)):
-            return source, 0
+    def imported(pattern):
+        return any(code[m.start():].startswith('import') for m in pattern.finditer(source))
+    has_shared = any(code[m.start():].startswith('import') and
+                     not {'Icon', 'PrimeIcon'}.intersection(re.findall(r'\w+', m[2] or ''))
+                     for m in BARREL.finditer(source))
+    if not (has_shared or imported(b.text.MATERIAL) and add_import):
+        return source, 0
+    if not has_shared and re.search(r'\bPrimeIcon\b', code):
+        return source, 0
     if re.search(r'\bpart\b|\b(?:class|typedef|mixin|enum|extension)\s+(?:Icon|PrimeIcon)\b', code):
         return source, 0
     if re.search(r'\b(?:Widget|dynamic|Object|Function)\s+(?:Icon|PrimeIcon)\s*\(|\b(?:Icon|PrimeIcon)\s*=', code):
@@ -49,6 +58,10 @@ def migrate(source):
             edits.append(call.start())
     for offset in reversed(edits):
         source = source[:offset] + 'PrimeIcon' + source[offset + 4:]
+    if edits and not has_shared:
+        position = next(m.start() for m in b.text.MATERIAL.finditer(source)
+                        if code[m.start():].startswith('import'))
+        source = source[:position] + "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\n" + source[position:]
     return source, len(edits)
 
 
@@ -57,6 +70,7 @@ def main():
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--path', action='append')
     parser.add_argument('--apply', action='store_true')
+    parser.add_argument('--add-imports', action='store_true', help='Opt into narrow PrimeIcon imports for declared runtime dependencies')
     args = parser.parse_args()
     root = args.root.resolve()
     paths = set()
@@ -72,7 +86,7 @@ def main():
         pubspec = root / Path(*path.relative_to(root).parts[:2]) / 'pubspec.yaml'
         if not pubspec.is_file() or not b.text.shared_dependency(pubspec.read_text()):
             continue
-        updated, count = migrate(path.read_text())
+        updated, count = migrate(path.read_text(), add_import=args.add_imports)
         if count:
             if args.apply:
                 path.write_text(updated)

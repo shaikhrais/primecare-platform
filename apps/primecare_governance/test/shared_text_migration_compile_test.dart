@@ -225,6 +225,11 @@ import 'package:primecare_governance/governance/widgets/governance_master_score.
 import 'package:primecare_governance/governance/widgets/governance_role_viewer.dart' as migrated221;
 import 'package:primecare_governance/governance/widgets/governance_trend_chart.dart' as migrated222;
 
+import 'package:primecare_governance/core/governance/route_registry.dart' as keyedIconRoutes;
+import 'package:primecare_governance/core/ui/app_drawer.dart' as sharedIconDrawer;
+import 'package:primecare_governance/core/ui/language_selector.dart' as sharedIconLanguage;
+import 'package:primecare_governance/features/system_governance/app_entry_form.dart' as sharedIconEntry;
+
 void main() {
   test('migrated consumer libraries compile', () {
     const migratedTypes = <Type>[
@@ -451,7 +456,11 @@ void main() {
       migrated220.GovernanceMasterScore,
       migrated221.GovernanceRoleViewer,
       migrated222.GovernanceTrendChart,
+      sharedIconDrawer.AppDrawer,
+      sharedIconLanguage.LanguageSelector,
+      sharedIconEntry.AppEntryForm,
     ];
-    expect(migratedTypes, hasLength(223));
+    expect(keyedIconRoutes.governanceNativeScreenRoutes, isNotEmpty);
+    expect(migratedTypes, hasLength(226));
   });
 }

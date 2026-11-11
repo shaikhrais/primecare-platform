@@ -68,3 +68,42 @@ class IconMigrationTests(unittest.TestCase):
         self.assertEqual(count,1)
         self.assertEqual(m.b.text.boundary.violations(result,True),[])
         self.assertNotIn('color:',result)
+
+
+class NarrowIconImportTests(unittest.TestCase):
+    def test_opt_in_preserves_library_and_exact_icon_arguments(self):
+        source = "library patient;\nimport 'package:flutter/material.dart';\nconst Icon(Icons.info, size: 64, color: activeColor);"
+        self.assertEqual(m.migrate(source), (source, 0))
+        result, count = m.migrate(source, add_import=True)
+        self.assertEqual(count, 1)
+        self.assertEqual(result, source.replace("import 'package:flutter/material.dart';", "import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;\nimport 'package:flutter/material.dart';").replace('const Icon(', 'const PrimeIcon('))
+        self.assertEqual(m.migrate(result, add_import=True), (result, 0))
+
+    def test_ambiguous_shared_symbol_and_restricted_material_stay(self):
+        for prefix in ["import 'package:other/other.dart' show PrimeIcon;", 'final PrimeIcon=other;']:
+            source = "import 'package:flutter/material.dart';" + prefix + 'Icon(Icons.info);'
+            self.assertEqual(m.migrate(source, add_import=True), (source, 0))
+        source = "import 'package:flutter/material.dart' as ui; Icon(Icons.info);"
+        self.assertEqual(m.migrate(source, add_import=True), (source, 0))
+
+    def test_existing_narrow_shared_import_and_callbacks_preserved(self):
+        source = "import 'package:flutter/material.dart';\nimport 'package:primecare_ui/primecare_ui.dart' show PrimeText;\nIcon(choose(a,b), color: resolve(context));"
+        result, count = m.migrate(source, add_import=True)
+        self.assertEqual(count, 1)
+        self.assertIn('show PrimeText;', result)
+        self.assertIn('PrimeIcon(choose(a,b), color: resolve(context))', result)
+
+
+class SharedBarrelIconTests(unittest.TestCase):
+    def test_barrel_exports_material_and_shared_icon_with_unrelated_hides(self):
+        for clause in ['', ' hide ScreenRegistry', ' hide languageProvider, ScreenRegistry']:
+            source = "import 'package:primecare_ui/primecare_ui.dart'" + clause + '; Icon(Icons.info);'
+            result, count = m.migrate(source)
+            self.assertEqual(count, 1)
+            self.assertEqual(result, source.replace(' Icon(', ' PrimeIcon('))
+            self.assertEqual(m.migrate(result), (result, 0))
+
+    def test_hidden_icon_or_shared_icon_and_aliased_barrel_stay(self):
+        for clause in [' hide Icon', ' hide PrimeIcon', ' as ui', ' show PrimeText']:
+            source = "import 'package:primecare_ui/primecare_ui.dart'" + clause + '; Icon(Icons.info);'
+            self.assertEqual(m.migrate(source), (source, 0))
