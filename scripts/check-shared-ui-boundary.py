@@ -78,7 +78,7 @@ def executable_code(source):
 
     code(0)
     return ''.join(masked)
-CONTROLS = ('Text', 'RichText', 'TextField', 'TextFormField', 'ElevatedButton',
+CONTROLS = ('Icon', 'CircularProgressIndicator', 'LinearProgressIndicator', 'Text', 'RichText', 'TextField', 'TextFormField', 'ElevatedButton',
     'FilledButton', 'OutlinedButton', 'TextButton', 'IconButton', 'DropdownButton',
     'DropdownButtonFormField', 'Checkbox', 'CheckboxListTile', 'Radio', 'RadioListTile',
     'Switch', 'SwitchListTile', 'Slider', 'RangeSlider', 'Card', 'ListTile', 'Scaffold',

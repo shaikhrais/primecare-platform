@@ -8,6 +8,12 @@ boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
 
 class SharedUiBoundaryTest(unittest.TestCase):
+    def test_icons_and_progress_controls_require_shared_library(self):
+        source = 'Icon(Icons.star); CircularProgressIndicator(); LinearProgressIndicator(value: progress);'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)],
+                         ['Icon', 'CircularProgressIndicator', 'LinearProgressIndicator'])
+        self.assertEqual(boundary.violations(source, False), [])
+
     def test_executable_string_interpolations_are_checked(self):
         source = 'final label = "value ${Text(\"inside\").data} ${Colors.red}";'
         self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Text', 'Colors.red'])

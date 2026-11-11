@@ -1,4 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'cto_system_verification_screen_controller.dart';
@@ -16,7 +17,7 @@ class CtoSystemVerificationScreen extends ConsumerWidget {
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
+        loading: () => const DashboardLoadingWidget(),
         error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     );

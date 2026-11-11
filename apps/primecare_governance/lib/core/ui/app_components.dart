@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Core implementation file for the App Components platform logic.
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
@@ -134,7 +135,7 @@ class AppLoadingOverlay extends StatelessWidget {
         if (isLoading)
           Container(
             color: Colors.black.withValues(alpha: 0.3),
-            child: const Center(child: CircularProgressIndicator()),
+            child: const DashboardLoadingWidget(),
           ),
       ],
     );

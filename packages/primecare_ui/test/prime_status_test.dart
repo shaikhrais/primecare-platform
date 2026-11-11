@@ -4,6 +4,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
+import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 
 void main() {
@@ -17,6 +18,7 @@ void main() {
         home: const Scaffold(body: DefaultTextStyle(
           style: TextStyle(fontSize: 21, fontWeight: FontWeight.w600),
           child: Column(children: [
+            DashboardLoadingWidget(),
             PrimeStatusIcon(Icons.warning, tone: PrimeStatusTone.error, size: 48),
             PrimeStatusIcon(Icons.inbox, tone: PrimeStatusTone.muted, size: 64),
             PrimeStatusText('Available error message', tone: PrimeStatusTone.error),
@@ -24,6 +26,7 @@ void main() {
         )),
       )));
       await tester.pump();
+      expect(tester.widget<CircularProgressIndicator>(find.byType(CircularProgressIndicator)).color, prime.colors.primary, reason: preset);
       final error = tester.widget<Icon>(find.byIcon(Icons.warning));
       final empty = tester.widget<Icon>(find.byIcon(Icons.inbox));
       expect(error.color, prime.colors.error, reason: preset);
