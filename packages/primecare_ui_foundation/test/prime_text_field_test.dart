@@ -71,6 +71,7 @@ void main() {
     await tester.pumpWidget(host(Colors.amber));
     expect(tester.widget<TextField>(find.byType(TextField)).enabled, isFalse);
     await tester.pumpWidget(host(Colors.cyan));
+    await tester.pumpAndSettle();
     expect(controller.text, 'retained draft');
     final input = tester.widget<InputDecorator>(find.byType(InputDecorator));
     expect(input.decoration.fillColor, Colors.cyan);
