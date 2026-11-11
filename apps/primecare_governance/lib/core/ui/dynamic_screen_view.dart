@@ -778,10 +778,8 @@ class DynamicScreenView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    return Scaffold(
-      appBar: AppBar(
-        title: PrimeText(metadata.title),
-      ),
+    return PrimePageScaffold(
+      title: PrimeText(metadata.title),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
