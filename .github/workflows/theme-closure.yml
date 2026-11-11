@@ -19,6 +19,8 @@ on:
       - tools/governance-production/theme-source-revisions.json
       - tools/governance-production/theme-adoption-preflight.mjs
       - scripts/test-theme-adoption-preflight.mjs
+      - scripts/test-tenant-workspace-layout.mjs
+      - scripts/tenant-dashboard-fixture.mjs
       - .github/workflows/theme-closure.yml
       - scripts/build-theme-execution-ledger.py
       - scripts/build-theme-service-contract-triage.py
@@ -30,7 +32,7 @@ on:
 permissions: {contents: read}
 concurrency:
   group: theme-closure-${{ github.ref }}-${{ github.sha }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   catalogue:
     runs-on: ubuntu-latest
