@@ -493,7 +493,7 @@ class _AuditPanel extends StatelessWidget {
                   child: PrimeIcon(Icons.gavel, color: theme.colors.warning, size: 20),
                 ),
                 const SizedBox(width: 14),
-                Column(
+                Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     PrimeText(
@@ -514,17 +514,17 @@ class _AuditPanel extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                )),
               ],
             ),
             const SizedBox(height: 24),
-            const Row(
+            const Wrap(
+              spacing: 8,
+              runSpacing: 8,
               children: [
                 PrimeStatusBadge('HIPAA Compliant', tone: PrimeStatusTone.success), // .tr() LocaleKeys.
-                SizedBox(width: 8),
-                _StatusBadge(label: 'GDPR Verified', color: Colors.blue), // .tr() LocaleKeys.
-                SizedBox(width: 8),
-                _StatusBadge(label: 'TLS 1.3 Active', color: Colors.purple), // .tr() LocaleKeys.
+                PrimeStatusBadge('GDPR Verified', tone: PrimeStatusTone.success), // .tr() LocaleKeys.
+                PrimeStatusBadge('TLS 1.3 Active', tone: PrimeStatusTone.success), // .tr() LocaleKeys.
               ],
             ),
             const SizedBox(height: 24),
@@ -549,36 +549,6 @@ class _AuditPanel extends StatelessWidget {
               color: theme.colors.tertiary,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _StatusBadge extends StatelessWidget {
-  final String label;
-  final Color color;
-
-  const _StatusBadge({
-    required this.label,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(
-        color: color.withOpacity(0.08),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withOpacity(0.15)),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          color: color,
-          fontSize: 10.5,
-          fontWeight: FontWeight.bold,
         ),
       ),
     );
