@@ -13,6 +13,8 @@ PRIME:PROGRESS=100
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -41,19 +43,19 @@ class AuthErrorView extends GovernedScreen {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(
+              const PrimeIcon(
                 Icons.error_outline_rounded,
                 size: 64,
                 color: Colors.red,
               ),
               const SizedBox(height: 24),
-              Text(
+              PrimeText(
                 'Authentication could not be completed.',
                 style: textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 8),
-              Text(
+              PrimeText(
                 'Please restart sign-in.',
                 style: textTheme.bodyMedium,
                 textAlign: TextAlign.center,
@@ -64,7 +66,7 @@ class AuthErrorView extends GovernedScreen {
                   final safeReturnUrl = validateClinicReturnUrl(returnUrl) ?? '/dashboard';
                   context.go('/login?returnUrl=${Uri.encodeQueryComponent(safeReturnUrl)}');
                 },
-                child: const Text('Retry Sign-In'),
+                child: const PrimeText('Retry Sign-In'),
               ),
             ],
           ),

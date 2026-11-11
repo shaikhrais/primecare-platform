@@ -1,4 +1,5 @@
 // Governance - Category: widget | Purpose: Core LocalizationScaffold widget that wraps and validates rendering components.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:easy_localization/src/localization.dart' as el;
@@ -29,7 +30,7 @@ class LocalizationScaffold extends StatelessWidget {
     if (!hasLocalization) {
       return const Material(
         child: Center(
-          child: Text(
+          child: PrimeText(
             'Missing Localization Context. Component cannot be rendered.',
             style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
           ),

@@ -1,4 +1,5 @@
 import 'dart:math' as math;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/services.dart';
@@ -98,7 +99,7 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
           onPanStart: narrow ? null : (_) => _start(id),
           onPanUpdate: narrow ? null : (event) => _update(id, resize, event.delta),
           onPanEnd: narrow ? null : (_) => _end(), onPanCancel: narrow ? null : () => _end(cancel: true),
-          child: SizedBox(width: 48, height: 48, child: Icon(resize ? Icons.open_in_full : Icons.drag_indicator)),
+          child: SizedBox(width: 48, height: 48, child: PrimeIcon(resize ? Icons.open_in_full : Icons.drag_indicator)),
         ),
       )),
     );

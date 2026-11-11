@@ -14,6 +14,7 @@ PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -86,7 +87,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
   Widget buildScreen(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Single Sign-On Portal'),
+        title: const PrimeText('Single Sign-On Portal'),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -109,13 +110,13 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                 if (_redirecting) ...[
                   const Center(child: CircularProgressIndicator()),
                   const SizedBox(height: 24),
-                  const Text(
+                  const PrimeText(
                     'Redirecting to PrimeCare Auth Portal...',
                     textAlign: TextAlign.center,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                   ),
                   const SizedBox(height: 8),
-                  Text(
+                  PrimeText(
                     'Auth Provider: $_selectedProvider',
                     textAlign: TextAlign.center,
                     style: const TextStyle(color: Colors.grey, fontSize: 13),
@@ -124,7 +125,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                 ],
                 const Divider(),
                 const SizedBox(height: 16),
-                const Text(
+                const PrimeText(
                   'SSO Connection Settings',
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -145,7 +146,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   children: ['Google Auth', 'Okta Identity', 'Azure AD'].map((prov) {
                     final isSel = _selectedProvider == prov;
                     return ChoiceChip(
-                      label: Text(prov),
+                      label: PrimeText(prov),
                       selected: isSel,
                       onSelected: (selected) {
                         setState(() {
@@ -157,8 +158,8 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                 ),
                 const SizedBox(height: 16),
                 SwitchListTile(
-                  title: const Text('Use system web browser'),
-                  subtitle: const Text('Recommended for secure credential sharing'),
+                  title: const PrimeText('Use system web browser'),
+                  subtitle: const PrimeText('Recommended for secure credential sharing'),
                   value: _useSystemBrowser,
                   onChanged: (val) {
                     setState(() {
@@ -169,7 +170,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   icon: const Icon(Icons.open_in_new),
-                  label: const Text('Launch Identity Provider Manual Redirect'),
+                  label: const PrimeText('Launch Identity Provider Manual Redirect'),
                   onPressed: _launchSSO,
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
@@ -182,7 +183,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                       _redirecting = !_redirecting;
                     });
                   },
-                  child: Text(_redirecting ? 'Pause Auto-Redirect' : 'Resume Auto-Redirect'),
+                  child: PrimeText(_redirecting ? 'Pause Auto-Redirect' : 'Resume Auto-Redirect'),
                 ),
               ],
             ),

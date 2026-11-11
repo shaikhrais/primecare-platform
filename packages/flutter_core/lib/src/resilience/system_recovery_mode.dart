@@ -1,5 +1,7 @@
 // Governance - Category: service | Purpose: Layer: 05_USER_INTERFACE A reusable recovery screen for handling domain logistics failures. This widget provides a co...
 // Layer: 05_USER_INTERFACE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 
@@ -22,22 +24,22 @@ class SystemOfflinePanel extends StatelessWidget {
       ),
       child: Column(mainAxisSize: MainAxisSize.min, children: [
         Row(children: [
-          Icon(Icons.wifi_off_rounded, color: colors.onErrorContainer, size: 24),
+          PrimeIcon(Icons.wifi_off_rounded, color: colors.onErrorContainer, size: 24),
           const SizedBox(width: 12),
-          Expanded(child: Text('System Unavailable',
+          Expanded(child: PrimeText('System Unavailable',
             style: theme.textTheme.titleMedium?.copyWith(
               color: colors.onErrorContainer, decoration: TextDecoration.none))),
         ]),
         const SizedBox(height: 8),
-        Text('Server is unreachable. Please check your connection.',
+        PrimeText('Server is unreachable. Please check your connection.',
           style: theme.textTheme.bodyMedium?.copyWith(
             color: colors.onErrorContainer, decoration: TextDecoration.none)),
         if (onReset != null) ...[
           const SizedBox(height: 12),
           Align(alignment: Alignment.centerRight, child: TextButton.icon(
             onPressed: onReset,
-            icon: const Icon(Icons.refresh, size: 16),
-            label: const Text('Retry'),
+            icon: const PrimeIcon(Icons.refresh, size: 16),
+            label: const PrimeText('Retry'),
             style: TextButton.styleFrom(foregroundColor: colors.onErrorContainer),
           )),
         ],
@@ -72,13 +74,13 @@ class SystemRecoveryMode extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
+              PrimeIcon(
                 Icons.shield_outlined,
                 color: colors.primary,
                 size: 64,
               ),
               const SizedBox(height: 24),
-              Text(
+              PrimeText(
                 'System Recovery Mode',
                 style: theme.textTheme.headlineSmall?.copyWith(
                   color: colors.onSurface,
@@ -87,7 +89,7 @@ class SystemRecoveryMode extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 12),
-              Text(
+              PrimeText(
                 'A critical interface failure was intercepted. The session state has been protected and a diagnostic trail has been generated below.',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyLarge?.copyWith(color: colors.onSurfaceVariant),
@@ -112,7 +114,7 @@ class SystemRecoveryMode extends StatelessWidget {
                   ),
                   elevation: 8,
                 ),
-                child: Text(
+                child: PrimeText(
                   'Attempt Interface Reset',
                   textAlign: TextAlign.center,
                   style: theme.textTheme.titleMedium?.copyWith(color: colors.onPrimary, fontWeight: FontWeight.bold),
@@ -141,9 +143,9 @@ class SystemRecoveryMode extends StatelessWidget {
         children: [
           Row(
             children: [
-              Icon(Icons.terminal_rounded, color: colors.primary, size: 18),
+              PrimeIcon(Icons.terminal_rounded, color: colors.primary, size: 18),
               SizedBox(width: 12),
-              Expanded(child: Text(
+              Expanded(child: PrimeText(
                 'FULL DIAGNOSTIC TRAIL (SEND TO AGENT)',
                 style: theme.textTheme.labelSmall?.copyWith(
                   color: colors.primary,
@@ -157,7 +159,7 @@ class SystemRecoveryMode extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: Divider(color: colors.outlineVariant, height: 1),
           ),
-          Text(
+          PrimeText(
             'EXCEPTION:',
             style: theme.textTheme.labelSmall?.copyWith(
               color: colors.onSurfaceVariant,
@@ -175,7 +177,7 @@ class SystemRecoveryMode extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 20),
-          Text(
+          PrimeText(
             'STACK TRACE:',
             style: theme.textTheme.labelSmall?.copyWith(
               color: colors.onSurfaceVariant,

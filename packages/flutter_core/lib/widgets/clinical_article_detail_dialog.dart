@@ -1,4 +1,6 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Article Detail Dialog platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../models/clinical_article.dart';
@@ -16,14 +18,14 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
     return Dialog.fullscreen(
       child: Scaffold(
         appBar: AppBar(
-          title: Text(article.title),
+          title: PrimeText(article.title),
           leading: IconButton(
-            icon: const Icon(LucideIcons.x),
+            icon: const PrimeIcon(LucideIcons.x),
             onPressed: () => Navigator.of(context).pop(),
           ),
           actions: [
             IconButton(
-              icon: const Icon(LucideIcons.externalLink),
+              icon: const PrimeIcon(LucideIcons.externalLink),
               tooltip: 'Open in browser',
               onPressed: () async {
                 final uri = Uri.parse(article.url);
@@ -31,7 +33,7 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
                   await launchUrl(uri);
                 } else if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Could not open the link')),
+                    const SnackBar(content: PrimeText('Could not open the link')),
                   );
                 }
               },
@@ -52,7 +54,7 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
                   color: Theme.of(context).colorScheme.secondaryContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Text(
+                child: PrimeText(
                   article.category.toUpperCase(),
                   style: TextStyle(
                     fontWeight: FontWeight.bold,

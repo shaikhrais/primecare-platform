@@ -13,6 +13,7 @@ PRIME:PROGRESS=100
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -124,7 +125,7 @@ class _ClinicLoginBridgeState extends GovernedConsumerState<ClinicLoginBridge> {
           children: [
             const CircularProgressIndicator(),
             const SizedBox(height: 24),
-            Text(
+            PrimeText(
               'Initializing connection to PrimeCare Identity...',
               style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold),
             ),

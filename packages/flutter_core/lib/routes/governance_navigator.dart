@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A high-fidelity navigator that enforces platform governance policies. Instead of navigating ...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +35,7 @@ class GovernanceNavigator {
       // Fallback: Show system recovery or a simple snackbar in debug
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text('Cannot navigate: ${health.message}'),
+          content: PrimeText('Cannot navigate: ${health.message}'),
           backgroundColor: Colors.redAccent,
         ),
       );

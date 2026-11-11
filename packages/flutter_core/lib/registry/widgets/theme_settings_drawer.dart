@@ -1,6 +1,8 @@
 import 'theme_center_panel.dart';
 import '../../theme/theme_contrast.dart';
 import '../../theme/theme_center_catalog_generated.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
@@ -35,16 +37,16 @@ class ThemeSettingsDrawer extends ConsumerWidget {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  const Icon(LucideIcons.settings, size: 24),
+                  const PrimeIcon(LucideIcons.settings, size: 24),
                   const SizedBox(width: 12),
-                  Expanded(child: Text(
+                  Expanded(child: PrimeText(
                     themeCenterText(context,'theme_center'),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontWeight: FontWeight.bold,
                         ),
                   )),
                   IconButton(
-                    icon: const Icon(LucideIcons.x, size: 20),
+                    icon: const PrimeIcon(LucideIcons.x, size: 20),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ],
@@ -59,7 +61,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                 children: [
                   const ThemeCenterPanel(),
                   // Section: Layout Styles
-                  Text(
+                  PrimeText(
                     'LAYOUT STYLE',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -99,7 +101,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   const SizedBox(height: 24),
 
                   // Section: Preset Colors
-                  Text(
+                  PrimeText(
                     'THEME PRESETS',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -149,7 +151,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                               ],
                             ),
                             child: isSelected
-                                ? Icon(
+                                ? PrimeIcon(
                                     LucideIcons.check,
                                     size: 16,
                                     color: palette.onPrimary,
@@ -163,7 +165,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   const SizedBox(height: 24),
 
                   // Section: Options & Switches
-                  Text(
+                  PrimeText(
                     'APPLICATION LANGUAGE',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -232,10 +234,10 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
                             child: Row(
                               children: [
-                                Text(flag, style: const TextStyle(fontSize: 20)),
+                                PrimeText(flag, style: const TextStyle(fontSize: 20)),
                                 const SizedBox(width: 12),
                                 Expanded(
-                                  child: Text(
+                                  child: PrimeText(
                                     title,
                                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                                           fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
@@ -244,7 +246,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                                   ),
                                 ),
                                 if (isSelected)
-                                  Icon(
+                                  PrimeIcon(
                                     LucideIcons.checkCircle,
                                     color: Theme.of(context).primaryColor,
                                     size: 18,
@@ -258,7 +260,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   }(),
                   const SizedBox(height: 24),
 
-                  Text(
+                  PrimeText(
                     'ADDITIONAL OPTIONS',
                     style: Theme.of(context).textTheme.labelSmall?.copyWith(
                           fontWeight: FontWeight.bold,
@@ -270,25 +272,25 @@ class ThemeSettingsDrawer extends ConsumerWidget {
 
                   // Text Direction (RTL / LTR)
                   SwitchListTile(
-                    title: const Text('RTL Direction'),
-                    subtitle: const Text('Flip elements layout direction'),
+                    title: const PrimeText('RTL Direction'),
+                    subtitle: const PrimeText('Flip elements layout direction'),
                     value: settings.direction == TextDirection.rtl,
                     onChanged: (val) {
                       notifier.updateDirection(
                           val ? TextDirection.rtl : TextDirection.ltr);
                     },
-                    secondary: const Icon(LucideIcons.alignRight),
+                    secondary: const PrimeIcon(LucideIcons.alignRight),
                   ),
 
                   // Custom Scrollbars
                   SwitchListTile(
-                    title: const Text('Custom Scrollbars'),
-                    subtitle: const Text('Use clean styled scroll bars'),
+                    title: const PrimeText('Custom Scrollbars'),
+                    subtitle: const PrimeText('Use clean styled scroll bars'),
                     value: settings.customScrollbars,
                     onChanged: (val) {
                       notifier.toggleScrollbars(val);
                     },
-                    secondary: const Icon(LucideIcons.mousePointer),
+                    secondary: const PrimeIcon(LucideIcons.mousePointer),
                   ),
                 ],
               ),
@@ -311,7 +313,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                       onPressed: () {
                         notifier.resetToTenantDefault(tenantDefaultPreset);
                       },
-                      child: const Text('Reset to Defaults'),
+                      child: const PrimeText('Reset to Defaults'),
                     ),
                   ),
                 ],
@@ -368,7 +370,7 @@ class _LayoutOptionCard extends StatelessWidget {
                       : theme.colorScheme.surfaceContainer,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Icon(
+                child: PrimeIcon(
                   icon,
                   color: isSelected ? theme.primaryColor : theme.colorScheme.onSurfaceVariant,
                   size: 20,
@@ -379,7 +381,7 @@ class _LayoutOptionCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       title,
                       style: theme.textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold,
@@ -387,7 +389,7 @@ class _LayoutOptionCard extends StatelessWidget {
                           ),
                     ),
                     const SizedBox(height: 2),
-                    Text(
+                    PrimeText(
                       subtitle,
                       style: theme.textTheme.labelSmall?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
@@ -397,7 +399,7 @@ class _LayoutOptionCard extends StatelessWidget {
                 ),
               ),
               if (isSelected)
-                Icon(
+                PrimeIcon(
                   LucideIcons.checkCircle,
                   color: theme.primaryColor,
                   size: 18,

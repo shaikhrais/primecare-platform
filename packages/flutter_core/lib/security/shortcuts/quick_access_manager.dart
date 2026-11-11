@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Processes a keyboard event and checks if it matches a registered shortcut.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -142,7 +143,7 @@ class _QuickAccessBoundaryState extends ConsumerState<QuickAccessBoundary> {
         onAccessDenied: (rule) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Unauthorized access. Incident logged.'),
+              content: PrimeText('Unauthorized access. Incident logged.'),
               backgroundColor: Colors.red,
             ),
           );
@@ -150,7 +151,7 @@ class _QuickAccessBoundaryState extends ConsumerState<QuickAccessBoundary> {
         onLockout: () {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('SYSTEM LOCKED: Multiple unauthorized access attempts detected. Risk incident reported.'),
+              content: PrimeText('SYSTEM LOCKED: Multiple unauthorized access attempts detected. Risk incident reported.'),
               backgroundColor: Colors.red[900],
               duration: Duration(seconds: 10),
             ),

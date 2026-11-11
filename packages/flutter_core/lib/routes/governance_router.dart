@@ -1,5 +1,6 @@
 // Governance - Category: middleware | Purpose: Layer: 01_INFRASTRUCTURE A factory class to construct strict "Zero-Trust" routing configurations. Builds a strictly-g...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -91,7 +92,7 @@ class GovernanceRouter {
             manager: screenManager,
             screenId: '/internal/unauthorized-fallback',
             builder: (_) => Scaffold(
-              body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+              body: Center(child: PrimeText(tr('governance.unauthorized_route_message'))),
             ),
           ),
         ),
@@ -144,12 +145,12 @@ class GovernanceRouter {
             manager: screenManager,
             screenId: '/internal/access-denied',
             builder: (_) => Scaffold(
-            appBar: AppBar(title: Text(tr('governance.access_denied'))),
+            appBar: AppBar(title: PrimeText(tr('governance.access_denied'))),
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  PrimeText(
                     tr('governance.unauthorized_route_message'),
                     style: const TextStyle(color: Colors.red, fontSize: 18),
                   ),
@@ -157,7 +158,7 @@ class GovernanceRouter {
                     const SizedBox(height: 10),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Text(
+                      child: PrimeText(
                         'Error: ${state.error}',
                         style: const TextStyle(color: Colors.orange, fontFamily: 'monospace'),
                         textAlign: TextAlign.center,

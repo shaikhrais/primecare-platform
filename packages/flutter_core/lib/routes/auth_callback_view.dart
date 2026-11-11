@@ -1,4 +1,5 @@
 // Governance - Category: middleware | Purpose: Handle SSO authorization callback logic on Web.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -83,7 +84,7 @@ class _AuthCallbackViewState extends GovernedConsumerState<AuthCallbackView> {
           children: [
             const CircularProgressIndicator(),
             const SizedBox(height: 24),
-            Text(
+            PrimeText(
               tr('auth.provision_workspace'),
               style: const TextStyle(fontWeight: FontWeight.bold, letterSpacing: 1.5),
             ),
