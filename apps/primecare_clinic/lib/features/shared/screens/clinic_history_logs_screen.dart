@@ -138,7 +138,7 @@ class ClinicHistoryLogsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('clinic_history_logs-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

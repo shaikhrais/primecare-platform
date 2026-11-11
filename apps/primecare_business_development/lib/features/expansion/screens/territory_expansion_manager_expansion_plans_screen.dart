@@ -138,7 +138,7 @@ class TerritoryExpansionManagerExpansionPlansScreen extends GovernedConsumerWidg
           actions: [
             IconButton(
               key: const Key('territory_expansion_manager_expansion_plans-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

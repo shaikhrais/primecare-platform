@@ -138,7 +138,7 @@ class PswCheckInScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('psw_check_in-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],
