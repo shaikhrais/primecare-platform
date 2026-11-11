@@ -215,7 +215,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget 
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -309,7 +309,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget 
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_territory_sales_manager_area_performance_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
@@ -433,7 +433,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget 
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_territory_sales_manager_area_performance_create_post-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
@@ -557,7 +557,7 @@ class TerritorySalesManagerAreaPerformanceScreen extends GovernedConsumerWidget 
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_territory_sales_manager_area_performance_update_patch-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )

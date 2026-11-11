@@ -201,7 +201,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
                       child: const Center(
                         child: Padding(
                           padding: EdgeInsets.symmetric(vertical: 48.0),
-                          child: CircularProgressIndicator(),
+                          child: PrimeLoadingIndicator(),
                         ),
                       ),
                     )
@@ -295,7 +295,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
                                 child: Center(
                                   child: Cy(
                                     id: 'api_v1_scheduler_coordinator_provider_availability_list_get-loading',
-                                    child: const CircularProgressIndicator(),
+                                    child: const PrimeLoadingIndicator(),
                                   ),
                                 ),
                               )
