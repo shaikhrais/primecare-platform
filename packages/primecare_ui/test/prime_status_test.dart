@@ -9,8 +9,46 @@ import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'fixtures/api_error_border_fixture.dart';
+import 'fixtures/premium_trend_card_fixture.dart';
 
 void main() {
+  testWidgets('generated trend badge follows success and warning tokens without changing labels or geometry', (tester) async {
+    for (final positive in [true, false]) {
+      for (final colors in [
+        const PrimeColors(),
+        const PrimeColors(success: Colors.purple, warning: Colors.cyan),
+      ]) {
+        final prime = PrimeThemeData(colors: colors);
+        await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
+          child: MaterialApp(home: const Scaffold(body: SizedBox(width: 360,
+            child: PremiumTrendCardFixture(title: 'Care visits', value: '42', change: '+4%',
+              isPositive: true, icon: Icons.favorite, color: Colors.blue)))))));
+        // Exercise both ternary branches against a live replacement of the theme.
+        await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
+          child: MaterialApp(home: Scaffold(body: SizedBox(width: 360,
+            child: PremiumTrendCardFixture(title: 'Care visits', value: '42', change: '+4%',
+              isPositive: positive, icon: Icons.favorite, color: Colors.blue)))))));
+        await tester.pumpAndSettle();
+        final role = positive ? colors.success : colors.warning;
+        final icon = tester.widget<Icon>(find.byWidgetPredicate((widget) =>
+          widget is Icon && widget.size == 12));
+        expect(icon.icon, positive ? Icons.arrow_upward : Icons.arrow_downward);
+        expect(icon.color, role);
+        final badge = tester.widgetList<Container>(find.byType(Container)).where((widget) =>
+          widget.decoration is BoxDecoration &&
+          (widget.decoration! as BoxDecoration).borderRadius == BorderRadius.circular(20) &&
+          (widget.decoration! as BoxDecoration).border == null &&
+          (widget.decoration! as BoxDecoration).color != null).single;
+        expect((badge.decoration! as BoxDecoration).color, role.withOpacity(0.1));
+        expect(badge.padding, const EdgeInsets.symmetric(horizontal: 10, vertical: 6));
+        expect(find.text('Care visits'), findsOneWidget);
+        expect(find.text('42'), findsOneWidget);
+        expect(find.text('+4%'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+
   testWidgets('API error panel border changes with theme and keeps retry callback', (tester) async {
     const base = PrimeThemeData();
     var retries = 0;
