@@ -19,7 +19,7 @@ List<(Widget,Widget)> controls()=>[
  (PrimeSwitchListTile(value:false,onChanged:(_){},title:const Text('Switch')),SwitchListTile(value:false,onChanged:(_){},title:const Text('Switch'))),
  (PrimeSlider(value:.5,onChanged:(_){}),Slider(value:.5,onChanged:(_){})),
  (PrimeCheckbox(value:false,onChanged:(_){}),Checkbox(value:false,onChanged:(_){})),
- (const PrimeLinearProgressIndicator(value:.5),const LinearProgressIndicator(value:.5)),
+ (const PrimeMaterialLinearProgressIndicator(value:.5),const LinearProgressIndicator(value:.5)),
  (PrimeChoiceChip(label:const Text('Choice'),selected:false,onSelected:(_){}),ChoiceChip(label:const Text('Choice'),selected:false,onSelected:(_){})),
  (PrimeFilledButton(onPressed:(){},child:const Text('Action')),FilledButton(onPressed:(){},child:const Text('Action'))),
  (const PrimeAlertDialog(title:Text('Title'),content:Text('Content')),const AlertDialog(title:Text('Title'),content:Text('Content'))),

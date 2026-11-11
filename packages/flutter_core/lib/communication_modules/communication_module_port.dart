@@ -29,7 +29,7 @@ class CommunicationModulePort implements WorkPort {
   String _word(String key){final value=labels[key];if(value==null||value.trim().isEmpty)throw const WorkFailure('invalid');return value;}
   Map<String,dynamic> _conversation(Object? value){_open();if(value is! Map)throw const WorkFailure('denied',403);final r=Map<String,dynamic>.from(value);
     if(r['kind']!='conversation'||r['tenantId']!=scope.tenantId||r['members'] is! List||!(r['members'] as List).contains(scope.userId)||
-      r['messages'] is! List||(r['messages'] as List).length>10000||r['readThrough'] is! Map||r['businessReference'] is! String)throw const WorkFailure('denied',403);
+      r['messages'] is! List||(r['messages'] as List).cast<Map>().length>10000||r['readThrough'] is! Map||r['businessReference'] is! String)throw const WorkFailure('denied',403);
     final messages=<Map<String,dynamic>>[];
     for(final raw in r['messages'] as List){if(raw is! Map||raw['id'] is! String||raw['authorId'] is! String||raw['text'] is! String||
       raw['pictureIds'] is! List||(raw['pictureIds'] as List).any((p)=>p is! String)||raw['sequence'] is! int)throw const WorkFailure('invalid');messages.add(Map<String,dynamic>.from(jsonDecode(jsonEncode(raw)) as Map));}
@@ -81,7 +81,7 @@ class CommunicationModulePort implements WorkPort {
     if(pending==null){final raw=_records[command.itemId];if(raw==null)throw const WorkFailure('denied',403);final item=WorkSnapshot.fromJson(_snapshot([_thread(raw)],0,1,false).toJson(),scope,module).items.single;
       validateWorkCommand(item,command.action,command.fields);if(raw['version']!=command.version)throw const WorkFailure('conflict',409);
       if(command.action=='send'&&(command.fields['body']??'').trim().isEmpty)throw const WorkFailure('invalid',400);if(_pending.length>=10)throw const WorkFailure('unavailable');
-      pending=_PendingMessage(command,(raw['messages'] as List).length);_pending[key]=pending;}
+      pending=_PendingMessage(command,(raw['messages'] as List).cast<Map>().length);_pending[key]=pending;}
     Map<String,Object?> ack;
     try{ack=command.action=='send'?await _message.send(command.itemId,key,command.version,command.fields['body']!):await _message.markRead(command.itemId,key,command.version,pending.sequence);}
     on WorkFailure catch(e){if([400,403,404,409].contains(e.status))_pending.remove(key);rethrow;}
@@ -92,7 +92,7 @@ class CommunicationModulePort implements WorkPort {
     _open();if(module!='messenger')throw const WorkFailure('denied',403);final raw=_conversation(await _message.read(id));_open();if(raw['id']!=id)throw const WorkFailure('denied',403);
     final pending=_pending.entries.where((e)=>e.value.command.itemId==id).toList();
     if(pending.isNotEmpty){final entry=pending.last,p=entry.value,c=p.command;if(raw['version']!=c.version+1)throw const WorkFailure('conflict',409);
-      if(c.action=='send'&&!(raw['messages'] as List).any((m)=>m['id']==entry.key&&m['authorId']==scope.userId&&m['text']==c.fields['body']!.trim())||
+      if(c.action=='send'&&!(raw['messages'] as List).cast<Map>().any((m)=>m['id']==entry.key&&m['authorId']==scope.userId&&m['text']==c.fields['body']!.trim())||
         c.action=='mark_read'&&(raw['readThrough'] as Map)[scope.userId]!=p.sequence)throw const WorkFailure('conflict',409);_pending.remove(entry.key);}
     final snapshot=_snapshot([_thread(raw)],0,1,false);_records[id]=raw;return snapshot.toJson();
   }

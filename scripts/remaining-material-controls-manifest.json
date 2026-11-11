@@ -465,7 +465,7 @@
   {
     "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
     "sha256": "83cac18f684afd3ec5d314f10b86452bcbdd87d3a5d9cf881e14ceddd00c43d0",
-    "updated_sha256": "1be19110f27daab6c5db2df7d0993b7110a6ac138c508850ddd3dbf2c0a74ede",
+    "updated_sha256": "a6333d847fbd8865c5f468bb481df678d50977d996756bac3f31d4a7c80b21f2",
     "calls": 5,
     "symbols": [
       "Checkbox",
@@ -479,7 +479,7 @@
         "begin": 0,
         "end": 0,
         "old": "",
-        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeLinearProgressIndicator, PrimeSlider, PrimeTextFormField;\n"
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeMaterialLinearProgressIndicator, PrimeSlider, PrimeTextFormField;\n"
       },
       {
         "begin": 2321,
@@ -509,7 +509,7 @@
         "begin": 30980,
         "end": 30980,
         "old": "",
-        "new": "Prime"
+        "new": "PrimeMaterial"
       }
     ]
   },
@@ -811,17 +811,23 @@
   {
     "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
     "sha256": "d8ff4ea6253501c190b6be28d54dd5f7da015af414aeea4930d7820651293fd4",
-    "updated_sha256": "87bb43f9b0fa01ddf41ff883c80f5dcd6e7d10d001b3f49237e07d02b4f3c01e",
+    "updated_sha256": "a344e5c891e621950570962a1583379f1a4e97e68d524eaf13924b52754a616d",
     "calls": 1,
     "symbols": [
       "DropdownButtonFormField"
     ],
     "edits": [
       {
-        "begin": 0,
-        "end": 0,
+        "begin": 80,
+        "end": 80,
         "old": "",
-        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDropdownButtonFormField;\n"
+        "new": "DropdownButtonFormField;\nimport 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime"
+      },
+      {
+        "begin": 175,
+        "end": 261,
+        "old": ";\nimport 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText",
+        "new": ""
       },
       {
         "begin": 7745,
@@ -829,6 +835,7 @@
         "old": "",
         "new": "Prime"
       }
-    ]
+    ],
+    "duplicate_import_cleanup": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;\n"
   }
 ]

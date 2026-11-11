@@ -1,4 +1,4 @@
-import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeLinearProgressIndicator, PrimeSlider, PrimeTextFormField;
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeMaterialLinearProgressIndicator, PrimeSlider, PrimeTextFormField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
@@ -518,7 +518,7 @@ class _PrimeUploadControlState extends State<PrimeUploadControl>{
    kit.button('retry',widget.retrySafe&&widget.port!=null?()async{await task.send();if(task.status!='success')throw StateError('upload_not_acknowledged');}:null,disabled:!['error','cancelled'].contains(task.status)),
    if(task.receiptId!=null)kit.button('remove',canRemove?()async{await task.removeUpload();if(task.status!='removed')throw StateError('removal_not_verified');}:null,suffix:'-receipt',disabled:!['success','remove-error'].contains(task.status)),
    if(task.receiptId!=null&&!canRemove)PrimeText(l.text('unsupported')),
-   l.identify('progress','prime_card',PrimeLinearProgressIndicator(value:task.progress,semanticsLabel:l.text('progress'))),
+   l.identify('progress','prime_card',PrimeMaterialLinearProgressIndicator(value:task.progress,semanticsLabel:l.text('progress'))),
    Semantics(liveRegion:true,child:PrimeText(invalid?l.text('invalid'):widget.port==null||widget.pick==null?l.text('unsupported'):['success','removed'].contains(task.status)?l.text('success'):['error','remove-error'].contains(task.status)?l.text('error'):['uploading','removing'].contains(task.status)?l.text('loading'):task.files.map((f)=>f.name).join(', '))),
   ]);
  }

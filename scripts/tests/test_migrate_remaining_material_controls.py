@@ -13,7 +13,11 @@ class RemainingMaterialControlsTest(unittest.TestCase):
    self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256']);self.assertEqual(m.migrate(original),(current,row['calls']));self.assertEqual(m.migrate(current),(current,0));self.assertEqual(m.migrate(original+'\n'),(original+'\n',0))
    self.assertEqual(len(t.boundary.violations(original,True))-len(t.boundary.violations(current,True)),row['calls'])
    line=current.splitlines()[0];self.assertTrue(line.startswith("import 'package:"));normalized=current[len(line)+1:]
-   for symbol in row['symbols']:normalized=re.sub(r'\bPrime'+symbol+r'\b',symbol,normalized)
+   for symbol in row['symbols']:
+    shared='PrimeMaterialLinearProgressIndicator' if symbol=='LinearProgressIndicator' else 'Prime'+symbol
+    normalized=re.sub(r'\b'+shared+r'\b',symbol,normalized)
+   if 'duplicate_import_cleanup' in row:
+    line=row['duplicate_import_cleanup'];self.assertEqual(normalized.count(line),1);normalized=normalized.replace(line,line+line,1)
    self.assertEqual(normalized,original)
  def test_pinned_sdk_generator_is_current_and_forwards_required_parameters(self):
   rows=json.loads((ROOT/'scripts/shared-material-controls-api-3.41.5.json').read_text());self.assertEqual(len(rows),19)
@@ -28,4 +32,8 @@ class RemainingMaterialControlsTest(unittest.TestCase):
   rows=json.loads((ROOT/'scripts/remaining-material-controls-compile-inventory.json').read_text());self.assertEqual(len(rows),26)
   for row in rows:
    native=(ROOT/row['fixture']).read_text();self.assertIn(row['path'].split('/lib/')[1],native);self.assertIn(row['name'],native)
+ def test_public_adapter_names_do_not_collide_with_shared_ui_declarations(self):
+  names={row.get('shared_name','Prime'+row['name']) for row in json.loads((ROOT/'scripts/shared-material-controls-api-3.41.5.json').read_text())}
+  for path in (ROOT/'packages/primecare_ui/lib').rglob('*.dart'):
+   code=t.boundary.executable_code(path.read_text());declared=set(re.findall(r'\b(?:class|enum|mixin|typedef)\s+(\w+)',code));self.assertFalse(names&declared,(str(path),names&declared))
 if __name__=='__main__':unittest.main()

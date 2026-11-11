@@ -3595,7 +3595,8 @@
         ],
         "sdk_signature": "{\n    super.key,\n    super.value,\n    super.backgroundColor,\n    super.color,\n    super.valueColor,\n    this.minHeight,\n    super.semanticsLabel,\n    super.semanticsValue,\n    this.borderRadius,\n    this.stopIndicatorColor,\n    this.stopIndicatorRadius,\n    this.trackGap,\n    @Deprecated(\n      'Set this flag to false to opt into the 2024 progress indicator appearance. Defaults to true. '\n      'In the future, this flag will default to false. Use ProgressIndicatorThemeData to customize individual properties. '\n      'This feature was deprecated after v3.26.0-0.1.pre.',\n    )\n    this.year2023,\n    this.controller,\n  }"
       }
-    ]
+    ],
+    "shared_name": "PrimeMaterialLinearProgressIndicator"
   },
   {
     "name": "ChoiceChip",

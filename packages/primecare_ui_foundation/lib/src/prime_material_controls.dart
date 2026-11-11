@@ -922,8 +922,8 @@ class PrimeCheckbox extends Checkbox {
 }
 
 /// Shared LinearProgressIndicator using the active Material theme and SDK behavior.
-class PrimeLinearProgressIndicator extends LinearProgressIndicator {
-  const PrimeLinearProgressIndicator({
+class PrimeMaterialLinearProgressIndicator extends LinearProgressIndicator {
+  const PrimeMaterialLinearProgressIndicator({
     super.key,
     super.value,
     super.backgroundColor,

@@ -2,7 +2,6 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
-import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import '../component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,PrimeCatalogueAction;import 'work_module_model.dart';import 'work_module_session.dart';
 export 'work_module_model.dart';export 'work_module_session.dart';
 class PrimeWorkModule extends StatefulWidget {final CatalogueLabels labels;final WorkModuleSession session;final String scope;final int year,month,firstWeekday;final double gap,boardWidth;const PrimeWorkModule({super.key,required this.labels,required this.session,required this.scope,required this.year,required this.month,required this.gap,required this.boardWidth,this.firstWeekday=0});@override State<PrimeWorkModule> createState()=>_PrimeWorkModuleState();}
