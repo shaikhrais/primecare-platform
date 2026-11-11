@@ -71,8 +71,8 @@ void main() {
         await tester.tap(find.text(categories[i]).last);
         await tester.pumpAndSettle();
         final palette = PrimeActionPalette.of(tester.element(find.byType(GovQuickActionBar)), tones[i]);
-        final chipText = tester.widgetList<Text>(find.text(categories[i]))
-          .where((text) => text.style?.fontSize == 11).single;
+        final chipText = tester.widget<Text>(find.text(categories[i]).first);
+        expect(chipText.style!.fontSize, 11);
         expect(chipText.style!.color, palette.onSurface, reason: '$preset/${categories[i]}');
         expect(tester.takeException(), isNull, reason: '$preset/${categories[i]}');
       }
