@@ -1,14 +1,14 @@
 import hashlib,importlib.util,json,re,sys,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'scripts'))
-from reviewed_migration_history import reverse_manifest
+from reviewed_migration_history import before_shared_snack_bars,reverse_manifest
 s=importlib.util.spec_from_file_location('m',ROOT/'scripts/migrate-governance-widgets-palette.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 s=importlib.util.spec_from_file_location('t',ROOT/'scripts/migrate-generated-theme.py');t=importlib.util.module_from_spec(s);s.loader.exec_module(t)
 class GovernanceWidgetsPaletteTest(unittest.TestCase):
  def test_all_seven_exact_sources_roundtrip_and_strict_counts(self):
   self.assertEqual(len(m.MANIFEST),7);self.assertEqual(sum(r['calls'] for r in m.MANIFEST),100)
   for row in m.MANIFEST:
-   current=(ROOT/row['path']).read_text();original=reverse_manifest(current,row['path'],'governance-widgets-palette-manifest.json')
+   latest=(ROOT/row['path']).read_text();current=before_shared_snack_bars(latest,row['path']);original=reverse_manifest(current,row['path'],'governance-widgets-palette-manifest.json')
    self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256']);self.assertEqual(m.migrate(original),(current,row['calls']));self.assertEqual(m.migrate(current),(current,0));self.assertEqual(m.migrate(original+'\n'),(original+'\n',0))
    self.assertEqual(len(t.boundary.violations(original,True))-len(t.boundary.violations(current,True)),row['calls'])
    self.assertEqual(re.findall(r'(?m)^.*(?:onPressed|onTap|onChanged|RegistryPatchEngine.applyFix|launchUrl|exportReport\().*$',original),re.findall(r'(?m)^.*(?:onPressed|onTap|onChanged|RegistryPatchEngine.applyFix|launchUrl|exportReport\().*$',current))

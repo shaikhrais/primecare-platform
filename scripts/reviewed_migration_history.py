@@ -6,8 +6,17 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_shared_snack_bars(source,path):
+    snack_script=ROOT/'scripts/migrate-shared-snack-bars.py'
+    if not snack_script.exists():return source
+    spec=importlib.util.spec_from_file_location('shared_snack_bar_history',snack_script)
+    migration=importlib.util.module_from_spec(spec);spec.loader.exec_module(migration)
+    reversed_source,count=migration.reverse_source(path,source)
+    return reversed_source if count else source
+
 
 def reverse_manifest(source,path,filename):
+    source=before_shared_snack_bars(source,path)
     manifest=ROOT/'scripts'/filename
     if not manifest.exists():return source
     row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)
@@ -51,6 +60,7 @@ def before_shared_text_fields(source,path):
 
 
 def before_shared_scaffolds(source,path):
+    source=before_shared_snack_bars(source,path)
     manifest_path=ROOT/'scripts/shared-scaffold-constructors-manifest.json'
     script_path=ROOT/'scripts/migrate-shared-scaffolds.py'
     if not manifest_path.exists() or not script_path.exists():return source
@@ -65,6 +75,7 @@ def before_shared_scaffolds(source,path):
 
 
 def before_control_extensions(source,path):
+    source=before_shared_snack_bars(source,path)
     source=reverse_manifest(source,path,'branding-settings-palette-manifest.json')
     source=reverse_manifest(source,path,'shared-metric-contrast-manifest.json')
     source=before_shared_text_fields(source,path)
