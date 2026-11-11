@@ -11,8 +11,37 @@ import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'fixtures/api_error_border_fixture.dart';
 import 'fixtures/premium_trend_card_fixture.dart';
 import 'fixtures/premium_health_panel_fixture.dart';
+import 'fixtures/governance_status_metrics_fixture.dart';
 
 void main() {
+  testWidgets('generated Active and Clear metrics use live success color and retain values', (tester) async {
+    Widget host(PrimeColors colors) => PrimeTheme(
+      data: PrimeThemeData(colors: colors),
+      bootstrap: false,
+      child: MaterialApp(
+        home: const Scaffold(
+          body: SingleChildScrollView(
+            child: SizedBox(width: 500, child: GovernanceStatusMetricsFixture()),
+          ),
+        ),
+      ),
+    );
+    for (final colors in [const PrimeColors(), const PrimeColors(success: Colors.purple)]) {
+      await tester.pumpWidget(host(colors));
+      await tester.pumpAndSettle();
+      final icons = tester.widgetList<Icon>(find.byWidgetPredicate((widget) => widget is Icon && widget.size == 20)).toList();
+      expect(icons, hasLength(2));
+      expect(icons.every((icon) => icon.color == colors.success), isTrue);
+      expect(find.text('Operational Status'), findsOneWidget);
+      expect(find.text('Active'), findsOneWidget);
+      expect(find.text('Security Sync'), findsOneWidget);
+      expect(find.text('Clear'), findsOneWidget);
+      expect(find.text('92%'), findsOneWidget);
+      expect(find.text('100%'), findsOneWidget);
+      expect(tester.takeException(), isNull);
+    }
+  });
+
   testWidgets('generated API health follows live status tokens and keeps labels, typography and progress', (tester) async {
     for (final populated in [false, true]) {
       for (final colors in [const PrimeColors(), const PrimeColors(success: Colors.purple, warning: Colors.cyan)]) {
