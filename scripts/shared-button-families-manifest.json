@@ -1,0 +1,826 @@
+[
+  {
+    "path": "apps/primecare_clinic/lib/features/physician/screens/physician_dashboard_screen.dart",
+    "sha256": "ee1904ef888fe9a6663208a4c0544cae05f52c9989c0cfd5b5c9179f856b7229",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 4486,
+        "end": 4500,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 4594,
+        "end": 4608,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 7307,
+        "end": 7321,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 7422,
+        "end": 7436,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
+    "sha256": "bd34dacae95f681db88e8e6e8352d08c42dd9d3dfb4c3750984470783c6887f9",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 106,
+        "end": 106,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 2080,
+        "end": 2094,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 2582,
+        "end": 2596,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 2836,
+        "end": 2846,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 3349,
+        "end": 3359,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/features/system_governance/app_entry_form.dart",
+    "sha256": "a73f3d0c68050c3ecf99abf11ad7a0c06e832d6d86ce1b9d03887f2e34a27c6e",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 109,
+        "end": 109,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 2764,
+        "end": 2778,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 2836,
+        "end": 2837,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 3102,
+        "end": 3116,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
+    "sha256": "95adec5ee669b237693f9a62f8dc4859df8f829e3f122a6c0fe730cb584050d8",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 118,
+        "end": 118,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeOutlinedButton;\n"
+      },
+      {
+        "begin": 6647,
+        "end": 6661,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 7586,
+        "end": 7600,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 10479,
+        "end": 10493,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 10709,
+        "end": 10723,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_filter_bar.dart",
+    "sha256": "c1c59f2942603e2881b45b6dab2470d5f17dfc322dc864961220af865eb74575",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 113,
+        "end": 113,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 2210,
+        "end": 2220,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 2510,
+        "end": 2520,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_patch_manager.dart",
+    "sha256": "7b76e1621ae0f8f8f52241b14ed67eb2547912d1ed01261a8127ce70a818c6ee",
+    "calls": 1,
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 116,
+        "end": 116,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 1234,
+        "end": 1248,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+    "sha256": "e431d0f7e5cb7a4d233b8870383fcadbb1645f3a86f21578a283c81d7089d46e",
+    "calls": 3,
+    "findings": 3,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 2330,
+        "end": 2340,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 2492,
+        "end": 2506,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 2691,
+        "end": 2705,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "sha256": "40fdfdc90da6278177eb93c8235f6b35b704a8da8e07745c36e68fde5bc4ee01",
+    "calls": 1,
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 7624,
+        "end": 7634,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+    "sha256": "e378f9ff79c303766496b9e856fbe53fdd448538b0d56a2098ac3f15f2e8fef4",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 3615,
+        "end": 3625,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 3653,
+        "end": 3663,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 11032,
+        "end": 11042,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 17157,
+        "end": 17167,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+    "sha256": "cded5f758dd806ef41ae688459c27f6c26c28fd12bf4e141fac500170cddc048",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 8139,
+        "end": 8149,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 24981,
+        "end": 24991,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 27065,
+        "end": 27075,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 29257,
+        "end": 29267,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/engine/form_schema_engine.dart",
+    "sha256": "b8f154801c7029f13936a298ff94c80a970808dbc0c03af8bbb23cd62490b2c0",
+    "calls": 1,
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 170,
+        "end": 170,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 1893,
+        "end": 1907,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "sha256": "fa87463b3a5b74d7d50e89c2d15426a336231a963c1cb63e0acb94f86f2bfa5a",
+    "calls": 3,
+    "findings": 3,
+    "edits": [
+      {
+        "begin": 194,
+        "end": 194,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 3574,
+        "end": 3584,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 3795,
+        "end": 3809,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 3883,
+        "end": 3897,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/models/presentation_mode.dart",
+    "sha256": "9c9646d18e25e667d48c6745f9b26597bede81d73b93327e2258c7d12a2656bc",
+    "calls": 6,
+    "findings": 6,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;\n"
+      },
+      {
+        "begin": 50413,
+        "end": 50427,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 50596,
+        "end": 50610,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 50633,
+        "end": 50647,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 59017,
+        "end": 59031,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 59271,
+        "end": 59285,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 59308,
+        "end": 59322,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/models/screen.dart",
+    "sha256": "2c2ead5aee5f7dc9e015d1bf895270aca32846d56e87e1930ed69de221a7c7eb",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 517,
+        "end": 517,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 14078,
+        "end": 14092,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 14327,
+        "end": 14341,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "sha256": "b70de183f305062ca032e480930f4591242c45ff124781df92ae5b75e616b5af",
+    "calls": 3,
+    "findings": 3,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 8139,
+        "end": 8149,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 8300,
+        "end": 8310,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 11130,
+        "end": 11140,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+    "sha256": "9e32ecbd479eff336cbf6e496bc0660cdf658d15f8ce7ac039b5d3be403a75a7",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 7548,
+        "end": 7558,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 7990,
+        "end": 8000,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "sha256": "efcca31a61f4f69e5fc4605a1fd5949900f0bd4687e6209c1e40d39c8a915641",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 4259,
+        "end": 4269,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 4299,
+        "end": 4309,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+    "sha256": "289a63fecdebaa1e12ff0d719734389201070f9d99e2912eeef91ea0214e2c16",
+    "calls": 6,
+    "findings": 6,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 1540,
+        "end": 1550,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 3281,
+        "end": 3291,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 4476,
+        "end": 4490,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 4894,
+        "end": 4908,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 5202,
+        "end": 5216,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 5510,
+        "end": 5520,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "sha256": "aa071622870166acf124f946289c6109e4f671e38c5a6d4bcb32d107de12d2e1",
+    "calls": 2,
+    "findings": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;\n"
+      },
+      {
+        "begin": 13784,
+        "end": 13798,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 13829,
+        "end": 13843,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_error_view.dart",
+    "sha256": "a2331b815d85facf1bb530cb6472ff493da222463ddedfbe1466da6e5dc2fc4f",
+    "calls": 1,
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 322,
+        "end": 322,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;\n"
+      },
+      {
+        "begin": 1966,
+        "end": 1980,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "0289e5737af364e4624f4232a3238251fd581c2a74c96182dd91e4d67ec32aa4",
+    "calls": 3,
+    "findings": 3,
+    "edits": [
+      {
+        "begin": 439,
+        "end": 439,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;\n"
+      },
+      {
+        "begin": 5750,
+        "end": 5764,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 5978,
+        "end": 5992,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 6175,
+        "end": 6189,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+    "sha256": "a9f68084c3eb413448025f1ec8c2c63feede9ed484cc220b852d70d9a734ba69",
+    "calls": 3,
+    "findings": 3,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n"
+      },
+      {
+        "begin": 3343,
+        "end": 3353,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 4795,
+        "end": 4805,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 4826,
+        "end": 4836,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/src/resilience/system_recovery_mode.dart",
+    "sha256": "083c0050b3a7edf9b1d6b27521009a43e81fe626acd58e7530c0e4c47414e701",
+    "calls": 4,
+    "findings": 4,
+    "edits": [
+      {
+        "begin": 194,
+        "end": 194,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 1882,
+        "end": 1892,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 2055,
+        "end": 2065,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 4089,
+        "end": 4103,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 4171,
+        "end": 4185,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/theme/theme_center_theme_data.dart",
+    "sha256": "902be693784cd018788ab5e8b616b57cd3e13c08ddcb8fbcbefcb3b3b9b4959a",
+    "calls": 3,
+    "findings": 0,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 4773,
+        "end": 4787,
+        "old": "OutlinedButton",
+        "new": "PrimeOutlinedButton"
+      },
+      {
+        "begin": 4939,
+        "end": 4949,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 5109,
+        "end": 5123,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/components/prime_components.dart",
+    "sha256": "fe7768ff8a43996f0f093e6e19c042b9ca57b903a483509dda50d93bb5a7cb85",
+    "calls": 5,
+    "findings": 0,
+    "edits": [
+      {
+        "begin": 98,
+        "end": 98,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;\n"
+      },
+      {
+        "begin": 5003,
+        "end": 5017,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 5077,
+        "end": 5078,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 17483,
+        "end": 17493,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 17549,
+        "end": 17550,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 17619,
+        "end": 17629,
+        "old": "TextButton",
+        "new": "PrimeTextButton"
+      },
+      {
+        "begin": 18044,
+        "end": 18058,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      },
+      {
+        "begin": 18118,
+        "end": 18119,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 18188,
+        "end": 18202,
+        "old": "ElevatedButton",
+        "new": "PrimeElevatedButton"
+      }
+    ]
+  }
+]

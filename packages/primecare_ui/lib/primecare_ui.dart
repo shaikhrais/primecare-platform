@@ -635,3 +635,6 @@ export 'src/application/base_workspace_controller.dart';
 export 'src/theme/primecare_assets.dart';
 
 export 'src/components/prime_telemetry_row.dart';
+
+export 'package:primecare_ui_foundation/primecare_ui_foundation.dart'
+    show PrimeTextButton, PrimeElevatedButton, PrimeOutlinedButton;

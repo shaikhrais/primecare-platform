@@ -1,2 +1,3 @@
 export 'src/prime_text.dart';
 export 'src/prime_icon.dart';
+export 'src/prime_material_buttons.dart';

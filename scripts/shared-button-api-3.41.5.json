@@ -1,0 +1,368 @@
+{
+  "TextButton": {
+    "version": "3.41.5",
+    "source": "https://github.com/flutter/flutter/blob/3.41.5/packages/flutter/lib/src/material/text_button.dart",
+    "styleParameters": [
+      {
+        "type": "Color?",
+        "name": "foregroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "backgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledForegroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledBackgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "shadowColor"
+      },
+      {
+        "type": "Color?",
+        "name": "surfaceTintColor"
+      },
+      {
+        "type": "Color?",
+        "name": "iconColor"
+      },
+      {
+        "type": "double?",
+        "name": "iconSize"
+      },
+      {
+        "type": "IconAlignment?",
+        "name": "iconAlignment"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledIconColor"
+      },
+      {
+        "type": "Color?",
+        "name": "overlayColor"
+      },
+      {
+        "type": "double?",
+        "name": "elevation"
+      },
+      {
+        "type": "TextStyle?",
+        "name": "textStyle"
+      },
+      {
+        "type": "EdgeInsetsGeometry?",
+        "name": "padding"
+      },
+      {
+        "type": "Size?",
+        "name": "minimumSize"
+      },
+      {
+        "type": "Size?",
+        "name": "fixedSize"
+      },
+      {
+        "type": "Size?",
+        "name": "maximumSize"
+      },
+      {
+        "type": "BorderSide?",
+        "name": "side"
+      },
+      {
+        "type": "OutlinedBorder?",
+        "name": "shape"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "enabledMouseCursor"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "disabledMouseCursor"
+      },
+      {
+        "type": "VisualDensity?",
+        "name": "visualDensity"
+      },
+      {
+        "type": "MaterialTapTargetSize?",
+        "name": "tapTargetSize"
+      },
+      {
+        "type": "Duration?",
+        "name": "animationDuration"
+      },
+      {
+        "type": "bool?",
+        "name": "enableFeedback"
+      },
+      {
+        "type": "AlignmentGeometry?",
+        "name": "alignment"
+      },
+      {
+        "type": "InteractiveInkFeatureFactory?",
+        "name": "splashFactory"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "backgroundBuilder"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "foregroundBuilder"
+      }
+    ]
+  },
+  "ElevatedButton": {
+    "version": "3.41.5",
+    "source": "https://github.com/flutter/flutter/blob/3.41.5/packages/flutter/lib/src/material/elevated_button.dart",
+    "styleParameters": [
+      {
+        "type": "Color?",
+        "name": "foregroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "backgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledForegroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledBackgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "shadowColor"
+      },
+      {
+        "type": "Color?",
+        "name": "surfaceTintColor"
+      },
+      {
+        "type": "Color?",
+        "name": "iconColor"
+      },
+      {
+        "type": "double?",
+        "name": "iconSize"
+      },
+      {
+        "type": "IconAlignment?",
+        "name": "iconAlignment"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledIconColor"
+      },
+      {
+        "type": "Color?",
+        "name": "overlayColor"
+      },
+      {
+        "type": "double?",
+        "name": "elevation"
+      },
+      {
+        "type": "TextStyle?",
+        "name": "textStyle"
+      },
+      {
+        "type": "EdgeInsetsGeometry?",
+        "name": "padding"
+      },
+      {
+        "type": "Size?",
+        "name": "minimumSize"
+      },
+      {
+        "type": "Size?",
+        "name": "fixedSize"
+      },
+      {
+        "type": "Size?",
+        "name": "maximumSize"
+      },
+      {
+        "type": "BorderSide?",
+        "name": "side"
+      },
+      {
+        "type": "OutlinedBorder?",
+        "name": "shape"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "enabledMouseCursor"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "disabledMouseCursor"
+      },
+      {
+        "type": "VisualDensity?",
+        "name": "visualDensity"
+      },
+      {
+        "type": "MaterialTapTargetSize?",
+        "name": "tapTargetSize"
+      },
+      {
+        "type": "Duration?",
+        "name": "animationDuration"
+      },
+      {
+        "type": "bool?",
+        "name": "enableFeedback"
+      },
+      {
+        "type": "AlignmentGeometry?",
+        "name": "alignment"
+      },
+      {
+        "type": "InteractiveInkFeatureFactory?",
+        "name": "splashFactory"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "backgroundBuilder"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "foregroundBuilder"
+      }
+    ]
+  },
+  "OutlinedButton": {
+    "version": "3.41.5",
+    "source": "https://github.com/flutter/flutter/blob/3.41.5/packages/flutter/lib/src/material/outlined_button.dart",
+    "styleParameters": [
+      {
+        "type": "Color?",
+        "name": "foregroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "backgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledForegroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledBackgroundColor"
+      },
+      {
+        "type": "Color?",
+        "name": "shadowColor"
+      },
+      {
+        "type": "Color?",
+        "name": "surfaceTintColor"
+      },
+      {
+        "type": "Color?",
+        "name": "iconColor"
+      },
+      {
+        "type": "double?",
+        "name": "iconSize"
+      },
+      {
+        "type": "IconAlignment?",
+        "name": "iconAlignment"
+      },
+      {
+        "type": "Color?",
+        "name": "disabledIconColor"
+      },
+      {
+        "type": "Color?",
+        "name": "overlayColor"
+      },
+      {
+        "type": "double?",
+        "name": "elevation"
+      },
+      {
+        "type": "TextStyle?",
+        "name": "textStyle"
+      },
+      {
+        "type": "EdgeInsetsGeometry?",
+        "name": "padding"
+      },
+      {
+        "type": "Size?",
+        "name": "minimumSize"
+      },
+      {
+        "type": "Size?",
+        "name": "fixedSize"
+      },
+      {
+        "type": "Size?",
+        "name": "maximumSize"
+      },
+      {
+        "type": "BorderSide?",
+        "name": "side"
+      },
+      {
+        "type": "OutlinedBorder?",
+        "name": "shape"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "enabledMouseCursor"
+      },
+      {
+        "type": "MouseCursor?",
+        "name": "disabledMouseCursor"
+      },
+      {
+        "type": "VisualDensity?",
+        "name": "visualDensity"
+      },
+      {
+        "type": "MaterialTapTargetSize?",
+        "name": "tapTargetSize"
+      },
+      {
+        "type": "Duration?",
+        "name": "animationDuration"
+      },
+      {
+        "type": "bool?",
+        "name": "enableFeedback"
+      },
+      {
+        "type": "AlignmentGeometry?",
+        "name": "alignment"
+      },
+      {
+        "type": "InteractiveInkFeatureFactory?",
+        "name": "splashFactory"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "backgroundBuilder"
+      },
+      {
+        "type": "ButtonLayerBuilder?",
+        "name": "foregroundBuilder"
+      }
+    ]
+  }
+}

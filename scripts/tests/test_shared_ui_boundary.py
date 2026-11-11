@@ -92,6 +92,15 @@ class SharedUiBoundaryTest(unittest.TestCase):
             self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_text.dart')], ['Icon', 'Colors.red'])
             self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_icon.dart')], ['Text', 'Colors.blue'])
 
+    def test_button_delegates_do_not_allow_other_controls_or_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root/'packages/primecare_ui_foundation/lib/src/prime_material_buttons.dart'
+            path.parent.mkdir(parents=True)
+            path.write_text('TextButton(child: label); ElevatedButton.icon(label: label); '
+                            'OutlinedButton.styleFrom(); Scaffold(); Colors.red;')
+            self.assertEqual([f[3] for f in boundary.scan(root)], ['Scaffold', 'Colors.red'])
+
     def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

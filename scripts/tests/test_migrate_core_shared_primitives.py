@@ -1,4 +1,5 @@
 import hashlib
+import json
 import importlib.util
 from pathlib import Path
 import re
@@ -22,13 +23,36 @@ def original_source(source):
     return source
 
 
+def before_later_button_migration(source, path):
+    manifest = ROOT/'scripts/shared-button-families-manifest.json'
+    if not manifest.exists():
+        return source
+    row = next((row for row in json.loads(manifest.read_text()) if row['path'] == path), None)
+    if row is None:
+        return source
+    # Reverse the exact later, separately verified button edits before replaying
+    # the earlier text/icon migration. Hash checks still reject unrelated drift.
+    edits=[];delta=0
+    for edit in row['edits']:
+        begin=edit['begin']+delta
+        if source[begin:begin+len(edit['new'])] != edit['new']:
+            raise AssertionError('Later button edit drift: '+path)
+        edits.append((begin, begin+len(edit['new']), edit['old']))
+        delta+=len(edit['new'])-(edit['end']-edit['begin'])
+    for begin,end,old in reversed(edits):
+        source=source[:begin]+old+source[end:]
+    if hashlib.sha256(source.encode()).hexdigest() != row['sha256']:
+        raise AssertionError('Later button input drift: '+path)
+    return source
+
+
 class CoreSharedPrimitivesTest(unittest.TestCase):
     def test_all_actual_sources_exact_roundtrip_and_idempotence(self):
         self.assertEqual(sum(x['text'] for x in m.MANIFEST), 401)
         self.assertEqual(sum(x['icons'] for x in m.MANIFEST), 51)
         fixture = (ROOT/'packages/flutter_core/test/shared_primitives_migration_compile_test.dart').read_text()
         for row in m.MANIFEST:
-            updated = (ROOT/row['path']).read_text()
+            updated = before_later_button_migration((ROOT/row['path']).read_text(), row['path'])
             original = original_source(updated)
             self.assertEqual(hashlib.sha256(original.encode()).hexdigest(), row['sha256'], row['path'])
             self.assertEqual(m.migrate(original), (updated, row['text']+row['icons']))
@@ -43,7 +67,7 @@ class CoreSharedPrimitivesTest(unittest.TestCase):
 
     def test_changed_inputs_are_not_silently_migrated(self):
         row=m.MANIFEST[0]
-        source=original_source((ROOT/row['path']).read_text())
+        source=original_source(before_later_button_migration((ROOT/row['path']).read_text(), row['path']))
         for changed in [source+'\n', source.replace("package:flutter/material.dart", "package:other/material.dart"),
                         source+'\nclass PrimeText {}\n', source+'\nfinal Icon = other;\n']:
             self.assertEqual(m.migrate(changed), (changed, 0))
