@@ -112,3 +112,26 @@ class SharedBarrelTextTests(unittest.TestCase):
         for clause in [' hide Text', ' hide PrimeText', ' as ui', ' show PrimeText']:
             source = "import 'package:primecare_ui/primecare_ui.dart'" + clause + "; Text('Care');"
             self.assertEqual(migration.migrate(source), (source, 0))
+
+class CoreBarrelMigrationTest(unittest.TestCase):
+    def test_core_material_export_with_dependency_opt_in_preserves_calls(self):
+        source = "import 'package:flutter_core/flutter_core.dart';\nconst Text('Care', style: style, key: key)"
+        result,count = migration.migrate(source,add_import=True)
+        self.assertEqual(count,1)
+        self.assertEqual(result,"import 'package:primecare_ui/primecare_ui.dart' show PrimeText;\n"+source.replace('const Text(', 'const PrimeText('))
+        self.assertEqual(migration.migrate(result,add_import=True),(result,0))
+        self.assertEqual(migration.migrate(source),(source,0))
+
+    def test_unrelated_hide_is_safe_but_text_hide_alias_show_parts_and_examples_stay(self):
+        base="import 'package:flutter_core/flutter_core.dart';\nText('Care')"
+        eligible=base.replace("dart';", "dart' hide ProviderTTL;")
+        self.assertEqual(migration.migrate(eligible,add_import=True)[1],1)
+        for source in [base.replace("dart';", "dart' hide Text;"),base.replace("dart';", "dart' show Text;"),
+                       base.replace("dart';", "dart' as core;"), '// '+base, "part 'other.dart';\n"+base]:
+            self.assertEqual(migration.migrate(source,add_import=True),(source,0))
+
+    def test_core_barrel_does_not_allow_concrete_types_or_unsupported_signatures(self):
+        prefix="import 'package:flutter_core/flutter_core.dart';\n"
+        for body in ["Text value = Text('x');", "final make = Text.new; Text('x');", "Text('x', softWrap: false);", "class Text {} Text('x');"]:
+            source=prefix+body
+            self.assertEqual(migration.migrate(source,add_import=True),(source,0))

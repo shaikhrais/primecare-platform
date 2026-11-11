@@ -17,6 +17,7 @@ spec.loader.exec_module(boundary)
 SHARED = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:show\s+PrimeText\s*)?;")
 BARREL = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:hide\s+([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*)?;")
 MATERIAL = re.compile(r"\bimport\s+(['\"])package:flutter/material.dart\1\s*;")
+CORE = re.compile(r"\bimport\s+(['\"])package:flutter_core/flutter_core.dart\1\s*(?:hide\s+([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*)?;")
 CALL = re.compile(r'(?<![\w.])Text\s*\(')
 PARAMETERS = {'key', 'style', 'textAlign', 'maxLines', 'overflow'}
 
@@ -68,8 +69,11 @@ def migrate(source, add_import=False):
     has_barrel = any(code[m.start():].startswith('import') and
                      not {'Text', 'PrimeText'}.intersection(re.findall(r'\w+', m[2] or ''))
                      for m in BARREL.finditer(source))
+    has_core = any(code[m.start():].startswith('import') and
+                   'Text' not in re.findall(r'\w+', m[2] or '')
+                   for m in CORE.finditer(source))
     has_shared = imported(SHARED) or has_barrel
-    if not (imported(MATERIAL) or has_barrel) or not (has_shared or add_import):
+    if not (imported(MATERIAL) or has_barrel or has_core) or not (has_shared or add_import):
         return source, 0
     # A local declaration or constructor/type alias makes symbol ownership unclear.
     if re.search(r'\b(?:class|typedef|mixin|enum)\s+(?:Text|PrimeText)\b', code):
@@ -91,7 +95,7 @@ def migrate(source, add_import=False):
         source = source[:offset] + 'PrimeText' + source[offset + 4:]
     if edits and not has_shared:
         # Before an existing import, after any library directive/doc comments.
-        position = next(m.start() for m in MATERIAL.finditer(source)
+        position = next(m.start() for pattern in (MATERIAL, CORE) for m in pattern.finditer(source)
                         if boundary.executable_code(source)[m.start():].startswith('import'))
         source = source[:position] + "import 'package:primecare_ui/primecare_ui.dart' show PrimeText;\n" + source[position:]
     return source, len(edits)
