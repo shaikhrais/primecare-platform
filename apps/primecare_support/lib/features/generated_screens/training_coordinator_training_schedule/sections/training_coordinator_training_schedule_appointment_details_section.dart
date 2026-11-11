@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class TrainingCoordinatorTrainingScheduleAppointmentDetailsSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class TrainingCoordinatorTrainingScheduleAppointmentDetailsSection extends State
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Appointment Details Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          PrimeText('Appointment Details Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           // TODO: Add element slots here from DB
         ],
       ),

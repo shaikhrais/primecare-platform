@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class TerritoryExpansionManagerMarketResearchDataTableSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class TerritoryExpansionManagerMarketResearchDataTableSection extends StatelessW
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Data Table Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          PrimeText('Data Table Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           // TODO: Add element slots here from DB
         ],
       ),

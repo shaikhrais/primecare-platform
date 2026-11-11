@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,12 +49,12 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
       child: Scaffold(
         key: const Key('clinicaldirectordashboard-screen'),
       appBar: AppBar(
-        title: Semantics(label: 'data-cy:clinicaldirectordashboard-title', container: true, child: Container(child:  const Text('ClinicalDirectorDashboard'))),
+        title: Semantics(label: 'data-cy:clinicaldirectordashboard-title', container: true, child: Container(child:  const PrimeText('ClinicalDirectorDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     )
     );
@@ -66,7 +67,7 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
         children: [
           const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'ClinicalDirectorDashboardScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

@@ -4,6 +4,16 @@ Preview: `python3 scripts/migrate-shared-text.py`
 
 Apply: `python3 scripts/migrate-shared-text.py --apply`
 
+To include files without a shared import, pass `--add-imports`. This checks that
+the app declares primecare_ui as a runtime dependency before adding a narrow
+`show PrimeText` import. Library directives stay before imports.
+
+Preview plain text buttons with `python3 scripts/migrate-shared-buttons.py`;
+add `--apply` to migrate eligible calls to existing `PrimeButton(isGhost: true)`.
+Only key/onPressed/child signatures with an unstyled PrimeText child qualify.
+Callback and localized label expressions are retained. Styled labels, additional
+button options and restricted shared imports are skipped.
+
 The tool only changes unqualified `Text(...)` calls in app library files with
 unrestricted Material and PrimeCare UI imports. It preserves argument expressions,
 keys, explicit styles, alignment, line limits, overflow and const construction.

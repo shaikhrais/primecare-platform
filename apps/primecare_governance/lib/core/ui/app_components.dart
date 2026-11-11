@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the App Components platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:getwidget/getwidget.dart';
 
@@ -49,7 +50,7 @@ class AppInput extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: Theme.of(context).textTheme.labelLarge),
+        PrimeText(label, style: Theme.of(context).textTheme.labelLarge),
         const SizedBox(height: 8),
         TextField(key: const Key('app_components_textfield_input_1'), 
           controller: controller,
@@ -81,7 +82,7 @@ class AppCard extends StatelessWidget {
     return GFCard(
       boxFit: BoxFit.cover,
       title: GFListTile(
-        title: Text(title, style: Theme.of(context).textTheme.titleLarge),
+        title: PrimeText(title, style: Theme.of(context).textTheme.titleLarge),
       ),
       content: child,
       buttonBar: actions != null ? GFButtonBar(children: actions!) : null,
@@ -100,12 +101,12 @@ class AppTable extends StatelessWidget {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: DataTable(
-        columns: columns.map((c) => DataColumn(label: Text(c))).toList(),
+        columns: columns.map((c) => DataColumn(label: PrimeText(c))).toList(),
         rows: rows
             .map(
               (r) => DataRow(
                 cells: r
-                    .map((cell) => DataCell(Text(cell.toString())))
+                    .map((cell) => DataCell(PrimeText(cell.toString())))
                     .toList(),
               ),
             )

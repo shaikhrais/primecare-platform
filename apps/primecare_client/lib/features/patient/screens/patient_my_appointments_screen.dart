@@ -374,25 +374,25 @@ class PatientMyAppointmentsScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_patient_my_appointments_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: PrimeText('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_patient_my_appointments_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: PrimeText('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_patient_my_appointments_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: PrimeText('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_patient_my_appointments_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: PrimeText('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),

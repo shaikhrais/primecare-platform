@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Action Bar Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class AdminOutstandingBalancesActionBarSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class AdminOutstandingBalancesActionBarSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Action Bar Section Section'),
+      child: PrimeText('Action Bar Section Section'),
     );
   }
 }

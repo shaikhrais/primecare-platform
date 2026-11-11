@@ -19,5 +19,7 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
       - name: Verify conservative shared text migration
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_text.py
+      - name: Verify conservative shared button migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_buttons.py
       - name: Reject direct controls and colors outside shared theme definitions
         run: python3 scripts/check-shared-ui-boundary.py

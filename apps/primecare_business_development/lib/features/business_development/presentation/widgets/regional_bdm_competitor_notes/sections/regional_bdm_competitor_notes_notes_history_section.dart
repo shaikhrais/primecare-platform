@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class RegionalBdmCompetitorNotesNotesHistorySection extends StatelessWidget {
@@ -11,7 +12,7 @@ class RegionalBdmCompetitorNotesNotesHistorySection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Notes History Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          PrimeText('Notes History Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           // TODO: Add element slots here from DB
         ],
       ),

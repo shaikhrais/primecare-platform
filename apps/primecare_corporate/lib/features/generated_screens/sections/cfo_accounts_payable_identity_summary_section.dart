@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Identity Summary Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class CfoAccountsPayableIdentitySummarySection extends StatelessWidget {
@@ -8,7 +9,7 @@ class CfoAccountsPayableIdentitySummarySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Identity Summary Section Section'),
+      child: PrimeText('Identity Summary Section Section'),
     );
   }
 }

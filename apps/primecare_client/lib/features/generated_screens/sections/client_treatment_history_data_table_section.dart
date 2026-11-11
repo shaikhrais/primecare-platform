@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Data Table Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class ClientTreatmentHistoryDataTableSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class ClientTreatmentHistoryDataTableSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Data Table Section Section'),
+      child: PrimeText('Data Table Section Section'),
     );
   }
 }

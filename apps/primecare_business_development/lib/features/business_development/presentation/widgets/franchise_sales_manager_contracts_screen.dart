@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'franchise_sales_manager_contracts_screen_controller.dart';
@@ -11,12 +12,12 @@ class FranchiseSalesManagerContractsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FranchiseSalesManagerContracts'),
+        title: const PrimeText('FranchiseSalesManagerContracts'),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     );
   }
@@ -28,7 +29,7 @@ class FranchiseSalesManagerContractsScreen extends ConsumerWidget {
         children: [
           const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'FranchiseSalesManagerContractsScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class CourseArchitectPrimaryContentSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class CourseArchitectPrimaryContentSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Primary Content Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          PrimeText('Primary Content Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           // TODO: Add element slots here from DB
         ],
       ),

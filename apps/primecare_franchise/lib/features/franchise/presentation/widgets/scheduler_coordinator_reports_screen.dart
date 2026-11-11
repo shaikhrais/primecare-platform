@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'scheduler_coordinator_reports_screen_controller.dart';
@@ -11,12 +12,12 @@ class SchedulerCoordinatorReportsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SchedulerCoordinatorReports'),
+        title: const PrimeText('SchedulerCoordinatorReports'),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     );
   }
@@ -28,7 +29,7 @@ class SchedulerCoordinatorReportsScreen extends ConsumerWidget {
         children: [
           const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'SchedulerCoordinatorReportsScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

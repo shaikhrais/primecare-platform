@@ -63,6 +63,18 @@ final label = "Text('literal') ${Text('interpolation')}";
             source = IMPORTS + declaration + "\nText('x');"
             self.assertEqual(migration.migrate(source), (source, 0))
 
+    def test_adds_narrow_import_after_library_directive(self):
+        source = "library example;\nimport 'package:flutter/material.dart';\nconst value = Text('x');"
+        result, count = migration.migrate(source, add_import=True)
+        self.assertEqual(count, 1)
+        self.assertTrue(result.startswith("library example;\nimport 'package:primecare_ui/primecare_ui.dart' show PrimeText;\n"))
+        self.assertEqual(migration.migrate(result, add_import=True), (result, 0))
+
+    def test_dependency_must_be_runtime_dependency(self):
+        self.assertTrue(migration.shared_dependency('dependencies:\n  primecare_ui:\n    path: ../../packages/primecare_ui'))
+        self.assertFalse(migration.shared_dependency('dev_dependencies:\n  primecare_ui:\n    path: ../../packages/primecare_ui'))
+        self.assertFalse(migration.shared_dependency('dependencies:\n  other:\n    primecare_ui: example'))
+
 
 if __name__ == '__main__':
     unittest.main()

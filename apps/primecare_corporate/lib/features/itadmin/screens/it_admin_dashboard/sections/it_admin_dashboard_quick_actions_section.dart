@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class ItAdminDashboardQuickActionsSection extends StatelessWidget {
@@ -11,7 +12,7 @@ class ItAdminDashboardQuickActionsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Quick Actions Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          PrimeText('Quick Actions Section', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
           // TODO: Add element slots here from DB
         ],
       ),

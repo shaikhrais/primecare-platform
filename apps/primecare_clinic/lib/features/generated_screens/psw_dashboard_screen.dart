@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_core/flutter_core.dart';
@@ -41,12 +42,12 @@ class PswDashboardScreen extends GovernedConsumerWidget {
       child: Scaffold(
         key: const Key('pswdashboard-screen'),
       appBar: AppBar(
-        title: Semantics(label: 'data-cy:pswdashboard-title', container: true, child: Container(child:  const Text('PswDashboard'))),
+        title: Semantics(label: 'data-cy:pswdashboard-title', container: true, child: Container(child:  const PrimeText('PswDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     )
     );
@@ -59,7 +60,7 @@ class PswDashboardScreen extends GovernedConsumerWidget {
         children: [
           const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'PswDashboardScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

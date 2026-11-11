@@ -59,6 +59,7 @@ void main() {
   testWidgets('shared buttons and data cards follow all palettes and preserve actions', (tester) async {
     const base = PrimeThemeData();
     var presses = 0;
+    var ghostPresses = 0;
     for (final preset in themeCenterPresetNames) {
       final profile = PersonalTheme(name: 'Controls', preset: preset, fontScale: 1.5);
       final material = applyPersonalThemeData(base.toThemeData(), profile);
@@ -68,7 +69,7 @@ void main() {
           const PrimeText('Inherited shared text'),
           shared.PrimeButton.primary(label: 'Primary action', onPressed: () => presses++),
           shared.PrimeButton.secondary(label: 'Secondary action', onPressed: () {}),
-          shared.PrimeButton.ghost(label: 'Ghost action', onPressed: () {}),
+          shared.PrimeButton(isGhost: true, label: 'Ghost action', onPressed: () => ghostPresses++),
           shared.PrimeButton(label: 'Custom surface action', color: prime.colors.surface, onPressed: () {}),
           const shared.PrimeButton(label: 'Disabled action'),
           SizedBox(height: 200, child: shared.PrimeCareStatCard(title: 'Shared stat', value: '42',
@@ -109,6 +110,10 @@ void main() {
       await tester.ensureVisible(find.text('Primary action'));
       await tester.tap(find.text('Primary action'));
       expect(presses, before + 1);
+      final ghostBefore = ghostPresses;
+      await tester.ensureVisible(find.text('Ghost action'));
+      await tester.tap(find.text('Ghost action'));
+      expect(ghostPresses, ghostBefore + 1, reason: preset);
       expect(tester.takeException(), isNull, reason: preset);
     }
   });

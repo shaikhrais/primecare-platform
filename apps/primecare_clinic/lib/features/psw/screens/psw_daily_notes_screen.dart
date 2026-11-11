@@ -451,25 +451,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: PrimeText('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: PrimeText('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: PrimeText('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: PrimeText('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -578,25 +578,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: PrimeText('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: PrimeText('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: PrimeText('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: PrimeText('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -705,25 +705,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: PrimeText('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: PrimeText('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: PrimeText('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: PrimeText('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),

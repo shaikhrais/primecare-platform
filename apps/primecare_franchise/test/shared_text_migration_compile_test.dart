@@ -1,99 +1,1099 @@
-// Compile smoke coverage for constructor-only shared text migration.
-// This does not claim individual screen runtime acceptance.
+// Compile smoke coverage for migrated shared controls.
+// Compilation does not establish screen runtime acceptance.
 import 'package:flutter_test/flutter_test.dart';
-import 'package:primecare_franchise/features/generated_screens/admin_claims_screen.dart' as migrated0;
-import 'package:primecare_franchise/features/generated_screens/admin_dashboard_screen.dart' as migrated1;
-import 'package:primecare_franchise/features/generated_screens/admin_invoices_screen.dart' as migrated2;
-import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances_screen.dart' as migrated3;
-import 'package:primecare_franchise/features/generated_screens/admin_payments_screen.dart' as migrated4;
-import 'package:primecare_franchise/features/generated_screens/admin_reconciliation_screen.dart' as migrated5;
-import 'package:primecare_franchise/features/generated_screens/admin_refunds_screen.dart' as migrated6;
-import 'package:primecare_franchise/features/generated_screens/admin_reports_screen.dart' as migrated7;
-import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices_screen.dart' as migrated8;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts_screen.dart' as migrated9;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls_screen.dart' as migrated10;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups_screen.dart' as migrated11;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads_screen.dart' as migrated12;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals_screen.dart' as migrated13;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects_screen.dart' as migrated14;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports_screen.dart' as migrated15;
-import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline_screen.dart' as migrated16;
-import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline_screen.dart' as migrated17;
-import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports_screen.dart' as migrated18;
-import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents_screen.dart' as migrated19;
-import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status_screen.dart' as migrated20;
-import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns_screen.dart' as migrated21;
-import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard_screen.dart' as migrated22;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance_screen.dart' as migrated23;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations_screen.dart' as migrated24;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_issues_screen.dart' as migrated25;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_reports_screen.dart' as migrated26;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule_screen.dart' as migrated27;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality_screen.dart' as migrated28;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts_screen.dart' as migrated29;
-import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination_screen.dart' as migrated30;
-import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard_screen.dart' as migrated31;
-import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot_screen.dart' as migrated32;
-import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring_screen.dart' as migrated33;
-import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison_screen.dart' as migrated34;
-import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard_screen.dart' as migrated35;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar_screen.dart' as migrated36;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments_screen.dart' as migrated37;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests_screen.dart' as migrated38;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts_screen.dart' as migrated39;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts_screen.dart' as migrated40;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability_screen.dart' as migrated41;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports_screen.dart' as migrated42;
-import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar_screen.dart' as migrated43;
+import 'package:primecare_franchise/features/admin/screens/admin_claims_screen.dart' as migrated0;
+import 'package:primecare_franchise/features/admin/screens/admin_dashboard_screen.dart' as migrated1;
+import 'package:primecare_franchise/features/admin/screens/admin_invoices_screen.dart' as migrated2;
+import 'package:primecare_franchise/features/admin/screens/admin_outstanding_balances_screen.dart' as migrated3;
+import 'package:primecare_franchise/features/admin/screens/admin_payments_screen.dart' as migrated4;
+import 'package:primecare_franchise/features/admin/screens/admin_reconciliation_screen.dart' as migrated5;
+import 'package:primecare_franchise/features/admin/screens/admin_refunds_screen.dart' as migrated6;
+import 'package:primecare_franchise/features/admin/screens/admin_reports_screen.dart' as migrated7;
+import 'package:primecare_franchise/features/billing/screens/billing_admin_dashboard_screen.dart' as migrated8;
+import 'package:primecare_franchise/features/billing/screens/billing_admin_invoices_screen.dart' as migrated9;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_claims_screen.dart' as migrated10;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_dashboard_screen.dart' as migrated11;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_invoices_screen.dart' as migrated12;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_outstanding_balances_screen.dart' as migrated13;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_payments_screen.dart' as migrated14;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_reconciliation_screen.dart' as migrated15;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_refunds_screen.dart' as migrated16;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/admin_reports_screen.dart' as migrated17;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/billing_admin_dashboard_screen.dart' as migrated18;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/billing_admin_invoices_screen.dart' as migrated19;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_appointments_screen.dart' as migrated20;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_branch_overview_screen.dart' as migrated21;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_clients_screen.dart' as migrated22;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_compliance_screen.dart' as migrated23;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_dashboard_screen.dart' as migrated24;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_financial_snapshot_screen.dart' as migrated25;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_hiring_screen.dart' as migrated26;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_reports_screen.dart' as migrated27;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/franchise_owner_staff_screen.dart' as migrated28;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_applicants_screen.dart' as migrated29;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_credentials_screen.dart' as migrated30;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_dashboard_screen.dart' as migrated31;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_interviews_screen.dart' as migrated32;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_offers_screen.dart' as migrated33;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_onboarding_screen.dart' as migrated34;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_reports_screen.dart' as migrated35;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_staff_documents_screen.dart' as migrated36;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/hr_hiring_training_status_screen.dart' as migrated37;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/marketing_manager_campaigns_screen.dart' as migrated38;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/marketing_manager_dashboard_screen.dart' as migrated39;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_attendance_screen.dart' as migrated40;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_daily_operations_screen.dart' as migrated41;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_dashboard_screen.dart' as migrated42;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_issues_screen.dart' as migrated43;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_reports_screen.dart' as migrated44;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_schedule_screen.dart' as migrated45;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_service_quality_screen.dart' as migrated46;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_shifts_screen.dart' as migrated47;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/operations_manager_staff_coordination_screen.dart' as migrated48;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/regional_manager_branch_comparison_screen.dart' as migrated49;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/regional_manager_dashboard_screen.dart' as migrated50;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_appointment_calendar_screen.dart' as migrated51;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_assignments_screen.dart' as migrated52;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_booking_requests_screen.dart' as migrated53;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_conflicts_screen.dart' as migrated54;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_open_shifts_screen.dart' as migrated55;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_provider_availability_screen.dart' as migrated56;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_reports_screen.dart' as migrated57;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_coordinator_shift_calendar_screen.dart' as migrated58;
+import 'package:primecare_franchise/features/franchise/presentation/widgets/scheduler_dashboard_screen.dart' as migrated59;
+import 'package:primecare_franchise/features/generated_screens/admin_claims/sections/admin_claims_action_bar_section.dart' as migrated60;
+import 'package:primecare_franchise/features/generated_screens/admin_claims/sections/admin_claims_content_summary_section.dart' as migrated61;
+import 'package:primecare_franchise/features/generated_screens/admin_claims/sections/admin_claims_header_section.dart' as migrated62;
+import 'package:primecare_franchise/features/generated_screens/admin_claims/sections/admin_claims_primary_content_section.dart' as migrated63;
+import 'package:primecare_franchise/features/generated_screens/admin_claims_screen.dart' as migrated64;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard/sections/admin_dashboard_chart_overview_section.dart' as migrated65;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard/sections/admin_dashboard_header_section.dart' as migrated66;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard/sections/admin_dashboard_quick_actions_section.dart' as migrated67;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard/sections/admin_dashboard_recent_activity_section.dart' as migrated68;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard/sections/admin_dashboard_summary_cards_section.dart' as migrated69;
+import 'package:primecare_franchise/features/generated_screens/admin_dashboard_screen.dart' as migrated70;
+import 'package:primecare_franchise/features/generated_screens/admin_invoices/sections/admin_invoices_action_bar_section.dart' as migrated71;
+import 'package:primecare_franchise/features/generated_screens/admin_invoices/sections/admin_invoices_content_summary_section.dart' as migrated72;
+import 'package:primecare_franchise/features/generated_screens/admin_invoices/sections/admin_invoices_header_section.dart' as migrated73;
+import 'package:primecare_franchise/features/generated_screens/admin_invoices/sections/admin_invoices_primary_content_section.dart' as migrated74;
+import 'package:primecare_franchise/features/generated_screens/admin_invoices_screen.dart' as migrated75;
+import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances/sections/admin_outstanding_balances_action_bar_section.dart' as migrated76;
+import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances/sections/admin_outstanding_balances_content_summary_section.dart' as migrated77;
+import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances/sections/admin_outstanding_balances_header_section.dart' as migrated78;
+import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances/sections/admin_outstanding_balances_primary_content_section.dart' as migrated79;
+import 'package:primecare_franchise/features/generated_screens/admin_outstanding_balances_screen.dart' as migrated80;
+import 'package:primecare_franchise/features/generated_screens/admin_payments/sections/admin_payments_action_bar_section.dart' as migrated81;
+import 'package:primecare_franchise/features/generated_screens/admin_payments/sections/admin_payments_content_summary_section.dart' as migrated82;
+import 'package:primecare_franchise/features/generated_screens/admin_payments/sections/admin_payments_header_section.dart' as migrated83;
+import 'package:primecare_franchise/features/generated_screens/admin_payments/sections/admin_payments_primary_content_section.dart' as migrated84;
+import 'package:primecare_franchise/features/generated_screens/admin_payments_screen.dart' as migrated85;
+import 'package:primecare_franchise/features/generated_screens/admin_reconciliation/sections/admin_reconciliation_action_bar_section.dart' as migrated86;
+import 'package:primecare_franchise/features/generated_screens/admin_reconciliation/sections/admin_reconciliation_content_summary_section.dart' as migrated87;
+import 'package:primecare_franchise/features/generated_screens/admin_reconciliation/sections/admin_reconciliation_header_section.dart' as migrated88;
+import 'package:primecare_franchise/features/generated_screens/admin_reconciliation/sections/admin_reconciliation_primary_content_section.dart' as migrated89;
+import 'package:primecare_franchise/features/generated_screens/admin_reconciliation_screen.dart' as migrated90;
+import 'package:primecare_franchise/features/generated_screens/admin_refunds/sections/admin_refunds_action_bar_section.dart' as migrated91;
+import 'package:primecare_franchise/features/generated_screens/admin_refunds/sections/admin_refunds_content_summary_section.dart' as migrated92;
+import 'package:primecare_franchise/features/generated_screens/admin_refunds/sections/admin_refunds_header_section.dart' as migrated93;
+import 'package:primecare_franchise/features/generated_screens/admin_refunds/sections/admin_refunds_primary_content_section.dart' as migrated94;
+import 'package:primecare_franchise/features/generated_screens/admin_refunds_screen.dart' as migrated95;
+import 'package:primecare_franchise/features/generated_screens/admin_reports/sections/admin_reports_chart_area_section.dart' as migrated96;
+import 'package:primecare_franchise/features/generated_screens/admin_reports/sections/admin_reports_export_actions_section.dart' as migrated97;
+import 'package:primecare_franchise/features/generated_screens/admin_reports/sections/admin_reports_filter_bar_section.dart' as migrated98;
+import 'package:primecare_franchise/features/generated_screens/admin_reports/sections/admin_reports_header_section.dart' as migrated99;
+import 'package:primecare_franchise/features/generated_screens/admin_reports/sections/admin_reports_metrics_summary_section.dart' as migrated100;
+import 'package:primecare_franchise/features/generated_screens/admin_reports_screen.dart' as migrated101;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_dashboard_screen.dart' as migrated102;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices/sections/billing_admin_invoices_action_bar_section.dart' as migrated103;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices/sections/billing_admin_invoices_content_summary_section.dart' as migrated104;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices/sections/billing_admin_invoices_header_section.dart' as migrated105;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices/sections/billing_admin_invoices_primary_content_section.dart' as migrated106;
+import 'package:primecare_franchise/features/generated_screens/billing_admin_invoices_screen.dart' as migrated107;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_appointments_screen.dart' as migrated108;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_branch_overview_screen.dart' as migrated109;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_clients_screen.dart' as migrated110;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_compliance_screen.dart' as migrated111;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_dashboard_screen.dart' as migrated112;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_financial_snapshot_screen.dart' as migrated113;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_hiring_screen.dart' as migrated114;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_reports_screen.dart' as migrated115;
+import 'package:primecare_franchise/features/generated_screens/franchise_owner_staff_screen.dart' as migrated116;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts/sections/franchise_sales_manager_contracts_action_bar_section.dart' as migrated117;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts/sections/franchise_sales_manager_contracts_content_summary_section.dart' as migrated118;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts/sections/franchise_sales_manager_contracts_header_section.dart' as migrated119;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts/sections/franchise_sales_manager_contracts_primary_content_section.dart' as migrated120;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_contracts_screen.dart' as migrated121;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_dashboard_screen.dart' as migrated122;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls/sections/franchise_sales_manager_discovery_calls_action_bar_section.dart' as migrated123;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls/sections/franchise_sales_manager_discovery_calls_content_summary_section.dart' as migrated124;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls/sections/franchise_sales_manager_discovery_calls_header_section.dart' as migrated125;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls/sections/franchise_sales_manager_discovery_calls_primary_content_section.dart' as migrated126;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_discovery_calls_screen.dart' as migrated127;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups/sections/franchise_sales_manager_follow_ups_action_bar_section.dart' as migrated128;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups/sections/franchise_sales_manager_follow_ups_content_summary_section.dart' as migrated129;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups/sections/franchise_sales_manager_follow_ups_header_section.dart' as migrated130;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups/sections/franchise_sales_manager_follow_ups_primary_content_section.dart' as migrated131;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_follow_ups_screen.dart' as migrated132;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads/sections/franchise_sales_manager_leads_action_bar_section.dart' as migrated133;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads/sections/franchise_sales_manager_leads_content_summary_section.dart' as migrated134;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads/sections/franchise_sales_manager_leads_header_section.dart' as migrated135;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads/sections/franchise_sales_manager_leads_primary_content_section.dart' as migrated136;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_leads_screen.dart' as migrated137;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals/sections/franchise_sales_manager_proposals_action_bar_section.dart' as migrated138;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals/sections/franchise_sales_manager_proposals_content_summary_section.dart' as migrated139;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals/sections/franchise_sales_manager_proposals_header_section.dart' as migrated140;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals/sections/franchise_sales_manager_proposals_primary_content_section.dart' as migrated141;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_proposals_screen.dart' as migrated142;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects/sections/franchise_sales_manager_prospects_action_bar_section.dart' as migrated143;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects/sections/franchise_sales_manager_prospects_content_summary_section.dart' as migrated144;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects/sections/franchise_sales_manager_prospects_header_section.dart' as migrated145;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects/sections/franchise_sales_manager_prospects_primary_content_section.dart' as migrated146;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_prospects_screen.dart' as migrated147;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports/sections/franchise_sales_manager_reports_chart_area_section.dart' as migrated148;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports/sections/franchise_sales_manager_reports_export_actions_section.dart' as migrated149;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports/sections/franchise_sales_manager_reports_filter_bar_section.dart' as migrated150;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports/sections/franchise_sales_manager_reports_header_section.dart' as migrated151;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports/sections/franchise_sales_manager_reports_metrics_summary_section.dart' as migrated152;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_reports_screen.dart' as migrated153;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline/sections/franchise_sales_manager_sales_pipeline_action_bar_section.dart' as migrated154;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline/sections/franchise_sales_manager_sales_pipeline_content_summary_section.dart' as migrated155;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline/sections/franchise_sales_manager_sales_pipeline_header_section.dart' as migrated156;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline/sections/franchise_sales_manager_sales_pipeline_primary_content_section.dart' as migrated157;
+import 'package:primecare_franchise/features/generated_screens/franchise_sales_manager_sales_pipeline_screen.dart' as migrated158;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_applicants_screen.dart' as migrated159;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_credentials_screen.dart' as migrated160;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_dashboard_screen.dart' as migrated161;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_interviews_screen.dart' as migrated162;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_offers_screen.dart' as migrated163;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_onboarding_screen.dart' as migrated164;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_reports_screen.dart' as migrated165;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_staff_documents_screen.dart' as migrated166;
+import 'package:primecare_franchise/features/generated_screens/hr_hiring_training_status_screen.dart' as migrated167;
+import 'package:primecare_franchise/features/generated_screens/marketing_manager_campaigns_screen.dart' as migrated168;
+import 'package:primecare_franchise/features/generated_screens/marketing_manager_dashboard_screen.dart' as migrated169;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_attendance_screen.dart' as migrated170;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_daily_operations_screen.dart' as migrated171;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_dashboard_screen.dart' as migrated172;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_issues_screen.dart' as migrated173;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_reports_screen.dart' as migrated174;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_schedule_screen.dart' as migrated175;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_service_quality_screen.dart' as migrated176;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_shifts_screen.dart' as migrated177;
+import 'package:primecare_franchise/features/generated_screens/operations_manager_staff_coordination_screen.dart' as migrated178;
+import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline/sections/regional_bdm_franchise_pipeline_action_bar_section.dart' as migrated179;
+import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline/sections/regional_bdm_franchise_pipeline_content_summary_section.dart' as migrated180;
+import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline/sections/regional_bdm_franchise_pipeline_header_section.dart' as migrated181;
+import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline/sections/regional_bdm_franchise_pipeline_primary_content_section.dart' as migrated182;
+import 'package:primecare_franchise/features/generated_screens/regional_bdm_franchise_pipeline_screen.dart' as migrated183;
+import 'package:primecare_franchise/features/generated_screens/regional_manager_branch_comparison_screen.dart' as migrated184;
+import 'package:primecare_franchise/features/generated_screens/regional_manager_dashboard_screen.dart' as migrated185;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_appointment_calendar_screen.dart' as migrated186;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_assignments_screen.dart' as migrated187;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_booking_requests_screen.dart' as migrated188;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_conflicts_screen.dart' as migrated189;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_open_shifts_screen.dart' as migrated190;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_provider_availability_screen.dart' as migrated191;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_reports_screen.dart' as migrated192;
+import 'package:primecare_franchise/features/generated_screens/scheduler_coordinator_shift_calendar_screen.dart' as migrated193;
+import 'package:primecare_franchise/features/generated_screens/scheduler_dashboard_screen.dart' as migrated194;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_claims_action_bar_section.dart' as migrated195;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_claims_content_summary_section.dart' as migrated196;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_claims_header_section.dart' as migrated197;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_claims_primary_content_section.dart' as migrated198;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_dashboard_chart_overview_section.dart' as migrated199;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_dashboard_header_section.dart' as migrated200;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_dashboard_quick_actions_section.dart' as migrated201;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_dashboard_recent_activity_section.dart' as migrated202;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_dashboard_summary_cards_section.dart' as migrated203;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_invoices_action_bar_section.dart' as migrated204;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_invoices_content_summary_section.dart' as migrated205;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_invoices_header_section.dart' as migrated206;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_invoices_primary_content_section.dart' as migrated207;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_outstanding_balances_action_bar_section.dart' as migrated208;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_outstanding_balances_content_summary_section.dart' as migrated209;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_outstanding_balances_header_section.dart' as migrated210;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_outstanding_balances_primary_content_section.dart' as migrated211;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_payments_action_bar_section.dart' as migrated212;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_payments_content_summary_section.dart' as migrated213;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_payments_header_section.dart' as migrated214;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_payments_primary_content_section.dart' as migrated215;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reconciliation_action_bar_section.dart' as migrated216;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reconciliation_content_summary_section.dart' as migrated217;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reconciliation_header_section.dart' as migrated218;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reconciliation_primary_content_section.dart' as migrated219;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_refunds_action_bar_section.dart' as migrated220;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_refunds_content_summary_section.dart' as migrated221;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_refunds_header_section.dart' as migrated222;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_refunds_primary_content_section.dart' as migrated223;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reports_chart_area_section.dart' as migrated224;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reports_export_actions_section.dart' as migrated225;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reports_filter_bar_section.dart' as migrated226;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reports_header_section.dart' as migrated227;
+import 'package:primecare_franchise/features/generated_screens/sections/admin_reports_metrics_summary_section.dart' as migrated228;
+import 'package:primecare_franchise/features/generated_screens/sections/billing_admin_invoices_action_bar_section.dart' as migrated229;
+import 'package:primecare_franchise/features/generated_screens/sections/billing_admin_invoices_content_summary_section.dart' as migrated230;
+import 'package:primecare_franchise/features/generated_screens/sections/billing_admin_invoices_header_section.dart' as migrated231;
+import 'package:primecare_franchise/features/generated_screens/sections/billing_admin_invoices_primary_content_section.dart' as migrated232;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_contracts_action_bar_section.dart' as migrated233;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_contracts_content_summary_section.dart' as migrated234;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_contracts_header_section.dart' as migrated235;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_contracts_primary_content_section.dart' as migrated236;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_discovery_calls_action_bar_section.dart' as migrated237;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_discovery_calls_content_summary_section.dart' as migrated238;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_discovery_calls_header_section.dart' as migrated239;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_discovery_calls_primary_content_section.dart' as migrated240;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_follow_ups_action_bar_section.dart' as migrated241;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_follow_ups_content_summary_section.dart' as migrated242;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_follow_ups_header_section.dart' as migrated243;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_follow_ups_primary_content_section.dart' as migrated244;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_leads_action_bar_section.dart' as migrated245;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_leads_content_summary_section.dart' as migrated246;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_leads_header_section.dart' as migrated247;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_leads_primary_content_section.dart' as migrated248;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_proposals_action_bar_section.dart' as migrated249;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_proposals_content_summary_section.dart' as migrated250;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_proposals_header_section.dart' as migrated251;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_proposals_primary_content_section.dart' as migrated252;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_prospects_action_bar_section.dart' as migrated253;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_prospects_content_summary_section.dart' as migrated254;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_prospects_header_section.dart' as migrated255;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_prospects_primary_content_section.dart' as migrated256;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_reports_chart_area_section.dart' as migrated257;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_reports_export_actions_section.dart' as migrated258;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_reports_filter_bar_section.dart' as migrated259;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_reports_header_section.dart' as migrated260;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_reports_metrics_summary_section.dart' as migrated261;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_sales_pipeline_action_bar_section.dart' as migrated262;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_sales_pipeline_content_summary_section.dart' as migrated263;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_sales_pipeline_header_section.dart' as migrated264;
+import 'package:primecare_franchise/features/generated_screens/sections/franchise_sales_manager_sales_pipeline_primary_content_section.dart' as migrated265;
+import 'package:primecare_franchise/features/generated_screens/sections/regional_bdm_franchise_pipeline_action_bar_section.dart' as migrated266;
+import 'package:primecare_franchise/features/generated_screens/sections/regional_bdm_franchise_pipeline_content_summary_section.dart' as migrated267;
+import 'package:primecare_franchise/features/generated_screens/sections/regional_bdm_franchise_pipeline_header_section.dart' as migrated268;
+import 'package:primecare_franchise/features/generated_screens/sections/regional_bdm_franchise_pipeline_primary_content_section.dart' as migrated269;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_applicants_screen.dart' as migrated270;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_credentials_screen.dart' as migrated271;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_dashboard_screen.dart' as migrated272;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_interviews_screen.dart' as migrated273;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_offers_screen.dart' as migrated274;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_onboarding_screen.dart' as migrated275;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports/sections/hr_hiring_reports_chart_area_section.dart' as migrated276;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports/sections/hr_hiring_reports_export_actions_section.dart' as migrated277;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports/sections/hr_hiring_reports_filter_bar_section.dart' as migrated278;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports/sections/hr_hiring_reports_header_section.dart' as migrated279;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports/sections/hr_hiring_reports_metrics_summary_section.dart' as migrated280;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_reports_screen.dart' as migrated281;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents/sections/hr_hiring_staff_documents_action_bar_section.dart' as migrated282;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents/sections/hr_hiring_staff_documents_content_summary_section.dart' as migrated283;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents/sections/hr_hiring_staff_documents_header_section.dart' as migrated284;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents/sections/hr_hiring_staff_documents_primary_content_section.dart' as migrated285;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_staff_documents_screen.dart' as migrated286;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status/sections/hr_hiring_training_status_action_bar_section.dart' as migrated287;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status/sections/hr_hiring_training_status_content_summary_section.dart' as migrated288;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status/sections/hr_hiring_training_status_header_section.dart' as migrated289;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status/sections/hr_hiring_training_status_primary_content_section.dart' as migrated290;
+import 'package:primecare_franchise/features/hr_hiring/screens/hr_hiring_training_status_screen.dart' as migrated291;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_reports_chart_area_section.dart' as migrated292;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_reports_export_actions_section.dart' as migrated293;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_reports_filter_bar_section.dart' as migrated294;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_reports_header_section.dart' as migrated295;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_reports_metrics_summary_section.dart' as migrated296;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_staff_documents_action_bar_section.dart' as migrated297;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_staff_documents_content_summary_section.dart' as migrated298;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_staff_documents_header_section.dart' as migrated299;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_staff_documents_primary_content_section.dart' as migrated300;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_training_status_action_bar_section.dart' as migrated301;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_training_status_content_summary_section.dart' as migrated302;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_training_status_header_section.dart' as migrated303;
+import 'package:primecare_franchise/features/hr_hiring/screens/sections/hr_hiring_training_status_primary_content_section.dart' as migrated304;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns/sections/marketing_manager_campaigns_action_bar_section.dart' as migrated305;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns/sections/marketing_manager_campaigns_content_summary_section.dart' as migrated306;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns/sections/marketing_manager_campaigns_header_section.dart' as migrated307;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns/sections/marketing_manager_campaigns_primary_content_section.dart' as migrated308;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_campaigns_screen.dart' as migrated309;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard/sections/marketing_manager_dashboard_chart_overview_section.dart' as migrated310;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard/sections/marketing_manager_dashboard_header_section.dart' as migrated311;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard/sections/marketing_manager_dashboard_quick_actions_section.dart' as migrated312;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard/sections/marketing_manager_dashboard_recent_activity_section.dart' as migrated313;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard/sections/marketing_manager_dashboard_summary_cards_section.dart' as migrated314;
+import 'package:primecare_franchise/features/marketing_manager/screens/marketing_manager_dashboard_screen.dart' as migrated315;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_campaigns_action_bar_section.dart' as migrated316;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_campaigns_content_summary_section.dart' as migrated317;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_campaigns_header_section.dart' as migrated318;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_campaigns_primary_content_section.dart' as migrated319;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_dashboard_chart_overview_section.dart' as migrated320;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_dashboard_header_section.dart' as migrated321;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_dashboard_quick_actions_section.dart' as migrated322;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_dashboard_recent_activity_section.dart' as migrated323;
+import 'package:primecare_franchise/features/marketing_manager/screens/sections/marketing_manager_dashboard_summary_cards_section.dart' as migrated324;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance/sections/operations_manager_attendance_action_bar_section.dart' as migrated325;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance/sections/operations_manager_attendance_content_summary_section.dart' as migrated326;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance/sections/operations_manager_attendance_header_section.dart' as migrated327;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance/sections/operations_manager_attendance_primary_content_section.dart' as migrated328;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_attendance_screen.dart' as migrated329;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations/sections/operations_manager_daily_operations_action_bar_section.dart' as migrated330;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations/sections/operations_manager_daily_operations_content_summary_section.dart' as migrated331;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations/sections/operations_manager_daily_operations_header_section.dart' as migrated332;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations/sections/operations_manager_daily_operations_primary_content_section.dart' as migrated333;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_daily_operations_screen.dart' as migrated334;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_dashboard_screen.dart' as migrated335;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_issues/sections/operations_manager_issues_action_bar_section.dart' as migrated336;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_issues/sections/operations_manager_issues_content_summary_section.dart' as migrated337;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_issues/sections/operations_manager_issues_header_section.dart' as migrated338;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_issues/sections/operations_manager_issues_primary_content_section.dart' as migrated339;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_issues_screen.dart' as migrated340;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports/sections/operations_manager_reports_chart_area_section.dart' as migrated341;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports/sections/operations_manager_reports_export_actions_section.dart' as migrated342;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports/sections/operations_manager_reports_filter_bar_section.dart' as migrated343;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports/sections/operations_manager_reports_header_section.dart' as migrated344;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports/sections/operations_manager_reports_metrics_summary_section.dart' as migrated345;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_reports_screen.dart' as migrated346;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule/sections/operations_manager_schedule_action_bar_section.dart' as migrated347;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule/sections/operations_manager_schedule_appointment_details_section.dart' as migrated348;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule/sections/operations_manager_schedule_calendar_controls_section.dart' as migrated349;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule/sections/operations_manager_schedule_header_section.dart' as migrated350;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule/sections/operations_manager_schedule_schedule_list_section.dart' as migrated351;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_schedule_screen.dart' as migrated352;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality/sections/operations_manager_service_quality_action_bar_section.dart' as migrated353;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality/sections/operations_manager_service_quality_content_summary_section.dart' as migrated354;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality/sections/operations_manager_service_quality_header_section.dart' as migrated355;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality/sections/operations_manager_service_quality_primary_content_section.dart' as migrated356;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_service_quality_screen.dart' as migrated357;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts/sections/operations_manager_shifts_action_bar_section.dart' as migrated358;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts/sections/operations_manager_shifts_content_summary_section.dart' as migrated359;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts/sections/operations_manager_shifts_header_section.dart' as migrated360;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts/sections/operations_manager_shifts_primary_content_section.dart' as migrated361;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_shifts_screen.dart' as migrated362;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination/sections/operations_manager_staff_coordination_action_bar_section.dart' as migrated363;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination/sections/operations_manager_staff_coordination_content_summary_section.dart' as migrated364;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination/sections/operations_manager_staff_coordination_header_section.dart' as migrated365;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination/sections/operations_manager_staff_coordination_primary_content_section.dart' as migrated366;
+import 'package:primecare_franchise/features/ops/screens/operations_manager_staff_coordination_screen.dart' as migrated367;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_attendance_action_bar_section.dart' as migrated368;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_attendance_content_summary_section.dart' as migrated369;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_attendance_header_section.dart' as migrated370;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_attendance_primary_content_section.dart' as migrated371;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_daily_operations_action_bar_section.dart' as migrated372;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_daily_operations_content_summary_section.dart' as migrated373;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_daily_operations_header_section.dart' as migrated374;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_daily_operations_primary_content_section.dart' as migrated375;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_issues_action_bar_section.dart' as migrated376;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_issues_content_summary_section.dart' as migrated377;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_issues_header_section.dart' as migrated378;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_issues_primary_content_section.dart' as migrated379;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_reports_chart_area_section.dart' as migrated380;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_reports_export_actions_section.dart' as migrated381;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_reports_filter_bar_section.dart' as migrated382;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_reports_header_section.dart' as migrated383;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_reports_metrics_summary_section.dart' as migrated384;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_schedule_action_bar_section.dart' as migrated385;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_schedule_appointment_details_section.dart' as migrated386;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_schedule_calendar_controls_section.dart' as migrated387;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_schedule_header_section.dart' as migrated388;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_schedule_schedule_list_section.dart' as migrated389;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_service_quality_action_bar_section.dart' as migrated390;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_service_quality_content_summary_section.dart' as migrated391;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_service_quality_header_section.dart' as migrated392;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_service_quality_primary_content_section.dart' as migrated393;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_shifts_action_bar_section.dart' as migrated394;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_shifts_content_summary_section.dart' as migrated395;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_shifts_header_section.dart' as migrated396;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_shifts_primary_content_section.dart' as migrated397;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_staff_coordination_action_bar_section.dart' as migrated398;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_staff_coordination_content_summary_section.dart' as migrated399;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_staff_coordination_header_section.dart' as migrated400;
+import 'package:primecare_franchise/features/ops/screens/sections/operations_manager_staff_coordination_primary_content_section.dart' as migrated401;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_appointments_screen.dart' as migrated402;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_branch_overview_screen.dart' as migrated403;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_clients_screen.dart' as migrated404;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_compliance_screen.dart' as migrated405;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard/sections/franchise_owner_dashboard_chart_overview_section.dart' as migrated406;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard/sections/franchise_owner_dashboard_header_section.dart' as migrated407;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard/sections/franchise_owner_dashboard_quick_actions_section.dart' as migrated408;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard/sections/franchise_owner_dashboard_recent_activity_section.dart' as migrated409;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard/sections/franchise_owner_dashboard_summary_cards_section.dart' as migrated410;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_dashboard_screen.dart' as migrated411;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot/sections/franchise_owner_financial_snapshot_action_bar_section.dart' as migrated412;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot/sections/franchise_owner_financial_snapshot_content_summary_section.dart' as migrated413;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot/sections/franchise_owner_financial_snapshot_header_section.dart' as migrated414;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot/sections/franchise_owner_financial_snapshot_primary_content_section.dart' as migrated415;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_financial_snapshot_screen.dart' as migrated416;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring/sections/franchise_owner_hiring_action_bar_section.dart' as migrated417;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring/sections/franchise_owner_hiring_content_summary_section.dart' as migrated418;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring/sections/franchise_owner_hiring_header_section.dart' as migrated419;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring/sections/franchise_owner_hiring_primary_content_section.dart' as migrated420;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_hiring_screen.dart' as migrated421;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_reports_screen.dart' as migrated422;
+import 'package:primecare_franchise/features/owner/screens/franchise_owner_staff_screen.dart' as migrated423;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_dashboard_chart_overview_section.dart' as migrated424;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_dashboard_header_section.dart' as migrated425;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_dashboard_quick_actions_section.dart' as migrated426;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_dashboard_recent_activity_section.dart' as migrated427;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_dashboard_summary_cards_section.dart' as migrated428;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_financial_snapshot_action_bar_section.dart' as migrated429;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_financial_snapshot_content_summary_section.dart' as migrated430;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_financial_snapshot_header_section.dart' as migrated431;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_financial_snapshot_primary_content_section.dart' as migrated432;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_hiring_action_bar_section.dart' as migrated433;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_hiring_content_summary_section.dart' as migrated434;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_hiring_header_section.dart' as migrated435;
+import 'package:primecare_franchise/features/owner/screens/sections/franchise_owner_hiring_primary_content_section.dart' as migrated436;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison/sections/regional_manager_branch_comparison_action_bar_section.dart' as migrated437;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison/sections/regional_manager_branch_comparison_content_summary_section.dart' as migrated438;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison/sections/regional_manager_branch_comparison_header_section.dart' as migrated439;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison/sections/regional_manager_branch_comparison_primary_content_section.dart' as migrated440;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_branch_comparison_screen.dart' as migrated441;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard/sections/regional_manager_dashboard_chart_overview_section.dart' as migrated442;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard/sections/regional_manager_dashboard_header_section.dart' as migrated443;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard/sections/regional_manager_dashboard_quick_actions_section.dart' as migrated444;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard/sections/regional_manager_dashboard_recent_activity_section.dart' as migrated445;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard/sections/regional_manager_dashboard_summary_cards_section.dart' as migrated446;
+import 'package:primecare_franchise/features/regional_manager/screens/regional_manager_dashboard_screen.dart' as migrated447;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_branch_comparison_action_bar_section.dart' as migrated448;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_branch_comparison_content_summary_section.dart' as migrated449;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_branch_comparison_header_section.dart' as migrated450;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_branch_comparison_primary_content_section.dart' as migrated451;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_dashboard_chart_overview_section.dart' as migrated452;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_dashboard_header_section.dart' as migrated453;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_dashboard_quick_actions_section.dart' as migrated454;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_dashboard_recent_activity_section.dart' as migrated455;
+import 'package:primecare_franchise/features/regional_manager/screens/sections/regional_manager_dashboard_summary_cards_section.dart' as migrated456;
+import 'package:primecare_franchise/features/scheduler/screens/scheduler_dashboard_screen.dart' as migrated457;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar/sections/scheduler_coordinator_appointment_calendar_action_bar_section.dart' as migrated458;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar/sections/scheduler_coordinator_appointment_calendar_appointment_details_section.dart' as migrated459;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar/sections/scheduler_coordinator_appointment_calendar_calendar_controls_section.dart' as migrated460;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar/sections/scheduler_coordinator_appointment_calendar_header_section.dart' as migrated461;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar/sections/scheduler_coordinator_appointment_calendar_schedule_list_section.dart' as migrated462;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_appointment_calendar_screen.dart' as migrated463;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments/sections/scheduler_coordinator_assignments_action_bar_section.dart' as migrated464;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments/sections/scheduler_coordinator_assignments_appointment_details_section.dart' as migrated465;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments/sections/scheduler_coordinator_assignments_calendar_controls_section.dart' as migrated466;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments/sections/scheduler_coordinator_assignments_header_section.dart' as migrated467;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments/sections/scheduler_coordinator_assignments_schedule_list_section.dart' as migrated468;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_assignments_screen.dart' as migrated469;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests/sections/scheduler_coordinator_booking_requests_action_bar_section.dart' as migrated470;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests/sections/scheduler_coordinator_booking_requests_form_body_section.dart' as migrated471;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests/sections/scheduler_coordinator_booking_requests_header_section.dart' as migrated472;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests/sections/scheduler_coordinator_booking_requests_validation_messages_section.dart' as migrated473;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_booking_requests_screen.dart' as migrated474;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts/sections/scheduler_coordinator_conflicts_action_bar_section.dart' as migrated475;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts/sections/scheduler_coordinator_conflicts_appointment_details_section.dart' as migrated476;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts/sections/scheduler_coordinator_conflicts_calendar_controls_section.dart' as migrated477;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts/sections/scheduler_coordinator_conflicts_header_section.dart' as migrated478;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts/sections/scheduler_coordinator_conflicts_schedule_list_section.dart' as migrated479;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_conflicts_screen.dart' as migrated480;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts/sections/scheduler_coordinator_open_shifts_action_bar_section.dart' as migrated481;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts/sections/scheduler_coordinator_open_shifts_appointment_details_section.dart' as migrated482;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts/sections/scheduler_coordinator_open_shifts_calendar_controls_section.dart' as migrated483;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts/sections/scheduler_coordinator_open_shifts_header_section.dart' as migrated484;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts/sections/scheduler_coordinator_open_shifts_schedule_list_section.dart' as migrated485;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_open_shifts_screen.dart' as migrated486;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability/sections/scheduler_coordinator_provider_availability_action_bar_section.dart' as migrated487;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability/sections/scheduler_coordinator_provider_availability_appointment_details_section.dart' as migrated488;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability/sections/scheduler_coordinator_provider_availability_calendar_controls_section.dart' as migrated489;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability/sections/scheduler_coordinator_provider_availability_header_section.dart' as migrated490;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability/sections/scheduler_coordinator_provider_availability_schedule_list_section.dart' as migrated491;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_provider_availability_screen.dart' as migrated492;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports/sections/scheduler_coordinator_reports_action_bar_section.dart' as migrated493;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports/sections/scheduler_coordinator_reports_appointment_details_section.dart' as migrated494;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports/sections/scheduler_coordinator_reports_calendar_controls_section.dart' as migrated495;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports/sections/scheduler_coordinator_reports_header_section.dart' as migrated496;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports/sections/scheduler_coordinator_reports_schedule_list_section.dart' as migrated497;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_reports_screen.dart' as migrated498;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar/sections/scheduler_coordinator_shift_calendar_action_bar_section.dart' as migrated499;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar/sections/scheduler_coordinator_shift_calendar_appointment_details_section.dart' as migrated500;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar/sections/scheduler_coordinator_shift_calendar_calendar_controls_section.dart' as migrated501;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar/sections/scheduler_coordinator_shift_calendar_header_section.dart' as migrated502;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar/sections/scheduler_coordinator_shift_calendar_schedule_list_section.dart' as migrated503;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/scheduler_coordinator_shift_calendar_screen.dart' as migrated504;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_appointment_calendar_action_bar_section.dart' as migrated505;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_appointment_calendar_appointment_details_section.dart' as migrated506;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_appointment_calendar_calendar_controls_section.dart' as migrated507;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_appointment_calendar_header_section.dart' as migrated508;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_appointment_calendar_schedule_list_section.dart' as migrated509;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_assignments_action_bar_section.dart' as migrated510;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_assignments_appointment_details_section.dart' as migrated511;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_assignments_calendar_controls_section.dart' as migrated512;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_assignments_header_section.dart' as migrated513;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_assignments_schedule_list_section.dart' as migrated514;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_booking_requests_action_bar_section.dart' as migrated515;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_booking_requests_form_body_section.dart' as migrated516;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_booking_requests_header_section.dart' as migrated517;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_booking_requests_validation_messages_section.dart' as migrated518;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_conflicts_action_bar_section.dart' as migrated519;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_conflicts_appointment_details_section.dart' as migrated520;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_conflicts_calendar_controls_section.dart' as migrated521;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_conflicts_header_section.dart' as migrated522;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_conflicts_schedule_list_section.dart' as migrated523;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_open_shifts_action_bar_section.dart' as migrated524;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_open_shifts_appointment_details_section.dart' as migrated525;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_open_shifts_calendar_controls_section.dart' as migrated526;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_open_shifts_header_section.dart' as migrated527;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_open_shifts_schedule_list_section.dart' as migrated528;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_provider_availability_action_bar_section.dart' as migrated529;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_provider_availability_appointment_details_section.dart' as migrated530;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_provider_availability_calendar_controls_section.dart' as migrated531;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_provider_availability_header_section.dart' as migrated532;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_provider_availability_schedule_list_section.dart' as migrated533;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_reports_action_bar_section.dart' as migrated534;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_reports_appointment_details_section.dart' as migrated535;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_reports_calendar_controls_section.dart' as migrated536;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_reports_header_section.dart' as migrated537;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_reports_schedule_list_section.dart' as migrated538;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_shift_calendar_action_bar_section.dart' as migrated539;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_shift_calendar_appointment_details_section.dart' as migrated540;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_shift_calendar_calendar_controls_section.dart' as migrated541;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_shift_calendar_header_section.dart' as migrated542;
+import 'package:primecare_franchise/features/scheduler_coordinator/screens/sections/scheduler_coordinator_shift_calendar_schedule_list_section.dart' as migrated543;
 
 void main() {
   test('migrated consumer libraries compile', () {
     const migratedTypes = <Type>[
-    migrated0.AdminClaimsScreenState,
-    migrated1.AdminDashboardScreenState,
-    migrated2.AdminInvoicesScreenState,
-    migrated3.AdminOutstandingBalancesScreenState,
-    migrated4.AdminPaymentsScreenState,
-    migrated5.AdminReconciliationScreenState,
-    migrated6.AdminRefundsScreenState,
-    migrated7.AdminReportsScreenState,
-    migrated8.BillingAdminInvoicesScreenState,
-    migrated9.FranchiseSalesManagerContractsScreenState,
-    migrated10.FranchiseSalesManagerDiscoveryCallsScreenState,
-    migrated11.FranchiseSalesManagerFollowUpsScreenState,
-    migrated12.FranchiseSalesManagerLeadsScreenState,
-    migrated13.FranchiseSalesManagerProposalsScreenState,
-    migrated14.FranchiseSalesManagerProspectsScreenState,
-    migrated15.FranchiseSalesManagerReportsScreenState,
-    migrated16.FranchiseSalesManagerSalesPipelineScreenState,
-    migrated17.RegionalBdmFranchisePipelineScreenState,
-    migrated18.HrHiringReportsScreenState,
-    migrated19.HrHiringStaffDocumentsScreenState,
-    migrated20.HrHiringTrainingStatusScreenState,
-    migrated21.MarketingManagerCampaignsScreenState,
-    migrated22.MarketingManagerDashboardScreenState,
-    migrated23.OperationsManagerAttendanceScreenState,
-    migrated24.OperationsManagerDailyOperationsScreenState,
-    migrated25.OperationsManagerIssuesScreenState,
-    migrated26.OperationsManagerReportsScreenState,
-    migrated27.OperationsManagerScheduleScreenState,
-    migrated28.OperationsManagerServiceQualityScreenState,
-    migrated29.OperationsManagerShiftsScreenState,
-    migrated30.OperationsManagerStaffCoordinationScreenState,
-    migrated31.FranchiseOwnerDashboardScreenState,
-    migrated32.FranchiseOwnerFinancialSnapshotScreenState,
-    migrated33.FranchiseOwnerHiringScreenState,
-    migrated34.RegionalManagerBranchComparisonScreenState,
-    migrated35.RegionalManagerDashboardScreenState,
-    migrated36.SchedulerCoordinatorAppointmentCalendarScreenState,
-    migrated37.SchedulerCoordinatorAssignmentsScreenState,
-    migrated38.SchedulerCoordinatorBookingRequestsScreenState,
-    migrated39.SchedulerCoordinatorConflictsScreenState,
-    migrated40.SchedulerCoordinatorOpenShiftsScreenState,
-    migrated41.SchedulerCoordinatorProviderAvailabilityScreenState,
-    migrated42.SchedulerCoordinatorReportsScreenState,
-    migrated43.SchedulerCoordinatorShiftCalendarScreenState,
+      migrated0.AdminClaimsScreen,
+      migrated1.AdminDashboardScreen,
+      migrated2.AdminInvoicesScreen,
+      migrated3.AdminOutstandingBalancesScreen,
+      migrated4.AdminPaymentsScreen,
+      migrated5.AdminReconciliationScreen,
+      migrated6.AdminRefundsScreen,
+      migrated7.AdminReportsScreen,
+      migrated8.BillingAdminDashboardScreen,
+      migrated9.BillingAdminInvoicesScreen,
+      migrated10.AdminClaimsScreen,
+      migrated11.AdminDashboardScreen,
+      migrated12.AdminInvoicesScreen,
+      migrated13.AdminOutstandingBalancesScreen,
+      migrated14.AdminPaymentsScreen,
+      migrated15.AdminReconciliationScreen,
+      migrated16.AdminRefundsScreen,
+      migrated17.AdminReportsScreen,
+      migrated18.BillingAdminDashboardScreen,
+      migrated19.BillingAdminInvoicesScreen,
+      migrated20.FranchiseOwnerAppointmentsScreen,
+      migrated21.FranchiseOwnerBranchOverviewScreen,
+      migrated22.FranchiseOwnerClientsScreen,
+      migrated23.FranchiseOwnerComplianceScreen,
+      migrated24.FranchiseOwnerDashboardScreen,
+      migrated25.FranchiseOwnerFinancialSnapshotScreen,
+      migrated26.FranchiseOwnerHiringScreen,
+      migrated27.FranchiseOwnerReportsScreen,
+      migrated28.FranchiseOwnerStaffScreen,
+      migrated29.HrHiringApplicantsScreen,
+      migrated30.HrHiringCredentialsScreen,
+      migrated31.HrHiringDashboardScreen,
+      migrated32.HrHiringInterviewsScreen,
+      migrated33.HrHiringOffersScreen,
+      migrated34.HrHiringOnboardingScreen,
+      migrated35.HrHiringReportsScreen,
+      migrated36.HrHiringStaffDocumentsScreen,
+      migrated37.HrHiringTrainingStatusScreen,
+      migrated38.MarketingManagerCampaignsScreen,
+      migrated39.MarketingManagerDashboardScreen,
+      migrated40.OperationsManagerAttendanceScreen,
+      migrated41.OperationsManagerDailyOperationsScreen,
+      migrated42.OperationsManagerDashboardScreen,
+      migrated43.OperationsManagerIssuesScreen,
+      migrated44.OperationsManagerReportsScreen,
+      migrated45.OperationsManagerScheduleScreen,
+      migrated46.OperationsManagerServiceQualityScreen,
+      migrated47.OperationsManagerShiftsScreen,
+      migrated48.OperationsManagerStaffCoordinationScreen,
+      migrated49.RegionalManagerBranchComparisonScreen,
+      migrated50.RegionalManagerDashboardScreen,
+      migrated51.SchedulerCoordinatorAppointmentCalendarScreen,
+      migrated52.SchedulerCoordinatorAssignmentsScreen,
+      migrated53.SchedulerCoordinatorBookingRequestsScreen,
+      migrated54.SchedulerCoordinatorConflictsScreen,
+      migrated55.SchedulerCoordinatorOpenShiftsScreen,
+      migrated56.SchedulerCoordinatorProviderAvailabilityScreen,
+      migrated57.SchedulerCoordinatorReportsScreen,
+      migrated58.SchedulerCoordinatorShiftCalendarScreen,
+      migrated59.SchedulerDashboardScreen,
+      migrated60.AdminClaimsActionBarSection,
+      migrated61.AdminClaimsContentSummarySection,
+      migrated62.AdminClaimsHeaderSection,
+      migrated63.AdminClaimsPrimaryContentSection,
+      migrated64.AdminClaimsScreenState,
+      migrated65.AdminDashboardChartOverviewSection,
+      migrated66.AdminDashboardHeaderSection,
+      migrated67.AdminDashboardQuickActionsSection,
+      migrated68.AdminDashboardRecentActivitySection,
+      migrated69.AdminDashboardSummaryCardsSection,
+      migrated70.AdminDashboardScreenState,
+      migrated71.AdminInvoicesActionBarSection,
+      migrated72.AdminInvoicesContentSummarySection,
+      migrated73.AdminInvoicesHeaderSection,
+      migrated74.AdminInvoicesPrimaryContentSection,
+      migrated75.AdminInvoicesScreenState,
+      migrated76.AdminOutstandingBalancesActionBarSection,
+      migrated77.AdminOutstandingBalancesContentSummarySection,
+      migrated78.AdminOutstandingBalancesHeaderSection,
+      migrated79.AdminOutstandingBalancesPrimaryContentSection,
+      migrated80.AdminOutstandingBalancesScreenState,
+      migrated81.AdminPaymentsActionBarSection,
+      migrated82.AdminPaymentsContentSummarySection,
+      migrated83.AdminPaymentsHeaderSection,
+      migrated84.AdminPaymentsPrimaryContentSection,
+      migrated85.AdminPaymentsScreenState,
+      migrated86.AdminReconciliationActionBarSection,
+      migrated87.AdminReconciliationContentSummarySection,
+      migrated88.AdminReconciliationHeaderSection,
+      migrated89.AdminReconciliationPrimaryContentSection,
+      migrated90.AdminReconciliationScreenState,
+      migrated91.AdminRefundsActionBarSection,
+      migrated92.AdminRefundsContentSummarySection,
+      migrated93.AdminRefundsHeaderSection,
+      migrated94.AdminRefundsPrimaryContentSection,
+      migrated95.AdminRefundsScreenState,
+      migrated96.AdminReportsChartAreaSection,
+      migrated97.AdminReportsExportActionsSection,
+      migrated98.AdminReportsFilterBarSection,
+      migrated99.AdminReportsHeaderSection,
+      migrated100.AdminReportsMetricsSummarySection,
+      migrated101.AdminReportsScreenState,
+      migrated102.BillingAdminDashboardScreen,
+      migrated103.BillingAdminInvoicesActionBarSection,
+      migrated104.BillingAdminInvoicesContentSummarySection,
+      migrated105.BillingAdminInvoicesHeaderSection,
+      migrated106.BillingAdminInvoicesPrimaryContentSection,
+      migrated107.BillingAdminInvoicesScreenState,
+      migrated108.FranchiseOwnerAppointmentsScreen,
+      migrated109.FranchiseOwnerBranchOverviewScreen,
+      migrated110.FranchiseOwnerClientsScreen,
+      migrated111.FranchiseOwnerComplianceScreen,
+      migrated112.FranchiseOwnerDashboardScreen,
+      migrated113.FranchiseOwnerFinancialSnapshotScreen,
+      migrated114.FranchiseOwnerHiringScreen,
+      migrated115.FranchiseOwnerReportsScreen,
+      migrated116.FranchiseOwnerStaffScreen,
+      migrated117.FranchiseSalesManagerContractsActionBarSection,
+      migrated118.FranchiseSalesManagerContractsContentSummarySection,
+      migrated119.FranchiseSalesManagerContractsHeaderSection,
+      migrated120.FranchiseSalesManagerContractsPrimaryContentSection,
+      migrated121.FranchiseSalesManagerContractsScreenState,
+      migrated122.FranchiseSalesManagerDashboardScreen,
+      migrated123.FranchiseSalesManagerDiscoveryCallsActionBarSection,
+      migrated124.FranchiseSalesManagerDiscoveryCallsContentSummarySection,
+      migrated125.FranchiseSalesManagerDiscoveryCallsHeaderSection,
+      migrated126.FranchiseSalesManagerDiscoveryCallsPrimaryContentSection,
+      migrated127.FranchiseSalesManagerDiscoveryCallsScreenState,
+      migrated128.FranchiseSalesManagerFollowUpsActionBarSection,
+      migrated129.FranchiseSalesManagerFollowUpsContentSummarySection,
+      migrated130.FranchiseSalesManagerFollowUpsHeaderSection,
+      migrated131.FranchiseSalesManagerFollowUpsPrimaryContentSection,
+      migrated132.FranchiseSalesManagerFollowUpsScreenState,
+      migrated133.FranchiseSalesManagerLeadsActionBarSection,
+      migrated134.FranchiseSalesManagerLeadsContentSummarySection,
+      migrated135.FranchiseSalesManagerLeadsHeaderSection,
+      migrated136.FranchiseSalesManagerLeadsPrimaryContentSection,
+      migrated137.FranchiseSalesManagerLeadsScreenState,
+      migrated138.FranchiseSalesManagerProposalsActionBarSection,
+      migrated139.FranchiseSalesManagerProposalsContentSummarySection,
+      migrated140.FranchiseSalesManagerProposalsHeaderSection,
+      migrated141.FranchiseSalesManagerProposalsPrimaryContentSection,
+      migrated142.FranchiseSalesManagerProposalsScreenState,
+      migrated143.FranchiseSalesManagerProspectsActionBarSection,
+      migrated144.FranchiseSalesManagerProspectsContentSummarySection,
+      migrated145.FranchiseSalesManagerProspectsHeaderSection,
+      migrated146.FranchiseSalesManagerProspectsPrimaryContentSection,
+      migrated147.FranchiseSalesManagerProspectsScreenState,
+      migrated148.FranchiseSalesManagerReportsChartAreaSection,
+      migrated149.FranchiseSalesManagerReportsExportActionsSection,
+      migrated150.FranchiseSalesManagerReportsFilterBarSection,
+      migrated151.FranchiseSalesManagerReportsHeaderSection,
+      migrated152.FranchiseSalesManagerReportsMetricsSummarySection,
+      migrated153.FranchiseSalesManagerReportsScreenState,
+      migrated154.FranchiseSalesManagerSalesPipelineActionBarSection,
+      migrated155.FranchiseSalesManagerSalesPipelineContentSummarySection,
+      migrated156.FranchiseSalesManagerSalesPipelineHeaderSection,
+      migrated157.FranchiseSalesManagerSalesPipelinePrimaryContentSection,
+      migrated158.FranchiseSalesManagerSalesPipelineScreenState,
+      migrated159.HrHiringApplicantsScreen,
+      migrated160.HrHiringCredentialsScreen,
+      migrated161.HrHiringDashboardScreen,
+      migrated162.HrHiringInterviewsScreen,
+      migrated163.HrHiringOffersScreen,
+      migrated164.HrHiringOnboardingScreen,
+      migrated165.HrHiringReportsScreen,
+      migrated166.HrHiringStaffDocumentsScreen,
+      migrated167.HrHiringTrainingStatusScreen,
+      migrated168.MarketingManagerCampaignsScreen,
+      migrated169.MarketingManagerDashboardScreen,
+      migrated170.OperationsManagerAttendanceScreen,
+      migrated171.OperationsManagerDailyOperationsScreen,
+      migrated172.OperationsManagerDashboardScreen,
+      migrated173.OperationsManagerIssuesScreen,
+      migrated174.OperationsManagerReportsScreen,
+      migrated175.OperationsManagerScheduleScreen,
+      migrated176.OperationsManagerServiceQualityScreen,
+      migrated177.OperationsManagerShiftsScreen,
+      migrated178.OperationsManagerStaffCoordinationScreen,
+      migrated179.RegionalBdmFranchisePipelineActionBarSection,
+      migrated180.RegionalBdmFranchisePipelineContentSummarySection,
+      migrated181.RegionalBdmFranchisePipelineHeaderSection,
+      migrated182.RegionalBdmFranchisePipelinePrimaryContentSection,
+      migrated183.RegionalBdmFranchisePipelineScreenState,
+      migrated184.RegionalManagerBranchComparisonScreen,
+      migrated185.RegionalManagerDashboardScreen,
+      migrated186.SchedulerCoordinatorAppointmentCalendarScreen,
+      migrated187.SchedulerCoordinatorAssignmentsScreen,
+      migrated188.SchedulerCoordinatorBookingRequestsScreen,
+      migrated189.SchedulerCoordinatorConflictsScreen,
+      migrated190.SchedulerCoordinatorOpenShiftsScreen,
+      migrated191.SchedulerCoordinatorProviderAvailabilityScreen,
+      migrated192.SchedulerCoordinatorReportsScreen,
+      migrated193.SchedulerCoordinatorShiftCalendarScreen,
+      migrated194.SchedulerDashboardScreen,
+      migrated195.AdminClaimsActionBarSection,
+      migrated196.AdminClaimsContentSummarySection,
+      migrated197.AdminClaimsHeaderSection,
+      migrated198.AdminClaimsPrimaryContentSection,
+      migrated199.AdminDashboardChartOverviewSection,
+      migrated200.AdminDashboardHeaderSection,
+      migrated201.AdminDashboardQuickActionsSection,
+      migrated202.AdminDashboardRecentActivitySection,
+      migrated203.AdminDashboardSummaryCardsSection,
+      migrated204.AdminInvoicesActionBarSection,
+      migrated205.AdminInvoicesContentSummarySection,
+      migrated206.AdminInvoicesHeaderSection,
+      migrated207.AdminInvoicesPrimaryContentSection,
+      migrated208.AdminOutstandingBalancesActionBarSection,
+      migrated209.AdminOutstandingBalancesContentSummarySection,
+      migrated210.AdminOutstandingBalancesHeaderSection,
+      migrated211.AdminOutstandingBalancesPrimaryContentSection,
+      migrated212.AdminPaymentsActionBarSection,
+      migrated213.AdminPaymentsContentSummarySection,
+      migrated214.AdminPaymentsHeaderSection,
+      migrated215.AdminPaymentsPrimaryContentSection,
+      migrated216.AdminReconciliationActionBarSection,
+      migrated217.AdminReconciliationContentSummarySection,
+      migrated218.AdminReconciliationHeaderSection,
+      migrated219.AdminReconciliationPrimaryContentSection,
+      migrated220.AdminRefundsActionBarSection,
+      migrated221.AdminRefundsContentSummarySection,
+      migrated222.AdminRefundsHeaderSection,
+      migrated223.AdminRefundsPrimaryContentSection,
+      migrated224.AdminReportsChartAreaSection,
+      migrated225.AdminReportsExportActionsSection,
+      migrated226.AdminReportsFilterBarSection,
+      migrated227.AdminReportsHeaderSection,
+      migrated228.AdminReportsMetricsSummarySection,
+      migrated229.BillingAdminInvoicesActionBarSection,
+      migrated230.BillingAdminInvoicesContentSummarySection,
+      migrated231.BillingAdminInvoicesHeaderSection,
+      migrated232.BillingAdminInvoicesPrimaryContentSection,
+      migrated233.FranchiseSalesManagerContractsActionBarSection,
+      migrated234.FranchiseSalesManagerContractsContentSummarySection,
+      migrated235.FranchiseSalesManagerContractsHeaderSection,
+      migrated236.FranchiseSalesManagerContractsPrimaryContentSection,
+      migrated237.FranchiseSalesManagerDiscoveryCallsActionBarSection,
+      migrated238.FranchiseSalesManagerDiscoveryCallsContentSummarySection,
+      migrated239.FranchiseSalesManagerDiscoveryCallsHeaderSection,
+      migrated240.FranchiseSalesManagerDiscoveryCallsPrimaryContentSection,
+      migrated241.FranchiseSalesManagerFollowUpsActionBarSection,
+      migrated242.FranchiseSalesManagerFollowUpsContentSummarySection,
+      migrated243.FranchiseSalesManagerFollowUpsHeaderSection,
+      migrated244.FranchiseSalesManagerFollowUpsPrimaryContentSection,
+      migrated245.FranchiseSalesManagerLeadsActionBarSection,
+      migrated246.FranchiseSalesManagerLeadsContentSummarySection,
+      migrated247.FranchiseSalesManagerLeadsHeaderSection,
+      migrated248.FranchiseSalesManagerLeadsPrimaryContentSection,
+      migrated249.FranchiseSalesManagerProposalsActionBarSection,
+      migrated250.FranchiseSalesManagerProposalsContentSummarySection,
+      migrated251.FranchiseSalesManagerProposalsHeaderSection,
+      migrated252.FranchiseSalesManagerProposalsPrimaryContentSection,
+      migrated253.FranchiseSalesManagerProspectsActionBarSection,
+      migrated254.FranchiseSalesManagerProspectsContentSummarySection,
+      migrated255.FranchiseSalesManagerProspectsHeaderSection,
+      migrated256.FranchiseSalesManagerProspectsPrimaryContentSection,
+      migrated257.FranchiseSalesManagerReportsChartAreaSection,
+      migrated258.FranchiseSalesManagerReportsExportActionsSection,
+      migrated259.FranchiseSalesManagerReportsFilterBarSection,
+      migrated260.FranchiseSalesManagerReportsHeaderSection,
+      migrated261.FranchiseSalesManagerReportsMetricsSummarySection,
+      migrated262.FranchiseSalesManagerSalesPipelineActionBarSection,
+      migrated263.FranchiseSalesManagerSalesPipelineContentSummarySection,
+      migrated264.FranchiseSalesManagerSalesPipelineHeaderSection,
+      migrated265.FranchiseSalesManagerSalesPipelinePrimaryContentSection,
+      migrated266.RegionalBdmFranchisePipelineActionBarSection,
+      migrated267.RegionalBdmFranchisePipelineContentSummarySection,
+      migrated268.RegionalBdmFranchisePipelineHeaderSection,
+      migrated269.RegionalBdmFranchisePipelinePrimaryContentSection,
+      migrated270.HrHiringApplicantsScreen,
+      migrated271.HrHiringCredentialsScreen,
+      migrated272.HrHiringDashboardScreen,
+      migrated273.HrHiringInterviewsScreen,
+      migrated274.HrHiringOffersScreen,
+      migrated275.HrHiringOnboardingScreen,
+      migrated276.HrHiringReportsChartAreaSection,
+      migrated277.HrHiringReportsExportActionsSection,
+      migrated278.HrHiringReportsFilterBarSection,
+      migrated279.HrHiringReportsHeaderSection,
+      migrated280.HrHiringReportsMetricsSummarySection,
+      migrated281.HrHiringReportsScreenState,
+      migrated282.HrHiringStaffDocumentsActionBarSection,
+      migrated283.HrHiringStaffDocumentsContentSummarySection,
+      migrated284.HrHiringStaffDocumentsHeaderSection,
+      migrated285.HrHiringStaffDocumentsPrimaryContentSection,
+      migrated286.HrHiringStaffDocumentsScreenState,
+      migrated287.HrHiringTrainingStatusActionBarSection,
+      migrated288.HrHiringTrainingStatusContentSummarySection,
+      migrated289.HrHiringTrainingStatusHeaderSection,
+      migrated290.HrHiringTrainingStatusPrimaryContentSection,
+      migrated291.HrHiringTrainingStatusScreenState,
+      migrated292.HrHiringReportsChartAreaSection,
+      migrated293.HrHiringReportsExportActionsSection,
+      migrated294.HrHiringReportsFilterBarSection,
+      migrated295.HrHiringReportsHeaderSection,
+      migrated296.HrHiringReportsMetricsSummarySection,
+      migrated297.HrHiringStaffDocumentsActionBarSection,
+      migrated298.HrHiringStaffDocumentsContentSummarySection,
+      migrated299.HrHiringStaffDocumentsHeaderSection,
+      migrated300.HrHiringStaffDocumentsPrimaryContentSection,
+      migrated301.HrHiringTrainingStatusActionBarSection,
+      migrated302.HrHiringTrainingStatusContentSummarySection,
+      migrated303.HrHiringTrainingStatusHeaderSection,
+      migrated304.HrHiringTrainingStatusPrimaryContentSection,
+      migrated305.MarketingManagerCampaignsActionBarSection,
+      migrated306.MarketingManagerCampaignsContentSummarySection,
+      migrated307.MarketingManagerCampaignsHeaderSection,
+      migrated308.MarketingManagerCampaignsPrimaryContentSection,
+      migrated309.MarketingManagerCampaignsScreenState,
+      migrated310.MarketingManagerDashboardChartOverviewSection,
+      migrated311.MarketingManagerDashboardHeaderSection,
+      migrated312.MarketingManagerDashboardQuickActionsSection,
+      migrated313.MarketingManagerDashboardRecentActivitySection,
+      migrated314.MarketingManagerDashboardSummaryCardsSection,
+      migrated315.MarketingManagerDashboardScreenState,
+      migrated316.MarketingManagerCampaignsActionBarSection,
+      migrated317.MarketingManagerCampaignsContentSummarySection,
+      migrated318.MarketingManagerCampaignsHeaderSection,
+      migrated319.MarketingManagerCampaignsPrimaryContentSection,
+      migrated320.MarketingManagerDashboardChartOverviewSection,
+      migrated321.MarketingManagerDashboardHeaderSection,
+      migrated322.MarketingManagerDashboardQuickActionsSection,
+      migrated323.MarketingManagerDashboardRecentActivitySection,
+      migrated324.MarketingManagerDashboardSummaryCardsSection,
+      migrated325.OperationsManagerAttendanceActionBarSection,
+      migrated326.OperationsManagerAttendanceContentSummarySection,
+      migrated327.OperationsManagerAttendanceHeaderSection,
+      migrated328.OperationsManagerAttendancePrimaryContentSection,
+      migrated329.OperationsManagerAttendanceScreenState,
+      migrated330.OperationsManagerDailyOperationsActionBarSection,
+      migrated331.OperationsManagerDailyOperationsContentSummarySection,
+      migrated332.OperationsManagerDailyOperationsHeaderSection,
+      migrated333.OperationsManagerDailyOperationsPrimaryContentSection,
+      migrated334.OperationsManagerDailyOperationsScreenState,
+      migrated335.OperationsManagerDashboardScreen,
+      migrated336.OperationsManagerIssuesActionBarSection,
+      migrated337.OperationsManagerIssuesContentSummarySection,
+      migrated338.OperationsManagerIssuesHeaderSection,
+      migrated339.OperationsManagerIssuesPrimaryContentSection,
+      migrated340.OperationsManagerIssuesScreenState,
+      migrated341.OperationsManagerReportsChartAreaSection,
+      migrated342.OperationsManagerReportsExportActionsSection,
+      migrated343.OperationsManagerReportsFilterBarSection,
+      migrated344.OperationsManagerReportsHeaderSection,
+      migrated345.OperationsManagerReportsMetricsSummarySection,
+      migrated346.OperationsManagerReportsScreenState,
+      migrated347.OperationsManagerScheduleActionBarSection,
+      migrated348.OperationsManagerScheduleAppointmentDetailsSection,
+      migrated349.OperationsManagerScheduleCalendarControlsSection,
+      migrated350.OperationsManagerScheduleHeaderSection,
+      migrated351.OperationsManagerScheduleScheduleListSection,
+      migrated352.OperationsManagerScheduleScreenState,
+      migrated353.OperationsManagerServiceQualityActionBarSection,
+      migrated354.OperationsManagerServiceQualityContentSummarySection,
+      migrated355.OperationsManagerServiceQualityHeaderSection,
+      migrated356.OperationsManagerServiceQualityPrimaryContentSection,
+      migrated357.OperationsManagerServiceQualityScreenState,
+      migrated358.OperationsManagerShiftsActionBarSection,
+      migrated359.OperationsManagerShiftsContentSummarySection,
+      migrated360.OperationsManagerShiftsHeaderSection,
+      migrated361.OperationsManagerShiftsPrimaryContentSection,
+      migrated362.OperationsManagerShiftsScreenState,
+      migrated363.OperationsManagerStaffCoordinationActionBarSection,
+      migrated364.OperationsManagerStaffCoordinationContentSummarySection,
+      migrated365.OperationsManagerStaffCoordinationHeaderSection,
+      migrated366.OperationsManagerStaffCoordinationPrimaryContentSection,
+      migrated367.OperationsManagerStaffCoordinationScreenState,
+      migrated368.OperationsManagerAttendanceActionBarSection,
+      migrated369.OperationsManagerAttendanceContentSummarySection,
+      migrated370.OperationsManagerAttendanceHeaderSection,
+      migrated371.OperationsManagerAttendancePrimaryContentSection,
+      migrated372.OperationsManagerDailyOperationsActionBarSection,
+      migrated373.OperationsManagerDailyOperationsContentSummarySection,
+      migrated374.OperationsManagerDailyOperationsHeaderSection,
+      migrated375.OperationsManagerDailyOperationsPrimaryContentSection,
+      migrated376.OperationsManagerIssuesActionBarSection,
+      migrated377.OperationsManagerIssuesContentSummarySection,
+      migrated378.OperationsManagerIssuesHeaderSection,
+      migrated379.OperationsManagerIssuesPrimaryContentSection,
+      migrated380.OperationsManagerReportsChartAreaSection,
+      migrated381.OperationsManagerReportsExportActionsSection,
+      migrated382.OperationsManagerReportsFilterBarSection,
+      migrated383.OperationsManagerReportsHeaderSection,
+      migrated384.OperationsManagerReportsMetricsSummarySection,
+      migrated385.OperationsManagerScheduleActionBarSection,
+      migrated386.OperationsManagerScheduleAppointmentDetailsSection,
+      migrated387.OperationsManagerScheduleCalendarControlsSection,
+      migrated388.OperationsManagerScheduleHeaderSection,
+      migrated389.OperationsManagerScheduleScheduleListSection,
+      migrated390.OperationsManagerServiceQualityActionBarSection,
+      migrated391.OperationsManagerServiceQualityContentSummarySection,
+      migrated392.OperationsManagerServiceQualityHeaderSection,
+      migrated393.OperationsManagerServiceQualityPrimaryContentSection,
+      migrated394.OperationsManagerShiftsActionBarSection,
+      migrated395.OperationsManagerShiftsContentSummarySection,
+      migrated396.OperationsManagerShiftsHeaderSection,
+      migrated397.OperationsManagerShiftsPrimaryContentSection,
+      migrated398.OperationsManagerStaffCoordinationActionBarSection,
+      migrated399.OperationsManagerStaffCoordinationContentSummarySection,
+      migrated400.OperationsManagerStaffCoordinationHeaderSection,
+      migrated401.OperationsManagerStaffCoordinationPrimaryContentSection,
+      migrated402.FranchiseOwnerAppointmentsScreen,
+      migrated403.FranchiseOwnerBranchOverviewScreen,
+      migrated404.FranchiseOwnerClientsScreen,
+      migrated405.FranchiseOwnerComplianceScreen,
+      migrated406.FranchiseOwnerDashboardChartOverviewSection,
+      migrated407.FranchiseOwnerDashboardHeaderSection,
+      migrated408.FranchiseOwnerDashboardQuickActionsSection,
+      migrated409.FranchiseOwnerDashboardRecentActivitySection,
+      migrated410.FranchiseOwnerDashboardSummaryCardsSection,
+      migrated411.FranchiseOwnerDashboardScreenState,
+      migrated412.FranchiseOwnerFinancialSnapshotActionBarSection,
+      migrated413.FranchiseOwnerFinancialSnapshotContentSummarySection,
+      migrated414.FranchiseOwnerFinancialSnapshotHeaderSection,
+      migrated415.FranchiseOwnerFinancialSnapshotPrimaryContentSection,
+      migrated416.FranchiseOwnerFinancialSnapshotScreenState,
+      migrated417.FranchiseOwnerHiringActionBarSection,
+      migrated418.FranchiseOwnerHiringContentSummarySection,
+      migrated419.FranchiseOwnerHiringHeaderSection,
+      migrated420.FranchiseOwnerHiringPrimaryContentSection,
+      migrated421.FranchiseOwnerHiringScreenState,
+      migrated422.FranchiseOwnerReportsScreen,
+      migrated423.FranchiseOwnerStaffScreen,
+      migrated424.FranchiseOwnerDashboardChartOverviewSection,
+      migrated425.FranchiseOwnerDashboardHeaderSection,
+      migrated426.FranchiseOwnerDashboardQuickActionsSection,
+      migrated427.FranchiseOwnerDashboardRecentActivitySection,
+      migrated428.FranchiseOwnerDashboardSummaryCardsSection,
+      migrated429.FranchiseOwnerFinancialSnapshotActionBarSection,
+      migrated430.FranchiseOwnerFinancialSnapshotContentSummarySection,
+      migrated431.FranchiseOwnerFinancialSnapshotHeaderSection,
+      migrated432.FranchiseOwnerFinancialSnapshotPrimaryContentSection,
+      migrated433.FranchiseOwnerHiringActionBarSection,
+      migrated434.FranchiseOwnerHiringContentSummarySection,
+      migrated435.FranchiseOwnerHiringHeaderSection,
+      migrated436.FranchiseOwnerHiringPrimaryContentSection,
+      migrated437.RegionalManagerBranchComparisonActionBarSection,
+      migrated438.RegionalManagerBranchComparisonContentSummarySection,
+      migrated439.RegionalManagerBranchComparisonHeaderSection,
+      migrated440.RegionalManagerBranchComparisonPrimaryContentSection,
+      migrated441.RegionalManagerBranchComparisonScreenState,
+      migrated442.RegionalManagerDashboardChartOverviewSection,
+      migrated443.RegionalManagerDashboardHeaderSection,
+      migrated444.RegionalManagerDashboardQuickActionsSection,
+      migrated445.RegionalManagerDashboardRecentActivitySection,
+      migrated446.RegionalManagerDashboardSummaryCardsSection,
+      migrated447.RegionalManagerDashboardScreenState,
+      migrated448.RegionalManagerBranchComparisonActionBarSection,
+      migrated449.RegionalManagerBranchComparisonContentSummarySection,
+      migrated450.RegionalManagerBranchComparisonHeaderSection,
+      migrated451.RegionalManagerBranchComparisonPrimaryContentSection,
+      migrated452.RegionalManagerDashboardChartOverviewSection,
+      migrated453.RegionalManagerDashboardHeaderSection,
+      migrated454.RegionalManagerDashboardQuickActionsSection,
+      migrated455.RegionalManagerDashboardRecentActivitySection,
+      migrated456.RegionalManagerDashboardSummaryCardsSection,
+      migrated457.SchedulerDashboardScreen,
+      migrated458.SchedulerCoordinatorAppointmentCalendarActionBarSection,
+      migrated459.SchedulerCoordinatorAppointmentCalendarAppointmentDetailsSection,
+      migrated460.SchedulerCoordinatorAppointmentCalendarCalendarControlsSection,
+      migrated461.SchedulerCoordinatorAppointmentCalendarHeaderSection,
+      migrated462.SchedulerCoordinatorAppointmentCalendarScheduleListSection,
+      migrated463.SchedulerCoordinatorAppointmentCalendarScreenState,
+      migrated464.SchedulerCoordinatorAssignmentsActionBarSection,
+      migrated465.SchedulerCoordinatorAssignmentsAppointmentDetailsSection,
+      migrated466.SchedulerCoordinatorAssignmentsCalendarControlsSection,
+      migrated467.SchedulerCoordinatorAssignmentsHeaderSection,
+      migrated468.SchedulerCoordinatorAssignmentsScheduleListSection,
+      migrated469.SchedulerCoordinatorAssignmentsScreenState,
+      migrated470.SchedulerCoordinatorBookingRequestsActionBarSection,
+      migrated471.SchedulerCoordinatorBookingRequestsFormBodySection,
+      migrated472.SchedulerCoordinatorBookingRequestsHeaderSection,
+      migrated473.SchedulerCoordinatorBookingRequestsValidationMessagesSection,
+      migrated474.SchedulerCoordinatorBookingRequestsScreenState,
+      migrated475.SchedulerCoordinatorConflictsActionBarSection,
+      migrated476.SchedulerCoordinatorConflictsAppointmentDetailsSection,
+      migrated477.SchedulerCoordinatorConflictsCalendarControlsSection,
+      migrated478.SchedulerCoordinatorConflictsHeaderSection,
+      migrated479.SchedulerCoordinatorConflictsScheduleListSection,
+      migrated480.SchedulerCoordinatorConflictsScreenState,
+      migrated481.SchedulerCoordinatorOpenShiftsActionBarSection,
+      migrated482.SchedulerCoordinatorOpenShiftsAppointmentDetailsSection,
+      migrated483.SchedulerCoordinatorOpenShiftsCalendarControlsSection,
+      migrated484.SchedulerCoordinatorOpenShiftsHeaderSection,
+      migrated485.SchedulerCoordinatorOpenShiftsScheduleListSection,
+      migrated486.SchedulerCoordinatorOpenShiftsScreenState,
+      migrated487.SchedulerCoordinatorProviderAvailabilityActionBarSection,
+      migrated488.SchedulerCoordinatorProviderAvailabilityAppointmentDetailsSection,
+      migrated489.SchedulerCoordinatorProviderAvailabilityCalendarControlsSection,
+      migrated490.SchedulerCoordinatorProviderAvailabilityHeaderSection,
+      migrated491.SchedulerCoordinatorProviderAvailabilityScheduleListSection,
+      migrated492.SchedulerCoordinatorProviderAvailabilityScreenState,
+      migrated493.SchedulerCoordinatorReportsActionBarSection,
+      migrated494.SchedulerCoordinatorReportsAppointmentDetailsSection,
+      migrated495.SchedulerCoordinatorReportsCalendarControlsSection,
+      migrated496.SchedulerCoordinatorReportsHeaderSection,
+      migrated497.SchedulerCoordinatorReportsScheduleListSection,
+      migrated498.SchedulerCoordinatorReportsScreenState,
+      migrated499.SchedulerCoordinatorShiftCalendarActionBarSection,
+      migrated500.SchedulerCoordinatorShiftCalendarAppointmentDetailsSection,
+      migrated501.SchedulerCoordinatorShiftCalendarCalendarControlsSection,
+      migrated502.SchedulerCoordinatorShiftCalendarHeaderSection,
+      migrated503.SchedulerCoordinatorShiftCalendarScheduleListSection,
+      migrated504.SchedulerCoordinatorShiftCalendarScreenState,
+      migrated505.SchedulerCoordinatorAppointmentCalendarActionBarSection,
+      migrated506.SchedulerCoordinatorAppointmentCalendarAppointmentDetailsSection,
+      migrated507.SchedulerCoordinatorAppointmentCalendarCalendarControlsSection,
+      migrated508.SchedulerCoordinatorAppointmentCalendarHeaderSection,
+      migrated509.SchedulerCoordinatorAppointmentCalendarScheduleListSection,
+      migrated510.SchedulerCoordinatorAssignmentsActionBarSection,
+      migrated511.SchedulerCoordinatorAssignmentsAppointmentDetailsSection,
+      migrated512.SchedulerCoordinatorAssignmentsCalendarControlsSection,
+      migrated513.SchedulerCoordinatorAssignmentsHeaderSection,
+      migrated514.SchedulerCoordinatorAssignmentsScheduleListSection,
+      migrated515.SchedulerCoordinatorBookingRequestsActionBarSection,
+      migrated516.SchedulerCoordinatorBookingRequestsFormBodySection,
+      migrated517.SchedulerCoordinatorBookingRequestsHeaderSection,
+      migrated518.SchedulerCoordinatorBookingRequestsValidationMessagesSection,
+      migrated519.SchedulerCoordinatorConflictsActionBarSection,
+      migrated520.SchedulerCoordinatorConflictsAppointmentDetailsSection,
+      migrated521.SchedulerCoordinatorConflictsCalendarControlsSection,
+      migrated522.SchedulerCoordinatorConflictsHeaderSection,
+      migrated523.SchedulerCoordinatorConflictsScheduleListSection,
+      migrated524.SchedulerCoordinatorOpenShiftsActionBarSection,
+      migrated525.SchedulerCoordinatorOpenShiftsAppointmentDetailsSection,
+      migrated526.SchedulerCoordinatorOpenShiftsCalendarControlsSection,
+      migrated527.SchedulerCoordinatorOpenShiftsHeaderSection,
+      migrated528.SchedulerCoordinatorOpenShiftsScheduleListSection,
+      migrated529.SchedulerCoordinatorProviderAvailabilityActionBarSection,
+      migrated530.SchedulerCoordinatorProviderAvailabilityAppointmentDetailsSection,
+      migrated531.SchedulerCoordinatorProviderAvailabilityCalendarControlsSection,
+      migrated532.SchedulerCoordinatorProviderAvailabilityHeaderSection,
+      migrated533.SchedulerCoordinatorProviderAvailabilityScheduleListSection,
+      migrated534.SchedulerCoordinatorReportsActionBarSection,
+      migrated535.SchedulerCoordinatorReportsAppointmentDetailsSection,
+      migrated536.SchedulerCoordinatorReportsCalendarControlsSection,
+      migrated537.SchedulerCoordinatorReportsHeaderSection,
+      migrated538.SchedulerCoordinatorReportsScheduleListSection,
+      migrated539.SchedulerCoordinatorShiftCalendarActionBarSection,
+      migrated540.SchedulerCoordinatorShiftCalendarAppointmentDetailsSection,
+      migrated541.SchedulerCoordinatorShiftCalendarCalendarControlsSection,
+      migrated542.SchedulerCoordinatorShiftCalendarHeaderSection,
+      migrated543.SchedulerCoordinatorShiftCalendarScheduleListSection,
     ];
-    expect(migratedTypes, hasLength(44));
+    expect(migratedTypes, hasLength(544));
   });
 }

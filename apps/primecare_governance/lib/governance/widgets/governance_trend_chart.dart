@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Trend Chart platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -33,7 +34,7 @@ class GovernanceTrendChart extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
+                  PrimeText(
                     'Architectural Health Trend',
                     style: GoogleFonts.outfit(
                       fontSize: 18,
@@ -41,7 +42,7 @@ class GovernanceTrendChart extends StatelessWidget {
                       color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
-                  Text(
+                  PrimeText(
                     'Stability metrics over the last 30 snapshots',
                     style: GoogleFonts.inter(
                       fontSize: 13,
@@ -95,7 +96,7 @@ class GovernanceTrendChart extends StatelessWidget {
                             trendData[value.toInt()]['date'] as DateTime;
                         return Padding(
                           padding: const EdgeInsets.only(top: 8.0),
-                          child: Text(
+                          child: PrimeText(
                             DateFormat('MM/dd').format(date),
                             style: GoogleFonts.inter(
                               fontSize: 10,
@@ -114,7 +115,7 @@ class GovernanceTrendChart extends StatelessWidget {
                       interval: 20,
                       reservedSize: 42,
                       getTitlesWidget: (value, meta) {
-                        return Text(
+                        return PrimeText(
                           '${value.toInt()}%',
                           style: GoogleFonts.inter(
                             fontSize: 10,
@@ -198,7 +199,7 @@ class GovernanceTrendChart extends StatelessWidget {
             color: isUp ? Colors.green : Colors.red,
           ),
           const SizedBox(width: 4),
-          Text(
+          PrimeText(
             '${diff.abs().toStringAsFixed(1)}%',
             style: GoogleFonts.inter(
               fontSize: 12,
@@ -232,7 +233,7 @@ class GovernanceTrendChart extends StatelessWidget {
               ).colorScheme.onSurface.withValues(alpha: 0.2),
             ),
             const SizedBox(height: 16),
-            Text(
+            PrimeText(
               'No Trend Data Available',
               style: GoogleFonts.outfit(
                 fontSize: 16,
@@ -242,7 +243,7 @@ class GovernanceTrendChart extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
+            PrimeText(
               'Capture snapshots to track platform health.',
               style: GoogleFonts.inter(
                 fontSize: 12,

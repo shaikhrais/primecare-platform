@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_reports_screen_controller.dart';
@@ -15,12 +16,12 @@ class PswReportsScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswreports-screen'),
       appBar: AppBar(
-        title: Semantics(label: 'data-cy:pswreports-title', container: true, child: Container(child:  const Text('PswReports'))),
+        title: Semantics(label: 'data-cy:pswreports-title', container: true, child: Container(child:  const PrimeText('PswReports'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     )
     );
@@ -33,7 +34,7 @@ class PswReportsScreen extends ConsumerWidget {
         children: [
           const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'PswReportsScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

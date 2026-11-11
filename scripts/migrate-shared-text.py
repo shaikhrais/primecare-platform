@@ -14,7 +14,7 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location('boundary', Path(__file__).with_name('check-shared-ui-boundary.py'))
 boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
-SHARED = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*;")
+SHARED = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:show\s+PrimeText\s*)?;")
 MATERIAL = re.compile(r"\bimport\s+(['\"])package:flutter/material.dart\1\s*;")
 CALL = re.compile(r'(?<![\w.])Text\s*\(')
 PARAMETERS = {'key', 'style', 'textAlign', 'maxLines', 'overflow'}
@@ -55,13 +55,14 @@ def compatible(code, start):
     return True
 
 
-def migrate(source):
+def migrate(source, add_import=False):
     # Import text is inspected separately because the lexer masks string literals.
     # Require real, top-level imports, not examples embedded in comments/strings.
     code = boundary.executable_code(source)
     def imported(pattern):
         return any(code[m.start():].startswith('import') for m in pattern.finditer(source))
-    if not imported(SHARED) or not imported(MATERIAL):
+    has_shared = imported(SHARED)
+    if not imported(MATERIAL) or not (has_shared or add_import):
         return source, 0
     # A local declaration or constructor/type alias makes symbol ownership unclear.
     if re.search(r'\b(?:class|typedef|mixin|enum)\s+(?:Text|PrimeText)\b', code):
@@ -81,13 +82,30 @@ def migrate(source):
              and compatible(code, m.end())]
     for offset in reversed(edits):
         source = source[:offset] + 'PrimeText' + source[offset + 4:]
+    if edits and not has_shared:
+        # Before an existing import, after any library directive/doc comments.
+        position = next(m.start() for m in MATERIAL.finditer(source)
+                        if boundary.executable_code(source)[m.start():].startswith('import'))
+        source = source[:position] + "import 'package:primecare_ui/primecare_ui.dart' show PrimeText;\n" + source[position:]
     return source, len(edits)
+
+
+def shared_dependency(pubspec):
+    section = None
+    for line in pubspec.splitlines():
+        if line and not line[0].isspace() and not line.startswith('#'):
+            section = line.split(':', 1)[0]
+        if section == 'dependencies' and re.match(r'^  primecare_ui\s*:', line):
+            return True
+    return False
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--apply', action='store_true')
+    parser.add_argument('--add-imports', action='store_true',
+                        help='Add a narrow PrimeText import only when the app declares primecare_ui as a runtime dependency')
     parser.add_argument('--path', action='append', help='Optional app lib file/directory relative to root; repeat for more scopes')
     args = parser.parse_args()
     root = args.root.resolve()
@@ -102,7 +120,9 @@ def main():
         if path.suffix != '.dart' or 'lib' not in path.relative_to(root).parts or path.is_symlink() or not path.resolve().is_relative_to(root / 'apps'):
             continue
         original = path.read_text(encoding='utf-8')
-        updated, count = migrate(original)
+        pubspec = root / Path(*path.relative_to(root).parts[:2]) / 'pubspec.yaml'
+        add_import = args.add_imports and pubspec.is_file() and shared_dependency(pubspec.read_text(encoding='utf-8'))
+        updated, count = migrate(original, add_import=add_import)
         if not count:
             continue
         if args.apply:

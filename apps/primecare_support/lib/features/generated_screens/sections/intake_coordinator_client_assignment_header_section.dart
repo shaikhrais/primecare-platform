@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Header Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class IntakeCoordinatorClientAssignmentHeaderSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class IntakeCoordinatorClientAssignmentHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Header Section Section'),
+      child: PrimeText('Header Section Section'),
     );
   }
 }
