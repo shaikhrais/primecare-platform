@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeChoiceChip, PrimeSwitchListTile;
 /*
 PRIME:SCREEN=sso_redirect
 PRIME:DESIGN=DESIGN_APPROVED
@@ -151,7 +152,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   spacing: 8,
                   children: ['Google Auth', 'Okta Identity', 'Azure AD'].map((prov) {
                     final isSel = _selectedProvider == prov;
-                    return ChoiceChip(
+                    return PrimeChoiceChip(
                       label: PrimeText(prov),
                       selected: isSel,
                       onSelected: (selected) {
@@ -163,7 +164,7 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   }).toList(),
                 ),
                 const SizedBox(height: 16),
-                SwitchListTile(
+                PrimeSwitchListTile(
                   title: const PrimeText('Use system web browser'),
                   subtitle: const PrimeText('Recommended for secure credential sharing'),
                   value: _useSystemBrowser,

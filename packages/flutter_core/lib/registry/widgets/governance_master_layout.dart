@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeListTile, PrimePopupMenuButton;
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/prime_semantic_palette.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAppBar;
@@ -360,7 +361,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             container: true,
                             child: KeyedSubtree(
                               key: const Key('topbar-language-switcher'),
-                              child: PopupMenuButton<String>(
+                              child: PrimePopupMenuButton<String>(
                                 offset: const Offset(0, 48),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -445,7 +446,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             container: true,
                             child: KeyedSubtree(
                               key: const Key('topbar-user-menu'),
-                              child: PopupMenuButton<String>(
+                              child: PrimePopupMenuButton<String>(
                                 offset: const Offset(0, 48),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12),
@@ -622,7 +623,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     final isSelected = currentRoute == screen.route;
                     return Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                      child: ListTile(
+                      child: PrimeListTile(
                         dense: true,
                         contentPadding: collapsed ? const EdgeInsets.symmetric(horizontal: 8) : const EdgeInsets.symmetric(horizontal: 16, vertical: 0),
                         shape: RoundedRectangleBorder(
@@ -687,7 +688,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
     );
 
     if (isDrawer) {
-      return Drawer(
+      return PrimeDrawer(
         backgroundColor: sidebarBg,
         surfaceTintColor: Theme.of(context).colorScheme.surface.withValues(alpha: 0),
         shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),

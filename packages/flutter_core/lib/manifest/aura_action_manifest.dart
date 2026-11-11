@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeAlertDialog;
 import 'package:flutter_core/theme/prime_semantic_palette.dart';
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Centralized service for mapping Aura anomalies to platform mitigation tasks. Decouples UI tr...
 // Layer: 01_INFRASTRUCTURE
@@ -83,7 +84,7 @@ class AuraActionManifest {
   ) {
     showDialog<void>(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => PrimeAlertDialog(
         backgroundColor: Theme.of(context).colorScheme.surface,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),

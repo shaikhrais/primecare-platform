@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeSwitchListTile;
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
@@ -31,7 +32,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
 
     final presetsList = themeCenterPresetNames;
 
-    return Drawer(
+    return PrimeDrawer(
       child: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +274,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   const SizedBox(height: 12),
 
                   // Text Direction (RTL / LTR)
-                  SwitchListTile(
+                  PrimeSwitchListTile(
                     title: const PrimeText('RTL Direction'),
                     subtitle: const PrimeText('Flip elements layout direction'),
                     value: settings.direction == TextDirection.rtl,
@@ -285,7 +286,7 @@ class ThemeSettingsDrawer extends ConsumerWidget {
                   ),
 
                   // Custom Scrollbars
-                  SwitchListTile(
+                  PrimeSwitchListTile(
                     title: const PrimeText('Custom Scrollbars'),
                     subtitle: const PrimeText('Use clean styled scroll bars'),
                     value: settings.customScrollbars,

@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../original_assets.dart';
@@ -183,7 +184,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
   }
   void _openDrawer(){
     if(_dialog!=null)return;final nav=Navigator.of(context);final route=DialogRoute<void>(context:context,barrierDismissible:true,
-      builder:(_)=>Align(alignment:AlignmentDirectional.centerStart,child:SizedBox(width:math.min(340,MediaQuery.sizeOf(context).width-44),child:Drawer(child:SafeArea(child:ValueListenableBuilder<int>(valueListenable:_dialogUpdates,builder:(_,value,child)=>_panel(drawer:true)))))));
+      builder:(_)=>Align(alignment:AlignmentDirectional.centerStart,child:SizedBox(width:math.min(340,MediaQuery.sizeOf(context).width-44),child:PrimeDrawer(child:SafeArea(child:ValueListenableBuilder<int>(valueListenable:_dialogUpdates,builder:(_,value,child)=>_panel(drawer:true)))))));
     _dialog=route;_navigator=nav;nav.push(route).whenComplete((){if(identical(_dialog,route)){_dialog=null;_navigator=null;}});
   }
   @override Widget build(BuildContext context){
