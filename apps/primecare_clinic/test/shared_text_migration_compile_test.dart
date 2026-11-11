@@ -268,6 +268,11 @@ import 'package:primecare_clinic/features/shared/screens/sections/clinic_inciden
 import 'package:primecare_clinic/features/shared/screens/sections/clinic_incident_report_header_section.dart' as migrated264;
 import 'package:primecare_clinic/features/shared/screens/sections/clinic_incident_report_metrics_summary_section.dart' as migrated265;
 
+import 'package:primecare_clinic/features/generated_screens/caregiver_dashboard_screen.dart' as barrelText0;
+import 'package:primecare_clinic/features/generated_screens/intake_coordinator_referrals_screen.dart' as barrelText1;
+import 'package:primecare_clinic/features/generated_screens/psw_incident_report_screen.dart' as barrelText2;
+import 'package:primecare_clinic/features/generated_screens/rpn_dashboard_screen.dart' as barrelText3;
+
 void main() {
   test('migrated consumer libraries compile', () {
     const migratedTypes = <Type>[
@@ -537,7 +542,12 @@ void main() {
       migrated263.ClinicIncidentReportFilterBarSection,
       migrated264.ClinicIncidentReportHeaderSection,
       migrated265.ClinicIncidentReportMetricsSummarySection,
+      barrelText0.CaregiverDashboardScreen,
+      barrelText1.IntakeCoordinatorReferralsScreen,
+      barrelText2.PswIncidentReportScreen,
+      barrelText3.RpnDashboardScreen,
+
     ];
-    expect(migratedTypes, hasLength(266));
+    expect(migratedTypes, hasLength(270));
   });
 }

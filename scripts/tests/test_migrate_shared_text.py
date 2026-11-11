@@ -73,7 +73,7 @@ final label = "Text('literal') ${Text('interpolation')}";
         self.assertEqual(migration.migrate(result), (result, 0))
 
     def test_requires_real_unrestricted_imports(self):
-        for imports in ['', '// ' + IMPORTS, IMPORTS.replace("primecare_ui.dart';", "primecare_ui.dart' as ui;"), IMPORTS.replace("primecare_ui.dart';", "primecare_ui.dart' show Other;"), '/*' + IMPORTS + '*/']:
+        for imports in ['', '// ' + IMPORTS.replace('\n', '\n// '), IMPORTS.replace("primecare_ui.dart';", "primecare_ui.dart' as ui;"), IMPORTS.replace("primecare_ui.dart';", "primecare_ui.dart' show Other;"), '/*' + IMPORTS + '*/']:
             source = imports + "\nText('x');"
             self.assertEqual(migration.migrate(source), (source, 0))
 
@@ -97,3 +97,18 @@ final label = "Text('literal') ${Text('interpolation')}";
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class SharedBarrelTextTests(unittest.TestCase):
+    def test_shared_barrel_and_unrelated_hides_preserve_labels_and_styles(self):
+        for clause in ['', ' hide ScreenRegistry', ' hide ScreenRegistry, languageProvider']:
+            source = "import 'package:primecare_ui/primecare_ui.dart'" + clause + "; Text(localize(key), style: theme.typography.body);"
+            result, count = migration.migrate(source)
+            self.assertEqual(count, 1)
+            self.assertEqual(result, source.replace(' Text(', ' PrimeText('))
+            self.assertEqual(migration.migrate(result), (result, 0))
+
+    def test_hidden_or_aliased_text_symbols_stay(self):
+        for clause in [' hide Text', ' hide PrimeText', ' as ui', ' show PrimeText']:
+            source = "import 'package:primecare_ui/primecare_ui.dart'" + clause + "; Text('Care');"
+            self.assertEqual(migration.migrate(source), (source, 0))

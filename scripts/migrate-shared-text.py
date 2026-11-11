@@ -2,8 +2,8 @@
 """Conservatively migrate compatible app Text calls to the shared PrimeText.
 
 Dry run by default. --apply writes only eligible calls; unsupported signatures,
-qualified calls, strings/comments and files without an unrestricted shared import
-remain unchanged. The strict boundary check still reports remaining violations.
+qualified calls and strings/comments remain unchanged. Shared barrel imports
+(including unrelated hide lists) supply both Material and shared text symbols. The strict boundary check still reports remaining violations.
 """
 import argparse
 import importlib.util
@@ -15,6 +15,7 @@ spec = importlib.util.spec_from_file_location('boundary', Path(__file__).with_na
 boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
 SHARED = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:show\s+PrimeText\s*)?;")
+BARREL = re.compile(r"\bimport\s+(['\"])package:primecare_ui/primecare_ui.dart\1\s*(?:hide\s+([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*)?;")
 MATERIAL = re.compile(r"\bimport\s+(['\"])package:flutter/material.dart\1\s*;")
 CALL = re.compile(r'(?<![\w.])Text\s*\(')
 PARAMETERS = {'key', 'style', 'textAlign', 'maxLines', 'overflow'}
@@ -64,8 +65,11 @@ def migrate(source, add_import=False):
     code = boundary.executable_code(source)
     def imported(pattern):
         return any(code[m.start():].startswith('import') for m in pattern.finditer(source))
-    has_shared = imported(SHARED)
-    if not imported(MATERIAL) or not (has_shared or add_import):
+    has_barrel = any(code[m.start():].startswith('import') and
+                     not {'Text', 'PrimeText'}.intersection(re.findall(r'\w+', m[2] or ''))
+                     for m in BARREL.finditer(source))
+    has_shared = imported(SHARED) or has_barrel
+    if not (imported(MATERIAL) or has_barrel) or not (has_shared or add_import):
         return source, 0
     # A local declaration or constructor/type alias makes symbol ownership unclear.
     if re.search(r'\b(?:class|typedef|mixin|enum)\s+(?:Text|PrimeText)\b', code):
