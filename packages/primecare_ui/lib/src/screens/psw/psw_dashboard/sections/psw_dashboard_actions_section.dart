@@ -30,7 +30,7 @@ class PswDashboardActionsSection extends ConsumerWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () => controller.addLog('EMERGENCY TRIGGERED: Care coordinator dispatched.'),
-                  child: Text('Emergency Action'.tr(), style: const TextStyle(color: Colors.white)),
+                  child: Text('Emergency Action'.tr(), style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent)),
                 ),
               ),
             ),
@@ -50,7 +50,7 @@ class PswDashboardActionsSection extends ConsumerWidget {
                   label: Text(state.isShiftActive ? 'Clock Out'.tr() : 'Clock In'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: state.isShiftActive ? theme.colors.error : theme.colors.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: state.isShiftActive ? PrimeActionPalette.of(context, PrimeActionTone.error).onAccent : PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () => controller.toggleShift(),
@@ -73,7 +73,7 @@ class PswDashboardActionsSection extends ConsumerWidget {
                   label: Text('Log Vitals'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {
@@ -145,7 +145,7 @@ class PswDashboardActionsSection extends ConsumerWidget {
                   label: Text('Report Incident'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.warning,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.warning).onAccent,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () {

@@ -177,7 +177,7 @@ class IncidentReportScreen extends GovernedConsumerWidget {
                         trendLabel: 'Zero exceptions logged',
                         progress: 1.0,
                         icon: LucideIcons.shieldCheck,
-                        brandColor: Colors.green,
+                        brandColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                       ),
                     ),
                   ],
@@ -256,21 +256,21 @@ class IncidentReportScreen extends GovernedConsumerWidget {
                               ? null
                               : () => controller.runComplianceScan(),
                           child: state.isLoading
-                              ? const SizedBox(
+                              ? SizedBox(
                                   height: 20,
                                   width: 20,
                                   child: CircularProgressIndicator(
                                     key: const Key('incidentreport-loading'),
                                     strokeWidth: 2,
                                     valueColor: AlwaysStoppedAnimation(
-                                      Colors.white,
+                                      PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                     ),
                                   ),
                                 )
                               : Text(
                                   'Execute Operational Audit Scan',
                                   style: theme.typography.button.copyWith(
-                                    color: Colors.white,
+                                    color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                   ),
                                 ),
                         ),

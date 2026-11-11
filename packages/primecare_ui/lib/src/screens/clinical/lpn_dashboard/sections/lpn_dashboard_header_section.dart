@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/material.dart';
 
 class LpnDashboardHeaderSection extends StatelessWidget {
@@ -13,10 +14,10 @@ class LpnDashboardHeaderSection extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('LPN Clinical Workspace', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            Text('Welcome back, Clinical Care Coordinator.', style: TextStyle(color: Colors.grey)),
+            Text('Welcome back, Clinical Care Coordinator.', style: TextStyle(color: context.theme.colors.onSurfaceVariant)),
           ],
         ),
       ),

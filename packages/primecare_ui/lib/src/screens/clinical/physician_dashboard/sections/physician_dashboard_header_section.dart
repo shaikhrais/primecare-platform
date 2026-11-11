@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter/material.dart';
 
 class PhysicianDashboardHeaderSection extends StatelessWidget {
@@ -13,10 +14,10 @@ class PhysicianDashboardHeaderSection extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
+          children: [
             Text('Physician Clinical Workspace', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             SizedBox(height: 4),
-            Text('Welcome back, Chief Medical Specialist.', style: TextStyle(color: Colors.grey)),
+            Text('Welcome back, Chief Medical Specialist.', style: TextStyle(color: context.theme.colors.onSurfaceVariant)),
           ],
         ),
       ),
