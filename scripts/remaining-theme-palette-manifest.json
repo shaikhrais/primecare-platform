@@ -1,0 +1,2236 @@
+[
+  {
+    "path": "apps/primecare_clinic/lib/features/generated_screens/caregiver_dashboard_screen.dart",
+    "sha256": "02d4cc732ed96a04615cae4bf2629d37ff611527f34e763146cc753f6d364f8d",
+    "updated_sha256": "69d52e78b62f06b8383ab8378641c20fe1f901b91c98f15071f654a6cf024df1",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 3314,
+        "end": 3320,
+        "old": "Colors",
+        "new": "PrimeActionPalette"
+      },
+      {
+        "begin": 3321,
+        "end": 3326,
+        "old": "green",
+        "new": "of(context, PrimeActionTone.success).accent"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_clinic/lib/features/generated_screens/rpn_dashboard_screen.dart",
+    "sha256": "cd59d73bd10ac1424c25db7c23b902cb71d3e1b9a2824a15920cce7114d30186",
+    "updated_sha256": "ebe2457346cee48bcd2550871a664f4df50528c12c5fcf1b46fce424d37e952b",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 3511,
+        "end": 3517,
+        "old": "Colors",
+        "new": "PrimeActionPalette"
+      },
+      {
+        "begin": 3518,
+        "end": 3523,
+        "old": "green",
+        "new": "of(context, PrimeActionTone.success).accent"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_clinic/lib/features/physician/screens/physician_dashboard_screen.dart",
+    "sha256": "ca3583be7bc0a4d43d28a515a09b78cc43751da98a41b05ff3addb2a17e1cd62",
+    "updated_sha256": "9e17f6832ba04747d06dce0affb2eda07c85566596160a9c72050e2668f085dc",
+    "calls": 7,
+    "edits": [
+      {
+        "begin": 2369,
+        "end": 2375,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 2626,
+        "end": 2631,
+        "old": "Color",
+        "new": "PrimeActionPalette.of"
+      },
+      {
+        "begin": 2632,
+        "end": 2633,
+        "old": "0",
+        "new": "conte"
+      },
+      {
+        "begin": 2634,
+        "end": 2642,
+        "old": "FF0D9488",
+        "new": "t, PrimeActionTone.primary"
+      },
+      {
+        "begin": 2643,
+        "end": 2643,
+        "old": "",
+        "new": ".accent"
+      },
+      {
+        "begin": 2916,
+        "end": 2921,
+        "old": "Color",
+        "new": "PrimeActionPalette.of"
+      },
+      {
+        "begin": 2922,
+        "end": 2923,
+        "old": "0",
+        "new": "conte"
+      },
+      {
+        "begin": 2924,
+        "end": 2928,
+        "old": "FF16",
+        "new": "t, Prime"
+      },
+      {
+        "begin": 2929,
+        "end": 2932,
+        "old": "34A",
+        "new": "ctionTone.success"
+      },
+      {
+        "begin": 2933,
+        "end": 2933,
+        "old": "",
+        "new": ".accent"
+      },
+      {
+        "begin": 3191,
+        "end": 3196,
+        "old": "Color",
+        "new": "PrimeActionPalette.of"
+      },
+      {
+        "begin": 3197,
+        "end": 3198,
+        "old": "0",
+        "new": "conte"
+      },
+      {
+        "begin": 3199,
+        "end": 3202,
+        "old": "FFE",
+        "new": "t, Prime"
+      },
+      {
+        "begin": 3203,
+        "end": 3207,
+        "old": "B308",
+        "new": "ctionTone.warning"
+      },
+      {
+        "begin": 3208,
+        "end": 3208,
+        "old": "",
+        "new": ".accent"
+      },
+      {
+        "begin": 3471,
+        "end": 3476,
+        "old": "Color",
+        "new": "PrimeActionPalette.of"
+      },
+      {
+        "begin": 3477,
+        "end": 3478,
+        "old": "0",
+        "new": "conte"
+      },
+      {
+        "begin": 3479,
+        "end": 3487,
+        "old": "FF2563EB",
+        "new": "t, PrimeActionTone.primary"
+      },
+      {
+        "begin": 3488,
+        "end": 3488,
+        "old": "",
+        "new": ".accent"
+      },
+      {
+        "begin": 4979,
+        "end": 4990,
+        "old": "Colors.whit",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onSurfac"
+      },
+      {
+        "begin": 5973,
+        "end": 5985,
+        "old": "Colors.black",
+        "new": "Theme.of(context).colorScheme.scrim"
+      },
+      {
+        "begin": 8145,
+        "end": 8157,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_enterprise_blueprint/lib/main.dart",
+    "sha256": "40d8bcc526e52ea54cb64525e4f57ba9aae5c3554d1e24a8c4fe383d9253d7c5",
+    "updated_sha256": "03d3028faf6d1196fdb1b6e8e5da09eb62e88612fd3b07713860b5f7765e0329",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_config_generated.dart';\n"
+      },
+      {
+        "begin": 1091,
+        "end": 1091,
+        "old": "",
+        "new": "(personal == null ? Theme.of(context).colorScheme.primary : Theme"
+      },
+      {
+        "begin": 1093,
+        "end": 1101,
+        "old": "lors.dee",
+        "new": "nfig.getAp"
+      },
+      {
+        "begin": 1103,
+        "end": 1108,
+        "old": "urple",
+        "new": "alette(personal.preset).primary)"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_components.dart",
+    "sha256": "58b6f6cde0f152c4cd66e22d44e42f3f84d2c01c301a6ac19a21c0d5e1114d3b",
+    "updated_sha256": "d6c16e84e05cdbb32844d8f8f07ea205de4de0be886a14ed5e2078fad5d140f9",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 3416,
+        "end": 3423,
+        "old": "Colors.",
+        "new": "Theme.of(context).colorScheme.scrim.withValues(alpha: 0.3),\n            child: const Dash"
+      },
+      {
+        "begin": 3424,
+        "end": 3483,
+        "old": "lack.withValues(alpha: 0.3),\n            child: const Dashb",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
+    "sha256": "cf091cd43f4dfd0641575f965dbe10defddbefbd4f1f3136f3301779209a19e8",
+    "updated_sha256": "da12fb88059d1effd689c5fe6a9dd00749bd958af6befbe5061090c7ed1ca210",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 8900,
+        "end": 8918,
+        "old": "Colors.transparent",
+        "new": "context.theme.colors.surface.withValues(alpha: 0)"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_skeleton.dart",
+    "sha256": "ed8ec4fea5c8cf12b17e92111759095ef22ea6a489357cb8c32fe903eafd7001",
+    "updated_sha256": "6a2756c678b470e55db9732c8b5ff967fcd9badb981dec2b4d1185d6255fe329",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 524,
+        "end": 532,
+        "old": "s.grey[3",
+        "new": ".alphaBlend(Theme.of(context).colorScheme.onSurface.withValues(alpha: ."
+      },
+      {
+        "begin": 533,
+        "end": 533,
+        "old": "",
+        "new": "8), Theme.of(context).colorScheme.surface),\n      highlightColor: Color.alphaBlend(Theme.of(context).colorScheme.onSurface.withValues(alpha: ."
+      },
+      {
+        "begin": 534,
+        "end": 577,
+        "old": "]!,\n      highlightColor: Colors.grey[100]!",
+        "new": "2), Theme.of(context).colorScheme.surface)"
+      },
+      {
+        "begin": 720,
+        "end": 731,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.surfac"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
+    "sha256": "06f42e582f542bd8ca3eb51d03586eb6358a696e251daee028b8e1f18e82c24d",
+    "updated_sha256": "1dde5abf9ccf1e881d8445ab3df5408172995b837f22e66c782bf0abc1a8be8f",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 985,
+        "end": 1001,
+        "old": "Colors.amber[50]",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).surface"
+      },
+      {
+        "begin": 2815,
+        "end": 2815,
+        "old": "",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent,\n                    foreground"
+      },
+      {
+        "begin": 2820,
+        "end": 2853,
+        "old": "s.blue[800],\n                    ",
+        "new": ": PrimeSemanticPalette.o"
+      },
+      {
+        "begin": 2854,
+        "end": 2882,
+        "old": "oregroundColor: Colors.white",
+        "new": "(context, PrimeSemanticTone.primary).onAccent"
+      },
+      {
+        "begin": 3590,
+        "end": 3604,
+        "old": "Colors.red[700",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase,\n                    ),\n                  ),\n              "
+      },
+      {
+        "begin": 3619,
+        "end": 3655,
+        "old": "        ),\n                  ),\n    ",
+        "new": "),\n"
+      },
+      {
+        "begin": 3676,
+        "end": 3704,
+        "old": "    ),\n          ],\n        ",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/features/system_governance/app_entry_form.dart",
+    "sha256": "60cabed829a37ae56d72b2a6ea3632b33864f69683ec1f50dff3bce60544f1b7",
+    "updated_sha256": "0000f204a50caac595cc66f090ee301d75f2f207888eff305132cd3881046b82",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 3300,
+        "end": 3312,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_compliance_checklist.dart",
+    "sha256": "7b0e143ff77c9f4941b4402c8d4c59aa29cba4a53bf6c629c386fb2c7a3a0aea",
+    "updated_sha256": "0ed61115493606e7bb6e7675e69400c2bdf42d27aaa2ecdee548cc9b077e0f35",
+    "calls": 7,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 726,
+        "end": 734,
+        "old": "ardColor",
+        "new": "olorScheme.surface"
+      },
+      {
+        "begin": 819,
+        "end": 835,
+        "old": "Colors.grey.with",
+        "new": "Theme.of(context).colorScheme.outline"
+      },
+      {
+        "begin": 837,
+        "end": 853,
+        "old": "lues(alpha: 0.1)",
+        "new": "riant"
+      },
+      {
+        "begin": 1182,
+        "end": 1182,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 1488,
+        "end": 1488,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 1686,
+        "end": 1686,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 1875,
+        "end": 1875,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 2128,
+        "end": 2128,
+        "old": "",
+        "new": "context,"
+      },
+      {
+        "begin": 2429,
+        "end": 2429,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 2729,
+        "end": 2736,
+        "old": "Colors.",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase : PrimeSemanticPalette.of(context, PrimeSemanticTone.warnin"
+      },
+      {
+        "begin": 2737,
+        "end": 2756,
+        "old": "reen : Colors.orang",
+        "new": ").onBas"
+      },
+      {
+        "begin": 3180,
+        "end": 3190,
+        "old": "Colors.ora",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warni"
+      },
+      {
+        "begin": 3192,
+        "end": 3192,
+        "old": "",
+        "new": ").onBas"
+      },
+      {
+        "begin": 3317,
+        "end": 3323,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 3355,
+        "end": 3366,
+        "old": "Colors.grey",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 3468,
+        "end": 3474,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 3565,
+        "end": 3577,
+        "old": "Colors.green",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).onBase"
+      },
+      {
+        "begin": 3711,
+        "end": 3717,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 3808,
+        "end": 3818,
+        "old": "Colors.ora",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warni"
+      },
+      {
+        "begin": 3820,
+        "end": 3820,
+        "old": "",
+        "new": ").onBas"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_master_score.dart",
+    "sha256": "1b36305e2314fc74491efb7ec38126ff91fa016bb66534036de707dac4632c0d",
+    "updated_sha256": "5fceeb62ca2464fd307d25e476a7907c07434287016c690ab6109bfa87116f1f",
+    "calls": 6,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_contrast.dart';\nimport 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 632,
+        "end": 632,
+        "old": "",
+        "new": "context, "
+      },
+      {
+        "begin": 799,
+        "end": 807,
+        "old": "ardColor",
+        "new": "olorScheme.surface"
+      },
+      {
+        "begin": 1283,
+        "end": 1283,
+        "old": "",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 1285,
+        "end": 1290,
+        "old": "lors.",
+        "new": "ntainerHi"
+      },
+      {
+        "begin": 1291,
+        "end": 1317,
+        "old": "rey.withValues(alpha: 0.1)",
+        "new": "h"
+      },
+      {
+        "begin": 1739,
+        "end": 1801,
+        "old": "color,\n                ),\n              ),\n              const",
+        "new": "readableThemeForeground(Theme.of(context).colorScheme.surface, color),\n                ),\n              ),\n             "
+      },
+      {
+        "begin": 1983,
+        "end": 1994,
+        "old": "Colors.grey",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 2339,
+        "end": 2364,
+        "old": "color.withValues(alpha: 0",
+        "new": "PrimeSemanticPalette.tint(context, color, alpha: "
+      },
+      {
+        "begin": 2668,
+        "end": 2673,
+        "old": "color",
+        "new": "PrimeSemanticPalette.onTint(context, color, alpha: .1)"
+      },
+      {
+        "begin": 2815,
+        "end": 2815,
+        "old": "",
+        "new": "BuildContext context, "
+      },
+      {
+        "begin": 2859,
+        "end": 2871,
+        "old": "Colors.green",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent"
+      },
+      {
+        "begin": 2901,
+        "end": 2912,
+        "old": "Colors.blue",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent"
+      },
+      {
+        "begin": 2942,
+        "end": 2952,
+        "old": "Colors.ora",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warni"
+      },
+      {
+        "begin": 2954,
+        "end": 2955,
+        "old": "e",
+        "new": ").accent"
+      },
+      {
+        "begin": 2968,
+        "end": 2978,
+        "old": "Colors.red",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent"
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_patch_manager.dart",
+    "sha256": "6b3845db66df8feb046d675287171f294f3e330dae0d1dc6149e77c64c14c00f",
+    "updated_sha256": "bda59430d57fe850dbb167c65e709edea8b857f4a9a85e2dacc4a6d4e7053662",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_contrast.dart';\nimport 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 1069,
+        "end": 1075,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1112,
+        "end": 1122,
+        "old": "Colors.blu",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).onBas"
+      },
+      {
+        "begin": 2271,
+        "end": 2285,
+        "old": "Colors.black87",
+        "new": "Theme.of(context).colorScheme.inverseSurface"
+      },
+      {
+        "begin": 2478,
+        "end": 2484,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 2520,
+        "end": 2538,
+        "old": "Colors.greenAccent",
+        "new": "readableThemeForeground(Theme.of(context).colorScheme.inverseSurface, PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent)"
+      },
+      {
+        "begin": 2862,
+        "end": 2868,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 2928,
+        "end": 2938,
+        "old": "Colors.gre",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant,\n              fontSt"
+      },
+      {
+        "begin": 2939,
+        "end": 2956,
+        "old": ",\n              f",
+        "new": "le: F"
+      },
+      {
+        "begin": 2964,
+        "end": 2975,
+        "old": ": FontStyle",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_trend_chart.dart",
+    "sha256": "b8730cdfbbd884d5f5fe1612aa02369b323dd0c39da29c2615cae999367087a4",
+    "updated_sha256": "a7b290098073bf6f05ad91e8082e2b2b506166933be2dd13a4942b4d49ea221a",
+    "calls": 6,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 2123,
+        "end": 2123,
+        "old": "",
+        "new": "context"
+      },
+      {
+        "begin": 6827,
+        "end": 6827,
+        "old": "",
+        "new": "BuildContext context"
+      },
+      {
+        "begin": 7087,
+        "end": 7087,
+        "old": "",
+        "new": "    final trendPalette = PrimeSemanticPalette.of(context, isUp ? PrimeSemanticTone.success : PrimeSemanticTone.error);\n"
+      },
+      {
+        "begin": 7230,
+        "end": 7231,
+        "old": "(",
+        "new": "trendPalette.surface,\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Row(\n        mainAxisSize: MainAxisSize.min,\n        children: [\n          PrimeIcon(\n            "
+      },
+      {
+        "begin": 7238,
+        "end": 7465,
+        "old": "Colors.green : Colors.red).withValues(alpha: 0.1),\n        borderRadius: BorderRadius.circular(12),\n      ),\n      child: Row(\n        mainAxisSize: MainAxisSize.min,\n        children: [\n          PrimeIcon(\n            isUp ? ",
+        "new": ""
+      },
+      {
+        "begin": 7547,
+        "end": 7579,
+        "old": "isUp ? Colors.green : Colors.red",
+        "new": "trendPalette.onSurface"
+      },
+      {
+        "begin": 7830,
+        "end": 7862,
+        "old": "isUp ? Colors.green : Colors.red",
+        "new": "trendPalette.onSurface"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+    "sha256": "f171a7db3b75126b5eb4c64ca77ead264efffba608d51e3b1a670b1d0ae3ef65",
+    "updated_sha256": "5272396fb7c491e5e9924977381d1417cdb2be3d2ce095359fbf7195fc8daf3d",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_color_codec.dart';\n"
+      },
+      {
+        "begin": 236,
+        "end": 236,
+        "old": "",
+        "new": "themeHex"
+      },
+      {
+        "begin": 242,
+        "end": 252,
+        "old": "int.parse(",
+        "new": ""
+      },
+      {
+        "begin": 265,
+        "end": 299,
+        "old": ".substring(1),radix:16)|0xff000000",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "sha256": "97ba7fdd293cbb7ff1f4e836ae79540b011b5c6e631951953a18f546ff5d36e9",
+    "updated_sha256": "9ac631a65bec9deb7d7c5f727482c75170ac29c6c3494722f022aed4c49d5e45",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_color_codec.dart';\n"
+      },
+      {
+        "begin": 8701,
+        "end": 8701,
+        "old": "",
+        "new": "themeHex"
+      },
+      {
+        "begin": 8706,
+        "end": 8716,
+        "old": "(int.parse",
+        "new": ""
+      },
+      {
+        "begin": 8728,
+        "end": 8762,
+        "old": ".substring(1),radix:16)|0xff000000",
+        "new": ""
+      },
+      {
+        "begin": 8881,
+        "end": 8881,
+        "old": "",
+        "new": "themeHex"
+      },
+      {
+        "begin": 8886,
+        "end": 8896,
+        "old": "(int.parse",
+        "new": ""
+      },
+      {
+        "begin": 8908,
+        "end": 8942,
+        "old": ".substring(1),radix:16)|0xff000000",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/action_manifest.dart",
+    "sha256": "ba75701bf545be3b4b7fde92e798ecdb68cca468ac0a924d86b416e89fe8545b",
+    "updated_sha256": "4657c5ede89be3086753d7264059340eb91c063aaadb81509398d2a6550d270d",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 937,
+        "end": 937,
+        "old": "",
+        "new": "DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).onAccent), child: "
+      },
+      {
+        "begin": 976,
+        "end": 982,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1018,
+        "end": 1024,
+        "old": "Colors",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone"
+      },
+      {
+        "begin": 1026,
+        "end": 1030,
+        "old": "hite",
+        "new": "arning).onAccent"
+      },
+      {
+        "begin": 1258,
+        "end": 1258,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 1285,
+        "end": 1307,
+        "old": "Colors.orange.shade800",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.warning).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "sha256": "56168755f20bbec5aabe080e507d64194074a11c101c7bc4176f9521a6338eb8",
+    "updated_sha256": "567fdd2977424a2b2f47a18ff78912b054875731daf2bca8243f4543bf9f5a37",
+    "calls": 9,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 3155,
+        "end": 3168,
+        "old": "const Color(0",
+        "new": "Theme.of(conte"
+      },
+      {
+        "begin": 3169,
+        "end": 3178,
+        "old": "FF1E293B)",
+        "new": "t).colorScheme.surface"
+      },
+      {
+        "begin": 3286,
+        "end": 3292,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 3310,
+        "end": 3317,
+        "old": "Colors.",
+        "new": "Theme.of(context).colorScheme.outlineVariant),\n        ),\n        title: Ro"
+      },
+      {
+        "begin": 3318,
+        "end": 3356,
+        "old": "hite10),\n        ),\n        title: Row",
+        "new": ""
+      },
+      {
+        "begin": 3392,
+        "end": 3398,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 3437,
+        "end": 3444,
+        "old": "Color(0",
+        "new": "PrimeSemanticPalette.of(conte"
+      },
+      {
+        "begin": 3445,
+        "end": 3454,
+        "old": "FF818CF8)",
+        "new": "t, PrimeSemanticTone.primary).onBase"
+      },
+      {
+        "begin": 3603,
+        "end": 3614,
+        "old": "Colors.whit",
+        "new": "Theme.of(context).colorScheme.onSurfac"
+      },
+      {
+        "begin": 3811,
+        "end": 3825,
+        "old": "Colors.white70",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 4039,
+        "end": 4053,
+        "old": "Colors.white38",
+        "new": "Theme.of(context).colorScheme.onSurfaceVariant"
+      },
+      {
+        "begin": 4249,
+        "end": 4255,
+        "old": "const ",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent,\n              foreground"
+      },
+      {
+        "begin": 4260,
+        "end": 4262,
+        "old": "(0",
+        "new": ": PrimeSemanticPalette.of(conte"
+      },
+      {
+        "begin": 4263,
+        "end": 4317,
+        "old": "FF818CF8),\n              foregroundColor: Colors.white",
+        "new": "t, PrimeSemanticTone.primary).onAccent"
+      },
+      {
+        "begin": 4714,
+        "end": 4714,
+        "old": "",
+        "new": "DefaultTextStyle.merge(style: TextStyle(color: "
+      },
+      {
+        "begin": 4719,
+        "end": 4719,
+        "old": "",
+        "new": "SemanticPalette.of(context, PrimeSemantic"
+      },
+      {
+        "begin": 4720,
+        "end": 4720,
+        "old": "",
+        "new": "one.primary).onAccent), child: PrimeT"
+      },
+      {
+        "begin": 4768,
+        "end": 4768,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 4795,
+        "end": 4808,
+        "old": "const Color(0",
+        "new": "PrimeSemanticPalette.of(conte"
+      },
+      {
+        "begin": 4809,
+        "end": 4818,
+        "old": "FF6366F1)",
+        "new": "t, PrimeSemanticTone.primary).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/models/screen.dart",
+    "sha256": "b793f46cc429b15be743659ddf6695735c20dbf1f961fe23d0ff738a82f99947",
+    "updated_sha256": "fbb7eeffc1d5076f10a0324d2e7e2a5e8cdcd970313985f503c338b4a320131d",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 2,
+        "end": 3,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 10007,
+        "end": 10025,
+        "old": "Colors.transparent",
+        "new": "Theme.of(context).colorScheme.surface.withValues(alpha: 0)"
+      },
+      {
+        "begin": 11620,
+        "end": 11620,
+        "old": "",
+        "new": "Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 11622,
+        "end": 11627,
+        "old": "lors.",
+        "new": "ntainerLo"
+      },
+      {
+        "begin": 11628,
+        "end": 11655,
+        "old": "hite.withValues(alpha: 0.7)",
+        "new": ""
+      },
+      {
+        "begin": 11781,
+        "end": 11798,
+        "old": "Colors.white.with",
+        "new": "Theme.of(context).colorScheme.outline"
+      },
+      {
+        "begin": 11800,
+        "end": 11816,
+        "old": "lues(alpha: 0.5)",
+        "new": "riant"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "sha256": "26fc3f6c625c2cb9894f51c5aeb2804d430d965fe00cec276c111dfc529698d0",
+    "updated_sha256": "4eab1337091c04a96c6e32480c698debdf4ee962c84d02e5cd89549e62992974",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 12528,
+        "end": 12546,
+        "old": "Colors.transparent",
+        "new": "Theme.of(context).colorScheme.surface.withValues(alpha: 0)"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "sha256": "cc67cb9c4f2e0878a3b5349c15af59bbca39a88468bf25cf3cf2db713e59e123",
+    "updated_sha256": "634b7e0c9bbba19449e646fac616c40acee74bd7fb48dab1ea0547052681b640",
+    "calls": 19,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_contrast.dart';\nimport 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 3102,
+        "end": 3106,
+        "old": "    ",
+        "new": ""
+      },
+      {
+        "begin": 3232,
+        "end": 3234,
+        "old": "is",
+        "new": "default"
+      },
+      {
+        "begin": 3240,
+        "end": 3244,
+        "old": "Dark",
+        "new": "TextColor"
+      },
+      {
+        "begin": 3247,
+        "end": 3247,
+        "old": "",
+        "new": "readable"
+      },
+      {
+        "begin": 3252,
+        "end": 3268,
+        "old": "Data.estimateBri",
+        "new": "Fore"
+      },
+      {
+        "begin": 3269,
+        "end": 3283,
+        "old": "htnessForColor",
+        "new": "round"
+      },
+      {
+        "begin": 3292,
+        "end": 3312,
+        "old": ") == Brightness.dark",
+        "new": ", theme.colorScheme.onSurface)"
+      },
+      {
+        "begin": 3337,
+        "end": 3337,
+        "old": "",
+        "new": "IconColor = readable"
+      },
+      {
+        "begin": 3338,
+        "end": 3352,
+        "old": "extColor = isT",
+        "new": "hemeForeground(t"
+      },
+      {
+        "begin": 3357,
+        "end": 3362,
+        "old": "Dark ",
+        "new": "Bg, theme.primaryColor);\n\n    final topbarTextColor = themeColors"
+      },
+      {
+        "begin": 3363,
+        "end": 3364,
+        "old": " ",
+        "new": ".topbarText"
+      },
+      {
+        "begin": 3365,
+        "end": 3410,
+        "old": "olors.white : (theme.textTheme.titleMedium?.c",
+        "new": ""
+      },
+      {
+        "begin": 3418,
+        "end": 3445,
+        "old": "Colors.black87);\n    final ",
+        "new": ""
+      },
+      {
+        "begin": 3458,
+        "end": 3462,
+        "old": "Icon",
+        "new": "Text"
+      },
+      {
+        "begin": 3467,
+        "end": 3473,
+        "old": " = isT",
+        "new": ";\n    final t"
+      },
+      {
+        "begin": 3478,
+        "end": 3483,
+        "old": "Dark ",
+        "new": "IconColor = themeColors"
+      },
+      {
+        "begin": 3484,
+        "end": 3535,
+        "old": " Colors.white : theme.primaryColor;\n    \n    final ",
+        "new": "."
+      },
+      {
+        "begin": 3541,
+        "end": 3541,
+        "old": "",
+        "new": "IconColor ?? default"
+      },
+      {
+        "begin": 3542,
+        "end": 3567,
+        "old": "extColor = themeColors?.t",
+        "new": ""
+      },
+      {
+        "begin": 3572,
+        "end": 3572,
+        "old": "",
+        "new": "IconColor;\n    final topbarSecondaryTextColor = readableThemeForeground(topbarBg, themeColors?.topbar"
+      },
+      {
+        "begin": 3585,
+        "end": 3601,
+        "old": "defaultTopbarTex",
+        "new": "theme.hin"
+      },
+      {
+        "begin": 3607,
+        "end": 3835,
+        "old": ";\n    final topbarIconColor = themeColors?.topbarIconColor ?? defaultTopbarIconColor;\n    final topbarSecondaryTextColor = (themeColors?.topbarTextColor ?? (isTopbarDark ? Colors.white70 : theme.hintColor)).withValues(alpha: 0.7",
+        "new": ""
+      },
+      {
+        "begin": 4589,
+        "end": 4589,
+        "old": "",
+        "new": "readableThemeForeground("
+      },
+      {
+        "begin": 4609,
+        "end": 4618,
+        "old": "TextColor",
+        "new": "Background"
+      },
+      {
+        "begin": 4622,
+        "end": 4625,
+        "old": "(is",
+        "new": "theme.scaffoldBackgroundColor, themeColors?.sidebar"
+      },
+      {
+        "begin": 4626,
+        "end": 4635,
+        "old": "opbarDark",
+        "new": "extColor"
+      },
+      {
+        "begin": 4637,
+        "end": 4669,
+        "old": " Colors.white70 : Colors.black87",
+        "new": "? theme.colorScheme.onSurface"
+      },
+      {
+        "begin": 4672,
+        "end": 4684,
+        "old": "            ",
+        "new": ""
+      },
+      {
+        "begin": 9625,
+        "end": 9637,
+        "old": "Colors.trans",
+        "new": "Theme.of(context).colorScheme.surface.withValues(al"
+      },
+      {
+        "begin": 9638,
+        "end": 9643,
+        "old": "arent",
+        "new": "ha: 0)"
+      },
+      {
+        "begin": 11539,
+        "end": 11551,
+        "old": "Colors.black",
+        "new": "Theme.of(context).colorScheme.scrim"
+      },
+      {
+        "begin": 25705,
+        "end": 25705,
+        "old": "",
+        "new": "\n"
+      },
+      {
+        "begin": 25715,
+        "end": 25717,
+        "old": "is",
+        "new": "default"
+      },
+      {
+        "begin": 25724,
+        "end": 25728,
+        "old": "Dark",
+        "new": "TextColor"
+      },
+      {
+        "begin": 25731,
+        "end": 25731,
+        "old": "",
+        "new": "readable"
+      },
+      {
+        "begin": 25736,
+        "end": 25752,
+        "old": "Data.estimateBri",
+        "new": "Fore"
+      },
+      {
+        "begin": 25753,
+        "end": 25767,
+        "old": "htnessForColor",
+        "new": "round"
+      },
+      {
+        "begin": 25777,
+        "end": 25778,
+        "old": ")",
+        "new": ", theme.colorScheme.onSurface);\n    final defaultSidebarIconColor"
+      },
+      {
+        "begin": 25780,
+        "end": 25782,
+        "old": "= ",
+        "new": " readableThemeForeground(sidebar"
+      },
+      {
+        "begin": 25783,
+        "end": 25785,
+        "old": "ri",
+        "new": ""
+      },
+      {
+        "begin": 25786,
+        "end": 25828,
+        "old": "htness.dark;\n    \n    final defaultSidebar",
+        "new": ", theme.icon"
+      },
+      {
+        "begin": 25829,
+        "end": 25899,
+        "old": "extColor = isSidebarDark ? Colors.white : (theme.textTheme.bodyMedium?",
+        "new": "heme"
+      },
+      {
+        "begin": 25909,
+        "end": 26021,
+        "old": "Colors.black87);\n    final defaultSidebarIconColor = isSidebarDark ? Colors.white70 : (theme.iconTheme.color ?? ",
+        "new": ""
+      },
+      {
+        "begin": 26040,
+        "end": 26063,
+        "old": ".withValues(alpha: 0.6)",
+        "new": ""
+      },
+      {
+        "begin": 26065,
+        "end": 26069,
+        "old": "    ",
+        "new": ""
+      },
+      {
+        "begin": 29325,
+        "end": 29345,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 29594,
+        "end": 29614,
+        "old": "                    ",
+        "new": ""
+      },
+      {
+        "begin": 32694,
+        "end": 32706,
+        "old": "Colors.trans",
+        "new": "Theme.of(context).colorScheme.surface.withValues(al"
+      },
+      {
+        "begin": 32707,
+        "end": 32712,
+        "old": "arent",
+        "new": "ha: 0)"
+      },
+      {
+        "begin": 35054,
+        "end": 35066,
+        "old": "Colors.trans",
+        "new": "Theme.of(context).colorScheme.surface.withValues(al"
+      },
+      {
+        "begin": 35067,
+        "end": 35072,
+        "old": "arent",
+        "new": "ha: 0)"
+      },
+      {
+        "begin": 35655,
+        "end": 35667,
+        "old": "Colors.black",
+        "new": "Theme.of(context).colorScheme.scrim"
+      },
+      {
+        "begin": 45792,
+        "end": 45803,
+        "old": "Colors.redA",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).a"
+      },
+      {
+        "begin": 45850,
+        "end": 45864,
+        "old": "Colors.purpleA",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.secondary).a"
+      },
+      {
+        "begin": 45906,
+        "end": 45906,
+        "old": "",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.primary).accent;\n      case 'read':\n        return PrimeSemanticPalette.of(context, PrimeSemanticTone.success).accent;\n      default:\n        return Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 45908,
+        "end": 45966,
+        "old": "lors.blueAccent;\n      case 'read':\n        return Colors.",
+        "new": "ntainerHi"
+      },
+      {
+        "begin": 45967,
+        "end": 46020,
+        "old": "reenAccent;\n      default:\n        return Colors.grey",
+        "new": "h"
+      },
+      {
+        "begin": 49938,
+        "end": 49938,
+        "old": "",
+        "new": "PrimeSemanticPalette.tint(context, "
+      },
+      {
+        "begin": 49949,
+        "end": 49961,
+        "old": ".withValues(",
+        "new": ", "
+      },
+      {
+        "begin": 49968,
+        "end": 49969,
+        "old": "0",
+        "new": ""
+      },
+      {
+        "begin": 50360,
+        "end": 50360,
+        "old": "",
+        "new": "PrimeSemanticPalette.onTint(context, "
+      },
+      {
+        "begin": 50372,
+        "end": 50372,
+        "old": "",
+        "new": " alpha: .1),"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "sha256": "b1a458b7d2577d127c2086961f7a826bcbe7d1f2f8fe66c55be81515661c306e",
+    "updated_sha256": "dfb1d8c5b335b4814eaf41997a9c4a0bcf5b264f090d357d314cb34e8a5afba9",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_contrast.dart';\n"
+      },
+      {
+        "begin": 6389,
+        "end": 6389,
+        "old": "",
+        "new": "readableThemeForeground"
+      },
+      {
+        "begin": 6398,
+        "end": 6476,
+        "old": "brightness == Brightness.dark\n                                        ? Colors",
+        "new": "primary, palette.textPrimary)\n                                    : Theme.of(context).colorScheme.surface"
+      },
+      {
+        "begin": 6478,
+        "end": 6591,
+        "old": "hite\n                                        : Colors.black87)\n                                    : Colors.trans",
+        "new": "ithValues(al"
+      },
+      {
+        "begin": 6592,
+        "end": 6597,
+        "old": "arent",
+        "new": "ha: 0)"
+      },
+      {
+        "begin": 9830,
+        "end": 9850,
+        "old": "Colors.grey.shade200",
+        "new": "Theme.of(context).colorScheme.outlineVariant"
+      },
+      {
+        "begin": 10286,
+        "end": 10314,
+        "old": "                            ",
+        "new": ""
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_error_view.dart",
+    "sha256": "48b32665d7c53c2c112ada05c35800591d9f58a42d972ece7abb347ddc39c1d6",
+    "updated_sha256": "095660b2a511efd77d49f2ebdf971f7fbaba79de89c7fd51a237dae7d8448ddf",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 2,
+        "end": 3,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 1471,
+        "end": 1477,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1582,
+        "end": 1592,
+        "old": "Colors.red",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_navigator.dart",
+    "sha256": "bffaf38b3709e307a8dda73c0cb149d527ac83341713626e50cbda88573aca43",
+    "updated_sha256": "f36308b54ab8e8fa2c9c6a999b5f19fb1dafd1b66d31c6c52ff8d3b78e197357",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 1710,
+        "end": 1710,
+        "old": "",
+        "new": "DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child: "
+      },
+      {
+        "begin": 1757,
+        "end": 1757,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 1786,
+        "end": 1797,
+        "old": "Colors.redA",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).a"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_router.dart",
+    "sha256": "d3d2270d7f81c5673adf17152f6542892deaf82b62ed0e0b409fe6c928bd6b89",
+    "updated_sha256": "25a7bef06178c994237f0125ab6b9451e49684b601033d6c64d3518db1f5bb57",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 6232,
+        "end": 6238,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 6255,
+        "end": 6265,
+        "old": "Colors.red",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      },
+      {
+        "begin": 6607,
+        "end": 6613,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 6630,
+        "end": 6645,
+        "old": "Colors.orange, ",
+        "new": "PrimeSemanticPalette.o"
+      },
+      {
+        "begin": 6646,
+        "end": 6646,
+        "old": "",
+        "new": "(context, PrimeSemanticTone.warning).onBase, f"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "sha256": "fe5a186a7361847d2ee9b8b295409b43655889ca0d0a90088c34c36ae093e9fd",
+    "updated_sha256": "441cc735fa1f777cc1e3cdb59fd78150cb4b384334c24e3f636503e57058e1f7",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 2,
+        "end": 3,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 4420,
+        "end": 4426,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 4443,
+        "end": 4449,
+        "old": "Colors",
+        "new": "Theme"
+      },
+      {
+        "begin": 4450,
+        "end": 4454,
+        "old": "grey",
+        "new": "of(context).colorScheme.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/security/shortcuts/quick_access_manager.dart",
+    "sha256": "f228092c0be23c841eaa06f14e81197411365e0423ccfea9a90410ed6d0db7dd",
+    "updated_sha256": "02c85b7a58db9ab0001fe160f92d623a7f758679a201f527328cf87a68b99574",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 777,
+        "end": 779,
+        "old": "  ",
+        "new": ""
+      },
+      {
+        "begin": 2368,
+        "end": 2374,
+        "old": "      ",
+        "new": ""
+      },
+      {
+        "begin": 5024,
+        "end": 5024,
+        "old": "",
+        "new": "DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child: "
+      },
+      {
+        "begin": 5074,
+        "end": 5074,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 5107,
+        "end": 5117,
+        "old": "Colors.red",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent"
+      },
+      {
+        "begin": 5284,
+        "end": 5284,
+        "old": "",
+        "new": ": DefaultTextStyle.merge(style: TextStyle(color: PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onAccent), child"
+      },
+      {
+        "begin": 5385,
+        "end": 5385,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 5418,
+        "end": 5433,
+        "old": "Colors.red[900]",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).accent"
+      }
+    ]
+  },
+  {
+    "path": "packages/flutter_core/lib/src/localization/localization_scaffold.dart",
+    "sha256": "532ec901ea12aafe3c5d0854a8c8e6dfb04b87fca8874bd26057d223367cd764",
+    "updated_sha256": "6787040f7a0ed24edf3914483a5aa4fc2e8c8af2413be20ac69a73b52f1f17ce",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/prime_semantic_palette.dart';\n"
+      },
+      {
+        "begin": 887,
+        "end": 891,
+        "old": "    ",
+        "new": ""
+      },
+      {
+        "begin": 1216,
+        "end": 1222,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1394,
+        "end": 1404,
+        "old": "Colors.red",
+        "new": "PrimeSemanticPalette.of(context, PrimeSemanticTone.error).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/admin/device_fleet_manager.dart",
+    "sha256": "51e3d0edb219a29bc295a312c160c92d80b08f500a20dec3669088dcc4fd47a3",
+    "updated_sha256": "fa26130688c833a7dec1131da2f441ac84cc59f726dd26596a3b0bb1fddb4732",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1070,
+        "end": 1071,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 1319,
+        "end": 1320,
+        "old": " ",
+        "new": ""
+      },
+      {
+        "begin": 4329,
+        "end": 4378,
+        "old": " \n                                    icon: const",
+        "new": "\n                                    icon:"
+      },
+      {
+        "begin": 4414,
+        "end": 4424,
+        "old": "Colors.red",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/consent/sections/consent_consent_content_section.dart",
+    "sha256": "959ca923683b7efe087903a60f39e6e7a46357dcfcb86a28ecffe68cfec3a84a",
+    "updated_sha256": "339143f02637afaa9c71004a8b217bf2f1f74a8ab4b5aca5b618f041cc8a467d",
+    "calls": 2,
+    "edits": [
+      {
+        "begin": 529,
+        "end": 540,
+        "old": "Colors.whit",
+        "new": "context.theme.colors.onSurfac"
+      },
+      {
+        "begin": 770,
+        "end": 787,
+        "old": "Colors.white.with",
+        "new": "context.theme.colors.onSurface"
+      },
+      {
+        "begin": 789,
+        "end": 805,
+        "old": "lues(alpha: 0.6)",
+        "new": "riant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/consent/sections/consent_header_section.dart",
+    "sha256": "1d30d43c30745999347fc7fbbd8b8831e91dd2597ccabe93e326d2fb52a30b9a",
+    "updated_sha256": "b346dbeaa7c4c7f4ca79a84366a87ab4c38467f488597d9ae590f82d131e62bd",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 429,
+        "end": 465,
+        "old": "Colors.white.withValues(alpha: 0.05)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).surface"
+      },
+      {
+        "begin": 556,
+        "end": 563,
+        "old": "Colors.",
+        "new": "context.theme.colors.outlineVariant,\n              "
+      },
+      {
+        "begin": 564,
+        "end": 589,
+        "old": "hite.withValues(alpha: 0.",
+        "new": "idth: "
+      },
+      {
+        "begin": 590,
+        "end": 615,
+        "old": "),\n              width: 1",
+        "new": ""
+      },
+      {
+        "begin": 663,
+        "end": 669,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 754,
+        "end": 766,
+        "old": "Colors.green",
+        "new": "Prime"
+      },
+      {
+        "begin": 768,
+        "end": 772,
+        "old": "cent",
+        "new": "tionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 960,
+        "end": 977,
+        "old": "Colors.white.with",
+        "new": "context.theme.colors.onSurface"
+      },
+      {
+        "begin": 979,
+        "end": 995,
+        "old": "lues(alpha: 0.5)",
+        "new": "riant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/allied/rmt_dashboard/sections/rmt_dashboard_header_section.dart",
+    "sha256": "1fd5fa74565746e658ce1ade561d7f40f1f026e8f785b675bdbbe13bbf911c40",
+    "updated_sha256": "0bd38a9f80ddbc5f40132cdc2df30cbb6ef8ff25d130c0ddcdcf12e6fef877db",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 501,
+        "end": 507,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 730,
+        "end": 741,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/allied/treatment_notes_screen.dart",
+    "sha256": "689b956366ee8d3128186c15cc681a7ccf33223f02a3dad0d911e98a5ffc8da8",
+    "updated_sha256": "f95d4f5c1ffa9b4d9d4462e580155afd0d480207bc5c7116410c6660033ab328",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 6552,
+        "end": 6564,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 9949,
+        "end": 9955,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 10364,
+        "end": 10376,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 10712,
+        "end": 10724,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/assessment_screen.dart",
+    "sha256": "17a0b9f09cb2932481c28d36ac7eb3c061ee1e9e31bb87525402306973d16e62",
+    "updated_sha256": "a22a596785641011f6c30baf2dace4fa1fc8f4d3b871644b4a2f8dd2e6239c3f",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 6516,
+        "end": 6528,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 9909,
+        "end": 9915,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 10320,
+        "end": 10332,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 10668,
+        "end": 10680,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/cns_dashboard/sections/cns_dashboard_header_section.dart",
+    "sha256": "efd1e9ef8112dd54a01948b162919cd2235124a74d7686917f34d07dba9cf0ba",
+    "updated_sha256": "ad68ffd8542c9ca7d7da5e58c556040795130112bb40b7487d14560c69457abe",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 502,
+        "end": 508,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 729,
+        "end": 740,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/hsw_dashboard/sections/hsw_dashboard_header_section.dart",
+    "sha256": "2b793758fb0f6025b99cadfd6514e01d7ef45022144555509a62547fd218d022",
+    "updated_sha256": "40c1f59ac600ed24ba8098286f2df5e82acf246f3a547b3f1eacfe84a9ae53e0",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 502,
+        "end": 508,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 719,
+        "end": 730,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard/sections/lpn_dashboard_header_section.dart",
+    "sha256": "9f888a49da91641f312fc72a9797601149a9b5e4fd96a2572d81bc815b915f61",
+    "updated_sha256": "57076885d614c2dd72f102ea090d29d4c5ee237aa3b53a778a4c885f6edf69e3",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 501,
+        "end": 507,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 733,
+        "end": 744,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/np_dashboard/sections/np_dashboard_header_section.dart",
+    "sha256": "b9b94a2f288ea16f34bf0edae0bff704f183dfc134fce33ea772636857046543",
+    "updated_sha256": "795fab7662cda7023cf907809071f1e31aabd35130e073aad5822ea5d2723b3d",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 499,
+        "end": 505,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 721,
+        "end": 732,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard/sections/pediatric_dashboard_header_section.dart",
+    "sha256": "7f8f542a58afda84dc37bd2fb5cc9d19218689486a1715666fa86d2d9fa0175b",
+    "updated_sha256": "1bb5d725173c57fff0f2e451869415efd6bd5b506650b18369244c57c1076827",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 520,
+        "end": 526,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 753,
+        "end": 764,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/physician_dashboard/sections/physician_dashboard_header_section.dart",
+    "sha256": "49002848959f5bd5b1d7dd9ef501ee8c432bb8f0d393cdc1f8ec52a8d465c416",
+    "updated_sha256": "51f39831bb32a3fcfb817f9e5df36cdf6d756936975314f777f4dc7bf3589ac1",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:primecare_ui/primecare_ui.dart';\n"
+      },
+      {
+        "begin": 520,
+        "end": 526,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 756,
+        "end": 767,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/sections/architecture_planning_dashboard_header_section.dart",
+    "sha256": "5aa64c7f93263c90efac1e77f61f34842fdb938bd0d616d3e91705165df9add5",
+    "updated_sha256": "cf51089721aae4613ffa65306f57b402db63f1ef21b0689470b0b37e77f4350b",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 16,
+        "end": 23,
+        "old": "flutter",
+        "new": "primecare_ui"
+      },
+      {
+        "begin": 24,
+        "end": 32,
+        "old": "material",
+        "new": "primecare_ui"
+      },
+      {
+        "begin": 40,
+        "end": 40,
+        "old": "",
+        "new": "import 'package:flutter/material.dart';\n"
+      },
+      {
+        "begin": 553,
+        "end": 559,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 787,
+        "end": 798,
+        "old": "Colors.grey",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/psw/incident_report_screen.dart",
+    "sha256": "c9a7bc3173c23635974421443c633062247c0a0fab7334689b1df0e85b063e67",
+    "updated_sha256": "fc862ffa1ebd0753fc5b8adc9b08e3265f7b93b7a25a68c7f72aa6e26136257e",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 6508,
+        "end": 6520,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 9905,
+        "end": 9911,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 10320,
+        "end": 10332,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 10668,
+        "end": 10680,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart",
+    "sha256": "aaa81cbe3b7c64ff041c95588b9a7abda6ae48cef0afcf8b06375a574dda47c6",
+    "updated_sha256": "ef93994f840ad8510f1032ed3cabad16af0fa3b168dcddfd02a9adba31d99061",
+    "calls": 4,
+    "edits": [
+      {
+        "begin": 1357,
+        "end": 1363,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 1380,
+        "end": 1392,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onAccent"
+      },
+      {
+        "begin": 2212,
+        "end": 2220,
+        "old": "Colors.w",
+        "new": "state.isS"
+      },
+      {
+        "begin": 2222,
+        "end": 2224,
+        "old": "te",
+        "new": "ftActive ? PrimeActionPalette.of(context, PrimeActionTone.error).onAccent : PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 3086,
+        "end": 3098,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 6397,
+        "end": 6403,
+        "old": "Colors",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone"
+      },
+      {
+        "begin": 6405,
+        "end": 6409,
+        "old": "hite",
+        "new": "arning).onAccent"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/rn/patient_charting_screen.dart",
+    "sha256": "7f3d655a37f9a9750a8a3ac46d91af3c81d21365bfe8656baaf23d524e24c9db",
+    "updated_sha256": "feb73c3990e5e9f7264e0cde492b9d919fa0354efac44aa1682c381911e86326",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 6660,
+        "end": 6672,
+        "old": "Colors.green",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 10058,
+        "end": 10064,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 10474,
+        "end": 10486,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 10822,
+        "end": 10834,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      }
+    ]
+  }
+]

@@ -1,0 +1,260 @@
+[
+  {
+    "path": "apps/primecare_clinic/lib/features/generated_screens/caregiver_dashboard_screen.dart",
+    "package": "primecare_clinic",
+    "name": "CaregiverDashboardScreen",
+    "fixture": "apps/primecare_clinic/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_clinic/lib/features/generated_screens/rpn_dashboard_screen.dart",
+    "package": "primecare_clinic",
+    "name": "RpnDashboardScreen",
+    "fixture": "apps/primecare_clinic/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_clinic/lib/features/physician/screens/physician_dashboard_screen.dart",
+    "package": "primecare_clinic",
+    "name": "PhysicianDashboardScreen",
+    "fixture": "apps/primecare_clinic/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_enterprise_blueprint/lib/main.dart",
+    "package": "primecare_enterprise_blueprint",
+    "name": "MyApp",
+    "fixture": "apps/primecare_enterprise_blueprint/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_components.dart",
+    "package": "primecare_governance",
+    "name": "AppButton",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
+    "package": "primecare_governance",
+    "name": "AppDrawer",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/app_skeleton.dart",
+    "package": "primecare_governance",
+    "name": "AppSkeleton",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
+    "package": "primecare_governance",
+    "name": "DevToolbox",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/features/system_governance/app_entry_form.dart",
+    "package": "primecare_governance",
+    "name": "AppEntryForm",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_compliance_checklist.dart",
+    "package": "primecare_governance",
+    "name": "GovernanceComplianceChecklist",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_master_score.dart",
+    "package": "primecare_governance",
+    "name": "GovernanceMasterScore",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_patch_manager.dart",
+    "package": "primecare_governance",
+    "name": "GovernancePatchManager",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "apps/primecare_governance/lib/governance/widgets/governance_trend_chart.dart",
+    "package": "primecare_governance",
+    "name": "GovernanceTrendChart",
+    "fixture": "apps/primecare_governance/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/advanced_theme_region.dart",
+    "package": "flutter_core",
+    "name": "AdvancedThemeTokens",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "package": "flutter_core",
+    "name": "PrimeAdvancedThemeEditor",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/action_manifest.dart",
+    "package": "flutter_core",
+    "name": "ActionManifest",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/manifest/aura_action_manifest.dart",
+    "package": "flutter_core",
+    "name": "AuraActionManifest",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/models/screen.dart",
+    "package": "flutter_core",
+    "name": "ScreenGovernance",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+    "package": "flutter_core",
+    "name": "WorkspaceNavigationLabels",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+    "package": "flutter_core",
+    "name": "GovernanceMasterLayout",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+    "package": "flutter_core",
+    "name": "ThemeSettingsDrawer",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/auth_error_view.dart",
+    "package": "flutter_core",
+    "name": "AuthErrorView",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_navigator.dart",
+    "package": "flutter_core",
+    "name": "GovernanceNavigator",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/governance_router.dart",
+    "package": "flutter_core",
+    "name": "GovernanceRouter",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/routes/sso_redirect_view.dart",
+    "package": "flutter_core",
+    "name": "SsoRedirectView",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/security/shortcuts/quick_access_manager.dart",
+    "package": "flutter_core",
+    "name": "QuickAccessManager",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/flutter_core/lib/src/localization/localization_scaffold.dart",
+    "package": "flutter_core",
+    "name": "LocalizationScaffold",
+    "fixture": "packages/flutter_core/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/admin/device_fleet_manager.dart",
+    "package": "primecare_ui",
+    "name": "DeviceFleetManager",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/consent/sections/consent_consent_content_section.dart",
+    "package": "primecare_ui",
+    "name": "ConsentConsentContentSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/consent/sections/consent_header_section.dart",
+    "package": "primecare_ui",
+    "name": "ConsentHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/allied/rmt_dashboard/sections/rmt_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "RmtDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/allied/treatment_notes_screen.dart",
+    "package": "primecare_ui",
+    "name": "TreatmentNotesController",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/assessment_screen.dart",
+    "package": "primecare_ui",
+    "name": "AssessmentController",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/cns_dashboard/sections/cns_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "CnsDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/hsw_dashboard/sections/hsw_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "HswDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard/sections/lpn_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "LpnDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/np_dashboard/sections/np_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "NpDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard/sections/pediatric_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "PediatricDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/physician_dashboard/sections/physician_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "PhysicianDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/common/architecture_planning_dashboard/sections/architecture_planning_dashboard_header_section.dart",
+    "package": "primecare_ui",
+    "name": "ArchitecturePlanningDashboardHeaderSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/psw/incident_report_screen.dart",
+    "package": "primecare_ui",
+    "name": "IncidentReportController",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart",
+    "package": "primecare_ui",
+    "name": "PswDashboardActionsSection",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/screens/rn/patient_charting_screen.dart",
+    "package": "primecare_ui",
+    "name": "PatientChartingController",
+    "fixture": "packages/primecare_ui/test/remaining_theme_consumers_compile_test.dart"
+  }
+]

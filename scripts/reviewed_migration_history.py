@@ -6,7 +6,23 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_remaining_palette(source,path):
+    manifest=ROOT/'scripts/remaining-theme-palette-manifest.json'
+    if not manifest.exists():return source
+    row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)
+    if row is None or hashlib.sha256(source.encode()).hexdigest()!=row['updated_sha256']:
+        return source
+    edits=[];delta=0
+    for edit in row['edits']:
+        begin=edit['begin']+delta
+        if source[begin:begin+len(edit['new'])]!=edit['new']:raise AssertionError('Remaining palette output drift: '+path)
+        edits.append((begin,begin+len(edit['new']),edit['old']));delta+=len(edit['new'])-(edit['end']-edit['begin'])
+    for a,b,value in reversed(edits):source=source[:a]+value+source[b:]
+    if hashlib.sha256(source.encode()).hexdigest()!=row['sha256']:raise AssertionError('Remaining palette input drift: '+path)
+    return source
+
 def before_shared_app_bars(source,path):
+    source=before_remaining_palette(source,path)
     app_bar_script=ROOT/'scripts/migrate-shared-app-bars.py'
     if not app_bar_script.exists():return source
     spec=importlib.util.spec_from_file_location('shared_app_bar_history',app_bar_script)
