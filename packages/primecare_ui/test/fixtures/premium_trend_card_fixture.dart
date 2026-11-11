@@ -1,6 +1,7 @@
 // Exact generated _StatCard helper, renamed only for behavioral coverage.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
+import 'package:primecare_ui/src/components/prime_trend_label.dart';
 
 class PremiumTrendCardFixture extends StatelessWidget {
   final String title;
@@ -85,14 +86,7 @@ class PremiumTrendCardFixture extends StatelessWidget {
                               size: 12,
                             ),
                             const SizedBox(width: 4),
-                            Text(
-                              change,
-                              style: TextStyle(
-                                color: isPositive ? const Color(0xFF047857) : Colors.amber.shade700,
-                                fontSize: 11,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
+                            PrimeTrendLabel(change, isPositive: isPositive),
                           ],
                         ),
                       ),

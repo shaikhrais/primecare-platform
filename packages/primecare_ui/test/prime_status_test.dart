@@ -5,6 +5,8 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
+import 'package:primecare_ui/src/components/prime_trend_label.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui/src/components/prime_components.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
@@ -14,6 +16,34 @@ import 'fixtures/premium_health_panel_fixture.dart';
 import 'fixtures/governance_status_metrics_fixture.dart';
 
 void main() {
+  testWidgets('shared trend label keeps size and weight while remaining readable on live theme tints', (tester) async {
+    Widget host(PrimeColors colors, bool positive, String label) => PrimeTheme(
+      data: PrimeThemeData(colors: colors),
+      bootstrap: false,
+      child: MaterialApp(home: Scaffold(body: PrimeTrendLabel(label, isPositive: positive))),
+    );
+    for (final colors in [
+      const PrimeColors(),
+      const PrimeColors(surface: Colors.black, success: Colors.yellow, warning: Colors.pink),
+      const PrimeColors(surface: Colors.white, success: Colors.cyan, warning: Colors.yellow),
+    ]) {
+      for (final positive in [true, false]) {
+        final label = positive ? '+4%' : '-2%';
+        await tester.pumpWidget(host(colors, positive, label));
+        await tester.pumpAndSettle();
+        final text = tester.widget<Text>(find.text(label));
+        final role = positive ? colors.success : colors.warning;
+        final background = Color.alphaBlend(role.withValues(alpha: .1), colors.surface);
+        expect(text.style!.fontSize, 11);
+        expect(text.style!.fontWeight, FontWeight.bold);
+        expect(text.style!.color, readableThemeForeground(background, role));
+        expect(themeContrastRatio(text.style!.color!, background), greaterThanOrEqualTo(4.5));
+        expect(find.text(label), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+
   testWidgets('generated Active and Clear metrics use live success color and retain values', (tester) async {
     Widget host(PrimeColors colors) => PrimeTheme(
       data: PrimeThemeData(colors: colors),
