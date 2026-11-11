@@ -30,7 +30,11 @@ try{
  await page.evaluate(()=>window.routePreference=document.querySelector('[data-cy=tenant-preference-view]'));await page.evaluate(()=>dispatchEvent(new PopStateEvent('popstate')));assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await changeHistory('#overview');await page.goBack();await page.waitForFunction(()=>document.querySelector('[data-td-view=audit]').getAttribute('aria-current')==='page');await page.goForward();await page.waitForFunction(()=>document.querySelector('[data-td-view=overview]').getAttribute('aria-current')==='page');assert.equal(writes,0);
  await page.evaluate(()=>{window.input=document.querySelector('[data-cy=tenant-preference-view]');window.clicks=0;input.addEventListener('change',()=>window.clicks++);});
+ // A cached document cannot save until the browser restores its existing owner.
  await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));assert.equal(await page.locator('[data-pc-workspace]').count(),1);
+ await el('tenant-preference-save').click();assert.equal(writes,0);assert.equal(preferencePosts.length,0);
+ await page.evaluate(()=>window.dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));
+ assert.equal(await page.evaluate(()=>window.input===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await el('appearance-open').click();
  assert.equal(await el('workspace-layout-footer').isEnabled(),true);assert.equal(await el('app-footer').count(),1);await el('workspace-layout-footer').selectOption('sticky');
  for(const position of ['right','top','bottom','hidden','left']){await el('workspace-layout-navigation').selectOption(position);assert.equal(await page.locator('[data-pc-workspace]').getAttribute('data-navigation'),position);}
