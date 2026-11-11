@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../../theme/theme_center_theme_data.dart';
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE The central Governance Layout for all PrimeCare portals. It automatically pulls sidebar and ...
 // Layer: 01_INFRASTRUCTURE
@@ -91,8 +92,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
             
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: TextButton.icon(
-                style: TextButton.styleFrom(
+              child: PrimeTextButton.icon(
+                style: PrimeTextButton.styleFrom(
                   foregroundColor: textColor,
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                 ),

@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'dart:math' as math;
 import 'dart:convert';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -67,9 +68,9 @@ class _PrimePageTemplateState extends State<PrimePageTemplate> {
   Widget _header(){final route=widget.route!,generation=_generation;
     return Padding(padding:widget.metrics.headerPadding,child:Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.start,children:[
       Focus(focusNode:_headingFocus,skipTraversal:true,child:Semantics(header:true,child:PrimeText(route.title,style:Theme.of(context).textTheme.headlineSmall))),
-      Semantics(label:widget.labels.breadcrumbs,container:true,child:Wrap(children:[for(final crumb in route.breadcrumbs)if(crumb.route!=null)TextButton(key:ValueKey('page-breadcrumb-${crumb.id}'),onPressed:()=>_navigate(crumb,generation),child:PrimeText(crumb.label))else PrimeText(crumb.label)])),
+      Semantics(label:widget.labels.breadcrumbs,container:true,child:Wrap(children:[for(final crumb in route.breadcrumbs)if(crumb.route!=null)PrimeTextButton(key:ValueKey('page-breadcrumb-${crumb.id}'),onPressed:()=>_navigate(crumb,generation),child:PrimeText(crumb.label))else PrimeText(crumb.label)])),
       if(widget.header!=null)_slot('header',widget.header!),
-      Wrap(spacing:widget.metrics.gap,runSpacing:widget.metrics.runGap,children:[if(widget.actions!=null)_slot('actions',widget.actions!),for(final side in ['left','right'])if(_child(side)!=null&&_config(side).mode!='none')TextButton(key:ValueKey('page-toggle-$side'),focusNode:_triggers[side],onPressed:()=>_toggle(side),child:PrimeText(_label(side,_open[side]!)))])
+      Wrap(spacing:widget.metrics.gap,runSpacing:widget.metrics.runGap,children:[if(widget.actions!=null)_slot('actions',widget.actions!),for(final side in ['left','right'])if(_child(side)!=null&&_config(side).mode!='none')PrimeTextButton(key:ValueKey('page-toggle-$side'),focusNode:_triggers[side],onPressed:()=>_toggle(side),child:PrimeText(_label(side,_open[side]!)))])
     ]));
   }
   @override Widget build(BuildContext context){

@@ -14,6 +14,7 @@ PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
 // Governance - Category: middleware | Purpose: Core implementation file for the Sso Redirect View platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -168,16 +169,16 @@ class _SsoRedirectViewState extends GovernedConsumerState<SsoRedirectView> {
                   },
                 ),
                 const SizedBox(height: 24),
-                ElevatedButton.icon(
+                PrimeElevatedButton.icon(
                   icon: const Icon(Icons.open_in_new),
                   label: const PrimeText('Launch Identity Provider Manual Redirect'),
                   onPressed: _launchSSO,
-                  style: ElevatedButton.styleFrom(
+                  style: PrimeElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
                   ),
                 ),
                 const SizedBox(height: 12),
-                OutlinedButton(
+                PrimeOutlinedButton(
                   onPressed: () {
                     setState(() {
                       _redirecting = !_redirecting;

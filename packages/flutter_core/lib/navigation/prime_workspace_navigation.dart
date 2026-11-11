@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../original_assets.dart';
 import 'dart:convert';
 import 'dart:math' as math;
@@ -113,8 +114,8 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
     Widget item(WorkspaceNavigationNode n,int depth){
       final open=_expanded.contains(n.id),active=_activeId==n.id,generation=_generation;
       final button=Focus(onKeyEvent:(_,e)=>_keys(n.id,e,roots,prefix:prefix),child:Semantics(expanded:n.kind=='group'?open:null,
-        child:Tooltip(message:n.label,child:TextButton(focusNode:_boundNode(n.id,(event)=>_keys(n.id,event,roots,prefix:prefix),prefix:prefix),key:ValueKey('workspace-navigation-${n.id}'),
-          style:TextButton.styleFrom(alignment:AlignmentDirectional.centerStart,minimumSize:const Size(44,44),backgroundColor:active?Theme.of(context).colorScheme.primaryContainer:null),
+        child:Tooltip(message:n.label,child:PrimeTextButton(focusNode:_boundNode(n.id,(event)=>_keys(n.id,event,roots,prefix:prefix),prefix:prefix),key:ValueKey('workspace-navigation-${n.id}'),
+          style:PrimeTextButton.styleFrom(alignment:AlignmentDirectional.centerStart,minimumSize:const Size(44,44),backgroundColor:active?Theme.of(context).colorScheme.primaryContainer:null),
           onPressed:n.disabled?null:()=>n.kind=='group'?_mutate(()=>open?_expanded.remove(n.id):_expanded.add(n.id)):_activate(n.id,generation),
           child:Semantics(label:folded?n.label:null,child:_label(n,folded:folded))))));
       return Column(mainAxisSize:MainAxisSize.min,crossAxisAlignment:CrossAxisAlignment.stretch,children:[Padding(padding:EdgeInsetsDirectional.only(start:folded?0:depth*12.0),child:button),
@@ -140,7 +141,7 @@ class _PrimeWorkspaceNavigationState extends State<PrimeWorkspaceNavigation> {
         else if(event.logicalKey==LogicalKeyboardKey.arrowRight){next=(index+(rtl?-1:1)+enabled.length)%enabled.length;}
         else if(event.logicalKey==LogicalKeyboardKey.arrowLeft){next=(index+(rtl?1:-1)+enabled.length)%enabled.length;}else{return KeyEventResult.ignored;}
         if(enabled.isNotEmpty)_focusAfter(enabled[next].id,prefix:'menu:');return KeyEventResult.handled;
-      },child:Semantics(selected:n.id==_activeId,child:TextButton(key:ValueKey('workspace-navigation-${n.id}'),focusNode:_node(n.id,prefix:'menu:'),style:n.id==_activeId?ButtonStyle(backgroundColor:WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryContainer)):null,onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n))))]);
+      },child:Semantics(selected:n.id==_activeId,child:PrimeTextButton(key:ValueKey('workspace-navigation-${n.id}'),focusNode:_node(n.id,prefix:'menu:'),style:n.id==_activeId?ButtonStyle(backgroundColor:WidgetStatePropertyAll(Theme.of(context).colorScheme.primaryContainer)):null,onPressed:n.disabled?null:()=>_activate(n.id,generation),child:_label(n))))]);
     return Focus(key:const ValueKey('workspace-navigation-menu-entry'),focusNode:_menuEntryFocus,
       onFocusChange:(_)=>setState((){}),onKeyEvent:(_,event){
         if(!_menuEntryFocus.hasPrimaryFocus||event is! KeyDownEvent)return KeyEventResult.ignored;

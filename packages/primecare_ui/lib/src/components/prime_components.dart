@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: [Component] - Standardized Card for PrimeCare Platform.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui/primecare_ui.dart';
 import '../localization/shared_control_text.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
@@ -157,7 +158,7 @@ class DashboardErrorWidget extends StatelessWidget {
           ),
           if (onRetry != null) ...[
             const SizedBox(height: 24),
-            ElevatedButton(key: const Key('prime_components_elevatedbutton_button_1'), 
+            PrimeElevatedButton(key: const Key('prime_components_elevatedbutton_button_1'),
               onPressed: onRetry,
               child: Text(sharedControlText(context, 'retry')),
             ),
@@ -605,9 +606,9 @@ class PrimeButton extends StatelessWidget {
 
     Widget buildButtonWidget() {
       if (isGhost) {
-        return TextButton(key: const Key('prime_components_textbutton_button_1'), 
+        return PrimeTextButton(key: const Key('prime_components_textbutton_button_1'),
           onPressed: isLoading ? null : onPressed,
-          style: TextButton.styleFrom(
+          style: PrimeTextButton.styleFrom(
             foregroundColor: actualTextColor,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
             shape: RoundedRectangleBorder(
@@ -620,9 +621,9 @@ class PrimeButton extends StatelessWidget {
 
       return SizedBox(
         width: isFullWidth ? double.infinity : null,
-        child: ElevatedButton(key: const Key('prime_components_elevatedbutton_button_2'), 
+        child: PrimeElevatedButton(key: const Key('prime_components_elevatedbutton_button_2'),
           onPressed: isLoading ? null : onPressed,
-          style: ElevatedButton.styleFrom(
+          style: PrimeElevatedButton.styleFrom(
             backgroundColor: buttonColor,
             foregroundColor: actualTextColor,
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),

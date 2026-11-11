@@ -13,6 +13,7 @@ PRIME:PROGRESS=100
 PRIME:BLOCKER=
 PRIME:NEXT_ACTION=
 */
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -61,7 +62,7 @@ class AuthErrorView extends GovernedScreen {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 32),
-              ElevatedButton(
+              PrimeElevatedButton(
                 onPressed: () {
                   final safeReturnUrl = validateClinicReturnUrl(returnUrl) ?? '/dashboard';
                   context.go('/login?returnUrl=${Uri.encodeQueryComponent(safeReturnUrl)}');

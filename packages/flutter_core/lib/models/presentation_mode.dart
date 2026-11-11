@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -1133,13 +1134,13 @@ Widget _buildCfoPayrollContent(BuildContext context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            OutlinedButton(
+            PrimeOutlinedButton(
               onPressed: () {},
               child: const PrimeText('Export Payroll Audit Report'),
             ),
             const SizedBox(width: 12),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF16A34A)),
+            PrimeElevatedButton(
+              style: PrimeElevatedButton.styleFrom(backgroundColor: const Color(0xFF16A34A)),
               onPressed: () {},
               child: const PrimeText('Approve All Batches Sign-off', style: TextStyle(color: Colors.white)),
             ),
@@ -1279,14 +1280,14 @@ Widget _buildCfoTaxContent(BuildContext context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            ElevatedButton.icon(
+            PrimeElevatedButton.icon(
               icon: const PrimeIcon(LucideIcons.fileText),
               label: const PrimeText('Export CRA Remittance Form (GST34)'),
               onPressed: () {},
             ),
             const SizedBox(width: 12),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: const Color(0xFF0284C7)),
+            PrimeElevatedButton(
+              style: PrimeElevatedButton.styleFrom(backgroundColor: const Color(0xFF0284C7)),
               onPressed: () {},
               child: const PrimeText('Execute CRA Bank Transfer Payout', style: TextStyle(color: Colors.white)),
             ),

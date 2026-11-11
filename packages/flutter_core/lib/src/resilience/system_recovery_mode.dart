@@ -1,5 +1,6 @@
 // Governance - Category: service | Purpose: Layer: 05_USER_INTERFACE A reusable recovery screen for handling domain logistics failures. This widget provides a co...
 // Layer: 05_USER_INTERFACE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeTextButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIcon;
 import 'package:flutter/material.dart';
@@ -36,11 +37,11 @@ class SystemOfflinePanel extends StatelessWidget {
             color: colors.onErrorContainer, decoration: TextDecoration.none)),
         if (onReset != null) ...[
           const SizedBox(height: 12),
-          Align(alignment: Alignment.centerRight, child: TextButton.icon(
+          Align(alignment: Alignment.centerRight, child: PrimeTextButton.icon(
             onPressed: onReset,
             icon: const PrimeIcon(Icons.refresh, size: 16),
             label: const PrimeText('Retry'),
-            style: TextButton.styleFrom(foregroundColor: colors.onErrorContainer),
+            style: PrimeTextButton.styleFrom(foregroundColor: colors.onErrorContainer),
           )),
         ],
       ]),
@@ -100,9 +101,9 @@ class SystemRecoveryMode extends StatelessWidget {
               _buildDiagnosticTrail(context),
 
               const SizedBox(height: 32),
-              ElevatedButton(
+              PrimeElevatedButton(
                 onPressed: onAttemptReset,
-                style: ElevatedButton.styleFrom(
+                style: PrimeElevatedButton.styleFrom(
                   backgroundColor: colors.primary,
                   foregroundColor: colors.onPrimary,
                   padding: const EdgeInsets.symmetric(

@@ -15,6 +15,7 @@ PRIME:NEXT_ACTION=
 */
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE Base class for governed consumer widgets. Enforces layout invariants by making it impossible...
 // Layer: 01_INFRASTRUCTURE
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
 import '../registry/platform_role.dart';
 import 'package:flutter_core/flutter_core.dart';
 import '../registry/intents/app_screen_intent.dart';
@@ -407,11 +408,11 @@ class DefaultNotImplementedView extends GovernedStatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 48),
-                    ElevatedButton.icon(
+                    PrimeElevatedButton.icon(
                       onPressed: () => context.pop(),
                       icon: const PrimeIcon(LucideIcons.arrowLeft, size: 18),
                       label: const PrimeText('Back to Dashboard'),
-                      style: ElevatedButton.styleFrom(
+                      style: PrimeElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 32,
                           vertical: 20,

@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter/material.dart';import 'package:flutter/services.dart';
 import 'shell_utilities_controller.dart';
@@ -23,7 +24,7 @@ class _PrimeShellUtilitiesState extends State<PrimeShellUtilities> {
  @override void dispose(){_retire();_openerFocus.dispose();super.dispose();}
  Future<void> _open()async{if(_route!=null)return;final controller=widget.controller,labels=widget.labels,fullscreen=widget.fullscreenPort,direction=widget.direction,width=widget.maxWidth,nav=Navigator.of(context);if(!width.isFinite||width<=0)throw ArgumentError('Registered utility width required');_navigator=nav;
  final route=DialogRoute<void>(context:context,barrierLabel:labels('close'),builder:(context)=>Directionality(textDirection:direction,child:Dialog(alignment:AlignmentDirectional.centerEnd,insetPadding:EdgeInsets.zero,constraints:BoxConstraints(maxWidth:width),child:SafeArea(child:_UtilityPanel(controller:controller,labels:labels,fullscreenPort:fullscreen)))));_route=route;await nav.push(route);if(_route==route){_route=null;_navigator=null;if(mounted&&widget.controller==controller)_openerFocus.requestFocus();}}
- @override Widget build(BuildContext context)=>Directionality(textDirection:widget.direction,child:Semantics(identifier:widget.labels.ids['open'],label:widget.labels('open'),child:TextButton(focusNode:_openerFocus,onPressed:_open,child:PrimeText(widget.labels('open')))));
+ @override Widget build(BuildContext context)=>Directionality(textDirection:widget.direction,child:Semantics(identifier:widget.labels.ids['open'],label:widget.labels('open'),child:PrimeTextButton(focusNode:_openerFocus,onPressed:_open,child:PrimeText(widget.labels('open')))));
 }
 class _UtilityPanel extends StatefulWidget {
  final ShellUtilitiesController controller;final ShellUtilityLabels labels;final ShellFullscreenPort? fullscreenPort;
@@ -37,7 +38,7 @@ class _UtilityPanelState extends State<_UtilityPanel> {
  @override void dispose(){widget.controller.removeListener(_changed);scroll.dispose();super.dispose();}
  Future<void> _run(Future<void> Function() action)async{try{if(mounted)setState(()=>error=false);await action();}catch(_){if(mounted)setState(()=>error=true);}}
  Future<void> _select(String key)async{if(!mounted)return;setState(()=>selected=key);if(key!='favourites')await _run(()=>widget.controller.load(key));}
- Widget button(String key,VoidCallback? action,{String? label,String suffix='',bool? pressed})=>Semantics(identifier:widget.labels.ids[key]!+suffix,label:label??widget.labels(key),toggled:pressed,child:TextButton(style:pressed==true?TextButton.styleFrom(backgroundColor:Theme.of(context).colorScheme.primary,foregroundColor:Theme.of(context).colorScheme.onPrimary):null,onPressed:action,child:PrimeText(label??widget.labels(key))));
+ Widget button(String key,VoidCallback? action,{String? label,String suffix='',bool? pressed})=>Semantics(identifier:widget.labels.ids[key]!+suffix,label:label??widget.labels(key),toggled:pressed,child:PrimeTextButton(style:pressed==true?PrimeTextButton.styleFrom(backgroundColor:Theme.of(context).colorScheme.primary,foregroundColor:Theme.of(context).colorScheme.onPrimary):null,onPressed:action,child:PrimeText(label??widget.labels(key))));
  String _preferenceStatus(Map<String,dynamic> f){final status=f['status'];return status=='clean'?'saved':['loading','saving'].contains(status)?'loading':['dirty','offline','conflict','error'].contains(status)?status as String:'empty';}
  bool? _fullscreen(){try{return widget.fullscreenPort?.read();}catch(_){return null;}}
  @override Widget build(BuildContext context){final fullscreen=_fullscreen();final c=widget.controller,l=widget.labels,f=c.favourites.current,busy=['loading','saving'].contains(f['status']);final content=<Widget>[];String status='empty';

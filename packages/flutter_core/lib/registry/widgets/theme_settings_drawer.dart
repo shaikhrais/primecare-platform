@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeOutlinedButton;
 import 'theme_center_panel.dart';
 import '../../theme/theme_contrast.dart';
 import '../../theme/theme_center_catalog_generated.dart';
@@ -303,8 +304,8 @@ class ThemeSettingsDrawer extends ConsumerWidget {
               child: Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
+                    child: PrimeOutlinedButton(
+                      style: PrimeOutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
