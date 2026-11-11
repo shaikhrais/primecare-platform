@@ -1,0 +1,615 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/admin/global_settings_screen.dart",
+    "sha256": "95491ed96910738f1f8e0cb3e8a43c624f898c563cf40f49072e8967b3de03b3",
+    "calls": 38,
+    "edits": [
+      {
+        "begin": 0,
+        "end": 0,
+        "old": "",
+        "new": "import 'package:flutter_core/theme/theme_contrast.dart';\n"
+      },
+      {
+        "begin": 2477,
+        "end": 2495,
+        "old": "{\n    final clean ",
+        "new": ""
+      },
+      {
+        "begin": 2496,
+        "end": 2497,
+        "old": " ",
+        "new": "> PrimeThemeColor.tryParseHex("
+      },
+      {
+        "begin": 2503,
+        "end": 2529,
+        "old": ".replaceAll('#', '').trim(",
+        "new": ""
+      },
+      {
+        "begin": 2531,
+        "end": 2711,
+        "old": "\n    if (clean.length == 6) {\n      return Color(int.parse('0xFF$clean'));\n    } else if (clean.length == 8) {\n      return Color(int.parse('0x$clean'));\n    }\n    return null;\n  }",
+        "new": ""
+      },
+      {
+        "begin": 4549,
+        "end": 4555,
+        "old": "const ",
+        "new": ""
+      },
+      {
+        "begin": 4638,
+        "end": 4650,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onAccent"
+      },
+      {
+        "begin": 4758,
+        "end": 4758,
+        "old": "",
+        "new": ", style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.success).onAccent)"
+      },
+      {
+        "begin": 4828,
+        "end": 4849,
+        "old": "Colors.green.shade700",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 5208,
+        "end": 5208,
+        "old": "",
+        "new": ", style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent)"
+      },
+      {
+        "begin": 5242,
+        "end": 5261,
+        "old": "Colors.red.shade700",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent"
+      },
+      {
+        "begin": 9205,
+        "end": 9225,
+        "old": "Colors.grey.shade300",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 18827,
+        "end": 18827,
+        "old": "",
+        "new": "context.theme.colors.outlineVariant,\n                                    width: isSelected ? 2 : 1,\n                                  ),\n                                ),\n                                child: InkWell(\n                                  onTap: () async {\n                                    if (context.mounted) {\n                                      await context.setLocale(Locale(lang));\n                                    }\n                                    await ref.read(languageProvider.notifier).setLanguage(lang);\n                                    if (lang == 'ar') {\n                                      notifier.updateDirection(TextDirection.rtl);\n                                    } else {\n                                      notifier.updateDirection(TextDirection.ltr);\n                                    }\n                                  },\n                                  child: Padding(\n                                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),\n                                    child: Row(\n                                      children: [\n                                        Text(flag, style: const TextStyle(fontSize: 20)),\n                                        const SizedBox(width: 12),\n                                        Text(\n                                          title,\n                                          style: theme.typography.bodyMedium.copyWith(\n                                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,\n                                          ),\n                                        ),\n                                        const Spacer(),\n                                        if (isSelected)\n                                          Icon(Icons.check_circle, color: theme.colors.primary, size: 20),\n                                      ],\n                                    ),\n                                  ),\n                                ),\n                              );\n                            });\n                          }()\n                        ],\n                      ),\n                    ),\n                    const SizedBox(height: 20),\n\n                    // Section 5: Toggle Options\n                    _buildSection"
+      },
+      {
+        "begin": 18828,
+        "end": 18834,
+        "old": "olors.",
+        "new": "ard(\n                      title: 'Additional Features',\n                      subtitle: 'Advanced display parameters to"
+      },
+      {
+        "begin": 18835,
+        "end": 18837,
+        "old": "re",
+        "new": "gles.',\n                      child: Column(\n                        children: [\n                          SwitchListTile(\n                            activeColor: theme.colors.primar"
+      },
+      {
+        "begin": 18838,
+        "end": 18844,
+        "old": ".shade",
+        "new": ",\n                            title: Text('Right-To-Left Alignment', style: theme.typography.bodyLarge),\n                            subtitle: Text('Re-align standard content direction.', style: theme.typography.bodyMedium),\n                            value: settings.direction == TextDirection.rtl,\n                            onChanged: (val) {\n                              notifier.updateDirection(val ? TextDirection.rtl : TextDirection.ltr);\n                            },\n                          ),\n                          const Divider(),\n                          SwitchListTile(\n                            activeColor: theme.colors.primary,\n                            title: Text('Custom Styled Scrollbars', style: theme.typography.bodyLarge),\n                            subtitle: Text('Use modern overlays instead of native UI scrollbars.', style: theme.typography.bodyMedium),\n                            value: settings.customScrollbars,\n                            onChanged: (val) {\n                              notifier.toggleScrollbars(val);\n                            },\n                          ),\n                        ],\n                      ),\n                    ),\n                    const SizedBox(height: 32),\n\n                    // Actions bottom bar\n                    Row(\n                      mainAxisAlignment: MainAxisAlignment.end,\n                      children: [\n                        OutlinedButton(\n                          style: OutlinedButton.styleFrom(\n                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),\n                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),\n                          ),\n                          onPressed: () {\n                            notifier.resetToTenantDefault('darkBlueSilver');\n                            _primaryController.clear();\n                            _primaryContainerController.clear();\n                            _sidebarBgController.clear();\n                            _topbarBgController.clear();\n                          },\n                          child: const Text('Reset Defaults'),\n                        ),\n                        const SizedBox(width: 16),\n                        ElevatedButton(\n                          style: ElevatedButton.styleFrom(\n                            backgroundColor: theme.colors.primary,\n                            foregroundColor: theme.colors.onPrimary,\n                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),\n                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),\n                          ),\n                          onPressed: _isSaving ? null : _saveSettings,\n                          child: _isSaving\n                              ? SizedBox(\n                                  width: 20,\n                                  height: 20,\n                                  child: CircularProgressIndicator(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent, strokeWidth: 2),\n                                )\n                              : const Text('Save Branding & Settings'),\n                        ),\n                      ],\n                    ),\n                    const SizedBox(height: 48),\n                  ],\n                ),\n              ),\n            ),\n          ),\n\n          // Right live preview mockup panel\n          Expanded(\n            flex: 2,\n            child: Container(\n              height: double.infinity,\n              decoration: BoxDecoration(\n                border: Border(left: BorderSide(color: context.theme.colors.outlineVariant)),\n                color: theme.colors.surface.withOpacity(0.7),\n              ),\n              padding: const EdgeInsets.all(24.0),\n              child: Column(\n                crossAxisAlignment: CrossAxisAlignment.start,\n                children: [\n                  Text(\n                    'Real-Time Branding Preview',\n                    style: theme.typography.h3.copyWith(color: theme.colors.onSurface),\n                  ),\n                  const SizedBox(height: 6),\n                  Text(\n                    'Preview how your typography, structure, layout, and colors look on a desktop viewport mock.',\n                    style: theme.typography.bodySmall.copyWith(color: theme.colors.textSecondary),\n                  ),\n                  const SizedBox(height: 32),\n\n                  // Desktop Mockup Container\n                  Expanded(\n                    child: Container(\n                      decoration: BoxDecoration(\n                        color: context.theme.colors.surfaceContainerLow,\n                        borderRadius: BorderRadius.circular(20),\n                        border: Border.all(color: context.theme.colors.outlineVariant, width: 2),\n                        boxShadow: [\n                          BoxShadow(\n                            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),\n                            blurRadius: 15,\n                            spreadRadius: 1,\n                          ),\n                        ],\n                      ),\n                      clipBehavior: Clip.antiAlias,\n                      child: Column(\n                        children: [\n                          // App Window Header bar\n                          Container(\n                            height: 32,\n                            color: context.theme.colors.surfaceContainerHigh,\n                            padding: const EdgeInsets.symmetric(horizontal: 16),\n                            child: Row(\n                              children: [\n                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.error).accent)),\n                                const SizedBox(width: 6),\n                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent)),\n                                const SizedBox(width: 6),\n                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.success).accent)),\n                                const Spacer(),\n                                Container(\n                                  width: "
+      },
+      {
+        "begin": 18883,
+        "end": 18885,
+        "old": "  ",
+        "new": "height: 18,\n                                  decoration: BoxDecoration(\n                                    color: context.theme.colors.surface,\n                                    borderRadius: BorderRadius.circular(4),\n                                  ),\n                                  alignment: Alignment.center,\n                                  child: Text('primecare.app/clinic/dashboard', style: TextStyle(fontSize: 9, color: context.theme.colors.onSurfaceVariant)),\n                                ),\n                                const Spacer(),\n                              ],\n                            ),\n                          ),\n\n                          // Mockup Main Content Area\n                          Expanded(\n                            child: Ro"
+      },
+      {
+        "begin": 18886,
+        "end": 18894,
+        "old": "idth: is",
+        "new": "(\n                              textDirection: settings.direction,\n                              children: [\n                                // Mock "
+      },
+      {
+        "begin": 18895,
+        "end": 19069,
+        "old": "elected ? 2 : 1,\n                                  ),\n                                ),\n                                child: InkWell(\n                                  onT",
+        "new": "idebar (Left / Right / Coll"
+      },
+      {
+        "begin": 19071,
+        "end": 19078,
+        "old": ": () as",
+        "new": "sed based on la"
+      },
+      {
+        "begin": 19079,
+        "end": 19088,
+        "old": "nc {\n    ",
+        "new": "outStyle)\n"
+      },
+      {
+        "begin": 19124,
+        "end": 19133,
+        "old": "context.m",
+        "new": "settings.lay"
+      },
+      {
+        "begin": 19135,
+        "end": 19399,
+        "old": "nted) {\n                                      await context.setLocale(Locale(lang));\n                                    }\n                                    await ref.read(languageProvider.notifier).setLanguage(lang);\n                                    if (lang",
+        "new": "tStyle"
+      },
+      {
+        "begin": 19403,
+        "end": 19453,
+        "old": "'ar') {\n                                      noti",
+        "new": "LayoutStyle.verticalLe"
+      },
+      {
+        "begin": 19454,
+        "end": 19458,
+        "old": "ier.",
+        "new": "t ||\n                                    settings.layo"
+      },
+      {
+        "begin": 19459,
+        "end": 19459,
+        "old": "",
+        "new": "tStyle == LayoutStyle.verticalRight ||\n                                    settings.layoutStyle == LayoutStyle.colla"
+      },
+      {
+        "begin": 19460,
+        "end": 19464,
+        "old": "date",
+        "new": "sed)\n                                  Container(\n                                    width: settings.layoutStyle == LayoutStyle.collapsed ? 48 : 120,\n                                    color: currentSidebarBg,\n                                    padding: const EdgeInsets.all(8),\n                                    child: Column(\n                                      crossAxisAlignment: CrossAxisAlignment.start,\n                                      children: [\n                                        // Sidebar brand header\n                                        Container(\n                                          height: 20,\n                                          decoration: Box"
+      },
+      {
+        "begin": 19465,
+        "end": 19474,
+        "old": "irection(",
+        "new": "ecoration(\n                                            color: readable"
+      },
+      {
+        "begin": 19475,
+        "end": 19475,
+        "old": "",
+        "new": "hemeForeground(currentSidebarBg, cont"
+      },
+      {
+        "begin": 19478,
+        "end": 19478,
+        "old": "",
+        "new": ".theme.colors.onSurface).withValues(alpha: 0.15),\n                                            borderRadius: BorderRadius.circular(4),\n                                          ),\n                                        ),\n                                        const SizedBox(height: 20),\n                                        // Sidebar menu items\n                                        ...List.generate(4, (index) => Container(\n                                          height: 14,\n                                          margin: const EdgeInsets.only(bottom: 8),\n                                          decoration: Box"
+      },
+      {
+        "begin": 19479,
+        "end": 19581,
+        "old": "irection.rtl);\n                                    } else {\n                                      noti",
+        "new": "ecoration(\n                                            color: index == 0\n                                                ? currentPrimary\n                                                : readableThemeForeground(currentSidebarBg, context.theme.colors.onSur"
+      },
+      {
+        "begin": 19582,
+        "end": 19586,
+        "old": "ier.",
+        "new": "ace).withVal"
+      },
+      {
+        "begin": 19587,
+        "end": 19587,
+        "old": "",
+        "new": "es(al"
+      },
+      {
+        "begin": 19588,
+        "end": 19601,
+        "old": "dateDirection",
+        "new": "ha: 0.1),\n                                            borderRadius: BorderRadius.circular(4),\n                                          ),\n                                        )),\n                                      ],\n                                    ),\n                                  ),\n\n                                // Main Portal View "
+      },
+      {
+        "begin": 19603,
+        "end": 19604,
+        "old": "e",
+        "new": "op Header + Content Workspace)\n                                E"
+      },
+      {
+        "begin": 19605,
+        "end": 19744,
+        "old": "tDirection.ltr);\n                                    }\n                                  },\n                                  child: Paddin",
+        "new": "panded(\n                                  child: Column(\n                                    children: [\n                                      // Top Header Navbar (If not vertical style, Horizontal takes top bar space)\n                                      Container(\n                                        hei"
+      },
+      {
+        "begin": 19745,
+        "end": 19747,
+        "old": "(\n",
+        "new": "ht: 40,\n                                        color: settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg,\n    "
+      },
+      {
+        "begin": 19833,
+        "end": 19854,
+        "old": ".0, vertical: 12.0),\n",
+        "new": "),\n    "
+      },
+      {
+        "begin": 19940,
+        "end": 19940,
+        "old": "",
+        "new": "    "
+      },
+      {
+        "begin": 19992,
+        "end": 19997,
+        "old": "Text(",
+        "new": "    i"
+      },
+      {
+        "begin": 19998,
+        "end": 20000,
+        "old": "la",
+        "new": " (settin"
+      },
+      {
+        "begin": 20001,
+        "end": 20005,
+        "old": ", st",
+        "new": "s.la"
+      },
+      {
+        "begin": 20006,
+        "end": 20019,
+        "old": "le: const Tex",
+        "new": "ou"
+      },
+      {
+        "begin": 20025,
+        "end": 21741,
+        "old": "(fontSize: 20)),\n                                        const SizedBox(width: 12),\n                                        Text(\n                                          title,\n                                          style: theme.typography.bodyMedium.copyWith(\n                                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,\n                                          ),\n                                        ),\n                                        const Spacer(),\n                                        if (isSelected)\n                                          Icon(Icons.check_circle, color: theme.colors.primary, size: 20),\n                                      ],\n                                    ),\n                                  ),\n                                ),\n                              );\n                            });\n                          }()\n                        ],\n                      ),\n                    ),\n                    const SizedBox(height: 20),\n\n                    // Section 5: Toggle Options\n                    _buildSectionCard(\n                      title: 'Additional Features',\n                      subtitle: 'Advanced display parameters toggles.',\n                      child: Column(\n                        children: [\n                          SwitchListTile(\n                            activeColor: theme.colors.primary,\n                            title: Text('Right-To-Left Alignment', style: theme.typography.bodyLarge),\n                            subtitle: Text('Re-align standard content direction.', style: theme.typography.bodyMedium),\n                            value: settings.direction",
+        "new": ""
+      },
+      {
+        "begin": 21745,
+        "end": 21745,
+        "old": "",
+        "new": "LayoutStyle.horizontal) ...[\n                                              Container(\n                                                width: 60,\n                                                height: 18,\n                                                decoration: BoxDecoration(\n                                                  color: readable"
+      },
+      {
+        "begin": 21746,
+        "end": 21746,
+        "old": "",
+        "new": "hemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), cont"
+      },
+      {
+        "begin": 21749,
+        "end": 21845,
+        "old": "Direction.rtl,\n                            onChanged: (val) {\n                              noti",
+        "new": ".theme.colors.onSur"
+      },
+      {
+        "begin": 21846,
+        "end": 21850,
+        "old": "ier.",
+        "new": "ace).withVal"
+      },
+      {
+        "begin": 21851,
+        "end": 21851,
+        "old": "",
+        "new": "es(al"
+      },
+      {
+        "begin": 21852,
+        "end": 21874,
+        "old": "dateDirection(val ? Te",
+        "new": "ha: 0.15),\n                                                  borderRadius: BorderRadius.circular(4),\n                                                ),\n                                              ),\n                                              const SizedBo"
+      },
+      {
+        "begin": 21875,
+        "end": 22042,
+        "old": "tDirection.rtl : TextDirection.ltr);\n                            },\n                          ),\n                          const Divider(),\n                          S",
+        "new": "("
+      },
+      {
+        "begin": 22044,
+        "end": 23067,
+        "old": "tchListTile(\n                            activeColor: theme.colors.primary,\n                            title: Text('Custom Styled Scrollbars', style: theme.typography.bodyLarge),\n                            subtitle: Text('Use modern overlays instead of native UI scrollbars.', style: theme.typography.bodyMedium),\n                            value: settings.customScrollbars,\n                            onChanged: (val) {\n                              notifier.toggleScrollbars(val);\n                            },\n                          ),\n                        ],\n                      ),\n                    ),\n                    const SizedBox(height: 32),\n\n                    // Actions bottom bar\n                    Row(\n                      mainAxisAlignment: MainAxisAlignment.end,\n                      children: [\n                        OutlinedButton(\n                          style: OutlinedButton.styleFrom(\n                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical",
+        "new": "dth"
+      },
+      {
+        "begin": 23102,
+        "end": 23110,
+        "old": "shape: R",
+        "new": "                  Container(width: 30, height: 10, color: readableThemeForegr"
+      },
+      {
+        "begin": 23114,
+        "end": 23121,
+        "old": "edRecta",
+        "new": "((setti"
+      },
+      {
+        "begin": 23123,
+        "end": 23142,
+        "old": "leBorder(borderRadi",
+        "new": "s.layo"
+      },
+      {
+        "begin": 23143,
+        "end": 23156,
+        "old": "s: BorderRadi",
+        "new": "tStyle == Layo"
+      },
+      {
+        "begin": 23157,
+        "end": 23162,
+        "old": "s.cir",
+        "new": "tStyle.horizontal ? "
+      },
+      {
+        "begin": 23164,
+        "end": 23312,
+        "old": "lar(12)),\n                          ),\n                          onPressed: () {\n                            notifier.resetToTenantDefault('darkBlue",
+        "new": "rrent"
+      },
+      {
+        "begin": 23313,
+        "end": 23473,
+        "old": "ilver');\n                            _primaryController.clear();\n                            _primaryContainerController.clear();\n                            _s",
+        "new": ""
+      },
+      {
+        "begin": 23481,
+        "end": 23531,
+        "old": "Controller.clear();\n                            _t",
+        "new": " : currentT"
+      },
+      {
+        "begin": 23538,
+        "end": 23538,
+        "old": "",
+        "new": "), context.theme.colors.onSurface).withValues(alpha: 0.1)),\n                                              const SizedBox(width: 8),\n                                              "
+      },
+      {
+        "begin": 23542,
+        "end": 23626,
+        "old": "roller.clear();\n                          },\n                          child: const ",
+        "new": "ainer(width: 30, height: 10, color: readable"
+      },
+      {
+        "begin": 23627,
+        "end": 23627,
+        "old": "",
+        "new": "hemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), cont"
+      },
+      {
+        "begin": 23630,
+        "end": 23640,
+        "old": "('Reset De",
+        "new": ".theme.colors.onSur"
+      },
+      {
+        "begin": 23642,
+        "end": 23642,
+        "old": "",
+        "new": "ce).withVal"
+      },
+      {
+        "begin": 23643,
+        "end": 23708,
+        "old": "lts'),\n                        ),\n                        const S",
+        "new": "es(alpha: 0.1)),\n                                            ] else ...[\n                                              Icon(Icons.menu, s"
+      },
+      {
+        "begin": 23711,
+        "end": 23721,
+        "old": "dBox(width",
+        "new": ""
+      },
+      {
+        "begin": 23725,
+        "end": 23760,
+        "old": "),\n                        Elevated",
+        "new": ", color: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebar"
+      },
+      {
+        "begin": 23761,
+        "end": 23761,
+        "old": "",
+        "new": "g : c"
+      },
+      {
+        "begin": 23762,
+        "end": 23809,
+        "old": "tton(\n                          style: Elevated",
+        "new": "rrentTopbar"
+      },
+      {
+        "begin": 23810,
+        "end": 23859,
+        "old": "utton.styleFrom(\n                            back",
+        "new": ""
+      },
+      {
+        "begin": 23860,
+        "end": 24346,
+        "old": "roundColor: theme.colors.primary,\n                            foregroundColor: theme.colors.onPrimary,\n                            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),\n                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),\n                          ),\n                          onPressed: _isSaving ? null : _saveSettings,\n                          child: _isSaving\n                              ? const SizedBo",
+        "new": "), conte"
+      },
+      {
+        "begin": 24347,
+        "end": 25521,
+        "old": "(\n                                  width: 20,\n                                  height: 20,\n                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),\n                                )\n                              : const Text('Save Branding & Settings'),\n                        ),\n                      ],\n                    ),\n                    const SizedBox(height: 48),\n                  ],\n                ),\n              ),\n            ),\n          ),\n\n          // Right live preview mockup panel\n          Expanded(\n            flex: 2,\n            child: Container(\n              height: double.infinity,\n              decoration: BoxDecoration(\n                border: Border(left: BorderSide(color: Colors.grey.shade200)),\n                color: theme.colors.surface.withOpacity(0.7),\n              ),\n              padding: const EdgeInsets.all(24.0),\n              child: Column(\n                crossAxisAlignment: CrossAxisAlignment.start,\n                children: [\n                  Text(\n                    'Real-Time Branding Preview',\n                    style: theme.typography.h3.copyWith(color: ",
+        "new": "t."
+      },
+      {
+        "begin": 25544,
+        "end": 32802,
+        "old": ",\n                  ),\n                  const SizedBox(height: 6),\n                  Text(\n                    'Preview how your typography, structure, layout, and colors look on a desktop viewport mock.',\n                    style: theme.typography.bodySmall.copyWith(color: theme.colors.textSecondary),\n                  ),\n                  const SizedBox(height: 32),\n\n                  // Desktop Mockup Container\n                  Expanded(\n                    child: Container(\n                      decoration: BoxDecoration(\n                        color: Colors.grey.shade100,\n                        borderRadius: BorderRadius.circular(20),\n                        border: Border.all(color: Colors.grey.shade300, width: 2),\n                        boxShadow: [\n                          BoxShadow(\n                            color: Colors.black.withOpacity(0.05),\n                            blurRadius: 15,\n                            spreadRadius: 1,\n                          ),\n                        ],\n                      ),\n                      clipBehavior: Clip.antiAlias,\n                      child: Column(\n                        children: [\n                          // App Window Header bar\n                          Container(\n                            height: 32,\n                            color: Colors.grey.shade200,\n                            padding: const EdgeInsets.symmetric(horizontal: 16),\n                            child: Row(\n                              children: [\n                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red)),\n                                const SizedBox(width: 6),\n                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.orange)),\n                                const SizedBox(width: 6),\n                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.green)),\n                                const Spacer(),\n                                Container(\n                                  width: 200,\n                                  height: 18,\n                                  decoration: BoxDecoration(\n                                    color: Colors.white,\n                                    borderRadius: BorderRadius.circular(4),\n                                  ),\n                                  alignment: Alignment.center,\n                                  child: const Text('primecare.app/clinic/dashboard', style: TextStyle(fontSize: 9, color: Colors.grey)),\n                                ),\n                                const Spacer(),\n                              ],\n                            ),\n                          ),\n\n                          // Mockup Main Content Area\n                          Expanded(\n                            child: Row(\n                              textDirection: settings.direction,\n                              children: [\n                                // Mock Sidebar (Left / Right / Collapsed based on layoutStyle)\n                                if (settings.layoutStyle == LayoutStyle.verticalLeft ||\n                                    settings.layoutStyle == LayoutStyle.verticalRight ||\n                                    settings.layoutStyle == LayoutStyle.collapsed)\n                                  Container(\n                                    width: settings.layoutStyle == LayoutStyle.collapsed ? 48 : 120,\n                                    color: currentSidebarBg,\n                                    padding: const EdgeInsets.all(8),\n                                    child: Column(\n                                      crossAxisAlignment: CrossAxisAlignment.start,\n                                      children: [\n                                        // Sidebar brand header\n                                        Container(\n                                          height: 20,\n                                          decoration: BoxDecoration(\n                                            color: Colors.white.withOpacity(0.15),\n                                            borderRadius: BorderRadius.circular(4),\n                                          ),\n                                        ),\n                                        const SizedBox(height: 20),\n                                        // Sidebar menu items\n                                        ...List.generate(4, (index) => Container(\n                                          height: 14,\n                                          margin: const EdgeInsets.only(bottom: 8),\n                                          decoration: BoxDecoration(\n                                            color: index == 0\n                                                ? currentPrimary\n                                                : Colors.white.withOpacity(0.1),\n                                            borderRadius: BorderRadius.circular(4),\n                                          ),\n                                        )),\n                                      ],\n                                    ),\n                                  ),\n\n                                // Main Portal View (Top Header + Content Workspace)\n                                Expanded(\n                                  child: Column(\n                                    children: [\n                                      // Top Header Navbar (If not vertical style, Horizontal takes top bar space)\n                                      Container(\n                                        height: 40,\n                                        color: settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg,\n                                        padding: const EdgeInsets.symmetric(horizontal: 16),\n                                        child: Row(\n                                          children: [\n                                            if (settings.layoutStyle == LayoutStyle.horizontal) ...[\n                                              Container(\n                                                width: 60,\n                                                height: 18,\n                                                decoration: BoxDecoration(\n                                                  color: Colors.white.withOpacity(0.15),\n                                                  borderRadius: BorderRadius.circular(4),\n                                                ),\n                                              ),\n                                              const SizedBox(width: 16),\n                                              Container(width: 30, height: 10, color: Colors.white.withOpacity(0.1)),\n                                              const SizedBox(width: 8),\n                                              Container(width: 30, height: 10, color: Colors.white.withOpacity(0.1)),\n                                            ] else ...[\n                                              const Icon(Icons.menu, size: 16, color: Colors.white70",
+        "new": ""
+      },
+      {
+        "begin": 33548,
+        "end": 33549,
+        "old": "c",
+        "new": "readableThemeForegro"
+      },
+      {
+        "begin": 33550,
+        "end": 33550,
+        "old": "",
+        "new": "nd(cu"
+      },
+      {
+        "begin": 33562,
+        "end": 33562,
+        "old": "",
+        "new": "Container, currentPrimary)"
+      },
+      {
+        "begin": 33755,
+        "end": 33761,
+        "old": " const",
+        "new": ""
+      },
+      {
+        "begin": 33804,
+        "end": 33810,
+        "old": "Colors",
+        "new": "readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface)"
+      },
+      {
+        "begin": 33812,
+        "end": 33816,
+        "old": "hite",
+        "new": "ithValues(alpha: 0."
+      },
+      {
+        "begin": 33818,
+        "end": 33818,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 34169,
+        "end": 34176,
+        "old": "Colors.",
+        "new": "context.theme.colors.back"
+      },
+      {
+        "begin": 34178,
+        "end": 34188,
+        "old": "ey.shade50",
+        "new": "ound"
+      },
+      {
+        "begin": 34648,
+        "end": 34668,
+        "old": "Colors.grey.shade300",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 35671,
+        "end": 35682,
+        "old": "Colors.whit",
+        "new": "context.theme.colors.surfac"
+      },
+      {
+        "begin": 35863,
+        "end": 35883,
+        "old": "Colors.grey.shade200",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 36508,
+        "end": 36509,
+        "old": "c",
+        "new": "PrimeActionPalette.tintS"
+      },
+      {
+        "begin": 36511,
+        "end": 36511,
+        "old": "",
+        "new": "face(context, cur"
+      },
+      {
+        "begin": 36522,
+        "end": 36533,
+        "old": ".withOpacit",
+        "new": "), child: Icon(Icons.circle, size: 6, color: PrimeActionPalette.onTint(context, currentPrimar"
+      },
+      {
+        "begin": 36534,
+        "end": 36597,
+        "old": "(0.1), child: Icon(Icons.circle, size: 6, color: currentPrimary",
+        "new": ")"
+      },
+      {
+        "begin": 36816,
+        "end": 36836,
+        "old": "Colors.grey.shade200",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 38441,
+        "end": 38461,
+        "old": "Colors.grey.shade200",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 38864,
+        "end": 38884,
+        "old": "Colors.grey.shade500",
+        "new": "context.theme.colors.onSurfaceVariant"
+      },
+      {
+        "begin": 39448,
+        "end": 39468,
+        "old": "Colors.grey.shade400",
+        "new": "context.theme.colors.onSurfaceVariant"
+      },
+      {
+        "begin": 39751,
+        "end": 39751,
+        "old": "",
+        "new": "context.theme.colors.outlineVariant),\n          ),\n        ),\n        filled: true,\n        fill"
+      },
+      {
+        "begin": 39756,
+        "end": 39758,
+        "old": "s.",
+        "new": ": context.theme.colors.back"
+      },
+      {
+        "begin": 39760,
+        "end": 39816,
+        "old": "ey.shade300),\n          ),\n        ),\n        filled: tr",
+        "new": "o"
+      },
+      {
+        "begin": 39817,
+        "end": 39858,
+        "old": "e,\n        fillColor: Colors.grey.shade50",
+        "new": "nd"
+      },
+      {
+        "begin": 39943,
+        "end": 39963,
+        "old": "Colors.grey.shade300",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 41520,
+        "end": 41540,
+        "old": "Colors.grey.shade200",
+        "new": "context.theme.colors.outlineVariant"
+      },
+      {
+        "begin": 41945,
+        "end": 41965,
+        "old": "Colors.grey.shade600",
+        "new": "context.theme.colors.onSurfaceVariant"
+      }
+    ]
+  }
+]
