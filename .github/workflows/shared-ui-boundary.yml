@@ -17,33 +17,9 @@ jobs:
           python-version: '3.12'
       - name: Verify boundary diagnostics
         run: python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
-      - name: Verify conservative shared text migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_text.py
-      - name: Verify conservative shared button migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_buttons.py
-      - name: Verify semantic status migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_status.py
+      - name: Verify all conservative UI and theme migrations
+        run: python3 -m unittest discover -s scripts/tests -p 'test_migrate_*.py'
       - name: Verify generated status import cleanup
         run: python3 -m unittest discover -s scripts/tests -p test_clean_shared_status_imports.py
-      - name: Verify conservative loading migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_loading.py
-      - name: Verify generated template theme migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_generated_theme.py
-      - name: Verify generated primary action migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_primary.py
-      - name: Verify compact action migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_compact_actions.py
-      - name: Verify shared indicator migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_indicators.py
-      - name: Verify premium template theme migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_premium_surfaces.py
-      - name: Verify generated typography repairs
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_generated_typography.py
-      - name: Verify conservative shared icon migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_icons.py
-      - name: Verify conservative shared icon action migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_icon_buttons.py
-      - name: Verify conservative shared page migration
-        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_pages.py
       - name: Reject direct controls and colors outside shared theme definitions
         run: python3 scripts/check-shared-ui-boundary.py
