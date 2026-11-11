@@ -1,0 +1,42 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/intake_pipeline.dart",
+    "className": "_UrgencyTab",
+    "fixture": "OperationsPaletteFixture0"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/compliance_status.dart",
+    "className": "_ComplianceKpiCard",
+    "fixture": "OperationsPaletteFixture1"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/platform_usage.dart",
+    "className": "_StatCard",
+    "fixture": "OperationsPaletteFixture2"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/incident_reviews.dart",
+    "className": "_MetricCard",
+    "fixture": "OperationsPaletteFixture3"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/marketing_hub.dart",
+    "className": "_MarketingCard",
+    "fixture": "OperationsPaletteFixture4"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/operations_board.dart",
+    "className": "_MetricCard",
+    "fixture": "OperationsPaletteFixture5"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/operations_board.dart",
+    "className": "_FilterButton",
+    "fixture": "OperationsPaletteFixture6"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/pending_assessments.dart",
+    "statements": "final isPending = item['status'] == 'Pending';\n                            final isCompleted = item['status'] == 'Completed';",
+    "snippet": "Container(\n                                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),\n                                                decoration: BoxDecoration(\n                                                  color: isCompleted\n                                                      ? PrimeActionPalette.of(context, PrimeActionTone.success).surface\n                                                      : isPending\n                                                          ? PrimeActionPalette.of(context, PrimeActionTone.warning).surface\n                                                          : PrimeActionPalette.of(context, PrimeActionTone.primary).surface,\n                                                  borderRadius: BorderRadius.circular(4),\n                                                ),\n                                                child: Text(\n                                                  (item['status'] as String).toUpperCase(),\n                                                  style: TextStyle(\n                                                    color: isCompleted\n                                                        ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface\n                                                        : isPending\n                                                            ? PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface\n                                                            : PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface,\n                                                    fontWeight: FontWeight.bold,\n                                                    fontSize: 10,\n                                                  ),\n                                                ),\n                                              )"
+  }
+]
