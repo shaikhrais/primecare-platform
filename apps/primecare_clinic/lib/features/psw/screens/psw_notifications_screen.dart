@@ -235,7 +235,7 @@ class PswNotificationsScreen extends GovernedConsumerWidget {
                         decoration: BoxDecoration(
                           color: theme.colors.surface,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.red),
+                          border: Border.all(color: theme.colors.error),
                         ),
                         child: Column(
                           children: [
