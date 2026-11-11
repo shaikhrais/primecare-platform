@@ -51,6 +51,23 @@ class PremiumSurfaceMigrationTest(unittest.TestCase):
         source=screen("return Text('Hydration Failure: $error', style: TextStyle(color: Colors.red));")+'class Text {}'
         self.assertEqual(m.migrate(source),(source,0))
 
+    def test_telemetry_label_uses_muted_surface_role_without_changing_typography(self):
+        source=screen('return null;')+'class _TelemetryRow extends StatelessWidget { Widget build(BuildContext context) { final theme = context.theme; return Text(label, style: const TextStyle(fontSize: 13.5, fontWeight: FontWeight.w500, color: Colors.blueGrey.shade600)); } }'
+        result,count=m.migrate(source)
+        self.assertEqual(count,1)
+        self.assertIn('fontSize: 13.5, fontWeight: FontWeight.w500, color: theme.colors.onSurfaceVariant',result)
+        self.assertNotIn('const TextStyle',result)
+        self.assertEqual(m.migrate(result),(result,0))
+
+    def test_telemetry_color_other_shades_and_non_text_contexts_stay(self):
+        for body in ['return Text(label, style: TextStyle(color: Colors.blueGrey.shade600));',
+                     'return Chart(color: Colors.blueGrey.shade600);',
+                     'return Icon(Icons.star, color: Colors.blueGrey.shade600);',
+                     'return TextStyle(color: Colors.blueGrey.shade6000);',
+                     'return TextStyle(color: Colors.blueGrey.shade700);']:
+            source=screen(body)
+            self.assertEqual(m.migrate(source),(source,0))
+
     def test_neutral_palette_uses_contextual_roles_and_is_idempotent(self):
         source=screen('return Scaffold(backgroundColor: const Color(0xFFF8FAFC), appBar: AppBar(backgroundColor: Colors.white, title: const Text("Title", style: TextStyle(color: Color(0xFF0F172A)))));')
         result,count=m.migrate(source)

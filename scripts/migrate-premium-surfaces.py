@@ -14,7 +14,7 @@ from pathlib import Path
 spec=importlib.util.spec_from_file_location('theme',Path(__file__).with_name('migrate-generated-theme.py'))
 theme=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(theme)
-COLOR=re.compile(r'(?<![\w.])(?:Color\s*\(\s*0xFF([0-9A-Fa-f]{6})\s*\)|Colors\s*\.\s*(white|red|blueGrey\s*\.\s*shade400|blueGrey\s*\.\s*shade50|grey\s*\.\s*shade50|grey\s*\.\s*shade100))(?!\w)')
+COLOR=re.compile(r'(?<![\w.])(?:Color\s*\(\s*0xFF([0-9A-Fa-f]{6})\s*\)|Colors\s*\.\s*(white|red|blueGrey\s*\.\s*shade400|blueGrey\s*\.\s*shade600|blueGrey\s*\.\s*shade50|grey\s*\.\s*shade50|grey\s*\.\s*shade100))(?!\w)')
 RULES={
     ('Scaffold','backgroundColor','F8FAFC'):'background',
     # The generated PREMIUM badge uses this exact foreground/tinted surface pair.
@@ -71,6 +71,15 @@ def migrate(source):
             named=re.search(r'\b(\w+)\s*:\s*(?:const\s*)?$',code[parent[0]+1:match.start()])
             value=match[1].upper() if match[1] else re.sub(r'\s+','',match[2])
             role=RULES.get((parent[2],named[1],value)) if named else None
+            # Only the exact generated telemetry label owns this muted role.
+            # Other text on inverse/status/custom surfaces requires separate review.
+            label_parent=parent[3]
+            owner=body[3]
+            if not role and named and parent[2]=='TextStyle' and named[1]=='color' and value=='blueGrey.shade600' and label_parent and label_parent[2]=='Text':
+                owner_prefix=code[max(0,owner[0]-200):owner[0]]
+                label_prefix=code[label_parent[0]:parent[0]]
+                if re.search(r'\bclass\s+_TelemetryRow\s+extends\s+StatelessWidget\s*$',owner_prefix) and re.match(r'^\(\s*label\s*,\s*style\s*:\s*(?:const\s*)?TextStyle\s*$',label_prefix):
+                    role='onSurfaceVariant'
             # This exact generated diagnostic identifies the existing error role.
             # Decorative red labels and arbitrary TextStyle uses remain untouched.
             text_parent=parent[3]
