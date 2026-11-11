@@ -1,0 +1,28 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/auth/shared_account/success_profile/sections/success_profile_header_section.dart",
+    "sha256": "49be54852d8dd02b91e6a709f7ea5c937bd2cc5f7c1be1a370e494e229db5809",
+    "updated_sha256": "998512e53df5589a848c03656a5076c96083dd2a1ba94e1991cf859ab2d007f7",
+    "edits": [
+      {
+        "begin": 834,
+        "end": 1557,
+        "old": "accent,\n            size: 28,\n          ),\n        ),\n        const SizedBox(width: 12),\n        Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          children: [\n            Text(\n              'PRIMECARE HQ',\n              style: theme.typography.labelMedium.copyWith(\n                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,\n                letterSpacing: 2.0,\n                fontWeight: FontWeight.bold,\n              ),\n            ),\n            Text(\n              'Application Hub',\n              style: theme.typography.h2.copyWith(\n                fontWeight: FontWeight.bold,\n                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent",
+        "new": "onAccent,\n            size: 28,\n          ),\n        ),\n        const SizedBox(width: 12),\n        Column(\n          crossAxisAlignment: CrossAxisAlignment.start,\n          children: [\n            Text(\n              'PRIMECARE HQ',\n              style: theme.typography.labelMedium.copyWith(\n                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,\n                letterSpacing: 2.0,\n                fontWeight: FontWeight.bold,\n              ),\n            ),\n            Text(\n              'Application Hub',\n              style: theme.typography.h2.copyWith(\n                fontWeight: FontWeight.bold,\n                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/live_dispatch_map.dart",
+    "sha256": "aaa57d00b434590c60a87afe0bb8760a606f0de0694cca0b17907aeb89e7ef9e",
+    "updated_sha256": "7db57f72fac3406eed4ee41c2ee3ca18d7591662c583a8f1e50314b24b9e31a1",
+    "edits": [
+      {
+        "begin": 25444,
+        "end": 25538,
+        "old": "Row(\n                                        mainAxisAlignment: MainAxisAlignment.spaceBetween",
+        "new": "Wrap(\n                                        spacing: 8,\n                                        runSpacing: 8"
+      }
+    ]
+  }
+]

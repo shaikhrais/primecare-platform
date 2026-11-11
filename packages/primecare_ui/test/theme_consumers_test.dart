@@ -406,7 +406,7 @@ void main() {
     for (final stop in gradients.single.colors) {
       expect(themeContrastRatio(stop, foreground), greaterThanOrEqualTo(4.5));
     }
-    final cards = tester.widgetList<Card>(find.byType(Card));
+    final cards = tester.widgetList<Card>(find.byWidgetPredicate((widget) => widget is Card));
     expect(cards.length, 2);
     final input = material.inputDecorationTheme;
     expect(input.fillColor, material.colorScheme.surface);
