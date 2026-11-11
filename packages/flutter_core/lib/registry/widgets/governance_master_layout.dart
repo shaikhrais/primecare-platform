@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
@@ -664,7 +665,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                             context.go(screen.route);
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              PrimeSnackBar(
                                 content: PrimeText(
                                   tr('governance.unauthorized_access'),
                                 ),

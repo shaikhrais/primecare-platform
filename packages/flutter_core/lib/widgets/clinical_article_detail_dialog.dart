@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Clinical Article Detail Dialog platform logic.
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
@@ -35,7 +36,7 @@ class ClinicalArticleDetailDialog extends StatelessWidget {
                   await launchUrl(uri);
                 } else if (context.mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: PrimeText('Could not open the link')),
+                    const PrimeSnackBar(content: PrimeText('Could not open the link')),
                   );
                 }
               },
