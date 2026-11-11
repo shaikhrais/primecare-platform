@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,11 +49,9 @@ class RnDashboardScreen extends GovernedConsumerWidget {
     return Semantics(
       label: 'data-cy:rndashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('rndashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  const PrimeText('RnDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('rndashboard-screen'),
+      title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  const PrimeText('RnDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

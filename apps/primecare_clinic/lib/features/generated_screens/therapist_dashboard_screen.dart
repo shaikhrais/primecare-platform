@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -41,11 +42,9 @@ class TherapistDashboardScreen extends GovernedConsumerWidget {
     return Semantics(
       label: 'data-cy:therapistdashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('therapistdashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:therapistdashboard-title', container: true, child: Container(child:  const PrimeText('TherapistDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('therapistdashboard-screen'),
+      title: Semantics(label: 'data-cy:therapistdashboard-title', container: true, child: Container(child:  const PrimeText('TherapistDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

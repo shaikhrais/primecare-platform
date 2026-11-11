@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'physician_dashboard_screen_controller.dart';
@@ -15,11 +16,9 @@ class PhysicianDashboardScreen extends ConsumerWidget {
     return Semantics(
       label: 'data-cy:physiciandashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('physiciandashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  const PrimeText('PhysicianDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('physiciandashboard-screen'),
+      title: Semantics(label: 'data-cy:physiciandashboard-title', container: true, child: Container(child:  const PrimeText('PhysicianDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

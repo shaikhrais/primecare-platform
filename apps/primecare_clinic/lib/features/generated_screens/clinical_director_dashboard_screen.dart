@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,11 +49,9 @@ class ClinicalDirectorDashboardScreen extends GovernedConsumerWidget {
     return Semantics(
       label: 'data-cy:clinicaldirectordashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('clinicaldirectordashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:clinicaldirectordashboard-title', container: true, child: Container(child:  const PrimeText('ClinicalDirectorDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('clinicaldirectordashboard-screen'),
+      title: Semantics(label: 'data-cy:clinicaldirectordashboard-title', container: true, child: Container(child:  const PrimeText('ClinicalDirectorDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

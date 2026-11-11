@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_check_in_screen_controller.dart';
@@ -15,11 +16,9 @@ class PswCheckInScreen extends ConsumerWidget {
     return Semantics(
       label: 'data-cy:pswcheckin-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('pswcheckin-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:pswcheckin-title', container: true, child: Container(child:  const PrimeText('PswCheckIn'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('pswcheckin-screen'),
+      title: Semantics(label: 'data-cy:pswcheckin-title', container: true, child: Container(child:  const PrimeText('PswCheckIn'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

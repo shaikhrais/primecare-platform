@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'unknown_dashboard_screen_controller.dart';
@@ -15,11 +16,9 @@ class UnknownDashboardScreen extends ConsumerWidget {
     return Semantics(
       label: 'data-cy:unknowndashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('unknowndashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:unknowndashboard-title', container: true, child: Container(child:  const PrimeText('UnknownDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('unknowndashboard-screen'),
+      title: Semantics(label: 'data-cy:unknowndashboard-title', container: true, child: Container(child:  const PrimeText('UnknownDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),

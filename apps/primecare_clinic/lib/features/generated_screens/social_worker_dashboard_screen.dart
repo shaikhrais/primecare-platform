@@ -1,6 +1,7 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusTone;
+import 'package:primecare_ui/primecare_ui.dart' show PrimePageScaffold;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -38,11 +39,9 @@ class SocialWorkerDashboardScreen extends GovernedConsumerWidget {
     return Semantics(
       label: 'data-cy:socialworkerdashboard-screen',
       container: true,
-      child: Scaffold(
-        key: const Key('socialworkerdashboard-screen'),
-      appBar: AppBar(
-        title: Semantics(label: 'data-cy:socialworkerdashboard-title', container: true, child: Container(child:  const PrimeText('SocialWorkerDashboard'))),
-      ),
+      child: PrimePageScaffold(
+        scaffoldKey: const Key('socialworkerdashboard-screen'),
+      title: Semantics(label: 'data-cy:socialworkerdashboard-title', container: true, child: Container(child:  const PrimeText('SocialWorkerDashboard'))),
       body: state.when(
         data: (data) => _buildContent(context, data),
         loading: () => const DashboardLoadingWidget(),
