@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCheckbox, PrimeCheckboxListTile, PrimeLinearProgressIndicator, PrimeSlider, PrimeTextFormField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
@@ -9,7 +10,7 @@ class PrimeDataKit {final CatalogueLabels labels;final String scope;PrimeDataKit
  Widget button(String key,Future<void> Function()? action,{String suffix='',bool disabled=false})=>PrimeCatalogueAction(labels:labels,scope:scope,control:key,action:action,suffix:suffix,disabled:disabled,errorKey:'error',successKey:key=='cancel'?'cancel':'success');
  Widget field(String kind,TextEditingController controller,{bool required=false,double? min,double? max,double? step,String? pattern,DateTime? firstDate,DateTime? lastDate})=>Builder(builder:(context){
  Future<void> pick()async{if(kind=='date'&&firstDate!=null&&lastDate!=null){final parsed=DateTime.tryParse(controller.text),initial=parsed!=null&&!parsed.isBefore(firstDate)&&!parsed.isAfter(lastDate)?parsed:firstDate;final date=await showDatePicker(context:context,initialDate:initial,firstDate:firstDate,lastDate:lastDate);if(date!=null&&context.mounted)controller.text='${date.year.toString().padLeft(4,'0')}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';}else if(kind=='time'){final parts=controller.text.split(':'),valid=fieldError(controller.text,'time')==null&&parts.length==2;final time=await showTimePicker(context:context,initialTime:valid?TimeOfDay(hour:int.parse(parts[0]),minute:int.parse(parts[1])):TimeOfDay.now());if(time!=null&&context.mounted)controller.text='${time.hour.toString().padLeft(2,'0')}:${time.minute.toString().padLeft(2,'0')}';}}
- return labels.identify(kind,'prime_text_field',TextFormField(controller:controller,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&firstDate!=null&&lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:PrimeIconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:pick)):null),onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,validator:(v){final error=fieldError(v??'',kind,required:required,min:min,max:max,step:step,pattern:pattern);return error==null?null:labels.text(error);}));});
+ return labels.identify(kind,'prime_text_field',PrimeTextFormField(controller:controller,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&firstDate!=null&&lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:PrimeIconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:pick)):null),onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,validator:(v){final error=fieldError(v??'',kind,required:required,min:min,max:max,step:step,pattern:pattern);return error==null?null:labels.text(error);}));});
  Widget form(GlobalKey<FormState> key,List<Widget> children,Future<void> Function()? save)=>labels.identify('form','prime_card',Form(key:key,child:Column(mainAxisSize:MainAxisSize.min,children:[...children,button('submit',save==null?null:()async{if(!key.currentState!.validate())throw StateError('invalid_form');await save();}),if(save==null)PrimeText(labels.text('unsupported'))])));
 }
 class PrimeVirtualTable extends StatefulWidget {
@@ -212,7 +213,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
                       l.identify(
                         'visible',
                         'prime_checkbox_web',
-                        CheckboxListTile(
+                        PrimeCheckboxListTile(
                           title: PrimeText(c.label),
                           value: c.visible,
                           onChanged: (v) {
@@ -265,7 +266,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
                       l.identify(
                         'resize',
                         'prime_text_field',
-                        Slider(
+                        PrimeSlider(
                           label: l.text('resize'),
                           value: c.width,
                           min: widget.minWidth,
@@ -352,7 +353,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
                                   child: l.identify(
                                     'selectRow',
                                     'prime_checkbox_web',
-                                    Checkbox(
+                                    PrimeCheckbox(
                                       semanticLabel: l.text('selectRow'),
                                       value: model.selected.contains(row.id),
                                       onChanged: (_) =>
@@ -517,7 +518,7 @@ class _PrimeUploadControlState extends State<PrimeUploadControl>{
    kit.button('retry',widget.retrySafe&&widget.port!=null?()async{await task.send();if(task.status!='success')throw StateError('upload_not_acknowledged');}:null,disabled:!['error','cancelled'].contains(task.status)),
    if(task.receiptId!=null)kit.button('remove',canRemove?()async{await task.removeUpload();if(task.status!='removed')throw StateError('removal_not_verified');}:null,suffix:'-receipt',disabled:!['success','remove-error'].contains(task.status)),
    if(task.receiptId!=null&&!canRemove)PrimeText(l.text('unsupported')),
-   l.identify('progress','prime_card',LinearProgressIndicator(value:task.progress,semanticsLabel:l.text('progress'))),
+   l.identify('progress','prime_card',PrimeLinearProgressIndicator(value:task.progress,semanticsLabel:l.text('progress'))),
    Semantics(liveRegion:true,child:PrimeText(invalid?l.text('invalid'):widget.port==null||widget.pick==null?l.text('unsupported'):['success','removed'].contains(task.status)?l.text('success'):['error','remove-error'].contains(task.status)?l.text('error'):['uploading','removing'].contains(task.status)?l.text('loading'):task.files.map((f)=>f.name).join(', '))),
   ]);
  }

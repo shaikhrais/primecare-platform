@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeListTile;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon;
 import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
@@ -30,7 +31,7 @@ class PlatformReadinessViewer extends ConsumerWidget {
         }
         final screen = screens[index - 1];
         final pending = snapshot.pendingEvidence[screen.id]!;
-        return ListTile(
+        return PrimeListTile(
           key: ValueKey('readiness-${screen.id}'),
           title: PrimeText(screen.id),
           subtitle: PrimeText([

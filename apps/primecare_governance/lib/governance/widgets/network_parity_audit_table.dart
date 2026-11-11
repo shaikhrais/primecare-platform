@@ -1,3 +1,4 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeDataTable;
 import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Network Parity Audit Table platform logic.
 import 'package:flutter_core/flutter_core.dart';
@@ -49,7 +50,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         child: SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: DataTable(
+          child: PrimeDataTable(
             headingRowColor: WidgetStateProperty.all(
               PrimeActionPalette.of(context, PrimeActionTone.error).surface,
             ),

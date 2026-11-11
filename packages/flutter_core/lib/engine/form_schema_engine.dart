@@ -1,3 +1,4 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextFormField;
 // Governance - Category: service | Purpose: Layer: 01_INFRASTRUCTURE Represents a generic field in the Schema Generic Form Schema Definition
 // Layer: 01_INFRASTRUCTURE
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton;
@@ -48,7 +49,7 @@ class SchemaFormEngine<T> extends StatelessWidget {
           if (field is TextFieldSchema) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
-              child: TextFormField(
+              child: PrimeTextFormField(
                 decoration: InputDecoration(
                   labelText: field.label,
                   hintText: field.placeholder,
