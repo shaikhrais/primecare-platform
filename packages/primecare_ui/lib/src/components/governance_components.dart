@@ -127,7 +127,7 @@ class GovDashboardHero extends StatelessWidget {
                 )),
                 if (onRefresh != null)
                   Material(
-                    color: Colors.transparent,
+                    color: theme.colors.surface.withValues(alpha: 0),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(100),
                       onTap: onRefresh,
@@ -206,18 +206,7 @@ class GovMetricCard extends StatelessWidget {
                 color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(theme.radiusMd),
                 border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
-                boxShadow: [
-                  BoxShadow(
-                    color: brandColor.withValues(alpha: 0.04),
-                    blurRadius: 16,
-                    offset: const Offset(0, 6),
-                  ),
-                  const BoxShadow(
-                    color: Color(0x0A1E3A8A),
-                    blurRadius: 8,
-                    offset: Offset(0, 2),
-                  ),
-                ],
+                boxShadow: theme.shadowsSurface1,
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -239,23 +228,23 @@ class GovMetricCard extends StatelessWidget {
                       Flexible(child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
-                          color: const Color(0xFFDCFCE7),
+                          color: theme.colors.successContainer,
                           borderRadius: BorderRadius.circular(100),
-                          border: Border.all(color: const Color(0xFFBBF7D0)),
+                          border: Border.all(color: theme.colors.success),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
+                            Icon(
                               LucideIcons.trendingUp,
                               size: 12,
-                              color: Color(0xFF15803D),
+                              color: readableThemeForeground(theme.colors.successContainer, theme.colors.success),
                             ),
                             const SizedBox(width: 4),
                             Flexible(child: Text(
                               trendLabel,
                               style: theme.typography.bodySmall.copyWith(
-                                color: const Color(0xFF15803D),
+                                color: readableThemeForeground(theme.colors.successContainer, theme.colors.success),
                                 fontWeight: FontWeight.bold,
                                 fontSize: theme.scaleFont(10),
                               ),
@@ -400,6 +389,7 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
   }
 
   void _submit() {
+    final theme = context.theme;
     if (_formKey.currentState?.validate() ?? false) {
       final values = _controllers.map((key, controller) => MapEntry(key, controller.text));
       if (_uploadedFileName != null) {
@@ -410,12 +400,12 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
         SnackBar(
           content: Row(
             children: [
-              Icon(LucideIcons.checkCircle2, color: readableThemeForeground(const Color(0xFF10B981), Colors.white)),
+              Icon(LucideIcons.checkCircle2, color: readableThemeForeground(theme.colors.success, theme.colors.onSurface)),
               SizedBox(width: 12),
-              Text('Operational Form Hydrated & Dispatched Successfully.', style: TextStyle(color: readableThemeForeground(const Color(0xFF10B981), Colors.white))),
+              Text('Operational Form Hydrated & Dispatched Successfully.', style: TextStyle(color: readableThemeForeground(theme.colors.success, theme.colors.onSurface))),
             ],
           ),
-          backgroundColor: const Color(0xFF10B981),
+          backgroundColor: theme.colors.success,
           behavior: SnackBarBehavior.floating,
         ),
       );
@@ -431,18 +421,7 @@ class _GovIngestionFormState extends State<GovIngestionForm> {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x05004AC6),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-          const BoxShadow(
-            color: Color(0x0A1E3A8A),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Form(
         key: _formKey,
@@ -589,18 +568,7 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x05004AC6),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-          const BoxShadow(
-            color: Color(0x0A1E3A8A),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -704,22 +672,22 @@ class _GovComplianceAuditTableState extends State<GovComplianceAuditTable> {
               itemBuilder: (context, index) {
                 final row = filteredData[index];
                 final status = row['status'] ?? 'Secure';
-                Color statusColor = const Color(0xFF15803D);
-                Color statusBgColor = const Color(0xFFDCFCE7);
-                Color statusBorderColor = const Color(0xFFBBF7D0);
+                Color statusColor = readableThemeForeground(theme.colors.successContainer, theme.colors.success);
+                Color statusBgColor = theme.colors.successContainer;
+                Color statusBorderColor = theme.colors.success;
 
                 if (status == 'Warning' || status == 'Pending') {
-                  statusColor = const Color(0xFFB45309);
-                  statusBgColor = const Color(0xFFFEF3C7);
-                  statusBorderColor = const Color(0xFFFDE68A);
+                  statusColor = readableThemeForeground(Color.alphaBlend(theme.colors.warningContainer, theme.colors.surface), theme.colors.warning);
+                  statusBgColor = Color.alphaBlend(theme.colors.warningContainer, theme.colors.surface);
+                  statusBorderColor = theme.colors.warning;
                 } else if (status == 'Alert' || status == 'Critical') {
-                  statusColor = const Color(0xFFB91C1C);
-                  statusBgColor = const Color(0xFFFEE2E2);
-                  statusBorderColor = const Color(0xFFFECACA);
+                  statusColor = readableThemeForeground(theme.colors.errorContainer, theme.colors.onErrorContainer);
+                  statusBgColor = theme.colors.errorContainer;
+                  statusBorderColor = theme.colors.error;
                 }
 
                 return Material(
-                  color: Colors.transparent,
+                  color: theme.colors.surface.withValues(alpha: 0),
                   child: InkWell(
                     onTap: () {},
                     child: Padding(
@@ -833,18 +801,7 @@ class _GovSettingsPanelState extends State<GovSettingsPanel> {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusMd),
         border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0x05004AC6),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
-          ),
-          const BoxShadow(
-            color: Color(0x0A1E3A8A),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -935,18 +892,7 @@ class GovTelemetryChart extends StatelessWidget {
             color: theme.colors.surface,
             borderRadius: BorderRadius.circular(theme.radiusMd),
             border: Border.all(color: theme.colors.divider.withValues(alpha: 0.5)),
-            boxShadow: [
-              BoxShadow(
-                color: const Color(0x05004AC6),
-                blurRadius: 20,
-                offset: const Offset(0, 10),
-              ),
-              const BoxShadow(
-                color: Color(0x0A1E3A8A),
-                blurRadius: 10,
-                offset: Offset(0, 2),
-              ),
-            ],
+            boxShadow: theme.shadowsSurface1,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1030,13 +976,7 @@ class GovTelemetryChart extends StatelessWidget {
                                           borderRadius: const BorderRadius.vertical(
                                             top: Radius.circular(8),
                                           ),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: accentColor.withValues(alpha: 0.25),
-                                              blurRadius: 10,
-                                              offset: const Offset(0, 4),
-                                            ),
-                                          ],
+                                          boxShadow: theme.shadowsSurface1,
                                         ),
                                       ),
                                     ),

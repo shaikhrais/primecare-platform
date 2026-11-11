@@ -226,6 +226,21 @@ void main() {
     expect(tester.takeException(), isNull);
   });
 
+  testWidgets('metric badge follows configured shared semantic colors', (tester) async {
+    const colors = PrimeColors(successContainer: Color(0xff103030), success: Color(0xff80ffff));
+    const theme = PrimeThemeData(colors: colors);
+    await tester.pumpWidget(PrimeTheme(data: theme, child: MaterialApp(theme: theme.toThemeData(),
+      home: const Scaffold(body: GovMetricCard(title: 'Metric', value: '42',
+        trendLabel: 'Custom status', progress: .5, icon: Icons.analytics, brandColor: Colors.teal)))));
+    await tester.pumpAndSettle();
+    final label = tester.widget<Text>(find.text('Custom status'));
+    expect(label.style!.color, readableThemeForeground(colors.successContainer, colors.success));
+    final containers = tester.widgetList<Container>(find.ancestor(of: find.text('Custom status'), matching: find.byType(Container)));
+    expect(containers.map((widget) => widget.decoration).whereType<BoxDecoration>()
+      .any((decoration) => decoration.color == colors.successContainer), isTrue);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('new generated screen uses inherited surfaces and scaled text', (tester) async {
     const base = PrimeThemeData();
     final personal = PersonalTheme(name: 'Generated', preset: 'dark1', fontScale: 1.5, radius: 20);
