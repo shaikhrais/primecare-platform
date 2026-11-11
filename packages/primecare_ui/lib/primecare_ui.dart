@@ -649,3 +649,4 @@ export 'src/theme/prime_theme_color.dart';
 export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeDrawer, PrimeFloatingActionButton, PrimeListTile, PrimeDropdownButton, PrimeDropdownButtonFormField, PrimePopupMenuButton, PrimeTextFormField, PrimeFilterChip, PrimeTabBar, PrimeDataTable, PrimeCheckboxListTile, PrimeRadioListTile, PrimeSwitchListTile, PrimeSlider, PrimeCheckbox, PrimeMaterialLinearProgressIndicator, PrimeChoiceChip, PrimeFilledButton, PrimeAlertDialog;
 
 export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
+export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;

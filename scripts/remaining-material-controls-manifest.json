@@ -48,7 +48,7 @@
   {
     "path": "apps/primecare_governance/lib/core/ui/app_drawer.dart",
     "sha256": "da12fb88059d1effd689c5fe6a9dd00749bd958af6befbe5061090c7ed1ca210",
-    "updated_sha256": "b8d3944191f50683d46c396544aa0e96daff0c858c5285cca6bdb0eb15df935a",
+    "updated_sha256": "af4ab00eb35a16235bdf2c01166fd9dda26755749a8974fb7862ca5733e39326",
     "calls": 3,
     "symbols": [
       "Drawer",
@@ -56,10 +56,10 @@
     ],
     "edits": [
       {
-        "begin": 0,
-        "end": 0,
+        "begin": 47,
+        "end": 47,
         "old": "",
-        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimeDrawer, PrimeListTile;\n"
+        "new": " show PrimeDrawer, PrimeListTile;\nimport 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry"
       },
       {
         "begin": 1517,
@@ -79,7 +79,11 @@
         "old": "",
         "new": "Prime"
       }
-    ]
+    ],
+    "source_cleanup": {
+      "before": "import 'package:primecare_ui/primecare_ui.dart';",
+      "after": "import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;"
+    }
   },
   {
     "path": "apps/primecare_governance/lib/core/ui/dev_toolbox.dart",
@@ -167,7 +171,7 @@
   {
     "path": "apps/primecare_governance/lib/governance/widgets/governance_dashboard.dart",
     "sha256": "59e099795e5ebd693f8dfa8aebefe947644df965013a217e4d66a3140491a635",
-    "updated_sha256": "cfd281be8769234652fca19cedc1c93351113fe1b43c2e61125c6077534640b7",
+    "updated_sha256": "46c50ff379a5367ce8aa28006e142fad72ac5f1a8b7d9aaa5ff22022ec2e5bd4",
     "calls": 2,
     "symbols": [
       "PopupMenuButton",
@@ -175,10 +179,10 @@
     ],
     "edits": [
       {
-        "begin": 0,
-        "end": 0,
+        "begin": 47,
+        "end": 47,
         "old": "",
-        "new": "import 'package:primecare_ui/primecare_ui.dart' show PrimePopupMenuButton, PrimeTabBar;\n"
+        "new": " show PrimePopupMenuButton, PrimeTabBar;\nimport 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry"
       },
       {
         "begin": 4730,
@@ -192,7 +196,11 @@
         "old": "",
         "new": "Prime"
       }
-    ]
+    ],
+    "source_cleanup": {
+      "before": "import 'package:primecare_ui/primecare_ui.dart';",
+      "after": "import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;"
+    }
   },
   {
     "path": "apps/primecare_governance/lib/governance/widgets/governance_filter_bar.dart",

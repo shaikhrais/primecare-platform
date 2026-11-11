@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 import {chromium} from 'playwright';
 import {createServer} from 'node:http';
-const bundle=await build({stdin:{contents:`export {renderShell,bindShell} from './packages/primecare_ui/web/shell';export {defaultPersonalTheme} from './packages/domain/src/theme_center';`,resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'PrimeShellLifecycle',write:false});
+const bundle=await build({stdin:{contents:`export {renderShell,bindShell} from './packages/primecare_ui/web/shell';export {defaultPersonalTheme} from './packages/domain/src/theme_center';export {defaultLayoutProfile} from './packages/primecare_ui/web/layout-manager';`,resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'PrimeShellLifecycle',write:false});
 const server=createServer((req,res)=>{res.setHeader('content-type',req.url==='/app.js'?'text/javascript':'text/html');res.end(req.url==='/app.js'?bundle.outputFiles[0].text:'<!doctype html><html><head></head><body><div id="app"></div><script src="/app.js"></script></body></html>');});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));
 const origin=`http://127.0.0.1:${server.address().port}`;
@@ -11,7 +11,7 @@ try{
  browser=await chromium.launch();const page=await browser.newPage(),errors=[];
  page.on('pageerror',e=>errors.push(e.message));await page.route('**/*',route=>{assert.equal(new URL(route.request().url()).origin,origin);return route.continue();});await page.goto(origin);
  const checks=await page.evaluate(async()=>{
-  const {renderShell,bindShell,defaultPersonalTheme}=PrimeShellLifecycle,root=document.querySelector('#app'),checks=[];
+  const {renderShell,bindShell,defaultPersonalTheme,defaultLayoutProfile}=PrimeShellLifecycle,root=document.querySelector('#app'),checks=[];
   const expect=(value,name)=>{if(!value)throw Error(name);checks.push(name);};
   const mount=(scope='actor-a',locale='en',controls='account')=>{renderShell(root,{home:'/',role:'staff',navigation:'<a>Allowed</a>',controls:`<span>${controls}</span>`,content:'<input id="business" value="draft">'});bindShell(root,'Workspace',locale,'staff',()=>[],scope);};
   const token=()=>document.documentElement.style.getPropertyValue('--color-primary');
@@ -30,7 +30,7 @@ try{
   first=pending('appearance-import',xml('#556677'));second=pending('appearance-import',xml('#667788'));second.resolve();await second.done;first.resolve();await first.done;expect(token()==='#667788','newest XML import wins');
   slow=pending('theme-center-import',theme('#778899'));const liveDialog=root.querySelector('[data-cy=appearance-dialog]');mount('actor-c','fr','refreshed');slow.resolve();await slow.done;expect(token()==='#778899'&&root.querySelector('[data-cy=appearance-dialog]')===liveDialog,'ordinary redraw preserves live dialog and import');
   slow=pending('theme-center-import',theme('#8899aa'));root.querySelector('[data-cy=appearance-open]').remove();mount('actor-c','fr','new-host');const refreshed=token();slow.resolve();await slow.done;expect(token()===refreshed,'replaced controls invalidate old dialog callbacks');
-  slow=pending('appearance-import',xml('#8899aa'));bindShell(root,'Workspace','en','staff',()=>[]);const signedOut=token(),shell=root.querySelector('.app-shell');expect(!shell.dataset.layoutVersion&&!shell.dataset.sidebarPosition&&!shell.style.getPropertyValue('--layout-content-width'),'unbound account clears layout attributes');slow.resolve();await slow.done;expect(!root.querySelector('[data-cy=appearance-dialog]')&&token()===signedOut,'unbound account clears appearance host and pending imports');
+  slow=pending('appearance-import',xml('#8899aa'));bindShell(root,'Workspace','en','staff',()=>[]);const signedOut=token(),shell=root.querySelector('.app-shell');expect(shell.dataset.layoutVersion==='1'&&shell.dataset.sidebarPosition===defaultLayoutProfile.sidebar&&shell.dataset.navigationMode===defaultLayoutProfile.navigation&&shell.dataset.density===defaultLayoutProfile.density&&shell.style.getPropertyValue('--layout-content-width')===defaultLayoutProfile.contentWidth+'%'&&!shell.dataset.themeCenterActive,'unbound account replaces personal layout with nonpersisted defaults');slow.resolve();await slow.done;expect(!root.querySelector('[data-cy=appearance-dialog]')&&token()===signedOut,'unbound account clears appearance host and pending imports');
   mount('actor-d');root.querySelector('[data-cy=theme-quick-teal]').click();slow=pending('theme-center-import',theme('#99aabb'));root.replaceChildren();await new Promise(r=>setTimeout(r,0));const cleared=token();slow.resolve();await slow.done;expect(token()===cleared&&!root.querySelector('[data-cy=appearance-dialog]'),'host removal releases presentation and imports');
   mount('actor-e');slow=pending('appearance-import',xml('#aabbcc'));root.remove();await new Promise(r=>setTimeout(r,0));const detached=token();slow.reject();await slow.done;expect(token()===detached,'detached root suppresses late import failure');
   document.body.append(root);mount('actor-e');const dialogs=root.querySelectorAll('[data-cy=appearance-dialog]').length;expect(dialogs===1,'same root can mount again after disposal');

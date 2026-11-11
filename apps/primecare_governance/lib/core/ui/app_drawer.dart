@@ -1,5 +1,5 @@
 import 'package:primecare_ui/primecare_ui.dart' show PrimeDrawer, PrimeListTile;
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' hide ScreenRegistry;
 // Governance - Category: service | Purpose: Group screens by primary Role (as defined in ScreenMetadata.role)
 import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
