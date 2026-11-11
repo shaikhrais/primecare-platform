@@ -27,6 +27,8 @@ jobs:
         options: --health-cmd "pg_isready -U lifecycle" --health-interval 5s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source for exact theme migration replay
+        run: git fetch --no-tags --depth=1 origin 4e6195c51e639e362b2884e4de435578960f0983
       - name: Verify technical traceability and unchanged contract decisions
         run: |
           python scripts/test-method-capture-blockers.py

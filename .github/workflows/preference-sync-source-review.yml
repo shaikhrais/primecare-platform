@@ -21,6 +21,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch immutable source for exact theme migration replay
+        run: git fetch --no-tags --depth=1 origin 4e6195c51e639e362b2884e4de435578960f0983
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |

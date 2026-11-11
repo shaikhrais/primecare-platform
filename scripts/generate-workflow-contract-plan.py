@@ -1,5 +1,5 @@
 """Group exact unresolved operations into contract reviews without changing evidence."""
-import argparse, hashlib, json
+import argparse, hashlib, json, importlib.util
 from collections import Counter
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
@@ -86,6 +86,12 @@ def build(checklist, manifest, validate_sources=None):
     if not isinstance(hashes,dict) or not hashes:
         raise ValueError('Source provenance hashes missing')
     amendments=reviewed_amendments(validate_sources,hashes) if validate_sources is not None else {}
+    replay=None
+    if validate_sources is not None and (Path(validate_sources)/'docs/api/workflow-contract-theme-replay.json').exists():
+        spec=importlib.util.spec_from_file_location('workflow_theme_replay',Path(__file__).with_name('workflow_theme_replay.py'))
+        module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
+        replay=module.WorkflowThemeReplay(validate_sources,hashes)
+        if set(amendments)&set(replay.recipes):raise ValueError('Duplicate reviewed source proof')
     for filename,digest in hashes.items():
         path = safe_path(filename)
         if not isinstance(digest,str) or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest):
@@ -97,6 +103,7 @@ def build(checklist, manifest, validate_sources=None):
             if not file.is_file():raise ValueError('Source evidence changed: '+filename)
             content=file.read_bytes()
             if filename in amendments:verify_amended_source(content,amendments[filename])
+            elif replay is not None and filename in replay.recipes:replay.verify(filename,content)
             elif hashlib.sha256(content).hexdigest()!=digest:
                 raise ValueError('Source evidence changed: '+filename)
     reviews = manifest.get('reviews',[])
