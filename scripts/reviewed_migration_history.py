@@ -6,7 +6,16 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_shared_cards(source,path):
+    card_script=ROOT/'scripts/migrate-shared-cards.py'
+    if not card_script.exists():return source
+    spec=importlib.util.spec_from_file_location('shared_card_history',card_script)
+    migration=importlib.util.module_from_spec(spec);spec.loader.exec_module(migration)
+    reversed_source,count=migration.reverse_source(path,source)
+    return reversed_source if count else source
+
 def before_shared_snack_bars(source,path):
+    source=before_shared_cards(source,path)
     snack_script=ROOT/'scripts/migrate-shared-snack-bars.py'
     if not snack_script.exists():return source
     spec=importlib.util.spec_from_file_location('shared_snack_bar_history',snack_script)

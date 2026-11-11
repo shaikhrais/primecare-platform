@@ -643,4 +643,5 @@ export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime
 
 export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCircularProgressIndicator;
 export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeSnackBar;
+export 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeCard;
 export 'src/theme/prime_theme_color.dart';

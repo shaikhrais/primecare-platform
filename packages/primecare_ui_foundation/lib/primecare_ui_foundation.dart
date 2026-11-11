@@ -7,3 +7,4 @@ export 'src/prime_circular_progress_indicator.dart';
 export 'src/prime_scaffold.dart';
 export 'src/prime_text_field.dart';
 export 'src/prime_snack_bar.dart';
+export 'src/prime_card.dart';

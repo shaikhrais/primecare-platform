@@ -118,6 +118,9 @@ jobs:
           if test -f test/shared_snack_bar_compile_test.dart; then
             flutter test test/shared_snack_bar_compile_test.dart
           fi
+          if test -f test/shared_card_compile_test.dart; then
+            flutter test test/shared_card_compile_test.dart
+          fi
           if test -f test/governance_palette_test.dart; then
             flutter test test/governance_palette_test.dart
           fi

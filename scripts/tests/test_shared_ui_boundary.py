@@ -127,6 +127,12 @@ class SharedUiBoundaryTest(unittest.TestCase):
             path.write_text('SnackBar(content: content); Card(); Text(label); Colors.red;')
             self.assertEqual([f[3] for f in boundary.scan(root)],['Card','Text','Colors.red'])
 
+    def test_card_delegate_allows_only_card_and_no_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'packages/primecare_ui_foundation/lib/src/prime_card.dart';path.parent.mkdir(parents=True)
+            path.write_text('Card(child: child); SnackBar(content: child); Text(label); Colors.red;')
+            self.assertEqual([f[3] for f in boundary.scan(root)],['SnackBar','Text','Colors.red'])
+
     def test_extended_primitive_implementations_are_exact_and_color_strict(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
