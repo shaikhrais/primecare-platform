@@ -70,7 +70,7 @@ class PremiumFeature10 extends GovernedConsumerWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, color: Colors.red, size: 48),
+              const PrimeStatusIcon(Icons.error_outline, tone: PrimeStatusTone.error, size: 48),
               const SizedBox(height: 16),
               Text(
                 'Hydration Failure: $error', // .tr() LocaleKeys.

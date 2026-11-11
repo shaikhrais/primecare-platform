@@ -232,9 +232,9 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                         ),
                         child: Column(
                           children: [
-                            const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
+                            const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error, size: 48),
                             const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
+                            PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
@@ -256,7 +256,7 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
+                            const PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 64),
                             const SizedBox(height: 16),
                             Text('No data available.'.tr(), style: theme.typography.h4),
                           ],
@@ -337,13 +337,10 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_role_access_list_get-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -354,7 +351,7 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
@@ -464,13 +461,10 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_role_access_create_post-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -481,7 +475,7 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
@@ -591,13 +585,10 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_role_access_update_patch-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -608,7 +599,7 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(

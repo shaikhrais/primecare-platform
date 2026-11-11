@@ -546,7 +546,7 @@ class _AdminRealityCheckScreenState extends ConsumerState<AdminRealityCheckScree
               ),
               child: Row(
                 children: [
-                  const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 18),
+                  const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error, size: 18),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(
