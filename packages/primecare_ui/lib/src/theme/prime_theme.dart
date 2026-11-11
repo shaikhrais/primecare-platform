@@ -633,6 +633,7 @@ class PrimeThemeData {
         onTertiary: readableThemeForeground(colors.tertiary, Colors.white),
         surface: colors.surface,
         onSurface: colors.onSurface,
+        onSurfaceVariant: colors.onSurfaceVariant,
         error: colors.error,
         onError: readableThemeForeground(colors.error, Colors.white),
         outline: colors.outline,

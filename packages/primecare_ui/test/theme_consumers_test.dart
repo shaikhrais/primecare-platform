@@ -42,6 +42,7 @@ void main() {
       for (final pair in [
         [colors.surface, colors.onSurface],
         [colors.surface, colors.onSurfaceVariant],
+        [material.colorScheme.surface, material.colorScheme.onSurfaceVariant],
         [colors.sidebarBackground, colors.sidebarTextColor],
         [colors.sidebarBackground, colors.sidebarIconColor],
         [colors.sidebarSelectedTileColor, colors.sidebarSelectedTextColor],
@@ -132,6 +133,7 @@ void main() {
       onTertiaryFixed: custom,
       onTertiaryFixedVariant: custom,
       inverseOnSurface: custom,
+      onSurfaceVariant: custom,
     );
     final scheme = const PrimeThemeData(colors: colors).toThemeData().colorScheme;
     expect(scheme.inversePrimary, colors.inversePrimary);
@@ -161,6 +163,7 @@ void main() {
     expect(scheme.onTertiaryFixed, colors.onTertiaryFixed);
     expect(scheme.onTertiaryFixedVariant, colors.onTertiaryFixedVariant);
     expect(scheme.onInverseSurface, colors.inverseOnSurface);
+    expect(scheme.onSurfaceVariant, colors.onSurfaceVariant);
   });
 
   test('copying colors preserves custom semantic and fixed tokens', () {
