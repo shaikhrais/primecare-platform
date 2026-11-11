@@ -60,6 +60,7 @@ def before_shared_scaffolds(source,path):
 
 
 def before_control_extensions(source,path):
+    source=reverse_manifest(source,path,'shared-metric-contrast-manifest.json')
     source=before_shared_text_fields(source,path)
     source=before_shared_scaffolds(source,path)
     source=before_circular_progress(source,path)

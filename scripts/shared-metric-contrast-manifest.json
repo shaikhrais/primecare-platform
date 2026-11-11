@@ -1,0 +1,88 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/components/prime_components.dart",
+    "sha256": "5e8f3d197e21e8223ee0aeb778cf2580f5a56232c162751ee6ce3bc6a29e388a",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 13196,
+        "end": 13196,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 13205,
+        "end": 13227,
+        "old": ".withValues(alpha: 0.1",
+        "new": ""
+      },
+      {
+        "begin": 13361,
+        "end": 13361,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 13370,
+        "end": 13370,
+        "old": "",
+        "new": ")"
+      },
+      {
+        "begin": 13609,
+        "end": 13629,
+        "old": "theme.colors.success",
+        "new": "readableThemeForeground(theme.colors.surface, theme.colors.success)"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/components/governance_components.dart",
+    "sha256": "397ac9c815eb19e7b57a447419124003411183f8fbc3980bf9408c4ca8f3b52f",
+    "calls": 3,
+    "edits": [
+      {
+        "begin": 8212,
+        "end": 8212,
+        "old": "",
+        "new": "PrimeActionPalette.tintSurface(context, "
+      },
+      {
+        "begin": 8222,
+        "end": 8234,
+        "old": ".withValues(",
+        "new": ", "
+      },
+      {
+        "begin": 8492,
+        "end": 8492,
+        "old": "",
+        "new": "PrimeActionPalette.onTint(context, "
+      },
+      {
+        "begin": 8502,
+        "end": 8502,
+        "old": "",
+        "new": ", alpha: 0.08)"
+      },
+      {
+        "begin": 11746,
+        "end": 11746,
+        "old": "",
+        "new": "reada"
+      },
+      {
+        "begin": 11747,
+        "end": 11747,
+        "old": "",
+        "new": "leThemeForeground(theme.colors.surface, b"
+      },
+      {
+        "begin": 11756,
+        "end": 11756,
+        "old": "",
+        "new": ")"
+      }
+    ]
+  }
+]

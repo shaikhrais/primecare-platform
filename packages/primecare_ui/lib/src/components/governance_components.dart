@@ -218,11 +218,11 @@ class GovMetricCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: brandColor.withValues(alpha: 0.08),
+                          color: PrimeActionPalette.tintSurface(context, brandColor, alpha: 0.08),
                           borderRadius: BorderRadius.circular(theme.radiusSm),
                           border: Border.all(color: brandColor.withValues(alpha: 0.15)),
                         ),
-                        child: Icon(icon, color: brandColor, size: 20),
+                        child: Icon(icon, color: PrimeActionPalette.onTint(context, brandColor, alpha: 0.08), size: 20),
                       ),
                       const SizedBox(width: 8),
                       Flexible(child: Container(
@@ -290,7 +290,7 @@ class GovMetricCard extends StatelessWidget {
                           Flexible(child: Text(
                             '${(progress * animValue * 100).toInt()}%',
                             style: theme.typography.bodySmall.copyWith(
-                              color: brandColor,
+                              color: readableThemeForeground(theme.colors.surface, brandColor),
                               fontWeight: FontWeight.bold,
                               fontSize: theme.scaleFont(10),
                             ),

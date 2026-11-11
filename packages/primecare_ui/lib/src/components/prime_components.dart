@@ -443,16 +443,16 @@ class PrimeCareStatCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: iconColor.withValues(alpha: 0.1),
+                  color: PrimeActionPalette.tintSurface(context, iconColor),
                   borderRadius: BorderRadius.circular(theme.radiusSm),
                 ),
-                child: Icon(icon, color: iconColor, size: 20),
+                child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor), size: 20),
               ),
               if (deltaSuffix != null && deltaSuffix!.isNotEmpty)
                 Text(
                   deltaSuffix!,
                   style: theme.typography.labelBold.copyWith(
-                    color: theme.colors.success,
+                    color: readableThemeForeground(theme.colors.surface, theme.colors.success),
                   ),
                 ),
             ],
