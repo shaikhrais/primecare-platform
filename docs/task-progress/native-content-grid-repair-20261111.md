@@ -1,0 +1,11 @@
+# Native content-height and semantic bridge repair
+
+Batch summary: use one shared PrimeContentGrid for the two actual overflowing grids, pair profile card foregrounds with their filled primary background, and repair a test constructor to use the existing derived warning container API.
+
+Exact d7ad1681 Theme Center native job 130852718801 passed 104 UI tests and failed two: semantic_status_bridge_test supplied an unsupported PrimeColors.warningContainer constructor argument, and the actual success profile action cards overflowed vertically by 10 pixels at 2x text. Governance job 130852719414 reported four 1-pixel KPI column overflows at 2x text. Website and eight app consumer jobs passed on that head; those passes do not validate this repair.
+
+PrimeContentGrid retains the previous maximum-column calculation and spacing but lets each tile take the height its text requires. It applies no palette, font-size reduction, overflow suppression or new truncation. The profile description keeps its existing three-line limit; its redundant Expanded is removed because the tile no longer has a fixed height. Original eight portal definitions, URLs, access policy, handlers and disabled opacity remain intact. Name, description, lock and arrow foregrounds use the existing primary.onAccent against the actual filled primary card. KPI labels, values, icons and semantic roles are unchanged.
+
+Both source repairs have exact original/current hashes and reversible spans appended to native-widget-repairs.json. Earlier palette proofs reconstruct their original revisions through the existing migration-history composition; their original hashes are untouched. The semantic bridge test still verifies the actual warningContainer getter, status tokens and material override identity, using only supported constructor fields.
+
+New native coverage exercises the shared grid, actual profile cards and actual KPI grid at 320/600/wide widths and 1x/2x/3x text. Existing all-palette access, logout, KPI/filter and contrast checks remain; profile text contrast is now asserted against the actual filled background. Native execution is GitHub Actions only and remains pending. No ready-screen, workflow or full feature acceptance credit is claimed. Strict source findings remain 0; feature acceptance remains 0/72 complete and 72 pending.

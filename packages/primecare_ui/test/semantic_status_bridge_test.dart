@@ -4,7 +4,7 @@ import 'package:flutter_core/theme/prime_semantic_palette.dart';
 
 void main() {
  test('shared UI exposes its actual status roles to core without changing material override identity', () {
-  const colors=PrimeColors(success:Colors.pink,successContainer:Colors.black,warning:Colors.cyan,warningContainer:Colors.white);
+  const colors=PrimeColors(success:Colors.pink,successContainer:Colors.black,warning:Colors.cyan);
   final material=const PrimeThemeData(colors:colors).toThemeData();
   final tokens=material.extension<PrimeSemanticStatusColors>()!;
   expect(tokens.success,colors.success);expect(tokens.successContainer,colors.successContainer);

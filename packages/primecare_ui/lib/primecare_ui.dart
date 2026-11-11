@@ -21,6 +21,7 @@ export 'src/components/prime_text.dart';
 export 'src/components/prime_icon.dart';
 export 'src/components/prime_icon_button.dart';
 export 'src/components/prime_page_scaffold.dart';
+export 'src/components/prime_content_grid.dart';
 export 'src/components/prime_workspace_scaffold.dart';
 export 'src/components/prime_status.dart';
 export 'src/components/prime_action_palette.dart';
