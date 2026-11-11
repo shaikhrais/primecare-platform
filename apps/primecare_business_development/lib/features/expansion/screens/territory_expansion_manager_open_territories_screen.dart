@@ -136,7 +136,7 @@ class TerritoryExpansionManagerOpenTerritoriesScreen extends GovernedConsumerWid
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('territory_expansion_manager_open_territories-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

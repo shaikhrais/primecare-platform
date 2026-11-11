@@ -136,7 +136,7 @@ class TerritoryExpansionManagerSiteSelectionScreen extends GovernedConsumerWidge
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('territory_expansion_manager_site_selection-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),

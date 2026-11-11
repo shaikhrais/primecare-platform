@@ -136,7 +136,7 @@ class TerritoryExpansionManagerTerritoryMapScreen extends GovernedConsumerWidget
             ),
           ),
           actions: [
-            IconButton(
+            PrimeIconButton(
               key: const Key('territory_expansion_manager_territory_map-refresh-btn'),
               icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
