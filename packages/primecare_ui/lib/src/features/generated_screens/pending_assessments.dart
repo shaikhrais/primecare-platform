@@ -280,10 +280,10 @@ class PendingAssessments extends GovernedConsumerWidget {
                             final isPending = item['status'] == 'Pending';
                             final isCompleted = item['status'] == 'Completed';
                             final priorityColor = item['priority'] == 'High'
-                                ? Colors.red
+                                ? PrimeActionPalette.of(context, PrimeActionTone.error).accent
                                 : item['priority'] == 'Medium'
-                                    ? Colors.amber
-                                    : Colors.blue;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent
+                                    : PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
 
                             return Card(
                               margin: const EdgeInsets.only(bottom: 16),
@@ -313,13 +313,13 @@ class PendingAssessments extends GovernedConsumerWidget {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
-                                                  color: priorityColor.withValues(alpha: 0.1),
+                                                  color: PrimeActionPalette.tintSurface(context, priorityColor),
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                                 child: Text(
                                                   (item['priority'] as String).toUpperCase(),
                                                   style: TextStyle(
-                                                    color: priorityColor,
+                                                    color: PrimeActionPalette.onTint(context, priorityColor),
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 10,
                                                   ),
@@ -330,20 +330,20 @@ class PendingAssessments extends GovernedConsumerWidget {
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
                                                   color: isCompleted
-                                                      ? Colors.green.withValues(alpha: 0.1)
+                                                      ? PrimeActionPalette.of(context, PrimeActionTone.success).surface
                                                       : isPending
-                                                          ? Colors.orange.withValues(alpha: 0.1)
-                                                          : Colors.blue.withValues(alpha: 0.1),
+                                                          ? PrimeActionPalette.of(context, PrimeActionTone.warning).surface
+                                                          : PrimeActionPalette.of(context, PrimeActionTone.primary).surface,
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                                 child: Text(
                                                   (item['status'] as String).toUpperCase(),
                                                   style: TextStyle(
                                                     color: isCompleted
-                                                        ? Colors.green
+                                                        ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface
                                                         : isPending
-                                                            ? Colors.orange
-                                                            : Colors.blue,
+                                                            ? PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface
+                                                            : PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface,
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 10,
                                                   ),
@@ -374,7 +374,7 @@ class PendingAssessments extends GovernedConsumerWidget {
                                                     : 'Clinician: ${item['clinician']}',
                                                 style: theme.typography.bodySmall.copyWith(
                                                   color: item['clinician'].toString().isEmpty
-                                                      ? Colors.orange
+                                                      ? PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface
                                                       : theme.colors.onSurfaceVariant,
                                                   fontWeight: item['clinician'].toString().isEmpty
                                                       ? FontWeight.bold
@@ -401,7 +401,7 @@ class PendingAssessments extends GovernedConsumerWidget {
                                               onPressed: () => controller.completeAssessment((item['id'] as String)),
                                               style: ElevatedButton.styleFrom(
                                                 backgroundColor: theme.colors.primary,
-                                                foregroundColor: Colors.white,
+                                                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                               ),
                                               child: const Text('Complete'),
                                             ),
@@ -421,7 +421,7 @@ class PendingAssessments extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -490,7 +490,7 @@ class PendingAssessments extends GovernedConsumerWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
               child: const Text('Confirm'),
             ),

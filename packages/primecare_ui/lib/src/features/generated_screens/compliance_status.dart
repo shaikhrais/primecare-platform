@@ -210,7 +210,7 @@ class ComplianceStatus extends GovernedConsumerWidget {
               label: const Text('Run Compliance Audit'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
             ),
           ),
@@ -268,7 +268,7 @@ class ComplianceStatus extends GovernedConsumerWidget {
                         value: '${(state.clinicalAdlScore * 100).toStringAsFixed(1)}%',
                         subtitle: 'Target: 95.0% Minimum',
                         icon: LucideIcons.checkSquare,
-                        iconColor: state.clinicalAdlScore >= 0.95 ? Colors.green : Colors.amber,
+                        iconColor: state.clinicalAdlScore >= 0.95 ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -278,7 +278,7 @@ class ComplianceStatus extends GovernedConsumerWidget {
                         value: '${state.caregiverCredentials.where((c) => c['status'] == 'Compliant').length}/${state.caregiverCredentials.length}',
                         subtitle: 'Active staff certifications',
                         icon: LucideIcons.award,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -288,7 +288,7 @@ class ComplianceStatus extends GovernedConsumerWidget {
                         value: '${state.branchLicenses.where((l) => l['status'] == 'Compliant').length}/${state.branchLicenses.length}',
                         subtitle: 'Local regulatory health permits',
                         icon: LucideIcons.building,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
                       ),
                     ),
                   ],
@@ -326,21 +326,21 @@ class ComplianceStatus extends GovernedConsumerWidget {
                             final item = filteredCredentials[index];
                             final status = item['status'] as String;
                             final statusColor = status == 'Compliant'
-                                ? Colors.green
+                                ? PrimeActionPalette.of(context, PrimeActionTone.success).accent
                                 : status == 'Pending'
-                                    ? Colors.amber
-                                    : Colors.red;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent
+                                    : PrimeActionPalette.of(context, PrimeActionTone.error).accent;
 
                             return ListTile(
                               leading: CircleAvatar(
-                                backgroundColor: statusColor.withValues(alpha: 0.1),
+                                backgroundColor: PrimeActionPalette.tintSurface(context, statusColor),
                                 child: Icon(
                                   status == 'Compliant'
                                       ? LucideIcons.check
                                       : status == 'Pending'
                                           ? LucideIcons.helpCircle
                                           : LucideIcons.alertTriangle,
-                                  color: statusColor,
+                                  color: PrimeActionPalette.onTint(context, statusColor),
                                   size: 20,
                                 ),
                               ),
@@ -355,14 +355,14 @@ class ComplianceStatus extends GovernedConsumerWidget {
                               trailing: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: statusColor.withValues(alpha: 0.1),
+                                  color: PrimeActionPalette.tintSurface(context, statusColor),
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(color: statusColor.withValues(alpha: 0.3)),
                                 ),
                                 child: Text(
                                   status,
                                   style: TextStyle(
-                                    color: statusColor,
+                                    color: PrimeActionPalette.onTint(context, statusColor),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
                                   ),
@@ -405,21 +405,21 @@ class ComplianceStatus extends GovernedConsumerWidget {
                             final item = filteredLicenses[index];
                             final status = item['status'] as String;
                             final statusColor = status == 'Compliant'
-                                ? Colors.green
+                                ? PrimeActionPalette.of(context, PrimeActionTone.success).accent
                                 : status == 'Pending'
-                                    ? Colors.amber
-                                    : Colors.red;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent
+                                    : PrimeActionPalette.of(context, PrimeActionTone.error).accent;
 
                             return ListTile(
                               leading: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
-                                  color: statusColor.withValues(alpha: 0.1),
+                                  color: PrimeActionPalette.tintSurface(context, statusColor),
                                   shape: BoxShape.circle,
                                 ),
                                 child: Icon(
                                   LucideIcons.fileText,
-                                  color: statusColor,
+                                  color: PrimeActionPalette.onTint(context, statusColor),
                                   size: 16,
                                 ),
                               ),
@@ -434,14 +434,14 @@ class ComplianceStatus extends GovernedConsumerWidget {
                               trailing: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: statusColor.withValues(alpha: 0.1),
+                                  color: PrimeActionPalette.tintSurface(context, statusColor),
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(color: statusColor.withValues(alpha: 0.3)),
                                 ),
                                 child: Text(
                                   status,
                                   style: TextStyle(
-                                    color: statusColor,
+                                    color: PrimeActionPalette.onTint(context, statusColor),
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
                                   ),
@@ -456,7 +456,7 @@ class ComplianceStatus extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -499,10 +499,10 @@ class _ComplianceKpiCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(

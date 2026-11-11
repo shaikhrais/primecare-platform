@@ -355,7 +355,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                     children: [
                       _KanbanColumn(
                         title: 'Referral Received',
-                        color: Colors.blue,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                         intakes: filtered.where((i) => i['stage'] == 'Referral Received').toList(),
                         onAdvance: controller.advanceStage,
                         onSchedule: (id) => _showScheduleModal(context, controller, id),
@@ -363,7 +363,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                       const SizedBox(width: 16),
                       _KanbanColumn(
                         title: 'Initial Contact',
-                        color: Colors.amber,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
                         intakes: filtered.where((i) => i['stage'] == 'Initial Contact').toList(),
                         onAdvance: controller.advanceStage,
                         onSchedule: (id) => _showScheduleModal(context, controller, id),
@@ -371,7 +371,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                       const SizedBox(width: 16),
                       _KanbanColumn(
                         title: 'Assessment Scheduled',
-                        color: Colors.purple,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
                         intakes: filtered.where((i) => i['stage'] == 'Assessment Scheduled').toList(),
                         onAdvance: controller.advanceStage,
                         onSchedule: (id) => _showScheduleModal(context, controller, id),
@@ -379,7 +379,7 @@ class IntakePipeline extends GovernedConsumerWidget {
                       const SizedBox(width: 16),
                       _KanbanColumn(
                         title: 'Approved',
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                         intakes: filtered.where((i) => i['stage'] == 'Approved').toList(),
                         onAdvance: null,
                         onSchedule: null,
@@ -396,7 +396,7 @@ class IntakePipeline extends GovernedConsumerWidget {
             GestureDetector(
               onTap: () => controller.toggleCreateDrawer(false),
               child: Container(
-                color: Colors.black.withValues(alpha: 0.5),
+                color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.5),
               ),
             ),
             Align(
@@ -412,7 +412,7 @@ class IntakePipeline extends GovernedConsumerWidget {
 
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -486,7 +486,7 @@ class IntakePipeline extends GovernedConsumerWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
               child: const Text('Confirm Schedule'),
             ),
@@ -538,12 +538,12 @@ class _KanbanColumn extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                   decoration: BoxDecoration(
-                    color: color.withValues(alpha: 0.1),
+                    color: PrimeActionPalette.tintSurface(context, color),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Text(
                     '${intakes.length}',
-                    style: TextStyle(color: color, fontWeight: FontWeight.bold, fontSize: 11),
+                    style: TextStyle(color: PrimeActionPalette.onTint(context, color), fontWeight: FontWeight.bold, fontSize: 11),
                   ),
                 )
               ],
@@ -560,10 +560,10 @@ class _KanbanColumn extends StatelessWidget {
                   final intake = intakes[index];
                   final isHigh = intake['urgency'] == 'high';
                   final Color labelColor = isHigh 
-                      ? Colors.red 
+                      ? PrimeActionPalette.of(context, PrimeActionTone.error).accent
                       : intake['urgency'] == 'medium' 
-                          ? Colors.amber 
-                          : Colors.blue;
+                          ? PrimeActionPalette.of(context, PrimeActionTone.warning).accent
+                          : PrimeActionPalette.of(context, PrimeActionTone.primary).accent;
 
                   return Container(
                     margin: const EdgeInsets.only(bottom: 12),
@@ -586,12 +586,12 @@ class _KanbanColumn extends StatelessWidget {
                             Container(
                               padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                               decoration: BoxDecoration(
-                                color: labelColor.withValues(alpha: 0.1),
+                                color: PrimeActionPalette.tintSurface(context, labelColor),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
                                 intake['urgency'].toString().toUpperCase(),
-                                style: TextStyle(color: labelColor, fontWeight: FontWeight.bold, fontSize: 8),
+                                style: TextStyle(color: PrimeActionPalette.onTint(context, labelColor), fontWeight: FontWeight.bold, fontSize: 8),
                               ),
                             )
                           ],
@@ -605,19 +605,19 @@ class _KanbanColumn extends StatelessWidget {
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              const Icon(LucideIcons.user, size: 12, color: Colors.purple),
+                               Icon(LucideIcons.user, size: 12, color: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase),
                               const SizedBox(width: 4),
                               Expanded(
                                 child: Text(
                                   'Clinician: ${intake['nurse']}',
-                                  style: const TextStyle(color: Colors.purple, fontSize: 11, fontWeight: FontWeight.bold),
+                                  style:  TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase, fontSize: 11, fontWeight: FontWeight.bold),
                                 ),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              const Icon(LucideIcons.calendar, size: 12, color: Colors.purple),
+                               Icon(LucideIcons.calendar, size: 12, color: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase),
                               const SizedBox(width: 4),
                               Text(
                                 'Scheduled: ${intake['date']}',
@@ -648,7 +648,7 @@ class _KanbanColumn extends StatelessWidget {
                                 onPressed: () => onAdvance!((intake['id'] as String)),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: theme.colors.primary,
-                                  foregroundColor: Colors.white,
+                                  foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                   minimumSize: Size.zero,
                                   shape: RoundedRectangleBorder(
@@ -708,7 +708,7 @@ class _UrgencyTab extends StatelessWidget {
         child: Text(
           label,
           style: theme.typography.bodyMedium.copyWith(
-            color: isActive ? Colors.white : theme.colors.onSurface,
+            color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent : theme.colors.onSurface,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),
@@ -820,7 +820,7 @@ class _NewIntakeFormDrawerState extends State<_NewIntakeFormDrawer> {
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: theme.colors.primary,
-                    foregroundColor: Colors.white,
+                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(theme.radiusMd),
                     ),
