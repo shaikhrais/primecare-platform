@@ -423,7 +423,7 @@ class _TelemetryPanel extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('API Response Health', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)), // .tr() LocaleKeys.
-                      Text(data.isEmpty ? 'Offline' : 'Nominal', style: TextStyle(color: data.isEmpty ? Colors.amber : const Color(0xFF10B981), fontWeight: FontWeight.bold, fontSize: 13)), // .tr() LocaleKeys.
+                      Text(data.isEmpty ? 'Offline' : 'Nominal', style: TextStyle(color: data.isEmpty ? theme.colors.warning : theme.colors.success, fontWeight: FontWeight.bold, fontSize: 13)), // .tr() LocaleKeys.
                     ],
                   ),
                   const SizedBox(height: 12),
