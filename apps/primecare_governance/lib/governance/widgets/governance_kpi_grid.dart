@@ -1,6 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Governance Kpi Grid platform logic.
 import 'package:flutter/material.dart';
-import 'package:primecare_ui/primecare_ui.dart';
 import '../models/governance_report.dart';
 
 class GovernanceKPIGrid extends StatelessWidget {
@@ -16,63 +16,63 @@ class GovernanceKPIGrid extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       crossAxisSpacing: 16,
       mainAxisSpacing: 16,
-      mainAxisExtent: 110,
+      mainAxisExtent: 110 * MediaQuery.textScalerOf(context).scale(1),
       children: [
         _buildKPI(
           context,
           'Total Screens',
           report.totalScreens.toString(),
           Icons.layers_rounded,
-          Colors.blue,
+          PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
         ),
         _buildKPI(
           context,
           'Total Issues',
           report.totalIssues.toString(),
           Icons.bug_report_rounded,
-          Colors.orange,
+          PrimeActionPalette.of(context, PrimeActionTone.warning).accent,
         ),
         _buildKPI(
           context,
           'Critical Issues',
           report.criticalIssues.toString(),
           Icons.warning_amber_rounded,
-          Colors.red,
+          PrimeActionPalette.of(context, PrimeActionTone.error).accent,
         ),
         _buildKPI(
           context,
           'Production Ready',
           report.productionReadyScreens.toString(),
           Icons.check_circle_outline_rounded,
-          Colors.green,
+          PrimeActionPalette.of(context, PrimeActionTone.success).accent,
         ),
         _buildKPI(
           context,
           'Avg. Test Rate',
           '${report.averageTestPassRate.toStringAsFixed(1)}%',
           Icons.fact_check_rounded,
-          Colors.purple,
+          PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
         ),
         _buildKPI(
           context,
           'Render Health',
           '${report.renderOkPercent.toStringAsFixed(1)}%',
           Icons.monitor_heart_rounded,
-          Colors.cyan,
+          PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
         ),
         _buildKPI(
           context,
           'Accessibility',
           '${report.accessibilityPercent.toStringAsFixed(1)}%',
           Icons.accessibility_new_rounded,
-          Colors.indigo,
+          PrimeActionPalette.of(context, PrimeActionTone.secondary).accent,
         ),
         _buildKPI(
           context,
           'Performance',
           '${report.performancePercent.toStringAsFixed(1)}%',
           Icons.speed_rounded,
-          Colors.teal,
+          PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
         ),
       ],
     );
@@ -88,9 +88,9 @@ class GovernanceKPIGrid extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: color.withValues(alpha: 0.1), width: 1.5),
+        border: Border.all(color: PrimeActionPalette.tintSurface(context, color), width: 1.5),
         boxShadow: [
           BoxShadow(
             color: color.withValues(alpha: 0.05),
@@ -104,10 +104,10 @@ class GovernanceKPIGrid extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
+              color: PrimeActionPalette.tintSurface(context, color),
               borderRadius: BorderRadius.circular(8),
             ),
-            child: PrimeIcon(icon, color: color, size: 24),
+            child: PrimeIcon(icon, color: PrimeActionPalette.onTint(context, color), size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -118,9 +118,9 @@ class GovernanceKPIGrid extends StatelessWidget {
               children: [
                 PrimeText(
                   label,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 12,
-                    color: Colors.grey,
+                    color: context.theme.colors.onSurfaceVariant,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

@@ -1,6 +1,5 @@
+import 'package:primecare_ui/primecare_ui.dart';
 // Governance - Category: view | Purpose: Core implementation file for the Network Parity Audit Table platform logic.
-import 'package:primecare_ui/primecare_ui.dart' show PrimeIcon, PrimeIconButton;
-import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter_core/flutter_core.dart';
 import '../../core/governance/governance_provider.dart';
 
@@ -16,14 +15,14 @@ class NetworkParityAuditTable extends ConsumerWidget {
       return Container(
         padding: const EdgeInsets.all(32),
         decoration: BoxDecoration(
-          color: Theme.of(context).cardColor,
+          color: context.theme.colors.surface,
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+          border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.success).border),
         ),
-        child: const Center(
+        child: Center(
           child: Column(
             children: [
-              PrimeIcon(Icons.check_circle_outline, color: Colors.green, size: 48),
+              PrimeIcon(Icons.check_circle_outline, color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase, size: 48),
               SizedBox(height: 16),
               PrimeText(
                 'Zero-Error Platform Parity',
@@ -32,7 +31,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
               PrimeText(
                 'All backend controllers and network endpoints are in 100% parity with the registry.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey),
+                style: TextStyle(color: context.theme.colors.onSurfaceVariant),
               ),
             ],
           ),
@@ -42,9 +41,9 @@ class NetworkParityAuditTable extends ConsumerWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
+        color: context.theme.colors.surface,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.red.withValues(alpha: 0.1)),
+        border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.error).border),
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -52,7 +51,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
           scrollDirection: Axis.horizontal,
           child: DataTable(
             headingRowColor: WidgetStateProperty.all(
-              Colors.red.withValues(alpha: 0.05),
+              PrimeActionPalette.of(context, PrimeActionTone.error).surface,
             ),
             columnSpacing: 24,
             columns: const [
@@ -66,7 +65,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
             rows: issues.map((issue) {
               final metadata = issue.metadata;
               final isRogue = metadata['type'] == 'rogue_endpoint';
-              final color = isRogue ? Colors.red : Colors.orange;
+              final color = isRogue ? PrimeActionPalette.of(context, PrimeActionTone.error).accent : PrimeActionPalette.of(context, PrimeActionTone.warning).accent;
               final identity = isRogue ? (metadata['path'] ?? 'N/A') : (metadata['endpoint'] ?? metadata['id'] ?? 'N/A');
 
               return DataRow(
@@ -75,13 +74,13 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withValues(alpha: 0.1),
+                        color: PrimeActionPalette.of(context, PrimeActionTone.primary).surface,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: PrimeText(
                         issue.subsystem.toUpperCase(),
-                        style: const TextStyle(
-                          color: Colors.blue,
+                        style: TextStyle(
+                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface,
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
@@ -92,13 +91,13 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: color.withValues(alpha: 0.1),
+                        color: PrimeActionPalette.tintSurface(context, color),
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: PrimeText(
                         (metadata['type'] ?? 'drift').toString().replaceAll('_', ' ').toUpperCase(),
                         style: TextStyle(
-                          color: color,
+                          color: PrimeActionPalette.onTint(context, color),
                           fontSize: 10,
                           fontWeight: FontWeight.bold,
                         ),
@@ -129,9 +128,9 @@ class NetworkParityAuditTable extends ConsumerWidget {
                       width: 250,
                       child: PrimeText(
                         issue.suggestion,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 12,
-                          color: Colors.blue,
+                          color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                           fontStyle: FontStyle.italic,
                         ),
                       ),
@@ -141,7 +140,7 @@ class NetworkParityAuditTable extends ConsumerWidget {
                     PrimeIconButton(key: const Key('network_parity_audit_table_iconbutton_button_1'),
                       icon: PrimeIcon(
                         issue.autoRemediable ? Icons.auto_fix_high : Icons.build,
-                        color: Colors.blue,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                         size: 20,
                       ),
                       onPressed: () => _remediate(ref, issue),
