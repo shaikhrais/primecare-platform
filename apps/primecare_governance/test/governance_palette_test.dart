@@ -31,6 +31,20 @@ void main() {
  TestWidgetsFlutterBinding.ensureInitialized();
  setUpAll(() async {SharedPreferences.setMockInitialValues({});await EasyLocalization.ensureInitialized();});
  test('all seven actual migrated consumers compile',(){expect(<Type>[GovernanceDomainChart,GovernanceEventFeed,GovernanceIssueTable,NetworkParityAuditTable,GovernanceKPIGrid,GovernanceFilterBar,GovernanceDashboard],hasLength(7));});
+ testWidgets('actual KPI content fits narrow columns and enlarged text', (tester) async {
+  tester.view.physicalSize=const Size(1600,2400);tester.view.devicePixelRatio=1;
+  addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
+  const prime=PrimeThemeData();
+  for(final width in [320.0,600.0,1400.0])for(final scale in [1.0,2.0,3.0]) {
+   await tester.pumpWidget(PrimeTheme(data:prime,bootstrap:false,child:MaterialApp(theme:prime.toThemeData(),home:Scaffold(
+    body:MediaQuery(data:MediaQueryData(textScaler:TextScaler.linear(scale)),child:SingleChildScrollView(
+     child:SizedBox(width:width,child:GovernanceKPIGrid(report:report()))))))));
+   await tester.pumpAndSettle();
+   expect(find.text('Total Screens'),findsOneWidget);expect(find.text('20'),findsOneWidget);
+   expect(find.text('Production Ready'),findsOneWidget);expect(find.text('Performance'),findsOneWidget);
+   expect(tester.takeException(),isNull,reason:'$width/$scale');
+  }
+ });
  testWidgets('actual governance palettes preserve chart, KPI, event and filter behavior', (tester) async {
   tester.view.physicalSize=const Size(1600,2000);tester.view.devicePixelRatio=1;
   addTearDown(tester.view.resetPhysicalSize);addTearDown(tester.view.resetDevicePixelRatio);
