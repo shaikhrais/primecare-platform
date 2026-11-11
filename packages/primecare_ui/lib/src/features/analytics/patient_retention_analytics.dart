@@ -394,15 +394,7 @@ class PatientRetentionAnalyticsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'patient_retention_analytics_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('patient_retention_analytics_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Patient_Retention_Analytics_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Patient_Retention_Analytics_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('patient_retention_analytics_iconbutton_button_1'), label: 'Patient_Retention_Analytics_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Patient_Retention_Analytics_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

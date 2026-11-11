@@ -656,15 +656,7 @@ class CertificationRenewalAlertsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'certification_renewal_alerts_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('certification_renewal_alerts_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Certification_Renewal_Alerts_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Certification_Renewal_Alerts_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('certification_renewal_alerts_iconbutton_button_1'), label: 'Certification_Renewal_Alerts_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Certification_Renewal_Alerts_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -676,15 +668,7 @@ class CertificationRenewalAlertsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'certification_renewal_alerts_elevatedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('certification_renewal_alerts_elevatedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Certification_Renewal_Alerts_Elevatedbutton_Button_1 executed successfully.'),
-                          child: Text('Certification_Renewal_Alerts_Elevatedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('certification_renewal_alerts_elevatedbutton_button_1'), label: 'Certification_Renewal_Alerts_Elevatedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Certification_Renewal_Alerts_Elevatedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

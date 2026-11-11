@@ -656,15 +656,7 @@ class ConsentManagementConsoleScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'consent_management_console_outlinedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('consent_management_console_outlinedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Consent_Management_Console_Outlinedbutton_Button_1 executed successfully.'),
-                          child: Text('Consent_Management_Console_Outlinedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('consent_management_console_outlinedbutton_button_1'), label: 'Consent_Management_Console_Outlinedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Consent_Management_Console_Outlinedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -676,15 +668,7 @@ class ConsentManagementConsoleScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'consent_management_console_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('consent_management_console_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Consent_Management_Console_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Consent_Management_Console_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('consent_management_console_iconbutton_button_1'), label: 'Consent_Management_Console_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Consent_Management_Console_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

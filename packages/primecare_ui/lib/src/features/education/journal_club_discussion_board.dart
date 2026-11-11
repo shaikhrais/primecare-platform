@@ -394,15 +394,7 @@ class JournalClubDiscussionBoardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'journal_club_discussion_board_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('journal_club_discussion_board_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Journal_Club_Discussion_Board_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Journal_Club_Discussion_Board_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('journal_club_discussion_board_textbutton_button_1'), label: 'Journal_Club_Discussion_Board_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Journal_Club_Discussion_Board_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class JournalClubDiscussionBoardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'journal_club_discussion_board_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('journal_club_discussion_board_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Journal_Club_Discussion_Board_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Journal_Club_Discussion_Board_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('journal_club_discussion_board_iconbutton_button_1'), label: 'Journal_Club_Discussion_Board_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Journal_Club_Discussion_Board_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

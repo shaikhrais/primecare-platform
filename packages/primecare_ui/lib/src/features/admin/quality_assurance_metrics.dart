@@ -394,15 +394,7 @@ class QualityAssuranceMetricsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'quality_assurance_metrics_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('quality_assurance_metrics_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Quality_Assurance_Metrics_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Quality_Assurance_Metrics_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('quality_assurance_metrics_iconbutton_button_1'), label: 'Quality_Assurance_Metrics_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Quality_Assurance_Metrics_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

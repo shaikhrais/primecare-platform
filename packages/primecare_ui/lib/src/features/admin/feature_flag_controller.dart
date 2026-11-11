@@ -394,15 +394,7 @@ class FeatureFlagControllerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'feature_flag_controller_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('feature_flag_controller_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Feature_Flag_Controller_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Feature_Flag_Controller_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('feature_flag_controller_iconbutton_button_1'), label: 'Feature_Flag_Controller_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Feature_Flag_Controller_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

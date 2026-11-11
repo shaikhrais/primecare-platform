@@ -394,15 +394,7 @@ class PatientCaseStudyRepositoryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'patient_case_study_repository_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('patient_case_study_repository_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Patient_Case_Study_Repository_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Patient_Case_Study_Repository_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('patient_case_study_repository_textbutton_button_1'), label: 'Patient_Case_Study_Repository_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Patient_Case_Study_Repository_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class PatientCaseStudyRepositoryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'patient_case_study_repository_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('patient_case_study_repository_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Patient_Case_Study_Repository_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Patient_Case_Study_Repository_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('patient_case_study_repository_iconbutton_button_1'), label: 'Patient_Case_Study_Repository_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Patient_Case_Study_Repository_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

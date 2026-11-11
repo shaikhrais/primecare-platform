@@ -394,15 +394,7 @@ class RegulatoryChangeRadarScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'regulatory_change_radar_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('regulatory_change_radar_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Regulatory_Change_Radar_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Regulatory_Change_Radar_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('regulatory_change_radar_iconbutton_button_1'), label: 'Regulatory_Change_Radar_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Regulatory_Change_Radar_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

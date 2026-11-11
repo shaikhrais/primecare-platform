@@ -394,15 +394,7 @@ class BoardOfDirectorsSummaryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'board_of_directors_summary_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('board_of_directors_summary_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Board_Of_Directors_Summary_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Board_Of_Directors_Summary_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('board_of_directors_summary_iconbutton_button_1'), label: 'Board_Of_Directors_Summary_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Board_Of_Directors_Summary_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

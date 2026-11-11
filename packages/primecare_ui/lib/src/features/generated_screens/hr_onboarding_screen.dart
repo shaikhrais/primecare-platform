@@ -394,15 +394,7 @@ class HrOnboardingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'hr_onboarding_screen_elevatedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('hr_onboarding_screen_elevatedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Hr_Onboarding_Screen_Elevatedbutton_Button_1 executed successfully.'),
-                          child: Text('Hr_Onboarding_Screen_Elevatedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('hr_onboarding_screen_elevatedbutton_button_1'), label: 'Hr_Onboarding_Screen_Elevatedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Hr_Onboarding_Screen_Elevatedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class HrOnboardingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'hr_onboarding_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('hr_onboarding_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Hr_Onboarding_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Hr_Onboarding_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('hr_onboarding_screen_iconbutton_button_1'), label: 'Hr_Onboarding_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Hr_Onboarding_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

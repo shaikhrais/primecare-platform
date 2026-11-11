@@ -394,15 +394,7 @@ class EcosystemStateBoardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'ecosystem_state_board_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('ecosystem_state_board_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Ecosystem_State_Board_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Ecosystem_State_Board_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('ecosystem_state_board_iconbutton_button_1'), label: 'Ecosystem_State_Board_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Ecosystem_State_Board_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

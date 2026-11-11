@@ -394,15 +394,7 @@ class DataPrivacyMonitorScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data_privacy_monitor_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('data_privacy_monitor_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data_Privacy_Monitor_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Data_Privacy_Monitor_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data_privacy_monitor_iconbutton_button_1'), label: 'Data_Privacy_Monitor_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Data_Privacy_Monitor_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class DataPrivacyMonitorScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'data_privacy_monitor_outlinedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('data_privacy_monitor_outlinedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Data_Privacy_Monitor_Outlinedbutton_Button_1 executed successfully.'),
-                          child: Text('Data_Privacy_Monitor_Outlinedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('data_privacy_monitor_outlinedbutton_button_1'), label: 'Data_Privacy_Monitor_Outlinedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Data_Privacy_Monitor_Outlinedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

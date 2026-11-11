@@ -394,15 +394,7 @@ class SystemCapacityPlannerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'system_capacity_planner_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('system_capacity_planner_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: System_Capacity_Planner_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('System_Capacity_Planner_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('system_capacity_planner_iconbutton_button_1'), label: 'System_Capacity_Planner_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: System_Capacity_Planner_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

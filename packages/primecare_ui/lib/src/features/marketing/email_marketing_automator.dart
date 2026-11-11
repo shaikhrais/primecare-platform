@@ -394,15 +394,7 @@ class EmailMarketingAutomatorScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'email_marketing_automator_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('email_marketing_automator_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Email_Marketing_Automator_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Email_Marketing_Automator_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('email_marketing_automator_iconbutton_button_1'), label: 'Email_Marketing_Automator_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Email_Marketing_Automator_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

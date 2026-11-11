@@ -394,15 +394,7 @@ class TerritorySalesMappingScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'territory_sales_mapping_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('territory_sales_mapping_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Territory_Sales_Mapping_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Territory_Sales_Mapping_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('territory_sales_mapping_iconbutton_button_1'), label: 'Territory_Sales_Mapping_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Territory_Sales_Mapping_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

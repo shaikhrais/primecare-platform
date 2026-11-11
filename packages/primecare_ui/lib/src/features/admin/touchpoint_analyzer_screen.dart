@@ -394,15 +394,7 @@ class TouchpointAnalyzerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'touchpoint_analyzer_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('touchpoint_analyzer_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Touchpoint_Analyzer_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Touchpoint_Analyzer_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('touchpoint_analyzer_screen_iconbutton_button_1'), label: 'Touchpoint_Analyzer_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Touchpoint_Analyzer_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class TouchpointAnalyzerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'touchpoint_analyzer_screen_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('touchpoint_analyzer_screen_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Touchpoint_Analyzer_Screen_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Touchpoint_Analyzer_Screen_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('touchpoint_analyzer_screen_textbutton_button_1'), label: 'Touchpoint_Analyzer_Screen_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Touchpoint_Analyzer_Screen_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

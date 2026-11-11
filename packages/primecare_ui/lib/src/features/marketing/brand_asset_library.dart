@@ -394,15 +394,7 @@ class BrandAssetLibraryScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'brand_asset_library_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('brand_asset_library_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Brand_Asset_Library_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Brand_Asset_Library_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('brand_asset_library_iconbutton_button_1'), label: 'Brand_Asset_Library_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Brand_Asset_Library_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

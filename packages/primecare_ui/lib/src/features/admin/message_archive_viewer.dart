@@ -674,15 +674,7 @@ class MessageArchiveerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'message_archive_viewer_iconbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('message_archive_viewer_iconbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Message_Archive_Viewer_Iconbutton_Button_2 executed successfully.'),
-                          child: Text('Message_Archive_Viewer_Iconbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('message_archive_viewer_iconbutton_button_2'), label: 'Message_Archive_Viewer_Iconbutton_Button_2'.tr(), onPressed:  () => controller.addLog('Action: Message_Archive_Viewer_Iconbutton_Button_2 executed successfully.')),
                       ),
                     ),
                   ),
@@ -694,15 +686,7 @@ class MessageArchiveerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'message_archive_viewer_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('message_archive_viewer_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Message_Archive_Viewer_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Message_Archive_Viewer_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('message_archive_viewer_textbutton_button_1'), label: 'Message_Archive_Viewer_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Message_Archive_Viewer_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -714,15 +698,7 @@ class MessageArchiveerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'message_archive_viewer_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('message_archive_viewer_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Message_Archive_Viewer_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Message_Archive_Viewer_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('message_archive_viewer_iconbutton_button_1'), label: 'Message_Archive_Viewer_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Message_Archive_Viewer_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

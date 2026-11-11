@@ -394,15 +394,7 @@ class ServiceMeshTopologyScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'service_mesh_topology_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('service_mesh_topology_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Service_Mesh_Topology_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Service_Mesh_Topology_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('service_mesh_topology_iconbutton_button_1'), label: 'Service_Mesh_Topology_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Service_Mesh_Topology_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

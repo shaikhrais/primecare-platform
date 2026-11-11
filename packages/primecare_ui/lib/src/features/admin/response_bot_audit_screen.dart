@@ -674,15 +674,7 @@ class ResponseBotAuditScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'response_bot_audit_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('response_bot_audit_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Response_Bot_Audit_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Response_Bot_Audit_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('response_bot_audit_screen_iconbutton_button_1'), label: 'Response_Bot_Audit_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Response_Bot_Audit_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

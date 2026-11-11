@@ -394,15 +394,7 @@ class OperationalEfficiencyMetricsScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'operational_efficiency_metrics_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('operational_efficiency_metrics_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Operational_Efficiency_Metrics_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Operational_Efficiency_Metrics_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('operational_efficiency_metrics_iconbutton_button_1'), label: 'Operational_Efficiency_Metrics_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Operational_Efficiency_Metrics_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

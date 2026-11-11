@@ -698,15 +698,7 @@ class ChemotherapyProtocolBuilderScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'protocol-btn-publish',
-                        child: ElevatedButton(
-                          key: const Key('protocol-btn-publish'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Protocol Btn Publish executed successfully.'),
-                          child: Text('Protocol Btn Publish'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('protocol-btn-publish'), label: 'Protocol Btn Publish'.tr(), onPressed:  () => controller.addLog('Action: Protocol Btn Publish executed successfully.')),
                       ),
                     ),
                   ),
@@ -718,15 +710,7 @@ class ChemotherapyProtocolBuilderScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'protocol-btn-pdf',
-                        child: ElevatedButton(
-                          key: const Key('protocol-btn-pdf'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Protocol Btn Pdf executed successfully.'),
-                          child: Text('Protocol Btn Pdf'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('protocol-btn-pdf'), label: 'Protocol Btn Pdf'.tr(), onPressed:  () => controller.addLog('Action: Protocol Btn Pdf executed successfully.')),
                       ),
                     ),
                   ),
@@ -738,15 +722,7 @@ class ChemotherapyProtocolBuilderScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'protocol-btn-create',
-                        child: ElevatedButton(
-                          key: const Key('protocol-btn-create'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Protocol Btn Create executed successfully.'),
-                          child: Text('Protocol Btn Create'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('protocol-btn-create'), label: 'Protocol Btn Create'.tr(), onPressed:  () => controller.addLog('Action: Protocol Btn Create executed successfully.')),
                       ),
                     ),
                   ),
@@ -758,15 +734,7 @@ class ChemotherapyProtocolBuilderScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'protocol-btn-save-draft',
-                        child: ElevatedButton(
-                          key: const Key('protocol-btn-save-draft'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Protocol Btn Save Draft executed successfully.'),
-                          child: Text('Protocol Btn Save Draft'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('protocol-btn-save-draft'), label: 'Protocol Btn Save Draft'.tr(), onPressed:  () => controller.addLog('Action: Protocol Btn Save Draft executed successfully.')),
                       ),
                     ),
                   ),

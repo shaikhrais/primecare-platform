@@ -394,15 +394,7 @@ class PredictiveAnalyticsDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'predictive_analytics_dashboard_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('predictive_analytics_dashboard_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Predictive_Analytics_Dashboard_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Predictive_Analytics_Dashboard_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('predictive_analytics_dashboard_iconbutton_button_1'), label: 'Predictive_Analytics_Dashboard_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Predictive_Analytics_Dashboard_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

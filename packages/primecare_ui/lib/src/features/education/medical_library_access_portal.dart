@@ -394,15 +394,7 @@ class MedicalLibraryAccessPortalScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'medical_library_access_portal_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('medical_library_access_portal_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Medical_Library_Access_Portal_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Medical_Library_Access_Portal_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('medical_library_access_portal_iconbutton_button_1'), label: 'Medical_Library_Access_Portal_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Medical_Library_Access_Portal_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

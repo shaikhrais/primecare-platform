@@ -698,15 +698,7 @@ class ControlledSubstanceLogScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'substance-btn-add',
-                        child: ElevatedButton(
-                          key: const Key('substance-btn-add'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Substance Btn Add executed successfully.'),
-                          child: Text('Substance Btn Add'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('substance-btn-add'), label: 'Substance Btn Add'.tr(), onPressed:  () => controller.addLog('Action: Substance Btn Add executed successfully.')),
                       ),
                     ),
                   ),
@@ -718,15 +710,7 @@ class ControlledSubstanceLogScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'substance-btn-sign',
-                        child: ElevatedButton(
-                          key: const Key('substance-btn-sign'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Substance Btn Sign executed successfully.'),
-                          child: Text('Substance Btn Sign'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('substance-btn-sign'), label: 'Substance Btn Sign'.tr(), onPressed:  () => controller.addLog('Action: Substance Btn Sign executed successfully.')),
                       ),
                     ),
                   ),

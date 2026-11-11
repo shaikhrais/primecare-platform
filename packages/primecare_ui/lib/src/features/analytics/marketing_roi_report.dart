@@ -394,15 +394,7 @@ class MarketingROIReportScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'marketing_roi_report_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('marketing_roi_report_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Marketing_Roi_Report_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Marketing_Roi_Report_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('marketing_roi_report_iconbutton_button_1'), label: 'Marketing_Roi_Report_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Marketing_Roi_Report_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

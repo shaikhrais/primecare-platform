@@ -394,15 +394,7 @@ class AccessReviewCertifierScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'access_review_certifier_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('access_review_certifier_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Access_Review_Certifier_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Access_Review_Certifier_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('access_review_certifier_iconbutton_button_1'), label: 'Access_Review_Certifier_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Access_Review_Certifier_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

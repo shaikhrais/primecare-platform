@@ -394,15 +394,7 @@ class CrisisProtocolTriggerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'crisis_protocol_trigger_screen_elevatedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('crisis_protocol_trigger_screen_elevatedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Crisis_Protocol_Trigger_Screen_Elevatedbutton_Button_1 executed successfully.'),
-                          child: Text('Crisis_Protocol_Trigger_Screen_Elevatedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('crisis_protocol_trigger_screen_elevatedbutton_button_1'), label: 'Crisis_Protocol_Trigger_Screen_Elevatedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Crisis_Protocol_Trigger_Screen_Elevatedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

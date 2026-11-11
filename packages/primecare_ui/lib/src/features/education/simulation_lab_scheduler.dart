@@ -394,15 +394,7 @@ class SimulationLabSchedulerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'simulation_lab_scheduler_outlinedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('simulation_lab_scheduler_outlinedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Simulation_Lab_Scheduler_Outlinedbutton_Button_1 executed successfully.'),
-                          child: Text('Simulation_Lab_Scheduler_Outlinedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('simulation_lab_scheduler_outlinedbutton_button_1'), label: 'Simulation_Lab_Scheduler_Outlinedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Simulation_Lab_Scheduler_Outlinedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class SimulationLabSchedulerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'simulation_lab_scheduler_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('simulation_lab_scheduler_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Simulation_Lab_Scheduler_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Simulation_Lab_Scheduler_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('simulation_lab_scheduler_iconbutton_button_1'), label: 'Simulation_Lab_Scheduler_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Simulation_Lab_Scheduler_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

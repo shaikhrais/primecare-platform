@@ -656,15 +656,7 @@ class CampaignPerformanceDashboardScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'campaign_performance_dashboard_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('campaign_performance_dashboard_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Campaign_Performance_Dashboard_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Campaign_Performance_Dashboard_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('campaign_performance_dashboard_iconbutton_button_1'), label: 'Campaign_Performance_Dashboard_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Campaign_Performance_Dashboard_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

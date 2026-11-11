@@ -394,15 +394,7 @@ class LeadConversionFunnelScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'lead_conversion_funnel_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('lead_conversion_funnel_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Lead_Conversion_Funnel_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Lead_Conversion_Funnel_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('lead_conversion_funnel_iconbutton_button_1'), label: 'Lead_Conversion_Funnel_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Lead_Conversion_Funnel_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

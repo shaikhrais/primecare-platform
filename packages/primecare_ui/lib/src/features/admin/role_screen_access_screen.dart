@@ -674,15 +674,7 @@ class RoleAccessScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'role-access-btn-save',
-                        child: ElevatedButton(
-                          key: const Key('role-access-btn-save'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Role Access Btn Save executed successfully.'),
-                          child: Text('Role Access Btn Save'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('role-access-btn-save'), label: 'Role Access Btn Save'.tr(), onPressed:  () => controller.addLog('Action: Role Access Btn Save executed successfully.')),
                       ),
                     ),
                   ),

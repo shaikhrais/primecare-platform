@@ -394,15 +394,7 @@ class FAQManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'faq_manager_screen_textbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('faq_manager_screen_textbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Faq_Manager_Screen_Textbutton_Button_2 executed successfully.'),
-                          child: Text('Faq_Manager_Screen_Textbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('faq_manager_screen_textbutton_button_2'), label: 'Faq_Manager_Screen_Textbutton_Button_2'.tr(), onPressed:  () => controller.addLog('Action: Faq_Manager_Screen_Textbutton_Button_2 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class FAQManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'faq_manager_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('faq_manager_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Faq_Manager_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Faq_Manager_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('faq_manager_screen_iconbutton_button_1'), label: 'Faq_Manager_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Faq_Manager_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -434,15 +418,7 @@ class FAQManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'faq_manager_screen_textbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('faq_manager_screen_textbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Faq_Manager_Screen_Textbutton_Button_1 executed successfully.'),
-                          child: Text('Faq_Manager_Screen_Textbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('faq_manager_screen_textbutton_button_1'), label: 'Faq_Manager_Screen_Textbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Faq_Manager_Screen_Textbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

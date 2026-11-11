@@ -394,15 +394,7 @@ class OshaIncidentReporterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'osha_incident_reporter_outlinedbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('osha_incident_reporter_outlinedbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Osha_Incident_Reporter_Outlinedbutton_Button_1 executed successfully.'),
-                          child: Text('Osha_Incident_Reporter_Outlinedbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('osha_incident_reporter_outlinedbutton_button_1'), label: 'Osha_Incident_Reporter_Outlinedbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Osha_Incident_Reporter_Outlinedbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class OshaIncidentReporterScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'osha_incident_reporter_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('osha_incident_reporter_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Osha_Incident_Reporter_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Osha_Incident_Reporter_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('osha_incident_reporter_iconbutton_button_1'), label: 'Osha_Incident_Reporter_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Osha_Incident_Reporter_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

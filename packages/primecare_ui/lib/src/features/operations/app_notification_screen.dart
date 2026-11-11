@@ -674,15 +674,7 @@ class AppNotificationScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'app_notification_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('app_notification_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: App_Notification_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('App_Notification_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('app_notification_screen_iconbutton_button_1'), label: 'App_Notification_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: App_Notification_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

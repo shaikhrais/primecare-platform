@@ -394,15 +394,7 @@ class ApiKeyManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'api_key_manager_screen_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('api_key_manager_screen_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Api_Key_Manager_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('api_key_manager_screen_iconbutton_button_1'), label: 'Api_Key_Manager_Screen_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
@@ -414,15 +406,7 @@ class ApiKeyManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'api_key_manager_screen_iconbutton_button_3',
-                        child: ElevatedButton(
-                          key: const Key('api_key_manager_screen_iconbutton_button_3'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_3 executed successfully.'),
-                          child: Text('Api_Key_Manager_Screen_Iconbutton_Button_3'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('api_key_manager_screen_iconbutton_button_3'), label: 'Api_Key_Manager_Screen_Iconbutton_Button_3'.tr(), onPressed:  () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_3 executed successfully.')),
                       ),
                     ),
                   ),
@@ -434,15 +418,7 @@ class ApiKeyManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'api_key_manager_screen_iconbutton_button_2',
-                        child: ElevatedButton(
-                          key: const Key('api_key_manager_screen_iconbutton_button_2'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_2 executed successfully.'),
-                          child: Text('Api_Key_Manager_Screen_Iconbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('api_key_manager_screen_iconbutton_button_2'), label: 'Api_Key_Manager_Screen_Iconbutton_Button_2'.tr(), onPressed:  () => controller.addLog('Action: Api_Key_Manager_Screen_Iconbutton_Button_2 executed successfully.')),
                       ),
                     ),
                   ),

@@ -394,15 +394,7 @@ class EventAndWebinarManagerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'event_and_webinar_manager_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('event_and_webinar_manager_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Event_And_Webinar_Manager_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Event_And_Webinar_Manager_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('event_and_webinar_manager_iconbutton_button_1'), label: 'Event_And_Webinar_Manager_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Event_And_Webinar_Manager_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),

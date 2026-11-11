@@ -394,15 +394,7 @@ class SupplyChainCostAnalyzerScreen extends GovernedConsumerWidget {
                       height: 48,
                       child: Cy(
                         id: 'supply_chain_cost_analyzer_iconbutton_button_1',
-                        child: ElevatedButton(
-                          key: const Key('supply_chain_cost_analyzer_iconbutton_button_1'),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: theme.colors.primary,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          ),
-                          onPressed: () => controller.addLog('Action: Supply_Chain_Cost_Analyzer_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Supply_Chain_Cost_Analyzer_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
-                        ),
+                        child: PrimeButton(key:  const Key('supply_chain_cost_analyzer_iconbutton_button_1'), label: 'Supply_Chain_Cost_Analyzer_Iconbutton_Button_1'.tr(), onPressed:  () => controller.addLog('Action: Supply_Chain_Cost_Analyzer_Iconbutton_Button_1 executed successfully.')),
                       ),
                     ),
                   ),
