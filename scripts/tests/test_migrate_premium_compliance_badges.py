@@ -49,3 +49,46 @@ class ComplianceBadgeMigrationTest(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class RemainingPositiveBadgesTest(unittest.TestCase):
+    def source(self):
+        return PREFIX+m.EXTRA_OLD_PANEL+m.HELPER
+
+    def test_exact_panel_shared_badges_and_responsive_group(self):
+        source=self.source();result,count=m.migrate(source)
+        self.assertEqual(count,2)
+        self.assertEqual(result,PREFIX+m.EXTRA_NEW_PANEL)
+        self.assertEqual(m.migrate(result),(result,0))
+        self.assertIn("PrimeStatusBadge('GDPR Verified', tone: PrimeStatusTone.success)",result)
+        self.assertIn("PrimeStatusBadge('TLS 1.3 Active', tone: PrimeStatusTone.success)",result)
+        self.assertIn('const Wrap(',result)
+        self.assertIn('Expanded(child: Column(',result)
+        self.assertNotIn('class _StatusBadge ',result)
+
+    def test_modified_semantics_colors_layout_and_external_helper_references_stay(self):
+        source=self.source()
+        for old,new in [('GDPR Verified','GDPR Pending'),('TLS 1.3 Active','TLS Inactive'),
+                        ('Colors.blue','Colors.indigo'),('Colors.purple','Colors.deepPurple'),
+                        ('height: 24','height: 25'),('class _AuditPanel ','class OtherPanel ')]:
+            modified=source.replace(old,new)
+            self.assertEqual(m.migrate(modified),(modified,0))
+        modified=source+"final extra = _StatusBadge(label: 'Other', color: Colors.blue);"
+        self.assertEqual(m.migrate(modified),(modified,0))
+
+    def test_commented_panel_restricted_import_and_shadows_stay(self):
+        source=self.source()
+        for modified in ['/*'+source+'*/',source.replace("primecare_ui.dart';","primecare_ui.dart' show PrimeText;"),
+                         source+'class PrimeStatusTone {}',"part 'other.dart';\n"+source]:
+            self.assertEqual(m.migrate(modified),(modified,0))
+
+    def test_all_real_panels_match_behavior_fixture_and_idempotence(self):
+        root=Path(__file__).resolve().parents[2]
+        fixture=(root/'packages/primecare_ui/test/fixtures/premium_audit_panel_fixture.dart').read_text()
+        fixture=fixture[fixture.index('class PremiumAuditPanelFixture '):].replace('PremiumAuditPanelFixture','_AuditPanel')
+        self.assertEqual(fixture,m.EXTRA_NEW_PANEL)
+        count=0
+        for path in (root/'packages/primecare_ui/lib/src/features/generated_screens').glob('premium_feature_*.dart'):
+            source=path.read_text();begin=source.index('class _AuditPanel ')
+            self.assertEqual(source[begin:],m.EXTRA_NEW_PANEL,path.name)
+            self.assertEqual(m.migrate(source),(source,0),path.name);count+=1
+        self.assertEqual(count,251)
