@@ -8,3 +8,4 @@ export 'src/prime_scaffold.dart';
 export 'src/prime_text_field.dart';
 export 'src/prime_snack_bar.dart';
 export 'src/prime_card.dart';
+export 'src/prime_app_bar.dart';

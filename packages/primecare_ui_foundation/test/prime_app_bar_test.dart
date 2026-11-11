@@ -1,0 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
+void main(){
+ test('PrimeAppBar forwards reviewed fields and preferred size',(){
+  final bottom=PreferredSize(preferredSize:const Size.fromHeight(22),child:Container());final predicate=(ScrollNotification n)=>false;
+  final bar=PrimeAppBar(key:const Key('shared-app-bar'),leading:const PrimeText('L'),automaticallyImplyLeading:false,title:const PrimeText('Title'),actions:const [PrimeText('A')],automaticallyImplyActions:false,flexibleSpace:const PrimeText('F'),bottom:bottom,elevation:2,scrolledUnderElevation:3,notificationPredicate:predicate,shadowColor:const Color(0xff112233),surfaceTintColor:const Color(0xff223344),shape:const StadiumBorder(),backgroundColor:const Color(0xff334455),foregroundColor:const Color(0xff445566),iconTheme:const IconThemeData(size:18),actionsIconTheme:const IconThemeData(size:19),primary:false,centerTitle:true,excludeHeaderSemantics:true,titleSpacing:7,toolbarOpacity:.8,bottomOpacity:.7,toolbarHeight:61,leadingWidth:44,toolbarTextStyle:const TextStyle(fontSize:13),titleTextStyle:const TextStyle(fontSize:14),systemOverlayStyle:SystemUiOverlayStyle.light,forceMaterialTransparency:true,useDefaultSemanticsOrder:false,clipBehavior:Clip.antiAlias,actionsPadding:const EdgeInsets.all(6),animateColor:true);
+  expect(bar,isA<AppBar>());expect(bar,isA<PreferredSizeWidget>());expect(bar.key,const Key('shared-app-bar'));expect(bar.automaticallyImplyLeading,isFalse);expect(bar.automaticallyImplyActions,isFalse);expect(bar.bottom,same(bottom));expect(bar.notificationPredicate,same(predicate));expect(bar.toolbarHeight,61);expect(bar.preferredSize.height,83);expect(bar.systemOverlayStyle,SystemUiOverlayStyle.light);expect(bar.animateColor,isTrue);expect(bar.clipBehavior,Clip.antiAlias);
+ });
+ testWidgets('PrimeAppBar inherits the active AppBarTheme',(tester)async{const themed=Color(0xff335577);await tester.pumpWidget(MaterialApp(theme:ThemeData(appBarTheme:const AppBarTheme(backgroundColor:themed,elevation:8)),home:Scaffold(appBar:PrimeAppBar(title:const PrimeText('Themed bar')),body:const SizedBox())));final material=tester.widgetList<Material>(find.byType(Material)).where((w)=>w.color==themed&&w.elevation==8);expect(material,isNotEmpty);expect(find.text('Themed bar'),findsOneWidget);});
+}

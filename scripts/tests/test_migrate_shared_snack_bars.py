@@ -3,8 +3,11 @@ import importlib.util
 import tempfile
 import unittest
 from pathlib import Path
+import sys
 
 ROOT=Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'scripts'))
+from reviewed_migration_history import before_shared_app_bars
 SPEC=importlib.util.spec_from_file_location('migration',ROOT/'scripts/migrate-shared-snack-bars.py')
 migration=importlib.util.module_from_spec(SPEC);SPEC.loader.exec_module(migration)
 
@@ -12,7 +15,8 @@ class SharedSnackBarMigrationTest(unittest.TestCase):
     def test_all_reviewed_sources_round_trip_exactly(self):
         total=0
         for path,(digest,calls,_) in migration.SPECS.items():
-            current=(ROOT/path).read_text()
+            latest=(ROOT/path).read_text()
+            current=before_shared_app_bars(latest,path)
             original,reversed_calls=migration.reverse_source(path,current)
             if not reversed_calls:
                 original=current

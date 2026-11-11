@@ -6,7 +6,16 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_shared_app_bars(source,path):
+    app_bar_script=ROOT/'scripts/migrate-shared-app-bars.py'
+    if not app_bar_script.exists():return source
+    spec=importlib.util.spec_from_file_location('shared_app_bar_history',app_bar_script)
+    migration=importlib.util.module_from_spec(spec);spec.loader.exec_module(migration)
+    reversed_source,count=migration.reverse_source(path,source)
+    return reversed_source if count else source
+
 def before_shared_cards(source,path):
+    source=before_shared_app_bars(source,path)
     card_script=ROOT/'scripts/migrate-shared-cards.py'
     if not card_script.exists():return source
     spec=importlib.util.spec_from_file_location('shared_card_history',card_script)
