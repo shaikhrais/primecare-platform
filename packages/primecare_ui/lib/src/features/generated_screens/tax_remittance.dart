@@ -181,9 +181,9 @@ class TaxRemittance extends GovernedConsumerWidget {
                 margin: const EdgeInsets.only(bottom: 24),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: Colors.green.shade50,
+                  color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                   borderRadius: BorderRadius.circular(theme.radiusMd),
-                  border: Border.all(color: Colors.green.shade300),
+                  border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: .3)),
                 ),
                 child: Row(
                   children: [
@@ -192,11 +192,11 @@ class TaxRemittance extends GovernedConsumerWidget {
                     Expanded(
                       child: Text(
                         'Quarterly Tax Remittance Ledger Filed Successfully!',
-                        style: theme.typography.bodyMedium.copyWith(color: Colors.green.shade800),
+                        style: theme.typography.bodyMedium.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface),
                       ),
                     ),
                     IconButton(key: const Key('tax_remittance_iconbutton_button_1'), 
-                      icon: const Icon(LucideIcons.x, size: 16, color: Colors.green),
+                      icon:  Icon(LucideIcons.x, size: 16, color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface),
                       onPressed: controller.dismissNotification,
                     ),
                   ],
@@ -262,7 +262,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                             // Ledger rows
                             ...state.ledgerEntries.map((entry) {
                               final isPending = entry['status'] == 'pending';
-                              Color statusColor = isPending ? Colors.amber : Colors.green;
+                              Color statusColor = isPending ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase;
 
                               return Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
@@ -304,12 +304,12 @@ class TaxRemittance extends GovernedConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
-                                        color: statusColor.withValues(alpha: 0.1),
+                                        color: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),
                                         borderRadius: BorderRadius.circular(theme.radiusSm),
                                       ),
                                       child: Text(
                                         isPending ? 'Pending Filing' : 'Settled',
-                                        style: theme.typography.labelBold.copyWith(color: statusColor),
+                                        style: theme.typography.labelBold.copyWith(color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1)),
                                       ),
                                     ),
                                   ],
@@ -335,7 +335,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                       border: Border.all(color: theme.colors.border),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.02),
+                          color: Theme.of(context).shadowColor.withValues(alpha: 0.02),
                           blurRadius: 10,
                           offset: const Offset(0, 5),
                         )
@@ -415,7 +415,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                                   ),
                                   Text(
                                     '+\$${simulatedPendingAdjustment.toStringAsFixed(2)}',
-                                    style: theme.typography.bodyMedium.copyWith(color: Colors.amber.shade900),
+                                    style: theme.typography.bodyMedium.copyWith(color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase),
                                   ),
                                 ],
                               ),
@@ -455,7 +455,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                                       : null,
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: theme.colors.primary,
-                                    foregroundColor: Colors.white,
+                                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                     padding: const EdgeInsets.symmetric(vertical: 14),
                                     disabledBackgroundColor: theme.colors.border,
                                   ),
@@ -516,7 +516,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
-                        foregroundColor: Colors.white,
+                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                       ),
                       child: const Text('Confirm & File'),
                     ),

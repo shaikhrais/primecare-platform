@@ -239,7 +239,7 @@ class Profitability extends GovernedConsumerWidget {
                         value: '\$${grossRevenue.toStringAsFixed(0)}',
                         subtitle: 'Aggregated client billings',
                         icon: LucideIcons.trendingUp,
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -249,7 +249,7 @@ class Profitability extends GovernedConsumerWidget {
                         value: '\$${directCost.toStringAsFixed(0)}',
                         subtitle: 'Caregiver pay expenses',
                         icon: LucideIcons.trendingDown,
-                        color: Colors.red,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -269,7 +269,7 @@ class Profitability extends GovernedConsumerWidget {
                         value: '${margin.toStringAsFixed(1)}%',
                         subtitle: 'Post-overhead profit ratio',
                         icon: LucideIcons.percent,
-                        color: margin > 15 ? Colors.teal : Colors.amber,
+                        color: margin > 15 ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                     ),
                   ],
@@ -411,20 +411,20 @@ class Profitability extends GovernedConsumerWidget {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: margin > 20
-                                    ? Colors.green.withValues(alpha: 0.1)
-                                    : Colors.amber.withValues(alpha: 0.1),
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.success).surface
+                                    : PrimeActionPalette.of(context, PrimeActionTone.warning).surface,
                                 borderRadius: BorderRadius.circular(theme.radiusMd),
                                 border: Border.all(
                                   color: margin > 20
-                                      ? Colors.green.withValues(alpha: 0.2)
-                                      : Colors.amber.withValues(alpha: 0.2),
+                                      ? PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.2)
+                                      : PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.2),
                                 ),
                               ),
                               child: Row(
                                 children: [
                                   Icon(
                                     margin > 20 ? LucideIcons.smile : LucideIcons.alertTriangle,
-                                    color: margin > 20 ? Colors.green : Colors.amber,
+                                    color: margin > 20 ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
@@ -433,7 +433,7 @@ class Profitability extends GovernedConsumerWidget {
                                           ? 'Franchise margin exceeds target index benchmarks (20.0%).'
                                           : 'Simulation margins sit below corporate benchmark index.',
                                       style: theme.typography.bodyMedium.copyWith(
-                                        color: margin > 20 ? Colors.green[800] : Colors.amber[900],
+                                        color: margin > 20 ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
@@ -452,7 +452,7 @@ class Profitability extends GovernedConsumerWidget {
           ),
           if (state.isCalculating)
             Container(
-              color: Colors.black.withValues(alpha: 0.1),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.1),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -492,8 +492,8 @@ class _MetricCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color, size: 20),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color, alpha: 0.1), size: 20),
           ),
           const SizedBox(width: 16),
           Expanded(

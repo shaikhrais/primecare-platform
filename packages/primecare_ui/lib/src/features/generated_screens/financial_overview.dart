@@ -210,7 +210,7 @@ class FinancialOverview extends GovernedConsumerWidget {
                       onPressed: state.isSweepingPayroll ? null : controller.executePayrollSweep,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: theme.colors.primary,
-                        foregroundColor: Colors.white,
+                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(theme.radiusMd),
@@ -233,7 +233,7 @@ class FinancialOverview extends GovernedConsumerWidget {
                         title: 'Total Inflow',
                         value: '\$${totalInflow.toStringAsFixed(0)}',
                         icon: LucideIcons.trendingUp,
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -242,7 +242,7 @@ class FinancialOverview extends GovernedConsumerWidget {
                         title: 'Total Outflow',
                         value: '-\$${totalOutflow.toStringAsFixed(0)}',
                         icon: LucideIcons.trendingDown,
-                        color: Colors.red,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -323,7 +323,7 @@ class FinancialOverview extends GovernedConsumerWidget {
                       final amountText = isOutflow
                           ? '-\$${(txn['amount'] as double).abs().toStringAsFixed(2)}'
                           : '+\$${(txn['amount'] as double).toStringAsFixed(2)}';
-                      final color = isOutflow ? Colors.red : Colors.green;
+                      final color = isOutflow ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase;
 
                       return Container(
                         margin: const EdgeInsets.only(bottom: 12),
@@ -336,10 +336,10 @@ class FinancialOverview extends GovernedConsumerWidget {
                         child: Row(
                           children: [
                             CircleAvatar(
-                              backgroundColor: color.withValues(alpha: 0.1),
+                              backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
                               child: Icon(
                                 isOutflow ? LucideIcons.arrowUpRight : LucideIcons.arrowDownLeft,
-                                color: color,
+                                color: PrimeActionPalette.onTint(context, color, alpha: 0.1),
                               ),
                             ),
                             const SizedBox(width: 16),
@@ -398,7 +398,7 @@ class FinancialOverview extends GovernedConsumerWidget {
           ),
           if (state.isSweepingPayroll)
             Container(
-              color: Colors.black.withValues(alpha: 0.3),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.3),
               child: Center(
                 child: Container(
                   padding: const EdgeInsets.all(32),
@@ -458,8 +458,8 @@ class _StatCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color, alpha: 0.1)),
           ),
           const SizedBox(width: 16),
           Column(
@@ -515,7 +515,7 @@ class _FilterButton extends StatelessWidget {
         child: Text(
           label,
           style: theme.typography.bodyMedium.copyWith(
-            color: isActive ? Colors.white : theme.colors.onSurface,
+            color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent : theme.colors.onSurface,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),

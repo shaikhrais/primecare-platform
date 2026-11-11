@@ -251,7 +251,7 @@ class RevenueTracker extends GovernedConsumerWidget {
                         title: 'Reconciled Payouts',
                         value: '\$${totalReconciled.toStringAsFixed(0)}',
                         icon: LucideIcons.checkCircle2,
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -260,7 +260,7 @@ class RevenueTracker extends GovernedConsumerWidget {
                         title: 'Pending Insurance',
                         value: '\$${totalPending.toStringAsFixed(0)}',
                         icon: LucideIcons.helpCircle,
-                        color: Colors.amber,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                     ),
                   ],
@@ -366,10 +366,10 @@ class RevenueTracker extends GovernedConsumerWidget {
                             final isPending = status == 'Pending Reimbursement';
                             final isReconciled = status == 'Reconciled';
                             final statusColor = isReconciled
-                                ? Colors.green
+                                ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase
                                 : isPending
-                                    ? Colors.amber
-                                    : Colors.grey;
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase
+                                    : PrimeActionPalette.of(context, PrimeActionTone.muted).onBase;
 
                             return Container(
                               margin: const EdgeInsets.only(bottom: 12),
@@ -382,10 +382,10 @@ class RevenueTracker extends GovernedConsumerWidget {
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: statusColor.withValues(alpha: 0.1),
+                                    backgroundColor: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),
                                     child: Icon(
                                       isReconciled ? LucideIcons.check : LucideIcons.clock,
-                                      color: statusColor,
+                                      color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1),
                                     ),
                                   ),
                                   const SizedBox(width: 16),
@@ -435,7 +435,7 @@ class RevenueTracker extends GovernedConsumerWidget {
                                       onPressed: state.isReconciling ? null : () => controller.reconcileInvoice(id),
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: theme.colors.primary,
-                                        foregroundColor: Colors.white,
+                                        foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                         shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.circular(theme.radiusMd),
@@ -447,14 +447,14 @@ class RevenueTracker extends GovernedConsumerWidget {
                                     Container(
                                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                       decoration: BoxDecoration(
-                                        color: statusColor.withValues(alpha: 0.1),
+                                        color: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),
                                         borderRadius: BorderRadius.circular(theme.radiusMd),
                                         border: Border.all(color: statusColor.withValues(alpha: 0.2)),
                                       ),
                                       child: Text(
                                         status,
                                         style: theme.typography.bodySmall.copyWith(
-                                          color: statusColor,
+                                          color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1),
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
@@ -470,7 +470,7 @@ class RevenueTracker extends GovernedConsumerWidget {
           ),
           if (state.isReconciling)
             Container(
-              color: Colors.black.withValues(alpha: 0.25),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.25),
               child: Center(
                 child: Card(
                   color: theme.colors.surface,
@@ -532,8 +532,8 @@ class _AnalyticsCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color, alpha: 0.1)),
           ),
           const SizedBox(width: 16),
           Column(

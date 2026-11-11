@@ -228,7 +228,7 @@ class Invoices extends GovernedConsumerWidget {
               label: const Text('Publish Drafts'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
             ),
           ),
@@ -260,7 +260,7 @@ class Invoices extends GovernedConsumerWidget {
                         title: 'Total Invoiced',
                         value: '\$${state.totalInvoiced.toStringAsFixed(2)}',
                         icon: LucideIcons.fileText,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -269,7 +269,7 @@ class Invoices extends GovernedConsumerWidget {
                         title: 'Collected Revenue',
                         value: '\$${state.totalCollected.toStringAsFixed(2)}',
                         icon: LucideIcons.checkCircle2,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -278,7 +278,7 @@ class Invoices extends GovernedConsumerWidget {
                         title: 'Overdue Balance',
                         value: '\$${state.totalOverdue.toStringAsFixed(2)}',
                         icon: LucideIcons.alertCircle,
-                        iconColor: Colors.red,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                       ),
                     ),
                   ],
@@ -346,12 +346,12 @@ class Invoices extends GovernedConsumerWidget {
                             final isPaid = inv['status'] == 'Paid';
                             final isOverdue = inv['status'] == 'Overdue';
                             final statusColor = isPaid
-                                ? Colors.green
+                                ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase
                                 : isOverdue
-                                    ? Colors.red
+                                    ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase
                                     : isDraft
-                                        ? Colors.grey
-                                        : Colors.blue;
+                                        ? PrimeActionPalette.of(context, PrimeActionTone.muted).onBase
+                                        : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase;
 
                             return Card(
                               margin: const EdgeInsets.only(bottom: 16),
@@ -381,13 +381,13 @@ class Invoices extends GovernedConsumerWidget {
                                               Container(
                                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                                 decoration: BoxDecoration(
-                                                  color: statusColor.withValues(alpha: 0.1),
+                                                  color: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                                 child: Text(
                                                   (inv['status'] as String).toUpperCase(),
                                                   style: TextStyle(
-                                                    color: statusColor,
+                                                    color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1),
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 10,
                                                   ),
@@ -438,7 +438,7 @@ class Invoices extends GovernedConsumerWidget {
                                             onPressed: () => controller.markAsPaid((inv['id'] as String)),
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor: theme.colors.primary,
-                                              foregroundColor: Colors.white,
+                                              foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                             ),
                                             child: const Text('Mark Paid'),
                                           ),
@@ -457,7 +457,7 @@ class Invoices extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -498,10 +498,10 @@ class _SummaryCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor, alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor, alpha: 0.1), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(

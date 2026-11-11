@@ -165,7 +165,7 @@ class BusinessOverview extends GovernedConsumerWidget {
               label: const Text('Sync Branch'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
             ),
           ),
@@ -218,7 +218,7 @@ class BusinessOverview extends GovernedConsumerWidget {
                         title: 'Active Patient Roster',
                         value: '${state.activeClients}',
                         icon: LucideIcons.users,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -227,7 +227,7 @@ class BusinessOverview extends GovernedConsumerWidget {
                         title: 'Monthly Revenue',
                         value: '\$${state.monthlyRevenue.toStringAsFixed(2)}',
                         icon: LucideIcons.dollarSign,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -236,7 +236,7 @@ class BusinessOverview extends GovernedConsumerWidget {
                         title: 'Staff Utilization Rate',
                         value: '${(state.utilizationRate * 100).toStringAsFixed(1)}%',
                         icon: LucideIcons.percent,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase,
                       ),
                     ),
                   ],
@@ -264,18 +264,18 @@ class BusinessOverview extends GovernedConsumerWidget {
                       final item = state.operationalEvents[index];
                       final cat = item['category'];
                       final catColor = cat == 'Attendance'
-                          ? Colors.amber
+                          ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase
                           : cat == 'Sales'
-                              ? Colors.green
+                              ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase
                               : cat == 'Finance'
-                                  ? Colors.purple
-                                  : Colors.blue;
+                                  ? PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase
+                                  : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase;
 
                       return ListTile(
                         leading: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: catColor.withValues(alpha: 0.1),
+                            color: PrimeActionPalette.tintSurface(context, catColor, alpha: 0.1),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
@@ -286,7 +286,7 @@ class BusinessOverview extends GovernedConsumerWidget {
                                     : cat == 'Finance'
                                         ? LucideIcons.creditCard
                                         : LucideIcons.activity,
-                            color: catColor,
+                            color: PrimeActionPalette.onTint(context, catColor, alpha: 0.1),
                             size: 16,
                           ),
                         ),
@@ -307,7 +307,7 @@ class BusinessOverview extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -348,10 +348,10 @@ class _OverviewMetric extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor, alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor, alpha: 0.1), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
