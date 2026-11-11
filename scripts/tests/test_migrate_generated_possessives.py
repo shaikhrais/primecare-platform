@@ -3,8 +3,11 @@ import json
 import re
 from pathlib import Path
 import unittest
+import sys
 
 ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0,str(ROOT/'scripts'))
+from reviewed_migration_history import before_native_compile_repairs
 spec = importlib.util.spec_from_file_location('repair', ROOT/'scripts/migrate-generated-possessives.py')
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
@@ -17,7 +20,7 @@ class GeneratedPossessiveTest(unittest.TestCase):
             self.assertFalse(m.palette.frames(m.palette.boundary.executable_code(original)))
             updated, count = m.migrate(original)
             self.assertEqual(count, 73)
-            self.assertEqual(updated, (ROOT/row['path']).read_text())
+            self.assertEqual(updated, before_native_compile_repairs((ROOT/row['path']).read_text(),row['path']))
             self.assertTrue(m.palette.frames(m.palette.boundary.executable_code(updated)))
             self.assertIn(m.NEW, updated)
             self.assertEqual(m.migrate(updated), (updated, 0))

@@ -6,7 +6,20 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_native_compile_repairs(source,path):
+    manifest=ROOT/'scripts/native-generated-compile-repairs.json'
+    if not manifest.exists():return source
+    row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)
+    if row is None or hashlib.sha256(source.encode()).hexdigest()!=row['updated_sha256']:return source
+    for edit in reversed(row['edits']):
+        begin=edit['begin']
+        if source[begin:begin+len(edit['new'])]!=edit['new']:raise AssertionError('Native compile output drift: '+path)
+        source=source[:begin]+edit['old']+source[begin+len(edit['new']):]
+    if hashlib.sha256(source.encode()).hexdigest()!=row['sha256']:raise AssertionError('Native compile input drift: '+path)
+    return source
+
 def before_controller_ref_aliases(source,path):
+    source=before_native_compile_repairs(source,path)
     manifest=ROOT/'scripts/controller-ref-alias-manifest.json'
     if not manifest.exists():return source
     row=next((r for r in json.loads(manifest.read_text()) if r['path']==path),None)

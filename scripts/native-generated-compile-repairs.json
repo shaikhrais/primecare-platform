@@ -1,0 +1,156 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cases.dart",
+    "sha256": "59d3b2bab3d0017f765c8719ec8d50c85fd518ded078e937da85e36e6aebc0b6",
+    "updated_sha256": "7b3c56191524b4260c9f961022222077b182b387dc970f37b770081846e98129",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1861,
+        "end": 1880,
+        "old": "  CasesController()",
+        "new": "  CasesController(this.ref)"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/policy_manager.dart",
+    "sha256": "8bc84d87f0f419e717749a8fd638c02663ff8dc268c1521adf4f1846b31b7665",
+    "updated_sha256": "96c0f4be24998fb62ce4d025ea8e5e86497d3742136ad9f401c567e581271967",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 2127,
+        "end": 2147,
+        "old": "  PolicyController()",
+        "new": "  PolicyController(this.ref)"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/compliance_hub.dart",
+    "sha256": "a377d6510c5e7b58bddac1e78032ad6112ef7076d6994e6ef2dcb01a33a996b7",
+    "updated_sha256": "c2ded780918fca2a7426ed00eae7f13eb4f8f5a27c239d4e81fae611438d9b9c",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 1554,
+        "end": 1581,
+        "old": "  ComplianceHubController()",
+        "new": "  ComplianceHubController(this.ref)"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/adjustment_notes.dart",
+    "sha256": "5e2889e2af5cfeefa26967e3a108b5f1850f54ee90a570a5ceaca0dd2c028ea8",
+    "updated_sha256": "0e11ec550b2e7a3c81b088f469bd740437289c79b657ca6b596e1348147588f4",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5042,
+        "end": 5054,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_treatment_notes.dart",
+    "sha256": "6562598824b87de9553db46df16eafdbd75639ad26e89a7c2bbfb7211ebd51f7",
+    "updated_sha256": "e7361423afa94474da0086f1b828e3626ddeebd1034038397746037e596971dd",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5196,
+        "end": 5208,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_treatment_notes.dart",
+    "sha256": "bf01f77931b90fa73bee1d7e03cad508fbcac5f5312949e048cfbab6b48391f3",
+    "updated_sha256": "5c8288db59ef1953b109c1465aecaeba6e806912bd3a79e6dd9fed5ceaf35b14",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5226,
+        "end": 5238,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/caregiver_visit_notes.dart",
+    "sha256": "76ba48b7b5a14248eba5b7b31fa8da3c50189c355d867f97f70f52c46004559f",
+    "updated_sha256": "a75939b7b9a65e4c75bd03ce5006ebefdef7d8d6ce0ae2fe255733379b5c5de7",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5091,
+        "end": 5103,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/physiotherapist_treatment_notes.dart",
+    "sha256": "20af0c3329677410dfe2af9ce2c3dc00dcc29deb75926cbd7a3e2b8e8fab276e",
+    "updated_sha256": "6ae84fcd4d10b291c7a480db9213d1db87c93582f9e760d86c7c20f5738fbceb",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5281,
+        "end": 5293,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/psw_daily_notes.dart",
+    "sha256": "b9eb76c4888a1a8f90b0718cbf17d06f8e3603c44d0b2a16eada0a6f96f1757c",
+    "updated_sha256": "b9de9f9b509ebee096ff81c73c0f76f4a3dc50bd1ea10fdb9b667623507a5ba6",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 4951,
+        "end": 4963,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/psw_visit_notes.dart",
+    "sha256": "fcbe983eaefdb00e019ede67a1d316e2aa0f550e208349200137994ead91c0d3",
+    "updated_sha256": "fab02c4d1102775ee73e35710d58cb3413f17c48475eaa1b3ec826ffd04508ba",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5112,
+        "end": 5124,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/regional_bdm_competitor_notes.dart",
+    "sha256": "8157df2d31baef0a56bc25f996a769fd714a3c18eaf7b15de9f1c87bdd6fc8fa",
+    "updated_sha256": "5163fee2bf8a56feb53718c04302082f03eb12b2a480614b49a3ac3904c9d940",
+    "calls": 1,
+    "edits": [
+      {
+        "begin": 5170,
+        "end": 5182,
+        "old": "italic: true",
+        "new": "fontStyle: FontStyle.italic"
+      }
+    ]
+  }
+]
