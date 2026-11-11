@@ -102,6 +102,67 @@ void main() {
     expect(colors.surfaceContainerHighest, material.colorScheme.surfaceContainerHighest);
   });
 
+  test('base Material adapter retains configured semantic and fixed colors', () {
+    const custom = Color(0xff123456);
+    const colors = PrimeColors(
+      inversePrimary: custom,
+      secondaryContainer: custom,
+      tertiaryContainer: custom,
+      surfaceDim: custom,
+      surfaceBright: custom,
+      surfaceContainerLowest: custom,
+      surfaceContainerLow: custom,
+      surfaceContainerHigh: custom,
+      surfaceContainerHighest: custom,
+      inverseSurface: custom,
+      surfaceTint: custom,
+      outlineVariant: custom,
+      errorContainer: custom,
+      onErrorContainer: custom,
+      primaryFixed: custom,
+      primaryFixedDim: custom,
+      onPrimaryFixed: custom,
+      onPrimaryFixedVariant: custom,
+      secondaryFixed: custom,
+      secondaryFixedDim: custom,
+      onSecondaryFixed: custom,
+      onSecondaryFixedVariant: custom,
+      tertiaryFixed: custom,
+      tertiaryFixedDim: custom,
+      onTertiaryFixed: custom,
+      onTertiaryFixedVariant: custom,
+      inverseOnSurface: custom,
+    );
+    final scheme = const PrimeThemeData(colors: colors).toThemeData().colorScheme;
+    expect(scheme.inversePrimary, colors.inversePrimary);
+    expect(scheme.secondaryContainer, colors.secondaryContainer);
+    expect(scheme.tertiaryContainer, colors.tertiaryContainer);
+    expect(scheme.surfaceDim, colors.surfaceDim);
+    expect(scheme.surfaceBright, colors.surfaceBright);
+    expect(scheme.surfaceContainerLowest, colors.surfaceContainerLowest);
+    expect(scheme.surfaceContainerLow, colors.surfaceContainerLow);
+    expect(scheme.surfaceContainerHigh, colors.surfaceContainerHigh);
+    expect(scheme.surfaceContainerHighest, colors.surfaceContainerHighest);
+    expect(scheme.inverseSurface, colors.inverseSurface);
+    expect(scheme.surfaceTint, colors.surfaceTint);
+    expect(scheme.outlineVariant, colors.outlineVariant);
+    expect(scheme.errorContainer, colors.errorContainer);
+    expect(scheme.onErrorContainer, colors.onErrorContainer);
+    expect(scheme.primaryFixed, colors.primaryFixed);
+    expect(scheme.primaryFixedDim, colors.primaryFixedDim);
+    expect(scheme.onPrimaryFixed, colors.onPrimaryFixed);
+    expect(scheme.onPrimaryFixedVariant, colors.onPrimaryFixedVariant);
+    expect(scheme.secondaryFixed, colors.secondaryFixed);
+    expect(scheme.secondaryFixedDim, colors.secondaryFixedDim);
+    expect(scheme.onSecondaryFixed, colors.onSecondaryFixed);
+    expect(scheme.onSecondaryFixedVariant, colors.onSecondaryFixedVariant);
+    expect(scheme.tertiaryFixed, colors.tertiaryFixed);
+    expect(scheme.tertiaryFixedDim, colors.tertiaryFixedDim);
+    expect(scheme.onTertiaryFixed, colors.onTertiaryFixed);
+    expect(scheme.onTertiaryFixedVariant, colors.onTertiaryFixedVariant);
+    expect(scheme.onInverseSurface, colors.inverseOnSurface);
+  });
+
   test('copying colors preserves custom semantic and fixed tokens', () {
     const custom = Color(0xff123456);
     const original = PrimeColors(secondaryContainer: custom, tertiaryContainer: custom,
