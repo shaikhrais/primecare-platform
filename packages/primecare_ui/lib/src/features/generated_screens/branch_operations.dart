@@ -249,7 +249,7 @@ class BranchOperations extends GovernedConsumerWidget {
                         title: 'Active Operations',
                         value: '$totalActiveShifts shifts',
                         icon: LucideIcons.calendarCheck2,
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -258,7 +258,7 @@ class BranchOperations extends GovernedConsumerWidget {
                         title: 'Mean Efficiency',
                         value: '${avgEfficiency.toStringAsFixed(1)}%',
                         icon: LucideIcons.gauge,
-                        color: Colors.teal,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -267,7 +267,7 @@ class BranchOperations extends GovernedConsumerWidget {
                         title: 'Open Labor Gaps',
                         value: '$totalGaps roles',
                         icon: LucideIcons.userPlus,
-                        color: totalGaps > 10 ? Colors.red : Colors.amber,
+                        color: totalGaps > 10 ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                     ),
                   ],
@@ -391,19 +391,19 @@ class BranchOperations extends GovernedConsumerWidget {
                                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                                         decoration: BoxDecoration(
                                           color: score > 90
-                                              ? Colors.green.withValues(alpha: 0.1)
-                                              : Colors.amber.withValues(alpha: 0.1),
+                                              ? PrimeActionPalette.of(context, PrimeActionTone.success).surface
+                                              : PrimeActionPalette.of(context, PrimeActionTone.warning).surface,
                                           borderRadius: BorderRadius.circular(8),
                                           border: Border.all(
                                             color: score > 90
-                                                ? Colors.green.withValues(alpha: 0.2)
-                                                : Colors.amber.withValues(alpha: 0.2),
+                                                ? PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.2)
+                                                : PrimeActionPalette.of(context, PrimeActionTone.warning).accent.withValues(alpha: 0.2),
                                           ),
                                         ),
                                         child: Text(
                                           '$score% Efficiency',
                                           style: theme.typography.bodySmall.copyWith(
-                                            color: score > 90 ? Colors.green : Colors.amber,
+                                            color: score > 90 ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
@@ -440,7 +440,7 @@ class BranchOperations extends GovernedConsumerWidget {
                                               : () => controller.triggerRecruitmentDrive(id),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: theme.colors.primary,
-                                            foregroundColor: Colors.white,
+                                            foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(theme.radiusMd),
@@ -453,18 +453,18 @@ class BranchOperations extends GovernedConsumerWidget {
                                         Container(
                                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                           decoration: BoxDecoration(
-                                            color: Colors.green.withValues(alpha: 0.1),
+                                            color: PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                                             borderRadius: BorderRadius.circular(theme.radiusMd),
-                                            border: Border.all(color: Colors.green.withValues(alpha: 0.2)),
+                                            border: Border.all(color: PrimeActionPalette.of(context, PrimeActionTone.success).accent.withValues(alpha: 0.2)),
                                           ),
-                                          child: const Row(
+                                          child:  Row(
                                             children: [
-                                              Icon(LucideIcons.check, color: Colors.green, size: 14),
+                                              Icon(LucideIcons.check, color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface, size: 14),
                                               SizedBox(width: 6),
                                               Text(
                                                 'Campaign Deployed',
                                                 style: TextStyle(
-                                                  color: Colors.green,
+                                                  color: PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
                                                   fontWeight: FontWeight.bold,
                                                   fontSize: 12,
                                                 ),
@@ -493,7 +493,7 @@ class BranchOperations extends GovernedConsumerWidget {
           ),
           if (state.isTriggeringRecruitment)
             Container(
-              color: Colors.black.withValues(alpha: 0.25),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.25),
               child: Center(
                 child: Card(
                   color: theme.colors.surface,
@@ -555,8 +555,8 @@ class _SummaryCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color, alpha: 0.1)),
           ),
           const SizedBox(width: 16),
           Column(
@@ -651,7 +651,7 @@ class _MetricIndicator extends StatelessWidget {
         Text(
           value,
           style: theme.typography.bodyMedium.copyWith(
-            color: isWarning ? Colors.red : theme.colors.onSurface,
+            color: isWarning ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : theme.colors.onSurface,
             fontWeight: FontWeight.bold,
           ),
         ),

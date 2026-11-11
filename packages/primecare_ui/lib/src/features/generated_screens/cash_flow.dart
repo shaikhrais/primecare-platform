@@ -185,7 +185,7 @@ class CashFlow extends GovernedConsumerWidget {
               label: const Text('Simulate ACH Sweep'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
             ),
           ),
@@ -238,7 +238,7 @@ class CashFlow extends GovernedConsumerWidget {
                         title: 'Total Inflows',
                         value: '\$${state.inflowTotal.toStringAsFixed(2)}',
                         icon: LucideIcons.arrowDownLeft,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -247,7 +247,7 @@ class CashFlow extends GovernedConsumerWidget {
                         title: 'Total Outflows',
                         value: '\$${state.outflowTotal.toStringAsFixed(2)}',
                         icon: LucideIcons.arrowUpRight,
-                        iconColor: Colors.red,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -256,7 +256,7 @@ class CashFlow extends GovernedConsumerWidget {
                         title: 'Net Operational Flow',
                         value: '\$${state.netFlow.toStringAsFixed(2)}',
                         icon: LucideIcons.wallet,
-                        iconColor: state.netFlow >= 0 ? Colors.blue : Colors.red,
+                        iconColor: state.netFlow >= 0 ? PrimeActionPalette.of(context, PrimeActionTone.primary).onBase : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                       ),
                     ),
                   ],
@@ -288,12 +288,12 @@ class CashFlow extends GovernedConsumerWidget {
                         leading: Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: isOutflow ? Colors.red.withValues(alpha: 0.1) : Colors.green.withValues(alpha: 0.1),
+                            color: isOutflow ? PrimeActionPalette.of(context, PrimeActionTone.error).surface : PrimeActionPalette.of(context, PrimeActionTone.success).surface,
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             isOutflow ? LucideIcons.minus : LucideIcons.plus,
-                            color: isOutflow ? Colors.red : Colors.green,
+                            color: isOutflow ? PrimeActionPalette.of(context, PrimeActionTone.error).onSurface : PrimeActionPalette.of(context, PrimeActionTone.success).onSurface,
                             size: 16,
                           ),
                         ),
@@ -308,7 +308,7 @@ class CashFlow extends GovernedConsumerWidget {
                         trailing: Text(
                           (isOutflow ? '' : '+') + '\$${(item['amount'] as double).toStringAsFixed(2)}',
                           style: theme.typography.bodyMedium.copyWith(
-                            color: isOutflow ? Colors.red : Colors.green,
+                            color: isOutflow ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -321,7 +321,7 @@ class CashFlow extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -362,10 +362,10 @@ class _FlowCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor, alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor, alpha: 0.1), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(

@@ -259,7 +259,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                         title: 'System-wide NPS Score',
                         value: avgNps.toStringAsFixed(1),
                         icon: LucideIcons.award,
-                        color: Colors.green,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -268,7 +268,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                         title: 'Active Platform Clients',
                         value: clientCount.toString(),
                         icon: LucideIcons.users,
-                        color: Colors.blue,
+                        color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ),
                   ],
@@ -411,14 +411,14 @@ class RegionPerformance extends GovernedConsumerWidget {
                                           label: 'Caregiver Retention',
                                           value: retention / 100.0,
                                           valueText: '$retention%',
-                                          activeColor: retention > 95 ? Colors.green : (retention < 90 ? Colors.red : Colors.blue),
+                                          activeColor: retention > 95 ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : (retention < 90 ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase),
                                         ),
                                         const SizedBox(height: 8),
                                         _ProgressBar(
                                           label: 'Client Net Promoter Score',
                                           value: nps / 100.0,
                                           valueText: nps.toStringAsFixed(0),
-                                          activeColor: nps > 90 ? Colors.green : (nps < 87 ? Colors.amber : Colors.blue),
+                                          activeColor: nps > 90 ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : (nps < 87 ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase),
                                         ),
                                       ],
                                     ),
@@ -440,7 +440,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                                         _SmallStat(
                                           label: 'Gaps',
                                           value: reg['staffingGap'].toString(),
-                                          color: (reg['staffingGap'] as int) > 15 ? Colors.red : theme.colors.onSurface,
+                                          color: (reg['staffingGap'] as int) > 15 ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : theme.colors.onSurface,
                                         ),
                                       ],
                                     ),
@@ -448,11 +448,11 @@ class RegionPerformance extends GovernedConsumerWidget {
                                   const SizedBox(width: 16),
                                   ElevatedButton(key: const Key('region_performance_elevatedbutton_button_1'), 
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: isUnderPerforming ? Colors.red.withValues(alpha: 0.1) : theme.colors.background,
-                                      foregroundColor: isUnderPerforming ? Colors.red : theme.colors.primary,
+                                      backgroundColor: isUnderPerforming ? PrimeActionPalette.of(context, PrimeActionTone.error).surface : theme.colors.background,
+                                      foregroundColor: isUnderPerforming ? PrimeActionPalette.of(context, PrimeActionTone.error).onSurface : theme.colors.primary,
                                       elevation: 0,
                                       side: BorderSide(
-                                        color: isUnderPerforming ? Colors.red : theme.colors.border,
+                                        color: isUnderPerforming ? PrimeActionPalette.of(context, PrimeActionTone.error).accent : theme.colors.border,
                                       ),
                                     ),
                                     onPressed: () => controller.selectRegion(regId),
@@ -480,7 +480,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                   color: theme.colors.surface,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.15),
+                      color: Theme.of(context).shadowColor.withValues(alpha: 0.15),
                       blurRadius: 10,
                       offset: const Offset(-2, 0),
                     ),
@@ -522,7 +522,7 @@ class RegionPerformance extends GovernedConsumerWidget {
                     _DetailsRow(
                       label: 'Staffing Shortages',
                       value: '${selectedRegion['staffingGap']} Shifts Unallocated',
-                      valueColor: (selectedRegion['staffingGap'] as int) > 15 ? Colors.red : Colors.green,
+                      valueColor: (selectedRegion['staffingGap'] as int) > 15 ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -620,8 +620,8 @@ class _MetricItemCard extends StatelessWidget {
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: color.withValues(alpha: 0.1),
-            child: Icon(icon, color: color),
+            backgroundColor: PrimeActionPalette.tintSurface(context, color, alpha: 0.1),
+            child: Icon(icon, color: PrimeActionPalette.onTint(context, color, alpha: 0.1)),
           ),
           const SizedBox(width: 16),
           Column(

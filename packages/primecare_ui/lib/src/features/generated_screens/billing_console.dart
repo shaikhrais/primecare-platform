@@ -243,7 +243,7 @@ class BillingConsole extends GovernedConsumerWidget {
                 label: Text('Sweep Private Pay (${state.pendingSweepsCount})'),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: theme.colors.primary,
-                  foregroundColor: Colors.white,
+                  foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                 ),
               ),
             ),
@@ -275,7 +275,7 @@ class BillingConsole extends GovernedConsumerWidget {
                         title: 'Outstanding Ledger Balance',
                         value: '\$${state.totalOutstanding.toStringAsFixed(2)}',
                         icon: LucideIcons.dollarSign,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -284,7 +284,7 @@ class BillingConsole extends GovernedConsumerWidget {
                         title: 'Pending ACH Sweeps',
                         value: '${state.pendingSweepsCount}',
                         icon: LucideIcons.arrowUpDown,
-                        iconColor: Colors.amber,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -293,7 +293,7 @@ class BillingConsole extends GovernedConsumerWidget {
                         title: 'Active Accounts',
                         value: '${state.transactions.length}',
                         icon: LucideIcons.users,
-                        iconColor: Colors.green,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.success).onBase,
                       ),
                     ),
                   ],
@@ -391,12 +391,12 @@ class BillingConsole extends GovernedConsumerWidget {
                                     final isPendingSweep = tx['status'] == 'Pending Sweep';
                                     final isPendingAudit = tx['status'] == 'Pending Audit';
                                     final statusColor = tx['status'] == 'Cleared'
-                                        ? Colors.green
+                                        ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase
                                         : isPendingSweep
-                                            ? Colors.orange
+                                            ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase
                                             : isPendingAudit
-                                                ? Colors.red
-                                                : Colors.blue;
+                                                ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase
+                                                : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase;
 
                                     return Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
@@ -457,7 +457,7 @@ class BillingConsole extends GovernedConsumerWidget {
                                                     child: const Text('Sweep'),
                                                   )
                                                 else
-                                                  const Icon(LucideIcons.check, size: 16, color: Colors.green),
+                                                   Icon(LucideIcons.check, size: 16, color: PrimeActionPalette.of(context, PrimeActionTone.success).onBase),
                                               ],
                                             ),
                                           ),
@@ -476,7 +476,7 @@ class BillingConsole extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -540,7 +540,7 @@ class BillingConsole extends GovernedConsumerWidget {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
               child: const Text('Create'),
             ),
@@ -581,10 +581,10 @@ class _MetricCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor, alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor, alpha: 0.1), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(

@@ -380,7 +380,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                 itemBuilder: (context, index) {
                                   final branch = filteredBranches[index];
                                   final isCritical = branch['status'] == 'Critical';
-                                  final Color statusColor = isCritical ? Colors.red : Colors.green;
+                                  final Color statusColor = isCritical ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase;
 
                                   return Container(
                                     margin: const EdgeInsets.only(bottom: 12),
@@ -389,14 +389,14 @@ class RegionDashboard extends GovernedConsumerWidget {
                                       color: theme.colors.surface,
                                       borderRadius: BorderRadius.circular(theme.radiusMd),
                                       border: Border.all(
-                                        color: isCritical ? Colors.red.shade300 : theme.colors.border,
+                                        color: isCritical ? PrimeActionPalette.of(context, PrimeActionTone.error).accent.withValues(alpha: .3) : theme.colors.border,
                                       ),
                                     ),
                                     child: Row(
                                       children: [
                                         CircleAvatar(
-                                          backgroundColor: statusColor.withValues(alpha: 0.1),
-                                          child: Icon(LucideIcons.home, color: statusColor),
+                                          backgroundColor: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),
+                                          child: Icon(LucideIcons.home, color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1)),
                                         ),
                                         const SizedBox(width: 16),
                                         Expanded(
@@ -430,7 +430,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                             Text(
                                               'Ratio: ${branch['ratio']}',
                                               style: theme.typography.h4.copyWith(
-                                                color: isCritical ? Colors.red : theme.colors.onSurface,
+                                                color: isCritical ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase : theme.colors.onSurface,
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -488,7 +488,7 @@ class RegionDashboard extends GovernedConsumerWidget {
                                           onPressed: () => controller.reassignStaff('br-103', 'br-102', 4),
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor: theme.colors.primary,
-                                            foregroundColor: Colors.white,
+                                            foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
                                             shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(theme.radiusMd),
                                             ),
@@ -564,17 +564,17 @@ class RegionDashboard extends GovernedConsumerWidget {
                                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                                             decoration: BoxDecoration(
                                               color: isActive 
-                                                  ? Colors.green.withValues(alpha: 0.1) 
-                                                  : Colors.grey.withValues(alpha: 0.1),
+                                                  ? PrimeActionPalette.of(context, PrimeActionTone.success).surface
+                                                  : PrimeActionPalette.of(context, PrimeActionTone.muted).surface,
                                               borderRadius: BorderRadius.circular(12),
                                               border: Border.all(
-                                                color: isActive ? Colors.green : Colors.grey,
+                                                color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : PrimeActionPalette.of(context, PrimeActionTone.muted).accent,
                                               ),
                                             ),
                                             child: Text(
                                               (co['status'] as String),
                                               style: TextStyle(
-                                                color: isActive ? Colors.green : Colors.grey,
+                                                color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.muted).onSurface,
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 10,
                                               ),
@@ -616,10 +616,10 @@ class RegionDashboard extends GovernedConsumerWidget {
                                         final client = filteredClients[index];
                                         final isHigh = client['urgency'] == 'high';
                                         final Color urgencyColor = isHigh 
-                                            ? Colors.red 
+                                            ? PrimeActionPalette.of(context, PrimeActionTone.error).onBase
                                             : client['urgency'] == 'medium' 
-                                                ? Colors.amber 
-                                                : Colors.blue;
+                                                ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase
+                                                : PrimeActionPalette.of(context, PrimeActionTone.primary).onBase;
 
                                         return Container(
                                           margin: const EdgeInsets.only(bottom: 10),
@@ -657,13 +657,13 @@ class RegionDashboard extends GovernedConsumerWidget {
                                                     Container(
                                                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 1),
                                                       decoration: BoxDecoration(
-                                                        color: urgencyColor.withValues(alpha: 0.1),
+                                                        color: PrimeActionPalette.tintSurface(context, urgencyColor, alpha: 0.1),
                                                         borderRadius: BorderRadius.circular(4),
                                                       ),
                                                       child: Text(
                                                         client['urgency'].toString().toUpperCase(),
                                                         style: TextStyle(
-                                                          color: urgencyColor,
+                                                          color: PrimeActionPalette.onTint(context, urgencyColor, alpha: 0.1),
                                                           fontWeight: FontWeight.bold,
                                                           fontSize: 9,
                                                         ),
@@ -694,7 +694,7 @@ class RegionDashboard extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -735,7 +735,7 @@ class _FilterChip extends StatelessWidget {
         child: Text(
           label,
           style: theme.typography.bodyMedium.copyWith(
-            color: isActive ? Colors.white : theme.colors.onSurface,
+            color: isActive ? PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent : theme.colors.onSurface,
             fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
           ),
         ),

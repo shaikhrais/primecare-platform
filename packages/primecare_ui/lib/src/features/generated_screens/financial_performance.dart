@@ -169,7 +169,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
               label: const Text('Export Profitability Audit'),
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
               ),
             ),
           ),
@@ -201,7 +201,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                         title: 'Simulated Revenue',
                         value: '\$${state.monthlyRevenue.toStringAsFixed(2)}',
                         icon: LucideIcons.pieChart,
-                        iconColor: Colors.blue,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -210,7 +210,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                         title: 'Wages & Operating Costs',
                         value: '\$${state.operatingExpenses.toStringAsFixed(2)}',
                         icon: LucideIcons.wallet,
-                        iconColor: Colors.amber,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.warning).onBase,
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -219,7 +219,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                         title: 'Franchise Royalties (5%)',
                         value: '\$${state.royaltiesFee.toStringAsFixed(2)}',
                         icon: LucideIcons.home,
-                        iconColor: Colors.purple,
+                        iconColor: PrimeActionPalette.of(context, PrimeActionTone.secondary).onBase,
                       ),
                     ),
                   ],
@@ -247,13 +247,13 @@ class FinancialPerformance extends GovernedConsumerWidget {
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                             decoration: BoxDecoration(
-                              color: state.profitMargin >= 0.25 ? Colors.green.withValues(alpha: 0.1) : Colors.red.withValues(alpha: 0.1),
+                              color: state.profitMargin >= 0.25 ? PrimeActionPalette.of(context, PrimeActionTone.success).surface : PrimeActionPalette.of(context, PrimeActionTone.error).surface,
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: Text(
                               'Simulated Margin: ${(state.profitMargin * 100).toStringAsFixed(1)}%',
                               style: TextStyle(
-                                color: state.profitMargin >= 0.25 ? Colors.green : Colors.red,
+                                color: state.profitMargin >= 0.25 ? PrimeActionPalette.of(context, PrimeActionTone.success).onSurface : PrimeActionPalette.of(context, PrimeActionTone.error).onSurface,
                                 fontWeight: FontWeight.bold,
                                 fontSize: 13,
                               ),
@@ -271,7 +271,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                             'Caregiver Hourly Pay Rate: \$${state.caregiverHourlyRate.toStringAsFixed(2)}/hr',
                             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
                           ),
-                          const Text('Range: \$20 - \$45', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                           Text('Range: \$20 - \$45', style: TextStyle(fontSize: 12, color: PrimeActionPalette.of(context, PrimeActionTone.muted).onBase)),
                         ],
                       ),
                       Slider(
@@ -292,7 +292,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                             'Client Private Billing Rate: \$${state.clientBillingRate.toStringAsFixed(2)}/hr',
                             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface),
                           ),
-                          const Text('Range: \$35 - \$75', style: TextStyle(fontSize: 12, color: Colors.grey)),
+                           Text('Range: \$35 - \$75', style: TextStyle(fontSize: 12, color: PrimeActionPalette.of(context, PrimeActionTone.muted).onBase)),
                         ],
                       ),
                       Slider(
@@ -327,7 +327,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                                 Text(
                                   '\$${state.netProfit.toStringAsFixed(2)}',
                                   style: theme.typography.h1.copyWith(
-                                    color: state.netProfit >= 0 ? Colors.green : Colors.red,
+                                    color: state.netProfit >= 0 ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
@@ -335,7 +335,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
                             ),
                             Icon(
                               state.netProfit >= 0 ? LucideIcons.trendingUp : LucideIcons.trendingDown,
-                              color: state.netProfit >= 0 ? Colors.green : Colors.red,
+                              color: state.netProfit >= 0 ? PrimeActionPalette.of(context, PrimeActionTone.success).onBase : PrimeActionPalette.of(context, PrimeActionTone.error).onBase,
                               size: 40,
                             ),
                           ],
@@ -349,7 +349,7 @@ class FinancialPerformance extends GovernedConsumerWidget {
           ),
           if (state.isMutatingState)
             Container(
-              color: Colors.black.withValues(alpha: 0.15),
+              color: Theme.of(context).colorScheme.scrim.withValues(alpha: 0.15),
               child: const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -390,10 +390,10 @@ class _FinancialCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: iconColor.withValues(alpha: 0.1),
+                color: PrimeActionPalette.tintSurface(context, iconColor, alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Icon(icon, color: iconColor, size: 24),
+              child: Icon(icon, color: PrimeActionPalette.onTint(context, iconColor, alpha: 0.1), size: 24),
             ),
             const SizedBox(width: 16),
             Expanded(
