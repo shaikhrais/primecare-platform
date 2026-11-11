@@ -1,3 +1,4 @@
+import 'package:flutter_core/theme/theme_contrast.dart';
 // Governance - Category: view | Purpose: UI Screen component rendering the Centralized Theme & Branding Settings workspace interface.
 import 'package:flutter/material.dart';
 import 'package:primecare_ui/primecare_ui.dart';
@@ -81,15 +82,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
     super.dispose();
   }
 
-  Color? _parseColor(String hexStr) {
-    final clean = hexStr.replaceAll('#', '').trim();
-    if (clean.length == 6) {
-      return Color(int.parse('0xFF$clean'));
-    } else if (clean.length == 8) {
-      return Color(int.parse('0x$clean'));
-    }
-    return null;
-  }
+  Color? _parseColor(String hexStr) => PrimeThemeColor.tryParseHex(hexStr);
 
   Future<void> _saveSettings() async {
     if (_formKey.currentState?.validate() ?? false) {
@@ -129,14 +122,14 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: const Row(
+              content: Row(
                 children: [
-                  Icon(Icons.check_circle, color: Colors.white),
+                  Icon(Icons.check_circle, color: PrimeActionPalette.of(context, PrimeActionTone.success).onAccent),
                   SizedBox(width: 12),
-                  Text('Branding and Settings saved successfully!'),
+                  Text('Branding and Settings saved successfully!', style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.success).onAccent)),
                 ],
               ),
-              backgroundColor: Colors.green.shade700,
+              backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
               behavior: SnackBarBehavior.floating,
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
             ),
@@ -146,8 +139,8 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Failed to save configurations: $e'),
-              backgroundColor: Colors.red.shade700,
+              content: Text('Failed to save configurations: $e', style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent)),
+              backgroundColor: PrimeActionPalette.of(context, PrimeActionTone.error).accent,
             ),
           );
         }
@@ -239,7 +232,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                   color: palette.background,
                                   borderRadius: BorderRadius.circular(12),
                                   border: Border.all(
-                                    color: isSelected ? theme.colors.primary : Colors.grey.shade300,
+                                    color: isSelected ? theme.colors.primary : context.theme.colors.outlineVariant,
                                     width: isSelected ? 3.0 : 1.0,
                                   ),
                                   boxShadow: isSelected
@@ -425,7 +418,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(8),
                                   side: BorderSide(
-                                    color: isSelected ? theme.colors.primary : Colors.grey.shade200,
+                                    color: isSelected ? theme.colors.primary : context.theme.colors.outlineVariant,
                                     width: isSelected ? 2 : 1,
                                   ),
                                 ),
@@ -526,10 +519,10 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                           ),
                           onPressed: _isSaving ? null : _saveSettings,
                           child: _isSaving
-                              ? const SizedBox(
+                              ? SizedBox(
                                   width: 20,
                                   height: 20,
-                                  child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                                  child: CircularProgressIndicator(color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent, strokeWidth: 2),
                                 )
                               : const Text('Save Branding & Settings'),
                         ),
@@ -548,7 +541,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
             child: Container(
               height: double.infinity,
               decoration: BoxDecoration(
-                border: Border(left: BorderSide(color: Colors.grey.shade200)),
+                border: Border(left: BorderSide(color: context.theme.colors.outlineVariant)),
                 color: theme.colors.surface.withOpacity(0.7),
               ),
               padding: const EdgeInsets.all(24.0),
@@ -570,12 +563,12 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                   Expanded(
                     child: Container(
                       decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
+                        color: context.theme.colors.surfaceContainerLow,
                         borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.grey.shade300, width: 2),
+                        border: Border.all(color: context.theme.colors.outlineVariant, width: 2),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                            color: Theme.of(context).shadowColor.withValues(alpha: 0.05),
                             blurRadius: 15,
                             spreadRadius: 1,
                           ),
@@ -587,25 +580,25 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                           // App Window Header bar
                           Container(
                             height: 32,
-                            color: Colors.grey.shade200,
+                            color: context.theme.colors.surfaceContainerHigh,
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Row(
                               children: [
-                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.red)),
+                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.error).accent)),
                                 const SizedBox(width: 6),
-                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.orange)),
+                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.warning).accent)),
                                 const SizedBox(width: 6),
-                                Container(width: 8, height: 8, decoration: const BoxDecoration(shape: BoxShape.circle, color: Colors.green)),
+                                Container(width: 8, height: 8, decoration: BoxDecoration(shape: BoxShape.circle, color: PrimeActionPalette.of(context, PrimeActionTone.success).accent)),
                                 const Spacer(),
                                 Container(
                                   width: 200,
                                   height: 18,
                                   decoration: BoxDecoration(
-                                    color: Colors.white,
+                                    color: context.theme.colors.surface,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   alignment: Alignment.center,
-                                  child: const Text('primecare.app/clinic/dashboard', style: TextStyle(fontSize: 9, color: Colors.grey)),
+                                  child: Text('primecare.app/clinic/dashboard', style: TextStyle(fontSize: 9, color: context.theme.colors.onSurfaceVariant)),
                                 ),
                                 const Spacer(),
                               ],
@@ -632,7 +625,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                         Container(
                                           height: 20,
                                           decoration: BoxDecoration(
-                                            color: Colors.white.withOpacity(0.15),
+                                            color: readableThemeForeground(currentSidebarBg, context.theme.colors.onSurface).withValues(alpha: 0.15),
                                             borderRadius: BorderRadius.circular(4),
                                           ),
                                         ),
@@ -644,7 +637,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                           decoration: BoxDecoration(
                                             color: index == 0
                                                 ? currentPrimary
-                                                : Colors.white.withOpacity(0.1),
+                                                : readableThemeForeground(currentSidebarBg, context.theme.colors.onSurface).withValues(alpha: 0.1),
                                             borderRadius: BorderRadius.circular(4),
                                           ),
                                         )),
@@ -668,16 +661,16 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                                 width: 60,
                                                 height: 18,
                                                 decoration: BoxDecoration(
-                                                  color: Colors.white.withOpacity(0.15),
+                                                  color: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface).withValues(alpha: 0.15),
                                                   borderRadius: BorderRadius.circular(4),
                                                 ),
                                               ),
                                               const SizedBox(width: 16),
-                                              Container(width: 30, height: 10, color: Colors.white.withOpacity(0.1)),
+                                              Container(width: 30, height: 10, color: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface).withValues(alpha: 0.1)),
                                               const SizedBox(width: 8),
-                                              Container(width: 30, height: 10, color: Colors.white.withOpacity(0.1)),
+                                              Container(width: 30, height: 10, color: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface).withValues(alpha: 0.1)),
                                             ] else ...[
-                                              const Icon(Icons.menu, size: 16, color: Colors.white70),
+                                              Icon(Icons.menu, size: 16, color: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface)),
                                             ],
                                             const Spacer(),
                                             Container(
@@ -688,10 +681,10 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                                 borderRadius: BorderRadius.circular(4),
                                               ),
                                               alignment: Alignment.center,
-                                              child: Text('EN', style: TextStyle(fontSize: 8, color: currentPrimary, fontWeight: FontWeight.bold)),
+                                              child: Text('EN', style: TextStyle(fontSize: 8, color: readableThemeForeground(currentPrimaryContainer, currentPrimary), fontWeight: FontWeight.bold)),
                                             ),
                                             const SizedBox(width: 8),
-                                            const CircleAvatar(radius: 10, backgroundColor: Colors.white24),
+                                            CircleAvatar(radius: 10, backgroundColor: readableThemeForeground((settings.layoutStyle == LayoutStyle.horizontal ? currentSidebarBg : currentTopbarBg), context.theme.colors.onSurface).withValues(alpha: 0.24)),
                                           ],
                                         ),
                                       ),
@@ -699,13 +692,13 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                       // Main Workspace Layout
                                       Expanded(
                                         child: Container(
-                                          color: Colors.grey.shade50,
+                                          color: context.theme.colors.background,
                                           padding: const EdgeInsets.all(16),
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               // Page Title Mock
-                                              Container(width: 120, height: 18, decoration: BoxDecoration(color: Colors.grey.shade300, borderRadius: BorderRadius.circular(4))),
+                                              Container(width: 120, height: 18, decoration: BoxDecoration(color: context.theme.colors.outlineVariant, borderRadius: BorderRadius.circular(4))),
                                               const SizedBox(height: 16),
                                               // Dashboard Cards Grid Mock
                                               Expanded(
@@ -718,9 +711,9 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                                   children: List.generate(4, (index) {
                                                     return Container(
                                                       decoration: BoxDecoration(
-                                                        color: Colors.white,
+                                                        color: context.theme.colors.surface,
                                                         borderRadius: BorderRadius.circular(8),
-                                                        border: Border.all(color: Colors.grey.shade200),
+                                                        border: Border.all(color: context.theme.colors.outlineVariant),
                                                       ),
                                                       padding: const EdgeInsets.all(8),
                                                       child: Column(
@@ -728,9 +721,9 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
                                                         children: [
                                                           Row(
                                                             children: [
-                                                              CircleAvatar(radius: 8, backgroundColor: currentPrimary.withOpacity(0.1), child: Icon(Icons.circle, size: 6, color: currentPrimary)),
+                                                              CircleAvatar(radius: 8, backgroundColor: PrimeActionPalette.tintSurface(context, currentPrimary), child: Icon(Icons.circle, size: 6, color: PrimeActionPalette.onTint(context, currentPrimary))),
                                                               const SizedBox(width: 6),
-                                                              Container(width: 40, height: 8, decoration: BoxDecoration(color: Colors.grey.shade200, borderRadius: BorderRadius.circular(2))),
+                                                              Container(width: 40, height: 8, decoration: BoxDecoration(color: context.theme.colors.outlineVariant, borderRadius: BorderRadius.circular(2))),
                                                             ],
                                                           ),
                                                           const Spacer(),
@@ -773,7 +766,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: Colors.grey.shade200),
+        side: BorderSide(color: context.theme.colors.outlineVariant),
       ),
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -782,7 +775,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
           children: [
             Text(title, style: context.theme.typography.h4.copyWith(fontWeight: FontWeight.bold)),
             const SizedBox(height: 4),
-            Text(subtitle, style: context.theme.typography.bodySmall.copyWith(color: Colors.grey.shade500)),
+            Text(subtitle, style: context.theme.typography.bodySmall.copyWith(color: context.theme.colors.onSurfaceVariant)),
             const SizedBox(height: 16),
             child,
           ],
@@ -804,7 +797,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
         labelText: label,
         labelStyle: theme.typography.bodyMedium.copyWith(color: theme.colors.textSecondary),
         hintText: '#HEXCODE',
-        hintStyle: TextStyle(color: Colors.grey.shade400),
+        hintStyle: TextStyle(color: context.theme.colors.onSurfaceVariant),
         prefixIcon: Container(
           width: 24,
           height: 24,
@@ -812,13 +805,13 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: previewColor,
-            border: Border.all(color: Colors.grey.shade300),
+            border: Border.all(color: context.theme.colors.outlineVariant),
           ),
         ),
         filled: true,
-        fillColor: Colors.grey.shade50,
+        fillColor: context.theme.colors.background,
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade300),
+          borderSide: BorderSide(color: context.theme.colors.outlineVariant),
           borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
@@ -866,7 +859,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(
-          color: isSelected ? theme.colors.primary : Colors.grey.shade200,
+          color: isSelected ? theme.colors.primary : context.theme.colors.outlineVariant,
           width: isSelected ? 2 : 1,
         ),
       ),
@@ -879,7 +872,7 @@ class _GlobalSettingsScreenState extends GovernedConsumerState<GlobalSettingsScr
             children: [
               Icon(
                 icon,
-                color: isSelected ? theme.colors.primary : Colors.grey.shade600,
+                color: isSelected ? theme.colors.primary : context.theme.colors.onSurfaceVariant,
                 size: 24,
               ),
               const SizedBox(height: 8),
