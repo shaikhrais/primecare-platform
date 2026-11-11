@@ -16,6 +16,11 @@ def camel_to_snake(name):
 def snake_to_pascal(name):
     return ''.join(word.capitalize() for word in name.split('_'))
 
+def dart_json(value):
+    """Encode authored labels as Dart literals without runtime interpolation."""
+    return json.dumps(value, ensure_ascii=False).replace("$", r"\$")
+
+
 def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_name, app_code, role_code, route_path, purpose, user_story, criteria, sections, elements, apis):
     if not sections or not elements or not apis:
         raise ValueError(f'{screen_code}: governed sections, elements, and APIs are required')
@@ -63,7 +68,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                   PrimeIcon(Icons.dashboard_customize_outlined, color: {theme['primary']}, size: 20),
                   const SizedBox(width: 8),
                   PrimeText(
-                    '{sec_name}',
+                    {dart_json(sec_name)},
                     style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, fontSize: theme.scaleFont(15), color: theme.colors.onSurface),
                   ),
                 ],
@@ -83,12 +88,12 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
           ),
           const SizedBox(height: 6),
           PrimeText(
-            '{sec_purpose}',
+            {dart_json(sec_purpose)},
             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12)),
           ),
           const SizedBox(height: 16),
           
-          ...{json.dumps([el['label'] for el in sec_elements])}.map((lbl) => Padding(
+          ...{dart_json([el['label'] for el in sec_elements])}.map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

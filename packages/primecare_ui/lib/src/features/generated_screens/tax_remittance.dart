@@ -39,7 +39,7 @@ class TaxRemittanceState {
 
 // --- Controller ---
 class TaxRemittanceController extends StateNotifier<TaxRemittanceState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   TaxRemittanceController(this._ref)

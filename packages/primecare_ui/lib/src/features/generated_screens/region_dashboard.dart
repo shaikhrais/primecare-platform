@@ -43,7 +43,7 @@ class RegionDashboardState {
 
 // --- Controller ---
 class RegionDashboardController extends StateNotifier<RegionDashboardState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   RegionDashboardController(this._ref)

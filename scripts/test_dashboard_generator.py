@@ -16,6 +16,17 @@ class GeneratorSafetyTests(unittest.TestCase):
           elements=[{'section_id':1,'label':'Review','element_type':'button','test_id':'review'}],
           apis=[{'method':'GET','endpoint_path':'/v1/test'}])
 
+    def test_section_labels_escape_quotes_and_dart_interpolation(self):
+        args=self.kwargs()
+        args['sections'][0]['section_name']="Owner's $label"
+        args['sections'][0]['purpose']="Review ${D.Appname} and owner's data"
+        args['elements'][0]['label']='Chip $Langcode and ${Screen.Screenname}'
+        dart=generate_custom_screen_widget(**args)
+        self.assertIn('"Owner\'s \\$label"', dart)
+        self.assertIn('Review \\${D.Appname}', dart)
+        self.assertIn('Chip \\$Langcode and \\${Screen.Screenname}', dart)
+        self.assertEqual(boundary.violations(dart, True), [])
+
     def test_incomplete_contract_does_not_invent_routes_or_sections(self):
         for key in ('sections','elements','apis'):
             with self.subTest(key=key):

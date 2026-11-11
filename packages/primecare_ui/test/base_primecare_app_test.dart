@@ -95,12 +95,13 @@ void main() {
       final router = await mount(tester, (r) => BrandedApp(r, branding),
         content: const PrimeCareCard(child: PrimeText('Branded shared content')));
       final prime = tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data;
-      final text = tester.widget<Text>(find.text('Branded shared content'));
+      final text = tester.widget<RichText>(find.descendant(
+        of: find.text('Branded shared content'), matching: find.byType(RichText)));
       final card = tester.widget<Card>(find.byType(Card));
       expect(prime.toThemeData(), same(branding));
       expect(card.color, branding.colorScheme.surface);
-      expect(text.style!.color, branding.colorScheme.onSurface);
-      expect(themeContrastRatio(card.color!, text.style!.color!), greaterThanOrEqualTo(4.5));
+      expect(text.text.style!.color, branding.colorScheme.onSurface);
+      expect(themeContrastRatio(card.color!, text.text.style!.color!), greaterThanOrEqualTo(4.5));
       final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
       expect(scope.read(themeSettingsProvider).personalTheme, isNull);
       expect(tester.takeException(), isNull);

@@ -231,7 +231,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          ...["Data Cy Deploy Card ${D.Appname}", "Data Cy Logs Viewer Card"].map((lbl) => Padding(
+          ...["Data Cy Deploy Card \${D.Appname}", "Data Cy Logs Viewer Card"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -308,7 +308,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          ...["Verification Center Primary Content", "Data Cy Live Link ${D.Appname}"].map((lbl) => Padding(
+          ...["Verification Center Primary Content", "Data Cy Live Link \${D.Appname}"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -385,7 +385,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          ...["Data Cy Logs Btn ${D.Appname}", "Data Cy Logs Close Btn", "Data Cy Logs Close Text Btn"].map((lbl) => Padding(
+          ...["Data Cy Logs Btn \${D.Appname}", "Data Cy Logs Close Btn", "Data Cy Logs Close Text Btn"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

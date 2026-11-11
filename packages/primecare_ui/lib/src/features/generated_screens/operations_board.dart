@@ -35,7 +35,7 @@ class OperationsBoardState {
 
 // --- Controller ---
 class OperationsBoardController extends StateNotifier<OperationsBoardState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   OperationsBoardController(this._ref)

@@ -94,7 +94,7 @@ class ThemeFixtureScreen extends GovernedConsumerWidget {
                   PrimeIcon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   PrimeText(
-                    'Data',
+                    "Data",
                     style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, fontSize: theme.scaleFont(15), color: theme.colors.onSurface),
                   ),
                 ],
@@ -114,7 +114,7 @@ class ThemeFixtureScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 6),
           PrimeText(
-            'Review data',
+            "Review data",
             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12)),
           ),
           const SizedBox(height: 16),

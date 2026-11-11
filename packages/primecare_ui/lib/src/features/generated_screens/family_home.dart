@@ -51,7 +51,7 @@ class FamilyHomeState {
 
 // --- Controller ---
 class FamilyHomeController extends StateNotifier<FamilyHomeState> {
-  final Ref ref;
+  Ref get ref => _ref;
   final Ref _ref;
 
   FamilyHomeController(this._ref)

@@ -310,7 +310,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
           ),
           const SizedBox(height: 16),
           
-          ...["Screen Status Primary Content", "Data Cy Screen Search Input", "Data Cy Tab Strings", "Data Cy Lang Chip $Langcode", "Data Cy Screen Item ${Screen.Screenname}", "Data Cy Tab Components", "Data Cy App Dropdown", "Data Cy Tabs Bar", "Data Cy Tab Compliance"].map((lbl) => Padding(
+          ...["Screen Status Primary Content", "Data Cy Screen Search Input", "Data Cy Tab Strings", "Data Cy Lang Chip \$Langcode", "Data Cy Screen Item \${Screen.Screenname}", "Data Cy Tab Components", "Data Cy App Dropdown", "Data Cy Tabs Bar", "Data Cy Tab Compliance"].map((lbl) => Padding(
             padding: const EdgeInsets.only(bottom: 12.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
