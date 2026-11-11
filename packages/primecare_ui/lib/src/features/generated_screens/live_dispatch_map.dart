@@ -198,6 +198,10 @@ class LiveDispatchMap extends GovernedConsumerWidget {
     final state = ref.watch(liveDispatchMapControllerProvider);
     final controller = ref.read(liveDispatchMapControllerProvider.notifier);
     final theme = context.theme;
+    final primary = PrimeActionPalette.of(context, PrimeActionTone.primary);
+    final success = PrimeActionPalette.of(context, PrimeActionTone.success);
+    final warning = PrimeActionPalette.of(context, PrimeActionTone.warning);
+    final error = PrimeActionPalette.of(context, PrimeActionTone.error);
 
     final filteredVisits = state.activeVisits.where((v) {
       final matchesSearch = (v['caregiver'] as String).toLowerCase().contains(state.searchQuery.toLowerCase()) ||
@@ -291,11 +295,11 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                         color: theme.colors.surface,
                         borderRadius: BorderRadius.circular(theme.radiusMd),
                         border: Border.all(
-                          color: isWarning ? Colors.amber.shade300 : theme.colors.border,
+                          color: isWarning ? warning.border : theme.colors.border,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withValues(alpha: 0.02),
+                            color: Theme.of(context).shadowColor.withValues(alpha: 0.02),
                             blurRadius: 6,
                             offset: const Offset(0, 3),
                           )
@@ -318,14 +322,14 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
                                   color: isWarning
-                                      ? Colors.amber.shade50
+                                      ? warning.surface
                                       : theme.colors.primary.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(theme.radiusSm),
                                 ),
                                 child: Text(
                                   (visit['statusText'] as String),
                                   style: theme.typography.labelBold.copyWith(
-                                    color: isWarning ? Colors.amber.shade900 : theme.colors.primary,
+                                    color: isWarning ? warning.onSurface : theme.colors.primary,
                                   ),
                                 ),
                               ),
@@ -339,7 +343,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                           const SizedBox(height: 6),
                           Row(
                             children: [
-                              const Icon(LucideIcons.navigation, size: 14, color: Colors.blue),
+                              PrimeIcon(LucideIcons.navigation, size: 14, color: theme.colors.primary),
                               const SizedBox(width: 6),
                               Text(
                                 'Telemetry: ${visit['gpsVariance']}',
@@ -416,7 +420,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                   gradient: RadialGradient(
                                     colors: [
                                       theme.colors.primary.withValues(alpha: 0.05),
-                                      Colors.transparent
+                                      theme.colors.surface.withValues(alpha: 0)
                                     ],
                                     radius: 1.2,
                                   ),
@@ -436,29 +440,29 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                       Container(
                                         padding: const EdgeInsets.all(4),
                                         decoration: BoxDecoration(
-                                          color: isWarning ? Colors.amber : theme.colors.primary,
+                                          color: isWarning ? warning.accent : primary.accent,
                                           shape: BoxShape.circle,
-                                          border: Border.all(color: Colors.white, width: 2),
-                                          boxShadow: const [
-                                            BoxShadow(color: Colors.black26, blurRadius: 4)
+                                          border: Border.all(color: isWarning ? warning.onAccent : primary.onAccent, width: 2),
+                                          boxShadow: [
+                                            BoxShadow(color: Theme.of(context).shadowColor.withValues(alpha: 0.26), blurRadius: 4)
                                           ],
                                         ),
                                         child: Icon(
                                           isWarning ? LucideIcons.alertTriangle : LucideIcons.userCheck,
                                           size: 16,
-                                          color: Colors.white,
+                                          color: isWarning ? warning.onAccent : primary.onAccent,
                                         ),
                                       ),
                                       const SizedBox(height: 4),
                                       Container(
                                         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                                         decoration: BoxDecoration(
-                                          color: Colors.black87,
+                                          color: theme.colors.inverseSurface,
                                           borderRadius: BorderRadius.circular(4),
                                         ),
                                         child: Text(
                                           (v['client'] as String),
-                                          style: const TextStyle(color: Colors.white, fontSize: 10),
+                                          style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 10),
                                         ),
                                       ),
                                     ],
@@ -472,7 +476,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                               child: Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                                 decoration: BoxDecoration(
-                                  color: Colors.black87,
+                                  color: theme.colors.inverseSurface,
                                   borderRadius: BorderRadius.circular(theme.radiusSm),
                                 ),
                                 child: Row(
@@ -480,13 +484,13 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                     Container(
                                       width: 8,
                                       height: 8,
-                                      decoration: const BoxDecoration(
-                                          color: Colors.green, shape: BoxShape.circle),
+                                      decoration: BoxDecoration(
+                                          color: success.accent, shape: BoxShape.circle),
                                     ),
                                     const SizedBox(width: 8),
-                                    const Text(
+                                    Text(
                                       'Telemetry Hub Online',
-                                      style: TextStyle(color: Colors.white, fontSize: 11),
+                                      style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 11),
                                     ),
                                   ],
                                 ),
@@ -520,12 +524,12 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: Colors.red.shade50,
+                                  color: error.surface,
                                   borderRadius: BorderRadius.circular(theme.radiusSm),
                                 ),
                                 child: Text(
                                   '${state.unassignedShifts.length} PENDING MATCH',
-                                  style: theme.typography.labelBold.copyWith(color: Colors.red),
+                                  style: theme.typography.labelBold.copyWith(color: error.onSurface),
                                 ),
                               ),
                             ],
@@ -552,7 +556,7 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                     ),
                                     boxShadow: [
                                       BoxShadow(
-                                        color: Colors.black.withValues(alpha: 0.01),
+                                        color: Theme.of(context).shadowColor.withValues(alpha: 0.01),
                                         blurRadius: 4,
                                         offset: const Offset(0, 2),
                                       )
@@ -607,9 +611,9 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                                     : () => controller.selectShift((shift['id'] as String?)),
                                                 style: ElevatedButton.styleFrom(
                                                   backgroundColor: isSelected
-                                                      ? Colors.green
-                                                      : theme.colors.primary,
-                                                  foregroundColor: Colors.white,
+                                                      ? success.accent
+                                                      : primary.accent,
+                                                  foregroundColor: isSelected ? success.onAccent : primary.onAccent,
                                                   padding: const EdgeInsets.symmetric(vertical: 8),
                                                 ),
                                                 child: Text(isSelected ? 'Assign Grace PSW' : 'Select to Match'),
