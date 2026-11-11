@@ -10,8 +10,34 @@ import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/theme/prime_theme_resolver.dart';
 import 'fixtures/api_error_border_fixture.dart';
 import 'fixtures/premium_trend_card_fixture.dart';
+import 'fixtures/premium_health_panel_fixture.dart';
 
 void main() {
+  testWidgets('generated API health follows live status tokens and keeps labels, typography and progress', (tester) async {
+    for (final populated in [false, true]) {
+      for (final colors in [const PrimeColors(), const PrimeColors(success: Colors.purple, warning: Colors.cyan)]) {
+        final prime = PrimeThemeData(colors: colors);
+        await tester.pumpWidget(PrimeTheme(data: prime, bootstrap: false,
+          child: MaterialApp(home: Scaffold(body: SingleChildScrollView(child: SizedBox(width: 600,
+            child: PremiumHealthPanelFixture(modelName: 'Care', data: populated ? {'id': 1} : {},
+              themeColor: Colors.blue))))))));
+        await tester.pumpAndSettle();
+        final label = populated ? 'Nominal' : 'Offline';
+        final text = tester.widget<Text>(find.text(label));
+        expect(text.style!.color, populated ? colors.success : colors.warning);
+        expect(text.style!.fontWeight, FontWeight.bold);
+        expect(text.style!.fontSize, 13);
+        expect(find.text('API Response Health'), findsOneWidget);
+        expect(find.text('Care Data Drift Monitor'), findsOneWidget);
+        final progress = tester.widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator));
+        expect(progress.value, populated ? 0.94 : 0.35);
+        expect(progress.minHeight, 8);
+        expect(progress.valueColor!.value, Colors.blue);
+        expect(tester.takeException(), isNull);
+      }
+    }
+  });
+
   testWidgets('generated trend badge follows success and warning tokens without changing labels or geometry', (tester) async {
     for (final positive in [true, false]) {
       for (final colors in [
