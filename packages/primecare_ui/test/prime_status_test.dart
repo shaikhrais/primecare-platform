@@ -5,6 +5,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
+import 'package:primecare_ui/src/components/prime_action_palette.dart';
 import 'package:primecare_ui/src/components/prime_telemetry_row.dart';
 import 'package:primecare_ui/src/components/prime_trend_label.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
@@ -118,8 +119,13 @@ void main() {
       await tester.pumpAndSettle();
       final icons = tester.widgetList<Icon>(find.byWidgetPredicate((widget) => widget is Icon && widget.size == 20)).toList();
       expect(icons, hasLength(3));
-      expect(icons.take(2).every((icon) => icon.color == colors.success), isTrue);
-      expect(icons.last.color, colors.warning);
+      final elements = find.byWidgetPredicate((widget) => widget is Icon && widget.size == 20).evaluate().toList();
+      for (var index = 0; index < icons.length; index++) {
+        final accent = index < 2 ? colors.success : colors.warning;
+        final surface = PrimeActionPalette.tintSurface(elements[index], accent, alpha: .08);
+        expect(icons[index].color, PrimeActionPalette.onTint(elements[index], accent, alpha: .08));
+        expect(themeContrastRatio(icons[index].color!, surface), greaterThanOrEqualTo(4.5));
+      }
       expect(find.text('Latency Telemetry'), findsOneWidget);
       expect(find.text('14ms'), findsOneWidget);
       expect(find.text('97%'), findsOneWidget);

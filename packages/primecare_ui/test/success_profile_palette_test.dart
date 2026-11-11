@@ -65,7 +65,7 @@ void main() {
        expect(themeContrastRatio(text.style!.color!,prime.colors.surface),greaterThanOrEqualTo(4.5));
        final icon=tester.widget<Icon>(find.byIcon(LucideIcons.shieldCheck));
        final context=tester.element(find.byIcon(LucideIcons.shieldCheck));
-       expect(themeContrastRatio(icon.color!,PrimeActionPalette.of(context,PrimeActionTone.success).surface),greaterThanOrEqualTo(4.5));
+       expect(themeContrastRatio(icon.color!,PrimeActionPalette.of(context,PrimeActionTone.primary).accent),greaterThanOrEqualTo(4.5));
       }
       expect(tester.takeException(),isNull,reason:'$preset/$scale/$role/$index');
      }

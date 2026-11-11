@@ -20,7 +20,7 @@ class SuccessProfileHeaderSection extends StatelessWidget {
           ),
           child: Icon(
             LucideIcons.shieldCheck,
-            color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+            color: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
             size: 28,
           ),
         ),
@@ -31,7 +31,7 @@ class SuccessProfileHeaderSection extends StatelessWidget {
             Text(
               'PRIMECARE HQ',
               style: theme.typography.labelMedium.copyWith(
-                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
                 letterSpacing: 2.0,
                 fontWeight: FontWeight.bold,
               ),
@@ -40,7 +40,7 @@ class SuccessProfileHeaderSection extends StatelessWidget {
               'Application Hub',
               style: theme.typography.h2.copyWith(
                 fontWeight: FontWeight.bold,
-                color: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
+                color: PrimeActionPalette.of(context, PrimeActionTone.primary).onBase,
               ),
             ),
           ],

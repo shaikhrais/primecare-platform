@@ -565,8 +565,9 @@ class LiveDispatchMap extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      Wrap(
+                                        spacing: 8,
+                                        runSpacing: 8,
                                         children: [
                                           Text(
                                             (shift['client'] as String),
