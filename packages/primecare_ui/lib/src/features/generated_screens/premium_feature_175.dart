@@ -433,25 +433,25 @@ class _TelemetryPanel extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'Sync Frequency', // .tr() LocaleKeys.
               value: 'Real-time (12ms)', // .tr() LocaleKeys.
               icon: Icons.sync,
-              color: Colors.blue,
+              color: theme.colors.primary,
             ),
             const Divider(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'Drift Coefficient', // .tr() LocaleKeys.
               value: '0.0034 delta', // .tr() LocaleKeys.
               icon: Icons.trending_up,
-              color: Colors.purple,
+              color: theme.colors.secondary,
             ),
             const Divider(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'System Isolation', // .tr() LocaleKeys.
               value: 'Strict Tenant Isolation', // .tr() LocaleKeys.
               icon: Icons.security,
-              color: const Color(0xFF10B981),
+              color: theme.colors.success,
             ),
           ],
         ),
@@ -528,25 +528,25 @@ class _AuditPanel extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'Prisma Schema Bindings', // .tr() LocaleKeys.
               value: 'Verified UUID Entity', // .tr() LocaleKeys.
               icon: Icons.dns,
-              color: Colors.indigo,
+              color: theme.colors.primary,
             ),
             const Divider(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'Encryption Standard', // .tr() LocaleKeys.
               value: 'AES-256 GCM', // .tr() LocaleKeys.
               icon: Icons.enhanced_encryption,
-              color: Colors.teal,
+              color: theme.colors.secondary,
             ),
             const Divider(height: 24),
-            const _TelemetryRow(
+            PrimeTelemetryRow(
               label: 'Audit Trail Signature', // .tr() LocaleKeys.
               value: 'SHA-256 HMAC', // .tr() LocaleKeys.
               icon: Icons.fingerprint,
-              color: Colors.deepOrange,
+              color: theme.colors.tertiary,
             ),
           ],
         ),
@@ -555,47 +555,6 @@ class _AuditPanel extends StatelessWidget {
   }
 }
 
-class _TelemetryRow extends StatelessWidget {
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
-
-  const _TelemetryRow({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.theme;
-    return Row(
-      children: [
-        Icon(icon, color: color, size: 18),
-        const SizedBox(width: 12),
-        Expanded(child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13.5,
-            fontWeight: FontWeight.w500,
-            color: theme.colors.onSurfaceVariant,
-          ),
-        )),
-        const SizedBox(width: 12),
-        Flexible(child: Text(
-          value,
-          style:  TextStyle(
-            fontSize: 13.5,
-            fontWeight: FontWeight.bold,
-            color: theme.colors.onSurface,
-          ),
-        )),
-      ],
-    );
-  }
-}
 class _StatusBadge extends StatelessWidget {
   final String label;
   final Color color;
