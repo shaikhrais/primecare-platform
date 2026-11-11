@@ -37,7 +37,7 @@ class PremiumHealthPanelFixture extends StatelessWidget {
                   child: Icon(Icons.analytics, color: themeColor, size: 20),
                 ),
                 const SizedBox(width: 14),
-                Column(
+                Expanded(child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
@@ -58,7 +58,7 @@ class PremiumHealthPanelFixture extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),
+                )),
               ],
             ),
             const SizedBox(height: 24),
@@ -74,8 +74,9 @@ class PremiumHealthPanelFixture extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('API Response Health', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13)), // .tr() LocaleKeys.
-                      Text(data.isEmpty ? 'Offline' : 'Nominal', style: TextStyle(color: data.isEmpty ? theme.colors.warning : theme.colors.success, fontWeight: FontWeight.bold, fontSize: 13)), // .tr() LocaleKeys.
+                      Expanded(child: const Text('API Response Health', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13))), // .tr() LocaleKeys.
+                      const SizedBox(width: 12),
+                      Flexible(child: Text(data.isEmpty ? 'Offline' : 'Nominal', style: TextStyle(color: data.isEmpty ? theme.colors.warning : theme.colors.success, fontWeight: FontWeight.bold, fontSize: 13))), // .tr() LocaleKeys.
                     ],
                   ),
                   const SizedBox(height: 12),
@@ -138,23 +139,23 @@ class PremiumHealthRowFixture extends StatelessWidget {
       children: [
         Icon(icon, color: color, size: 18),
         const SizedBox(width: 12),
-        Text(
+        Expanded(child: Text(
           label,
           style: TextStyle(
             fontSize: 13.5,
             fontWeight: FontWeight.w500,
             color: theme.colors.onSurfaceVariant,
           ),
-        ),
-        const Spacer(),
-        Text(
+        )),
+        const SizedBox(width: 12),
+        Flexible(child: Text(
           value,
           style:  TextStyle(
             fontSize: 13.5,
             fontWeight: FontWeight.bold,
             color: theme.colors.onSurface,
           ),
-        ),
+        )),
       ],
     );
   }

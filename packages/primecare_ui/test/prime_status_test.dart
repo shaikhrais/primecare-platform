@@ -101,6 +101,31 @@ void main() {
     }
   });
 
+  testWidgets('health panel wraps long labels at mobile widths and large text sizes', (tester) async {
+    for (final width in [320.0, 600.0]) {
+      for (final scale in [1.0, 2.0]) {
+        for (final populated in [false, true]) {
+          await tester.pumpWidget(PrimeTheme(data: const PrimeThemeData(), bootstrap: false,
+            child: MaterialApp(home: MediaQuery(
+              data: MediaQueryData(textScaler: TextScaler.linear(scale)),
+              child: Scaffold(body: SingleChildScrollView(child: Align(alignment: Alignment.topLeft,
+                child: SizedBox(width: width, child: PremiumHealthPanelFixture(
+                  modelName: 'Regional community care coordination',
+                  data: populated ? {'id': 1} : {}, themeColor: Colors.blue)))))))));
+          await tester.pumpAndSettle();
+          expect(find.text('Regional community care coordination Data Drift Monitor'), findsOneWidget);
+          expect(find.text('Strict Tenant Isolation'), findsOneWidget);
+          expect(find.text('API Response Health'), findsOneWidget);
+          expect(find.text(populated ? 'Nominal' : 'Offline'), findsOneWidget);
+          final progress = tester.widget<LinearProgressIndicator>(find.byType(LinearProgressIndicator));
+          expect(progress.value, populated ? .94 : .35);
+          expect(progress.minHeight, 8);
+          expect(tester.takeException(), isNull, reason: '$width / $scale / $populated');
+        }
+      }
+    }
+  });
+
   testWidgets('generated trend badge follows success and warning tokens without changing labels or geometry', (tester) async {
     for (final positive in [true, false]) {
       for (final colors in [
