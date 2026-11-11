@@ -1,0 +1,1143 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/screens/clinical/clinical_director_dashboard_screen.dart",
+    "sha256": "a33503741fd693ec9956b4206edbf2a77a11024a5ee013bc831c082a582b2ca9",
+    "findings": 66,
+    "edits": [
+      {
+        "begin": 13498,
+        "end": 13503,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 13504,
+        "end": 13521,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 13524,
+        "end": 13529,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 13530,
+        "end": 13547,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 13914,
+        "end": 13919,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 13920,
+        "end": 13937,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 13940,
+        "end": 13945,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 13946,
+        "end": 13963,
+        "old": "Color(0xFFEAB308)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 18000,
+        "end": 18218,
+        "old": "[\n                  BoxShadow(\n                    color: Colors.black.withValues(alpha: 0.03),\n                    blurRadius: 10,\n                    offset: const Offset(0, 4),\n                  ),\n                ]",
+        "new": "context.theme.shadowsSurface1"
+      },
+      {
+        "begin": 20177,
+        "end": 20182,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 20534,
+        "end": 20546,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 20789,
+        "end": 20801,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 22040,
+        "end": 22052,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 30627,
+        "end": 30632,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 30633,
+        "end": 30650,
+        "old": "Color(0xFFFEE2E2)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 30921,
+        "end": 30926,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 30944,
+        "end": 30961,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onSurface"
+      },
+      {
+        "begin": 32418,
+        "end": 32423,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 32424,
+        "end": 32441,
+        "old": "Color(0xFFFEF3C7)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 32444,
+        "end": 32449,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 32450,
+        "end": 32467,
+        "old": "Color(0xFFDCFCE7)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).surface"
+      },
+      {
+        "begin": 32685,
+        "end": 32690,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 32691,
+        "end": 32708,
+        "old": "Color(0xFFB45309)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 32711,
+        "end": 32716,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 32717,
+        "end": 32734,
+        "old": "Color(0xFF15803D)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 36287,
+        "end": 36292,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 36293,
+        "end": 36310,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 36632,
+        "end": 36637,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 36677,
+        "end": 36694,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 36867,
+        "end": 36872,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 36890,
+        "end": 36907,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 43714,
+        "end": 43719,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 43720,
+        "end": 43737,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 44272,
+        "end": 44277,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 44278,
+        "end": 44295,
+        "old": "Color(0xFFEAB308)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent"
+      },
+      {
+        "begin": 48758,
+        "end": 48763,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 48764,
+        "end": 48781,
+        "old": "Color(0xFFFEF3C7)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 48944,
+        "end": 48949,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 48950,
+        "end": 48967,
+        "old": "Color(0xFFFDE68A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).border"
+      },
+      {
+        "begin": 49195,
+        "end": 49200,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 49201,
+        "end": 49218,
+        "old": "Color(0xFFB45309)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 49221,
+        "end": 49226,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 49227,
+        "end": 49244,
+        "old": "Color(0xFF15803D)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 49576,
+        "end": 49581,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 49582,
+        "end": 49599,
+        "old": "Color(0xFFB45309)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 49602,
+        "end": 49607,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 49608,
+        "end": 49625,
+        "old": "Color(0xFF15803D)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 51376,
+        "end": 51381,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51382,
+        "end": 51399,
+        "old": "Color(0xFF2563EB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onBase"
+      },
+      {
+        "begin": 51434,
+        "end": 51439,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51440,
+        "end": 51457,
+        "old": "Color(0xFFEFF6FF)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).surface"
+      },
+      {
+        "begin": 51496,
+        "end": 51501,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51502,
+        "end": 51519,
+        "old": "Color(0xFFBFDBFE)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).border"
+      },
+      {
+        "begin": 51649,
+        "end": 51654,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51655,
+        "end": 51672,
+        "old": "Color(0xFFB91C1C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 51703,
+        "end": 51708,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51709,
+        "end": 51726,
+        "old": "Color(0xFFFEE2E2)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 51761,
+        "end": 51766,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51767,
+        "end": 51784,
+        "old": "Color(0xFFFECACA)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).border"
+      },
+      {
+        "begin": 51917,
+        "end": 51922,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51923,
+        "end": 51940,
+        "old": "Color(0xFFB45309)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 51971,
+        "end": 51976,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 51977,
+        "end": 51994,
+        "old": "Color(0xFFFEF3C7)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 52029,
+        "end": 52034,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 52035,
+        "end": 52052,
+        "old": "Color(0xFFFDE68A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).border"
+      },
+      {
+        "begin": 54876,
+        "end": 54881,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 54921,
+        "end": 54938,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 58773,
+        "end": 58778,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 58779,
+        "end": 58796,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent"
+      },
+      {
+        "begin": 58835,
+        "end": 58847,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onAccent"
+      },
+      {
+        "begin": 59276,
+        "end": 59281,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 59282,
+        "end": 59299,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).accent"
+      },
+      {
+        "begin": 60430,
+        "end": 60435,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 60477,
+        "end": 60494,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onBase"
+      },
+      {
+        "begin": 65752,
+        "end": 65764,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 67399,
+        "end": 67404,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 67440,
+        "end": 67457,
+        "old": "Color(0xFF2563EB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onBase"
+      },
+      {
+        "begin": 71114,
+        "end": 71119,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 71120,
+        "end": 71137,
+        "old": "Color(0xFF2563EB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 71176,
+        "end": 71188,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent"
+      },
+      {
+        "begin": 71739,
+        "end": 71744,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 71745,
+        "end": 71762,
+        "old": "Color(0xFF2563EB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).accent"
+      },
+      {
+        "begin": 72819,
+        "end": 72824,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 72857,
+        "end": 72874,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onBase"
+      },
+      {
+        "begin": 76689,
+        "end": 76694,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 76695,
+        "end": 76712,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).accent"
+      },
+      {
+        "begin": 78046,
+        "end": 78051,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 78091,
+        "end": 78108,
+        "old": "Color(0xFFEA580C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onBase"
+      },
+      {
+        "begin": 80212,
+        "end": 80217,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 80218,
+        "end": 80235,
+        "old": "Color(0xFFEA580C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent"
+      },
+      {
+        "begin": 80286,
+        "end": 80298,
+        "old": "Colors.white",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onAccent"
+      },
+      {
+        "begin": 80955,
+        "end": 80960,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 80961,
+        "end": 80978,
+        "old": "Color(0xFFEA580C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).accent"
+      },
+      {
+        "begin": 82042,
+        "end": 82047,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82048,
+        "end": 82065,
+        "old": "Color(0xFFDC2626)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).onSurface"
+      },
+      {
+        "begin": 82081,
+        "end": 82086,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82087,
+        "end": 82104,
+        "old": "Color(0xFFFEE2E2)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).surface"
+      },
+      {
+        "begin": 82124,
+        "end": 82129,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82130,
+        "end": 82147,
+        "old": "Color(0xFFFCA5A5)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.error).border"
+      },
+      {
+        "begin": 82247,
+        "end": 82252,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82253,
+        "end": 82270,
+        "old": "Color(0xFF2563EB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).onSurface"
+      },
+      {
+        "begin": 82286,
+        "end": 82291,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82292,
+        "end": 82309,
+        "old": "Color(0xFFDBEAFE)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).surface"
+      },
+      {
+        "begin": 82329,
+        "end": 82334,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82335,
+        "end": 82352,
+        "old": "Color(0xFF93C5FD)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.primary).border"
+      },
+      {
+        "begin": 82452,
+        "end": 82457,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82458,
+        "end": 82475,
+        "old": "Color(0xFF16A34A)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).onSurface"
+      },
+      {
+        "begin": 82491,
+        "end": 82496,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82497,
+        "end": 82514,
+        "old": "Color(0xFFDCFCE7)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).surface"
+      },
+      {
+        "begin": 82534,
+        "end": 82539,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82540,
+        "end": 82557,
+        "old": "Color(0xFF86EFAC)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.success).border"
+      },
+      {
+        "begin": 82667,
+        "end": 82672,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82673,
+        "end": 82690,
+        "old": "Color(0xFFEA580C)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).onSurface"
+      },
+      {
+        "begin": 82706,
+        "end": 82711,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82712,
+        "end": 82729,
+        "old": "Color(0xFFFFEDD5)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).surface"
+      },
+      {
+        "begin": 82749,
+        "end": 82754,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82755,
+        "end": 82772,
+        "old": "Color(0xFFFDBA74)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.warning).border"
+      },
+      {
+        "begin": 82872,
+        "end": 82877,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82878,
+        "end": 82895,
+        "old": "Color(0xFF4B5563)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).onSurface"
+      },
+      {
+        "begin": 82911,
+        "end": 82916,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82917,
+        "end": 82934,
+        "old": "Color(0xFFF3F4F6)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).surface"
+      },
+      {
+        "begin": 82954,
+        "end": 82959,
+        "old": "const",
+        "new": ""
+      },
+      {
+        "begin": 82960,
+        "end": 82977,
+        "old": "Color(0xFFD1D5DB)",
+        "new": "PrimeActionPalette.of(context, PrimeActionTone.muted).border"
+      },
+      {
+        "begin": 88941,
+        "end": 89111,
+        "old": "[\n          BoxShadow(\n            color: Colors.black.withValues(alpha: 0.03),\n            blurRadius: 10,\n            offset: const Offset(0, 4),\n          ),\n        ]",
+        "new": "context.theme.shadowsSurface1"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/auth_layout.dart",
+    "sha256": "3931775e3371bafdfaab9c357a800547a0766c3982d82bb99dfc2d89c6c4382b",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1551,
+        "end": 1563,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_admin_dashboard_screen.dart",
+    "sha256": "817485cb08cdc88ba6e21b1b7c1570364d879272af5cc74dba9e48ce708e7477",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1612,
+        "end": 1624,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/branch_comparison.dart",
+    "sha256": "8467fd1e61dbcd319d503f49db0f060773468012b942c1eedbbc3ad33c69bd2c",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1577,
+        "end": 1589,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/ceo_dashboard_labels.dart",
+    "sha256": "b6cf56f9be89e13baefd4200865b14d0b0a2f058913aea0bfbff3c1b113358d6",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1584,
+        "end": 1596,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cfo_dashboard_labels.dart",
+    "sha256": "b18bbec0239b7c8be5c2f223938068fbe41a32c1eca40bb6a9a3646abf6e5823",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1584,
+        "end": 1596,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_director_labels.dart",
+    "sha256": "c981b164ebbed1257d163c46d12086f96142b50008cc8ef14ef92b77b53c9d32",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1605,
+        "end": 1617,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/clinical_labels.dart",
+    "sha256": "99df577c0d74b45a9c2dce2d4bb00f5702a0c6b29b07a509b000d3368b37ef4d",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1571,
+        "end": 1583,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/command_center_labels.dart",
+    "sha256": "87bcf78235a1a8b37429925de16c9a2c6fc09434445bfdfaf494e44ff9fcc773",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1592,
+        "end": 1604,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/common_dashboard_labels.dart",
+    "sha256": "631862026fcd9d9c0fd85fba1b8e3ec2f365375fe7d7f515531a52c4cddf7099",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1599,
+        "end": 1611,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/create_shift_form.dart",
+    "sha256": "1b289d888cf21d87db3c049b9dca8bfd94d9c145a47ab48672b58b414d0f2115",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1575,
+        "end": 1587,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/create_user_form.dart",
+    "sha256": "345493724bbfa969369ff1ca4b773eb8911b3e7453db80c9f552bb5341831eea",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1571,
+        "end": 1583,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cto_dashboard_labels.dart",
+    "sha256": "c0c85bbf3144b1fa4931ae550849a75bb64c544a60dffc223265b37efac78c82",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1584,
+        "end": 1596,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/curriculum_hub.dart",
+    "sha256": "99f2b5b39cf15b4094fbc12b388352d6cd583b74cf5552b452e7529d53c5d950",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1569,
+        "end": 1581,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/document_vault.dart",
+    "sha256": "6794d460be4334571512573eafe998aabc41c79504a21b16d8b5ad4695a54119",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1567,
+        "end": 1579,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/global_settings.dart",
+    "sha256": "6b61610d12cfc6e911905b8ea94713b94f9e8195f1c15abcb3931f15ac6336e8",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1569,
+        "end": 1581,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/guest_dashboard_screen.dart",
+    "sha256": "38579332794f80bfb7af86cd286f7c7cc067ecd65d09962b94d894bce70a2b0e",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1580,
+        "end": 1592,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/hr_hiring_dashboard_screen.dart",
+    "sha256": "2312b69baca95aa79b92bb7a8f8a039ab6bafc9b5b5f801bd177c507a3f756a0",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1591,
+        "end": 1603,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/ledger_command.dart",
+    "sha256": "7f16926fd226911203bfe36b3eef403048bbf34e70b34b52680bc527c3526366",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1565,
+        "end": 1577,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/marketing_dashboard_labels.dart",
+    "sha256": "bd71532f104969cacf09c24884a76f6151e4a8f852fe970da893350f4091a4f0",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1614,
+        "end": 1626,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/messages.dart",
+    "sha256": "cfd778bc8ced6ee33cbdf57c0bd267f7ca6dcde5c40cdf5029d99807bdae4832",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1545,
+        "end": 1557,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/messaging_hub.dart",
+    "sha256": "794e2d68ce4775d64615d5a9adf11684643fd82302f57b32512f501cfb1417de",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1564,
+        "end": 1576,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/notification_center.dart",
+    "sha256": "cb5ab370d8ff969058a792f86b96f1e67edcee7a856669a0458bf2b8d4ce07aa",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1591,
+        "end": 1603,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/password_reset_form.dart",
+    "sha256": "4743b66015a3b6595c90e5872278ccfa6499f33d2cb5b126bdc7f9eea0deadd9",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1585,
+        "end": 1597,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/receptionist_dashboard_screen.dart",
+    "sha256": "7b7d50e46e5a9eeaa053d343921befff60d6d58337acfa69eab5e08ad7582b53",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1615,
+        "end": 1627,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/regional_manager_labels.dart",
+    "sha256": "d3a09362012061522d58f329da52afd6709361ff30a750dc6523346376dbf4fa",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1601,
+        "end": 1613,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/scheduler_dashboard_screen.dart",
+    "sha256": "1469185b4c46b9e7d5a278c688fa9954c43f977c674fd4ea25ad0a07cd93a1da",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1600,
+        "end": 1612,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/scrum_master_dashboard_screen.dart",
+    "sha256": "9812f0ab192283bea955add7e85d44c543df248771727865c633d3ad362a0a66",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1606,
+        "end": 1618,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/shift_tracker.dart",
+    "sha256": "7b6d0e55564bfe78757ec35e73993b6c456c27b60ecd2b157db9d2d9870dd17f",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1560,
+        "end": 1572,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/skill_matrix.dart",
+    "sha256": "5f3996e8358f3ab5b2bb8c019841b14b5c1ea1c35b1320868c7754059a67877f",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1556,
+        "end": 1568,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/support_dashboard_labels.dart",
+    "sha256": "031214ba14f762a50ea7511fb9f09155a366ece5c86333917b0ac19f1470ab3a",
+    "findings": 1,
+    "edits": [
+      {
+        "begin": 1604,
+        "end": 1616,
+        "old": "Colors.green",
+        "new": "theme.colors.success"
+      }
+    ]
+  }
+]
