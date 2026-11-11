@@ -20,7 +20,10 @@ ROLES = {'LucideIcons.alertTriangle': ('Colors.red', 'error'), 'LucideIcons.inbo
 STATUS_IMPORT = "import 'package:primecare_ui/src/components/prime_status.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;\n"
 
 
-def migrate(source, add_import=False):
+PUBLIC_STATUS_IMPORT = "import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;\n"
+
+
+def migrate(source, add_import=False, status_import=STATUS_IMPORT):
     code = buttons.text.boundary.executable_code(source)
     has_shared = any(code[m.start():].startswith('import') for m in buttons.SHARED.finditer(source))
     material = [m for m in buttons.text.MATERIAL.finditer(source) if code[m.start():].startswith('import')]
@@ -82,8 +85,8 @@ def migrate(source, add_import=False):
             edits.append((call.start(), end + 1, replacement))
     for begin, finish, replacement in reversed(edits):
         source = source[:begin] + replacement + source[finish:]
-    if edits and not has_shared and STATUS_IMPORT.strip() not in source:
-        source = source[:material[0].start()] + STATUS_IMPORT + source[material[0].start():]
+    if edits and not has_shared and status_import.strip() not in source:
+        source = source[:material[0].start()] + status_import + source[material[0].start():]
     return source, len(edits)
 
 
@@ -92,19 +95,29 @@ def main():
     parser.add_argument('--root', type=Path, default=Path(__file__).resolve().parents[1])
     parser.add_argument('--apply', action='store_true')
     parser.add_argument('--add-imports', action='store_true', help='Add a narrow shared status import within this package')
+    parser.add_argument('--apps', action='store_true', help='Migrate app consumers with a declared shared UI dependency, using the public entry point')
     args = parser.parse_args()
     root = args.root.resolve()
     files, calls = [], 0
-    for base in ('features', 'screens'):
-        for path in sorted((root / 'packages/primecare_ui/lib/src' / base).rglob('*.dart')):
-            if path.is_symlink() or not path.resolve().is_relative_to(root):
+    if args.apps:
+        paths = sorted((root / 'apps').glob('*/lib/**/*.dart'))
+    else:
+        paths = sorted(path for base in ('features', 'screens')
+                       for path in (root / 'packages/primecare_ui/lib/src' / base).rglob('*.dart'))
+    for path in paths:
+        if path.is_symlink() or not path.resolve().is_relative_to(root):
+            continue
+        if args.apps:
+            pubspec = root / Path(*path.relative_to(root).parts[:2]) / 'pubspec.yaml'
+            if not pubspec.is_file() or not buttons.text.shared_dependency(pubspec.read_text(encoding='utf-8')):
                 continue
-            updated, count = migrate(path.read_text(encoding='utf-8'), add_import=args.add_imports)
-            if count:
-                if args.apply:
-                    path.write_text(updated, encoding='utf-8')
-                calls += count
-                files.append(path.relative_to(root).as_posix())
+        updated, count = migrate(path.read_text(encoding='utf-8'), add_import=args.add_imports,
+                                 status_import=PUBLIC_STATUS_IMPORT if args.apps else STATUS_IMPORT)
+        if count:
+            if args.apply:
+                path.write_text(updated, encoding='utf-8')
+            calls += count
+            files.append(path.relative_to(root).as_posix())
     print(json.dumps({'applied': args.apply, 'calls': calls, 'files': files}, indent=2))
 
 

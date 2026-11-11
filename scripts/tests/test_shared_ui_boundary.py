@@ -76,6 +76,8 @@ class SharedUiBoundaryTest(unittest.TestCase):
                 'apps/demo/test/view_test.dart': 'Text("test fixture");',
                 'packages/primecare_ui/lib/src/components/card.dart': 'Text("shared"); Colors.white;',
                 'packages/primecare_ui/lib/src/theme/palette.dart': 'Color(1);',
+                'packages/feature/lib/view.dart': 'Text("bypass"); Colors.red;',
+                'packages/feature/test/view_test.dart': 'Text("fixture");',
             }
             for relative, source in sources.items():
                 path = root / relative
@@ -83,5 +85,7 @@ class SharedUiBoundaryTest(unittest.TestCase):
                 path.write_text(source, encoding='utf-8')
             self.assertEqual([(f[0], f[2]) for f in boundary.scan(root)], [
                 ('apps/demo/lib/view.dart', 'shared-control'),
+                ('packages/feature/lib/view.dart', 'shared-control'),
+                ('packages/feature/lib/view.dart', 'theme-color'),
                 ('packages/primecare_ui/lib/src/components/card.dart', 'theme-color'),
             ])

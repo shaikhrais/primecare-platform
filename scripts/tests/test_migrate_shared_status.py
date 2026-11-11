@@ -55,6 +55,14 @@ Icon(LucideIcons.inbox, /* keep this */ color: Colors.grey);'''
         self.assertTrue(result.startswith('library example;\n' + status.STATUS_IMPORT))
         self.assertEqual(status.migrate(result, add_import=True), (result, 0))
 
+    def test_app_migration_uses_public_api_and_is_idempotent(self):
+        source = "import 'package:flutter/material.dart';\nIcon(Icons.error, color: Colors.red);"
+        result, count = status.migrate(source, add_import=True, status_import=status.PUBLIC_STATUS_IMPORT)
+        self.assertEqual(count, 1)
+        self.assertIn(status.PUBLIC_STATUS_IMPORT, result)
+        self.assertNotIn('primecare_ui/src/', result)
+        self.assertEqual(status.migrate(result, add_import=True, status_import=status.PUBLIC_STATUS_IMPORT), (result, 0))
+
 
 if __name__ == '__main__':
     unittest.main()

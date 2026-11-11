@@ -108,14 +108,14 @@ def violations(source, application):
 
 def scan(root):
     result = []
-    for base in ('apps', 'packages/primecare_ui/lib', 'packages/flutter_core/lib'):
+    for base in ('apps', 'packages'):
         for path in sorted((root / base).rglob('*.dart')):
             relative = path.relative_to(root).as_posix()
-            if base == 'apps' and '/lib/' not in relative:
+            if '/lib/' not in relative:
                 continue
             if relative.startswith(THEME_DEFINITION):
                 continue
-            for line, rule, symbol in violations(path.read_text(encoding='utf-8'), base == 'apps'):
+            for line, rule, symbol in violations(path.read_text(encoding='utf-8'), not relative.startswith('packages/primecare_ui/lib/')):
                 result.append((relative, line, rule, symbol))
     return result
 
