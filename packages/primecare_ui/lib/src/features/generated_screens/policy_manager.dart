@@ -281,7 +281,7 @@ class PolicyManager extends GovernedConsumerWidget {
                           ),
                           Switch(
                             value: isActive,
-                            activeColor: Colors.green,
+                            activeColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                             onChanged: (val) => controller.toggleStatus(policy.id),
                           ),
                         ],
@@ -321,7 +321,7 @@ class PolicyManager extends GovernedConsumerWidget {
                           value: signoffPercent,
                           backgroundColor: theme.colors.background,
                           valueColor: AlwaysStoppedAnimation(
-                            signoffPercent >= 0.9 ? Colors.green : theme.colors.primary,
+                            signoffPercent >= 0.9 ? PrimeActionPalette.of(context, PrimeActionTone.success).accent : theme.colors.primary,
                           ),
                           minHeight: 6,
                         ),

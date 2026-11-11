@@ -190,7 +190,7 @@ class AuditLogs extends GovernedConsumerWidget {
                       trendLabel: 'Optimal',
                       progress: 0.9998,
                       icon: LucideIcons.shieldCheck,
-                      brandColor: Colors.teal,
+                      brandColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                     ),
                     GovMetricCard(
                       title: 'Critical Security Flags',
@@ -198,7 +198,7 @@ class AuditLogs extends GovernedConsumerWidget {
                       trendLabel: 'Zero Incidents',
                       progress: 0.0,
                       icon: LucideIcons.shieldAlert,
-                      brandColor: Colors.green,
+                      brandColor: PrimeActionPalette.of(context, PrimeActionTone.success).accent,
                     ),
                     GovMetricCard(
                       title: 'System Compliance Score',
@@ -206,7 +206,7 @@ class AuditLogs extends GovernedConsumerWidget {
                       trendLabel: '100% Certified',
                       progress: 1.0,
                       icon: LucideIcons.award,
-                      brandColor: Colors.indigo,
+                      brandColor: PrimeActionPalette.of(context, PrimeActionTone.primary).accent,
                     ),
                   ],
                 ),
