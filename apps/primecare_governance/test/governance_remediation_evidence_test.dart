@@ -99,6 +99,20 @@ class CoreGovernanceRegistry {
     expect(screens['FIXTURE_KEY']!.toJson(), before);
   });
 
+  test('metadata parity reads implicit, const and new constructors consistently', () async {
+    const path = 'apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart';
+    final original = File('${root.path}/$path').readAsStringSync();
+    for (final prefix in ['', 'const ', 'new ']) {
+      write(path, original.replaceAll('ScreenMetadata(', '${prefix}ScreenMetadata('));
+      final issues = await auditor.auditScreenRegistryParity();
+      expect(issues.where((i) => i.metadata['type'] == 'missing_registration').length, 1,
+        reason: 'Only the actually absent fixture may be reported missing: $prefix');
+      expect(issues.where((i) => i.metadata['type'] == 'structural_drift').length, 1,
+        reason: 'The registered fixture still lacks its required component: $prefix');
+      expect(issues.any((i) => i.id == 'parity_audit_failed'), isFalse);
+    }
+  });
+
   test('legacy drift entry point cannot inject a generic provider or invented registration', () async {
     final before = snapshot();
     final resolved = await GovernanceRemediationEngine(null, projectRoot: root.path).remediateDrift();

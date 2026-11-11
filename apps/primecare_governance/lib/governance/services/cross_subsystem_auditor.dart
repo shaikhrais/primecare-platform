@@ -904,12 +904,19 @@ class _ScreenRegistryMetadataVisitor extends RecursiveAstVisitor<void> {
     if (key is SimpleStringLiteral) {
       final id = key.value;
       final value = node.value;
-      if (value is InstanceCreationExpression) {
+      // parseString has no type resolution: an implicit Dart constructor can
+      // appear as a MethodInvocation rather than InstanceCreationExpression.
+      final arguments = value is InstanceCreationExpression
+          ? value.argumentList.arguments
+          : value is MethodInvocation && value.methodName.name == 'ScreenMetadata'
+              ? value.argumentList.arguments
+              : null;
+      if (arguments != null) {
         String? route;
         String? status;
         final components = <String>[];
 
-        for (final arg in value.argumentList.arguments) {
+        for (final arg in arguments) {
           if (arg is NamedExpression) {
             final name = arg.name.label.name;
             if (name == 'routePath') {
