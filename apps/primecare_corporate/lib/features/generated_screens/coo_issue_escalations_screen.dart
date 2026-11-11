@@ -138,7 +138,7 @@ class CooIssueEscalationsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('coo_issue_escalations-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

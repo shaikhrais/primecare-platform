@@ -138,7 +138,7 @@ class TrainerAssignmentsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('trainer_assignments-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

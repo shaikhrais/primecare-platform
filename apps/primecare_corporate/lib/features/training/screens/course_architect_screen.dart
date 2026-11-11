@@ -138,7 +138,7 @@ class CourseArchitectScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('course_architect-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

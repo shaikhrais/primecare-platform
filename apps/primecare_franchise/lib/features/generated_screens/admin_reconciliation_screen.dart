@@ -138,7 +138,7 @@ class AdminReconciliationScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('admin_reconciliation-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

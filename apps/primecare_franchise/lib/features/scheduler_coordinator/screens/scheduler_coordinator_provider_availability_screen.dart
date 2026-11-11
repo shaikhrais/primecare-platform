@@ -138,7 +138,7 @@ class SchedulerCoordinatorProviderAvailabilityScreen extends GovernedConsumerWid
           actions: [
             IconButton(
               key: const Key('scheduler_coordinator_provider_availability-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

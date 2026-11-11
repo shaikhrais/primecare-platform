@@ -138,7 +138,7 @@ class OperationsManagerShiftsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('operations_manager_shifts-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

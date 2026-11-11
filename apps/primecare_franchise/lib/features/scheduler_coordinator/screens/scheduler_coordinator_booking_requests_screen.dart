@@ -138,7 +138,7 @@ class SchedulerCoordinatorBookingRequestsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('scheduler_coordinator_booking_requests-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

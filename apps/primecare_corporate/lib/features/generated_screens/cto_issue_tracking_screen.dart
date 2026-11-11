@@ -138,7 +138,7 @@ class CtoIssueTrackingScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('cto_issue_tracking-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],

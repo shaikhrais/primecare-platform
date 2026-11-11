@@ -138,7 +138,7 @@ class SchedulerCoordinatorAssignmentsScreen extends GovernedConsumerWidget {
           actions: [
             IconButton(
               key: const Key('scheduler_coordinator_assignments-refresh-btn'),
-              icon: Icon(LucideIcons.refreshCw, color: theme.colors.primary),
+              icon: PrimeIcon(LucideIcons.refreshCw, color: theme.colors.primary),
               onPressed: () => controller.refreshData(),
             ),
           ],
