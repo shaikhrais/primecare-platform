@@ -121,13 +121,10 @@ class TrainingCoordinatorMaterialsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_coordinator_materials-screen',
-      child: Scaffold(
-        key: const Key('training_coordinator_materials-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_coordinator_materials-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_coordinator_materials-title',
             child: PrimeText(
               key: const Key('training_coordinator_materials-title'),
@@ -135,6 +132,7 @@ class TrainingCoordinatorMaterialsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_coordinator_materials-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingCoordinatorMaterialsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_coordinator_materials-content',
           child: ResponsiveSplitDashboard(

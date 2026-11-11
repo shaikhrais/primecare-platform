@@ -121,13 +121,10 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'verification_center-screen',
-      child: Scaffold(
-        key: const Key('verification_center-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('verification_center-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'verification_center-title',
             child: PrimeText(
               key: const Key('verification_center-title'),
@@ -135,6 +132,7 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('verification_center-refresh-btn'),
@@ -142,7 +140,6 @@ class VerificationCenterScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'verification_center-content',
           child: ResponsiveSplitDashboard(

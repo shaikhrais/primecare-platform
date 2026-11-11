@@ -121,13 +121,10 @@ class LocalMarketingManagerAssetsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'local_marketing_manager_assets-screen',
-      child: Scaffold(
-        key: const Key('local_marketing_manager_assets-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('local_marketing_manager_assets-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'local_marketing_manager_assets-title',
             child: PrimeText(
               key: const Key('local_marketing_manager_assets-title'),
@@ -135,6 +132,7 @@ class LocalMarketingManagerAssetsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('local_marketing_manager_assets-refresh-btn'),
@@ -142,7 +140,6 @@ class LocalMarketingManagerAssetsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'local_marketing_manager_assets-content',
           child: ResponsiveSplitDashboard(

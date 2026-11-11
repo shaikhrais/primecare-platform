@@ -121,13 +121,10 @@ class CommunityOutreachProgramsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'community_outreach_programs-screen',
-      child: Scaffold(
-        key: const Key('community_outreach_programs-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('community_outreach_programs-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'community_outreach_programs-title',
             child: PrimeText(
               key: const Key('community_outreach_programs-title'),
@@ -135,6 +132,7 @@ class CommunityOutreachProgramsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('community_outreach_programs-refresh-btn'),
@@ -142,7 +140,6 @@ class CommunityOutreachProgramsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'community_outreach_programs-content',
           child: ResponsiveSplitDashboard(

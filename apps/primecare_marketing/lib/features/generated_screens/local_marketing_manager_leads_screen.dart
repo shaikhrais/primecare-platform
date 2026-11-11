@@ -121,13 +121,10 @@ class LocalMarketingManagerLeadsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'local_marketing_manager_leads-screen',
-      child: Scaffold(
-        key: const Key('local_marketing_manager_leads-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('local_marketing_manager_leads-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'local_marketing_manager_leads-title',
             child: PrimeText(
               key: const Key('local_marketing_manager_leads-title'),
@@ -135,6 +132,7 @@ class LocalMarketingManagerLeadsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('local_marketing_manager_leads-refresh-btn'),
@@ -142,7 +140,6 @@ class LocalMarketingManagerLeadsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'local_marketing_manager_leads-content',
           child: ResponsiveSplitDashboard(

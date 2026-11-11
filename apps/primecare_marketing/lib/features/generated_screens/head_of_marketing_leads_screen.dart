@@ -121,13 +121,10 @@ class HeadOfMarketingLeadsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'head_of_marketing_leads-screen',
-      child: Scaffold(
-        key: const Key('head_of_marketing_leads-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('head_of_marketing_leads-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'head_of_marketing_leads-title',
             child: PrimeText(
               key: const Key('head_of_marketing_leads-title'),
@@ -135,6 +132,7 @@ class HeadOfMarketingLeadsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('head_of_marketing_leads-refresh-btn'),
@@ -142,7 +140,6 @@ class HeadOfMarketingLeadsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'head_of_marketing_leads-content',
           child: ResponsiveSplitDashboard(

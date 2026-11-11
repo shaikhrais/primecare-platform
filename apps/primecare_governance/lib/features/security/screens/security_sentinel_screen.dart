@@ -121,13 +121,10 @@ class SecuritySentinelScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'security_sentinel-screen',
-      child: Scaffold(
-        key: const Key('security_sentinel-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('security_sentinel-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'security_sentinel-title',
             child: PrimeText(
               key: const Key('security_sentinel-title'),
@@ -135,6 +132,7 @@ class SecuritySentinelScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('security_sentinel-refresh-btn'),
@@ -142,7 +140,6 @@ class SecuritySentinelScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'security_sentinel-content',
           child: ResponsiveSplitDashboard(

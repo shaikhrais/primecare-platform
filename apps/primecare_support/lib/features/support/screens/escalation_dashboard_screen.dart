@@ -121,13 +121,10 @@ class EscalationDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'escalation_dashboard-screen',
-      child: Scaffold(
-        key: const Key('escalation_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('escalation_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'escalation_dashboard-title',
             child: PrimeText(
               key: const Key('escalation_dashboard-title'),
@@ -135,6 +132,7 @@ class EscalationDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('escalation_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class EscalationDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'escalation_dashboard-content',
           child: ResponsiveSplitDashboard(

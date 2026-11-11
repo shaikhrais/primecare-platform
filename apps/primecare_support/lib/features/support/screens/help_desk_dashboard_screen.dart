@@ -121,13 +121,10 @@ class HelpDeskDashboardScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'help_desk_dashboard-screen',
-      child: Scaffold(
-        key: const Key('help_desk_dashboard-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('help_desk_dashboard-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'help_desk_dashboard-title',
             child: PrimeText(
               key: const Key('help_desk_dashboard-title'),
@@ -135,6 +132,7 @@ class HelpDeskDashboardScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('help_desk_dashboard-refresh-btn'),
@@ -142,7 +140,6 @@ class HelpDeskDashboardScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'help_desk_dashboard-content',
           child: ResponsiveSplitDashboard(

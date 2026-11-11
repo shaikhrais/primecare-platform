@@ -121,13 +121,10 @@ class TrainingCoordinatorWorkshopsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_coordinator_workshops-screen',
-      child: Scaffold(
-        key: const Key('training_coordinator_workshops-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_coordinator_workshops-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_coordinator_workshops-title',
             child: PrimeText(
               key: const Key('training_coordinator_workshops-title'),
@@ -135,6 +132,7 @@ class TrainingCoordinatorWorkshopsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_coordinator_workshops-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingCoordinatorWorkshopsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_coordinator_workshops-content',
           child: ResponsiveSplitDashboard(

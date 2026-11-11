@@ -121,13 +121,10 @@ class LeadershipReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'leadership_reports-screen',
-      child: Scaffold(
-        key: const Key('leadership_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('leadership_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'leadership_reports-title',
             child: PrimeText(
               key: const Key('leadership_reports-title'),
@@ -135,6 +132,7 @@ class LeadershipReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('leadership_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class LeadershipReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'leadership_reports-content',
           child: ResponsiveSplitDashboard(

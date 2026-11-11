@@ -121,13 +121,10 @@ class TerritorySalesManagerPipelineScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'territory_sales_manager_pipeline-screen',
-      child: Scaffold(
-        key: const Key('territory_sales_manager_pipeline-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_sales_manager_pipeline-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_sales_manager_pipeline-title',
             child: PrimeText(
               key: const Key('territory_sales_manager_pipeline-title'),
@@ -135,6 +132,7 @@ class TerritorySalesManagerPipelineScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_sales_manager_pipeline-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritorySalesManagerPipelineScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_sales_manager_pipeline-content',
           child: ResponsiveSplitDashboard(

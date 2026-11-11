@@ -121,13 +121,10 @@ class LocalMarketingManagerEventsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'local_marketing_manager_events-screen',
-      child: Scaffold(
-        key: const Key('local_marketing_manager_events-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('local_marketing_manager_events-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'local_marketing_manager_events-title',
             child: PrimeText(
               key: const Key('local_marketing_manager_events-title'),
@@ -135,6 +132,7 @@ class LocalMarketingManagerEventsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('local_marketing_manager_events-refresh-btn'),
@@ -142,7 +140,6 @@ class LocalMarketingManagerEventsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'local_marketing_manager_events-content',
           child: ResponsiveSplitDashboard(

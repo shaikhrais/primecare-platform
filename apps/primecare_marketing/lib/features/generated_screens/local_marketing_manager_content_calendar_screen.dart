@@ -121,13 +121,10 @@ class LocalMarketingManagerContentCalendarScreen extends GovernedConsumerWidget 
 
     return Cy(
       id: 'local_marketing_manager_content_calendar-screen',
-      child: Scaffold(
-        key: const Key('local_marketing_manager_content_calendar-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('local_marketing_manager_content_calendar-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'local_marketing_manager_content_calendar-title',
             child: PrimeText(
               key: const Key('local_marketing_manager_content_calendar-title'),
@@ -135,6 +132,7 @@ class LocalMarketingManagerContentCalendarScreen extends GovernedConsumerWidget 
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('local_marketing_manager_content_calendar-refresh-btn'),
@@ -142,7 +140,6 @@ class LocalMarketingManagerContentCalendarScreen extends GovernedConsumerWidget 
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'local_marketing_manager_content_calendar-content',
           child: ResponsiveSplitDashboard(

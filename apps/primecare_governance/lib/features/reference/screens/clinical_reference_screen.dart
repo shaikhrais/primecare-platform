@@ -121,13 +121,10 @@ class ClinicalReferenceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'clinical_reference-screen',
-      child: Scaffold(
-        key: const Key('clinical_reference-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('clinical_reference-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'clinical_reference-title',
             child: PrimeText(
               key: const Key('clinical_reference-title'),
@@ -135,6 +132,7 @@ class ClinicalReferenceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('clinical_reference-refresh-btn'),
@@ -142,7 +140,6 @@ class ClinicalReferenceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'clinical_reference-content',
           child: ResponsiveSplitDashboard(

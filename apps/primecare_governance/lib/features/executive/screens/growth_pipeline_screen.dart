@@ -121,13 +121,10 @@ class GrowthPipelineScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'growth_pipeline-screen',
-      child: Scaffold(
-        key: const Key('growth_pipeline-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('growth_pipeline-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'growth_pipeline-title',
             child: PrimeText(
               key: const Key('growth_pipeline-title'),
@@ -135,6 +132,7 @@ class GrowthPipelineScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('growth_pipeline-refresh-btn'),
@@ -142,7 +140,6 @@ class GrowthPipelineScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'growth_pipeline-content',
           child: ResponsiveSplitDashboard(

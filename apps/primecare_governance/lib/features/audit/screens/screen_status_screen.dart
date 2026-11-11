@@ -121,13 +121,10 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'screen_status-screen',
-      child: Scaffold(
-        key: const Key('screen_status-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('screen_status-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'screen_status-title',
             child: PrimeText(
               key: const Key('screen_status-title'),
@@ -135,6 +132,7 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('screen_status-refresh-btn'),
@@ -142,7 +140,6 @@ class ScreenStatusScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'screen_status-content',
           child: ResponsiveSplitDashboard(

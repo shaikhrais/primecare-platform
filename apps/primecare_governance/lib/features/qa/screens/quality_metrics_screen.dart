@@ -121,13 +121,10 @@ class QualityMetricsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'quality_metrics-screen',
-      child: Scaffold(
-        key: const Key('quality_metrics-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('quality_metrics-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'quality_metrics-title',
             child: PrimeText(
               key: const Key('quality_metrics-title'),
@@ -135,6 +132,7 @@ class QualityMetricsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('quality_metrics-refresh-btn'),
@@ -142,7 +140,6 @@ class QualityMetricsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'quality_metrics-content',
           child: ResponsiveSplitDashboard(

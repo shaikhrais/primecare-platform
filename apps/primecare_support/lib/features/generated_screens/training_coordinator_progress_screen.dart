@@ -121,13 +121,10 @@ class TrainingCoordinatorProgressScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_coordinator_progress-screen',
-      child: Scaffold(
-        key: const Key('training_coordinator_progress-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_coordinator_progress-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_coordinator_progress-title',
             child: PrimeText(
               key: const Key('training_coordinator_progress-title'),
@@ -135,6 +132,7 @@ class TrainingCoordinatorProgressScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_coordinator_progress-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingCoordinatorProgressScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_coordinator_progress-content',
           child: ResponsiveSplitDashboard(

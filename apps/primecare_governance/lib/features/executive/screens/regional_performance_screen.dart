@@ -121,13 +121,10 @@ class RegionalPerformanceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'regional_performance-screen',
-      child: Scaffold(
-        key: const Key('regional_performance-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('regional_performance-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'regional_performance-title',
             child: PrimeText(
               key: const Key('regional_performance-title'),
@@ -135,6 +132,7 @@ class RegionalPerformanceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('regional_performance-refresh-btn'),
@@ -142,7 +140,6 @@ class RegionalPerformanceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'regional_performance-content',
           child: ResponsiveSplitDashboard(

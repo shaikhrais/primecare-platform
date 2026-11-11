@@ -121,13 +121,10 @@ class IncidentReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'incident_reports-screen',
-      child: Scaffold(
-        key: const Key('incident_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('incident_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'incident_reports-title',
             child: PrimeText(
               key: const Key('incident_reports-title'),
@@ -135,6 +132,7 @@ class IncidentReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('incident_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class IncidentReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'incident_reports-content',
           child: ResponsiveSplitDashboard(

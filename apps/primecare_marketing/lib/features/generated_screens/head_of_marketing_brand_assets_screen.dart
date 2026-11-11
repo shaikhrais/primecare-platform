@@ -121,13 +121,10 @@ class HeadOfMarketingBrandAssetsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'head_of_marketing_brand_assets-screen',
-      child: Scaffold(
-        key: const Key('head_of_marketing_brand_assets-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('head_of_marketing_brand_assets-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'head_of_marketing_brand_assets-title',
             child: PrimeText(
               key: const Key('head_of_marketing_brand_assets-title'),
@@ -135,6 +132,7 @@ class HeadOfMarketingBrandAssetsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('head_of_marketing_brand_assets-refresh-btn'),
@@ -142,7 +140,6 @@ class HeadOfMarketingBrandAssetsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'head_of_marketing_brand_assets-content',
           child: ResponsiveSplitDashboard(

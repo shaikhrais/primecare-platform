@@ -121,13 +121,10 @@ class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'intake_coordinator_scheduling-screen',
-      child: Scaffold(
-        key: const Key('intake_coordinator_scheduling-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('intake_coordinator_scheduling-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'intake_coordinator_scheduling-title',
             child: PrimeText(
               key: const Key('intake_coordinator_scheduling-title'),
@@ -135,6 +132,7 @@ class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('intake_coordinator_scheduling-refresh-btn'),
@@ -142,7 +140,6 @@ class IntakeCoordinatorSchedulingScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'intake_coordinator_scheduling-content',
           child: ResponsiveSplitDashboard(

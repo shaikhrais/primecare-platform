@@ -121,13 +121,10 @@ class TrainingCoordinatorAttendanceScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'training_coordinator_attendance-screen',
-      child: Scaffold(
-        key: const Key('training_coordinator_attendance-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('training_coordinator_attendance-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'training_coordinator_attendance-title',
             child: PrimeText(
               key: const Key('training_coordinator_attendance-title'),
@@ -135,6 +132,7 @@ class TrainingCoordinatorAttendanceScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('training_coordinator_attendance-refresh-btn'),
@@ -142,7 +140,6 @@ class TrainingCoordinatorAttendanceScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'training_coordinator_attendance-content',
           child: ResponsiveSplitDashboard(

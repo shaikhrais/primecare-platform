@@ -121,13 +121,10 @@ class TerritorySalesManagerCompetitorsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'territory_sales_manager_competitors-screen',
-      child: Scaffold(
-        key: const Key('territory_sales_manager_competitors-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_sales_manager_competitors-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_sales_manager_competitors-title',
             child: PrimeText(
               key: const Key('territory_sales_manager_competitors-title'),
@@ -135,6 +132,7 @@ class TerritorySalesManagerCompetitorsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_sales_manager_competitors-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritorySalesManagerCompetitorsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_sales_manager_competitors-content',
           child: ResponsiveSplitDashboard(

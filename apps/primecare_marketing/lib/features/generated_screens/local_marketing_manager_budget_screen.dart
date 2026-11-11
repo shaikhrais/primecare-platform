@@ -121,13 +121,10 @@ class LocalMarketingManagerBudgetScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'local_marketing_manager_budget-screen',
-      child: Scaffold(
-        key: const Key('local_marketing_manager_budget-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('local_marketing_manager_budget-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'local_marketing_manager_budget-title',
             child: PrimeText(
               key: const Key('local_marketing_manager_budget-title'),
@@ -135,6 +132,7 @@ class LocalMarketingManagerBudgetScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('local_marketing_manager_budget-refresh-btn'),
@@ -142,7 +140,6 @@ class LocalMarketingManagerBudgetScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'local_marketing_manager_budget-content',
           child: ResponsiveSplitDashboard(

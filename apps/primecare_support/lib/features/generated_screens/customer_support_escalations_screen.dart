@@ -121,13 +121,10 @@ class CustomerSupportEscalationsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'customer_support_escalations-screen',
-      child: Scaffold(
-        key: const Key('customer_support_escalations-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('customer_support_escalations-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'customer_support_escalations-title',
             child: PrimeText(
               key: const Key('customer_support_escalations-title'),
@@ -135,6 +132,7 @@ class CustomerSupportEscalationsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('customer_support_escalations-refresh-btn'),
@@ -142,7 +140,6 @@ class CustomerSupportEscalationsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'customer_support_escalations-content',
           child: ResponsiveSplitDashboard(

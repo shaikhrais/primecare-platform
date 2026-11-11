@@ -121,13 +121,10 @@ class ProposalsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'proposals-screen',
-      child: Scaffold(
-        key: const Key('proposals-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('proposals-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'proposals-title',
             child: PrimeText(
               key: const Key('proposals-title'),
@@ -135,6 +132,7 @@ class ProposalsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('proposals-refresh-btn'),
@@ -142,7 +140,6 @@ class ProposalsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'proposals-content',
           child: ResponsiveSplitDashboard(

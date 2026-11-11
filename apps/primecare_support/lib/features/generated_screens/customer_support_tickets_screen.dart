@@ -121,13 +121,10 @@ class CustomerSupportTicketsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'customer_support_tickets-screen',
-      child: Scaffold(
-        key: const Key('customer_support_tickets-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('customer_support_tickets-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'customer_support_tickets-title',
             child: PrimeText(
               key: const Key('customer_support_tickets-title'),
@@ -135,6 +132,7 @@ class CustomerSupportTicketsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('customer_support_tickets-refresh-btn'),
@@ -142,7 +140,6 @@ class CustomerSupportTicketsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'customer_support_tickets-content',
           child: ResponsiveSplitDashboard(

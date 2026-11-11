@@ -121,13 +121,10 @@ class HeadOfMarketingPerformanceReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'head_of_marketing_performance_reports-screen',
-      child: Scaffold(
-        key: const Key('head_of_marketing_performance_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('head_of_marketing_performance_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'head_of_marketing_performance_reports-title',
             child: PrimeText(
               key: const Key('head_of_marketing_performance_reports-title'),
@@ -135,6 +132,7 @@ class HeadOfMarketingPerformanceReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('head_of_marketing_performance_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class HeadOfMarketingPerformanceReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'head_of_marketing_performance_reports-content',
           child: ResponsiveSplitDashboard(

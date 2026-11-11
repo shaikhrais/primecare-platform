@@ -121,13 +121,10 @@ class IntakeCoordinatorNewIntakesScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'intake_coordinator_new_intakes-screen',
-      child: Scaffold(
-        key: const Key('intake_coordinator_new_intakes-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('intake_coordinator_new_intakes-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'intake_coordinator_new_intakes-title',
             child: PrimeText(
               key: const Key('intake_coordinator_new_intakes-title'),
@@ -135,6 +132,7 @@ class IntakeCoordinatorNewIntakesScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('intake_coordinator_new_intakes-refresh-btn'),
@@ -142,7 +140,6 @@ class IntakeCoordinatorNewIntakesScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'intake_coordinator_new_intakes-content',
           child: ResponsiveSplitDashboard(

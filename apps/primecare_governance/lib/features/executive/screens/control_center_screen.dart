@@ -121,13 +121,10 @@ class ControlCenterScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'control_center-screen',
-      child: Scaffold(
-        key: const Key('control_center-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('control_center-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'control_center-title',
             child: PrimeText(
               key: const Key('control_center-title'),
@@ -135,6 +132,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('control_center-refresh-btn'),
@@ -142,7 +140,6 @@ class ControlCenterScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'control_center-content',
           child: ResponsiveSplitDashboard(

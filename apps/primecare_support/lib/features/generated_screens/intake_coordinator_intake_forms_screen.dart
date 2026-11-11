@@ -121,13 +121,10 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'intake_coordinator_intake_forms-screen',
-      child: Scaffold(
-        key: const Key('intake_coordinator_intake_forms-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('intake_coordinator_intake_forms-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'intake_coordinator_intake_forms-title',
             child: PrimeText(
               key: const Key('intake_coordinator_intake_forms-title'),
@@ -135,6 +132,7 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('intake_coordinator_intake_forms-refresh-btn'),
@@ -142,7 +140,6 @@ class IntakeCoordinatorIntakeFormsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'intake_coordinator_intake_forms-content',
           child: ResponsiveSplitDashboard(

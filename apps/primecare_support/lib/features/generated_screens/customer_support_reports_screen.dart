@@ -121,13 +121,10 @@ class CustomerSupportReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'customer_support_reports-screen',
-      child: Scaffold(
-        key: const Key('customer_support_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('customer_support_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'customer_support_reports-title',
             child: PrimeText(
               key: const Key('customer_support_reports-title'),
@@ -135,6 +132,7 @@ class CustomerSupportReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('customer_support_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class CustomerSupportReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'customer_support_reports-content',
           child: ResponsiveSplitDashboard(

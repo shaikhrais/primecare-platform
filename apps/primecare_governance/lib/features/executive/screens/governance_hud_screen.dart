@@ -121,13 +121,10 @@ class GovernanceHudScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'governance_hud-screen',
-      child: Scaffold(
-        key: const Key('governance_hud-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('governance_hud-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'governance_hud-title',
             child: PrimeText(
               key: const Key('governance_hud-title'),
@@ -135,6 +132,7 @@ class GovernanceHudScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('governance_hud-refresh-btn'),
@@ -142,7 +140,6 @@ class GovernanceHudScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'governance_hud-content',
           child: ResponsiveSplitDashboard(

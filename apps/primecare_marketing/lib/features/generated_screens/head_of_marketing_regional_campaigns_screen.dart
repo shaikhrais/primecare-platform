@@ -121,13 +121,10 @@ class HeadOfMarketingRegionalCampaignsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'head_of_marketing_regional_campaigns-screen',
-      child: Scaffold(
-        key: const Key('head_of_marketing_regional_campaigns-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('head_of_marketing_regional_campaigns-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'head_of_marketing_regional_campaigns-title',
             child: PrimeText(
               key: const Key('head_of_marketing_regional_campaigns-title'),
@@ -135,6 +132,7 @@ class HeadOfMarketingRegionalCampaignsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('head_of_marketing_regional_campaigns-refresh-btn'),
@@ -142,7 +140,6 @@ class HeadOfMarketingRegionalCampaignsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'head_of_marketing_regional_campaigns-content',
           child: ResponsiveSplitDashboard(

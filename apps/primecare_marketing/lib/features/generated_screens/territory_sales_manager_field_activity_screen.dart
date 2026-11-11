@@ -121,13 +121,10 @@ class TerritorySalesManagerFieldActivityScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'territory_sales_manager_field_activity-screen',
-      child: Scaffold(
-        key: const Key('territory_sales_manager_field_activity-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('territory_sales_manager_field_activity-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'territory_sales_manager_field_activity-title',
             child: PrimeText(
               key: const Key('territory_sales_manager_field_activity-title'),
@@ -135,6 +132,7 @@ class TerritorySalesManagerFieldActivityScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('territory_sales_manager_field_activity-refresh-btn'),
@@ -142,7 +140,6 @@ class TerritorySalesManagerFieldActivityScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'territory_sales_manager_field_activity-content',
           child: ResponsiveSplitDashboard(

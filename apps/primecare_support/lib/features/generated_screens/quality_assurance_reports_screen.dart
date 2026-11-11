@@ -121,13 +121,10 @@ class QualityAssuranceReportsScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'quality_assurance_reports-screen',
-      child: Scaffold(
-        key: const Key('quality_assurance_reports-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('quality_assurance_reports-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'quality_assurance_reports-title',
             child: PrimeText(
               key: const Key('quality_assurance_reports-title'),
@@ -135,6 +132,7 @@ class QualityAssuranceReportsScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('quality_assurance_reports-refresh-btn'),
@@ -142,7 +140,6 @@ class QualityAssuranceReportsScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'quality_assurance_reports-content',
           child: ResponsiveSplitDashboard(

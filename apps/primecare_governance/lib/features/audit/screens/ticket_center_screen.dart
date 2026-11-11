@@ -121,13 +121,10 @@ class TicketCenterScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'ticket_center-screen',
-      child: Scaffold(
-        key: const Key('ticket_center-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('ticket_center-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'ticket_center-title',
             child: PrimeText(
               key: const Key('ticket_center-title'),
@@ -135,6 +132,7 @@ class TicketCenterScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('ticket_center-refresh-btn'),
@@ -142,7 +140,6 @@ class TicketCenterScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'ticket_center-content',
           child: ResponsiveSplitDashboard(

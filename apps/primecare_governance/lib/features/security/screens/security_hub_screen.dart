@@ -121,13 +121,10 @@ class SecurityHubScreen extends GovernedConsumerWidget {
 
     return Cy(
       id: 'security_hub-screen',
-      child: Scaffold(
-        key: const Key('security_hub-screen'),
+      child: PrimeWorkspaceScaffold(
+        scaffoldKey: const Key('security_hub-screen'),
         backgroundColor: theme.colors.background,
-        appBar: AppBar(
-          backgroundColor: theme.colors.surface,
-          elevation: 0,
-          title: Cy(
+        title: Cy(
             id: 'security_hub-title',
             child: PrimeText(
               key: const Key('security_hub-title'),
@@ -135,6 +132,7 @@ class SecurityHubScreen extends GovernedConsumerWidget {
               style: theme.typography.h3.copyWith(color: theme.colors.onSurface),
             ),
           ),
+          headerColor: theme.colors.surface,
           actions: [
             PrimeIconButton(
               key: const Key('security_hub-refresh-btn'),
@@ -142,7 +140,6 @@ class SecurityHubScreen extends GovernedConsumerWidget {
               onPressed: () => controller.refreshData(),
             ),
           ],
-        ),
         body: Cy(
           id: 'security_hub-content',
           child: ResponsiveSplitDashboard(
