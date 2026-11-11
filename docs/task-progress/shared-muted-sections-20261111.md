@@ -1,0 +1,9 @@
+# Generated section muted-copy batch — 2026-11-11
+
+The exact generated secondary description `Clinical Care Operations Status.` used a literal grey color in 2,334 shared section libraries. This batch uses the existing `PrimeStatusText` with `PrimeStatusTone.muted`, which resolves the active theme's `onSurfaceVariant`. Headings, semantics identifiers, data fields, const parents and layout remain byte-for-byte unchanged. Only the exact description constructor and a narrow shared import change.
+
+`scripts/migrate-muted-sections.py` matches the complete known file template, allowing only class, heading and semantics-label differences. Interpolated headings, modified layouts/styles/colors, restricted imports and other source shapes remain unresolved. It defaults to dry-run with offset/limit controls, limits files to shared screen implementations and rejects symlink escapes.
+
+All 2,334 forward/reverse byte round trips, idempotence checks and direct native compile imports were verified. Four compile fixtures import all 2,334 real consumer libraries and reference their declared widget types. A native test exercises one real generated section across every theme palette and asserts muted foreground, contrast, inherited typography, scaling, label content and semantics. These native tests are authored, not executed locally; GitHub Actions must establish acceptance.
+
+Combined Python checks: 211 passed (182 migration, 16 boundary, 7 status-import cleanup, 6 generator). Workflow YAML parses and whitespace checks pass. After preserving concurrent main 13669915c91a2c578329552b95d355293818f387, strict findings decrease 9,592 to 7,258: 731 direct controls and 6,527 literal colors remain. This batch removes 2,334 color findings and zero direct-control findings. The gate remains failing on real backlog without exemptions. No screen/workflow readiness credit.
