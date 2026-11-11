@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Task Filters Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class QualityAssuranceCorrectiveActionsTaskFiltersSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class QualityAssuranceCorrectiveActionsTaskFiltersSection extends StatelessWidge
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Task Filters Section Section'),
+      child: PrimeText('Task Filters Section Section'),
     );
   }
 }

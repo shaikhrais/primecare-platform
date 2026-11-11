@@ -187,7 +187,7 @@ class TaxRemittance extends GovernedConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(LucideIcons.checkCircle2, color: Colors.green, size: 20),
+                    const PrimeStatusIcon(LucideIcons.checkCircle2, tone: PrimeStatusTone.success, size: 20),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(

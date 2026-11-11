@@ -1,7 +1,7 @@
 name: Runtime theme and XML layout manager
 on:
   pull_request:
-    paths: ['websites/typescript/**', 'packages/domain/src/layout_profile.ts', 'scripts/test-layout-manager-browser.mjs', '.github/workflows/layout-manager.yml']
+    paths: ['websites/typescript/**', 'packages/domain/src/layout_profile.ts', 'scripts/test-layout-manager-browser.mjs', 'scripts/test-browser-ci-fixture-contracts.mjs', '.github/workflows/layout-manager.yml']
 permissions:
   contents: read
 concurrency:
@@ -21,6 +21,7 @@ jobs:
           ln -s "$RUNNER_TEMP/layout-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - run: node --test scripts/test-browser-ci-fixture-contracts.mjs
       - run: node scripts/test-layout-manager-browser.mjs
       - uses: actions/upload-artifact@v4
         if: always()

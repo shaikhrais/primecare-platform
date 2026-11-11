@@ -180,21 +180,21 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_daily_notes_list_get-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_daily_notes_create_post-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_psw_daily_notes_update_patch-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
                   Semantics(
@@ -231,15 +231,15 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         ),
                         child: Column(
                           children: [
-                            const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
+                            const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error, size: 48),
                             const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
+                            PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
-                              child: ElevatedButton(
+                              child: PrimeButton(
                                 onPressed: () => controller.refreshData(),
-                                child: Text('Retry'.tr()),
+                                label: 'Retry'.tr(),
                               ),
                             ),
                           ],
@@ -255,9 +255,9 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
+                            const PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 64),
                             const SizedBox(height: 16),
-                            Text('No data available.'.tr(), style: theme.typography.h4),
+                            PrimeText('No data available.'.tr(), style: theme.typography.h4),
                           ],
                         ),
                       ),
@@ -280,9 +280,9 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Psw_Daily_Notes Cancel'.tr(), style: theme.typography.h4),
+                            PrimeText('Psw_Daily_Notes Cancel'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -301,9 +301,9 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Psw_Daily_Notes Save'.tr(), style: theme.typography.h4),
+                            PrimeText('Psw_Daily_Notes Save'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -322,9 +322,9 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Pswdailynotes Content'.tr(), style: theme.typography.h4),
+                            PrimeText('Pswdailynotes Content'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -343,9 +343,9 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Psw_Daily_Notes Add_Note'.tr(), style: theme.typography.h4),
+                            PrimeText('Psw_Daily_Notes Add_Note'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            PrimeText('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -371,8 +371,8 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Load Psw Daily Notes List Data'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-daily-notes'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Load Psw Daily Notes List Data'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-daily-notes'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -382,7 +382,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -402,13 +402,10 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_psw_daily_notes_list_get-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -419,11 +416,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -437,11 +434,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -451,25 +448,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -498,8 +495,8 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Create New Psw Daily Notes Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-daily-notes'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Create New Psw Daily Notes Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-daily-notes'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -509,7 +506,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -529,13 +526,10 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_psw_daily_notes_create_post-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -546,11 +540,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -564,11 +558,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -578,25 +572,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_create_post-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -625,8 +619,8 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Update Existing Psw Daily Notes Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/psw-daily-notes/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Update Existing Psw Daily Notes Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/psw-daily-notes/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -636,7 +630,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -656,13 +650,10 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_psw_daily_notes_update_patch-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -673,11 +664,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -691,11 +682,11 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -705,25 +696,25 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_psw_daily_notes_update_patch-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -753,7 +744,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                   ),
                   onPressed: () => controller.addLog('General action executed.'),
-                  child: Text('Synchronize Database'.tr(), style: const TextStyle(color: Colors.white)),
+                  child: PrimeText('Synchronize Database'.tr(), style: const TextStyle(color: Colors.white)),
                 ),
               ),
             ),
@@ -770,7 +761,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
+                    PrimeText('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -778,12 +769,12 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-loading'),
                           onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Load'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-error'),
                           onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Error'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -793,12 +784,12 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-empty'),
                           onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Empty'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-success'),
                           onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Success'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -819,7 +810,7 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'Operational Action Logs',
                       style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
@@ -830,12 +821,12 @@ class PswDailyNotesScreen extends GovernedConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            PrimeText(
                               '• ',
                               style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
                             ),
                             Expanded(
-                              child: Text(
+                              child: PrimeText(
                                 log.tr(),
                                 style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                               ),

@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Notes History Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class PswDailyNotesNotesHistorySection extends StatelessWidget {
@@ -8,7 +9,7 @@ class PswDailyNotesNotesHistorySection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Notes History Section Section'),
+      child: PrimeText('Notes History Section Section'),
     );
   }
 }

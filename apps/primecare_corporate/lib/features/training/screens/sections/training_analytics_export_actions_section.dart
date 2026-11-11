@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Export Actions Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class TrainingAnalyticsExportActionsSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class TrainingAnalyticsExportActionsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Export Actions Section Section'),
+      child: PrimeText('Export Actions Section Section'),
     );
   }
 }

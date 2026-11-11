@@ -132,7 +132,7 @@ class _AuthBlurredBlob extends StatelessWidget {
       decoration: BoxDecoration(color: color, shape: BoxShape.circle),
       child: BackdropFilter(
         filter: ImageFilter.blur(sigmaX: size / 4, sigmaY: size / 4),
-        child: Container(color: Colors.transparent),
+        child: const SizedBox.expand(),
       ),
     );
   }

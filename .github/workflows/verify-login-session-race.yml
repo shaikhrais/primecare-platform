@@ -7,6 +7,8 @@ name: Verify login session replacement regression
     paths:
     - websites/typescript/src/auth-screen.ts
     - scripts/test-login-session-ownership.mjs
+    - scripts/test-login-race-patch.mjs
+    - scripts/test-auth-password-workflow.mjs
     - .github/workflows/verify-login-session-race.yml
     - tools/workflow-verification/patches/login-session-race.patch
   push:
@@ -15,6 +17,8 @@ name: Verify login session replacement regression
     paths:
     - websites/typescript/src/auth-screen.ts
     - scripts/test-login-session-ownership.mjs
+    - scripts/test-login-race-patch.mjs
+    - scripts/test-auth-password-workflow.mjs
     - .github/workflows/verify-login-session-race.yml
     - tools/workflow-verification/patches/login-session-race.patch
 permissions:
@@ -59,6 +63,7 @@ jobs:
     - name: Apply common regression probe to pinned runtime source
       run: |
         set -euo pipefail
+        node --test verification/scripts/test-login-race-patch.mjs
         test "$(git -C runtime rev-parse HEAD)" = "${{ matrix.source }}"
         cp verification/scripts/test-auth-password-workflow.mjs runtime/scripts/test-auth-password-workflow.mjs
         (cd runtime && git apply --check ../verification/tools/workflow-verification/patches/login-session-race.patch && git apply ../verification/tools/workflow-verification/patches/login-session-race.patch)

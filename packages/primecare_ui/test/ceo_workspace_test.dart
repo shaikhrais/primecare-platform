@@ -4,12 +4,14 @@ import 'package:flutter_core/flutter_core.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/src/features/generated_screens/ceo_dashboard.dart';
+import 'package:primecare_ui/src/features/training/admin_training_screen.dart';
+import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'auth_design_test.dart' show localized;
 
 class CeoAuthFixture extends AuthNotifier {
   @override
   AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
-    role: 'ceo', userId:'ceo-learner', tenantId:'ceo-tenant', userName: 'ceo@example.test', token: 'test-token');
+    role: 'ceo', userId:'ceo-learner', tenantId:'tenant-fixture', userName: 'ceo@example.test', token: 'test-token');
 }
 
 class CeoWorkspaceApi extends Fake implements ApiClient {
@@ -51,7 +53,8 @@ void main() {
       final api = CeoWorkspaceApi(language);
       await tester.pumpWidget(ProviderScope(overrides: [authProvider.overrideWith(CeoAuthFixture.new),
         apiClientProvider.overrideWithValue(api)],
-        child: localized(const SizedBox(), router: router, language: language)));
+        child: PrimeTheme(data: const PrimeThemeData(), bootstrap: false,
+          child: localized(const SizedBox(), router: router, language: language))));
       await tester.pumpAndSettle();
       expect(find.text('CEO $language workspace'), findsWidgets);
       expect(api.calls, ['/v1/governance/workspace']);
@@ -66,11 +69,12 @@ void main() {
   }
   testWidgets('authorized native workspace opens local training without extra API requests', (tester) async {
     final api=CeoWorkspaceApi('en');
-    await tester.pumpWidget(ProviderScope(overrides:[authProvider.overrideWith(CeoAuthFixture.new),apiClientProvider.overrideWithValue(api)],child:localized(const CeoDashboardScreen())));
+    await tester.pumpWidget(ProviderScope(overrides:[authProvider.overrideWith(CeoAuthFixture.new),apiClientProvider.overrideWithValue(api)],child:PrimeTheme(data:const PrimeThemeData(),bootstrap:false,child:localized(const CeoDashboardScreen()))));
     await tester.pumpAndSettle();await tester.tap(find.byKey(const ValueKey('workspace-training')));await tester.pumpAndSettle();
     final detailed=find.text('Detailed training and self-assessment');
-    await tester.ensureVisible(detailed);await tester.tap(detailed);await tester.pumpAndSettle();
-    expect(find.textContaining('Lessons passed'),findsOneWidget);expect(api.calls,['/v1/governance/workspace']);expect(tester.takeException(),isNull);
+    await tester.scrollUntilVisible(detailed,200,scrollable:find.byType(Scrollable).last,maxScrolls:30);
+    await tester.pumpAndSettle();await tester.tap(detailed);await tester.pumpAndSettle();
+    expect(find.byType(AdminTrainingScreen),findsOneWidget);expect(api.calls,['/v1/governance/workspace']);expect(tester.takeException(),isNull);
   });
   test('CEO dashboard excludes guests and ordinary client roles', () {
     const route = '/offices/corporate/roles/ceo/dashboard';

@@ -396,6 +396,16 @@ class ApiClient {
         route.startsWith('/v1/auth/me/notifications/');
   }
 
+  // These existing generated executive GETs require a real response. This is
+  // only a transport failure boundary, not a route binding or permission grant.
+  static bool _isGeneratedExecutiveReadPath(String path) {
+    final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
+        .replaceFirst(RegExp(r'/+$'), '');
+    return route == '/v1/growth-pipeline' ||
+        route == '/v1/regional-performance' ||
+        route == '/v1/leadership-reports';
+  }
+
   static ApiResponse _workflowFailure(Object error) {
     final response = error is DioException ? error.response : null;
     return ApiResponse(
@@ -420,7 +430,9 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) async {
     final protectedProfile = _isOwnerProfilePath(path);
-    final protectedWorkflow = _isUncachedWorkflowPath(path);
+    final protectedExecutiveRead = _isGeneratedExecutiveReadPath(path);
+    final protectedWorkflow =
+        _isUncachedWorkflowPath(path) || protectedExecutiveRead;
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         path,
@@ -441,7 +453,19 @@ class ApiClient {
         statusCode: response.statusCode ?? ((protectedProfile || protectedWorkflow) ? 503 : 200),
       );
     } catch (e) {
-      if (protectedWorkflow) return _workflowFailure(e);
+      if (protectedWorkflow) {
+        final failure = _workflowFailure(e);
+        // A decoding/interceptor error can carry a 2xx response. It still
+        // cannot confirm a successful executive read.
+        if (protectedExecutiveRead && failure.isSuccess) {
+          return ApiResponse(
+            data: failure.data,
+            statusCode: 503,
+            error: failure.error,
+          );
+        }
+        return failure;
+      }
       if (protectedProfile) {
         final response = e is DioException ? e.response : null;
         return ApiResponse(

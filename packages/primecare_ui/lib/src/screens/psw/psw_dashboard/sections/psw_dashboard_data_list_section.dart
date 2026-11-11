@@ -19,7 +19,7 @@ class PswDashboardDataListSection extends ConsumerWidget {
           if (state.isLoading)
             const Center(child: CircularProgressIndicator())
           else if (state.error != null)
-            Center(child: Text(state.error!, style: const TextStyle(color: Colors.red)))
+            Center(child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error))
           else if (state.clients.isEmpty)
             Center(
               child: Text(

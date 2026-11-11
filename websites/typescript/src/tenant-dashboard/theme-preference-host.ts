@@ -1,16 +1,16 @@
 import {themeLibraryAbsent} from '../../../../packages/primecare_ui/web/theme-restore-storage';
-import {PreferenceSyncClient} from '../../../../packages/shared/src/preference-sync/client';
+import {PreferenceSyncClient,PreferenceFailure} from '../../../../packages/shared/src/preference-sync/client';
 import {preferenceHttpTransport,preferenceStorageCache} from '../../../../packages/shared/src/preference-sync/transport';
 import {mountTenantThemeMigration} from '../../../../packages/primecare_ui/web/advanced-theme-tenant-control';
 import {mountTenantThemeRestore} from '../../../../packages/primecare_ui/web/advanced-theme-tenant-restore-control';
 
-type Options={gateway:string;token:string;locale:'en'|'fr'|'es';tenantId:string;userId:string;dataset:'live'|'demo';isCurrent:()=>boolean};
+type Options={gateway:string;token:string;locale:'en'|'fr'|'es';tenantId:string;userId:string;dataset:'live'|'demo';isCurrent:()=>boolean;whenActive?:()=>Promise<boolean>};
 /** Mount the registered controls only when the owned preference service is available. */
 export function mountTenantThemePreference(root:HTMLElement,options:Options) {
  let disposed=false,removeControl:(()=>void)|undefined,client:PreferenceSyncClient|undefined,draftChanged=false;
  const dialog=root.querySelector<HTMLElement>('[data-cy=theme-center]');
  const opener=root.querySelector<HTMLElement>('[data-cy=appearance-open]');
- if(!dialog||!opener)return ()=>{};
+ if(!dialog||!opener||!options.isCurrent())return ()=>{};
  let started=false;let start=()=>{};
  const touched=(event:Event)=>{const target=event.target;if(target instanceof Element&&!target.closest('[data-cy=theme-restore-review],[data-cy=theme-restore-confirm]')&&target.closest('[data-cy^=theme-center-],[data-cy^=theme-quick-]'))draftChanged=true;};
  for(const name of ['input','change','click'])dialog.addEventListener(name,touched,true);
@@ -18,9 +18,15 @@ export function mountTenantThemePreference(root:HTMLElement,options:Options) {
   const scope={tenantId:options.tenantId,userId:options.userId,role:'tenant_admin',dataset:options.dataset};
   const binding={scope,kind:'theme' as const,resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}};
   const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard',scope.dataset,scope.tenantId,scope.userId,scope.role]));
-  client=new PreferenceSyncClient(binding,preferenceHttpTransport(options.gateway,options.token),preferenceStorageCache(localStorage));
+  const send=preferenceHttpTransport(options.gateway,options.token);
+  const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
+  client=new PreferenceSyncClient(binding,async(request,signal)=>{
+   if(!valid())throw new PreferenceFailure('busy_or_disposed');
+   try{return await send(request,signal);}
+   finally{if(options.whenActive)await options.whenActive();if(!valid())throw new PreferenceFailure('busy_or_disposed');}
+  },preferenceStorageCache(localStorage));
   const current=client;
-  start=()=>{if(started||disposed)return;started=true;void (async()=>{
+  start=()=>{if(started||!valid())return;started=true;void (async()=>{
    await current.load();
    if(disposed||!options.isCurrent()||!root.contains(dialog))return;
    const state=current.current;

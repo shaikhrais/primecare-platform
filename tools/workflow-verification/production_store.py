@@ -80,10 +80,11 @@ class ProductionWorkflowStore:
                 raise GovernanceReadError('Explicit GOVERNANCE_WORKFLOW_WRITES=1 required')
             if os.environ.get('GOVERNANCE_ALLOW_SQLITE_FIXTURES') == '1':
                 raise GovernanceReadError('Production writes cannot use SQLite fixture mode')
-            primary, existing = os.environ.get('GOVERNANCE_DATABASE_URL'), os.environ.get('PRODUCTION_DATABASE_URL')
-            if primary and existing and primary != existing:
+            production, legacy = os.environ.get('PRODUCTION_DATABASE_URL'), os.environ.get('GOVERNANCE_DATABASE_URL')
+            # Keep the legacy conflict guard without accepting it as a connection source.
+            if legacy and production and legacy != production:
                 raise GovernanceReadError('Conflicting governance database configuration')
-            url = urlsplit(primary or existing or '')
+            url = urlsplit(production or '')
             if url.scheme not in ('postgres', 'postgresql') or url.hostname != 'pooled.db.prisma.io' or url.path != '/postgres':
                 raise GovernanceReadError('Missing or unexpected production governance target')
             import psycopg

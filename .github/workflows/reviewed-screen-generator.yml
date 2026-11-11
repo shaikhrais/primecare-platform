@@ -1,0 +1,42 @@
+name: Reviewed screen generator
+on:
+  pull_request:
+    paths:
+      - tools/mvc_generator/generate_reviewed_screen.py
+      - scripts/tests/test_reviewed_screen_generator.py
+      - docs/screen-management/reviewed-screen-generator.md
+      - .github/workflows/reviewed-screen-generator.yml
+      - packages/primecare_models/**
+      - packages/primecare_ui/**
+      - packages/flutter_core/**
+  push:
+    branches: [main, codex/screen-management]
+    paths:
+      - tools/mvc_generator/generate_reviewed_screen.py
+      - scripts/tests/test_reviewed_screen_generator.py
+      - docs/screen-management/reviewed-screen-generator.md
+      - .github/workflows/reviewed-screen-generator.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-generator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Validate generator and run generated unit tests
+        run: python3 -m unittest discover -s scripts/tests -p 'test_reviewed_screen_generator.py' -v
+      - name: Record scope accurately
+        if: always()
+        run: |
+          echo 'Generated code is an abstract review scaffold, not an implemented business screen.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'Unit tests and Dart analysis are configured to run in the fixture test; see step results for execution status. E2E files are starters, analyzed only; no device/backend E2E coverage is claimed.' >> "$GITHUB_STEP_SUMMARY"
+          echo 'No database credentials, deployment, route registration or production writes are used.' >> "$GITHUB_STEP_SUMMARY"

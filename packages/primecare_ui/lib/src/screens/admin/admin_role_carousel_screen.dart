@@ -917,7 +917,7 @@ class _AdminRoleCarouselScreenState extends ConsumerState<AdminRoleCarouselScree
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+          const PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
           const SizedBox(height: 12),
           Text(
             _t('empty'),

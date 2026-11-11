@@ -1,0 +1,31 @@
+name: Enforce shared UI and theme boundary
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  shared-ui-boundary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify boundary diagnostics
+        run: python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
+      - name: Verify conservative shared text migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_text.py
+      - name: Verify conservative shared button migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_buttons.py
+      - name: Verify semantic status migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_status.py
+      - name: Verify conservative loading migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_shared_loading.py
+      - name: Verify generated template theme migration
+        run: python3 -m unittest discover -s scripts/tests -p test_migrate_generated_theme.py
+      - name: Reject direct controls and colors outside shared theme definitions
+        run: python3 scripts/check-shared-ui-boundary.py

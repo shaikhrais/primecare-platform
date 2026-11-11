@@ -111,8 +111,20 @@ def apply(db,expected_digest,fail_after=None):
     except BaseException:
         db.rollback();raise
 
+# This finite code-reviewed list cannot be expanded by a manifest entry alone.
+# Admission identifies current PostgreSQL consumers, not permission to execute them.
+REVIEWED_PRODUCTION_CONSUMERS = frozenset((
+    'cloudflare/workers/src/account-preferences.ts',
+    'cloudflare/workers/src/business-tasks/endpoint-policy.ts',
+    'cloudflare/workers/src/vapi-administration-policy.ts',
+    'cloudflare/workers/src/look/access.ts',
+    'packages/database/migrations/20261025_internal_call_context.sql',
+    'packages/database/migrations/20261025_internal_call_permission_indexes.sql',
+    'packages/shared/src/communications/internal-call-context-query.mjs',
+))
+
 def consumer_preflight(root):
-    # Worker/Dart runtime paths must not consume this corrupt catalog table.
+    # Runtime and migration sources must not consume the corrupt historical catalog.
     found=[];reviewed=[]
     review_path=root/'docs/business/evidence/communication-runtime-reader-review.json'
     reviews=json.loads(review_path.read_text()) if review_path.is_file() else {}
@@ -120,7 +132,7 @@ def consumer_preflight(root):
         for p in (root/area).rglob('*'):
             if p.is_file() and p.suffix in ('.py','.ts','.dart','.js','.mjs','.sql') and 'api_permissions' in p.read_text(errors='replace'):
                 relative=str(p.relative_to(root));entry=reviews.get(relative,{})
-                if (relative in ('cloudflare/workers/src/business-tasks/endpoint-policy.ts', 'cloudflare/workers/src/account-preferences.ts', 'cloudflare/workers/src/vapi-administration-policy.ts', 'cloudflare/workers/src/look/access.ts', 'packages/shared/src/communications/internal-call-context-query.mjs', 'packages/database/migrations/20261025_internal_call_context.sql', 'packages/database/migrations/20261025_internal_call_permission_indexes.sql') and
+                if (relative in REVIEWED_PRODUCTION_CONSUMERS and
                     entry.get('sha256')==hashlib.sha256(p.read_bytes()).hexdigest() and
                     entry.get('authority')=='pinned-production-postgresql' and entry.get('historicalCatalogAccess') is False):
                     reviewed.append(relative)

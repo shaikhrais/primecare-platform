@@ -180,21 +180,21 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                   Offstage(
                     child: Cy(
                       id: 'api_v1_control_center_list_get-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_control_center_create_post-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
 
                   Offstage(
                     child: Cy(
                       id: 'api_v1_control_center_update_patch-status',
-                      child: Text('mocked'),
+                      child: PrimeText('mocked'),
                     ),
                   ),
                   Semantics(
@@ -231,15 +231,15 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                         ),
                         child: Column(
                           children: [
-                            const Icon(LucideIcons.alertTriangle, color: Colors.red, size: 48),
+                            const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error, size: 48),
                             const SizedBox(height: 12),
-                            Text(state.error!, style: const TextStyle(color: Colors.red)),
+                            PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                             const SizedBox(height: 16),
                             Cy(
                               id: 'api-retry-button',
-                              child: ElevatedButton(
+                              child: PrimeButton(
                                 onPressed: () => controller.refreshData(),
-                                child: Text('Retry'.tr()),
+                                label: 'Retry'.tr(),
                               ),
                             ),
                           ],
@@ -255,9 +255,9 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Icon(LucideIcons.inbox, size: 64, color: Colors.grey),
+                            const PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 64),
                             const SizedBox(height: 16),
-                            Text('No data available.'.tr(), style: theme.typography.h4),
+                            PrimeText('No data available.'.tr(), style: theme.typography.h4),
                           ],
                         ),
                       ),
@@ -287,8 +287,8 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Load Control Center List Data'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/control-center'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Load Control Center List Data'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/control-center'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -298,7 +298,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('GET', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -318,13 +318,10 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_control_center_list_get-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -335,11 +332,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -353,11 +350,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -367,25 +364,25 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_list_get-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_list_get-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_list_get-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_list_get-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -414,8 +411,8 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Create New Control Center Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/control-center'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Create New Control Center Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/control-center'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -425,7 +422,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('POST', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -445,13 +442,10 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_control_center_create_post-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -462,11 +456,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -480,11 +474,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -494,25 +488,25 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_create_post-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_create_post-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_create_post-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_create_post-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -541,8 +535,8 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                   child: Column(
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Text('Update Existing Control Center Record'.tr(), style: theme.typography.h4),
-                                      Text('Endpoint: /v1/control-center/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
+                                      PrimeText('Update Existing Control Center Record'.tr(), style: theme.typography.h4),
+                                      PrimeText('Endpoint: /v1/control-center/:id'.tr(), style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
                                     ],
                                   ),
                                 ),
@@ -552,7 +546,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                     color: theme.colors.primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
-                                  child: Text('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
+                                  child: PrimeText('PATCH', style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold, fontSize: 11)),
                                 ),
                               ],
                             ),
@@ -572,13 +566,10 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 id: 'api_v1_control_center_update_patch-error',
                                 child: Row(
                                   children: [
-                                    const Icon(LucideIcons.alertTriangle, color: Colors.red),
+                                    const PrimeStatusIcon(LucideIcons.alertTriangle, tone: PrimeStatusTone.error),
                                     const SizedBox(width: 8),
                                     Expanded(
-                                      child: Text(
-                                        state.error!,
-                                        style: const TextStyle(color: Colors.red),
-                                      ),
+                                      child: PrimeStatusText(state.error!, tone: PrimeStatusTone.error),
                                     ),
                                   ],
                                 ),
@@ -589,11 +580,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   children: [
                                     const Center(
-                                      child: Icon(LucideIcons.inbox, size: 48, color: Colors.grey),
+                                      child: PrimeStatusIcon(LucideIcons.inbox, tone: PrimeStatusTone.muted, size: 48),
                                     ),
                                     const SizedBox(height: 8),
                                     Center(
-                                      child: Text(
+                                      child: PrimeText(
                                         'No data available.'.tr(),
                                         style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
                                       ),
@@ -607,11 +598,11 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    PrimeText('Connected API Records:'.tr(), style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
-                                      child: Text('• $log', style: theme.typography.bodyMedium),
+                                      child: PrimeText('• $log', style: theme.typography.bodyMedium),
                                     )),
                                   ],
                                 ),
@@ -621,25 +612,25 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_update_patch-btn-loading'),
                                   onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
+                                  label: 'Load'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_update_patch-btn-error'),
                                   onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
+                                  label: 'Error'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_update_patch-btn-empty'),
                                   onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
+                                  label: 'Empty'.tr(),
                                 ),
-                                TextButton(
+                                PrimeButton(isGhost: true, 
                                   key: const Key('api_v1_control_center_update_patch-btn-success'),
                                   onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
+                                  label: 'Success'.tr(),
                                 ),
                               ],
                             ),
@@ -671,7 +662,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Data Cy Btn Dispatch executed successfully.'),
-                          child: Text('Data Cy Btn Dispatch'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Data Cy Btn Dispatch'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -691,7 +682,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Data Cy Btn Upload Proof executed successfully.'),
-                          child: Text('Data Cy Btn Upload Proof'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Data Cy Btn Upload Proof'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -711,7 +702,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_1 executed successfully.'),
-                          child: Text('Control_Center_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Control_Center_Screen_Iconbutton_Button_1'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -731,7 +722,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                           ),
                           onPressed: () => controller.addLog('Action: Control_Center_Screen_Iconbutton_Button_2 executed successfully.'),
-                          child: Text('Control_Center_Screen_Iconbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
+                          child: PrimeText('Control_Center_Screen_Iconbutton_Button_2'.tr(), style: const TextStyle(color: Colors.white)),
                         ),
                       ),
                     ),
@@ -749,7 +740,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
+                    PrimeText('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -757,12 +748,12 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-loading'),
                           onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Load'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-error'),
                           onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Error'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -772,12 +763,12 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                         TextButton(
                           key: const Key('sim-btn-empty'),
                           onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Empty'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                         TextButton(
                           key: const Key('sim-btn-success'),
                           onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
+                          child: PrimeText('Success'.tr(), style: const TextStyle(fontSize: 11)),
                         ),
                       ],
                     ),
@@ -798,7 +789,7 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    PrimeText(
                       'Operational Action Logs',
                       style: theme.typography.h4.copyWith(color: theme.colors.onSurface),
                     ),
@@ -809,12 +800,12 @@ class ControlCenterScreen extends GovernedConsumerWidget {
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
+                            PrimeText(
                               '• ',
                               style: TextStyle(color: theme.colors.primary, fontWeight: FontWeight.bold),
                             ),
                             Expanded(
-                              child: Text(
+                              child: PrimeText(
                                 log.tr(),
                                 style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant),
                               ),

@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/src/features/auth/mfa_controller.dart';
+import 'package:primecare_ui/src/features/auth/mfa_catalog.g.dart';
 import 'package:primecare_ui/src/features/auth/reset_password_controller.dart';
 import 'auth_design_test.dart' show localized;
 
@@ -36,9 +37,10 @@ void main() {
   });
 
   for (final language in messages.keys) {
-    testWidgets('reset shows $language text and challenge-free MFA stays inactive', (tester) async {
+    testWidgets('failed MFA and unavailable reset show $language text and remain fail closed', (tester) async {
       await tester.pumpWidget(ProviderScope(child: localized(Scaffold(
         body: Consumer(builder: (context, ref, _) => Column(children: [
+          Text(ref.watch(mfaControllerProvider).failed ? nativeMfaText[language]!['error']! : ''),
           Text(ref.watch(resetPasswordControllerProvider).errorMessage ?? ''),
         ])),
       ), language: language)));
@@ -48,6 +50,7 @@ void main() {
       await tester.pumpAndSettle();
       final container = ProviderScope.containerOf(context);
       final mfa = container.read(mfaControllerProvider.notifier);
+      mfa.request({'purpose': 'verify'}, (_) async => false);
       mfa.onCodeChanged('000000');
       await mfa.verify();
       final reset = container.read(resetPasswordControllerProvider.notifier);
@@ -55,15 +58,14 @@ void main() {
       reset.onConfirmPasswordChanged('synthetic-fixture-only');
       await reset.submit();
       await tester.pumpAndSettle();
-      final mfaState = container.read(mfaControllerProvider);
-      expect(mfaState.pending, isFalse);
-      expect(mfaState.code, isEmpty);
-      expect(mfaState.isLoading, isFalse);
-      expect(mfaState.failed, isFalse);
+      expect(container.read(mfaControllerProvider).failed, isTrue);
+      expect(container.read(mfaControllerProvider).pending, isTrue);
       expect(container.read(resetPasswordControllerProvider).isSuccess, isFalse);
+      expect(find.text(nativeMfaText[language]!['error']!), findsOneWidget);
       expect(find.text(messages[language]!), findsOneWidget);
       expect(find.text('auth_flow_unavailable'), findsNothing);
       expect(tester.takeException(), isNull);
+      mfa.cancel();
     });
   }
 }

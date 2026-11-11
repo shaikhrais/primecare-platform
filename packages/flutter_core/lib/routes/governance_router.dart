@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:easy_localization/easy_localization.dart';
 import '../models/domain_governance.dart';
+import '../models/screen.dart' show AppShellBoundary;
+import '../models/screen_manager.dart';
 import '../registry/governance_registry.dart';
 import '../registry/platform_role.dart';
 import '../registry/widgets/governance_master_layout.dart';
@@ -20,6 +22,7 @@ class GovernanceRouter {
     required PlatformApplication application,
     required PlatformRole activeRole,
     required String initialLocation,
+    required ScreenManager screenManager,
     GlobalKey<NavigatorState>? navigatorKey,
     Listenable? refreshListenable,
     GoRouterRedirect? redirect,
@@ -49,7 +52,13 @@ class GovernanceRouter {
           authorizedRoutes.add(
             GoRoute(
               path: screen.route,
-              builder: governedScreenBuilder ?? ((context, state) => screen.build(context)),
+              builder: (context, state) => ManagedScreenBoundary(
+                manager: screenManager,
+                screenId: screen.route,
+                builder: (context) => governedScreenBuilder == null
+                    ? screen.build(context)
+                    : governedScreenBuilder(context, state),
+              ),
             ),
           );
         }
@@ -58,7 +67,14 @@ class GovernanceRouter {
 
     for (final path in additionalGovernedRoutes) {
       if (!authorizedRoutes.any((route) => route.path == path) && governedScreenBuilder != null) {
-        authorizedRoutes.add(GoRoute(path: path, builder: governedScreenBuilder));
+        authorizedRoutes.add(GoRoute(
+          path: path,
+          builder: (context, state) => ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: path,
+            builder: (context) => governedScreenBuilder(context, state),
+          ),
+        ));
       }
     }
     if (authorizedRoutes.isEmpty) {
@@ -71,8 +87,12 @@ class GovernanceRouter {
       authorizedRoutes.add(
         GoRoute(
           path: fallbackPath,
-          builder: (context, state) => Scaffold(
-            body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+          builder: (context, state) => ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: '/internal/unauthorized-fallback',
+            builder: (_) => Scaffold(
+              body: Center(child: Text(tr('governance.unauthorized_route_message'))),
+            ),
           ),
         ),
       );
@@ -87,8 +107,12 @@ class GovernanceRouter {
       routes: [
         GoRoute(
           path: CommonRoutes.authCallback,
-          builder: (context, state) => AuthCallbackView(
-            queryParameters: state.uri.queryParameters,
+          builder: (context, state) => AppShellBoundary(
+            child: ManagedScreenBoundary(
+              manager: screenManager,
+              screenId: CommonRoutes.authCallback,
+              builder: (_) => AuthCallbackView(queryParameters: state.uri.queryParameters),
+            ),
           ),
         ),
         ...publicRoutes,
@@ -104,7 +128,11 @@ class GovernanceRouter {
       errorBuilder: (context, state) {
         if (activeRole == PlatformRole.guest) {
           if (guestErrorBuilder != null) {
-            return guestErrorBuilder(context, state);
+            return AppShellBoundary(child: ManagedScreenBoundary(
+              manager: screenManager,
+              screenId: '/internal/guest-error',
+              builder: (context) => guestErrorBuilder(context, state),
+            ));
           }
 
         }
@@ -112,7 +140,10 @@ class GovernanceRouter {
         return GovernanceMasterLayout(
           application: application,
           activeRole: activeRole,
-          child: Scaffold(
+          child: ManagedScreenBoundary(
+            manager: screenManager,
+            screenId: '/internal/access-denied',
+            builder: (_) => Scaffold(
             appBar: AppBar(title: Text(tr('governance.access_denied'))),
             body: Center(
               child: Column(
@@ -135,6 +166,7 @@ class GovernanceRouter {
                   ],
                 ],
               ),
+            ),
             ),
           ),
         );

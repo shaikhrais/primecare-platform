@@ -251,6 +251,13 @@ def to_camel_case(snake_str):
     return "".join(x.title() for x in components)
 
 def main():
+    raise SystemExit(
+        'Legacy screen scaffolder is disabled: its template invents operational '
+        'status and API actions and does not register managed routes. Use '
+        'tools/mvc_generator/generate_screen.dart or '
+        'scripts/generate_and_verify_planned_screens.py with an isolated fixture '
+        'and review the generated route and authorization.'
+    )
     if not os.path.exists(DB_PATH):
         print(f"Error: Database not found at {DB_PATH}")
         return

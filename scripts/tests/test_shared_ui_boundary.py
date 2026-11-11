@@ -1,0 +1,97 @@
+import importlib.util
+import unittest
+import tempfile
+from pathlib import Path
+
+spec = importlib.util.spec_from_file_location('boundary', Path(__file__).parents[1] / 'check-shared-ui-boundary.py')
+boundary = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(boundary)
+
+class SharedUiBoundaryTest(unittest.TestCase):
+    def test_icons_and_progress_controls_require_shared_library(self):
+        source = 'Icon(Icons.star); CircularProgressIndicator(); LinearProgressIndicator(value: progress);'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)],
+                         ['Icon', 'CircularProgressIndicator', 'LinearProgressIndicator'])
+        self.assertEqual(boundary.violations(source, False), [])
+
+    def test_executable_string_interpolations_are_checked(self):
+        source = 'final label = "value ${Text(\"inside\").data} ${Colors.red}";'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Text', 'Colors.red'])
+
+    def test_nested_strings_and_map_literals_preserve_interpolation_code(self):
+        source = 'final label = "${{\"label\": \"${Colors.blue}\"}.toString()}";'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Colors.blue'])
+
+    def test_raw_and_escaped_interpolations_are_only_text(self):
+        for source in [r'final x = r"${Text(1)} ${Colors.red}";',
+                       r'final x = R"${Colors.red}";',
+                       r'final x = "\${Colors.red}";']:
+            with self.subTest(source=source):
+                self.assertEqual(boundary.violations(source, True), [])
+
+    def test_nested_block_comments_do_not_create_false_violations(self):
+        source = '/* outer /* inner */ Text("example"); Colors.red; */\nText("live");'
+        self.assertEqual(boundary.violations(source, True), [(2, 'shared-control', 'Text')])
+
+    def test_multiline_interpolation_keeps_original_diagnostic_line(self):
+        source = 'final x = """text\n${\nColor(1)\n}\n""";'
+        self.assertEqual(boundary.violations(source, False), [(3, 'theme-color', 'Color(')])
+
+    def test_control_and_color_typedef_aliases_are_rejected_at_definition(self):
+        source = 'typedef Label = ui.Text; typedef Tint = Color; typedef Selection<T> = ui.DropdownButton<T>;'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)], ['Text', 'Color', 'DropdownButton'])
+        self.assertEqual([f[2] for f in boundary.violations(source, False)], ['Color'])
+
+    def test_shared_aliases_and_inert_quoted_comment_markers_pass(self):
+        source = 'typedef SharedLabel = PrimeText; final x = "/* Text( */ // Colors.red";'
+        self.assertEqual(boundary.violations(source, True), [])
+
+    def test_direct_alias_named_and_generic_controls_fail(self):
+        findings = boundary.violations('ui.Text("Name"); FilledButton.tonal(onPressed: null); DropdownButton<String>();', True)
+        self.assertEqual([f[2] for f in findings], ['Text', 'FilledButton', 'DropdownButton'])
+
+    def test_comments_and_strings_do_not_create_violations(self):
+        self.assertEqual(boundary.violations('// Text("x")\n/* Colors.red */\nfinal label = "Color(0xff000000)";', True), [])
+
+    def test_shared_implementations_may_build_controls_but_not_literal_colors(self):
+        self.assertEqual(boundary.violations('Text(label, style: theme.typography.bodyMedium);', False), [])
+        self.assertEqual(len(boundary.violations('ui.Color(1); Color.fromARGB(1, 2, 3, 4); Colors.red.shade100;', False)), 3)
+
+    def test_shared_controls_and_theme_tokens_pass(self):
+        self.assertEqual(boundary.violations('PrimeCareCard(child: PrimeCareTextField(label: label)); final color = theme.colors.surface;', True), [])
+
+    def test_line_numbers_survive_multiline_comments(self):
+        self.assertEqual(boundary.violations('/* first\n second */\nText(label);', True)[0][0], 3)
+
+    def test_constructor_tearoffs_cannot_bypass_shared_library(self):
+        source = 'final a = ui.Text.new; final b = Text.rich; final c = FloatingActionButton.extended;'
+        self.assertEqual([f[2] for f in boundary.violations(source, True)],
+                         ['Text', 'Text', 'FloatingActionButton'])
+        self.assertEqual(boundary.violations(source, False), [])
+
+    def test_modern_color_constructor_and_emergency_button_fail(self):
+        self.assertEqual([f[1] for f in boundary.violations(
+            'final color = Color.from(alpha: 1, red: 0, green: 0, blue: 0); FloatingActionButton.large();', True)],
+            ['theme-color', 'shared-control'])
+
+    def test_scan_keeps_existing_violations_and_shared_library_boundary(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            sources = {
+                'apps/demo/lib/view.dart': 'Text("direct");',
+                'apps/demo/test/view_test.dart': 'Text("test fixture");',
+                'packages/primecare_ui/lib/src/components/card.dart': 'Text("shared"); Colors.white;',
+                'packages/primecare_ui/lib/src/theme/palette.dart': 'Color(1);',
+                'packages/feature/lib/view.dart': 'Text("bypass"); Colors.red;',
+                'packages/feature/test/view_test.dart': 'Text("fixture");',
+            }
+            for relative, source in sources.items():
+                path = root / relative
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(source, encoding='utf-8')
+            self.assertEqual([(f[0], f[2]) for f in boundary.scan(root)], [
+                ('apps/demo/lib/view.dart', 'shared-control'),
+                ('packages/feature/lib/view.dart', 'shared-control'),
+                ('packages/feature/lib/view.dart', 'theme-color'),
+                ('packages/primecare_ui/lib/src/components/card.dart', 'theme-color'),
+            ])

@@ -36,7 +36,7 @@ test('generated Postman collection scripts execute in the real Newman sandbox',a
  const sample={...original,item:flatten(original.item).filter(x=>['GET /v1/provider/profile','POST /v1/user/preferences'].includes(x.name))};assert.equal(sample.item.length,2);
  const scriptResults=[];const result=await new Promise((resolve,reject)=>loadNewman().run({collection:sample,reporters:[],environment:{values:[{key:'baseUrl',value:fixture.baseUrl},{key:'allowRemote',value:'false'}]},ignoreRedirects:true,timeoutRequest:5000},(error,summary)=>error?reject(error):resolve(summary)).on('script',(error,args)=>{scriptResults.push(args.execution);}));
  assert.equal(result.run.failures.length,0,'Generated sandbox scripts must succeed');assert.equal(result.run.stats.requests.total,2);assert.equal(fixture.guard.methodObservations.length,2);
- const variables=scriptResults.at(-1).collectionVariables.values;const aggregated=JSON.parse(variables.find(v=>v.key==='operationResults').value);assert.equal(aggregated.length,2);assert.ok(aggregated.every(r=>r.businessVerified===false&&typeof r.status==='number'));assert.deepEqual(new Set(aggregated.map(r=>r.outcome)),new Set(['requires_auth','handler_or_database_failure']));assert.equal(JSON.parse(variables.find(v=>v.key==='errorReport').value).length,2);assert.doesNotMatch(JSON.stringify(aggregated),/Bearer|password|patient/);
+ const variables=scriptResults.at(-1).collectionVariables.values;const aggregated=JSON.parse(variables.find(v=>v.key==='operationResults').value);assert.equal(aggregated.length,2);assert.ok(aggregated.every(r=>r.businessVerified===false&&typeof r.status==='number'));assert.deepEqual(Object.fromEntries(aggregated.map(({api,status,outcome})=>[api,{status,outcome}])),{'GET /v1/provider/profile':{status:401,outcome:'requires_auth'},'POST /v1/user/preferences':{status:503,outcome:'handler_or_database_failure'}});assert.equal(fixture.guard.databaseAttempts,0);assert.equal(fixture.guard.externalNetworkAttempts,0);assert.equal(JSON.parse(variables.find(v=>v.key==='errorReport').value).length,2);assert.doesNotMatch(JSON.stringify(aggregated),/Bearer|password|patient/);
  }finally{await fixture.close();}
 });
 
@@ -56,6 +56,7 @@ test('reviewed bodyless mutations reach auth; injected JSON bodies are rejected 
 test('attributed esbuild JSON identities resolve to their real source path',()=>{
  for(const quote of ["'",'"'])assert.equal(diagnosticInputPath('policy.json with { type: '+quote+'json'+quote+' }',{with:{type:'json'}}),'policy.json');
  assert.equal(diagnosticInputPath("real filename with { type: 'json' }",{}),"real filename with { type: 'json' }");
+ // A sole attributed import has no synthetic suffix in esbuild's metafile.
  assert.equal(diagnosticInputPath('policy.json',{with:{type:'json'}}),'policy.json');
  for(const [name,input] of [["policy.json with { type: 'json' }",{with:{type:'json',other:'value'}}],['policy.json',{with:{type:'unknown'}}]])assert.throws(()=>diagnosticInputPath(name,input));
 });

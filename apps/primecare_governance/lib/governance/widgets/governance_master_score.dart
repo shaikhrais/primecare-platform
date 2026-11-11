@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: Core implementation file for the Governance Master Score platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import '../models/governance_report.dart';
 
@@ -43,7 +44,7 @@ class GovernanceMasterScore extends StatelessWidget {
           Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
+              PrimeText(
                 '${score.toInt()}%',
                 style: TextStyle(
                   fontSize: 48,
@@ -51,7 +52,7 @@ class GovernanceMasterScore extends StatelessWidget {
                   color: color,
                 ),
               ),
-              const Text(
+              const PrimeText(
                 'HEALTH SCORE',
                 style: TextStyle(
                   fontSize: 12,
@@ -70,7 +71,7 @@ class GovernanceMasterScore extends StatelessWidget {
                   color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: Text(
+                child: PrimeText(
                   _getScoreLabel(score),
                   style: TextStyle(
                     fontSize: 10,

@@ -20,8 +20,8 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     activeRole: ref.watch(activeRoleProvider),
     application: ref.read(clinicApplicationProvider),
     additionalPublicRoutes: [
-      GoRoute(path: CommonRoutes.globalSettings,
-        builder: (context, state) => const AppShellBoundary(child: GlobalSettingsScreen())),
+      ManagedPublicRoute(path: CommonRoutes.globalSettings,
+        builder: (context, state) => const GlobalSettingsScreen()),
     ],
   );
 });

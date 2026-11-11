@@ -1,4 +1,5 @@
 // Governance - Category: view | Purpose: [GovernanceEventFeed] - A high-fidelity real-time telemetry feed showing architectural and security events as they ha...
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import '../../core/governance/governance_provider.dart';
@@ -36,7 +37,7 @@ class GovernanceEventFeed extends StatelessWidget {
                 children: [
                   Icon(Icons.bolt_rounded, color: Colors.amber, size: 24),
                   SizedBox(width: 12),
-                  Text(
+                  PrimeText(
                     'Live Telemetry Feed',
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
@@ -59,7 +60,7 @@ class GovernanceEventFeed extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 6),
-                    const Text(
+                    const PrimeText(
                       'Live',
                       style: TextStyle(
                         color: Colors.green,
@@ -85,7 +86,7 @@ class GovernanceEventFeed extends StatelessWidget {
                       size: 48,
                     ),
                     SizedBox(height: 16),
-                    Text(
+                    PrimeText(
                       'No events detected yet',
                       style: TextStyle(color: Colors.grey),
                     ),
@@ -139,7 +140,7 @@ class _EventItem extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
+                  PrimeText(
                     event.type.toUpperCase(),
                     style: TextStyle(
                       fontSize: 10,
@@ -148,14 +149,14 @@ class _EventItem extends StatelessWidget {
                       letterSpacing: 1.2,
                     ),
                   ),
-                  Text(
+                  PrimeText(
                     DateFormat('HH:mm:ss').format(event.timestamp),
                     style: const TextStyle(fontSize: 10, color: Colors.grey),
                   ),
                 ],
               ),
               const SizedBox(height: 4),
-              Text(
+              PrimeText(
                 event.message,
                 style: const TextStyle(
                   fontSize: 13,

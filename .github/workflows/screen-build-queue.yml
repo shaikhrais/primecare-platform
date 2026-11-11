@@ -1,0 +1,29 @@
+name: Screen build queue
+on:
+  pull_request:
+    paths:
+      - 'docs/screen-management/**'
+      - 'scripts/check_screen_build_queue.py'
+      - 'scripts/test_screen_build_queue.py'
+      - 'packages/primecare_ui/lib/src/screens/*screen*registrations.dart'
+      - 'packages/primecare_ui/lib/src/screens/screen_manager_catalog.dart'
+      - 'packages/primecare_ui/lib/src/features/auth/generated_managed_routes.g.dart'
+      - 'packages/primecare_ui/lib/src/features/platform/platform_master_catalog.g.dart'
+      - 'apps/primecare_governance/lib/core/governance/route_registry.dart'
+      - '.github/workflows/screen-build-queue.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test isolated inventory parser
+        run: python scripts/test_screen_build_queue.py
+      - name: Check registered route queue
+        run: python scripts/check_screen_build_queue.py

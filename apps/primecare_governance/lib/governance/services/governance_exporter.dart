@@ -6,6 +6,18 @@ import 'package:pdf/widgets.dart' as pw;
 import '../models/governance_report.dart';
 
 class GovernanceExporter {
+  static String _csvCell(String value) {
+    // Quoting alone does not prevent spreadsheet formula execution.
+    final trimmed = value.trimLeft();
+    final safe = trimmed.isNotEmpty && '=+-@'.contains(trimmed[0])
+        ? "'$value" : value;
+    return '"${safe.replaceAll('"', '""')}"';
+  }
+
+  static String _markdownCell(String value) => const HtmlEscape()
+      .convert(value).replaceAll('|', r'\|').replaceAll('\n', ' ')
+      .replaceAll('\r', ' ');
+
   /// Generates a Markdown representation of the governance report
   static String toMarkdown(GovernanceReport report) {
     final buffer = StringBuffer();
@@ -21,7 +33,7 @@ class GovernanceExporter {
     buffer.writeln('| Overall Issues | ${report.totalIssues} |');
     buffer.writeln('| Critical Issues | ${report.criticalIssues} |');
     buffer.writeln(
-      '| Production Ready | ${report.productionReadyScreens} / ${report.totalScreens} (${report.productionReadyScreens / report.totalScreens * 100}% ) |',
+      '| Production Ready | ${report.productionReadyScreens} / ${report.totalScreens} (${(report.totalScreens == 0 ? 0.0 : report.productionReadyScreens / report.totalScreens * 100)}% ) |',
     );
     buffer.writeln(
       '| Avg Test Pass Rate | ${report.averageTestPassRate.toStringAsFixed(1)}% |',
@@ -46,7 +58,7 @@ class GovernanceExporter {
 
     for (final issue in report.issues) {
       buffer.writeln(
-        '| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${issue.title} | ${issue.message} | ${issue.suggestedFix} |',
+        '| ${issue.severity.name.toUpperCase()} | ${issue.category.name.toUpperCase()} | ${_markdownCell(issue.screenId)} | ${_markdownCell(issue.message)} | ${_markdownCell(issue.suggestedFix)} |',
       );
     }
 
@@ -61,6 +73,7 @@ class GovernanceExporter {
   static String toJson(GovernanceReport report) {
     return jsonEncode({
       'metadata': {
+        'source': 'registry metadata analysis; not production verification',
         'generatedAt': DateTime.now().toIso8601String(),
         'engineVersion': '1.0.0',
       },
@@ -85,7 +98,7 @@ class GovernanceExporter {
       'issues': report.issues
           .map(
             (i) => {
-              'screenId': i.screenId,
+              ...i.toJson(),
               'severity': i.severity.name,
               'category': i.category.name,
               'message': i.message,
@@ -109,13 +122,13 @@ class GovernanceExporter {
       final line = [
         i.severity.name,
         i.category.name,
-        '"${i.title}"',
+        i.screenId,
         i.routePath,
-        '"${i.message}"',
-        '"${i.suggestedFix}"',
+        i.message,
+        i.suggestedFix,
         i.owner,
         i.detectedAt.toIso8601String(),
-      ].join(',');
+      ].map(_csvCell).join(',');
       buffer.writeln(line);
     }
 
@@ -192,16 +205,16 @@ class GovernanceExporter {
             <tr>
                 <td><span class="severity severity-${i.severity.name}">${i.severity.name.toUpperCase()}</span></td>
                 <td>${i.category.name.toUpperCase()}</td>
-                <td>${i.title}</td>
-                <td>${i.message}</td>
-                <td>${i.suggestedFix}</td>
+                <td>${const HtmlEscape().convert(i.title)}</td>
+                <td>${const HtmlEscape().convert(i.message)}</td>
+                <td>${const HtmlEscape().convert(i.suggestedFix)}</td>
             </tr>
             ''').join('')}
         </tbody>
     </table>
 
     <div class="footer">
-        © ${DateTime.now().year} PrimeCare Architectural Governance Engine. Confirmed Integrity Milestone.
+        © ${DateTime.now().year} PrimeCare Architectural Governance Engine. Registry metadata analysis.
     </div>
 </body>
 </html>
@@ -215,6 +228,7 @@ class GovernanceExporter {
     pdf.addPage(
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
+        maxPages: report.issues.length + 10,
         build: (pw.Context context) => [
           pw.Header(
             level: 0,

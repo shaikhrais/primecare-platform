@@ -35,7 +35,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xFFEFF6FF),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: theme.colors.surface,
         elevation: 1,
         title: Row(
           children: [
@@ -58,8 +58,8 @@ class DocumentsScreen extends GovernedConsumerWidget {
             const SizedBox(width: 12),
             Text(
               'DocumentsScreen',
-              style: const TextStyle(
-                color: Color(0xFF0F172A),
+              style:  TextStyle(
+                color: theme.colors.onSurface,
                 fontWeight: FontWeight.bold,
                 fontSize: 17,
               ),
@@ -77,9 +77,9 @@ class DocumentsScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(20),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.colors.surface,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: const Color(0xFFE2E8F0)),
+                border: Border.all(color:  theme.colors.outline),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,15 +93,15 @@ class DocumentsScreen extends GovernedConsumerWidget {
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(color: const Color(0xFF10B981).withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child: const Text('100% READY', style: TextStyle(color: Color(0xFF10B981), fontSize: 10, fontWeight: FontWeight.bold)),
+                        decoration: BoxDecoration(color:  theme.colors.success.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
+                        child:  Text('100% READY', style: TextStyle(color: theme.colors.success, fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Text('Provides a dedicated management interface within the Primecare Client module to enable Patient personnel to oversee, audit, and coordinate operations related to documentsscreen.', style: const TextStyle(color: Color(0xFF475569), fontSize: 13, height: 1.5)),
+                  Text('Provides a dedicated management interface within the Primecare Client module to enable Patient personnel to oversee, audit, and coordinate operations related to documentsscreen.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 13, height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: As a Patient, I want to access the DocumentsScreen within the Primecare Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style: const TextStyle(color: Color(0xFF64748B), fontSize: 12, italic: true)),
+                  Text('User Story: As a Patient, I want to access the DocumentsScreen within the Primecare Client application so that I can review real-time status details, execute core operational workflows, and manage my domain responsibilities.', style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12, italic: true)),
                 ],
               ),
             ),
@@ -113,9 +113,9 @@ class DocumentsScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -136,7 +136,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Header Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -156,7 +156,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Fallback screen title.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -168,7 +168,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -196,9 +196,9 @@ class DocumentsScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -219,7 +219,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Content Summary Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -239,7 +239,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Summary cards overview.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -251,7 +251,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -279,9 +279,9 @@ class DocumentsScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -302,7 +302,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Primary Content Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -322,7 +322,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Main details and grids.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -334,7 +334,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
@@ -362,9 +362,9 @@ class DocumentsScreen extends GovernedConsumerWidget {
       margin: const EdgeInsets.only(bottom: 20),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
+        border: Border.all(color:  theme.colors.outline),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.02),
@@ -385,7 +385,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                   const SizedBox(width: 8),
                   Text(
                     'Action Bar Section',
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Color(0xFF0F172A)),
+                    style:  TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: theme.colors.onSurface),
                   ),
                 ],
               ),
@@ -405,7 +405,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
           const SizedBox(height: 6),
           Text(
             'Interaction buttons.',
-            style: const TextStyle(color: Color(0xFF64748B), fontSize: 12),
+            style:  TextStyle(color: theme.colors.onSurfaceVariant, fontSize: 12),
           ),
           const SizedBox(height: 16),
           
@@ -417,7 +417,7 @@ class DocumentsScreen extends GovernedConsumerWidget {
                 Expanded(
                   child: Text(
                     lbl,
-                    style: const TextStyle(fontSize: 13, color: Color(0xFF334155), fontWeight: FontWeight.w500),
+                    style:  TextStyle(fontSize: 13, color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(

@@ -4,6 +4,7 @@ on:
     paths:
       - websites/typescript/src/workspace.ts
       - scripts/test-workspace-signout-workflow.mjs
+      - scripts/test-browser-ci-fixture-contracts.mjs
       - tools/workflow-verification/specs/auth.logout.fixture.json
       - .github/workflows/workspace-signout-acceptance.yml
 permissions:
@@ -31,7 +32,7 @@ jobs:
           ln -s /tmp/workspace-signout-tools/node_modules node_modules
           node_modules/.bin/playwright install --with-deps chromium
       - run: |
-          node --test scripts/test-workspace-browser.mjs scripts/test-session-signout-client.mjs scripts/test-account-client.mjs
+          node --test scripts/test-workspace-browser.mjs scripts/test-session-signout-client.mjs scripts/test-account-client.mjs scripts/test-browser-ci-fixture-contracts.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
       - name: Use explicit isolated metadata fixture
         run: |

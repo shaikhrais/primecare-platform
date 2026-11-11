@@ -3,8 +3,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:primecare_ui/primecare_ui.dart' as ui;
-import 'package:yaml/yaml.dart';
-import 'package:path/path.dart' as p;
 import 'governance_api_service.dart';
 import 'ticket_registry.dart';
 import 'screen_registry.dart' as local;
@@ -46,35 +44,37 @@ class ProjectHealthSummary {
   final ui.PlatformProject project;
   final String name;
   final bool isUi;
-  final double healthScore;
+  final double? healthScore;
   final String status;
-  final int warningCount;
-  final int errorCount;
-  final int criticalCount;
+  final int? warningCount;
+  final int? errorCount;
+  final int? criticalCount;
   final List<String> issues;
   final List<String> suggestions;
   final int loc;
   final int files;
-  final int folders;
-  final int largeFiles;
-  final int emptyFiles;
-  final int duplicateFiles;
-  final int unusedFiles;
+  final int? folders;
+  final int? largeFiles;
+  final int? emptyFiles;
+  final int? duplicateFiles;
+  final int? unusedFiles;
   final Map<String, int> mvc;
   final int models;
   final int views;
   final int controllers;
-  final int services;
-  final int repositories;
-  final int providers;
-  final int widgets;
-  final int totalScreens;
-  final int brokenRoutes;
-  final int missingForms;
-  final int failedApis;
-  final DateTime lastCheckedAt;
+  final int? services;
+  final int? repositories;
+  final int? providers;
+  final int? widgets;
+  final int? totalScreens;
+  final int? brokenRoutes;
+  final int? missingForms;
+  final int? failedApis;
+  final DateTime? lastCheckedAt;
+  final String source;
 
   ProjectHealthSummary({
+    this.source = 'declared-manifest-only; runtime integrity unverified',
     required this.project,
     required this.name,
     required this.isUi,
@@ -110,6 +110,7 @@ class ProjectHealthSummary {
 
 /// [GovernanceState] - The master state object for the Governance HUD.
 class GovernanceState {
+  static const _notProvided = Object();
   final List<ProjectHealthSummary> projects;
   final int totalLoc;
   final int totalFiles;
@@ -130,16 +131,18 @@ class GovernanceState {
   final int totalApis;
   final int workingApis;
   final int failedApis;
-  final bool isLoginWorking;
-  final bool isLogoutWorking;
-  final bool isTokenValid;
+  final bool runtimeAuditAvailable;
+  final bool? isLoginWorking;
+  final bool? isLogoutWorking;
+  final bool? isTokenValid;
   final bool isSyncing;
   final bool isBackgroundSyncing;
   final bool hasDrift;
   final List<String> driftIssues;
-  final double integrityScore;
+  final double? integrityScore;
   final Map<String, List<bool>> categorizedCoverage;
   final Map<String, double> featureHealth;
+  final bool telemetryAvailable;
   final double apiUptime;
   final int dbConnections;
   final Map<String, dynamic> liveServiceHealth;
@@ -163,10 +166,10 @@ class GovernanceState {
   final Map<String, meta.ScreenMetadata> allScreens;
 
   // Proposal Pipeline Metrics
-  final int pendingProposalsCount;
-  final int approvedProposalsCount;
-  final int deployedProposalsCount;
-  final double intakeReadinessScore;
+  final int? pendingProposalsCount;
+  final int? approvedProposalsCount;
+  final int? deployedProposalsCount;
+  final double? intakeReadinessScore;
 
   final GovernanceEventLevel eventFilter;
 
@@ -191,6 +194,7 @@ class GovernanceState {
     required this.totalApis,
     required this.workingApis,
     required this.failedApis,
+    this.runtimeAuditAvailable = false,
     required this.isLoginWorking,
     required this.isLogoutWorking,
     required this.isTokenValid,
@@ -201,6 +205,7 @@ class GovernanceState {
     required this.integrityScore,
     required this.categorizedCoverage,
     required this.featureHealth,
+    this.telemetryAvailable = false,
     required this.apiUptime,
     required this.dbConnections,
     required this.liveServiceHealth,
@@ -248,16 +253,18 @@ class GovernanceState {
     int? totalApis,
     int? workingApis,
     int? failedApis,
-    bool? isLoginWorking,
-    bool? isLogoutWorking,
-    bool? isTokenValid,
+    bool? runtimeAuditAvailable,
+    Object? isLoginWorking = _notProvided,
+    Object? isLogoutWorking = _notProvided,
+    Object? isTokenValid = _notProvided,
     bool? isSyncing,
     bool? isBackgroundSyncing,
     bool? hasDrift,
     List<String>? driftIssues,
-    double? integrityScore,
+    Object? integrityScore = _notProvided,
     Map<String, List<bool>>? categorizedCoverage,
     Map<String, double>? featureHealth,
+    bool? telemetryAvailable,
     double? apiUptime,
     int? dbConnections,
     Map<String, dynamic>? liveServiceHealth,
@@ -276,10 +283,10 @@ class GovernanceState {
     List<Map<String, dynamic>>? healthTrend,
     GovernanceEventLevel? eventFilter,
     List<AuditIssue>? subsystemIssues,
-    int? pendingProposalsCount,
-    int? approvedProposalsCount,
-    int? deployedProposalsCount,
-    double? intakeReadinessScore,
+    Object? pendingProposalsCount = _notProvided,
+    Object? approvedProposalsCount = _notProvided,
+    Object? deployedProposalsCount = _notProvided,
+    Object? intakeReadinessScore = _notProvided,
     Map<String, meta.ScreenMetadata>? allScreens,
     GovernanceReport? report,
   }) {
@@ -305,16 +312,18 @@ class GovernanceState {
       totalApis: totalApis ?? this.totalApis,
       workingApis: workingApis ?? this.workingApis,
       failedApis: failedApis ?? this.failedApis,
-      isLoginWorking: isLoginWorking ?? this.isLoginWorking,
-      isLogoutWorking: isLogoutWorking ?? this.isLogoutWorking,
-      isTokenValid: isTokenValid ?? this.isTokenValid,
+      runtimeAuditAvailable: runtimeAuditAvailable ?? this.runtimeAuditAvailable,
+      isLoginWorking: identical(isLoginWorking, _notProvided) ? this.isLoginWorking : isLoginWorking as bool?,
+      isLogoutWorking: identical(isLogoutWorking, _notProvided) ? this.isLogoutWorking : isLogoutWorking as bool?,
+      isTokenValid: identical(isTokenValid, _notProvided) ? this.isTokenValid : isTokenValid as bool?,
       isSyncing: isSyncing ?? this.isSyncing,
       isBackgroundSyncing: isBackgroundSyncing ?? this.isBackgroundSyncing,
       hasDrift: hasDrift ?? this.hasDrift,
       driftIssues: driftIssues ?? this.driftIssues,
-      integrityScore: integrityScore ?? this.integrityScore,
+      integrityScore: identical(integrityScore, _notProvided) ? this.integrityScore : integrityScore as double?,
       categorizedCoverage: categorizedCoverage ?? this.categorizedCoverage,
       featureHealth: featureHealth ?? this.featureHealth,
+      telemetryAvailable: telemetryAvailable ?? this.telemetryAvailable,
       apiUptime: apiUptime ?? this.apiUptime,
       dbConnections: dbConnections ?? this.dbConnections,
       liveServiceHealth: liveServiceHealth ?? this.liveServiceHealth,
@@ -339,12 +348,12 @@ class GovernanceState {
       eventFilter: eventFilter ?? this.eventFilter,
       subsystemIssues: subsystemIssues ?? this.subsystemIssues,
       pendingProposalsCount:
-          pendingProposalsCount ?? this.pendingProposalsCount,
+          identical(pendingProposalsCount, _notProvided) ? this.pendingProposalsCount : pendingProposalsCount as int?,
       approvedProposalsCount:
-          approvedProposalsCount ?? this.approvedProposalsCount,
+          identical(approvedProposalsCount, _notProvided) ? this.approvedProposalsCount : approvedProposalsCount as int?,
       deployedProposalsCount:
-          deployedProposalsCount ?? this.deployedProposalsCount,
-      intakeReadinessScore: intakeReadinessScore ?? this.intakeReadinessScore,
+          identical(deployedProposalsCount, _notProvided) ? this.deployedProposalsCount : deployedProposalsCount as int?,
+      intakeReadinessScore: identical(intakeReadinessScore, _notProvided) ? this.intakeReadinessScore : intakeReadinessScore as double?,
       allScreens: allScreens ?? this.allScreens,
       report: report ?? this.report,
     );
@@ -355,16 +364,13 @@ class GovernanceState {
 class GovernanceNotifier extends Notifier<GovernanceState> {
   StreamSubscription? _telemetrySubscription;
   Timer? _automationTimer;
+  int _refreshGeneration = 0;
 
   // Persist live metrics across rebuilds
-  double _currentApiUptime = 99.9;
-  int _currentDbConnections = 4;
-  Map<String, dynamic> _currentServiceHealth = {
-    'Auth-Service': 'healthy',
-    'Staffing-Engine': 'healthy',
-    'Registry-Sync': 'healthy',
-    'Audit-Runner': 'healthy',
-  };
+  bool _currentTelemetryAvailable = false;
+  double _currentApiUptime = 0;
+  int _currentDbConnections = 0;
+  Map<String, dynamic> _currentServiceHealth = {};
   List<GovernanceEvent> _currentEvents = [];
 
   @override
@@ -379,6 +385,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     });
 
     return _calculateState(
+      telemetryAvailable: _currentTelemetryAvailable,
       apiUptime: _currentApiUptime,
       dbConnections: _currentDbConnections,
       liveServiceHealth: _currentServiceHealth,
@@ -390,26 +397,22 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     _automationTimer?.cancel();
     if (Platform.environment.containsKey('FLUTTER_TEST')) return;
     
-    // Run an audit/remediation check every 5 minutes in production,
-    // but every 30 seconds for the current demonstration/verification phase.
-    _automationTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
-      if (state.hasDrift && !state.isSyncing && !state.isBackgroundSyncing) {
-        AppLogger.i(
-          'Autonomous Governance: Drift detected. Triggering background remediation.',
-        );
-        applyAutomatedFixes(background: true);
-      } else if (!state.isSyncing && !state.isBackgroundSyncing) {
-        AppLogger.d('Governance Audit: System in parity.');
+    // Scheduled observation must not rewrite source or certify acceptance.
+    _automationTimer = Timer.periodic(const Duration(minutes: 5), (timer) {
+      if (!state.isSyncing && !state.isBackgroundSyncing) {
         refresh(background: true);
       }
     });
   }
 
-  Future<void> _loadHistory() async {
+  Future<void> _loadHistory({int? generation}) async {
+    final expectedGeneration = generation ?? _refreshGeneration;
     try {
       final historyService = ref.read(governanceHistoryServiceProvider);
       final trend = await historyService.getHealthTrend();
-      state = state.copyWith(healthTrend: trend);
+      if (ref.mounted && expectedGeneration == _refreshGeneration) {
+        state = state.copyWith(healthTrend: trend);
+      }
     } catch (e) {
       AppLogger.e('History load failed: $e');
     }
@@ -420,54 +423,71 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     final service = ref.read(governanceApiServiceProvider);
     final stream = service.telemetryStream;
     _telemetrySubscription = stream.listen((data) {
-      final List<dynamic>? eventData = data['events'];
-
-      if (eventData != null && eventData.isNotEmpty) {
-        for (final e in eventData) {
-          _currentEvents.insert(
-            0,
-            GovernanceEvent(
-              type: e['type'] ?? 'info',
-              message: e['message'] ?? '',
-              level: _parseEventLevel(e['level']),
-              source: e['source'],
-              timestamp:
-                  DateTime.tryParse(e['timestamp'] ?? '') ?? DateTime.now(),
-            ),
-          );
-        }
-        // Keep only last 50 events
-        if (_currentEvents.length > 50) {
-          _currentEvents = _currentEvents.sublist(0, 50);
-        }
+      if (!ref.mounted) return;
+      final uptime = data['api_uptime'];
+      final connections = data['db_connections'];
+      final health = data['service_health'];
+      final events = data['events'] ?? const [];
+      if (uptime is! num || !uptime.isFinite || uptime < 0 || uptime > 100 ||
+          connections is! int || connections < 0 || health is! Map ||
+          health.entries.any((e) => e.key is! String || (e.key as String).isEmpty ||
+            e.value is! String || (e.value as String).isEmpty) ||
+          events is! List || events.any((e) => e is! Map || _readRemoteEvent(e) == null)) {
+        _markTelemetryUnavailable();
+        return;
       }
+      for (final e in events) {
+        _currentEvents.insert(0, _readRemoteEvent(e)!);
+      }
+      if (_currentEvents.length > 50) _currentEvents = _currentEvents.sublist(0, 50);
+      _currentApiUptime = uptime.toDouble();
+      _currentDbConnections = connections;
+      _currentServiceHealth = Map<String, dynamic>.unmodifiable(health);
+      _currentTelemetryAvailable = true;
+      state = state.copyWith(telemetryAvailable: true,
+        apiUptime: _currentApiUptime, dbConnections: _currentDbConnections,
+        liveServiceHealth: _currentServiceHealth, recentEvents: List.from(_currentEvents));
+    }, onError: (Object error, StackTrace stack) {
+      _markTelemetryUnavailable();
+    }, onDone: _markTelemetryUnavailable);
+  }
 
-      _currentApiUptime = data['api_uptime']?.toDouble() ?? _currentApiUptime;
-      _currentDbConnections = data['db_connections'] ?? _currentDbConnections;
-      _currentServiceHealth = Map<String, dynamic>.from(
-        data['service_health'] ?? _currentServiceHealth,
-      );
+  GovernanceEvent? _readRemoteEvent(Map<dynamic, dynamic> data) {
+    final timestamp = data['timestamp'];
+    final parsed = timestamp is String &&
+        RegExp(r'(Z|[+-]\d{2}:\d{2})$').hasMatch(timestamp)
+        ? DateTime.tryParse(timestamp) : null;
+    if (data['type'] is! String || data['message'] is! String ||
+        data['level'] is! String || parsed == null) return null;
+    return GovernanceEvent(type: data['type'], message: data['message'],
+      level: _parseEventLevel(data['level']),
+      source: data['source'] is String ? data['source'] : null, timestamp: parsed);
+  }
 
-      state = state.copyWith(
-        apiUptime: _currentApiUptime,
-        dbConnections: _currentDbConnections,
-        liveServiceHealth: _currentServiceHealth,
-        recentEvents: List.from(_currentEvents),
-      );
-    });
+  void _markTelemetryUnavailable() {
+    if (!ref.mounted) return;
+    _currentTelemetryAvailable = false;
+    _currentApiUptime = 0;
+    _currentDbConnections = 0;
+    _currentServiceHealth = {};
+    state = state.copyWith(telemetryAvailable: false, apiUptime: 0,
+      dbConnections: 0, liveServiceHealth: const {});
   }
 
   GovernanceState _calculateState({
     List<Map<String, dynamic>>? existingTrend,
     List<GovernanceEvent>? existingEvents,
+    bool? telemetryAvailable,
     double? apiUptime,
     int? dbConnections,
     Map<String, dynamic>? liveServiceHealth,
   }) {
-    final pendingCount = 0;
-    final approvedCount = 0;
-    final deployedCount = 0;
-    double readinessTotal = 100.0;
+    // No registered proposal/intake/auth observation transport is configured.
+    // Unknown must not be represented as completed, healthy or 100% ready.
+    const int? pendingCount = null;
+    const int? approvedCount = null;
+    const int? deployedCount = null;
+    const double? readinessTotal = null;
 
     final List<ProjectHealthSummary> summaries = [];
 
@@ -491,41 +511,40 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           isUi: isUi,
           healthScore: score,
           status: ui.IntegrityService.getIntegrityStatus(project),
-          warningCount: (100 - score).toInt() ~/ 10,
-          errorCount: score < 60 ? 1 : 0,
-          criticalCount: score < 40 ? 1 : 0,
+          warningCount: null,
+          errorCount: null,
+          criticalCount: null,
           issues: ui.IntegrityService.getProjectIssues(project),
           suggestions: ui.IntegrityService.getProjectSuggestions(project),
           loc: loc,
           files: fileCount,
-          folders: fileCount ~/ 5 + 1,
-          largeFiles: loc > 1000 ? 1 : 0,
-          emptyFiles: 0,
-          duplicateFiles: 0,
-          unusedFiles: 0,
+          folders: null,
+          largeFiles: null,
+          emptyFiles: null,
+          duplicateFiles: null,
+          unusedFiles: null,
           mvc: mvc,
           models: mvc['M'] ?? 0,
           views: mvc['V'] ?? 0,
           controllers: mvc['C'] ?? 0,
-          services: isUi ? 0 : (mvc['C'] ?? 0) ~/ 2,
-          repositories: isUi ? 0 : (mvc['M'] ?? 0),
-          providers: isUi ? (mvc['C'] ?? 0) : 0,
-          widgets: isUi ? (mvc['V'] ?? 0) * 3 : 0,
-          totalScreens: isUi ? (mvc['V'] ?? 0) : 0,
-          brokenRoutes: 0,
-          missingForms: 0,
-          failedApis: 0,
-          lastCheckedAt: DateTime.now(),
+          services: null,
+          repositories: null,
+          providers: null,
+          widgets: null,
+          totalScreens: null,
+          brokenRoutes: null,
+          missingForms: null,
+          failedApis: null,
+          lastCheckedAt: null,
         ),
       );
     }
 
     final auditReports = ui.ScreenRegistry.auditRegistry();
     final hasDrift = auditReports.any((r) => !r.isHealthy);
-    final avgScore = summaries.isEmpty
-        ? 100.0
-        : summaries.map((s) => s.healthScore).reduce((a, b) => a + b) /
-              summaries.length;
+    final double? avgScore = summaries.isEmpty || summaries.any((s) => s.healthScore == null)
+        ? null
+        : summaries.map((s) => s.healthScore!).reduce((a, b) => a + b) / summaries.length;
 
     // Group discovered forms by feature
     final Map<String, List<bool>> categorizedCoverage = {};
@@ -551,13 +570,13 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       projects: summaries,
       totalLoc: summaries.fold(0, (sum, s) => sum + s.loc),
       totalFiles: summaries.fold(0, (sum, s) => sum + s.files),
-      totalScreens: summaries.fold(0, (sum, s) => sum + s.totalScreens),
+      totalScreens: local.ScreenRegistry.screens.length,
       registeredScreens: ui.ScreenRegistry.getAllScreens().length,
       missingScreens: auditReports.where((r) => !r.isHealthy).length,
       brokenScreens: 0,
       totalRoutes: ui.ScreenRegistry.getAllScreens().length,
-      workingRoutes: ui.ScreenRegistry.getAllScreens().length,
-      totalRegisteredForms: 42,
+      workingRoutes: 0,
+      totalRegisteredForms: 0,
       discoveredForms: [],
       missingForms: 0,
       totalRoles: ui.PlatformGovernanceRegistry.totalRoles,
@@ -565,12 +584,12 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       totalTickets: TicketRegistry.totalTickets,
       openTickets: TicketRegistry.openTickets,
       unauthorizedAccessCount: 0,
-      totalApis: 12,
-      workingApis: 11,
-      failedApis: 1,
-      isLoginWorking: true,
-      isLogoutWorking: true,
-      isTokenValid: true,
+      totalApis: 0,
+      workingApis: 0,
+      failedApis: 0,
+      isLoginWorking: null,
+      isLogoutWorking: null,
+      isTokenValid: null,
       isSyncing: false,
       isBackgroundSyncing: false,
       hasDrift: hasDrift,
@@ -581,16 +600,10 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       integrityScore: avgScore,
       categorizedCoverage: {},
       featureHealth: {},
+      telemetryAvailable: telemetryAvailable ?? false,
       apiUptime: apiUptime ?? 0.0,
-      dbConnections: dbConnections ?? 4,
-      liveServiceHealth:
-          liveServiceHealth ??
-          {
-            'Auth-Service': 'healthy',
-            'Staffing-Engine': 'healthy',
-            'Registry-Sync': 'healthy',
-            'Audit-Runner': 'healthy',
-          },
+      dbConnections: dbConnections ?? 0,
+      liveServiceHealth: liveServiceHealth ?? const {},
       recentEvents: existingEvents ?? const [],
       productionReadyScreensCount: governanceReport.productionReadyScreens
           .toInt(),
@@ -634,7 +647,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       final screenIssues = await auditor.auditScreenRegistryParity();
 
       final allIssues = [...formIssues, ...screenIssues];
-
+      if (!ref.mounted) return;
       state = state.copyWith(subsystemIssues: allIssues, isSyncing: false);
 
       if (allIssues.isNotEmpty) {
@@ -646,7 +659,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       }
     } catch (e) {
       AppLogger.e('Cross-Subsystem Audit failed', e);
-      state = state.copyWith(isSyncing: false);
+      if (ref.mounted) state = state.copyWith(isSyncing: false);
     }
   }
 
@@ -671,136 +684,14 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
   /// [runRemediation] - Triggers autonomous drift recovery (Alias for applyAutomatedFixes)
   Future<void> runRemediation() => applyAutomatedFixes();
 
-  /// [hydrateRegistries] - Bulk populates platform registries from the architectural blueprints.
+  /// Blueprint declarations are audit inputs, never authority to create routes,
+  /// permissions, implementation credit or acceptance evidence.
   Future<void> hydrateRegistries() async {
-    state = state.copyWith(isSyncing: true);
-    logEvent(
-      'Hydrator',
-      'Starting bulk platform registry hydration from blueprints...',
-      GovernanceEventLevel.info,
-    );
-
-    try {
-      final results = {
-        'Clinical': 0,
-        'Corporate': 0,
-        'Operational': 0,
-        'Skipped': 0,
-      };
-
-      // 1. Load blueprints.yaml
-      String projectRoot = Directory.current.path;
-      if (projectRoot.contains('apps') || projectRoot.contains('packages')) {
-        // If running from a sub-package, go up to the repo root
-        projectRoot = p.dirname(p.dirname(projectRoot));
-      }
-      
-      final blueprintsPath = p.join(projectRoot, '.agents', 'governance', 'blueprints.yaml');
-      
-      if (!File(blueprintsPath).existsSync()) {
-        throw Exception('blueprints.yaml not found at $blueprintsPath');
-      }
-
-      final content = File(blueprintsPath).readAsStringSync();
-      final yaml = loadYaml(content);
-      
-      final blueprints = yaml['blueprints'] as YamlList;
-      final registries = yaml['registries'] as YamlList;
-
-      // Create a map of blueprints for easy lookup
-      final blueprintMap = {
-        for (final b in blueprints) b['id'] as String: b
-      };
-
-      int total = 0;
-
-      // 2. Hydrate
-      for (final registry in registries) {
-        final mapped = registry['mapped_blueprints'] as YamlList;
-        for (final item in mapped) {
-          final screenId = item['screen_id'] as String;
-          final blueprintId = item['blueprint_id'] as String;
-          
-          final parts = screenId.split('.');
-          String normalizedId;
-          if (parts.length >= 2) {
-             normalizedId = 'SCREEN_${parts.skip(1).join('_').toUpperCase()}';
-          } else {
-             normalizedId = screenId.toUpperCase();
-          }
-          
-          final completionPercent = (item['completion_percent'] as num?)?.toDouble() ?? 0.0;
-          final office = item['office'] as String? ?? 'Clinical Governance';
-
-          // Check if already registered
-          final blueprint = blueprintMap[blueprintId];
-          if (blueprint == null) continue;
-
-          final pendingFromBlueprint = (blueprint['required_components'] as YamlList)
-              .map((c) => c['id'] as String)
-              .toList();
-
-          final existing = meta.PlatformScreenRegistry.getById(normalizedId);
-          if (existing != null) {
-            // Reconcile: If existing has no components, or we need to enforce blueprint parity
-            final updated = existing.copyWith(
-              completionPercent: completionPercent,
-              office: office,
-              // Merge components if they are missing
-              pendingComponents: existing.pendingComponents.isEmpty && existing.implementedComponents.isEmpty
-                  ? pendingFromBlueprint 
-                  : existing.pendingComponents,
-            );
-            meta.PlatformScreenRegistry.screens[normalizedId] = updated;
-            results['Skipped'] = (results['Skipped'] ?? 0) + 1;
-            continue;
-          }
-
-          final category = parts[0].toUpperCase(); // CLINICAL, CORPORATE, etc.
-          final displayCategory = category[0] + category.substring(1).toLowerCase();
-          
-          final pendingComponents = (blueprint['required_components'] as YamlList)
-              .map((c) => c['id'] as String)
-              .toList();
-
-          final newMetadata = meta.ScreenMetadata(
-            id: normalizedId,
-            featureName: blueprint['name'] as String,
-            title: blueprint['name'] as String,
-            routePath: '/${parts.join('/')}',
-            icon: meta.Icons.auto_awesome_outlined,
-            allowedRoles: [parts.length > 1 ? parts[1].toUpperCase() : 'ADMIN'],
-            lifecycleStatus: meta.LifecycleStatus.design,
-            designSize: const meta.PlatformSize(3840, 2160),
-            sourcePath: 'packages/primecare_ui/lib/src/registry/screen_registry.dart',
-            pendingComponents: pendingComponents,
-            completionPercent: completionPercent,
-            office: office,
-          );
-
-          meta.PlatformScreenRegistry.registerScreens([newMetadata]);
-          
-          if (results.containsKey(displayCategory)) {
-            results[displayCategory] = results[displayCategory]! + 1;
-          } else {
-            results['Operational'] = results['Operational']! + 1;
-          }
-          total++;
-        }
-      }
-
-      final message =
-          'Hydration Complete: Injected $total new screens (Clinical: ${results['Clinical']}, Corporate: ${results['Corporate']}, Operational: ${results['Operational']}). Updated metadata for ${results['Skipped']} existing screens.';
-
-      logEvent('Hydrator', message, GovernanceEventLevel.success);
-
-      // Refresh to reflect changes
-      await refresh();
-    } catch (e) {
-      logEvent('Hydrator', 'Hydration Failed: $e', GovernanceEventLevel.error);
-    } finally {
-      state = state.copyWith(isSyncing: false);
-    }
+    await performCrossSubsystemAudit();
+    if (!ref.mounted) return;
+    logEvent('Hydrator',
+      'Blueprint audit only: no registrations, permissions or completion values changed. Reconcile findings with pinned production metadata.',
+      GovernanceEventLevel.warning);
   }
 
   /// [applyAutomatedFixes] - Triggers the ASTPatchEngine to remediate
@@ -839,12 +730,13 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
     } catch (e, stack) {
       AppLogger.e('Error applying automated fixes', e, stack);
     } finally {
-      state = state.copyWith(isSyncing: false, isBackgroundSyncing: false);
+      if (ref.mounted) state = state.copyWith(isSyncing: false, isBackgroundSyncing: false);
     }
   }
 
   /// Refreshes the state (useful if the registry changes at runtime).
   Future<void> refresh({bool background = false}) async {
+    final generation = ++_refreshGeneration;
     if (background) {
       state = state.copyWith(isBackgroundSyncing: true);
     } else {
@@ -856,19 +748,25 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       final backendIssues = await ref
           .read(networkParityServiceProvider)
           .fetchBackendAudit();
+      if (!ref.mounted || generation != _refreshGeneration) return;
 
       // 1b. Fetch Backend Telemetry Data
       final telemetryData = await ref
           .read(networkParityServiceProvider)
           .fetchTelemetry();
+      if (!ref.mounted || generation != _refreshGeneration) return;
       
-      final List<GovernanceEvent> telemetryEvents = telemetryData.map((e) => GovernanceEvent(
-        type: e['type'] ?? 'info',
-        message: e['message'] ?? '',
-        level: _parseEventLevel(e['level']),
-        source: e['source'],
-        timestamp: DateTime.tryParse(e['timestamp'] ?? '') ?? DateTime.now(),
-      )).toList();
+      final telemetryEvents = <GovernanceEvent>[];
+      for (final event in telemetryData) {
+        final observed = _readRemoteEvent(event);
+        if (observed == null) {
+          _markTelemetryUnavailable();
+          logEvent('Telemetry', 'Remote telemetry event evidence is invalid; no timestamp inferred.',
+            GovernanceEventLevel.error);
+        } else {
+          telemetryEvents.add(observed);
+        }
+      }
 
       // 2. Calculate Base Local State
       var newState = _calculateState(
@@ -877,6 +775,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           ...telemetryEvents,
           ...state.recentEvents,
         ].take(50).toList(),
+        telemetryAvailable: state.telemetryAvailable,
         apiUptime: state.apiUptime,
         dbConnections: state.dbConnections,
         liveServiceHealth: state.liveServiceHealth,
@@ -893,10 +792,11 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       );
 
       // Sync private fields with state
-      _currentApiUptime = state.apiUptime;
-      _currentDbConnections = state.dbConnections;
-      _currentServiceHealth = state.liveServiceHealth;
-      _currentEvents = state.recentEvents;
+      _currentTelemetryAvailable = newState.telemetryAvailable;
+      _currentApiUptime = newState.apiUptime;
+      _currentDbConnections = newState.dbConnections;
+      _currentServiceHealth = newState.liveServiceHealth;
+      _currentEvents = newState.recentEvents;
 
       state = newState;
 
@@ -906,13 +806,21 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
           await ref
               .read(governanceHistoryServiceProvider)
               .captureSnapshot(state.report!);
-          await _loadHistory();
+          if (!ref.mounted || generation != _refreshGeneration) return;
+          await _loadHistory(generation: generation);
         } catch (e) {
           AppLogger.e('History capture failed: $e');
         }
       }
+    } catch (error) {
+      if (!ref.mounted || generation != _refreshGeneration) return;
+      _markTelemetryUnavailable();
+      logEvent('Audit', 'Governance refresh unavailable; observations remain unverified.',
+        GovernanceEventLevel.error);
     } finally {
-      state = state.copyWith(isSyncing: false, isBackgroundSyncing: false);
+      if (ref.mounted && generation == _refreshGeneration) {
+        state = state.copyWith(isSyncing: false, isBackgroundSyncing: false);
+      }
     }
   }
 
@@ -924,7 +832,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
       final apiService = ref.read(governanceApiServiceProvider);
       final response = await apiService.executeAction(actionKey);
 
-      if (response.success) {
+      if (response.success && ref.mounted) {
         // If it was a sync action, refresh the local state
         if (actionKey.contains('sync')) {
           refresh();
@@ -939,7 +847,7 @@ class GovernanceNotifier extends Notifier<GovernanceState> {
         error: e.toString(),
       );
     } finally {
-      state = state.copyWith(isSyncing: false);
+      if (ref.mounted) state = state.copyWith(isSyncing: false);
     }
   }
 

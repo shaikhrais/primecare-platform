@@ -74,6 +74,30 @@ jobs:
           python3 -m unittest tools.deployment.test_typescript_release tools.deployment.test_http_client tools.deployment.test_runtime_policy -v
           python3 -m tools.deployment.runtime_policy all typescript --require
           npm ci --ignore-scripts
+          node --test scripts/test-typescript-screen-manager.mjs scripts/test-typescript-presentation-bindings.mjs scripts/test-tenant-presentation-tokens.mjs
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-workspace-route-handoffs.mjs
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-platform-admin-navigation.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-platform-admin-transport.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-platform-admin-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-typescript-document-scroll.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-workspace-calls-resume.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-workspace-manager-boundaries.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-tenant-manager-entry.mjs scripts/test-tenant-manager-children.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-coordinator-charge-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-psw-requests-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-business-plans-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-care-live-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-personal-care-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-coordinator-demo-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-growth-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-enquiry-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-screen-lifecycle.mjs scripts/test-auth-screen-labels.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-recovery-lifecycle.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-typescript-strict-contracts.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test --test-concurrency=1 scripts/test-maintenance-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test --test-concurrency=1 scripts/test-appearance-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-admin-child-sessions.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-admin-auth-edges.mjs
           pip install -r tools/governance-production/requirements.txt
           if [ "${{ inputs.bind_account_metadata }}" = true ]; then
             git fetch origin main

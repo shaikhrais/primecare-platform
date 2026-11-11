@@ -3,6 +3,7 @@
 // Path: apps/primecare_governance/lib/governance/services/cross_subsystem_auditor.dart
 
 import 'dart:io';
+import 'blueprint_component_evidence.dart';
 import 'package:analyzer/dart/analysis/utilities.dart';
 import 'package:analyzer/dart/ast/ast.dart';
 import 'package:analyzer/dart/ast/visitor.dart';
@@ -18,7 +19,20 @@ typedef AuditIssue = PlatformAuditIssue;
 class CrossSubsystemAuditor {
   final String projectRoot;
 
-  CrossSubsystemAuditor({required this.projectRoot});
+  CrossSubsystemAuditor({required String projectRoot})
+      : projectRoot = _repositoryRoot(projectRoot);
+
+  static String _repositoryRoot(String path) {
+    var directory = Directory(path).absolute;
+    while (true) {
+      if (File(p.join(directory.path, '.agents/governance/blueprints.yaml')).existsSync() &&
+          Directory(p.join(directory.path, 'packages')).existsSync()) {
+        return directory.path;
+      }
+      if (directory.parent.path == directory.path) return p.normalize(path);
+      directory = directory.parent;
+    }
+  }
 
   /// Runs the full suite of cross-subsystem audits.
   Future<List<AuditIssue>> runFullAuditSuite({
@@ -97,8 +111,8 @@ class CrossSubsystemAuditor {
               subsystem: 'primecare_ui',
               registry: 'primeCareFormProvider',
               issue: 'Missing binding for Form: $value',
-              suggestion: 'Run ASTPatchEngine to inject missing switch-case.',
-              autoRemediable: true,
+              suggestion: 'Connect the registered form to its actual provider and verify its behavior.',
+              autoRemediable: false,
               metadata: {
                 'type': 'missing_form_provider',
                 'form': value,
@@ -354,8 +368,8 @@ class CrossSubsystemAuditor {
             subsystem: 'primecare_governance',
             registry: 'Localization',
             issue: 'L10n Audit Drift: hasAllTranslations is ${screen.hasAllTranslations} but actual coverage is $hasAll',
-            suggestion: 'Update hasAllTranslations flag in CoreGovernanceRegistry.',
-            autoRemediable: true,
+            suggestion: 'Verify the actual language bundles before updating translation evidence.',
+            autoRemediable: false,
             metadata: {
               'type': 'l10n_flag_drift',
               'screenId': screen.id,
@@ -395,8 +409,8 @@ class CrossSubsystemAuditor {
             subsystem: 'primecare_governance',
             registry: 'Compliance',
             issue: 'Compliance Drift for "${screen.title}": isAuditCompliant is ${screen.isAuditCompliant} but article pass rate requires $actuallyCompliant',
-            suggestion: 'Update isAuditCompliant status in CoreGovernanceRegistry to reflect article compliance.',
-            autoRemediable: true,
+            suggestion: 'Reconcile compliance evidence and required reviews before updating the audit status.',
+            autoRemediable: false,
             metadata: {
               'type': 'compliance_drift',
               'screenId': screen.id,
@@ -458,9 +472,9 @@ class CrossSubsystemAuditor {
       id: 'feature_drift_${screen.id}_$field',
       subsystem: 'primecare_governance',
       registry: 'FeatureVerification',
-      issue: 'Verification Drift for "${screen.title}": $field is false but implementation is present.',
-      suggestion: 'Update $field to $value in CoreGovernanceRegistry.',
-      autoRemediable: true,
+      issue: 'Unverified source candidate for "${screen.title}": $field has a static source match only.',
+      suggestion: 'Execute focused acceptance tests for $field; a source string is not verification evidence.',
+      autoRemediable: false,
       metadata: {
         'type': 'feature_flag_drift',
         'screenId': screen.id,
@@ -573,8 +587,8 @@ class CrossSubsystemAuditor {
               subsystem: 'primecare_governance',
               registry: 'CoreGovernanceRegistry',
               issue: 'Mapped screen not found: $screenId (tried $normalizedId)',
-              suggestion: 'Register $normalizedId in CoreGovernanceRegistry.',
-              autoRemediable: true,
+              suggestion: 'Reconcile the screen identity, route and permissions with pinned production metadata before registration.',
+              autoRemediable: false,
               metadata: {
                 'type': 'missing_registration',
                 'screenId': normalizedId,
@@ -600,9 +614,10 @@ class CrossSubsystemAuditor {
         }
 
         final implementedComps = screenData.components;
-        final missingComps = requiredComps
-            .where((c) => !implementedComps.contains(c))
-            .toList();
+        final missingComps = BlueprintComponentEvidence.missingImplemented(
+          requiredComponents: requiredComps,
+          implementedComponents: implementedComps,
+        );
 
         if (missingComps.isNotEmpty) {
           issues.add(
@@ -612,8 +627,8 @@ class CrossSubsystemAuditor {
               registry: 'CoreGovernanceRegistry',
               issue: 'Structural Drift in $normalizedId: Missing $missingComps',
               suggestion:
-                  'Implement missing components to match blueprint $blueprintId.',
-              autoRemediable: true,
+                  'Implement and verify missing components to match blueprint $blueprintId; changing metadata is not implementation.',
+              autoRemediable: false,
               metadata: {
                 'type': 'structural_drift',
                 'screenId': normalizedId,
@@ -904,12 +919,19 @@ class _ScreenRegistryMetadataVisitor extends RecursiveAstVisitor<void> {
     if (key is SimpleStringLiteral) {
       final id = key.value;
       final value = node.value;
-      if (value is InstanceCreationExpression) {
+      // parseString has no type resolution: an implicit Dart constructor can
+      // appear as a MethodInvocation rather than InstanceCreationExpression.
+      final arguments = value is InstanceCreationExpression
+          ? value.argumentList.arguments
+          : value is MethodInvocation && value.methodName.name == 'ScreenMetadata'
+              ? value.argumentList.arguments
+              : null;
+      if (arguments != null) {
         String? route;
         String? status;
         final components = <String>[];
 
-        for (final arg in value.argumentList.arguments) {
+        for (final arg in arguments) {
           if (arg is NamedExpression) {
             final name = arg.name.label.name;
             if (name == 'routePath') {

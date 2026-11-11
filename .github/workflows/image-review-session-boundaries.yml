@@ -1,0 +1,41 @@
+name: Image Review Session Boundaries
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/image-review-session-boundaries.yml'
+      - 'websites/typescript/**'
+      - 'packages/shared/src/look/**'
+      - 'packages/shared/src/growth/registry.json'
+      - 'scripts/test-look-review-client-session.mjs'
+      - 'scripts/test-look-review-session.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    paths:
+      - '.github/workflows/image-review-session-boundaries.yml'
+      - 'websites/typescript/**'
+      - 'packages/shared/src/look/**'
+      - 'packages/shared/src/growth/registry.json'
+      - 'scripts/test-look-review-client-session.mjs'
+      - 'scripts/test-look-review-session.mjs'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+
+jobs:
+  session-boundaries:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify image review session boundaries without production credentials
+        run: node --test scripts/test-look-review-client-session.mjs scripts/test-look-review-session.mjs

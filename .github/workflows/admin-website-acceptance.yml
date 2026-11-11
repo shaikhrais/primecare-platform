@@ -1,7 +1,7 @@
 name: Admin website workflow acceptance
 on:
   pull_request:
-    paths: ['websites/typescript/**', 'evidence/test-admin-reports-browser.mjs', '.github/workflows/admin-website-acceptance.yml']
+    paths: ['websites/typescript/**', 'evidence/test-admin-reports-browser.mjs', 'scripts/test-admin-utility-disclosure.mjs', 'scripts/test-browser-ci-fixture-contracts.mjs', 'scripts/fixtures/workspace-owned-children.mjs', 'scripts/fixtures/tenant-review-dom.mjs', '.github/workflows/admin-website-acceptance.yml']
 permissions:
   contents: read
 jobs:
@@ -21,6 +21,8 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/admin-browser-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 typescript@5.9.3 pg@8.11.3 bcryptjs@3 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/admin-browser-tools/node_modules" node_modules
           node_modules/.bin/playwright install --with-deps chromium
+      - name: Guard disclosure interactions against actual workspace markup
+        run: node --test scripts/test-browser-ci-fixture-contracts.mjs scripts/test-admin-utility-disclosure.mjs
       - name: Build real website and PDF renderer
         run: |
           GOVERNANCE_ALLOW_SQLITE_FIXTURES=1 python3 scripts/export-typescript-websites.py --output artifacts/admin-website/manifests --gateway http://127.0.0.1:4173/test-api

@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Calendar Controls Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class ClientMyAppointmentsCalendarControlsSection extends StatelessWidget {
@@ -8,7 +9,7 @@ class ClientMyAppointmentsCalendarControlsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Calendar Controls Section Section'),
+      child: PrimeText('Calendar Controls Section Section'),
     );
   }
 }

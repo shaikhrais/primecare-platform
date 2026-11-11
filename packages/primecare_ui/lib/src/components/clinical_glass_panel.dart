@@ -32,7 +32,7 @@ class ClinicalGlassPanel extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
+            color: Theme.of(context).colorScheme.shadow.withValues(alpha: 0.2),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -55,7 +55,7 @@ class ClinicalGlassPanel extends StatelessWidget {
                 gradient: LinearGradient(
                   colors: [
                     theme.colors.primary.withValues(alpha: 0.1),
-                    Colors.transparent,
+                    theme.colors.primary.withValues(alpha: 0),
                   ],
                 ),
               ),
@@ -65,13 +65,14 @@ class ClinicalGlassPanel extends StatelessWidget {
                     Icon(icon, color: theme.colors.primary, size: 20),
                     const SizedBox(width: 12),
                   ],
-                  Text(
-                    title!,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 0.5,
+                  Expanded(
+                    child: Text(
+                      title!,
+                      style: theme.typography.bodyLarge.copyWith(
+                        color: theme.colors.onSurface,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 0.5,
+                      ),
                     ),
                   ),
                 ],

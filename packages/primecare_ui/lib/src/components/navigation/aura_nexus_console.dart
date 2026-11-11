@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: The omnipresent platform command center drawer, offering glassmorphic real-time controls, compliance auto-patchers, a...
 import 'dart:ui';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 
 /// The omnipresent platform command center drawer, offering glassmorphic real-time controls,
@@ -59,7 +60,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
     // Dynamic color indicator based on integrity
     final integrityColor = _integrityScore >= 95.0
         ? theme.colors.success
-        : (_integrityScore >= 80.0 ? const Color(0xFFF59E0B) : theme.colors.error);
+        : (_integrityScore >= 80.0 ? theme.colors.warning : theme.colors.error);
 
     return ClipRRect(
       child: BackdropFilter(
@@ -216,7 +217,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
                   ),
                   selected: isSelected,
                   selectedColor: theme.colors.primary.withValues(alpha: 0.1),
-                  backgroundColor: Colors.transparent,
+                  backgroundColor: theme.colors.surface.withValues(alpha: 0),
                   onSelected: (val) {
                     if (val) notifier.selectThread(thread.id);
                   },
@@ -229,7 +230,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
         // Message board area
         Expanded(
           child: Container(
-            color: Colors.transparent,
+            color: theme.colors.surface.withValues(alpha: 0),
             child: ListView.builder(
               controller: _chatScrollController,
               padding: EdgeInsets.all(context.s(16)),
@@ -304,7 +305,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
                           child: Text(
                             msg.content,
                             style: theme.typography.bodyMedium.copyWith(
-                              color: isMe ? Colors.white : theme.colors.onSurface,
+                              color: isMe ? readableThemeForeground(theme.colors.primary, theme.colors.onPrimary) : theme.colors.onSurface,
                               fontSize: context.s(13),
                             ),
                           ),
@@ -423,7 +424,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
               padding: EdgeInsets.all(context.s(12)),
               width: double.infinity,
               decoration: BoxDecoration(
-                color: Colors.black.withValues(alpha: 0.9),
+                color: theme.colors.surfaceContainerHighest,
                 borderRadius: BorderRadius.circular(context.s(8)),
                 border: Border.all(color: theme.colors.primary.withValues(alpha: 0.3)),
               ),
@@ -437,7 +438,7 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
                       style: TextStyle(
                         fontFamily: 'Courier',
                         fontSize: context.s(11),
-                        color: Colors.greenAccent,
+                        color: theme.colors.onSurface,
                       ),
                     ),
                   );
@@ -544,12 +545,12 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
                   ),
                 )
               : Card(
-                  color: const Color(0xFFF59E0B).withValues(alpha: 0.05),
+                  color: theme.colors.warning.withValues(alpha: 0.05),
                   child: Padding(
                     padding: EdgeInsets.all(context.s(16)),
                     child: Row(
                       children: [
-                        const Icon(LucideIcons.alertTriangle, color: Color(0xFFF59E0B)),
+                        Icon(LucideIcons.alertTriangle, color: theme.colors.warning),
                         SizedBox(width: context.s(12)),
                         Expanded(
                           child: Text(
@@ -569,14 +570,14 @@ class _AuraNexusConsoleDrawerState extends ConsumerState<AuraNexusConsoleDrawer>
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colors.primary,
-                foregroundColor: Colors.white,
+                foregroundColor: readableThemeForeground(theme.colors.primary, theme.colors.onPrimary),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(context.s(24))),
               ),
               icon: _isPatching
                   ? SizedBox(
                       height: context.s(18),
                       width: context.s(18),
-                      child: const CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
+                      child: CircularProgressIndicator(color: readableThemeForeground(theme.colors.primary, theme.colors.onPrimary), strokeWidth: 2),
                     )
                   : const Icon(LucideIcons.shieldAlert),
               label: Text(_isPatching ? 'Patching Drifts...' : 'Run Autopatch Audit'),

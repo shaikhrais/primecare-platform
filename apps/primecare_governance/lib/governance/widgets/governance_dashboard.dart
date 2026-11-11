@@ -65,26 +65,31 @@ class _GovernanceDashboardContentState
   }
 
   Future<void> _exportReport(String format, GovernanceReport report) async {
-    final result = await ref
-        .read(governanceDashboardControllerProvider.notifier)
-        .exportReport(format, report);
+    try {
+      final result = await ref
+          .read(governanceDashboardControllerProvider.notifier)
+          .exportReport(format, report);
 
-    if (result != null) {
-      if (!mounted) return;
-      if (format != 'pdf') {
-        await Clipboard.setData(ClipboardData(text: result));
+      if (result != null) {
+        if (!mounted) return;
+        if (format != 'pdf') {
+          await Clipboard.setData(ClipboardData(text: result));
+        }
+        if (!mounted) return;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'governance.dashboard.reportExported'.tr(args: [format]),
+            ),
+            backgroundColor: Colors.blue,
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
       }
+    } catch (_) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            format == 'pdf'
-                ? 'Professional PDF Report Generated (Ready for Download)'
-                : 'governance.dashboard.reportExported'.tr(args: [format]),
-          ),
-          backgroundColor: Colors.blue,
-          behavior: SnackBarBehavior.floating,
-        ),
+        SnackBar(content: Text('common.error'.tr())),
       );
     }
   }
@@ -153,7 +158,7 @@ class _GovernanceDashboardContentState
             dashboardState,
             report,
           ),
-          const PlatformDiscoveryViewer(baseUrl: 'http://localhost:8700/api/governance'),
+          const PlatformDiscoveryViewer(),
           const PlatformReadinessViewer(),
           GovernancePatchManager(issues: filteredIssues),
         ],
@@ -184,7 +189,7 @@ class _GovernanceDashboardContentState
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    'Live architectural audit of ${ScreenRegistry.screens.length} platform screens',
+                    'Checked-in app registry: ${ScreenRegistry.screens.length} screens; acceptance evidence pending',
                     style: const TextStyle(color: Colors.grey),
                   ),
                 ],

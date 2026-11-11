@@ -1,5 +1,6 @@
 import {esbuildInputPath} from './esbuild-input-path.mjs';
 import assert from 'node:assert/strict';
+import {expect} from 'playwright/test';
 import {execFileSync} from 'node:child_process';
 import pg from 'pg';import bcrypt from 'bcryptjs';import {build} from 'esbuild';import {chromium,firefox,webkit} from 'playwright';
 import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {createRequire} from 'node:module';import {createServer} from 'node:http';import {createHash,randomUUID} from 'node:crypto';import {tmpdir} from 'node:os';import {join} from 'node:path';
@@ -61,7 +62,10 @@ try{
   res.writeHead(404);res.end();
  }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
  browser=await browserType.launch({headless:true});receipt.browser_version=browser.version();
- const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).platform_administration;
+ const screenTextDefaults=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8'));
+ const loginLabelCatalog=JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/auth.json','utf8')).locales;
+ assert.deepEqual(screenTextDefaults.auth,loginLabelCatalog,'Login labels must match the registered isolated-service catalog');
+ const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=screenTextDefaults.platform_administration;
  const baseline=process.env.AUTH_PASSWORD_BASELINE==='1';receipt.baseline=baseline;
  const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,resets:(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_password_audit ORDER BY id')).rows});
  const login=async(email,pw=password)=>{const response=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password:pw})});assert.equal(response.status,200);return(await response.json()).token;};
@@ -86,7 +90,13 @@ try{
   const context=await browser.newContext({...(archive?{serviceWorkers:'block'}:{}),viewport:{width,height:1000},recordVideo:{dir:out+'/raw'}}),page=await context.newPage();
    if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
   try{
-   await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy(page,'login-form').waitFor();await checkForm(page,'login-form',locale);const forgot=new URL(await cy(page,'login-forgot').getAttribute('href'),page.url());assert.equal(forgot.searchParams.get('enable-semantics'),'true');assert.equal(forgot.searchParams.get('locale'),locale==='en'?null:locale);await cy(page,'login-email').fill('platform@example.invalid');await page.keyboard.press('Tab');assert.equal(await cy(page,'login-password').evaluate(el=>el===document.activeElement),true,'Tab reaches login password');await cy(page,'login-password').fill(password);await page.keyboard.press('Tab');assert.equal(await cy(page,'login-submit').evaluate(el=>el===document.activeElement),true,'Tab reaches login submit');await page.keyboard.press('Enter');await cy(page,'platform-language').waitFor();if(!baseline)assert.equal(await cy(page,'platform-language').inputValue(),locale,'Login locale must survive entering the admin shell');await cy(page,'platform-language').selectOption(locale);if(!await cy(page,'platform-account-link').isVisible())await page.locator('[data-cy=shell-utilities] summary').click();await cy(page,'platform-account-link').click();await cy(page,'change-password-form').waitFor();
+   await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');await cy(page,'login-form').waitFor();await checkForm(page,'login-form',locale);
+   if(!baseline){
+    for(const [id,key] of [['login-email','email'],['login-password','password'],['login-submit','login']]){
+     await expect(cy(page,id),locale+' localized login '+key).toHaveAccessibleName(loginLabelCatalog[locale][key]);
+    }
+   }
+   const forgot=new URL(await cy(page,'login-forgot').getAttribute('href'),page.url());assert.equal(forgot.searchParams.get('enable-semantics'),'true');assert.equal(forgot.searchParams.get('locale'),locale==='en'?null:locale);await cy(page,'login-email').fill('platform@example.invalid');await page.keyboard.press('Tab');assert.equal(await cy(page,'login-password').evaluate(el=>el===document.activeElement),true,'Tab reaches login password');await cy(page,'login-password').fill(password);await page.keyboard.press('Tab');assert.equal(await cy(page,'login-submit').evaluate(el=>el===document.activeElement),true,'Tab reaches login submit');await page.keyboard.press('Enter');await cy(page,'platform-language').waitFor();if(!baseline)assert.equal(await cy(page,'platform-language').inputValue(),locale,'Login locale must survive entering the admin shell');await cy(page,'platform-language').selectOption(locale);if(!await cy(page,'platform-account-link').isVisible())await page.locator('[data-cy=shell-utilities] summary').click();await cy(page,'platform-account-link').click();await cy(page,'change-password-form').waitFor();
    await checkForm(page,'change-password-form',locale);
    const token=await page.evaluate(()=>sessionStorage.getItem('primecare_session')),before=await snapshot();
    await page.route('**/v1/user/change-password',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({status:'not_changed'})}),{times:1});await submit(page);
@@ -107,13 +117,17 @@ try{
    let release,reached;const held=new Promise(r=>release=r),started=new Promise(r=>reached=r);
    await page.route('**/v1/user/change-password',async route=>{const response=await route.fetch();assert.equal(response.status(),200);reached();await held;await route.fulfill({response});},{times:1});
    await submit(page,'Synthetic-new!Password-2026','Synthetic-final!Password-2026');await started;await page.evaluate(t=>sessionStorage.setItem('primecare_session',t),other);release();await ready(page);assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),other);assert.equal((await me(other)).status,200);assert.equal((await me(current)).status,401);assert.equal(await cy(page,'change-password-status').textContent(),resources[locale].request_failed);
-   await page.screenshot({path:out+'/password-'+locale+'.png',fullPage:true});receipt.cases.push({locale,width,keyboardLogin:true,keyboardPasswordSubmit:true,automatedFormAccessibility:true,credentialLogin:true,actualMainUI:true,malformedSuccessRejected:true,offlineRetry:true,invalidCredentialsLocalized:true,auditFailureRollsBack:true,passwordHashConfirmed:true,oldCredentialsDenied:true,allPriorSessionsRevoked:true,resetTokensRevoked:true,foreignTenantPreserved:true,newCredentialLoginAndReload:true,replacementSessionPreserved:true});
+   await page.screenshot({path:out+'/password-'+locale+'.png',fullPage:true});receipt.cases.push({locale,width,localizedLoginAccessibleNames:true,keyboardLogin:true,keyboardPasswordSubmit:true,automatedFormAccessibility:true,credentialLogin:true,actualMainUI:true,malformedSuccessRejected:true,offlineRetry:true,invalidCredentialsLocalized:true,auditFailureRollsBack:true,passwordHashConfirmed:true,oldCredentialsDenied:true,allPriorSessionsRevoked:true,resetTokensRevoked:true,foreignTenantPreserved:true,newCredentialLoginAndReload:true,replacementSessionPreserved:true});
   }finally{const video=page.video();await context.close();if(video)await video.saveAs(out+'/password-'+locale+'.webm');}
  }
 
  if(!baseline){
   receipt.limitations.push('Recovery email acceptance uses an explicit isolated EMAIL binding; this receipt does not prove Cloudflare inbox delivery. Deployed owned-inbox proof remains separate.');
-  const recoveryText=JSON.parse(await readFile('packages/shared/src/auth-recovery.json','utf8')).locales;
+  // The isolated service resolves registered catalog keys; unregistered keys keep policy fallbacks.
+  const recoveryFallback=JSON.parse(await readFile('packages/shared/src/auth-recovery.json','utf8')).locales;
+  const recoveryCatalog=screenTextDefaults.password_recovery;
+  assert.deepEqual(recoveryCatalog,JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/password_recovery.json','utf8')).locales);
+  const recoveryText=Object.fromEntries(['en','fr','es'].map(locale=>[locale,{...recoveryFallback[locale],...recoveryCatalog[locale]}]));
   const authText=JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/auth.json','utf8')).locales;
   const email='platform@example.invalid',nextPassword='Synthetic-recovery!Password-2026';
   const recoveryReady=page=>page.waitForFunction(()=>document.querySelector('[data-cy=recovery-submit]')?.disabled===false);
@@ -133,6 +147,14 @@ try{
    if(archive)await context.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
    try{
     await page.goto(origin+'/forgot-password?locale='+locale+'&enable-semantics=true');await cy(page,'recovery-form').waitFor();
+    // Wait for the controlled catalog download, so strict no-request checks exclude bootstrap traffic.
+    await page.waitForFunction(({gateway,screens,recovery})=>{
+     try{
+      const cached=JSON.parse(localStorage.getItem('primecare.screen-text.v1.'+encodeURIComponent(gateway))??'null');
+      return screens.every(screen=>cached?.catalogs?.some(c=>c.screen===screen&&c.version===0))&&
+       JSON.stringify(cached.catalogs.find(c=>c.screen==='password_recovery')?.locales)===JSON.stringify(recovery);
+     }catch{return false;}
+    },{gateway:origin,screens:Object.keys(screenTextDefaults),recovery:recoveryCatalog});
     await checkForm(page,'recovery-form',locale,receipt.recoveryAccessibility,'forgot');
     const before=await snapshot();
     rejectRecoveryDelivery=true;

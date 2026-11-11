@@ -1,3 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'psw_check_in_screen_controller.dart';
@@ -15,12 +18,12 @@ class PswCheckInScreen extends ConsumerWidget {
       child: Scaffold(
         key: const Key('pswcheckin-screen'),
       appBar: AppBar(
-        title: Semantics(label: 'data-cy:pswcheckin-title', container: true, child: Container(child:  const Text('PswCheckIn'))),
+        title: Semantics(label: 'data-cy:pswcheckin-title', container: true, child: Container(child:  const PrimeText('PswCheckIn'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        loading: () => const DashboardLoadingWidget(),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     )
     );
@@ -31,9 +34,9 @@ class PswCheckInScreen extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 64),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'PswCheckInScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

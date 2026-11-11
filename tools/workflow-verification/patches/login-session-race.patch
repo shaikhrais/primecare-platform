@@ -1,8 +1,6 @@
-diff --git a/scripts/test-auth-password-workflow.mjs b/scripts/test-auth-password-workflow.mjs
-index 126d80f3d..61bc9d134 100644
 --- a/scripts/test-auth-password-workflow.mjs
 +++ b/scripts/test-auth-password-workflow.mjs
-@@ -6,14 +6,24 @@ import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';import {create
+@@ -7,14 +7,24 @@
  const browserName=process.env.AUTH_PASSWORD_BROWSER||'chromium';
  const browserType={chromium,firefox,webkit}[browserName];
  if(!browserType)throw Error('Unsupported auth password browser');
@@ -29,7 +27,7 @@ index 126d80f3d..61bc9d134 100644
  assert.ok(Object.keys(policy.theme||{}).length>=10,'Representative governed theme required for browser layout and accessibility');
  if(policy.fixture_only){assert.equal(process.env.AUTH_PASSWORD_TEST_FIXTURE,'1');receipt.limitations.push('Explicit isolated metadata fixture, not a live production authority read.');}
  try{
-@@ -24,7 +34,7 @@ try{
+@@ -25,7 +35,7 @@
   const front=await build({entryPoints:['websites/typescript/src/main.ts'],bundle:true,write:false,metafile:true,platform:'browser',format:'iife'});
   const back=await build({stdin:{contents:"export {default as gateway} from './cloudflare/workers/src/gateway';export {default as service} from './cloudflare/workers/src/service';",resolveDir:process.cwd()},bundle:true,platform:'node',format:'cjs',write:false,metafile:true,external:['pg']});
   const backend=join(dir,'backend.cjs');await writeFile(backend,back.outputFiles[0].text.replaceAll('require("pg")',`require(${JSON.stringify(join(process.cwd(),'node_modules/pg'))})`));const {gateway,service}=require(backend);
@@ -38,7 +36,7 @@ index 126d80f3d..61bc9d134 100644
   const archive=process.env.CLINIC_REHEARSAL_ARCHIVE;
   const archivedFiles=new Map();
   if(archive){
-@@ -40,7 +50,9 @@ try{
+@@ -41,7 +51,9 @@
   }
   let rejectRecoveryDelivery=false;const recoveryDeliveries=[];
   const env={DB_URL:url.toString(),AUTH_SOURCE_LIMIT:{limit:async()=>({success:true})},EMAIL_FROM:'fixture@example.invalid',EMAIL:{send:async message=>{if(rejectRecoveryDelivery)throw Error('Isolated delivery outage');recoveryDeliveries.push(message);return {messageId:'isolated-'+randomUUID()};}}},css=await readFile('websites/typescript/src/styles.css','utf8');
@@ -49,7 +47,7 @@ index 126d80f3d..61bc9d134 100644
    if(archive&&!requestUrl.pathname.startsWith('/v1/')){
     const path=requestUrl.pathname.slice(1);
     const name=['','login','forgot-password','reset-password','platform/administration'].includes(path)?'index.html':path;
-@@ -57,15 +69,80 @@ try{
+@@ -58,9 +70,11 @@
    if(['/login','/forgot-password','/reset-password','/platform/administration','/'].includes(requestUrl.pathname)){const locale=requestUrl.searchParams.get('locale')||'en';res.setHeader('content-type','text/html');res.end(`<!doctype html><html lang="${['en','fr','es'].includes(locale)?locale:'en'}"><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>PrimeCare synthetic login</title><style>${css}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);return;}
    if(requestUrl.pathname.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);headers.delete('accept-encoding');headers.set('origin','https://primecare-clinic.pages.dev');headers.set('cf-connecting-ip','192.0.2.1');
     const request=new Request(origin+req.url,{method:req.method,headers,...(body?{body}:{})});const bindings={AUTH:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'auth'})},GOVERNANCE:{fetch:r=>service.fetch(r,{...env,SERVICE_NAME:'governance'})}};
@@ -61,8 +59,9 @@ index 126d80f3d..61bc9d134 100644
 - }catch(error){bridgeFailure=error;res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
 + }catch(error){bridgeFailure=error;identityGate?.reached({error:true});identityGate?.finished();res.writeHead(500);res.end('Synthetic bridge failure');}});await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
   browser=await browserType.launch({headless:true});receipt.browser_version=browser.version();
-  const cy=(page,id)=>page.locator('[data-cy="'+id+'"]'),resources=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8')).platform_administration;
-  const baseline=process.env.AUTH_PASSWORD_BASELINE==='1';receipt.baseline=baseline;
+  const screenTextDefaults=JSON.parse(await readFile('cloudflare/workers/src/screen-text-defaults.json','utf8'));
+  const loginLabelCatalog=JSON.parse(await readFile('packages/primecare_ui/lib/src/localization/screens/auth.json','utf8')).locales;
+@@ -70,6 +84,69 @@
   const snapshot=async()=>({users:(await db.query('SELECT * FROM users ORDER BY id')).rows,sessions:(await db.query('SELECT * FROM auth_sessions ORDER BY token_hash')).rows,resets:(await db.query('SELECT * FROM auth_password_resets ORDER BY token_hash')).rows,audit:(await db.query('SELECT * FROM auth_password_audit ORDER BY id')).rows});
   const login=async(email,pw=password)=>{const response=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password:pw})});assert.equal(response.status,200);return(await response.json()).token;};
   const me=token=>fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+token}});
@@ -132,7 +131,7 @@ index 126d80f3d..61bc9d134 100644
   const submit=async(page,current= password,next='Synthetic-new!Password-2026')=>{
    await cy(page,'current-password').fill(current);await page.keyboard.press('Tab');
    assert.equal(await cy(page,'new-password').evaluate(el=>el===document.activeElement),true,'Tab reaches new password');
-@@ -198,7 +275,8 @@ try{
+@@ -220,7 +297,8 @@
    receipt.crossTenantManagement={foreignStatus:blocked.status,localStatus:allowed.status,deniedRequestPreservedRows:true};
    console.log('CLINIC_CROSS_TENANT '+JSON.stringify(receipt.crossTenantManagement));
   }

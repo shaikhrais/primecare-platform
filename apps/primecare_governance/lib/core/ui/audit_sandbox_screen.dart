@@ -1,5 +1,6 @@
 // Governance - Category: view | Purpose: Coordinator layout for Audit Sandbox
 // TODO: Implement screen coordinator layout according to DB requirements.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,7 +11,7 @@ class AuditSandboxScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return const Scaffold(
       body: Center(
-        child: Text('Audit Sandbox Coordinator'),
+        child: PrimeText('Audit Sandbox Coordinator'),
       ),
     );
   }

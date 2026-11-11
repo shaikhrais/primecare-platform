@@ -1,11 +1,52 @@
 // Governance - Category: service | Purpose: Generated Registry - Do Not Edit Manually
 // Generated Registry - Do Not Edit Manually
 import 'package:flutter_core/flutter_core.dart';
+import 'invalid_registry_placeholders.dart';
 
 class CoreGovernanceRegistry {
+  static final Map<String, ScreenMetadata> _unresolvedMetadata = {};
+  static final Map<String, ScreenMetadata> _retiredMetadata = {};
+
+  static Map<String, ScreenMetadata> get retiredMetadata => Map.unmodifiable(_retiredMetadata);
+
+  static void _retainInvalidRecord(ScreenMetadata record) {
+    if (InvalidRegistryPlaceholders.matches(record)) {
+      _retiredMetadata[record.id] = record;
+    } else {
+      _unresolvedMetadata[record.id] = record;
+    }
+  }
+
+  /// Retained for audit/reconciliation; these records cannot become routes.
+  static Map<String, ScreenMetadata> get unresolvedMetadata =>
+      Map.unmodifiable(_unresolvedMetadata);
+
+  static bool _isUnroutableMetadata(ScreenMetadata screen) =>
+      screen.title.trim().isEmpty && screen.featureName.trim().isEmpty &&
+      screen.routePath.trim().isEmpty && screen.allowedRoles.isEmpty;
+
   static void registerScreens() {
-    PlatformScreenRegistry.registerScreens(screens.values.toList());
-    applyProductionReadiness();
+    _unresolvedMetadata.clear();
+    _retiredMetadata.clear();
+    for (final record in screens.values) {
+      if (_isUnroutableMetadata(record)) {
+        _retainInvalidRecord(record);
+      } else {
+        PlatformScreenRegistry.registerScreens([record]);
+      }
+    }
+    for (final id in {..._unresolvedMetadata.keys, ..._retiredMetadata.keys}) {
+      PlatformScreenRegistry.screens.remove(id);
+    }
+    // The shared registry also starts with legacy metadata. Preserve invalid
+    // records for audit instead of inventing routes or administrator grants.
+    for (final record in PlatformScreenRegistry.allScreens) {
+      if (_isUnroutableMetadata(record)) {
+        _retainInvalidRecord(record);
+        PlatformScreenRegistry.screens.remove(record.id);
+      }
+    }
+    normalizeRegistryRoutes();
   }
 
   static final Map<String, ScreenMetadata> screens = {
@@ -3888,42 +3929,15 @@ class CoreGovernanceRegistry {
     ),
   };
 
-  static void applyProductionReadiness() {
-    final allScreens = PlatformScreenRegistry.allScreens;
-    for (final screen in allScreens) {
-      final route = screen.routePath.isEmpty
-          ? '/reconciled/${screen.id.toLowerCase()}'
-          : screen.routePath;
-      final roles = screen.allowedRoles.isEmpty
-          ? ['ADMIN']
-          : screen.allowedRoles;
-      PlatformScreenRegistry.registerScreens([
-        screen.copyWith(
-          lifecycleStatus: LifecycleStatus.completed,
-          route: route,
-          roles: roles,
-          isRenderOk: true,
-          userApprovedLayout: true,
-          testPassRate: 100.0,
-          isPhiCompliant: true,
-          isLocalizationReady: true,
-          isDesktopVerified: true,
-          isAccessibilityVerified: true,
-          isPerformanceVerified: true,
-          accessibilityScore: 95.0,
-          performanceScore: 90.0,
-          translatedLanguages: ['en', 'fr', 'es', 'ar'],
-          isFullyTranslated: true,
-          hasAllTranslations: true,
-          isAuditCompliant: true,
-          isDataBindingVerified: true,
-          isSecurityVerified: true,
-          isTelemetryVerified: true,
-          isNavigationVerified: true,
-          lastVerificationHash: 'VERIFIED_BY_CI',
-          uatApprover: 'QA_TEAM',
-        ),
-      ]);
+  // Legacy metadata may omit a route. Normalize only that presentation path;
+  // registration cannot manufacture test results, reviews or verification.
+  static void normalizeRegistryRoutes() {
+    for (final screen in PlatformScreenRegistry.allScreens) {
+      if (screen.routePath.isEmpty) {
+        PlatformScreenRegistry.registerScreens([
+          screen.copyWith(route: '/reconciled/${screen.id.toLowerCase()}'),
+        ]);
+      }
     }
   }
 }

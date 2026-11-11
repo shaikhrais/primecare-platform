@@ -89,35 +89,62 @@ class QuarantineTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
 
 class ProductionConsumerReviewTest(unittest.TestCase):
-    def test_current_reviewed_consumers_and_each_source_drift(self):
-        import tempfile,shutil
-        repository=Path(__file__).resolve().parents[1]
-        review_path=Path('docs/business/evidence/communication-runtime-reader-review.json')
-        reviews=json.loads((repository/review_path).read_text())
-        with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory)
-            (root/review_path).parent.mkdir(parents=True)
-            (root/review_path).write_text(json.dumps(reviews))
-            for relative in reviews:
-                target=root/relative;target.parent.mkdir(parents=True,exist_ok=True)
-                shutil.copyfile(repository/relative,target)
-            self.assertEqual(set(m.consumer_preflight(root)['runtimeReferences']),set(reviews))
-            for relative in reviews:
-                target=root/relative;original=target.read_bytes()
-                target.write_bytes(original+b'\n// unreviewed source change')
-                with self.subTest(source=relative):
-                    with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
-                target.write_bytes(original)
+    # Explicit test inventory: do not derive from the implementation allowlist.
+    reviewed_paths = (
+        'cloudflare/workers/src/business-tasks/endpoint-policy.ts',
+        'cloudflare/workers/src/vapi-administration-policy.ts',
+        'cloudflare/workers/src/look/access.ts',
+        'packages/database/migrations/20261025_internal_call_context.sql',
+        'packages/database/migrations/20261025_internal_call_permission_indexes.sql',
+        'packages/shared/src/communications/internal-call-context-query.mjs',
+    )
 
-    def test_unknown_consumer_cannot_self_register_a_matching_hash(self):
-        import tempfile,hashlib
-        with tempfile.TemporaryDirectory() as directory:
-            root=Path(directory);relative='services/unknown.ts';source=root/relative
-            source.parent.mkdir(parents=True);source.write_text('SELECT * FROM api_permissions')
-            review=root/'docs/business/evidence/communication-runtime-reader-review.json'
-            review.parent.mkdir(parents=True)
-            review.write_text(json.dumps({relative:{'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
-                'authority':'pinned-production-postgresql','historicalCatalogAccess':False}}))
-            with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+    def test_each_reviewed_source_and_fail_closed_mutations(self):
+        import tempfile, copy
+        repository=Path(__file__).resolve().parents[1]
+        reviews=json.loads((repository/'docs/business/evidence/communication-runtime-reader-review.json').read_text())
+        for relative in self.reviewed_paths:
+            with self.subTest(path=relative), tempfile.TemporaryDirectory() as directory:
+                root=Path(directory);source=root/relative
+                source.parent.mkdir(parents=True);original=(repository/relative).read_bytes();source.write_bytes(original)
+                review=root/'docs/business/evidence/communication-runtime-reader-review.json';review.parent.mkdir(parents=True)
+                entry=reviews[relative]
+                review.write_text(json.dumps({relative:entry}))
+                self.assertEqual(m.consumer_preflight(root)['runtimeReferences'],[relative])
+                source.write_bytes(original+b'\n// unreviewed source drift')
+                with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+                source.write_bytes(original)
+                mutations=[{}, {relative:{}}]
+                for field,values in (
+                    ('sha256',['0'*64,None]),
+                    ('authority',['historical-sqlite','other-production-postgresql',None]),
+                    ('historicalCatalogAccess',[True,0,'false',None]),
+                ):
+                    for value in values:
+                        changed=copy.deepcopy(entry);changed[field]=value;mutations.append({relative:changed})
+                    changed=copy.deepcopy(entry);del changed[field];mutations.append({relative:changed})
+                for changed in mutations:
+                    with self.subTest(review=changed):
+                        review.write_text(json.dumps(changed))
+                        with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+                review.unlink()
+                with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+
+    def test_manifest_alone_cannot_allow_unknown_sources(self):
+        import tempfile, hashlib
+        for area in ('cloudflare','services','packages','apps'):
+            for suffix in ('.py','.ts','.dart','.js','.mjs','.sql'):
+                with self.subTest(area=area,suffix=suffix), tempfile.TemporaryDirectory() as directory:
+                    root=Path(directory);relative=area+'/unknown'+suffix;source=root/relative
+                    source.parent.mkdir(parents=True);source.write_text('api_permissions')
+                    review=root/'docs/business/evidence/communication-runtime-reader-review.json';review.parent.mkdir(parents=True)
+                    review.write_text(json.dumps({relative:{'sha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+                        'authority':'pinned-production-postgresql','historicalCatalogAccess':False}}))
+                    with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
+
+    def test_repository_consumer_inventory_is_exact(self):
+        root=Path(__file__).resolve().parents[1]
+        self.assertEqual(set(m.consumer_preflight(root)['runtimeReferences']),
+                         set(self.reviewed_paths)|{'cloudflare/workers/src/account-preferences.ts'})
 
 if __name__=='__main__':unittest.main()

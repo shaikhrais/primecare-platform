@@ -444,7 +444,7 @@ class OperationsBoard extends GovernedConsumerWidget {
                                 ],
                               ),
                             ] else ...[
-                              Icon(LucideIcons.checkCircle2, color: Colors.green, size: 24),
+                              PrimeStatusIcon(LucideIcons.checkCircle2, tone: PrimeStatusTone.success, size: 24),
                             ],
                           ],
                         ),

@@ -1,0 +1,27 @@
+name: Screen candidate inventory
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  inventory:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_screen_inheritance_scan.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_route_sites.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_planned_screen_verification.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_db_screen_registration.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_disabled_screen_generators.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_module_screen_catalog.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_module_screen_registration_check.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_governance_workspace_mappings.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_governance_screen_grant_audit.py'
+      - run: python3 -m unittest discover -s scripts/tests -p 'test_getting_started_guide_generator.py'
+      - run: node scripts/generate-getting-started-guide.mjs --check
+      - run: python3 scripts/check_governance_workspace_mappings.py
+      - run: python3 scripts/check_module_screen_registrations.py
+      - run: python3 scripts/check_screen_inheritance.py
+      - run: python3 scripts/check_route_sites.py

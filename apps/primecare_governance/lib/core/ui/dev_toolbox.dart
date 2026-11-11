@@ -1,4 +1,5 @@
 // Governance - Category: service | Purpose: Core implementation file for the Dev Toolbox platform logic.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -23,20 +24,20 @@ class DevToolbox extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            const PrimeText(
               'Dev Toolbox',
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             const Divider(),
             Row(
               children: [
-                Text('governance.devToolbox.env'.tr()),
+                PrimeText('governance.devToolbox.env'.tr()),
                 const SizedBox(width: 8),
                 DropdownButton<Environment>(
                   value: EnvConfig.environment,
                   items: Environment.values
                       .map(
-                        (e) => DropdownMenuItem(value: e, child: Text(e.name)),
+                        (e) => DropdownMenuItem(value: e, child: PrimeText(e.name)),
                       )
                       .toList(),
                   onChanged: (val) {
@@ -64,7 +65,7 @@ class DevToolbox extends ConsumerWidget {
                     }
                   },
                   icon: const Icon(Icons.analytics_outlined, size: 18),
-                  label: Text('governance.devToolbox.systemVerify'.tr()),
+                  label: PrimeText('governance.devToolbox.systemVerify'.tr()),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue[800],
                     foregroundColor: Colors.white,
@@ -81,7 +82,7 @@ class DevToolbox extends ConsumerWidget {
                       }
                     },
                     icon: const Icon(Icons.logout, size: 18),
-                    label: Text('governance.devToolbox.exitDemo'.tr()),
+                    label: PrimeText('governance.devToolbox.exitDemo'.tr()),
                     style: TextButton.styleFrom(
                       foregroundColor: Colors.red[700],
                     ),

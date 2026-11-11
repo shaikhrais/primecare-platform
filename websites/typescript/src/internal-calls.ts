@@ -9,17 +9,17 @@ import {renderShell,bindShell} from './shell';
 const escape=(v:unknown)=>String(v??'').replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]!));
 type Call={id:string;callerId:string;recipientId:string;status:string;expiresAt:number;offered?:boolean;answered?:boolean};
 type View={id:string;version:number;members:string[];calls:Call[]};
-type Context={userId:string;role:string;home:string;navigation:string};
+type Context={userId:string;role:string;home:string;navigation:string;isCurrent?:()=>boolean};
 /** One request/session-scoped panel for all permitted websites. Server grants and
  * account/call scope remain authoritative. Closing/navigation releases media. */
 export class InternalCallsPanel extends CommunicationResourceBase {
  readonly client:InternalCallClient;readonly root:HTMLElement;readonly token:string;readonly userId:string;readonly labels:Record<string,string>;
  readonly audio=document.createElement('audio');private session:BrowserAudioSession|null=null;private timer:ReturnType<typeof setTimeout>|null=null;
- private events:BrowserCallEvents;private pushWork:Promise<void>|null=null;private pushDirty=false;private refreshWork:Promise<void>|null=null;
+ private isCurrent:()=>boolean;private events:BrowserCallEvents;private pushWork:Promise<void>|null=null;private pushDirty=false;private refreshWork:Promise<void>|null=null;
  private preparedCall:string|null=null;private prepWork:Promise<void>|null=null;private mediaStages:{stage:string;at:number}[]=[];
  private active:{view:View;call:Call}|null=null;private self:any=null;private directory:any[]=[];private pending:{extension:string;requestId:string}|null=null;private busy=false;private polling=false;private muted=false;private starting=false;private lastHeartbeat=0;private attempted=new Set<string>();private notification:string|null=null;
  constructor(root:HTMLElement,gateway:string,token:string,context:Context){
-  super();this.root=root;this.token=token;this.userId=context.userId;this.client=new InternalCallClient(gateway,token);const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';this.labels=catalog.locales[locale];
+  super();this.isCurrent=context.isCurrent??(()=>true);this.root=root;this.token=token;this.userId=context.userId;this.client=new InternalCallClient(gateway,token);const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';this.labels=catalog.locales[locale];
   this.events=new BrowserCallEvents({gateway,userId:this.userId,token,isCurrent:()=>!this.closed&&sessionStorage.getItem('primecare_session')===this.token,onChange:type=>{if(type==='signal'){if(this.session?.started||this.session?.negotiating)void this.session.refresh().catch(()=>{});}else{if(this.session?.negotiating)void this.session.refresh().catch(()=>{});this.pushed();}},onStatus:connected=>{if(!this.closed)this.root.querySelector('[data-cy=internal-call-panel]')?.setAttribute('data-push',connected?'connected':'disconnected');},onDenied:()=>{if(sessionStorage.getItem('primecare_session')!==this.token){this.session?.close();this.close();}}});
   this.registerCleanup(()=>this.events.close());
   const t=(key:string)=>escape(this.labels[key]),button=(key:string)=>`<button type="button" data-call="${key}" data-cy="internal-call-${key}">${t(key)}</button>`;
@@ -38,8 +38,8 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   this.registerCleanup(()=>{root.removeEventListener('click',click);form.removeEventListener('submit',submit);window.removeEventListener('pagehide',leave);window.removeEventListener('storage',leave);});
   this.registerCleanup(()=>{clearTimeout(this.timer!);this.timer=null;this.session?.close();this.session=null;this.audio.pause();this.audio.srcObject=null;});this.draw();
  }
- private message(key:string){const el=this.root.querySelector('[data-cy=internal-call-status]');if(el)el.textContent=this.labels[key]??key;}
- private current(){this.assertOpen();if(sessionStorage.getItem('primecare_session')!==this.token){this.close();throw new InternalCallRequestError(401);}}
+ private message(key:string){if(this.closed)return;const el=this.root.querySelector('[data-cy=internal-call-status]');if(el)el.textContent=this.labels[key]??key;}
+ private current(){this.assertOpen();let current=false;try{current=this.isCurrent()&&sessionStorage.getItem('primecare_session')===this.token;}catch{this.close();throw new InternalCallRequestError(401);}if(!current){this.close();throw new InternalCallRequestError(401);}}
  private draw(){
   if(this.closed)return;const own=this.root.querySelector('[data-cy=internal-call-own]')!;own.textContent=this.self?`${this.labels.own}: ${this.self.extension} — ${this.labels[this.self.published?'published':'unpublished']}`:this.labels.unpublished;
   this.root.querySelector<HTMLElement>('[data-cy=internal-call-pending]')!.hidden=this.pending===null;
@@ -50,7 +50,7 @@ export class InternalCallsPanel extends CommunicationResourceBase {
  }
  private async operation(work:()=>Promise<void>){if(this.busy||this.closed)return;this.busy=true;this.draw();try{this.current();await work();this.current();await this.refresh();}catch(error){this.session?.close();this.message(error instanceof InternalCallRequestError&&error.status===401?'login':this.pending?'unknown':'unavailable');}finally{this.busy=false;this.draw();}}
  async refreshDirectory(){const data=await this.client.directory() as any;this.current();if(data.userId!==this.userId)throw Error('Wrong session');this.self=data.self;this.directory=data.items;this.draw();}
- async start(){try{await this.refreshDirectory();await this.refresh();this.events.start();}finally{this.schedule();}}
+ async start(){try{this.current();await this.refreshDirectory();await this.refresh();this.current();this.events.start();}catch(error){this.current();throw error;}finally{this.schedule();}}
  private schedule(){if(this.closed||this.timer)return;this.timer=setTimeout(()=>{this.timer=null;this.refresh().catch(()=>{}).finally(()=>this.schedule());},this.events.connected?Math.max(500,Math.min(10000,this.active?.call.status==='ringing'?this.active.call.expiresAt-Date.now():10000)):2000);}
  private pushed(){
   this.pushDirty=true;if(this.pushWork||this.closed)return;
@@ -93,4 +93,4 @@ export class InternalCallsPanel extends CommunicationResourceBase {
   this.session=session;try{await session.start();this.current();}catch(error){session.close();if(this.session===session)this.session=null;this.message(error instanceof DOMException&&['NotAllowedError','SecurityError'].includes(error.name)?'permission':error instanceof InternalCallRequestError&&error.status===401?'login':'unavailable');}finally{this.starting=false;this.draw();}
  }
 }
-export async function renderInternalCalls(root:HTMLElement,gateway:string,context:Context){const token=sessionStorage.getItem('primecare_session');if(!token){location.assign('/login');return;}const panel=new InternalCallsPanel(root,gateway,token,context);try{await panel.start();}catch{root.querySelector('[data-cy=internal-call-status]')!.textContent=panel.labels.unavailable;}return panel;}
+export async function renderInternalCalls(root:HTMLElement,gateway:string,context:Context,claim?:(panel:InternalCallsPanel)=>void){const token=sessionStorage.getItem('primecare_session');if(!token){location.assign('/login');return;}const panel=new InternalCallsPanel(root,gateway,token,context);claim?.(panel);if(panel.closed)return panel;try{await panel.start();}catch{if(!panel.closed){const status=root.querySelector('[data-cy=internal-call-status]');if(status)status.textContent=panel.labels.unavailable;}}return panel;}

@@ -7,10 +7,113 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import closing
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 BASELINE = json.loads((ROOT / 'docs/auth-recovery/native-presentation-baseline.json').read_text())['screens']
+
+
+def logical_digest(db):
+    """Compare schema and row multisets, not restore SQL or FK validity.
+
+    Python 3.14's iterdump runs foreign_key_check, which rejects unrelated
+    historical fixture schemas (translations references languages.id, but
+    the historical parent key is languages.language_id). Keep those schemas and rows in the comparison without changing them.
+    Integrity assertions below remain independent of this snapshot helper.
+    """
+    digest = hashlib.sha256()
+
+    def record(value):
+        encoded = repr(value).encode('utf-8')
+        digest.update(str(len(encoded)).encode('ascii') + b':' + encoded)
+
+    schema = db.execute(
+        'SELECT type,name,tbl_name,sql FROM sqlite_schema ORDER BY type,name'
+    ).fetchall()
+    record(schema)
+    for kind, name, _, _ in schema:
+        # Ignored INSERTs may advance SQLite allocation counters.
+        if kind != 'table' or name == 'sqlite_sequence':
+            continue
+        quoted_name = '"' + name.replace('"', '""') + '"'
+        record(name)
+        record(sorted(repr(row) for row in db.execute('SELECT * FROM ' + quoted_name)))
+    return digest.hexdigest()
+
+
+class LogicalDigestTests(unittest.TestCase):
+    def test_schema_and_all_row_values_are_compared(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE "quoted""table" (value)')
+            before = logical_digest(db)
+            db.execute('INSERT INTO "quoted""table" VALUES (?)', (b'\x00\xff',))
+            self.assertNotEqual(logical_digest(db), before)
+            before = logical_digest(db)
+            db.execute('CREATE INDEX value_index ON "quoted""table" (value)')
+            self.assertNotEqual(logical_digest(db), before)
+
+    def test_only_allocation_counters_are_ignored(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.execute('CREATE TABLE sample (id INTEGER PRIMARY KEY AUTOINCREMENT, value)')
+            db.execute("INSERT INTO sample(value) VALUES ('original')")
+            before = logical_digest(db)
+            db.execute("UPDATE sqlite_sequence SET seq=99 WHERE name='sample'")
+            self.assertEqual(logical_digest(db), before)
+            db.execute("UPDATE sample SET value='changed'")
+            self.assertNotEqual(logical_digest(db), before)
+
+    def test_invalid_historical_fk_is_not_repaired_or_hidden(self):
+        with closing(sqlite3.connect(':memory:')) as db:
+            db.executescript('CREATE TABLE languages (language_id INTEGER PRIMARY KEY);'
+                             'CREATE TABLE translations (language TEXT REFERENCES languages(id));'
+                             "INSERT INTO translations VALUES ('en');")
+            before = logical_digest(db)
+            with self.assertRaisesRegex(sqlite3.OperationalError, 'foreign key mismatch'):
+                db.execute('PRAGMA foreign_key_check').fetchall()
+            self.assertEqual(logical_digest(db), before)
+            db.execute("UPDATE translations SET language='fr'")
+            self.assertNotEqual(logical_digest(db), before)
+
+
+class RecoveryFixtureBoundary(unittest.TestCase):
+    def run_isolated(self, *args, fixture_mode=False, credential=None):
+        environment = dict(os.environ)
+        for name in ('PRODUCTION_DATABASE_URL', 'GOVERNANCE_DATABASE_URL',
+                     'GOVERNANCE_ALLOW_SQLITE_FIXTURES'):
+            environment.pop(name, None)
+        if fixture_mode:
+            environment['GOVERNANCE_ALLOW_SQLITE_FIXTURES'] = '1'
+        if credential:
+            # This is an inert sentinel. The guard must run before parsing or use.
+            environment[credential] = 'forbidden-test-sentinel'
+        return subprocess.run(
+            [sys.executable, str(ROOT / 'scripts/register-auth-recovery-web.py'), *args],
+            capture_output=True, text=True, env=environment,
+        )
+
+    def test_fixture_mode_rejects_each_production_credential_without_creating_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            database = Path(folder) / 'must-not-exist.db'
+            output = Path(folder) / 'must-not-exist.json'
+            for credential in ('PRODUCTION_DATABASE_URL', 'GOVERNANCE_DATABASE_URL'):
+                with self.subTest(credential=credential):
+                    result = self.run_isolated('--database', str(database), '--output', str(output),
+                                               fixture_mode=True, credential=credential)
+                    self.assertNotEqual(result.returncode, 0)
+                    self.assertIn('Production credentials forbidden', result.stderr)
+                    self.assertFalse(database.exists())
+                    self.assertFalse(output.exists())
+
+    def test_explicit_historical_path_without_opt_in_fails_without_creating_files(self):
+        with tempfile.TemporaryDirectory() as folder:
+            database = Path(folder) / 'must-not-exist.db'
+            output = Path(folder) / 'must-not-exist.json'
+            result = self.run_isolated('--database', str(database), '--output', str(output))
+            self.assertNotEqual(result.returncode, 0)
+            self.assertIn('require explicit GOVERNANCE_ALLOW_SQLITE_FIXTURES=1', result.stderr)
+            self.assertFalse(database.exists())
+            self.assertFalse(output.exists())
 
 
 class RecoveryGovernance(unittest.TestCase):
@@ -34,14 +137,8 @@ class RecoveryGovernance(unittest.TestCase):
         self.assertEqual(result.returncode == 0, success, result.stderr)
 
     def dump(self):
-        with sqlite3.connect(self.database) as db:
-            digest = hashlib.sha256()
-            for line in db.iterdump():
-                # Ignored INSERTs may advance SQLite allocation counters.
-                if not line.startswith('INSERT INTO \"sqlite_sequence\"'):
-                    digest.update(line.encode())
-                    digest.update(b'\n')
-            return digest.hexdigest()
+        with closing(sqlite3.connect(self.database)) as db:
+            return logical_digest(db)
 
     def test_native_routes_and_web_controls_are_independent_and_idempotent(self):
         self.run_registrar()
@@ -74,6 +171,16 @@ class RecoveryGovernance(unittest.TestCase):
         self.run_registrar('--check')
         self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(), source_digest)
 
+    def test_fixture_check_rejects_tampered_output_without_changing_either_file(self):
+        self.run_registrar()
+        policy = json.loads(self.output.read_text())
+        policy['routes']['forgot'] = '/tampered-fixture-route'
+        self.output.write_text(json.dumps(policy, indent=2, ensure_ascii=False) + '\n')
+        database_before = hashlib.sha256(self.database.read_bytes()).hexdigest()
+        output_before = self.output.read_bytes()
+        self.run_registrar('--check', success=False)
+        self.assertEqual(hashlib.sha256(self.database.read_bytes()).hexdigest(), database_before)
+        self.assertEqual(self.output.read_bytes(), output_before)
     def test_fixture_check_compares_contract_without_claiming_production_authority(self):
         self.run_registrar()
         policy = json.loads(self.output.read_text())

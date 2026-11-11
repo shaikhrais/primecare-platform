@@ -119,7 +119,30 @@ jobs:
         run: |
           python3 scripts/register-maintenance-governance.py
           python3 scripts/register-workspace-governance.py
-          node --test scripts/test-provider-self-api.mjs scripts/test-client-self-api.mjs scripts/test-self-sessions-api.mjs scripts/test-account-admin-api.mjs scripts/test-governance-api.mjs scripts/test-account-list-api.mjs scripts/test-workspace.mjs scripts/test-workspace-browser.mjs scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-workspace-route-handoffs.mjs
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-platform-admin-navigation.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-platform-admin-transport.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-platform-admin-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-typescript-document-scroll.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-workspace-calls-resume.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-workspace-manager-boundaries.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-tenant-manager-entry.mjs scripts/test-tenant-manager-children.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-coordinator-charge-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-psw-requests-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-business-plans-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-care-live-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-personal-care-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-coordinator-demo-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-growth-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-enquiry-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-screen-lifecycle.mjs scripts/test-auth-screen-labels.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-auth-recovery-lifecycle.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-typescript-strict-contracts.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test --test-concurrency=1 scripts/test-maintenance-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test --test-concurrency=1 scripts/test-appearance-manager.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-admin-child-sessions.mjs
+          env -i PATH="$PATH" HOME=/tmp TMPDIR=/tmp node --test scripts/test-admin-auth-edges.mjs
+          node --test scripts/test-typescript-screen-manager.mjs scripts/test-typescript-presentation-bindings.mjs scripts/test-tenant-presentation-tokens.mjs scripts/test-provider-self-api.mjs scripts/test-client-self-api.mjs scripts/test-self-sessions-api.mjs scripts/test-account-admin-api.mjs scripts/test-governance-api.mjs scripts/test-account-list-api.mjs scripts/test-workspace.mjs scripts/test-workspace-browser.mjs scripts/test-auth-maintenance.mjs scripts/test-auth-recovery.mjs scripts/test-auth-api.mjs scripts/test-auth-client.mjs scripts/test-auth-bootstrap.mjs scripts/test-auth-management.mjs scripts/test-auth-password.mjs scripts/test-auth-schema.mjs scripts/test-auth-cleanup.mjs scripts/test-auth-source.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
       - name: Real PostgreSQL workspace and session lifecycle

@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
+import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
 import 'package:primecare_ui/src/features/generated_screens/ceo_dashboard.dart';
 import 'package:primecare_ui/src/features/generated_screens/hr_director_dashboard.dart';
 import 'package:primecare_ui/src/features/generated_screens/hr_hiring_dashboard.dart';
@@ -48,8 +50,12 @@ void main() {
       apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio)),
     ]);
     addTearDown(container.dispose);
+    final screenId = screen is GovernedWorkspaceEntry ? screen.route : route;
     await tester.pumpWidget(UncontrolledProviderScope(container: container, child: PrimeTheme(data: const PrimeThemeData(),
-      child: MaterialApp(home: screen ?? const GovernedWorkspaceScreen(route: route)))));
+      child: MaterialApp(home: AppShellBoundary(child: ManagedScreenBoundary(
+        manager: SharedAuthRoutes.screenManager, screenId: screenId,
+        builder: (_) => screen ?? const GovernedWorkspaceScreen(route: route),
+      ))))));
     await tester.pumpAndSettle();
     return container;
   }

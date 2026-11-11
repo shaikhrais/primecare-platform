@@ -31,3 +31,20 @@ Next read candidates: export_governance_to_xlsx.py, generate-api-execution-inven
 Writer dependency: the data snapshot did not recreate natural keys, identities/defaults, constraints, indexes or executable views. It has 751 all-null columns encoded as JSONB, and no mixed-type columns. SQLite-specific PRAGMA/DDL/INSERT OR REPLACE/last_insert_rowid and transaction semantics require migration and verification. Do not point legacy reset/write scripts at production by substituting a URL, change grant ID domains, or invent permissions. Source metadata retains original DDL for review.
 
 Live status count from production: TOTAL 147 = MISSING 11 + IMPLEMENTED-UNVERIFIED 134 + VERIFIED 0 + BLOCKED 2; DONE 0; PENDING 147. Full authenticated browser/API/database/reload/negative-case/evidence gates remain required. No business workflow was promoted by this database consumer migration.
+
+## Legacy screen verifier quarantine (5 November 2026)
+
+`scripts/verify_screens.py` is quarantined, not migrated. Its missing-file
+simulation and unconditional update of every screen to `fully_verified` have
+been removed. The CLI opens no database, replaces stale success output with a
+blocked report, and exits 1. The optional offline source diagnostic always
+reports zero runtime-verified screens; source signatures cannot establish
+navigation, form, permission, accessibility or API behavior.
+
+Run `python3 scripts/test-verify-screens.py -v` for the 12 offline regressions,
+including CLI exit status and symlink escape. They are included in the existing
+production-reader workflow's unprivileged test job and require no database or
+credentials. Local tests are not production evidence. No historical or live
+screen statuses were corrected by this quarantine. Re-enabling verification
+requires a reviewed runtime-evidence pipeline against the pinned PostgreSQL
+authority; the broader consumer cutover remains incomplete.

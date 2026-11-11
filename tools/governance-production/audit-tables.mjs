@@ -94,7 +94,11 @@ export async function auditDatabase(db,pin,manifest,plan,sourceIndex,{progress=(
 async function main(){
  const pin=JSON.parse(await readFile(resolve(here,'production-pin.json'),'utf8'));
  if(process.env.GOVERNANCE_ALLOW_SQLITE_FIXTURES==='1')throw Error('Production audit refuses SQLite fixture mode');
- const a=process.env.GOVERNANCE_DATABASE_URL,b=process.env.PRODUCTION_DATABASE_URL;if(a&&b&&a!==b)throw Error('Conflicting configuration');const url=new URL(a||b||'');
+ const production=process.env.PRODUCTION_DATABASE_URL,legacy=process.env.GOVERNANCE_DATABASE_URL;
+ // Retain conflict detection, but never select the legacy name as a connection source.
+ if(legacy&&production&&legacy!==production)throw Error('Conflicting configuration');
+ if(!production)throw Error('PRODUCTION_DATABASE_URL required');
+ const url=new URL(production);
  if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Unexpected database target');
  const db=new pg.Client({connectionString:url.href,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
  try{await db.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');await db.query("SET LOCAL statement_timeout='120s'");await db.query("SET LOCAL lock_timeout='5s'");

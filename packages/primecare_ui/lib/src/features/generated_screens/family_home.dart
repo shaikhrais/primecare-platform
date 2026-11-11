@@ -180,7 +180,7 @@ class FamilyHome extends GovernedConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(LucideIcons.checkCircle, color: Colors.green, size: 20),
+                    const PrimeStatusIcon(LucideIcons.checkCircle, tone: PrimeStatusTone.success, size: 20),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(

@@ -1,9 +1,11 @@
-"""Isolated governance metadata tests, never business workflow proof."""
+"""Historical metadata reconciliation units, never current/live authority proof."""
 import hashlib
 import importlib.util
 import json
 import os
 import sqlite3
+import shutil
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -11,6 +13,54 @@ SPEC = importlib.util.spec_from_file_location('workflow_bindings', Path(__file__
 m = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(m)
 SOURCE_DB = Path(os.environ.get('PRIMECARE_BINDINGS_TEST_DATABASE', m.ROOT / '.agents/governance/governance.db'))
+
+
+INPUT_FILES = (
+    'scripts/register-admin-reports.py',
+    'cloudflare/workers/src/admin-hierarchy.json',
+    'cloudflare/workers/src/report-registry.json',
+    'cloudflare/workers/src/reporting.ts',
+    'cloudflare/workers/src/tenant-operations.ts',
+    'docs/api/admin-reports.openapi.json',
+    'docs/platform-operations/seed.json',
+    'docs/training/admin-course-seed.json',
+    'packages/primecare_ui/lib/src/features/auth/auth_experience.dart',
+    'packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart',
+    'packages/shared/src/tenant-operations.json',
+    'scripts/register-admin-training.py',
+    'websites/typescript/src/admin-training.ts',
+    'websites/typescript/src/reports.ts',
+    'websites/typescript/src/tenant-operations/client.ts',
+    'websites/typescript/src/tenant-operations/controller.ts',
+    'websites/typescript/src/training/admin-course.json',
+)
+
+def historical_contract_root(db, target):
+    """Pair the historical database with its recorded contracts, never live policy.
+
+    Copy implementation inputs for provenance checks; replace metadata contracts
+    only with exact records exported from the read-only historical checkpoint.
+    No roles, permissions or authorities are synthesized or updated.
+    """
+    for name in INPUT_FILES:
+        destination = target / name
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(m.ROOT / name, destination)
+    contract_path = target / 'cloudflare/workers/src/report-registry.json'
+    contract = json.loads(contract_path.read_text())
+    contract['definitions'] = []
+    for report_id, source, classification, requirement in db.execute('SELECT report_id,source,classification,requirement FROM shared_report_definitions ORDER BY report_id'):
+        grants = [dict(zip(('role', 'view', 'export', 'email'), row)) for row in db.execute(
+            'SELECT r.role_code,g.can_view,g.can_export,g.can_email FROM shared_report_grants g JOIN roles r ON r.id=g.role_id WHERE g.report_id=? ORDER BY r.role_code', (report_id,))]
+        contract['definitions'].append(dict(report_id=report_id, source=source, classification=classification, requirement=requirement, grants=grants))
+    contract['surfaces'] = [dict(zip(('screen', 'section_code', 'controls_json'), row)) for row in db.execute(
+        'SELECT s.screen_code,g.section_code,g.controls_json FROM shared_report_surfaces g JOIN screens s ON s.id=g.screen_id ORDER BY s.screen_code')]
+    contract_path.write_text(json.dumps(contract))
+    operations = db.execute("SELECT definition FROM tenant_operations_policy WHERE id='admin-v1'").fetchone()[0]
+    for name in ('packages/shared/src/tenant-operations.json', 'docs/platform-operations/seed.json'):
+        (target / name).write_text(operations)
+    hierarchy = db.execute("SELECT definition FROM platform_hierarchy_policy WHERE id='founder-v1'").fetchone()[0]
+    (target / 'cloudflare/workers/src/admin-hierarchy.json').write_text(hierarchy)
 
 
 def rows(db, table):
@@ -30,13 +80,9 @@ class AdditiveBindingsTest(unittest.TestCase):
         with sqlite3.connect('file:' + str(SOURCE_DB.resolve()) + '?mode=ro', uri=True) as source:
             copied = sqlite3.connect(':memory:')
             source.backup(copied)
-        # Reproduce the current, already registered Code Admin parent-screen
-        # policy only in this disposable historical test copy. No live grants.
-        hierarchy = json.loads((m.ROOT / 'cloudflare/workers/src/admin-hierarchy.json').read_text())
-        permission = hierarchy['permissions']['code_admin']
-        copied.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration')")
-        copied.execute("INSERT OR IGNORE INTO role_screen_permissions(role_id,screen_id,can_view,can_create,can_edit) SELECT r.id,s.id,?,?,? FROM roles r,screens s WHERE r.role_code='code_admin' AND s.screen_code='PLATFORM_ADMINISTRATION'",
-                       tuple(int(permission[key]) for key in ('view','create','edit')))
+        cls.contract_directory = tempfile.TemporaryDirectory(prefix='historical-workflow-contracts-')
+        cls.contract_root = Path(cls.contract_directory.name)
+        historical_contract_root(copied, cls.contract_root)
         # Normalize missing metadata only in this disposable copy, so insertion
         # and failure tests still execute after live metadata was reconciled.
         for table in reversed(tuple(m.SCHEMA)):
@@ -50,6 +96,13 @@ class AdditiveBindingsTest(unittest.TestCase):
         copied.commit()
         cls.fixture = copied.serialize()
         copied.close()
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.contract_directory.cleanup()
+
+    def reconcile(self, db, scopes=m.SCOPES):
+        return m.reconcile(db, scopes, root=self.contract_root)
 
     def setUp(self):
         self.db = sqlite3.connect(':memory:')
@@ -67,7 +120,7 @@ class AdditiveBindingsTest(unittest.TestCase):
 
     def test_all_bindings_added_without_mutating_existing_rows_or_other_tables(self):
         before = snapshot(self.db)
-        result = m.reconcile(self.db)
+        result = self.reconcile(self.db)
         after = snapshot(self.db)
         changed = {table for table in set(before) | set(after) if before.get(table) != after.get(table)}
         self.assertTrue(changed <= set(m.ALLOWED_TABLES) | {'sqlite_sequence'}, changed)
@@ -85,14 +138,14 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.assertFalse(result['verification_status_changed'])
         for table in m.SCHEMA:
             self.assertEqual(self.db.execute('PRAGMA foreign_key_check(' + table + ')').fetchall(), [])
-        source_hashes = {name: hashlib.sha256((m.ROOT / name).read_bytes()).hexdigest() for name in result['source_bindings']}
+        source_hashes = {name: hashlib.sha256((self.contract_root / name).read_bytes()).hexdigest() for name in result['source_bindings']}
         self.assertEqual(result['source_bindings'], source_hashes)
 
     def test_repeated_reconciliation_is_identical_and_does_not_rewrite_timestamps(self):
         self.db.row_factory = sqlite3.Row
-        m.reconcile(self.db)
+        self.reconcile(self.db)
         first = snapshot(self.db)
-        repeated = m.reconcile(self.db)
+        repeated = self.reconcile(self.db)
         self.assertEqual(repeated['inserted'], {})
         self.assert_snapshot_equal(first)
 
@@ -102,36 +155,17 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: tenant_operations_policy'):
-            m.reconcile(self.db)
+            self.reconcile(self.db)
         self.assert_snapshot_equal(before)
         self.assertIsNone(self.db.execute("SELECT name FROM sqlite_master WHERE name='shared_report_definitions'").fetchone())
 
     def test_conflicting_report_grant_cannot_be_replaced_or_widened(self):
-        m.reconcile(self.db, ('reports',))
+        self.reconcile(self.db, ('reports',))
         self.db.execute("UPDATE shared_report_grants SET can_email=0 WHERE report_id='organization_summary'")
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
-            m.reconcile(self.db, ('reports',))
-        self.assert_snapshot_equal(before)
-
-    def test_code_admin_email_is_denied_and_conflicting_grant_is_not_rewritten(self):
-        m.reconcile(self.db, ('reports',))
-        role = self.db.execute("SELECT id FROM roles WHERE role_code='code_admin'").fetchone()[0]
-        self.assertEqual(self.db.execute("SELECT can_view,can_export,can_email FROM shared_report_grants WHERE report_id='platform_administration' AND role_id=?", (role,)).fetchone(), (1, 1, 0))
-        self.db.execute("UPDATE shared_report_grants SET can_email=1 WHERE role_id=?", (role,))
-        self.db.commit()
-        before = snapshot(self.db)
-        with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
-            m.reconcile(self.db, ('reports',))
-        self.assert_snapshot_equal(before)
-
-    def test_code_admin_parent_view_is_required(self):
-        self.db.execute("UPDATE role_screen_permissions SET can_view=0 WHERE role_id=(SELECT id FROM roles WHERE role_code='code_admin')")
-        self.db.commit()
-        before = snapshot(self.db)
-        with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
-            m.reconcile(self.db, ('reports',))
+            self.reconcile(self.db, ('reports',))
         self.assert_snapshot_equal(before)
 
     def test_changed_existing_authority_is_rejected_before_new_report_grants(self):
@@ -139,7 +173,17 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
+            self.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+    def test_current_contracts_fail_closed_against_historical_checkpoint(self):
+        # Historical fixture success is not proof of current or production authority.
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
             m.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+        with self.assertRaisesRegex(ValueError, 'Missing or ambiguous existing active role code_admin'):
+            m.reconcile(self.db, ('operations',))
         self.assert_snapshot_equal(before)
 
     def test_endpoint_code_collision_fails_atomically(self):
@@ -148,33 +192,80 @@ class AdditiveBindingsTest(unittest.TestCase):
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Endpoint-code collision'):
-            m.reconcile(self.db, ('reports',))
+            self.reconcile(self.db, ('reports',))
         self.assert_snapshot_equal(before)
 
     def test_transaction_remains_owned_by_caller_with_and_without_prior_dml(self):
         before = snapshot(self.db)
         self.assertFalse(self.db.in_transaction)
-        m.reconcile(self.db, ('training',))
+        self.reconcile(self.db, ('training',))
         self.assertTrue(self.db.in_transaction)
         self.db.rollback()
         self.assert_snapshot_equal(before)
         self.db.execute('CREATE TABLE caller_marker(value TEXT)')
         self.db.commit()
         self.db.execute("INSERT INTO caller_marker VALUES('uncommitted caller value')")
-        m.reconcile(self.db, ('operations',))
+        self.reconcile(self.db, ('operations',))
         self.db.rollback()
         self.assertEqual(self.db.execute('SELECT COUNT(*) FROM caller_marker').fetchone()[0], 0)
         self.assertIsNone(self.db.execute("SELECT name FROM sqlite_master WHERE name='tenant_operations_policy'").fetchone())
 
     def test_unknown_scope_and_unreviewed_metadata_triggers_rejected(self):
         with self.assertRaisesRegex(ValueError, 'Choose distinct'):
-            m.reconcile(self.db, ('invented',))
+            self.reconcile(self.db, ('invented',))
         self.db.execute('CREATE TABLE caller_marker(value TEXT)')
         self.db.execute("CREATE TRIGGER unexpected_api_side_effect AFTER INSERT ON api_endpoints BEGIN INSERT INTO caller_marker VALUES('unexpected'); END")
         self.db.commit()
         before = snapshot(self.db)
         with self.assertRaisesRegex(ValueError, 'Unreviewed metadata trigger'):
-            m.reconcile(self.db, ('reports',))
+            self.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+
+class CurrentReportAuthorityTest(unittest.TestCase):
+    """Current registered Code Admin contract, isolated from historical parity units."""
+    def setUp(self):
+        self.db = sqlite3.connect(':memory:')
+        with sqlite3.connect('file:' + str(SOURCE_DB.resolve()) + '?mode=ro', uri=True) as source:
+            source.backup(self.db)
+        copied = self.db
+        # Reproduce the current, already registered Code Admin parent-screen
+        # policy only in this disposable historical test copy. No live grants.
+        hierarchy = json.loads((m.ROOT / 'cloudflare/workers/src/admin-hierarchy.json').read_text())
+        permission = hierarchy['permissions']['code_admin']
+        copied.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration')")
+        copied.execute("INSERT OR IGNORE INTO role_screen_permissions(role_id,screen_id,can_view,can_create,can_edit) SELECT r.id,s.id,?,?,? FROM roles r,screens s WHERE r.role_code='code_admin' AND s.screen_code='PLATFORM_ADMINISTRATION'",
+                       tuple(int(permission[key]) for key in ('view','create','edit')))
+        for table in reversed(tuple(m.SCHEMA)):
+            copied.execute('DROP TABLE IF EXISTS ' + table)
+        copied.commit()
+
+    def tearDown(self):
+        self.db.close()
+
+    def reconcile(self, db, scopes):
+        return m.reconcile(db, scopes)
+
+    def assert_snapshot_equal(self, before):
+        self.assertEqual(snapshot(self.db), before)
+
+    def test_code_admin_email_is_denied_and_conflicting_grant_is_not_rewritten(self):
+        self.reconcile(self.db, ('reports',))
+        role = self.db.execute("SELECT id FROM roles WHERE role_code='code_admin'").fetchone()[0]
+        self.assertEqual(self.db.execute("SELECT can_view,can_export,can_email FROM shared_report_grants WHERE report_id='platform_administration' AND role_id=?", (role,)).fetchone(), (1, 1, 0))
+        self.db.execute("UPDATE shared_report_grants SET can_email=1 WHERE role_id=?", (role,))
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Conflicting existing binding: shared_report_grants.can_email'):
+            self.reconcile(self.db, ('reports',))
+        self.assert_snapshot_equal(before)
+
+    def test_code_admin_parent_view_is_required(self):
+        self.db.execute("UPDATE role_screen_permissions SET can_view=0 WHERE role_id=(SELECT id FROM roles WHERE role_code='code_admin')")
+        self.db.commit()
+        before = snapshot(self.db)
+        with self.assertRaisesRegex(ValueError, 'Existing report authority differs'):
+            self.reconcile(self.db, ('reports',))
         self.assert_snapshot_equal(before)
 
 

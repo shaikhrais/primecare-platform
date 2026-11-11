@@ -7,6 +7,7 @@ import sys
 # Ensure scripts directory is in path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from report_handler import ReportHandler
+from generate_and_verify_planned_screens import CATALOG_HEADER, prepare_route_catalog
 
 def camel_to_snake(name):
     s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
@@ -49,13 +50,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(theme.radiusDefault),
         border: Border.all(color: theme.colors.border),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +62,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                 children: [
                   Icon(Icons.dashboard_customize_outlined, color: {theme['primary']}, size: 20),
                   const SizedBox(width: 8),
-                  Text(
+                  PrimeText(
                     '{sec_name}',
                     style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, fontSize: theme.scaleFont(15), color: theme.colors.onSurface),
                   ),
@@ -79,7 +74,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
                   color: {theme['primary']}.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(theme.radiusDefault),
                 ),
-                child: Text(
+                child: PrimeText(
                   '{sec_type.upper()}',
                   style: theme.typography.bodyMedium.copyWith(color: {theme['primary']}, fontSize: theme.scaleFont(10), fontWeight: FontWeight.bold),
                 ),
@@ -87,7 +82,7 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
             ],
           ),
           const SizedBox(height: 6),
-          Text(
+          PrimeText(
             '{sec_purpose}',
             style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12)),
           ),
@@ -99,23 +94,17 @@ def generate_custom_screen_widget(sid, screen_code, screen_name, app_name, role_
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
-                  child: Text(
+                  child: PrimeText(
                     lbl,
                     style: theme.typography.bodyMedium.copyWith(fontSize: theme.scaleFont(13), color: theme.colors.onSurface, fontWeight: FontWeight.w500),
                   ),
                 ),
                 Semantics(
                   label: lbl.toLowerCase().replaceAll(' ', '_'),
-                  child: ElevatedButton(
+                  child: PrimeButton.secondary(
                     key: Key('btn_${{lbl.toLowerCase().replaceAll(' ', '_')}}'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: {theme['primary']},
-                      elevation: 0,
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(theme.radiusDefault)),
-                    ),
+                    label: 'Execute Action',
                     onPressed: null, // No governed action handler is implemented.
-                    child: Text('Execute Action', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onPrimary, fontSize: theme.scaleFont(11), fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -167,42 +156,10 @@ class {class_name} extends GovernedConsumerWidget {{
     final theme = context.theme;
     final dataState = ref.watch({provider_name});
 
-    return Scaffold(
-      backgroundColor: {theme['bg']},
-      appBar: AppBar(
-        backgroundColor: theme.colors.surface,
-        elevation: 1,
-        title: Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-              decoration: BoxDecoration(
-                color: {theme['primary']}.withOpacity(0.1),
-                borderRadius: BorderRadius.circular(theme.radiusDefault),
-                border: Border.all(color: {theme['primary']}.withOpacity(0.3)),
-              ),
-              child: Text(
-                '{app_code.upper()}',
-                style: theme.typography.bodyMedium.copyWith(
-                  color: {theme['primary']},
-                  fontSize: theme.scaleFont(10),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Text(
-              '{screen_name}',
-              style: theme.typography.bodyMedium.copyWith(
-                color: theme.colors.onSurface,
-                fontWeight: FontWeight.bold,
-                fontSize: theme.scaleFont(17),
-              ),
-            ),
-          ],
-        ),
-      ),
-      body: SingleChildScrollView(
+    return ScreenScaffold(
+      screenCode: '{screen_code}',
+      title: '{screen_name}',
+      child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,21 +179,21 @@ class {class_name} extends GovernedConsumerWidget {{
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      PrimeText(
                         'Target Role: {role_name}',
                         style: theme.typography.bodyMedium.copyWith(fontWeight: FontWeight.bold, color: {theme['text']}, fontSize: theme.scaleFont(14)),
                       ),
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                         decoration: BoxDecoration(color: theme.colors.success.withValues(alpha: .1), borderRadius: BorderRadius.circular(theme.radiusDefault)),
-                        child: Text('NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: readableThemeForeground(Color.alphaBlend(theme.colors.success.withValues(alpha: .1), theme.colors.surface), theme.colors.success), fontSize: theme.scaleFont(10), fontWeight: FontWeight.bold)),
+                        child: PrimeText('NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: readableThemeForeground(Color.alphaBlend(theme.colors.success.withValues(alpha: .1), theme.colors.surface), theme.colors.success), fontSize: theme.scaleFont(10), fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
                   const SizedBox(height: 10),
-                  Text('{purpose}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(13), height: 1.5)),
+                  PrimeText('{purpose}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(13), height: 1.5)),
                   const SizedBox(height: 8),
-                  Text('User Story: {user_story}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), fontStyle: FontStyle.italic)),
+                  PrimeText('User Story: {user_story}', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12), fontStyle: FontStyle.italic)),
                 ],
               ),
             ),
@@ -257,16 +214,16 @@ class {class_name} extends GovernedConsumerWidget {{
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold, fontSize: theme.scaleFont(13))),
+                  PrimeText('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontWeight: FontWeight.bold, fontSize: theme.scaleFont(13))),
                   const SizedBox(height: 8),
                   ...{json.dumps([f"• Mapped API: {a['method']} {a['endpoint_path']}" for a in (apis if apis else [{'method': 'GET', 'endpoint_path': '/api/v1/data'}])])}.map((apiStr) => Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(apiStr, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(11), fontFamily: 'monospace')),
+                    child: PrimeText(apiStr, style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(11), fontFamily: 'monospace')),
                   )),
                   const SizedBox(height: 4),
-                  Text('• Cypress Selector: data-cy="screen-{kebab_code}"', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontSize: theme.scaleFont(12), fontFamily: 'monospace')),
+                  PrimeText('• Cypress Selector: data-cy="screen-{kebab_code}"', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurface, fontSize: theme.scaleFont(12), fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  Text('• Accessibility: NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12))),
+                  PrimeText('• Accessibility: NOT VERIFIED', style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant, fontSize: theme.scaleFont(12))),
                 ],
               ),
             ),
@@ -314,7 +271,8 @@ def implement_creative_screens_from_db():
     screens = [dict(r) for r in cursor.fetchall()]
     print(f"[DB Generator] Generating unverified presentation templates for {len(screens)} screens...")
 
-    implemented_count = 0
+    # Select and validate the entire batch before modifying source or the DB.
+    prepared = []
     for s in screens:
         sid = s['id']
         screen_code = s['screen_code']
@@ -322,11 +280,10 @@ def implement_creative_screens_from_db():
         file_name = f"{camel_to_snake(screen_code)}.dart"
         target_path = os.path.join(out_dir, file_name)
 
-        # Hand-written implementations must never be overwritten by templates.
+        # Existing implementations, including earlier templates, require manual review.
         if os.path.exists(target_path):
-            with open(target_path, encoding='utf-8') as existing:
-                if not existing.read().startswith('// Generated directly from SQLite Database'):
-                    continue
+            print(f'[DB Generator] Skipped {screen_code}: output already exists')
+            continue
 
         # Fetch sections
         cursor.execute("SELECT id as section_id, section_name, section_type, purpose FROM screen_sections WHERE screen_id = ? ORDER BY section_order", (sid,))
@@ -347,11 +304,35 @@ def implement_creative_screens_from_db():
         role_name = s['role_name'] or 'Standard Role'
         app_code = s['app_code'] or 'general'
         role_code = s['role_code'] or 'all'
-        route_path = s['route_path'] or '/'
+        route_path = s['route_path'] or ''
 
         if not sections or not elements or not apis or any(a['method'].upper() != 'GET' for a in apis):
             print(f'[DB Generator] Skipped {screen_code}: incomplete or unsupported contract')
             continue
+
+        prepared.append((s, target_path, file_name, sections, elements, apis,
+                         purpose, user_story, criteria, app_name, role_name,
+                         app_code, role_code, route_path))
+
+    registration_inputs = [{
+        'screen_name': s['screen_name'] or f"Screen{s['id']}",
+        'route_path': route_path,
+        'expected_file_path': os.path.relpath(target_path, project_root),
+    } for (s, target_path, _, _, _, _, _, _, _, _, _, _, _, route_path) in prepared]
+    try:
+        catalog, registered_routes = prepare_route_catalog(
+            project_root, registration_inputs, check_state_output=False)
+    except Exception:
+        conn.close()
+        raise
+
+    implemented_count = 0
+    for (s, target_path, file_name, sections, elements, apis, purpose,
+         user_story, criteria, app_name, role_name, app_code, role_code,
+         route_path) in prepared:
+        sid = s['id']
+        screen_code = s['screen_code']
+        screen_name = s['screen_name'] or f"Screen{sid}"
 
         dart_code = generate_custom_screen_widget(
             sid=sid,
@@ -390,6 +371,9 @@ def implement_creative_screens_from_db():
 
         implemented_count += 1
 
+    if prepared:
+        catalog.parent.mkdir(parents=True, exist_ok=True)
+        catalog.write_text(CATALOG_HEADER + ''.join(f"  '{route}',\n" for route in sorted(registered_routes)) + '};\n', encoding='utf-8')
     conn.commit()
     conn.close()
 

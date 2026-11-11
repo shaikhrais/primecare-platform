@@ -1,6 +1,8 @@
 """Existing auth reconciliation validates all declarations before any write."""
 import shutil, sqlite3, subprocess, sys, tempfile, unittest
 from pathlib import Path
+from contextlib import closing
+from sqlite_test_snapshot import logical_snapshot
 ROOT = Path(__file__).resolve().parents[1]
 
 class ExistingAuthAuthorityTests(unittest.TestCase):
@@ -14,19 +16,20 @@ class ExistingAuthAuthorityTests(unittest.TestCase):
                     shutil.copyfile(ROOT / file, target)
                 target = root / '.agents/governance/governance.db'
                 target.parent.mkdir(parents=True)
-                with sqlite3.connect(ROOT / '.agents/governance/governance.db') as source, sqlite3.connect(target) as db:
+                with closing(sqlite3.connect(ROOT / '.agents/governance/governance.db')) as source, closing(sqlite3.connect(target)) as db:
                     source.backup(db)
                     self.assertEqual(db.execute('UPDATE api_endpoints SET ' + column + "=? WHERE http_method='POST' AND route_path='/v1/user/change-password'", (value,)).rowcount, 1)
                     db.commit()
-                    before = '\n'.join(db.iterdump())
+                    before = logical_snapshot(db)
                 artifact = root / 'docs/api/existing-auth-batches-242-247.openapi.json'
                 artifact.write_text('existing contract')
                 result = subprocess.run([sys.executable, str(root / 'scripts/register-existing-auth-contracts.py')], capture_output=True, text=True)
                 self.assertNotEqual(result.returncode, 0)
                 self.assertIn('Existing authority drift', result.stderr)
                 self.assertEqual(artifact.read_text(), 'existing contract')
-                with sqlite3.connect(target) as db:
-                    self.assertEqual('\n'.join(db.iterdump()), before)
+                with closing(sqlite3.connect(target)) as db:
+                    self.assertEqual(logical_snapshot(db), before)
 
 if __name__ == '__main__':
     unittest.main()
+

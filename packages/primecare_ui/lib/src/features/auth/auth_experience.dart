@@ -15,6 +15,17 @@ enum AuthPage { login, signup, forgot, reset, mfa, language, consent, success, e
 
 String _copy(BuildContext context, String key) => authScreenText(context, key);
 
+// Resolve existing app resources at render time so a visible error follows
+// locale changes. Unknown/literal messages retain their public state semantics.
+String _loginErrorText(BuildContext context, LoginState state) =>
+    switch (state.errorReason) {
+      LoginErrorReason.missingCredentials =>
+        context.tr('auth.enter_credentials_to_continue'),
+      LoginErrorReason.authenticationFailed =>
+        context.tr('auth.authentication_failed'),
+      null => state.errorMessage!,
+    };
+
 /// Shared, responsive presentation. Controllers own authentication decisions.
 class PrimeAuthExperience extends ConsumerWidget {
   final AuthPage page;
@@ -69,12 +80,15 @@ class PrimeAuthExperience extends ConsumerWidget {
               ],
               DecoratedBox(
                 decoration: BoxDecoration(color: theme.colors.surface, borderRadius: BorderRadius.circular(theme.radiusLg), boxShadow: theme.shadowsSurface1),
-                child: desktop
+                child: Material(
+                  type: MaterialType.transparency,
+                  child: desktop
                     ? Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                         const Expanded(child: _BrandPanel()),
                         Expanded(child: Padding(padding: EdgeInsets.all(gap.xxl), child: form)),
                       ])
                     : Padding(padding: EdgeInsets.all(gap.lg), child: form),
+                ),
               ),
               SizedBox(height: gap.lg),
               Text(_copy(context, 'footer'), textAlign: TextAlign.center, style: theme.typography.bodySmall.copyWith(color: theme.colors.onSurfaceVariant)),
@@ -98,7 +112,7 @@ class PrimeAuthExperience extends ConsumerWidget {
           gap,
           PrimeAuthTextField(id: 'login-password', label: _copy(context, 'password'), initialValue: state.password, onChanged: controller.onPasswordChanged, enabled: !state.isLoading, password: true, autofillHints: const [AutofillHints.password], onSubmitted: state.isLoading ? null : (_) => controller.login()),
           Align(alignment: AlignmentDirectional.centerEnd, child: TextButton(onPressed: state.isLoading ? null : () => _go(context, '/forgot-password'), child: Text(_copy(context, 'forgot')))),
-          if (state.errorMessage != null) ...[_Notice(message: state.errorMessage!, error: true), gap],
+          if (state.errorMessage != null) ...[_Notice(message: _loginErrorText(context, state), error: true), gap],
           PrimeButton(label: _copy(context, state.isLoading ? 'loading' : 'login'), onPressed: controller.login, isLoading: state.isLoading, isFullWidth: true, dataCy: 'login-submit'),
         ]))];
       case AuthPage.signup:

@@ -1,0 +1,178 @@
+name: Native auth Material surface
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'packages/primecare_ui/lib/src/features/auth/**'
+      - 'packages/primecare_ui/test/auth*_test.dart'
+      - '.github/workflows/auth-material-surface.yml'
+      - 'scripts/verify_auth_material_baseline.py'
+      - 'scripts/tests/test_verify_auth_material_baseline.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: auth-material-surface-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  stable-widget-regression:
+    if: github.event.pull_request.number == 222 && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Verify baseline oracle synthetic fixtures
+        timeout-minutes: 2
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 -m unittest discover -s scripts/tests -p 'test_verify_auth_material_baseline.py'
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: false
+          pub-cache: false
+      - name: Record SDK and resolve shared UI dependencies
+        working-directory: packages/primecare_ui
+        run: |
+          set -euo pipefail
+          flutter --version
+          flutter pub get
+      - name: Analyze production surface and actual-widget regression
+        working-directory: packages/primecare_ui
+        timeout-minutes: 5
+        run: flutter analyze lib/src/features/auth/auth_experience.dart test/auth_material_surface_test.dart test/auth_design_test.dart lib/src/features/auth/login_controller.dart test/auth_login_localization_test.dart
+      - name: Prove exact baseline fails the ink-surface assertion
+        working-directory: packages/primecare_ui
+        shell: bash
+        run: |
+          set -euo pipefail
+          source=lib/src/features/auth/auth_experience.dart
+          cp "$source" "$RUNNER_TEMP/auth-material-candidate.dart"
+          trap 'cp "$RUNNER_TEMP/auth-material-candidate.dart" "$source"' EXIT
+          git show 60d8cf9471a4a46eaa9a283d8a69c61cbbbe8a5d:packages/primecare_ui/lib/src/features/auth/auth_experience.dart > "$source"
+          test "$(git hash-object "$source")" = 4a03b8adc1dc83325cf1fdab99633027fb2887f0
+          set +e
+          python3 - <<'CAPTURE'
+          import os, selectors, signal, subprocess, sys, time
+          from pathlib import Path
+
+          limit = 2 * 1024 * 1024
+          command = ['flutter', 'test', '--no-pub', '--reporter', 'json',
+                     '--plain-name', 'login help ink surface en 360.0',
+                     'test/auth_material_surface_test.dart']
+          process = None
+          selector = selectors.DefaultSelector()
+          outputs = []
+          result = 70
+
+          def interrupted(signum, frame):
+              raise RuntimeError('Capture interrupted')
+
+          signal.signal(signal.SIGTERM, interrupted)
+          signal.signal(signal.SIGINT, interrupted)
+          try:
+              root = Path(os.environ['RUNNER_TEMP'])
+              outputs = [(root / name).open('wb') for name in
+                         ('auth-material-baseline.jsonl', 'auth-material-baseline.stderr')]
+              process = subprocess.Popen(command, stdout=subprocess.PIPE,
+                                         stderr=subprocess.PIPE, start_new_session=True)
+              for pipe, output in zip((process.stdout, process.stderr), outputs):
+                  os.set_blocking(pipe.fileno(), False)
+                  selector.register(pipe, selectors.EVENT_READ, [output, 0])
+              deadline = time.monotonic() + 180
+              while selector.get_map() or process.poll() is None:
+                  remaining = deadline - time.monotonic()
+                  if remaining <= 0:
+                      raise RuntimeError('Baseline capture timed out')
+                  for key, _ in selector.select(min(0.1, remaining)):
+                      try:
+                          chunk = os.read(key.fileobj.fileno(), 65536)
+                      except BlockingIOError:
+                          continue
+                      if not chunk:
+                          selector.unregister(key.fileobj)
+                          continue
+                      output, count = key.data
+                      if len(chunk) > limit - count:
+                          raise RuntimeError('Baseline output exceeds 2MiB stream limit')
+                      output.write(chunk)
+                      key.data[1] += len(chunk)
+              # poll() has reaped the direct child. Only its real exit 1 can
+              # reach the unchanged test-result oracle below.
+              if process.returncode != 1:
+                  raise RuntimeError('Unexpected baseline exit: ' + str(process.returncode))
+              result = 1
+          except BaseException as error:
+              print('Baseline capture failed: ' + str(error), file=sys.stderr)
+              result = 70
+          finally:
+              # Always clean the dedicated group, including pipe-holding
+              # descendants. TERM grace and KILL/reap share a ten-second budget.
+              signal.signal(signal.SIGTERM, signal.SIG_IGN)
+              signal.signal(signal.SIGINT, signal.SIG_IGN)
+              if process is not None:
+                  cleanup_deadline = time.monotonic() + 10
+                  try:
+                      try:
+                          os.killpg(process.pid, signal.SIGTERM)
+                      except ProcessLookupError:
+                          pass
+                      else:
+                          result = 70
+                          grace = min(cleanup_deadline, time.monotonic() + 5)
+                          while time.monotonic() < grace:
+                              process.poll()
+                              try:
+                                  os.killpg(process.pid, 0)
+                              except ProcessLookupError:
+                                  break
+                              time.sleep(min(0.05, max(0, grace - time.monotonic())))
+                          try:
+                              os.killpg(process.pid, signal.SIGKILL)
+                          except ProcessLookupError:
+                              pass
+                      process.wait(timeout=max(0, cleanup_deadline - time.monotonic()))
+                  except BaseException as error:
+                      print('Baseline cleanup failed: ' + str(error), file=sys.stderr)
+                      result = 70
+              try:
+                  if process is not None:
+                      for pipe in (process.stdout, process.stderr):
+                          pipe.close()
+                  selector.close()
+                  for output in outputs:
+                      output.close()
+              except BaseException as error:
+                  print('Baseline stream close failed: ' + str(error), file=sys.stderr)
+                  result = 70
+          sys.exit(result)
+          CAPTURE
+          status=$?
+          set -e
+          test "$status" -eq 1
+          PYTHONDONTWRITEBYTECODE=1 python3 ../../scripts/verify_auth_material_baseline.py "$RUNNER_TEMP/auth-material-baseline.jsonl" "$RUNNER_TEMP/auth-material-baseline.stderr"
+      - name: Verify restored source and run candidate plus unchanged shared auth scope
+        working-directory: packages/primecare_ui
+        shell: bash
+        run: |
+          set -euo pipefail
+          git diff --exit-code -- lib/src/features/auth/auth_experience.dart
+          flutter test --no-pub test/auth_material_surface_test.dart test/auth_mfa_test.dart test/auth_design_test.dart test/auth_live_screen_text_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart test/auth_login_localization_test.dart
+      - name: Retain baseline-negative evidence
+        if: ${{ always() && !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: auth-material-baseline-${{ github.event.pull_request.head.sha }}
+          if-no-files-found: warn
+          retention-days: 7
+          path: |
+            ${{ runner.temp }}/auth-material-baseline.jsonl
+            ${{ runner.temp }}/auth-material-baseline.stderr

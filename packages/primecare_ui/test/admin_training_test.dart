@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/src/features/training/admin_training_progress.dart';
 import 'package:primecare_ui/src/features/training/admin_training_screen.dart';
@@ -109,9 +110,13 @@ void main() {
   }
   testWidgets('verified account opens training; switching account hides old progress', (tester) async {
     final container=ProviderContainer(overrides:[authProvider.overrideWith(TrainingAuth.new)]);addTearDown(container.dispose);
-    await tester.pumpWidget(UncontrolledProviderScope(container:container,child:localized(const Scaffold(body:AdminTrainingLauncher()))));await tester.pumpAndSettle();
-    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();expect(find.byType(GettingStartedGuide),findsOneWidget);
-    final detailed=find.text('Detailed training and self-assessment');await tester.ensureVisible(detailed);await tester.tap(detailed);await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),bootstrap:false,child:localized(const Scaffold(body:AdminTrainingLauncher())))));await tester.pumpAndSettle();
+    await tester.tap(find.byWidgetPredicate((widget)=>widget is PrimeButton && widget.dataCy=='workspace-training'));await tester.pumpAndSettle();
+    final detailed = find.text('Detailed training and self-assessment');
+    await tester.scrollUntilVisible(detailed, 200, scrollable: find.byType(Scrollable).last, maxScrolls: 30);
+    await tester.pumpAndSettle();
+    await tester.tap(detailed);await tester.pumpAndSettle();expect(find.byType(AdminTrainingScreen),findsOneWidget);
+    expect(find.ancestor(of: find.byType(AdminTrainingScreen), matching: find.byType(ManagedScreenBoundary)), findsOneWidget);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount('learner-b');await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-submit')),findsNothing);
     (container.read(authProvider.notifier) as TrainingAuth).switchAccount(null);await tester.pumpAndSettle();expect(find.byKey(const ValueKey('training-export')),findsNothing);
   });

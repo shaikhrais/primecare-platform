@@ -1,4 +1,5 @@
 import 'package:flutter_core/theme/theme_settings_provider.dart';
+import 'package:flutter_core/registry/widgets/responsive_screen_wrapper.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
@@ -10,6 +11,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/src/application/base_primecare_app.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
+import 'package:primecare_ui/src/components/prime_components.dart';
+import 'package:primecare_ui/src/components/prime_text.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Translations extends AssetLoader {
@@ -53,12 +56,13 @@ Future<GoRouter> mount(
   WidgetTester tester,
   BasePrimeCareApp Function(GoRouter) create, {
   String language = 'en',
+  Widget? content,
 }) async {
   final router = GoRouter(
     routes: [
       GoRoute(
         path: '/',
-        builder: (_, _) => const Scaffold(body: Text('Product Route')),
+        builder: (_, _) => Scaffold(body: content ?? const Text('Product Route')),
       ),
     ],
   );
@@ -84,6 +88,26 @@ void main() {
     SharedPreferences.setMockInitialValues({});
     await EasyLocalization.ensureInitialized();
   });
+  testWidgets('shared corporate cards and text follow unsaved light and dark branding', (tester) async {
+    for (final brightness in Brightness.values) {
+      final branding = ThemeData(colorScheme: ColorScheme.fromSeed(
+        seedColor: Colors.orange, brightness: brightness));
+      final router = await mount(tester, (r) => BrandedApp(r, branding),
+        content: const PrimeCareCard(child: PrimeText('Branded shared content')));
+      final prime = tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data;
+      final text = tester.widget<Text>(find.text('Branded shared content'));
+      final card = tester.widget<Card>(find.byType(Card));
+      expect(prime.toThemeData(), same(branding));
+      expect(card.color, branding.colorScheme.surface);
+      expect(text.style!.color, branding.colorScheme.onSurface);
+      expect(themeContrastRatio(card.color!, text.style!.color!), greaterThanOrEqualTo(4.5));
+      final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
+      expect(scope.read(themeSettingsProvider).personalTheme, isNull);
+      expect(tester.takeException(), isNull);
+      await tester.pumpWidget(const SizedBox());
+      router.dispose();
+    }
+  });
   testWidgets('personal theme updates Material and PrimeTheme from one shared root', (tester) async {
     final router=await mount(tester,(r)=>ThemedApp(r));
     final scope=ProviderScope.containerOf(tester.element(find.byType(ThemedApp)),listen:false);
@@ -95,8 +119,13 @@ void main() {
     await tester.pumpWidget(const SizedBox());router.dispose();
   });
   testWidgets('branded corporate root exposes personal tokens without changing default branding', (tester) async {
+    final previousOverlay = ResponsiveScreenWrapper.overlayBuilder;
+    ResponsiveScreenWrapper.overlayBuilder = null;
+    addTearDown(() => ResponsiveScreenWrapper.overlayBuilder = previousOverlay);
     final router = await mount(tester, (r) => BrandedApp(r, ThemeData(colorSchemeSeed: Colors.orange)));
-    expect(find.byType(PrimeTheme), findsNothing);
+    expect(tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data.colors.primary,
+      tester.widget<MaterialApp>(find.byType(MaterialApp)).theme!.colorScheme.primary);
+    expect(ResponsiveScreenWrapper.overlayBuilder, isNull);
     final scope = ProviderScope.containerOf(tester.element(find.byType(BrandedApp)), listen: false);
     await scope.read(themeSettingsProvider.notifier).applyPersonalTheme(PersonalTheme(name: 'Corporate', preset: 'dark1', fontScale: 1.5));
     await tester.pumpAndSettle();
@@ -147,7 +176,7 @@ void main() {
     await tester.pumpWidget(const SizedBox());
     router.dispose();
   });
-  testWidgets('corporate style retains branding without adding PrimeTheme', (
+  testWidgets('corporate style shares resolved branding with Prime controls', (
     tester,
   ) async {
     final branding = ThemeData(colorSchemeSeed: Colors.orange);
@@ -156,7 +185,11 @@ void main() {
       tester.widget<MaterialApp>(find.byType(MaterialApp)).theme,
       same(branding),
     );
-    expect(find.byType(PrimeTheme), findsNothing);
+    final prime = tester.widget<PrimeTheme>(find.byType(PrimeTheme)).data;
+    expect(prime.colors.primary, branding.colorScheme.primary);
+    expect(prime.colors.surface, branding.colorScheme.surface);
+    expect(prime.colors.onSurface, branding.colorScheme.onSurface);
+    expect(prime.toThemeData(), same(branding));
     expect(find.byType(AppShellBoundary), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
     router.dispose();

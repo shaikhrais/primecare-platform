@@ -1,7 +1,7 @@
 name: Shared admin reporting
 on:
   pull_request:
-    paths: ['scripts/prepare-code-admin-audit-fixture.py', 'scripts/test-code-admin-audit-fixture.py', 'cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/register-workspace-governance.py', 'scripts/register-care-governance.py', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
+    paths: ['tools/governance-production/prepare-ci-fixture.py', 'tools/governance-production/test-ci-fixture.py', 'scripts/prepare-code-admin-audit-fixture.py', 'scripts/test-code-admin-audit-fixture.py', 'cloudflare/workers/**', 'websites/typescript/**', 'packages/primecare_models/**', 'packages/primecare_ui/**', 'packages/flutter_core/lib/src/network/api_client.dart', 'scripts/*admin-reports*', 'scripts/register-workspace-governance.py', 'scripts/register-care-governance.py', 'scripts/generate-cloudflare-worker-config.mjs', 'packages/database/migrations/*admin_reports.sql', '.github/workflows/admin-reports.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -28,9 +28,12 @@ jobs:
         env:
           GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
         run: |
-          python3 scripts/test-code-admin-audit-fixture.py
           python3 tools/governance-production/prepare-ci-fixture.py
           python3 scripts/prepare-code-admin-audit-fixture.py
+      - name: Test isolated fixture safeguards
+        run: |
+          python3 tools/governance-production/test-ci-fixture.py
+          python3 scripts/test-code-admin-audit-fixture.py
       - uses: actions/setup-node@v5
         with:
           node-version: '24'

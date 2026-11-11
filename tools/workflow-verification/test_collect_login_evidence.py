@@ -10,11 +10,56 @@ from unittest.mock import patch
 import urllib.request
 import warnings
 import zipfile
+import yaml
 
 import collect_login_evidence as collector
 
 
 class CollectorTests(unittest.TestCase):
+    def tracking_workflow(self):
+        path = Path(__file__).resolve().parents[2] / '.github/workflows/login-workflow-tracking.yml'
+        return yaml.load(path.read_text(), Loader=yaml.BaseLoader)
+
+    def test_production_writer_is_separate_main_only_and_protected(self):
+        jobs = self.tracking_workflow()['jobs']
+        writer = jobs['production']
+        self.assertEqual(writer['environment'], 'production')
+        self.assertEqual(writer['needs'], ['tests', 'collect'])
+        self.assertIn("github.ref == 'refs/heads/main'", writer['if'])
+        self.assertIn("github.event_name != 'pull_request'", writer['if'])
+        for name in ('tests', 'collect'):
+            self.assertNotIn('secrets.PRODUCTION_DATABASE_URL', json.dumps(jobs[name]))
+            self.assertNotIn('GOVERNANCE_WORKFLOW_WRITES', json.dumps(jobs[name]))
+        self.assertIn('pull_request', self.tracking_workflow()['on'])
+
+    def test_writer_downloads_only_this_runs_collector_artifact(self):
+        jobs = self.tracking_workflow()['jobs']
+        upload = next(s for s in jobs['collect']['steps'] if s.get('uses') == 'actions/upload-artifact@v4')
+        download = next(s for s in jobs['production']['steps'] if s.get('uses') == 'actions/download-artifact@v4')
+        self.assertEqual(download['with']['name'], upload['with']['name'])
+        self.assertNotIn('run-id', download['with'])
+        self.assertEqual(download['with']['path'], upload['with']['path'])
+
+    def test_writer_requires_exactly_one_packet_and_uses_its_nested_path(self):
+        steps = self.tracking_workflow()['jobs']['production']['steps']
+        command = next(s['run'] for s in steps if s.get('name') == 'Save scoped tracking metadata and read it back after commit')
+        code = command.split("python - <<'PY'\n", 1)[1].rsplit('\nPY', 1)[0]
+        with tempfile.TemporaryDirectory() as tmp, contextlib.chdir(tmp), patch('subprocess.run') as run:
+            with self.assertRaisesRegex(RuntimeError, 'exactly one'):
+                exec(code, {})
+            packet = Path('test-results/login-tracking/42-1/packet.json')
+            packet.parent.mkdir(parents=True)
+            packet.write_text('{}')
+            exec(code, {})
+            self.assertEqual(run.call_args.args[0][-2:], ['--packet', str(packet)])
+            self.assertTrue(run.call_args.kwargs['check'])
+            other = packet.parent.with_name('43-1') / 'packet.json'
+            other.parent.mkdir()
+            other.write_text('{}')
+            with self.assertRaisesRegex(RuntimeError, 'exactly one'):
+                exec(code, {})
+            self.assertEqual(run.call_count, 1)
+
     def archive(self, entries):
         output = io.BytesIO()
         with warnings.catch_warnings():

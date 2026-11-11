@@ -4,10 +4,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
 import 'package:go_router/go_router.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_governance/core/governance/route_registry.dart';
 import 'package:primecare_governance/core/governance/registries/index.dart';
+
+import 'package:primecare_governance/core/routing/governance_application.dart' as registered_app;
 
 class GuestAuth extends AuthNotifier {
   @override
@@ -27,6 +30,15 @@ class AuthTranslations extends AssetLoader {
 }
 
 void main() {
+  test('governance module routes have explicit presentation registrations', () {
+    for (final module in registered_app.GovernanceApplication().modules) {
+      for (final screen in module.screens) {
+        expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull,
+          reason: '${screen.title}: ${screen.route}');
+      }
+    }
+  });
+
   TestWidgetsFlutterBinding.ensureInitialized();
   setUpAll(() async {
     Registry.registerAll();
@@ -36,8 +48,50 @@ void main() {
   test('static dashboard report cannot bypass app authentication', () {
     expect(File('web/dashboard.html').existsSync(), isFalse);
   });
+  test('governance shell routes are registered', () {
+    final container = ProviderContainer(overrides: [authProvider.overrideWith(GuestAuth.new)]);
+    addTearDown(container.dispose);
+    final router = container.read(appRouterProvider);
+    final shell = router.configuration.routes.whereType<ShellRoute>().single;
+    final manager = buildGovernanceScreenManager();
+    for (final route in shell.routes.whereType<GoRoute>()) {
+      expect(manager.lookup(route.path), isNotNull, reason: route.path);
+    }
+  });
+  test('governance-only registrations correspond to existing registry paths', () {
+    final existingPaths = ScreenRegistry.screens.values
+        .map((screen) => screen.routePath).toSet();
+    final manager = buildGovernanceScreenManager();
+    for (final path in governanceRegistryScreenRoutes) {
+      expect(existingPaths, contains(path), reason: path);
+      expect(manager.lookup(path), isNotNull, reason: path);
+    }
+  });
+  test('new registry metadata does not automatically register a governance route', () {
+    const id = 'TEST_UNREGISTERED_SCREEN';
+    const route = '/test-unregistered-governance-route';
+    ScreenRegistry.screens[id] = const ScreenMetadata(id: id, title: 'Test screen', routePath: route);
+    addTearDown(() => ScreenRegistry.screens.remove(id));
+    expect(buildGovernanceScreenManager().lookup(route), isNull);
+  });
+  testWidgets('new governance metadata cannot display without presentation registration', (tester) async {
+    const id = 'TEST_UNREGISTERED_WIDGET';
+    const route = '/test-unregistered-governance-widget';
+    ScreenRegistry.screens[id] = const ScreenMetadata(id: id, title: 'Test screen', routePath: route);
+    addTearDown(() => ScreenRegistry.screens.remove(id));
+    var built = false;
+    await tester.pumpWidget(MaterialApp(home: AppShellBoundary(child: ManagedScreenBoundary(
+      manager: buildGovernanceScreenManager(), screenId: route,
+      builder: (_) { built = true; return const Text('must not render'); },
+    ))));
+    expect(tester.takeException().toString(), contains('screen "$route" is not registered'));
+    expect(built, isFalse);
+    expect(find.text('must not render'), findsNothing);
+  });
   for (final initialized in [false, true]) {
-    for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent']) {
+    for (final path in ['/dashboard', '/missing-deep-link', '/auth/callback', '/consent',
+      '/roles/patient/dashboard', '/reconciled/screen_ceo_dashboard_labels',
+      '/admin/screen-health']) {
       testWidgets('guest deep link $path reaches local login; initialized=$initialized', (tester) async {
         tester.binding.platformDispatcher.defaultRouteNameTestValue = '$path?enable-semantics=true';
         addTearDown(tester.binding.platformDispatcher.clearDefaultRouteNameTestValue);
@@ -50,11 +104,11 @@ void main() {
           child: EasyLocalization(supportedLocales: const [Locale('en')],
             path: 'assets/translations', startLocale: const Locale('en'),
             assetLoader: const AuthTranslations(),
-            child: Builder(builder: (context) => MaterialApp.router(
+            child: PrimeTheme(data: const PrimeThemeData(), child: Builder(builder: (context) => MaterialApp.router(
               locale: context.locale, supportedLocales: context.supportedLocales,
               localizationsDelegates: context.localizationDelegates,
               routerConfig: router,
-            )),
+            ))),
           ),
         ));
         await tester.pumpAndSettle();
@@ -89,7 +143,9 @@ void main() {
       pageKey: const ValueKey('login'),
     );
     final boundary = route.builder!(context, state) as AppShellBoundary;
-    expect(boundary.child, isA<LoginView>());
+    final managed = boundary.child as ManagedScreenBoundary;
+    expect(managed.screenId, CommonRoutes.login);
+    expect(managed.builder(context), isA<LoginView>());
     final legacy = router.configuration.routes.whereType<GoRoute>()
         .singleWhere((route) => route.path == CommonRoutes.ssoRedirect);
     final location = await legacy.redirect!(context, state);

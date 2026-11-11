@@ -1,31 +1,25 @@
-// Governance - Category: controller | Purpose: Standalone compile-safe Notifier for PlatformDiscoveryViewerController
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_core/flutter_core.dart';
+import '../../core/governance/governance_provider.dart';
 
-final platformDiscoveryViewerControllerProvider = NotifierProvider<PlatformDiscoveryViewerController, AsyncValue<Map<String, dynamic>>>(() {
-  return PlatformDiscoveryViewerController();
-});
+class PlatformDiscoverySnapshot {
+  final bool available;
+  final Map<String, String> services;
+  PlatformDiscoverySnapshot._(this.available, this.services);
 
-class PlatformDiscoveryViewerController extends Notifier<AsyncValue<Map<String, dynamic>>> {
-  @override
-  AsyncValue<Map<String, dynamic>> build() {
-    _init();
-    return const AsyncValue.data({});
-  }
-
-  Future<void> _init() async {
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = const AsyncValue.data({
-      'status': 'success',
-      'featuresEnabled': true,
-      'dataLoaded': true,
-    });
-  }
-
-  Future<void> performAction() async {
-    state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() async {
-      await Future<void>.delayed(const Duration(milliseconds: 500));
-      return {'status': 'action_completed'};
-    });
+  factory PlatformDiscoverySnapshot.fromObservation({
+    required bool available, required Map<String, dynamic> services,
+  }) {
+    if (!available || services.entries.any((entry) =>
+        entry.key.isEmpty || entry.value is! String || (entry.value as String).isEmpty)) {
+      return PlatformDiscoverySnapshot._(false, const {});
+    }
+    return PlatformDiscoverySnapshot._(true, Map<String, String>.unmodifiable(
+      services.map((key, value) => MapEntry(key, value as String))));
   }
 }
+
+final platformDiscoveryViewerControllerProvider = Provider<PlatformDiscoverySnapshot>((ref) {
+  final state = ref.watch(governanceProvider);
+  return PlatformDiscoverySnapshot.fromObservation(
+    available: state.telemetryAvailable, services: state.liveServiceHealth);
+});

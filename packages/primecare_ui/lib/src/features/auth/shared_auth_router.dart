@@ -1,5 +1,7 @@
 // Shared in-app authentication routing for every governed PrimeCare app.
 import 'package:flutter_core/flutter_core.dart';
+import 'package:flutter_core/models/screen_manager.dart';
+import '../../screens/screen_manager_catalog.dart';
 import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
@@ -26,12 +28,21 @@ final _authNavigationProvider = Provider.family<_AuthNavigation, PlatformApplica
   (ref, application) => _AuthNavigation(),
 );
 
+/// A route outside the governed shell that still requires a registered screen.
+/// Authentication and authorization remain with the existing router redirect.
+class ManagedPublicRoute {
+  const ManagedPublicRoute({required this.path, required this.builder});
+
+  final String path;
+  final GoRouterWidgetBuilder builder;
+}
+
 class SharedAuthRouter {
   static GoRouter build({
     required Ref ref,
     required PlatformApplication application,
     required PlatformRole activeRole,
-    List<GoRoute> additionalPublicRoutes = const [],
+    List<ManagedPublicRoute> additionalPublicRoutes = const [],
   }) {
     final navigation = ref.read(_authNavigationProvider(application));
     final auth = ref.watch(authProvider);
@@ -42,21 +53,23 @@ class SharedAuthRouter {
       navigation.navigatorKey = GlobalKey<NavigatorState>();
     }
     final workspaceRoutes = governedWorkspaceRoleRoutes[auth.role] ?? const <String>[];
+    // Route metadata does not itself register a screen: the independent
+    // presentation catalog must contain the path before its builder can run.
+    final screenManager = SharedAuthRoutes.screenManager;
     final dashboard = auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
     final router = GovernanceRouter.buildZeroTrustRouter(
       application: application,
+      screenManager: screenManager,
       activeRole: activeRole,
       initialLocation: navigation.location?.toString() ?? dashboard,
       navigatorKey: navigation.navigatorKey,
       refreshListenable: authListenable,
       additionalGovernedRoutes: workspaceRoutes,
       governedScreenBuilder: (context, state) => GovernedWorkspaceScreen(route: state.uri.path),
-      guestErrorBuilder: (context, state) => const AppShellBoundary(
-        child: LoginView(),
-      ),
+      guestErrorBuilder: (context, state) => const LoginView(),
       redirect: (context, state) {
         final session = ref.read(authProvider);
         if (!session.isInitialized) return null;
@@ -116,11 +129,16 @@ class SharedAuthRouter {
             : destination(result.redirectRoute ?? CommonRoutes.globalSettings);
       },
       publicRoutes: [
-        GoRoute(path: platformAdministrationRoute, builder: (context, state) => const AppShellBoundary(child: PlatformMasterScreen())),
-        GoRoute(path: '/maintenance/configuration', builder: (context, state) => const AppShellBoundary(child: MaintenanceConfigurationScreen())),
+        GoRoute(path: platformAdministrationRoute, builder: (context, state) => SharedAuthRoutes.managedPage(platformAdministrationRoute, (_) => const PlatformMasterScreen())),
+        GoRoute(path: '/maintenance/configuration', builder: (context, state) => SharedAuthRoutes.managedPage('/maintenance/configuration', (_) => const MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
         ...SharedAuthRoutes.protectedRoutes(),
-        ...additionalPublicRoutes,
+        ...additionalPublicRoutes.map((route) => GoRoute(
+          path: route.path,
+          builder: (context, state) => SharedAuthRoutes.managedPage(
+            route.path, (context) => route.builder(context, state),
+          ),
+        )),
       ],
     );
     void rememberLocation() {
@@ -137,40 +155,38 @@ class SharedAuthRouter {
 }
 
 class SharedAuthRoutes {
+  static ScreenManager get screenManager => primeCareScreenManager;
+
+  static Widget managedPage(String id, WidgetBuilder builder) => managedPrimeCarePage(id, builder);
+
   static const publicPaths = <String>{
     '/login', '/signup', '/forgot-password', '/reset-password', '/mfa',
     '/language', '/sso-redirect', '/auth/error',
   };
 
   static List<GoRoute> protectedRoutes() => [
-    GoRoute(path: '/consent', builder: (context, state) => const AppShellBoundary(
-      child: consent.ConsentScreen(redirectUri: ''))),
-    GoRoute(path: '/success', builder: (context, state) => const AppShellBoundary(
-      child: account.SuccessProfileScreen())),
+    GoRoute(path: '/consent', builder: (context, state) => managedPage('/consent', (_) => const consent.ConsentScreen(redirectUri: ''))),
+    GoRoute(path: '/success', builder: (context, state) => managedPage('/success', (_) => const account.SuccessProfileScreen())),
   ];
 
   static List<GoRoute> routes() => [
         GoRoute(path: CommonRoutes.authError,
-          builder: (context, state) => const AppShellBoundary(child: PrimeAuthExperience(page: AuthPage.error))),
+          builder: (context, state) => managedPage(CommonRoutes.authError, (_) => const PrimeAuthExperience(page: AuthPage.error))),
         GoRoute(
           path: CommonRoutes.login,
-          builder: (context, state) => const AppShellBoundary(
-            child: LoginView(),
-          ),
+          builder: (context, state) => managedPage(CommonRoutes.login, (_) => const LoginView()),
         ),
         GoRoute(path: CommonRoutes.signup,
-          builder: (context, state) => const AppShellBoundary(child: SignUpAccessView())),
+          builder: (context, state) => managedPage(CommonRoutes.signup, (_) => const SignUpAccessView())),
         GoRoute(path: CommonRoutes.forgotPassword,
-          builder: (context, state) => const AppShellBoundary(child: ForgotPasswordView())),
+          builder: (context, state) => managedPage(CommonRoutes.forgotPassword, (_) => const ForgotPasswordView())),
         GoRoute(path: '/reset-password',
-          builder: (context, state) => const AppShellBoundary(child: ResetPasswordView())),
+          builder: (context, state) => managedPage('/reset-password', (_) => const ResetPasswordView())),
         GoRoute(path: '/mfa',
-          builder: (context, state) => const AppShellBoundary(child: MfaView())),
+          builder: (context, state) => managedPage('/mfa', (_) => const MfaView())),
         GoRoute(
           path: CommonRoutes.language,
-          builder: (context, state) => const AppShellBoundary(
-            child: LanguageSelectionView(),
-          ),
+          builder: (context, state) => managedPage(CommonRoutes.language, (_) => const LanguageSelectionView()),
         ),
         GoRoute(
           path: CommonRoutes.ssoRedirect,

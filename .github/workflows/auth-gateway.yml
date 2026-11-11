@@ -27,6 +27,8 @@ on:
       - 'compose.auth.yml'
       - '.dockerignore'
       - '.github/workflows/auth-gateway.yml'
+      - 'scripts/diagnose_sqlite_asset.py'
+      - 'scripts/tests/test_diagnose_sqlite_asset.py'
   pull_request:
     branches: [main]
     paths:
@@ -53,6 +55,8 @@ on:
       - 'compose.auth.yml'
       - '.dockerignore'
       - '.github/workflows/auth-gateway.yml'
+      - 'scripts/diagnose_sqlite_asset.py'
+      - 'scripts/tests/test_diagnose_sqlite_asset.py'
 
 concurrency:
   group: auth-gateway-${{ github.ref }}
@@ -152,12 +156,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Verify native asset diagnostic unit tests
+        id: asset_diagnostic_tests
+        timeout-minutes: 2
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 -m unittest discover -s scripts/tests -p 'test_diagnose_sqlite_asset.py'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
           channel: stable
           cache: true
       - name: Analyze shared Flutter auth package
+        id: auth_shared_ui
         working-directory: packages/primecare_ui
         run: |
           flutter pub get
@@ -165,17 +176,26 @@ jobs:
           flutter test test/auth_mfa_test.dart test/auth_design_test.dart test/auth_live_screen_text_test.dart test/auth_recovery_response_test.dart test/auth_maintenance_response_test.dart
 
       - name: Verify Flutter auth transport failures
+        id: auth_transport
         working-directory: packages/flutter_core
         run: |
           flutter pub get
           flutter test test/auth_mfa_test.dart test/auth_transport_test.dart test/auth_session_test.dart test/auth_route_guard_test.dart
 
       - name: Verify embedded clinic login routing
+        id: auth_clinic
         working-directory: apps/primecare_clinic
         run: |
           flutter pub get
           flutter analyze --no-fatal-infos lib test/auth_routing_test.dart
           flutter test test/auth_routing_test.dart
+
+      - name: Diagnose native asset delivery after failure
+        if: ${{ failure() && !cancelled() && steps.asset_diagnostic_tests.outcome == 'success' && (steps.auth_shared_ui.outcome == 'failure' || steps.auth_transport.outcome == 'failure' || steps.auth_clinic.outcome == 'failure') }}
+        timeout-minutes: 2
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: python3 scripts/diagnose_sqlite_asset.py
 
   shared-app-auth:
     runs-on: ubuntu-latest

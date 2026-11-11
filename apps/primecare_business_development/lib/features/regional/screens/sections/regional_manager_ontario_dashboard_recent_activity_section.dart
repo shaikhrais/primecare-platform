@@ -1,5 +1,6 @@
 // Governance - Category: section | Purpose: UI Section rendering Recent Activity Section
 // TODO: Implement section view and element bindings.
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
 import 'package:flutter/material.dart';
 
 class RegionalManagerOntarioDashboardRecentActivitySection extends StatelessWidget {
@@ -8,7 +9,7 @@ class RegionalManagerOntarioDashboardRecentActivitySection extends StatelessWidg
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      child: Text('Recent Activity Section Section'),
+      child: PrimeText('Recent Activity Section Section'),
     );
   }
 }

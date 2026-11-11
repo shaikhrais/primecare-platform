@@ -1,5 +1,6 @@
 import {launchCareBrowser} from './care-browser-launch.mjs';
 import {scanAccessibility} from './browser-accessibility.mjs';
+import {waitForFixtureRequest} from './fixtures/browser-request-arrival.mjs';
 import {test,beforeEach} from 'node:test';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
@@ -80,8 +81,8 @@ try{
   }finally{await db.query(`SET search_path TO ${schema};DROP SCHEMA ${textSchema} CASCADE`);}
  });
  // Actual browser uses the platform shell and the API handler, not a mocked success response.
- const {outputFiles,metafile}=await build({stdin:{contents:"import {renderPlatformAdmin} from './websites/typescript/src/platform-admin';renderPlatformAdmin(document.getElementById('app'),location.origin);",resolveDir:process.cwd()},bundle:true,platform:'browser',format:'iife',write:false,metafile:true});assert.ok(!Object.keys(metafile.inputs).some(p=>p.includes('platform-bundle/service')||p.includes('node_modules/pg/')));
- const style=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(execFileSync('python3',['-c',"import sqlite3,json;d=sqlite3.connect('.agents/governance/governance.db');print(json.dumps(dict(d.execute('SELECT css_variable_name,token_value FROM theme_design_tokens WHERE theme_id=1 AND active=1'))))"]).toString());
+ const style=await readFile('websites/typescript/src/styles.css','utf8'),theme=JSON.parse(execFileSync('python3',['scripts/browser_fixture_theme.py']).toString());
+ const {outputFiles,metafile}=await build({stdin:{contents:`import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import {renderPlatformAdmin} from './websites/typescript/src/platform-admin';const root=document.getElementById('app');void presentPlatformFixture(root,${JSON.stringify(theme)},location.origin,()=>renderPlatformAdmin(root,location.origin));`,resolveDir:process.cwd()},bundle:true,platform:'browser',format:'iife',write:false,metafile:true});assert.ok(!Object.keys(metafile.inputs).some(p=>p.includes('platform-bundle/service')||p.includes('node_modules/pg/')));
  server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/governance/platform')){const chunks=[];for await(const c of req)chunks.push(c);const body=Buffer.concat(chunks),path=req.url.replace('/v1/governance','');const r=await platformAdministration(new Request('http://localhost'+path,{method:req.method,headers:req.headers,...(body.length?{body}:{})}),env,path.split('?')[0],{});res.writeHead(r.status,Object.fromEntries(r.headers));res.end(Buffer.from(await r.arrayBuffer()));}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(outputFiles[0].text);}else if(req.url.startsWith('/v1/')){res.writeHead(404);res.end('{}');}else{res.setHeader('content-type','text/html');res.end(`<html lang="en"><head><title>PrimeCare</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>:root{${Object.entries(theme).map(([k,v])=>k+':'+v+';').join('')}}${style}</style></head><body><div id="app"></div><script src="/app.js"></script></body></html>`);}}catch(e){console.error(e);res.writeHead(500);res.end('{}');}}).listen(0,'127.0.0.1');await new Promise(r=>server.once('listening',r));const base='http://127.0.0.1:'+server.address().port;
  browser=await launchCareBrowser();await mkdir('test-results/platform-history',{recursive:true});
  const labels=JSON.parse(await readFile('packages/shared/src/platform-bundle/registry.json','utf8')).locales;
@@ -108,13 +109,24 @@ try{
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));assert.deepEqual(errors,[]);
   }finally{await page.close();}
  });
- await test('a delayed history response cannot restore another tenant after a selection change',async()=>{
+ await test('busy history keeps tenant selection consistent and an accepted switch clears prior history',async()=>{
   await db.query('DELETE FROM platform_bundle_rate');const page=await browser.newPage({viewport:{width:1440,height:1000}}),el=id=>page.locator('[data-cy="'+id+'"]');
+  let release,historyRoute;
   try{
    await page.addInitScript(t=>sessionStorage.setItem('primecare_session',t),tokens.get(admin));await page.goto(base+'/platform/administration?enable-semantics=true');await el('platform-topbar-tenant').selectOption(tenant);await page.waitForFunction(()=>!document.querySelector('[data-cy=platform-refresh]')?.disabled);await el('platform-nav-bundle').click();await el('bundle-launch-state').waitFor();
-   let release,received;const held=new Promise(r=>release=r),arrived=new Promise(r=>received=r);await page.route('**/platform/bundle/tenants/*/history?*',async route=>{const response=await route.fetch();received();await held;await route.fulfill({response});});
-   await el('bundle-history-launch').click();await arrived;await el('platform-topbar-tenant').selectOption(other);await page.waitForFunction(()=>!document.querySelector('[data-cy=platform-refresh]')?.disabled);release();await page.waitForFunction(()=>document.querySelector('[data-cy=bundle-refresh]')?.disabled===false);assert.equal(await el('bundle-history-viewer').count(),0);assert.ok(!(await el('bundle-board').innerText()).includes('Synthetic launch handover'));
-  }finally{await page.close();}
+   let received;const held=new Promise(r=>release=r),arrived=new Promise(r=>received=r);await page.route('**/platform/bundle/tenants/*/history?*',route=>historyRoute=(async()=>{const response=await route.fetch();received();await held;await route.fulfill({response});})());
+   await waitForFixtureRequest(page,arrived,()=>el('bundle-history-launch').click(),{label:'Held tenant A history read'});
+   // Pending child work owns the tenant. A rejected native select change must not
+   // label tenant A's visible data as tenant B's data.
+   await el('platform-topbar-tenant').selectOption(other);assert.equal(await el('platform-topbar-tenant').inputValue(),tenant);
+   release();await page.waitForFunction(()=>document.querySelector('[data-cy=bundle-refresh]')?.disabled===false);
+   assert.equal(await el('platform-topbar-tenant').inputValue(),tenant);assert.equal(await el('bundle-history-viewer').count(),1);assert.ok((await el('bundle-history-viewer').innerText()).includes('Synthetic launch handover'));
+   // Once idle, require a real new-tenant API read and retain the original
+   // exclusion assertions after an accepted selection, not an ignored event.
+   const [changed]=await Promise.all([page.waitForResponse(r=>r.url().includes('/platform/bundle/tenants/'+other+'?')&&r.request().method()==='GET'),Promise.resolve().then(()=>el('platform-topbar-tenant').selectOption(other))]);
+   assert.equal(changed.status(),200);await page.waitForFunction(()=>!document.querySelector('[data-cy=platform-refresh]')?.disabled);
+   assert.equal(await el('platform-topbar-tenant').inputValue(),other);assert.equal(await el('bundle-history-viewer').count(),0);assert.ok(!(await el('bundle-board').innerText()).includes('Synthetic launch handover'));
+  }finally{release?.();let drainTimer;try{if(historyRoute)await Promise.race([historyRoute,new Promise((_,reject)=>{drainTimer=setTimeout(()=>reject(Error('Timed out draining held history route')),1000);})]);}finally{clearTimeout(drainTimer);await page.close();}}
  });
 }finally{if(browser)await browser.close();if(server)await new Promise(r=>server.close(r));await db.query('SET search_path TO public');await db.query(`DROP SCHEMA ${schema} CASCADE`);assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM pg_namespace WHERE nspname=$1',[schema])).rows[0].n,0);await db.end();console.log('Synthetic history schema removed and absence verified.');}
 function createHash(token){return require('node:crypto').createHash('sha256').update(token).digest('hex');}

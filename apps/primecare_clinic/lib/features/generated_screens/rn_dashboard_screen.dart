@@ -1,3 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -48,12 +51,12 @@ class RnDashboardScreen extends GovernedConsumerWidget {
       child: Scaffold(
         key: const Key('rndashboard-screen'),
       appBar: AppBar(
-        title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  const Text('RnDashboard'))),
+        title: Semantics(label: 'data-cy:rndashboard-title', container: true, child: Container(child:  const PrimeText('RnDashboard'))),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        loading: () => const DashboardLoadingWidget(),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     )
     );
@@ -64,9 +67,9 @@ class RnDashboardScreen extends GovernedConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 64),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'RnDashboardScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

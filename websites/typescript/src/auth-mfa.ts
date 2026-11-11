@@ -1,7 +1,8 @@
 import catalog from '../../../packages/shared/src/auth-mfa.json';
 export type MfaChallenge = {challenge:string;purpose:'enroll'|'verify';setupKey?:string};
 /** Present a password-verified challenge in memory only. No seed/token storage. */
-export function requestMfa(parent:HTMLElement,challenge:MfaChallenge,locale:'en'|'fr'|'es',verify:(code:string)=>Promise<string>):Promise<string> {
+export function requestMfa(parent:HTMLElement,challenge:MfaChallenge,locale:'en'|'fr'|'es',verify:(code:string)=>Promise<string>,signal?:AbortSignal,discard?:(token:string)=>Promise<void>):Promise<string> {
+ if(signal?.aborted||!parent.isConnected)return Promise.reject(Error('MFA cancelled'));
  const text=catalog.locales[locale];
  const form=document.createElement('form');form.className='auth-card';form.dataset.cy='mfa-form';form.setAttribute('aria-label',text.title);
  const heading=document.createElement('h2');heading.textContent=text.title;form.append(heading);
@@ -15,11 +16,15 @@ export function requestMfa(parent:HTMLElement,challenge:MfaChallenge,locale:'en'
  const cancel=document.createElement('button');cancel.type='button';cancel.dataset.cy='mfa-cancel';cancel.textContent=text.cancel;form.append(cancel);
  const status=document.createElement('output');status.dataset.cy='mfa-status';status.setAttribute('aria-live','polite');form.append(status);parent.append(form);input.focus();
  return new Promise((resolve,reject)=>{
-  let busy=false;
-  const clean=()=>{input.value='';form.remove();};
-  cancel.onclick=()=>{if(busy)return;clean();reject(Error('MFA cancelled'));};
-  form.onsubmit=async event=>{event.preventDefault();if(busy||!form.reportValidity())return;busy=true;submit.disabled=true;cancel.disabled=true;status.textContent=text.loading;
-   try{const token=await verify(input.value);clean();resolve(token);}catch{input.value='';status.textContent=text.error;input.focus();}finally{busy=false;submit.disabled=false;cancel.disabled=false;}
+  let busy=false,active=true;let observer:MutationObserver|undefined;
+  const clean=()=>{active=false;observer?.disconnect();input.value='';const seed=form.querySelector('[data-cy=mfa-seed]');if(seed){seed.textContent='';seed.remove();}form.onsubmit=null;cancel.onclick=null;signal?.removeEventListener('abort',abort);form.remove();};
+  const abort=()=>{if(!active)return;clean();reject(Error('MFA cancelled'));};
+  const current=()=>{if(!active)return false;if(!form.isConnected||!parent.isConnected||form.parentElement!==parent){abort();return false;}return true;};
+  observer=new MutationObserver(()=>{current();});observer.observe(parent.ownerDocument,{childList:true,subtree:true});
+  signal?.addEventListener('abort',abort,{once:true});
+  cancel.onclick=()=>{if(!current()||busy)return;clean();reject(Error('MFA cancelled'));};
+  form.onsubmit=async event=>{event.preventDefault();if(!current()||busy||!form.reportValidity())return;busy=true;submit.disabled=true;cancel.disabled=true;status.textContent=text.loading;
+   try{const token=await verify(input.value);if(!current()){await discard?.(token);return;}clean();resolve(token);}catch{if(!current())return;input.value='';status.textContent=text.error;input.focus();}finally{if(active){busy=false;submit.disabled=false;cancel.disabled=false;}}
   };
  });
 }

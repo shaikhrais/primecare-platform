@@ -1,7 +1,10 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter_core/flutter_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'patient_dashboard_screen_controller.dart';
+import 'patient_unavailable_text.dart';
 
 class PatientDashboardScreen extends GovernedConsumerWidget {
   @override
@@ -35,12 +38,12 @@ class PatientDashboardScreen extends GovernedConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('PatientDashboard'),
+        title: const PrimeText('PatientDashboard'),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        loading: () => const DashboardLoadingWidget(),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     );
   }
@@ -50,10 +53,10 @@ class PatientDashboardScreen extends GovernedConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          Icon(Icons.info_outline, size: 64, color: Theme.of(context).colorScheme.onSurfaceVariant),
           const SizedBox(height: 16),
-          Text(
-            'PatientDashboardScreen is now fully implemented.',
+          PrimeText(
+            patientUnavailableText(context, 'dashboard'),
             style: Theme.of(context).textTheme.headlineSmall,
           ),
         ],

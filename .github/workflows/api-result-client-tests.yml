@@ -6,6 +6,7 @@ on:
       - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
       - 'packages/flutter_core/test/business_development_transport_test.dart'
+      - 'packages/flutter_core/test/executive_read_transport_test.dart'
       - 'packages/flutter_core/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
@@ -20,6 +21,7 @@ on:
       - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
       - 'packages/flutter_core/test/business_development_transport_test.dart'
+      - 'packages/flutter_core/test/executive_read_transport_test.dart'
       - 'packages/flutter_core/test/own_notifications_repository_test.dart'
       - 'apps/primecare_clinic/lib/features/psw/screens/psw_notifications_screen.dart'
       - 'apps/primecare_clinic/test/psw_notifications_controller_test.dart'
@@ -42,9 +44,9 @@ jobs:
           cache: true
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - run: flutter test test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart
+      - run: flutter test test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/auth_transport_test.dart test/provider_profile_test.dart test/executive_read_transport_test.dart
         working-directory: packages/flutter_core
-      - run: flutter analyze lib/src/network/api_client.dart lib/src/repositories/own_notifications_repository.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart
+      - run: flutter analyze lib/src/network/api_client.dart lib/src/repositories/own_notifications_repository.dart test/business_development_transport_test.dart test/own_notifications_repository_test.dart test/executive_read_transport_test.dart
         working-directory: packages/flutter_core
       - run: flutter pub get
         working-directory: apps/primecare_clinic

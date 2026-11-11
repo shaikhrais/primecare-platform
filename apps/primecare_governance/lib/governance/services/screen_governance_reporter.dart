@@ -40,7 +40,10 @@ class ScreenGovernanceReporter {
     final avgTest = total == 0
         ? 0.0
         : screens.values
-                .map((s) => s.testPassRate)
+                // Invalid evidence receives no score, retaining its place in
+                // the denominator and its explicit audit finding.
+                .map((s) => TestQualityAuditService.isValidPassRate(s.testPassRate)
+                    ? s.testPassRate : 0.0)
                 .reduce((a, b) => a + b) /
             total;
 

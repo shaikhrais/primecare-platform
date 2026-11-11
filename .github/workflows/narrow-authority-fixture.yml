@@ -1,0 +1,142 @@
+name: Narrow authority isolated PostgreSQL and TLS
+on:
+  pull_request:
+    paths:
+      - .github/workflows/login-read-once.yml
+      - tools/governance-production/login_read_once.py
+      - tools/governance-production/test-login-read-once.py
+      - tools/governance-production/login_production_candidate.py
+      - tools/governance-production/test-login-production-candidate.py
+      - tools/governance-production/login_bootstrap_fixture.py
+      - tools/governance-production/test-login-bootstrap-postgres.py
+      - tools/governance-production/login-bootstrap-fixture.md
+      - scripts/apply-shared-auth-routes.py
+      - scripts/register-auth-login-layout.py
+      - scripts/register-auth-delivery-work-package.py
+      - scripts/register-existing-auth-contracts.py
+      - tools/governance-production/mfa-login-contract.json
+      - tools/governance-production/public_login_grants.py
+      - packages/primecare_ui/lib/src/features/auth/login_view.dart
+      - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - tools/governance-production/narrow-fixture-requirements.txt
+      - tools/governance-production/narrow-authority-reader.md
+      - tools/governance-production/narrow_authority_reader.py
+      - tools/governance-production/test-narrow-authority-reader.py
+      - tools/governance-production/test-narrow-authority-postgres.py
+      - .github/workflows/narrow-authority-fixture.yml
+  # Push also runs when unrelated PR merge conflicts suppress pull_request CI.
+  push:
+    branches: [codex/screen-management]
+    paths:
+      - .github/workflows/login-read-once.yml
+      - tools/governance-production/login_read_once.py
+      - tools/governance-production/test-login-read-once.py
+      - tools/governance-production/login_production_candidate.py
+      - tools/governance-production/test-login-production-candidate.py
+      - tools/governance-production/login_bootstrap_fixture.py
+      - tools/governance-production/test-login-bootstrap-postgres.py
+      - tools/governance-production/login-bootstrap-fixture.md
+      - scripts/apply-shared-auth-routes.py
+      - scripts/register-auth-login-layout.py
+      - scripts/register-auth-delivery-work-package.py
+      - scripts/register-existing-auth-contracts.py
+      - tools/governance-production/mfa-login-contract.json
+      - tools/governance-production/public_login_grants.py
+      - packages/primecare_ui/lib/src/features/auth/login_view.dart
+      - packages/primecare_ui/lib/src/features/auth/shared_auth_router.dart
+      - tools/governance-production/narrow-fixture-requirements.txt
+      - tools/governance-production/narrow-authority-reader.md
+      - tools/governance-production/narrow_authority_reader.py
+      - tools/governance-production/test-narrow-authority-reader.py
+      - tools/governance-production/test-narrow-authority-postgres.py
+      - .github/workflows/narrow-authority-fixture.yml
+concurrency:
+  group: narrow-fixture-${{ github.event.pull_request.head.sha || github.sha }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  isolated-fixture:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    # No production environment, secrets, deployment, or artifacts in this lane.
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12.16'
+      - name: Install fixture driver only
+        run: |
+          python -m venv /tmp/narrow-reader-venv
+          /tmp/narrow-reader-venv/bin/python -m pip install --disable-pip-version-check --require-hashes \
+            --only-binary=:all: -r tools/governance-production/narrow-fixture-requirements.txt
+      - name: Prepare disposable loopback TLS fixture
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -m 700 /tmp/narrow-reader-home /tmp/narrow-reader-tmp
+          mkdir -m 755 /tmp/narrow-reader-fixture
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 \
+            -keyout /tmp/narrow-reader-fixture/server.key \
+            -out /tmp/narrow-reader-fixture/server.crt \
+            -subj /CN=localhost -addext subjectAltName=DNS:localhost >/dev/null 2>&1
+          openssl req -x509 -newkey rsa:2048 -nodes -days 1 \
+            -keyout /tmp/narrow-reader-fixture/untrusted.key \
+            -out /tmp/narrow-reader-fixture/untrusted.crt \
+            -subj /CN=untrusted-fixture >/dev/null 2>&1
+          chmod 600 /tmp/narrow-reader-fixture/*.key
+          sudo chown 999:999 /tmp/narrow-reader-fixture/server.key
+          docker run --detach --name narrow-reader-postgres \
+            -p 127.0.0.1:55432:5432 \
+            -e POSTGRES_HOST_AUTH_METHOD=trust \
+            -v /tmp/narrow-reader-fixture:/fixture:ro \
+            postgres:16-bookworm@sha256:5264710be20f409750ac6dc4e5706dcef929c87e241605463f0f9aefa932a8d9 \
+            -c ssl=on -c ssl_cert_file=/fixture/server.crt \
+            -c ssl_key_file=/fixture/server.key >/dev/null
+          ready=false
+          for attempt in $(seq 1 60); do
+            if docker exec narrow-reader-postgres pg_isready -h 127.0.0.1 -p 5432 -U postgres >/dev/null 2>&1; then
+              ready=true
+              break
+            fi
+            sleep 1
+          done
+          test "$ready" = true
+      - name: Run offline mock regressions
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          /tmp/narrow-reader-venv/bin/python tools/governance-production/test-narrow-authority-reader.py
+      - name: Run native PostgreSQL and TLS fixture tests
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-narrow-authority-postgres.py
+      - name: Run synthetic-only Login bootstrap tests
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-bootstrap-postgres.py
+      - name: Run inactive Login production candidate against synthetic fixture
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-production-candidate.py
+      - name: Test one-shot wrapper without production credentials
+        run: >-
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp
+          NARROW_READER_ISOLATED_CI=1
+          timeout --kill-after=5s 240 /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-read-once.py
+      - name: Smoke test proposed one-shot resource limits without credentials
+        run: |
+          set -eu
+          ulimit -c 0
+          env -i PATH="$PATH" HOME=/tmp/narrow-reader-home TMPDIR=/tmp/narrow-reader-tmp \
+            NARROW_READER_ISOLATED_CI=1 \
+            timeout --kill-after=5s 65 \
+            prlimit --as=536870912 --cpu=60 --nofile=128 -- \
+            /tmp/narrow-reader-venv/bin/python tools/governance-production/test-login-read-once.py
+      - name: Remove disposable fixture
+        if: always()
+        run: docker rm -f narrow-reader-postgres >/dev/null 2>&1 || true

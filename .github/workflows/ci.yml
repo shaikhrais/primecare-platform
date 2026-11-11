@@ -45,7 +45,7 @@ env:
 
 jobs:
   validate-platform:
-    name: Platform Validation (Non-Blocking Aggregate)
+    name: Platform Validation (Aggregate Gate)
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -60,6 +60,7 @@ jobs:
           cache: true
 
       - name: Initialize CI report
+        id: initialize-report
         run: |
           {
             echo "# PrimeCare Unified Dart CI"
@@ -71,9 +72,11 @@ jobs:
           } > dart-ci-report.md
 
       - name: Analyze every service and package
+        if: ${{ !cancelled() && steps.initialize-report.outcome == 'success' }}
         shell: bash
         run: |
           set +e
+          failed=0
           shopt -s nullglob
           for dir in services/* packages/*; do
             [ -f "$dir/pubspec.yaml" ] || continue
@@ -91,16 +94,19 @@ jobs:
             if [ "$result" -eq 0 ]; then
               echo "| Analyze | $dir | PASS |" >> dart-ci-report.md
             else
-              echo "| Analyze | $dir | WARNING |" >> dart-ci-report.md
-              echo "::warning title=Analysis warning::$dir returned exit code $result"
+              failed=1
+              echo "| Analyze | $dir | FAIL |" >> dart-ci-report.md
+              echo "::error title=Analysis failure::$dir returned exit code $result"
             fi
           done
-          exit 0
+          exit "$failed"
 
       - name: Test every backend service
+        if: ${{ !cancelled() && steps.initialize-report.outcome == 'success' }}
         shell: bash
         run: |
           set +e
+          failed=0
           shopt -s nullglob
           for dir in services/*; do
             [ -f "$dir/pubspec.yaml" ] || continue
@@ -115,16 +121,19 @@ jobs:
             if [ "$result" -eq 0 ]; then
               echo "| Backend tests | $dir | PASS |" >> dart-ci-report.md
             else
-              echo "| Backend tests | $dir | WARNING |" >> dart-ci-report.md
-              echo "::warning title=Backend test warning::$dir returned exit code $result"
+              failed=1
+              echo "| Backend tests | $dir | FAIL |" >> dart-ci-report.md
+              echo "::error title=Backend test failure::$dir returned exit code $result"
             fi
           done
-          exit 0
+          exit "$failed"
 
       - name: Test every Flutter application
+        if: ${{ !cancelled() && steps.initialize-report.outcome == 'success' }}
         shell: bash
         run: |
           set +e
+          failed=0
           shopt -s nullglob
           for dir in apps/*; do
             [ -f "$dir/pubspec.yaml" ] || continue
@@ -133,17 +142,21 @@ jobs:
               continue
             fi
             echo "::group::Test $dir"
+            if [ "$dir" = "apps/primecare_governance" ]; then
+              echo "| Release readiness | $dir | SEPARATE CHECK: Production readiness gate |" >> dart-ci-report.md
+            fi
             (cd "$dir" && flutter pub get && flutter test --no-pub)
             result=$?
             echo "::endgroup::"
             if [ "$result" -eq 0 ]; then
               echo "| Flutter tests | $dir | PASS |" >> dart-ci-report.md
             else
-              echo "| Flutter tests | $dir | WARNING |" >> dart-ci-report.md
-              echo "::warning title=Flutter test warning::$dir returned exit code $result"
+              failed=1
+              echo "| Flutter tests | $dir | FAIL |" >> dart-ci-report.md
+              echo "::error title=Flutter test failure::$dir returned exit code $result"
             fi
           done
-          exit 0
+          exit "$failed"
 
       - name: Publish validation summary
         if: always()

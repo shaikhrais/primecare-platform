@@ -2,6 +2,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/app_theme.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../governance_bootstrapper.dart';
 
@@ -206,10 +207,6 @@ class PrimeColors {
   });
 
   factory PrimeColors.fromPalette(AppThemePalette palette) {
-    // Estimate text/icon brightness based on background luminance
-    final isDarkSidebar = palette.sidebarBackground.computeLuminance() < 0.5;
-    final isDarkTopbar = palette.topbarBackground.computeLuminance() < 0.5;
-
     return PrimeColors(
       primary: palette.primary,
       primaryContainer: palette.primaryContainer,
@@ -217,21 +214,31 @@ class PrimeColors {
       secondary: palette.secondary,
       secondaryContainer: palette.secondaryContainer,
       background: palette.background,
+      dashboardBackground: palette.background,
       surface: palette.surface,
+      onSurface: readableThemeForeground(palette.surface, palette.textPrimary),
+      onSurfaceVariant: readableThemeForeground(palette.surface, palette.textSecondary),
+      surfaceDim: palette.surface,
+      surfaceBright: palette.surface,
+      surfaceContainerLowest: palette.surface,
+      surfaceContainerLow: palette.surface,
+      surfaceContainer: palette.surface,
+      surfaceContainerHigh: palette.surface,
+      surfaceContainerHighest: palette.surface,
       divider: palette.divider,
       sidebarBackground: palette.sidebarBackground,
       topbarBackground: palette.topbarBackground,
-      sidebarTextColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      sidebarSelectedTextColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      sidebarIconColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      sidebarSelectedIconColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      sidebarSelectedTileColor: isDarkSidebar ? const Color(0x26FFFFFF) : const Color(0x0D000000),
-      sidebarDividerColor: isDarkSidebar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
-      topbarTextColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      topbarSelectedTextColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      topbarIconColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      topbarSelectedIconColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      topbarDividerColor: isDarkTopbar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
+      sidebarTextColor: readableThemeForeground(palette.sidebarBackground, palette.textSecondary),
+      sidebarSelectedTextColor: readableThemeForeground(palette.surface, palette.textPrimary),
+      sidebarIconColor: readableThemeForeground(palette.sidebarBackground, palette.textSecondary),
+      sidebarSelectedIconColor: readableThemeForeground(palette.surface, palette.textPrimary),
+      sidebarSelectedTileColor: palette.surface,
+      sidebarDividerColor: palette.divider,
+      topbarTextColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarSelectedTextColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarIconColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarSelectedIconColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarDividerColor: palette.divider,
     );
   }
 
@@ -242,6 +249,26 @@ class PrimeColors {
   Color get warningContainer => warning.withValues(alpha: 0.15);
 
   PrimeColors copyWith({
+    Color? inversePrimary,
+    Color? secondaryContainer,
+    Color? tertiaryContainer,
+    Color? surfaceDim,
+    Color? surfaceBright,
+    Color? inverseSurface,
+    Color? inverseOnSurface,
+    Color? surfaceTint,
+    Color? primaryFixed,
+    Color? primaryFixedDim,
+    Color? onPrimaryFixed,
+    Color? onPrimaryFixedVariant,
+    Color? secondaryFixed,
+    Color? secondaryFixedDim,
+    Color? onSecondaryFixed,
+    Color? onSecondaryFixedVariant,
+    Color? tertiaryFixed,
+    Color? tertiaryFixedDim,
+    Color? onTertiaryFixed,
+    Color? onTertiaryFixedVariant,
     Color? primary,
     Color? onPrimary,
     Color? primaryContainer,
@@ -284,6 +311,26 @@ class PrimeColors {
     Color? onErrorContainer,
   }) {
     return PrimeColors(
+      inversePrimary: inversePrimary ?? this.inversePrimary,
+      secondaryContainer: secondaryContainer ?? this.secondaryContainer,
+      tertiaryContainer: tertiaryContainer ?? this.tertiaryContainer,
+      surfaceDim: surfaceDim ?? this.surfaceDim,
+      surfaceBright: surfaceBright ?? this.surfaceBright,
+      inverseSurface: inverseSurface ?? this.inverseSurface,
+      inverseOnSurface: inverseOnSurface ?? this.inverseOnSurface,
+      surfaceTint: surfaceTint ?? this.surfaceTint,
+      primaryFixed: primaryFixed ?? this.primaryFixed,
+      primaryFixedDim: primaryFixedDim ?? this.primaryFixedDim,
+      onPrimaryFixed: onPrimaryFixed ?? this.onPrimaryFixed,
+      onPrimaryFixedVariant: onPrimaryFixedVariant ?? this.onPrimaryFixedVariant,
+      secondaryFixed: secondaryFixed ?? this.secondaryFixed,
+      secondaryFixedDim: secondaryFixedDim ?? this.secondaryFixedDim,
+      onSecondaryFixed: onSecondaryFixed ?? this.onSecondaryFixed,
+      onSecondaryFixedVariant: onSecondaryFixedVariant ?? this.onSecondaryFixedVariant,
+      tertiaryFixed: tertiaryFixed ?? this.tertiaryFixed,
+      tertiaryFixedDim: tertiaryFixedDim ?? this.tertiaryFixedDim,
+      onTertiaryFixed: onTertiaryFixed ?? this.onTertiaryFixed,
+      onTertiaryFixedVariant: onTertiaryFixedVariant ?? this.onTertiaryFixedVariant,
       primary: primary ?? this.primary,
       onPrimary: onPrimary ?? this.onPrimary,
       primaryContainer: primaryContainer ?? this.primaryContainer,
@@ -501,6 +548,10 @@ class RuntimePrimeTypography extends PrimeTypography {
 }
 
 class PrimeThemeData {
+  /// Preserve the complete resolved Material theme, including dark mode,
+  /// semantic foregrounds and component themes, when adapting back to Flutter.
+  final ThemeData? materialTheme;
+
   /// Explicit legacy sizes must still follow the user's saved text scale.
   double scaleFont(double size) => typography is RuntimePrimeTypography
       ? size * (typography as RuntimePrimeTypography).personal.fontScale
@@ -519,6 +570,7 @@ class PrimeThemeData {
   final List<BoxShadow> shadowsSurface2;
 
   const PrimeThemeData({
+    this.materialTheme,
     this.colors = const PrimeColors(),
     this.typography = const PrimeTypography(),
     this.spacing = const PrimeSpacing(),
@@ -547,6 +599,7 @@ class PrimeThemeData {
 
   /// Converts PrimeThemeData to standard Flutter ThemeData for global application.
   ThemeData toThemeData() {
+    if (materialTheme != null) return materialTheme!;
     return ThemeData(
       useMaterial3: true,
       primaryColor: colors.primary,
@@ -570,20 +623,51 @@ class PrimeThemeData {
         ),
       ],
       colorScheme: ColorScheme(
-        brightness: Brightness.light,
+        brightness: ThemeData.estimateBrightnessForColor(colors.surface),
         primary: colors.primary,
         onPrimary: colors.onPrimary,
         primaryContainer: colors.primaryContainer,
         secondary: colors.secondary,
-        onSecondary: Colors.white,
+        onSecondary: readableThemeForeground(colors.secondary, Colors.white),
         tertiary: colors.tertiary,
-        onTertiary: Colors.white,
+        onTertiary: readableThemeForeground(colors.tertiary, Colors.white),
         surface: colors.surface,
         onSurface: colors.onSurface,
+        onSurfaceVariant: colors.onSurfaceVariant,
         error: colors.error,
-        onError: Colors.white,
+        onError: readableThemeForeground(colors.error, Colors.white),
         outline: colors.outline,
         surfaceContainer: colors.surfaceContainer,
+        inversePrimary: colors.inversePrimary,
+        secondaryContainer: colors.secondaryContainer,
+        tertiaryContainer: colors.tertiaryContainer,
+        surfaceDim: colors.surfaceDim,
+        surfaceBright: colors.surfaceBright,
+        surfaceContainerLowest: colors.surfaceContainerLowest,
+        surfaceContainerLow: colors.surfaceContainerLow,
+        surfaceContainerHigh: colors.surfaceContainerHigh,
+        surfaceContainerHighest: colors.surfaceContainerHighest,
+        inverseSurface: colors.inverseSurface,
+        surfaceTint: colors.surfaceTint,
+        outlineVariant: colors.outlineVariant,
+        errorContainer: colors.errorContainer,
+        onErrorContainer: colors.onErrorContainer,
+        primaryFixed: colors.primaryFixed,
+        primaryFixedDim: colors.primaryFixedDim,
+        onPrimaryFixed: colors.onPrimaryFixed,
+        onPrimaryFixedVariant: colors.onPrimaryFixedVariant,
+        secondaryFixed: colors.secondaryFixed,
+        secondaryFixedDim: colors.secondaryFixedDim,
+        onSecondaryFixed: colors.onSecondaryFixed,
+        onSecondaryFixedVariant: colors.onSecondaryFixedVariant,
+        tertiaryFixed: colors.tertiaryFixed,
+        tertiaryFixedDim: colors.tertiaryFixedDim,
+        onTertiaryFixed: colors.onTertiaryFixed,
+        onTertiaryFixedVariant: colors.onTertiaryFixedVariant,
+        onInverseSurface: colors.inverseOnSurface,
+        onPrimaryContainer: readableThemeForeground(colors.primaryContainer, colors.onSurface),
+        onSecondaryContainer: readableThemeForeground(colors.secondaryContainer, colors.onSurface),
+        onTertiaryContainer: readableThemeForeground(colors.tertiaryContainer, colors.onSurface),
       ),
       dividerTheme: DividerThemeData(
         color: colors.divider,
@@ -644,8 +728,8 @@ class PrimeThemeData {
 class PrimeTheme extends InheritedWidget {
   final PrimeThemeData data;
 
-  PrimeTheme({required this.data, required super.child, super.key}) {
-    GovernanceBootstrapper.bootstrap();
+  PrimeTheme({required this.data, required super.child, super.key, bool bootstrap = true}) {
+    if (bootstrap) GovernanceBootstrapper.bootstrap();
   }
 
   static PrimeThemeData of(BuildContext context) {

@@ -16,7 +16,7 @@ def prepare(root=ROOT):
         raise RuntimeError('Existing regular historical fixture required')
     # mode=rw prevents SQLite from creating an accidental empty authority.
     with sqlite3.connect(path.as_uri() + '?mode=rw', uri=True) as db:
-        db.execute("INSERT OR IGNORE INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) VALUES('code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration')")
+        db.execute("INSERT INTO roles(role_code,role_name,role_type,active,primary_app_code,post_login_route) SELECT 'code_admin','Code Administrator','Infrastructure',1,'go','/platform/administration' WHERE NOT EXISTS (SELECT 1 FROM roles WHERE role_code='code_admin')")
     return {'scope': 'isolated-historical-fixture', 'productionWrites': False}
 
 

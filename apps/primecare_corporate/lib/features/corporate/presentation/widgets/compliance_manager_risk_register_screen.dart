@@ -1,3 +1,6 @@
+import 'package:primecare_ui/primecare_ui.dart' show PrimeText;
+import 'package:primecare_ui/primecare_ui.dart' show DashboardLoadingWidget;
+import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusIcon, PrimeStatusText, PrimeStatusTone;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'compliance_manager_risk_register_screen_controller.dart';
@@ -11,12 +14,12 @@ class ComplianceManagerRiskRegisterScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('ComplianceManagerRiskRegister'),
+        title: const PrimeText('ComplianceManagerRiskRegister'),
       ),
       body: state.when(
         data: (data) => _buildContent(context, data),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, stack) => Center(child: Text('Error loading features: $error')),
+        loading: () => const DashboardLoadingWidget(),
+        error: (error, stack) => Center(child: PrimeText('Error loading features: $error')),
       ),
     );
   }
@@ -26,9 +29,9 @@ class ComplianceManagerRiskRegisterScreen extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.check_circle_outline, size: 64, color: Colors.green),
+          const PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 64),
           const SizedBox(height: 16),
-          Text(
+          PrimeText(
             'ComplianceManagerRiskRegisterScreen is now fully implemented.',
             style: Theme.of(context).textTheme.headlineSmall,
           ),

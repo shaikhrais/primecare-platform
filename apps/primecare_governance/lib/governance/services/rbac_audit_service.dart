@@ -15,7 +15,7 @@ class RbacAuditService {
           subsystem: 'primecare_governance',
           registry: 'RBAC',
           issue: 'No roles assigned to screen.',
-          suggestion: 'Add at least one role to allowedRoles to ensure security coverage.',
+          suggestion: 'Reconcile the exact screen identity and grants with authoritative governance metadata; do not guess an allowed role.',
           severity: AuditSeverity.critical,
           metadata: {
             'owner': s.assignedDeveloper,
