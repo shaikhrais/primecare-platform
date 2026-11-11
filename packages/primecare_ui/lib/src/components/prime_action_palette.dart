@@ -19,6 +19,13 @@ class PrimeActionPalette {
         onAccent = readableThemeForeground(accent, candidate),
         onBase = readableThemeForeground(base, accent);
 
+  /// Pair an existing status/category Color with its actual painted tint.
+  static Color tintSurface(BuildContext context, Color accent, {double alpha = .1}) =>
+      Color.alphaBlend(accent.withValues(alpha: alpha), context.theme.colors.surface);
+
+  static Color onTint(BuildContext context, Color accent, {double alpha = .1}) =>
+      readableThemeForeground(tintSurface(context, accent, alpha: alpha), accent);
+
   factory PrimeActionPalette.of(BuildContext context, PrimeActionTone tone) {
     final colors = context.theme.colors;
     final (accent, surface) = switch (tone) {

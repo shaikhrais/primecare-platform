@@ -1,0 +1,63 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/billing_console.dart",
+    "className": "_MetricCard",
+    "fixture": "FinancePaletteFixture0"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/financial_performance.dart",
+    "className": "_FinancialCard",
+    "fixture": "FinancePaletteFixture1"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/branch_operations.dart",
+    "className": "_SummaryCard",
+    "fixture": "FinancePaletteFixture2"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/region_dashboard.dart",
+    "className": "_FilterChip",
+    "fixture": "FinancePaletteFixture3"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/region_performance.dart",
+    "className": "_MetricItemCard",
+    "fixture": "FinancePaletteFixture4"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/cash_flow.dart",
+    "className": "_FlowCard",
+    "fixture": "FinancePaletteFixture5"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/profitability.dart",
+    "className": "_MetricCard",
+    "fixture": "FinancePaletteFixture6"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/revenue_tracker.dart",
+    "className": "_AnalyticsCard",
+    "fixture": "FinancePaletteFixture7"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/tax_remittance.dart",
+    "fixture": "TaxLedgerPaletteFixture",
+    "statements": "final isPending = entry['status'] == 'pending';\n                              Color statusColor = isPending ? PrimeActionPalette.of(context, PrimeActionTone.warning).onBase : PrimeActionPalette.of(context, PrimeActionTone.success).onBase;",
+    "snippet": "Container(\n                                      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),\n                                      decoration: BoxDecoration(\n                                        color: PrimeActionPalette.tintSurface(context, statusColor, alpha: 0.1),\n                                        borderRadius: BorderRadius.circular(theme.radiusSm),\n                                      ),\n                                      child: Text(\n                                        isPending ? 'Pending Filing' : 'Settled',\n                                        style: theme.typography.labelBold.copyWith(color: PrimeActionPalette.onTint(context, statusColor, alpha: 0.1)),\n                                      ),\n                                    )"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/invoices.dart",
+    "className": "_SummaryCard",
+    "fixture": "FinancePaletteFixture9"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/financial_overview.dart",
+    "className": "_StatCard",
+    "fixture": "FinancePaletteFixture10"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/business_overview.dart",
+    "className": "_OverviewMetric",
+    "fixture": "FinancePaletteFixture11"
+  }
+]
