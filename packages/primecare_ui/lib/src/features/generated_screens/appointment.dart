@@ -33,7 +33,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
     final dataState = ref.watch(appointmentDataProvider);
 
     return Scaffold(
-      backgroundColor: const Color(0xFFEFF6FF),
+      backgroundColor:  theme.colors.background,
       appBar: AppBar(
         backgroundColor: theme.colors.surface,
         elevation: 1,
@@ -42,14 +42,14 @@ class AppointmentScreen extends GovernedConsumerWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
               decoration: BoxDecoration(
-                color: const Color(0xFF2563EB).withOpacity(0.1),
+                color:  theme.colors.primary.withOpacity(0.1),
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: const Color(0xFF2563EB).withOpacity(0.3)),
+                border: Border.all(color:  theme.colors.primary.withOpacity(0.3)),
               ),
               child: Text(
                 'CL',
-                style: const TextStyle(
-                  color: Color(0xFF2563EB),
+                style:  TextStyle(
+                  color: theme.colors.primary,
                   fontSize: 10,
                   fontWeight: FontWeight.bold,
                 ),
@@ -116,13 +116,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,7 +126,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF2563EB), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Header Section',
@@ -143,12 +137,12 @@ class AppointmentScreen extends GovernedConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'HEADER',
-                  style: const TextStyle(color: Color(0xFF2563EB), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -176,13 +170,13 @@ class AppointmentScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -199,13 +193,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -215,7 +203,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF2563EB), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Calendar Controls Section',
@@ -226,12 +214,12 @@ class AppointmentScreen extends GovernedConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'FILTERS',
-                  style: const TextStyle(color: Color(0xFF2563EB), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -259,13 +247,13 @@ class AppointmentScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -282,13 +270,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,7 +280,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF2563EB), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Schedule List Section',
@@ -309,12 +291,12 @@ class AppointmentScreen extends GovernedConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'LIST',
-                  style: const TextStyle(color: Color(0xFF2563EB), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -342,13 +324,13 @@ class AppointmentScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -365,13 +347,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -381,7 +357,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF2563EB), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Appointment Details Section',
@@ -392,12 +368,12 @@ class AppointmentScreen extends GovernedConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'DETAILS',
-                  style: const TextStyle(color: Color(0xFF2563EB), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -425,13 +401,13 @@ class AppointmentScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -448,13 +424,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
         color: theme.colors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color:  theme.colors.outline),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: theme.shadowsSurface1,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -464,7 +434,7 @@ class AppointmentScreen extends GovernedConsumerWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.dashboard_customize_outlined, color: Color(0xFF2563EB), size: 20),
+                   Icon(Icons.dashboard_customize_outlined, color: theme.colors.primary, size: 20),
                   const SizedBox(width: 8),
                   Text(
                     'Action Bar Section',
@@ -475,12 +445,12 @@ class AppointmentScreen extends GovernedConsumerWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF2563EB).withOpacity(0.1),
+                  color:  theme.colors.primary.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(6),
                 ),
                 child: Text(
                   'ACTION_BAR',
-                  style: const TextStyle(color: Color(0xFF2563EB), fontSize: 10, fontWeight: FontWeight.bold),
+                  style:  TextStyle(color: theme.colors.primary, fontSize: 10, fontWeight: FontWeight.bold),
                 ),
               ),
             ],
@@ -508,13 +478,13 @@ class AppointmentScreen extends GovernedConsumerWidget {
                   child: ElevatedButton(
                     key: Key('btn_${lbl.toLowerCase().replaceAll(' ', '_')}'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFF2563EB),
+                      backgroundColor:  theme.colors.primary,
                       elevation: 0,
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
                     onPressed: () {},
-                    child: const Text('Execute Action', style: TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
+                    child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
               ],
@@ -530,22 +500,22 @@ class AppointmentScreen extends GovernedConsumerWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(18),
               decoration: BoxDecoration(
-                color: const Color(0xFF0F172A),
+                color:  theme.colors.inverseSurface,
                 borderRadius: BorderRadius.circular(14),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13)),
+                   Text('GOVERNANCE SPECIFICATIONS & ALL API ENDPOINTS', style: TextStyle(color: theme.colors.inverseOnSurface, fontWeight: FontWeight.bold, fontSize: 13)),
                   const SizedBox(height: 8),
                   ...["\u2022 Mapped API: GET /v1/appointment"].map((apiStr) => Padding(
                     padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Text(apiStr, style: const TextStyle(color: Color(0xFF94A3B8), fontSize: 11, fontFamily: 'monospace')),
+                    child: Text(apiStr, style:  TextStyle(color: theme.colors.inverseOnSurface, fontSize: 11, fontFamily: 'monospace')),
                   )),
                   const SizedBox(height: 4),
-                  const Text('• Cypress Selector: data-cy="screen-appointment"', style: TextStyle(color: Color(0xFF34D399), fontSize: 12, fontFamily: 'monospace')),
+                   Text('• Cypress Selector: data-cy="screen-appointment"', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                  const Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: Color(0xFF60A5FA), fontSize: 12)),
+                   Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12)),
                 ],
               ),
             ),
