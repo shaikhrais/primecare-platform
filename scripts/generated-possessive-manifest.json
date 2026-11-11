@@ -1,0 +1,14 @@
+[
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/adjustment_notes.dart",
+    "sha256": "90c7a98a8939ef653750be18c7598dea9f8fcd30e8af6338342d26a667c5398c"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/rmt_treatment_notes.dart",
+    "sha256": "535bd78990bbeda5b69d40df72129669cf8093497476cafb393c2fb0e63bef08"
+  },
+  {
+    "path": "packages/primecare_ui/lib/src/features/generated_screens/chiropractor_treatment_notes.dart",
+    "sha256": "89f73a0507b73daa624d691e13a644880b45971e289fb8376a1e3356a1a6090d"
+  }
+]

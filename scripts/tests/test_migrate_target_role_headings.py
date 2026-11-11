@@ -19,7 +19,7 @@ class TargetRoleHeadingsTest(unittest.TestCase):
             self.assertEqual(count, 1, row['path'])
             self.assertEqual(updated.replace(row['new'], row['old']), original)
             self.assertEqual(m.migrate(updated), (updated, 0))
-            self.assertIn(Path(row['path']).name, imports)
+            self.assertIn('src/features/generated_screens/'+Path(row['path']).name, imports)
 
     def test_native_fixture_matches_each_former_palette(self):
         fixture = (ROOT/'packages/primecare_ui/test/fixtures/target_role_headings_fixture.dart').read_text()
