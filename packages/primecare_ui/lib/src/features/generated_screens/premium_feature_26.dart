@@ -588,7 +588,7 @@ class _TelemetryRow extends StatelessWidget {
           style: TextStyle(
             fontSize: 13.5,
             fontWeight: FontWeight.w500,
-            color: Colors.blueGrey.shade600,
+            color: theme.colors.onSurfaceVariant,
           ),
         ),
         const Spacer(),
