@@ -296,14 +296,14 @@ class _StatCard extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                         decoration: BoxDecoration(
-                          color: isPositive ? const Color(0xFF10B981).withOpacity(0.1) : Colors.amber.withOpacity(0.1),
+                          color: isPositive ? theme.colors.success.withOpacity(0.1) : theme.colors.warning.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Row(
                           children: [
                             Icon(
                               isPositive ? Icons.arrow_upward : Icons.arrow_downward,
-                              color: isPositive ? const Color(0xFF10B981) : Colors.amber,
+                              color: isPositive ? theme.colors.success : theme.colors.warning,
                               size: 12,
                             ),
                             const SizedBox(width: 4),
