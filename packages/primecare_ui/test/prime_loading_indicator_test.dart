@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
-import 'package:flutter_core/theme/theme_config_generated.dart';
+import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:primecare_ui/src/components/prime_loading_indicator.dart';
 import 'package:primecare_ui/src/theme/prime_theme.dart';
 
