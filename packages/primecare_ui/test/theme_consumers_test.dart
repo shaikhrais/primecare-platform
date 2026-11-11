@@ -31,6 +31,32 @@ Widget dashboard(PersonalTheme personal) {
 }
 
 void main() {
+  test('tenant palette adapters retain readable surfaces and semantic foregrounds', () {
+    for (final preset in themeCenterPresetNames) {
+      final palette = ThemeConfig.getAppPalette(preset);
+      final colors = PrimeColors.fromPalette(palette);
+      final material = PrimeThemeData(colors: colors).toThemeData();
+      expect(colors.dashboardBackground, palette.background, reason: preset);
+      expect(colors.surfaceContainer, palette.surface, reason: preset);
+      expect(material.brightness, ThemeData.estimateBrightnessForColor(palette.surface), reason: preset);
+      for (final pair in [
+        [colors.surface, colors.onSurface],
+        [colors.surface, colors.onSurfaceVariant],
+        [colors.sidebarBackground, colors.sidebarTextColor],
+        [colors.sidebarBackground, colors.sidebarIconColor],
+        [colors.sidebarSelectedTileColor, colors.sidebarSelectedTextColor],
+        [colors.sidebarSelectedTileColor, colors.sidebarSelectedIconColor],
+        [colors.topbarBackground, colors.topbarTextColor],
+        [colors.topbarBackground, colors.topbarIconColor],
+        [material.colorScheme.secondary, material.colorScheme.onSecondary],
+        [material.colorScheme.tertiary, material.colorScheme.onTertiary],
+        [material.colorScheme.error, material.colorScheme.onError],
+      ]) {
+        expect(themeContrastRatio(pair[0], pair[1]), greaterThanOrEqualTo(4.5), reason: preset);
+      }
+    }
+  });
+
   test('all resolved themes retain Material brightness and semantic roles on round trip', () {
     const base = PrimeThemeData();
     for (final preset in themeCenterPresetNames) {

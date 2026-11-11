@@ -2,6 +2,7 @@ import 'package:flutter_core/theme/personal_theme.dart';
 // Governance - Category: service | Purpose: Static utility class for PrimeCare colors used across the platform. Brand Colors Surface & Background
 import 'package:flutter/material.dart';
 import 'package:flutter_core/theme/app_theme.dart';
+import 'package:flutter_core/theme/theme_contrast.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../governance_bootstrapper.dart';
 
@@ -206,10 +207,6 @@ class PrimeColors {
   });
 
   factory PrimeColors.fromPalette(AppThemePalette palette) {
-    // Estimate text/icon brightness based on background luminance
-    final isDarkSidebar = palette.sidebarBackground.computeLuminance() < 0.5;
-    final isDarkTopbar = palette.topbarBackground.computeLuminance() < 0.5;
-
     return PrimeColors(
       primary: palette.primary,
       primaryContainer: palette.primaryContainer,
@@ -217,21 +214,31 @@ class PrimeColors {
       secondary: palette.secondary,
       secondaryContainer: palette.secondaryContainer,
       background: palette.background,
+      dashboardBackground: palette.background,
       surface: palette.surface,
+      onSurface: readableThemeForeground(palette.surface, palette.textPrimary),
+      onSurfaceVariant: readableThemeForeground(palette.surface, palette.textSecondary),
+      surfaceDim: palette.surface,
+      surfaceBright: palette.surface,
+      surfaceContainerLowest: palette.surface,
+      surfaceContainerLow: palette.surface,
+      surfaceContainer: palette.surface,
+      surfaceContainerHigh: palette.surface,
+      surfaceContainerHighest: palette.surface,
       divider: palette.divider,
       sidebarBackground: palette.sidebarBackground,
       topbarBackground: palette.topbarBackground,
-      sidebarTextColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      sidebarSelectedTextColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      sidebarIconColor: isDarkSidebar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      sidebarSelectedIconColor: isDarkSidebar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      sidebarSelectedTileColor: isDarkSidebar ? const Color(0x26FFFFFF) : const Color(0x0D000000),
-      sidebarDividerColor: isDarkSidebar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
-      topbarTextColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      topbarSelectedTextColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      topbarIconColor: isDarkTopbar ? const Color(0xB3FFFFFF) : const Color(0xB3000000),
-      topbarSelectedIconColor: isDarkTopbar ? const Color(0xFFFFFFFF) : const Color(0xFF000000),
-      topbarDividerColor: isDarkTopbar ? const Color(0x1FFFFFFF) : const Color(0x0D000000),
+      sidebarTextColor: readableThemeForeground(palette.sidebarBackground, palette.textSecondary),
+      sidebarSelectedTextColor: readableThemeForeground(palette.surface, palette.textPrimary),
+      sidebarIconColor: readableThemeForeground(palette.sidebarBackground, palette.textSecondary),
+      sidebarSelectedIconColor: readableThemeForeground(palette.surface, palette.textPrimary),
+      sidebarSelectedTileColor: palette.surface,
+      sidebarDividerColor: palette.divider,
+      topbarTextColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarSelectedTextColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarIconColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarSelectedIconColor: readableThemeForeground(palette.topbarBackground, palette.textPrimary),
+      topbarDividerColor: palette.divider,
     );
   }
 
@@ -616,18 +623,18 @@ class PrimeThemeData {
         ),
       ],
       colorScheme: ColorScheme(
-        brightness: Brightness.light,
+        brightness: ThemeData.estimateBrightnessForColor(colors.surface),
         primary: colors.primary,
         onPrimary: colors.onPrimary,
         primaryContainer: colors.primaryContainer,
         secondary: colors.secondary,
-        onSecondary: Colors.white,
+        onSecondary: readableThemeForeground(colors.secondary, Colors.white),
         tertiary: colors.tertiary,
-        onTertiary: Colors.white,
+        onTertiary: readableThemeForeground(colors.tertiary, Colors.white),
         surface: colors.surface,
         onSurface: colors.onSurface,
         error: colors.error,
-        onError: Colors.white,
+        onError: readableThemeForeground(colors.error, Colors.white),
         outline: colors.outline,
         surfaceContainer: colors.surfaceContainer,
       ),
