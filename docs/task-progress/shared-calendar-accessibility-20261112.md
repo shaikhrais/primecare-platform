@@ -1,0 +1,17 @@
+# Shared calendar weekday and date accessibility
+
+Batch summary, before implementation: add the missing seven weekday headings and localized full-date accessible names to the existing shared web/native all-day task calendar. Select the compatible rendering group across English, French and Spanish and every host-configured first weekday. Use platform localization and the active theme; retain the 42 date cells, registered date IDs, task values, permissions, adapter contracts and mutation behavior. This is a calendar foundation improvement, not appointment scheduling or full feature acceptance.
+
+Current main before this batch: `33a5eeb57148b1b8215a2ec3b00eb5ad7bfe3eb8`. Its Theme Center, shared component catalogue, contract and strict boundary runs passed. Strict source findings are zero; the adoption register remains 0/72 fully accepted and 72 pending, with 45 source-mapped and 27 unreconciled proposal mappings.
+
+The new 21 public-renderer Node regressions failed before implementation because the shared web calendar renders no weekday headings. They cover three supported locales and all seven first-weekday settings. Native and real-browser acceptance must run in GitHub Actions; local source/model checks cannot establish those results.
+
+## Implementation and validation
+
+Both existing shared renderers now present seven narrow weekday labels with full localized accessible names, in the host's configured first-weekday order. Date cells retain their ISO registration/identity suffixes but expose localized full dates to assistive technology. Native day numbers use Material localization and web numbers use Intl. Theme colors, inherited typography and text scaling remain in the existing shared controls. No new palette, business label, appointment endpoint, authority, task mutation or registration is introduced.
+
+The corrected public-renderer regression was run against the unchanged staged baseline: 21 failed (missing headings). Against the implementation: all 21 pass, including retained task date/title, all 42 cells and zero mutation calls. Transport checks pass (9), work-module PostgreSQL checks pass (30), and the unchanged native transition oracle retains 60 projections/52 mutations. All 284 migration regressions and four mapping-audit regressions pass. TypeScript checking, browser-test syntax, YAML and strict boundary checks pass; the scan remains 0 controls + 0 literal colors. The six native widget cases cover 24 locale/weekday/width/text-scale combinations. The real-browser fixture adds six locale/weekday cases at 320px and 200% inherited text size. Native and browser execution are pending GitHub Actions, not credited as local passes.
+
+The native renderer has an exact reversible source receipt appended to `scripts/native-widget-repairs.json`; all original migration hashes remain intact. The work-module workflow runs the Node checks and retains validation instead of cancelling it. Shared implementations are changed directly, with no per-consumer duplication to migrate.
+
+Counts: source findings previous 0 / current 0 / newly removed 0. Fully accepted features previous 0 / current 0 / newly accepted 0; pending 72. Source-mapped 45; unreconciled proposal mappings 27. Calendar weekday accessibility is implemented, but calendar scheduling, native date input, responsive populated-calendar density, device accessibility and complete feature acceptance remain open. Release readiness stays 0/344 screens and 0/147 workflows.

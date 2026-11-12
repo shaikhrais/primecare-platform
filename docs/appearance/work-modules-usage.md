@@ -36,7 +36,7 @@ Disposal and generation guards ignore late results. Denied reload/mutation clear
 
 ## Release gates
 
-Common EN/FR/ES labels are registered drafts. Task action/status labels reuse the existing English task catalogue. Human translation, accessibility, keyboard/screen-reader, contrast and release review are open. Native date input, weekday headings, responsive calendar density, focus restoration, localized business labels, generic pagination wording need host verification. Do not infer release approval from factory tests.
+Common EN/FR/ES labels are registered drafts. Task action/status labels reuse the existing English task catalogue. Human translation, accessibility, keyboard/screen-reader, contrast and release review are open. Weekday headings and localized full-date accessible names are implemented in both shared renderers; native/browser acceptance remains pending. Native date input, responsive calendar density, focus restoration, localized business labels and generic pagination wording still need implementation or host verification. Do not infer release approval from factory tests.
 
 No synthetic data is seeded into production by this batch. The generic protocol supports separate live/demo scopes, but a host must provide a persistent, localized demo banner and verify workspace-version handling before exposing demo mode. The current templates do not supply that banner; demo host activation remains blocked.
 
