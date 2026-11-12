@@ -48,3 +48,13 @@ test('autocomplete hidden options cannot select after Escape or blur',async t=>{
   option.dispatchEvent(new Event('pointerdown'));assert.deepEqual(selected,[]);
  }
 });
+
+for(const change of ['filter','replace'])test('table retires old sort controls after '+change+' while current controls still work',async t=>{
+ const {root,kit,Event}=fixture(t),rows=[{id:'a',values:{name:'Alpha'}},{id:'b',values:{name:'Beta'}}];
+ const table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],rows,{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100});root.append(table.element);
+ const old=root.querySelector('[data-cy=data-controls-sort-name]');
+ if(change==='replace')table.replace(rows);else{const filter=root.querySelector('[data-cy=data-controls-filter]');filter.value='Alpha';filter.dispatchEvent(new Event('input'));}
+ const prior={key:table.model.sortKey,descending:table.model.descending};old.dispatchEvent(new Event('click'));
+ assert.deepEqual({key:table.model.sortKey,descending:table.model.descending},prior,'detached header must not change current sorting');
+ root.querySelector('[data-cy=data-controls-sort-name]').dispatchEvent(new Event('click'));assert.equal(table.model.sortKey,'name');
+});
