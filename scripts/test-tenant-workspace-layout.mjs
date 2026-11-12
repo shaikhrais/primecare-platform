@@ -64,7 +64,8 @@ try{
  // A newer remote revision must not silently rebase an unsaved local choice.
  await el('tenant-preference-view').selectOption('audit');const currentPreference=(await (await f.call('admin')).json()).preference;
  const concurrent=await f.call('admin',{action:'preferences',version:currentPreference.version,value:{view:'overview'}});assert.equal(concurrent.status,200);
- await el('tenant-search-form').evaluate(form=>form.requestSubmit());await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-preference-view]').value==='audit');
+ await page.evaluate(()=>{window.conflictPreference=document.querySelector('[data-cy=tenant-preference-view]');});
+ await el('tenant-search-form').evaluate(form=>form.requestSubmit());await page.waitForFunction(()=>{const input=document.querySelector('[data-cy=tenant-preference-view]');return input!==window.conflictPreference&&input?.value==='audit';});
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Your unsaved choice is kept'));
  assert.equal(await el('tenant-preference-view').inputValue(),'audit');assert.equal((await (await f.call('admin')).json()).preference.view,'overview');
  page.once('dialog',dialog=>dialog.dismiss());await el('tenant-refresh').click();assert.equal(await el('tenant-preference-view').inputValue(),'audit');
