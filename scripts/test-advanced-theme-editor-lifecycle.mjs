@@ -19,9 +19,9 @@ function fixture(){
  const library=new api.AdvancedThemeLibrary(scope,{getItem:key=>records.get(key)??null,setItem:(key,value)=>records.set(key,value)},()=>`00000000-0000-4000-8000-${String(++id).padStart(12,'0')}`);
  const labels=Object.fromEntries(['saved','preview','configuration','apply','save','update','rename','duplicate','remove','reset','copy','import','export','success','error','empty'].map(k=>[k,k]));
  const root=document.getElementById('editor'),schema=[{id:'fixture-name',label:'Theme name',path:'name',when:null}];
- const editor=new api.AdvancedThemeEditor(root,{scope,schema,allowedIds:['fixture-name'],labels,optionLabels:Object.fromEntries(['primary','secondary','success','warning','error','info'].map(k=>[k,k])),regionLabels:Object.fromEntries(api.themeRegions.map(k=>[k,k])),library,onApply:()=>applies++,onLegacy:()=>{},copyText:async()=>{},download:()=>{}});
+ const options={scope,schema,allowedIds:['fixture-name'],labels,optionLabels:Object.fromEntries(['primary','secondary','success','warning','error','info'].map(k=>[k,k])),regionLabels:Object.fromEntries(api.themeRegions.map(k=>[k,k])),library,onApply:()=>applies++,onLegacy:()=>{},copyText:async()=>{},download:()=>{}};const editor=new api.AdvancedThemeEditor(root,options);
  const file=root.querySelector('[data-theme-import]');
- return {root,Event,editor,library,records,applies:()=>applies,
+ return {root,Event,editor,library,records,options,applies:()=>applies,
   draft:()=>JSON.parse(root.querySelector('[data-theme-configuration]').textContent),
   import:promise=>{Object.defineProperty(file,'files',{configurable:true,value:[{size:100,text:()=>promise}]});file.dispatchEvent(new Event('change'));},
   theme:name=>JSON.stringify(api.patchTheme(api.defaultAdvancedTheme(),'name',name)),
@@ -42,4 +42,16 @@ test('disposed editor cannot apply a late import to its replacement',async()=>{
 test('reset cancels an older import instead of silently replacing the reset draft',async()=>{
  const f=fixture(),read=deferred();
  try{f.import(read.promise);f.root.querySelector('[data-theme-action="reset"]').click();await settle();const reset=f.draft();read.resolve(f.theme('Obsolete file'));await settle();assert.deepEqual(f.draft(),reset);assert.equal(f.library.current.active,null);assert.equal(f.applies(),1);}finally{f.dispose();}
+});
+
+test('caller options cannot redirect saves to a different actor library',async()=>{
+ const f=fixture(),otherRecords=new Map(),other=new api.AdvancedThemeLibrary('other-actor',{getItem:k=>otherRecords.get(k)??null,setItem:(k,v)=>otherRecords.set(k,v)},()=> '00000000-0000-4000-8000-000000000099');
+ try{f.options.library=other;f.root.querySelector('[data-theme-action="save"]').click();await settle();assert.equal(f.library.current.items.length,1);assert.equal(other.current.items.length,0);assert.equal(otherRecords.size,0);}finally{f.dispose();other.dispose();}
+});
+test('caller callback replacement cannot take ownership of editor apply',async()=>{
+ const f=fixture();let redirected=0;
+ try{f.options.onApply=()=>redirected++;f.root.querySelector('[data-theme-action="apply"]').click();await settle();assert.equal(f.applies(),1);assert.equal(redirected,0);}finally{f.dispose();}
+});
+test('caller label-map mutations cannot replace captured status and palette labels',async()=>{
+ const f=fixture();try{f.options.labels.success='Changed status';f.options.optionLabels.primary='Changed palette';f.root.querySelector('[data-theme-action="save"]').click();await settle();assert.equal(f.root.querySelector('[role="status"]').value,'success');assert.equal(f.root.querySelector('[data-theme-preview="main"] [data-theme-shade]').textContent,'primary');}finally{f.dispose();}
 });

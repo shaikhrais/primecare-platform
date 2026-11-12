@@ -6,7 +6,7 @@ import type {PreferenceSyncClient} from '../../shared/src/preference-sync/client
 export class TenantThemeMigrationReview {
   private candidate: unknown = null;
   private disposed = false;
-  constructor(private readonly storage: Storage, private readonly client: PreferenceSyncClient) {}
+  constructor(private readonly storage: Storage, private readonly client: PreferenceSyncClient, private readonly isCurrent:()=>boolean=()=>true) {}
 
   prepare() {
     this.assertActive();
@@ -24,7 +24,7 @@ export class TenantThemeMigrationReview {
     if (!this.candidate) throw Error('Review theme migration first');
     const candidate = this.candidate;
     this.candidate = null;
-    return saveTenantThemeMigration(this.storage, this.client, candidate);
+    return saveTenantThemeMigration(this.storage, this.client, candidate,()=>this.assertActive());
   }
 
   async retry() {
@@ -38,6 +38,6 @@ export class TenantThemeMigrationReview {
   }
 
   private assertActive() {
-    if (this.disposed) throw Error('Theme migration review disposed');
+    if (this.disposed||!this.isCurrent()) throw Error('Theme migration review disposed');
   }
 }

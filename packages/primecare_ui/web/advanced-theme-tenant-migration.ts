@@ -23,9 +23,11 @@ export async function stageTenantThemeMigration(
 
 /** Save a reviewed candidate through the existing explicit preference transaction. */
 export async function saveTenantThemeMigration(
-  storage: Storage, client: PreferenceSyncClient, reviewedCandidate: unknown,
+  storage: Storage, client: PreferenceSyncClient, reviewedCandidate: unknown, assertCurrent:()=>void=()=>{},
 ) {
+  assertCurrent();
   await stageTenantThemeMigration(storage, client, reviewedCandidate);
+  assertCurrent();
   await client.save();
   const result = client.current;
   return {status: result.status, error: result.error, pending: result.pending !== null,

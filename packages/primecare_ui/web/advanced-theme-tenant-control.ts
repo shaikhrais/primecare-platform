@@ -18,7 +18,7 @@ const labels = {
 export function mountTenantThemeMigration(
   root: HTMLElement, client: PreferenceSyncClient, storage: Storage, locale: Locale, isCurrent:()=>boolean=()=>true,
 ) {
-  const doc=root.ownerDocument, text=labels[locale], review=new TenantThemeMigrationReview(storage,client);
+  const doc=root.ownerDocument, text=labels[locale], review=new TenantThemeMigrationReview(storage,client,()=>valid());
   const section=doc.createElement('section');
   const heading=doc.createElement('h3');heading.textContent=text.heading;
   const description=doc.createElement('p');
