@@ -21,7 +21,7 @@ on:
 permissions: {contents: read}
 concurrency:
   group: data-controls-tests-${{ github.ref }}-${{ github.sha }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   web:
     runs-on: ubuntu-24.04

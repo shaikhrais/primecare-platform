@@ -8,11 +8,47 @@ import 'package:flutter/material.dart';import 'package:flutter/services.dart';im
 export 'data_controls_model.dart';export 'upload_task.dart';
 class PrimeDataKit {final CatalogueLabels labels;final String scope;PrimeDataKit(this.labels,this.scope){if(scope.trim().isEmpty)throw ArgumentError('scope_required');}
  Widget button(String key,Future<void> Function()? action,{String suffix='',bool disabled=false})=>PrimeCatalogueAction(labels:labels,scope:scope,control:key,action:action,suffix:suffix,disabled:disabled,errorKey:'error',successKey:key=='cancel'?'cancel':'success');
- Widget field(String kind,TextEditingController controller,{bool required=false,double? min,double? max,double? step,String? pattern,DateTime? firstDate,DateTime? lastDate})=>Builder(builder:(context){
- Future<void> pick()async{if(kind=='date'&&firstDate!=null&&lastDate!=null){final parsed=DateTime.tryParse(controller.text),initial=parsed!=null&&!parsed.isBefore(firstDate)&&!parsed.isAfter(lastDate)?parsed:firstDate;final date=await showDatePicker(context:context,initialDate:initial,firstDate:firstDate,lastDate:lastDate);if(date!=null&&context.mounted)controller.text='${date.year.toString().padLeft(4,'0')}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';}else if(kind=='time'){final parts=controller.text.split(':'),valid=fieldError(controller.text,'time')==null&&parts.length==2;final time=await showTimePicker(context:context,initialTime:valid?TimeOfDay(hour:int.parse(parts[0]),minute:int.parse(parts[1])):TimeOfDay.now());if(time!=null&&context.mounted)controller.text='${time.hour.toString().padLeft(2,'0')}:${time.minute.toString().padLeft(2,'0')}';}}
- return labels.identify(kind,'prime_text_field',PrimeTextFormField(controller:controller,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&firstDate!=null&&lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:PrimeIconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:pick)):null),onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,validator:(v){final error=fieldError(v??'',kind,required:required,min:min,max:max,step:step,pattern:pattern);return error==null?null:labels.text(error);}));});
+ Widget field(String kind,TextEditingController controller,{bool enabled=true,bool required=false,double? min,double? max,double? step,String? pattern,DateTime? firstDate,DateTime? lastDate})=>_PrimeTypedField(labels:labels,scope:scope,kind:kind,controller:controller,enabled:enabled,required:required,min:min,max:max,step:step,pattern:pattern,firstDate:firstDate,lastDate:lastDate);
  Widget form(GlobalKey<FormState> key,List<Widget> children,Future<void> Function()? save)=>labels.identify('form','prime_card',Form(key:key,child:Column(mainAxisSize:MainAxisSize.min,children:[...children,button('submit',save==null?null:()async{if(!key.currentState!.validate())throw StateError('invalid_form');await save();}),if(save==null)PrimeText(labels.text('unsupported'))])));
 }
+class _PrimeTypedField extends StatefulWidget {
+ final CatalogueLabels labels;final String scope,kind;final TextEditingController controller;final bool enabled,required;
+ final double? min,max,step;final String? pattern;final DateTime? firstDate,lastDate;
+ const _PrimeTypedField({required this.labels,required this.scope,required this.kind,required this.controller,required this.enabled,required this.required,this.min,this.max,this.step,this.pattern,this.firstDate,this.lastDate});
+ @override State<_PrimeTypedField> createState()=>_PrimeTypedFieldState();
+}
+class _PrimeTypedFieldState extends State<_PrimeTypedField> {
+ int _epoch=0;bool _picking=false;ModalRoute<dynamic>? _pickerRoute;
+ void _closePicker(){final route=_pickerRoute;_pickerRoute=null;final navigator=route?.navigator;if(route==null||navigator==null)return;WidgetsBinding.instance.addPostFrameCallback((_){if(navigator.mounted&&route.isActive)navigator.removeRoute(route);});}
+ @override void didUpdateWidget(covariant _PrimeTypedField old){super.didUpdateWidget(old);if(old.scope!=widget.scope||old.kind!=widget.kind||old.controller!=widget.controller||old.enabled!=widget.enabled||old.firstDate!=widget.firstDate||old.lastDate!=widget.lastDate){_epoch++;_picking=false;_closePicker();}}
+ @override void dispose(){_epoch++;_closePicker();super.dispose();}
+ Future<void> _pick()async{
+  if(!widget.enabled||_picking)return;
+  final w=widget,controller=w.controller,text=controller.text,g=++_epoch;
+  setState(()=>_picking=true);
+  Widget capture(BuildContext context,Widget? child){if(mounted&&g==_epoch)_pickerRoute=ModalRoute.of(context);return child!;}
+  String? next;
+  try{
+   if(w.kind=='date'&&w.firstDate!=null&&w.lastDate!=null){
+    final first=w.firstDate!,last=w.lastDate!,parsed=DateTime.tryParse(text),initial=parsed!=null&&!parsed.isBefore(first)&&!parsed.isAfter(last)?parsed:first;
+    final date=await showDatePicker(context:context,initialDate:initial,firstDate:first,lastDate:last,builder:capture);
+    if(date!=null)next='${date.year.toString().padLeft(4,'0')}-${date.month.toString().padLeft(2,'0')}-${date.day.toString().padLeft(2,'0')}';
+   }else if(w.kind=='time'){
+    final parts=text.split(':'),valid=fieldError(text,'time')==null&&parts.length==2;
+    final time=await showTimePicker(context:context,initialTime:valid?TimeOfDay(hour:int.parse(parts[0]),minute:int.parse(parts[1])):TimeOfDay.now(),builder:capture);
+    if(time!=null)next='${time.hour.toString().padLeft(2,'0')}:${time.minute.toString().padLeft(2,'0')}';
+   }
+   if(mounted&&g==_epoch&&widget.enabled&&identical(controller,widget.controller)&&controller.text==text&&next!=null)controller.text=next;
+  }finally{if(mounted&&g==_epoch){_pickerRoute=null;setState(()=>_picking=false);}}
+ }
+ @override Widget build(BuildContext context){final w=widget,labels=w.labels,kind=w.kind,controller=w.controller,pattern=w.pattern;
+  return labels.identify(kind,'prime_text_field',PrimeTextFormField(controller:controller,enabled:w.enabled,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,
+   decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&w.firstDate!=null&&w.lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:PrimeIconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:w.enabled&&!_picking?_pick:null)):null),
+   onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,
+   validator:(v){final error=fieldError(v??'',kind,required:w.required,min:w.min,max:w.max,step:w.step,pattern:w.pattern);return error==null?null:labels.text(error);}));
+ }
+}
+
 class PrimeVirtualTable extends StatefulWidget {
   final CatalogueLabels labels;
   final String scope;
