@@ -13,7 +13,7 @@ export class DashboardSession {
  subscribe(f:()=>void){this.listeners.add(f);return()=>{this.listeners.delete(f);};}private emit(){if(!this.dead)for(const f of this.listeners)f();}
  private snapshot(raw:DashboardSnapshot){if(!raw||Object.keys(raw).sort().join(',')!=='document,resource,revision,scope'||!samePreferenceScope(preferenceScope(raw.scope),this.scope)||raw.resource!==this.resource||!Number.isSafeInteger(raw.revision)||raw.revision<0||raw.revision===0&&raw.document!==null)throw Error('invalid_dashboard_snapshot');return{...raw,document:raw.document===null?null:validateDashboard(raw.document,this.widgets,this.views)};}
  edit(raw:unknown){if(this.dead||this.status==='loading')throw Error('dashboard_busy');this.doc=validateDashboard(raw,this.widgets,this.views);this.edits++;if(this.status!=='saving'&&this.status!=='conflict')this.status='dirty';this.emit();}
- async load(){if(this.dead||['loading','saving'].includes(this.status)||!this.port)return;if(this.pending)throw Error('dashboard_pending_resolution');const g=++this.epoch;this.status='loading';this.emit();try{const snapshot=this.snapshot(await this.port.read(this.scope,this.resource,this.abort.signal));if(this.dead||g!==this.epoch)return;this.revision=snapshot.revision;this.doc=snapshot.document??structuredClone(this.#defaults);this.loaded=true;this.status=snapshot.document?'clean':'ready';}catch{if(this.dead||g!==this.epoch)return;this.status='error';}this.emit();}
+ async load(){if(this.dead||['loading','saving'].includes(this.status)||!this.port)return;if(this.pending)throw Error('dashboard_pending_resolution');const g=++this.epoch;this.status='loading';this.emit();if(this.dead||g!==this.epoch)return;try{const snapshot=this.snapshot(await this.port.read(this.scope,this.resource,this.abort.signal));if(this.dead||g!==this.epoch)return;this.revision=snapshot.revision;this.doc=snapshot.document??structuredClone(this.#defaults);this.loaded=true;this.status=snapshot.document?'clean':'ready';}catch{if(this.dead||g!==this.epoch)return;this.status='error';}this.emit();}
  async save(){
   if(this.dead||!this.port||!this.loaded||this.pending||['loading','saving','conflict'].includes(this.status))throw Error('dashboard_unavailable');
   if(this.revision>=Number.MAX_SAFE_INTEGER)throw Error('revision_exhausted');
@@ -22,7 +22,7 @@ export class DashboardSession {
  }
  async retryPending(){if(this.dead||!this.port||!this.pending||['loading','saving','conflict'].includes(this.status))throw Error('dashboard_unavailable');await this.sendPending();}
  private async sendPending(){
-  const g=++this.epoch,pending=this.pending!;this.status='saving';this.emit();
+  const g=++this.epoch,pending=this.pending!;this.status='saving';this.emit();if(this.dead||g!==this.epoch)return;
   try{
    if(!pending.acknowledged){
     const acknowledged=this.snapshot(await this.port!.write({scope:this.scope,resource:this.resource,revision:pending.revision,document:structuredClone(pending.document),requestId:pending.requestId},this.abort.signal));

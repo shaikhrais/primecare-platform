@@ -28,3 +28,17 @@ test('uncertain dashboard retries retain request identity and acknowledged saves
   const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,()=>{uuidCalls++;return uuid();});await s.load();s.edit(defaults);await assert.rejects(()=>s.save());assert.equal(s.current.pending,true);await assert.rejects(()=>s.load());await assert.rejects(()=>s.save());await s.retryPending();assert.equal(s.current.status,'clean');assert.equal(s.current.pending,false);assert.equal(applied,1);assert.equal(uuidCalls,1);assert.equal(writes,mode==='lost-ack'?2:1);if(keys.length===2)assert.equal(keys[0],keys[1]);s.dispose();
  }
 });
+test('listener disposal before persistence dispatch prevents reads and writes',async()=>{
+ for(const phase of ['load','save','retry']){
+  let reads=0,writes=0;
+  const port={read:async()=>{reads++;return {scope,resource:'fixture',revision:0,document:null};},write:async()=>{writes++;throw Error('offline');}};
+  const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,uuid);
+  if(phase!=='load')await s.load();
+  if(phase==='retry')await assert.rejects(()=>s.save());
+  const before={reads,writes};
+  s.subscribe(()=>{if(s.current.status===(phase==='load'?'loading':'saving'))s.dispose();});
+  if(phase==='load')await s.load();else if(phase==='save')await s.save();else await s.retryPending();
+  assert.deepEqual({reads,writes},before,phase+' must not dispatch after disposal');
+  assert.equal(s.current.status,'disposed');assert.equal(s.current.pending,false);
+ }
+});
