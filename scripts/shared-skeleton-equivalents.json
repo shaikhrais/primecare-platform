@@ -893,5 +893,305 @@
       ]
     },
     "scope": "Registered collection slot only; help knowledge/support business adapter remains unbound and unavailable"
+  },
+  {
+    "id": "dashboard.project",
+    "web": {
+      "path": "packages/primecare_ui/web/dashboard-pages.ts",
+      "api": "export function renderDashboardProjection(",
+      "entry": "packages/primecare_ui/web/dashboard-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeDashboardPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Authorized tenant task-count projection only; complete project dashboard, host and persistence acceptance remain open"
+  },
+  {
+    "id": "dashboard.analytics",
+    "web": {
+      "path": "packages/primecare_ui/web/dashboard-pages.ts",
+      "api": "export function renderDashboardProjection(",
+      "entry": "packages/primecare_ui/web/dashboard-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeDashboardPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Authorized operations count projection with explicit missing values; full analytics dashboard and host acceptance remain open"
+  },
+  {
+    "id": "dashboard.finance",
+    "web": {
+      "path": "packages/primecare_ui/web/dashboard-pages.ts",
+      "api": "export function renderDashboardProjection(",
+      "entry": "packages/primecare_ui/web/dashboard-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeDashboardPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Shared metric renderer only; finance projection returns unavailable without an approved business source"
+  },
+  {
+    "id": "dashboard.crypto",
+    "web": {
+      "path": "packages/primecare_ui/web/dashboard-pages.ts",
+      "api": "export function renderDashboardProjection(",
+      "entry": "packages/primecare_ui/web/dashboard-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeDashboardPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Shared metric renderer only; crypto projection returns unavailable without an approved business source"
+  },
+  {
+    "id": "page.invoice",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Registered supporting-page slot only; invoices and billing adapter remain unavailable"
+  },
+  {
+    "id": "page.pricing",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Registered supporting-page slot only; price catalogue and billing adapter remain unavailable"
+  },
+  {
+    "id": "page.activities",
+    "web": {
+      "path": "packages/primecare_ui/web/record-pages.ts",
+      "api": "export function renderRecordPage(",
+      "entry": "packages/primecare_ui/web/record-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+      "api": "class PrimeRecordPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_record_page.dart"
+        }
+      ]
+    },
+    "scope": "Bounded authorized tenant audit-event projection only; full activity history and host acceptance remain open"
+  },
+  {
+    "id": "page.search",
+    "web": {
+      "path": "packages/primecare_ui/web/record-pages.ts",
+      "api": "export function renderRecordPage(",
+      "entry": "packages/primecare_ui/web/record-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_record_page.dart",
+      "api": "class PrimeRecordPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_record_page.dart"
+        }
+      ]
+    },
+    "scope": "Search of bounded authorized task/workflow response only; complete tenant-wide search remains open"
+  },
+  {
+    "id": "page.authentication",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Supporting-page unavailable slot only; actual authentication belongs to existing governed identity hosts"
+  },
+  {
+    "id": "page.coming-soon",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Localized static presentation only; authorized host registration and deployment remain separate"
+  },
+  {
+    "id": "page.maintenance",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Localized static status only; no operational service availability mutation"
+  },
+  {
+    "id": "page.error",
+    "web": {
+      "path": "packages/primecare_ui/web/supporting-pages.ts",
+      "api": "export function renderSupportingPage(",
+      "entry": "packages/primecare_ui/web/supporting-pages.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_pages/prime_dashboard_page.dart",
+      "api": "class PrimeSupportingPage ",
+      "entry": "packages/primecare_ui/lib/dashboard_pages.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_pages.dart",
+          "target": "package:flutter_core/dashboard_pages.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_pages.dart",
+          "target": "dashboard_pages/prime_dashboard_page.dart"
+        }
+      ]
+    },
+    "scope": "Localized static status only; actual route error recovery and host policy remain separate"
   }
 ]

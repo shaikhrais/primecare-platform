@@ -6,10 +6,10 @@ Assessed main: `7fad68474df6f20846b923b4867a7b47d797a447`. This list covers the 
 |---|---:|
 | Fully verified complete | 0 |
 | Pending full adoption/acceptance | 72 |
-| Features with source mappings | 60 |
-| Features still without a reconciled mapping | 12 |
+| Features with source mappings | 72 |
+| Features still without a reconciled mapping | 0 |
 
-Source mappings combine 27 historical mapped records and 33 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
+Source mappings combine 27 historical mapped records and 45 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
 
 | # | Feature | Current source mapping | Acceptance |
 |---|---|---|---|
@@ -73,18 +73,18 @@ Source mappings combine 27 historical mapped records and 33 additional existing 
 | 58 | profile (`app.profile`) | Shared equivalent reconciled | Pending |
 | 59 | settings (`app.settings`) | Shared equivalent reconciled | Pending |
 | 60 | help-center (`app.help-center`) | Shared equivalent reconciled | Pending |
-| 61 | project (`dashboard.project`) | Needs source reconciliation | Pending |
-| 62 | analytics (`dashboard.analytics`) | Needs source reconciliation | Pending |
-| 63 | finance (`dashboard.finance`) | Needs source reconciliation | Pending |
-| 64 | crypto (`dashboard.crypto`) | Needs source reconciliation | Pending |
-| 65 | invoice (`page.invoice`) | Needs source reconciliation | Pending |
-| 66 | pricing (`page.pricing`) | Needs source reconciliation | Pending |
-| 67 | activities (`page.activities`) | Needs source reconciliation | Pending |
-| 68 | search (`page.search`) | Needs source reconciliation | Pending |
-| 69 | authentication (`page.authentication`) | Needs source reconciliation | Pending |
-| 70 | coming-soon (`page.coming-soon`) | Needs source reconciliation | Pending |
-| 71 | maintenance (`page.maintenance`) | Needs source reconciliation | Pending |
-| 72 | error (`page.error`) | Needs source reconciliation | Pending |
+| 61 | project (`dashboard.project`) | Shared equivalent reconciled | Pending |
+| 62 | analytics (`dashboard.analytics`) | Shared equivalent reconciled | Pending |
+| 63 | finance (`dashboard.finance`) | Shared equivalent reconciled | Pending |
+| 64 | crypto (`dashboard.crypto`) | Shared equivalent reconciled | Pending |
+| 65 | invoice (`page.invoice`) | Shared equivalent reconciled | Pending |
+| 66 | pricing (`page.pricing`) | Shared equivalent reconciled | Pending |
+| 67 | activities (`page.activities`) | Shared equivalent reconciled | Pending |
+| 68 | search (`page.search`) | Shared equivalent reconciled | Pending |
+| 69 | authentication (`page.authentication`) | Shared equivalent reconciled | Pending |
+| 70 | coming-soon (`page.coming-soon`) | Shared equivalent reconciled | Pending |
+| 71 | maintenance (`page.maintenance`) | Shared equivalent reconciled | Pending |
+| 72 | error (`page.error`) | Shared equivalent reconciled | Pending |
 
 Strict control/color migration remains separate: 0 findings at the last verified source scan. Screen readiness remains 0/344 and workflow readiness 0/147. No runtime or production activation is inferred.
 
@@ -92,9 +92,11 @@ Current validation receipts: preceding main `1ca98433` passed all 11 Theme Cente
 
 Sources: `packages/primecare_ui/catalogs/developer-catalogue.json`, `docs/appearance/shared-skeleton-equivalents.md`, `docs/appearance/theme-gap-register.md`.
 
-Next sequence: repair confirmed current CI failures; reconcile the 12 unmapped proposals against existing shared code and public APIs before implementing duplicates; then close approved source/host gaps with behavior and native/browser acceptance. Preserve all production authority and release gates.
+Next sequence: repair confirmed current CI failures; close the explicit approved source/host/business gaps using the reconciled shared public APIs with behavior and native/browser acceptance. Preserve all production authority and release gates.
 
 
 B13 reconciliation: five work templates use existing `PrimeWorkModule` public web/native entries. Their task-backed subsets and standalone business/host gaps are recorded in `shared-skeleton-equivalents.md`. Source mapping counts advance only; all 72 full-acceptance gates remain pending. Export-chain auditing now verifies ordered links through to the declaration file.
 
 B14/B15 reconciliation: ten entries identify existing original shared template exports, with explicit supported subsets and unavailable business adapters. Notification, academy, commerce, AI generation and help mappings identify unavailable slots only; they are not implemented business features. All72features remain pending full acceptance.
+
+B16 reconciliation: all12dashboard/supporting entries now identify existing public web/native factory exports. Finance, crypto, invoice, pricing and authentication support slots explicitly remain unavailable; their source mappings provide no business implementation or runtime credit. All72source mappings are reconciled; all72full-adoption acceptances remain pending.

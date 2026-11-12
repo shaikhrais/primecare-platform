@@ -8,8 +8,8 @@ m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class SharedSkeletonSourceTests(unittest.TestCase):
  def test_all_current_public_apis_preserve_historical_catalogue_and_acceptance(self):
   path=ROOT/'packages/primecare_ui/catalogs/developer-catalogue.json';before=hashlib.sha256(path.read_bytes()).hexdigest()
-  report=m.render();self.assertEqual(len(m.MAPPINGS),34);self.assertIn('60/72 features now have source mappings',report)
-  self.assertIn('12 still need reconciliation',report);self.assertIn('All 72 tracked features remain pending',report)
+  report=m.render();self.assertEqual(len(m.MAPPINGS),46);self.assertIn('72/72 features now have source mappings',report)
+  self.assertIn('0 still need reconciliation',report);self.assertIn('All 72 tracked features remain pending',report)
   self.assertEqual(hashlib.sha256(path.read_bytes()).hexdigest(),before)
  def test_unknown_duplicate_missing_and_authority_claims_are_rejected(self):
   mutations=[lambda rows:rows.append(copy.deepcopy(rows[0])),lambda rows:rows[0].update(id='unregistered.capability'),
