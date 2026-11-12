@@ -1,6 +1,6 @@
 # Skeleton feature adoption register — 2026-11-11
 
-Assessed main: `ea2a9e2f7ebb2f874dc65a358d5fecb3cbdd470e`. This list covers the 72 tracked proposal features, not every vendor example, property or animation. PrimeCare uses original shared implementations.
+Assessed main: `1ca984331061d0a32717e618578dbfcf2f11b5f0`. This list covers the 72 tracked proposal features, not every vendor example, property or animation. PrimeCare uses original shared implementations.
 
 | Measure | Count |
 |---|---:|
@@ -88,7 +88,7 @@ Source mappings combine 27 historical mapped records and six additional existing
 
 Strict control/color migration remains separate: 0 findings at the last verified source scan. Screen readiness remains 0/344 and workflow readiness 0/147. No runtime or production activation is inferred.
 
-Current validation: assessed-head Theme Center 43120727841 passed website and eight consumer packages, but native and governance failed fixture assertions. Boundary 43120727497 and contract coverage 43120727858 passed. Three assertion repairs are documented in `docs/task-progress/native-renderer-assertion-repairs-20261111.md`; acceptance requires a fresh run on their published head. Required native, website and all nine app acceptance remains open.
+Current validation: assessed-head Theme Center 43125538090 passed all 11 jobs: native, website and nine consumer packages. This verifies the renderer assertion repairs and earlier content-grid work on that exact head. It does not establish the full 72-feature adoption contract, authenticated host/device rollout or human accessibility/localization acceptance. The subsequent import-ordering repair requires fresh CI on its own published head; earlier passes are not inherited.
 
 Sources: `packages/primecare_ui/catalogs/developer-catalogue.json`, `docs/appearance/shared-skeleton-equivalents.md`, `docs/appearance/theme-gap-register.md`.
 

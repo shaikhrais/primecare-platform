@@ -1,7 +1,7 @@
 import hashlib,importlib.util,json,re,sys,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2];sys.path.insert(0,str(ROOT/'scripts'))
-from reviewed_migration_history import before_remaining_material_controls
+from reviewed_migration_history import before_remaining_material_controls,before_native_widget_repairs
 s=importlib.util.spec_from_file_location('m',ROOT/'scripts/migrate-remaining-material-controls.py');m=importlib.util.module_from_spec(s);s.loader.exec_module(m)
 s=importlib.util.spec_from_file_location('t',ROOT/'scripts/migrate-generated-theme.py');t=importlib.util.module_from_spec(s);s.loader.exec_module(t)
 s=importlib.util.spec_from_file_location('g',ROOT/'scripts/generate-shared-material-controls.py');g=importlib.util.module_from_spec(s);s.loader.exec_module(g)
@@ -9,7 +9,7 @@ class RemainingMaterialControlsTest(unittest.TestCase):
  def test_all_26_sources_exact_roundtrip_and_strict_counts(self):
   self.assertEqual(len(m.MANIFEST),26);self.assertEqual(sum(r['calls'] for r in m.MANIFEST),61)
   for row in m.MANIFEST:
-   current=(ROOT/row['path']).read_text();original=before_remaining_material_controls(current,row['path'])
+   current=before_native_widget_repairs((ROOT/row['path']).read_text(),row['path']);original=before_remaining_material_controls(current,row['path'])
    self.assertEqual(hashlib.sha256(original.encode()).hexdigest(),row['sha256']);self.assertEqual(m.migrate(original),(current,row['calls']));self.assertEqual(m.migrate(current),(current,0));self.assertEqual(m.migrate(original+'\n'),(original+'\n',0))
    self.assertEqual(len(t.boundary.violations(original,True))-len(t.boundary.violations(current,True)),row['calls'])
    line=current.splitlines()[0];self.assertTrue(line.startswith("import 'package:"));normalized=current[len(line)+1:]
