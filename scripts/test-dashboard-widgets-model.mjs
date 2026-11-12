@@ -42,3 +42,14 @@ test('listener disposal before persistence dispatch prevents reads and writes',a
   assert.equal(s.current.status,'disposed');assert.equal(s.current.pending,false);
  }
 });
+test('chart and registry kinds reject coercible objects without invoking them',()=>{
+ let coerced=0;const kind={toString(){coerced++;return 'line';}};
+ assert.throws(()=>api.validateChart({...charts[0],kind}));
+ assert.throws(()=>api.validateRegistry([{...widgets[0],kind}],views));
+ assert.equal(coerced,0);
+});
+test('unknown layout actions cannot silently resize a widget or change input',()=>{
+ const before=structuredClone(defaults);
+ for(const kind of ['shrink','',null,undefined])assert.throws(()=>api.editDashboard(defaults,'wide',{kind,id:'trend'},widgets,views));
+ assert.deepEqual(defaults,before);
+});
