@@ -15,10 +15,11 @@ WorkModuleSession session(String module,Port p)=>WorkModuleSession(scope,module,
 void main(){
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{
-  final semantics=t.ensureSemantics();addTearDown(semantics.dispose);
+  final semantics=t.ensureSemantics();
   addTearDown(()=>t.binding.setSurfaceSize(null));
   final p=Port('calendar');p.value={...data('calendar'),'items':<Object?>[],'total':0};
   final s=session('calendar',p),labels=CatalogueLabels.fromMetadata(metadata,locale);
+  try{
   for(final width in [320.0,600.0])for(final scale in [1.0,2.0]){
    await t.binding.setSurfaceSize(Size(width,1800));
    await t.pumpWidget(MaterialApp(locale:Locale(locale),supportedLocales:const [Locale('en'),Locale('fr'),Locale('es')],localizationsDelegates:GlobalMaterialLocalizations.delegates,
@@ -39,7 +40,7 @@ void main(){
    expect(t.getSemantics(dateText).label,fullDate);
    expect(s.snapshot!.items,isEmpty);expect(p.calls,0);
   }
-  await t.pumpWidget(const SizedBox());s.dispose();
+  }finally{await t.pumpWidget(const SizedBox());s.dispose();semantics.dispose();}
  });
  testWidgets('populated calendar owns horizontal scrolling at narrow widths and enlarged text',(t)async{
   addTearDown(()=>t.binding.setSurfaceSize(null));

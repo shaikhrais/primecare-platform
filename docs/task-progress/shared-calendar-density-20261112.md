@@ -13,3 +13,7 @@ The same shared calendar now gives populated day cells minimum usable width insi
 Local validation: 21 public web-renderer checks, 284 exact historical migration regressions and 28 boundary tests pass; strict findings remain 0. Native and real-browser checks are authored and wired for GitHub Actions, pending execution on this batch. The existing native source receipt is extended reversibly, preserving its original SHA and all underlying historical hashes.
 
 Counts remain source previous 0/current 0/new removals 0; fully accepted features previous 0/current 0/new 0, pending 72. Source mappings 45/unreconciled 27. Release readiness 0/344 screens and 0/147 workflows. These responsive/accessibility changes do not create appointment scheduling or authorize any business operation.
+
+## Native semantics test cleanup
+
+Exact `a09e91c9` Windows job 130901882704 reports no analyzer issues and 27 passing tests, including the populated-calendar regression. All six localized-date cases reach the end with their date/layout assertions passing, then fail Flutter's end-of-test check because the explicit SemanticsHandle is still active. A registered addTearDown callback runs too late for that check. Dispose the handle in a test-body finally block, after unmounting the module and disposing its session. All exact date, locale, layout and mutation assertions remain unchanged; no production change or acceptance credit is added. A fresh native run is required.
