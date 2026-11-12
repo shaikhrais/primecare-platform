@@ -17,3 +17,7 @@ Counts remain source previous 0/current 0/new removals 0; fully accepted feature
 ## Native semantics test cleanup
 
 Exact `a09e91c9` Windows job 130901882704 reports no analyzer issues and 27 passing tests, including the populated-calendar regression. All six localized-date cases reach the end with their date/layout assertions passing, then fail Flutter's end-of-test check because the explicit SemanticsHandle is still active. A registered addTearDown callback runs too late for that check. Dispose the handle in a test-body finally block, after unmounting the module and disposing its session. All exact date, locale, layout and mutation assertions remain unchanged; no production change or acceptance credit is added. A fresh native run is required.
+
+## Full acceptance trigger coverage
+
+The test-only cleanup head did not register a Theme Center run: its push/PR filters listed individual fixtures but omitted general core test changes. Both event filters now cover all tests in flutter_core, primecare_ui and primecare_ui_foundation. A new workflow regression requires these three roots and the workflow's own path for both events. This expands verification coverage without changing any threshold, job, source guard or cancellation setting. The full native/website/nine-app suite must run on the resulting head; earlier green results remain predecessor evidence only.

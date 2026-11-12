@@ -7,6 +7,13 @@ class ThemeWorkflowCommandsTest(unittest.TestCase):
   for index,line in enumerate(lines):
    if re.match(r'\s+- run: flutter pub get$',line):
     self.assertRegex(lines[index+1],r'^        working-directory: ')
+ def test_shared_test_changes_trigger_full_current_head_validation(self):
+  text=(ROOT/'.github/workflows/theme-center.yml').read_text()
+  paths=re.findall(r'paths:\s*\[(.*?)\]',text,re.S);self.assertEqual(len(paths),2)
+  for event_paths in paths:
+   for root in ['packages/flutter_core/test/**','packages/primecare_ui/test/**','packages/primecare_ui_foundation/test/**']:
+    self.assertIn("'"+root+"'",event_paths)
+   self.assertIn("'.github/workflows/theme-center.yml'",event_paths)
  def test_consumer_compile_script_is_valid_shell_and_contains_each_optional_suite_once(self):
   text=(ROOT/'.github/workflows/theme-center.yml').read_text();start=text.index('      - name: Compile migrated consumer libraries');lines=text[start:].splitlines();run=lines.index('        run: |');script=[]
   for line in lines[run+1:]:
