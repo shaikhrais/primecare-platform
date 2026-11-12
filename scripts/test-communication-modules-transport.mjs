@@ -7,3 +7,31 @@ test('identity aliases, unsupported providers and cancelled calls cannot reach f
 test('scope changes and disposal while reading cannot publish old replies',async()=>{for(const close of [false,true]){let finish,cancelled=false;const t=transport(async()=>new Response(new ReadableStream({start(c){finish=()=>c.enqueue(new TextEncoder().encode('{}'));},cancel(){cancelled=true;}})));const pending=t.wire.execute('message.inbox',{},new AbortController().signal);await new Promise(r=>setImmediate(r));if(close)t.wire.close();else t.change();finish();await assert.rejects(()=>pending);assert.equal(cancelled,true);}});
 test('oversized and malformed replies fail without replaying a message mutation',async()=>{for(const mode of ['large','declared','json','utf8']){let calls=0,cancelled=false;const t=transport(async()=>{calls++;if(mode==='json')return new Response('{bad');if(mode==='utf8')return new Response(new Uint8Array([123,255,125]));return new Response(new ReadableStream({pull(c){c.enqueue(new Uint8Array(1048577));},cancel(){cancelled=true;}}),mode==='declared'?{headers:{'content-length':'1048577'}}:{});});await assert.rejects(()=>t.wire.execute('message.send',{id:'thread1',key:'original',version:2,text:'Body',pictureIds:[]},new AbortController().signal),e=>e.code==='error'&&e.status===502);assert.equal(calls,1);if(['large','declared'].includes(mode))assert.equal(cancelled,true);t.wire.close();}});
 test('HTTP deny/conflict failures retain their codes and stream cleanup checks captured scope',async()=>{for(const [status,code]of [[403,'denied'],[409,'conflict'],[400,'invalid']]){const t=transport(async()=>new Response('{}',{status}));await assert.rejects(()=>t.wire.execute('message.inbox',{},new AbortController().signal),e=>e.code===code&&e.status===status);t.wire.close();}const t=transport(async()=>{const response=Response.json({ok:true}),reader=response.body.getReader(),cancel=reader.cancel.bind(reader);reader.cancel=async()=>{await cancel();t.change();};response.body.getReader=()=>reader;return response;});await assert.rejects(()=>t.wire.execute('message.inbox',{},new AbortController().signal),e=>e.code==='denied');});
+test('closing transport aborts its pending fetch without aborting the caller signal',async()=>{
+ const caller=new AbortController();let requestSignal,started;
+ const ready=new Promise(resolve=>started=resolve);
+ const t=transport(async(_url,options)=>new Promise((_resolve,reject)=>{
+  requestSignal=options.signal;requestSignal.addEventListener('abort',()=>reject(Error('fixture aborted')),{once:true});started();
+ }));
+ const pending=t.wire.execute('message.inbox',{},caller.signal);
+ // Attach rejection handling before closing, without blocking on an unresponsive fixture.
+ const failure=assert.rejects(pending);
+ await ready;t.wire.close();
+ try{assert.equal(requestSignal.aborted,true);assert.equal(caller.signal.aborted,false);}finally{caller.abort();await failure;}
+});
+test('transport lifetimes remain independent when callers share an abort signal',async()=>{
+ const caller=new AbortController(),signals=[];
+ const a=transport(async(_url,options)=>{signals.push(options.signal);return Response.json({ok:true});});
+ const b=transport(async(_url,options)=>{signals.push(options.signal);return Response.json({ok:true});});
+ await a.wire.execute('message.inbox',{},caller.signal);await b.wire.execute('message.inbox',{},caller.signal);
+ a.wire.close();
+ try{assert.equal(signals[0].aborted,true);assert.equal(signals[1].aborted,false);assert.equal(caller.signal.aborted,false);assert.deepEqual(await b.wire.execute('message.inbox',{},caller.signal),{ok:true});}finally{a.wire.close();b.wire.close();}
+});
+test('caller cancellation still aborts the pending request in its transport lifetime',async()=>{
+ const caller=new AbortController();let requestSignal;
+ const t=transport(async(_url,options)=>new Promise((_resolve,reject)=>{
+  requestSignal=options.signal;requestSignal.addEventListener('abort',()=>reject(Error('fixture caller abort')),{once:true});
+ }));
+ const pending=t.wire.execute('message.inbox',{},caller.signal),failure=assert.rejects(pending);
+ caller.abort();await failure;assert.equal(requestSignal.aborted,true);t.wire.close();
+});

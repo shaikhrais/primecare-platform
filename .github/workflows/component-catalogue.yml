@@ -6,6 +6,7 @@ on:
       - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/primecare_ui/web/shell-utilities.ts'
       - 'packages/primecare_ui/web/shell-environment.ts'
+      - 'scripts/test-workspace-shell-environment.mjs'
       - 'packages/primecare_ui/catalogs/shell-utilities.registration.json'
       - 'packages/shared/src/shell-utilities/**'
       - 'packages/domain/src/shell_utilities.ts'
@@ -44,7 +45,7 @@ jobs:
           ln -s /tmp/catalogue-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-component-catalogue-model.mjs
-          node --test scripts/test-component-catalogue-lifecycle.mjs
+          node --test scripts/test-component-catalogue-lifecycle.mjs scripts/test-workspace-shell-environment.mjs
           node scripts/test-component-catalogue-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/component-catalogue.ts
       - run: |

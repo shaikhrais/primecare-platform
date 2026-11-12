@@ -5,6 +5,7 @@ export {buildWorkspaceNavigation,activeWorkspaceDestination,navigationPreset} fr
 export type {NavigationAuthority,NavigationFamily,NavigationMode,WorkspaceNavigationNode};
 export type WorkspaceNavigationOptions={scope:string;items:unknown;authority:NavigationAuthority;currentRoute:string;family:NavigationFamily;mode?:NavigationMode;pinned?:boolean;labels:{navigation:string;open:string;close:string;pin:string;unpin:string};onNavigate:(route:string)=>void;renderIcon?:(id:string)=>Element;frame?:{element:HTMLElement;profile:()=>WorkspaceLayout}};
 let sequence=0;
+const navigationOwners=new WeakSet<HTMLElement>();
 /** Optional, data-bound navigation factory. No production shell opts in here. */
 export class WorkspaceNavigationView {
  private options!:WorkspaceNavigationOptions;
@@ -22,8 +23,10 @@ export class WorkspaceNavigationView {
  private portal:HTMLDivElement;
  constructor(private host:HTMLElement,options:WorkspaceNavigationOptions){
   if(!host.isConnected)throw Error('Mount navigation in a connected host');
+  if(navigationOwners.has(host))throw Error('Navigation already managed');
   this.portal=host.ownerDocument.createElement('div');this.portal.dataset.workspaceNavigation='';this.portal.dataset.workspaceNavigationPortal='';Object.assign(this.portal.style,{position:'fixed',inset:'0',pointerEvents:'none',zIndex:'100',background:'transparent'});host.ownerDocument.body.append(this.portal);
-  try{this.update(options);}catch(error){this.portal.remove();throw error;}
+  navigationOwners.add(host);
+  try{this.update(options);
   const doc=host.ownerDocument,win=doc.defaultView!,signal=this.events.signal;
   if(!doc.querySelector('[data-workspace-navigation-styles]')){const style=doc.createElement('style');style.dataset.workspaceNavigationStyles='';style.textContent=workspaceNavigationStyles;doc.head.append(style);}
   doc.addEventListener('pointerdown',event=>{if(event.target instanceof Node&&!host.contains(event.target)&&!this.portal.contains(event.target)){if(this.options.family!=='vertical'||this.drawer){this.expanded.clear();this.drawer=false;this.render();}}},{signal});
@@ -37,6 +40,7 @@ export class WorkspaceNavigationView {
   win.addEventListener('resize',()=>{if(!this.narrow)this.drawer=false;this.render();},{signal});
   win.addEventListener('pagehide',event=>{if(!event.persisted)this.dispose();},{signal});
   this.observer=new MutationObserver(()=>{if(!host.isConnected)this.dispose();});this.observer.observe(doc,{childList:true,subtree:true});
+  }catch(error){this.disposed=true;this.events.abort();this.renderEvents.abort();this.observer?.disconnect();for(const link of [...host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');this.portal.remove();host.replaceChildren();for(const name of ['workspaceNavigation','family','mode','expanded','drawerOpen'])delete host.dataset[name];navigationOwners.delete(host);throw error;}
  }
  get presentation(){return {family:this.options.family,mode:this.options.mode??'expanded',pinned:this.pinned};}
  private get narrow(){return this.host.ownerDocument.defaultView!.matchMedia('(max-width:1024px)').matches;}
@@ -163,5 +167,5 @@ export class WorkspaceNavigationView {
    if(i<0||!items.length)return;handled();items[event.key==='Home'?0:event.key==='End'?items.length-1:(i+(event.key===next?1:-1)+items.length)%items.length]?.focus();
   }
  };
- dispose(){if(this.disposed)return;this.disposed=true;this.events.abort();this.renderEvents.abort();this.observer.disconnect();for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');this.portal.remove();this.host.replaceChildren();if(this.options.frame)this.options.frame.element.style.setProperty('--pc-nav-width',this.options.frame.profile().navigationWidth+'px');for(const name of ['workspaceNavigation','family','mode','expanded','drawerOpen'])delete this.host.dataset[name];}
+ dispose(){if(this.disposed)return;this.disposed=true;try{this.events.abort();this.renderEvents.abort();this.observer.disconnect();for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');this.portal.remove();this.host.replaceChildren();if(this.options.frame)this.options.frame.element.style.setProperty('--pc-nav-width',this.options.frame.profile().navigationWidth+'px');for(const name of ['workspaceNavigation','family','mode','expanded','drawerOpen'])delete this.host.dataset[name];}finally{navigationOwners.delete(this.host);}}
 }

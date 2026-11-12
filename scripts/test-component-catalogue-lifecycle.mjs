@@ -8,6 +8,28 @@ const {PrimeComponentFactory}=await import('data:text/javascript;base64,'+Buffer
 const shellBuilt=await build({entryPoints:['packages/primecare_ui/web/shell-utilities.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {ShellUtilitiesView}=await import('data:text/javascript;base64,'+Buffer.from(shellBuilt.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+test('shared buttons cannot dispatch from outside their owner slot or after queued relocation',async()=>{
+ for(const mode of ['detached','moved','queued-move']){
+  const {kit,root,document,Event}=fixture();let calls=0;const outside=document.createElement('section');document.body.append(outside);const button=kit.button('button',()=>{calls++;});
+  try{if(mode!=='detached')root.append(button);if(mode==='moved')outside.append(button);button.dispatchEvent(new Event('click'));if(mode==='queued-move')outside.append(button);await settle();assert.equal(calls,0,mode+' must skip consumer dispatch');}
+  finally{kit.dispose();}
+ }
+});
+test('late button outcomes cannot announce feedback moved outside the owner slot',async()=>{
+ for(const failure of [false,true]){
+  const {kit,root,document,Event}=fixture();let finish;const button=kit.button('button',()=>new Promise((resolve,reject)=>finish=failure?reject:resolve));root.append(button);
+  try{button.dispatchEvent(new Event('click'));await Promise.resolve();const status=root.querySelector('[role=status]'),outside=document.createElement('section');document.body.append(outside);outside.append(status);finish(failure?Error('late'):undefined);await settle();assert.equal(status.textContent,kit.text('loading'));assert.equal(button.disabled,false);}
+  finally{kit.dispose();}
+ }
+});
+test('menu trigger arrows open at the enabled edge and skip disabled items',async()=>{
+ const {kit,root,document,Event}=fixture();const prior=globalThis.Node;globalThis.Node=document.defaultView.Node;let focused;
+ try{root.append(kit.menu([{label:'First',action:()=>{}},{label:'Disabled',disabled:true,action:()=>{}},{label:'Last',action:()=>{}}]));const buttons=[...root.querySelectorAll('button')],trigger=buttons[0];for(const button of buttons)button.focus=()=>{focused=button;};Object.defineProperty(document,'activeElement',{configurable:true,get:()=>focused});
+  const key=async name=>{const e=new Event('keydown',{bubbles:true,cancelable:true});e.key=name;(focused??trigger).dispatchEvent(e);await settle();};
+  await key('ArrowDown');assert.equal(root.querySelector('[role=menu]').hidden,false);assert.equal(focused,buttons[1]);await key('ArrowDown');assert.equal(focused,buttons[3]);await key('ArrowDown');assert.equal(focused,buttons[1]);focused=trigger;await key('ArrowUp');assert.equal(focused,buttons[3]);
+  await key('Escape');assert.equal(focused,trigger);await key('ArrowUp');assert.equal(focused,buttons[3]);
+ }finally{if(prior===undefined)delete globalThis.Node;else globalThis.Node=prior;kit.dispose();}
+});
 test('tab selection keeps rendered keys stable when caller entries are mutated',async()=>{
  const {kit,root,document,Event}=fixture();const items=[{key:'tabOne',content:document.createElement('p')},{key:'tabTwo',content:document.createElement('p')}];
  try{root.append(kit.tabs(items));items[0].key='tabTwo';items.splice(0);root.querySelector('[data-cy=component-catalogue-tab-two]').dispatchEvent(new Event('click'));await settle();
