@@ -58,3 +58,24 @@ for(const change of ['filter','replace'])test('table retires old sort controls a
  assert.deepEqual({key:table.model.sortKey,descending:table.model.descending},prior,'detached header must not change current sorting');
  root.querySelector('[data-cy=data-controls-sort-name]').dispatchEvent(new Event('click'));assert.equal(table.model.sortKey,'name');
 });
+
+function editorSelection(input,Event,start,end){input.selectionStart=start;input.selectionEnd=end;input.dispatchEvent(new Event('select'));}
+function formatStates(root){return ['bold','italic','list'].map(key=>root.querySelector('[data-cy="data-controls-'+key+'"]').getAttribute('aria-pressed'));}
+test('editor exposes the current block format and updates all toggles on block navigation',t=>{
+ const {root,kit,Event}=fixture(t);const editor=kit.editor({version:1,blocks:[{text:'first',bold:true,italic:false,kind:'bullet'},{text:'second',bold:false,italic:true,kind:'paragraph'}]});root.append(editor.element);
+ assert.deepEqual(formatStates(root),['true','false','true']);root.querySelector('[data-cy=data-controls-editor-block-1]').dispatchEvent(new Event('click'));
+ assert.deepEqual(formatStates(root),['false','true','false']);assert.equal(root.querySelector('[data-cy=data-controls-editor]').value,'second');
+ assert.deepEqual(editor.document().blocks.map(b=>({bold:b.bold,italic:b.italic,kind:b.kind})),[{bold:true,italic:false,kind:'bullet'},{bold:false,italic:true,kind:'paragraph'}]);
+});
+test('editor reports selected range mixed/all/none states and reflects applied formatting',async t=>{
+ const {root,kit,Event}=fixture(t);const editor=kit.editor({version:2,blocks:[{text:'Hello world',bold:false,italic:false,kind:'paragraph',marks:[{start:0,end:5,bold:true,italic:false}]}]},undefined,undefined,{inlineRanges:true});root.append(editor.element);
+ const input=root.querySelector('[data-cy=data-controls-editor]');input.focus=()=>{};input.setSelectionRange=(start,end)=>{input.selectionStart=start;input.selectionEnd=end;};
+ editorSelection(input,Event,0,5);assert.deepEqual(formatStates(root),['true','false','false']);
+ editorSelection(input,Event,0,8);assert.deepEqual(formatStates(root),['mixed','false','false']);
+ editorSelection(input,Event,6,11);assert.deepEqual(formatStates(root),['false','false','false']);
+ editorSelection(input,Event,2,2);assert.deepEqual(formatStates(root),['false','false','false'],'collapsed selection reflects existing whole-block toggle semantics');
+ editorSelection(input,Event,0,8);root.querySelector('[data-cy=data-controls-italic]').dispatchEvent(new Event('click'));await settle();assert.deepEqual(formatStates(root),['mixed','true','false']);
+ assert.equal(input.selectionStart,0);assert.equal(input.selectionEnd,8);assert.equal(editor.document().blocks[0].text,'Hello world');
+ root.querySelector('[data-cy=data-controls-list]').dispatchEvent(new Event('click'));await settle();assert.deepEqual(formatStates(root),['mixed','true','true']);
+ input.selectionStart=0;input.selectionEnd=0;input.dispatchEvent(new Event('input'));assert.deepEqual(formatStates(root),['false','false','true']);assert.equal(editor.document().blocks[0].text,'Hello world');
+});
