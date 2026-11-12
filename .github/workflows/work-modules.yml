@@ -38,7 +38,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/work-modules-native-fixtures.mjs --check
-          node --test scripts/test-work-modules-calendar.mjs
+          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
@@ -69,7 +69,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/work-modules-native-fixtures.mjs --check
-          node --test scripts/test-work-modules-calendar.mjs
+          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-browser.mjs
