@@ -31,10 +31,11 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix /tmp/catalogue-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0
+          npm install --prefix /tmp/catalogue-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 linkedom@0.18.12
           ln -s /tmp/catalogue-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node --test scripts/test-theme-control-base.mjs
+          node --test scripts/test-data-controls-lifecycle.mjs
           node scripts/test-data-controls-model.mjs
           node scripts/test-data-controls-rich-ranges.mjs
           node --test scripts/test-upload-removal.mjs
