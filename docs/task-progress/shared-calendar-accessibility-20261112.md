@@ -15,3 +15,7 @@ The corrected public-renderer regression was run against the unchanged staged ba
 The native renderer has an exact reversible source receipt appended to `scripts/native-widget-repairs.json`; all original migration hashes remain intact. The work-module workflow runs the Node checks and retains validation instead of cancelling it. Shared implementations are changed directly, with no per-consumer duplication to migrate.
 
 Counts: source findings previous 0 / current 0 / newly removed 0. Fully accepted features previous 0 / current 0 / newly accepted 0; pending 72. Source-mapped 45; unreconciled proposal mappings 27. Calendar weekday accessibility is implemented, but calendar scheduling, native date input, responsive populated-calendar density, device accessibility and complete feature acceptance remain open. Release readiness stays 0/344 screens and 0/147 workflows.
+
+## Native setup repair
+
+Exact-head work-module Windows job 130897636004 on `42e2b7e4` rejected the new test file before widget execution: the new tests referenced the existing local `metadata` declaration before that declaration. Move the unchanged declaration to the start of `main`, before all tests. Production calendar code, assertions and locale coverage are unchanged. Native execution must rerun; this is a compiler setup repair, not acceptance credit.
