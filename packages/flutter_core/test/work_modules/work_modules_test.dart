@@ -31,7 +31,40 @@ class DelayedRecoveryPort extends Port {
  DelayedRecoveryPort():super('tasks'){loseRead=true;}
  @override Future<Object?> readItem(String id)async{if(readCalls==1)await gate.future;return super.readItem(id);}
 }
+class ReceiptReadPort extends Port {
+ final int failureStatus;final bool mismatch;
+ ReceiptReadPort(this.failureStatus,{this.mismatch=false}):super('tasks');
+ @override Future<Object?> readItem(String id)async{
+  readCalls++;
+  if(readCalls==1){
+   if(mismatch)return data(module);
+   throw WorkFailure([401,403].contains(failureStatus)?'denied':failureStatus==409?'conflict':'error',failureStatus);
+  }
+  return value;
+ }
+}
 void main(){
+ for(final failureStatus in [400,404,409,503])test('acknowledged receipt survives readback $failureStatus',()async{
+  final p=ReceiptReadPort(failureStatus),s=session('tasks',p);await s.load();
+  await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  final originalKey=s.pendingKey,receipt=s.pendingReceipt;
+  expect(s.pending,isNotNull);expect(receipt,isNotNull);expect(s.snapshot!.items.single.title,'Original task');
+  await expectLater(s.load(),throwsA(isA<WorkFailure>()));
+  await expectLater(s.submit('Task-A','edit',{'title':'Different','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  expect(s.pendingKey,originalKey);expect(s.pendingReceipt,same(receipt));
+  await s.retryPending();expect(s.status,'success');expect(p.calls,1);expect(p.readCalls,2);s.dispose();
+ });
+ test('mismatched readback preserves acknowledgment for verification retry',()async{
+  final p=ReceiptReadPort(409,mismatch:true),s=session('tasks',p);await s.load();
+  await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  expect(s.pendingReceipt,isNotNull);expect(s.pending,isNotNull);
+  await s.retryPending();expect(s.status,'success');expect(p.calls,1);expect(p.readCalls,2);s.dispose();
+ });
+ for(final failureStatus in [401,403])test('verification denial $failureStatus clears protected session',()async{
+  final p=ReceiptReadPort(failureStatus),s=session('tasks',p);await s.load();
+  await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  expect(s.status,'denied');expect(s.snapshot,isNull);expect(s.pending,isNull);expect(s.pendingReceipt,isNull);expect(s.pendingKey,isNull);s.dispose();
+ });
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{
   final semantics=t.ensureSemantics();
@@ -195,3 +228,4 @@ void main(){
  });
 
 }
+

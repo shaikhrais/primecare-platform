@@ -12,3 +12,44 @@ test('unsafe retry never repeats a denied or uncertain mutation',async()=>{let w
 test('declared idempotent retry preserves the exact delete key',async()=>{let writes=0,present=true;const keys=[];const task=await uploaded(async request=>{keys.push(request.operationKey);if(++writes===1)throw Error('offline before commit');present=false;return{receiptId:'r1',removed:true};},async()=>state(present),true);await task.removeUpload();await task.removeUpload();assert.equal(task.status,'removed');assert.equal(keys[0],keys[1]);task.dispose();});
 test('mismatched receipt, foreign scope and a still-present item cannot become removed',async()=>{for(const mode of ['ack','scope','present']){const task=await uploaded(async()=>({receiptId:mode==='ack'?'foreign':'r1',removed:true}),async()=>mode==='scope'?{...state(false),scope:'foreign'}:state(true));await task.removeUpload();assert.equal(task.status,'remove-error');assert.equal(task.receiptId,'r1');task.dispose();}});
 test('dispose suppresses late delete completion and unbound deletion is inert',async()=>{let finish;const task=await uploaded(()=>new Promise(resolve=>finish=resolve),async()=>state(false));const operation=task.removeUpload();task.dispose();finish({receiptId:'r1',removed:true});await operation;assert.equal(task.status,'disposed');const unbound=await uploaded();await unbound.removeUpload();assert.equal(unbound.status,'success');unbound.dispose();});
+
+test('invalid replacement preserves selection, retry key and acknowledged receipt',async()=>{
+ const keys=[],task=new UploadTask('actor-session',policy,async request=>{keys.push(request.operationKey);if(keys.length===1)throw Error('offline');return{receiptId:'r1'};},true,async()=>({receiptId:'r1',removed:true}),async()=>state(false));
+ task.choose(files);await task.send();let notifications=0;task.subscribe(()=>notifications++);
+ for(const invalid of [[],[{...files[0],size:101}],[{...files[0],type:'text/html'}]]){assert.throws(()=>task.choose(invalid));assert.equal(task.status,'error');assert.deepEqual(task.files,files);assert.equal(notifications,0);}
+ await task.send();assert.equal(keys[0],keys[1]);assert.equal(task.status,'success');const before=notifications;
+ assert.throws(()=>task.choose([{...files[0],name:'../bad'}]));assert.equal(task.receiptId,'r1');assert.equal(task.progress,1);assert.equal(task.status,'success');assert.deepEqual(task.files,files);assert.equal(notifications,before);
+ await task.removeUpload();assert.equal(task.status,'removed');task.dispose();
+});
+test('valid replacement commits once without an intermediate empty selection',()=>{
+ const task=new UploadTask('actor-session',policy),observed=[];task.choose(files);task.subscribe(()=>observed.push({status:task.status,names:task.files.map(f=>f.name)}));task.choose([files[1]]);assert.deepEqual(observed,[{status:'ready',names:['b.txt']}]);task.dispose();
+});
+
+test('synchronous upload cancellation prevents transport and retains retry selection',async()=>{
+ let sends=0;const task=new UploadTask('actor-session',policy,async()=>{sends++;return{receiptId:'r1'};},true);task.choose(files);
+ const unsubscribe=task.subscribe(()=>{if(task.status==='uploading')task.cancel();});
+ await task.send();assert.equal(sends,0);assert.equal(task.status,'cancelled');assert.deepEqual(task.files,files);
+ unsubscribe();await task.send();assert.equal(sends,1);assert.equal(task.status,'success');task.dispose();
+});
+test('synchronous upload disposal prevents transport',async()=>{
+ let sends=0;const task=new UploadTask('actor-session',policy,async()=>{sends++;return{receiptId:'r1'};});task.choose(files);
+ task.subscribe(()=>{if(task.status==='uploading')task.dispose();});await task.send();assert.equal(sends,0);assert.equal(task.status,'disposed');
+});
+test('synchronous removal disposal prevents mutation and receipt reads',async()=>{
+ let removes=0,reads=0;const task=await uploaded(async()=>{removes++;return{receiptId:'r1',removed:true};},async()=>{reads++;return state(false);});
+ task.subscribe(()=>{if(task.status==='removing')task.dispose();});await task.removeUpload();assert.equal(removes,0);assert.equal(reads,0);assert.equal(task.status,'disposed');
+});
+
+test('upload cancellation retains disposal performed by the adapter abort callback',async()=>{
+ let finish;const task=new UploadTask('actor-session',policy,request=>{request.signal.addEventListener('abort',()=>task.dispose(),{once:true});return new Promise(resolve=>finish=resolve);},true);task.choose(files);
+ const pending=task.send();task.cancel();assert.equal(task.status,'disposed');finish({receiptId:'late'});await pending;assert.equal(task.status,'disposed');assert.equal(task.receiptId,null);
+});
+test('retry setup retains abort callback disposal and does not call transport again',async()=>{
+ let sends=0;const task=new UploadTask('actor-session',policy,async request=>{sends++;request.signal.addEventListener('abort',()=>task.dispose(),{once:true});throw Error('offline');},true);task.choose(files);await task.send();assert.equal(task.status,'error');await task.send();assert.equal(task.status,'disposed');assert.equal(sends,1);
+});
+test('removal setup retains upload abort callback disposal and performs no deletion',async()=>{
+ let removes=0,reads=0;const task=new UploadTask('actor-session',policy,async request=>{request.signal.addEventListener('abort',()=>task.dispose(),{once:true});return{receiptId:'r1'};},true,async()=>{removes++;return{receiptId:'r1',removed:true};},async()=>{reads++;return state(false);});task.choose(files);await task.send();await task.removeUpload();assert.equal(task.status,'disposed');assert.equal(removes,0);assert.equal(reads,0);
+});
+test('disposal becomes terminal before adapter abort callbacks can restart an errored upload',async()=>{
+ let sends=0,restart;const task=new UploadTask('actor-session',policy,async request=>{sends++;request.signal.addEventListener('abort',()=>{restart=task.send();},{once:true});throw Error('offline');},true);task.choose(files);await task.send();task.dispose();await restart;assert.equal(task.status,'disposed');assert.equal(sends,1);
+});

@@ -39,16 +39,18 @@ export class PageTemplateView extends ThemeControlBase {
    if(changed&&route&&this.slots&&slots?.content===this.slots.content)throw Error('A different route or actor requires a fresh authorized content slot');
    const elements=Object.values(slots??{});if(!slots?.content||new Set(elements).size!==elements.length||elements.some(el=>el===this.root||elements.some(other=>other!==el&&other.contains(el))))throw Error('Distinct page slots required');
    const same=!!this.route&&!changed;const previousTemporary={left:this.route?this.temporary('left'):false,right:this.route?this.temporary('right'):false};const oldScroll={page:this.root.scrollTop,content:this.content?.scrollTop??0};
+   // Capture the caller-owned focus before closing dialogs returns it to a retiring toggle.
+   const active=same?this.root.ownerDocument.activeElement as HTMLElement|null:null;
    this.closeDialogs();this.revokeLinks();this.events.abort();this.events=new AbortController();this.epoch++;
    if(this.options?.chrome!==options.chrome)this.options?.chrome?.apply({navigation:true,toolbar:true,footer:true});
    this.options=options;this.slots=slots;this.route=route;
    if(!route){this.clear();return;}
    if(!same)this.open={left:route.layout.left.open&&!this.temporary('left'),right:route.layout.right.open&&!this.temporary('right')};else for(const side of ['left','right'] as const)if(this.temporary(side)&&!previousTemporary[side])this.open[side]=false;
-   this.render();if(same){this.root.scrollTop=oldScroll.page;this.content.scrollTop=oldScroll.content;}else{this.root.scrollTop=0;this.content.scrollTop=0;if(route.layout.scroll==='normal')this.window.scrollTo(0,0);this.root.querySelector<HTMLElement>('[data-pc-page-heading]')?.focus({preventScroll:true});}
+   this.render(active);if(same){this.root.scrollTop=oldScroll.page;this.content.scrollTop=oldScroll.content;}else{this.root.scrollTop=0;this.content.scrollTop=0;if(route.layout.scroll==='normal')this.window.scrollTo(0,0);this.root.querySelector<HTMLElement>('[data-pc-page-heading]')?.focus({preventScroll:true});}
   }catch(error){this.clear();throw error;}
  }
- private render(){
-  const route=this.route!,doc=this.root.ownerDocument,active=doc.activeElement as HTMLElement|null;
+ private render(active:HTMLElement|null){
+  const route=this.route!,doc=this.root.ownerDocument;
   const header=this.element('header','data-pc-page-header'),heading=this.element('div'),h=this.element('h1','data-pc-page-heading');h.textContent=route.title;h.tabIndex=-1;
   const crumbs=this.element('nav','data-pc-page-breadcrumbs');crumbs.setAttribute('aria-label',this.options.labels.breadcrumbs);const list=this.element('ol');crumbs.append(list);
   const epoch=this.epoch;
@@ -62,7 +64,7 @@ export class PageTemplateView extends ThemeControlBase {
   this.body.append(this.sides.left,center,this.sides.right);this.root.replaceChildren(header,this.body);this.root.dataset.pcPage='';this.root.dataset.template=route.layout.template;this.root.dataset.scroll=route.layout.scroll;
   this.root.style.setProperty('--pc-page-direction',this.window.getComputedStyle(this.root).direction);this.options.chrome?.apply(route.layout.chrome);doc.title=route.title;this.changedTitle=route.title;
   for(const side of ['left','right'] as const)this.place(side);
-  if(active?.isConnected&&!active.closest('[hidden]'))active.focus({preventScroll:true});
+  if(active?.isConnected&&Object.values(this.slots).some(slot=>slot.contains(active))&&!active.closest('[hidden],[inert]'))active.focus({preventScroll:true});
  }
  private place(side:Side){
   if(!this.route)return;const config=this.route.layout[side],visible=!!this.slots[side]&&config.mode!=='none'&&this.open[side],button=this.controls[side];

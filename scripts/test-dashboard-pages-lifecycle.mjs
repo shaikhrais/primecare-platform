@@ -28,3 +28,25 @@ test('failed replacement cannot revive a prior binding explicitly disposed durin
 for(const kind of ['dashboard','records'])test(kind+' public binding preserves replacement content after stale cleanup',()=>{
  const f=fixture(),projection=title=>kind==='dashboard'?{family:'project',dataset:'live',synthetic:false,status:'ready',metrics:[]}:{kind:'activity',synthetic:false,status:'ready',rows:[{title,detail:'Details'}]},bind=(s,title)=>kind==='dashboard'?bindDashboardPage(f.root,s,{...labels,title}):bindRecordPage(f.root,s,labels),old=session(projection('Old')),closeOld=bind(old,'Old');closeOld();const current=session(projection('Current')),closeCurrent=bind(current,'Current');const expected=f.root.textContent;closeOld();old.captured[0]();assert.equal(f.root.textContent,expected);assert.match(f.root.textContent,/Current/);closeCurrent();
 });
+
+for(const phase of ['render','subscribe','load'])test('failed replacement restores latest denial rather than cached sensitive nodes during '+phase,()=>{
+ const f=fixture(),old=session({title:'Sensitive account data'}),closeOld=bindReadPage(f.root,old,f.render,labels),failed=session({title:'Replacement'});
+ const deny=()=>{old.state={status:'denied',projection:null};for(const fn of [...old.listeners])fn();throw Error('replacement failed');};
+ const render=phase==='render'?deny:f.render;
+ if(phase==='subscribe')failed.subscribe=deny;
+ if(phase==='load')failed.load=deny;
+ assert.throws(()=>bindReadPage(f.root,failed,render,labels),/replacement failed/);
+ assert.equal(f.root.textContent,'Denied');assert.equal(f.root.firstChild.getAttribute('role'),'alert');assert.equal(old.disposals,0);
+ old.emit({title:'Authorized reload'});assert.equal(f.root.textContent,'Authorized reload');closeOld();
+});
+test('failed replacement restores latest authorized projection after a suspended update',()=>{
+ const f=fixture(),old=session({title:'Old'}),closeOld=bindReadPage(f.root,old,f.render,labels);
+ assert.throws(()=>bindReadPage(f.root,session({title:'Replacement'}),()=>{old.emit({title:'Fresh projection'});throw Error('replacement failed');},labels),/replacement failed/);
+ assert.equal(f.root.textContent,'Fresh projection');closeOld();
+});
+test('failed restoration renderer clears partial sensitive output and preserves original construction error',()=>{
+ const f=fixture(),old=session({title:'Old'});let reject=false;
+ const closeOld=bindReadPage(f.root,old,projection=>{f.render(projection);if(reject)throw Error('old renderer failed');},labels),error=Error('replacement failed');
+ assert.throws(()=>bindReadPage(f.root,session({title:'Replacement'}),()=>{reject=true;old.emit({title:'Sensitive partial result'});throw error;},labels),e=>e===error);
+ assert.equal(f.root.textContent,'');reject=false;old.emit({title:'Recovered'});assert.equal(f.root.textContent,'Recovered');closeOld();
+});

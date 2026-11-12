@@ -26,6 +26,48 @@ class Server {
  Future<Object?> call(Map<String,dynamic> r)async{if(offline)throw StateError('offline');if(r['action']=='read')return clone(snapshot);if(block!=null)await block!.future;final id=r['requestId'] as String;if(receipts.containsKey(id))return clone(receipts[id]);if(r['revision']!=snapshot['revision'])throw PreferenceFailure('revision_conflict',409,clone(snapshot));snapshot={...snapshot,'revision':(snapshot['revision'] as int)+1,'document':r['action']=='write'?r['document']:null};receipts[id]=clone(snapshot);if(lost){lost=false;throw StateError('lost');}return clone(snapshot);}
 }
 void main(){
+ for(final mode in ['clean','dirty','restart','remote']){test('same-revision changed content preserves $mode recovery state',()async{
+  final s=Server(),cache=MemoryCache();Map<String,dynamic>? response;
+  Future<Object?> transport(Map<String,dynamic> r)async=>r['action']=='read'&&response!=null?clone(response):s.call(r);
+  var a=PreferenceSyncClient(binding:binding(),transport:transport,cache:cache);
+  await a.load();await a.edit(doc('1'));await a.save();
+  if(mode=='dirty'||mode=='remote')await a.edit(doc('2'));
+  if(mode=='remote'){final other=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await other.load();await other.edit(doc('2'));await other.save();await a.load();other.dispose();await other.settled;}
+  if(mode=='restart'){a.dispose();await a.settled;a=PreferenceSyncClient(binding:binding(),transport:transport,cache:cache);await a.load();}
+  final before=a.current,stored=cache.values[binding().key];response={...s.snapshot,'document':mode=='remote'?doc('1'):doc('2')};
+  await a.load();expect(a.current['error'],'invalid_response');
+  for(final key in ['base','draft','pending','remote','dirty']){expect(a.current[key],before[key]);}
+  expect(cache.values[binding().key],stored);response=null;await a.load();expect(a.current['error'],mode=='remote'?'revision_conflict':null);a.dispose();await a.settled;
+ });}
+ for(final mode in ['stale','changed']){test('invalid $mode conflict retains pending receipt and newer remote',()async{
+  final s=Server(),cache=MemoryCache();var bad=false;
+  Future<Object?> transport(Map<String,dynamic> r)async{if(bad)throw PreferenceFailure('revision_conflict',409,mode=='stale'?{...s.snapshot,'revision':0,'document':null}:{...s.snapshot,'document':doc('1')});return s.call(r);}
+  final a=PreferenceSyncClient(binding:binding(),transport:transport,cache:cache);
+  await a.load();await a.edit(doc('1'));s.lost=true;await a.save();
+  final other=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await other.load();await other.edit(doc('2'));await other.save();await a.load();
+  final before=a.current;bad=true;await a.retryPending();expect(a.current['error'],'invalid_response');
+  for(final key in ['base','draft','pending','remote','dirty']){expect(a.current[key],before[key]);}
+  bad=false;await a.retryPending();expect((a.current['base'] as Map)['revision'],1);expect((a.current['remote'] as Map)['revision'],2);expect(a.current['status'],'conflict');
+  a.dispose();other.dispose();await a.settled;await other.settled;
+ });}
+
+ for(final mode in ['clean','dirty','restart','conflict']){test('stale refresh preserves $mode preference recovery state',()async{
+  final s=Server(),cache=MemoryCache();Map<String,dynamic>? stale;
+  Future<Object?> transport(Map<String,dynamic> r)async=>r['action']=='read'&&stale!=null?clone(stale):s.call(r);
+  var a=PreferenceSyncClient(binding:binding(),transport:transport,cache:cache);
+  await a.load();final revisionZero=clone(s.snapshot);await a.edit(doc('1'));await a.save();
+  if(mode=='dirty')await a.edit(doc('2'));
+  if(mode=='restart'){a.dispose();await a.settled;a=PreferenceSyncClient(binding:binding(),transport:transport,cache:cache);}
+  if(mode=='conflict'){await a.edit(doc('2'));final other=PreferenceSyncClient(binding:binding(),transport:s.call,cache:MemoryCache());await other.load();await other.edit(doc('2'));await other.save();await a.load();other.dispose();await other.settled;}
+  final before=a.current,stored=cache.values[binding().key];
+  stale=mode=='conflict'?{...s.snapshot,'revision':1,'document':doc('1')}:Map<String,dynamic>.from(revisionZero as Map);
+  await a.load();expect(a.current['status'],'error');expect(a.current['error'],'invalid_response');
+  expect((a.current['base'] as Map)['revision'],1);expect(a.current['draft'],mode=='restart'?doc('1'):before['draft']);
+  expect(a.current['pending'],before['pending']);expect(a.current['remote'],before['remote']);expect(cache.values[binding().key],stored);
+  if(mode=='conflict')await expectLater(a.save(),throwsA(isA<PreferenceFailure>().having((e)=>e.code,'code','explicit_resolution_required')));
+  stale=null;await a.load();expect(a.current['status'],mode=='conflict'?'conflict':mode=='dirty'?'dirty':'clean');a.dispose();await a.settled;
+ });}
+
  for(final operation in ['edit','acceptRemote','keepLocal']){test('late $operation storage failure preserves disposed actor',()async{
   final s=Server(),cache=BlockingWriteCache(),a=PreferenceSyncClient(binding:binding(),transport:s.call,cache:cache);var changes=0;a.addListener(()=>changes++);
   await a.load();await a.edit(doc('1'));

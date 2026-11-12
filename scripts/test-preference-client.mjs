@@ -50,3 +50,50 @@ test('receipt replay records the acknowledged base while retaining a newer remot
  assert.equal(JSON.parse(c.data.get(preferenceKey(binding))).base.revision,1);
  await restarted.acceptRemote();assert.deepEqual(restarted.current.draft,doc('2'));
 });
+
+for(const mode of ['clean','dirty','restart','conflict'])test(`stale refresh preserves ${mode} preference recovery state`,async()=>{
+ const s=server(),c=cache();let stale=null;
+ const transport=async r=>r.action==='read'&&stale?structuredClone(stale):s.transport(r);
+ let a=new PreferenceSyncClient(binding,transport,c,uuid);
+ await a.load();const revisionZero=s.snapshot;await a.edit(doc('1'));await a.save();
+ if(mode==='dirty')await a.edit(doc('2'));
+ if(mode==='restart'){await a.dispose();a=new PreferenceSyncClient(binding,transport,c,uuid);}
+ if(mode==='conflict'){
+  await a.edit(doc('2'));const other=make(s);await other.load();await other.edit(doc('2'));await other.save();await a.load();await other.dispose();
+ }
+ const before=a.current,stored=c.data.get(preferenceKey(binding));
+ stale=mode==='conflict'?{...s.snapshot,revision:1,document:doc('1')}:revisionZero;
+ await a.load();
+ assert.equal(a.current.status,'error');assert.equal(a.current.error,'invalid_response');
+ assert.equal(a.current.base.revision,1);assert.deepEqual(a.current.draft,mode==='restart'?doc('1'):before.draft);
+ assert.deepEqual(a.current.pending,before.pending);assert.deepEqual(a.current.remote,before.remote);
+ assert.equal(c.data.get(preferenceKey(binding)),stored);
+ if(mode==='conflict')await assert.rejects(()=>a.save(),e=>e.code==='explicit_resolution_required');
+ stale=null;await a.load();assert.equal(a.current.status,mode==='conflict'?'conflict':mode==='dirty'?'dirty':'clean');await a.dispose();
+});
+
+for(const mode of ['clean','dirty','restart','remote'])test(`same-revision changed content preserves ${mode} recovery state`,async()=>{
+ const s=server(),c=cache();let response=null;
+ const transport=async r=>r.action==='read'&&response?structuredClone(response):s.transport(r);
+ let a=new PreferenceSyncClient(binding,transport,c,uuid);
+ await a.load();await a.edit(doc('1'));await a.save();
+ if(mode==='dirty'||mode==='remote')await a.edit(doc('2'));
+ if(mode==='remote'){const other=make(s);await other.load();await other.edit(doc('2'));await other.save();await a.load();await other.dispose();}
+ if(mode==='restart'){await a.dispose();a=new PreferenceSyncClient(binding,transport,c,uuid);await a.load();}
+ const before=a.current,stored=c.data.get(preferenceKey(binding));response={...s.snapshot,document:mode==='remote'?doc('1'):doc('2')};
+ await a.load();assert.equal(a.current.error,'invalid_response');
+ for(const key of ['base','draft','pending','remote','dirty'])assert.deepEqual(a.current[key],before[key]);
+ assert.equal(c.data.get(preferenceKey(binding)),stored);response=null;await a.load();assert.equal(a.current.error,mode==='remote'?'revision_conflict':null);await a.dispose();
+});
+for(const mode of ['stale','changed'])test(`invalid ${mode} conflict reply retains original pending receipt and newer remote`,async()=>{
+ const s=server(),a=make(s);await a.load();await a.edit(doc('1'));s.lost=true;await a.save();
+ const other=make(s);await other.load();await other.edit(doc('2'));await other.save();await a.load();
+ const before=a.current,original=s.transport;
+ // Restore the durable pending receipt with a transport that can return an invalid conflict.
+ const c=cache();c.data.set(preferenceKey(binding),JSON.stringify({version:1,base:before.base,draft:before.draft,dirty:before.dirty,pending:before.pending}));
+ let bad=false;const b=new PreferenceSyncClient(binding,async r=>{if(bad)throw new PreferenceFailure('revision_conflict',409,mode==='stale'?{...s.snapshot,revision:0,document:null}:{...s.snapshot,document:doc('1')});return original(r);},c,uuid);
+ await b.load();const known=b.current;bad=true;await b.retryPending();assert.equal(b.current.error,'invalid_response');
+ for(const key of ['base','draft','pending','remote','dirty'])assert.deepEqual(b.current[key],known[key]);
+ bad=false;await b.retryPending();assert.equal(b.current.base.revision,1);assert.equal(b.current.remote.revision,2);assert.equal(b.current.status,'conflict');
+ await a.dispose();await b.dispose();await other.dispose();
+});

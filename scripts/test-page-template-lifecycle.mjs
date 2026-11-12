@@ -53,3 +53,28 @@ test('retired chrome disposal cannot clear replacement ownership or visibility p
 test('page updates and disposal through retired chrome leave the replacement controller untouched',()=>{
  const f=chromeFixture(),old=new PageWorkspaceChrome(f.frame,f.chromeSlots),view=new PageTemplateView(f.root,{content:f.content},{...f.options,chrome:old});old.dispose();const replacement=new PageWorkspaceChrome(f.frame,f.chromeSlots);replacement.apply({navigation:false,toolbar:false,footer:false});const expected=chromeState(f);view.update({...f.options,chrome:old});assert.deepEqual(chromeState(f),expected);view.dispose();assert.deepEqual(chromeState(f),expected);replacement.dispose();
 });
+
+for(const side of ['left','right'])test(`same-route overlay update retains focused ${side} draft`,()=>{
+ const f=fixture();let focused=null;
+ Object.defineProperty(f.document,'activeElement',{configurable:true,get:()=>focused});
+ const prototype=Object.getPrototypeOf(f.content),originalFocus=prototype.focus;
+ prototype.focus=function(){focused=this;};
+ const create=f.document.createElement.bind(f.document);
+ f.document.createElement=function(tag){const el=create(tag);if(tag==='dialog'){el.showModal=()=>el.setAttribute('open','');el.close=()=>el.removeAttribute('open');}return el;};
+ const sidebar=create('section'),input=create('input');input.value='Unfinished sidebar draft';sidebar.append(input);
+ const layout={...defaultPageLayout(),[side]:{mode:'temporary',width:280,open:false}};
+ const options={...f.options,routes:[{...f.options.routes[0],layout}]};
+ const view=new PageTemplateView(f.root,{content:f.content,[side]:sidebar},options);
+ try{
+  view.toggle(side);input.focus();assert.equal(f.document.activeElement,input);
+  view.update(options);
+  assert.equal(f.document.activeElement===input,true,'metadata refresh must restore focus inside the reopened overlay');
+  assert.equal(input.value,'Unfinished sidebar draft');
+  assert.equal(f.document.querySelector('dialog').contains(input),true);
+  const hidden={...options,routes:[{...options.routes[0],layout:{...layout,[side]:{mode:'none',width:280,open:false}}}]};
+  view.update(hidden);assert.equal(f.document.activeElement===input,false,'hidden sidebar must not reclaim focus');
+  const fresh=create('section');view.update({...options,scope:'replacement-actor'},{content:fresh});
+  assert.equal(f.document.activeElement===f.root.querySelector('[data-pc-page-heading]'),true,'new actor receives heading focus');
+  assert.equal(f.root.contains(input),false,'retired draft is detached');
+ }finally{view.dispose();prototype.focus=originalFocus;}
+});

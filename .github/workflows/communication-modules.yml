@@ -19,6 +19,8 @@ on:
       - 'packages/flutter_core/test/communication_modules/**'
       - 'scripts/communication-modules-fixture.mjs'
       - 'scripts/test-communication-modules*'
+      - 'scripts/test-communication-mailbox-capture.mjs'
+      - 'scripts/test-communication-module-cancellation.mjs'
       - 'scripts/communication-modules-native-fixtures.mjs'
       - '.github/workflows/communication-modules.yml'
 permissions: {contents: read}
@@ -39,6 +41,8 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/communication-modules-native-fixtures.mjs --check
           node scripts/test-communication-modules-transport.mjs
+          node scripts/test-communication-mailbox-capture.mjs
+          node scripts/test-communication-module-cancellation.mjs
           node scripts/test-communication-modules.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-communication-modules-browser.mjs
@@ -71,6 +75,8 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/communication-modules-native-fixtures.mjs --check
           node scripts/test-communication-modules-transport.mjs
+          node scripts/test-communication-mailbox-capture.mjs
+          node scripts/test-communication-module-cancellation.mjs
           node scripts/test-communication-modules.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-communication-modules-browser.mjs

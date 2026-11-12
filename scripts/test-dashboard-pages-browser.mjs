@@ -11,13 +11,14 @@ try {
  import {bindRecordPage} from './packages/primecare_ui/web/record-pages';
  import {DashboardPageSession} from './packages/shared/src/dashboard-pages/session.mjs';
  import {renderSupportingPage} from './packages/primecare_ui/web/supporting-pages';
- import {bindDashboardPage} from './packages/primecare_ui/web/dashboard-pages';
+ import {bindDashboardPage,bindReadPage} from './packages/primecare_ui/web/dashboard-pages';
  import {dashboardPageTransport} from './websites/typescript/src/tenant-dashboard/dashboard-page-transport';
  const token=${JSON.stringify(f.actors.admin.token)},scope=${JSON.stringify(scope)};
  const labels={title:'Task <overview>',demo:'DEMO',live:'LIVE',denied:'Denied',unavailable:'Unavailable',loading:'Loading',error:'Read failed',idle:'Ready to load',disposed:'Closed',metrics:{open:'Open',review:'Review',blocked:'Blocked',overdue:'Overdue',completed:'Completed'}};
  window.records=kind=>{window.cleanup?.();sessionStorage.setItem('test-token',token);window.session=new DashboardPageSession(kind,scope,dashboardPageTransport(location.origin,token,'live',()=>sessionStorage.getItem('test-token')),()=>scope,projectRecordPage);window.cleanup=bindRecordPage(document.querySelector('main'),window.session,{activity:'Activity',search:'Search loaded records',ready:'Ready',empty:'Empty',denied:'Denied',live:'LIVE',demo:'DEMO',bounded:'Only loaded authorized records',loading:'Loading',idle:'Idle',disposed:'Closed',error:'Read failed',unavailable:'Unavailable'});};
  window.support=kind=>renderSupportingPage(document.querySelector('main'),kind,{invoice:'Invoice <literal>',pricing:'Pricing',authentication:'Account access','coming-soon':'Coming soon',maintenance:'Maintenance',error:'Error',unavailable:'Unavailable','static-coming-soon':'Not activated','static-maintenance':'Presentation only','static-error':'Use approved workflow'});
  window.mount=()=>{window.cleanup?.();sessionStorage.setItem('test-token',token);window.session=new DashboardPageSession('project',scope,dashboardPageTransport(location.origin,token,'live',()=>sessionStorage.getItem('test-token')),()=>scope);window.cleanup=bindDashboardPage(document.querySelector('main'),window.session,labels);};
+ window.failedReplacement=()=>{const replacement={state:{status:'ready',projection:{}},subscribe:()=>()=>{},load:async()=>{},dispose:()=>{}};try{bindReadPage(document.querySelector('main'),replacement,()=>{window.session.invalidate();throw Error('replacement failed');},labels);}catch(error){if(error.message!=='replacement failed')throw error;}};
  `,resolveDir:process.cwd(),loader:'ts'},bundle:true,write:false,format:'iife',platform:'browser'});
  server=createServer(async(req,res)=>{try{
   if(req.url==='/bundle.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);return;}
@@ -31,6 +32,7 @@ try {
  await mount();assert.equal(await page.locator('h2').textContent(),'Task <overview>');assert.equal(await page.locator('overview').count(),0);assert.equal(await page.locator('dt').count(),5);assert.equal(await page.locator('[role=status]').textContent(),'LIVE');
  const count=Number((await f.db.query("SELECT COUNT(*) AS n FROM tenant_work_tasks WHERE tenant_id=$1 AND status NOT IN ('completed','cancelled')",[scope.tenantId])).rows[0].n);assert.equal(await page.locator('dd').first().textContent(),String(count));
  await page.evaluate(()=>window.retiredCleanup=window.cleanup);await mount();await page.evaluate(()=>window.retiredCleanup());assert.equal(await page.locator('dt').count(),5,'repeated retired cleanup must not remove replacement dashboard');assert.equal(await page.locator('dd').first().textContent(),String(count));
+ await page.evaluate(()=>window.failedReplacement());assert.equal(await page.locator('dd').count(),0,'failed replacement must not restore metrics invalidated during construction');assert.equal(await page.locator('[role=alert]').textContent(),'Denied');
  await page.reload();await mount();assert.equal(await page.locator('dd').first().textContent(),String(count));
  await page.setViewportSize({width:360,height:740});assert.equal(await page.locator('dt').count(),5);
  await page.evaluate(async()=>{sessionStorage.removeItem('test-token');await window.session.load();});assert.equal(await page.locator('dd').count(),0);assert.equal(await page.locator('[role=alert]').textContent(),'Denied');

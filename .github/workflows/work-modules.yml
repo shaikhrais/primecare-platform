@@ -41,6 +41,7 @@ jobs:
           node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
+          node scripts/test-work-modules-receipts.mjs
           node scripts/test-work-modules-browser.mjs
           node scripts/test-tenant-work-module-host.mjs
           node scripts/test-tenant-dashboard.mjs
@@ -72,6 +73,7 @@ jobs:
           node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
+          node scripts/test-work-modules-receipts.mjs
           node scripts/test-work-modules-browser.mjs
           node scripts/test-tenant-work-module-host.mjs
   native:

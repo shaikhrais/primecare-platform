@@ -4,6 +4,6 @@ export class AsyncTask<T> {
  get current(){return {status:this.status,data:this.data};}
  subscribe(f:()=>void){this.listeners.add(f);return()=>{this.listeners.delete(f);};}
  private emit(){if(!this.dead)for(const f of this.listeners)f();}
- async load(scope:string,loader:(signal:AbortSignal)=>Promise<T>){if(this.dead||!scope.trim()||scope.length>1024)throw Error('invalid_async_scope');const generation=++this.generation;this.abort.abort();this.abort=new AbortController();this.status='loading';this.data=null;this.emit();try{const data=await loader(this.abort.signal);if(this.dead||generation!==this.generation)return;this.data=data;this.status='ready';}catch{if(this.dead||generation!==this.generation)return;this.data=null;this.status='error';}this.emit();}
+ async load(scope:string,loader:(signal:AbortSignal)=>Promise<T>){if(this.dead||!scope.trim()||scope.length>1024)throw Error('invalid_async_scope');const generation=++this.generation,previous=this.abort,controller=new AbortController();this.abort=controller;previous.abort();if(this.dead||generation!==this.generation)return;this.status='loading';this.data=null;this.emit();if(this.dead||generation!==this.generation)return;try{const data=await loader(controller.signal);if(this.dead||generation!==this.generation)return;this.data=data;this.status='ready';}catch{if(this.dead||generation!==this.generation)return;this.data=null;this.status='error';}this.emit();}
  dispose(){if(this.dead)return;this.dead=true;this.generation++;this.abort.abort();this.status='disposed';this.data=null;this.listeners.clear();}
 }

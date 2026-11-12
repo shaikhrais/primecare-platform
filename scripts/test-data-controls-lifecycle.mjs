@@ -112,3 +112,26 @@ for(const change of ['navigate','add-block'])test('editor retires detached block
  root.querySelector('[data-cy=data-controls-editor-block-0]').dispatchEvent(new Event('click'));assert.equal(input.value,'first','current generation remains navigable');
  root.querySelector('[data-cy=data-controls-editor-block-'+(change==='navigate'?1:2)+']').dispatchEvent(new Event('click'));assert.equal(input.value,'current retained draft');
 });
+
+function detailedTable(root,kit){
+ const rows=[{id:'a',values:{name:'Alpha'}},{id:'b',values:{name:'Beta'}}];
+ const table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],rows,{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100},row=>{const detail=root.ownerDocument.createElement('p');detail.textContent='Detail '+row.values.name;return detail;});root.append(table.element);return table;
+}
+test('table refresh preserves expanded detail drafts and selection while refreshing grid values',t=>{
+ const {root,kit,Event}=fixture(t),table=detailedTable(root,kit);
+ root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));table.model.toggle('a');
+ const details=root.querySelector('[data-cy=data-controls-table-detail]'),retained=details.firstElementChild,draft=root.ownerDocument.createElement('input');draft.value='unsaved detail draft';retained.append(draft);
+ table.replace([{id:'a',values:{name:'Updated Alpha'}},{id:'b',values:{name:'Updated Beta'}}]);
+ assert.equal(table.model.expanded,'a');assert.deepEqual([...table.model.selected],['a']);
+ assert.equal(root.querySelector('[data-cy=data-controls-expand-a]').getAttribute('aria-expanded'),'true');
+ assert.ok(details.firstElementChild===retained,'expanded detail subtree must retain identity');assert.equal(draft.value,'unsaved detail draft');assert.equal(root.querySelector('[data-cy=data-controls-table-cell-a-name]').textContent,'Updated Alpha');
+ assert.equal(root.querySelector('[data-cy=data-controls-select-row-a]').checked,true);
+ root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));assert.equal(details.textContent,'Detail Updated Alpha','explicit reopening uses replacement row data');
+});
+test('table refresh clears removed detail identity and rejected refresh preserves current detail',t=>{
+ const {root,kit,Event}=fixture(t),table=detailedTable(root,kit);
+ root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));table.model.toggle('a');
+ assert.throws(()=>table.replace([{id:'dup',values:{}},{id:'dup',values:{}}]));
+ assert.equal(table.model.expanded,'a');assert.deepEqual([...table.model.selected],['a']);assert.equal(root.querySelector('[data-cy=data-controls-table-detail]').textContent,'Detail Alpha');
+ table.replace([{id:'b',values:{name:'Retained Beta'}}]);assert.equal(table.model.expanded,null);assert.equal(table.model.selected.size,0);assert.equal(root.querySelector('[data-cy=data-controls-table-detail]').textContent,'');assert.equal(root.querySelector('[data-cy=data-controls-expand-b]').getAttribute('aria-expanded'),'false');
+});

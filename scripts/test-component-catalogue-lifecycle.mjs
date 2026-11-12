@@ -8,6 +8,77 @@ const {PrimeComponentFactory}=await import('data:text/javascript;base64,'+Buffer
 const shellBuilt=await build({entryPoints:['packages/primecare_ui/web/shell-utilities.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {ShellUtilitiesView}=await import('data:text/javascript;base64,'+Buffer.from(shellBuilt.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+test('tab selection keeps rendered keys stable when caller entries are mutated',async()=>{
+ const {kit,root,document,Event}=fixture();const items=[{key:'tabOne',content:document.createElement('p')},{key:'tabTwo',content:document.createElement('p')}];
+ try{root.append(kit.tabs(items));items[0].key='tabTwo';items.splice(0);root.querySelector('[data-cy=component-catalogue-tab-two]').dispatchEvent(new Event('click'));await settle();
+  assert.equal(root.querySelectorAll('[role=tab][aria-selected=true]').length,1);assert.equal(root.querySelector('[data-cy=component-catalogue-tab-one]').getAttribute('aria-selected'),'false');assert.equal(root.querySelector('[data-cy=component-catalogue-tab-two]').getAttribute('aria-selected'),'true');
+ }finally{kit.dispose();}
+});
+test('tab keyboard navigation keeps the rendered disabled state despite caller mutation',()=>{
+ const {kit,root,document,Event}=fixture();const items=[{key:'tabOne',content:document.createElement('p'),disabled:true},{key:'tabTwo',content:document.createElement('p')}];const prior=globalThis.getComputedStyle;globalThis.getComputedStyle=()=>({direction:'ltr'});
+ try{root.append(kit.tabs(items));const first=root.querySelector('[data-cy=component-catalogue-tab-one]'),second=root.querySelector('[data-cy=component-catalogue-tab-two]');first.focus=()=>{};second.focus=()=>{};items[0].disabled=false;
+  const event=new Event('keydown',{bubbles:true});event.key='Home';second.dispatchEvent(event);
+  assert.equal(first.disabled,true);assert.equal(first.getAttribute('aria-selected'),'false');assert.equal(second.getAttribute('aria-selected'),'true');
+ }finally{if(prior===undefined)delete globalThis.getComputedStyle;else globalThis.getComputedStyle=prior;kit.dispose();}
+});
+test('radio callbacks retain the value associated with the rendered option label',()=>{
+ const {kit,root,Event}=fixture();const options=[{value:'original',label:'Original choice'}];let selected;
+ try{root.append(kit.radio(options,'',value=>selected=value));const input=root.querySelector('input');options[0].value='mutated';options[0].label='Different choice';options.splice(0);input.checked=true;input.dispatchEvent(new Event('change'));
+  assert.equal(input.value,'original');assert.equal(selected,'original');assert.equal(root.textContent.includes('Original choice'),true);
+ }finally{kit.dispose();}
+});
+test('menu callbacks retain the action associated with the rendered label',async()=>{
+ const {kit,root,Event}=fixture();let original=0,mutated=0;const items=[{label:'Original action',action:()=>{original++;}}];
+ try{const menu=kit.menu(items);root.append(menu);menu.querySelector('button').focus=()=>{};const item=menu.querySelector('[role=menuitem]');items[0].action=()=>{mutated++;};items[0].label='Different action';items.splice(0);item.dispatchEvent(new Event('click'));await settle();
+  assert.equal(original,1);assert.equal(mutated,0);assert.equal(item.textContent,'Original action');
+ }finally{kit.dispose();}
+});
+test('asyncRegion ignores a rendered node after its callback starts a newer load or disposes the region',async()=>{
+ for(const mode of ['replace','dispose']){
+  const {kit,root,document}=fixture();let region,replacement,finish,retired;
+  const render=value=>{const node=document.createElement('p');node.textContent=value;if(value==='retired'){retired=node;if(mode==='replace')replacement=region.load('newest',()=>new Promise(resolve=>finish=resolve));else region.dispose();}return node;};
+  try{
+   region=kit.asyncRegion('card','initial',async()=> 'initial',render);root.append(region.element);await settle();await region.load('retired',async()=> 'retired');
+   assert.equal(retired.parentElement===null,true,'superseded render output must never be attached');
+   if(mode==='replace'){assert.equal(region.element.textContent,kit.text('loading'));assert.equal(region.element.getAttribute('aria-busy'),'true');finish('newest content');await replacement;assert.equal(region.element.textContent,'newest content');assert.equal(region.element.getAttribute('aria-busy'),null);}
+  }finally{kit.dispose();}
+ }
+});
+test('asyncRegion retains the latest scope when abort callbacks replace or dispose an interrupted load',async()=>{
+ for(const dispose of [false,true]){
+  const {kit,root,document}=fixture();let region,latest,calls=0,signal;
+  const render=value=>{const p=document.createElement('p');p.textContent=value;return p;};
+  try{
+   region=kit.asyncRegion('card','initial',async()=> 'initial',render);root.append(region.element);await settle();
+   await region.load('abort-owner',async current=>{current.addEventListener('abort',()=>{if(dispose)region.dispose();else latest=region.load('latest',async current=>{signal=current;return 'latest retained content';});},{once:true});return 'previous content';});
+   await region.load('interrupted',async()=>{calls++;return 'stale content';});if(latest)await latest;
+   assert.equal(calls,0);assert.equal(region.element.textContent,dispose?'previous content':'latest retained content');assert.equal(region.element.getAttribute('aria-busy'),null);if(signal)assert.equal(signal.aborted,false);
+  }finally{kit.dispose();}
+ }
+});
+test('menu awaits consumer actions, serializes activation and reports rejection before retry',async()=>{
+ const {kit,root,Event}=fixture();let calls=0,finish,fail,focused;
+ const menu=kit.menu([{label:'Save draft',action:()=>{calls++;const pending=new Promise((resolve,reject)=>{finish=resolve;fail=reject;});pending.catch(()=>{});return pending;}}]);root.append(menu);
+ const trigger=menu.querySelector('button'),item=menu.querySelector('[role=menuitem]');trigger.focus=()=>{focused=trigger;};
+ const click=button=>button.dispatchEvent(new Event('click'));
+ try{
+  click(trigger);await settle();click(item);click(item);await settle();
+  assert.equal(calls,1);assert.equal(item.disabled,true,'pending consumer action stays busy');assert.equal(item.getAttribute('aria-busy'),'true');
+  assert.equal(menu.querySelector('[role=menu]').hidden,true);assert.equal(focused,trigger);
+  const status=menu.querySelector('[data-cy="'+item.dataset.cy+'-status"]');assert.equal(status.textContent,kit.text('loading'));assert.equal(status.parentElement,menu,'action feedback remains outside the hidden menu');assert.equal(status.getAttribute('aria-label'),'Save draft');
+  fail(Error('denied'));await settle();assert.equal(item.disabled,false);assert.equal(item.getAttribute('aria-busy'),null);assert.equal(status.textContent,kit.text('actionError'));
+  click(trigger);await settle();click(item);await settle();assert.equal(calls,2);assert.equal(status.textContent,kit.text('loading'));finish();await settle();assert.equal(status.textContent,kit.text('success'));assert.equal(item.disabled,false);
+ }finally{kit.dispose();}
+});
+test('late menu action outcomes cannot change feedback or focus after ownership disposal',async()=>{
+ for(const failure of [false,true]){
+  const {kit,root,Event}=fixture();let finish,focusMoves=0;
+  const menu=kit.menu([{label:'Save draft',action:()=>new Promise((resolve,reject)=>{finish=failure?reject:resolve;})}]);root.append(menu);
+  menu.querySelector('button').focus=()=>{focusMoves++;};const item=menu.querySelector('[role=menuitem]');item.dispatchEvent(new Event('click'));await Promise.resolve();
+  const status=menu.querySelector('[data-cy="'+item.dataset.cy+'-status"]');kit.dispose();const replacement=new PrimeComponentFactory(root,'replacement-menu');root.textContent='Retained replacement draft';const moves=focusMoves;
+  finish(failure?Error('late'):undefined);await settle();assert.equal(root.textContent,'Retained replacement draft');assert.equal(status.textContent,kit.text('loading'));assert.equal(focusMoves,moves);replacement.dispose();
+ }
+});
 function fixture(){
  const {document,Event}=parseHTML('<html><head></head><body><main id="root"></main></body></html>');
  const root=document.getElementById('root');

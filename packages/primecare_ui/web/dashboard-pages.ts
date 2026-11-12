@@ -24,15 +24,17 @@ export type ReadPageSession<P>={
  state:{status:string;projection:P|null};
  subscribe:(listener:()=>void)=>()=>void;load:()=>Promise<void>;dispose:()=>void;
 };
-const readPageOwners=new WeakMap<HTMLElement,{active:boolean}>();
+type ReadPageOwner={active:boolean;dirty:boolean;refresh:()=>void};
+const readPageOwners=new WeakMap<HTMLElement,ReadPageOwner>();
 /** Shared lifecycle binding for optional registered read-only host slots. */
 export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,render:(projection:P)=>void,labels:Record<string,unknown>){
- const previousOwner=readPageOwners.get(root),previousChildren=Array.from(root.childNodes),owner={active:true};
+ const previousOwner=readPageOwners.get(root),previousChildren=Array.from(root.childNodes),owner:ReadPageOwner={active:true,dirty:false,refresh:()=>{}};
  let unsubscribe=()=>{};
  readPageOwners.set(root,owner);
  const current=()=>owner.active&&readPageOwners.get(root)===owner;
  const draw=()=>{
-  if(!current())return;
+  if(!current()){if(owner.active)owner.dirty=true;return;}
+  owner.dirty=false;
   const state=session.state;
   if(state.projection){render(state.projection);return;}
   const note=root.ownerDocument.createElement('p');
@@ -40,8 +42,21 @@ export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,rend
   note.textContent=Object.hasOwn(labels,state.status)?String(labels[state.status]):String(labels.unavailable);
   root.replaceChildren(note);
  };
+ owner.refresh=draw;
  try{draw();if(current()){unsubscribe=session.subscribe(draw);if(current())void session.load();}}
- catch(error){owner.active=false;try{unsubscribe();}catch{}if(readPageOwners.get(root)===owner){if(previousOwner?.active)readPageOwners.set(root,previousOwner);else readPageOwners.delete(root);root.replaceChildren(...(previousOwner&&!previousOwner.active?[]:previousChildren));}throw error;}
+ catch(error){
+  owner.active=false;try{unsubscribe();}catch{}
+  if(readPageOwners.get(root)===owner){
+   if(previousOwner?.active)readPageOwners.set(root,previousOwner);else readPageOwners.delete(root);
+   // A suspended owner may have been denied while replacement construction failed.
+   // Restore retained nodes only when no session notification invalidated them.
+   if(previousOwner?.active&&previousOwner.dirty){
+    root.replaceChildren();
+    try{previousOwner.refresh();}catch{if(readPageOwners.get(root)===previousOwner)root.replaceChildren();}
+   }else root.replaceChildren(...(previousOwner&&!previousOwner.active?[]:previousChildren));
+  }
+  throw error;
+ }
  return ()=>{if(!owner.active)return;owner.active=false;try{unsubscribe();}finally{try{session.dispose();}finally{if(readPageOwners.get(root)===owner){readPageOwners.delete(root);root.replaceChildren();}}}};
 }
 export function bindDashboardPage(root:HTMLElement,session:ReadPageSession<Parameters<typeof renderDashboardProjection>[1]>,labels:Parameters<typeof renderDashboardProjection>[2]&{loading:string;error:string;idle:string;disposed:string}){
