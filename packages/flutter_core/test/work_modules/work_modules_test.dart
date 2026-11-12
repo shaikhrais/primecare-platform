@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' show DateFormat;
@@ -19,6 +20,11 @@ class DatePort extends Port {
   value={...value,'items':[{...prior,'version':c.version+1,...c.fields}]};
   return WorkReceipt(c.itemId,c.version+1,c.action,{...c.fields});
  }
+}
+class DelayedPort extends Port {
+ final gate=Completer<void>();
+ DelayedPort():super('tasks');
+ @override Future<WorkReceipt> mutate(WorkCommand c,String key)async{await gate.future;return super.mutate(c,key);}
 }
 void main(){
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
@@ -79,6 +85,41 @@ void main(){
  });
  test('denied mutation removes protected data',()async{final p=Port('tasks')..deny=true,s=session('tasks',p);await s.load();await expectLater(s.submit('Task-A','edit',{'title':'Denied','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));expect(s.status,'denied');expect(s.snapshot,isNull);s.dispose();});
  for(final module in ['calendar','contacts','tasks','notes','board']){testWidgets('$module uses registered semantics and renders its authorized projection',(t)async{await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));final p=Port(module),s=session(module,p),labels=CatalogueLabels.fromMetadata(metadata,'en');await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'fixture',year:2026,month:11,gap:8,boardWidth:250)))));await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text('Original task'),findsOneWidget);expect(find.text(labels.text(module)),findsWidgets);final create=t.widget<TextButton>(find.widgetWithText(TextButton,labels.text('create')).first);expect(create.onPressed,isNull);await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text(labels.text('success')),findsNothing);await t.pumpWidget(const SizedBox());s.dispose();});}
+ for(final module in ['calendar','contacts','tasks','notes','board'])testWidgets('$module editor focuses detail and restores its opener on Close',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port(module),s=session(module,p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'focus-$module',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();final open=find.widgetWithText(TextButton,labels.text('open')).first;final opener=t.widget<TextButton>(open).focusNode!;
+  await t.ensureVisible(open);await t.tap(open);await t.pumpAndSettle();
+  final detail=t.widget<Focus>(find.byWidgetPredicate((w)=>w is Focus&&w.focusNode?.debugLabel=='work-module-detail'));
+  expect(detail.focusNode!.hasPrimaryFocus,true);
+  if(module!='contacts')await t.enterText(find.byType(TextField).at(1),'Changed draft');
+  final close=find.widgetWithText(TextButton,labels.text('close')).first;await t.ensureVisible(close);await t.tap(close);await t.pumpAndSettle();
+  expect(opener.hasPrimaryFocus,true);expect(s.snapshot!.items.single.title,'Original task');expect(p.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('verified Save restores keyboard focus to the same item',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'save-focus',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();final open=find.widgetWithText(TextButton,labels.text('open')).first;final opener=t.widget<TextButton>(open).focusNode!;
+  await t.tap(open);await t.pumpAndSettle();await t.enterText(find.byType(TextField).at(1),'Saved task title');
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pumpAndSettle();
+  expect(s.status,'success');expect(p.calls,1);expect(s.snapshot!.items.single.title,'Saved task title');expect(opener.hasPrimaryFocus,true);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('late Save from an old actor cannot steal new actor keyboard focus',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=DelayedPort(),old=session('tasks',p),other=PreferenceScope('tenant-fixture','second-actor','tenant_admin','live');
+  final q=Port('tasks');q.value={...data('tasks',title:'Second actor task'),'scope':other.toJson()};
+  final current=WorkModuleSession(other,'tasks',port:q,requestId:()=> '00000000-0000-4000-8000-000000000002'),actor=ValueNotifier(false),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:ValueListenableBuilder<bool>(valueListenable:actor,builder:(context,next,child)=>PrimeWorkModule(labels:labels,session:next?current:old,scope:next?'second-actor-view':'first-actor-view',year:2026,month:11,gap:8,boardWidth:250))))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();await t.enterText(find.byType(TextField).at(1),'Old actor change');
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pump();actor.value=true;await t.pumpAndSettle();
+  await t.showKeyboard(find.byType(TextField).first);final focus=t.widget<EditableText>(find.byType(EditableText).first).focusNode;expect(focus.hasFocus,true);
+  p.gate.complete();await t.pumpAndSettle();expect(focus.hasFocus,true);expect(current.snapshot!.items.single.title,'Second actor task');expect(q.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());old.dispose();current.dispose();actor.dispose();
+ });
  testWidgets('authorized due-date editor uses the shared picker and waits for save readback',(t)async{
   await t.binding.setSurfaceSize(const Size(1000,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
   final p=DatePort(),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
