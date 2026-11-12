@@ -13,6 +13,23 @@ const connectionNames = ['layout','theme','language','responsive'];
 const connections = () => Object.fromEntries(connectionNames.map(name=>[name,()=>{}]));
 const registration = (id='one',route='/one') => ({id,route,kind:'governed',adapter:'workspace'});
 
+for (const phase of connectionNames) for (const replacement of [false,true]) {
+  test(`presentation stops when ${phase} ${replacement?'replaces':'removes'} its registration`,async()=>{
+    const called=[];let manager;
+    const services=Object.fromEntries(connectionNames.map(name=>[name,()=>{
+      called.push(name);
+      if(name===phase)manager.registerScope('routes',replacement?[registration()]:[]);
+    }]));
+    manager=new ScreenManager(services);manager.registerScope('routes',[registration()]);
+    await assert.rejects(manager.present('one','/one',()=>called.push('render')),/Registration changed/);
+    assert.deepEqual(called,connectionNames.slice(0,connectionNames.indexOf(phase)+1));
+    if(replacement){
+      services[phase]=()=>{};
+      assert.equal(manager.enter('one','/one').id,'one');
+    }else assert.throws(()=>manager.enter('one','/one'),/Missing registration/);
+  });
+}
+
 test('required connections fail before content callbacks, including unregistered and mismatched routes',async()=>{
   for(const missing of connectionNames) {
     const services=connections(); delete services[missing]; const manager=new ScreenManager(services);

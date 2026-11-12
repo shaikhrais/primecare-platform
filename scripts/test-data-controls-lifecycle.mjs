@@ -127,6 +127,23 @@ function detailedTable(root,kit){
  const rows=[{id:'a',values:{name:'Alpha'}},{id:'b',values:{name:'Beta'}}];
  const table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],rows,{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100},row=>{const detail=root.ownerDocument.createElement('p');detail.textContent='Detail '+row.values.name;return detail;});root.append(table.element);return table;
 }
+for(const transition of ['expand-other','expand-newest','replace'])test('table detail renderer cannot commit retired output after '+transition,t=>{
+ const {root,kit,Event}=fixture(t),rows=[{id:'a',values:{name:'Alpha'}},{id:'b',values:{name:'Beta'}}];let table,reentered=false;const visits={};
+ table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],rows,{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100},row=>{
+  const draft=root.ownerDocument.createElement('input');draft.value='draft '+row.id+' '+(visits[row.id]=(visits[row.id]??0)+1);
+  if(row.id==='a'&&!reentered){
+   reentered=true;
+   if(transition==='replace')table.replace([rows[1]]);
+   else{root.querySelector('[data-cy=data-controls-expand-b]').dispatchEvent(new Event('click'));if(transition==='expand-newest')root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));}
+  }
+  return draft;
+ });root.append(table.element);
+ root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));
+ const details=root.querySelector('[data-cy=data-controls-table-detail]');
+ assert.equal(table.model.expanded,transition==='expand-other'?'b':transition==='expand-newest'?'a':null);
+ assert.equal(details.firstElementChild?.value,transition==='expand-other'?'draft b 1':transition==='expand-newest'?'draft a 2':undefined,'retired renderer must not replace current or removed-row detail');
+ assert.equal(root.querySelector('[data-cy=data-controls-expand-b]').getAttribute('aria-expanded'),String(transition==='expand-other'));
+});
 test('table refresh preserves expanded detail drafts and selection while refreshing grid values',t=>{
  const {root,kit,Event}=fixture(t),table=detailedTable(root,kit);
  root.querySelector('[data-cy=data-controls-expand-a]').dispatchEvent(new Event('click'));table.model.toggle('a');

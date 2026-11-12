@@ -5,11 +5,55 @@ import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createRequire} from 'node:module';
 const dir=await mkdtemp(join(tmpdir(),'work-scope-'));
-await build({stdin:{contents:`export * from './packages/shared/src/work-modules/tenant-task-adapter';export * from './packages/shared/src/work-modules/session';`,resolveDir:process.cwd(),loader:'ts'},outfile:join(dir,'test.cjs'),bundle:true,platform:'node',format:'cjs'});
-const {TenantTaskModulePort,WorkModuleSession}=createRequire(import.meta.url)(join(dir,'test.cjs'));
+await build({stdin:{contents:`export * from './packages/shared/src/work-modules/tenant-task-adapter';export * from './packages/shared/src/work-modules/session';export {WorkFailure} from './packages/domain/src/work_modules';`,resolveDir:process.cwd(),loader:'ts'},outfile:join(dir,'test.cjs'),bundle:true,platform:'node',format:'cjs'});
+const {TenantTaskModulePort,WorkModuleSession,WorkFailure}=createRequire(import.meta.url)(join(dir,'test.cjs'));
 const original={tenantId:'tenant-a',userId:'actor-a',role:'manager',dataset:'live'};
 const raw={organization:{id:'tenant-a'},identity:{userId:'actor-a',role:'manager'},dataset:'live',synthetic:false,database:'PostgreSQL',tasks:[],users:[],clients:[],taskPage:{total:0}};
 let checks=0;
+// Definitive rejected writes cannot consume the bounded uncertain-replay capacity.
+for(const status of [400,401,403,404,409]){
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};
+ let allowed=false,writes=0;
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{
+  if(request.method==='POST'){
+   writes++;if(!allowed)throw new WorkFailure(status===401||status===403?'denied':status===409?'conflict':'invalid',status);
+   return{...raw,tasks:[{...task,version:2,title:'Saved'}],taskPage:{total:1}};
+  }
+  return{...raw,tasks:[task],taskPage:{total:1}};
+ });
+ const signal=new AbortController().signal,command={itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}};
+ const key=n=>'11111111-1111-4111-8111-'+String(n).padStart(12,'0');
+ try{
+  await port.read({search:'',offset:0},signal);
+  for(let n=1;n<=11;n++)await assert.rejects(()=>port.mutate(command,key(n),signal),error=>error.status===status,`definitive ${status} write ${n} must reach transport`);
+  allowed=true;const receipt=await port.mutate(command,key(12),signal);
+  assert.equal(receipt.version,2);assert.equal(writes,12);
+ }finally{port.dispose();}
+ checks++;
+}
+
+// An uncertain response still pins the exact original key and body for replay.
+{
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'},posted=[];
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{
+  if(request.method==='POST'){
+   posted.push(structuredClone(request));
+   if(posted.length===1)throw new WorkFailure('error',503);
+   return{...raw,tasks:[{...task,version:2,title:'Saved'}],taskPage:{total:1}};
+  }
+  return{...raw,tasks:[task],taskPage:{total:1}};
+ });
+ const signal=new AbortController().signal,key='11111111-1111-4111-8111-111111111111',command={itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}};
+ try{
+  await port.read({search:'',offset:0},signal);
+  await assert.rejects(()=>port.mutate(command,key,signal),error=>error.status===503);
+  await assert.rejects(()=>port.mutate({...command,fields:{...command.fields,title:'Changed'}},key,signal),error=>error.code==='conflict');
+  assert.equal(posted.length,1);
+  const receipt=await port.mutate(command,key,signal);assert.equal(receipt.version,2);
+  assert.deepEqual(posted[1],posted[0]);
+ }finally{port.dispose();}
+ checks++;
+}
 // Caller-owned scope mutation must not switch the adapter's dataset or actor binding.
 {
  const scope={...original},requests=[];

@@ -59,6 +59,9 @@ export class ScreenManager {
         void Promise.resolve(result).catch(() => {});
         throw new ScreenConfigurationError(`Asynchronous ${name} connection is unsupported for ${id}`);
       }
+      if (this.registrations.get(id) !== registration) {
+        throw new ScreenConfigurationError(`Registration changed during ${name} connection for ${id}`);
+      }
     }
     return registration;
   }
