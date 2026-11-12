@@ -9,6 +9,9 @@ on:
       - 'packages/domain/src/legacy-theme-migration.ts'
       - 'packages/domain/src/advanced-theme-legacy-preview.ts'
       - 'packages/primecare_ui/web/advanced-theme*.ts'
+      - 'packages/primecare_ui/web/theme-center.ts'
+      - 'packages/primecare_ui/web/theme-library.ts'
+      - 'packages/primecare_ui/web/theme-manager.ts'
       - 'packages/flutter_core/lib/advanced_theme/**'
       - 'packages/flutter_core/lib/advanced_theme.dart'
       - 'packages/primecare_ui/lib/advanced_theme.dart'
@@ -36,6 +39,7 @@ jobs:
           node scripts/test-advanced-theme-legacy-preview.mjs
           node scripts/test-advanced-theme-tenant-restore.mjs
           node scripts/test-advanced-theme-storage.mjs
+          node --test scripts/test-advanced-theme-center-lifecycle.mjs scripts/test-advanced-theme-local-recovery.mjs scripts/test-advanced-theme-manager.mjs scripts/test-advanced-theme-migration-ownership.mjs
           node scripts/test-advanced-theme-tenant-migration.mjs
           node scripts/test-advanced-theme-tenant-review.mjs
           node scripts/test-advanced-theme-tenant-review-browser.mjs

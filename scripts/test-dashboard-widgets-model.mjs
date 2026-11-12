@@ -53,3 +53,37 @@ test('unknown layout actions cannot silently resize a widget or change input',()
  for(const kind of ['shrink','',null,undefined])assert.throws(()=>api.editDashboard(defaults,'wide',{kind,id:'trend'},widgets,views));
  assert.deepEqual(defaults,before);
 });
+for(const dirty of [false,true])test('stale dashboard reload preserves '+(dirty?'draft':'saved layout')+' and known revision',async()=>{
+ let state={scope,resource:'fixture',revision:2,document:structuredClone(defaults)};
+ const port={read:async()=>structuredClone(state),write:async()=>{throw Error('unused');}};
+ const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,uuid);await s.load();
+ if(dirty)s.edit(api.editDashboard(defaults,'wide',{kind:'remove',id:'metric'},widgets,views));
+ const before=s.current;state={scope,resource:'fixture',revision:1,document:{version:1,views:{small:[],wide:[]}}};
+ await s.load();assert.equal(s.current.status,'error');assert.equal(s.current.revision,2);assert.deepEqual(s.current.document,before.document);assert.equal(s.current.loaded,true);
+ state={scope,resource:'fixture',revision:3,document:structuredClone(defaults)};await s.load();assert.equal(s.current.status,'clean');assert.equal(s.current.revision,3);assert.deepEqual(s.current.document,defaults);s.dispose();
+});
+for(const dirty of [false,true])test('same revision cannot replace known '+(dirty?'draft baseline':'saved content'),async()=>{
+ let state={scope,resource:'fixture',revision:2,document:structuredClone(defaults)};
+ const port={read:async()=>structuredClone(state),write:async r=>{state={scope,resource:'fixture',revision:r.revision+1,document:structuredClone(r.document)};return structuredClone(state);}};
+ const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,uuid);await s.load();
+ if(dirty)s.edit(api.editDashboard(defaults,'wide',{kind:'remove',id:'metric'},widgets,views));
+ const before=s.current;state.document={version:1,views:{small:[],wide:[]}};await s.load();
+ assert.equal(s.current.status,'error');assert.equal(s.current.revision,2);assert.deepEqual(s.current.document,before.document);
+ state.document=structuredClone(defaults);await s.load();assert.equal(s.current.status,'clean');
+ s.edit(api.editDashboard(defaults,'wide',{kind:'remove',id:'metric'},widgets,views));await s.save();assert.equal(s.current.revision,3);
+ const saved=s.current.document;state.document=structuredClone(defaults);await s.load();assert.equal(s.current.status,'error');assert.deepEqual(s.current.document,saved);assert.equal(s.current.revision,3);s.dispose();
+});
+test('stale save readback retains acknowledged receipt and retries read-only',async()=>{
+ let state={scope,resource:'fixture',revision:0,document:null},writes=0,stale=true;
+ const port={read:async()=>writes&&stale?{scope,resource:'fixture',revision:0,document:null}:structuredClone(state),write:async r=>{writes++;state={scope,resource:'fixture',revision:1,document:structuredClone(r.document)};return structuredClone(state);}};
+ const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,uuid);await s.load();await assert.rejects(()=>s.save());
+ assert.equal(s.current.status,'error');assert.equal(s.current.pending,true);assert.deepEqual(s.current.document,defaults);
+ const edited=api.editDashboard(defaults,'wide',{kind:'remove',id:'metric'},widgets,views);s.edit(edited);
+ stale=false;await s.retryPending();assert.equal(writes,1);assert.equal(s.current.pending,false);assert.equal(s.current.status,'dirty');assert.equal(s.current.revision,1);assert.deepEqual(s.current.document,edited);s.dispose();
+});
+test('request ID callback disposal cannot revive a session or create pending work',async()=>{
+ let writes=0,s;
+ const port={read:async()=>({scope,resource:'fixture',revision:0,document:null}),write:async()=>{writes++;throw Error('must not dispatch');}};
+ s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,()=>{s.dispose();return uuid();});
+ await s.load();await assert.rejects(()=>s.save());assert.equal(writes,0);assert.equal(s.current.status,'disposed');assert.equal(s.current.pending,false);
+});

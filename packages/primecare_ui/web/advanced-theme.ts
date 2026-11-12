@@ -9,11 +9,11 @@ export class AdvancedThemeRegions {
  dispose():void{if(this.dead)return;this.dead=true;for(const [el,properties] of this.originals)for(const [key,[value,priority]] of properties){if(value)el.style.setProperty(key,value,priority);else el.style.removeProperty(key);}this.originals.clear();}
 }
 export class AdvancedThemeLibrary {
- private value:AdvancedLibrary={version:2,active:null,items:[]};private dead=false;
- constructor(readonly scope:string,private storage:Pick<Storage,'getItem'|'setItem'>,private id:()=>string=()=>crypto.randomUUID()) {if(!scope.trim()||scope.length>1024)throw Error('Actor scope required');const raw=storage.getItem(this.key);if(raw){if(new TextEncoder().encode(raw).length>1048576)throw Error('Theme library too large');this.value=validateAdvancedLibrary(JSON.parse(raw));}}
+ private value:AdvancedLibrary={version:2,active:null,items:[]};private dead=false;private baseline:string|null=null;
+ constructor(readonly scope:string,private storage:Pick<Storage,'getItem'|'setItem'>,private id:()=>string=()=>crypto.randomUUID()) {if(!scope.trim()||scope.length>1024)throw Error('Actor scope required');const raw=storage.getItem(this.key);this.baseline=raw;if(raw!==null){if(new TextEncoder().encode(raw).length>1048576)throw Error('Theme library too large');this.value=validateAdvancedLibrary(JSON.parse(raw));}}
  get key(){return 'primecare.advanced-theme.v2:'+this.scope;}
  get current(){return structuredClone(this.value);}
- private commit(value:unknown){if(this.dead)throw Error('Theme library disposed');const next=validateAdvancedLibrary(value);this.storage.setItem(this.key,JSON.stringify(next));this.value=next;}
+ private commit(value:unknown){if(this.dead)throw Error('Theme library disposed');const next=validateAdvancedLibrary(value);if(this.storage.getItem(this.key)!==this.baseline)throw Error('theme_changed_in_another_tab');const serialized=JSON.stringify(next);this.storage.setItem(this.key,serialized);this.baseline=serialized;this.value=next;}
  save(theme:AdvancedTheme,id?:string):string{const next=this.current,value=validateAdvancedTheme(theme);if(id&&!next.items.some(i=>i.id===id))throw Error('Theme no longer exists');const key=id??this.id(),index=next.items.findIndex(i=>i.id===key);if(!id&&index>=0)throw Error('Duplicate generated identity');if(index<0)next.items.push({id:key,theme:value});else next.items[index]={id:key,theme:value};this.commit(next);return key;}
  apply(theme:AdvancedTheme|null){this.commit({...this.current,active:theme});}
  rename(id:string,name:string){const next=this.current,item=next.items.find(i=>i.id===id);if(!item)throw Error('Theme no longer exists');const old=JSON.stringify(item.theme);item.theme=validateAdvancedTheme({...item.theme,name});if(JSON.stringify(next.active)===old)next.active=item.theme;this.commit(next);}

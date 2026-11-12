@@ -39,3 +39,37 @@ test('the Theme Center library prepares an actor-scoped backup', async t => {
  assert.equal(prepared.candidate.version,2);
  assert.equal(prepared.requiresReview,true);
 });
+
+const advanced=await build({entryPoints:['packages/primecare_ui/web/advanced-theme.ts'],bundle:true,platform:'node',format:'esm',write:false});
+const {AdvancedThemeLibrary,defaultAdvancedTheme}=await import('data:text/javascript;base64,'+Buffer.from(advanced.outputFiles[0].text).toString('base64'));
+const advancedId='00000000-0000-4000-8000-000000000001';
+for(const action of ['save','apply','rename','remove'])for(const change of ['update','delete'])test(`advanced ${action} preserves an external ${change}`,()=>{
+ const data=new Map(),port={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)};
+ const theme=defaultAdvancedTheme(),a=new AdvancedThemeLibrary('actor',port,()=>advancedId);a.save(theme);
+ const b=new AdvancedThemeLibrary('actor',port,()=>advancedId);
+ if(change==='update')a.apply({...theme,name:'Newer active'});else data.delete(a.key);
+ const stored=data.get(a.key),before=b.current;
+ const mutate={save:()=>b.save({...theme,name:'Stale save'},advancedId),apply:()=>b.apply(theme),rename:()=>b.rename(advancedId,'Stale rename'),remove:()=>b.remove(advancedId)};
+ assert.throws(mutate[action],/theme_changed_in_another_tab/);assert.equal(data.get(a.key),stored);assert.deepEqual(b.current,before);
+});
+test('advanced empty storage is invalid and is never overwritten',()=>{
+ const key='primecare.advanced-theme.v2:actor',data=new Map([[key,'']]);let writes=0;
+ assert.throws(()=>new AdvancedThemeLibrary('actor',{getItem:k=>data.get(k)??null,setItem(){writes++;}}));assert.equal(writes,0);assert.equal(data.get(key),'');
+});
+test('advanced failed storage keeps baseline and in-memory state retryable',()=>{
+ const data=new Map();let denied=false;
+ const port={getItem:k=>data.get(k)??null,setItem:(k,v)=>{if(denied)throw Error('denied');data.set(k,v);}};
+ const a=new AdvancedThemeLibrary('actor',port,()=>advancedId),theme=defaultAdvancedTheme();a.save(theme);const before=a.current,stored=data.get(a.key);
+ denied=true;assert.throws(()=>a.apply(theme),/denied/);assert.deepEqual(a.current,before);assert.equal(data.get(a.key),stored);
+ denied=false;a.apply(theme);assert.deepEqual(a.current.active,theme);a.rename(advancedId,'Renamed');assert.equal(a.current.items[0].theme.name,'Renamed');
+});
+test('advanced initially empty editor preserves a library created by another editor',()=>{
+ const data=new Map(),port={getItem:k=>data.get(k)??null,setItem:(k,v)=>data.set(k,v)},theme=defaultAdvancedTheme();
+ const a=new AdvancedThemeLibrary('actor',port,()=>advancedId),b=new AdvancedThemeLibrary('actor',port,()=>advancedId);
+ a.save(theme);const stored=data.get(a.key);assert.throws(()=>b.apply(theme),/theme_changed_in_another_tab/);assert.equal(data.get(a.key),stored);assert.deepEqual(b.current,{version:2,active:null,items:[]});
+});
+test('advanced preflight storage failure retains state and permits explicit retry',()=>{
+ const data=new Map();let denied=false;const port={getItem:k=>{if(denied)throw Error('read denied');return data.get(k)??null;},setItem:(k,v)=>data.set(k,v)};
+ const a=new AdvancedThemeLibrary('actor',port,()=>advancedId),theme=defaultAdvancedTheme();a.save(theme);const before=a.current,stored=data.get(a.key);
+ denied=true;assert.throws(()=>a.apply(theme),/read denied/);assert.deepEqual(a.current,before);assert.equal(data.get(a.key),stored);denied=false;a.apply(theme);assert.deepEqual(a.current.active,theme);
+});

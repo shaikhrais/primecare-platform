@@ -8,6 +8,11 @@ class RecoveryPort implements DashboardPreferencePort {
  @override Future<DashboardSnapshot> read(PreferenceScope scope,String resource)async{if(!loseAck&&writes>0&&!failed){failed=true;throw StateError('read offline');}return state;}
  @override Future<DashboardSnapshot> write(PreferenceScope scope,String resource,int revision,DashboardLayout document,String requestId)async{writes++;keys.add(requestId);if(receipt!=null)return receipt!;applied++;state=DashboardSnapshot(scope,resource,revision+1,document);receipt=state;if(loseAck&&!failed){failed=true;throw StateError('ack offline');}return state;}
 }
+class StaleReadbackPort implements DashboardPreferencePort {
+ DashboardSnapshot state;bool stale=true;int writes=0;StaleReadbackPort(this.state);
+ @override Future<DashboardSnapshot> read(PreferenceScope scope,String resource)async=>writes>0&&stale?DashboardSnapshot(scope,resource,0,null):state;
+ @override Future<DashboardSnapshot> write(PreferenceScope scope,String resource,int revision,DashboardLayout document,String requestId)async{writes++;state=DashboardSnapshot(scope,resource,revision+1,document);return state;}
+}
 void main(){final fixture=jsonDecode(File('test/dashboard_widgets/model-fixtures.json').readAsStringSync()) as Map<String,Object?>,views=(fixture['views'] as List).map(ViewportSpec.fromJson).toList(),widgets=(fixture['widgets'] as List).map(WidgetSpec.fromJson).toList(),defaults=DashboardLayout.fromJson(fixture['defaults'],widgets,views),scope=PreferenceScope('fixture-tenant','fixture-user','fixture-role','demo');String uuid()=> '00000000-0000-4000-8000-000000000001';DashboardSession session([DashboardPreferencePort? port])=>DashboardSession(scope:scope,resource:'fixture',widgets:widgets,views:views,defaults:defaults,port:port,requestId:uuid);
  test('TypeScript/Dart chart, breakpoint and packing oracle',(){for(final raw in fixture['charts'] as List){final row=raw as Map<String,Object?>,data=ChartData.fromJson(row['data']);equalJson(geometryJson(chartGeometry(data)),row['geometry']);}for(final raw in fixture['breakpoints'] as List){final row=raw as List<Object?>;expect(activeViewport((row[0] as num).toDouble(),views),row[1]);}equalJson(packDashboard(defaults.views['wide']!,4).map((p)=>{'id':p.id,'span':p.span,'rows':p.rows,'x':p.x,'y':p.y}).toList(),fixture['packed']);expect(()=>ChartData.fromJson({'kind':'line','title':'bad','categories':['A'],'series':[{'id':'one','label':'One','values':[double.nan]}]}),throwsArgumentError);});
  test('view-specific editing and denied import validation',(){var d=editDashboard(defaults,'small','add','metric',widgets,views);d=editDashboard(d,'small','earlier','metric',widgets,views);expect(d.views['small']!.first.id,'metric');d=editDashboard(d,'small','wider','metric',widgets,views);expect(d.views['small']!.first.span,1);expect(d.views['wide']!.map((p)=>p.toJson()).toList(),defaults.views['wide']!.map((p)=>p.toJson()).toList());expect(()=>DashboardLayout.fromJson(defaults.toJson(),[widgets.first],views),throwsArgumentError);expect(()=>parseDashboard('{"version":1,"views":{"small":[{"id":"denied","span":1,"rows":2}],"wide":[]}}',widgets,views),throwsArgumentError);});
@@ -20,6 +25,38 @@ void main(){final fixture=jsonDecode(File('test/dashboard_widgets/model-fixtures
    await expectLater(s.save(),throwsStateError);expect(s.pending,true);await expectLater(s.load(),throwsStateError);await expectLater(s.save(),throwsStateError);
    await s.retryPending();expect(s.status,'clean');expect(s.pending,false);expect(port.applied,1);expect(port.writes,loseAck?2:1);if(loseAck)expect(port.keys[0],port.keys[1]);s.dispose();
   }
+ });
+
+ for(final dirty in [false,true])test('stale reload preserves ${dirty?'draft':'saved layout'} and revision',()async{
+  final port=MemoryPort(DashboardSnapshot(scope,'fixture',2,defaults)),s=session(port);await s.load();
+  if(dirty)s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));
+  final before=s.document.toJson();
+  port.state=DashboardSnapshot(scope,'fixture',1,DashboardLayout.fromJson({'version':1,'views':{'small':[],'wide':[]}},widgets,views));
+  await s.load();expect(s.status,'error');expect(s.revision,2);expect(s.document.toJson(),before);expect(s.loaded,true);
+  port.state=DashboardSnapshot(scope,'fixture',3,defaults);await s.load();expect(s.status,'clean');expect(s.revision,3);expect(s.document.toJson(),defaults.toJson());s.dispose();
+ });
+
+ for(final dirty in [false,true])test('same revision cannot replace known ${dirty?'draft baseline':'saved content'}',()async{
+  final port=MemoryPort(DashboardSnapshot(scope,'fixture',2,defaults)),s=session(port);await s.load();
+  if(dirty)s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));final before=s.document.toJson();
+  port.state=DashboardSnapshot(scope,'fixture',2,DashboardLayout.fromJson({'version':1,'views':{'small':[],'wide':[]}},widgets,views));
+  await s.load();expect(s.status,'error');expect(s.revision,2);expect(s.document.toJson(),before);
+  port.state=DashboardSnapshot(scope,'fixture',2,defaults);await s.load();expect(s.status,'clean');
+  s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));await s.save();expect(s.revision,3);final saved=s.document.toJson();
+  port.state=DashboardSnapshot(scope,'fixture',3,defaults);await s.load();expect(s.status,'error');expect(s.revision,3);expect(s.document.toJson(),saved);s.dispose();
+ });
+
+ test('stale readback retains acknowledgement and retries without write',()async{
+  final port=StaleReadbackPort(DashboardSnapshot(scope,'fixture',0,null)),s=session(port);await s.load();await expectLater(s.save(),throwsStateError);
+  expect(s.status,'error');expect(s.pending,true);expect(s.document.toJson(),defaults.toJson());
+  final edited=editDashboard(defaults,'wide','remove','metric',widgets,views);s.edit(edited);port.stale=false;await s.retryPending();
+  expect(port.writes,1);expect(s.pending,false);expect(s.status,'dirty');expect(s.revision,1);expect(s.document.toJson(),edited.toJson());s.dispose();
+ });
+
+ test('request ID callback cannot revive disposed session',()async{
+  final port=MemoryPort(DashboardSnapshot(scope,'fixture',0,null));late DashboardSession s;
+  s=DashboardSession(scope:scope,resource:'fixture',widgets:widgets,views:views,defaults:defaults,port:port,requestId:(){s.dispose();return uuid();});
+  await s.load();await expectLater(s.save(),throwsStateError);expect(s.status,'disposed');expect(s.pending,false);expect(port.state.revision,0);
  });
 
 }

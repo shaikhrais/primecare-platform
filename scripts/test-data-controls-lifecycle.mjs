@@ -135,3 +135,60 @@ test('table refresh clears removed detail identity and rejected refresh preserve
  assert.equal(table.model.expanded,'a');assert.deepEqual([...table.model.selected],['a']);assert.equal(root.querySelector('[data-cy=data-controls-table-detail]').textContent,'Detail Alpha');
  table.replace([{id:'b',values:{name:'Retained Beta'}}]);assert.equal(table.model.expanded,null);assert.equal(table.model.selected.size,0);assert.equal(root.querySelector('[data-cy=data-controls-table-detail]').textContent,'');assert.equal(root.querySelector('[data-cy=data-controls-expand-b]').getAttribute('aria-expanded'),'false');
 });
+
+for(const mode of ['pointer','keyboard'])test('autocomplete owns accepted option identity after provider mutation via '+mode,async t=>{
+ const {root,kit,Event}=fixture(t),selected=[],options=[{value:'original',label:'Original label'}];
+ root.append(kit.autocomplete(async()=>options,value=>selected.push(value)));const input=root.querySelector('[role=combobox]');input.value='Original';input.dispatchEvent(new Event('input'));await settle();
+ options[0].value='changed-after-render';options[0].label='Changed after render';options.push({value:'unrendered',label:'Unrendered option'});
+ assert.equal(root.querySelector('[role=option]').textContent,'Original label');
+ if(mode==='pointer')root.querySelector('[role=option]').dispatchEvent(new Event('pointerdown',{cancelable:true}));
+ else{for(const value of ['ArrowDown','Enter']){const event=new Event('keydown',{cancelable:true});event.key=value;input.dispatchEvent(event);}}
+ assert.deepEqual(selected,['original']);assert.equal(input.value,'Original label');
+});
+test('autocomplete keyboard reopening retains accepted options after provider clears its array',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[],options=[{value:'original',label:'Original label'}];root.append(kit.autocomplete(async()=>options,value=>selected.push(value)));const input=root.querySelector('[role=combobox]');input.dispatchEvent(new Event('input'));await settle();options.length=0;
+ for(const value of ['Escape','ArrowDown','Enter']){const event=new Event('keydown',{cancelable:true});event.key=value;input.dispatchEvent(event);}
+ assert.deepEqual(selected,['original']);assert.equal(input.value,'Original label');
+});
+
+test('autocomplete does not dispatch replacement load after abort cleanup disposes scope',async t=>{
+ const {root,kit,Event}=fixture(t),queries=[];let finish;
+ root.append(kit.autocomplete((query,signal)=>{queries.push(query);if(query==='first'){signal.addEventListener('abort',()=>kit.dispose(),{once:true});return new Promise(resolve=>finish=resolve);}return Promise.resolve([{value:query,label:query}]);}));
+ const input=root.querySelector('[role=combobox]');input.value='first';input.dispatchEvent(new Event('input'));input.value='replacement';input.dispatchEvent(new Event('input'));await settle();
+ assert.deepEqual(queries,['first']);assert.equal(root.childElementCount,0);finish([{value:'late',label:'Late'}]);await settle();assert.equal(root.childElementCount,0);
+});
+test('autocomplete lets a query started by abort cleanup own the latest request',async t=>{
+ const {root,kit,Event}=fixture(t),queries=[],selected=[];let input,finish;
+ root.append(kit.autocomplete((query,signal)=>{queries.push(query);if(query==='first'){signal.addEventListener('abort',()=>{input.value='newer';input.dispatchEvent(new Event('input'));},{once:true});return new Promise(resolve=>finish=resolve);}return Promise.resolve([{value:query,label:query+' label'}]);},value=>selected.push(value)));
+ input=root.querySelector('[role=combobox]');input.value='first';input.dispatchEvent(new Event('input'));input.value='superseded';input.dispatchEvent(new Event('input'));await settle();
+ assert.deepEqual(queries,['first','newer']);assert.equal(root.querySelector('[role=option]').textContent,'newer label');root.querySelector('[role=option]').dispatchEvent(new Event('pointerdown'));assert.deepEqual(selected,['newer']);finish([{value:'late',label:'Late'}]);await settle();assert.equal(input.value,'newer label');
+});
+for(const mode of ['Escape','blur'])test('autocomplete dismissal does not invalidate a query started by '+mode+' abort cleanup',async t=>{
+ const {root,kit,Event}=fixture(t);let input,finish;
+ root.append(kit.autocomplete((query,signal)=>{if(query==='first'){signal.addEventListener('abort',()=>{input.value='newer';input.dispatchEvent(new Event('input'));},{once:true});return new Promise(resolve=>finish=resolve);}return Promise.resolve([{value:query,label:query+' label'}]);}));
+ input=root.querySelector('[role=combobox]');input.value='first';input.dispatchEvent(new Event('input'));
+ if(mode==='blur')input.dispatchEvent(new Event('blur'));else{const event=new Event('keydown');event.key=mode;input.dispatchEvent(event);}
+ await settle();assert.equal(root.querySelector('[role=listbox]').hidden,false);assert.equal(root.querySelector('[role=option]').textContent,'newer label');assert.equal(input.value,'newer');finish([{value:'late',label:'Late'}]);await settle();assert.equal(root.querySelector('[role=option]').textContent,'newer label');
+});
+
+function maskSelectionFixture(input){
+ let value=input.value;
+ Object.defineProperty(input,'value',{configurable:true,get:()=>value,set:next=>{const changed=value!==String(next);value=String(next);if(changed){input.selectionStart=input.selectionEnd=value.length;input.selectionDirection='none';}}});
+ input.setSelectionRange=(start,end,direction='none')=>{input.selectionStart=start;input.selectionEnd=end;input.selectionDirection=direction;};
+}
+test('mask retains selection when formatted text is unchanged',t=>{
+ const {root,kit,Event}=fixture(t),field=kit.field('mask',{pattern:'###-###'},'123-456');root.append(field.element);maskSelectionFixture(field.input);field.input.setSelectionRange(2,2);field.input.dispatchEvent(new Event('input'));
+ assert.equal(field.input.selectionStart,2);assert.equal(field.input.selectionEnd,2);assert.equal(field.input.value,'123-456');assert.equal(field.input.getAttribute('aria-invalid'),'false');
+});
+for(const range of [{start:2,end:2,direction:'none',mappedStart:2,mappedEnd:2},{start:2,end:5,direction:'backward',mappedStart:2,mappedEnd:5}])test('mask rebases '+range.direction+' selection through cleaned text',t=>{
+ const {root,kit,Event}=fixture(t),field=kit.field('mask',{pattern:'###-###'});root.append(field.element);maskSelectionFixture(field.input);field.input.value='12x3456';field.input.setSelectionRange(range.start,range.end,range.direction);field.input.dispatchEvent(new Event('input'));
+ assert.equal(field.input.value,'123-456');assert.equal(field.input.selectionStart,range.mappedStart);assert.equal(field.input.selectionEnd,range.mappedEnd);assert.equal(field.input.selectionDirection,range.direction);assert.equal(field.input.getAttribute('aria-invalid'),'false');
+});
+
+for(const hidden of ['middle','last'])test('table retains a keyboard entry cell after hiding '+hidden+' column',t=>{
+ const {root,kit,Event}=fixture(t),columns=['first','middle','last'].map(key=>({key,label:key,width:100,visible:true,pinned:false}));
+ const table=kit.table(columns,[{id:'r0',values:{first:'A',middle:'B',last:'C'}}],{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100});root.append(table.element);table.model.toggle('r0');
+ root.querySelector('[data-cy=data-controls-table-cell-r0-last]').dispatchEvent(new Event('focus'));
+ const toggle=root.querySelector('[data-cy=data-controls-visible-'+hidden+']');toggle.checked=false;toggle.dispatchEvent(new Event('change'));
+ const current=root.querySelectorAll('[role=gridcell][tabindex="0"]');assert.equal(current.length,1);assert.equal(current[0].dataset.cy,'data-controls-table-cell-r0-'+(hidden==='middle'?'last':'middle'));assert.equal(table.model.selected.has('r0'),true);
+});

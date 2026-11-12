@@ -31,17 +31,18 @@ export function mountTenantThemeMigration(
   prepare.disabled=!retry.hidden;
   section.append(heading,prepare,description,preview,save,retry,status);root.append(section);
   let disposed=false,busy=false;
+  const valid=()=>!disposed&&isCurrent()&&root.contains(section);
   const result=(value:{status:string;pending:boolean})=>{
-    if(disposed||!isCurrent())return;
+    if(!valid())return;
     retry.hidden=!value.pending;
     prepare.disabled=value.pending;
     status.textContent=value.status==='clean'?text.saved:value.pending?text.pending:text.failed;
   };
-  prepare.onclick=()=>{if(disposed||!isCurrent()||busy)return;try{
+  prepare.onclick=()=>{if(!valid()||busy)return;try{
     const value=review.prepare();description.textContent=text.changed+' '+value.unmappedFields.join(', ');
     preview.textContent=JSON.stringify(value.candidate,null,2);save.disabled=false;status.textContent=text.ready;
   }catch{save.disabled=true;status.textContent=text.failed;}};
-  save.onclick=async()=>{if(disposed||busy)return;busy=true;save.disabled=true;try{result(await review.confirm());}catch{if(!disposed&&isCurrent())status.textContent=text.failed;}finally{busy=false;}};
-  retry.onclick=async()=>{if(disposed||busy)return;busy=true;retry.disabled=true;try{result(await review.retry());}catch{if(!disposed)status.textContent=text.failed;}finally{busy=false;if(!disposed)retry.disabled=false;}};
+  save.onclick=async()=>{if(!valid()||busy)return;busy=true;save.disabled=true;try{result(await review.confirm());}catch{if(valid())status.textContent=text.failed;}finally{busy=false;}};
+  retry.onclick=async()=>{if(!valid()||busy)return;busy=true;retry.disabled=true;try{result(await review.retry());}catch{if(valid())status.textContent=text.failed;}finally{busy=false;if(valid())retry.disabled=false;}};
   return ()=>{disposed=true;review.dispose();section.remove();};
 }
