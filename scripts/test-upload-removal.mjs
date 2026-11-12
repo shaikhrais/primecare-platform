@@ -66,3 +66,31 @@ test('removal setup retains upload abort callback disposal and performs no delet
 test('disposal becomes terminal before adapter abort callbacks can restart an errored upload',async()=>{
  let sends=0,restart;const task=new UploadTask('actor-session',policy,async request=>{sends++;request.signal.addEventListener('abort',()=>{restart=task.send();},{once:true});throw Error('offline');},true);task.choose(files);await task.send();task.dispose();await restart;assert.equal(task.status,'disposed');assert.equal(sends,1);
 });
+
+for(const phase of ['ready','uploading','progress','success','error'])test('upload observer failure at '+phase+' cannot change transport or receipt outcome',async()=>{
+ let sends=0;const observed=[],task=new UploadTask('actor-session',policy,async request=>{sends++;request.progress(.5);if(phase==='error')throw Error('real transport denial');return{receiptId:'r1'};});
+ task.subscribe(()=>{if(phase==='progress'?task.status==='uploading'&&task.progress===.5:task.status===phase)throw Error('render failure');});
+ task.subscribe(()=>observed.push(task.status));
+ assert.doesNotThrow(()=>task.choose(files));await assert.doesNotReject(()=>task.send());
+ assert.equal(sends,1);assert.equal(task.status,phase==='error'?'error':'success');assert.equal(task.receiptId,phase==='error'?null:'r1');assert.deepEqual(task.files,files);assert.equal(observed.at(-1),task.status);task.dispose();
+});
+for(const phase of ['removing','removed','remove-error'])test('removal observer failure at '+phase+' cannot rewrite verified or denied result',async()=>{
+ let writes=0,reads=0;const task=await uploaded(async()=>{writes++;if(phase==='remove-error')throw Error('real removal denial');return{receiptId:'r1',removed:true};},async()=>{reads++;return state(false);}),observed=[];
+ task.subscribe(()=>{if(task.status===phase)throw Error('render failure');});task.subscribe(()=>observed.push(task.status));
+ await assert.doesNotReject(()=>task.removeUpload());assert.equal(writes,1);assert.equal(reads,phase==='remove-error'?0:1);assert.equal(task.status,phase==='remove-error'?'remove-error':'removed');assert.equal(task.receiptId,phase==='remove-error'?'r1':null);assert.deepEqual(task.files,phase==='remove-error'?files:[]);assert.equal(observed.at(-1),task.status);task.dispose();
+});
+test('upload observer dispatch snapshots additions and honors removed subscriptions',()=>{
+ const task=new UploadTask('actor-session',policy),observed=[];let removeLater,added=false;
+ task.subscribe(()=>{observed.push('first');removeLater();if(!added){added=true;task.subscribe(()=>observed.push('added'));}});
+ removeLater=task.subscribe(()=>observed.push('removed'));task.subscribe(()=>observed.push('last'));
+ task.choose(files);assert.deepEqual(observed,['first','last']);observed.length=0;task.removeSelection(0);assert.deepEqual(observed,['first','last','added']);task.dispose();
+});
+test('upload observer disposal remains terminal even when that observer throws',async()=>{
+ let sends=0,later=0;const task=new UploadTask('actor-session',policy,async()=>{sends++;return{receiptId:'r1'};});task.choose(files);
+ task.subscribe(()=>{if(task.status==='uploading'){task.dispose();throw Error('retired rendering');}});task.subscribe(()=>later++);
+ await assert.doesNotReject(()=>task.send());assert.equal(task.status,'disposed');assert.equal(sends,0);assert.equal(later,0);assert.equal(task.receiptId,null);
+});
+test('upload duplicate observer subscriptions retain independent cleanup ownership',()=>{
+ const task=new UploadTask('actor-session',policy);let calls=0;const observer=()=>calls++,first=task.subscribe(observer),second=task.subscribe(observer);
+ first();task.choose(files);assert.equal(calls,1);second();task.removeSelection(0);assert.equal(calls,1);task.dispose();
+});
