@@ -3,7 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/original_assets.dart';
 import 'package:primecare_ui/primecare_ui.dart'
-    show DashboardLoadingWidget, PrimeStatusIcon, PrimeStatusTone;
+    show DashboardLoadingWidget, PrimeColors, PrimeStatusIcon, PrimeStatusTone,
+        PrimeTheme, PrimeThemeData;
 import 'package:primecare_business_development/features/bdm/screens/regional_bdm_competitor_notes_screen.dart';
 import 'package:primecare_business_development/features/bdm/screens/regional_bdm_competitor_notes_screen_controller.dart';
 import 'package:primecare_business_development/features/bdm/screens/regional_bdm_dashboard_screen.dart';
