@@ -328,12 +328,12 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "exists": true,
-          "sha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1"
+          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5"
         },
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "exists": true,
-          "sha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40"
+          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8"
         }
       ],
       "state": "source_inventory_only"
@@ -362,7 +362,7 @@
         {
           "path": "packages/primecare_ui/web/navigation.ts",
           "exists": true,
-          "sha256": "79f9ad5b5e18b944735395f2a8adde6600547ecfa518b1f6393b53726c15cfbe"
+          "sha256": "d2a5011b9893b25f28aa119a2d983522cb9c7709b6369555fdd7a870aa883ad9"
         },
         {
           "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
@@ -417,7 +417,7 @@
         {
           "path": "packages/primecare_ui/web/navigation.ts",
           "exists": true,
-          "sha256": "79f9ad5b5e18b944735395f2a8adde6600547ecfa518b1f6393b53726c15cfbe"
+          "sha256": "d2a5011b9893b25f28aa119a2d983522cb9c7709b6369555fdd7a870aa883ad9"
         }
       ],
       "state": "source_inventory_only"
@@ -480,7 +480,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "exists": true,
-          "sha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40"
+          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8"
         }
       ],
       "state": "source_inventory_only"
@@ -512,7 +512,7 @@
         {
           "path": "packages/primecare_ui/web/original-assets.ts",
           "exists": true,
-          "sha256": "221fdeadf994583d9477800c0ed016ddc4f009fe823a4e4228b4a745cb674f9c"
+          "sha256": "10d2762a4fc15a33ede09a489bc0e7832a6e2688e7bfdde0363d44aae1f99344"
         }
       ],
       "state": "source_inventory_only"
@@ -548,7 +548,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "exists": true,
-          "sha256": "aa790012fedad8d65edd4dc2afcd87b6f2cf5a069e61a4d71eaef9513d331bd9"
+          "sha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18"
         }
       ],
       "state": "source_inventory_only"
@@ -566,7 +566,7 @@
         {
           "path": "packages/primecare_ui/web/navigation.ts",
           "exists": true,
-          "sha256": "79f9ad5b5e18b944735395f2a8adde6600547ecfa518b1f6393b53726c15cfbe"
+          "sha256": "d2a5011b9893b25f28aa119a2d983522cb9c7709b6369555fdd7a870aa883ad9"
         }
       ],
       "state": "source_inventory_only"
@@ -584,7 +584,7 @@
         {
           "path": "packages/primecare_ui/web/navigation.ts",
           "exists": true,
-          "sha256": "79f9ad5b5e18b944735395f2a8adde6600547ecfa518b1f6393b53726c15cfbe"
+          "sha256": "d2a5011b9893b25f28aa119a2d983522cb9c7709b6369555fdd7a870aa883ad9"
         }
       ],
       "state": "source_inventory_only"
@@ -602,7 +602,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "exists": true,
-          "sha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1"
+          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5"
         }
       ],
       "state": "source_inventory_only"
@@ -620,7 +620,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "exists": true,
-          "sha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1"
+          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5"
         }
       ],
       "state": "source_inventory_only"
@@ -638,7 +638,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "exists": true,
-          "sha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40"
+          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8"
         }
       ],
       "state": "source_inventory_only"
@@ -663,7 +663,7 @@
         {
           "path": "packages/primecare_ui/web/shell.ts",
           "exists": true,
-          "sha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1"
+          "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5"
         }
       ],
       "state": "source_inventory_only"
@@ -731,7 +731,7 @@
         {
           "path": "packages/primecare_ui/web/theme-center.ts",
           "exists": true,
-          "sha256": "aa790012fedad8d65edd4dc2afcd87b6f2cf5a069e61a4d71eaef9513d331bd9"
+          "sha256": "c326bf56e5720a17116d7d07ecbe488bd86468e3dd0df76b8b6e69944cb43d18"
         }
       ],
       "state": "source_inventory_only"
@@ -870,7 +870,7 @@
         {
           "path": "scripts/test-workspace-layout.mjs",
           "exists": true,
-          "sha256": "41b73645306d88d33398ff908f76ba2f9b5eb4b21d772856bf51a2f65c5c72ac"
+          "sha256": "5516a9035d23ba132db93d707133777b77c3be7b4925feb2d0b5891cf5981043"
         }
       ],
       "state": "source_inventory_only"
