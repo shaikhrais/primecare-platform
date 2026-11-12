@@ -76,4 +76,39 @@ void main() {
     final input = tester.widget<InputDecorator>(find.byType(InputDecorator));
     expect(input.decoration.fillColor, Colors.cyan);
   });
+
+  for (final reversed in [false, true]) {
+    testWidgets('keyed uncontrolled drafts follow their field on reorder ($reversed)',
+        (tester) async {
+      const first = ValueKey('first-draft');
+      const second = ValueKey('second-draft');
+      Widget host(bool swap) => MaterialApp(home: Scaffold(body: Column(children:
+        (swap ? [second, first] : [first, second]).map((key) => PrimeTextField(key: key)).toList(),
+      )));
+      await tester.pumpWidget(host(reversed));
+      await tester.enterText(find.byKey(first), 'first retained draft');
+      await tester.enterText(find.byKey(second), 'second retained draft');
+      final firstState = tester.state<EditableTextState>(find.descendant(
+        of: find.byKey(first), matching: find.byType(EditableText)));
+      final secondState = tester.state<EditableTextState>(find.descendant(
+        of: find.byKey(second), matching: find.byType(EditableText)));
+      firstState.widget.controller.selection = const TextSelection.collapsed(offset: 5);
+      await tester.pumpWidget(host(!reversed));
+      await tester.pump();
+      final currentFirst = tester.state<EditableTextState>(find.descendant(
+        of: find.byKey(first), matching: find.byType(EditableText)));
+      final currentSecond = tester.state<EditableTextState>(find.descendant(
+        of: find.byKey(second), matching: find.byType(EditableText)));
+      expect(currentFirst, same(firstState));
+      expect(currentSecond, same(secondState));
+      expect(currentFirst.widget.controller.text, 'first retained draft');
+      expect(currentSecond.widget.controller.text, 'second retained draft');
+      expect(currentFirst.widget.controller.selection.baseOffset, 5);
+      expect(currentSecond.widget.focusNode.hasFocus, isTrue);
+      expect(find.byKey(first), findsOneWidget);
+      expect(find.byKey(second), findsOneWidget);
+      await tester.pumpWidget(const SizedBox.shrink());
+    });
+  }
+
 }

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+// Keep the outer sibling identity distinct from the caller's inner input key.
+class _PrimeTextFieldScopeKey extends ValueKey<Key> {
+  const _PrimeTextFieldScopeKey(super.value);
+}
+
 /// Shared Material text input delegate for the reviewed constructor surface.
 class PrimeTextField extends StatelessWidget {
   final Key? fieldKey;
@@ -29,6 +34,11 @@ class PrimeTextField extends StatelessWidget {
     this.onChanged,
     this.onSubmitted,
   }) : fieldKey = key;
+
+  // The input retains the public key for existing lookups. The wrapper must
+  // also follow that key during sibling moves so its input state can move too.
+  @override
+  Key? get key => fieldKey == null ? null : _PrimeTextFieldScopeKey(fieldKey!);
 
   @override
   Widget build(BuildContext context) => TextField(
