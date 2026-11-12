@@ -1,6 +1,6 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {build} from 'esbuild';
-const bundle=await build({stdin:{contents:`export {ApplicationSettingsPort} from './packages/shared/src/application-modules/settings-port';export {ApplicationProfilePort} from './packages/shared/src/application-modules/transport';export {dashboardPageTransport} from './websites/typescript/src/tenant-dashboard/dashboard-page-transport';`,resolveDir:process.cwd()},bundle:true,format:'esm',platform:'node',write:false});
-const {ApplicationSettingsPort,ApplicationProfilePort,dashboardPageTransport}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
+const bundle=await build({stdin:{contents:`export {ApplicationSettingsPort} from './packages/shared/src/application-modules/settings-port';export {ApplicationProfilePort,applicationPreferenceTransport} from './packages/shared/src/application-modules/transport';export {dashboardPageTransport} from './websites/typescript/src/tenant-dashboard/dashboard-page-transport';`,resolveDir:process.cwd()},bundle:true,format:'esm',platform:'node',write:false});
+const {ApplicationSettingsPort,ApplicationProfilePort,applicationPreferenceTransport,dashboardPageTransport}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
 const scope={tenantId:'tenant',userId:'user1',role:'psw',dataset:'live'},identity={status:'authenticated',tenantId:'tenant',userId:'user1',roles:'psw'},query={search:'',offset:0};
 function profile(fetcher){let session={token:'captured',scope};const port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>session,{identity:'Identity'},fetcher);return {port,change:()=>{session={token:'other',scope};}};}
 function delayed(){let finish,cancelled=false;const response=new Response(new ReadableStream({start(controller){finish=()=>{controller.enqueue(new TextEncoder().encode(JSON.stringify(identity)));};},cancel(){cancelled=true;}}));return {response,finish:()=>finish(),cancelled:()=>cancelled};}
@@ -14,3 +14,55 @@ test('dashboard rejects oversized bodies and token changes during streaming',asy
 test('profile and dashboard retain valid replies at their exact byte limits',async()=>{const json=JSON.stringify(identity);const p=profile(async()=>new Response(json+' '.repeat(65536-Buffer.byteLength(json))));assert.equal((await p.port.read(query,new AbortController().signal)).items[0].id,'user1');const read=dashboardPageTransport('https://fixture.test','captured','live',()=> 'captured',async()=>new Response('{}'+' '.repeat(1048574)));assert.deepEqual(await read(new AbortController().signal),{});});
 
 test('settings maps rejected owned snapshot identity to denial rather than a retryable error',async()=>{const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1']}},port=new ApplicationSettingsPort(binding,async()=>({version:1,scope:{...scope,userId:'other'},kind:'shortcuts',resource:'navigation',revision:0,document:null}),{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':'Overview'},{shortcuts:'Shortcuts',editShortcuts:'Edit'});await assert.rejects(()=>port.read(query,new AbortController().signal),e=>e.code==='denied'&&e.status===403);port.dispose();});
+
+for(const field of ['token','userId','tenantId','role','dataset'])test('settings failed dispatch denies changed '+field,async()=>{
+ let current={token:'x'.repeat(43),scope};let reject;
+ const send=applicationPreferenceTransport('https://fixture.test',current.token,scope,()=>current,()=>new Promise((_,r)=>{reject=r;}));
+ const pending=send({},new AbortController().signal);
+ current=field==='token'?{...current,token:'y'.repeat(43)}:{...current,scope:{...scope,[field]:field==='dataset'?'demo':'changed'}};reject(Error('offline'));
+ await assert.rejects(()=>pending,e=>e.code==='scope_changed'&&e.status===403);
+});
+test('settings failed HTTP response rechecks identity before exposing a conflict',async()=>{
+ let current={token:'x'.repeat(43),scope};
+ const send=applicationPreferenceTransport('https://fixture.test',current.token,scope,()=>current,async()=>{current={...current,scope:{...scope,userId:'other'}};return Response.json({error:'revision_conflict',current:{secret:'old account'}},{status:409});});
+ await assert.rejects(()=>send({},new AbortController().signal),e=>e.code==='scope_changed'&&e.status===403&&e.current===undefined);
+});
+test('settings unchanged identity preserves the original offline failure',async()=>{
+ const current={token:'x'.repeat(43),scope},send=applicationPreferenceTransport('https://fixture.test',current.token,scope,()=>current,async()=>{throw Error('offline');});
+ await assert.rejects(()=>send({},new AbortController().signal),e=>e.code==='offline'&&e.status===0);
+});
+for(const mode of ['logout','dispose','abort'])test('profile failed dispatch observes '+mode+' before surfacing network error',async()=>{
+ let reject;const p=profile(()=>new Promise((_,r)=>{reject=r;})),abort=new AbortController();
+ const pending=p.port.read(query,abort.signal);if(mode==='logout')p.change();else if(mode==='dispose')p.port.dispose();else abort.abort();reject(Error('offline'));
+ await assert.rejects(()=>pending,e=>e.code===(mode==='logout'?'denied':'unavailable'));
+ p.port.dispose();
+});
+
+test('settings invalidated current scope fails closed as denial',async()=>{
+ let current={token:'x'.repeat(43),scope};const send=applicationPreferenceTransport('https://fixture.test',current.token,scope,()=>current,async()=>{current={...current,scope:{}};throw Error('offline');});
+ await assert.rejects(()=>send({},new AbortController().signal),e=>e.code==='scope_changed'&&e.status===403);
+});
+test('profile unchanged identity preserves the original dispatch failure',async()=>{
+ const error=Error('offline'),p=profile(async()=>{throw error;});await assert.rejects(()=>p.port.read(query,new AbortController().signal),e=>e===error);p.port.dispose();
+});
+
+test('profile disposal immediately aborts owned pending fetches without waiting for a response',async()=>{
+ let transportSignal,finish;const p=profile((url,options)=>{transportSignal=options.signal;return new Promise((resolve,reject)=>{finish=()=>resolve(Response.json(identity));options.signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});});
+ const pending=p.port.read(query,new AbortController().signal);p.port.dispose();
+ const aborted=transportSignal.aborted;if(!aborted)finish();await assert.rejects(()=>pending,e=>e.code==='unavailable');assert.equal(aborted,true);p.port.dispose();
+});
+test('profile aborts all owned concurrent fetches and retains the caller signal',async()=>{
+ const signals=[],finish=[];const p=profile((url,options)=>{signals.push(options.signal);return new Promise((resolve,reject)=>{finish.push(()=>resolve(Response.json(identity)));options.signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});}),caller=new AbortController();
+ const first=p.port.read(query,caller.signal),second=p.port.read(query,caller.signal);p.port.dispose();const aborted=signals.map(s=>s.aborted);for(let i=0;i<signals.length;i++)if(!aborted[i])finish[i]();
+ await Promise.all([assert.rejects(()=>first,e=>e.code==='unavailable'),assert.rejects(()=>second,e=>e.code==='unavailable')]);assert.deepEqual(aborted,[true,true]);assert.equal(caller.signal.aborted,false);
+});
+test('profile releases caller abort subscription on successful and rejected requests',async()=>{
+ for(const fail of [false,true]){const caller=new AbortController(),add=caller.signal.addEventListener.bind(caller.signal),remove=caller.signal.removeEventListener.bind(caller.signal);let balance=0;
+ caller.signal.addEventListener=(type,fn,options)=>{if(type==='abort')balance++;return add(type,fn,options);};caller.signal.removeEventListener=(type,fn,options)=>{if(type==='abort')balance--;return remove(type,fn,options);};
+ const p=profile(async()=>{if(fail)throw Error('offline');return Response.json(identity);});if(fail)await assert.rejects(()=>p.port.read(query,caller.signal));else await p.port.read(query,caller.signal);assert.equal(balance,0);p.port.dispose();
+ }
+});
+test('profile disposal leaves completed fetch signals retired and caller cancellation still forwards',async()=>{
+ let completedSignal;const done=profile(async(url,options)=>{completedSignal=options.signal;return Response.json(identity);});await done.port.read(query,new AbortController().signal);done.port.dispose();assert.equal(completedSignal.aborted,false);
+ let activeSignal;const caller=new AbortController(),p=profile((url,options)=>{activeSignal=options.signal;return new Promise((resolve,reject)=>options.signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true}));});const pending=p.port.read(query,caller.signal);caller.abort();assert.equal(activeSignal.aborted,true);await assert.rejects(()=>pending,e=>e.code==='unavailable');p.port.dispose();
+});

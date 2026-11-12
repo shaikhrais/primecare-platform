@@ -1,5 +1,10 @@
 /** Shared private storage/scan boundary. Derived codecs never grant access. */
 import {BoundedBinaryAdapterBase} from './adapter-base.mjs';
+function pictureActor(actor){
+ const tenantId=actor?.tenantId;
+ if(typeof tenantId!=='string'||!tenantId)throw Error('Picture unavailable');
+ return {tenantId};
+}
 export class PrivatePictureRepositoryBase extends BoundedBinaryAdapterBase {
  constructor({bucket,scan,maxPixels,maxBytes}) {
   super(maxBytes);
@@ -32,15 +37,16 @@ export class PrivatePictureRepositoryBase extends BoundedBinaryAdapterBase {
  }
  async get(actor,id) {
   this.validateId(id);
-  return this.record(actor,id,await this.bucket.head('private-pictures/'+id));
+  const scope=pictureActor(actor);
+  return this.record(scope,id,await this.bucket.head('private-pictures/'+id));
  }
  async open(actor,id,threadId) {
   this.validateId(id);
   if(typeof threadId!=='string'||!threadId)throw Error('Picture unavailable');
-  const object=await this.bucket.get('private-pictures/'+id);
+  const scope=pictureActor(actor),object=await this.bucket.get('private-pictures/'+id);
   try {
    // Validate the downloaded object itself, never a previous HEAD snapshot.
-   this.record(actor,id,object,threadId);
+   this.record(scope,id,object,threadId);
    if(!object.body)throw Error('Picture unavailable');
    return object;
   }catch(error){

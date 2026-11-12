@@ -60,3 +60,22 @@ test('scanning cannot rewrite bytes after approving either stage',async()=>{
  const pictures=new PrivatePictureRepository({sharp,bucket:{async put(_key,bytes){stored=Uint8Array.from(bytes);},async head(){},async get(){}},scan:async bytes=>{scans++;bytes.fill(0);return true;},maxPixels:10,maxBytes:10});
  await pictures.prepare(actor,'thread',source,'image/png');assert.equal(scans,2);assert.deepEqual(stored,new Uint8Array([1,2,3]));assert.deepEqual(source,new Uint8Array([1,2,3]));
 });
+for(const operation of ['get','open']){
+ test(operation+' captures original tenant before suspended bucket work',async()=>{
+  const who={...actor},pictures=repo({head:async()=>{who.tenantId='foreign';return object();},get:async()=>{who.tenantId='foreign';return object();}});
+  const result=await pictures[operation](who,id,'thread');
+  assert.equal(operation==='get'?result.tenantId:JSON.parse(result.customMetadata.record).tenantId,'tenant');
+ });
+ test(operation+' rejects a foreign response despite caller actor mutation',async()=>{
+  let cancelled=0;const who={...actor},body=new ReadableStream({cancel(){cancelled++;}});
+  const foreign=()=>{who.tenantId='foreign';return object({...record,tenantId:'foreign'},{body});};
+  const pictures=repo({head:async()=>foreign(),get:async()=>foreign()});
+  await assert.rejects(pictures[operation](who,id,'thread'),/Picture unavailable/);
+  if(operation==='open')assert.equal(cancelled,1);
+ });
+}
+test('missing actor tenant is rejected before metadata or body storage IO',async()=>{
+ let reads=0;const pictures=repo({head:async()=>{reads++;return object();},get:async()=>{reads++;return object();}});
+ for(const who of [null,{}, {tenantId:''}])for(const operation of ['get','open'])await assert.rejects(pictures[operation](who,id,'thread'),/Picture unavailable/);
+ assert.equal(reads,0);
+});

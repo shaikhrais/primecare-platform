@@ -50,3 +50,19 @@ test('failed restoration renderer clears partial sensitive output and preserves 
  assert.throws(()=>bindReadPage(f.root,session({title:'Replacement'}),()=>{reject=true;old.emit({title:'Sensitive partial result'});throw error;},labels),e=>e===error);
  assert.equal(f.root.textContent,'');reject=false;old.emit({title:'Recovered'});assert.equal(f.root.textContent,'Recovered');closeOld();
 });
+
+function failingLoad(s){let reject;const promise=new Promise((_,r)=>{reject=r;});promise.catch(()=>{});s.load=()=>promise;return async()=>{reject(Error('offline'));await new Promise(r=>setImmediate(r));};}
+test('rejected initial read clears retained projection and shows localized error',async()=>{
+ const f=fixture(),s=session({title:'Sensitive old projection'}),fail=failingLoad(s),close=bindReadPage(f.root,s,f.render,labels);await fail();
+ assert.equal(f.root.textContent,'Error');assert.equal(f.root.firstChild.getAttribute('role'),'alert');assert.equal(s.disposals,0);close();assert.equal(s.disposals,1);
+});
+for(const mode of ['replacement','cleanup'])test('late rejected read cannot repaint after '+mode,async()=>{
+ const f=fixture(),s=session({title:'Old'}),fail=failingLoad(s),close=bindReadPage(f.root,s,f.render,labels);let nextClose;
+ if(mode==='replacement')nextClose=bindReadPage(f.root,session({title:'Current'}),f.render,labels);else close();
+ await fail();assert.equal(f.root.textContent,mode==='replacement'?'Current':'');close();nextClose?.();
+});
+test('late rejected load cannot override newer denial or authorized render',async()=>{
+ for(const status of ['denied','ready']){const f=fixture(),s=session({title:'Old'}),fail=failingLoad(s),close=bindReadPage(f.root,s,f.render,labels);
+ if(status==='denied'){s.state={status:'denied',projection:null};for(const fn of [...s.listeners])fn();}else s.emit({title:'New response'});
+ await fail();assert.equal(f.root.textContent,status==='denied'?'Denied':'New response');close();}
+});

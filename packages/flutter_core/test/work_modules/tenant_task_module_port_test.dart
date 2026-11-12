@@ -46,6 +46,26 @@ void main(){
   await expectLater(session.submit(cmd.itemId,cmd.action,cmd.fields),throwsA(isA<WorkFailure>()));expect(session.pendingReceipt,isNotNull);
   await session.retryPending();expect(session.status,'success');expect(writes,1);session.dispose();
  });
+ for(final staleVersion in [1,2])test('stale rename readback $staleVersion retains original verification search for retry',()async{
+  final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit');
+  final cmd=command(c['command'] as Map),before=clone(c['raw']),searches=<String>[];
+  (before['tasks'] as List).cast<Map<dynamic,dynamic>>().single['title']='${cmd.fields['title']} draft';
+  var changed=false,reads=0,writes=0;
+  final p=port('tasks',(r)async{
+   if(r.method=='POST'){changed=true;writes++;return clone(c['reply']);}
+   if(!changed)return before;
+   searches.add(r.filters['search']!);
+   final stale=++reads==1,response=stale?clone(before):clone(c['reply']);
+   if(stale)(response['tasks'] as List).cast<Map<dynamic,dynamic>>().single['version']=staleVersion;
+   final row=(response['tasks'] as List).cast<Map<dynamic,dynamic>>().single;
+   if(!(row['title'] as String).toLowerCase().contains(r.filters['search']!.toLowerCase())){response['tasks']=<Object?>[];response['taskPage']={'total':0};}
+   return response;
+  });
+  final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=>c['key'] as String);await session.load();
+  await expectLater(session.submit(cmd.itemId,cmd.action,cmd.fields),throwsA(isA<WorkFailure>()));
+  expect(session.pendingReceipt,isNotNull);await session.retryPending();
+  expect(session.status,'success');expect(writes,1);expect(searches,[cmd.fields['title'],cmd.fields['title']]);session.dispose();
+ });
  test('contacts remain read-only; scope, engine, versions and field grants fail closed',()async{
   final contacts=port('contacts',(_)async=>first);await contacts.read(const WorkQuery());await expectLater(contacts.mutate(WorkCommand('staff:worker',1,'edit',{'body':'x'}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));contacts.dispose();
   for(final raw in [ {...first,'database':'SQLite'}, {...first,'identity':{'userId':'other','role':scope.role}}, {...first,'organization':{'id':'other'}}, {...first,'synthetic':true} ]){

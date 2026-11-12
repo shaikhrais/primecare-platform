@@ -8,22 +8,29 @@ export class DashboardPageSession {
   get state(){return structuredClone(this.#state);}
   subscribe(listener){this.#listeners.add(listener);return ()=>this.#listeners.delete(listener);}
   #emit(status,projection=null){this.#state={status,projection};for(const listener of this.#listeners)listener(this.state);}
-  #matches(){const now=this.current();return now && ['userId','tenantId','role','dataset'].every(k=>now[k]===this.scope[k]);}
+  #matches(){try{const now=this.current();return !!now && ['userId','tenantId','role','dataset'].every(k=>now[k]===this.scope[k]);}catch{return false;}}
   invalidate(){if(this.#dead)return;this.#epoch++;this.#abort?.abort();this.#emit('denied');}
   async load(){
     if(this.#dead)return;
     const epoch=++this.#epoch;this.#abort?.abort();const abort=this.#abort=new AbortController();
     this.#emit('loading');
     try{
+      if(this.#dead||epoch!==this.#epoch||abort.signal.aborted)return;
       if(!this.#matches())throw Error('scope_changed');
+      if(this.#dead||epoch!==this.#epoch||abort.signal.aborted)return;
       const raw=await this.read(abort.signal);
       if(this.#dead||epoch!==this.#epoch)return;
       if(!this.#matches())throw Error('scope_changed');
       const projection=this.project(this.family,raw,this.scope);
+      if(this.#dead||epoch!==this.#epoch||abort.signal.aborted)return;
+      if(!this.#matches())throw Error('scope_changed');
+      if(this.#dead||epoch!==this.#epoch||abort.signal.aborted)return;
       this.#emit(projection.status,projection);
     }catch(error){
       if(this.#dead||epoch!==this.#epoch)return;
-      this.#emit(error?.message==='scope_changed'||error?.message==='denied'?'denied':'error');
+      const denied=!this.#matches()||error?.message==='scope_changed'||error?.message==='denied';
+      if(this.#dead||epoch!==this.#epoch)return;
+      this.#emit(denied?'denied':'error');
     }
   }
   dispose(){if(this.#dead)return;this.#dead=true;this.#epoch++;this.#abort?.abort();this.#state={status:'disposed',projection:null};for(const listener of this.#listeners)listener(this.state);this.#listeners.clear();}

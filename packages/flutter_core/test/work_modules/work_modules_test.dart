@@ -43,6 +43,18 @@ class ReceiptReadPort extends Port {
   return value;
  }
 }
+class MutableReceiptPort extends Port {
+ final expected=<String,String>{'title':'Verified'};
+ MutableReceiptPort():super('tasks');
+ @override Future<WorkReceipt> mutate(WorkCommand command,String key)async{
+  calls++;return WorkReceipt(command.itemId,command.version+1,command.action,expected);
+ }
+ @override Future<Object?> readItem(String id)async{
+  readCalls++;
+  if(readCalls==1){expected['title']='Incorrect';return data(module,version:2,title:'Incorrect');}
+  return data(module,version:2,title:'Verified');
+ }
+}
 void main(){
  for(final failureStatus in [400,404,409,503])test('acknowledged receipt survives readback $failureStatus',()async{
   final p=ReceiptReadPort(failureStatus),s=session('tasks',p);await s.load();
@@ -64,6 +76,12 @@ void main(){
   final p=ReceiptReadPort(failureStatus),s=session('tasks',p);await s.load();
   await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
   expect(s.status,'denied');expect(s.snapshot,isNull);expect(s.pending,isNull);expect(s.pendingReceipt,isNull);expect(s.pendingKey,isNull);s.dispose();
+ });
+ test('port-owned receipt mutation cannot alter independent verification',()async{
+  final p=MutableReceiptPort(),s=session('tasks',p);await s.load();
+  await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  expect(s.status,'conflict');expect(s.pending,isNotNull);expect(s.pendingReceipt!.expected['title'],'Verified');expect(s.snapshot!.items.single.title,'Original task');
+  await s.retryPending();expect(s.status,'success');expect(p.calls,1);expect(p.readCalls,2);expect(s.snapshot!.items.single.title,'Verified');s.dispose();
  });
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{

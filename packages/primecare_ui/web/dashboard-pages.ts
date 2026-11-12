@@ -29,21 +29,27 @@ const readPageOwners=new WeakMap<HTMLElement,ReadPageOwner>();
 /** Shared lifecycle binding for optional registered read-only host slots. */
 export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,render:(projection:P)=>void,labels:Record<string,unknown>){
  const previousOwner=readPageOwners.get(root),previousChildren=Array.from(root.childNodes),owner:ReadPageOwner={active:true,dirty:false,refresh:()=>{}};
- let unsubscribe=()=>{};
+ let unsubscribe=()=>{},revision=0;
  readPageOwners.set(root,owner);
  const current=()=>owner.active&&readPageOwners.get(root)===owner;
- const draw=()=>{
-  if(!current()){if(owner.active)owner.dirty=true;return;}
-  owner.dirty=false;
-  const state=session.state;
-  if(state.projection){render(state.projection);return;}
+ const statusNote=(status:string)=>{
   const note=root.ownerDocument.createElement('p');
-  note.dataset.cy='dashboard-pages-status';note.setAttribute('role',state.status==='error'||state.status==='denied'?'alert':'status');
-  note.textContent=Object.hasOwn(labels,state.status)?String(labels[state.status]):String(labels.unavailable);
+  note.dataset.cy='dashboard-pages-status';note.setAttribute('role',status==='error'||status==='denied'?'alert':'status');
+  note.textContent=Object.hasOwn(labels,status)?String(labels[status]):String(labels.unavailable);
   root.replaceChildren(note);
  };
+ const draw=()=>{
+  if(!current()){if(owner.active)owner.dirty=true;return;}
+  owner.dirty=false;revision++;
+  const state=session.state;
+  if(state.projection){render(state.projection);return;}
+  statusNote(state.status);
+ };
  owner.refresh=draw;
- try{draw();if(current()){unsubscribe=session.subscribe(draw);if(current())void session.load();}}
+ try{draw();if(current()){unsubscribe=session.subscribe(draw);if(current()){
+  const pending=session.load(),loadedRevision=revision;
+  void pending.catch(()=>{if(current()&&revision===loadedRevision){revision++;statusNote('error');}});
+ }}}
  catch(error){
   owner.active=false;try{unsubscribe();}catch{}
   if(readPageOwners.get(root)===owner){

@@ -37,6 +37,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-application-modules-transport.mjs
+          node scripts/test-application-modules-settings-lifecycle.mjs
           node scripts/application-settings-native-fixtures.mjs --check
           node scripts/test-application-modules.mjs
           node scripts/test-communication-modules.mjs
@@ -73,6 +74,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-application-modules-transport.mjs
+          node scripts/test-application-modules-settings-lifecycle.mjs
           node scripts/application-settings-native-fixtures.mjs --check
           node scripts/test-application-modules.mjs
           node scripts/test-application-modules-browser.mjs

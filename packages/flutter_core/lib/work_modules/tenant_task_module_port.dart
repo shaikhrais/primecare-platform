@@ -122,7 +122,7 @@ class TenantTaskModulePort implements WorkPort {
     final pending=_payloads.values.where((p)=>p.itemId==id).firstOrNull;
     for(var offset=0;offset<=10000;offset+=100){
       final fresh=_check(await transport(TenantTaskRequest('GET',{'dataset':scope.dataset,'search':pending?.search??original.single['title'] as String,'taskOffset':'$offset','status':'all'})));
-      if((fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().any((t)=>'${t['id']}'==id)){final snapshot=_project(fresh,offset);_raw=fresh;_payloads.removeWhere((_,p)=>p.itemId==id);return snapshot.toJson();}
+      if((fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().any((t)=>'${t['id']}'==id)){final snapshot=_project(fresh,offset);_raw=fresh;final item=snapshot.items.where((i)=>i.id==id).single;_payloads.removeWhere((_,p)=>p.itemId==id&&item.version==(p.body['version'] as int)+1&&p.expected.entries.every((e)=>item.toJson()[e.key]==e.value));return snapshot.toJson();}
       final page=fresh['taskPage'];if(offset+(fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().length>=(page is Map?page['total'] as int? ?? 0:0))break;
     }
     throw const WorkFailure('conflict',409);

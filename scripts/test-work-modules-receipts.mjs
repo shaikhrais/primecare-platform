@@ -63,4 +63,28 @@ let nested,redirected=false;const searches=[];
 const reentrant=new WorkModuleSession(scope,'tasks',{read:async(query)=>{searches.push(query.search);return snapshot;},mutate:async()=>{throw Error('unexpected mutation');},readItem:async()=>snapshot});
 reentrant.subscribe(()=>{if(reentrant.status==='loading'&&!redirected){redirected=true;nested=reentrant.load({search:'latest',offset:0});}});
 await reentrant.load({search:'retired',offset:0});await nested;assert.deepEqual(searches,['latest']);assert.equal(reentrant.current.query.search,'latest');assert.equal(reentrant.status,'ready');reentrant.dispose();checks++;
+// The port owns its returned object and may reuse it while readback is in flight.
+// Verification must compare against the receipt captured before that asynchronous work.
+{
+ let writes=0,reads=0;const external={itemId:item.id,version:2,action:'edit',expected:{title:'Saved'}};
+ const session=new WorkModuleSession(scope,'tasks',{
+  read:async()=>snapshot,
+  mutate:async()=>{writes++;return external;},
+  readItem:async()=>{reads++;if(reads===1){external.expected.title='Incorrect';return{...snapshot,items:[{...item,version:2,title:'Incorrect'}]};}return{...snapshot,items:[{...item,version:2,title:'Saved'}]};}
+ });
+ await session.load();await assert.rejects(()=>session.submit(item.id,'edit',{title:'Saved'},1),error=>error.code==='conflict');
+ assert.equal(session.current.pending,true);assert.equal(session.current.snapshot.items[0].title,'Original');
+ await session.retryPending();assert.equal(session.status,'success');assert.equal(session.current.snapshot.items[0].title,'Saved');assert.equal(writes,1);assert.equal(reads,2);session.dispose();checks++;
+}
+// Query state belongs to the session, even when a port retains/reuses its read argument.
+{
+ let captured;
+ const session=new WorkModuleSession(scope,'tasks',{
+  read:async query=>{captured=query;query.search='Port replacement';query.offset=900;return snapshot;},
+  mutate:async()=>{throw Error('unexpected mutation');},readItem:async()=>snapshot
+ });
+ const query={search:'Requested',offset:100};await session.load(query);
+ query.search='Caller replacement';captured.search='Later port replacement';
+ assert.deepEqual(session.current.query,{search:'Requested',offset:100});assert.equal(session.status,'ready');session.dispose();checks++;
+}
 console.log(`PASS work receipt regressions: ${checks} cases; acknowledged retries read only, drafts retained, denial clears data, rejected writes unlock`);
