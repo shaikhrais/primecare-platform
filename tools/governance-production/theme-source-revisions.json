@@ -24,31 +24,51 @@
     {
       "path": "packages/primecare_ui/web/shell.ts",
       "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
-      "currentSha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1",
-      "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
+      "currentSha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+      "sourceCommit": "ecc69c1be3176ddd157ded368f738c445ad80895",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        "scope": "PC-02 resolved-direction shell consumer; five binder tests passed locally; exact browser/native pending. No runtime activation or human approval."
       },
       "previousRevision": {
         "path": "packages/primecare_ui/web/shell.ts",
         "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
-        "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
-        "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+        "currentSha256": "2c427d2b282412a2defdecf38f2f6510d1e4818ffe6ccc86047ad95f576d98f1",
+        "sourceCommit": "39671f3672b3fe30175685e39618dd29bf0cdf17",
         "verification": {
-          "run": 41483421280,
-          "browserJob": 125407379803,
-          "modelChecks": 2,
-          "browserCases": 12,
-          "scope": "Isolated shared-shell footer/description binding in EN/FR/ES, LTR/RTL at390/1440px; actual tenant/PostgreSQL acceptance41483793034; not production or human approval"
+          "status": "source_revision_only_runtime_unverified",
+          "scope": "Reviewed source-library/theme migrations and retained account ownership guards; no production registration, runtime activation or human approval."
+        },
+        "previousRevision": {
+          "path": "packages/primecare_ui/web/shell.ts",
+          "originalSha256": "7d54905c98f4ecb5f88225c9f757584e3cfaa482ccfc794a43840e9cc001b0d2",
+          "currentSha256": "64f8c56269aeb05023108e98dea2b933bfd272b88a7ad039b3d30e169e59cbce",
+          "sourceCommit": "1f5c4030e2bd004dcf1e5975a31234acd78d72af",
+          "verification": {
+            "run": 41483421280,
+            "browserJob": 125407379803,
+            "modelChecks": 2,
+            "browserCases": 12,
+            "scope": "Isolated shared-shell footer/description binding in EN/FR/ES, LTR/RTL at390/1440px; actual tenant/PostgreSQL acceptance41483793034; not production or human approval"
+          }
         }
       }
     },
     {
       "path": "packages/primecare_ui/web/original-assets.ts",
       "originalSha256": "e6af7e439b434455c49945d09fd99988e1472b5a2accff2726ef7d642199ca38",
-      "currentSha256": "221fdeadf994583d9477800c0ed016ddc4f009fe823a4e4228b4a745cb674f9c",
-      "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      "currentSha256": "10d2762a4fc15a33ede09a489bc0e7832a6e2688e7bfdde0363d44aae1f99344",
+      "sourceCommit": "47928bcf33c60666edb506eca15883c9ce431fca",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "PC-07 immutable generated lookup maps; model/shell/integrity tests and canonical generator round-trip passed locally; exact runtime pending. No runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/primecare_ui/web/original-assets.ts",
+        "originalSha256": "e6af7e439b434455c49945d09fd99988e1472b5a2accff2726ef7d642199ca38",
+        "currentSha256": "221fdeadf994583d9477800c0ed016ddc4f009fe823a4e4228b4a745cb674f9c",
+        "sourceCommit": "77198f02dddc68998a6bfe03a604eb632202b820"
+      }
     },
     {
       "path": "packages/primecare_ui/web/theme-center.ts",
@@ -155,6 +175,26 @@
       "verification": {
         "status": "source_revision_only_runtime_unverified",
         "scope": "PC-02 reviewed search lifecycle;10 local lifecycle regressions plus3 navigation model tests and TypeScript passed. Exact browser/native CI pending. No runtime activation or human approval."
+      }
+    },
+    {
+      "path": "packages/primecare_ui/web/workspace-layout.ts",
+      "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
+      "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
+      "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+      }
+    },
+    {
+      "path": "scripts/test-workspace-layout.mjs",
+      "originalSha256": "41b73645306d88d33398ff908f76ba2f9b5eb4b21d772856bf51a2f65c5c72ac",
+      "currentSha256": "b4a85903e3f8ad05ca9b490bf2385b8bc6fef934866f62bbd8c5951355aa6801",
+      "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+      "verification": {
+        "status": "source_revision_only_runtime_unverified",
+        "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
       }
     }
   ]

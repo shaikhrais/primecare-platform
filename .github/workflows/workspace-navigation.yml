@@ -6,6 +6,8 @@ on:
       - 'packages/domain/src/workspace_navigation.ts'
       - 'packages/primecare_ui/web/navigation.ts'
       - 'packages/primecare_ui/web/layout-manager.ts'
+      - 'packages/primecare_ui/web/workspace-layout.ts'
+      - 'scripts/test-workspace-layout-slots.mjs'
       - 'scripts/test-workspace-layout-lifecycle.mjs'
       - 'packages/primecare_ui/web/workspace-navigation*.ts'
       - 'packages/flutter_core/lib/navigation/**'
@@ -29,7 +31,7 @@ jobs:
           ln -s /tmp/nav-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/test-workspace-navigation-model.mjs
-          node --test scripts/test-workspace-navigation-search.mjs scripts/test-workspace-navigation-ownership.mjs scripts/test-workspace-layout-lifecycle.mjs
+          node --test scripts/test-workspace-navigation-search.mjs scripts/test-workspace-navigation-ownership.mjs scripts/test-workspace-layout-lifecycle.mjs scripts/test-workspace-layout-slots.mjs
           node scripts/test-workspace-navigation-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/workspace-navigation.ts packages/primecare_ui/web/navigation.ts packages/primecare_ui/web/layout-manager.ts
       - uses: actions/upload-artifact@v4

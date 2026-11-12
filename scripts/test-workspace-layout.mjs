@@ -18,6 +18,16 @@ const out='artifacts/workspace-layout';await mkdir(out,{recursive:true});
 try {
   await page.goto(origin+'/?enable-semantics=true');
   await page.locator('[data-cy=test-input]').fill('Unsaved client note');
+  await page.evaluate(()=>{
+    const external=document.createElement('section');external.textContent='External owner';document.body.append(external);
+    const navigation=slots.navigation,panel=slots.panels.schedule,history=manager.history;
+    try{
+      slots.navigation=external;slots.panels.schedule=external;
+      manager.change({...manager.current,toolbar:manager.current.toolbar==='top'?'bottom':'top'});
+      if(external.parentElement!==document.body||!document.querySelector('#shell').contains(navigation)||!document.querySelector('#shell').contains(panel))throw Error('Caller slot mutation replaced authorized workspace membership');
+      if(document.querySelector('[data-cy=test-input]').value!=='Unsaved client note')throw Error('Slot snapshot lost the live draft');
+    }finally{slots.navigation=navigation;slots.panels.schedule=panel;manager.restoreHistory(history);external.remove();}
+  });
   const summary=await page.evaluate(()=>{
     const m=window.manager;const input=document.querySelector('[data-cy=test-input]');const main=window.slots.main;let clicks=0;input.addEventListener('click',()=>clicks++);
     for(const navigation of ['left','right','top','bottom','hidden'])for(const container of ['fullwidth','boxed','content'])for(const toolbar of ['top','bottom'])for(const scroll of ['page','content']) {
@@ -79,7 +89,7 @@ try {
   await page.setViewportSize({width:1500,height:960});
   await page.screenshot({path:out+'/layout-lab.png'});
   assert.deepEqual(errors,[]);
-  const result={...summary,pointerDrag:true,keyboardDockMoveResize:true,cancelGesture:true,viewportClamping:true,mobileReflow:true,persistence:true,accountIsolation:true,dispose:true,previewControls:true,productionMounted:false};
+  const result={...summary,validatedSlotMembership:true,pointerDrag:true,keyboardDockMoveResize:true,cancelGesture:true,viewportClamping:true,mobileReflow:true,persistence:true,accountIsolation:true,dispose:true,previewControls:true,productionMounted:false};
   await writeFile(out+'/results.json',JSON.stringify(result,null,2));
   console.log(JSON.stringify(result));
 } finally {await context.close();await browser.close();await new Promise(resolve=>server.close(resolve));}

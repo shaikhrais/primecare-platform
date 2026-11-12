@@ -51,5 +51,10 @@ export function bindShell(root:HTMLElement,title:string,locale:NavigationLocale,
  if(!profileScope||!workspaceOptions)clearWorkspaceCustomizer(root);
  if(!profileScope){clearLayoutCustomizer(root);mountPresentationLayout(root,defaultTheme);}
  if(profileScope)mountLayoutCustomizer(root,profileScope,locale,defaultTheme,workspaceOptions,presentationCurrent);
- for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','refresh'],['[data-cy=platform-logout]','logout']] as const){const action=root.querySelector(selector);if(action&&!action.querySelector('svg'))action.insertAdjacentHTML('afterbegin',shellIcon(icon));}
+ const rtl=root.ownerDocument.defaultView!.getComputedStyle(root).direction==='rtl';
+ for(const [selector,icon] of [['[data-cy=platform-account-link]','user-circle'],['[data-cy=platform-refresh]','refresh'],['[data-cy=platform-logout]','logout']] as const){
+  const action=root.querySelector(selector);if(!action)continue;const existing=action.querySelector('svg');
+  if(!existing)action.insertAdjacentHTML('afterbegin',shellIcon(icon,{rtl}));
+  else if(existing.classList.contains('shell-icon'))existing.outerHTML=shellIcon(icon,{rtl});
+ }
 }

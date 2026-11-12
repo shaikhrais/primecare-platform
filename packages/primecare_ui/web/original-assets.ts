@@ -1,5 +1,5 @@
 /** GENERATED from canonical SVGs by scripts/build-original-assets.py. */
-export const primeCareIconPaths = {
+export const primeCareIconPaths = Object.freeze({
   "accessibility": "<circle cx=\"12\" cy=\"4\" r=\"2\"/><path d=\"m4 9 8 2 8-2m-8 2v5m0 0-5 6m5-6 5 6\"/>",
   "add": "<path d=\"M12 4v16M4 12h16\"/>",
   "appointment": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"3\"/><path d=\"M7 3v4m10-4v4M3 10h18m-13 6 3 3 6-6\"/>",
@@ -105,8 +105,8 @@ export const primeCareIconPaths = {
   "video": "<rect x=\"3\" y=\"5\" width=\"12\" height=\"14\" rx=\"3\"/><path d=\"m15 10 6-4v12l-6-4\"/>",
   "warning": "<path d=\"m12 3 10 18H2Zm0 6v5m0 3h.01\"/>",
   "workflow": "<rect x=\"8\" y=\"2\" width=\"8\" height=\"5\" rx=\"1\"/><rect x=\"2\" y=\"17\" width=\"7\" height=\"5\" rx=\"1\"/><rect x=\"15\" y=\"17\" width=\"7\" height=\"5\" rx=\"1\"/><path d=\"M12 7v5M5 17v-5h14v5\"/>"
-} as const;
+} as const);
 export type PrimeCareIconName = keyof typeof primeCareIconPaths;
-export const primeCareAssetAliases = {"building": "tenant", "building-plus": "tenant-add", "layout-dashboard": "dashboard", "users": "team", "clipboard-check": "care-plan", "shield-check": "shield", "map-2": "territory", "rocket": "launch", "school": "training", "menu-2": "menu", "x": "close", "file-text": "document", "adjustments-horizontal": "settings", "palette": "theme", "success": "check", "push-pin": "pin-panel", "expand-more": "chevron-down", "expand-less": "chevron-up", "calendar-today": "calendar", "access-time": "clock"} as const;
+export const primeCareAssetAliases = Object.freeze({"building": "tenant", "building-plus": "tenant-add", "layout-dashboard": "dashboard", "users": "team", "clipboard-check": "care-plan", "shield-check": "shield", "map-2": "territory", "rocket": "launch", "school": "training", "menu-2": "menu", "x": "close", "file-text": "document", "adjustments-horizontal": "settings", "palette": "theme", "success": "check", "push-pin": "pin-panel", "expand-more": "chevron-down", "expand-less": "chevron-up", "calendar-today": "calendar", "access-time": "clock"} as const);
 /** Decorative compatibility renderer. Name the enclosing control. */
 export function primeCareIcon(name:PrimeCareIconName):string {if(!Object.hasOwn(primeCareIconPaths,name))throw Error("Unknown PrimeCare icon");return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${primeCareIconPaths[name]}</svg>`;}

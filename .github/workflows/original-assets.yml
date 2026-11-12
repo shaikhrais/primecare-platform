@@ -8,6 +8,9 @@ on:
       - 'packages/primecare_ui/assets/original/**/*.json'
       - 'packages/primecare_ui/web/original-asset*'
       - 'packages/primecare_ui/web/icons.ts'
+      - 'packages/primecare_ui/web/shell.ts'
+      - 'scripts/test-workspace-shell-icons*.mjs'
+      - 'scripts/audit-original-asset-usage.py'
       - 'packages/primecare_ui/web/index.ts'
       - 'packages/primecare_ui/lib/original_assets.dart'
       - 'packages/primecare_ui/lib/src/theme/primecare_assets.dart'
@@ -33,13 +36,16 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix /tmp/asset-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
+          npm install --prefix /tmp/asset-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 linkedom@0.18.12 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
           ln -s /tmp/asset-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           python3 scripts/build-original-assets.py --check
           python3 scripts/test-original-asset-compiler.py
           node scripts/test-original-assets-model.mjs
-          node --test scripts/test-original-assets-shell.mjs
+          node --test scripts/test-original-assets-shell.mjs scripts/test-original-assets-integrity.mjs
+          node scripts/test-original-assets-audit.mjs
+          node --test scripts/test-workspace-shell-icons.mjs
+          node scripts/test-workspace-shell-icons-browser.mjs
           node scripts/test-original-assets-browser.mjs
           node scripts/test-workspace-navigation-model.mjs
           node scripts/test-workspace-navigation-browser.mjs

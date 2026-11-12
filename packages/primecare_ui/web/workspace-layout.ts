@@ -24,6 +24,8 @@ export class WorkspaceLayoutManager {
   private disposed = false;
   private gesture: {id:string; x:number; y:number; width:number; height:number; startX:number; startY:number; resize:boolean; before:WorkspaceLayout; pointer:number} | null = null;
   constructor(private root: HTMLElement, private slots: WorkspaceSlots, private storageKey: string, private storage: StoragePort = {getItem: key => root.ownerDocument.defaultView!.localStorage.getItem(key), setItem: (key,value) => root.ownerDocument.defaultView!.localStorage.setItem(key,value)}, initialProfile?:WorkspaceLayout) {
+    // Retain authorized node identities without retaining the caller's mutable descriptor.
+    slots = this.slots = {...slots, panels: {...slots.panels}};
     this.ids = Object.keys(slots.panels);
     this.defaults = initialProfile?validateWorkspaceLayout(initialProfile,this.ids):defaultWorkspaceLayout(this.ids);
     this.profile = structuredClone(this.defaults);

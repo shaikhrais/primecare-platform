@@ -8,6 +8,53 @@ const {PrimeComponentFactory}=await import('data:text/javascript;base64,'+Buffer
 const shellBuilt=await build({entryPoints:['packages/primecare_ui/web/shell-utilities.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {ShellUtilitiesView}=await import('data:text/javascript;base64,'+Buffer.from(shellBuilt.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+test('countdown rechecks disposal after caller clock callbacks before announcing completion',()=>{
+ for(const mode of ['timer','factory']){
+  const {kit,root}=fixture();let now=0,retire=false,finished=0,timer;const clock=()=>{if(retire){if(mode==='timer')timer.dispose();else kit.dispose();}return now;};
+  try{timer=kit.countdown(10000,{now:clock,onFinish:()=>finished++});root.append(timer.element);const value=timer.element.querySelector('[data-cy="component-catalogue-countdown-value"]');assert.equal(value.textContent,'10');retire=true;now=10001;timer.tick();assert.equal(finished,0);assert.equal(value.textContent,'10');}
+  finally{kit.dispose();}
+ }
+});
+test('countdown never schedules an interval after its initial clock disposes the factory',()=>{
+ const {kit}=fixture();const original=globalThis.setInterval;let intervals=0;globalThis.setInterval=()=>{intervals++;return 0;};
+ try{kit.countdown(10000,{now:()=>{kit.dispose();return 0;}});assert.equal(intervals,0);}
+ finally{globalThis.setInterval=original;kit.dispose();}
+});
+test('invalid asyncRegion scope fails synchronously without reserving its ID or starting work',async()=>{
+ for(const scope of ['', '  ', 'x'.repeat(1025)]){
+  const {kit,root,document}=fixture();let calls=0;const loader=async()=>{calls++;return 'ready';};const render=value=>{const p=document.createElement('p');p.textContent=value;return p;};
+  try{assert.throws(()=>kit.asyncRegion('card',scope,loader,render),/invalid_async_scope/);assert.equal(calls,0);assert.equal(root.childElementCount,0);
+   const region=kit.asyncRegion('card','corrected',loader,render);root.append(region.element);await settle();assert.equal(calls,1);assert.equal(region.element.textContent,'ready');
+  }finally{kit.dispose();}
+ }
+});
+test('invalid dropdown options do not consume the registered ID before corrected construction',()=>{
+ for(const options of [[{value:'duplicate',label:'One'},{value:'duplicate',label:'Two'}],Array.from({length:101},(_,i)=>({value:String(i),label:String(i)}))]){
+  const {kit,root}=fixture();try{assert.throws(()=>kit.select('select',options,()=>{}),/Invalid selection options/);root.append(kit.select('select',[{value:'valid',label:'Valid'}],()=>{}));assert.equal(root.querySelectorAll('select').length,1);}finally{kit.dispose();}
+ }
+});
+test('oversized menu rejection preserves construction and callback ownership for a valid retry',()=>{
+ const {kit,root}=fixture();let calls=0;
+ try{assert.throws(()=>kit.menu(Array.from({length:101},(_,i)=>({label:String(i),action:()=>{calls++;}}))),/Bounded menu required/);root.append(kit.menu(Array.from({length:100},(_,i)=>({label:String(i),action:()=>{calls++;}}))));assert.equal(root.querySelectorAll('[role=menuitem]').length,100);assert.equal(calls,0);}
+ finally{kit.dispose();}
+});
+test('asyncRegion reports render errors and recovers without leaking rejected updates',async()=>{
+ const {kit,root,document}=fixture();const render=value=>{if(value==='broken')throw Error('renderer');const p=document.createElement('p');p.textContent=value;return p;};
+ try{const region=kit.asyncRegion('card','initial',async()=> 'initial',render);root.append(region.element);await settle();
+  await region.load('broken',async()=> 'broken');assert.equal(region.element.getAttribute('role'),'alert');assert.equal(region.element.textContent,kit.text('error'));assert.equal(region.element.getAttribute('aria-busy'),null);
+  await region.load('recovered',async()=> 'recovered');assert.equal(region.element.textContent,'recovered');assert.equal(region.element.getAttribute('role'),null);
+ }finally{kit.dispose();}
+});
+test('a retired renderer error cannot overwrite newer loading state or disposed content',async()=>{
+ for(const mode of ['replace','dispose']){
+  const {kit,root,document}=fixture();let region,pending,finish;
+  const render=value=>{if(value==='broken'){if(mode==='replace')pending=region.load('newest',()=>new Promise(resolve=>finish=resolve));else{region.dispose();region.element.textContent='retained disposed content';}throw Error('retired renderer');}const p=document.createElement('p');p.textContent=value;return p;};
+  try{region=kit.asyncRegion('card','initial',async()=> 'initial',render);root.append(region.element);await settle();await region.load('broken',async()=> 'broken');
+   assert.equal(region.element.getAttribute('role'),null);assert.equal(region.element.textContent,mode==='replace'?kit.text('loading'):'retained disposed content');
+   if(pending){finish('newest');await pending;assert.equal(region.element.textContent,'newest');}
+  }finally{kit.dispose();}
+ }
+});
 test('shared buttons cannot dispatch from outside their owner slot or after queued relocation',async()=>{
  for(const mode of ['detached','moved','queued-move']){
   const {kit,root,document,Event}=fixture();let calls=0;const outside=document.createElement('section');document.body.append(outside);const button=kit.button('button',()=>{calls++;});

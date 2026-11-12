@@ -31,7 +31,7 @@ void main(){final fixture=jsonDecode(File('test/dashboard_widgets/model-fixtures
   final port=MemoryPort(DashboardSnapshot(scope,'fixture',2,defaults)),s=session(port);await s.load();
   if(dirty)s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));
   final before=s.document.toJson();
-  port.state=DashboardSnapshot(scope,'fixture',1,DashboardLayout.fromJson({'version':1,'views':{'small':[],'wide':[]}},widgets,views));
+  port.state=DashboardSnapshot(scope,'fixture',1,DashboardLayout.fromJson({'version':1,'views':{'small':<Object?>[],'wide':<Object?>[]}},widgets,views));
   await s.load();expect(s.status,'error');expect(s.revision,2);expect(s.document.toJson(),before);expect(s.loaded,true);
   port.state=DashboardSnapshot(scope,'fixture',3,defaults);await s.load();expect(s.status,'clean');expect(s.revision,3);expect(s.document.toJson(),defaults.toJson());s.dispose();
  });
@@ -39,7 +39,7 @@ void main(){final fixture=jsonDecode(File('test/dashboard_widgets/model-fixtures
  for(final dirty in [false,true])test('same revision cannot replace known ${dirty?'draft baseline':'saved content'}',()async{
   final port=MemoryPort(DashboardSnapshot(scope,'fixture',2,defaults)),s=session(port);await s.load();
   if(dirty)s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));final before=s.document.toJson();
-  port.state=DashboardSnapshot(scope,'fixture',2,DashboardLayout.fromJson({'version':1,'views':{'small':[],'wide':[]}},widgets,views));
+  port.state=DashboardSnapshot(scope,'fixture',2,DashboardLayout.fromJson({'version':1,'views':{'small':<Object?>[],'wide':<Object?>[]}},widgets,views));
   await s.load();expect(s.status,'error');expect(s.revision,2);expect(s.document.toJson(),before);
   port.state=DashboardSnapshot(scope,'fixture',2,defaults);await s.load();expect(s.status,'clean');
   s.edit(editDashboard(defaults,'wide','remove','metric',widgets,views));await s.save();expect(s.revision,3);final saved=s.document.toJson();

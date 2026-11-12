@@ -62,7 +62,112 @@
     "docs/appearance/original-asset-usage/part-012.json",
     "docs/appearance/original-asset-usage/part-013.json"
   ],
-  "remainingFrameworkFileCount": 2539,
+  "remainingFrameworkFileCount": 2538,
   "allAppMigrationClaimed": false,
-  "perAppCopiesAdded": false
+  "perAppCopiesAdded": false,
+  "sharedWebStaticCallSources": [
+    {
+      "path": "packages/primecare_ui/web/layout-customizer.ts",
+      "sha256": "e90fb60802be87c8a6535705efa2b340715c5c3be247f7f18f21dae654824dcf",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "palette",
+          "canonical": "theme"
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/web/navigation.ts",
+      "sha256": "d2a5011b9893b25f28aa119a2d983522cb9c7709b6369555fdd7a870aa883ad9",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "search",
+          "canonical": "search"
+        }
+      ]
+    },
+    {
+      "path": "packages/primecare_ui/web/shell.ts",
+      "sha256": "2d7bf6e74cd95b7799f9b030f197bf5a91f40cd59ab4bbed79d78dcaabbe91a5",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "menu-2",
+          "canonical": "menu"
+        },
+        {
+          "factory": "shellIcon",
+          "key": "x",
+          "canonical": "close"
+        }
+      ]
+    },
+    {
+      "path": "websites/typescript/src/admin-sidebar-menu.ts",
+      "sha256": "1e1292b47dcd8b58e845c317102d657c0089bb65da4704f24286639d50c8cc4d",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "settings",
+          "canonical": "settings"
+        }
+      ]
+    },
+    {
+      "path": "websites/typescript/src/admin-topbar.ts",
+      "sha256": "5ec40a5caa6d306036f4a35cc73d8404c295bdc858724e9c1efc40363dbe2626",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "chevron-down",
+          "canonical": "chevron-down"
+        }
+      ]
+    },
+    {
+      "path": "websites/typescript/src/platform-admin.ts",
+      "sha256": "52fc5c1dfffdc81191c8f70b068ae9167e9ab7b5204e5de824585d5a7a7b1992",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "building",
+          "canonical": "tenant"
+        },
+        {
+          "factory": "shellIcon",
+          "key": "building-plus",
+          "canonical": "tenant-add"
+        },
+        {
+          "factory": "shellIcon",
+          "key": "chevron-down",
+          "canonical": "chevron-down"
+        },
+        {
+          "factory": "shellIcon",
+          "key": "clipboard-check",
+          "canonical": "care-plan"
+        },
+        {
+          "factory": "shellIcon",
+          "key": "user-circle",
+          "canonical": "user-circle"
+        }
+      ]
+    },
+    {
+      "path": "websites/typescript/src/tenant-dashboard/index.ts",
+      "sha256": "d57ba9dd3f05aa451fb10d1293401583b81ac5ab9a9921ce7d18bd6854cee570",
+      "calls": [
+        {
+          "factory": "shellIcon",
+          "key": "user-circle",
+          "canonical": "user-circle"
+        }
+      ]
+    }
+  ],
+  "webInventoryMethod": "lexical direct named factory calls with literal keys only; not runtime adoption, import binding proof or complete wrapper/dynamic coverage; canonical null means unresolved"
 }
