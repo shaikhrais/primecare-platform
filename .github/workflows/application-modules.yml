@@ -6,6 +6,11 @@ on:
     paths:
       - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/shared/src/guarded-json.ts'
+      - 'packages/domain/src/preference_sync.ts'
+      - 'packages/shared/src/preference-sync/**'
+      - 'packages/flutter_core/lib/preference_sync*'
+      - 'packages/flutter_core/lib/preference_sync/**'
+      - 'scripts/test-preference-*.mjs'
       - 'packages/domain/src/work_modules.ts'
       - 'packages/shared/src/work-modules/**'
       - 'packages/shared/src/application-modules/**'

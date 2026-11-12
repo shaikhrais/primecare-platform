@@ -5,6 +5,10 @@ on:
     paths:
       - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/domain/src/shell_utilities.ts'
+      - 'packages/domain/src/preference_sync.ts'
+      - 'packages/shared/src/preference-sync/**'
+      - 'packages/flutter_core/lib/preference_sync*'
+      - 'packages/flutter_core/lib/preference_sync/**'
       - 'packages/shared/src/shell-utilities/**'
       - 'packages/primecare_ui/web/shell-utilities.ts'
       - 'packages/primecare_ui/web/shell-environment.ts'
