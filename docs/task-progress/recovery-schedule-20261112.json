@@ -232,7 +232,7 @@
         1,
         2
       ],
-      "status": "pending",
+      "status": "waiting_ci",
       "batches": [
         "B02",
         "B04",
@@ -242,7 +242,8 @@
       ],
       "completed_at": null,
       "evidence": [],
-      "blocker": null
+      "blocker": null,
+      "implementation_note": "Shared tooltip hover/focus overlap repair published with lifecycle regression and actual-browser coverage; exact publication CI must pass before milestone completion."
     },
     {
       "id": "M03",

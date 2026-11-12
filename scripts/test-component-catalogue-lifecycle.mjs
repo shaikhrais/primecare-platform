@@ -107,6 +107,18 @@ test('shared tabs skip a disabled first item and preserve active-panel relations
  }finally{kit.dispose();}
 });
 
+test('tooltip keeps help visible while either keyboard focus or pointer hover remains',()=>{
+ const {kit,root,Event}=fixture();root.append(kit.tooltip('Retained help'));const trigger=root.querySelector('[data-cy=component-catalogue-tooltip-trigger]'),tip=root.querySelector('[role=tooltip]');
+ const fire=name=>trigger.dispatchEvent(new Event(name));
+ try{fire('focus');fire('pointerenter');fire('pointerleave');assert.equal(tip.hidden,false,'keyboard focus must survive pointer departure');fire('blur');assert.equal(tip.hidden,true);
+  fire('pointerenter');fire('focus');fire('blur');assert.equal(tip.hidden,false,'pointer hover must survive keyboard blur');fire('pointerleave');assert.equal(tip.hidden,true);
+ }finally{kit.dispose();}
+});
+test('Escape dismisses tooltip until a new interaction without focus or pointer departure reopening it',()=>{
+ const {kit,root,Event}=fixture();root.append(kit.tooltip('Dismissible help'));const trigger=root.querySelector('[data-cy=component-catalogue-tooltip-trigger]'),tip=root.querySelector('[role=tooltip]');const fire=name=>trigger.dispatchEvent(new Event(name));
+ try{fire('focus');fire('pointerenter');const escape=new Event('keydown');escape.key='Escape';trigger.dispatchEvent(escape);assert.equal(tip.hidden,true);fire('pointerleave');assert.equal(tip.hidden,true);fire('blur');assert.equal(tip.hidden,true);fire('focus');assert.equal(tip.hidden,false);}finally{kit.dispose();}
+});
+
 function modalFixture(key,confirm){
  const f=fixture();const group=f.kit.modal(key,f.document.createElement('p'),confirm);f.root.append(group);
  const dialog=group.querySelector('dialog'),trigger=group.querySelector('button');let focused=null,closes=0;
