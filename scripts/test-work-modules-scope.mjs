@@ -138,4 +138,46 @@ for(const denied of [
 for(const module of ['mailbox','help','unregistered']){
  assert.throws(()=>new TenantTaskModulePort(original,module,async()=>raw),error=>error.code==='invalid');checks++;
 }
+// Cancellation before invocation must not dispatch or cache an uncertain mutation.
+for(const mode of ['mutate','readItem'])for(const reason of ['abort','dispose']){
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};let calls=0;
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{calls++;return{...raw,tasks:[{...task,version:request.method==='POST'?2:1}],taskPage:{total:1}};});
+ const controller=new AbortController();await port.read({search:'',offset:0},controller.signal);calls=0;
+ if(reason==='abort')controller.abort();else port.dispose();
+ await assert.rejects(()=>mode==='readItem'?port.readItem(task.id,controller.signal):port.mutate({itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}},'11111111-1111-4111-8111-111111111111',controller.signal),error=>error.code==='unavailable');
+ assert.equal(calls,0,`${reason} ${mode} must not dispatch`);port.dispose();checks++;
+}
+// Invalid request keys never reach the wire or occupy the adapter's replay cache.
+for(const key of [undefined,'','not-a-request-key','11111111-1111-1111-8111-111111111111']){
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};let posts=0;
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{if(request.method==='POST')posts++;return{...raw,tasks:[{...task,version:request.method==='POST'?2:1}],taskPage:{total:1}};});
+ const signal=new AbortController().signal;await port.read({search:'',offset:0},signal);
+ await assert.rejects(()=>port.mutate({itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}},key,signal),error=>error.code==='invalid');
+ assert.equal(posts,0);port.dispose();checks++;
+}
+// The adapter accepts only the same bounded query shape as its session/native peer.
+for(const query of [{search:'x'.repeat(101),offset:0},{search:[],offset:0},...[-1,0.5,NaN,Infinity,100001].map(offset=>({search:'',offset}))]){
+ let calls=0;const port=new TenantTaskModulePort(original,'tasks',async()=>{calls++;return raw;});
+ await assert.rejects(()=>port.read(query,new AbortController().signal),error=>error.code==='invalid');assert.equal(calls,0);port.dispose();checks++;
+}
+// A caller may reuse its command while transport is pending; acknowledgment stays bound.
+{
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};let finish;
+ const port=new TenantTaskModulePort(original,'tasks',request=>request.method==='POST'?new Promise(resolve=>{finish=resolve;}):Promise.resolve({...raw,tasks:[task],taskPage:{total:1}}));
+ const signal=new AbortController().signal;await port.read({search:'',offset:0},signal);
+ const command={itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}};
+ const pending=port.mutate(command,'11111111-1111-4111-8111-111111111111',signal);
+ command.itemId='other-task';command.version=99;command.action='start';command.fields.title='Later draft';
+ finish({...raw,tasks:[{...task,version:2,title:'Saved'}],taskPage:{total:1}});
+ assert.deepEqual(await pending,{itemId:task.id,version:2,action:'edit',expected:{title:'Saved',body:'Instructions',date:'2026-11-12'}});port.dispose();checks++;
+}
+// Equivalent field/key order is the same original command, not a replay conflict.
+{
+ const task={id:'task-a',version:1,title:'Task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};const keys=[];let posts=0;
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{if(request.method==='POST'){keys.push(request.requestId);if(++posts===1)throw Error('lost acknowledgment');}return{...raw,tasks:[{...task,version:request.method==='POST'?2:1}],taskPage:{total:1}};});
+ const signal=new AbortController().signal,key='11111111-1111-4111-8111-111111111111';await port.read({search:'',offset:0},signal);
+ await assert.rejects(()=>port.mutate({itemId:task.id,version:1,action:'edit',fields:{title:'Saved',body:'Instructions',date:'2026-11-12'}},key,signal));
+ const receipt=await port.mutate({fields:{date:'2026-11-12',body:'Instructions',title:'Saved'},action:'edit',version:1,itemId:task.id},key,signal);
+ assert.equal(receipt.itemId,task.id);assert.deepEqual(keys,[key,key]);port.dispose();checks++;
+}
 console.log(`PASS tenant work scope: ${checks} cases; immutable actor/dataset binding and foreign response denial`);

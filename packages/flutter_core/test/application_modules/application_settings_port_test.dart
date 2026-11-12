@@ -7,6 +7,13 @@ class SettingsCache implements PreferenceCache{
  @override Future<void> write(String key,String value)async{if(denied)throw StateError('denied');data[key]=value;}
  @override Future<void> remove(String key)async{data.remove(key);}
 }
+class PausingSettingsCache extends SettingsCache {
+ final staged=Completer<void>(),resume=Completer<void>();bool pause=false;
+ @override Future<void> write(String key,String value)async{
+  await super.write(key,value);
+  if(pause){pause=false;staged.complete();await resume.future;}
+ }
+}
 class SettingsWire extends http.BaseClient{
  final Future<http.StreamedResponse> Function(http.BaseRequest) handler;bool closed=false;SettingsWire(this.handler);
  @override Future<http.StreamedResponse> send(http.BaseRequest request)=>handler(request);
@@ -54,6 +61,18 @@ void main(){
  });
  test('wrong-account owned snapshots become denied rather than retryable errors',()async{
   final raw=clone((oracle['cases'] as List).first['raw']);raw['scope']={...scope.toJson(),'userId':'other'};final p=port((_)async=>raw),s=WorkModuleSession(scope,'settings',port:p);await s.load();expect(s.status,'denied');expect(s.snapshot,isNull);s.dispose();
+ });
+ test('disposal during durable draft staging reports unavailable and sends no write',()async{
+  final c=(oracle['mutations'] as List).first as Map,cache=PausingSettingsCache();var writes=0,closes=0;
+  final p=ApplicationSettingsPort(binding:binding,transport:(r)async{if(r['action']=='write')writes++;return clone(c['initial']);},cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:()=>closes++);
+  await p.read(const WorkQuery());cache.pause=true;
+  final pending=p.mutate(command(c['command'] as Map),c['key'] as String);
+  await cache.staged.future;
+  expect(jsonDecode(cache.data.values.single)['dirty'],true);
+  final failure=expectLater(pending,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));
+  p.dispose();p.dispose();cache.resume.complete();await failure;
+  expect(writes,0);expect(closes,1);
+  await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));
  });
  test('late responses are suppressed after native port disposal',()async{
   final reply=Completer<Object?>(),p=port((_)=>reply.future),pending=p.read(const WorkQuery());await Future<void>.delayed(Duration.zero);p.dispose();reply.complete((oracle['cases'] as List).first['raw']);await expectLater(pending,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));

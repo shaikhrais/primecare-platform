@@ -44,7 +44,15 @@ class _PrimeTypedFieldState extends State<_PrimeTypedField> {
  @override Widget build(BuildContext context){final w=widget,labels=w.labels,kind=w.kind,controller=w.controller,pattern=w.pattern;
   return labels.identify(kind,'prime_text_field',PrimeTextFormField(controller:controller,enabled:w.enabled,keyboardType:kind=='number'?const TextInputType.numberWithOptions(decimal:true,signed:true):kind=='date'||kind=='time'?TextInputType.datetime:TextInputType.text,
    decoration:InputDecoration(labelText:labels.text(kind),suffixIcon:kind=='time'||kind=='date'&&w.firstDate!=null&&w.lastDate!=null?Semantics(identifier:'${labels.id(kind,'prime_text_field')}-picker',child:PrimeIconButton(tooltip:labels.text(kind),icon:PrimeOriginalAsset(kind=='date'?'calendar':'clock'),onPressed:w.enabled&&!_picking?_pick:null)):null),
-   onChanged:kind=='mask'&&pattern!=null?(v){final formatted=formatMask(v,pattern);if(v!=formatted)controller.value=TextEditingValue(text:formatted,selection:TextSelection.collapsed(offset:formatted.length));}:null,
+   onChanged:kind=='mask'&&pattern!=null?(v){
+    final formatted=formatMask(v,pattern);
+    if(v!=formatted){
+     final previous=controller.value,selection=previous.selection;
+     final valid=selection.isValid&&selection.baseOffset<=v.length&&selection.extentOffset<=v.length;
+     final next=valid?TextSelection(baseOffset:formatMask(v.substring(0,selection.baseOffset),pattern).length,extentOffset:formatMask(v.substring(0,selection.extentOffset),pattern).length,affinity:selection.affinity,isDirectional:selection.isDirectional):TextSelection.collapsed(offset:formatted.length);
+     controller.value=previous.copyWith(text:formatted,selection:next,composing:TextRange.empty);
+    }
+   }:null,
    validator:(v){final error=fieldError(v??'',kind,required:w.required,min:w.min,max:w.max,step:w.step,pattern:w.pattern);return error==null?null:labels.text(error);}));
  }
 }

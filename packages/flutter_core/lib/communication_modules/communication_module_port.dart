@@ -84,17 +84,18 @@ class CommunicationModulePort implements WorkPort {
       pending=_PendingMessage(command,(raw['messages'] as List).cast<Map<dynamic,dynamic>>().length);_pending[key]=pending;}
     Map<String,Object?> ack;
     try{ack=command.action=='send'?await _message.send(command.itemId,key,command.version,command.fields['body']!):await _message.markRead(command.itemId,key,command.version,pending.sequence);}
-    on WorkFailure catch(e){if([400,403,404,409].contains(e.status))_pending.remove(key);rethrow;}
+    on WorkFailure catch(e){if([400,401,403,404,409].contains(e.status))_pending.remove(key);rethrow;}
     _open();if(ack['id']!=command.itemId||ack['version']!=command.version+1)throw const WorkFailure('conflict',409);
     return WorkReceipt(command.itemId,command.version+1,command.action,command.action=='send'?{'body':command.fields['body']!.trim()}:{'meta':_word('read')});
   }
   @override Future<Object?> readItem(String id)async{
     _open();if(module!='messenger')throw const WorkFailure('denied',403);final raw=_conversation(await _message.read(id));_open();if(raw['id']!=id)throw const WorkFailure('denied',403);
+    final snapshot=_snapshot([_thread(raw)],0,1,false);
     final pending=_pending.entries.where((e)=>e.value.command.itemId==id).toList();
     if(pending.isNotEmpty){final entry=pending.last,p=entry.value,c=p.command;if(raw['version']!=c.version+1)throw const WorkFailure('conflict',409);
       if(c.action=='send'&&!(raw['messages'] as List).cast<Map<dynamic,dynamic>>().any((m)=>m['id']==entry.key&&m['authorId']==scope.userId&&m['text']==c.fields['body']!.trim())||
         c.action=='mark_read'&&(raw['readThrough'] as Map)[scope.userId]!=p.sequence)throw const WorkFailure('conflict',409);_pending.remove(entry.key);}
-    final snapshot=_snapshot([_thread(raw)],0,1,false);_records[id]=raw;return snapshot.toJson();
+    _records[id]=raw;return snapshot.toJson();
   }
   @override void dispose(){if(_dead)return;_dead=true;_epoch++;_records.clear();_pending.clear();_cursors.clear();closeTransport?.call();}
 }

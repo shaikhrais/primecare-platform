@@ -79,6 +79,38 @@ void main() {
       session.dispose();client.close();
     }
   });
+  test('loading invalidation prevents dispatch', () async {
+    var calls = 0;
+    final client = MockClient((_) async { calls++; return http.Response('{}', 200); });
+    final transport = DashboardPageTransport(origin: Uri.parse('https://fixture.test'), token: token, scope: scope,
+      currentToken: () => token, currentScope: () => scope, maxBytes: 262144, client: client);
+    final session = DashboardReadSession<String>(transport: transport, project: (_) => 'ready', projectionStatus: (p) => p);
+    session.addListener(() { if (session.status == 'loading') session.invalidate(); });
+    await session.load();expect(calls, 0);expect(session.status, 'denied');expect(session.projection, null);
+    session.dispose();client.close();
+  });
+  for (final phase in ['project', 'status']) {
+    test('$phase callback invalidation cannot restore a projection', () async {
+      final client = MockClient((_) async => http.Response('{}', 200));
+      final transport = DashboardPageTransport(origin: Uri.parse('https://fixture.test'), token: token, scope: scope,
+        currentToken: () => token, currentScope: () => scope, maxBytes: 262144, client: client);
+      late DashboardReadSession<String> session;
+      session = DashboardReadSession<String>(transport: transport,
+        project: (_) { if (phase == 'project') session.invalidate(); return 'ready'; },
+        projectionStatus: (p) { if (phase == 'status') session.invalidate(); return p; });
+      await session.load();expect(session.status, 'denied');expect(session.projection, null);
+      session.dispose();client.close();
+    });
+  }
+  test('failed request after account change reports denial', () async {
+    String? current = token;
+    final client = MockClient((_) async { current = 'changed'; throw StateError('offline'); });
+    final transport = DashboardPageTransport(origin: Uri.parse('https://fixture.test'), token: token, scope: scope,
+      currentToken: () => current, currentScope: () => scope, maxBytes: 262144, client: client);
+    final session = DashboardReadSession<String>(transport: transport, project: (_) => 'ready', projectionStatus: (p) => p);
+    await session.load();expect(session.status, 'denied');expect(session.projection, null);
+    session.dispose();client.close();
+  });
   test('invalid byte limits are rejected', () {
     for (final limit in [0, 1048577]) {
       expect(() => DashboardPageTransport(origin: Uri.parse('https://fixture.test'), token: token, scope: scope,

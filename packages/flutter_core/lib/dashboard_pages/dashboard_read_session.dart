@@ -88,17 +88,26 @@ class DashboardReadSession<P> extends ChangeNotifier {
     _status = 'loading';
     notifyListeners();
     try {
+      if (_dead || generation != _generation) return;
       final raw = await transport.read();
       if (_dead || generation != _generation) return;
       transport._guard();
+      if (_dead || generation != _generation) return;
       final next = project(raw);
+      if (_dead || generation != _generation) return;
+      final nextStatus = projectionStatus(next);
+      if (_dead || generation != _generation) return;
       transport._guard();
+      if (_dead || generation != _generation) return;
       _projection = next;
-      _status = projectionStatus(next);
+      _status = nextStatus;
     } catch (error) {
       if (_dead || generation != _generation) return;
+      Object failure = error;
+      try { transport._guard(); } catch (contextError) { failure = contextError; }
+      if (_dead || generation != _generation) return;
       _projection = null;
-      _status = error is DashboardReadFailure ? error.code : 'error';
+      _status = failure is DashboardReadFailure ? failure.code : 'error';
     }
     notifyListeners();
   }

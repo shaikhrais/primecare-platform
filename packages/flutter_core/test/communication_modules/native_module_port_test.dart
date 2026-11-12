@@ -29,6 +29,51 @@ void main(){
    await p.read(const WorkQuery());final receipt=await p.mutate(command(c['command'] as Map),c['key'] as String);expect(sent,c['request']);expect({'itemId':receipt.itemId,'version':receipt.version,'action':receipt.action,'expected':receipt.expected},c['receipt']);expect(await p.readItem('thread1'),c['readback']);p.dispose();
   }
  });
+ for(final value in oracle['mutations'] as List){final c=value as Map;
+  test('invalid ${((c['command'] as Map)['action'])} detail retains pending proof until valid snapshot',()async{
+   var reads=0;
+   final p=port('messenger',ModuleStub((_,r)async{
+    if(r['action']=='inbox')return {'items':[c['record']]};
+    if(r['action']!='read')return {'id':'thread1','version':3};
+    reads++;
+    if(reads==1)return {...clone(c['reply']),'businessReference':List.filled(501,'x').join()};
+    // Correct version alone is insufficient: original state lacks the sent
+    // message/read-through receipt. The pending proof must still reject it.
+    if(reads==2)return {...clone(c['record']),'version':3};
+    return clone(c['reply']);
+   }));
+   try{
+    await p.read(const WorkQuery());
+    await p.mutate(command(c['command'] as Map),c['key'] as String);
+    await expectLater(p.readItem('thread1'),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','invalid')));
+    await expectLater(p.readItem('thread1'),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','conflict')));
+    expect(await p.readItem('thread1'),c['readback']);
+    expect(reads,3);
+   }finally{p.dispose();}
+  });
+ }
+ for(final status in [400,401,403,404,409]){
+  test('definitive $status failures do not exhaust native pending capacity',()async{
+   final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().first;
+   var allowed=false,calls=0;
+   final p=port('messenger',ModuleStub((_,r)async{
+    if(r['action']=='inbox')return {'items':[c['record']]};
+    calls++;
+    if(!allowed)throw WorkFailure(status==409?'conflict':status==400?'invalid':'denied',status);
+    return {'id':'thread1','version':3};
+   }));
+   try{
+    await p.read(const WorkQuery());
+    final cmd=command(c['command'] as Map);
+    for(var i=0;i<12;i++){
+     await expectLater(p.mutate(cmd,'denied-key-$i'),throwsA(isA<WorkFailure>().having((e)=>e.status,'status',status)));
+    }
+    allowed=true;
+    final receipt=await p.mutate(cmd,c['key'] as String);
+    expect(receipt.version,3);expect(calls,13);
+   }finally{p.dispose();}
+  });
+ }
  test('uncertain sends replay the original key; acknowledged sends retry only verification',()async{
   final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().first;
   for(final lostAck in [true,false]){var changed=false,lost=true,writes=0;final requests=<Map<String,Object?>>[];
