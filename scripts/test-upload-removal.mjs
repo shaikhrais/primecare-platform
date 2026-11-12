@@ -4,6 +4,19 @@ const {UploadTask}=await import('data:text/javascript;base64,'+Buffer.from(bundl
 const policy={maxFiles:2,maxBytes:100,types:['text/plain']},files=[{name:'a.txt',size:5,type:'text/plain',handle:{}},{name:'b.txt',size:5,type:'text/plain',handle:{}}];
 async function uploaded(remove,read,safe=false){const task=new UploadTask('actor-session',policy,async()=>({receiptId:'r1'}),true,remove,read,safe);task.choose(files);await task.send();return task;}
 const state=present=>({scope:'actor-session',receiptId:'r1',present});
+for(const change of ['types','bytes','files'])test('upload retains construction '+change+' limits and receipt after caller policy mutation',async()=>{
+ const supplied={maxFiles:1,maxBytes:10,types:['text/plain']};let sends=0;const task=new UploadTask('actor-session',supplied,async()=>{sends++;return{receiptId:'r1'};});task.choose([files[0]]);await task.send();
+ let invalid;
+ if(change==='types'){supplied.types.push('text/html');invalid=[{...files[0],type:'text/html'}];}
+ else if(change==='bytes'){supplied.maxBytes=100;invalid=[{...files[0],size:11}];}
+ else{supplied.maxFiles=2;invalid=files;}
+ assert.throws(()=>task.choose(invalid),'construction policy cannot be widened by caller mutation');
+ assert.equal(task.status,'success');assert.equal(task.receiptId,'r1');assert.equal(task.progress,1);assert.deepEqual(task.files,[files[0]]);assert.equal(sends,1);task.dispose();
+});
+test('upload keeps allowed original types when caller clears or replaces its list',()=>{
+ const supplied={maxFiles:1,maxBytes:10,types:['text/plain']},task=new UploadTask('actor-session',supplied);
+ supplied.types.length=0;supplied.types=['text/html'];task.choose([files[0]]);assert.equal(task.status,'ready');assert.deepEqual(task.files,[files[0]]);task.dispose();
+});
 test('remove selection only before upload',async()=>{const task=new UploadTask('actor-session',policy,async()=>({receiptId:'r1'}));task.choose(files);task.removeSelection(0);assert.deepEqual(task.files.map(f=>f.name),['b.txt']);task.removeSelection(0);assert.equal(task.status,'idle');assert.throws(()=>task.removeSelection(0));task.choose(files);await task.send();assert.throws(()=>task.removeSelection(0));task.dispose();});
 test('delete success requires matching acknowledgement and independent absence',async()=>{let present=true,writes=0,reads=0;const task=await uploaded(async()=>{writes++;present=false;return{receiptId:'r1',removed:true};},async()=>{reads++;return state(present);});await task.removeUpload();assert.equal(task.status,'removed');assert.equal(writes,1);assert.equal(reads,1);assert.equal(task.receiptId,null);assert.deepEqual(task.files,[]);task.dispose();});
 test('acknowledged delete retries readback only after read failure',async()=>{let writes=0,reads=0;const task=await uploaded(async()=>{writes++;return{receiptId:'r1',removed:true};},async()=>{if(++reads===1)throw Error('offline');return state(false);});await task.removeUpload();assert.equal(task.status,'remove-error');assert.equal(task.receiptId,'r1');assert.equal(task.files.length,2);assert.throws(()=>task.choose(files));await task.removeUpload();assert.equal(task.status,'removed');assert.equal(writes,1);task.dispose();});

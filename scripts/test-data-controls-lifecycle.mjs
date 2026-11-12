@@ -31,6 +31,28 @@ test('actual form retry clears stale alert role and retains error/loading/succes
  button.dispatchEvent(new Event('click'));assert.equal(calls,2,'retry is serialized');finish();await settle();
  assert.equal(status.textContent,kit.text('success'));assert.equal(status.getAttribute('role'),'status');assert.equal(button.disabled,false);assert.equal(button.getAttribute('aria-busy'),null);
 });
+test('field keeps displayed numeric constraints after caller policy mutation',t=>{
+ const {root,kit}=fixture(t),constraint={required:true,min:1,max:5,step:1},field=kit.field('number',constraint);root.append(field.element);
+ Object.assign(constraint,{required:false,min:-10,max:100,step:.5});
+ assert.deepEqual([field.input.required,field.input.min,field.input.max,field.input.step],[true,'1','5','1']);
+ for(const value of ['', '0','1.5','6']){field.input.value=value;assert.equal(field.validate(),false,'original displayed constraint must reject '+value);}
+ field.input.value='3';assert.equal(field.validate(),true);assert.equal(field.input.getAttribute('aria-invalid'),'false');
+});
+test('mask keeps original pattern, validation and selection after caller policy mutation',t=>{
+ const {root,kit,Event}=fixture(t),constraint={required:true,pattern:'###-###'},field=kit.field('mask',constraint);root.append(field.element);
+ constraint.pattern='## ##';constraint.required=false;field.input.value='123456';field.input.selectionStart=3;field.input.selectionEnd=6;field.input.setSelectionRange=(start,end)=>{field.input.selectionStart=start;field.input.selectionEnd=end;};
+ field.input.dispatchEvent(new Event('input'));assert.equal(field.input.value,'123-456');assert.deepEqual([field.input.selectionStart,field.input.selectionEnd],[3,7]);assert.equal(field.validate(),true);
+ field.input.value='';assert.equal(field.validate(),false);
+});
+for(const change of ['array','descriptor'])test('form retains rendered validation and input ownership after caller '+change+' mutation',async t=>{
+ const {root,kit,Event}=fixture(t),field=kit.field('number',{required:true,min:1}),fields=[field];let calls=0,saved;
+ root.append(kit.form(fields,async value=>{calls++;saved=value;}));
+ const input=field.input;
+ if(change==='array')fields.length=0;
+ else{field.validate=()=>true;field.input=root.ownerDocument.createElement('input');field.input.name='foreign';field.input.value='foreign value';}
+ const submit=root.querySelector('[data-cy=data-controls-submit]');submit.dispatchEvent(new Event('click'));await settle();assert.equal(calls,0,'rendered required field must still block dispatch');
+ input.value='2';submit.dispatchEvent(new Event('click'));await settle();assert.equal(calls,1);assert.deepEqual(saved,{number:'2'});
+});
 
 test('autocomplete rejects detached old-result clicks and preserves current pointer selection',async t=>{
  const {root,kit,Event}=fixture(t),selected=[];
