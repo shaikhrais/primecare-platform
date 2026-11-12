@@ -12,6 +12,10 @@ import 'package:primecare_governance/governance/widgets/governance_master_score.
 import 'package:primecare_governance/governance/widgets/governance_compliance_checklist.dart';
 import 'package:primecare_governance/core/ui/app_skeleton.dart';
 GovernanceReport scoreReport(double value)=>GovernanceReport(totalScreens:100,totalIssues:2,criticalIssues:1,highIssues:1,mediumIssues:0,lowIssues:0,productionReadyScreens:50,blockedScreens:50,averageTestPassRate:value,renderOkPercent:value,accessibilityPercent:value,performancePercent:value,issues:[]);
+Color paintedScoreSurface(WidgetTester tester) {
+ final surface=find.descendant(of:find.byType(GovernanceMasterScore),matching:find.byWidgetPredicate((w)=>w is Container && w.decoration is BoxDecoration && (w.decoration! as BoxDecoration).shape==BoxShape.circle));
+ return (tester.widget<Container>(surface).decoration! as BoxDecoration).color!;
+}
 void main() {
  testWidgets('actual score thresholds, badge foregrounds and compliance layouts retain every preset', (tester) async {
   tester.view.physicalSize=const Size(1500,2000);tester.view.devicePixelRatio=1;
@@ -20,7 +24,7 @@ void main() {
    final material=applyPersonalThemeData(ThemeData(),PersonalTheme(name:'Score',preset:preset));
    for(final score in [0.0,49.0,50.0,74.0,75.0,89.0,90.0,100.0]) {
     await tester.pumpWidget(MaterialApp(theme:material,home:Scaffold(body:GovernanceMasterScore(report:scoreReport(score)))));
-    await tester.pump();
+    await tester.pumpAndSettle();
     final actual=scoreReport(score).overallHealthScore;
     final expectedTone=actual>=90 ? PrimeSemanticTone.success:actual>=75 ? PrimeSemanticTone.primary:actual>=50 ? PrimeSemanticTone.warning:PrimeSemanticTone.error;
     final ringFinder=find.byType(CircularProgressIndicator);
@@ -29,7 +33,9 @@ void main() {
     expect(ring.value,closeTo(actual/100,.00001));
     expect(ring.valueColor!.value,PrimeSemanticPalette.of(context,expectedTone).accent);
     final text=tester.widget<Text>(find.text('${actual.toInt()}%'));
-    expect(themeContrastRatio(text.style!.color!,material.colorScheme.surface),greaterThanOrEqualTo(4.5));
+    final surface=paintedScoreSurface(tester);
+    expect(surface.toARGB32(),material.colorScheme.surface.toARGB32());
+    expect(themeContrastRatio(text.style!.color!,surface),greaterThanOrEqualTo(4.5));
     expect(tester.takeException(),isNull,reason:'$preset/$score');
    }
    for(final scale in [1.0,2.0]) {
@@ -37,6 +43,20 @@ void main() {
      child:SingleChildScrollView(child:SizedBox(width:1000,child:GovernanceComplianceChecklist(report:scoreReport(75))))))));
     await tester.pump();expect(find.text('Platform Compliance Scorecard'),findsOneWidget);expect(tester.takeException(),isNull);
    }
+  }
+ });
+ testWidgets('actual score foreground remains readable throughout a theme transition', (tester) async {
+  final report=scoreReport(75),label='${scoreReport(75).overallHealthScore.toInt()}%';
+  for(final theme in [ThemeData.light(),ThemeData.dark(),ThemeData.light()]) {
+   await tester.pumpWidget(MaterialApp(theme:theme,home:Scaffold(body:GovernanceMasterScore(report:report))));
+   for(final elapsed in [Duration.zero,const Duration(milliseconds:100)]) {
+    await tester.pump(elapsed);
+    final text=tester.widget<Text>(find.text(label));
+    expect(themeContrastRatio(text.style!.color!,paintedScoreSurface(tester)),greaterThanOrEqualTo(4.5));
+    expect(tester.takeException(),isNull);
+   }
+   await tester.pumpAndSettle();
+   expect(paintedScoreSurface(tester).toARGB32(),theme.colorScheme.surface.toARGB32());
   }
  });
  testWidgets('actual skeleton derives distinct shimmer shades from light and dark themes', (tester) async {

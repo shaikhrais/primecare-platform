@@ -83,7 +83,7 @@ void main() {
             );
             final child = route.builder!(context, state);
             expect(child, isA<routed.AdminScreenHealthScreen>());
-            final scaffold = shell.builder!(context, state, child) as Scaffold;
+            final scaffold = shell.builder!(context, state, child) as PrimeScaffold;
             expect(scaffold.body, isA<AppShellBoundary>());
             final boundary = (scaffold.body! as AppShellBoundary).child as ManagedScreenBoundary;
             expect(boundary.screenId, healthPath);

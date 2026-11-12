@@ -11,6 +11,8 @@ void main() {
   expect(tokens.warning,colors.warning);expect(tokens.warningContainer,colors.warningContainer);
   expect(PrimeThemeData(materialTheme:material).toThemeData(),same(material));
   expect(tokens.copyWith(success:Colors.green).warning,colors.warning);
-  expect(tokens.lerp(tokens,0.5).success,colors.success);
+  expect(tokens.lerp(tokens,0.5).success.toARGB32(),colors.success.toARGB32());
+  final other=tokens.copyWith(success:Colors.green);
+  expect(tokens.lerp(other,0.5).success,Color.lerp(colors.success,Colors.green,0.5));
  });
 }
