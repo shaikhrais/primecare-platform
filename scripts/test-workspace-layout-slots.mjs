@@ -39,3 +39,19 @@ test('owned nodes remain live and restore their original membership after dispos
  const f=fixture();f.original.panels.note.textContent='Current authorized note';f.view.dockPanel('note','right');assert.equal(f.original.panels.note.textContent,'Current authorized note');
  f.view.dispose();assert.equal(f.original.panels.note.parentElement===f.original.main,true);assert.equal(f.original.main.querySelector('input').value,'Unfinished draft');
 });
+for(const operation of ['undo','redo','save'])test(`retired ${operation} cannot mutate saved account state or cached history`,()=>{
+ const f=fixture();f.view.change({...f.view.current,navigation:'right'});f.view.change({...f.view.current,toolbar:'bottom'});f.view.undo();f.view.dispose();
+ const replacement=new WorkspaceLayoutManager(f.root,f.slots,'replacement-actor',{getItem:()=>null,setItem:()=>{}});
+ const history=f.view.history,html=f.root.outerHTML;
+ try{
+  let failure;try{f.view[operation]();}catch(error){failure=error;}
+  assert.deepEqual(f.view.history,history,'retired history must remain unchanged');assert.deepEqual(f.writes,[],'retired account must not persist');
+  assert.equal(failure?.message,'Workspace disposed');assert.equal(f.root.outerHTML,html,'replacement presentation must remain unchanged');
+ }finally{replacement.dispose();}
+});
+test('live workspace history and persistence remain available',()=>{
+ const f=fixture();try{
+  const original=f.view.current;f.view.change({...original,navigation:'right'});f.view.undo();assert.deepEqual(f.view.current,original);
+  f.view.redo();assert.equal(f.view.current.navigation,'right');f.view.save();assert.equal(f.writes.length,1);assert.equal(f.writes[0][0],'tenant:actor:role');assert.equal(JSON.parse(f.writes[0][1]).navigation,'right');
+ }finally{f.view.dispose();}
+});

@@ -73,8 +73,8 @@ export class WorkspaceLayoutManager {
     this.remember(this.current); this.profile = next; this.apply();
   }
   private remember(before: WorkspaceLayout): void {this.undoStack.push(before); if (this.undoStack.length > 30) this.undoStack.shift(); this.redoStack = [];}
-  undo(): void {const p = this.undoStack.pop(); if (p) {this.redoStack.push(this.current); this.profile = p; this.apply();}}
-  redo(): void {const p = this.redoStack.pop(); if (p) {this.undoStack.push(this.current); this.profile = p; this.apply();}}
+  undo(): void {if(this.disposed)throw Error('Workspace disposed');const p = this.undoStack.pop(); if (p) {this.redoStack.push(this.current); this.profile = p; this.apply();}}
+  redo(): void {if(this.disposed)throw Error('Workspace disposed');const p = this.redoStack.pop(); if (p) {this.undoStack.push(this.current); this.profile = p; this.apply();}}
   reset(): void {this.change(this.defaults);}
   dockPanel(id: string, dock: PanelDock): void {
     if (!Object.hasOwn(this.profile.panels, id)) throw Error('Panel is not permitted');
@@ -82,7 +82,7 @@ export class WorkspaceLayoutManager {
   }
   exportJson(): string {return JSON.stringify(this.profile, null, 2);}
   importJson(text: string): void {this.change(parseWorkspaceLayout(text, this.ids));}
-  save(): void {this.storage.setItem(this.storageKey, this.exportJson());}
+  save(): void {if(this.disposed)throw Error('Workspace disposed');this.storage.setItem(this.storageKey, this.exportJson());}
   private place(element: HTMLElement, parent: HTMLElement): void {if (element.parentElement !== parent) parent.append(element);}
   private apply = (): void => {
     if (this.disposed) return;

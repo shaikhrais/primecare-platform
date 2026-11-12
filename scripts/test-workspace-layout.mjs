@@ -73,7 +73,13 @@ try {
   assert.equal(await page.evaluate(()=>manager.current.panels.schedule.x),9000);
   await page.screenshot({path:out+'/mobile.png'});
   await page.reload();assert.equal(await page.evaluate(()=>manager.current.navigation),'right');assert.equal(await page.evaluate(()=>manager.current.panels.schedule.x),9000);
-  await page.evaluate(()=>{manager.dispose();window.other=new Workspace.WorkspaceLayoutManager(document.querySelector('#shell'),slots,'layout:tenant-b:actor-b:role-a');if(other.current.navigation!=='left')throw Error('Account preferences leaked');other.dispose();});
+  await page.evaluate(()=>{manager.dispose();window.other=new Workspace.WorkspaceLayoutManager(document.querySelector('#shell'),slots,'layout:tenant-b:actor-b:role-a');if(other.current.navigation!=='left')throw Error('Account preferences leaked');
+    const history=JSON.stringify(manager.history),stored=localStorage.getItem('layout:tenant-a:actor-a:role-a'),replacement=document.querySelector('#shell').outerHTML;
+    for(const operation of ['undo','redo','save']){
+      let rejected=false;try{manager[operation]();}catch(error){rejected=error.message==='Workspace disposed';}
+      if(!rejected||JSON.stringify(manager.history)!==history||localStorage.getItem('layout:tenant-a:actor-a:role-a')!==stored||document.querySelector('#shell').outerHTML!==replacement)throw Error('Retired workspace mutation: '+operation);
+    }
+    other.dispose();});
   assert.equal(await page.locator('[data-cy=test-input]').count(),1);
   assert.equal(await page.locator('[data-pc-workspace]').count(),0);
   await page.goto(origin+'/preview?enable-semantics=true');
@@ -89,7 +95,7 @@ try {
   await page.setViewportSize({width:1500,height:960});
   await page.screenshot({path:out+'/layout-lab.png'});
   assert.deepEqual(errors,[]);
-  const result={...summary,validatedSlotMembership:true,pointerDrag:true,keyboardDockMoveResize:true,cancelGesture:true,viewportClamping:true,mobileReflow:true,persistence:true,accountIsolation:true,dispose:true,previewControls:true,productionMounted:false};
+  const result={...summary,validatedSlotMembership:true,retiredHistoryAndSaveRejected:true,pointerDrag:true,keyboardDockMoveResize:true,cancelGesture:true,viewportClamping:true,mobileReflow:true,persistence:true,accountIsolation:true,dispose:true,previewControls:true,productionMounted:false};
   await writeFile(out+'/results.json',JSON.stringify(result,null,2));
   console.log(JSON.stringify(result));
 } finally {await context.close();await browser.close();await new Promise(resolve=>server.close(resolve));}

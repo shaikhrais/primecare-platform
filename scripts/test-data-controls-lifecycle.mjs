@@ -192,3 +192,16 @@ for(const hidden of ['middle','last'])test('table retains a keyboard entry cell 
  const toggle=root.querySelector('[data-cy=data-controls-visible-'+hidden+']');toggle.checked=false;toggle.dispatchEvent(new Event('change'));
  const current=root.querySelectorAll('[role=gridcell][tabindex="0"]');assert.equal(current.length,1);assert.equal(current[0].dataset.cy,'data-controls-table-cell-r0-'+(hidden==='middle'?'last':'middle'));assert.equal(table.model.selected.has('r0'),true);
 });
+
+for(const count of [1,2,3])test('autocomplete ArrowUp starts at last option and wraps for '+count+' choices',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[],options=Array.from({length:count},(_,index)=>({value:'v'+index,label:'Option '+index}));root.append(kit.autocomplete(async()=>options,value=>selected.push(value)));
+ const input=root.querySelector('[role=combobox]');input.dispatchEvent(new Event('input'));await settle();
+ const key=value=>{const event=new Event('keydown',{cancelable:true});event.key=value;input.dispatchEvent(event);};const active=()=>input.getAttribute('aria-activedescendant');
+ key('ArrowUp');assert.equal(active(),'data-controls-options-'+(count-1));assert.equal(root.querySelectorAll('[role=option][aria-selected=true]').length,1);
+ key('ArrowDown');assert.equal(active(),'data-controls-options-0');key('ArrowUp');assert.equal(active(),'data-controls-options-'+(count-1));key('Enter');assert.deepEqual(selected,['v'+(count-1)]);assert.equal(input.value,'Option '+(count-1));
+});
+
+test('virtual table keeps one visible keyboard entry while scrolling beyond remembered row',t=>{
+ const {root,kit,Event}=fixture(t),table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],Array.from({length:1000},(_,index)=>({id:'r'+index,values:{name:'Row '+index}})),{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100,pageSize:1000});root.append(table.element);table.model.toggle('r0');const viewport=root.querySelector('[data-cy=data-controls-table-viewport]');
+ for(const offset of [480,24000,0]){viewport.scrollTop=offset;viewport.dispatchEvent(new Event('scroll'));const entries=root.querySelectorAll('[role=gridcell][tabindex="0"]');assert.equal(entries.length,1,'visible rows must retain a keyboard entry at offset '+offset);assert.equal(table.model.selected.has('r0'),true);const rowIndex=Number(entries[0].parentElement.getAttribute('aria-rowindex'))-2;assert.ok(rowIndex>=Math.floor(offset/48)&&rowIndex<Math.ceil((offset+240)/48),'entry must be inside viewport, not just overscan');assert.ok(root.querySelectorAll('[data-cy^="data-controls-table-row-"]').length<=10);}
+});

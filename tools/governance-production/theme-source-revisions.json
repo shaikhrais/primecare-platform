@@ -180,21 +180,41 @@
     {
       "path": "packages/primecare_ui/web/workspace-layout.ts",
       "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-      "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
-      "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+      "currentSha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+      "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+        "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "packages/primecare_ui/web/workspace-layout.ts",
+        "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
+        "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
+        "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+        "verification": {
+          "status": "source_revision_only_runtime_unverified",
+          "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+        }
       }
     },
     {
       "path": "scripts/test-workspace-layout.mjs",
       "originalSha256": "41b73645306d88d33398ff908f76ba2f9b5eb4b21d772856bf51a2f65c5c72ac",
-      "currentSha256": "b4a85903e3f8ad05ca9b490bf2385b8bc6fef934866f62bbd8c5951355aa6801",
-      "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+      "currentSha256": "5516a9035d23ba132db93d707133777b77c3be7b4925feb2d0b5891cf5981043",
+      "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+        "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+      },
+      "previousRevision": {
+        "path": "scripts/test-workspace-layout.mjs",
+        "originalSha256": "41b73645306d88d33398ff908f76ba2f9b5eb4b21d772856bf51a2f65c5c72ac",
+        "currentSha256": "b4a85903e3f8ad05ca9b490bf2385b8bc6fef934866f62bbd8c5951355aa6801",
+        "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+        "verification": {
+          "status": "source_revision_only_runtime_unverified",
+          "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+        }
       }
     }
   ]

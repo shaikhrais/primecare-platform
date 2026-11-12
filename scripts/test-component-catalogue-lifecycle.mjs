@@ -8,6 +8,19 @@ const {PrimeComponentFactory}=await import('data:text/javascript;base64,'+Buffer
 const shellBuilt=await build({entryPoints:['packages/primecare_ui/web/shell-utilities.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {ShellUtilitiesView}=await import('data:text/javascript;base64,'+Buffer.from(shellBuilt.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+test('invalid shared forms focus the first invalid enabled field without submitting or losing drafts',async()=>{
+ const {kit,root,Event}=fixture();let submitted=0,focused;
+ const first=kit.field('input',{value:'retained draft',required:true}),second=kit.field('multiline',{required:true});
+ for(const field of [first.input,second.input]){Object.defineProperty(field,'willValidate',{configurable:true,get:()=>!field.disabled});Object.defineProperty(field,'validity',{configurable:true,get:()=>({valid:!field.required||field.value.length>0})});field.focus=()=>{focused=field;};}
+ const form=kit.form([first.element,second.element],async()=>{submitted++;});root.append(form);
+ // Only native constraint validation is modeled here; Actions runs real validity/focus.
+ form.reportValidity=()=>{let valid=true;for(const field of [first.input,second.input])if(field.willValidate&&!field.validity.valid){valid=false;field.dispatchEvent(new Event('invalid'));}return valid;};
+ const submit=form.querySelector('button');
+ try{submit.dispatchEvent(new Event('click'));await settle();assert.equal(submitted,0);assert.equal(focused===second.input,true);assert.equal(first.input.value,'retained draft');assert.equal(second.input.getAttribute('aria-invalid'),'true');
+  first.input.value='';first.input.dispatchEvent(new Event('input'));submit.dispatchEvent(new Event('click'));await settle();assert.equal(focused===first.input,true);
+  first.input.disabled=true;submit.dispatchEvent(new Event('click'));await settle();assert.equal(focused===second.input,true);assert.equal(submitted,0);focused=undefined;form.reportValidity=()=>{kit.dispose();return false;};submit.dispatchEvent(new Event('click'));await settle();assert.equal(focused,undefined,'retired form cannot steal replacement focus');
+ }finally{kit.dispose();}
+});
 test('countdown rechecks disposal after caller clock callbacks before announcing completion',()=>{
  for(const mode of ['timer','factory']){
   const {kit,root}=fixture();let now=0,retire=false,finished=0,timer;const clock=()=>{if(retire){if(mode==='timer')timer.dispose();else kit.dispose();}return now;};

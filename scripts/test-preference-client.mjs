@@ -97,3 +97,31 @@ for(const mode of ['stale','changed'])test(`invalid ${mode} conflict reply retai
  bad=false;await b.retryPending();assert.equal(b.current.base.revision,1);assert.equal(b.current.remote.revision,2);assert.equal(b.current.status,'conflict');
  await a.dispose();await b.dispose();await other.dispose();
 });
+
+test('subscriptions observe direct state changes alongside the original host callback',async()=>{
+ const s=server(),host=[],events=[];let a;a=new PreferenceSyncClient(binding,s.transport,cache(),uuid,()=>host.push(a.current.status));
+ const unsubscribe=a.subscribe(()=>events.push(a.current.status));assert.deepEqual(events,[]);
+ await a.load();await a.edit(doc('1'));await a.save();assert.deepEqual(events,['loading','clean','dirty','saving','clean']);assert.deepEqual(host,events);
+ unsubscribe();await a.edit(doc('2'));assert.equal(events.length,5);assert.equal(host.at(-1),'dirty');await a.dispose();
+});
+test('duplicate listeners have independent idempotent unsubscribe ownership',async()=>{
+ const a=make(server());await a.load();let calls=0;const listener=()=>calls++,first=a.subscribe(listener),second=a.subscribe(listener);
+ await a.edit(doc('1'));assert.equal(calls,2);first();first();await a.edit(doc('2'));assert.equal(calls,3);second();await a.edit(doc('1'));assert.equal(calls,3);await a.dispose();second();
+});
+test('notification snapshot respects removal and defers subscriptions created during dispatch',async()=>{
+ const a=make(server());await a.load();let secondCalls=0,addedCalls=0,added=false,removeSecond;
+ a.subscribe(()=>{if(!added){removeSecond();a.subscribe(()=>addedCalls++);added=true;}});removeSecond=a.subscribe(()=>secondCalls++);
+ await a.edit(doc('1'));assert.equal(secondCalls,0);assert.equal(addedCalls,0);await a.edit(doc('2'));assert.equal(secondCalls,0);assert.equal(addedCalls,1);await a.dispose();
+});
+test('subscriber failures cannot turn persistence success into an offline or error state',async()=>{
+ const s=server(),a=make(s);let notifications=0;a.subscribe(()=>{throw Error('observer failed');});a.subscribe(()=>notifications++);
+ await a.load();await a.edit(doc('1'));await a.save();assert.equal(a.current.status,'clean');assert.equal(a.current.error,null);assert.equal(s.snapshot.revision,1);assert.equal(notifications,5);await a.dispose();
+});
+test('disposal during a notification prevents remaining observers and future subscriptions',async()=>{
+ const a=make(server());await a.load();let late=0;a.subscribe(()=>{void a.dispose();});const remove=a.subscribe(()=>late++);
+ await a.edit(doc('1'));assert.equal(a.current.status,'disposed');assert.equal(late,0);remove();assert.throws(()=>a.subscribe(()=>{}),e=>e.code==='busy_or_disposed');
+});
+test('original host callback can unsubscribe an observer before its notification',async()=>{
+ let remove;const a=new PreferenceSyncClient(binding,server().transport,cache(),uuid,()=>remove?.());let calls=0;remove=a.subscribe(()=>calls++);
+ await a.load();assert.equal(calls,0);assert.equal(a.current.status,'clean');await a.dispose();
+});

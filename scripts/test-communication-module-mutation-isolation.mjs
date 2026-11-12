@@ -34,3 +34,25 @@ test('caller edits during send cannot change expected receipt or pending proof',
   assert.equal((await p.readItem(row.id,signal)).items[0].body,'Original draft');
  }finally{p.dispose();}
 });
+test('equivalent reordered command replays the original key and payload',async()=>{
+ let lost=true;const dispatched=[];
+ const p=new CommunicationModulePort(scope,'messenger',async(op,value)=>{
+  if(op==='message.inbox')return {items:[row]};dispatched.push(structuredClone(value));
+  if(lost){lost=false;throw Error('Lost acknowledgement');}return {id:row.id,version:2};
+ },labels);
+ try{
+  await p.read({search:'',offset:0},signal);await assert.rejects(()=>p.mutate(command(),'original-key',signal));
+  const original=command(),reordered={fields:original.fields,action:original.action,version:original.version,itemId:original.itemId};
+  await p.mutate(reordered,'original-key',signal);assert.deepEqual(dispatched[1],dispatched[0]);assert.equal(dispatched.length,2);
+ }finally{p.dispose();}
+});
+test('invalid request keys fail before retaining or dispatching a send',async()=>{
+ let calls=0;const p=new CommunicationModulePort(scope,'messenger',async op=>{
+  if(op==='message.inbox')return {items:[row]};calls++;return {id:row.id,version:2};
+ },labels);
+ try{
+  await p.read({search:'',offset:0},signal);
+  for(const key of ['',null,undefined,'x'.repeat(201),'key\u0000','key\n','key\u007f'])await assert.rejects(()=>p.mutate(command(),key,signal),e=>e.code==='invalid'&&e.status===400);
+  assert.equal(calls,0);await p.mutate(command(),'valid-key',signal);assert.equal(calls,1);
+ }finally{p.dispose();}
+});

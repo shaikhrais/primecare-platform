@@ -5,7 +5,7 @@ import {parseHTML} from 'linkedom';
 const bundle=await build({entryPoints:['packages/primecare_ui/web/dashboard-widgets.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {PrimeDashboardWidgets,DashboardSession}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
-for(const mode of ['dispose','remove','active'])test('queued widget source lifecycle: '+mode,async t=>{
+for(const mode of ['dispose','remove','active','mutated-geometry'])test('queued widget source lifecycle: '+mode,async t=>{
  const {document,HTMLElement,HTMLSelectElement}=parseHTML('<html><head></head><body><main id="root"></main></body></html>');
  const previous=new Map(['HTMLElement','ResizeObserver'].map(key=>[key,Object.getOwnPropertyDescriptor(globalThis,key)]));
  Object.defineProperty(globalThis,'HTMLElement',{value:HTMLElement,configurable:true});
@@ -16,9 +16,10 @@ for(const mode of ['dispose','remove','active'])test('queued widget source lifec
  const views=[{id:'wide',label:'Wide',minWidth:0,columns:4}],widgets=[{id:'trend',label:'Trend',registrationId:11,sourceId:21,workflowId:31,kind:'line',views:['wide'],minSpan:1,maxSpan:4,minRows:1,maxRows:4}],defaults={version:1,views:{wide:[{id:'trend',span:2,rows:2}]}};
  const session=new DashboardSession({tenantId:'fixture',userId:'fixture',role:'fixture',dataset:'demo'},'fixture',widgets,views,defaults);
  const kit=new PrimeDashboardWidgets(root,'queued-source');t.after(()=>{kit.dispose();session.dispose();});
- let calls=0;kit.dashboard(session,{rowHeight:100,gap:8,chart:{width:400,height:200,stroke:2}},async()=>{calls++;return {kind:'line',title:'Trend',categories:['A'],series:[{id:'one',label:'One',values:[1]}]};});
+ const geometry={rowHeight:100,gap:8,chart:{width:400,height:200,stroke:2}};let calls=0;kit.dashboard(session,geometry,async()=>{calls++;return {kind:'line',title:'Trend',categories:['A'],series:[{id:'one',label:'One',values:[1]}]};});
+ if(mode==='mutated-geometry'){geometry.rowHeight=-100;geometry.gap=-8;geometry.chart.width=-400;session.edit(session.current.document);}
  if(mode==='dispose')kit.dispose();else if(mode==='remove')session.edit({version:1,views:{wide:[]}});
- await settle();assert.equal(calls,mode==='active'?1:0);assert.equal(root.querySelectorAll('[data-widget-card]').length,mode==='active'?1:0);if(mode==='active')assert.equal(root.querySelectorAll('figure').length,1);
+ await settle();assert.equal(calls,['active','mutated-geometry'].includes(mode)?1:0);assert.equal(root.querySelectorAll('[data-widget-card]').length,['active','mutated-geometry'].includes(mode)?1:0);if(['active','mutated-geometry'].includes(mode))assert.equal(root.querySelectorAll('figure').length,1);if(mode==='mutated-geometry'){assert.equal(root.querySelector('[data-cy=dashboard-widgets-dashboard-grid]').style.gridAutoRows,'100px');assert.equal(root.querySelector('[data-cy=dashboard-widgets-dashboard-grid]').style.gap,'8px');}
 });
 for(const kind of ['line','area'])test(kind+' retains series stroke identity when another series is hidden',async t=>{
  const {document,Event}=parseHTML('<html><head></head><body><main id="root"></main></body></html>');
@@ -48,4 +49,14 @@ test('dashboard redraw retains layout draft, focus, selection and scroll',t=>{
  session.edit(session.current.document);const next=root.querySelector('textarea');
  assert.notEqual(next,input);assert.equal(next.value,'draft layout text');assert.equal(document.activeElement,next);assert.equal(next.selectionStart,2);assert.equal(next.selectionEnd,9);assert.equal(next.selectionDirection,'backward');assert.equal(next.scrollTop,17);
  const outside=document.createElement('textarea');outside.dataset.cy=next.dataset.cy;document.body.append(outside);outside.focus();session.edit(session.current.document);assert.equal(document.activeElement,outside,'redraw must not steal matching focus from another dashboard');
+});
+
+for(const kind of ['line','area'])test(kind+' redraw uses its validated chart size snapshot',async t=>{
+ const {document,Event}=parseHTML('<html><head></head><body><main id="root"></main></body></html>');
+ const root=document.getElementById('root'),kit=new PrimeDashboardWidgets(root,'chart-size');t.after(()=>kit.dispose());
+ const size={width:400,height:200,stroke:2};root.append(kit.chart({kind,title:'Trend',categories:['A','B'],series:[{id:'one',label:'One',values:[1,2]},{id:'two',label:'Two',values:[3,4]}]},size));
+ size.width=-1;size.height=NaN;size.stroke=Infinity;
+ root.querySelector('[data-cy=dashboard-widgets-toggle-one]').dispatchEvent(new Event('click'));await settle();
+ assert.equal(root.querySelector('svg').getAttribute('viewBox'),'0 0 400 200');assert.equal(root.querySelector('polyline').getAttribute('stroke-width'),'2');
+ assert.doesNotMatch(root.querySelector('svg').outerHTML,/NaN|Infinity/);
 });
