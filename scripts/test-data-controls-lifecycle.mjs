@@ -101,3 +101,14 @@ test('editor reports selected range mixed/all/none states and reflects applied f
  root.querySelector('[data-cy=data-controls-list]').dispatchEvent(new Event('click'));await settle();assert.deepEqual(formatStates(root),['mixed','true','true']);
  input.selectionStart=0;input.selectionEnd=0;input.dispatchEvent(new Event('input'));assert.deepEqual(formatStates(root),['false','false','true']);assert.equal(editor.document().blocks[0].text,'Hello world');
 });
+
+for(const change of ['navigate','add-block'])test('editor retires detached block controls after '+change,async t=>{
+ const {root,kit,Event}=fixture(t);const editor=kit.editor({version:1,blocks:[{text:'first',bold:false,italic:false,kind:'paragraph'},{text:'second',bold:false,italic:true,kind:'paragraph'}]});root.append(editor.element);
+ const old=root.querySelector('[data-cy=data-controls-editor-block-0]'),input=root.querySelector('[data-cy=data-controls-editor]');
+ if(change==='navigate')root.querySelector('[data-cy=data-controls-editor-block-1]').dispatchEvent(new Event('click'));
+ else{root.querySelector('[data-cy=data-controls-add-block]').dispatchEvent(new Event('click'));await settle();}
+ input.value='current retained draft';input.dispatchEvent(new Event('input'));const before=editor.document();
+ old.dispatchEvent(new Event('click'));assert.equal(input.value,'current retained draft','stale button must not switch the current editing block');assert.deepEqual(editor.document(),before);
+ root.querySelector('[data-cy=data-controls-editor-block-0]').dispatchEvent(new Event('click'));assert.equal(input.value,'first','current generation remains navigable');
+ root.querySelector('[data-cy=data-controls-editor-block-'+(change==='navigate'?1:2)+']').dispatchEvent(new Event('click'));assert.equal(input.value,'current retained draft');
+});
