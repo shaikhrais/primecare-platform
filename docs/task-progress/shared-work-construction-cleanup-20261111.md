@@ -11,3 +11,7 @@ Failed construction now aborts the failed instance's render/control scopes, unsu
 Eight new lifecycle cases fail before the implementation and pass afterward. A ninth invariant case confirms duplicate-owner rejection preserves the live owner. Together with the existing 21 calendar checks, all 30 public-renderer Node checks pass locally. TypeScript and browser-script syntax checks pass; strict findings remain0. The real browser fixture now asserts rejected construction retains the exact host node, leaves no marker/style, and allows the original subsequent authenticated task scenario to mount. It must execute in GitHub Actions; no local real-browser/native acceptance is claimed.
 
 Counts remain source previous0/current0/new removals0;72/72 source mappings,0unreconciled;0fully accepted/72pending;readiness0/344screens and0/147workflows. No grant, API, business workflow, palette, registration or historical hash changes.
+
+## Full-suite trigger coverage
+
+The initial repair head c0c11999 registered work-module, boundary and contract checks, but no Theme Center suite: that workflow's filters omitted general shared web-renderer changes. Both push and PR paths now include packages/primecare_ui/web/**. The existing trigger regression requires it alongside all three shared native test roots. This expands full native/website/nine-app coverage without changing jobs, timeouts, thresholds or cancellation behavior. It does not promote earlier-head passes to the coverage repair head.

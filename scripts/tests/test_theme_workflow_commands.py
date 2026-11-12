@@ -11,7 +11,7 @@ class ThemeWorkflowCommandsTest(unittest.TestCase):
   text=(ROOT/'.github/workflows/theme-center.yml').read_text()
   paths=re.findall(r'paths:\s*\[(.*?)\]',text,re.S);self.assertEqual(len(paths),2)
   for event_paths in paths:
-   for root in ['packages/flutter_core/test/**','packages/primecare_ui/test/**','packages/primecare_ui_foundation/test/**']:
+   for root in ['packages/flutter_core/test/**','packages/primecare_ui/test/**','packages/primecare_ui_foundation/test/**','packages/primecare_ui/web/**']:
     self.assertIn("'"+root+"'",event_paths)
    self.assertIn("'.github/workflows/theme-center.yml'",event_paths)
  def test_consumer_compile_script_is_valid_shell_and_contains_each_optional_suite_once(self):
