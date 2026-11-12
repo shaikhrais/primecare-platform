@@ -13,8 +13,8 @@ Keep the current schedule rather than resetting its start time. A queued CI job 
 | Measure | Recorded baseline | Rule for advancing |
 |---|---:|---|
 | Tracked skeleton proposal features | 72 | Stable feature IDs; changes require an explicit inventory amendment |
-| Features with source mappings | 50 | Validate original shared public declaration/export and document supported subset |
-| Features needing reconciliation | 22 | Review existing factories before writing duplicates |
+| Features with source mappings | 72 | Validate original shared public declaration/export and document supported subset |
+| Features needing reconciliation | 0 | Review existing factories before writing duplicates |
 | Fully accepted features | 0 | Feature-specific source, host, service, runtime and required review evidence |
 | Features pending full acceptance | 72 | Do not count partial repair as full adoption |
 | Strict direct-control/color findings | 0 | Re-run strict scanner and exact-source CI; no exemptions |
@@ -29,7 +29,7 @@ These are separate measures. A source mapping is not implemented parity; a green
 |---|---|---|---|
 | P0 | All | Inspect exact-main CI; group failures by root cause; repair source or fixture defects without weakening checks | Targeted check passes against repair source; retain job/run links |
 | P1 | B06 B09 B10 B12 B17 | Keep shared library/theme boundary strict; repair focus/caret/selection/disabled/error states and lifecycle ownership; extend reviewed exact-source bulk utilities only for actual remaining findings | Strict scan zero, regression proof, native/web consumer checks |
-| P2 | B17 | Reconcile all 22 unresolved application/dashboard/supporting-page proposals against existing public factories and approved adapters | Each ID has source/export, supported subset, owner and explicit remaining gap; never infer runtime equivalence |
+| P2 | B17 | Source reconciliation complete for all72; implement explicit supported-subset/business/host gaps using existing public factories and approved adapters | Each ID has source/export, supported subset, owner and explicit remaining gap; never infer runtime equivalence |
 | P3 | B01 B02 B03 B04 B05 B06 | Bind existing authorized hosts to shared shell, layouts, navigation, page factories and Theme Center; preserve drafts/overlays and actor teardown | Host selectors/registrations, allowed/denied routes, responsive/browser/native evidence |
 | P4 | B07 B08 | Implement governed draft/conflict/revoked-reference recovery and common preference binding; attach only approved utility resources | API and independent SQL readback, reload, second session, offline recovery, scope denial |
 | P5 | B10 B11 B12 | Close required data-control variants, approved upload/picker policies, widget data/preference bindings and actual asset consumers | Real receipts, persistence/removal, large-data and accessibility checks, provenance |
@@ -82,6 +82,12 @@ No copied Fuse implementation or per-app replacement factories. No invented endp
 Preserve historical source hashes and exact replay/amendment limits. Never refresh hashes blindly, raise thresholds, introduce baselines/exemptions or bypass quarantine to make CI green. Keep the generated Material progress class distinct from the existing shared progress class. Shared text with style null must preserve inherited disabled/button foregrounds.
 
 Production release identity reconciliation for APIs710/857/777 remains a separate authority-bound task. Use current pinned readback before deciding what repair is justified. Do not relabel unrelated grants into communication access or invent runtime artifacts. API follow-up does not independently authorize deployment or production database writes.
+
+## Current completed source reconciliation and pending verification
+
+Published directly on main:55bbcc8d repairs managed theme migration bootstrap and locks the missing bcryptjs3.0.2 test dependency; d276892c reconciles10communication/application entries;392da6ab reconciles12dashboard/supporting-page entries. Source mappings50→72, unresolved22→0. These include explicit unavailable slots and partial projections, not business implementation parity. Fully accepted0/72,72pending;screen0/344,workflow0/147. Four audit tests, generated report check,146targeted Node tests and migration fixture syntax passed locally; strict scanner0violations. Previous f9373dec passed all7triggered workflows.
+
+Repair55bbcc8d boundary43145595701 passed; workspace/publication43145595440 pending at inspection. Final mapping392da6ab boundary43145916476, catalogue43145916388 and contract43145916453 queued; ThemeCenter43145916393 and component43145916569 pending. Inspect existing fresh runs rather than dispatch duplicates or inheriting passes. Source reconciliation queue is complete; next focus is actual shared lifecycle/control behavior, authorized host rollout and concrete accepted adapters per B01–B18. Missing provider/business contracts and host/device/release gates remain explicit. Existing hourly runner remains enabled.
 
 ## Current CI repair batch
 
