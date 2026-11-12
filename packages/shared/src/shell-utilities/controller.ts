@@ -6,10 +6,10 @@ export type UtilityState={status:'idle'|'loading'|'ready'|'error'|'unavailable';
 /** Ports must be bound by an authorized host to registered business resources, never demo fallback data. */
 export class ShellUtilitiesController {
  readonly scope:PreferenceScope;readonly destinations:readonly UtilityDestination[];
- private ports:Partial<Record<UtilityKind,UtilityPort>>;private states={} as Record<UtilityKind,UtilityState>;private dead=false;private abort=new AbortController();private listeners=new Set<()=>void>();
+ private offPreference:()=>void=()=>{};private ports:Partial<Record<UtilityKind,UtilityPort>>;private states={} as Record<UtilityKind,UtilityState>;private dead=false;private abort=new AbortController();private listeners=new Set<()=>void>();
  constructor(scope:PreferenceScope,ports:Partial<Record<UtilityKind,UtilityPort>>,readonly favourites:PreferenceSyncClient,destinations:readonly UtilityDestination[],private navigate:(id:string)=>void){
   if(Object.keys(ports).some(k=>!utilityKinds.includes(k as UtilityKind)))throw Error('invalid_utility_port');
-  this.scope=Object.freeze(preferenceScope(scope));if(JSON.stringify(this.scope)!==JSON.stringify(preferenceScope(favourites.binding.scope))||favourites.binding.kind!=='shortcuts'||favourites.binding.resource!=='navigation')throw Error('utility_scope_mismatch');this.destinations=utilityDestinations(destinations,favourites.binding.policy.screenIds);this.ports=Object.fromEntries(Object.entries(ports).map(([k,p])=>[k,p?{load:p.load.bind(p),...(p.markRead?{markRead:p.markRead.bind(p)}:{}),...(p.activate?{activate:p.activate.bind(p)}:{})}:undefined]));for(const k of utilityKinds)this.states[k]={status:this.ports[k]?'idle':'unavailable',error:null,items:[],busy:false};
+  this.scope=Object.freeze(preferenceScope(scope));if(JSON.stringify(this.scope)!==JSON.stringify(preferenceScope(favourites.binding.scope))||favourites.binding.kind!=='shortcuts'||favourites.binding.resource!=='navigation')throw Error('utility_scope_mismatch');this.destinations=utilityDestinations(destinations,favourites.binding.policy.screenIds);this.ports=Object.fromEntries(Object.entries(ports).map(([k,p])=>[k,p?{load:p.load.bind(p),...(p.markRead?{markRead:p.markRead.bind(p)}:{}),...(p.activate?{activate:p.activate.bind(p)}:{})}:undefined]));for(const k of utilityKinds)this.states[k]={status:this.ports[k]?'idle':'unavailable',error:null,items:[],busy:false};this.offPreference=favourites.subscribe(()=>this.emit());
  }
  subscribe(listener:()=>void){this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
  private emit(){if(!this.dead)for(const f of this.listeners)f();}
@@ -23,5 +23,5 @@ export class ShellUtilitiesController {
  open(id:string){if(this.dead||!this.destinations.some(n=>n.id===id&&!n.disabled))throw Error('destination_unavailable');this.navigate(id);}
  async toggle(id:string){if(this.dead||!this.destinations.some(n=>n.id===id&&!n.disabled))throw Error('destination_unavailable');const draft=this.favourites.current.draft as {version:1;screenIds:string[]}|null;const ids=[...(draft?.screenIds??[])];const at=ids.indexOf(id);if(at<0)ids.push(id);else ids.splice(at,1);await this.favourites.edit({version:1,screenIds:ids});this.emit();}
  async preference(action:'load'|'save'|'retryPending'|'acceptRemote'|'keepLocal'){if(this.dead)throw Error('utility_disposed');try{const work=this.favourites[action]();this.emit();await work;}finally{this.emit();}}
- async dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.listeners.clear();for(const k of utilityKinds)this.states[k]={status:'unavailable',error:null,items:[],busy:false};await this.favourites.dispose();}
+ async dispose(){if(this.dead)return;this.dead=true;this.abort.abort();this.offPreference();this.listeners.clear();for(const k of utilityKinds)this.states[k]={status:'unavailable',error:null,items:[],busy:false};await this.favourites.dispose();}
 }
