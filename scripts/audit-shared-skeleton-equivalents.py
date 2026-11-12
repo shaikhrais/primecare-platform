@@ -1,58 +1,94 @@
-"""Reconcile reviewed shared implementations with historical skeleton proposals.
-
-Source mappings are evidence of available APIs, never runtime acceptance.
-"""
+"""Reconcile existing shared public APIs without changing proposal/runtime evidence."""
 import argparse
+import importlib.util
 import json
 from pathlib import Path
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
-WEB = 'packages/primecare_ui/web/component-catalogue.ts'
-NATIVE = 'packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart'
-MAPPINGS = [
- ('core.FuseCountdown', 'countdown(', 'class PrimeCountdown ', 'Absolute deadline; expiry once; disposal'),
- ('core.FuseDialog', 'modal(', 'class PrimeCatalogueModal ', 'Owned modal; confirmation; focus return'),
- ('core.FuseExample', 'preview(', 'Widget preview(', 'Caller-created preview; no dynamic source execution'),
- ('core.FuseHighlight', 'code(', 'class PrimeCodePreview ', 'Literal code tokens and copy; no HTML execution'),
- ('core.FuseLoading', 'state(', 'Widget state(', 'Loading state using active shared theme'),
- ('core.FuseSplashScreen', 'state(', 'Widget state(', 'Splash variant of scoped loading state'),
- ('core.FuseSuspense', 'asyncRegion<', 'class PrimeAsyncBoundary<', 'Scoped asynchronous loading/error/empty/content states'),
-]
+MAPPINGS = json.loads(Path(__file__).with_name('shared-skeleton-equivalents.json').read_text())
+spec=importlib.util.spec_from_file_location('boundary',Path(__file__).with_name('check-shared-ui-boundary.py'))
+boundary=importlib.util.module_from_spec(spec);spec.loader.exec_module(boundary)
+
+
+def source(root, filename):
+    if not isinstance(filename,str) or not filename:
+        raise ValueError('Invalid shared mapping source path')
+    path=Path(filename)
+    if path.is_absolute() or '..' in path.parts or path.as_posix()!=filename:
+        raise ValueError('Invalid shared mapping source path')
+    file=root/path
+    if file.is_symlink() or not file.resolve().is_relative_to(root.resolve()) or not file.is_file():
+        raise ValueError('Shared mapping source missing or escapes repository: '+filename)
+    return file.read_text()
+
+
+def public_api(root, evidence, platform='native'):
+    if not isinstance(evidence,dict) or set(evidence)!={'path','api','entry','exports'}:
+        raise ValueError('Invalid shared API evidence')
+    if not isinstance(evidence['api'],str) or not evidence['api'].strip():
+        raise ValueError('Missing shared API declaration')
+    prefix='packages/primecare_ui/web/' if platform=='web' else 'packages/primecare_ui/lib/'
+    if not isinstance(evidence['entry'],str) or not evidence['entry'].startswith(prefix):
+        raise ValueError('Shared public library entry required')
+    code=boundary.executable_code(source(root,evidence['path']))
+    if evidence['api'] not in code:
+        raise ValueError('Shared API declaration drift: '+evidence['path'])
+    source(root,evidence['entry'])
+    exports=evidence['exports']
+    if not isinstance(exports,list) or (evidence['entry']!=evidence['path'] and not exports):
+        raise ValueError('Public shared export chain missing')
+    if exports and (not isinstance(exports[0],dict) or exports[0].get('path')!=evidence['entry']):
+        raise ValueError('Public shared export entry mismatch')
+    for export in exports:
+        if not isinstance(export,dict) or set(export)!={'path','target'} or not isinstance(export['target'],str):
+            raise ValueError('Invalid public shared export')
+        raw=source(root,export['path']);code=boundary.executable_code(raw)
+        pattern=r"(?m)^\s*export\s+(?:\*\s+from\s+)?(['\"])"+re.escape(export['target'])+r'\1\s*;'
+        if not any(code[m.start():].lstrip().startswith('export') for m in re.finditer(pattern,raw)):
+            raise ValueError('Public shared export drift: '+export['path'])
+    return f"`{evidence['api'].strip()}` via `{evidence['entry']}`"
+
 
 def render(root=ROOT):
-    catalogue = json.loads((root/'packages/primecare_ui/catalogs/developer-catalogue.json').read_text())
-    features = {row['id']: row for row in catalogue['features']}
-    web, native = (root/WEB).read_text(), (root/NATIVE).read_text()
-    assert len({row[0] for row in MAPPINGS}) == len(MAPPINGS), 'Duplicate feature mapping'
-    rows = []
-    for identity, web_api, native_api, scope in MAPPINGS:
-        if identity not in features or web_api not in web or native_api not in native:
-            raise ValueError('Shared source mapping drift: '+identity)
-        rows.append(f"| `{identity}` | `{web_api}` | `{native_api}` | {scope} |")
+    root=Path(root).resolve()
+    catalogue=json.loads(source(root,'packages/primecare_ui/catalogs/developer-catalogue.json'))
+    features={row['id']:row for row in catalogue['features']}
+    historical={identity for identity,row in features.items() if row['sources']}
+    seen=set();rows=[]
+    for row in MAPPINGS:
+        if (not isinstance(row,dict) or set(row)!={'id','web','native','scope'} or not isinstance(row['id'],str) or row['id'] not in features
+                or row['id'] in seen or not isinstance(row['scope'],str) or not row['scope'].strip()):
+            raise ValueError('Unknown, duplicate or invalid shared mapping')
+        seen.add(row['id'])
+        web=public_api(root,row['web'],'web');native=public_api(root,row['native'],'native')
+        rows.append(f"| `{row['id']}` | {web} | {native} | {row['scope']} |")
+    reconciled=len(historical|seen);additional=len(seen-historical);unreconciled=len(features)-reconciled
     return '\n'.join([
-        '# Shared skeleton equivalents: source reconciliation', '',
-        'Seven reviewed proposal mappings resolve to existing original PrimeCare web and Flutter APIs. '
-        'The historical developer catalogue marks six of these missing because their proposal source lists are empty; '
-        'that does not mean these shared implementations are absent. This report adds current API mappings without changing historical proposal hashes or granting acceptance.', '',
-        '| Reference capability | Shared web API | Shared Flutter API | Supported subset |',
-        '|---|---|---|---|', *rows, '',
-        f'Web owner: `{WEB}`. Flutter owner: `{NATIVE}`. Public Flutter entry: `package:primecare_ui/component_catalogue.dart`.', '',
-        'Use the existing scoped factory/kit and governed labels. Reuse the existing implementation rather than creating a per-app copy. '
-        'Source availability is unverified for current runtime adoption. Each feature still requires its host binding, role/API decisions where applicable, localization/accessibility review and current native/browser acceptance. '
-        'Vendor variants and whole-feature parity are not implied. No new registration, grant, route, production activation or ready-screen credit is created.', '',
+        '# Shared skeleton equivalents: source reconciliation','',
+        f'{len(MAPPINGS)} reviewed mappings identify existing original PrimeCare shared APIs. '
+        f'{additional} repair empty historical proposal mappings; one mapping also documents an existing historical source. '
+        f'Together with {len(historical)} historical mapped features, {reconciled}/{len(features)} features now have source mappings; '
+        f'{unreconciled} still need reconciliation. This is lexical source/export availability, not resolved semantic analysis or feature parity.', '',
+        '| Reference capability | Shared web API / public entry | Shared Flutter API / public entry | Supported subset and open boundary |',
+        '|---|---|---|---|',*rows,'',
+        'Historical developer-catalogue proposal hashes, registrations, dispositions and runtimeVerified fields are unchanged. '
+        'A factory or protocol mapping does not imply approved business adapters, authenticated host activation, full vendor variants, '
+        'device, accessibility or human localization/release acceptance. All 72 tracked features remain pending full acceptance; '
+        'implementation, retirement, registration and ready-screen credits from this audit are zero.', '',
+        'Reuse these public entry points and existing governed labels rather than copying implementations into apps. '
+        f'Unbound or denied adapters remain unavailable. The remaining {unreconciled} unresolved proposal mappings are application and dashboard/supporting-page families; '
+        'their existing candidate factories must be reviewed together with the specific business and host gaps before classification.', '',
         'Reproduce: `python3 scripts/audit-shared-skeleton-equivalents.py --check`. '
-        'Behavior tests remain in the existing component-catalogue web/native suites.', ''
+        'The audit checks executable declaration anchors and public export statements, rejects unsafe paths, and does not run or activate a feature. '
+        'Runtime behavior remains covered by each existing component, page, workspace, navigation, theme, preference, utility, data-control and dashboard suite.', ''
     ])
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true')
-    args = parser.parse_args()
-    output = ROOT/'docs/appearance/shared-skeleton-equivalents.md'
-    text = render()
+
+if __name__=='__main__':
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--check',action='store_true');args=parser.parse_args()
+    output=ROOT/'docs/appearance/shared-skeleton-equivalents.md';text=render()
     if args.check:
-        if not output.exists() or output.read_text() != text:
-            raise SystemExit('Shared skeleton equivalent report drift')
-    else:
-        output.write_text(text)
-    print('7 shared source mappings verified; 0 runtime acceptance credits')
+        if not output.exists() or output.read_text()!=text:raise SystemExit('Shared skeleton equivalent report drift')
+    else:output.write_text(text)
+    print(f'{len(MAPPINGS)} shared source mappings verified; 0 runtime acceptance credits')

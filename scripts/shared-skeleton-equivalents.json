@@ -1,0 +1,482 @@
+[
+  {
+    "id": "core.FuseCountdown",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "countdown(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "class PrimeCountdown ",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Absolute deadline; expiry once; scoped disposal"
+  },
+  {
+    "id": "core.FuseDialog",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "modal(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "class PrimeCatalogueModal ",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Owned modal, confirmation and focus return"
+  },
+  {
+    "id": "core.FuseExample",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "preview(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "Widget preview(",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Caller-created preview; no dynamic source execution"
+  },
+  {
+    "id": "core.FuseHighlight",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "code(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "class PrimeCodePreview ",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Literal code tokens and copy; no HTML execution"
+  },
+  {
+    "id": "core.FuseLoading",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "state(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "Widget state(",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Loading state using the active shared theme"
+  },
+  {
+    "id": "core.FuseSplashScreen",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "state(",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "Widget state(",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Splash variant of scoped loading state"
+  },
+  {
+    "id": "core.FuseSuspense",
+    "web": {
+      "path": "packages/primecare_ui/web/component-catalogue.ts",
+      "api": "asyncRegion<",
+      "entry": "packages/primecare_ui/web/component-catalogue.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/component_catalogue/prime_component_catalogue.dart",
+      "api": "class PrimeAsyncBoundary<",
+      "entry": "packages/primecare_ui/lib/component_catalogue.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/component_catalogue.dart",
+          "target": "package:flutter_core/component_catalogue.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/component_catalogue.dart",
+          "target": "component_catalogue/prime_component_catalogue.dart"
+        }
+      ]
+    },
+    "scope": "Owned asynchronous loading/error/empty/content states"
+  },
+  {
+    "id": "core.FusePageCarded",
+    "web": {
+      "path": "packages/primecare_ui/web/page-template.ts",
+      "api": "class PageTemplateView ",
+      "entry": "packages/primecare_ui/web/page-template.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+      "api": "class PrimePageTemplate ",
+      "entry": "packages/primecare_ui/lib/page_template.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/page_template.dart",
+          "target": "package:flutter_core/page_template.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/page_template.dart",
+          "target": "page/prime_page_template.dart"
+        }
+      ]
+    },
+    "scope": "Carded page slots, authorized breadcrumbs and responsive sidebars; host activation remains separate"
+  },
+  {
+    "id": "core.FusePageSimple",
+    "web": {
+      "path": "packages/primecare_ui/web/page-template.ts",
+      "api": "class PageTemplateView ",
+      "entry": "packages/primecare_ui/web/page-template.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/page/prime_page_template.dart",
+      "api": "class PrimePageTemplate ",
+      "entry": "packages/primecare_ui/lib/page_template.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/page_template.dart",
+          "target": "package:flutter_core/page_template.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/page_template.dart",
+          "target": "page/prime_page_template.dart"
+        }
+      ]
+    },
+    "scope": "Simple page slots and route-controlled chrome; host activation remains separate"
+  },
+  {
+    "id": "capability.native-docking",
+    "web": {
+      "path": "packages/primecare_ui/web/workspace-layout.ts",
+      "api": "class WorkspaceLayoutManager ",
+      "entry": "packages/primecare_ui/web/workspace-layout.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/workspace/prime_workspace_layout.dart",
+      "api": "class PrimeWorkspaceLayout ",
+      "entry": "packages/primecare_ui/lib/workspace.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/workspace.dart",
+          "target": "package:flutter_core/workspace.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/workspace.dart",
+          "target": "workspace/prime_workspace_layout.dart"
+        }
+      ]
+    },
+    "scope": "Shared dock/move/resize geometry and state-preserving slots; native host/device binding remains open"
+  },
+  {
+    "id": "capability.horizontal-menus",
+    "web": {
+      "path": "packages/primecare_ui/web/workspace-navigation.ts",
+      "api": "class WorkspaceNavigationView ",
+      "entry": "packages/primecare_ui/web/workspace-navigation.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "api": "class PrimeWorkspaceNavigation ",
+      "entry": "packages/primecare_ui/lib/workspace_navigation.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/workspace_navigation.dart",
+          "target": "package:flutter_core/workspace_navigation.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/workspace_navigation.dart",
+          "target": "navigation/prime_workspace_navigation.dart"
+        }
+      ]
+    },
+    "scope": "Authorized nested horizontal menus and keyboard entry; host routes/grants remain external"
+  },
+  {
+    "id": "capability.tabbed-rail",
+    "web": {
+      "path": "packages/primecare_ui/web/workspace-navigation.ts",
+      "api": "class WorkspaceNavigationView ",
+      "entry": "packages/primecare_ui/web/workspace-navigation.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/navigation/prime_workspace_navigation.dart",
+      "api": "class PrimeWorkspaceNavigation ",
+      "entry": "packages/primecare_ui/lib/workspace_navigation.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/workspace_navigation.dart",
+          "target": "package:flutter_core/workspace_navigation.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/workspace_navigation.dart",
+          "target": "navigation/prime_workspace_navigation.dart"
+        }
+      ]
+    },
+    "scope": "Selected icon rail presentation; vendor-specific tab variants are not asserted"
+  },
+  {
+    "id": "capability.schema-forms",
+    "web": {
+      "path": "packages/primecare_ui/web/advanced-theme-editor.ts",
+      "api": "class AdvancedThemeEditor ",
+      "entry": "packages/primecare_ui/web/advanced-theme-editor.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+      "api": "class PrimeAdvancedThemeEditor ",
+      "entry": "packages/primecare_ui/lib/advanced_theme.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/advanced_theme.dart",
+          "target": "package:flutter_core/advanced_theme.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/advanced_theme.dart",
+          "target": "advanced_theme/prime_advanced_theme_editor.dart"
+        }
+      ]
+    },
+    "scope": "Allowlisted conditional appearance schema, scoped preview/import/library; source availability is not full adoption"
+  },
+  {
+    "id": "capability.cloud-preferences",
+    "web": {
+      "path": "packages/shared/src/preference-sync/client.ts",
+      "api": "class PreferenceSyncClient ",
+      "entry": "packages/primecare_ui/web/preference-sync.ts",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/web/preference-sync.ts",
+          "target": "../../shared/src/preference-sync/client"
+        }
+      ]
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/preference_sync/preference_sync_client.dart",
+      "api": "class PreferenceSyncClient ",
+      "entry": "packages/primecare_ui/lib/preference_sync.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/preference_sync.dart",
+          "target": "package:flutter_core/preference_sync.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/preference_sync.dart",
+          "target": "preference_sync/preference_sync_client.dart"
+        }
+      ]
+    },
+    "scope": "Actor-bound preference read/save/retry/conflict protocol; API777 host/grant/deployed acceptance remains open"
+  },
+  {
+    "id": "capability.quick-panel",
+    "web": {
+      "path": "packages/primecare_ui/web/shell-utilities.ts",
+      "api": "class ShellUtilitiesView ",
+      "entry": "packages/primecare_ui/web/shell-utilities.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "api": "class PrimeShellUtilities ",
+      "entry": "packages/primecare_ui/lib/shell_utilities.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/shell_utilities.dart",
+          "target": "package:flutter_core/shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities.dart",
+          "target": "shell_utilities/prime_shell_utilities.dart"
+        }
+      ]
+    },
+    "scope": "Owned event/note/settings slots; unbound and denied adapters stay unavailable"
+  },
+  {
+    "id": "capability.favourites",
+    "web": {
+      "path": "packages/primecare_ui/web/shell-utilities.ts",
+      "api": "class ShellUtilitiesView ",
+      "entry": "packages/primecare_ui/web/shell-utilities.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "api": "class PrimeShellUtilities ",
+      "entry": "packages/primecare_ui/lib/shell_utilities.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/shell_utilities.dart",
+          "target": "package:flutter_core/shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities.dart",
+          "target": "shell_utilities/prime_shell_utilities.dart"
+        }
+      ]
+    },
+    "scope": "Current authorized destination selection with scoped preference recovery; no saved grant authority"
+  },
+  {
+    "id": "capability.fullscreen",
+    "web": {
+      "path": "packages/primecare_ui/web/shell-environment.ts",
+      "api": "class ShellEnvironment ",
+      "entry": "packages/primecare_ui/web/shell-environment.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/shell_utilities/prime_shell_utilities.dart",
+      "api": "class ShellFullscreenPort ",
+      "entry": "packages/primecare_ui/lib/shell_utilities.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/shell_utilities.dart",
+          "target": "package:flutter_core/shell_utilities.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/shell_utilities.dart",
+          "target": "shell_utilities/prime_shell_utilities.dart"
+        }
+      ]
+    },
+    "scope": "Browser-confirmed fullscreen; native requires an injected approved port and has no default OS implementation"
+  },
+  {
+    "id": "capability.tables-editors",
+    "web": {
+      "path": "packages/primecare_ui/web/data-controls.ts",
+      "api": "class PrimeDataControls ",
+      "entry": "packages/primecare_ui/web/data-controls.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/data_controls/prime_data_controls.dart",
+      "api": "class PrimeDataKit ",
+      "entry": "packages/primecare_ui/lib/data_controls.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/data_controls.dart",
+          "target": "package:flutter_core/data_controls.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/data_controls.dart",
+          "target": "data_controls/prime_data_controls.dart"
+        }
+      ]
+    },
+    "scope": "Virtual table, structured editor and upload factories; specialized widgets and business/picker/storage adapters remain open"
+  },
+  {
+    "id": "capability.charts-widgets",
+    "web": {
+      "path": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "api": "class PrimeDashboardWidgets ",
+      "entry": "packages/primecare_ui/web/dashboard-widgets.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/dashboard_widgets/prime_dashboard_widgets.dart",
+      "api": "class PrimeDashboardGrid ",
+      "entry": "packages/primecare_ui/lib/dashboard_widgets.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/dashboard_widgets.dart",
+          "target": "package:flutter_core/dashboard_widgets.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/dashboard_widgets.dart",
+          "target": "dashboard_widgets/prime_dashboard_widgets.dart"
+        }
+      ]
+    },
+    "scope": "Shared charts and configurable widget grid; business sources, persistence and advanced chart families remain open"
+  }
+]
