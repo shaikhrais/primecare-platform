@@ -33,8 +33,27 @@ void main(){
     expect(headers[i].properties.label,DateFormat.EEEE(locale).format(date));
     expect((headers[i].child! as PrimeText).data,localizations.narrowWeekdays[date.weekday%7]);
    }
-   expect(find.bySemanticsLabel(localizations.formatFullDate(DateTime(2026,11,5))),findsOneWidget);
+   final fullDate=localizations.formatFullDate(DateTime(2026,11,5));
+   final dateText=find.byWidgetPredicate((w)=>w is PrimeText&&w.semanticsLabel==fullDate);
+   expect(dateText,findsOneWidget);await t.ensureVisible(dateText);await t.pumpAndSettle();
+   expect(t.getSemantics(dateText).label,fullDate);
    expect(s.snapshot!.items,isEmpty);expect(p.calls,0);
+  }
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('populated calendar owns horizontal scrolling at narrow widths and enlarged text',(t)async{
+  addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('calendar'),s=session('calendar',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  for(final width in [320.0,600.0])for(final scale in [1.0,2.0,3.0]){
+   await t.binding.setSurfaceSize(Size(width,1800));
+   await t.pumpWidget(MaterialApp(builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(scale)),child:child!),home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'populated-calendar',year:2026,month:11,gap:8,boardWidth:250)))));
+   await t.pumpAndSettle();expect(t.takeException(),isNull);
+   expect(find.text('Original task'),findsOneWidget);expect(s.snapshot!.items.single.date,'2026-11-05');expect(p.calls,0);
+   final horizontal=find.byWidgetPredicate((w)=>w is SingleChildScrollView&&w.scrollDirection==Axis.horizontal);
+   expect(horizontal,findsOneWidget);
+   final scroll=t.state<ScrollableState>(find.descendant(of:horizontal,matching:find.byType(Scrollable)).first);
+   expect(scroll.position.maxScrollExtent,greaterThan(0));
+   await t.ensureVisible(find.text('Original task'));await t.pumpAndSettle();expect(t.takeException(),isNull);
   }
   await t.pumpWidget(const SizedBox());s.dispose();
  });
