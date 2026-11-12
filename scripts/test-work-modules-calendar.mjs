@@ -21,6 +21,7 @@ for(const locale of ['en','fr','es'])for(let firstWeekday=0;firstWeekday<7;first
    const name=new Intl.DateTimeFormat(locale,{weekday:'long',timeZone:'UTC'}).format(date);
    assert.equal(headings[i].getAttribute('aria-label'),name);assert.equal(headings[i].getAttribute('title'),name);
   }
+  const grid=root.querySelector('[data-work-grid]');assert.equal(grid.getAttribute('role'),'region');assert.equal(grid.getAttribute('tabindex'),'0');assert.equal(grid.getAttribute('aria-label'),new Intl.DateTimeFormat(locale,{month:'long',year:'numeric',timeZone:'UTC'}).format(new Date('2026-11-01T00:00:00Z')));
   assert.equal(root.querySelectorAll('[data-cy^="work-modules-date-2026-"]').length,42);
   const day=root.querySelector('[data-cy="work-modules-date-2026-11-05"]');assert.equal(day.getAttribute('aria-label'),new Intl.DateTimeFormat(locale,{dateStyle:'full',timeZone:'UTC'}).format(new Date('2026-11-05T00:00:00Z')));
   assert.equal(day.querySelector('h3').textContent,new Intl.NumberFormat(locale).format(5));

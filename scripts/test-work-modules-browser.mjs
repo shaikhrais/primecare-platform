@@ -45,6 +45,8 @@ try{
   assert.equal(await page.locator('[data-cy="work-modules-date-2026-11-05"]').getAttribute('aria-label'),new Intl.DateTimeFormat(locale,{dateStyle:'full',timeZone:'UTC'}).format(new Date('2026-11-05T00:00:00Z')));
   await page.setViewportSize({width:320,height:900});await page.evaluate(()=>document.querySelector('main').style.fontSize='200%');
   assert.equal(await headings.evaluateAll(nodes=>new Set(nodes.map(n=>Math.round(n.getBoundingClientRect().top))).size),1);
+  const grid=page.locator('[data-work-grid]');assert.equal(await grid.getAttribute('role'),'region');assert.equal(await grid.getAttribute('tabindex'),'0');assert.equal(await grid.evaluate(e=>e.scrollWidth>e.clientWidth),true);await grid.evaluate(e=>e.scrollLeft=0);await grid.focus();assert.equal(await grid.evaluate(e=>e.ownerDocument.activeElement===e),true);await page.keyboard.press('ArrowRight');await page.waitForFunction(()=>document.querySelector('[data-work-grid]').scrollLeft>0);
+  const task=grid.locator('[data-work-card]').first();await task.scrollIntoViewIfNeeded();assert.equal(await task.evaluate(e=>e.getBoundingClientRect().width>=160),true);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
   assert.equal(await page.locator('[data-cy^="work-modules-date-2026-"]').count(),42);assert.equal(await page.evaluate(()=>window.writes),0);checks++;
  }
  await page.setViewportSize({width:1200,height:900});await page.evaluate(()=>document.querySelector('main').style.fontSize='');
