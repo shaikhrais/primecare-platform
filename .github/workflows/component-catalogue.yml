@@ -14,6 +14,8 @@ on:
       - 'packages/primecare_ui/lib/component_catalogue.dart'
       - 'scripts/*component-catalogue*.mjs'
       - 'scripts/audit-shared-skeleton-equivalents.py'
+      - 'scripts/shared-skeleton-equivalents.json'
+      - 'scripts/tests/test_shared_skeleton_equivalents.py'
       - 'docs/appearance/shared-skeleton-equivalents.md'
       - 'tools/governance-production/test-metadata-store.py'
       - '.github/workflows/component-catalogue.yml'
@@ -30,6 +32,8 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
+      - run: python3 scripts/audit-shared-skeleton-equivalents.py --check
+      - run: python3 scripts/tests/test_shared_skeleton_equivalents.py
       - run: |
           npm install --prefix /tmp/catalogue-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 linkedom@0.18.12
           ln -s /tmp/catalogue-tools/node_modules node_modules
