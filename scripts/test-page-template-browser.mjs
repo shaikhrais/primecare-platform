@@ -11,6 +11,13 @@ try{
   window.options={scope:'tenant:actor:role',routes:[fixture],authority,currentRoute:'/one',labels:{breadcrumbs:'Breadcrumbs',openLeft:'Open left',closeLeft:'Close left',openRight:'Open right',closeRight:'Close right'},chrome,onNavigate:r=>routes.push(r)};
   window.view=new Pages.PageTemplateView(document.querySelector('#page'),slots,options);
  },{fixture:fixture(),authority});await page.locator('#unsaved').fill('Unfinished main');
+ // Failed constructors must not leave window listeners that outlive their owner.
+ await page.evaluate(()=>{const add=window.addEventListener,signals=[];window.addEventListener=function(type,listener,options){if(type==='resize'&&options?.signal)signals.push(options.signal);return add.call(this,type,listener,options);};
+  try{for(const failure of ['scope','route','slots']){const root=document.createElement('section'),content=document.createElement('section');document.body.append(root);const broken={...window.options,routes:structuredClone(window.options.routes),chrome:undefined};const slots={content};if(failure==='scope')broken.scope='';if(failure==='route')broken.routes[0].layout.version=99;if(failure==='slots')slots.left=content;let rejected=false;try{new Pages.PageTemplateView(root,slots,broken);}catch{rejected=true;}if(!rejected||!signals.at(-1)?.aborted||root.hasAttribute('data-pc-page'))throw Error('Failed page owner leaked: '+failure);root.remove();}if(signals.length!==3)throw Error('Expected one owned resize subscription per attempt');}
+  finally{window.addEventListener=add;}
+ });
+ assert.equal(await page.locator('#unsaved').inputValue(),'Unfinished main');
+
  for(const dir of ['ltr','rtl'])for(const template of ['simple','carded'])for(const scroll of ['normal','page','content']){
   await page.evaluate(({dir,template,scroll})=>{document.documentElement.dir=dir;fixture={...fixture,layout:{...fixture.layout,template,scroll,left:{mode:'permanent',width:280,open:true},right:{mode:'permanent',width:240,open:true}}};options={...options,routes:[fixture]};view.update(options);},{dir,template,scroll});
   assert.equal(await page.locator('#unsaved').inputValue(),'Unfinished main');assert.equal(await page.locator('[data-pc-page-heading]').textContent(),'Registered title <safe>');assert.equal(await page.getByText('PRIVATE breadcrumb').count(),0);
