@@ -378,3 +378,12 @@ test('approved dark Theme Center assertion follows the shared surface and readab
  assert.ok(source.includes(">=4.5,'Dark Theme Center foreground must remain readable'"));
  assert.ok(source.includes("cy('appearance-reset').click()"));
 });
+
+
+test('approved admin reset readback uses the canonical shared sidebar token',async()=>{
+ const source=await read('scripts/test-code-admin-approved.mjs');
+ assert.ok(source.includes("const canonicalTheme=JSON.parse(await readFile('packages/shared/src/solid-theme.json','utf8'))"));
+ assert.ok(source.includes("const canonicalSidebar=canonicalTheme['--color-sidebar']"));
+ assert.ok(source.includes("getComputedStyle(e).backgroundColor),canonicalSidebarRgb)"));
+ assert.equal(theme['--color-sidebar'].toUpperCase(),'#14253D');
+});

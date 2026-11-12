@@ -9,3 +9,6 @@ The browser assertion now checks those exact rendered dark background AND foregr
 Local evidence:192 admin fixture/real-renderer Node checks pass; the new dark-contract regression fails against the previous fixture source. It exercises the actual shared BaseThemeManager and verifies the existing shared dialog CSS contract. Edited browser script syntax and whitespace pass. Strict source findings previous0/current0/new removals0;72source mappings remain reconciled,0fully accepted/72pending. No readiness credit.
 
 Current-head pre-repair boundary43161623681,contract43161623609,security43161623594,platform acceptance43161623590 and tenant workspace43161962154 passed. These are predecessor receipts, not verification of the repair. Fresh approved-data browser result remains required.
+
+
+Follow-up: exacta07fb2b0 approved-data job131012895135 passed the dark dialog checks, then exposed another historical reset expectation:rgb(20,40,63) versus actualrgb(20,37,61). The shared canonical solid-theme.json owns sidebar#14253D. The fixture now reads and strictly validates that exact canonical token, converts it to rendered RGB and checks actual reset paint against it. No palette or production CSS changed. A new local regression locks the canonical source and exact paint assertion. Fresh browser completion remains required.
