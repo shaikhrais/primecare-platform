@@ -23,7 +23,7 @@ try{
  await preference.db.query("INSERT INTO users VALUES($1,$2,'tenant_admin','active')",[actor.id,actor.tenant]);
  await preference.db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+interval '1 hour')",[createHash('sha256').update(actor.token).digest('hex'),actor.id]);
  await preference.db.query('INSERT INTO '+preference.table('api_permissions')+" VALUES(80124,777,72,1,'authenticated_self_preferences')");
- const bundle=await build({stdin:{contents:"import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);",resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
+ const bundle=await build({stdin:{contents:"import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.render=()=>renderTenantDashboard(root,location.origin);",resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
  server=createServer(async(req,res)=>{
   try{
    if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');return res.end(bundle.outputFiles[0].text);}
@@ -49,6 +49,9 @@ try{
  await context.addInitScript(({token,key,source})=>{sessionStorage.setItem('primecare_session',token);if(localStorage.getItem(key)===null)localStorage.setItem(key,source);},{token:actor.token,key,source});
  const page=await context.newPage(),errors=[];page.on('pageerror',error=>errors.push(error.message));
  await page.goto('http://127.0.0.1:'+server.address().port+'/tenant-dashboard');
+ await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
+ assert.deepEqual(errors,[],'Screen Manager bootstrap must succeed before theme migration');
+ assert.equal(await page.locator('[data-cy=error-state]').count(),0,'Missing presentation configuration must fail acceptance');
  await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').click();
  assert.equal(await page.locator('[data-cy=theme-migration-status]').textContent(),'Review ready');
