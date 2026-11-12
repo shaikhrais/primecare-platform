@@ -123,9 +123,20 @@ test('enrollment capability dispatches three registered contracts with transport
  for(const [key,path,input,output] of contactCommands){const f=contactsFixture();const r=await f.adapter.respond(request(path,input));assert.equal(r.status,200);assert.deepEqual(await r.json(),output);assert.deepEqual(f.grants,[key,key,key]);assert.equal(f.calls[0].args[0],hash);assert.equal(f.calls.length,1);assert.match(r.headers.get('cache-control'),/no-store/);}
  const f=fixture();assert.equal((await f.adapter.respond(request(contactCommands[0][1]))).status,404);
 });
+test('enrollment normalizes documented national formats before exact service dispatch',async()=>{
+ for(const phone of ['4165550101','1-416-555-0101','(416) 555-0101','+1 416-555-0101','+14165550101']){
+  const f=contactsFixture(),r=await f.adapter.respond(request(contactCommands[1][1],{phone,requestId:intentId}));
+  assert.equal(r.status,200,phone);assert.equal(f.calls.length,1);assert.equal(f.calls[0].key,'contact.start');
+  assert.deepEqual(f.calls[0].args,[hash,'+14165550101',intentId]);assert.deepEqual(f.grants,['contact.start','contact.start','contact.start']);
+ }
+ for(const phone of ['4165550101 ext 4','4165550101/9055550101','++14165550101','4165550101\n']){
+  const f=contactsFixture(),r=await f.adapter.respond(request(contactCommands[1][1],{phone,requestId:intentId}));
+  assert.equal(r.status,400,phone);assert.equal(f.calls.length,0);
+ }
+});
 test('enrollment rejects extra identity fields, invalid UUID/code/phone and unbounded bodies before dispatch',async()=>{
  for(const [,path,input] of contactCommands)for(const field of ['actor','tenantId','sessionHash','verified','verificationSid']){const f=contactsFixture();assert.equal((await f.adapter.respond(request(path,{...input,[field]:'forged'}))).status,400);assert.equal(f.calls.length,0);}
- for(const [path,input] of [[contactCommands[1][1],{phone:'+14165550101',requestId:'invalid'}],[contactCommands[1][1],{phone:'4165550101',requestId:intentId}],[contactCommands[2][1],{challengeId:intentId,code:'123456\n'}],[contactCommands[2][1],{challengeId:'invalid',code:'123456'}]]){const f=contactsFixture();assert.equal((await f.adapter.respond(request(path,input))).status,400);assert.equal(f.calls.length,0);}
+ for(const [path,input] of [[contactCommands[1][1],{phone:'+14165550101',requestId:'invalid'}],[contactCommands[1][1],{phone:'4165550101 ext 4',requestId:intentId}],[contactCommands[2][1],{challengeId:intentId,code:'123456\n'}],[contactCommands[2][1],{challengeId:'invalid',code:'123456'}]]){const f=contactsFixture();assert.equal((await f.adapter.respond(request(path,input))).status,400);assert.equal(f.calls.length,0);}
 });
 test('enrollment denies ambient cookies, foreign origins and missing grants without provider work',async()=>{
  for(const mode of ['cookie','origin','grant']){const f=contactsFixture();if(mode==='grant')f.deny();const headers={'content-type':'application/json',...(mode==='cookie'?{cookie:'session=fixture'}:{authorization:'Bearer fixture'}),...(mode==='origin'?{origin:'https://foreign.invalid'}:{})};const r=await f.adapter.respond(new Request(origin+contactCommands[1][1],{method:'POST',headers,body:JSON.stringify(contactCommands[1][2])}));assert.equal(r.status,mode==='cookie'?401:403);assert.equal(f.calls.length,0);}
