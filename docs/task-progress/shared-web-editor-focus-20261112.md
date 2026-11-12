@@ -1,0 +1,11 @@
+# Shared web work-editor focus restoration
+
+Batch summary: reuse the existing PrimeWorkModule controls and session readback to restore originating Open focus after verified Save or successful recovery, matching the existing native behavior. Consolidate Close through the same guarded helper. No new factory, API, metadata, role, grant, palette or business behavior.
+
+The web editor already restored focus on Close, but successful Save and the toolbar's independent-read recovery cleared the detail without restoring focus. Two public-API regressions fail on exact6a62c29d shared source. The common closeDetail helper now clears the same selected draft, renders and focuses only the connected, enabled originating Open control. It checks the view is alive and the same item remains selected. Save/recovery call it only after session status success, which follows existing independent readback. Disposed/replaced views cannot move focus; no started operations are cancelled or replayed by the UI.
+
+Eight new Node cases cover Close in calendar/contacts/tasks/notes/board, verified Save, successful recovery and late save completion after view disposal. The latter leaves replacement-owner focus/content unchanged. Existing failed constructor ownership cases remain. Combined17 lifecycle+21 calendar=38 checks pass; shared TypeScript compiles, browser script parses and whitespace passes. Tests compare focus identity as booleans so failed DOM assertions cannot print giant cyclic object listings.
+
+Actual browser save/recovery helpers now assert focus on the registered Open control, alongside all existing invalid-draft, recovery write-count, authorized edit, independent SQL/readback, reload, locale and denied-session checks. Native and real-browser verification remains GitHub Actions only.
+
+Pre-repair exact6a62c29d passed all23 listed workflows, including data-controls43175191211, full ThemeCenter43175190976, closure43175190939, boundary43175190996 and contract43175191231. Those are predecessor evidence, not acceptance of this change. Strict findings previous0/current0/new removals0;72mapped0unreconciled0fully accepted72pending,0/344screens0/147workflows remain unchanged. Historical source replay and native receipt identities are untouched.
