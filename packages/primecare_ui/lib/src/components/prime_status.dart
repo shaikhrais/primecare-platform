@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme/prime_theme.dart';
 import 'package:flutter_core/theme/theme_contrast.dart';
+import 'package:flutter_core/original_assets.dart';
 import 'prime_text.dart';
 
 /// Semantic status roles resolved from the inherited product theme.
@@ -18,18 +19,38 @@ class PrimeStatusIcon extends StatelessWidget {
   final IconData icon;
   final PrimeStatusTone tone;
   final double? size;
+  /// Explicit, registered original icon key; no legacy glyph mapping is inferred.
+  final String? assetName;
+  final String? semanticLabel;
 
   const PrimeStatusIcon(this.icon, {
     super.key,
     required this.tone,
     this.size,
+    this.assetName,
+    this.semanticLabel,
   });
 
   @override
-  Widget build(BuildContext context) => Icon(icon,
-    size: size,
-    color: _statusColor(context, tone),
-  );
+  Widget build(BuildContext context) {
+    final name = assetName;
+    if (name != null) {
+      if (originalAssetInfo(name)['category'] != 'icon') {
+        throw ArgumentError('Status assets must be registered icons');
+      }
+      return PrimeOriginalAsset(name,
+        size: size,
+        color: _statusColor(context, tone),
+        decorative: semanticLabel == null,
+        semanticLabel: semanticLabel,
+      );
+    }
+    return Icon(icon,
+      size: size,
+      color: _statusColor(context, tone),
+      semanticLabel: semanticLabel,
+    );
+  }
 }
 
 /// Retains inherited typography and scaling while applying a semantic color.

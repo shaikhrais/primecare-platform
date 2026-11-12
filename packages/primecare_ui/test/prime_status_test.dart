@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_core/theme/personal_theme.dart';
+import 'package:flutter_core/original_assets.dart';
 import 'package:flutter_core/theme/theme_center_catalog_generated.dart';
 import 'package:flutter_core/theme/theme_center_theme_data.dart';
 import 'package:primecare_ui/src/components/prime_status.dart';
@@ -18,6 +19,73 @@ import 'fixtures/premium_health_panel_fixture.dart';
 import 'fixtures/governance_status_metrics_fixture.dart';
 
 void main() {
+  testWidgets('status icon explicitly reuses registered geometry and inherited icon presentation', (tester) async {
+    final semantics = tester.ensureSemantics();
+    addTearDown(semantics.dispose);
+    for (final colors in [const PrimeColors(), const PrimeColors(
+      success: Colors.yellow, warning: Colors.cyan, error: Colors.pink,
+      onSurfaceVariant: Colors.purple,
+    )]) {
+      final tones = <PrimeStatusTone, Color>{
+        PrimeStatusTone.success: colors.success,
+        PrimeStatusTone.warning: colors.warning,
+        PrimeStatusTone.error: colors.error,
+        PrimeStatusTone.muted: colors.onSurfaceVariant,
+      };
+      for (final entry in tones.entries) {
+        await tester.pumpWidget(PrimeTheme(data: PrimeThemeData(colors: colors), bootstrap: false,
+          child: MaterialApp(home: Scaffold(body: IconTheme(
+            data: const IconThemeData(size: 36, opacity: .4),
+            child: PrimeStatusIcon(Icons.help_outline, tone: entry.key,
+              assetName: 'check', semanticLabel: 'Reviewed status fixture'),
+          )))));
+        await tester.pumpAndSettle();
+        final asset = tester.widget<PrimeOriginalAsset>(find.byType(PrimeOriginalAsset));
+        expect(asset.name, 'check');
+        expect(asset.color, entry.value);
+        expect(asset.decorative, isFalse);
+        expect(asset.semanticLabel, 'Reviewed status fixture');
+        expect(find.byType(Icon), findsNothing);
+        final drawing = find.descendant(of: find.byType(PrimeOriginalAsset), matching: find.byType(CustomPaint));
+        expect(tester.getSize(drawing), const Size(36, 36));
+        expect(IconTheme.of(tester.element(find.byType(PrimeOriginalAsset))).opacity, .4);
+        expect(find.bySemanticsLabel('Reviewed status fixture'), findsOneWidget);
+        expect(tester.takeException(), isNull);
+      }
+    }
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('status icon retains its const legacy constructor and explicit original size', (tester) async {
+    const legacy = PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 48);
+    expect(legacy.icon, Icons.check_circle_outline);
+    expect(legacy.assetName, isNull);
+    await tester.pumpWidget(PrimeTheme(data: const PrimeThemeData(), bootstrap: false,
+      child: const MaterialApp(home: Scaffold(body: legacy))));
+    expect(tester.widget<Icon>(find.byIcon(Icons.check_circle_outline)).size, 48);
+    expect(find.byType(PrimeOriginalAsset), findsNothing);
+    await tester.pumpWidget(PrimeTheme(data: const PrimeThemeData(), bootstrap: false,
+      child: const MaterialApp(home: Scaffold(body: IconTheme(data: IconThemeData(size: 20),
+        child: PrimeStatusIcon(Icons.help_outline, tone: PrimeStatusTone.success,
+          assetName: 'check', size: 64))))));
+    final drawing = find.descendant(of: find.byType(PrimeOriginalAsset), matching: find.byType(CustomPaint));
+    expect(tester.getSize(drawing), const Size(64, 64));
+    expect(tester.widget<PrimeOriginalAsset>(find.byType(PrimeOriginalAsset)).decorative, isTrue);
+    expect(tester.takeException(), isNull);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('status icon rejects unknown keys and non-icon registered assets', (tester) async {
+    for (final name in ['unregistered-status-fixture', 'placeholder-avatar']) {
+      await tester.pumpWidget(PrimeTheme(data: const PrimeThemeData(), bootstrap: false,
+        child: MaterialApp(home: Scaffold(body: PrimeStatusIcon(Icons.help_outline,
+          tone: PrimeStatusTone.success, assetName: name)))));
+      expect(tester.takeException(), isArgumentError);
+      expect(find.byType(PrimeOriginalAsset), findsNothing);
+      await tester.pumpWidget(const SizedBox());
+    }
+  });
+
   testWidgets('shared telemetry row wraps and follows live theme accents and text colors', (tester) async {
     for (final colors in [const PrimeColors(), const PrimeColors(primary: Colors.yellow,
       onSurface: Colors.white, onSurfaceVariant: Colors.cyan, surface: Colors.black)]) {

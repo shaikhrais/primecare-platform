@@ -14,6 +14,8 @@ on:
       - 'packages/primecare_ui/web/index.ts'
       - 'packages/primecare_ui/lib/original_assets.dart'
       - 'packages/primecare_ui/lib/src/theme/primecare_assets.dart'
+      - 'packages/primecare_ui/lib/src/components/prime_status.dart'
+      - 'packages/primecare_ui/test/prime_status_test.dart'
       - 'packages/primecare_ui/catalogs/original-assets.registration.json'
       - 'packages/flutter_core/lib/original_assets*'
       - 'packages/flutter_core/lib/original_assets/**'
@@ -25,8 +27,8 @@ on:
       - '.github/workflows/original-assets.yml'
 permissions: {contents: read}
 concurrency:
-  group: original-asset-tests-${{ github.ref }}
-  cancel-in-progress: true
+  group: original-asset-tests-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
 jobs:
   web:
     runs-on: ubuntu-24.04
@@ -76,3 +78,7 @@ jobs:
         working-directory: packages/flutter_core
       - run: flutter test test/original_assets test/navigation test/data_controls --reporter expanded
         working-directory: packages/flutter_core
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - run: flutter test test/prime_status_test.dart --reporter expanded
+        working-directory: packages/primecare_ui
