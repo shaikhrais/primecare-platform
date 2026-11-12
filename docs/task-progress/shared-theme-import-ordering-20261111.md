@@ -1,0 +1,13 @@
+# Shared Theme Center import ordering
+
+Batch summary: preserve the newest explicit theme choice in the existing shared editor. Reject stale file-read completions after another import, a manual edit, a saved-theme selection, reset or another explicit editor command. Native text entry respects the existing busy-operation lock.
+
+Public web API regressions on assessed main 1ca98433 reproduced two real failures: a slow first file overwrote the second selected theme, and a pending file overwrote a later manual draft edit. The editor previously advanced its generation only on disposal. It now advances on each import or explicit draft intent, ignores stale completions and prevents stale cleanup from clearing a newer file selection. Existing scope ownership, import validation, size limits, palette definitions and library storage remain unchanged. Import still edits a preview only; it does not apply or save a theme automatically.
+
+Four local tests exercise the real AdvancedThemeEditor/AdvancedThemeLibrary with controllable file reads: newest import wins, manual edit survives, reset survives, and disposal cannot repaint a replacement. The first two failed before the repair and pass afterward. The browser suite contains equivalent latest-import/manual-edit/reset cases. CI pins Linkedom only for the DOM behavior tests and retains actual Playwright browser and native jobs.
+
+Native already serializes editor actions with its busy state, but its text fields remained editable during an awaited import. The existing shared PrimeTextField now receives enabled:false while busy, and submitted callbacks reject busy actions. The actor-replacement native test checks the actual inner TextField is disabled during the pending picker and enabled again for the replacement owner. Exact source hashes and a reversible span compose through the existing native-widget-repairs receipt; earlier migration hashes remain untouched.
+
+This is a repair of an existing shared capability, not new feature acceptance or a new live host. Source findings remain 0; full feature acceptance remains 0/72 complete and 72 pending. Native/browser execution on the published head is required before runtime acceptance is claimed. No registration, permission, API grant or business record is added.
+
+Local validation: 13 lifecycle/model/migration/storage/preview checks and all 284 historical migration tests pass; TypeScript type checking, browser-script syntax, YAML and delimiter checks pass. The strict source scan remains zero. Historical Material-control replay first exposed the later native edit; its test now reverses the separately hash-verified native receipt before replaying the old migration, preserving the original hash and all 61 original control counts.

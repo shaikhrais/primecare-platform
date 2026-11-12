@@ -75,11 +75,12 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
+          npm install --prefix /tmp/theme-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 linkedom@0.18.12 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s /tmp/theme-tools/node_modules node_modules
           npx playwright install --with-deps chromium
       - name: Cross-batch models and real-handler fixtures
         run: |
+          node --test scripts/test-advanced-theme-editor-lifecycle.mjs
           node scripts/test-data-controls-rich-ranges.mjs
           for name in workspace-layout-contract workspace-navigation-model page-template-model advanced-theme-model preference-client shell-utilities-model component-catalogue-model data-controls-model upload-removal dashboard-widgets-model original-assets-model work-modules work-modules-transport communication-modules communication-modules-transport application-modules application-modules-transport dashboard-pages-projection dashboard-pages-session dashboard-record-pages dashboard-pages-parity dashboard-pages-integration; do
             node scripts/test-$name.mjs
