@@ -8,6 +8,23 @@ Future<UploadTask> uploaded({UploadRemovalPort? remove,UploadReceiptPort? read,b
  task.choose(files);await task.send();return task;
 }
 void main(){
+ test('native upload owns allowed type policy and retains receipt after caller widens its list',()async{
+  final types=<String>['text/plain'],supplied=UploadPolicy(maxFiles:1,maxBytes:10,types:types);var sends=0,notifications=0;
+  final task=UploadTask('actor-session',supplied,port:(a,b,c,d,e)async{sends++;return 'r1';});
+  task.choose([files.first]);await task.send();task.addListener(()=>notifications++);
+  types.add('text/html');expect(types,['text/plain','text/html']);
+  expect(()=>task.choose([const UploadCandidate('bad.html',5,'text/html','x')]),throwsArgumentError);
+  expect(task.status,'success');expect(task.receiptId,'r1');expect(task.progress,1);expect(task.files.map((file)=>file.name),['a.txt']);expect(sends,1);expect(notifications,0);
+  expect(task.policy.types,['text/plain']);expect(()=>task.policy.types.add('image/png'),throwsUnsupportedError);task.dispose();
+ });
+ test('native upload snapshots each session without freezing the caller allowed type list',(){
+  final types=<String>['text/plain'],supplied=UploadPolicy(maxFiles:1,maxBytes:10,types:types),original=UploadTask('original-session',supplied);
+  types.clear();types.add('text/html');expect(types,['text/html']);
+  original.choose([files.first]);expect(original.status,'ready');expect(original.files.single.name,'a.txt');
+  final replacement=UploadTask('replacement-session',supplied);
+  replacement.choose([const UploadCandidate('new.html',5,'text/html','x')]);expect(replacement.status,'ready');expect(replacement.files.single.name,'new.html');
+  expect(()=>replacement.choose([files.first]),throwsArgumentError);expect(replacement.files.single.name,'new.html');original.dispose();replacement.dispose();
+ });
  test('remove local selections only before upload',()async{final task=UploadTask('actor-session',policy);task.choose(files);task.removeSelection(0);expect(task.files.single.name,'b.txt');task.removeSelection(0);expect(task.status,'idle');expect(()=>task.removeSelection(0),throwsStateError);task.dispose();});
  test('remove remote upload only after independent absence',()async{var present=true,writes=0,reads=0;final task=await uploaded(remove:(a,b,c,d)async{writes++;present=false;return UploadRemovalReceipt(b,true);},read:(a,b,c)async{reads++;return UploadReceiptState(a,b,present);});await task.removeUpload();expect(task.status,'removed');expect(task.receiptId,null);expect(task.files,isEmpty);expect(writes,1);expect(reads,1);task.dispose();});
  test('acknowledged write followed by read failure retries only the read',()async{var writes=0,reads=0;final task=await uploaded(remove:(a,b,c,d)async{writes++;return UploadRemovalReceipt(b,true);},read:(a,b,c)async{if(++reads==1)throw StateError('offline');return UploadReceiptState(a,b,false);});await task.removeUpload();expect(task.status,'remove-error');expect(task.receiptId,'r1');expect(task.files.length,2);expect(()=>task.choose(files),throwsStateError);await task.removeUpload();expect(task.status,'removed');expect(writes,1);task.dispose();});
