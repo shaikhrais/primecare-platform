@@ -10,7 +10,14 @@ export 'work_module_model.dart';export 'work_module_session.dart';
 class PrimeWorkModule extends StatefulWidget {final CatalogueLabels labels;final WorkModuleSession session;final String scope;final int year,month,firstWeekday;final double gap,boardWidth;const PrimeWorkModule({super.key,required this.labels,required this.session,required this.scope,required this.year,required this.month,required this.gap,required this.boardWidth,this.firstWeekday=0});@override State<PrimeWorkModule> createState()=>_PrimeWorkModuleState();}
 class _PrimeWorkModuleState extends State<PrimeWorkModule>{late int year,month;WorkItem? selected;WorkAction? action;final fields=<String,TextEditingController>{};final search=TextEditingController();String? message;int epoch=0,actionRevision=0;final detailFocus=FocusNode(debugLabel:'work-module-detail');final openFocus=<String,FocusNode>{};
  @override void initState(){super.initState();year=widget.year;month=widget.month;workMonth(year,month,widget.firstWeekday);widget.session.addListener(changed);WidgetsBinding.instance.addPostFrameCallback((_){if(mounted&&widget.session.pending==null)widget.session.load();});}
- void changed(){if(mounted)setState((){});}
+ void syncSelection(){
+  final s=widget.session,item=selected;
+  if(item==null||s.snapshot==null||s.pending!=null||s.status=='saving'||hasUnsavedChanges)return;
+  final latest=s.snapshot!.items.where((i)=>i.id==item.id).firstOrNull;if(latest==null)return;
+  final actionId=action?.id;selected=latest;
+  chooseAction(latest.actions.where((a)=>a.id==actionId).firstOrNull??latest.actions.firstOrNull);
+ }
+ void changed(){if(mounted)setState(syncSelection);}
  void clearFocus(){for(final node in openFocus.values){node.dispose();}openFocus.clear();detailFocus.unfocus();}
  void pruneFocus(Set<String> active){final removed=[for(final id in openFocus.keys.where((id)=>!active.contains(id)).toList())openFocus.remove(id)!];if(removed.isNotEmpty)WidgetsBinding.instance.addPostFrameCallback((_){for(final node in removed){node.dispose();}});}
  void focusDetail(String id){final g=epoch;WidgetsBinding.instance.addPostFrameCallback((_){if(mounted&&g==epoch&&selected?.id==id&&detailFocus.context!=null&&detailFocus.canRequestFocus){detailFocus.requestFocus();unawaited(Scrollable.ensureVisible(detailFocus.context!));}});}

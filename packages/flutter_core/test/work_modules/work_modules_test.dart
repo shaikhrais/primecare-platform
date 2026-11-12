@@ -245,5 +245,38 @@ void main(){
   await t.pumpWidget(const SizedBox());old.dispose();current.dispose();actor.dispose();
  });
 
+ testWidgets('clean editor reload adopts refreshed title and version before Save',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'refresh-clean',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  p.value=data('tasks',version:2,title:'Refreshed native task');
+  await t.tap(find.widgetWithText(TextButton,labels.text('reload')).first);await t.pumpAndSettle();
+  expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Refreshed native task');
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pumpAndSettle();
+  expect(s.status,'success');expect(s.snapshot!.items.single.version,3);expect(p.calls,1);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('dirty draft keeps original version across external native refresh',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'refresh-dirty',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Retained native draft');p.value=data('tasks',version:2,title:'New server title');await s.load();await t.pumpAndSettle();
+  expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Retained native draft');
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pumpAndSettle();
+  expect(p.calls,0);expect(s.snapshot!.items.single.title,'New server title');expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Retained native draft');expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('clean native reload removes newly revoked editor actions',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'refresh-denied',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  p.value=data('tasks',version:2);((p.value['items'] as List).single as Map)['actions']=<Object?>[];await s.load();await t.pumpAndSettle();
+  expect(find.widgetWithText(TextButton,labels.text('save')),findsNothing);expect(p.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+
 }
 
