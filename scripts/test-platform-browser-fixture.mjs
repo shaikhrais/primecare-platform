@@ -296,3 +296,33 @@ test('both acceptance workflows select and enforce canonical fixture theme and s
   for(const script of ['scripts/test-theme-manifest.py','scripts/test-browser-fixture-theme.py'])assert.ok(source.includes('python3 '+script),path+': '+script);
  }
 });
+
+for (const [path, routes] of [
+ ['scripts/review-code-admin-look.mjs', ['/platform/administration', '/dashboard']],
+ ['scripts/test-code-admin-approved.mjs', ['/platform/administration']],
+]) test(path+' uses the actual managed fixture entry before its existing renderer', async t=>{
+ const source=await read(path);
+ const literal=source.match(/stdin:\{contents:("(?:\\.|[^"\\])*")/);
+ assert.ok(literal,'Actual browser entry must be inspected');
+ const entry=JSON.parse(literal[1]);
+ assert.match(entry,/presentPlatformFixture\(root,/);
+ assert.doesNotMatch(entry,/installPortalPresentation|new ScreenManager|sessionStorage\.setItem/);
+ assert.match(source,/waitForFixtureStartup\(page,/);
+ const built=await build({stdin:{contents:entry,resolveDir:process.cwd()},bundle:true,write:false,format:'iife',metafile:true});
+ for(const required of ['websites/typescript/src/screen-presentation.ts','packages/primecare_ui/web/screen-manager.ts','scripts/fixtures/platform-browser-bootstrap.ts'])assert.ok(Object.keys(built.metafile.inputs).includes(required),required);
+ const execute=entry.replace(/import\s+\{[^}]+\}\s+from\s+['"][^'"]+['"];?/g,'').replace(/import\s+\w+\s+from\s+['"][^'"]+['"];?/g,'');
+ for(const route of routes)await t.test(route,async t=>{
+  const f=peripheral(t,route),starts=[],calls=[];
+  const present=(root,tokens,gateway,render)=>{assert.equal(root,f.root);assert.deepEqual(tokens,theme);const work=api.presentPlatformFixture(root,tokens,gateway,render);starts.push(work);return work;};
+  const renderer=name=>(root,gateway)=>{const registration=api.resolveManagedRoute(route,'');assert.deepEqual(api.requireScreenManager(root).enter(registration.id,registration.route),registration);assert.equal(gateway,location.origin);calls.push(name);};
+  new Function('presentPlatformFixture','portalTheme','theme','initializePortalInstall','renderPlatformAdmin','renderWorkspace',execute)(present,theme,theme,()=>{},renderer('platform'),renderer('workspace'));
+  await Promise.all(starts);assert.equal(starts.length,1);assert.deepEqual(calls,[route==='/dashboard'?'workspace':'platform']);assert.deepEqual(f.requests,[]);assert.deepEqual(f.writes,[]);
+ });
+});
+
+test('admin security fixture keeps MFA, independent readback and startup failures visible',async()=>{
+ const source=await read('scripts/test-code-admin-browser.mjs');
+ assert.match(source,/waitForFixtureStartup\(page,\(\)=>cy\('mfa-submit'\)\.click\(\)/);
+ for(const retained of ["COUNT(*)::int AS n FROM auth_sessions","SELECT u.roles,t.slug", "platform_admin", "sessionStorage.getItem('primecare_session')"])assert.ok(source.includes(retained),retained);
+ assert.doesNotMatch(source,/timeoutMs:(?:60000|120000)|waitForTimeout/);
+});
