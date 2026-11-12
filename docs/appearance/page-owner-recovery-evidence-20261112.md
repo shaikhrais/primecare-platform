@@ -1,0 +1,9 @@
+# Exclusive page ownership through recoverable update failures
+
+`PageTemplateView` clears its presentation marker after an invalid or denied route update but retains its resize listener and can recover through a later authorized update. The constructor relied only on that removed marker, allowing a second live controller on the same root. A recovered or disposed older controller could then overwrite the replacement page.
+
+Use a shared weak ownership set in addition to the presentation marker. A recoverable update failure retains exclusive ownership. Failed construction releases only the attempted owner's claim; duplicate rejection happens before acquisition, and explicit disposal releases the root for a valid replacement. Already disposed views remain inert/reject updates through the existing lifecycle guard. Existing content-slot freshness, route authority, chrome, overlays and theme behavior remain unchanged.
+
+The new recovery regression fails against predecessor source and passes after repair. It covers repeated duplicate attempts, old-owner recovery, explicit release, valid replacement and rejection of a late old update. The three constructor-failure cases also verify a valid remount after cleanup. All eight page lifecycle tests, two authority/model groups and TypeScript compilation pass. The existing 288 parity fixtures are regenerated without new feature credit. Real page/workspace browser coverage now rejects duplicates after an invalid update and successfully recovers the original authorized view. Fresh GitHub browser/native/parity verification remains pending; no local runtime acceptance is claimed.
+
+The preceding chrome-disposal repair remains in place. Source mappings remain 72, unreconciled 0, fully accepted 0/72 with 72 pending; broader host/device/review gates stay open. No scheduling or task-tracking integration is introduced.

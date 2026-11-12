@@ -22,7 +22,7 @@ for(const failure of ['scope','route','slots'])test(`failed page construction re
  assert.throws(()=>new PageTemplateView(f.root,slots,options));
  assert.equal(f.signals.length,1);assert.equal(f.signals[0].aborted,true);
  assert.equal(f.document.title,'Existing host');assert.equal(f.root.hasAttribute('data-pc-page'),false);
- f.resize();assert.equal(f.root.childNodes.length,0);
+ f.resize();assert.equal(f.root.childNodes.length,0);const recovered=new PageTemplateView(f.root,{content:f.document.createElement('section')},f.options);recovered.dispose();assert.equal(f.signals[1].aborted,true);
 });
 test('recoverable update errors keep the existing owner until explicit disposal',()=>{
  const f=fixture(),view=new PageTemplateView(f.root,{content:f.content},f.options);
@@ -31,6 +31,15 @@ test('recoverable update errors keep the existing owner until explicit disposal'
  const fresh=f.document.createElement('section');fresh.textContent='Authorized replacement';view.update(f.options,{content:fresh});assert.match(f.root.textContent,/Authorized replacement/);assert.equal(f.root.contains(f.content),false);
  view.dispose();view.dispose();assert.equal(f.signals[0].aborted,true);assert.equal(f.document.title,'Existing host');
  assert.throws(()=>view.update(f.options));
+});
+
+test('cleared page retains exclusive ownership through failed updates until explicit disposal',()=>{
+ const f=fixture(),view=new PageTemplateView(f.root,{content:f.content},f.options);assert.throws(()=>view.update({...f.options,scope:''}));assert.equal(f.root.hasAttribute('data-pc-page'),false);
+ const rejected=f.document.createElement('section');rejected.textContent='Must not replace existing owner';
+ for(let i=0;i<2;i++)assert.throws(()=>new PageTemplateView(f.root,{content:rejected},f.options),/already managed/);
+ assert.equal(f.signals.length,1,'rejected duplicate must not subscribe or release the live owner');
+ const restored=f.document.createElement('section');restored.textContent='Recovered authorized page';view.update(f.options,{content:restored});assert.match(f.root.textContent,/Recovered authorized page/);view.dispose();
+ const next=f.document.createElement('section');next.textContent='New authorized owner';const replacement=new PageTemplateView(f.root,{content:next},f.options);assert.throws(()=>view.update(f.options,{content:f.content}),/disposed/);assert.match(f.root.textContent,/New authorized owner/);replacement.dispose();
 });
 
 function chromeFixture(){const f=fixture(),frame=f.document.createElement('div'),slots={navigation:f.document.createElement('nav'),toolbar:f.document.createElement('header'),footer:f.document.createElement('footer')};frame.append(slots.navigation,slots.toolbar,f.root,slots.footer);f.document.body.append(frame);slots.footer.hidden=true;slots.toolbar.inert=true;return {...f,frame,chromeSlots:slots};}

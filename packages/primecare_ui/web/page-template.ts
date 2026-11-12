@@ -8,6 +8,7 @@ export type PageSlots={content:HTMLElement;header?:HTMLElement;actions?:HTMLElem
 export type PageLabels={breadcrumbs:string;openLeft:string;closeLeft:string;openRight:string;closeRight:string};
 export type PageOptions={scope:string;routes:unknown;authority:PageAuthority;currentRoute:string;labels:PageLabels;onNavigate:(route:string)=>void;chrome?:PageWorkspaceChrome};
 type Side='left'|'right';
+const pageOwners=new WeakSet<HTMLElement>();
 /** Exclusive, optional page host. Supplied business slots remain owned and authorized by the caller. */
 export class PageTemplateView extends ThemeControlBase {
  private options!:PageOptions;private route?:RegisteredPageRoute;private slots!:PageSlots;
@@ -17,10 +18,11 @@ export class PageTemplateView extends ThemeControlBase {
  private narrow:boolean;private epoch=0;private title:string;private changedTitle?:string;
  constructor(root:HTMLElement,slots:PageSlots,options:PageOptions){
   super(root);
-  if(root.hasAttribute('data-pc-page'))throw Error('Page already managed');this.title=root.ownerDocument.title;this.narrow=this.window.innerWidth<=1024;
+  if(pageOwners.has(root)||root.hasAttribute('data-pc-page'))throw Error('Page already managed');this.title=root.ownerDocument.title;this.narrow=this.window.innerWidth<=1024;
   const doc=root.ownerDocument;if(!doc.querySelector('[data-pc-page-styles]')){const s=doc.createElement('style');s.dataset.pcPageStyles='';s.textContent=pageTemplateStyles;doc.head.append(s);}
+  pageOwners.add(root);
   try{this.window.addEventListener('resize',this.resize,{signal:this.abort.signal});this.update(options,slots);}
-  catch(error){this.events.abort();this.endControlScope();throw error;}
+  catch(error){this.events.abort();this.endControlScope();pageOwners.delete(root);throw error;}
  }
  private get window(){return this.root.ownerDocument.defaultView!;}
  private temporary(side:Side){const mode=this.route!.layout[side].mode;return mode==='temporary'||mode==='responsive'&&this.narrow;}
@@ -79,5 +81,5 @@ export class PageTemplateView extends ThemeControlBase {
  private closeDialog(side:Side){const dialog=this.dialogs[side];if(!dialog)return;const slot=this.slots[side];if(slot)this.sides[side]?.append(slot);dialog.close();dialog.remove();delete this.dialogs[side];this.controls[side]?.focus({preventScroll:true});}
  private closeDialogs(){for(const side of ['left','right'] as const)this.closeDialog(side);}
  private resize=()=>{if(!this.route||this.dead)return;const narrow=this.window.innerWidth<=1024;if(narrow!==this.narrow){this.closeDialogs();this.narrow=narrow;for(const side of ['left','right'] as const){if(this.temporary(side))this.open[side]=false;this.place(side);}}};
- dispose():void{if(this.dead)return;this.clear();this.endControlScope();}
+ dispose():void{if(this.dead)return;this.clear();this.endControlScope();pageOwners.delete(this.root);}
 }
