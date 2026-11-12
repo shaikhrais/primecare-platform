@@ -19,6 +19,7 @@ const read=path=>readFile(new URL('../'+path,import.meta.url),'utf8');
 const helperPath='scripts/fixtures/platform-browser-bootstrap.ts';
 const helper=await read(helperPath),theme=JSON.parse(await readFile('packages/shared/src/solid-theme.json','utf8'));
 const runtime=await build({stdin:{contents:helper+`
+export {BaseThemeManager,contrastRatio} from '../../packages/primecare_ui/web/theme-manager';
 export {requireScreenManager,ScreenManager} from '../../packages/primecare_ui/web/screen-manager';
 export {tenantPresentationTheme} from './tenant-presentation-theme';
 export {resolveManagedRoute} from '../../websites/typescript/src/managed-routes';
@@ -361,4 +362,19 @@ test('both real Theme Center acceptance callers await the same write barrier',as
  assert.ok(approved.includes("await writeThemeFixtureAction(page,'new')"));assert.ok(approved.includes("await writeThemeFixtureAction(page,'reset')"));
  assert.ok(approved.includes("cy('theme-quick-forest').getAttribute('aria-pressed'),'false'"));
  assert.ok(center.includes("assert.equal(await el('status').textContent(),'Saved on this browser.')"));
+});
+
+
+test('approved dark Theme Center assertion follows the shared surface and readable foreground contract',async t=>{
+ const f=peripheral(t);new api.BaseThemeManager(f.doc.documentElement).apply({theme:'dark'});
+ assert.equal(f.doc.documentElement.style.getPropertyValue('--color-surface'),'#172033');
+ assert.equal(f.doc.documentElement.style.getPropertyValue('--color-text'),'#f1f5f9');
+ assert.ok(api.contrastRatio('#172033','#f1f5f9')>=4.5);
+ const styles=await read('packages/primecare_ui/web/theme-center-styles.ts');
+ assert.match(styles,/background:var\(--color-surface\);color:var\(--color-text\)/);
+ const source=await read('scripts/test-code-admin-approved.mjs');
+ assert.ok(source.includes("assert.equal(dialogPaint.background,'rgb(23, 32, 51)')"));
+ assert.ok(source.includes("assert.equal(dialogPaint.foreground,'rgb(241, 245, 249)')"));
+ assert.ok(source.includes(">=4.5,'Dark Theme Center foreground must remain readable'"));
+ assert.ok(source.includes("cy('appearance-reset').click()"));
 });
