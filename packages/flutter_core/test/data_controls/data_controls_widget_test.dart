@@ -17,6 +17,32 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
   expect(controller.text,'123-456');expect(controller.selection,const TextSelection.collapsed(offset:2));
   await t.pumpWidget(const SizedBox());controller.dispose();
  });
+
+ for(final mutation in ['replace','clear'])testWidgets('autocomplete keyboard selection owns accepted options after provider $mutation',(t)async{
+  final options=<({String value,String label})>[(value:'original',label:'Original label'),(value:'second',label:'Second label')],selected=<String>[];
+  await t.pumpWidget(app(PrimeDataAutocomplete(labels:l,scope:'owned-autocomplete',load:(_)async=>options,selected:selected.add)));
+  await t.showKeyboard(find.byType(TextField).first);await t.enterText(find.byType(TextField).first,'query');await t.pumpAndSettle();expect(find.text('Original label'),findsOneWidget);
+  if(mutation=='clear'){options.clear();}else{options[0]=(value:'changed',label:'Changed after acceptance');}
+  await t.testTextInput.receiveAction(TextInputAction.done);await t.pumpAndSettle();
+  expect(selected,['original']);expect(t.widget<TextField>(find.byType(TextField).first).controller!.text,'Original label');expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());
+ });
+
+ for(final update in ['replace','remove'])testWidgets('autocomplete rejects pending reply from $update loader and retains draft',(t)async{
+  final pending=Completer<List<({String value,String label})>>(),selected=<String>[];
+  Future<List<({String value,String label})>> oldLoad(String query)=>pending.future;
+  Future<List<({String value,String label})>> newLoad(String query)async=>[(value:'new',label:'New option')];
+  await t.pumpWidget(app(PrimeDataAutocomplete(labels:l,scope:'loader-owner',load:oldLoad,selected:selected.add)));
+  await t.showKeyboard(find.byType(TextField).first);await t.enterText(find.byType(TextField).first,'retained draft');await t.pump();
+  final controller=t.widget<TextField>(find.byType(TextField).first).controller!;
+  await t.pumpWidget(app(PrimeDataAutocomplete(labels:l,scope:'loader-owner',load:update=='remove'?null:newLoad,selected:selected.add)));
+  pending.complete([(value:'retired',label:'Retired option')]);await t.pumpAndSettle();
+  expect(find.text('Retired option'),findsNothing);expect(selected,isEmpty);expect(controller.text,'retained draft');expect(identical(controller,t.widget<TextField>(find.byType(TextField).first).controller),isTrue);expect(find.text(l.text('loading')),findsNothing);
+  if(update=='replace'){
+   await t.enterText(find.byType(TextField).first,'new query');await t.pumpAndSettle();expect(find.text('New option'),findsOneWidget);await t.testTextInput.receiveAction(TextInputAction.done);await t.pumpAndSettle();expect(selected,['new']);
+  }else{expect(t.widget<TextField>(find.byType(TextField).first).enabled,isFalse);}
+  expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());
+ });
  testWidgets('required typed fields and rejected submit preserve input',(t)async{final kit=PrimeDataKit(l,'form'),key=GlobalKey<FormState>(),number=TextEditingController(),date=TextEditingController();var calls=0;await t.pumpWidget(app(kit.form(key,[kit.field('number',number,required:true,min:0,max:10,step:0.5),kit.field('date',date,required:true)],()async{calls++;throw StateError('denied');})));await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,0);await t.enterText(find.byType(PrimeTextFormField).first,'1.5');await t.enterText(find.byType(PrimeTextFormField).last,'2024-02-29');await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,1);expect(number.text,'1.5');expect(find.text(l.text('error')),findsOneWidget);await t.pumpWidget(const SizedBox());number.dispose();date.dispose();});
  testWidgets('structured editor formatting and failed save retain literal source',(t)async{var calls=0;final doc={'version':1,'blocks':[{'text':'<script>literal</script>','bold':false,'italic':false,'kind':'paragraph'}]};await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'editor',document:doc,save:(d)async{calls++;throw StateError('denied');})));await t.tap(find.text(l.text('bold')));await t.pumpAndSettle();await t.ensureVisible(find.text(l.text('save')));await t.tap(find.text(l.text('save')));await t.pumpAndSettle();expect(calls,1);expect(find.text(l.text('error')),findsOneWidget);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='<script>literal</script>'&&w.style?.fontWeight==FontWeight.bold),findsOneWidget);});
  testWidgets('opt-in range formatting previews and retains spans across failed saves and text edits',(t)async{
