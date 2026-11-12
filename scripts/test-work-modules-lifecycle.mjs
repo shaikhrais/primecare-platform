@@ -44,7 +44,7 @@ async function focusFixture(t,module='tasks'){
  const click=selector=>root.querySelector(selector).dispatchEvent(new Event('click'));
  const open=()=>click('[data-cy^=work-modules-open-]');
  const assertOpen=()=>assert.equal(document.activeElement===root.querySelector('[data-cy^=work-modules-open-]'),true);
- return {root,document,session,view,click,open,assertOpen,failRead:()=>readFailure=true,hold:promise=>hold=promise};
+ return {root,document,session,view,click,open,assertOpen,failRead:()=>readFailure=true,hold:promise=>hold=promise,refresh:patch=>{item={...item,...patch};return session.load();},input:value=>{const input=root.querySelector('[data-cy=work-modules-title]');input.value=value;input.dispatchEvent(new Event('input'));}};
 }
 for(const module of ['calendar','contacts','tasks','notes','board'])test('shared web '+module+' Close restores originating Open focus',async t=>{
  const f=await focusFixture(t,module);f.open();assert.equal(f.document.activeElement,f.root.querySelector('[data-work-detail]'));
@@ -60,4 +60,25 @@ test('successful independent-read recovery restores originating Open focus',asyn
 test('late verified Save cannot steal focus from replacement owner',async t=>{
  const f=await focusFixture(t);let finish;f.hold(new Promise(resolve=>finish=resolve));f.open();f.click('[data-cy=work-modules-save]');f.view.dispose();
  const newOwner=f.document.getElementById('new-owner');newOwner.focus();finish();await settle();assert.equal(f.document.activeElement,newOwner);assert.equal(f.root.childNodes.length,0);
+});
+
+
+test('clean editor reload adopts the refreshed title and version before saving',async t=>{
+ const f=await focusFixture(t);f.open();await f.refresh({title:'Refreshed task',version:2});
+ assert.equal(f.root.querySelector('[data-cy=work-modules-title]').value,'Refreshed task');
+ f.click('[data-cy=work-modules-save]');await settle();assert.equal(f.session.status,'success');assert.equal(f.session.current.snapshot.items[0].version,3);f.assertOpen();
+});
+test('dirty editor preserves its draft and original version across an external refresh',async t=>{
+ const f=await focusFixture(t);f.open();f.input('Retained local draft');await f.refresh({title:'Server update',version:2});
+ assert.equal(f.root.querySelector('[data-cy=work-modules-title]').value,'Retained local draft');assert.equal(f.view.hasUnsavedChanges,true);
+ f.click('[data-cy=work-modules-save]');await settle();assert.equal(f.session.current.snapshot.items[0].title,'Server update');assert.equal(f.root.querySelector('[data-cy=work-modules-title]').value,'Retained local draft');
+});
+test('clean editor reload drops actions revoked by the authorized snapshot',async t=>{
+ const f=await focusFixture(t);f.open();await f.refresh({version:2,actions:[]});
+ assert.equal(f.root.querySelector('[data-cy=work-modules-save]')===null,true);assert.equal(f.root.querySelector('[data-cy=work-modules-action]')===null,true);assert.ok(f.root.querySelector('[data-work-detail]'));
+});
+test('pending recovery retains its original draft across repeated view renders',async t=>{
+ const f=await focusFixture(t);f.open();f.input('Pending draft');f.failRead();f.click('[data-cy=work-modules-save]');await settle();
+ assert.equal(f.session.current.pending,true);f.view.render();f.view.render();assert.equal(f.root.querySelector('[data-cy=work-modules-title]').value,'Pending draft');
+ f.click('[data-cy=work-modules-save-pending]');await settle();assert.equal(f.session.status,'success');assert.equal(f.session.current.snapshot.items[0].title,'Pending draft');f.assertOpen();
 });

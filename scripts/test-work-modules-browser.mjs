@@ -19,6 +19,13 @@ try{
  const invalidMetadata=structuredClone(workMetadata);invalidMetadata.controls=invalidMetadata.controls.filter(c=>c.key!=='create');
  const rejected=await page.evaluate(bad=>{const root=document.querySelector('main'),host=document.createElement('button');host.textContent='Host retained';root.append(host);let failed=false;try{window.mount('calendar','en',1,bad);}catch{failed=true;}return {failed,sameNode:root.firstChild===host,unowned:!root.hasAttribute('data-pc-work-modules'),styleCount:document.querySelectorAll('[data-pc-work-style]').length};},invalidMetadata);
  assert.deepEqual(rejected,{failed:true,sameNode:true,unowned:true,styleCount:0});checks++;
+ // A real externally saved version must replace a clean open editor on explicit reload.
+ await mount('tasks');await open();await page.locator('[data-cy="work-modules-action"]').selectOption('edit');
+ const external=await f.call('admin',{action:'edit',id:item.id,version:1,value:{title:'Refreshed browser task',ownerId:f.actors.psw.id,dueOn:'2026-11-05',priority:'normal',flowId:'fixture.tenant.process',notes:'Original browser instructions'}});
+ assert.equal(external.status,200);await page.locator('[data-cy="work-modules-reload"]').click();
+ await page.waitForFunction(()=>window.session.status==='ready'&&window.session.current.snapshot.items.some(i=>i.version===2));
+ assert.equal(await page.locator('[data-cy="work-modules-title"]').inputValue(),'Refreshed browser task');checks++;
+ await save();const refreshed=(await f.db.query('SELECT title,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0];assert.deepEqual(refreshed,{title:'Refreshed browser task',version:3});checks++;
  await mount('tasks');await open();await page.locator('[data-cy="work-modules-action"]').selectOption('edit');await page.locator('[data-cy="work-modules-title"]').fill('x');await page.locator('[data-cy="work-modules-body"]').fill('Retained draft from browser');await page.locator('[data-cy="work-modules-save"]').click();await page.waitForFunction(()=>window.session.status==='invalid');assert.equal(await page.locator('[data-cy="work-modules-body"]').inputValue(),'Retained draft from browser');checks++;
  // Internal navigation must preserve unsaved editor input.
  const dirtyTitle=await page.locator('[data-cy="work-modules-title"]').inputValue();
@@ -58,7 +65,7 @@ try{
  await mount('calendar');assert.equal(await page.locator('[data-cy^="work-modules-date-2026-"]').count(),42);checks++;await open();await page.locator('[data-cy="work-modules-date"]').fill('2026-11-09');await save();
  await mount('board');await open();await page.locator('[data-cy="work-modules-action"]').selectOption('start');await page.locator('[data-cy="work-modules-body"]').fill('Browser authorized start evidence');await save();
  await mount('contacts');await open();assert.equal(await page.locator('[data-cy="work-modules-save"]').count(),0);checks++;
- const row=(await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0];assert.deepEqual(row,{title:'Verified browser recovery',notes:'Saved browser task instructions',due_on:'2026-11-09',status:'in_progress',version:6});checks++;
+ const row=(await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0];assert.deepEqual(row,{title:'Verified browser recovery',notes:'Saved browser task instructions',due_on:'2026-11-09',status:'in_progress',version:8});checks++;
  await page.reload();await mount('tasks');assert.ok((await page.locator('main').innerText()).includes(row.title));checks++;
  // An expired/changed host session must clear the old authorized result.
  await page.evaluate(async()=>{sessionStorage.removeItem('primecare_session');await window.session.load();});assert.equal(await page.evaluate(()=>window.session.status),'denied');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;assert.deepEqual(errors,[]);
