@@ -360,3 +360,11 @@ for(const path of ['/v1/governance/platform/tenants/platform-root/audit','/v1/go
 test('recording zero guard still excludes unrelated reads and mutation methods',()=>{
  new Function('requests','assert',recordingZeroGuard)([{method:'GET',path:'/v1/governance/platform/operations'},{method:'POST',path:'/v1/governance/platform/tenants/tenant-b/accounts'}],assert);
 });
+
+
+test('Code admin reload at accounts without a selected tenant retains its URL and opens organization selection',async()=>{
+ const f=browser({hash:'#accounts',role:'code_admin'});await f.render();
+ assert.equal(location.hash,'#accounts');assert.equal(f.root.view,'organizations');
+ assert.ok(entries(f).every(route=>route==='/platform/administration'));
+ await f.click('training');assert.equal(f.root.view,'training');
+});

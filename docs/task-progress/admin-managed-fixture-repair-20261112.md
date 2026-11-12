@@ -26,3 +26,10 @@ The same `dc60d092` source passed Theme Center43154978734 (native, website and a
 ## Fresh browser feedback
 
 Repair-head399364bc approved-data job130991262680 now renders all four directory rows. Its new readiness guard incorrectly used a multi-row strict locator; the follow-up selects `tr:first-child` while retaining the original first-row visible wait and separate exact four-row assertion. This is a fixture correction, not a production or assertion-threshold change. A new local regression locks both conditions; actual browser completion still requires fresh CI.
+
+
+## Security route fixture root cause
+
+Fresh399364bc security job130991262998 confirms the timeout is at reload (line32), after login, account creation and independent SQL readback have already succeeded. Account creation writes `#accounts` to the actual history. Reload retains it; Code admin has no selected tenant in the new controller, so the existing authorized resolver displays organization selection. Waiting for the unrelated initial tenant-create form was wrong. The fixture now waits for the actual managed header, asserts the retained `#accounts` URL and selected organization navigation, then executes the unchanged localized training/logout checks. A real-renderer Node regression verifies this exact route-to-view behavior and subsequent training navigation. Initial visible tenant-create form, MFA/session gates, role denial and independent SQL assertions remain unchanged.
+
+The previous statement suggesting an after-MFA timeout was incomplete; the fresh line location establishes this reload root cause. No production route behavior changed.

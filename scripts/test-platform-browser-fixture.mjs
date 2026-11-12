@@ -333,3 +333,12 @@ test('approved directory startup targets one row and retains the independent fou
  assert.match(source,/selector:'\.approved-directory tbody tr:first-child'/);
  assert.ok(source.includes("await page.locator('.approved-directory tbody tr').count(),4"));
 });
+
+
+test('security reload verifies retained accounts route and organization selection before training',async()=>{
+ const source=await read('scripts/test-code-admin-browser.mjs');
+ assert.match(source,/waitForFixtureStartup\(page,\(\)=>page\.reload\(\)\)/);
+ assert.ok(source.includes("assert.equal(new URL(page.url()).hash,'#accounts')"));
+ assert.ok(source.includes("cy('platform-nav-tenant-selection').getAttribute('aria-current'),'page'"));
+ assert.ok(source.includes("cy('screen-admin-training').getAttribute('lang'),locale"));
+});
