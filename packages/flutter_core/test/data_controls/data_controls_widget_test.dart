@@ -32,6 +32,42 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
  testWidgets('autocomplete ignores an older completion and reports denied loading',(t)async{final old=Completer<List<({String value,String label})>>();await t.pumpWidget(app(PrimeDataAutocomplete(labels:l,scope:'search',load:(q)async{if(q=='old')return old.future;if(q=='fail')throw StateError('denied');return [(value:q,label:'$q label')];})));await t.enterText(find.byType(TextField),'old');await t.pump();await t.enterText(find.byType(TextField),'new');await t.pumpAndSettle();old.complete([(value:'old',label:'old label')]);await t.pumpAndSettle();expect(find.text('old label'),findsNothing);expect(find.text('new label'),findsOneWidget);await t.enterText(find.byType(TextField),'fail');await t.pumpAndSettle();expect(find.text(l.text('error')),findsOneWidget);});
  testWidgets('native date and time picker access preserves cancelled values',(t)async{final kit=PrimeDataKit(l,'picker'),date=TextEditingController(text:'2024-02-29'),time=TextEditingController(text:'23:59');await t.pumpWidget(app(Column(children:[kit.field('date',date,firstDate:DateTime(2024),lastDate:DateTime(2025)),kit.field('time',time)])));await t.tap(find.byTooltip(l.text('date')));await t.pumpAndSettle();expect(find.byType(DatePickerDialog),findsOneWidget);await t.tap(find.text('Cancel'));await t.pumpAndSettle();expect(date.text,'2024-02-29');await t.tap(find.byTooltip(l.text('time')));await t.pumpAndSettle();expect(find.byType(TimePickerDialog),findsOneWidget);await t.tap(find.text('Cancel'));await t.pumpAndSettle();expect(time.text,'23:59');await t.pumpWidget(const SizedBox());date.dispose();time.dispose();});
 
+ testWidgets('disabled typed date field blocks both typing and picker dispatch',(t)async{
+  final date=TextEditingController(text:'2024-02-29');
+  await t.pumpWidget(app(PrimeDataKit(l,'disabled-date').field('date',date,enabled:false,firstDate:DateTime(2024),lastDate:DateTime(2025))));
+  expect(t.widget<TextField>(find.byType(TextField)).enabled,false);
+  expect(t.widget<IconButton>(find.byType(IconButton)).onPressed,isNull);
+  expect(date.text,'2024-02-29');await t.pumpWidget(const SizedBox());date.dispose();
+ });
+ for(final change in ['scope','controller'])for(final kind in ['date','time'])testWidgets('$kind picker is dismissed after $change changes',(t)async{
+  final old=TextEditingController(text:kind=='date'?'2024-02-29':'23:59'),current=TextEditingController(text:kind=='date'?'2024-03-01':'12:30'),changed=ValueNotifier(false);
+  final target=change=='controller'?current:old;
+  Widget field(bool next)=>PrimeDataKit(l,next&&change=='scope'?'new-actor':'old-actor').field(kind,next?target:old,firstDate:DateTime(2024),lastDate:DateTime(2025));
+  await t.pumpWidget(app(ValueListenableBuilder<bool>(valueListenable:changed,builder:(context,next,child)=>field(next))));await t.tap(find.byTooltip(l.text(kind)));await t.pumpAndSettle();
+  expect(find.byType(kind=='date'?DatePickerDialog:TimePickerDialog,skipOffstage:false),findsOneWidget);
+  changed.value=true;await t.pumpAndSettle();
+  expect(find.byType(kind=='date'?DatePickerDialog:TimePickerDialog,skipOffstage:false),findsNothing);
+  expect(target.text,change=='controller'?(kind=='date'?'2024-03-01':'12:30'):(kind=='date'?'2024-02-29':'23:59'));expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());old.dispose();current.dispose();changed.dispose();
+ });
+ testWidgets('date picker never overwrites a newer controller edit',(t)async{
+  final date=TextEditingController(text:'2024-02-29');
+  await t.pumpWidget(app(PrimeDataKit(l,'date-edit').field('date',date,firstDate:DateTime(2024),lastDate:DateTime(2025))));
+  await t.tap(find.byTooltip(l.text('date')));await t.pumpAndSettle();date.text='2024-03-01';
+  await t.tap(find.text('OK'));await t.pumpAndSettle();expect(date.text,'2024-03-01');expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());date.dispose();
+ });
+ testWidgets('disabling a picker closes only its own route',(t)async{
+  final enabled=ValueNotifier(true),date=TextEditingController(text:'2024-02-29'),nav=GlobalKey<NavigatorState>();
+  await t.pumpWidget(MaterialApp(navigatorKey:nav,home:Scaffold(body:ValueListenableBuilder<bool>(valueListenable:enabled,builder:(context,on,child)=>PrimeDataKit(l,'route-owner').field('date',date,enabled:on,firstDate:DateTime(2024),lastDate:DateTime(2025))))));
+  await t.tap(find.byTooltip(l.text('date')));await t.pumpAndSettle();
+  unawaited(showDialog<void>(context:nav.currentState!.overlay!.context,builder:(context)=>const AlertDialog(content:Text('Another dialog owner'))));await t.pumpAndSettle();
+  enabled.value=false;await t.pumpAndSettle();
+  expect(find.byType(DatePickerDialog,skipOffstage:false),findsNothing);expect(find.text('Another dialog owner'),findsOneWidget);
+  expect(date.text,'2024-02-29');expect(t.takeException(),isNull);
+  nav.currentState!.pop();await t.pumpAndSettle();await t.pumpWidget(const SizedBox());enabled.dispose();date.dispose();
+ });
+
  testWidgets('native editor links use the host adapter and report failures',(t)async{
   final doc={'version':1,'blocks':[{'kind':'paragraph','text':'Read policy','bold':false,'italic':false,'link':'https://example.test/policy'}]};
   String? opened;

@@ -12,6 +12,14 @@ final scope=PreferenceScope('tenant-fixture','actor-fixture','tenant_admin','liv
 Map<String,Object?> data(String module,{int version=1,String title='Original task'})=>{'scope':scope.toJson(),'module':module,'items':[{'id':'Task-A','version':version,'title':title,'body':'Task instructions','date':'2026-11-05','lane':'open','meta':'','actions':module=='contacts'?<Map<String,Object?>>[]:[{'id':'edit','label':'Edit task','fields':['title','body','date'],'target':''}]}],'lanes':[{'id':'open','label':'Open'}],'offset':0,'total':1,'partial':false};
 class Port implements WorkPort {final String module;int calls=0;bool lose=false,deny=false,loseRead=false;int readCalls=0;final keys=<String>[];Map<String,Object?> value;Port(this.module):value=data(module);@override Future<Object?> read(WorkQuery q)async=>value;@override Future<WorkReceipt> mutate(WorkCommand c,String key)async{calls++;keys.add(key);if(deny)throw const WorkFailure('denied',403);if(lose&&calls==1)throw Exception('lost response');value=data(module,version:c.version+1,title:c.fields['title']!);return WorkReceipt(c.itemId,c.version+1,c.action,{'title':c.fields['title']!});}@override Future<Object?> readItem(String id)async{readCalls++;if(loseRead&&readCalls==1)throw Exception('verification offline');return value;}@override void dispose(){}}
 WorkModuleSession session(String module,Port p)=>WorkModuleSession(scope,module,port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');
+class DatePort extends Port {
+ DatePort():super('tasks');
+ @override Future<WorkReceipt> mutate(WorkCommand c,String key)async{
+  calls++;final prior=Map<String,Object?>.from((value['items'] as List).single as Map);
+  value={...value,'items':[{...prior,'version':c.version+1,...c.fields}]};
+  return WorkReceipt(c.itemId,c.version+1,c.action,{...c.fields});
+ }
+}
 void main(){
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{
@@ -71,6 +79,20 @@ void main(){
  });
  test('denied mutation removes protected data',()async{final p=Port('tasks')..deny=true,s=session('tasks',p);await s.load();await expectLater(s.submit('Task-A','edit',{'title':'Denied','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));expect(s.status,'denied');expect(s.snapshot,isNull);s.dispose();});
  for(final module in ['calendar','contacts','tasks','notes','board']){testWidgets('$module uses registered semantics and renders its authorized projection',(t)async{await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));final p=Port(module),s=session(module,p),labels=CatalogueLabels.fromMetadata(metadata,'en');await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'fixture',year:2026,month:11,gap:8,boardWidth:250)))));await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text('Original task'),findsOneWidget);expect(find.text(labels.text(module)),findsWidgets);final create=t.widget<TextButton>(find.widgetWithText(TextButton,labels.text('create')).first);expect(create.onPressed,isNull);await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();expect(t.takeException(),isNull);expect(find.text(labels.text('success')),findsNothing);await t.pumpWidget(const SizedBox());s.dispose();});}
+ testWidgets('authorized due-date editor uses the shared picker and waits for save readback',(t)async{
+  await t.binding.setSurfaceSize(const Size(1000,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=DatePort(),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'date-task',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  final date=find.byWidgetPredicate((w)=>w is TextField&&w.decoration?.labelText==labels.text('date'));
+  expect(t.widget<TextField>(date).keyboardType,TextInputType.datetime);
+  await t.ensureVisible(find.byTooltip(labels.text('date')));await t.tap(find.byTooltip(labels.text('date')));await t.pumpAndSettle();
+  expect(find.byType(DatePickerDialog),findsOneWidget);await t.tap(find.text('6').last);await t.tap(find.text('OK'));await t.pumpAndSettle();
+  expect(t.widget<TextField>(date).controller!.text,'2026-11-06');expect(s.snapshot!.items.single.date,'2026-11-05');expect(p.calls,0);
+  await t.ensureVisible(find.widgetWithText(TextButton,labels.text('save')).first);await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();
+  expect(s.status,'success');expect(s.snapshot!.items.single.date,'2026-11-06');expect(p.calls,1);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
  testWidgets('dirty editor survives internal reload and item selection',(t)async{
   await t.binding.setSurfaceSize(const Size(1400,1600));addTearDown(()=>t.binding.setSurfaceSize(null));
   final p=Port('tasks'),s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
