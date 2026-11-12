@@ -81,6 +81,7 @@ jobs:
       - name: Cross-batch models and real-handler fixtures
         run: |
           node --test scripts/test-advanced-theme-editor-lifecycle.mjs
+          node --test scripts/test-page-template-lifecycle.mjs
           node scripts/test-data-controls-rich-ranges.mjs
           for name in workspace-layout-contract workspace-navigation-model page-template-model advanced-theme-model preference-client shell-utilities-model component-catalogue-model data-controls-model upload-removal dashboard-widgets-model original-assets-model work-modules work-modules-transport communication-modules communication-modules-transport application-modules application-modules-transport dashboard-pages-projection dashboard-pages-session dashboard-record-pages dashboard-pages-parity dashboard-pages-integration; do
             node scripts/test-$name.mjs

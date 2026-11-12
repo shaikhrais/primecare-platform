@@ -19,7 +19,8 @@ export class PageTemplateView extends ThemeControlBase {
   super(root);
   if(root.hasAttribute('data-pc-page'))throw Error('Page already managed');this.title=root.ownerDocument.title;this.narrow=this.window.innerWidth<=1024;
   const doc=root.ownerDocument;if(!doc.querySelector('[data-pc-page-styles]')){const s=doc.createElement('style');s.dataset.pcPageStyles='';s.textContent=pageTemplateStyles;doc.head.append(s);}
-  this.window.addEventListener('resize',this.resize,{signal:this.abort.signal});this.update(options,slots);
+  try{this.window.addEventListener('resize',this.resize,{signal:this.abort.signal});this.update(options,slots);}
+  catch(error){this.events.abort();this.endControlScope();throw error;}
  }
  private get window(){return this.root.ownerDocument.defaultView!;}
  private temporary(side:Side){const mode=this.route!.layout[side].mode;return mode==='temporary'||mode==='responsive'&&this.narrow;}
