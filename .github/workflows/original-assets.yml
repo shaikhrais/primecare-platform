@@ -39,6 +39,7 @@ jobs:
           python3 scripts/build-original-assets.py --check
           python3 scripts/test-original-asset-compiler.py
           node scripts/test-original-assets-model.mjs
+          node --test scripts/test-original-assets-shell.mjs
           node scripts/test-original-assets-browser.mjs
           node scripts/test-workspace-navigation-model.mjs
           node scripts/test-workspace-navigation-browser.mjs
