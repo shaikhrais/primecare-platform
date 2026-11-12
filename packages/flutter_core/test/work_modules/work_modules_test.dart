@@ -26,6 +26,11 @@ class DelayedPort extends Port {
  DelayedPort():super('tasks');
  @override Future<WorkReceipt> mutate(WorkCommand c,String key)async{await gate.future;return super.mutate(c,key);}
 }
+class DelayedRecoveryPort extends Port {
+ final gate=Completer<void>();
+ DelayedRecoveryPort():super('tasks'){loseRead=true;}
+ @override Future<Object?> readItem(String id)async{if(readCalls==1)await gate.future;return super.readItem(id);}
+}
 void main(){
  final metadata=jsonDecode(File('../primecare_ui/catalogs/work-modules.registration.json').readAsStringSync());
  for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{
@@ -162,6 +167,31 @@ void main(){
   await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();
   expect(s.status,'success');expect(p.calls,1);expect(p.readCalls,2);expect(t.takeException(),isNull);
   await t.pumpWidget(const SizedBox());s.dispose();
+ });
+
+ testWidgets('verified toolbar recovery restores its originating keyboard opener without rewriting',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks')..loseRead=true,s=session('tasks',p),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'recover-focus',year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();final open=find.widgetWithText(TextButton,labels.text('open')).first;final opener=t.widget<TextButton>(open).focusNode!;
+  await t.tap(open);await t.pumpAndSettle();await t.enterText(find.byType(TextField).at(1),'Recovered focus task');
+  await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();expect(s.pending,isNotNull);expect(p.calls,1);
+  final recovery=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(recovery);await t.tap(recovery);await t.pumpAndSettle();
+  expect(s.status,'success');expect(s.pending,isNull);expect(p.calls,1);expect(p.readCalls,2);expect(s.snapshot!.items.single.title,'Recovered focus task');expect(opener.hasPrimaryFocus,true);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
+ testWidgets('late toolbar recovery cannot steal replacement actor focus',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=DelayedRecoveryPort(),old=session('tasks',p),other=PreferenceScope('tenant-fixture','recovery-second-actor','tenant_admin','live');
+  final q=Port('tasks');q.value={...data('tasks',title:'Current actor task'),'scope':other.toJson()};
+  final current=WorkModuleSession(other,'tasks',port:q),actor=ValueNotifier(false),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:ValueListenableBuilder<bool>(valueListenable:actor,builder:(context,next,child)=>PrimeWorkModule(labels:labels,session:next?current:old,scope:next?'recovery-second':'recovery-first',year:2026,month:11,gap:8,boardWidth:250))))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Old recovered task');await t.tap(find.widgetWithText(TextButton,labels.text('save')).first);await t.pumpAndSettle();expect(old.pending,isNotNull);
+  final recovery=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(recovery);await t.tap(recovery);await t.pump();actor.value=true;await t.pumpAndSettle();
+  await t.showKeyboard(find.byType(TextField).first);final focus=t.widget<EditableText>(find.byType(EditableText).first).focusNode;expect(focus.hasFocus,true);
+  p.gate.complete();await t.pumpAndSettle();expect(focus.hasFocus,true);expect(current.snapshot!.items.single.title,'Current actor task');expect(p.calls,1);expect(q.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());old.dispose();current.dispose();actor.dispose();
  });
 
 }
