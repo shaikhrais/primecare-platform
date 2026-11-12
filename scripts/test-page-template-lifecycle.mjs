@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {build} from 'esbuild';
 import {parseHTML} from 'linkedom';
 const built=await build({entryPoints:['packages/primecare_ui/web/page-template.ts'],bundle:true,write:false,format:'esm',platform:'node'});
-const {PageTemplateView,defaultPageLayout}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
+const {PageTemplateView,PageWorkspaceChrome,defaultPageLayout}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
 function fixture(){
  const {document}=parseHTML('<html><head><title>Existing host</title></head><body><main id="page"></main></body></html>');
  const events=new EventTarget(),signals=[];
@@ -31,4 +31,16 @@ test('recoverable update errors keep the existing owner until explicit disposal'
  const fresh=f.document.createElement('section');fresh.textContent='Authorized replacement';view.update(f.options,{content:fresh});assert.match(f.root.textContent,/Authorized replacement/);assert.equal(f.root.contains(f.content),false);
  view.dispose();view.dispose();assert.equal(f.signals[0].aborted,true);assert.equal(f.document.title,'Existing host');
  assert.throws(()=>view.update(f.options));
+});
+
+function chromeFixture(){const f=fixture(),frame=f.document.createElement('div'),slots={navigation:f.document.createElement('nav'),toolbar:f.document.createElement('header'),footer:f.document.createElement('footer')};frame.append(slots.navigation,slots.toolbar,f.root,slots.footer);f.document.body.append(frame);slots.footer.hidden=true;slots.toolbar.inert=true;return {...f,frame,chromeSlots:slots};}
+const chromeState=f=>({owner:f.frame.hasAttribute('data-pc-page-chrome-owner'),policy:['navigation','toolbar','footer'].map(key=>f.frame.getAttribute('data-pc-page-chrome-'+key)),slots:Object.values(f.chromeSlots).map(element=>({hidden:element.hidden,inert:element.inert}))});
+test('disposed chrome ignores later apply and restores original hidden and inert state exactly once',()=>{
+ const f=chromeFixture(),original=chromeState(f),chrome=new PageWorkspaceChrome(f.frame,f.chromeSlots);chrome.apply({navigation:false,toolbar:false,footer:false});chrome.dispose();assert.deepEqual(chromeState(f),original);chrome.apply({navigation:false,toolbar:false,footer:false});assert.deepEqual(chromeState(f),original);chrome.dispose();assert.deepEqual(chromeState(f),original);
+});
+test('retired chrome disposal cannot clear replacement ownership or visibility policy',()=>{
+ const f=chromeFixture(),old=new PageWorkspaceChrome(f.frame,f.chromeSlots);old.dispose();const replacement=new PageWorkspaceChrome(f.frame,f.chromeSlots);replacement.apply({navigation:false,toolbar:false,footer:false});const expected=chromeState(f);old.dispose();assert.deepEqual(chromeState(f),expected);assert.throws(()=>new PageWorkspaceChrome(f.frame,f.chromeSlots),/already managed/);replacement.dispose();
+});
+test('page updates and disposal through retired chrome leave the replacement controller untouched',()=>{
+ const f=chromeFixture(),old=new PageWorkspaceChrome(f.frame,f.chromeSlots),view=new PageTemplateView(f.root,{content:f.content},{...f.options,chrome:old});old.dispose();const replacement=new PageWorkspaceChrome(f.frame,f.chromeSlots);replacement.apply({navigation:false,toolbar:false,footer:false});const expected=chromeState(f);view.update({...f.options,chrome:old});assert.deepEqual(chromeState(f),expected);view.dispose();assert.deepEqual(chromeState(f),expected);replacement.dispose();
 });
