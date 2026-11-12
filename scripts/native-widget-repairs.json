@@ -50,5 +50,18 @@
         "new": "PrimeContentGrid(\n      maxCrossAxisExtent: 320,\n      spacing: 16,\n      runSpacing: 16"
       }
     ]
+  },
+  {
+    "path": "packages/flutter_core/lib/advanced_theme/prime_advanced_theme_editor.dart",
+    "sha256": "b9afbd60c1b14ab9c5514ea1db469af65f177e2f1fd5d12f8c14217ed112cf20",
+    "updated_sha256": "24224392fe4923398b019432f772fa29d6e99ceb0184e36305e7cb90b8138298",
+    "edits": [
+      {
+        "begin": 6767,
+        "end": 7023,
+        "old": "decoration:InputDecoration(labelText:field.label),keyboardType:spec['kind']=='number'?const TextInputType.numberWithOptions(decimal:true):TextInputType.text,maxLength:spec['kind']=='color'?7:spec['kind']=='text'?60:null,onSubmitted:(_){try{if(epoch!=_epoch",
+        "new": "enabled:!_busy,decoration:InputDecoration(labelText:field.label),keyboardType:spec['kind']=='number'?const TextInputType.numberWithOptions(decimal:true):TextInputType.text,maxLength:spec['kind']=='color'?7:spec['kind']=='text'?60:null,onSubmitted:(_){try{if(epoch!=_epoch||_busy"
+      }
+    ]
   }
 ]
