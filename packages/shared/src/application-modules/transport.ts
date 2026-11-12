@@ -13,7 +13,7 @@ export class ApplicationProfilePort implements WorkPort {
  constructor(origin:string,private token:string,scope:PreferenceScope,private current:ApplicationSession,private labels:Record<string,string>,private fetcher:typeof fetch=fetch){this.scope=Object.freeze(preferenceScope(scope));this.base=new URL(origin);const proof=metadata.discoveries['GET /v1/auth/me'];if(scope.dataset!=='live'||proof.length!==1||proof[0][0]!==16402||proof[0][2]!==1||proof[0][3]!=='authenticated_self_session'||this.base.protocol!=='https:'&&!(this.base.protocol==='http:'&&['127.0.0.1','localhost'].includes(this.base.hostname))||this.base.username||this.base.password||this.base.pathname!=='/'||this.base.search||this.base.hash||!token||/[\x00-\x20\x7f]/.test(token))throw new WorkFailure('unavailable');}
  private check(){if(this.dead)throw new WorkFailure('unavailable');try{guard(this.scope,this.token,this.current);}catch{throw new WorkFailure('denied',403);}}
  async read(query:WorkQuery,signal:AbortSignal){
-  this.check();const owned=new AbortController(),cancel=()=>owned.abort();
+  query={...query};this.check();const owned=new AbortController(),cancel=()=>owned.abort();
   this.reads.add(owned);signal.addEventListener('abort',cancel,{once:true});
   try{if(signal.aborted)cancel();return await this.readOwned(query,owned.signal);}
   finally{signal.removeEventListener('abort',cancel);this.reads.delete(owned);}

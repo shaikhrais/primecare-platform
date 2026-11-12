@@ -83,6 +83,16 @@ for(const change of ['filter','replace'])test('table retires old sort controls a
 
 function editorSelection(input,Event,start,end){input.selectionStart=start;input.selectionEnd=end;input.dispatchEvent(new Event('select'));}
 function formatStates(root){return ['bold','italic','list'].map(key=>root.querySelector('[data-cy="data-controls-'+key+'"]').getAttribute('aria-pressed'));}
+for(const inlineRanges of [false,true])test('editor snapshots '+(inlineRanges?'range':'plain')+' capability before caller options mutate',async t=>{
+ const {root,kit,Event}=fixture(t),options={inlineRanges};let saved;
+ const editor=kit.editor({version:1,blocks:[{text:'Hello world',bold:false,italic:false,kind:'paragraph'}]},async value=>{saved=value;},undefined,options);root.append(editor.element);
+ const input=root.querySelector('[data-cy=data-controls-editor]');input.focus=()=>{};input.setSelectionRange=(start,end)=>{input.selectionStart=start;input.selectionEnd=end;};
+ options.inlineRanges=!inlineRanges;
+ editorSelection(input,Event,0,5);root.querySelector('[data-cy=data-controls-bold]').dispatchEvent(new Event('click'));await settle();
+ const expected={version:inlineRanges?2:1,blocks:[{text:'Hello world',bold:!inlineRanges,italic:false,kind:'paragraph',...(inlineRanges?{marks:[{start:0,end:5,bold:true,italic:false}]}:{})}]};
+ assert.deepEqual(editor.document(),expected,'caller mutation must not change the document capability or selected range');
+ root.querySelector('[data-cy=data-controls-save]').dispatchEvent(new Event('click'));await settle();assert.deepEqual(saved,expected,'save retains the validated construction policy');
+});
 test('editor exposes the current block format and updates all toggles on block navigation',t=>{
  const {root,kit,Event}=fixture(t);const editor=kit.editor({version:1,blocks:[{text:'first',bold:true,italic:false,kind:'bullet'},{text:'second',bold:false,italic:true,kind:'paragraph'}]});root.append(editor.element);
  assert.deepEqual(formatStates(root),['true','false','true']);root.querySelector('[data-cy=data-controls-editor-block-1]').dispatchEvent(new Event('click'));

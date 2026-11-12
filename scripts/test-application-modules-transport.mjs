@@ -5,6 +5,16 @@ const scope={tenantId:'tenant',userId:'user1',role:'psw',dataset:'live'},identit
 function profile(fetcher){let session={token:'captured',scope};const port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>session,{identity:'Identity'},fetcher);return {port,change:()=>{session={token:'other',scope};}};}
 function delayed(){let finish,cancelled=false;const response=new Response(new ReadableStream({start(controller){finish=()=>{controller.enqueue(new TextEncoder().encode(JSON.stringify(identity)));};},cancel(){cancelled=true;}}));return {response,finish:()=>finish(),cancelled:()=>cancelled};}
 test('profile projects registered self identity and sends no owner-selected parameters',async()=>{let captured;const {port}=profile(async(url,options)=>{captured={url:String(url),options};return Response.json(identity);});const raw=await port.read(query,new AbortController().signal);assert.equal(raw.items[0].id,'user1');assert.deepEqual(raw.items[0].actions,[]);assert.equal(captured.url,'https://fixture.test/v1/auth/me');assert.equal(captured.options.headers.authorization,'Bearer captured');await assert.rejects(()=>port.mutate(),e=>e.code==='denied');port.dispose();});
+test('profile retains the original search while a caller changes its query during fetch',async()=>{
+ let finish;const p=profile(()=>new Promise(resolve=>{finish=()=>resolve(Response.json(identity));})),input={search:'user1',offset:0};
+ const pending=p.port.read(input,new AbortController().signal);input.search='not-the-original-search';finish();
+ const result=await pending;assert.equal(result.items.length,1);assert.equal(result.items[0].id,'user1');p.port.dispose();
+});
+test('profile caller query mutation cannot break a pending valid read',async()=>{
+ let finish;const p=profile(()=>new Promise(resolve=>{finish=()=>resolve(Response.json(identity));})),input={search:'user1',offset:0};
+ const pending=p.port.read(input,new AbortController().signal);input.search={};finish();
+ const result=await pending;assert.equal(result.items[0].id,'user1');p.port.dispose();
+});
 test('profile rejects logout while streaming and cancels the owned reader',async()=>{const delay=delayed(),p=profile(async()=>delay.response);const pending=p.port.read(query,new AbortController().signal);await new Promise(r=>setImmediate(r));p.change();delay.finish();await assert.rejects(()=>pending,e=>e.code==='denied');assert.equal(delay.cancelled(),true);});
 test('profile disposal and cancellation reject pending replies',async()=>{for(const dispose of [true,false]){const delay=delayed(),p=profile(async()=>delay.response),abort=new AbortController();const pending=p.port.read(query,abort.signal);await new Promise(r=>setImmediate(r));if(dispose)p.port.dispose();else abort.abort();delay.finish();await assert.rejects(()=>pending,e=>e.code==='unavailable');assert.equal(delay.cancelled(),true);}});
 test('profile bounds streamed and declared replies to the native 64 KiB limit',async()=>{for(const declared of [true,false]){let cancelled=false;const p=profile(async()=>new Response(new ReadableStream({pull(c){c.enqueue(new Uint8Array(65537));},cancel(){cancelled=true;}}),declared?{headers:{'content-length':'65537'}}:{}));await assert.rejects(()=>p.port.read(query,new AbortController().signal),e=>e.code==='error'&&e.status===502);assert.equal(cancelled,true);}});

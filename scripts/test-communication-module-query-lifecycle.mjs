@@ -38,3 +38,36 @@ test('superseded mailbox inbox cannot dispatch obsolete details or replace the a
   assert.deepEqual(detailIds,['new-mail','new-mail']);assert.deepEqual(afters,[undefined,undefined,'new-cursor']);
  }finally{p.dispose();}
 });
+
+test('messenger read owns its query while the inbox response is pending',async()=>{
+ let release;
+ const p=new CommunicationModulePort(scope,'messenger',async()=>new Promise(resolve=>release=resolve),labels);
+ try{
+  const input={search:'Owned',offset:0},pending=p.read(input,signal);
+  input.search='Unrelated';input.offset=100;
+  release({items:[row]});
+  const result=await pending;
+  assert.equal(result.offset,0);assert.equal(result.items[0]?.id,row.id);assert.equal(result.total,1);
+ }finally{p.dispose();}
+});
+
+test('mailbox read owns its filter and next-page cursor offset while inbox is pending',async()=>{
+ let release,calls=0;const afters=[];
+ const p=new CommunicationModulePort(scope,'mailbox',async(op,value)=>{
+  if(op==='email.inbox'){
+   afters.push(value.after);
+   if(++calls===1)return new Promise(resolve=>release=resolve);
+   return {items:[],nextAfter:null};
+  }
+  return {id:value.id,version:1,tenantId:'t',kind:'inbound_mail',mailboxId:'captured',senderIdentityVerified:false,status:'quarantined',from:'x',to:'y',contentPreview:{status:'available',text:'Owned preview'}};
+ },labels,{direction:'inbound',id:'captured'});
+ try{
+  const input={search:'Owned',offset:0},pending=p.read(input,signal);
+  input.search='Unrelated';input.offset=400;
+  release({items:[{id:'owned-mail',version:1}],nextAfter:'captured-cursor'});
+  const result=await pending;
+  assert.equal(result.offset,0);assert.equal(result.items[0]?.id,'owned-mail');
+  await p.read({search:'',offset:100},signal);
+  assert.deepEqual(afters,[undefined,'captured-cursor']);
+ }finally{p.dispose();}
+});

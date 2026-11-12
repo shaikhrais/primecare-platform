@@ -125,3 +125,11 @@ test('original host callback can unsubscribe an observer before its notification
  let remove;const a=new PreferenceSyncClient(binding,server().transport,cache(),uuid,()=>remove?.());let calls=0;remove=a.subscribe(()=>calls++);
  await a.load();assert.equal(calls,0);assert.equal(a.current.status,'clean');await a.dispose();
 });
+
+test('throwing original host observer cannot lock load or corrupt durable saves',async()=>{
+ const s=server(),c=cache();let notifications=0;const a=new PreferenceSyncClient(binding,s.transport,c,uuid,()=>{throw Error('host render failed');});
+ a.subscribe(()=>notifications++);await a.load();assert.equal(a.current.status,'clean');await a.edit(doc('1'));await a.save();
+ assert.equal(a.current.status,'clean');assert.equal(a.current.error,null);assert.equal(s.snapshot.revision,1);assert.equal(notifications,5);
+ await a.load();assert.equal(a.current.status,'clean');assert.equal(notifications,7);await a.dispose();
+ const restored=make(s,c);await restored.load();assert.deepEqual(restored.current.draft,doc('1'));assert.equal(restored.current.base.revision,1);await restored.dispose();
+});
