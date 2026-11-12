@@ -52,6 +52,8 @@ dependencies:
   integration_test:
     sdk: flutter
 dev_dependencies:
+  flutter_localizations:
+    sdk: flutter
   build_runner: any
   drift_dev: ^2.31.0
   riverpod_generator: ^4.0.3

@@ -1,3 +1,6 @@
+import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeText;
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' show DateFormat;
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -10,6 +13,30 @@ Map<String,Object?> data(String module,{int version=1,String title='Original tas
 class Port implements WorkPort {final String module;int calls=0;bool lose=false,deny=false,loseRead=false;int readCalls=0;final keys=<String>[];Map<String,Object?> value;Port(this.module):value=data(module);@override Future<Object?> read(WorkQuery q)async=>value;@override Future<WorkReceipt> mutate(WorkCommand c,String key)async{calls++;keys.add(key);if(deny)throw const WorkFailure('denied',403);if(lose&&calls==1)throw Exception('lost response');value=data(module,version:c.version+1,title:c.fields['title']!);return WorkReceipt(c.itemId,c.version+1,c.action,{'title':c.fields['title']!});}@override Future<Object?> readItem(String id)async{readCalls++;if(loseRead&&readCalls==1)throw Exception('verification offline');return value;}@override void dispose(){}}
 WorkModuleSession session(String module,Port p)=>WorkModuleSession(scope,module,port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');
 void main(){
+ for(final locale in ['en','fr','es'])for(final firstWeekday in [0,1])testWidgets('calendar localized headings and date semantics $locale/$firstWeekday',(t)async{
+  final semantics=t.ensureSemantics();addTearDown(semantics.dispose);
+  addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('calendar');p.value={...data('calendar'),'items':<Object?>[],'total':0};
+  final s=session('calendar',p),labels=CatalogueLabels.fromMetadata(metadata,locale);
+  for(final width in [320.0,600.0])for(final scale in [1.0,2.0]){
+   await t.binding.setSurfaceSize(Size(width,1800));
+   await t.pumpWidget(MaterialApp(locale:Locale(locale),supportedLocales:const [Locale('en'),Locale('fr'),Locale('es')],localizationsDelegates:GlobalMaterialLocalizations.delegates,
+    builder:(context,child)=>MediaQuery(data:MediaQuery.of(context).copyWith(textScaler:TextScaler.linear(scale)),child:child!),
+    home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'calendar-fixture',year:2026,month:11,firstWeekday:firstWeekday,gap:8,boardWidth:250)))));
+   await t.pumpAndSettle();expect(t.takeException(),isNull);
+   final days=workMonth(2026,11,firstWeekday),context=t.element(find.byType(PrimeWorkModule)),localizations=MaterialLocalizations.of(context);
+   final headers=t.widgetList<Semantics>(find.byWidgetPredicate((w)=>w is Semantics&&w.properties.header==true)).toList();
+   expect(headers.length,7);
+   for(var i=0;i<7;i++){
+    final date=DateTime.parse(days[i].date);
+    expect(headers[i].properties.label,DateFormat.EEEE(locale).format(date));
+    expect((headers[i].child! as PrimeText).data,localizations.narrowWeekdays[date.weekday%7]);
+   }
+   expect(find.bySemanticsLabel(localizations.formatFullDate(DateTime(2026,11,5))),findsOneWidget);
+   expect(s.snapshot!.items,isEmpty);expect(p.calls,0);
+  }
+  await t.pumpWidget(const SizedBox());s.dispose();
+ });
  test('strict calendar dates, first weekday, bounds and collision-free IDs',(){expect(workMonth(2028,2,1).length,42);expect(workMonth(2028,2,1).first.date,'2028-01-31');expect(workMonth(2028,2,1).where((d)=>d.inMonth).length,29);expect(validWorkDate('2027-02-29'),false);expect(recordSuffix('A'),isNot(recordSuffix('a')));expect(()=>workMonth(2026,13),throwsA(isA<WorkFailure>()));});
  test('snapshot rejects wrong scope, duplicate IDs and unknown fields',(){final raw=data('tasks');expect(WorkSnapshot.fromJson(raw,scope,'tasks').items.single.version,1);expect(()=>WorkSnapshot.fromJson(raw,PreferenceScope('other','actor-fixture','tenant_admin','live'),'tasks'),throwsA(isA<WorkFailure>()));final duplicate=data('tasks');(duplicate['items'] as List).add((duplicate['items'] as List).first);expect(()=>WorkSnapshot.fromJson(duplicate,scope,'tasks'),throwsA(isA<WorkFailure>()));raw['extra']=true;expect(()=>WorkSnapshot.fromJson(raw,scope,'tasks'),throwsA(isA<WorkFailure>()));});
  test('success requires receipt and fresh readback; editor version is checked',()async{final p=Port('tasks'),s=session('tasks',p);await s.load();await s.submit('Task-A','edit',{'title':'Saved','body':'Instructions','date':'2026-11-06'},expectedVersion:1);expect(s.status,'success');expect(s.snapshot!.items.single.title,'Saved');await expectLater(s.submit('Task-A','edit',{'title':'Stale','body':'Instructions','date':'2026-11-06'},expectedVersion:1),throwsA(isA<WorkFailure>()));expect(p.calls,1);s.dispose();});
