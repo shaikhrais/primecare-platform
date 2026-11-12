@@ -20,7 +20,7 @@ on:
 permissions: {contents: read}
 jobs:
   web:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
@@ -36,7 +36,7 @@ jobs:
           node scripts/test-dashboard-pages-browser.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/primecare_ui/web/dashboard-pages.ts packages/primecare_ui/web/supporting-pages.ts packages/primecare_ui/web/record-pages.ts websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts
   postgres:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
       postgres:
