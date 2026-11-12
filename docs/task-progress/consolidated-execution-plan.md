@@ -13,8 +13,8 @@ Keep the current schedule rather than resetting its start time. A queued CI job 
 | Measure | Recorded baseline | Rule for advancing |
 |---|---:|---|
 | Tracked skeleton proposal features | 72 | Stable feature IDs; changes require an explicit inventory amendment |
-| Features with source mappings | 45 | Validate original shared public declaration/export and document supported subset |
-| Features needing reconciliation | 27 | Review existing factories before writing duplicates |
+| Features with source mappings | 50 | Validate original shared public declaration/export and document supported subset |
+| Features needing reconciliation | 22 | Review existing factories before writing duplicates |
 | Fully accepted features | 0 | Feature-specific source, host, service, runtime and required review evidence |
 | Features pending full acceptance | 72 | Do not count partial repair as full adoption |
 | Strict direct-control/color findings | 0 | Re-run strict scanner and exact-source CI; no exemptions |
@@ -29,7 +29,7 @@ These are separate measures. A source mapping is not implemented parity; a green
 |---|---|---|---|
 | P0 | All | Inspect exact-main CI; group failures by root cause; repair source or fixture defects without weakening checks | Targeted check passes against repair source; retain job/run links |
 | P1 | B06 B09 B10 B12 B17 | Keep shared library/theme boundary strict; repair focus/caret/selection/disabled/error states and lifecycle ownership; extend reviewed exact-source bulk utilities only for actual remaining findings | Strict scan zero, regression proof, native/web consumer checks |
-| P2 | B17 | Reconcile all 27 unresolved application/dashboard/supporting-page proposals against existing public factories and approved adapters | Each ID has source/export, supported subset, owner and explicit remaining gap; never infer runtime equivalence |
+| P2 | B17 | Reconcile all 22 unresolved application/dashboard/supporting-page proposals against existing public factories and approved adapters | Each ID has source/export, supported subset, owner and explicit remaining gap; never infer runtime equivalence |
 | P3 | B01 B02 B03 B04 B05 B06 | Bind existing authorized hosts to shared shell, layouts, navigation, page factories and Theme Center; preserve drafts/overlays and actor teardown | Host selectors/registrations, allowed/denied routes, responsive/browser/native evidence |
 | P4 | B07 B08 | Implement governed draft/conflict/revoked-reference recovery and common preference binding; attach only approved utility resources | API and independent SQL readback, reload, second session, offline recovery, scope denial |
 | P5 | B10 B11 B12 | Close required data-control variants, approved upload/picker policies, widget data/preference bindings and actual asset consumers | Real receipts, persistence/removal, large-data and accessibility checks, provenance |
@@ -83,7 +83,11 @@ Preserve historical source hashes and exact replay/amendment limits. Never refre
 
 Production release identity reconciliation for APIs710/857/777 remains a separate authority-bound task. Use current pinned readback before deciding what repair is justified. Do not relabel unrelated grants into communication access or invent runtime artifacts. API follow-up does not independently authorize deployment or production database writes.
 
-## Immediate checkpoint and next action
+## Latest published reconciliation
+
+Published `f9373dec024e6857f79ccb2d4e40dafaad904d5c` directly on main: ordered public export chains must reach the implementation; five existing task-backed work templates are reconciled with explicit subset/gap notes. Four audit tests and generated-report verification passed locally; strict boundary scan found zero violations. Source mappings 45 → 50; unresolved 27 → 22; full acceptance remains 0/72. Fresh boundary run43143859116, Theme Center run43143859073 and catalogue integrity run43143859106 were queued at inspection; no fresh CI pass is claimed. Predecessor closure run43141530327 passed six jobs but PostgreSQL setup failed during dependency installation, before tests; latest replacement run43143503441 was queued. Inspect these existing runs without duplicate dispatch. Next independent work: reconcile communication/application/dashboard/page subsets, preserving production and host gates.
+
+## Earlier checkpoint and next action
 
 Latest source `75965d0d` guards promise-queued catalogue/shell actions after owner disposal. Seven local lifecycle tests and shared TypeScript passed; two tests fail against the old implementations. Targeted catalogue run43139525503, shell run43139525365 and boundary run43139525902 were queued at inspection. Inspect their current status first.
 
