@@ -16,6 +16,9 @@ on:
       - 'packages/primecare_ui/lib/src/theme/primecare_assets.dart'
       - 'packages/primecare_ui/lib/src/components/prime_status.dart'
       - 'packages/primecare_ui/test/prime_status_test.dart'
+      - 'apps/primecare_business_development/lib/features/bdm/screens/regional_bdm_competitor_notes_screen.dart'
+      - 'apps/primecare_business_development/lib/features/bdm/screens/regional_bdm_dashboard_screen.dart'
+      - 'apps/primecare_business_development/test/regional_bdm_original_status_assets_test.dart'
       - 'packages/primecare_ui/catalogs/original-assets.registration.json'
       - 'packages/flutter_core/lib/original_assets*'
       - 'packages/flutter_core/lib/original_assets/**'
@@ -82,3 +85,7 @@ jobs:
         working-directory: packages/primecare_ui
       - run: flutter test test/prime_status_test.dart --reporter expanded
         working-directory: packages/primecare_ui
+      - run: flutter pub get
+        working-directory: apps/primecare_business_development
+      - run: flutter test test/regional_bdm_original_status_assets_test.dart --reporter expanded
+        working-directory: apps/primecare_business_development

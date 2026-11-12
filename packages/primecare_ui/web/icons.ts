@@ -1,7 +1,7 @@
 /** Shared original geometry. Historical Tabler notice is retained in docs/appearance. */
 import {primeCareIcon,primeCareIconPaths,primeCareAssetAliases,type PrimeCareIconName} from "./original-assets";
 import {originalAssetInfo} from './original-asset-view';
-export const shellIconNames=["refresh", "building", "building-plus", "layout-dashboard", "users", "clipboard-check", "database", "shield-check", "chart-bar", "map-2", "rocket", "school", "settings", "search", "menu-2", "x", "dots-vertical", "chevron-down", "logout", "user-circle", "phone", "robot", "file-text", "adjustments-horizontal", "palette"] as const;
+export const shellIconNames=Object.freeze(["refresh", "building", "building-plus", "layout-dashboard", "users", "clipboard-check", "database", "shield-check", "chart-bar", "map-2", "rocket", "school", "settings", "search", "menu-2", "x", "dots-vertical", "chevron-down", "logout", "user-circle", "phone", "robot", "file-text", "adjustments-horizontal", "palette"] as const);
 export type ShellIcon=typeof shellIconNames[number];
 /** Icons remain decorative; the enclosing control supplies its accessible name. */
 export function shellIcon(name:ShellIcon,options:{rtl?:boolean}={}):string{

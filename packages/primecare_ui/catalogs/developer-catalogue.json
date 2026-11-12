@@ -12951,7 +12951,8 @@
         "apps/primecare_business_development/lib/features/sales/screens/franchise_sales_manager_sales_pipeline_screen.dart",
         "apps/primecare_business_development/lib/features/sales/screens/franchise_sales_manager_sales_pipeline_screen_controller.dart",
         "apps/primecare_business_development/lib/main.dart",
-        "apps/primecare_business_development/test/auth_routing_test.dart"
+        "apps/primecare_business_development/test/auth_routing_test.dart",
+        "apps/primecare_business_development/test/regional_bdm_original_status_assets_test.dart"
       ],
       "runtimeAdoptionVerified": false
     },

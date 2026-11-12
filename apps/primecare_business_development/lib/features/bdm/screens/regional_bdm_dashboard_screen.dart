@@ -28,7 +28,7 @@ class RegionalBdmDashboardScreen extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 64),
+          const PrimeStatusIcon(Icons.check_circle_outline, tone: PrimeStatusTone.success, size: 64, assetName: 'check'),
           const SizedBox(height: 16),
           PrimeText(
             'RegionalBdmDashboardScreen is now fully implemented.',
