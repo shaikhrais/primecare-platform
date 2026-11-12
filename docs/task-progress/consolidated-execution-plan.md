@@ -2,6 +2,14 @@
 
 Updated 2026-11-11, America/Toronto. Starting source: `75965d0d1315b4a7f15139f90884987dcc0411ec`. Delivery status: behind the user's requested completed backlog. No agreed completion date exists; elapsed time or source counts must not be converted into an invented delivery forecast.
 
+## GitHub global plan and parallel development (user update, November 12)
+
+The user now explicitly requests GitHub integration and a global plan for ten parallel chats. Shared coordination moves to [master issue229](https://github.com/shaikhrais/primecare-platform/issues/229), the [global development plan](../appearance/primecare-global-development-plan.md) and [ten chat prompts](../appearance/primecare-parallel-chat-prompts.md). This supersedes the earlier local-only shared tracking preference; keep personal scratch local and add no application task-reporting code.
+
+Use the ten lane scopes and child issues there. PC-02 throughPC-10 prepare product patches and tests concurrently in isolated current-main copies; PC-01 alone integrates and moves main with fresh-source reconciliation and expected-head protection. No work branches/PRs or force overwrite. Workflows, registration/governance, shared foundation/exports, historical proofs and global acceptance records remain integrator-owned. Record manual/automated publisher handoffs before moving main. The existing hourly continuation is the default PC-01 publisher and must yield during a recorded manual takeover; do not create duplicate runners.
+
+Current product baseline f69b31ef passed all seven triggered workflows, including all five dashboard web/PostgreSQL/native jobs and workspace publication. Source mappings remain72, full acceptance0/72, strict findings0. Overall delivery remains behind. The global plan partitions the low-confidence234–468 active-hour budget and retains unsized API/external gates; parallel chats do not guarantee tenfold speed or a final calendar date. Preserve the original recovery targets, record the early verified host checkpoints honestly, and add the dated parallel launch/evidence baseline without erasing misses.
+
 ## Schedule and ownership
 
 Use the existing enabled PrimeCare continuation, hourly at approximately minute 15 in America/Toronto. Scheduled invocations are discrete work sessions, not proof of uninterrupted execution. One runner owns repository publication; do not start another overlapping API/theme writer. Leave the expired API schedule and six historical sports checks inactive. Bring necessary API work into this queue only after its actual contracts are reconciled. No study reminder is currently present in the returned schedule inventory; this plan does not create unrelated reminders.
