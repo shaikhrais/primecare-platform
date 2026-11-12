@@ -31,3 +31,20 @@ test('actual form retry clears stale alert role and retains error/loading/succes
  button.dispatchEvent(new Event('click'));assert.equal(calls,2,'retry is serialized');finish();await settle();
  assert.equal(status.textContent,kit.text('success'));assert.equal(status.getAttribute('role'),'status');assert.equal(button.disabled,false);assert.equal(button.getAttribute('aria-busy'),null);
 });
+
+test('autocomplete rejects detached old-result clicks and preserves current pointer selection',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[];
+ const box=kit.autocomplete(async query=>[{value:query,label:query+' label'}],value=>selected.push(value));root.append(box);
+ const input=root.querySelector('[role=combobox]');input.value='first';input.dispatchEvent(new Event('input'));await settle();
+ const old=root.querySelector('[role=option]');input.value='second';input.dispatchEvent(new Event('input'));await settle();
+ old.dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,[]);assert.equal(input.value,'second');
+ root.querySelector('[role=option]').dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,['second']);assert.equal(input.value,'second label');
+});
+test('autocomplete hidden options cannot select after Escape or blur',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[];root.append(kit.autocomplete(async()=>[{value:'a',label:'A'}],value=>selected.push(value)));
+ const input=root.querySelector('[role=combobox]');
+ for(const mode of ['Escape','blur']){input.dispatchEvent(new Event('input'));await settle();const option=root.querySelector('[role=option]');
+  if(mode==='blur')input.dispatchEvent(new Event('blur'));else{const key=new Event('keydown');key.key=mode;input.dispatchEvent(key);}
+  option.dispatchEvent(new Event('pointerdown'));assert.deepEqual(selected,[]);
+ }
+});
