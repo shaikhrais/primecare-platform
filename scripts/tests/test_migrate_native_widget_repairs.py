@@ -5,7 +5,7 @@ from reviewed_migration_history import before_native_widget_repairs
 class NativeWidgetRepairTest(unittest.TestCase):
  def test_exact_reverse_hash_and_all_other_source_retained(self):
   rows=json.loads((ROOT/'scripts/native-widget-repairs.json').read_text())
-  self.assertEqual(len(rows),7)
+  self.assertEqual(len(rows),8)
   for row in rows:
    current=(ROOT/row['path']).read_text()
    self.assertEqual(hashlib.sha256(current.encode()).hexdigest(),row['updated_sha256'])
