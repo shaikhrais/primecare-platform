@@ -78,3 +78,20 @@ for(const side of ['left','right'])test(`same-route overlay update retains focus
   assert.equal(f.root.contains(input),false,'retired draft is detached');
  }finally{view.dispose();prototype.focus=originalFocus;}
 });
+test('caller scope mutation cannot bypass fresh-actor content validation',()=>{
+ const f=fixture(),view=new PageTemplateView(f.root,{content:f.content},f.options);
+ try{f.options.scope='replacement-actor';assert.throws(()=>view.update(f.options),/fresh authorized content/);assert.equal(f.root.childNodes.length,0);}
+ finally{view.dispose();}
+});
+for(const key of ['content','left'])test(`implicit refresh retains validated ${key} slot after caller descriptor mutation`,()=>{
+ const f=fixture(),left=f.document.createElement('section'),external=f.document.createElement('section');left.textContent='Authorized sidebar';external.textContent='External owner';f.document.body.append(external);
+ const options={...f.options,routes:[{...f.options.routes[0],layout:{...defaultPageLayout(),left:{mode:'permanent',width:280,open:true}}}]};
+ const slots={content:f.content,left},view=new PageTemplateView(f.root,slots,options);
+ try{slots[key]=external;view.update(options);assert.equal(external.parentElement===f.document.body,true);assert.equal(f.root.contains(f.content),true);assert.equal(f.root.contains(left),true);}
+ finally{view.dispose();external.remove();}
+});
+test('explicit fresh-actor slot update still accepts authorized replacement content',()=>{
+ const f=fixture(),view=new PageTemplateView(f.root,{content:f.content},f.options),fresh=f.document.createElement('section');fresh.textContent='Replacement authorized content';
+ try{f.options.scope='replacement-actor';view.update(f.options,{content:fresh});assert.equal(f.root.contains(fresh),true);assert.equal(f.root.contains(f.content),false);}
+ finally{view.dispose();}
+});

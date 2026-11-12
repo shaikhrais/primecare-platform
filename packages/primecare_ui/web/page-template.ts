@@ -43,7 +43,7 @@ export class PageTemplateView extends ThemeControlBase {
    const active=same?this.root.ownerDocument.activeElement as HTMLElement|null:null;
    this.closeDialogs();this.revokeLinks();this.events.abort();this.events=new AbortController();this.epoch++;
    if(this.options?.chrome!==options.chrome)this.options?.chrome?.apply({navigation:true,toolbar:true,footer:true});
-   this.options=options;this.slots=slots;this.route=route;
+   this.options={...options,labels:{...options.labels}};this.slots={...slots};this.route=route;
    if(!route){this.clear();return;}
    if(!same)this.open={left:route.layout.left.open&&!this.temporary('left'),right:route.layout.right.open&&!this.temporary('right')};else for(const side of ['left','right'] as const)if(this.temporary(side)&&!previousTemporary[side])this.open[side]=false;
    this.render(active);if(same){this.root.scrollTop=oldScroll.page;this.content.scrollTop=oldScroll.content;}else{this.root.scrollTop=0;this.content.scrollTop=0;if(route.layout.scroll==='normal')this.window.scrollTo(0,0);this.root.querySelector<HTMLElement>('[data-pc-page-heading]')?.focus({preventScroll:true});}

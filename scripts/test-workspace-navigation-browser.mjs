@@ -32,6 +32,25 @@ try{
   const current=search(),before=opened;current.click();if(opened!==before+1)throw Error('Current result unavailable');
   host.remove();
  });
+ // Synchronous render hooks can revoke or replace ownership before the outer redraw commits.
+ await page.evaluate(()=>{
+  const config={...options,frame:undefined,scope:'fixture-actor',items:[{id:'fixture-home',kind:'item',label:'Fixture home',route:'/fixture',icon:'home'}],authority:{ids:['fixture-home'],routes:['/fixture'],icons:['home']},currentRoute:'/fixture',onNavigate:()=>{}};
+  for(const transition of ['revocation','invalid-update','disposal','newer-update','replacement-owner']){
+   const host=document.createElement('section');document.body.append(host);const current=new Navigation.WorkspaceNavigationView(host,config);let once=false,replacement;
+   const renderIcon=()=>{if(!once){once=true;
+    if(transition==='revocation')current.update({...config,scope:'replacement',authority:{...config.authority,ids:[]}});
+    if(transition==='invalid-update'){try{current.update({...config,scope:''});}catch{}}
+    if(transition==='disposal')current.dispose();
+    if(transition==='newer-update'){current.update({...config,scope:'replacement'});throw Error('retired_renderer_failed');}
+    if(transition==='replacement-owner'){current.dispose();replacement=new Navigation.WorkspaceNavigationView(host,{...config,scope:'replacement'});throw Error('retired_renderer_failed');}
+   }return document.createElement('span');};
+   try{
+    try{current.update({...config,renderIcon});}catch(error){if(error.message!=='retired_renderer_failed')throw error;}
+    const expected=['newer-update','replacement-owner'].includes(transition)?1:0;
+    if(host.querySelectorAll('[data-navigation-id]').length!==expected)throw Error('Stale renderer overwrote '+transition);
+   }finally{replacement?.dispose();current.dispose();host.remove();}
+  }
+ });
  await page.locator('#unsaved').fill('Unfinished main form');assert.equal(await page.getByText(/PRIVATE/).count(),0);
  for(const dir of ['ltr','rtl'])for(const family of ['vertical','horizontal-header','horizontal-footer']){
   await page.evaluate(({dir,family})=>{document.documentElement.dir=dir;manager.change(Navigation.navigationPreset(manager.current,family));options={...options,family};view.update(options);},{dir,family});
@@ -49,5 +68,5 @@ try{
  await page.setViewportSize({width:390,height:844});await page.locator('[data-nav-open]').click();await page.locator('[data-nav-close]').waitFor({state:'visible'});await page.keyboard.press('Shift+Tab');assert.equal(await page.locator('nav a').last().evaluate(e=>document.activeElement===e),true);await page.keyboard.press('Escape');assert.equal(await page.locator('#slot').getAttribute('data-drawer-open'),'false');
  await page.locator('[data-nav-open]').click();await page.evaluate(()=>{window.old=document.querySelector('[data-navigation-id=report]');try{view.update({...options,scope:'malformed-new-actor',items:[{id:'bad',kind:'unknown',label:'Invalid'}]});}catch{}window.dispatchEvent(new Event('resize'));});assert.equal(await page.locator('[data-navigation-id]').count(),0);await page.evaluate(()=>{options={...options,scope:'tenant:other:role',authority:{...options.authority,ids:[]}};view.update(options);old?.click();});assert.equal(await page.locator('[data-navigation-id]').count(),0);assert.equal(await page.locator('#slot').getAttribute('data-drawer-open'),'false');
  await page.setViewportSize({width:1500,height:960});await page.evaluate(()=>{view.dispose();manager.dispose();});assert.equal(await page.locator('#slot').locator('*').count(),0);assert.equal(await page.locator('#unsaved').inputValue(),'Unfinished main form');assert.deepEqual(errors,[]);
- console.log(JSON.stringify({retiredUniversalSearchCallbacks:true,threeCompositions:true,ltrRtlNestedKeyboard:true,activeRoute:true,foldHoverFocusPin:true,railTabs:true,mobileTrapEscape:true,deniedSubtreeHidden:true,revocation:true,unsavedMainRetained:true,dispose:true,productionMounted:false}));
+ console.log(JSON.stringify({reentrantIconRenderOwnership:true,retiredUniversalSearchCallbacks:true,threeCompositions:true,ltrRtlNestedKeyboard:true,activeRoute:true,foldHoverFocusPin:true,railTabs:true,mobileTrapEscape:true,deniedSubtreeHidden:true,revocation:true,unsavedMainRetained:true,dispose:true,productionMounted:false}));
 }finally{await browser.close();await new Promise(r=>server.close(r));}

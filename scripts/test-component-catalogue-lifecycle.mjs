@@ -8,6 +8,26 @@ const {PrimeComponentFactory}=await import('data:text/javascript;base64,'+Buffer
 const shellBuilt=await build({entryPoints:['packages/primecare_ui/web/shell-utilities.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {ShellUtilitiesView}=await import('data:text/javascript;base64,'+Buffer.from(shellBuilt.outputFiles[0].text).toString('base64'));
 const settle=()=>new Promise(resolve=>setImmediate(resolve));
+test('button feedback label overrides are validated before reserving control IDs or dispatching',()=>{
+ for(const override of [{successKey:'unregistered'},{errorKey:'unregistered'}]){
+  const {kit,root}=fixture();let calls=0;try{assert.throws(()=>kit.button('button',()=>{calls++;},override),/Registered label required/);root.append(kit.button('button',()=>{calls++;}));assert.equal(root.querySelectorAll('button').length,1);assert.equal(calls,0);}finally{kit.dispose();}
+ }
+});
+for(const failure of [false,true])test('button feedback captures registered options before caller mutation: '+(failure?'error':'success'),async()=>{
+ const {kit,root,Event}=fixture();let finish;const options={successKey:'copied',errorKey:'copyError',disabled:false};
+ try{const button=kit.button('button',()=>new Promise((resolve,reject)=>finish=failure?reject:resolve),options);root.append(button);button.dispatchEvent(new Event('click'));await Promise.resolve();options.successKey='success';options.errorKey='actionError';options.disabled=true;finish(failure?Error('denied'):undefined);await settle();
+  assert.equal(root.querySelector('[role=status]').textContent,kit.text(failure?'copyError':'copied'));assert.equal(button.disabled,false);
+ }finally{kit.dispose();}
+});
+for(const key of ['dialog','drawer'])test(`late ${key} rejection cannot announce an error in a reopened opening`,async()=>{
+ let reject;const f=modalFixture(key,()=>new Promise((_,fail)=>reject=fail));
+ try{f.click(f.trigger);await settle();const confirm=f.dialog.querySelector('[data-cy="component-catalogue-confirm-'+key+'"]');f.click(confirm);await Promise.resolve();
+  f.click(f.dialog.querySelector('[data-cy="component-catalogue-cancel-'+key+'"]'));await settle();f.click(f.trigger);await settle();
+  const retained=f.document.createElement('input');f.dialog.prepend(retained);f.setFocus(retained);reject(Error('old opening failed'));await settle();
+  const status=f.dialog.querySelector('[data-cy="component-catalogue-confirm-'+key+'-status"]');assert.equal(status.textContent,'');assert.equal(f.dialog.open,true);assert.equal(f.focus()===retained,true);assert.equal(confirm.disabled,false);
+  f.click(confirm);await Promise.resolve();reject(Error('current opening failed'));await settle();assert.equal(status.textContent,f.kit.text('actionError'));assert.equal(confirm.disabled,false);assert.equal(f.dialog.open,true);
+ }finally{f.kit.dispose();}
+});
 test('invalid shared forms focus the first invalid enabled field without submitting or losing drafts',async()=>{
  const {kit,root,Event}=fixture();let submitted=0,focused;
  const first=kit.field('input',{value:'retained draft',required:true}),second=kit.field('multiline',{required:true});

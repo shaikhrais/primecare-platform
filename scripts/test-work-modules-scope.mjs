@@ -180,4 +180,14 @@ for(const query of [{search:'x'.repeat(101),offset:0},{search:[],offset:0},...[-
  const receipt=await port.mutate({fields:{date:'2026-11-12',body:'Instructions',title:'Saved'},action:'edit',version:1,itemId:task.id},key,signal);
  assert.equal(receipt.itemId,task.id);assert.deepEqual(keys,[key,key]);port.dispose();checks++;
 }
+// Validated queries must remain stable when callers reuse them during an async read.
+for(const module of ['tasks','contacts']){
+ let finish;const sent=[];
+ const port=new TenantTaskModulePort(original,module,request=>{sent.push(request);return new Promise(resolve=>{finish=resolve;});});
+ const query={search:module==='contacts'?'Alice':'Requested',offset:0};
+ const pending=port.read(query,new AbortController().signal);query.search='Bob';query.offset=900;
+ finish({...raw,users:[{id:'alice',name:'Alice',email:'alice@example.invalid'}]});const result=await pending;
+ assert.equal(result.offset,0);if(module==='contacts')assert.deepEqual(result.items.map(i=>i.title),['Alice']);else assert.equal(sent[0].filters.search,'Requested');
+ port.dispose();checks++;
+}
 console.log(`PASS tenant work scope: ${checks} cases; immutable actor/dataset binding and foreign response denial`);

@@ -15,11 +15,11 @@ export class WorkspaceNavigationView {
  private pinned=true;
  private drawer=false;
  private disposed=false;
- private epoch=0;
+ private epoch=0;private updates=0;
  private prefix='primecare-navigation-'+(++sequence)+'-';
  private events=new AbortController();
  private renderEvents=new AbortController();
- private observer:MutationObserver;
+ private observer:MutationObserver|undefined;
  private portal:HTMLDivElement;
  constructor(private host:HTMLElement,options:WorkspaceNavigationOptions){
   if(!host.isConnected)throw Error('Mount navigation in a connected host');
@@ -45,8 +45,9 @@ export class WorkspaceNavigationView {
  get presentation(){return {family:this.options.family,mode:this.options.mode??'expanded',pinned:this.pinned};}
  private get narrow(){return this.host.ownerDocument.defaultView!.matchMedia('(max-width:1024px)').matches;}
  update(next:WorkspaceNavigationOptions):void{
-  if(this.disposed)throw Error('Navigation disposed');
+  if(this.disposed)throw Error('Navigation disposed');const update=++this.updates;
   try{this.applyOptions(next);}catch(error){
+   if(this.disposed||update!==this.updates)throw error;
    this.nodes=[];this.expanded.clear();this.selected=undefined;this.drawer=false;this.epoch++;this.renderEvents.abort();
    for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');
    this.host.replaceChildren();this.portal.replaceChildren();this.portal.hidden=true;throw error;
@@ -71,7 +72,7 @@ export class WorkspaceNavigationView {
  }
  private syncExpansion(){if(this.disposed)return;const expanded=this.pinned||this.host.matches(':hover')||this.host.contains(this.host.ownerDocument.activeElement);this.host.dataset.expanded=String(expanded);const frame=this.options.frame;if(frame)frame.element.style.setProperty('--pc-nav-width',(this.options.family==='vertical'&&this.options.mode==='folded'&&!expanded&&!this.narrow?64:frame.profile().navigationWidth)+'px');}
  private button(label:string,work:()=>void):HTMLButtonElement{
-  const b=this.host.ownerDocument.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',work,{signal:this.renderEvents.signal});return b;
+  const epoch=this.epoch,b=this.host.ownerDocument.createElement('button');b.type='button';b.textContent=label;b.addEventListener('click',()=>{if(!this.disposed&&epoch===this.epoch)work();},{signal:this.renderEvents.signal});return b;
  }
  private content(element:HTMLElement,node:WorkspaceNavigationNode){
   if(node.icon&&this.options.renderIcon){const icon=this.options.renderIcon(node.icon);icon.setAttribute('aria-hidden','true');element.append(icon);}
@@ -117,7 +118,9 @@ export class WorkspaceNavigationView {
    for(const node of this.nodes.filter(n=>n.kind==='group')){const tab=this.button('',()=>{this.selected=node.id;this.render();this.nodeElement(node.id)?.focus();});this.content(tab,node);tab.disabled=node.disabled;tab.setAttribute('role','tab');tab.id=this.prefix+'tab-'+node.id;tab.setAttribute('aria-selected',String(this.selected===node.id));tab.setAttribute('aria-controls',this.prefix+'rail-panel');tab.tabIndex=this.selected===node.id?0:-1;tabs.append(tab);}root.append(tabs);
    const panel=doc.createElement('div');panel.id=this.prefix+'rail-panel';panel.setAttribute('role','tabpanel');const selected=this.nodes.find(n=>n.id===this.selected&&!n.disabled);if(selected){panel.setAttribute('aria-labelledby',this.prefix+'tab-'+selected.id);panel.append(list(selected.children));}root.append(panel,list(this.nodes.filter(n=>n.kind==='item')));
   }else root.append(list(this.nodes));
+  if(this.disposed||epoch!==this.epoch)return;
   this.host.replaceChildren(open,backdrop,root);this.syncExpansion();
+  if(this.disposed||epoch!==this.epoch)return;
   this.portal.hidden=false;this.portal.dataset.family=this.options.family;this.portal.dir=getComputedStyle(this.host).direction;
   if(!this.narrow&&this.options.family!=='vertical')for(const panel of root.querySelectorAll<HTMLElement>('nav > ul > li > [data-nav-children]')){
    if(panel.hidden)continue;const trigger=panel.previousElementSibling!.getBoundingClientRect(),win=doc.defaultView!;
@@ -167,5 +170,5 @@ export class WorkspaceNavigationView {
    if(i<0||!items.length)return;handled();items[event.key==='Home'?0:event.key==='End'?items.length-1:(i+(event.key===next?1:-1)+items.length)%items.length]?.focus();
   }
  };
- dispose(){if(this.disposed)return;this.disposed=true;try{this.events.abort();this.renderEvents.abort();this.observer.disconnect();for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');this.portal.remove();this.host.replaceChildren();if(this.options.frame)this.options.frame.element.style.setProperty('--pc-nav-width',this.options.frame.profile().navigationWidth+'px');for(const name of ['workspaceNavigation','family','mode','expanded','drawerOpen'])delete this.host.dataset[name];}finally{navigationOwners.delete(this.host);}}
+ dispose(){if(this.disposed)return;this.disposed=true;try{this.events.abort();this.renderEvents.abort();this.observer?.disconnect();for(const link of [...this.host.querySelectorAll('a'),...this.portal.querySelectorAll('a')])link.removeAttribute('href');this.portal.remove();this.host.replaceChildren();if(this.options.frame)this.options.frame.element.style.setProperty('--pc-nav-width',this.options.frame.profile().navigationWidth+'px');for(const name of ['workspaceNavigation','family','mode','expanded','drawerOpen'])delete this.host.dataset[name];}finally{navigationOwners.delete(this.host);}}
 }
