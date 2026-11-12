@@ -13,6 +13,13 @@ test('repeated old cleanup and captured callbacks cannot clear or repaint a repl
 test('new binding owns root even when old cleanup arrives after the new mount',()=>{
  const f=fixture(),old=session({title:'Old'}),closeOld=bindReadPage(f.root,old,f.render,labels),current=session({title:'Current'}),closeCurrent=bindReadPage(f.root,current,f.render,labels);old.emit({title:'Stale'});closeOld();assert.equal(f.root.textContent,'Current');current.emit({title:'Current update'});assert.equal(f.root.textContent,'Current update');closeCurrent();
 });
+for(const mode of ['replacement','cleanup'])test('read-page state access cannot repaint after synchronous '+mode,()=>{
+ const f=fixture(),old=session({title:'Old sensitive projection'});let retire=false,closeCurrent;
+ const snapshot=old.state;
+ Object.defineProperty(old,'state',{get(){if(retire){retire=false;if(mode==='replacement')closeCurrent=bindReadPage(f.root,session({title:'Current owner'}),f.render,labels);else closeOld();}return snapshot;}});
+ const closeOld=bindReadPage(f.root,old,f.render,labels);retire=true;old.captured[0]();
+ assert.equal(f.root.textContent,mode==='replacement'?'Current owner':'');closeOld();closeCurrent?.();
+});
 test('failed initial drawing restores the prior nodes and active binding without loading or disposing the failed session',()=>{
  const f=fixture(),old=session({title:'Old'}),closeOld=bindReadPage(f.root,old,f.render,labels),node=f.document.createElement('input');node.value='Retained draft';f.root.append(node);const failed=session({title:'Rejected'}),error=Error('render failed');assert.throws(()=>bindReadPage(f.root,failed,()=>{f.root.textContent='Partial failed output';throw error;},labels),e=>e===error);assert.equal(f.root.contains(node),true);assert.equal(node.value,'Retained draft');assert.equal(failed.loads,0);assert.equal(failed.disposals,0);assert.equal(failed.listeners.size,0);old.emit({title:'Recovered owner'});assert.equal(f.root.textContent,'Recovered owner');closeOld();
 });

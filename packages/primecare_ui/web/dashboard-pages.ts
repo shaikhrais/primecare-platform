@@ -42,6 +42,7 @@ export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,rend
   if(!current()){if(owner.active)owner.dirty=true;return;}
   owner.dirty=false;revision++;
   const state=session.state;
+  if(!current())return;
   if(state.projection){render(state.projection);return;}
   statusNote(state.status);
  };
