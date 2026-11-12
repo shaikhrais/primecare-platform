@@ -106,3 +106,32 @@ test('shared tabs skip a disabled first item and preserve active-panel relations
   for(let i=0;i<2;i++){assert.equal(tabs[i].getAttribute('aria-controls'),panels[i].id);assert.equal(panels[i].getAttribute('aria-labelledby'),tabs[i].id);}
  }finally{kit.dispose();}
 });
+
+function modalFixture(key,confirm){
+ const f=fixture();const group=f.kit.modal(key,f.document.createElement('p'),confirm);f.root.append(group);
+ const dialog=group.querySelector('dialog'),trigger=group.querySelector('button');let focused=null,closes=0;
+ // Model only the native dialog/focus boundary; real top-layer behavior runs in Actions.
+ dialog.open=false;dialog.showModal=()=>{dialog.open=true;};dialog.close=()=>{dialog.open=false;closes++;};
+ trigger.focus=()=>{focused=trigger;};
+ return {...f,dialog,trigger,closes:()=>closes,focus:()=>focused,setFocus:value=>{focused=value;},click:button=>button.dispatchEvent(new f.Event('click'))};
+}
+for(const key of ['dialog','drawer'])test(`late ${key} confirmation cannot close or refocus a reopened opening`,async()=>{
+ let finish,calls=0;const f=modalFixture(key,()=>{calls++;return new Promise(resolve=>finish=resolve);});
+ try{
+  f.click(f.trigger);await settle();const confirm=f.dialog.querySelector('[data-cy="component-catalogue-confirm-'+key+'"]');
+  f.click(confirm);await Promise.resolve();assert.equal(calls,1);
+  f.click(f.dialog.querySelector('[data-cy="component-catalogue-cancel-'+key+'"]'));await settle();assert.equal(f.dialog.open,false);
+  f.click(f.trigger);await settle();const retainedFocus=f.document.createElement('input');f.dialog.prepend(retainedFocus);f.setFocus(retainedFocus);
+  finish();await settle();assert.equal(f.dialog.open,true,'old confirmation must leave the current opening visible');assert.equal(f.focus()===retainedFocus,true,'old confirmation must not restore trigger focus');assert.equal(f.closes(),1);assert.equal(confirm.disabled,false);
+  f.click(confirm);await Promise.resolve();assert.equal(calls,2);finish();await settle();assert.equal(f.dialog.open,false);assert.equal(f.focus()===f.trigger,true);assert.equal(f.closes(),2);
+ }finally{f.kit.dispose();}
+});
+test('cancelled and disposed modal confirmations cannot close again or move replacement focus',async()=>{
+ for(const mode of ['cancelled','disposed']){
+  let finish;const f=modalFixture('dialog',()=>new Promise(resolve=>finish=resolve));
+  try{f.click(f.trigger);await settle();f.click(f.dialog.querySelector('[data-cy="component-catalogue-confirm-dialog"]'));await Promise.resolve();
+   if(mode==='cancelled'){f.click(f.dialog.querySelector('[data-cy="component-catalogue-cancel-dialog"]'));await settle();}else f.kit.dispose();
+   const outside=f.document.createElement('input');f.setFocus(outside);const closes=f.closes();finish();await settle();assert.equal(f.closes(),closes);assert.equal(f.focus()===outside,true);
+  }finally{f.kit.dispose();}
+ }
+});
