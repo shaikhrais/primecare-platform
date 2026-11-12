@@ -6,10 +6,10 @@ Assessed main: `7fad68474df6f20846b923b4867a7b47d797a447`. This list covers the 
 |---|---:|
 | Fully verified complete | 0 |
 | Pending full adoption/acceptance | 72 |
-| Features with source mappings | 50 |
-| Features still without a reconciled mapping | 22 |
+| Features with source mappings | 60 |
+| Features still without a reconciled mapping | 12 |
 
-Source mappings combine 27 historical mapped records and 23 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
+Source mappings combine 27 historical mapped records and 33 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
 
 | # | Feature | Current source mapping | Acceptance |
 |---|---|---|---|
@@ -63,16 +63,16 @@ Source mappings combine 27 historical mapped records and 23 additional existing 
 | 48 | tasks (`app.tasks`) | Shared equivalent reconciled | Pending |
 | 49 | notes (`app.notes`) | Shared equivalent reconciled | Pending |
 | 50 | scrumboard (`app.scrumboard`) | Shared equivalent reconciled | Pending |
-| 51 | mailbox (`app.mailbox`) | Needs source reconciliation | Pending |
-| 52 | messenger (`app.messenger`) | Needs source reconciliation | Pending |
-| 53 | notifications (`app.notifications`) | Needs source reconciliation | Pending |
-| 54 | file-manager (`app.file-manager`) | Needs source reconciliation | Pending |
-| 55 | academy (`app.academy`) | Needs source reconciliation | Pending |
-| 56 | e-commerce (`app.e-commerce`) | Needs source reconciliation | Pending |
-| 57 | ai-image-generator (`app.ai-image-generator`) | Needs source reconciliation | Pending |
-| 58 | profile (`app.profile`) | Needs source reconciliation | Pending |
-| 59 | settings (`app.settings`) | Needs source reconciliation | Pending |
-| 60 | help-center (`app.help-center`) | Needs source reconciliation | Pending |
+| 51 | mailbox (`app.mailbox`) | Shared equivalent reconciled | Pending |
+| 52 | messenger (`app.messenger`) | Shared equivalent reconciled | Pending |
+| 53 | notifications (`app.notifications`) | Shared equivalent reconciled | Pending |
+| 54 | file-manager (`app.file-manager`) | Shared equivalent reconciled | Pending |
+| 55 | academy (`app.academy`) | Shared equivalent reconciled | Pending |
+| 56 | e-commerce (`app.e-commerce`) | Shared equivalent reconciled | Pending |
+| 57 | ai-image-generator (`app.ai-image-generator`) | Shared equivalent reconciled | Pending |
+| 58 | profile (`app.profile`) | Shared equivalent reconciled | Pending |
+| 59 | settings (`app.settings`) | Shared equivalent reconciled | Pending |
+| 60 | help-center (`app.help-center`) | Shared equivalent reconciled | Pending |
 | 61 | project (`dashboard.project`) | Needs source reconciliation | Pending |
 | 62 | analytics (`dashboard.analytics`) | Needs source reconciliation | Pending |
 | 63 | finance (`dashboard.finance`) | Needs source reconciliation | Pending |
@@ -92,7 +92,9 @@ Current validation receipts: preceding main `1ca98433` passed all 11 Theme Cente
 
 Sources: `packages/primecare_ui/catalogs/developer-catalogue.json`, `docs/appearance/shared-skeleton-equivalents.md`, `docs/appearance/theme-gap-register.md`.
 
-Next sequence: repair confirmed current CI failures; reconcile the 22 unmapped proposals against existing shared code and public APIs before implementing duplicates; then close approved source/host gaps with behavior and native/browser acceptance. Preserve all production authority and release gates.
+Next sequence: repair confirmed current CI failures; reconcile the 12 unmapped proposals against existing shared code and public APIs before implementing duplicates; then close approved source/host gaps with behavior and native/browser acceptance. Preserve all production authority and release gates.
 
 
 B13 reconciliation: five work templates use existing `PrimeWorkModule` public web/native entries. Their task-backed subsets and standalone business/host gaps are recorded in `shared-skeleton-equivalents.md`. Source mapping counts advance only; all 72 full-acceptance gates remain pending. Export-chain auditing now verifies ordered links through to the declaration file.
+
+B14/B15 reconciliation: ten entries identify existing original shared template exports, with explicit supported subsets and unavailable business adapters. Notification, academy, commerce, AI generation and help mappings identify unavailable slots only; they are not implemented business features. All72features remain pending full acceptance.

@@ -603,5 +603,295 @@
       ]
     },
     "scope": "Task-backed board lanes and server-authorized transitions; standalone board contracts and host acceptance remain open"
+  },
+  {
+    "id": "app.mailbox",
+    "web": {
+      "path": "packages/primecare_ui/web/communication-modules.ts",
+      "api": "export class PrimeCommunicationModule ",
+      "entry": "packages/primecare_ui/web/communication-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/communication_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/communication_modules.dart",
+          "target": "package:flutter_core/communication_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/communication_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Owned outbound and quarantined inbound read projections only; full mailbox composition, provider delivery and host acceptance remain open"
+  },
+  {
+    "id": "app.messenger",
+    "web": {
+      "path": "packages/primecare_ui/web/communication-modules.ts",
+      "api": "export class PrimeCommunicationModule ",
+      "entry": "packages/primecare_ui/web/communication-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/communication_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/communication_modules.dart",
+          "target": "package:flutter_core/communication_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/communication_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Existing member-bound message read/send/mark-read operations; full messenger and production identity reconciliation remain open"
+  },
+  {
+    "id": "app.notifications",
+    "web": {
+      "path": "packages/primecare_ui/web/communication-modules.ts",
+      "api": "export class PrimeCommunicationModule ",
+      "entry": "packages/primecare_ui/web/communication-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/communication_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/communication_modules.dart",
+          "target": "package:flutter_core/communication_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/communication_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Registered shared collection template only; notification business adapter remains unbound and unavailable"
+  },
+  {
+    "id": "app.file-manager",
+    "web": {
+      "path": "packages/primecare_ui/web/communication-modules.ts",
+      "api": "export class PrimeCommunicationModule ",
+      "entry": "packages/primecare_ui/web/communication-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/communication_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/communication_modules.dart",
+          "target": "package:flutter_core/communication_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/communication_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Message attachment references only; binary upload/download/storage and full file-manager contracts remain open"
+  },
+  {
+    "id": "app.academy",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Registered collection slot only; learning adapter and business contract remain unbound and unavailable"
+  },
+  {
+    "id": "app.e-commerce",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Registered collection slot only; purchase/catalogue/payment business adapters remain unbound and unavailable"
+  },
+  {
+    "id": "app.ai-image-generator",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Registered collection slot only; generation provider and business adapter remain unbound and unavailable"
+  },
+  {
+    "id": "app.profile",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Authenticated self-profile read projection only; sensitive account mutations and host/device acceptance remain separate"
+  },
+  {
+    "id": "app.settings",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Shortcut preference editing over existing scoped CAS/receipt protocol; full settings and host/recovery acceptance remain open"
+  },
+  {
+    "id": "app.help-center",
+    "web": {
+      "path": "packages/primecare_ui/web/application-modules.ts",
+      "api": "export class PrimeApplicationModule ",
+      "entry": "packages/primecare_ui/web/application-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/application_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/application_modules.dart",
+          "target": "package:flutter_core/application_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/application_modules.dart",
+          "target": "work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Registered collection slot only; help knowledge/support business adapter remains unbound and unavailable"
   }
 ]

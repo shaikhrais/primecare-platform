@@ -93,7 +93,7 @@ def render(root=ROOT):
         'device, accessibility or human localization/release acceptance. All 72 tracked features remain pending full acceptance; '
         'implementation, retirement, registration and ready-screen credits from this audit are zero.', '',
         'Reuse these public entry points and existing governed labels rather than copying implementations into apps. '
-        f'Unbound or denied adapters remain unavailable. The remaining {unreconciled} unresolved proposal mappings are application and dashboard/supporting-page families; '
+        f'Unbound or denied adapters remain unavailable. The remaining {unreconciled} unresolved proposal mappings are dashboard/supporting-page families; '
         'their existing candidate factories must be reviewed together with the specific business and host gaps before classification. Reconciled work templates remain limited to task-backed subsets, not standalone business applications.', '',
         'Reproduce: `python3 scripts/audit-shared-skeleton-equivalents.py --check`. '
         'The audit checks executable declaration anchors and public export statements, rejects unsafe paths, and does not run or activate a feature. '
