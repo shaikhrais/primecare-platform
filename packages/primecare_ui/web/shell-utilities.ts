@@ -22,7 +22,7 @@ export class ShellUtilitiesView extends ThemeControlBase {
   this.dialog.append(tablist,label,this.body,this.status);this.dialog.append(this.button('fullscreen',async()=>{await this.env.toggleFullscreen();this.render();}));
   this.dialog.addEventListener('cancel',e=>{e.preventDefault();this.close();},{signal:this.abort.signal});doc.addEventListener('fullscreenchange',()=>this.render(),{signal:this.abort.signal});root.replaceChildren(this.opener,this.dialog);this.off=controller.subscribe(()=>this.render());this.render();
  }
- private button(key:string,action:()=>void|Promise<void>,suffix=''){const b=this.root.ownerDocument.createElement('button');b.type='button';b.style.minBlockSize='var(--control-min-height)';b.style.font='inherit';b.dataset.cy=this.ids[key]+suffix;b.textContent=this.labels[key];b.addEventListener('click',()=>{this.error=false;Promise.resolve().then(action).catch(()=>{if(!this.dead){this.error=true;this.render();}});},{signal:this.abort.signal});return b;}
+ private button(key:string,action:()=>void|Promise<void>,suffix=''){const b=this.root.ownerDocument.createElement('button');b.type='button';b.style.minBlockSize='var(--control-min-height)';b.style.font='inherit';b.dataset.cy=this.ids[key]+suffix;b.textContent=this.labels[key];b.addEventListener('click',()=>{if(this.dead||b.disabled)return;this.error=false;Promise.resolve().then(()=>{if(this.dead)return;return action();}).catch(()=>{if(!this.dead){this.error=true;this.render();}});},{signal:this.abort.signal});return b;}
  async open(){if(this.dead)return;if(!this.dialog.open)this.dialog.showModal();this.tabs.get(this.selected)!.focus();await this.controller.preference('load');await this.select(this.selected);}
  close(){if(this.dead)return;this.dialog.close();if(this.opener.isConnected)this.opener.focus();}
  private async select(key:string){if(this.dead)return;this.selected=key;this.render();if(key!=='favourites'&&!this.controller.current[key as UtilityKind].busy)await this.controller.load(key as UtilityKind);}
@@ -34,3 +34,4 @@ export class ShellUtilitiesView extends ThemeControlBase {
  routeChanged(key:string,scrollRoots?:readonly HTMLElement[]){this.env.routeChanged(key,scrollRoots);}
  async dispose(){if(!this.endControlScope())return;this.off();this.dialog.close();const disposed=this.controller.dispose();this.root.replaceChildren();try{await disposed;}finally{await this.env.dispose();}}
 }
+

@@ -4,6 +4,11 @@ on:
     branches: [main]
     paths:
       - 'packages/primecare_ui/web/theme-control-base.ts'
+      - 'packages/primecare_ui/web/shell-utilities.ts'
+      - 'packages/primecare_ui/web/shell-environment.ts'
+      - 'packages/primecare_ui/catalogs/shell-utilities.registration.json'
+      - 'packages/shared/src/shell-utilities/**'
+      - 'packages/domain/src/shell_utilities.ts'
       - 'packages/domain/src/component_catalogue.ts'
       - 'packages/shared/src/component-catalogue/**'
       - 'packages/primecare_ui/web/component-catalogue.ts'
