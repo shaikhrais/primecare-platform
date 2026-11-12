@@ -22,3 +22,7 @@ No browser/native execution occurred locally. Browser and PostgreSQL verificatio
 ## Pre-repair exact-head evidence
 
 The same `dc60d092` source passed Theme Center43154978734 (native, website and all nine app consumers), boundary43154978645, contract43154978664 and tenant workspace43155287296 acceptance/publish. Those outcomes are not acceptance of this new fixture batch. Inspect its fresh appearance/security/data jobs before reporting a repair pass.
+
+## Fresh browser feedback
+
+Repair-head399364bc approved-data job130991262680 now renders all four directory rows. Its new readiness guard incorrectly used a multi-row strict locator; the follow-up selects `tr:first-child` while retaining the original first-row visible wait and separate exact four-row assertion. This is a fixture correction, not a production or assertion-threshold change. A new local regression locks both conditions; actual browser completion still requires fresh CI.

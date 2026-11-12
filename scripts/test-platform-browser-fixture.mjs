@@ -326,3 +326,10 @@ test('admin security fixture keeps MFA, independent readback and startup failure
  for(const retained of ["COUNT(*)::int AS n FROM auth_sessions","SELECT u.roles,t.slug", "platform_admin", "sessionStorage.getItem('primecare_session')"])assert.ok(source.includes(retained),retained);
  assert.doesNotMatch(source,/timeoutMs:(?:60000|120000)|waitForTimeout/);
 });
+
+
+test('approved directory startup targets one row and retains the independent four-row assertion',async()=>{
+ const source=await read('scripts/test-code-admin-approved.mjs');
+ assert.match(source,/selector:'\.approved-directory tbody tr:first-child'/);
+ assert.ok(source.includes("await page.locator('.approved-directory tbody tr').count(),4"));
+});
