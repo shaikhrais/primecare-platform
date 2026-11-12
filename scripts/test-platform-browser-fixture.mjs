@@ -1,4 +1,5 @@
 import {test} from 'node:test';
+import {writeThemeFixtureAction} from './fixtures/theme-write-action.mjs';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createRequire} from 'node:module';
@@ -341,4 +342,23 @@ test('security reload verifies retained accounts route and organization selectio
  assert.ok(source.includes("assert.equal(new URL(page.url()).hash,'#accounts')"));
  assert.ok(source.includes("cy('platform-nav-tenant-selection').getAttribute('aria-current'),'page'"));
  assert.ok(source.includes("cy('screen-admin-training').getAttribute('lang'),locale"));
+});
+
+
+for(const id of ['new','reset'])test('theme fixture '+id+' awaits completion before its caller reads state',async()=>{
+ const lock=deferred(),calls=[];
+ const page={locator:selector=>({click:async()=>calls.push(selector)}),waitForFunction:async check=>{calls.push('write pending');assert.match(String(check),/disabled===false/);await lock.promise;}};
+ let completed=false;const task=writeThemeFixtureAction(page,id).then(()=>completed=true);
+ await new Promise(resolve=>setImmediate(resolve));assert.equal(completed,false);assert.deepEqual(calls,['[data-cy=theme-center-'+id+']','write pending']);
+ lock.resolve();await task;assert.equal(completed,true);
+});
+test('Theme Center write fixture rejects unknown actions without clicking',async()=>{
+ await assert.rejects(writeThemeFixtureAction({locator:()=>{throw Error('Must not click');}},'export'),/Unknown Theme Center write action/);
+});
+test('both real Theme Center acceptance callers await the same write barrier',async()=>{
+ const approved=await read('scripts/test-code-admin-approved.mjs'),center=await read('scripts/test-theme-center-browser.mjs');
+ for(const source of [approved,center])assert.match(source,/import \{writeThemeFixtureAction\} from '\.\/fixtures\/theme-write-action\.mjs'/);
+ assert.ok(approved.includes("await writeThemeFixtureAction(page,'new')"));assert.ok(approved.includes("await writeThemeFixtureAction(page,'reset')"));
+ assert.ok(approved.includes("cy('theme-quick-forest').getAttribute('aria-pressed'),'false'"));
+ assert.ok(center.includes("assert.equal(await el('status').textContent(),'Saved on this browser.')"));
 });
