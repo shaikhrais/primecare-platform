@@ -6,10 +6,10 @@ Assessed main: `7fad68474df6f20846b923b4867a7b47d797a447`. This list covers the 
 |---|---:|
 | Fully verified complete | 0 |
 | Pending full adoption/acceptance | 72 |
-| Features with source mappings | 45 |
-| Features still without a reconciled mapping | 27 |
+| Features with source mappings | 50 |
+| Features still without a reconciled mapping | 22 |
 
-Source mappings combine 27 historical mapped records and 18 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
+Source mappings combine 27 historical mapped records and 23 additional existing equivalents reconciled in `shared-skeleton-equivalents.md`. Source presence does not establish authenticated host integration, full feature parity or release acceptance. Unmapped does not mean no code exists. All 72 remain pending.
 
 | # | Feature | Current source mapping | Acceptance |
 |---|---|---|---|
@@ -58,11 +58,11 @@ Source mappings combine 27 historical mapped records and 18 additional existing 
 | 43 | Charts and configurable widget grid (`capability.charts-widgets`) | Shared equivalent reconciled | Pending |
 | 44 | Complete original visual asset migration (`capability.assets`) | Historical mapped source | Pending |
 | 45 | Role, tenant, platform and device verification (`capability.verification`) | Historical mapped source | Pending |
-| 46 | calendar (`app.calendar`) | Needs source reconciliation | Pending |
-| 47 | contacts (`app.contacts`) | Needs source reconciliation | Pending |
-| 48 | tasks (`app.tasks`) | Needs source reconciliation | Pending |
-| 49 | notes (`app.notes`) | Needs source reconciliation | Pending |
-| 50 | scrumboard (`app.scrumboard`) | Needs source reconciliation | Pending |
+| 46 | calendar (`app.calendar`) | Shared equivalent reconciled | Pending |
+| 47 | contacts (`app.contacts`) | Shared equivalent reconciled | Pending |
+| 48 | tasks (`app.tasks`) | Shared equivalent reconciled | Pending |
+| 49 | notes (`app.notes`) | Shared equivalent reconciled | Pending |
+| 50 | scrumboard (`app.scrumboard`) | Shared equivalent reconciled | Pending |
 | 51 | mailbox (`app.mailbox`) | Needs source reconciliation | Pending |
 | 52 | messenger (`app.messenger`) | Needs source reconciliation | Pending |
 | 53 | notifications (`app.notifications`) | Needs source reconciliation | Pending |
@@ -92,5 +92,7 @@ Current validation receipts: preceding main `1ca98433` passed all 11 Theme Cente
 
 Sources: `packages/primecare_ui/catalogs/developer-catalogue.json`, `docs/appearance/shared-skeleton-equivalents.md`, `docs/appearance/theme-gap-register.md`.
 
-Next sequence: repair confirmed current CI failures; reconcile the 27 unmapped proposals against existing shared code and public APIs before implementing duplicates; then close approved source/host gaps with behavior and native/browser acceptance. Preserve all production authority and release gates.
+Next sequence: repair confirmed current CI failures; reconcile the 22 unmapped proposals against existing shared code and public APIs before implementing duplicates; then close approved source/host gaps with behavior and native/browser acceptance. Preserve all production authority and release gates.
 
+
+B13 reconciliation: five work templates use existing `PrimeWorkModule` public web/native entries. Their task-backed subsets and standalone business/host gaps are recorded in `shared-skeleton-equivalents.md`. Source mapping counts advance only; all 72 full-acceptance gates remain pending. Export-chain auditing now verifies ordered links through to the declaration file.

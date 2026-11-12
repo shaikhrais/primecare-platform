@@ -478,5 +478,130 @@
       ]
     },
     "scope": "Shared charts and configurable widget grid; business sources, persistence and advanced chart families remain open"
+  },
+  {
+    "id": "app.calendar",
+    "web": {
+      "path": "packages/primecare_ui/web/work-modules.ts",
+      "api": "export class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/web/work-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/work_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/work_modules.dart",
+          "target": "package:flutter_core/work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "42-day month and task reschedule actions; standalone events, recurrence and native host acceptance remain open"
+  },
+  {
+    "id": "app.contacts",
+    "web": {
+      "path": "packages/primecare_ui/web/work-modules.ts",
+      "api": "export class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/web/work-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/work_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/work_modules.dart",
+          "target": "package:flutter_core/work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Read-only task directory projection; contact CRUD and standalone contact contracts remain unbound"
+  },
+  {
+    "id": "app.tasks",
+    "web": {
+      "path": "packages/primecare_ui/web/work-modules.ts",
+      "api": "export class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/web/work-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/work_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/work_modules.dart",
+          "target": "package:flutter_core/work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Existing tenant-task actions through approved ports; durable restart recovery and native host/device acceptance remain open"
+  },
+  {
+    "id": "app.notes",
+    "web": {
+      "path": "packages/primecare_ui/web/work-modules.ts",
+      "api": "export class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/web/work-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/work_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/work_modules.dart",
+          "target": "package:flutter_core/work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Task-backed body editing only; standalone notes contracts, durable restart and host acceptance remain open"
+  },
+  {
+    "id": "app.scrumboard",
+    "web": {
+      "path": "packages/primecare_ui/web/work-modules.ts",
+      "api": "export class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/web/work-modules.ts",
+      "exports": []
+    },
+    "native": {
+      "path": "packages/flutter_core/lib/work_modules/prime_work_module.dart",
+      "api": "class PrimeWorkModule ",
+      "entry": "packages/primecare_ui/lib/work_modules.dart",
+      "exports": [
+        {
+          "path": "packages/primecare_ui/lib/work_modules.dart",
+          "target": "package:flutter_core/work_modules.dart"
+        },
+        {
+          "path": "packages/flutter_core/lib/work_modules.dart",
+          "target": "work_modules/prime_work_module.dart"
+        }
+      ]
+    },
+    "scope": "Task-backed board lanes and server-authorized transitions; standalone board contracts and host acceptance remain open"
   }
 ]

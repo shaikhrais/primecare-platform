@@ -4,6 +4,7 @@ import importlib.util
 import json
 from pathlib import Path
 import re
+import posixpath
 
 ROOT = Path(__file__).resolve().parents[1]
 MAPPINGS = json.loads(Path(__file__).with_name('shared-skeleton-equivalents.json').read_text())
@@ -40,13 +41,28 @@ def public_api(root, evidence, platform='native'):
         raise ValueError('Public shared export chain missing')
     if exports and (not isinstance(exports[0],dict) or exports[0].get('path')!=evidence['entry']):
         raise ValueError('Public shared export entry mismatch')
+    expected=evidence['entry']
     for export in exports:
         if not isinstance(export,dict) or set(export)!={'path','target'} or not isinstance(export['target'],str):
             raise ValueError('Invalid public shared export')
+        if export['path']!=expected:
+            raise ValueError('Disconnected public shared export chain')
+        target=export['target']
+        if target.startswith('package:'):
+            match=re.fullmatch(r'package:([a-z_]+)/(.+)',target)
+            if not match:raise ValueError('Invalid package export target')
+            expected=f'packages/{match[1]}/lib/{match[2]}'
+        else:
+            expected=posixpath.normpath(posixpath.join(posixpath.dirname(export['path']),target))
+        if platform=='web' and not Path(expected).suffix:
+            expected+='.ts'
+        source(root,expected)
         raw=source(root,export['path']);code=boundary.executable_code(raw)
         pattern=r"(?m)^\s*export\s+(?:\*\s+from\s+)?(['\"])"+re.escape(export['target'])+r'\1\s*;'
         if not any(code[m.start():].lstrip().startswith('export') for m in re.finditer(pattern,raw)):
             raise ValueError('Public shared export drift: '+export['path'])
+    if expected!=evidence['path']:
+        raise ValueError('Public shared export chain does not reach declaration')
     return f"`{evidence['api'].strip()}` via `{evidence['entry']}`"
 
 
@@ -78,7 +94,7 @@ def render(root=ROOT):
         'implementation, retirement, registration and ready-screen credits from this audit are zero.', '',
         'Reuse these public entry points and existing governed labels rather than copying implementations into apps. '
         f'Unbound or denied adapters remain unavailable. The remaining {unreconciled} unresolved proposal mappings are application and dashboard/supporting-page families; '
-        'their existing candidate factories must be reviewed together with the specific business and host gaps before classification.', '',
+        'their existing candidate factories must be reviewed together with the specific business and host gaps before classification. Reconciled work templates remain limited to task-backed subsets, not standalone business applications.', '',
         'Reproduce: `python3 scripts/audit-shared-skeleton-equivalents.py --check`. '
         'The audit checks executable declaration anchors and public export statements, rejects unsafe paths, and does not run or activate a feature. '
         'Runtime behavior remains covered by each existing component, page, workspace, navigation, theme, preference, utility, data-control and dashboard suite.', ''
