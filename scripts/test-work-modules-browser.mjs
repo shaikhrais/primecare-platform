@@ -15,7 +15,7 @@ try{
  const page=await browser.newPage({viewport:{width:1200,height:900}}),errors=[];page.on('pageerror',e=>errors.push(String(e)));await page.goto('http://127.0.0.1:'+server.address().port);
  async function mount(module){await page.evaluate(m=>window.mount(m),module);await page.waitForFunction(()=>window.session.status==='ready');assert.equal(await page.locator('[data-cy="work-modules-create"]').isDisabled(),true);checks++;}
  async function open(){await page.locator('[data-cy^="work-modules-open-"]').first().click();await page.locator('[data-cy="work-modules-detail"]').waitFor();}
- async function save(){await page.locator('[data-cy="work-modules-save"]').click();await page.waitForFunction(()=>window.session.status!=='saving');assert.equal(await page.evaluate(()=>window.session.status),'success',JSON.stringify(await page.evaluate(()=>window.session.current)));checks++;}
+ async function save(){await page.locator('[data-cy="work-modules-save"]').click();await page.waitForFunction(()=>window.session.status!=='saving');assert.equal(await page.evaluate(()=>window.session.status),'success',JSON.stringify(await page.evaluate(()=>window.session.current)));assert.equal(await page.evaluate(()=>document.activeElement?.dataset.cy?.startsWith('work-modules-open-')),true);checks++;}
  const invalidMetadata=structuredClone(workMetadata);invalidMetadata.controls=invalidMetadata.controls.filter(c=>c.key!=='create');
  const rejected=await page.evaluate(bad=>{const root=document.querySelector('main'),host=document.createElement('button');host.textContent='Host retained';root.append(host);let failed=false;try{window.mount('calendar','en',1,bad);}catch{failed=true;}return {failed,sameNode:root.firstChild===host,unowned:!root.hasAttribute('data-pc-work-modules'),styleCount:document.querySelectorAll('[data-pc-work-style]').length};},invalidMetadata);
  assert.deepEqual(rejected,{failed:true,sameNode:true,unowned:true,styleCount:0});checks++;
@@ -40,7 +40,7 @@ try{
  assert.equal(await page.locator('[data-cy="work-modules-title"]').isDisabled(),true);
  assert.equal(await page.locator('[data-cy="work-modules-title"]').inputValue(),'Verified browser recovery');
  await page.locator('[data-cy="work-modules-save-pending"]').click();await page.waitForFunction(()=>window.session.status==='success');
- assert.equal(await page.evaluate(()=>window.writes),writesBefore+1);checks++;
+ assert.equal(await page.evaluate(()=>window.writes),writesBefore+1);assert.equal(await page.evaluate(()=>document.activeElement?.dataset.cy?.startsWith('work-modules-open-')),true);checks++;
  await mount('notes');await open();await page.locator('[data-cy="work-modules-body"]').fill('Saved browser task instructions');await save();
  for(const locale of ['en','fr','es'])for(const firstWeekday of [0,1]){
   await page.evaluate(({locale,firstWeekday})=>window.mount('calendar',locale,firstWeekday),{locale,firstWeekday});await page.waitForFunction(()=>window.session.status==='ready');
