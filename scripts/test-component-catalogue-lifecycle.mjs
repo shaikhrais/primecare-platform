@@ -90,3 +90,19 @@ test('async retry clears old alert semantics while retaining busy and recovery s
  } finally {kit.dispose();}
 });
 
+
+test('all-disabled shared tabs expose no selected panel and retain caller content',()=>{
+ const {kit,root,document}=fixture();const one=document.createElement('p'),two=document.createElement('p');one.textContent='First retained content';two.textContent='Second retained content';
+ try{root.append(kit.tabs([{key:'tabOne',content:one,disabled:true},{key:'tabTwo',content:two,disabled:true}]));
+  for(const tab of root.querySelectorAll('[role=tab]')){assert.equal(tab.disabled,true);assert.equal(tab.getAttribute('aria-selected'),'false');assert.equal(tab.tabIndex,-1);}
+  for(const panel of root.querySelectorAll('[role=tabpanel]'))assert.equal(panel.hidden,true);
+  assert.equal(one.textContent,'First retained content');assert.equal(two.textContent,'Second retained content');assert.equal(one.parentElement.getAttribute('role'),'tabpanel');
+ }finally{kit.dispose();}
+});
+test('shared tabs skip a disabled first item and preserve active-panel relationships',()=>{
+ const {kit,root,document}=fixture();const one=document.createElement('p'),two=document.createElement('p');
+ try{root.append(kit.tabs([{key:'tabOne',content:one,disabled:true},{key:'tabTwo',content:two}]));
+  const tabs=[...root.querySelectorAll('[role=tab]')],panels=[...root.querySelectorAll('[role=tabpanel]')];assert.equal(tabs[0].getAttribute('aria-selected'),'false');assert.equal(tabs[1].getAttribute('aria-selected'),'true');assert.equal(panels[0].hidden,true);assert.equal(panels[1].hidden,false);
+  for(let i=0;i<2;i++){assert.equal(tabs[i].getAttribute('aria-controls'),panels[i].id);assert.equal(panels[i].getAttribute('aria-labelledby'),tabs[i].id);}
+ }finally{kit.dispose();}
+});
