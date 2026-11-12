@@ -19,6 +19,41 @@ MIGRATIONS = frozenset(('branding-settings-palette', 'clinical-semantic-palette'
 DEPENDENCIES = frozenset(('scripts/branding-settings-palette-manifest.json', 'scripts/check-shared-ui-boundary.py', 'scripts/clean-shared-status-imports.py', 'scripts/clinical-semantic-palette-manifest.json', 'scripts/core-shared-primitives-manifest.json', 'scripts/generated-palette-closure-manifest.json', 'scripts/migrate-branding-settings-palette.py', 'scripts/migrate-clinical-semantic-palette.py', 'scripts/migrate-core-shared-primitives.py', 'scripts/migrate-generated-palette-closure.py', 'scripts/migrate-generated-theme.py', 'scripts/migrate-premium-compliance-badges.py', 'scripts/migrate-premium-compliance-headers.py', 'scripts/migrate-premium-health-colors.py', 'scripts/migrate-premium-health-layout.py', 'scripts/migrate-premium-primary-brand.py', 'scripts/migrate-premium-progress.py', 'scripts/migrate-premium-semantic-accents.py', 'scripts/migrate-premium-surfaces.py', 'scripts/migrate-premium-telemetry-rows.py', 'scripts/migrate-premium-trend-colors.py', 'scripts/migrate-premium-trend-labels.py', 'scripts/migrate-remaining-theme-palette.py', 'scripts/migrate-shared-buttons.py', 'scripts/migrate-shared-cards.py', 'scripts/migrate-shared-icons.py', 'scripts/migrate-shared-status.py', 'scripts/migrate-shared-text.py', 'scripts/remaining-theme-palette-manifest.json'))
 
 
+DEPENDENCY_PINS_SHA256 = '9042b6920a7a38bae4eb8da8692692656f6c192e9f233156633d786295791f52'
+GUARD = 'scripts/check-shared-ui-boundary.py'
+GUARD_BASELINE_SHA256 = 'c8249784f4e140f48ba3e3a794789363c63c8c584b1f14898c825912252e672b'
+
+
+def dependency_original(content, expected, amendment=None):
+    if amendment is None:
+        if digest(content) != expected:
+            raise ValueError('Reviewed theme replay dependency changed')
+        return content
+    if (not isinstance(amendment, dict) or set(amendment) != {'updatedSha256', 'edits'}
+            or not re.fullmatch('[0-9a-f]{64}', str(amendment['updatedSha256']))
+            or digest(content) != amendment['updatedSha256']
+            or not isinstance(amendment['edits'], list) or not 1 <= len(amendment['edits']) <= 30):
+        raise ValueError('Invalid exact theme dependency proof')
+    text = content.decode('utf-8');changes = [];delta = 0;previous = 0
+    for edit in amendment['edits']:
+        if (not isinstance(edit, dict) or set(edit) != {'begin', 'end', 'old', 'new'}
+                or any(type(edit[k]) is not int for k in ('begin', 'end'))
+                or not 0 <= previous <= edit['begin'] <= edit['end']
+                or any(not isinstance(edit[k], str) for k in ('old', 'new'))
+                or edit['end'] - edit['begin'] != len(edit['old'])):
+            raise ValueError('Invalid theme dependency edit span')
+        begin = edit['begin'] + delta;end = begin + len(edit['new'])
+        if begin < 0 or end > len(text) or text[begin:end] != edit['new']:
+            raise ValueError('Theme dependency edit fragment changed')
+        changes.append((begin, end, edit['old']));delta += len(edit['new']) - len(edit['old']);previous = edit['end']
+    for begin, end, original in reversed(changes):
+        text = text[:begin] + original + text[end:]
+    original = text.encode('utf-8')
+    if digest(original) != expected:
+        raise ValueError('Theme dependency original hash mismatch')
+    return original
+
+
 def digest(content):
     return hashlib.sha256(content).hexdigest()
 
@@ -41,20 +76,28 @@ class WorkflowThemeReplay:
         self.doc = json.loads(local_file(self.root, PROOF).read_text())
         doc = self.doc
         keys = {'version', 'noActivation', 'implementationCredits', 'retirementCredits',
-                'baselineCommit', 'scope', 'dependencies', 'pipelines', 'recipes'}
+                'baselineCommit', 'scope', 'dependencies', 'dependencyAmendments', 'pipelines', 'recipes'}
         if (not isinstance(doc, dict) or set(doc) != keys or type(doc['version']) is not int
-                or doc['version'] != 1 or doc['noActivation'] is not True
+                or doc['version'] != 2 or doc['noActivation'] is not True
                 or any(type(doc[k]) is not int or doc[k] != 0 for k in ('implementationCredits', 'retirementCredits'))
                 or doc['baselineCommit'] != BASELINE or not isinstance(doc['scope'], str) or not doc['scope'].strip()
                 or any(not isinstance(doc[k], dict) or not doc[k] for k in ('dependencies', 'pipelines', 'recipes'))):
             raise ValueError('Invalid nonactivating theme replay proof')
-        if set(doc['dependencies']) != DEPENDENCIES:
+        if (set(doc['dependencies']) != DEPENDENCIES
+                or digest(json.dumps(doc['dependencies'], sort_keys=True, separators=(',', ':')).encode()) != DEPENDENCY_PINS_SHA256):
             raise ValueError('Incomplete reviewed theme replay dependencies')
+        amendments = doc['dependencyAmendments']
+        if (not isinstance(amendments, dict) or set(amendments) - {GUARD}
+                or doc['dependencies'][GUARD] != GUARD_BASELINE_SHA256):
+            raise ValueError('Unreviewed theme dependency amendment or original pin')
         self.recipes = doc['recipes']
         for filename, expected in doc['dependencies'].items():
-            if (not filename.startswith('scripts/') or not re.fullmatch('[0-9a-f]{64}', str(expected))
-                    or digest(local_file(self.root, filename).read_bytes()) != expected):
-                raise ValueError('Reviewed theme replay dependency changed: ' + filename)
+            if not filename.startswith('scripts/') or not re.fullmatch('[0-9a-f]{64}', str(expected)):
+                raise ValueError('Invalid theme replay dependency pin: ' + filename)
+            try:
+                dependency_original(local_file(self.root, filename).read_bytes(), expected, amendments.get(filename))
+            except ValueError as error:
+                raise ValueError('Reviewed theme replay dependency changed: ' + filename) from error
         for steps in doc['pipelines'].values():
             if not isinstance(steps, list) or not steps:
                 raise ValueError('Empty theme replay pipeline')

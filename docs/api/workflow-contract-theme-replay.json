@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "noActivation": true,
   "implementationCredits": 0,
   "retirementCredits": 0,
@@ -35,6 +35,31 @@
     "scripts/migrate-shared-status.py": "ed9c19be791556a473a642444b3a75a2cb10558f4cacc18bd509f4bbabd28165",
     "scripts/migrate-shared-text.py": "d5f76507629a046d7e2ce217da7835ffc415108f40a5dc098c780bb8805dbfca",
     "scripts/remaining-theme-palette-manifest.json": "f9825f7e12545b99c772a28e094b5de8a82feaf1158f03f8567af2d82b281ebb"
+  },
+  "dependencyAmendments": {
+    "scripts/check-shared-ui-boundary.py": {
+      "updatedSha256": "736ef245ddf64cb9627cd918f37db89d2dd4f75d95e836d74bd11acae1bb3501",
+      "edits": [
+        {
+          "begin": 4285,
+          "end": 4285,
+          "old": "",
+          "new": "# A constructor can be stored or passed without being called at this location.\n# Keep this separate from calls so each expression has one diagnostic.\nCOLOR_TEAR_OFF = re.compile(r'\\bColor\\s*\\.\\s*(?:new|fromARGB|fromRGBO|from)\\b(?!\\s*\\()')\n"
+        },
+        {
+          "begin": 7679,
+          "end": 7679,
+          "old": "",
+          "new": "indings += [(m.start(), 'theme-color', m[0]) for m in COLOR_TEAR_OFF.finditer(code)]\n    f"
+        },
+        {
+          "begin": 9405,
+          "end": 9405,
+          "old": "",
+          "new": "\n"
+        }
+      ]
+    }
   },
   "recipes": {
     "packages/flutter_core/lib/registry/widgets/responsive_split_dashboard.dart": "pipeline-1",

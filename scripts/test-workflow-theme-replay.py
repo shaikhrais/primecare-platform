@@ -50,6 +50,44 @@ class ReplayTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, 'operation count changed'):
             replay.verify(self.filename, self.content)
 
+    def test_exact_guard_proof_preserves_every_original_dependency_pin(self):
+        doc = self.replay.doc
+        self.assertEqual(len(doc['dependencies']), 29)
+        self.assertEqual(m.digest(json.dumps(doc['dependencies'], sort_keys=True, separators=(',', ':')).encode()), m.DEPENDENCY_PINS_SHA256)
+        self.assertEqual(doc['dependencies'][m.GUARD], m.GUARD_BASELINE_SHA256)
+        current = (ROOT/m.GUARD).read_bytes()
+        original = m.dependency_original(current, doc['dependencies'][m.GUARD], doc['dependencyAmendments'][m.GUARD])
+        self.assertNotEqual(original, current)
+        self.assertEqual(m.digest(original), m.GUARD_BASELINE_SHA256)
+
+    def test_extra_dependency_bytes_cannot_hide_in_an_exact_proof(self):
+        current = (ROOT/m.GUARD).read_bytes();proof = self.replay.doc['dependencyAmendments'][m.GUARD]
+        for changed in (current+b'\n# unreviewed dependency code\n', current.replace(b'COLOR_TEAR_OFF', b'UNREVIEWED_PATTERN', 1)):
+            with self.assertRaises(ValueError):m.dependency_original(changed, m.GUARD_BASELINE_SHA256, proof)
+            forged = copy.deepcopy(proof);forged['updatedSha256'] = m.digest(changed)
+            with self.assertRaises(ValueError):m.dependency_original(changed, m.GUARD_BASELINE_SHA256, forged)
+
+    def test_dependency_paths_pin_refresh_and_malformed_spans_are_rejected(self):
+        current_hash = m.digest((ROOT/m.GUARD).read_bytes())
+        mutations = [lambda d:d['dependencies'].update({m.GUARD:current_hash}),
+            lambda d:d['dependencyAmendments'].update({'scripts/migrate-shared-text.py':copy.deepcopy(d['dependencyAmendments'][m.GUARD])}),
+            lambda d:d['dependencyAmendments'].update({m.GUARD:{**d['dependencyAmendments'][m.GUARD], 'edits':[]}}),
+            lambda d:d['dependencyAmendments'][m.GUARD]['edits'][0].update(begin=True),
+            lambda d:d['dependencyAmendments'][m.GUARD]['edits'][0].update(new='unreviewed'),
+            lambda d:d.update(version=1),lambda d:d.update(dependencyAmendments={})]
+        for mutate in mutations:
+            doc = copy.deepcopy(self.replay.doc);mutate(doc)
+            with patch.object(m.json, 'loads', return_value=doc):
+                with self.assertRaises(ValueError):m.WorkflowThemeReplay(ROOT, self.hashes)
+
+    def test_replay_keeps_the_stricter_live_guard_in_place(self):
+        path = ROOT/m.GUARD;before = path.read_bytes()
+        self.replay.verify(self.filename, self.content)
+        self.assertEqual(path.read_bytes(), before)
+        spec = importlib.util.spec_from_file_location('live_guard', path);guard = importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
+        for name in ('new', 'fromARGB', 'fromRGBO', 'from'):
+            self.assertEqual(len(guard.violations('final factory = Color.'+name+';', True)), 1)
+
     def test_authority_flags_dependencies_paths_and_unreviewed_steps_are_rejected(self):
         mutations = [lambda d:d.update(noActivation=False), lambda d:d.update(implementationCredits=1),
             lambda d:d.update(retirementCredits=1), lambda d:d.update(implementationCredits=False),
