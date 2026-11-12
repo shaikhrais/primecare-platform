@@ -133,3 +133,9 @@ test('throwing original host observer cannot lock load or corrupt durable saves'
  await a.load();assert.equal(a.current.status,'clean');assert.equal(notifications,7);await a.dispose();
  const restored=make(s,c);await restored.load();assert.deepEqual(restored.current.draft,doc('1'));assert.equal(restored.current.base.revision,1);await restored.dispose();
 });
+
+test('disposal during cached reload notification prevents transport dispatch',async()=>{
+ const s=server();let calls=0;const a=new PreferenceSyncClient(binding,async(request,signal)=>{calls++;return s.transport(request,signal);},cache(),uuid);
+ await a.load();assert.equal(calls,1);a.subscribe(()=>{if(a.current.status==='loading')void a.dispose();});
+ await a.load();assert.equal(a.current.status,'disposed');assert.equal(calls,1);
+});
