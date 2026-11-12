@@ -1,0 +1,11 @@
+# Shared autocomplete dismissal and reopening
+
+P1/B09/B10 batch, 2026-11-12 America/Toronto. The shared web autocomplete already cancels and suppresses pending replies on Escape or blur, but leaves its live region announcing Loading. Dismissal also invalidates pointer callbacks for accepted cached results while ArrowDown still reopens those same results and Enter can select them.
+
+Separate accepted-result identity from the pending-request cancellation generation. Reopened current results now support pointer and keyboard selection consistently; detached results from an older query remain rejected. The common dismissal path clears the cancelled request's live status, keeps typed text, removes the active descendant and aborts the pending request. Late success and failure remain suppressed. Missing-adapter feedback remains intact. Existing registered controls, labels and theme tokens are reused.
+
+Six new lifecycle regressions fail against predecessor source and pass after the repair: Escape/blur reopening with pointer selection, and Escape/blur cancellation followed by late success/failure. All 37 targeted Node tests passed (14 lifecycle, one inherited control scope, eight upload removal, six data model and eight rich-range checks). TypeScript compilation, browser fixture syntax, 31 boundary diagnostic tests and the strict scanner passed; strict findings remain zero. Historical migration suites were not rerun or recounted.
+
+The browser fixture adds actual pointer selection after keyboard reopening and abort/late-reply assertions in mobile RTL forms, followed by fresh keyboard selection. Browser execution and native/shared-host verification run through GitHub Actions; no local browser/native pass is claimed. Predecessor f46cae9a passed all 11 Theme Center jobs and the component suite; other predecessor runs were still queued/running at inspection, with no confirmed failure.
+
+Counts: source mappings previous 72/current 72/new 0; unreconciled 0; fully accepted previous 0/current 0/new 0; pending 72; strict findings previous 0/current 0/new removals 0. Screen readiness remains 0/344 and workflow readiness 0/147. This is shared source repair; host/service/device and required human-review acceptance remain open. Continue from the fresh publication's CI results without duplicate dispatches or changing the existing schedule.

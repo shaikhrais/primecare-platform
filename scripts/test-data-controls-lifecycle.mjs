@@ -49,6 +49,28 @@ test('autocomplete hidden options cannot select after Escape or blur',async t=>{
  }
 });
 
+for(const mode of ['Escape','blur'])test('autocomplete keeps reopened '+mode+' results selectable by pointer',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[];root.append(kit.autocomplete(async query=>[{value:query,label:query+' label'}],value=>selected.push(value)));
+ const input=root.querySelector('[role=combobox]'),list=root.querySelector('[role=listbox]');
+ const key=value=>{const e=new Event('keydown',{cancelable:true});e.key=value;input.dispatchEvent(e);};
+ input.value='retained';input.dispatchEvent(new Event('input'));await settle();const option=list.firstElementChild;
+ if(mode==='blur')input.dispatchEvent(new Event('blur'));else key('Escape');
+ option.dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,[],'dismissed options stay inactive');
+ key('ArrowDown');assert.equal(list.hidden,false);assert.equal(input.getAttribute('aria-activedescendant'),option.id);
+ option.dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,['retained']);assert.equal(input.value,'retained label');assert.equal(list.hidden,true);
+ input.value='next';input.dispatchEvent(new Event('input'));await settle();key('ArrowDown');key('Enter');assert.deepEqual(selected,['retained','next'],'fresh keyboard selection remains valid');
+});
+for(const mode of ['Escape','blur'])for(const fail of [false,true])test('autocomplete clears '+mode+' pending status and suppresses late '+(fail?'errors':'results'),async t=>{
+ const {root,kit,Event}=fixture(t);let finish,signal;
+ root.append(kit.autocomplete((query,requestSignal)=>{signal=requestSignal;return new Promise((resolve,reject)=>finish=fail?reject:resolve);}));
+ const input=root.querySelector('[role=combobox]'),status=root.querySelector('[data-cy=data-controls-autocomplete-status]'),list=root.querySelector('[role=listbox]');
+ input.value='retained query';input.dispatchEvent(new Event('input'));assert.equal(status.textContent,kit.text('loading'));
+ if(mode==='blur')input.dispatchEvent(new Event('blur'));else{const e=new Event('keydown');e.key=mode;input.dispatchEvent(e);}
+ assert.equal(signal.aborted,true);assert.equal(status.textContent,'','cancelled request must stop announcing loading');
+ finish(fail?Error('late failure'):[{value:'late',label:'Late result'}]);await settle();
+ assert.equal(status.textContent,'');assert.equal(list.hidden,true);assert.equal(list.childElementCount,0);assert.equal(input.value,'retained query');assert.equal(input.getAttribute('aria-expanded'),'false');assert.equal(input.hasAttribute('aria-activedescendant'),false);
+});
+
 for(const change of ['filter','replace'])test('table retires old sort controls after '+change+' while current controls still work',async t=>{
  const {root,kit,Event}=fixture(t),rows=[{id:'a',values:{name:'Alpha'}},{id:'b',values:{name:'Beta'}}];
  const table=kit.table([{key:'name',label:'Name',width:100,visible:true,pinned:false}],rows,{rowHeight:48,height:240,minWidth:100,maxWidth:200,actionWidth:100});root.append(table.element);
