@@ -8,6 +8,24 @@ boundary = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(boundary)
 
 class SharedUiBoundaryTest(unittest.TestCase):
+    def test_color_constructor_tearoffs_cannot_bypass_theme(self):
+        source = 'final a = ui.Color.new; final b = Color.fromARGB; final c = Color.fromRGBO; final d = Color.from;'
+        for application in (True, False):
+            with self.subTest(application=application):
+                self.assertEqual([f[2] for f in boundary.violations(source, application)],
+                                 ['Color.new', 'Color.fromARGB', 'Color.fromRGBO', 'Color.from'])
+
+    def test_color_calls_report_once_and_tearoff_lines_survive_comments(self):
+        source = 'Color.fromARGB (1, 2, 3, 4);\nfinal factory = ui.Color /* gap */ .\n fromRGBO;'
+        findings = boundary.violations(source, True)
+        self.assertEqual(len(findings), 2)
+        self.assertEqual([f[0] for f in findings], [1, 2])
+        self.assertEqual([f[1] for f in findings], ['theme-color', 'theme-color'])
+
+    def test_color_tearoff_text_and_nonconstructor_members_pass(self):
+        source = '// Color.new\nfinal text = "Color.fromARGB"; Color.lerp(a, b, t); final c = theme.colors.surface;'
+        self.assertEqual(boundary.violations(source, True), [])
+
     def test_icons_and_progress_controls_require_shared_library(self):
         source = 'Icon(Icons.star); CircularProgressIndicator(); LinearProgressIndicator(value: progress);'
         self.assertEqual([f[2] for f in boundary.violations(source, True)],
@@ -197,3 +215,4 @@ class SharedUiBoundaryTest(unittest.TestCase):
                 ('packages/feature/lib/view.dart', 'theme-color'),
                 ('packages/primecare_ui/lib/src/components/card.dart', 'theme-color'),
             ])
+

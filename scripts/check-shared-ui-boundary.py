@@ -89,6 +89,9 @@ CONTROLS = ('Icon', 'CircularProgressIndicator', 'LinearProgressIndicator', 'Tex
 DIRECT = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*(?:\.\s*\w+\s*)?\(')
 TEAR_OFF = re.compile(r'\b(' + '|'.join(CONTROLS) + r')\s*(?:<[^;{}()]*>)?\s*\.\s*(?:new|rich|icon|tonal|tonalIcon|adaptive|large|small|extended)\b(?!\s*\()')
 COLOR = re.compile(r'\b(?:Color\s*\(|Color\s*\.\s*(?:fromARGB|fromRGBO|from)\s*\(|Colors\s*\.\s*\w+)')
+# A constructor can be stored or passed without being called at this location.
+# Keep this separate from calls so each expression has one diagnostic.
+COLOR_TEAR_OFF = re.compile(r'\bColor\s*\.\s*(?:new|fromARGB|fromRGBO|from)\b(?!\s*\()')
 INHERITS = re.compile(r'\b(?:extends|implements|with)\s+(?:(\w+)\s*\.\s*)?('+'|'.join(CONTROLS)+r')\b')
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
 CONTROL_IMPLEMENTATIONS = {
@@ -141,6 +144,7 @@ def violations(source, application):
         findings += [(m.start(), 'shared-control', m[1]) for m in TEAR_OFF.finditer(code) if not is_pdf(m.start())]
         findings.extend((m.start(),'shared-control',m[2]) for m in INHERITS.finditer(code) if m[1] not in pdf_aliases)
     findings += [(m.start(), 'theme-color', m[0]) for m in COLOR.finditer(code)]
+    findings += [(m.start(), 'theme-color', m[0]) for m in COLOR_TEAR_OFF.finditer(code)]
     for match in ALIASES.finditer(code):
         symbol = match[1]
         if symbol == 'Color' or application and symbol in CONTROLS and not is_pdf(match.start(1)):
@@ -179,3 +183,4 @@ def main():
 
 if __name__ == '__main__':
     raise SystemExit(main())
+
