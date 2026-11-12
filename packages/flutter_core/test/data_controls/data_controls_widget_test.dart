@@ -43,6 +43,30 @@ void main(){final l=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_u
   }else{expect(t.widget<TextField>(find.byType(TextField).first).enabled,isFalse);}
   expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());
  });
+
+ testWidgets('equivalent rebuilt table columns retain filter selection and expanded row',(t)async{
+  List<DataColumnSpec> columns()=>[DataColumnSpec('name','Name',120)];
+  final rows=[DataRowSpec('r0',{'name':'Alpha'}),DataRowSpec('r1',{'name':'Beta'})];
+  Widget host()=>app(PrimeVirtualTable(labels:l,scope:'stable-table',columns:columns(),rows:rows,rowHeight:56,height:200,minWidth:80,maxWidth:400,actionWidth:160,detail:(row)=>SelectableText('Detail ${row.id}')));
+  await t.pumpWidget(host());await t.enterText(find.byType(TextField).first,'Alpha');await t.pump();await t.tap(find.byType(PrimeCheckbox).first);await t.pump();await t.tap(find.byTooltip(l.text('expand')).first);await t.pump();
+  expect(t.widget<PrimeCheckbox>(find.byType(PrimeCheckbox).first).value,isTrue);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='Detail r0'),findsOneWidget);
+  await t.pumpWidget(host());await t.pump();
+  expect(t.widget<TextField>(find.byType(TextField).first).controller!.text,'Alpha');expect(t.widget<PrimeCheckbox>(find.byType(PrimeCheckbox).first).value,isTrue);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='Beta'),findsNothing);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='Detail r0'),findsOneWidget);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());
+ });
+ testWidgets('mutating an input column spec is detected despite unchanged list identity',(t)async{
+  final columns=[DataColumnSpec('name','Name',120)],rows=[DataRowSpec('r0',{'name':'Alpha'}),DataRowSpec('r1',{'name':'Beta'})];
+  Widget host()=>app(PrimeVirtualTable(labels:l,scope:'changed-spec-table',columns:columns,rows:rows,rowHeight:56,height:200,minWidth:80,maxWidth:400,actionWidth:160));
+  await t.pumpWidget(host());await t.enterText(find.byType(TextField).first,'Alpha');await t.pump();await t.tap(find.byType(PrimeCheckbox).first);await t.pump();
+  columns.first.width=180;await t.pumpWidget(host());await t.pump();
+  expect(t.widget<TextField>(find.byType(TextField).first).controller!.text,'');expect(t.widget<PrimeCheckbox>(find.byType(PrimeCheckbox).first).value,isFalse);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='Beta'),findsOneWidget);expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());
+ });
+ testWidgets('table scope change still clears prior filter and selected identity',(t)async{
+  final columns=[DataColumnSpec('name','Name',120)],rows=[DataRowSpec('r0',{'name':'Alpha'}),DataRowSpec('r1',{'name':'Beta'})];
+  Widget host(String scope)=>app(PrimeVirtualTable(labels:l,scope:scope,columns:columns,rows:rows,rowHeight:56,height:200,minWidth:80,maxWidth:400,actionWidth:160));
+  await t.pumpWidget(host('first-table-scope'));await t.enterText(find.byType(TextField).first,'Alpha');await t.pump();await t.tap(find.byType(PrimeCheckbox).first);await t.pump();
+  await t.pumpWidget(host('second-table-scope'));await t.pump();expect(t.widget<TextField>(find.byType(TextField).first).controller!.text,'');expect(t.widget<PrimeCheckbox>(find.byType(PrimeCheckbox).first).value,isFalse);expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());
+ });
  testWidgets('required typed fields and rejected submit preserve input',(t)async{final kit=PrimeDataKit(l,'form'),key=GlobalKey<FormState>(),number=TextEditingController(),date=TextEditingController();var calls=0;await t.pumpWidget(app(kit.form(key,[kit.field('number',number,required:true,min:0,max:10,step:0.5),kit.field('date',date,required:true)],()async{calls++;throw StateError('denied');})));await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,0);await t.enterText(find.byType(PrimeTextFormField).first,'1.5');await t.enterText(find.byType(PrimeTextFormField).last,'2024-02-29');await t.tap(find.text(l.text('submit')));await t.pumpAndSettle();expect(calls,1);expect(number.text,'1.5');expect(find.text(l.text('error')),findsOneWidget);await t.pumpWidget(const SizedBox());number.dispose();date.dispose();});
  testWidgets('structured editor formatting and failed save retain literal source',(t)async{var calls=0;final doc={'version':1,'blocks':[{'text':'<script>literal</script>','bold':false,'italic':false,'kind':'paragraph'}]};await t.pumpWidget(app(PrimeStructuredEditor(labels:l,scope:'editor',document:doc,save:(d)async{calls++;throw StateError('denied');})));await t.tap(find.text(l.text('bold')));await t.pumpAndSettle();await t.ensureVisible(find.text(l.text('save')));await t.tap(find.text(l.text('save')));await t.pumpAndSettle();expect(calls,1);expect(find.text(l.text('error')),findsOneWidget);expect(find.byWidgetPredicate((w)=>w is SelectableText&&w.data=='<script>literal</script>'&&w.style?.fontWeight==FontWeight.bold),findsOneWidget);});
  testWidgets('opt-in range formatting previews and retains spans across failed saves and text edits',(t)async{

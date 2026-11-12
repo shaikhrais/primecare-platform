@@ -85,6 +85,7 @@ class PrimeVirtualTable extends StatefulWidget {
 
 class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
   late DataTableModel model;
+  List<DataColumnSpec> _sourceColumns = [];
   final scroll = ScrollController(), filter = TextEditingController();
   final headerScroll = ScrollController(), bodyScroll = ScrollController();
   bool syncing = false;
@@ -105,6 +106,20 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
     }
   }
 
+  // Compare captured input specs, not the model's user-configured columns.
+  bool _sameSourceColumns(List<DataColumnSpec> columns) {
+    if (columns.length != _sourceColumns.length) return false;
+    for (var i = 0; i < columns.length; i++) {
+      final incoming = columns[i], previous = _sourceColumns[i];
+      if (incoming.key != previous.key ||
+          incoming.label != previous.label ||
+          incoming.width != previous.width ||
+          incoming.visible != previous.visible ||
+          incoming.pinned != previous.pinned) return false;
+    }
+    return true;
+  }
+
   void _reset() {
     final w = widget;
     if (![
@@ -119,6 +134,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
         w.columns.any((c) => c.width < w.minWidth || c.width > w.maxWidth))
       throw ArgumentError('invalid_geometry');
     model = DataTableModel(w.columns, w.rows, pageSize: w.pageSize);
+    _sourceColumns = w.columns.map((column) => column.copy()).toList(growable: false);
     filter.clear();
     active = 0;
   }
@@ -127,7 +143,7 @@ class _PrimeVirtualTableState extends State<PrimeVirtualTable> {
   void didUpdateWidget(covariant PrimeVirtualTable old) {
     super.didUpdateWidget(old);
     if (old.scope != widget.scope ||
-        old.columns != widget.columns ||
+        !_sameSourceColumns(widget.columns) ||
         old.pageSize != widget.pageSize) {
       _reset();
     } else if (old.rows != widget.rows) {
