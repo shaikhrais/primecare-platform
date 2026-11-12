@@ -1,12 +1,55 @@
 # PrimeCare consolidated execution plan
 
-Updated 2026-11-11, America/Toronto. Starting source: `75965d0d1315b4a7f15139f90884987dcc0411ec`. Delivery status: behind the user's requested completed backlog. No agreed completion date exists; elapsed time or source counts must not be converted into an invented delivery forecast.
+Updated 2026-11-12, America/Toronto (recovery estimates). Starting source: `75965d0d1315b4a7f15139f90884987dcc0411ec`. Delivery status: behind the user's requested completed backlog. No agreed completion date exists; elapsed time or source counts must not be converted into an invented delivery forecast.
 
 ## Schedule and ownership
 
 Use the existing enabled PrimeCare continuation, hourly at approximately minute 15 in America/Toronto. Scheduled invocations are discrete work sessions, not proof of uninterrupted execution. One runner owns repository publication; do not start another overlapping API/theme writer. Leave the expired API schedule and six historical sports checks inactive. Bring necessary API work into this queue only after its actual contracts are reconciled. No study reminder is currently present in the returned schedule inventory; this plan does not create unrelated reminders.
 
 Keep the current schedule rather than resetting its start time. A queued CI job is not a failure. Do not cancel earlier validations or create repeated runs while one for the same source is queued/running. When CI is waiting, continue a compatible bounded analysis or implementation batch without claiming that waiting source has passed. Re-read remote main before every publication and preserve concurrent work.
+
+## User-requested estimates and recovery schedule (2026-11-12)
+
+The user requested estimates, an execution schedule, ahead/on-time/behind checks, and catch-up work while behind. This supersedes the earlier prohibition on giving an estimate; no final completion date is promised. Overall delivery remains **behind**, with 0/72 fully accepted. Source repair, schedule checkpoint completion and full feature acceptance remain separate.
+
+The machine-readable baseline is [recovery-schedule-20261112.json](recovery-schedule-20261112.json). Run `python3 scripts/report-primecare-schedule.py` and its targeted unittest on each continuation. Preserve original targets; a revised forecast never erases an overdue result. Only mark a milestone completed with dated actual evidence. For a CI milestone, record every required job on its exact source. A documented blocker is not completion. Repair confirmed failures first, then overdue unblocked work; continue useful authorized batches while CI or an external decision waits.
+
+Preliminary scope budget, **low confidence**, in active engineering hours, assuming existing shared factories are reused and business contracts become available:
+
+| Batch | Remaining scope | Planning range (hours) |
+|---|---|---:|
+| B01 | Host registration and localization | 8–16 |
+| B02 | Web workspace layouts and footer slots | 6–12 |
+| B03 | Native shell and Theme Center hosts | 10–20 |
+| B04 | Authorized navigation and deep links | 6–12 |
+| B05 | Page and overlay lifecycle | 4–8 |
+| B06 | Theme component states and actual hosts | 6–12 |
+| B07 | Preferences and explicit recovery | 8–16 |
+| B08 | Authorized utility adapters | 8–16 |
+| B09 | Real-screen migration and dispositions | 12–24 |
+| B10 | Data controls and approved storage | 16–32 |
+| B11 | Widgets charts and durable recovery | 16–32 |
+| B12 | Asset consumers and licence review | 6–12 |
+| B13 | Work applications and native task host | 24–48 |
+| B14 | Communication and files workflows | 24–48 |
+| B15 | Identity settings and confirmed application providers | 32–64 |
+| B16 | Dashboards and supporting workflows | 16–32 |
+| B17 | App-wide adoption and compatibility | 16–32 |
+| B18 | Release accessibility device and review evidence | 16–32 |
+
+Conservative sum: **234–468 active hours**. Some work overlaps, so this is a provisional budget, not measured velocity or a calendar estimate. It excludes unsized API dependencies (current checklist: 1063 unresolved operations), CI queue delays and waiting for provider/business/authority/device/review dependencies. Re-estimate after three further verified source batches. Hourly scheduled sessions do not supply an hour of work each or continuous execution; do not convert this budget into a promised finish date.
+
+Today’s recovery targets, America/Toronto, November 12:
+
+| Target | Deliverable | Active-work estimate |
+|---|---|---:|
+| 08:15 | Verify b2e45486 existing CI and repair any confirmed source failure | 15–60 min |
+| 10:15 | Publish and verify next grounded shared-host/control repair | 1–2 h |
+| 12:15 | Approved preference-recovery binding; missing exact registered action/resource IDs remain a blocker | 1–2 h after binding authority |
+| 14:15 | Next approved data-control/asset adoption source batch | 1–2 h |
+| 15:15 | Exact-source full-suite checkpoint and revised remaining forecast | 30–60 min |
+
+These are checkpoints, not deadlines for completing entire B01–B18 groups. Retain the existing enabled hourly invocation at approximately :15; each run executes the next priority and reports missed targets directly. Do not create another writer or increase reporting frequency. If a run remains active, avoid concurrent publication. Latest product source is b2e45486 (task-dialog page-leave guard); all five shared work jobs and all seven combined-suite jobs passed before the 08:15 checkpoint, including actual cancelled-reload/browser/PostgreSQL and Linux/Windows/macOS verification. Tenant workspace acceptance also passed. Overall feature delivery remains behind. Inspect fresh results rather than inheriting this snapshot.
 
 ## Baseline and measurable progress
 
