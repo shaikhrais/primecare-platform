@@ -22,6 +22,7 @@ try{
   if(!await page.evaluate(()=>Boolean(window.axe)))await page.addScriptTag({path:createRequire(import.meta.url).resolve('axe-core/axe.min.js')});
   const result=await page.locator('[data-cy=client-invoice-host]').evaluate(async element=>window.axe.run(element,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}}));
   await writeFile(`${auditDir}/${locale}-${state}.json`,JSON.stringify(result,null,2));await page.screenshot({path:`${auditDir}/${locale}-${state}.png`,fullPage:true});
+  console.log('CLIENT_INVOICE_A11Y '+JSON.stringify({locale,state,width:page.viewportSize().width,violations:result.violations.length,incomplete:result.incomplete.map(v=>v.id)}));
   assert.deepEqual(result.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})),[],`${locale} ${state} automated accessibility`);
  };
  const held=async()=>{const deadline=Date.now()+5000;while(!pending.length&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,10));assert.equal(pending.length,1,'exactly one owned invoice request');};
@@ -39,7 +40,7 @@ try{
   failInvoices=true;await page.keyboard.press('Enter');await page.waitForFunction(message=>document.querySelector('[data-cy=client-invoices-status]')?.textContent===message,metadata.locales[locale].error);
   assert.equal(await cy('refresh').evaluate(el=>el===document.activeElement&&el===window.__refreshNode),true);assert.equal(await cy('status').evaluate(el=>el===window.__statusNode),true);assert.equal(await page.locator('[data-cy=client-invoice-row]').count(),0);await audit(locale,'error');
   failInvoices=false;await page.keyboard.press('Enter');await ready();assert.equal(await cy('status').evaluate(el=>el===window.__statusNode),true);
-  await page.locator('.table-scroll').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.table-scroll').evaluate(el=>el===document.activeElement),true);checks++;
+  await cy('panel').locator('.table-scroll').focus();await page.keyboard.press('ArrowRight');assert.equal(await cy('panel').locator('.table-scroll').evaluate(el=>el===document.activeElement),true);checks++;
 
  }
  // BFCache ownership: hide must clear private content and restore must independently reload it.
