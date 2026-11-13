@@ -1,5 +1,6 @@
 import {readFile} from 'node:fs/promises';
 import pg from 'pg';
+import {checkPreferenceDefinition,readbackPreferences,definition} from './preference-sync-registration.mjs';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url),'utf8'));
 const accepted=JSON.parse(await readFile(new URL('../auth-verification/accepted-auth-live-proof-release.json',import.meta.url),'utf8'));
 if(accepted.worker!=='primecare-auth-api'||accepted.preferenceRuntimeActivated!==false||!/^[a-f0-9-]{36}$/i.test(accepted.versionId??'')||!/^[a-f0-9-]{36}$/i.test(accepted.deploymentId??''))throw Error('Accepted auth proof mismatch');
@@ -12,10 +13,15 @@ if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.d
 const db=new pg.Client({connectionString:raw,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
 const table=n=>'"'+pin.schema+'"."'+pin.tablePrefix+n+'"';
 try{
- await db.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+ await checkPreferenceDefinition();
+ await db.connect();
+ let registration;
+ try{registration=await readbackPreferences(db);}catch{registration={independentReadback:false,reason:'canonical_registration_or_schema_mismatch'};}
+ await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
  const manifest=(await db.query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
  if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('Authority mismatch');
- const endpoint=(await db.query('SELECT id,route_path,http_method,service_name,implementation_status FROM '+table('api_endpoints')+' WHERE id=777')).rows;
+ const endpoint=(await db.query('SELECT id,route_path,http_method,service_name,auth_required,permission_key,rate_limit_key,implementation_status,request_schema=$1 AS request_schema_matches,response_schema=$2 AS response_schema_matches FROM '+table('api_endpoints')+' WHERE id=777',[JSON.stringify(definition.requestSchema),JSON.stringify(definition.responseSchema)])).rows;
+ const approvedAdmins=(await db.query('SELECT r.id,r.role_code,r.active,p.can_access,p.permission_key,p.runtime_artifact_id FROM '+table('roles')+' r LEFT JOIN '+table('api_permissions')+' p ON p.role_id=r.id AND p.api_id=777 WHERE r.id IN (70,72,80) ORDER BY r.id')).rows;
  const links=(await db.query('SELECT screen_id,api_id FROM '+table('screen_api_links')+' WHERE api_id=777 AND screen_id IN (1269,2534) ORDER BY screen_id')).rows;
  const controls=(await db.query("SELECT data_cy,implementation_status FROM "+table('screen_components')+" WHERE screen_id=2534 AND data_cy IN ('theme-migration-review','theme-migration-save','theme-migration-retry','theme-restore-review','theme-restore-confirm') ORDER BY data_cy")).rows;
  await db.query('ROLLBACK');
@@ -40,5 +46,9 @@ try{
  }
  const acceptedVersion=codeRelease?.versionId??accepted.reconciledActive?.versionId??accepted.versionId,acceptedDeployment=codeRelease?.deploymentId??accepted.reconciledActive?.deploymentId??accepted.deploymentId,activeDeployment=deploymentResult.result?.deployments?.[0]?.id??null;
  const activeMatchesAccepted=activeDeployment===acceptedDeployment&&activeVersions.length===1&&activeVersions[0].versionId===acceptedVersion&&activeVersions[0].percentage===100;
- console.log(JSON.stringify({endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
+ const endpointImplemented=endpoint.length===1&&endpoint[0].implementation_status==='implemented-unverified';
+ const requiredHostLinksPresent=[1269,2534].every(id=>links.some(link=>Number(link.screen_id)===id&&Number(link.api_id)===777));
+ const existingAdminGrantsMatch=approvedAdmins.length===3&&approvedAdmins.every(row=>Number(row.active)===1&&Number(row.can_access)===1&&row.permission_key===definition.permissionKey&&Number(row.runtime_artifact_id)===2);
+ const preflight={canonicalRegistrationAndSchemaVerified:registration.independentReadback===true,endpointImplemented,requiredHostLinksPresent,existingAdminGrantsMatch,activeMatchesAccepted,flagDisabled:['absent','0'].includes(preferenceFlag),runtimeActivationPerformed:false,humanReviewApproved:false,ownedProductionSaveTested:false};
+ console.log(JSON.stringify({registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
 }finally{await db.end();}
