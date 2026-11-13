@@ -30,7 +30,11 @@ export function assertGenericWorkerPreserves(settings,schedules,config,{requireD
  if(settings.compatibility_date!==config.compatibility_date||canonical([...(settings.compatibility_flags??[])].sort())!==canonical([...(config.compatibility_flags??[])].sort()))throw Error('Generated compatibility differs from live Worker');
  const before=schedules.schedules.map(s=>s.cron).sort(),after=[...(config.triggers?.crons??[])].sort();
  if(canonical(before)!==canonical(after))throw Error('Generated schedules differ from live Worker');
- if(canonical(settings.observability??{})!==canonical(config.observability??{}))throw Error('Generated observability differs from live Worker');
+ if(canonical(settings.observability??{})!==canonical(config.observability??{})){
+  // Only non-secret observability metadata; never include bindings or credentials.
+  const detail=canonical({live:settings.observability??null,generated:config.observability??null});
+  throw Error('Generated observability differs from live Worker: '+(detail.length>4096?detail.slice(0,4096)+' [truncated]':detail));
+ }
  return true;
 }
 async function main(){
