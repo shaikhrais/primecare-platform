@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/macos-clinic-artifact-smoke.yml'
       - 'scripts/test-macos-clinic-artifact.py'
+      - 'scripts/test-macos-preserved-clinic-artifact.py'
+      - 'scripts/macos-network-isolation.py'
   workflow_dispatch:
 permissions:
   contents: read
@@ -21,13 +23,13 @@ jobs:
       - name: Verify exact passed build artifact identity
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python3 scripts/test-macos-clinic-artifact.py --metadata
+        run: python3 scripts/test-macos-preserved-clinic-artifact.py --metadata
       - uses: actions/download-artifact@v4
         with:
-          artifact-ids: '13998842458'
-          run-id: '43328101727'
+          artifact-ids: '14071577404'
+          run-id: '43493359962'
           github-token: ${{ github.token }}
           path: clinic-artifact
           merge-multiple: true
       - name: Verify signature and test isolated startup without network
-        run: python3 scripts/test-macos-clinic-artifact.py --bundle-root clinic-artifact
+        run: python3 scripts/test-macos-preserved-clinic-artifact.py --archive-root clinic-artifact
