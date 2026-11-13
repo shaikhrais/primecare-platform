@@ -1,0 +1,55 @@
+{
+  "format": 1,
+  "kind": "verified_metadata_export",
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "source": {
+    "commit": "b2388622858382d39ef48cb569fe88189c41363a",
+    "runId": 43438501752,
+    "jobId": 131929716412
+  },
+  "host": {
+    "screenId": 2534,
+    "screenCode": "tenant_admin_command_center",
+    "roleId": 72,
+    "role": "tenant_admin"
+  },
+  "writes": 0,
+  "newRoleGrants": 0,
+  "destinations": [
+    {
+      "id": "1269",
+      "title": "Platform Administration",
+      "route": "/platform/administration"
+    },
+    {
+      "id": "1270",
+      "title": "Founder Growth Dashboard",
+      "route": "/growth"
+    },
+    {
+      "id": "2517",
+      "title": "Care delivery",
+      "route": "/care"
+    },
+    {
+      "id": "2520",
+      "title": "Look Review Manager",
+      "route": "/appearance-review"
+    },
+    {
+      "id": "2532",
+      "title": "PSW requests and follow-up",
+      "route": "/psw-requests"
+    },
+    {
+      "id": "2533",
+      "title": "Additional charge · PSW Coordinator",
+      "route": "/coordinator-charge"
+    },
+    {
+      "id": "2534",
+      "title": "Tenant workspace",
+      "route": "/tenant-dashboard"
+    }
+  ]
+}
