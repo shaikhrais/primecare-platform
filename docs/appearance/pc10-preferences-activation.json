@@ -1,0 +1,62 @@
+{
+  "format": 1,
+  "scope": "existing approved PC10 own cloud settings",
+  "codeSource": "15c1be77fde175c2f397b78a893c2bf985db21db",
+  "activationSource": "2ce301cbbae6c8d6a5473e18b32ad225763d19e1",
+  "worker": "primecare-auth-api",
+  "apiId": 777,
+  "metadataStatus": "implemented-unverified",
+  "runtimeActivated": true,
+  "active": {
+    "id": "3abb153d-0bc5-4bad-b473-e56948f7f20c",
+    "version": "ddf1584a-f2a6-43d5-aefa-33b141aebd1d"
+  },
+  "codeEtag": "9c4addc0ad9a7de3c355782aba45cc33df9a7bd0c4786a587a84eb38ce1ac708",
+  "codePreserved": true,
+  "bindingsPreserved": true,
+  "schedulesPreserved": true,
+  "grantsChanged": 0,
+  "existingGrantRows": 67,
+  "humanReviewApproved": false,
+  "deviceTested": false,
+  "evidence": {
+    "runId": 43511208695,
+    "jobId": 132182375363,
+    "workflow": ".github/workflows/pc10-preference-activation.yml",
+    "conclusion": "success"
+  },
+  "ownedProof": {
+    "passed": true,
+    "locales": [
+      {
+        "locale": "en",
+        "width": 320
+      },
+      {
+        "locale": "fr",
+        "width": 768
+      },
+      {
+        "locale": "es",
+        "width": 1440
+      }
+    ],
+    "checks": 63,
+    "realBrowserCredentialLogin": true,
+    "deployedPickerSave": true,
+    "independentSql": true,
+    "reload": true,
+    "idempotentReceiptReplay": true,
+    "crossActorAndTenantDenial": true,
+    "ungrantedRoleDenial": true,
+    "staleRevisionDenial": true,
+    "sessionTeardown": true,
+    "exactSyntheticCleanup": true
+  },
+  "limitations": [
+    "No human accessibility or translation review approval",
+    "No physical-device acceptance",
+    "No new academy/commerce/AI/help/finance contracts",
+    "No full PC10/B15/B16 or 72-feature release acceptance"
+  ]
+}

@@ -5,6 +5,7 @@ on:
     paths:
       - 'tools/governance-production/inspect-preference-activation.mjs'
       - '.github/workflows/inspect-preference-activation.yml'
+      - 'docs/appearance/pc10-preferences-activation.json'
 permissions: {contents: read}
 jobs:
   read:

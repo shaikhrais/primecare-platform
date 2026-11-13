@@ -3,6 +3,9 @@ import pg from 'pg';
 import {checkPreferenceDefinition,readbackPreferences,definition} from './preference-sync-registration.mjs';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url),'utf8'));
 const accepted=JSON.parse(await readFile(new URL('../auth-verification/accepted-auth-live-proof-release.json',import.meta.url),'utf8'));
+let activation=null;
+try{activation=JSON.parse(await readFile(new URL('../../docs/appearance/pc10-preferences-activation.json',import.meta.url),'utf8'));}catch(error){if(error.code!=='ENOENT')throw error;}
+if(activation&&(activation.format!==1||activation.worker!=='primecare-auth-api'||activation.apiId!==777||activation.runtimeActivated!==true||activation.codePreserved!==true||activation.bindingsPreserved!==true||activation.schedulesPreserved!==true||activation.grantsChanged!==0||activation.ownedProof?.passed!==true||activation.ownedProof?.exactSyntheticCleanup!==true||activation.evidence?.workflow!=='.github/workflows/pc10-preference-activation.yml'||activation.evidence?.conclusion!=='success'||!Number.isSafeInteger(activation.evidence?.runId)||!Number.isSafeInteger(activation.evidence?.jobId)||!/^[a-f0-9]{40}$/.test(activation.activationSource??'')||!/^[a-f0-9-]{36}$/i.test(activation.active?.id??'')||!/^[a-f0-9-]{36}$/i.test(activation.active?.version??'')||activation.humanReviewApproved!==false||activation.deviceTested!==false))throw Error('Owned activation receipt mismatch');
 if(accepted.worker!=='primecare-auth-api'||accepted.preferenceRuntimeActivated!==false||!/^[a-f0-9-]{36}$/i.test(accepted.versionId??'')||!/^[a-f0-9-]{36}$/i.test(accepted.deploymentId??''))throw Error('Accepted auth proof mismatch');
 if(accepted.reconciledActive&&(!/^[a-f0-9-]{36}$/i.test(accepted.reconciledActive.versionId??'')||!/^[a-f0-9-]{36}$/i.test(accepted.reconciledActive.deploymentId??'')||!['absent','0'].includes(accepted.reconciledActive.preferenceFlag)))throw Error('Reconciled auth proof mismatch');
 const codeRelease=accepted.currentCodeRelease;
@@ -16,7 +19,7 @@ try{
  await checkPreferenceDefinition();
  await db.connect();
  let registration;
- try{registration=await readbackPreferences(db);}catch{registration={independentReadback:false,reason:'canonical_registration_or_schema_mismatch'};}
+ try{const {runtimeActivated:ignored,...readback}=await readbackPreferences(db);registration={...readback,readOnly:true};}catch{registration={independentReadback:false,reason:'canonical_registration_or_schema_mismatch'};}
  await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
  const manifest=(await db.query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
  if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('Authority mismatch');
@@ -50,11 +53,11 @@ try{
   const detail=await detailResponse.json();if(!detailResponse.ok||detail.success!==true)throw Error('Worker version details unavailable');
   activeVersions.push({versionId:item.version_id,percentage:item.percentage,createdOn:detail.result?.metadata?.created_on??null,scriptMatchesRelease:!!detail.result?.resources?.script?.etag&&detail.result.resources.script.etag===release.result.resources.script.etag});
  }
- const acceptedVersion=codeRelease?.versionId??accepted.reconciledActive?.versionId??accepted.versionId,acceptedDeployment=codeRelease?.deploymentId??accepted.reconciledActive?.deploymentId??accepted.deploymentId,activeDeployment=deploymentResult.result?.deployments?.[0]?.id??null;
+ const acceptedVersion=activation?.active.version??codeRelease?.versionId??accepted.reconciledActive?.versionId??accepted.versionId,acceptedDeployment=activation?.active.id??codeRelease?.deploymentId??accepted.reconciledActive?.deploymentId??accepted.deploymentId,activeDeployment=deploymentResult.result?.deployments?.[0]?.id??null;
  const activeMatchesAccepted=activeDeployment===acceptedDeployment&&activeVersions.length===1&&activeVersions[0].versionId===acceptedVersion&&activeVersions[0].percentage===100;
  const endpointImplemented=endpoint.length===1&&endpoint[0].implementation_status==='implemented-unverified';
  const requiredHostLinksPresent=[1269,2534].every(id=>links.some(link=>Number(link.screen_id)===id&&Number(link.api_id)===777));
  const existingAdminGrantsMatch=approvedAdmins.length===3&&approvedAdmins.every(row=>Number(row.active)===1&&Number(row.can_access)===1&&row.permission_key===definition.permissionKey&&Number(row.runtime_artifact_id)===2);
- const preflight={canonicalRegistrationAndSchemaVerified:registration.independentReadback===true,endpointImplemented,requiredHostLinksPresent,existingAdminGrantsMatch,activeMatchesAccepted,flagDisabled:['absent','0'].includes(preferenceFlag),runtimeActivationPerformed:false,humanReviewApproved:false,ownedProductionSaveTested:false};
- console.log(JSON.stringify({uploadedPreferenceFlag,runtimeProbeStatus:runtimeProbe.status,latestUploadedVersion,registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
+ const preflight={canonicalRegistrationAndSchemaVerified:registration.independentReadback===true,endpointImplemented,requiredHostLinksPresent,existingAdminGrantsMatch,activeMatchesAccepted,flagDisabled:['absent','0'].includes(preferenceFlag),runtimeStateMatchesReceipt:preferenceFlag===(activation?'1':'0'),runtimeActivationPerformed:!!activation&&activeMatchesAccepted,humanReviewApproved:false,ownedProductionSaveTested:!!activation&&activeMatchesAccepted};
+ console.log(JSON.stringify({acceptedActivationSource:activation?.activationSource??null,uploadedPreferenceFlag,runtimeProbeStatus:runtimeProbe.status,latestUploadedVersion,registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
 }finally{await db.end();}
