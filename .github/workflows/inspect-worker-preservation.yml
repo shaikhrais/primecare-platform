@@ -13,6 +13,8 @@ on:
       - scripts/generate-cloudflare-worker-config.mjs
       - scripts/describe-worker-preservation.mjs
       - scripts/test-describe-worker-preservation.mjs
+      - scripts/worker-secret-retention.mjs
+      - scripts/test-worker-secret-retention.mjs
 
 permissions:
   contents: read
@@ -36,6 +38,7 @@ jobs:
           node --test scripts/test-generic-worker-deploy.mjs
           node --test scripts/test-generic-worker-observability.mjs
           node --test scripts/test-describe-worker-preservation.mjs
+          node --test scripts/test-worker-secret-retention.mjs
           node scripts/preserve-generic-worker-observability.mjs
       - name: Summarize non-secret live settings
         run: node scripts/describe-worker-preservation.mjs
