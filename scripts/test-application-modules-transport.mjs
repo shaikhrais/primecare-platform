@@ -9,6 +9,17 @@ test('profile owns its label snapshot across asynchronous reads',async()=>{
  const pending=port.read(query,new AbortController().signal);labels.identity='Changed by caller';finish();
  assert.equal((await pending).items[0].title,'Identity');port.dispose();
 });
+test('profile rejects invalid identity labels before dispatch, matching native validation',()=>{
+ let calls=0;const fetcher=async()=>{calls++;return Response.json(identity);};
+ for(const identityLabel of [undefined,null,5,'','   ','x'.repeat(501),'Identity\n','Identity\u0000','Identity\u007f']){
+  assert.throws(()=>new ApplicationProfilePort('https://fixture.test','captured',scope,()=>({token:'captured',scope}),{identity:identityLabel},fetcher),e=>e.code==='invalid'&&e.status===400);
+ }
+ assert.equal(calls,0);
+});
+test('profile retains a valid maximum-length identity label',async()=>{
+ const label='x'.repeat(500),port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>({token:'captured',scope}),{identity:label},async()=>Response.json(identity));
+ assert.equal((await port.read(query,new AbortController().signal)).items[0].title,label);port.dispose();
+});
 test('profile rejects malformed search values before any transport dispatch',async()=>{
  let calls=0;const p=profile(async()=>{calls++;return Response.json(identity);});
  for(const search of [null,undefined,{},[],0,true])await assert.rejects(()=>p.port.read({search,offset:0},new AbortController().signal),e=>e.code==='invalid'&&e.status===400);
