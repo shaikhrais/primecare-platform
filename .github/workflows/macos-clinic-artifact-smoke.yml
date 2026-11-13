@@ -1,0 +1,32 @@
+name: Test passed Clinic macOS artifact startup
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/macos-clinic-artifact-smoke.yml'
+      - 'scripts/test-macos-clinic-artifact.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: clinic-artifact-startup-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  startup:
+    runs-on: macos-26-intel
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify exact passed build artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/test-macos-clinic-artifact.py --metadata
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '13998842458'
+          run-id: '43328101727'
+          github-token: ${{ github.token }}
+          path: clinic-artifact
+      - name: Verify signature and test isolated startup without network
+        run: python3 scripts/test-macos-clinic-artifact.py --bundle-root clinic-artifact
