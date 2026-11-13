@@ -61,9 +61,19 @@ gateway = next(i for i, step in enumerate(worker_steps) if step.get('name') == '
 assert auth_proof < preflight < deploy < gateway
 assert 'services=(client ' in worker_steps[deploy]['run'] and 'services=(auth ' not in worker_steps[deploy]['run']
 assert 'node --test scripts/test-generic-worker-deploy.mjs' in worker_steps[preflight]['run']
-assert 'node scripts/check-generic-worker-deploy.mjs' in worker_steps[preflight]['run']
-assert 'node scripts/check-generic-worker-deploy.mjs --service "${service}"' in worker_steps[deploy]['run']
-assert 'node scripts/check-generic-worker-deploy.mjs --service gateway' in worker_steps[gateway]['run']
+assert 'node --test scripts/test-generic-worker-release.mjs scripts/test-generic-worker-observability.mjs scripts/test-worker-secret-retention.mjs' in worker_steps[preflight]['run']
+assert 'for service in client provider visit notes billing scheduling notification verification compliance governance franchise-reporting gateway;' in worker_steps[preflight]['run']
+assert 'node scripts/generic-worker-release.mjs --check --service "$service"' in worker_steps[preflight]['run']
+assert 'node scripts/generic-worker-release.mjs --deploy --service "${service}"' in worker_steps[deploy]['run']
+assert 'node scripts/generic-worker-release.mjs --deploy --service gateway' in worker_steps[gateway]['run']
+for index in [deploy, gateway]:
+    assert worker_steps[index]['env'] == {'WORKER_DEPLOYMENT_AUTHORIZATION': '${{ inputs.confirm }}'}
+worker_commands = '\n'.join(step.get('run','') for step in worker_steps)
+assert 'secret put' not in worker_commands, 'Existing encrypted bindings must not be rewritten'
+assert 'wrangler deploy' not in worker_commands, 'All generic writes require the verified retention wrapper'
+generate = next(i for i, step in enumerate(worker_steps) if step.get('name') == 'Generate independent Worker configurations')
+assert generate < auth_proof
+assert worker_steps[generate]['run'].splitlines() == ['node scripts/generate-cloudflare-worker-config.mjs', 'node scripts/preserve-generic-worker-observability.mjs']
 for job in jobs.values():
     for step in job.get('steps',[]):
         if step.get('uses','').startswith('actions/checkout@'):

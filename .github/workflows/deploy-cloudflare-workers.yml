@@ -65,7 +65,9 @@ jobs:
         run: npx tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
 
       - name: Generate independent Worker configurations
-        run: node scripts/generate-cloudflare-worker-config.mjs
+        run: |
+          node scripts/generate-cloudflare-worker-config.mjs
+          node scripts/preserve-generic-worker-observability.mjs
 
       - name: Verify deployed auth source without modifying auth
         env:
@@ -75,24 +77,26 @@ jobs:
       - name: Test and verify live Worker preservation before any deployment
         run: |
           node --test scripts/test-generic-worker-deploy.mjs
-          node scripts/check-generic-worker-deploy.mjs
+          node --test scripts/test-generic-worker-release.mjs scripts/test-generic-worker-observability.mjs scripts/test-worker-secret-retention.mjs
+          for service in client provider visit notes billing scheduling notification verification compliance governance franchise-reporting gateway; do
+            node scripts/generic-worker-release.mjs --check --service "$service"
+          done
 
       - name: Verify required auth schema before publishing
         run: node scripts/check-auth-schema.mjs
 
       - name: Deploy and capture every API URL
+        env:
+          WORKER_DEPLOYMENT_AUTHORIZATION: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
           : > worker-urls.txt
           services=(client provider visit notes billing scheduling notification verification compliance governance franchise-reporting)
           for service in "${services[@]}"; do
-            config=".cloudflare-workers/${service}.jsonc"
-            node scripts/check-generic-worker-deploy.mjs --service "${service}"
-            output="$(npx wrangler deploy --config "${config}" 2>&1 | tee /dev/stderr)"
-            url="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
-            test -n "${url}" || { echo "::error::No public URL returned for ${service}"; exit 1; }
-            # A Worker must exist before its encrypted secrets can be attached.
-            printf '%s' "${PRODUCTION_DATABASE_URL}" | npx wrangler secret put DB_URL --config "${config}"
+            receipt="$(node scripts/generic-worker-release.mjs --deploy --service "${service}")"
+            printf '%s\n' "$receipt"
+            url="$(printf '%s' "$receipt" | node -e 'process.stdout.write(JSON.parse(require("node:fs").readFileSync(0,"utf8")).url)')"
+            test -n "${url}" || { echo "::error::No verified public URL returned for ${service}"; exit 1; }
             printf '%s=%s\n' "${service}" "${url}" | tee -a worker-urls.txt
           done
 
@@ -105,11 +109,13 @@ jobs:
 
       - id: gateway
         name: Deploy service-bound gateway
+        env:
+          WORKER_DEPLOYMENT_AUTHORIZATION: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
-          node scripts/check-generic-worker-deploy.mjs --service gateway
-          output="$(npx wrangler deploy --config .cloudflare-workers/gateway.jsonc 2>&1 | tee /dev/stderr)"
-          gateway="$(grep -Eo 'https://[^[:space:]]+\.workers\.dev' <<<"${output}" | tail -1)"
+          receipt="$(node scripts/generic-worker-release.mjs --deploy --service gateway)"
+          printf '%s\n' "$receipt"
+          gateway="$(printf '%s' "$receipt" | node -e 'process.stdout.write(JSON.parse(require("node:fs").readFileSync(0,"utf8")).url)')"
           test -n "${gateway}" || { echo '::error::No public gateway URL returned'; exit 1; }
           echo "url=${gateway}" >> "${GITHUB_OUTPUT}"
           printf '%s=%s\n' gateway "${gateway}" >> worker-urls.txt
@@ -162,4 +168,6 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: cloudflare-worker-urls
-          path: worker-urls.txt
+          path: |
+            worker-urls.txt
+            .cloudflare-workers/*-receipt.json
