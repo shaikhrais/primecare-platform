@@ -8,6 +8,7 @@ import ts from 'typescript';
 import * as core from '../packages/shared/src/tenant-dashboard/core.mjs';
 import * as tenant from '../packages/shared/src/tenant-dashboard/view.mjs';
 import * as charge from '../packages/shared/src/coordinator-charge/view.mjs';
+import * as dashboard from '../packages/shared/src/dashboard-pages/projection.mjs';
 import tenantCatalog from '../packages/shared/src/tenant-dashboard/catalog.json' with {type: 'json'};
 import maintenanceCatalog from '../packages/shared/src/maintenance.json' with {type: 'json'};
 
@@ -95,8 +96,40 @@ chargeView({identity: {userId: 'fixture'}, canManage: 'true', assignments: [], u
   assert.deepEqual(diagnostics.map(d => d.code), [2345, 2322, 2345, 2322, 2322, 2322]);
 });
 
+const dashboardImports = `
+import {dashboardFamilies, projectDashboard, validateDashboardResponseScope, type DashboardFamily, type DashboardScope} from '../packages/shared/src/dashboard-pages/projection.mjs';
+`;
+test('dashboard declarations accept unknown wire data and preserve nullable metrics and scope types', () => {
+  const diagnostics = compileFixture(dashboardImports + `
+const raw: unknown = JSON.parse('{}');
+const scope: DashboardScope = {dataset: 'live', userId: 'actor', tenantId: 'tenant', role: 'existing-role'};
+validateDashboardResponseScope(raw, scope);
+const projection = projectDashboard('analytics', raw, scope);
+const family: DashboardFamily = projection.family;
+const availableFamily: DashboardFamily | undefined = dashboardFamilies[0];
+const count: number | null | undefined = projection.metrics[0]?.value;
+const source: 16578 = projection.sourceApiId;
+const dataset: 'live' | 'demo' = projection.dataset;
+`);
+  assert.deepEqual(describe(diagnostics), []);
+});
+test('dashboard declarations reject malformed scope, family types and unsafe metric assumptions', () => {
+  const diagnostics = compileFixture(dashboardImports + `
+const scope: DashboardScope = {dataset: 'live', userId: 'actor', tenantId: 'tenant', role: 'existing-role'};
+projectDashboard(42, {}, scope);
+validateDashboardResponseScope({}, {dataset: 'staging', userId: 'actor', tenantId: 'tenant', role: 'role'});
+projectDashboard('project', {}, {dataset: 'live', userId: 'actor', tenantId: 'tenant'});
+const count: number = projectDashboard('analytics', {}, scope).metrics[0].value;
+const source: 777 = projectDashboard('project', {}, scope).sourceApiId;
+dashboardFamilies.push('invented');
+`);
+  assert.equal(diagnostics.length, 6, describe(diagnostics).join('\n'));
+  assert.deepEqual(diagnostics.map(d => d.code), [2345, 2322, 2345, 2322, 2322, 2339]);
+});
+
 for (const [path, runtime] of [
   ['tenant-dashboard/core', core], ['tenant-dashboard/view', tenant], ['coordinator-charge/view', charge],
+  ['dashboard-pages/projection', dashboard],
 ]) test(path + ' declaration names match every runtime export', () => {
   const filename = resolve(root, 'packages/shared/src/' + path + '.d.mts');
   const source = ts.createSourceFile(filename, readFileSync(filename, 'utf8'), ts.ScriptTarget.ES2022, true);

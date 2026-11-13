@@ -13,6 +13,8 @@ on:
       - tools/auth-verification/owned_inbox.py
       - tools/auth-verification/accepted-auth-live-proof-release.json
       - scripts/verify-auth-live-proof-source.mjs
+      - packages/shared/src/dashboard-pages/projection.d.mts
+      - scripts/test-typescript-strict-contracts.mjs
       - tools/auth-verification/test-auth-live-proof-source.mjs
       - tools/deployment/typescript_release.py
       - tools/deployment/test_typescript_release.py
