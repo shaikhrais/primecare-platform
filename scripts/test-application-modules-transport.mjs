@@ -20,6 +20,14 @@ test('profile retains a valid maximum-length identity label',async()=>{
  const label='x'.repeat(500),port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>({token:'captured',scope}),{identity:label},async()=>Response.json(identity));
  assert.equal((await port.read(query,new AbortController().signal)).items[0].title,label);port.dispose();
 });
+for(const mode of ['throw','dispose'])test('profile host context '+mode+' prevents dispatch',async()=>{
+ let calls=0,port;port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>{if(mode==='throw')throw Error('context unavailable');port.dispose();return{token:'captured',scope};},{identity:'Identity'},async()=>{calls++;return Response.json(identity);});
+ await assert.rejects(()=>port.read(query,new AbortController().signal),e=>e.code===(mode==='throw'?'denied':'unavailable'));assert.equal(calls,0);port.dispose();
+});
+test('profile failed network request rechecks a throwing host context as denial',async()=>{
+ let broken=false;const port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>{if(broken)throw Error('context unavailable');return{token:'captured',scope};},{identity:'Identity'},async()=>{broken=true;throw Error('offline');});
+ await assert.rejects(()=>port.read(query,new AbortController().signal),e=>e.code==='denied');port.dispose();
+});
 test('profile rejects malformed search values before any transport dispatch',async()=>{
  let calls=0;const p=profile(async()=>{calls++;return Response.json(identity);});
  for(const search of [null,undefined,{},[],0,true])await assert.rejects(()=>p.port.read({search,offset:0},new AbortController().signal),e=>e.code==='invalid'&&e.status===400);

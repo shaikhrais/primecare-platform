@@ -18,6 +18,30 @@ void main() {
       identityLabel: 'Identity', currentToken: token ?? () => 'captured-token', currentScope: current ?? () => scope,
       client: client, maxBytes: maxBytes);
   final denied = throwsA(isA<WorkFailure>().having((e) => e.code, 'code', 'denied'));
+  for (final tokenCallback in [false, true]) {
+    test('throwing host ${tokenCallback ? 'token' : 'scope'} callback denies before dispatch', () async {
+      var calls = 0;
+      final client = TrackedClient((_) async { calls++; return http.Response(jsonEncode(identity), 200); });
+      final p = port(client, token: tokenCallback ? () => throw StateError('context unavailable') : null,
+        current: tokenCallback ? null : () => throw StateError('context unavailable'));
+      await expectLater(p.read(const WorkQuery()), denied); expect(calls, 0); p.dispose(); expect(client.closed, false); client.close();
+    });
+    test('host ${tokenCallback ? 'token' : 'scope'} disposal prevents borrowed-client dispatch', () async {
+      var calls = 0;
+      final client = TrackedClient((_) async { calls++; return http.Response(jsonEncode(identity), 200); });
+      late ApplicationProfilePort p;
+      p = port(client, token: tokenCallback ? () { p.dispose(); return 'captured-token'; } : null,
+        current: tokenCallback ? null : () { p.dispose(); return scope; });
+      await expectLater(p.read(const WorkQuery()), throwsA(isA<WorkFailure>().having((e) => e.code, 'code', 'unavailable')));
+      expect(calls, 0); expect(client.closed, false); client.close();
+    });
+  }
+  test('failed network request rechecks a throwing host context as denial', () async {
+    var broken = false;
+    final p = port(MockClient((_) async { broken = true; throw StateError('offline'); }),
+      current: () { if (broken) throw StateError('context unavailable'); return scope; });
+    await expectLater(p.read(const WorkQuery()), denied); p.dispose();
+  });
   test('registered self identity becomes a read-only profile snapshot', () async {
     final requests = <http.Request>[];
     final p = port(MockClient((r) async { requests.add(r); return http.Response(jsonEncode(identity), 200); }));
@@ -86,3 +110,4 @@ void main() {
       currentToken: () => 'token', currentScope: () => scope), throwsA(isA<WorkFailure>()));
   });
 }
+

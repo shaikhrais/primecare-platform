@@ -39,8 +39,13 @@ class ApplicationProfilePort implements WorkPort {
 
   void _check() {
     if (_dead) throw const WorkFailure('unavailable');
-    final now = currentScope();
-    if (currentToken() != _token || now == null || !now.same(scope)) {
+    var matches = false;
+    try {
+      final now = currentScope();
+      matches = currentToken() == _token && now != null && now.same(scope);
+    } catch (_) { /* Failed host context must not become an authorized request. */ }
+    if (_dead) throw const WorkFailure('unavailable');
+    if (!matches) {
       throw const WorkFailure('denied', 403);
     }
   }
@@ -104,3 +109,4 @@ class ApplicationProfilePort implements WorkPort {
   @override
   void dispose() { if (_dead) return; _dead = true; if (_owned) _client.close(); }
 }
+
