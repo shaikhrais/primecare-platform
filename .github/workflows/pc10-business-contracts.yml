@@ -1,4 +1,4 @@
-name: Register native PC10 host and inspect contracts
+name: Register and verify native PC10 applications
 on:
   push:
     branches: [main]
@@ -6,6 +6,8 @@ on:
       - 'tools/governance-production/pc10-business-contract-discovery.mjs'
       - 'tools/governance-production/native-application-host-registration.mjs'
       - 'scripts/test-native-application-host-registration.mjs'
+      - 'tools/auth-verification/native-application-live.dart'
+      - 'tools/auth-verification/test-live-pc10-native.py'
       - '.github/workflows/pc10-business-contracts.yml'
 permissions: {contents: read}
 concurrency:
@@ -14,7 +16,7 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
@@ -24,11 +26,20 @@ jobs:
           npm install --prefix /tmp/pc10-native-link-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14
           ln -s /tmp/pc10-native-link-tools/node_modules node_modules
           node scripts/test-native-application-host-registration.mjs
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - name: Compile the owned native proof before creating any production actors
+        run: |
+          cp tools/auth-verification/native-application-live.dart packages/primecare_ui/test/owned_native_live_test.dart
+          cd packages/primecare_ui
+          flutter analyze --no-fatal-infos test/owned_native_live_test.dart
   register-and-read:
     needs: test
     runs-on: ubuntu-24.04
     environment: production
-    timeout-minutes: 5
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
@@ -44,3 +55,21 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REGISTER_PC10_NATIVE_HOST: '1'
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: subosito/flutter-action@v2
+        with: {flutter-version: '3.41.5', channel: stable, cache: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install 'psycopg[binary]' bcrypt
+      - run: flutter pub get
+        working-directory: packages/primecare_ui
+      - name: Verify actual native host against owned production API and independent SQL
+        run: python tools/auth-verification/test-live-pc10-native.py
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pc10-owned-native-production
+          path: |
+            test-results/pc10-native/owned-native.json
+            test-results/pc10-native/dart-owned.json
