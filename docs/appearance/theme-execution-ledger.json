@@ -5275,6 +5275,18 @@
     ],
     "staticCompositions": [
       {
+        "path": "websites/typescript/src/tenant-dashboard/read-page-host.ts",
+        "symbol": "ApplicationProfilePort",
+        "line": 33,
+        "classification": "static_constructor_candidate_not_runtime_acceptance"
+      },
+      {
+        "path": "websites/typescript/src/tenant-dashboard/shortcut-settings-host.ts",
+        "symbol": "ApplicationSettingsPort",
+        "line": 20,
+        "classification": "static_constructor_candidate_not_runtime_acceptance"
+      },
+      {
         "path": "websites/typescript/src/tenant-dashboard/work-module-host.ts",
         "symbol": "TenantTaskModulePort",
         "line": 23,
