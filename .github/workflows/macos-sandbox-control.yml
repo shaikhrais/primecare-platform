@@ -1,0 +1,25 @@
+name: Diagnose nested App Sandbox startup
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/macos-sandbox-control.yml'
+      - 'scripts/diagnose-macos-nested-sandbox.py'
+  workflow_dispatch:
+permissions: {contents: read}
+concurrency:
+  group: macos-sandbox-control-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  control:
+    runs-on: macos-26-intel
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - run: python3 scripts/diagnose-macos-nested-sandbox.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: macos-sandbox-control
+          path: macos-sandbox-control.json
