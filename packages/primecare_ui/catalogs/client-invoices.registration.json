@@ -1,0 +1,146 @@
+{
+  "format": 1,
+  "kind": "verified_metadata_export",
+  "source": {
+    "commit": "39b17eefcf6febed1d5b45c803088087b2623fb9",
+    "runId": 43476246629,
+    "jobId": 132060936857,
+    "attempt": 1
+  },
+  "host": {
+    "screenId": 665,
+    "screenCode": "client_profile",
+    "route": "/clinic/client-profile",
+    "role": "guest",
+    "sourceFile": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart"
+  },
+  "api": {
+    "id": 16432,
+    "path": "/v1/client/invoices",
+    "method": "GET",
+    "permission": "authenticated_client_profile_owner"
+  },
+  "controls": [
+    {
+      "key": "panel",
+      "testId": "client-invoices-panel",
+      "componentCode": "prime_card",
+      "resourceKey": "clientInvoices.title",
+      "controlId": 823
+    },
+    {
+      "key": "refresh",
+      "testId": "client-invoices-refresh",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.refresh",
+      "controlId": 824
+    },
+    {
+      "key": "previous",
+      "testId": "client-invoices-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.previous",
+      "controlId": 825
+    },
+    {
+      "key": "next",
+      "testId": "client-invoices-next",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.next",
+      "controlId": 826
+    },
+    {
+      "key": "status",
+      "testId": "client-invoices-status",
+      "componentCode": "prime_card",
+      "resourceKey": "clientInvoices.status",
+      "controlId": 827
+    }
+  ],
+  "locales": {
+    "en": {
+      "title": "Your invoices",
+      "refresh": "Refresh invoices",
+      "previous": "Previous invoices",
+      "next": "Next invoices",
+      "status": "Invoice status",
+      "id": "Invoice",
+      "currency": "Currency",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "total": "Total",
+      "created_at": "Created",
+      "updated_at": "Updated",
+      "loading": "Loading invoices",
+      "empty": "No invoices found",
+      "error": "Unable to read invoices. Try again.",
+      "missing": "Not recorded",
+      "page": "Page",
+      "of": "of"
+    },
+    "fr": {
+      "title": "Vos factures",
+      "refresh": "Actualiser les factures",
+      "previous": "Factures précédentes",
+      "next": "Factures suivantes",
+      "status": "État des factures",
+      "id": "Facture",
+      "currency": "Devise",
+      "subtotal": "Sous-total",
+      "tax": "Taxe",
+      "total": "Total",
+      "created_at": "Création",
+      "updated_at": "Mise à jour",
+      "loading": "Chargement des factures",
+      "empty": "Aucune facture trouvée",
+      "error": "Impossible de lire les factures. Réessayez.",
+      "missing": "Non renseigné",
+      "page": "Page",
+      "of": "sur"
+    },
+    "es": {
+      "title": "Sus facturas",
+      "refresh": "Actualizar facturas",
+      "previous": "Facturas anteriores",
+      "next": "Facturas siguientes",
+      "status": "Estado de facturas",
+      "id": "Factura",
+      "currency": "Moneda",
+      "subtotal": "Subtotal",
+      "tax": "Impuesto",
+      "total": "Total",
+      "created_at": "Creada",
+      "updated_at": "Actualizada",
+      "loading": "Cargando facturas",
+      "empty": "No se encontraron facturas",
+      "error": "No se pueden leer las facturas. Inténtelo de nuevo.",
+      "missing": "Sin registrar",
+      "page": "Página",
+      "of": "de"
+    }
+  },
+  "resourceIds": {
+    "clientInvoices.created_at": 2506,
+    "clientInvoices.currency": 2502,
+    "clientInvoices.empty": 2509,
+    "clientInvoices.error": 2510,
+    "clientInvoices.id": 2501,
+    "clientInvoices.loading": 2508,
+    "clientInvoices.missing": 2511,
+    "clientInvoices.next": 2499,
+    "clientInvoices.of": 2513,
+    "clientInvoices.page": 2512,
+    "clientInvoices.previous": 2498,
+    "clientInvoices.refresh": 2497,
+    "clientInvoices.status": 2500,
+    "clientInvoices.subtotal": 2503,
+    "clientInvoices.tax": 2504,
+    "clientInvoices.title": 2496,
+    "clientInvoices.total": 2505,
+    "clientInvoices.updated_at": 2507
+  },
+  "runtimeActivated": false,
+  "reviewApproved": false,
+  "newRoleGrants": 0,
+  "contractSha256": "89792ce53cf74689b79fe2782252b50e7d8a65184ae16d73b03db21de29d277d"
+}

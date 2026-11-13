@@ -1,3 +1,4 @@
+import {mountClientInvoices} from './client-invoice-host';
 import {requireScreenManager, showScreenConfigurationError, ScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
 import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
 import {mutationActorForScreen,accountCreationMarkup,bindAccountCreation} from './account-mutations-panel';
@@ -58,7 +59,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   workspaceOwners.get(root)?.();workspaceRestores.delete(root);
   const generation=(workspaceLoads.get(root)??0)+1;workspaceLoads.set(root,generation);
   const eventTarget=root.ownerDocument.defaultView??window;
-  let retired=false,suspended=false;let disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
+  let retired=false,suspended=false;let disposeInvoices=()=>{},disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
   let renderVersion=0,dirtyForm=false;
   const onInput=()=>{dirtyForm=true;};
   const ownsRoot=()=>!retired&&workspaceLoads.get(root)===generation;
@@ -73,7 +74,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   };
   const retire=()=>{
     if(retired)return;retired=true;renderVersion++;
-    disposeCalls();disposeCalls=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
     if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);manager.registerScope('workspace',[]);}
   };
@@ -93,7 +94,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   };
   const leave=(event:PageTransitionEvent)=>{
     if(!ownsRoot())return;
-    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};manager.registerScope('workspace',[]);
+    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};manager.registerScope('workspace',[]);
     workspaceRestores.delete(root);
     if(!event.persisted)retire();
   };
@@ -178,7 +179,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     return sessionCurrent();
   };
   const handoff=(route:string,replace=false)=>{
-    handingOff=true;renderVersion++;disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    handingOff=true;renderVersion++;disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     if(replace)location.replace(routeUrl(route));else location.assign(routeUrl(route));
   };
   const navigate=(route:string,active:()=>boolean)=>{
@@ -191,7 +192,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const draw=()=>{
     if(!currentNavigation())return;
     const version=++renderVersion;
-    disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};
+    disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};
     const inventoryOpen=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]')?.open??false;
     let page=data.screens.find(s=>s.route===location.pathname);
     if(location.pathname==='/' || location.pathname==='/dashboard') {
@@ -268,6 +269,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&mutationActorForScreen(page.code,data.identity.role)&&!account){root.querySelector('main')!.insertAdjacentHTML('beforeend',accountCreationMarkup());disposeAccountCreation=bindAccountCreation(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
+    if(page&&!account)disposeInvoices=mountClientInvoices(root,{gateway,token,page,identity:data.identity,locale,isCurrent:active});
     disposeAccount=bindAccount(root,gateway,token,text('request_failed'),text('unavailable'),active);
   };
   redraw=draw;

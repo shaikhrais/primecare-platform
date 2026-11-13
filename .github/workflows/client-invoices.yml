@@ -1,0 +1,52 @@
+name: Client invoice read host
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/client-invoices/**'
+      - 'packages/primecare_ui/web/client-invoices.ts'
+      - 'packages/primecare_ui/catalogs/client-invoices.registration.json'
+      - 'websites/typescript/src/client-invoice-host.ts'
+      - 'websites/typescript/src/workspace.ts'
+      - 'scripts/client-invoices-fixture.mjs'
+      - 'scripts/test-client-invoices*.mjs'
+      - '.github/workflows/client-invoices.yml'
+permissions: {contents: read}
+jobs:
+  web:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/client-invoice-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 @twilio/voice-sdk@2.18.5
+          ln -s /tmp/client-invoice-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          node --test scripts/test-client-invoices.mjs scripts/test-client-invoices-view.mjs scripts/test-client-invoices-api.mjs scripts/test-typescript-strict-contracts.mjs
+          node scripts/test-client-invoices-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule websites/typescript/src/workspace.ts packages/primecare_ui/web/client-invoices.ts
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: invoice_test, POSTGRES_PASSWORD: isolated, POSTGRES_DB: preference_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U invoice_test -d preference_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      PREFERENCE_TEST_DATABASE_URL: postgresql://invoice_test:isolated@127.0.0.1:5432/preference_test
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/client-invoice-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0 @twilio/voice-sdk@2.18.5
+          ln -s /tmp/client-invoice-tools/node_modules node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+          node --test scripts/test-client-invoices-api.mjs
+          node scripts/test-client-invoices-browser.mjs
