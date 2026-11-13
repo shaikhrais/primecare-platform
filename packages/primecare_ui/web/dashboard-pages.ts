@@ -43,7 +43,10 @@ export function bindReadPage<P>(root:HTMLElement,session:ReadPageSession<P>,rend
   owner.dirty=false;revision++;
   const state=session.state;
   if(!current())return;
-  if(state.projection){render(state.projection);return;}
+  if(state.projection){
+   try{render(state.projection);}catch(error){if(current())statusNote('error');throw error;}
+   return;
+  }
   statusNote(state.status);
  };
  owner.refresh=draw;

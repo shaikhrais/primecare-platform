@@ -7,6 +7,18 @@ const {bindReadPage,bindDashboardPage,bindRecordPage}=await import('data:text/ja
 const labels={title:'Dashboard',demo:'Demo',live:'Live',ready:'Ready',empty:'Empty',activity:'Activity',bounded:'Bounded records',denied:'Denied',unavailable:'Unavailable',loading:'Loading',error:'Error',idle:'Idle',disposed:'Closed',metrics:{}};
 function session(projection){const listeners=new Set(),captured=[];const value={state:{status:'ready',projection},loads:0,disposals:0,subscribe(fn){captured.push(fn);listeners.add(fn);return()=>listeners.delete(fn);},load(){value.loads++;return Promise.resolve();},dispose(){value.disposals++;value.onDispose?.();},emit(projection){value.state={status:'ready',projection};for(const fn of [...listeners])fn();},listeners,captured};return value;}
 function fixture(){const {document}=parseHTML('<html><body><main></main></body></html>');const root=document.querySelector('main'),render=projection=>root.textContent=projection.title;return {document,root,render};}
+for(const partial of [false,true])test('failed live read-page rendering clears '+(partial?'partial':'previous')+' projection',()=>{
+ const f=fixture(),s=session({title:'Initial'});let fail=false;
+ const close=bindReadPage(f.root,s,projection=>{if(fail){if(partial)f.render({title:'Partial sensitive output'});throw Error('render failed');}f.render(projection);},labels);
+ fail=true;assert.throws(()=>s.emit({title:'New result'}),/render failed/);
+ assert.equal(f.root.textContent,'Error');assert.equal(f.root.firstChild.getAttribute('role'),'alert');assert.equal(s.disposals,0);
+ fail=false;s.emit({title:'Recovered'});assert.equal(f.root.textContent,'Recovered');close();
+});
+test('failed live rendering does not clear a synchronously installed replacement owner',()=>{
+ const f=fixture(),s=session({title:'Initial'});let replace=false,closeNext;
+ const close=bindReadPage(f.root,s,projection=>{if(replace){replace=false;closeNext=bindReadPage(f.root,session({title:'Replacement'}),f.render,labels);throw Error('old render failed');}f.render(projection);},labels);
+ replace=true;assert.throws(()=>s.emit({title:'Old result'}),/old render failed/);assert.equal(f.root.textContent,'Replacement');close();assert.equal(f.root.textContent,'Replacement');closeNext();
+});
 test('repeated old cleanup and captured callbacks cannot clear or repaint a replacement read page',()=>{
  const f=fixture(),old=session({title:'Old'}),closeOld=bindReadPage(f.root,old,f.render,labels);closeOld();const current=session({title:'Current'}),closeCurrent=bindReadPage(f.root,current,f.render,labels);closeOld();old.state.projection={title:'Late old result'};old.captured[0]();assert.equal(f.root.textContent,'Current');assert.equal(old.disposals,1);assert.equal(current.disposals,0);closeCurrent();assert.equal(f.root.textContent,'');assert.equal(current.disposals,1);
 });
