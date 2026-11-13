@@ -20,11 +20,15 @@ export function installPortalPresentation(root: HTMLElement, theme: Record<strin
   const css = root.ownerDocument.defaultView?.CSS;
   if (css && !css.supports('color', theme['--color-primary'])) throw Error('Screen Manager: Invalid portal primary color');
   const host = root.ownerDocument.documentElement;
+  const language = liveScreenText(gateway);
+  // Establish ownership before changing shared document tokens. If the root
+  // already has a shell owner, release only the scroll scope acquired here.
+  const documentScroll = new PortalDocumentScroll(root);
+  let environment: ShellEnvironment;
+  try { environment = new ShellEnvironment(root, 'ltr'); }
+  catch (error) { documentScroll.dispose(); throw error; }
   for (const [property, value] of Object.entries({...theme, ...solidTheme})) host.style.setProperty(property, value);
   host.dataset.surfaceStyle = 'solid';
-  const language = liveScreenText(gateway);
-  const environment = new ShellEnvironment(root, 'ltr');
-  const documentScroll = new PortalDocumentScroll(root);
   const manager = new ScreenManager({
     layout: screen => {environment.routeChanged(screen.id);mountPresentationLayout(root,theme);},
     theme: () => {

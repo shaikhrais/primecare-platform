@@ -9,7 +9,7 @@ const importCode = async options => {
 const core = await importCode({entryPoints:['packages/primecare_ui/web/screen-manager.ts']});
 const {ScreenManager, ScreenConfigurationError} = core;
 const {resolveManagedRoute} = await importCode({entryPoints:['websites/typescript/src/managed-routes.ts']});
-const presentation = await importCode({stdin:{contents:`export {installPortalPresentation} from './websites/typescript/src/screen-presentation';export {ScreenManager,installScreenManager,requireScreenManager} from './packages/primecare_ui/web/screen-manager';`,resolveDir:process.cwd()}});
+const presentation = await importCode({stdin:{contents:`export {installPortalPresentation} from './websites/typescript/src/screen-presentation';export {ScreenManager,installScreenManager,requireScreenManager} from './packages/primecare_ui/web/screen-manager';export {ShellEnvironment} from './packages/primecare_ui/web/shell-environment';export {PortalDocumentScroll} from './websites/typescript/src/document-scroll';`,resolveDir:process.cwd()}});
 const connectionNames = ['layout','theme','language','responsive'];
 const connections = () => Object.fromEntries(connectionNames.map(name=>[name,()=>{}]));
 const registration = (id='one',route='/one') => ({id,route,kind:'governed',adapter:'workspace'});
@@ -123,6 +123,44 @@ test('a preinstalled manager rejects portal setup before acquiring environment o
 test('missing root manager clears previous protected content and reports a developer error',()=>{
   const {root}=browser('/one');root.innerHTML='private';assert.throws(()=>core.requireScreenManager(root),/Missing manager/);
   assert.equal(root.innerHTML,'');assert.match(root.children[0].textContent,/Missing manager/);
+});
+
+function documentOwnerFixture(){
+ const f=browser('/login');f.root.isConnected=true;f.root.parentElement=f.doc.body;
+ f.doc.defaultView.location={href:'https://fixture.invalid/login',pathname:'/login',hash:''};
+ f.doc.documentElement.style.setProperty('--color-primary','#123456');
+ return {...f,listenerCount:()=>[...f.events.values()].reduce((sum,set)=>sum+set.size,0)};
+}
+test('rejected shell ownership preserves the existing environment and document theme',async()=>{
+ const f=documentOwnerFixture(),owner=new presentation.ShellEnvironment(f.root,'rtl');
+ const marker=f.root.getAttribute('data-pc-shell-environment'),scroll=f.root.style.scrollbarColor;
+ try{
+  assert.throws(()=>presentation.installPortalPresentation(f.root,{'--color-primary':'#ff0000','--rejected-token':'bad'},'https://gateway.invalid'),/invalid_shell_environment/);
+  assert.equal(f.doc.documentElement.style.getPropertyValue('--color-primary'),'#123456');
+  assert.equal(f.doc.documentElement.style.getPropertyValue('--rejected-token'),'');
+  assert.equal(f.root.getAttribute('data-pc-shell-environment'),marker);
+  assert.equal(f.root.style.scrollbarColor,scroll);assert.equal(f.root.dir,'rtl');
+  assert.equal(f.listenerCount(),0);assert.doesNotThrow(()=>owner.routeChanged('still-owned'));
+ }finally{await owner.dispose();}
+});
+test('rejected document-scroll ownership preserves its listeners, root and theme',()=>{
+ const f=documentOwnerFixture(),owner=new presentation.PortalDocumentScroll(f.root),listeners=f.listenerCount();
+ try{
+  assert.throws(()=>presentation.installPortalPresentation(f.root,{'--color-primary':'#ff0000','--rejected-token':'bad'},'https://gateway.invalid'),/already has an owner/);
+  assert.equal(f.doc.documentElement.style.getPropertyValue('--color-primary'),'#123456');
+  assert.equal(f.doc.documentElement.style.getPropertyValue('--rejected-token'),'');
+  assert.equal(f.root.getAttribute('data-pc-shell-environment'),null);
+  assert.equal(f.listenerCount(),listeners);
+  assert.doesNotThrow(()=>owner.routeChanged({id:'login',route:'/login',kind:'public',adapter:'login'}));
+ }finally{owner.dispose();}
+});
+test('failed scroll ownership does not leak a shell environment into a later valid mount',()=>{
+ const f=documentOwnerFixture(),owner=new presentation.PortalDocumentScroll(f.root);
+ assert.throws(()=>presentation.installPortalPresentation(f.root,{'--color-primary':'#006b68'},'https://gateway.invalid'),/already has an owner/);
+ owner.dispose();
+ const manager=presentation.installPortalPresentation(f.root,{'--color-primary':'#006b68'},'https://gateway.invalid');
+ assert.equal(presentation.requireScreenManager(f.root),manager);
+ manager.registerScope('entry',[registration()]);assert.equal(manager.enter('one','/one').id,'one');
 });
 
 const rendererExports={
