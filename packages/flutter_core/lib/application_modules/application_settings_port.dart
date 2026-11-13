@@ -20,9 +20,10 @@ class ApplicationSettingsPort implements WorkPort {
     required Map<String,String> labels,List<String> defaults=const [],this.closeTransport})
       :names=Map.unmodifiable(names),labels=Map.unmodifiable(labels),defaults=List.unmodifiable(defaults){
     if(binding.kind!='shortcuts'||binding.resource!='navigation'||binding.scope.dataset!='live'||
-      names.entries.any((e)=>!binding.screenIds.contains(e.key)||e.value.trim().isEmpty||e.value.length>100||RegExp(r'[\r\n]').hasMatch(e.value))||
+      names.entries.any((e)=>!binding.screenIds.contains(e.key)||e.value.trim().isEmpty||e.value!=e.value.trim()||e.value.length>100||RegExp(r'[\r\n]').hasMatch(e.value))||
       names.values.toSet().length!=names.length||defaults.any((id)=>!names.containsKey(id))||
       ['shortcuts','editShortcuts'].any((k)=>labels[k]==null||labels[k]!.trim().isEmpty))throw const WorkFailure('invalid',400);
+    try{preferenceDocument('shortcuts',{'version':1,'screenIds':List<String>.from(defaults)},binding);}catch(_){throw const WorkFailure('invalid',400);}
     _client=PreferenceSyncClient(binding:binding,transport:(request)async{_lastError=null;try{return await transport(request);}catch(e){_lastError=e;rethrow;}},cache:_SettingsCache(cache),uuid:()=>_wireKey);
   }
   factory ApplicationSettingsPort.authenticated({required Uri origin,required String token,required PreferenceBinding binding,required PreferenceCache cache,
@@ -70,3 +71,4 @@ class ApplicationSettingsPort implements WorkPort {
   Map<String,dynamic> get recovery=>_client.current;
   @override void dispose(){if(_dead)return;_dead=true;_client.dispose();_commands.clear();_confirmed=null;closeTransport?.call();}
 }
+

@@ -25,6 +25,27 @@ void main(){
  Map<String,dynamic> clone(Object? v)=>Map<String,dynamic>.from(jsonDecode(jsonEncode(v)) as Map);
  ApplicationSettingsPort port(PreferenceTransport transport,[SettingsCache? cache])=>ApplicationSettingsPort(binding:binding,transport:transport,cache:cache??SettingsCache(),names:names,labels:labels,defaults:defaults);
  WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
+ test('native settings rejects duplicate and oversized default shortcut documents',(){
+  final ids=List<String>.generate(31,(i)=>'${i+1}'),options={for(final id in List<String>.generate(31,(i)=>'${i+1}'))id:'Screen $id'};
+  final largeBinding=PreferenceBinding(scope:scope,kind:'shortcuts',resource:'navigation',screenIds:ids);
+  for(final selected in [<String>['1','1'],ids]){
+   expect(()=>ApplicationSettingsPort(binding:largeBinding,transport:(_)async=>throw StateError('No transport'),cache:SettingsCache(),names:options,labels:labels,defaults:selected),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','invalid')));
+  }
+ });
+ test('native settings rejects names that cannot round-trip through its editor',(){
+  for(final name in [' Overview','Overview ','\tOverview']){
+   expect(()=>ApplicationSettingsPort(binding:binding,transport:(_)async=>throw StateError('No transport'),cache:SettingsCache(),names:{'1':name},labels:labels,defaults:['1']),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','invalid')));
+  }
+ });
+ test('native settings preserves empty and thirty-item default selections',()async{
+  final ids=List<String>.generate(30,(i)=>'${i+1}'),options={for(final id in List<String>.generate(30,(i)=>'${i+1}'))id:'Screen $id'};
+  final largeBinding=PreferenceBinding(scope:scope,kind:'shortcuts',resource:'navigation',screenIds:ids);
+  final raw={'version':1,'scope':scope.toJson(),'kind':'shortcuts','resource':'navigation','revision':0,'document':null};
+  for(final selected in [<String>[],ids]){
+   final p=ApplicationSettingsPort(binding:largeBinding,transport:(_)async=>raw,cache:SettingsCache(),names:options,labels:labels,defaults:selected);
+   final result=(await p.read(const WorkQuery())) as Map;expect((result['items'] as List).single['body'],selected.map((id)=>options[id]!).join('\n'));p.dispose();
+  }
+ });
  test('native settings defaults, empty values and selected names match the web projection',()async{
   for(final value in oracle['cases'] as List){final c=value as Map,p=port((_)async=>clone(c['raw']));expect(await p.read(const WorkQuery()),c['expected']);p.dispose();}
  });
@@ -78,3 +99,4 @@ void main(){
   final reply=Completer<Object?>(),p=port((_)=>reply.future),pending=p.read(const WorkQuery());await Future<void>.delayed(Duration.zero);p.dispose();reply.complete((oracle['cases'] as List).first['raw']);await expectLater(pending,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));
  });
 }
+
