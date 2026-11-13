@@ -11,6 +11,8 @@ const accepted=JSON.parse(await readFile(new URL('../auth-verification/accepted-
 export const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(k=>[k,v[k]])):v);
 const fingerprint=value=>createHash('sha256').update(canonical(value)).digest('hex');
 const table=name=>'"'+pin.schema+'"."'+pin.tablePrefix+name+'"';
+let enabledReceipt=null;
+try{enabledReceipt=JSON.parse(await readFile(new URL('../../docs/appearance/pc10-preferences-activation.json',import.meta.url)));}catch(error){if(error.code!=='ENOENT')throw error;}
 const expected=accepted.currentCodeRelease;
 const retryBaseline=JSON.parse(await readFile(new URL('./pc10-preference-retry-baseline.json',import.meta.url)));
 const worker='primecare-auth-api',base='/workers/scripts/'+worker,journalPath='test-results/pc10-preferences/activation.json';
@@ -34,6 +36,10 @@ export function reviewedRetrySettings({before,latestVersion,etag,settings},plan)
  flag.text='0';activationSettings(normalized);
  if(fingerprint(normalized.bindings)!==plan.disabledBindingFingerprint)throw Error('Rollback bindings changed beyond staged preference flag');
  return normalized;
+}
+export function verifyAlreadyActive(receipt,before,etag){
+ if(receipt?.runtimeActivated!==true||receipt.worker!=='primecare-auth-api'||receipt.apiId!==777||receipt.codePreserved!==true||receipt.bindingsPreserved!==true||receipt.schedulesPreserved!==true||receipt.grantsChanged!==0||receipt.ownedProof?.passed!==true||receipt.ownedProof?.exactSyntheticCleanup!==true||receipt.evidence?.workflow!=='.github/workflows/pc10-preference-activation.yml'||receipt.evidence?.conclusion!=='success'||before.id!==receipt.active?.id||before.version!==receipt.active?.version||etag!==receipt.codeEtag)throw Error('Reviewed enabled runtime changed; no activation performed');
+ return true;
 }
 export async function promoteMetadata(db,{apply=false,restore=false}={}){
  await checkPreferenceDefinition();await readbackPreferences(db);
@@ -71,6 +77,7 @@ async function main(){
  try{
   if(rollback){
    let journal;try{journal=JSON.parse(await readFile(journalPath));}catch(error){if(error.code==='ENOENT')return;throw error;}
+   if(journal.source===source&&journal.alreadyActive===true){console.log('PC10_PROOF_ONLY_NO_ROLLBACK '+JSON.stringify({source,existingRuntimeLeftUnchanged:true}));return;}
    if(journal.source!==source||journal.before?.version!==expected.versionId)throw Error('Rollback journal identity mismatch');
    const active=await deployment();
    if(active.version!==journal.before.version){
@@ -91,6 +98,17 @@ async function main(){
   }
   const before=await deployment(),uploadedSettings=await api(base+'/settings'),schedules=await api(base+'/schedules'),latestVersion=await latest();
   const oldVersion=await api(base+'/versions/'+before.version),etag=oldVersion.resources?.script?.etag;
+  if(enabledReceipt){
+   verifyAlreadyActive(enabledReceipt,before,etag);
+   const registration=await readbackPreferences(db);
+   const metadata=await promoteMetadata(db);
+   if(metadata.previousStatus!=='implemented-unverified'||registration.independentReadback!==true)throw Error('Enabled metadata drifted');
+   const probe=await fetch('https://primecare-auth-api.itpro-mohammed.workers.dev/user/preferences',{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(30000)});
+   const body=await probe.json();if(probe.status!==401||body.error!=='unauthenticated')throw Error('Enabled runtime probe changed');
+   const result={source,before,active:before,alreadyActive:true,runtimeActivated:true,metadataChanged:false,grantsChanged:0,codePreserved:true};
+   if(apply)await saveJournal(result);
+   console.log('PC10_PREFERENCES_ALREADY_ACTIVE '+JSON.stringify(result));return;
+  }
   let settings=uploadedSettings,reviewedStaged=false;
   if(before.id===expected.deploymentId&&before.version===expected.versionId&&latestVersion===before.version){
    if(!etag||settings.bindings.find(b=>b.name==='PREFERENCE_SYNC_ENABLED')?.text!=='0')throw Error('Expected disabled code version required');
