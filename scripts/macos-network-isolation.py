@@ -29,8 +29,14 @@ class NetworkIsolation:
     def command(self, command, environment):
         if not self.created:
             raise RuntimeError('Network isolation group is unavailable')
-        return ['sudo', '-n', '-u', pwd.getpwuid(os.getuid()).pw_name, '-g', self.group,
-                '/usr/bin/env', '-i', *[f'{key}={value}' for key, value in environment.items()], *command]
+        # Enter the dedicated group via a tiny root bootstrap, then drop all
+        # supplementary groups and root before exec. The runner sudo policy
+        # need not permit an arbitrary run-as group for the runner account.
+        bootstrap = 'import os,sys;os.setgroups([]);os.setgid(int(sys.argv[2]));os.setuid(int(sys.argv[1]));os.execv(sys.argv[3],sys.argv[3:])'
+        return ['sudo', '-n', '/usr/bin/env', '-i', sys.executable, '-I', '-S', '-c', bootstrap,
+                str(os.getuid()), str(self.gid), '/usr/bin/env', '-i',
+                *[f'{key}={value}' for key, value in environment.items()], *command]
+
 
     def __enter__(self):
         if sys.platform != 'darwin' or os.getuid() == 0:
@@ -111,7 +117,9 @@ print(json.dumps({'uid':os.getuid(),'gid':os.getgid(),'connected':ok}))
                     targets.append((family, kind, host, server.getsockname()[1]))
             targets.append((socket.AF_INET, socket.SOCK_STREAM, '1.1.1.1', 443))
             for family, kind, host, port in targets:
-                result = subprocess.run(self.command([sys.executable, '-c', probe, str(family), str(kind), host, str(port), secrets.token_hex(8)], environment), check=True, capture_output=True, text=True, timeout=8)
+                result = subprocess.run(self.command([sys.executable, '-c', probe, str(family), str(kind), host, str(port), secrets.token_hex(8)], environment), check=False, capture_output=True, text=True, timeout=8)
+                if result.returncode != 0:
+                    raise RuntimeError('Probe child failed: ' + result.stderr[-2048:])
                 value = json.loads(result.stdout)
                 if value.get('uid') != os.getuid() or value.get('gid') != self.gid or value.get('connected') is not (not blocked):
                     raise RuntimeError(f'Network isolation probe failed: blocked={blocked}, family={family}, kind={kind}, host={host}, result={value}')
