@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/apple-artifact-tests.yml'
       - 'scripts/test-apple-build-artifacts.py'
+      - 'scripts/test-apple-artifact-scope.py'
   workflow_dispatch:
   workflow_run:
     workflows: ['Build macOS Distributions', 'Build iOS Distributions']
@@ -17,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   inventory:
-    if: github.event_name != 'workflow_run' || (github.event.workflow_run.head_sha == '785dcac644ef21e79aaa7e012154aee989bf71cf' && (github.event.workflow_run.id == 43328101727 || github.event.workflow_run.id == 43328101736))
+    if: github.event_name != 'workflow_run' || ((github.event.workflow_run.head_sha == '785dcac644ef21e79aaa7e012154aee989bf71cf' && (github.event.workflow_run.id == 43328101727 || github.event.workflow_run.id == 43328101736)) || (github.event.workflow_run.head_sha == '89273fca8fd30463a8b4c80f66106b8693601fa2' && github.event.workflow_run.id == 43349642502))
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
@@ -25,9 +26,12 @@ jobs:
       available: ${{ steps.inventory.outputs.available }}
     steps:
       - uses: actions/checkout@v4
+      - name: Verify producer scope and archive consumer fixtures
+        run: python3 scripts/test-apple-artifact-scope.py
       - id: inventory
         env:
           GH_TOKEN: ${{ github.token }}
+          BUILD_RUN_ID: ${{ github.event_name == 'push' && '43349642502' || github.event.workflow_run.id || '' }}
         run: python3 scripts/test-apple-build-artifacts.py discover
       - uses: actions/upload-artifact@v4
         with:
