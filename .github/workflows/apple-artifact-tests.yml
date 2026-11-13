@@ -1,0 +1,62 @@
+name: Test all available Apple build artifacts
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apple-artifact-tests.yml'
+      - 'scripts/test-apple-build-artifacts.py'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Build macOS Distributions', 'Build iOS Distributions']
+    types: [completed]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: apple-artifact-tests-${{ github.sha }}-${{ github.event.workflow_run.id || 'manual' }}
+  cancel-in-progress: false
+jobs:
+  inventory:
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.head_sha == '785dcac644ef21e79aaa7e012154aee989bf71cf' && (github.event.workflow_run.id == 43328101727 || github.event.workflow_run.id == 43328101736))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      matrix: ${{ steps.inventory.outputs.matrix }}
+      available: ${{ steps.inventory.outputs.available }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: inventory
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 scripts/test-apple-build-artifacts.py discover
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apple-artifact-coverage
+          path: apple-artifact-coverage.json
+  artifact:
+    needs: inventory
+    if: needs.inventory.outputs.available == 'true'
+    strategy:
+      fail-fast: false
+      max-parallel: 6
+      matrix: ${{ fromJSON(needs.inventory.outputs.matrix) }}
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify immutable artifact identity
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ITEM: ${{ toJSON(matrix) }}
+        run: python3 scripts/test-apple-build-artifacts.py metadata
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ matrix.id }}
+          run-id: ${{ matrix.run }}
+          github-token: ${{ github.token }}
+          path: apple-artifact
+          merge-multiple: true
+      - name: Test artifact with explicit runtime limitations
+        env:
+          ARTIFACT_ITEM: ${{ toJSON(matrix) }}
+        run: python3 scripts/test-apple-build-artifacts.py inspect
