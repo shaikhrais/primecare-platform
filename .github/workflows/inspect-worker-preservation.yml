@@ -15,6 +15,8 @@ on:
       - scripts/test-describe-worker-preservation.mjs
       - scripts/worker-secret-retention.mjs
       - scripts/test-worker-secret-retention.mjs
+      - scripts/generic-worker-release.mjs
+      - scripts/test-generic-worker-release.mjs
 
 permissions:
   contents: read
@@ -39,6 +41,7 @@ jobs:
           node --test scripts/test-generic-worker-observability.mjs
           node --test scripts/test-describe-worker-preservation.mjs
           node --test scripts/test-worker-secret-retention.mjs
+          node --test scripts/test-generic-worker-release.mjs
           node scripts/preserve-generic-worker-observability.mjs
       - name: Summarize non-secret live settings
         run: node scripts/describe-worker-preservation.mjs
@@ -48,7 +51,7 @@ jobs:
           set -uo pipefail
           failed=0
           for service in client provider visit notes billing scheduling notification verification compliance governance franchise-reporting gateway; do
-            if node scripts/check-generic-worker-deploy.mjs --service "$service"; then
+            if node scripts/generic-worker-release.mjs --check --service "$service"; then
               echo "$service: preservation check passed"
             else
               echo "::error::$service: preservation check failed; generic deployment remains blocked"
