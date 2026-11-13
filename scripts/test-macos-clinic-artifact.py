@@ -37,6 +37,24 @@ def verify_metadata():
     print(json.dumps({'artifact': ARTIFACT, 'source': SOURCE, 'identityVerified': True}))
 
 
+
+def startup_failure(code, log_path):
+    """Capture a bounded diagnostic before the isolated temporary HOME is removed."""
+    limit = 8192
+    try:
+        with log_path.open('rb') as stream:
+            stream.seek(0, os.SEEK_END)
+            size = stream.tell()
+            stream.seek(max(0, size - limit))
+            tail = stream.read(limit).decode('utf-8', errors='replace')
+        diagnostic = {'startupLogTail': tail, 'truncated': size > limit}
+    except OSError as error:
+        # A diagnostic read failure must not replace the original startup result.
+        diagnostic = {'startupLogUnavailable': type(error).__name__}
+    # JSON escapes newlines/control characters: child output cannot become an
+    # Actions workflow command or unbounded traceback content.
+    return f'Application exited during startup: {code}\n' + json.dumps(diagnostic)
+
 def launch(root):
     if sys.platform != 'darwin':
         raise RuntimeError('Native execution requires the prescribed macOS Actions runner')
@@ -74,7 +92,7 @@ def launch(root):
                 except subprocess.TimeoutExpired:
                     code = None
                 if code is not None:
-                    raise RuntimeError(f'Application exited during startup: {code}')
+                    raise RuntimeError(startup_failure(code, home / 'startup.log'))
             finally:
                 if process.poll() is None:
                     process.terminate()
