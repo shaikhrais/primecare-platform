@@ -1,0 +1,47 @@
+name: Diagnose unsigned Blueprint iOS build
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ios-blueprint-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+concurrency:
+  group: ios-blueprint-diagnostic-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  unsigned_blueprint:
+    runs-on: macos-26-intel
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Prepare existing Blueprint iOS project
+        working-directory: apps/primecare_enterprise_blueprint
+        run: |
+          flutter pub get
+          if [ ! -d ios/Runner.xcodeproj ]; then
+            flutter create --platforms=ios .
+          fi
+      - name: Diagnose unsigned device build and preserve its failure
+        working-directory: apps/primecare_enterprise_blueprint
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter build ios --release --no-codesign --verbose 2>&1 | tee "$RUNNER_TEMP/ios-blueprint-build.log"
+      - name: Retain underlying Xcode build diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-blueprint-build-diagnostics-${{ github.sha }}
+          path: ${{ runner.temp }}/ios-blueprint-build.log
+          if-no-files-found: error
+          retention-days: 7
