@@ -1,6 +1,6 @@
 {
   "format": 1,
-  "scope": "existing approved PC10 own cloud settings",
+  "scope": "existing approved PC10 own shortcut settings",
   "codeSource": "15c1be77fde175c2f397b78a893c2bf985db21db",
   "activationSource": "2ce301cbbae6c8d6a5473e18b32ad225763d19e1",
   "worker": "primecare-auth-api",
@@ -51,7 +51,9 @@
     "ungrantedRoleDenial": true,
     "staleRevisionDenial": true,
     "sessionTeardown": true,
-    "exactSyntheticCleanup": true
+    "exactSyntheticCleanup": true,
+    "kind": "shortcuts",
+    "resource": "navigation"
   },
   "limitations": [
     "No human accessibility or translation review approval",

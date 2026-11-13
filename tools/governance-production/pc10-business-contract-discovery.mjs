@@ -5,7 +5,7 @@ const raw=process.env.PRODUCTION_DATABASE_URL,url=new URL(raw??'');
 if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Pinned read-only connection required');
 const db=new pg.Client({connectionString:raw,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
 const table=name=>'"'+pin.schema+'"."'+pin.tablePrefix+name+'"';
-const pattern='(academy|course|training|learn|commerce|purchase|inventory|help|knowledge|article|finance|ledger|invoice|pricing|product|market)';
+const pattern='(academy|course|training|learn|commerce|purchase|inventory|help|knowledge|article|finance|ledger|invoice|pricing|product|market|authored)|/(ai|chat|chatbot|assistant)([/-]|$)';
 function schemaSummary(value){if(value==null)return {present:false};try{const schema=typeof value==='string'?JSON.parse(value):value;const names=new Set();const visit=(node,depth=0)=>{if(!node||typeof node!=='object'||depth>8)return;for(const key of Object.keys(node.properties??{}))names.add(key);for(const branch of [...(node.oneOf??[]),...(node.anyOf??[]),...(node.allOf??[])])visit(branch,depth+1);};visit(schema);return {present:true,properties:[...names].sort(),type:schema.type??null};}catch{return {present:true,malformed:true};}}
 try{
  await db.connect();await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');await db.query("SET LOCAL statement_timeout='20s'");
