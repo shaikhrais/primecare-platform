@@ -49,5 +49,69 @@ class Diagnostics(unittest.TestCase):
     def test_empty_log_is_not_invented_crash_evidence(self):
         self.assertEqual(json.loads(self.diagnostic(b'')), {'startupLogTail': '', 'truncated': False})
 
+    def report(self, directory, name='Fixture', pid=42, **extra):
+        path = directory / (name + '-2026-11-13.ips')
+        report = {'pid': pid, 'procName': name,
+                  'exception': {'type': 'EXC_BAD_INSTRUCTION', 'signal': 'SIGILL'},
+                  'faultingThread': 0, 'threads': [{'frames': [{'symbol': 'startup_frame'}]}],
+                  'environment': {'PRIVATE': 'must-not-appear'}, 'procPath': '/private/fixture'}
+        report.update(extra)
+        path.write_text(json.dumps({'app_name': name}) + '\n' + json.dumps(report))
+        return path
+
+    def test_exact_child_crash_summary_omits_unrelated_fields(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.report(root)
+            value = m.crash_summary(root, 42, 'Fixture', set())
+            self.assertEqual(value, {'type': 'EXC_BAD_INSTRUCTION', 'signal': 'SIGILL',
+                                     'symbols': ['startup_frame']})
+            self.assertNotIn('must-not-appear', json.dumps(value))
+
+    def test_old_reports_and_other_processes_are_ignored(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = self.report(root)
+            self.assertIsNone(m.crash_summary(root, 42, 'Fixture', {path.name}))
+            self.assertIsNone(m.crash_summary(root, 43, 'Fixture', set()))
+            self.assertIsNone(m.crash_summary(root, 42, 'Other', set()))
+            self.report(root, procName='Other')
+            self.assertIsNone(m.crash_summary(root, 42, 'Fixture', set()))
+
+    def test_malformed_and_oversized_reports_do_not_mask_original_failure(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / 'Fixture-bad.ips'
+            for content in [b'{bad', b'x' * (2 * 1024 * 1024 + 1), b'\xff']:
+                path.write_bytes(content)
+                self.assertIsNone(m.crash_summary(root, 42, 'Fixture', set()))
+
+    def test_summary_bounds_symbols_and_ignores_malformed_thread_metadata(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            self.report(root, threads=[{'frames': [{'symbol': 'x' * 1000}] * 100}])
+            value = m.crash_summary(root, 42, 'Fixture', set())
+            self.assertEqual(len(value['symbols']), 12)
+            self.assertTrue(all(len(s) == 200 for s in value['symbols']))
+            for index in [None, True, -1, 100, '0']:
+                self.report(root, faultingThread=index)
+                self.assertNotIn('symbols', m.crash_summary(root, 42, 'Fixture', set()))
+
+    def test_symlink_reports_are_not_read(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = self.report(root)
+            target = root / 'source.txt'
+            path.rename(target)
+            path.symlink_to(target)
+            self.assertIsNone(m.crash_summary(root, 42, 'Fixture', set()))
+
+    def test_crash_summary_preserves_exit_code_and_json_escaping(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            value = m.startup_failure(-4, Path(temporary) / 'absent', {'symbols': ['\n::error::data']})
+            self.assertTrue(value.startswith('Application exited during startup: -4\n'))
+            self.assertEqual(len(value.splitlines()), 2)
+            self.assertEqual(json.loads(value.split('\n', 1)[1])['crashSummary']['symbols'], ['\n::error::data'])
+
 
 if __name__ == '__main__': unittest.main()

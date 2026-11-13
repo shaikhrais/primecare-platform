@@ -7,6 +7,7 @@ import stat
 import subprocess
 import sys
 import tempfile
+import time
 import urllib.request
 from pathlib import Path
 
@@ -38,7 +39,50 @@ def verify_metadata():
 
 
 
-def startup_failure(code, log_path):
+def crash_summary(directory, pid, name, previous):
+    """Read only a bounded new IPS report for this exact isolated child."""
+    try:
+        reports = sorted((p for p in directory.glob('*.ips')
+                          if p.name not in previous and p.name.startswith(name + '-')),
+                         key=lambda p: p.name, reverse=True)[:16]
+    except OSError:
+        return None
+    for path in reports:
+        try:
+            if path.is_symlink():
+                continue
+            with path.open('rb') as stream:
+                data = stream.read(2 * 1024 * 1024 + 1)
+            if len(data) > 2 * 1024 * 1024:
+                continue
+            text = data.decode('utf-8')
+            decoder = json.JSONDecoder()
+            first, end = decoder.raw_decode(text.lstrip())
+            report = decoder.decode(text.lstrip()[end:].strip())
+            if not isinstance(first, dict) or not isinstance(report, dict):
+                continue
+            if report.get('pid') != pid or report.get('procName') != name:
+                continue
+            # Never serialize raw crash data, memory, paths or process environment.
+            exception = report.get('exception', {})
+            if not isinstance(exception, dict):
+                continue
+            result = {k: v[:200] for k, v in exception.items()
+                      if k in ('type', 'signal') and isinstance(v, str)}
+            threads, index = report.get('threads'), report.get('faultingThread')
+            if isinstance(threads, list) and type(index) is int and 0 <= index < len(threads):
+                thread = threads[index]
+                frames = thread.get('frames') if isinstance(thread, dict) else None
+                if isinstance(frames, list):
+                    result['symbols'] = [f['symbol'][:200] for f in frames[:12]
+                                         if isinstance(f, dict) and isinstance(f.get('symbol'), str)]
+            return result or None
+        except (OSError, ValueError, UnicodeError):
+            continue
+    return None
+
+
+def startup_failure(code, log_path, crash=None):
     """Capture a bounded diagnostic before the isolated temporary HOME is removed."""
     limit = 8192
     try:
@@ -51,6 +95,8 @@ def startup_failure(code, log_path):
     except OSError as error:
         # A diagnostic read failure must not replace the original startup result.
         diagnostic = {'startupLogUnavailable': type(error).__name__}
+    if crash is not None:
+        diagnostic['crashSummary'] = crash
     # JSON escapes newlines/control characters: child output cannot become an
     # Actions workflow command or unbounded traceback content.
     return f'Application exited during startup: {code}\n' + json.dumps(diagnostic)
@@ -83,6 +129,11 @@ def launch(root):
         environment = {'HOME': str(home), 'CFFIXED_USER_HOME': str(home),
                        'TMPDIR': str(home), 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin'}
         profile = '(version 1) (allow default) (deny network*)'
+        reports = Path.home() / 'Library/Logs/DiagnosticReports'
+        try:
+            previous = {p.name for p in reports.glob('*.ips')}
+        except OSError:
+            reports, previous = None, set()
         with (home / 'startup.log').open('wb') as log:
             process = subprocess.Popen(['/usr/bin/sandbox-exec', '-p', profile, str(executable)],
                                        env=environment, stdout=log, stderr=log, start_new_session=True)
@@ -92,7 +143,15 @@ def launch(root):
                 except subprocess.TimeoutExpired:
                     code = None
                 if code is not None:
-                    raise RuntimeError(startup_failure(code, home / 'startup.log'))
+                    crash = None
+                    if code < 0 and reports is not None:
+                        deadline = time.monotonic() + 2
+                        while crash is None:
+                            crash = crash_summary(reports, process.pid, name, previous)
+                            if crash is not None or time.monotonic() >= deadline:
+                                break
+                            time.sleep(0.1)
+                    raise RuntimeError(startup_failure(code, home / 'startup.log', crash))
             finally:
                 if process.poll() is None:
                     process.terminate()
