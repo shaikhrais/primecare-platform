@@ -10,7 +10,7 @@ Component tests cover the implemented subset. A complete batch also needs its in
 | B04 | Navigation runtime adoption unfinished | Bind server-authorized destinations and teardown across actor/route changes | Allowed/denied role routes, deep links and device acceptance |
 | B05 | Page host and business overlay lifecycle incomplete | Bind page routes and owner-controlled overlay teardown before hiding chrome | Back/forward, focus restoration, chrome and overlay acceptance |
 | B06 | Some component states and host integration incomplete | Integrate focus/caret/selection/hover/disabled/error theme tokens across consumers | Authenticated screens, contrast/accessibility and locale review |
-| B07 | Preference controls, revoked-reference recovery and role decisions open | Bind existing preference resources; implement explicit draft/conflict/revoked-reference recovery; obtain access decisions for ungranted roles | Owned save/read/reload, scope denial, recovery and reviewed activation |
+| B07 | Preference kinds/hosts beyond verified cloud shortcuts, revoked-reference recovery and role decisions open | Bind remaining existing preference resources; implement explicit draft/conflict/revoked-reference recovery; obtain access decisions for ungranted roles | Additional owned save/read/reload, scope denial, recovery, native/device and required review evidence |
 | B08 | Utilities lack complete real resource adapters | Bind approved notifications/events/notes/settings contracts and read/unread acknowledgements | Real records, independent readback, actor teardown and RTL acceptance |
 | B09 | Real-screen migration and variant dispositions unfinished | Bind actual callbacks and migrate controls; review the 106 unadopted reference examples | App-by-app control/action acceptance and reviewed dispositions |
 | B10 | Remaining editor/table/specialized controls and storage integration missing | Complete range marks/import requirements, spreadsheet/query adapters, specialized variants and approved binary storage/picker policies | Real persistence/removal readback, native parity and accessibility review |
@@ -22,6 +22,12 @@ Component tests cover the implemented subset. A complete batch also needs its in
 | B16 | Finance/supporting pages have unavailable placeholders | Confirm real financial data and invoice/pricing/account workflows; mount authorized dashboards | Real data projections and complete deployed UI/API/database/reload flows |
 | B17 | Full migration and owner dispositions unreviewed | Finish actual app migration; remove duplicate paths after compatibility acceptance | App-by-app adoption evidence and reviewed reference/owner decisions |
 | B18 | Deployed, device and human release evidence incomplete | Run full login/action/API/database/reload paths, denied/cross-tenant cases and actual-device/review checks | Recorded evidence for each earlier batch; human release decisions |
+
+## Verified scoped production acceptance — November 13, 2026
+
+B07/B08/B15 cloud shortcut settings (`shortcuts`/`navigation`) passed 63 owned production checks in [43511208695](https://github.com/shaikhrais/primecare-platform/actions/runs/43511208695), then 63 again in [43514287824](https://github.com/shaikhrais/primecare-platform/actions/runs/43514287824). Independent [readback43512555140](https://github.com/shaikhrais/primecare-platform/actions/runs/43512555140) confirms the recorded active runtime, canonical contract, existing 67 grants and host links. The actual registered picker Save, independent SQL, reload, receipt replay, conflict and actor/tenant/role denial gates are closed for this subset; the repeat proof changed no deployment, metadata or grants. Exact source identities and limitations are in [pc10-preferences-activation.json](pc10-preferences-activation.json), with scope detailed in [theme-gap-register.md](theme-gap-register.md).
+
+Other preference kinds, authenticated native hosts, missing business/provider contracts, physical-device/screen-reader and human localization/accessibility/release acceptance remain open. Metadata remains `implemented-unverified`; no whole B01–B18 batch or 72-feature acceptance is awarded. Historical release quarantine records below remain separate evidence, not a fresh release result.
 
 ## Repairs completed during follow-up
 
@@ -41,12 +47,13 @@ These repairs do not supply missing business contracts, grant privileges, activa
 - B13: actual registered tenant portal now composes the five task-backed views through explicit URL opt-in. Fourteen browser checks and native PostgreSQL acceptance passed run 41339668646; see `tenant-work-host-evidence.json`. Default rollout, standalone workflows, native host and deployed/device/human gates remain open.
 - B18: preflight preserves original proposal hashes and separately pins current source revisions. Unrecorded source drift and approval inflation still fail; production registration receipts are unchanged.
 
-## Current production release blocker
+## Recorded production release blocker — separate quarantine scope
 
-Release run 41339668667 job 124948188609 rejects existing API710/API857 grant keys targeting different operations and dangling runtime-artifact references in 64 grants each for APIs710,857,777. This is separate from source verification. Repair requires exact pinned PostgreSQL identity/authority reconciliation and independent readback; adding grants, replacing the quarantine baseline or bypassing the guard would not repair it. See `current-release-blocker-evidence.json`. The tenant workspace publication path is tracked separately and does not establish acceptance of this blocked release.
+Historical release run 41339668667 job 124948188609 rejects existing API710/API857 grant keys targeting different operations and dangling runtime-artifact references in 64 grants each for APIs710,857,777. This is separate from source verification. Repair requires exact pinned PostgreSQL identity/authority reconciliation and independent readback; adding grants, replacing the quarantine baseline or bypassing the guard would not repair it. See `current-release-blocker-evidence.json`. The tenant workspace publication path is tracked separately and does not establish acceptance of this blocked release.
 
 ## Follow-up: draft preservation and exact production readback
 
 Source `4c23805263bd41250786d31ead5523bc86de9f79` prevents internal work-module navigation from silently discarding edited drafts in web and native renderers. PostgreSQL CI run 41346938280 job 124968680553 passed 21 browser checks, 30 work-module checks and 14 actual-host checks. Flutter acceptance is pending. See `theme-draft-preservation-evidence.json`; this does not close any entire batch.
 
 Read-only production run 41346724602 job 124968025068 confirms 64 grants each on APIs710,857,777 and missing runtime artifact 1. API710 is POST /v1/messages but its grant labels name premium-concierge-workflow; API857 is GET /v1/messages/inbox but its grant labels name document-expiry. Registry references point to APIs4957/5104, which were not present in the endpoint readback. API777 has its canonical preference key but the same missing artifact. No grant is retargeted, enabled, removed or assigned a fabricated artifact by this follow-up. Exact evidence is `theme-release-identity-readback.json`. Intended operation/role authority must be reconciled before a mutation is safe; changing labels solely to pass the guard could turn unrelated legacy permissions into message permissions.
+
