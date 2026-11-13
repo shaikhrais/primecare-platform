@@ -1,4 +1,5 @@
 """Compare App Sandbox startup with/without a second sandbox; no product acceptance."""
+import importlib.util
 import json
 import os
 import plistlib
@@ -46,11 +47,22 @@ def main():
                                  'stderrTail': child.stderr[-2048:].decode('utf-8', errors='replace')}
             except subprocess.TimeoutExpired:
                 results[mode] = {'timedOut': True, 'enteredMain': False}
+        spec = importlib.util.spec_from_file_location('network_isolation', Path(__file__).with_name('macos-network-isolation.py'))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        with module.NetworkIsolation() as isolation:
+            child = subprocess.run(isolation.command([str(binary)], environment), capture_output=True, timeout=15)
+            results['filtered'] = {'returnCode': child.returncode,
+                                   'enteredMain': b'STARTUP_CONTROL_ENTERED_MAIN' in child.stdout,
+                                   'stderrTail': child.stderr[-2048:].decode('utf-8', errors='replace')}
+            if child.returncode != 0 or not results['filtered']['enteredMain'] or not isolation.verified:
+                raise RuntimeError('Filtered App Sandbox startup control failed')
         direct = results['direct'].get('returnCode') == 0 and results['direct']['enteredMain']
         nested = results['nested'].get('returnCode') == 0 and results['nested']['enteredMain']
         report = {'control': 'locally compiled no-network-entitlement App Sandbox fixture',
                   'source': os.environ.get('GITHUB_SHA'), 'results': results,
                   'nestedSandboxFailureReproduced': direct and not nested,
+                  'packetFilterControlPassed': True, 'packetFilterCleanupPassed': True,
                   'productStartupTested': False, 'featureAcceptance': False}
         Path('macos-sandbox-control.json').write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps(report))

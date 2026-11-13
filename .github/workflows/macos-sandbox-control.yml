@@ -5,6 +5,8 @@ on:
     paths:
       - '.github/workflows/macos-sandbox-control.yml'
       - 'scripts/diagnose-macos-nested-sandbox.py'
+      - 'scripts/macos-network-isolation.py'
+      - 'scripts/test-macos-network-isolation.py'
   workflow_dispatch:
 permissions: {contents: read}
 concurrency:
@@ -17,6 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with: {persist-credentials: false}
+      - run: python3 scripts/test-macos-network-isolation.py
       - run: python3 scripts/diagnose-macos-nested-sandbox.py
       - uses: actions/upload-artifact@v4
         if: always()
