@@ -8,6 +8,8 @@ on:
       - .github/workflows/inspect-worker-preservation.yml
       - scripts/check-generic-worker-deploy.mjs
       - scripts/test-generic-worker-deploy.mjs
+      - scripts/preserve-generic-worker-observability.mjs
+      - scripts/test-generic-worker-observability.mjs
       - scripts/generate-cloudflare-worker-config.mjs
       - scripts/describe-worker-preservation.mjs
 
@@ -31,6 +33,8 @@ jobs:
         run: |
           node scripts/generate-cloudflare-worker-config.mjs
           node --test scripts/test-generic-worker-deploy.mjs
+          node --test scripts/test-generic-worker-observability.mjs
+          node scripts/preserve-generic-worker-observability.mjs
       - name: Summarize non-secret live settings
         run: node scripts/describe-worker-preservation.mjs
       - name: Compare each live Worker without making changes

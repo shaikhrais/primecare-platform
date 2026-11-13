@@ -5,6 +5,7 @@ const sortObject=value=>Array.isArray(value)?value.map(sortObject):value&&typeof
 const canonical=value=>JSON.stringify(sortObject(value));
 const pick=(value,fields)=>Object.fromEntries(fields.filter(k=>value[k]!==undefined).map(k=>[k,value[k]]));
 const sorted=list=>list.sort((a,b)=>String(a.name).localeCompare(String(b.name)));
+export const GENERIC_WORKER_SERVICES=Object.freeze(['client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting','gateway']);
 export function assertGenericWorkerPreserves(settings,schedules,config,{requireDatabase=true}={}){
  if(!settings||!Array.isArray(settings.bindings)||!Array.isArray(schedules?.schedules)||!config||(config.vars!==undefined&&(!config.vars||typeof config.vars!=='object'||Array.isArray(config.vars))))throw Error('Worker preservation metadata unavailable');
  const bindings=settings.bindings;if(new Set(bindings.map(b=>b.name)).size!==bindings.length)throw Error('Duplicate live binding');
@@ -40,7 +41,7 @@ export function assertGenericWorkerPreserves(settings,schedules,config,{requireD
 async function main(){
  const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN;
  if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw Error('Scoped provider credentials required');
- const services=['client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting','gateway'];
+ const services=GENERIC_WORKER_SERVICES;
  const args=process.argv.slice(2);if(args.length&&!(args.length===2&&args[0]==='--service'&&services.includes(args[1])))throw Error('Invalid service selection');
  const selected=args.length?[args[1]]:services;
  const api=async path=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{redirect:'error',headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const body=await r.json();if(!r.ok||body.success!==true)throw Error('Live Worker metadata unavailable');return body.result;};
