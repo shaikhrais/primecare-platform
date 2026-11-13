@@ -18,7 +18,7 @@ concurrency:
   cancel-in-progress: false
 jobs:
   inventory:
-    if: github.event_name != 'workflow_run' || ((github.event.workflow_run.head_sha == '785dcac644ef21e79aaa7e012154aee989bf71cf' && (github.event.workflow_run.id == 43328101727 || github.event.workflow_run.id == 43328101736)) || (github.event.workflow_run.head_sha == '89273fca8fd30463a8b4c80f66106b8693601fa2' && github.event.workflow_run.id == 43349642502) || (github.event.workflow_run.head_sha == 'a94e222694c2875e0864e561905e7e4552a49107' && github.event.workflow_run.id == 43442916442) || (github.event.workflow_run.head_sha == 'ab9ce22d10c8d947be437b584f4f9a73a48e1db6' && github.event.workflow_run.id == 43377825284))
+    if: github.event_name != 'workflow_run' || ((github.event.workflow_run.head_sha == '785dcac644ef21e79aaa7e012154aee989bf71cf' && (github.event.workflow_run.id == 43328101727 || github.event.workflow_run.id == 43328101736)) || (github.event.workflow_run.head_sha == '89273fca8fd30463a8b4c80f66106b8693601fa2' && github.event.workflow_run.id == 43349642502) || (github.event.workflow_run.head_sha == 'a41163b1da96015c05618b30a68d0af6c1929471' && github.event.workflow_run.id == 43456846629) || (github.event.workflow_run.head_sha == 'a94e222694c2875e0864e561905e7e4552a49107' && github.event.workflow_run.id == 43442916442) || (github.event.workflow_run.head_sha == 'ab9ce22d10c8d947be437b584f4f9a73a48e1db6' && github.event.workflow_run.id == 43377825284))
     runs-on: ubuntu-24.04
     timeout-minutes: 5
     outputs:
@@ -31,7 +31,7 @@ jobs:
       - id: inventory
         env:
           GH_TOKEN: ${{ github.token }}
-          BUILD_RUN_ID: ${{ github.event_name == 'push' && '43442916442' || github.event.workflow_run.id || '' }}
+          BUILD_RUN_ID: ${{ github.event_name == 'push' && '43456846629' || github.event.workflow_run.id || '' }}
         run: python3 scripts/test-apple-build-artifacts.py discover
       - uses: actions/upload-artifact@v4
         with:
@@ -64,3 +64,4 @@ jobs:
         env:
           ARTIFACT_ITEM: ${{ toJSON(matrix) }}
         run: python3 scripts/test-apple-build-artifacts.py inspect
+

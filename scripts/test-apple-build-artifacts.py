@@ -17,6 +17,7 @@ RUNS = {'macos': 43328101727, 'ios': 43328101736}
 # Only these reviewed immutable producers may supply an artifact. Historical ZIP
 # failures retain their original identity; the preserved archive is a new source.
 BUILDS = {
+    43456846629: {'platform': 'ios', 'source': 'a41163b1da96015c05618b30a68d0af6c1929471', 'archiveFormat': 'raw'},
     43442916442: {'platform': 'ios', 'source': 'a94e222694c2875e0864e561905e7e4552a49107', 'archiveFormat': 'raw'},
     43328101727: {'platform': 'macos', 'source': SOURCE, 'archiveFormat': 'raw'},
     43328101736: {'platform': 'ios', 'source': SOURCE, 'archiveFormat': 'raw'},
@@ -187,3 +188,4 @@ if __name__ == '__main__':
             validate(artifact, item['platform'], item['app'], item['run'])
         else:
             inspect(item, Path('apple-artifact'))
+
