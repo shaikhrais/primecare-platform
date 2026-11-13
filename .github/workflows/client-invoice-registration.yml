@@ -1,0 +1,78 @@
+name: Register scoped client invoice metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/client-invoice-registration.yml'
+      - 'tools/governance-production/client_invoice_registration.py'
+      - 'tools/governance-production/test-client-invoice-registration.py'
+      - 'tools/governance-production/client-invoices-contract.json'
+      - 'tools/governance-production/client-invoice-contract-repair.json'
+      - 'tools/governance-production/client-invoice-contract-repair.mjs'
+      - 'tools/governance-production/test-client-invoice-contract-repair.mjs'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: application-modules-metadata-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          npm install --prefix /tmp/client-invoice-schema-tests --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/client-invoice-schema-tests/node_modules node_modules
+          node --test tools/governance-production/test-client-invoice-contract-repair.mjs
+          python tools/governance-production/test-client-invoice-registration.py
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/client-invoice-registration-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/client-invoice-registration-tools/node_modules node_modules
+          mkdir -p test-results/client-invoice-registration
+      - name: Reconcile the exact existing invoice response contract
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          CLIENT_INVOICE_SCHEMA_WRITES: '1'
+        run: |
+          node tools/governance-production/client-invoice-contract-repair.mjs --dry-run
+          node tools/governance-production/client-invoice-contract-repair.mjs --apply
+      - name: Validate exact metadata transaction and roll it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CLIENT_INVOICES_WRITES: '1'
+        run: python tools/governance-production/client_invoice_registration.py --dry-run | tee test-results/client-invoice-registration/dry-run.txt
+      - name: Register optional controls and draft labels with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_CLIENT_INVOICES_WRITES: '1'
+        run: python tools/governance-production/client_invoice_registration.py --apply | tee test-results/client-invoice-registration/registration.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: client-invoice-registration, path: test-results/client-invoice-registration}

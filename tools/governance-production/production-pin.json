@@ -1979,5 +1979,40 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "clientInvoicesWriter": {
+    "optInVariable": "GOVERNANCE_CLIENT_INVOICES_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "89792ce53cf74689b79fe2782252b50e7d8a65184ae16d73b03db21de29d277d",
+    "screenCode": "client_profile",
+    "route": "/clinic/client-profile",
+    "resourceNamespace": "clientInvoices.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
+  },
+  "clientInvoiceApiWriter": {
+    "optInVariable": "CLIENT_INVOICE_SCHEMA_WRITES",
+    "definitionSha256": "2bb1bf92bd8560705f5810a68e71827488826fe9d2eadd831d14b5f732b22763",
+    "tables": [
+      "api_endpoints"
+    ],
+    "apiIds": [
+      16432
+    ],
+    "columns": [
+      "response_schema"
+    ],
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

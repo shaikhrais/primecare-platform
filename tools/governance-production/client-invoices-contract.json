@@ -1,0 +1,153 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenId": 665,
+    "roleId": 13,
+    "screenCode": "client_profile",
+    "route": "/clinic/client-profile",
+    "sourceFile": "packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart",
+    "controlsSource": "packages/primecare_ui/web/client-invoices.ts",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card"
+  ],
+  "controls": [
+    {
+      "key": "panel",
+      "testId": "client-invoices-panel",
+      "componentCode": "prime_card",
+      "resourceKey": "clientInvoices.title"
+    },
+    {
+      "key": "refresh",
+      "testId": "client-invoices-refresh",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.refresh"
+    },
+    {
+      "key": "previous",
+      "testId": "client-invoices-previous",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.previous"
+    },
+    {
+      "key": "next",
+      "testId": "client-invoices-next",
+      "componentCode": "prime_button",
+      "resourceKey": "clientInvoices.next"
+    },
+    {
+      "key": "status",
+      "testId": "client-invoices-status",
+      "componentCode": "prime_card",
+      "resourceKey": "clientInvoices.status"
+    }
+  ],
+  "resources": {
+    "clientInvoices.title": {
+      "en": "Your invoices",
+      "fr": "Vos factures",
+      "es": "Sus facturas"
+    },
+    "clientInvoices.refresh": {
+      "en": "Refresh invoices",
+      "fr": "Actualiser les factures",
+      "es": "Actualizar facturas"
+    },
+    "clientInvoices.previous": {
+      "en": "Previous invoices",
+      "fr": "Factures précédentes",
+      "es": "Facturas anteriores"
+    },
+    "clientInvoices.next": {
+      "en": "Next invoices",
+      "fr": "Factures suivantes",
+      "es": "Facturas siguientes"
+    },
+    "clientInvoices.status": {
+      "en": "Invoice status",
+      "fr": "État des factures",
+      "es": "Estado de facturas"
+    },
+    "clientInvoices.id": {
+      "en": "Invoice",
+      "fr": "Facture",
+      "es": "Factura"
+    },
+    "clientInvoices.currency": {
+      "en": "Currency",
+      "fr": "Devise",
+      "es": "Moneda"
+    },
+    "clientInvoices.subtotal": {
+      "en": "Subtotal",
+      "fr": "Sous-total",
+      "es": "Subtotal"
+    },
+    "clientInvoices.tax": {
+      "en": "Tax",
+      "fr": "Taxe",
+      "es": "Impuesto"
+    },
+    "clientInvoices.total": {
+      "en": "Total",
+      "fr": "Total",
+      "es": "Total"
+    },
+    "clientInvoices.created_at": {
+      "en": "Created",
+      "fr": "Création",
+      "es": "Creada"
+    },
+    "clientInvoices.updated_at": {
+      "en": "Updated",
+      "fr": "Mise à jour",
+      "es": "Actualizada"
+    },
+    "clientInvoices.loading": {
+      "en": "Loading invoices",
+      "fr": "Chargement des factures",
+      "es": "Cargando facturas"
+    },
+    "clientInvoices.empty": {
+      "en": "No invoices found",
+      "fr": "Aucune facture trouvée",
+      "es": "No se encontraron facturas"
+    },
+    "clientInvoices.error": {
+      "en": "Unable to read invoices. Try again.",
+      "fr": "Impossible de lire les factures. Réessayez.",
+      "es": "No se pueden leer las facturas. Inténtelo de nuevo."
+    },
+    "clientInvoices.missing": {
+      "en": "Not recorded",
+      "fr": "Non renseigné",
+      "es": "Sin registrar"
+    },
+    "clientInvoices.page": {
+      "en": "Page",
+      "fr": "Page",
+      "es": "Página"
+    },
+    "clientInvoices.of": {
+      "en": "of",
+      "fr": "sur",
+      "es": "de"
+    }
+  },
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "GET",
+      "path": "/v1/client/invoices",
+      "service": "client",
+      "permission": "authenticated_client_profile_owner"
+    }
+  ],
+  "discoveryApis": [],
+  "runtimeActivation": false,
+  "businessBindings": "Existing API16432 actor-owned invoice list only. No payment action, owner/tenant override, financial sum or new grant."
+}

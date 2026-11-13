@@ -19,7 +19,7 @@ try {
  const links=await rows('screen_api_links','screen_id::text=ANY($1::text[]) AND api_id::text=ANY($2::text[]) ORDER BY screen_id,api_id',[screenIds,endpointIds]);
  const roleScreens=await rows('role_screen_permissions','screen_id::text=ANY($1::text[]) ORDER BY screen_id,role_id',[['665','676']]);
  const roleIds=[...new Set(roleScreens.map(r=>String(r.role_id)))];
- const roles=await rows('roles','id::text=ANY($1::text[]) ORDER BY id',[roleIds]);
+ const roles=(await db.query('SELECT id,role_code,role_name,active FROM '+table('roles')+' WHERE id::text=ANY($1::text[]) ORDER BY id',[roleIds])).rows;
  const grants=await rows('api_permissions','api_id::text=ANY($1::text[]) AND role_id::text=ANY($2::text[]) ORDER BY api_id,role_id',[endpointIds,roleIds]);
  const controls=await rows('screen_components',"screen_id IN (665,676) OR (screen_id=2534 AND data_cy ILIKE '%invoice%') ORDER BY screen_id,id");
  const elements=await rows('screen_required_elements','screen_id IN (665,676) ORDER BY screen_id,id');
