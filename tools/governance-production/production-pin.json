@@ -1961,5 +1961,23 @@
     ],
     "runtimeActivation": false,
     "roleGrants": false
+  },
+  "applicationRecoveryWriter": {
+    "optInVariable": "GOVERNANCE_APPLICATION_RECOVERY_WRITES",
+    "tables": [
+      "screen_components",
+      "screen_required_elements",
+      "language_resources",
+      "language_resource_values",
+      "primecare_ui_component_registry"
+    ],
+    "contractSha256": "da8886f27b7229fb31d658639b97a53349c43f46fdb67e2098ce2a53c32f2ba4",
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "resourceNamespace": "applicationRecovery.",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

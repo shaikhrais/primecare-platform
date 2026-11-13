@@ -1,0 +1,96 @@
+{
+  "format": 1,
+  "registrationTarget": {
+    "screenCode": "tenant_admin_command_center",
+    "route": "/tenant-dashboard",
+    "sourceFile": "websites/typescript/src/tenant-dashboard/index.ts",
+    "controlsSource": "packages/primecare_ui/web/application-shortcuts.ts",
+    "rollout": "existing_tenant_workspace_pilot",
+    "roleGrants": false,
+    "requiredElements": false
+  },
+  "requiredExistingComponents": [
+    "prime_button",
+    "prime_card"
+  ],
+  "controls": [
+    {
+      "key": "review",
+      "testId": "application-recovery-review",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationRecovery.review"
+    },
+    {
+      "key": "restore",
+      "testId": "application-recovery-restore",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationRecovery.restore"
+    },
+    {
+      "key": "reset",
+      "testId": "application-recovery-reset",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationRecovery.reset"
+    },
+    {
+      "key": "cancel",
+      "testId": "application-recovery-cancel",
+      "componentCode": "prime_button",
+      "resourceKey": "applicationRecovery.cancel"
+    }
+  ],
+  "resources": {
+    "applicationRecovery.review": {
+      "en": "Review cache recovery",
+      "fr": "Examiner la récupération du cache",
+      "es": "Revisar recuperación de caché"
+    },
+    "applicationRecovery.restore": {
+      "en": "Back up and use saved version",
+      "fr": "Sauvegarder et utiliser la version enregistrée",
+      "es": "Respaldar y usar la versión guardada"
+    },
+    "applicationRecovery.reset": {
+      "en": "Back up and reset saved shortcuts",
+      "fr": "Sauvegarder et réinitialiser les raccourcis enregistrés",
+      "es": "Respaldar y restablecer los accesos guardados"
+    },
+    "applicationRecovery.cancel": {
+      "en": "Cancel recovery",
+      "fr": "Annuler la récupération",
+      "es": "Cancelar recuperación"
+    },
+    "applicationRecovery.notice": {
+      "en": "Review only reads your saved shortcuts. Confirmation keeps the original browser record and any pending request in a private backup for this account. Backups stay in this browser until its site data is cleared.",
+      "fr": "L’examen lit uniquement vos raccourcis enregistrés. La confirmation conserve le cache original et toute demande en attente dans une sauvegarde privée de ce compte. Les sauvegardes restent dans ce navigateur jusqu’à l’effacement des données du site.",
+      "es": "La revisión solo lee sus accesos guardados. La confirmación conserva el registro original del navegador y cualquier solicitud pendiente en un respaldo privado de esta cuenta. Los respaldos permanecen hasta borrar los datos del sitio."
+    },
+    "applicationRecovery.pendingNotice": {
+      "en": "A previous request may already have saved. Reset uses the reviewed server revision and affects only this account’s shortcuts; the original request is preserved, not replayed.",
+      "fr": "Une demande précédente peut déjà avoir été enregistrée. La réinitialisation utilise la révision serveur examinée et ne touche que les raccourcis de ce compte ; la demande originale est conservée, sans être relancée.",
+      "es": "Una solicitud anterior puede haberse guardado. El restablecimiento usa la revisión del servidor revisada y solo afecta los accesos de esta cuenta; la solicitud original se conserva sin reenviarse."
+    },
+    "applicationRecovery.reviewed": {
+      "en": "Recovery options reviewed; choose explicitly",
+      "fr": "Options examinées ; choisissez explicitement",
+      "es": "Opciones revisadas; elija explícitamente"
+    },
+    "applicationRecovery.recovering": {
+      "en": "Checking account-scoped recovery",
+      "fr": "Vérification de la récupération de ce compte",
+      "es": "Comprobando recuperación de esta cuenta"
+    }
+  },
+  "runtimeActivation": false,
+  "businessBindings": "Existing API777 owner-scoped read/reset only. Explicit user confirmation, original raw cache and pending receipt preserved in account-scoped browser quarantine. No automatic reset or mutation retry.",
+  "newComponents": [],
+  "requiredExistingApis": [
+    {
+      "method": "POST",
+      "path": "/v1/user/preferences",
+      "service": "auth",
+      "permission": "authenticated_self_preferences"
+    }
+  ],
+  "discoveryApis": []
+}

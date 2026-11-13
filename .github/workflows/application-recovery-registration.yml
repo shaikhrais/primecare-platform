@@ -1,0 +1,64 @@
+name: Register scoped preference recovery metadata
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/application-recovery-registration.yml'
+      - 'tools/governance-production/application_recovery_registration.py'
+      - 'tools/governance-production/test-application-recovery-registration.py'
+permissions:
+  contents: read
+defaults:
+  run:
+    shell: bash
+concurrency:
+  group: application-modules-metadata-registration
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: pip install -r tools/governance-production/requirements.txt
+      - run: |
+          python tools/governance-production/test-application-recovery-registration.py
+  production:
+    if: github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: |
+          pip install -r tools/governance-production/requirements.txt
+          npm install --prefix /tmp/application-recovery-registration-tools --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s /tmp/application-recovery-registration-tools/node_modules node_modules
+          mkdir -p test-results/application-recovery-registration
+      - name: Validate exact metadata transaction and roll it back
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_APPLICATION_RECOVERY_WRITES: '1'
+        run: python tools/governance-production/application_recovery_registration.py --dry-run | tee test-results/application-recovery-registration/dry-run.txt
+      - name: Register optional controls and draft labels with independent readback
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_APPLICATION_RECOVERY_WRITES: '1'
+        run: python tools/governance-production/application_recovery_registration.py --apply | tee test-results/application-recovery-registration/registration.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with: {name: application-recovery-registration, path: test-results/application-recovery-registration}
