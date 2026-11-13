@@ -3,3 +3,5 @@ export 'work_modules.dart';
 export 'preference_sync/preference_sync_client.dart';
 export 'application_modules/application_profile_port.dart';
 export 'application_modules/application_settings_port.dart';
+export 'application_modules/application_shortcut_editor.dart';
+export 'application_modules/prime_application_shortcuts.dart';

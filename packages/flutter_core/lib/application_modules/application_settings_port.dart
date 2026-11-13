@@ -15,7 +15,7 @@ class _SettingsCommand {final WorkCommand command;final Map<String,Object?> docu
 class ApplicationSettingsPort implements WorkPort {
   final PreferenceBinding binding;final PreferenceTransport transport;final Map<String,String> names,labels;final List<String> defaults;
   final void Function()? closeTransport;late final PreferenceSyncClient _client;
-  Map<String,dynamic>? _confirmed;Object? _lastError;String _wireKey='';bool _dead=false;final _commands=<String,_SettingsCommand>{};
+  Map<String,dynamic>? _confirmed;Object? _lastError;String _wireKey='';bool _dead=false,_editorClaimed=false,_workStarted=false;String Function()? _editorUuid;final _commands=<String,_SettingsCommand>{};
   ApplicationSettingsPort({required this.binding,required this.transport,required PreferenceCache cache,required Map<String,String> names,
     required Map<String,String> labels,List<String> defaults=const [],this.closeTransport})
       :names=Map.unmodifiable(names),labels=Map.unmodifiable(labels),defaults=List.unmodifiable(defaults){
@@ -24,7 +24,7 @@ class ApplicationSettingsPort implements WorkPort {
       names.values.toSet().length!=names.length||defaults.any((id)=>!names.containsKey(id))||
       ['shortcuts','editShortcuts'].any((k)=>labels[k]==null||labels[k]!.trim().isEmpty))throw const WorkFailure('invalid',400);
     try{preferenceDocument('shortcuts',{'version':1,'screenIds':List<String>.from(defaults)},binding);}catch(_){throw const WorkFailure('invalid',400);}
-    _client=PreferenceSyncClient(binding:binding,transport:(request)async{_lastError=null;try{return await transport(request);}catch(e){_lastError=e;rethrow;}},cache:_SettingsCache(cache),uuid:()=>_wireKey);
+    _client=PreferenceSyncClient(binding:binding,transport:(request)async{_lastError=null;try{return await transport(request);}catch(e){_lastError=e;rethrow;}},cache:_SettingsCache(cache),uuid:()=>_wireKey.isNotEmpty?_wireKey:(_editorUuid?.call()??''));
   }
   factory ApplicationSettingsPort.authenticated({required Uri origin,required String token,required PreferenceBinding binding,required PreferenceCache cache,
     required Map<String,String> names,required Map<String,String> labels,required String? Function() currentToken,required PreferenceScope? Function() currentScope,
@@ -35,6 +35,7 @@ class ApplicationSettingsPort implements WorkPort {
     try{port=ApplicationSettingsPort(binding:binding,cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:client==null?wire.close:null,
       transport:(request)async{guard();try{final raw=await wire.call(request);guard();return raw;}catch(_){guard();rethrow;}});return port;}catch(_){if(client==null)wire.close();rethrow;}
   }
+  void _workOpen(){_open();if(_editorClaimed)throw const WorkFailure('unavailable');_workStarted=true;}
   void _open(){if(_dead)throw const WorkFailure('unavailable');}
   Never _fail([Object? error]){final e=error??_lastError;if(e==null&&_client.current['error']=='scope_changed')throw const WorkFailure('denied',403);if(e is WorkFailure)throw e;if(e is PreferenceFailure)throw WorkFailure([401,403].contains(e.status)?'denied':e.status==409?'conflict':e.status==400?'invalid':'error',e.status);throw const WorkFailure('error');}
   String _body(Map<String,dynamic> snapshot){final doc=snapshot['document'],ids=doc==null?defaults:List<String>.from((doc as Map)['screenIds'] as List);
@@ -46,13 +47,13 @@ class ApplicationSettingsPort implements WorkPort {
   Future<Map<String,dynamic>> _fresh()async{_open();try{final raw=await transport({'version':1,'expectedScope':binding.scope.toJson(),'dataset':binding.scope.dataset,
     'kind':'shortcuts','resource':'navigation','action':'read'});_open();return preferenceSnapshot(raw,binding);}catch(e){_fail(e);}}
   @override Future<Object?> read(WorkQuery query)async{
-    _open();if(query.offset!=0||query.search.length>100)throw const WorkFailure('invalid',400);await _client.load();_open();final state=_client.current;
+    _workOpen();if(query.offset!=0||query.search.length>100)throw const WorkFailure('invalid',400);await _client.load();_open();final state=_client.current;
     if(['error','offline'].contains(state['status']))_fail();if(state['pending']!=null||state['dirty']==true||state['remote']!=null)throw const WorkFailure('conflict',409);
     final snapshot=await _fresh();_confirmed=snapshot;final out=_project(snapshot).toJson();
     if(query.search.isNotEmpty&&!_body(snapshot).toLowerCase().contains(query.search.toLowerCase())&&!labels['shortcuts']!.toLowerCase().contains(query.search.toLowerCase())){out['items']=<Object?>[];out['total']=0;}return out;
   }
   @override Future<WorkReceipt> mutate(WorkCommand command,String key)async{
-    _open();if(!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',caseSensitive:false).hasMatch(key))throw const WorkFailure('invalid',400);if(command.itemId!='navigation'||command.action!='edit')throw const WorkFailure('denied',403);
+    _workOpen();if(!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',caseSensitive:false).hasMatch(key))throw const WorkFailure('invalid',400);if(command.itemId!='navigation'||command.action!='edit')throw const WorkFailure('denied',403);
     var pending=_commands[key];if(pending!=null&&canonicalPreference(pending.command.toJson())!=canonicalPreference(command.toJson()))throw const WorkFailure('conflict',409);
     if(pending==null){final confirmed=_confirmed,state=_client.current;if(confirmed==null||(confirmed['revision'] as int)+1!=command.version||state['pending']!=null||state['dirty']==true||state['remote']!=null)throw const WorkFailure('conflict',409);
       validateWorkCommand(_project(confirmed).items.single,command.action,command.fields);
@@ -70,9 +71,11 @@ class ApplicationSettingsPort implements WorkPort {
     if(state['status']!='clean'||base['revision']!=command.version||canonicalPreference(base['document'])!=canonicalPreference(pending.document))_fail();
     return WorkReceipt('navigation',(base['revision'] as int)+1,'edit',{'body':_body(base)});
   }
-  @override Future<Object?> readItem(String id)async{_open();if(id!='navigation')throw const WorkFailure('denied',403);final snapshot=await _fresh(),expected=_commands.values.lastOrNull;
+  @override Future<Object?> readItem(String id)async{_workOpen();if(id!='navigation')throw const WorkFailure('denied',403);final snapshot=await _fresh(),expected=_commands.values.lastOrNull;
     if(expected!=null&&(snapshot['revision']!=expected.command.version||canonicalPreference(snapshot['document'])!=canonicalPreference(expected.document)))throw const WorkFailure('conflict',409);
     _confirmed=snapshot;_commands.clear();return _project(snapshot).toJson();}
+  /// Claim before any WorkPort operation; reuse its original durable client and cache.
+  ({PreferenceSyncClient client,Map<String,String> names,List<String> defaults}) claimShortcutEditor(String Function() uuid){_open();if(_editorClaimed||_workStarted||_confirmed!=null||_commands.isNotEmpty||_client.current['status']!='idle')throw const WorkFailure('unavailable');_editorClaimed=true;_editorUuid=uuid;return (client:_client,names:names,defaults:defaults);}
   Map<String,dynamic> get recovery=>_client.current;
   @override void dispose(){if(_dead)return;_dead=true;_client.dispose();_commands.clear();_confirmed=null;closeTransport?.call();}
 }
