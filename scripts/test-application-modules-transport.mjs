@@ -4,6 +4,16 @@ const {ApplicationSettingsPort,ApplicationProfilePort,applicationPreferenceTrans
 const scope={tenantId:'tenant',userId:'user1',role:'psw',dataset:'live'},identity={status:'authenticated',tenantId:'tenant',userId:'user1',roles:'psw'},query={search:'',offset:0};
 function profile(fetcher){let session={token:'captured',scope};const port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>session,{identity:'Identity'},fetcher);return {port,change:()=>{session={token:'other',scope};}};}
 function delayed(){let finish,cancelled=false;const response=new Response(new ReadableStream({start(controller){finish=()=>{controller.enqueue(new TextEncoder().encode(JSON.stringify(identity)));};},cancel(){cancelled=true;}}));return {response,finish:()=>finish(),cancelled:()=>cancelled};}
+test('profile owns its label snapshot across asynchronous reads',async()=>{
+ let finish;const labels={identity:'Identity'},port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>({token:'captured',scope}),labels,()=>new Promise(resolve=>{finish=()=>resolve(Response.json(identity));}));
+ const pending=port.read(query,new AbortController().signal);labels.identity='Changed by caller';finish();
+ assert.equal((await pending).items[0].title,'Identity');port.dispose();
+});
+test('profile rejects malformed search values before any transport dispatch',async()=>{
+ let calls=0;const p=profile(async()=>{calls++;return Response.json(identity);});
+ for(const search of [null,undefined,{},[],0,true])await assert.rejects(()=>p.port.read({search,offset:0},new AbortController().signal),e=>e.code==='invalid'&&e.status===400);
+ assert.equal(calls,0);p.port.dispose();
+});
 test('profile projects registered self identity and sends no owner-selected parameters',async()=>{let captured;const {port}=profile(async(url,options)=>{captured={url:String(url),options};return Response.json(identity);});const raw=await port.read(query,new AbortController().signal);assert.equal(raw.items[0].id,'user1');assert.deepEqual(raw.items[0].actions,[]);assert.equal(captured.url,'https://fixture.test/v1/auth/me');assert.equal(captured.options.headers.authorization,'Bearer captured');await assert.rejects(()=>port.mutate(),e=>e.code==='denied');port.dispose();});
 test('profile retains the original search while a caller changes its query during fetch',async()=>{
  let finish;const p=profile(()=>new Promise(resolve=>{finish=()=>resolve(Response.json(identity));})),input={search:'user1',offset:0};
