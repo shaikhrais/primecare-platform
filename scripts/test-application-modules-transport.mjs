@@ -32,6 +32,15 @@ test('profile validates pagination, search and abort before dispatch',async()=>{
 test('profile malformed JSON and changed response identity never publish',async()=>{for(const response of [new Response('{bad'),Response.json({...identity,userId:'other'})]){const p=profile(async()=>response);await assert.rejects(()=>p.port.read(query,new AbortController().signal),e=>['error','denied'].includes(e.code));}});
 test('dashboard rejects oversized bodies and token changes during streaming',async()=>{for(const oversized of [true,false]){let token='captured',cancelled=false;const read=dashboardPageTransport('https://fixture.test',token,'live',()=>token,async()=>new Response(new ReadableStream({pull(c){if(oversized)c.enqueue(new Uint8Array(1048577));else{token='changed';c.enqueue(new TextEncoder().encode('{}'));}},cancel(){cancelled=true;}})));await assert.rejects(()=>read(new AbortController().signal),oversized?/invalid_response/:/denied/);assert.equal(cancelled,true);}});
 test('profile and dashboard retain valid replies at their exact byte limits',async()=>{const json=JSON.stringify(identity);const p=profile(async()=>new Response(json+' '.repeat(65536-Buffer.byteLength(json))));assert.equal((await p.port.read(query,new AbortController().signal)).items[0].id,'user1');const read=dashboardPageTransport('https://fixture.test','captured','live',()=> 'captured',async()=>new Response('{}'+' '.repeat(1048574)));assert.deepEqual(await read(new AbortController().signal),{});});
+for(const mode of ['token-change','logout','abort'])test('dashboard failed dispatch rechecks '+mode,async()=>{
+ let token='captured',reject;const caller=new AbortController(),read=dashboardPageTransport('https://fixture.test',token,'live',()=>token,()=>new Promise((_,fail)=>{reject=fail;}));
+ const pending=read(caller.signal);if(mode==='abort')caller.abort();else token=mode==='logout'?null:'replacement';reject(Error('offline'));
+ await assert.rejects(()=>pending,mode==='abort'?/^Error: aborted$/:/^Error: denied$/);
+});
+test('dashboard unchanged session preserves original network failure without retry',async()=>{
+ const original=Error('offline');let calls=0;const read=dashboardPageTransport('https://fixture.test','captured','live',()=> 'captured',async()=>{calls++;throw original;});
+ await assert.rejects(()=>read(new AbortController().signal),error=>error===original);assert.equal(calls,1);
+});
 
 test('settings maps rejected owned snapshot identity to denial rather than a retryable error',async()=>{const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1']}},port=new ApplicationSettingsPort(binding,async()=>({version:1,scope:{...scope,userId:'other'},kind:'shortcuts',resource:'navigation',revision:0,document:null}),{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':'Overview'},{shortcuts:'Shortcuts',editShortcuts:'Edit'});await assert.rejects(()=>port.read(query,new AbortController().signal),e=>e.code==='denied'&&e.status===403);port.dispose();});
 

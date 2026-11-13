@@ -14,6 +14,7 @@ on:
       - 'packages/domain/src/work_modules.ts'
       - 'packages/shared/src/work-modules/**'
       - 'packages/shared/src/application-modules/**'
+      - 'websites/typescript/src/tenant-dashboard/dashboard-page-transport.ts'
       - 'packages/primecare_ui/web/application-modules.ts'
       - 'packages/primecare_ui/web/work-modules.ts'
       - 'packages/primecare_ui/catalogs/application-modules.registration.json'
