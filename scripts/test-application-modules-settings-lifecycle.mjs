@@ -12,6 +12,23 @@ function fixture(){
  return {port,state};
 }
 const signal=()=>new AbortController().signal;
+test('settings constructor rejects defaults forbidden by the existing shortcut document policy',()=>{
+ const ids=Array.from({length:31},(_,i)=>String(i+1)),names=Object.fromEntries(ids.map(id=>[id,'Screen '+id]));
+ const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:ids}};
+ for(const defaults of [['1','1'],ids])assert.throws(()=>new ApplicationSettingsPort(binding,async()=>{throw Error('no transport');},{read:async()=>null,write:async()=>{},remove:async()=>{}},names,{shortcuts:'Shortcuts',editShortcuts:'Edit'},defaults),e=>e.code==='invalid');
+});
+test('settings constructor rejects shortcut names that cannot round-trip through the editor',()=>{
+ const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1']}};
+ for(const name of [' Overview','Overview ','\tOverview'])assert.throws(()=>new ApplicationSettingsPort(binding,async()=>{throw Error('no transport');},{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':name},{shortcuts:'Shortcuts',editShortcuts:'Edit'},['1']),e=>e.code==='invalid');
+});
+test('settings preserves valid empty and maximum-size default selections',async()=>{
+ const ids=Array.from({length:30},(_,i)=>String(i+1)),names=Object.fromEntries(ids.map(id=>[id,'Screen '+id]));
+ const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:ids}},raw={version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null};
+ for(const defaults of [[],ids]){
+  const port=new ApplicationSettingsPort(binding,async()=>raw,{read:async()=>null,write:async()=>{},remove:async()=>{}},names,{shortcuts:'Shortcuts',editShortcuts:'Edit'},defaults);
+  const result=await port.read({search:'',offset:0},signal());assert.equal(result.items[0].body,defaults.map(id=>names[id]).join('\n'));port.dispose();
+ }
+});
 test('cancelled settings load performs no transport or cache work',async()=>{
  const {port,state}=fixture(),abort=new AbortController();abort.abort();
  await assert.rejects(()=>port.read({search:'',offset:0},abort.signal),e=>e.code==='unavailable');
