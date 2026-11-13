@@ -1,0 +1,31 @@
+name: Tenant read page hosts
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'websites/typescript/src/tenant-dashboard/**'
+      - 'packages/shared/src/application-modules/**'
+      - 'packages/shared/src/dashboard-pages/**'
+      - 'packages/primecare_ui/web/application-modules.ts'
+      - 'packages/primecare_ui/web/dashboard-pages.ts'
+      - 'packages/primecare_ui/web/record-pages.ts'
+      - 'scripts/test-tenant-read-page-host*'
+      - '.github/workflows/tenant-read-pages.yml'
+permissions: {contents: read}
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/read-host-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1
+          ln -s /tmp/read-host-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node --test scripts/test-tenant-read-page-host.mjs
+          node scripts/test-tenant-read-page-host-browser.mjs
+          node scripts/test-tenant-work-module-host.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule websites/typescript/src/tenant-dashboard/index.ts
