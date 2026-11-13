@@ -8,6 +8,7 @@ import 'package:flutter_core/src/network/api_client.dart' show ApiConfig;
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
+import 'package:go_router/go_router.dart';
 import 'tenant_application_catalog.g.dart';
 
 /// The host owns these clients. Injecting a factory does not supply authority.
@@ -108,6 +109,9 @@ class _ApplicationsState extends GovernedConsumerState<_ScopedApplications> {
     return PrimePageScaffold(title:PrimeText(application.text('settings')),
       body:SingleChildScrollView(padding:EdgeInsets.all(theme.spacing.lg),
         child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+          application.identify('open','prime_button',PrimeTextButton(
+            onPressed:()=>context.go('/success?enable-semantics=true'),
+            child:PrimeText('${application.text('open')} ${application.text('profile')}')),suffix:'-account'),
           if(_status!='ready')Semantics(liveRegion:true,child:PrimeText(application.text(_status))),
           if(_status=='unavailable')PrimeTextButton(onPressed:_load,child:PrimeText(application.text('reload'))),
           if(profile!=null && editor!=null && today!=null)...[

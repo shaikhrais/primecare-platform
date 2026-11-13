@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
@@ -143,5 +144,24 @@ void main(){
     (container.read(authProvider.notifier) as HostAuth).replace(identity(role:'guest'));
     await mount(tester,container);expect(f.requests,isEmpty);expect(choice(),findsNothing);
     await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('existing account security navigation preserves a dirty shortcut draft',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture(),container=f.container();addTearDown(container.dispose);
+    final router=GoRouter(routes:[
+      GoRoute(path:'/',builder:(context,state)=>managedPrimeCarePage(nativeTenantApplicationRoute,(_)=>const TenantApplicationScreen())),
+      GoRoute(path:'/success',builder:(context,state)=>const Scaffold(body:Text('existing account security'))),
+    ]);addTearDown(router.dispose);
+    await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),child:MaterialApp.router(routerConfig:router))));
+    await tester.pumpAndSettle();await press(tester,choice());
+    final words=nativeApplicationApplication['locales']['en'];
+    await press(tester,find.widgetWithText(TextButton,'${words['open']} ${words['profile']}'));
+    expect(find.text('existing account security'),findsOneWidget);
+    expect(f.writes,isEmpty);expect(f.clients.every((c)=>c.closes==1),true);
+    expect(router.routeInformationProvider.value.uri.queryParameters['enable-semantics'],'true');
+    router.go('/');await tester.pumpAndSettle();expect(choice(),findsOneWidget);expect(f.writes,isEmpty);
+    await press(tester,find.widgetWithText(TextButton,shellText('en','save')));
+    expect((f.document as Map)['screenIds'],contains('1269'));expect(f.writes.length,1);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
   });
 }
