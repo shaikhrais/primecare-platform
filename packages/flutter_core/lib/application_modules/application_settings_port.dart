@@ -30,9 +30,10 @@ class ApplicationSettingsPort implements WorkPort {
     required Map<String,String> names,required Map<String,String> labels,required String? Function() currentToken,required PreferenceScope? Function() currentScope,
     List<String> defaults=const [],http.Client? client}){
     final wire=PreferenceHttpTransport(origin:origin,token:token,client:client);
-    void guard(){final now=currentScope();if(currentToken()!=token||now==null||!now.same(binding.scope))throw const PreferenceFailure('scope_changed',403);}
-    try{return ApplicationSettingsPort(binding:binding,cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:client==null?wire.close:null,
-      transport:(request)async{guard();try{final raw=await wire.call(request);guard();return raw;}catch(_){guard();rethrow;}});}catch(_){if(client==null)wire.close();rethrow;}
+    late ApplicationSettingsPort port;
+    void guard(){port._open();var matches=false;try{final now=currentScope();matches=currentToken()==token&&now!=null&&now.same(binding.scope);}catch(_){}port._open();if(!matches)throw const PreferenceFailure('scope_changed',403);}
+    try{port=ApplicationSettingsPort(binding:binding,cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:client==null?wire.close:null,
+      transport:(request)async{guard();try{final raw=await wire.call(request);guard();return raw;}catch(_){guard();rethrow;}});return port;}catch(_){if(client==null)wire.close();rethrow;}
   }
   void _open(){if(_dead)throw const WorkFailure('unavailable');}
   Never _fail([Object? error]){final e=error??_lastError;if(e==null&&_client.current['error']=='scope_changed')throw const WorkFailure('denied',403);if(e is WorkFailure)throw e;if(e is PreferenceFailure)throw WorkFailure([401,403].contains(e.status)?'denied':e.status==409?'conflict':e.status==400?'invalid':'error',e.status);throw const WorkFailure('error');}
@@ -75,4 +76,3 @@ class ApplicationSettingsPort implements WorkPort {
   Map<String,dynamic> get recovery=>_client.current;
   @override void dispose(){if(_dead)return;_dead=true;_client.dispose();_commands.clear();_confirmed=null;closeTransport?.call();}
 }
-

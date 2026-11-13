@@ -25,6 +25,20 @@ void main(){
  Map<String,dynamic> clone(Object? v)=>Map<String,dynamic>.from(jsonDecode(jsonEncode(v)) as Map);
  ApplicationSettingsPort port(PreferenceTransport transport,[SettingsCache? cache])=>ApplicationSettingsPort(binding:binding,transport:transport,cache:cache??SettingsCache(),names:names,labels:labels,defaults:defaults);
  WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
+ for(final tokenCallback in [false,true]){
+  test('native settings throwing ${tokenCallback?'token':'scope'} context denies before HTTP dispatch',()async{
+   var calls=0;final token='a'*43,client=SettingsWire((_)async{calls++;return http.StreamedResponse(Stream.value(utf8.encode('{}')),200);});
+   final p=ApplicationSettingsPort.authenticated(origin:Uri.parse('https://fixture.test'),token:token,binding:binding,cache:SettingsCache(),names:names,labels:labels,defaults:defaults,client:client,
+    currentToken:tokenCallback?()=>throw StateError('context unavailable'):()=>token,currentScope:tokenCallback?()=>scope:()=>throw StateError('context unavailable'));
+   await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','denied')));expect(calls,0);p.dispose();expect(client.closed,false);client.close();
+  });
+  test('native settings ${tokenCallback?'token':'scope'} context disposal stops borrowed-client dispatch',()async{
+   var calls=0;final token='a'*43,client=SettingsWire((_)async{calls++;return http.StreamedResponse(Stream.value(utf8.encode('{}')),200);});late ApplicationSettingsPort p;
+   p=ApplicationSettingsPort.authenticated(origin:Uri.parse('https://fixture.test'),token:token,binding:binding,cache:SettingsCache(),names:names,labels:labels,defaults:defaults,client:client,
+    currentToken:tokenCallback?(){p.dispose();return token;}:()=>token,currentScope:tokenCallback?()=>scope:(){p.dispose();return scope;});
+   await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));expect(calls,0);expect(client.closed,false);client.close();
+  });
+ }
  test('native settings rejects duplicate and oversized default shortcut documents',(){
   final ids=List<String>.generate(31,(i)=>'${i+1}'),options={for(final id in List<String>.generate(31,(i)=>'${i+1}'))id:'Screen $id'};
   final largeBinding=PreferenceBinding(scope:scope,kind:'shortcuts',resource:'navigation',screenIds:ids);
@@ -116,4 +130,3 @@ void main(){
   final reply=Completer<Object?>(),p=port((_)=>reply.future),pending=p.read(const WorkQuery());await Future<void>.delayed(Duration.zero);p.dispose();reply.complete((oracle['cases'] as List).first['raw']);await expectLater(pending,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));
  });
 }
-
