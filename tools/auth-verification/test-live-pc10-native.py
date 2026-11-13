@@ -1,5 +1,5 @@
 """Own temporary native QA actors; prove independent SQL and remove exact fixtures."""
-import hashlib,json,os,pathlib,secrets,subprocess,urllib.request,uuid
+import hashlib,json,os,pathlib,re,secrets,subprocess,urllib.request,uuid
 import psycopg,bcrypt
 GATEWAY='https://primecare-api-gateway.itpro-mohammed.workers.dev'
 PORTAL='https://primecare-corporate.pages.dev'
@@ -30,6 +30,13 @@ try:
   with urllib.request.urlopen(request,timeout=30) as response:login=json.loads(response.read())
   must(login.get('status')=='authenticated' and login.get('userId')==actor['id'] and login.get('role')=='tenant_admin' and login.get('tenantId')==actor['tenant'],actor['locale']+' real credential login and self scope')
   actor['token']=login['token'];sensitive.append(actor['token'])
+  probe=urllib.request.Request(GATEWAY+'/v1/governance/tenant-dashboard?dataset=live',headers={'Authorization':'Bearer '+actor['token']})
+  with urllib.request.urlopen(probe,timeout=30) as response:payload=response.read(2097153);status=response.status
+  must(len(payload)<=2097152,actor['locale']+' dashboard response bounded for inspection')
+  dashboard=json.loads(payload)
+  matches=dashboard.get('identity')=={'userId':actor['id'],'role':'tenant_admin'} and dashboard.get('organization',{}).get('id')==actor['tenant']
+  print('PC10_NATIVE_DASHBOARD_PREFLIGHT '+json.dumps({'locale':actor['locale'],'status':status,'bytes':len(payload),'scopeMatches':matches,'todayIsIso':bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(dashboard.get('today'))))}))
+  must(status==200 and matches,actor['locale']+' independent dashboard scope preflight')
   actor.pop('password');actor.pop('email')
  fixture.write_text(json.dumps(actors));fixture.chmod(0o600)
  temporary=pathlib.Path('packages/primecare_ui/test/owned_native_live_test.dart')
