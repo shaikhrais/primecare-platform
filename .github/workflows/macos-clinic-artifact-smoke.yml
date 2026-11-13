@@ -28,5 +28,6 @@ jobs:
           run-id: '43328101727'
           github-token: ${{ github.token }}
           path: clinic-artifact
+          merge-multiple: true
       - name: Verify signature and test isolated startup without network
         run: python3 scripts/test-macos-clinic-artifact.py --bundle-root clinic-artifact
