@@ -48,6 +48,25 @@ class Isolation(unittest.TestCase):
             self.assertEqual(command.call_args_list[-1].args, ('/usr/sbin/dseditgroup', '-o', 'delete', guard.group))
             self.assertFalse(guard.created)
 
+    def test_remaining_children_prevent_filter_removal(self):
+        guard = m.NetworkIsolation()
+        guard.created = guard.loaded = True
+        guard.gid = 50001
+        with patch.object(guard, 'stop_children', side_effect=RuntimeError('fixture child remains')), patch.object(guard, 'privileged') as command:
+            with self.assertRaisesRegex(RuntimeError, 'child remains'):
+                guard.close()
+            command.assert_not_called()
+            self.assertTrue(guard.loaded)
+
+    def test_child_enumeration_is_limited_to_its_unique_effective_group(self):
+        guard = m.NetworkIsolation()
+        guard.created = True
+        guard.gid = 50001
+        reads = [SimpleNamespace(stdout='101 50001\n202 20\n'), SimpleNamespace(stdout='202 20\n'), SimpleNamespace(stdout='202 20\n'), SimpleNamespace(stdout='202 20\n'), SimpleNamespace(stdout='202 20\n')]
+        with patch.object(m.subprocess, 'run', side_effect=reads), patch.object(m.os, 'kill') as kill:
+            guard.stop_children()
+            kill.assert_called_once_with(101, m.signal.SIGTERM)
+
     def test_no_group_no_child_command(self):
         with self.assertRaises(RuntimeError):
             m.NetworkIsolation().command(['/fixture/app'], {})

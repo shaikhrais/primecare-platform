@@ -5,6 +5,8 @@ import os
 import pwd
 import re
 import secrets
+import signal
+import time
 import socket
 import subprocess
 import sys
@@ -128,7 +130,29 @@ print(json.dumps({'uid':os.getuid(),'gid':os.getgid(),'connected':ok}))
             for server in servers:
                 server.close()
 
+    def stop_children(self):
+        if not self.created or self.gid is None:
+            return
+        def children():
+            result = subprocess.run(['/bin/ps', '-axo', 'pid=,gid='], check=True, capture_output=True, text=True, timeout=5)
+            return [int(parts[0]) for line in result.stdout.splitlines()
+                    if len(parts := line.split()) == 2 and parts[1] == str(self.gid)]
+        for sig in (signal.SIGTERM, signal.SIGKILL):
+            for pid in children():
+                try:
+                    os.kill(pid, sig)
+                except ProcessLookupError:
+                    pass
+            deadline = time.monotonic() + 2
+            while children() and time.monotonic() < deadline:
+                time.sleep(0.05)
+        if children():
+            # Keep the restriction installed if a child cannot be stopped.
+            # The disposable Actions runner will then tear down the machine.
+            raise RuntimeError('Isolated children remain; packet filter retained')
+
     def close(self):
+        self.stop_children()
         errors = []
         for active, command in [
             (self.loaded, ('/sbin/pfctl', '-a', self.anchor, '-F', 'rules')),

@@ -19,6 +19,8 @@ on:
       - 'scripts/test-macos-archive-preservation.py'
       - 'scripts/test-macos-clinic-artifact.py'
       - 'scripts/test-macos-startup-diagnostics.py'
+      - 'scripts/macos-network-isolation.py'
+      - 'scripts/test-macos-network-isolation.py'
   pull_request:
     paths:
       - 'packages/primecare_ui/lib/**'
@@ -33,6 +35,8 @@ on:
       - 'scripts/test-macos-archive-preservation.py'
       - 'scripts/test-macos-clinic-artifact.py'
       - 'scripts/test-macos-startup-diagnostics.py'
+      - 'scripts/macos-network-isolation.py'
+      - 'scripts/test-macos-network-isolation.py'
   workflow_dispatch:
 
 concurrency:
@@ -68,6 +72,7 @@ jobs:
           python3 scripts/test-macos-entitlements.py
           python3 scripts/test-macos-archive-preservation.py
           python3 scripts/test-macos-startup-diagnostics.py
+          python3 scripts/test-macos-network-isolation.py
 
       - name: Setup Flutter
         uses: subosito/flutter-action@v2

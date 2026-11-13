@@ -1,6 +1,7 @@
 """Check one immutable Clinic artifact; startup liveness is not feature acceptance."""
 import argparse
 import json
+import importlib.util
 import os
 import plistlib
 import stat
@@ -128,40 +129,46 @@ def launch(root):
         # No production credentials or runner environment reach the process.
         environment = {'HOME': str(home), 'CFFIXED_USER_HOME': str(home),
                        'TMPDIR': str(home), 'PATH': '/usr/bin:/bin:/usr/sbin:/sbin'}
-        profile = '(version 1) (allow default) (deny network*)'
+        spec = importlib.util.spec_from_file_location('network_isolation', Path(__file__).with_name('macos-network-isolation.py'))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
         reports = Path.home() / 'Library/Logs/DiagnosticReports'
         try:
             previous = {p.name for p in reports.glob('*.ips')}
         except OSError:
             reports, previous = None, set()
-        with (home / 'startup.log').open('wb') as log:
-            process = subprocess.Popen(['/usr/bin/sandbox-exec', '-p', profile, str(executable)],
-                                       env=environment, stdout=log, stderr=log, start_new_session=True)
-            try:
+        # Packet filtering does not nest a second Seatbelt sandbox around the app.
+        with module.NetworkIsolation() as isolation:
+            with (home / 'startup.log').open('wb') as log:
+                process = subprocess.Popen(isolation.command([str(executable)], environment),
+                                           env=environment, stdout=log, stderr=log, start_new_session=True)
                 try:
-                    code = process.wait(timeout=10)
-                except subprocess.TimeoutExpired:
-                    code = None
-                if code is not None:
-                    crash = None
-                    if code < 0 and reports is not None:
-                        deadline = time.monotonic() + 2
-                        while crash is None:
-                            crash = crash_summary(reports, process.pid, name, previous)
-                            if crash is not None or time.monotonic() >= deadline:
-                                break
-                            time.sleep(0.1)
-                    raise RuntimeError(startup_failure(code, home / 'startup.log', crash))
-            finally:
-                if process.poll() is None:
-                    process.terminate()
                     try:
-                        process.wait(timeout=5)
+                        code = process.wait(timeout=10)
                     except subprocess.TimeoutExpired:
-                        process.kill()
-                        process.wait(timeout=5)
+                        code = None
+                    if code is not None:
+                        crash = None
+                        if code < 0 and reports is not None:
+                            deadline = time.monotonic() + 2
+                            while crash is None:
+                                crash = crash_summary(reports, process.pid, name, previous)
+                                if crash is not None or time.monotonic() >= deadline:
+                                    break
+                                time.sleep(0.1)
+                        raise RuntimeError(startup_failure(code, home / 'startup.log', crash))
+                finally:
+                    if process.poll() is None:
+                        process.terminate()
+                        try:
+                            process.wait(timeout=5)
+                        except subprocess.TimeoutExpired:
+                            process.kill()
+                            process.wait(timeout=5)
     print(json.dumps({'artifact': ARTIFACT, 'source': SOURCE, 'startupSeconds': 10,
                       'startupLivenessPassed': True, 'networkDenied': True,
+                      'networkIsolation': 'verified dedicated-group TCP/UDP packet filter',
+                      'networkIsolationCleanupPassed': True,
                       'loginTested': False, 'featureAcceptance': False}))
 
 
