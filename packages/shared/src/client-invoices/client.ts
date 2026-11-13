@@ -1,3 +1,4 @@
+import {guardedJson} from '../guarded-json';
 export type InvoiceScope={userId:string;tenantId:string;roles:string};
 export type Invoice={id:string;status:string|null;currency:string|null;subtotal:string|null;tax:string|null;total:string|null;created_at:string;updated_at:string};
 export type InvoicePage={invoices:readonly Invoice[];pagination:{limit:number;offset:number;total:number;hasMore:boolean}};
@@ -32,10 +33,7 @@ export class ClientInvoices{
   if(!this.currentRequest(n)){await response.body?.cancel();throw Error('scope_changed');}
   if(response.status!==200){await response.body?.cancel();throw Error(response.status===401?'unauthenticated':response.status===403?'forbidden':response.status===404?'unavailable':'request_failed');}
   if(!response.headers.get('content-type')?.toLowerCase().includes('application/json')||!response.body){await response.body?.cancel();throw Error('invalid_response');}
-  const reader=response.body.getReader();let size=0;const parts:Uint8Array[]=[];
-  try{for(;;){const part=await reader.read();if(!this.currentRequest(n))throw Error('scope_changed');if(part.done)break;size+=part.value.byteLength;if(size>131072)throw Error('invalid_response');parts.push(part.value);}}
-  catch(error){await reader.cancel().catch(()=>{});throw error;}finally{reader.releaseLock();}
-  const bytes=new Uint8Array(size);let offset=0;for(const part of parts){bytes.set(part,offset);offset+=part.length;}return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
+  return guardedJson(response,131072,()=>{if(!this.currentRequest(n))throw Error('scope_changed');},()=>Error('invalid_response'));
  }
  private async self(n:number,signal:AbortSignal):Promise<InvoiceScope>{
   const raw=await this.json('/v1/auth/me',n,signal);

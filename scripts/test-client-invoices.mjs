@@ -18,3 +18,26 @@ test('invalid offsets and insecure arbitrary origins never dispatch',async()=>{c
 test('oversized response bodies are cancelled and never retained',async()=>{const f=new ClientInvoices('https://api.invalid','s',{userId:'owner',role:'guest'},()=>true,async()=>new Response(' '.repeat(140000),{headers:{'content-type':'application/json'}}));await f.load();assert.equal(f.current.page,null);assert.equal(f.current.error,'invalid_response');f.dispose();});
 
 test('injected fetch is called as a function without binding the client as receiver',async()=>{const f=new ClientInvoices('https://api.invalid','s',{userId:'owner',role:'guest'},()=>true,async function(url){assert.equal(this,undefined);return new Response(JSON.stringify(url.endsWith('/v1/auth/me')?{status:'authenticated',userId:'owner',tenantId:'tenant',roles:'guest'}:page()),{headers:{'content-type':'application/json'}});});await f.load();assert.equal(f.current.status,'ready');f.dispose();});
+
+const selfReply=()=>new Response(JSON.stringify({status:'authenticated',userId:'owner',tenantId:'tenant',roles:'guest'}),{headers:{'content-type':'application/json'}});
+function replyFixture(invoiceReply){const calls=[];let current=true;const client=new ClientInvoices('https://api.invalid','session',{userId:'owner',role:'guest'},()=>current,async(url,init)=>{calls.push({url,init});return url.endsWith('/v1/auth/me')?selfReply():invoiceReply();});return {client,calls,stale:()=>current=false};}
+for(const length of ['999999','-1','1.5','not-a-length'])test('advertised invoice response length '+length+' is rejected before reading a small valid body',async()=>{
+ let cancelled=0,pulls=0;const bytes=new TextEncoder().encode(JSON.stringify(page()));
+ const f=replyFixture(()=>new Response(new ReadableStream({pull(controller){if(pulls++===0)controller.enqueue(bytes);else controller.close();},cancel(){cancelled++;}}),{headers:{'content-type':'application/json','content-length':length}}));
+ await f.client.load();assert.equal(f.client.current.status,'error');assert.equal(f.client.current.error,'invalid_response');assert.equal(f.client.current.page,null);assert.equal(f.calls.length,2);assert.equal(cancelled,1);assert.ok(pulls<=1);f.client.dispose();
+});
+for(const [name,bytes] of [['malformed UTF8',new Uint8Array([0xc3,0x28])],['malformed JSON',new TextEncoder().encode('{')]])test(name+' invoice response maps to invalid_response and never retains a page',async()=>{
+ const f=replyFixture(()=>new Response(bytes,{headers:{'content-type':'application/json'}}));await f.client.load();assert.equal(f.client.current.error,'invalid_response');assert.equal(f.client.current.page,null);assert.equal(f.calls.length,2);f.client.dispose();
+});
+test('a valid bounded advertised length retains the exact owned-read sequence and decimals',async()=>{
+ const bytes=new TextEncoder().encode(JSON.stringify(page())),f=replyFixture(()=>new Response(bytes,{headers:{'content-type':'application/json','content-length':String(bytes.length)}}));await f.client.load();assert.equal(f.client.current.status,'ready');assert.equal(f.client.current.page.invoices[0].total,invoice.total);assert.equal(f.calls.length,3);f.client.dispose();
+});
+for(const [status,error] of [[401,'unauthenticated'],[403,'forbidden'],[404,'unavailable'],[500,'request_failed']])test('HTTP '+status+' mapping precedes body decoding and preserves safe error '+error,async()=>{
+ const f=replyFixture(()=>new Response(new Uint8Array([0xc3]),{status,headers:{'content-type':'application/json','content-length':'not-a-length'}}));await f.client.load();assert.equal(f.client.current.error,error);assert.equal(f.client.current.page,null);assert.equal(f.calls.length,2);f.client.dispose();
+});
+test('scope loss during a streamed invoice read cancels the reader and suppresses late bytes',async()=>{
+ let controller,cancelled=0;let started;const reading=new Promise(resolve=>started=resolve);
+ const f=replyFixture(()=>new Response(new ReadableStream({pull(c){controller=c;started();return new Promise(()=>{});},cancel(){cancelled++;}}),{headers:{'content-type':'application/json'}}));
+ const pending=f.client.load();await reading;f.stale();controller.enqueue(new TextEncoder().encode(JSON.stringify(page())));await pending;
+ assert.equal(f.client.current.status,'disposed');assert.equal(f.client.current.page,null);assert.equal(f.calls.length,2);assert.equal(cancelled,1);
+});

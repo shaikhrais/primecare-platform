@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/shared/src/client-invoices/**'
+      - 'packages/shared/src/guarded-json.ts'
       - 'packages/primecare_ui/web/client-invoices.ts'
       - 'packages/primecare_ui/catalogs/client-invoices.registration.json'
       - 'websites/typescript/src/client-invoice-host.ts'
