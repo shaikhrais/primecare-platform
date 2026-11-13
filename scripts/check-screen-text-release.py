@@ -27,11 +27,16 @@ check = next(i for i, step in enumerate(steps) if step.get('run') == 'python3 sc
 assert fixture < check and steps[fixture]['env'] == {'GOVERNANCE_ALLOW_SQLITE_FIXTURES':'1'}
 assert 'environment' not in jobs['release_tests'] and 'PRODUCTION_DATABASE_URL' not in jobs['release_tests'].get('env', {}), 'Isolated release fixtures must never receive production credentials'
 assert jobs['prepare_portals']['if'] == jobs['release_tests']['if']
-assert jobs['prepare_portals']['permissions'] == {'contents':'read','actions':'write'}
-script = jobs['prepare_portals']['steps'][0]['with']['script']
-assert 'head_sha: context.sha' in script and 'run.head_sha !== context.sha' in script
-assert "run.name.startsWith('Deploy Web - ')" in script
-assert 'cancelWorkflowRun' in script
+assert jobs['prepare_portals']['permissions'] == {'contents':'read'}
+assert any(step.get('run') == 'python3 -m tools.deployment.runtime_policy all typescript --require' for step in jobs['prepare_portals']['steps'])
+assert 'cancelWorkflowRun' not in p.read_text(), 'Release must preserve valid verification runs'
+# Runtime ownership, rather than cancellation, prevents a competing Flutter publish.
+flutter = yaml.load((ROOT / '.github/workflows/_deploy-web.yml').read_text(), Loader=yaml.BaseLoader)
+flutter_steps = flutter['jobs']['deploy']['steps']
+runtime = next(i for i, step in enumerate(flutter_steps) if step.get('id') == 'runtime')
+assert 'tools.deployment.runtime_policy' in flutter_steps[runtime]['run'] and 'flutter --github-output' in flutter_steps[runtime]['run']
+publish = next(i for i, step in enumerate(flutter_steps) if step.get('name') == 'Deploy website with rate-limit retries')
+assert runtime < publish and flutter_steps[publish]['if'] == "steps.runtime.outputs.publish == 'true'"
 for job, dependency in [('prepare_portals','contract'),('release_tests','prepare_portals'),('migration','release_tests'),('apis','migration'),('websites','apis'),('smoke','websites')]:
     assert jobs[job]['needs'] == dependency, f'{job} must wait for {dependency}'
 assert jobs['migration']['environment'] == 'production'

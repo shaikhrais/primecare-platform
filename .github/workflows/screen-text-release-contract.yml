@@ -1,0 +1,36 @@
+name: Verify ordered release runtime ownership
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/release-screen-text.yml'
+      - '.github/workflows/_deploy-web.yml'
+      - '.github/workflows/screen-text-release-contract.yml'
+      - 'scripts/check-screen-text-release.py'
+      - 'tools/deployment/runtime_policy.py'
+      - 'tools/deployment/test_runtime_policy.py'
+      - 'websites/production-runtime.json'
+      - 'websites/typescript/projects.json'
+  pull_request:
+    paths:
+      - '.github/workflows/release-screen-text.yml'
+      - '.github/workflows/_deploy-web.yml'
+      - '.github/workflows/screen-text-release-contract.yml'
+      - 'scripts/check-screen-text-release.py'
+      - 'tools/deployment/runtime_policy.py'
+      - 'tools/deployment/test_runtime_policy.py'
+      - 'websites/production-runtime.json'
+      - 'websites/typescript/projects.json'
+permissions:
+  contents: read
+jobs:
+  contract:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python3 -m pip install --disable-pip-version-check PyYAML==6.0.2
+      - run: python3 scripts/check-screen-text-release.py
+      - run: python3 -m unittest tools.deployment.test_runtime_policy -v
