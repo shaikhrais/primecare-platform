@@ -69,7 +69,7 @@ class HostFixture {
 Future<void> mount(WidgetTester tester,ProviderContainer container,{String locale='en'})async{
   await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),
     child:MaterialApp(locale:Locale(locale),supportedLocales:const[Locale('en'),Locale('fr'),Locale('es')],
-      localizationsDelegates:GlobalMaterialLocalizations.delegates,home:const TenantApplicationScreen()))));
+      localizationsDelegates:GlobalMaterialLocalizations.delegates,home:managedPrimeCarePage(nativeTenantApplicationRoute,(_)=>const TenantApplicationScreen())))));
   await tester.pumpAndSettle();
 }
 Finder choice()=>find.widgetWithText(TextButton,'Platform Administration');

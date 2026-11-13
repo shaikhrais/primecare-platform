@@ -1,13 +1,31 @@
-name: Discover existing PC10 business contracts
+name: Register native PC10 host and inspect contracts
 on:
   push:
     branches: [main]
     paths:
       - 'tools/governance-production/pc10-business-contract-discovery.mjs'
+      - 'tools/governance-production/native-application-host-registration.mjs'
+      - 'scripts/test-native-application-host-registration.mjs'
       - '.github/workflows/pc10-business-contracts.yml'
 permissions: {contents: read}
+concurrency:
+  group: primecare-pc10-native-host-registration
+  cancel-in-progress: false
 jobs:
-  read:
+  test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/pc10-native-link-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/pc10-native-link-tools/node_modules node_modules
+          node scripts/test-native-application-host-registration.mjs
+  register-and-read:
+    needs: test
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 5
@@ -19,6 +37,10 @@ jobs:
       - run: |
           npm install --prefix /tmp/pc10-contract-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
           ln -s /tmp/pc10-contract-tools/node_modules node_modules
+          node tools/governance-production/native-application-host-registration.mjs --plan
+          node tools/governance-production/native-application-host-registration.mjs --apply
           node tools/governance-production/pc10-business-contract-discovery.mjs
         env:
+          GH_TOKEN: ${{ github.token }}
+          REGISTER_PC10_NATIVE_HOST: '1'
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}

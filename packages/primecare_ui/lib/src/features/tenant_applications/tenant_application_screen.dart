@@ -27,9 +27,9 @@ class _Identity {
 
 /// Existing screen2534/API16578 authorizes this native composition before either
 /// child mounts. Profile remains read-only; account security stays on /success.
-class TenantApplicationScreen extends ConsumerWidget {
+class TenantApplicationScreen extends GovernedConsumerWidget {
   const TenantApplicationScreen({super.key});
-  @override Widget build(BuildContext context,WidgetRef ref) {
+  @override Widget buildScreen(BuildContext context,WidgetRef ref) {
     final auth=ref.watch(authProvider);
     if(!auth.isInitialized || !auth.isAuthenticated || auth.userId?.isNotEmpty!=true ||
         auth.tenantId?.isNotEmpty!=true || auth.token?.isNotEmpty!=true ||
@@ -39,12 +39,12 @@ class TenantApplicationScreen extends ConsumerWidget {
   }
 }
 
-class _ScopedApplications extends ConsumerStatefulWidget {
+class _ScopedApplications extends GovernedConsumerStatefulWidget {
   final _Identity identity;
   const _ScopedApplications({super.key,required this.identity});
-  @override ConsumerState<_ScopedApplications> createState()=>_ApplicationsState();
+  @override GovernedConsumerState<_ScopedApplications> createState()=>_ApplicationsState();
 }
-class _ApplicationsState extends ConsumerState<_ScopedApplications> {
+class _ApplicationsState extends GovernedConsumerState<_ScopedApplications> {
   final _clients=<http.Client>[];
   DashboardPageTransport? _dashboard;
   WorkModuleSession? _profile;
@@ -99,7 +99,7 @@ class _ApplicationsState extends ConsumerState<_ScopedApplications> {
   }
   String _locale(BuildContext context){final value=Localizations.localeOf(context).languageCode;
     return ['en','fr','es'].contains(value)?value:'en';}
-  @override Widget build(BuildContext context){
+  @override Widget buildScreen(BuildContext context){
     final locale=_locale(context),application=CatalogueLabels.fromMetadata(nativeApplicationApplication,locale),
       recovery=CatalogueLabels.fromMetadata(nativeApplicationRecovery,locale);
     final shell=ShellUtilityLabels(Map<String,String>.from(nativeApplicationShell['locales'][locale] as Map),

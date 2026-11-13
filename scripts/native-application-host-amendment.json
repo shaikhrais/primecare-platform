@@ -1,0 +1,39 @@
+{
+  "format": 1,
+  "purpose": "Exact native Tenant Admin route addition; historical migration inputs stay unchanged",
+  "baseCommit": "c0d226448689414cd4b55f12fe42665e4ecc79fe",
+  "files": [
+    {
+      "path": "apps/primecare_governance/lib/core/governance/route_registry.dart",
+      "beforeSha256": "cd7819feed255d774c96e52cfcfeee4df4190111e9c6768026823230ae9d2575",
+      "afterSha256": "aed1e9503b74f0d70aff9c3a69601784644f889370758ced75cdf615a6d2e4d6",
+      "edits": [
+        {
+          "begin": 337,
+          "old": "",
+          "new": ";\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute"
+        },
+        {
+          "begin": 2174,
+          "old": "",
+          "new": "\n  nativeTenantApplicationRoute,"
+        },
+        {
+          "begin": 5346,
+          "old": "",
+          "new": "// Registered entry renders no protected child until API16578 authorizes it.\n      if (state.uri.path == nativeTenantApplicationRoute) {\n        return session.isAuthenticated ? null : '/login';\n      }\n      "
+        },
+        {
+          "begin": 5575,
+          "old": "",
+          "new": ";\n      if (isAuth && isLoggingIn && session.role == 'tenant_admin') return nativeTenantApplicationRoute"
+        },
+        {
+          "begin": 9441,
+          "old": "",
+          "new": "\n          GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),"
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,29 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_native_application_host(source,path):
+    """Remove only the exact reviewed native-host router amendment for old replays."""
+    manifest=ROOT/'scripts/native-application-host-amendment.json'
+    if not manifest.exists():return source
+    row=next((r for r in json.loads(manifest.read_text())['files'] if r['path']==path),None)
+    if row is None:return source
+    digest=hashlib.sha256(source.encode()).hexdigest()
+    if digest==row['beforeSha256']:return source
+    if digest!=row['afterSha256']:
+        if 'nativeTenantApplicationRoute' in source:raise AssertionError('Native host router output drift: '+path)
+        return source  # An earlier replay layer; its original exact pin still applies.
+    edits=[];delta=0
+    for edit in row['edits']:
+        begin=edit['begin']+delta
+        if source[begin:begin+len(edit['new'])]!=edit['new']:raise AssertionError('Native host router edit drift: '+path)
+        edits.append((begin,begin+len(edit['new']),edit['old']))
+        delta+=len(edit['new'])-len(edit['old'])
+    for begin,end,old in reversed(edits):source=source[:begin]+old+source[end:]
+    if hashlib.sha256(source.encode()).hexdigest()!=row['beforeSha256']:raise AssertionError('Native host router input drift: '+path)
+    return source
+
 def before_native_compile_repairs(source,path):
+    source=before_native_application_host(source,path)
     source=before_native_widget_repairs(source,path)
     manifest=ROOT/'scripts/native-generated-compile-repairs.json'
     if not manifest.exists():return source
