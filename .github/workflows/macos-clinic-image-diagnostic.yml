@@ -1,0 +1,55 @@
+name: Diagnose Clinic startup on alternate Intel image
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/macos-clinic-image-diagnostic.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: clinic-image-diagnostic-${{ github.sha }}
+  cancel-in-progress: false
+
+jobs:
+  clinic:
+    runs-on: macos-15-intel
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify existing entitlement, archive and diagnostic fixtures
+        run: |
+          python3 scripts/test-macos-entitlements.py
+          python3 scripts/test-macos-archive-preservation.py
+          python3 scripts/test-macos-startup-diagnostics.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Enable macOS desktop
+        run: flutter config --enable-macos-desktop
+      - name: Build Clinic with the existing sandbox entitlement preparation
+        working-directory: apps/primecare_clinic
+        run: |
+          flutter pub get
+          if [ ! -d macos/Runner.xcodeproj ]; then
+            flutter create --platforms=macos .
+          fi
+          python3 ../../scripts/prepare-macos-entitlements.py .
+          flutter build macos --release
+          python3 ../../scripts/prepare-macos-entitlements.py . --verify-built
+      - name: Require strict signatures, archive preservation and isolated startup
+        run: |
+          python3 scripts/package-test-macos-build.py \
+            --products apps/primecare_clinic/build/macos/Build/Products/Release \
+            --archive "${{ runner.temp }}/macos-primecare_clinic-image-diagnostic.tar"
+      - name: Retain only the verified diagnostic archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-clinic-image-diagnostic
+          path: ${{ runner.temp }}/macos-primecare_clinic-image-diagnostic.tar
+          if-no-files-found: error
