@@ -20,6 +20,13 @@ BUILDS = {
     43328101727: {'platform': 'macos', 'source': SOURCE, 'archiveFormat': 'raw'},
     43328101736: {'platform': 'ios', 'source': SOURCE, 'archiveFormat': 'raw'},
     43349642502: {'platform': 'macos', 'source': '89273fca8fd30463a8b4c80f66106b8693601fa2', 'archiveFormat': 'tar'},
+    43377825284: {'platform': 'ios', 'source': 'ab9ce22d10c8d947be437b584f4f9a73a48e1db6',
+                  'archiveFormat': 'raw', 'app': 'primecare_enterprise_blueprint',
+                  'workflowPath': '.github/workflows/ios-blueprint-diagnostic.yml',
+                  'producer': 'unsigned_blueprint',
+                  'artifactName': 'ios-blueprint-unsigned-ab9ce22d10c8d947be437b584f4f9a73a48e1db6',
+                  'artifactId': 14016450032,
+                  'executableSha256': '0a175e12567500cfbdccdcbc9e7bb7d9cfc853d447b661c29ba242e95c295bda'},
 }
 APPS = ('primecare_business_development', 'primecare_client', 'primecare_clinic',
         'primecare_corporate', 'primecare_franchise', 'primecare_marketing',
@@ -39,7 +46,8 @@ def matrix_scope(item):
     scope = BUILDS.get(run) if type(run) is int else None
     if (scope is None or item.get('app') not in APPS
             or any(item.get(key) != value for key, value in scope.items())
-            or type(item.get('id')) is not int or item['id'] <= 0):
+            or type(item.get('id')) is not int or item['id'] <= 0
+            or scope.get('artifactId', item['id']) != item['id']):
         raise ValueError('Unexpected artifact matrix identity')
     return scope
 
@@ -49,7 +57,9 @@ def validate(artifact, platform, app, run_id=None):
     run_id = RUNS.get(platform) if run_id is None else run_id
     scope = BUILDS.get(run_id)
     if (scope is None or scope['platform'] != platform or app not in APPS
-            or artifact.get('name') != f'{platform}-build-{app}'
+            or artifact.get('name') != scope.get('artifactName', f'{platform}-build-{app}')
+            or scope.get('app', app) != app
+            or scope.get('artifactId', artifact.get('id')) != artifact.get('id')
             or artifact.get('expired') is not False or artifact.get('size_in_bytes', 0) <= 0
             or run.get('id') != run_id or run.get('head_sha') != scope['source']
             or run.get('head_branch') != 'main'
@@ -67,7 +77,7 @@ def discover():
         platform = scope['platform']
         run = api(f'actions/runs/{run_id}')
         if (run.get('head_sha') != scope['source'] or run.get('head_branch') != 'main'
-                or run.get('path') != f'.github/workflows/build_{platform}.yml'
+                or run.get('path') != scope.get('workflowPath', f'.github/workflows/build_{platform}.yml')
                 or run.get('repository', {}).get('full_name') != REPOSITORY
                 or run.get('head_repository', {}).get('full_name') != REPOSITORY):
             raise ValueError('Build run identity mismatch')
@@ -75,9 +85,9 @@ def discover():
         jobs = api(f'actions/runs/{run_id}/jobs?per_page=100')
         if artifacts['total_count'] > 100 or jobs['total_count'] > 100:
             raise ValueError('Truncated build inventory')
-        for app in APPS:
-            matches = [a for a in artifacts['artifacts'] if a['name'] == f'{platform}-build-{app}']
-            producers = [j for j in jobs['jobs'] if j['name'] == f'build_{platform} ({app})']
+        for app in ((scope['app'],) if 'app' in scope else APPS):
+            matches = [a for a in artifacts['artifacts'] if a['name'] == scope.get('artifactName', f'{platform}-build-{app}')]
+            producers = [j for j in jobs['jobs'] if j['name'] == scope.get('producer', f'build_{platform} ({app})')]
             state = producers[0].get('conclusion') or producers[0]['status'] if len(producers) == 1 else 'missing'
             if len(matches) > 1:
                 raise ValueError('Ambiguous artifact')
@@ -130,7 +140,10 @@ def inspect(item, root):
                               'currentExists': current.exists()}), flush=True)
         smoke.launch(root)
     else:
-        print(json.dumps(inspect_ios_bundle(root, app, scope['source'], item['id'])))
+        result = inspect_ios_bundle(root, app, scope['source'], item['id'])
+        if scope.get('executableSha256', result['executableSha256']) != result['executableSha256']:
+            raise ValueError('Downloaded executable differs from reviewed builder digest')
+        print(json.dumps(result))
 
 def inspect_ios_bundle(root, app, source, artifact=None):
     """Static unsigned device-bundle inspection shared by builders and downloads."""
