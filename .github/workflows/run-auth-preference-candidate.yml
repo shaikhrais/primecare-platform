@@ -1,5 +1,5 @@
 name: Run accepted auth preference candidate
-# Recover the independently matched interrupted upload before this code refresh.
+# Revalidate the current accepted code for API777 after the a94e2226 picker/recovery batch; runtime stays disabled.
 on:
   push:
     branches: [main]

@@ -1,4 +1,5 @@
 name: Test and publish tenant and PSW workspaces
+# Publish the a94e2226 verified shortcut picker/recovery batch after source stabilization.
 on:
   push:
     branches: [main]
