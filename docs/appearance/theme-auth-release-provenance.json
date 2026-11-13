@@ -22,14 +22,14 @@
     ]
   },
   "activeReadback": {
-    "run": 41946577622,
-    "job": 126980181530,
-    "deploymentId": "41f6bd47-afa2-411b-9f08-6da3d81d012e",
-    "versionId": "8f4f184e-b704-4ede-b2a6-8208c08b1935",
+    "run": 43444070249,
+    "job": 131951014839,
+    "deploymentId": "8b419205-89b0-458e-b553-388b4758920b",
+    "versionId": "e667ecba-f0ef-45c1-ad85-1262e23a3e67",
     "trafficPercent": 100,
     "preferenceSyncEnabled": false
   },
-  "sourceAssociation": "Original accepted auth release retained; current provider code independently rebuilt and matched byte for byte after a later generic release.",
+  "sourceAssociation": "Original accepted lifecycle and reconciliation history retained. Current Auth code passed source/security/PostgreSQL/schema acceptance and independently matched its exact uploaded version in run43444070249; preference runtime remains disabled.",
   "historicalSource": {
     "serviceApplicationPath": "cloudflare/workers/src/service-application.ts",
     "accountPreferencesImported": false,
@@ -40,8 +40,8 @@
     "oldPromotedManifestSourceDriftPaths": 8,
     "oldSourceApprovalReused": false,
     "productionAuthUpdateRequired": false,
-    "required": "Production preference endpoint activation and host-level release checks remain pending.",
-    "latestVerifiedSource": "a916cce32ab0ef4fd3e9b021b301acda1b49d428"
+    "required": "API777 metadata/runtime activation, owned production save/read/reload acceptance, and release review remain pending.",
+    "latestVerifiedSource": "15c1be77fde175c2f397b78a893c2bf985db21db"
   },
   "artifactRegistrationApproved": false,
   "permissionRowsChanged": 0,
@@ -69,5 +69,47 @@
     "bundleSha256": "c970ee27538562ea38b89f04680f4448ddbc7d90c1bea573dc2828374729eb3b",
     "providerWrites": 0,
     "humanApproved": false
+  },
+  "previousActiveReadbacks": [
+    {
+      "run": 41946577622,
+      "job": 126980181530,
+      "deploymentId": "41f6bd47-afa2-411b-9f08-6da3d81d012e",
+      "versionId": "8f4f184e-b704-4ede-b2a6-8208c08b1935",
+      "trafficPercent": 100,
+      "preferenceSyncEnabled": false
+    }
+  ],
+  "currentCodeRelease": {
+    "format": 1,
+    "source": "15c1be77fde175c2f397b78a893c2bf985db21db",
+    "worker": "primecare-auth-api",
+    "service": "auth",
+    "deploymentId": "8b419205-89b0-458e-b553-388b4758920b",
+    "versionId": "e667ecba-f0ef-45c1-ad85-1262e23a3e67",
+    "trafficPercent": 100,
+    "createdOn": "2026-11-13T14:40:21.527361Z",
+    "independentlyReadDeployment": true,
+    "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+    "registeredGovernanceArtifactId": null,
+    "grantAssociationApproved": false,
+    "sourceCheckoutVerified": true,
+    "existingBindingsPreserved": true,
+    "existingCronSchedulesPreserved": true,
+    "keySelectionChanged": false,
+    "sourceFingerprintUpdated": true,
+    "preferenceRuntimeActivated": false,
+    "productionGrantsChanged": 0,
+    "productionSchemaChanged": false,
+    "healthStatus": 200,
+    "disabledPreferenceProbe": 503,
+    "evidence": {
+      "runId": 43444070249,
+      "jobId": 131951014839,
+      "workflow": ".github/workflows/auth-preference-candidate.yml",
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "headBranch": "main"
+    }
   }
 }

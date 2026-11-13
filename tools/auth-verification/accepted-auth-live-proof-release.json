@@ -17,5 +17,37 @@
     "versionId": "8f4f184e-b704-4ede-b2a6-8208c08b1935",
     "bundleSha256": "c970ee27538562ea38b89f04680f4448ddbc7d90c1bea573dc2828374729eb3b",
     "preferenceFlag": "absent"
+  },
+  "currentCodeRelease": {
+    "format": 1,
+    "source": "15c1be77fde175c2f397b78a893c2bf985db21db",
+    "worker": "primecare-auth-api",
+    "service": "auth",
+    "deploymentId": "8b419205-89b0-458e-b553-388b4758920b",
+    "versionId": "e667ecba-f0ef-45c1-ad85-1262e23a3e67",
+    "trafficPercent": 100,
+    "createdOn": "2026-11-13T14:40:21.527361Z",
+    "independentlyReadDeployment": true,
+    "sourceAssociation": "verified CI checkout and exact Wrangler upload version",
+    "registeredGovernanceArtifactId": null,
+    "grantAssociationApproved": false,
+    "sourceCheckoutVerified": true,
+    "existingBindingsPreserved": true,
+    "existingCronSchedulesPreserved": true,
+    "keySelectionChanged": false,
+    "sourceFingerprintUpdated": true,
+    "preferenceRuntimeActivated": false,
+    "productionGrantsChanged": 0,
+    "productionSchemaChanged": false,
+    "healthStatus": 200,
+    "disabledPreferenceProbe": 503,
+    "evidence": {
+      "runId": 43444070249,
+      "jobId": 131951014839,
+      "workflow": ".github/workflows/auth-preference-candidate.yml",
+      "conclusion": "success",
+      "event": "workflow_dispatch",
+      "headBranch": "main"
+    }
   }
 }
