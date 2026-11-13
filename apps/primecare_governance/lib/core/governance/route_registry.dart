@@ -3,6 +3,7 @@ import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/src/network/api_client.dart';
 import 'governance_route_access.dart';
+import 'native_application_access.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
@@ -104,15 +105,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (!session.isAuthenticated && state.uri.path == CommonRoutes.authCallback) {
         return CommonRoutes.login;
       }
-      // Registered entry renders no protected child until API16578 authorizes it.
-      if (state.uri.path == nativeTenantApplicationRoute) {
-        return session.isAuthenticated ? null : '/login';
+      final nativeEntry = state.uri.path == nativeTenantApplicationRoute;
+      final nativeLanding = session.isAuthenticated && session.role == 'tenant_admin' &&
+          {'/', '/login', '/auth/callback'}.contains(state.uri.path);
+      if (nativeEntry || nativeLanding) {
+        if (!session.isAuthenticated) return '/login';
+        final captured = (session.userId, session.tenantId, session.token, session.role);
+        bool current() {
+          try {
+            if (!ref.mounted) return false;
+            final latest = ref.read(authProvider);
+            return latest.isAuthenticated &&
+                (latest.userId, latest.tenantId, latest.token, latest.role) == captured;
+          } catch (_) { return false; }
+        }
+        if (captured.$3 == null || captured.$3!.isEmpty) return CommonRoutes.authError;
+        final allowed = await authorizeNativeApplicationRoute(
+          userId: captured.$1, tenantId: captured.$2, role: captured.$4,
+          isCurrent: current, loadDashboard: () async {
+            final response = await ref.read(apiClientProvider).get(
+              '/v1/governance/tenant-dashboard', queryParameters: {'dataset': 'live'});
+            return response.statusCode == 200 ? response.data : null;
+          });
+        return allowed ? (nativeLanding ? nativeTenantApplicationRoute : null) : CommonRoutes.authError;
       }
       final isAuth = session.isAuthenticated;
       final isLoggingIn = state.matchedLocation == '/login' || 
                           state.matchedLocation == '/' ||
                           state.matchedLocation == '/auth/callback';
-      if (isAuth && isLoggingIn && session.role == 'tenant_admin') return nativeTenantApplicationRoute;
       
       if (!isAuth && !isLoggingIn &&
           !SharedAuthRoutes.publicPaths.contains(state.uri.path)) return '/login';

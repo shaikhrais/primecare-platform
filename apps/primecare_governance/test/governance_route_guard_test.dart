@@ -20,6 +20,10 @@ class GuardAuth extends AuthNotifier {
     role: 'fixture-role');
 }
 
+class GuardTenantAuth extends GuardAuth {
+  @override AuthState build() => AuthState(isInitialized:true,isAuthenticated:true,
+    userId:'fixture-user',tenantId:'fixture-tenant',token:'fixture-token',role:'tenant_admin');
+}
 class GuardApi implements ApiClient {
   dynamic data;
   int status = 200;
@@ -110,4 +114,34 @@ void main() {
     expect(api.paths.every((value) => value == '/v1/governance/workspace'), isTrue);
     expect(tester.takeException(), isNull);
   });
+  testWidgets('native Tenant Admin entry requires live matching server capability and retires late replies',(tester)async{
+    Map<String,dynamic> native()=>{'dataset':'live','synthetic':false,
+      'identity':{'userId':'fixture-user','role':'tenant_admin'},'organization':{'id':'fixture-tenant'}};
+    final api=GuardApi()..data=native();
+    final container=ProviderContainer(overrides:[authProvider.overrideWith(GuardTenantAuth.new),apiClientProvider.overrideWithValue(api)]);
+    final router=container.read(appRouterProvider);addTearDown(router.dispose);addTearDown(container.dispose);
+    late BuildContext context;
+    await tester.pumpWidget(MaterialApp(home:Builder(builder:(value){context=value;return const SizedBox();})));
+    Future<String?> redirect(String target)async=>router.configuration.topRedirect(context,
+      GoRouterState(router.configuration,uri:Uri.parse(target),matchedLocation:target,fullPath:target,pathParameters:const{},pageKey:ValueKey(target)));
+    expect(await redirect('/tenant-dashboard'),isNull);
+    expect(await redirect('/login'),'/tenant-dashboard');
+    for(final status in [401,403,500]){api.status=status;expect(await redirect('/tenant-dashboard'),CommonRoutes.authError);}
+    api.status=200;
+    for(final invalid in [
+      {...native(),'dataset':'demo','synthetic':true},
+      {...native(),'identity':{'userId':'other','role':'tenant_admin'}},
+      {...native(),'organization':{'id':'other'}},
+      {...native(),'identity':{'userId':'fixture-user','role':'other'}},
+      <String,dynamic>{},
+    ]){api.data=invalid;expect(await redirect('/tenant-dashboard'),CommonRoutes.authError);}
+    expect(api.paths.every((path)=>path=='/v1/governance/tenant-dashboard'),true);
+    api.data=native();final pending=api.pending=Completer<ApiResponse>();
+    final old=redirect('/tenant-dashboard');
+    (container.read(authProvider.notifier) as GuardTenantAuth).replace();
+    pending.complete(ApiResponse(statusCode:200,data:native()));
+    expect(await old,CommonRoutes.authError);
+    expect(tester.takeException(),isNull);
+  });
+
 }

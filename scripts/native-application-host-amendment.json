@@ -6,12 +6,12 @@
     {
       "path": "apps/primecare_governance/lib/core/governance/route_registry.dart",
       "beforeSha256": "cd7819feed255d774c96e52cfcfeee4df4190111e9c6768026823230ae9d2575",
-      "afterSha256": "aed1e9503b74f0d70aff9c3a69601784644f889370758ced75cdf615a6d2e4d6",
+      "afterSha256": "55eadd3e8584cff740e123b9b3bd781b2cd5a6d18e3d3849bc05d653eade5c56",
       "edits": [
         {
           "begin": 337,
           "old": "",
-          "new": ";\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute"
+          "new": ";\nimport 'native_application_access.dart';\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';\nimport 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute"
         },
         {
           "begin": 2174,
@@ -19,19 +19,14 @@
           "new": "\n  nativeTenantApplicationRoute,"
         },
         {
-          "begin": 5346,
+          "begin": 5330,
           "old": "",
-          "new": "// Registered entry renders no protected child until API16578 authorizes it.\n      if (state.uri.path == nativeTenantApplicationRoute) {\n        return session.isAuthenticated ? null : '/login';\n      }\n      "
+          "new": ";\n      }\n      final nativeEntry = state.uri.path == nativeTenantApplicationRoute;\n      final nativeLanding = session.isAuthenticated && session.role == 'tenant_admin' &&\n          {'/', '/login', '/auth/callback'}.contains(state.uri.path);\n      if (nativeEntry || nativeLanding) {\n        if (!session.isAuthenticated) return '/login';\n        final captured = (session.userId, session.tenantId, session.token, session.role);\n        bool current() {\n          try {\n            if (!ref.mounted) return false;\n            final latest = ref.read(authProvider);\n            return latest.isAuthenticated &&\n                (latest.userId, latest.tenantId, latest.token, latest.role) == captured;\n          } catch (_) { return false; }\n        }\n        if (captured.$3 == null || captured.$3!.isEmpty) return CommonRoutes.authError;\n        final allowed = await authorizeNativeApplicationRoute(\n          userId: captured.$1, tenantId: captured.$2, role: captured.$4,\n          isCurrent: current, loadDashboard: () async {\n            final response = await ref.read(apiClientProvider).get(\n              '/v1/governance/tenant-dashboard', queryParameters: {'dataset': 'live'});\n            return response.statusCode == 200 ? response.data : null;\n          });\n        return allowed ? (nativeLanding ? nativeTenantApplicationRoute : null) : CommonRoutes.authError"
         },
         {
-          "begin": 5575,
+          "begin": 9452,
           "old": "",
-          "new": ";\n      if (isAuth && isLoggingIn && session.role == 'tenant_admin') return nativeTenantApplicationRoute"
-        },
-        {
-          "begin": 9441,
-          "old": "",
-          "new": "\n          GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),"
+          "new": "GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),\n          "
         }
       ]
     }
