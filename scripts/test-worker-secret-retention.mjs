@@ -60,3 +60,32 @@ test('empty secret sets are valid without claiming non-secret preservation', () 
     secretBindingCount: 0, secretBindingsPreserved: true,
   });
 });
+
+test('inherited and hidden retention flags cannot establish explicit JSON configuration', () => {
+  for (const config of [Object.create({ keep_vars: true }),
+    Object.defineProperty({}, 'keep_vars', { value: true })]) {
+    assert.equal(JSON.stringify(config), '{}');
+    assert.throws(() => assertExplicitSecretRetention(config), /Explicit Worker secret retention required/);
+  }
+});
+
+test('retention rejects accessors and non-object JSON configurations without invoking a flag getter', () => {
+  let reads = 0;
+  const accessor = Object.defineProperty({}, 'keep_vars', { enumerable: true,
+    get() { reads++; return true; } });
+  for (const config of [accessor, Object.assign([], { keep_vars: true }),
+    Object.assign(() => {}, { keep_vars: true })]) {
+    assert.throws(() => assertExplicitSecretRetention(config), /Explicit Worker secret retention required/);
+  }
+  assert.equal(reads, 0);
+});
+
+test('own enumerable boolean data flags work for parsed, frozen and null-prototype configurations', () => {
+  for (const config of [JSON.parse('{"keep_vars":true}'), Object.freeze({ keep_vars: true }),
+    Object.assign(Object.create(null), { keep_vars: true })]) {
+    const before = JSON.stringify(config);
+    assert.equal(assertExplicitSecretRetention(config), true);
+    assert.equal(JSON.parse(before).keep_vars, true);
+    assert.equal(JSON.stringify(config), before);
+  }
+});

@@ -24,7 +24,11 @@ function identities(settings) {
  * Non-secret bindings and deployed/latest-upload lineage need separate guards.
  */
 export function assertExplicitSecretRetention(config) {
-  if (!config || config.keep_vars !== true) {
+  // Inherited/hidden flags are omitted from JSON, and accessors can change
+  // between this check and serialization. Accept only the explicit data flag.
+  const flag = config && typeof config === 'object' && !Array.isArray(config)
+    ? Object.getOwnPropertyDescriptor(config, 'keep_vars') : undefined;
+  if (!flag || flag.enumerable !== true || flag.value !== true) {
     throw new Error('Explicit Worker secret retention required');
   }
   return true;
