@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['tools/auth-verification/test-live-sessions.py']
+    paths: ['tools/auth-verification/test-live-sessions.py', '.github/workflows/verify-live-own-sessions.yml']
   workflow_run:
     workflows: ['Release confirmed self-session revocation', 'Release registered account session controls', 'Verify deployed account creation editing revocation and email recovery']
     types: [completed]
@@ -63,7 +63,7 @@ jobs:
   proof:
     needs: deployment
     environment: production
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     strategy:
       max-parallel: 1
