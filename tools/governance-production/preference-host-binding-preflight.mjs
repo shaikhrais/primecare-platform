@@ -12,8 +12,9 @@ try {
   db = new pg.Client({ connectionString: raw, ssl: { rejectUnauthorized: true }, connectionTimeoutMillis: 10000 });
   await db.connect();
   console.log(JSON.stringify(await registerPreferenceHostBindings(db, { readOnly: true })));
-} catch {
+} catch (error) {
   console.error('Read-only preference host preflight failed.');
+  if (/^[0-9A-Z]{5}$/.test(error?.code ?? '')) console.error('PostgreSQL SQLSTATE: ' + error.code);
   process.exitCode = 1;
 } finally {
   if (db) await db.end();

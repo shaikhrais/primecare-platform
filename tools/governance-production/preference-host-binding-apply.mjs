@@ -21,8 +21,9 @@ try {
   const readback = await registerPreferenceHostBindings(db, { readOnly: true });
   if (readback.missingScreenIds.length) throw Error('Independent readback found missing links');
   console.log(JSON.stringify({ result, readback }));
-} catch {
+} catch (error) {
   console.error('Preference host registration or independent readback failed.');
+  if (/^[0-9A-Z]{5}$/.test(error?.code ?? '')) console.error('PostgreSQL SQLSTATE: ' + error.code);
   process.exitCode = 1;
 } finally {
   if (db) await db.end();
