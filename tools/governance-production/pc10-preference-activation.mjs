@@ -63,7 +63,7 @@ async function main(){
  const url=new URL(process.env.PRODUCTION_DATABASE_URL??'');if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Pinned database required');
  const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN;
  if(!/^[a-f0-9]{32}$/i.test(account??'')||!token||expected?.preferenceRuntimeActivated!==false)throw Error('Accepted disabled Auth version and scoped provider required');
- const api=async(path,options={})=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{...options,redirect:'error',headers:{authorization:'Bearer '+token,...options.headers},signal:AbortSignal.timeout(30000)});const value=await r.json();if(!r.ok||value.success!==true)throw Error('Scoped provider operation failed: '+path.split('?')[0]);return value.result;};
+ const api=async(path,options={})=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{...options,redirect:'error',headers:{authorization:'Bearer '+token,...options.headers},signal:AbortSignal.timeout(30000)});const value=await r.json();if(!r.ok||value.success!==true)throw Error('Scoped provider operation failed: '+path.split('?')[0]+' HTTP '+r.status+' '+JSON.stringify((value.errors??[]).map(e=>({code:e.code,message:String(e.message??'').replaceAll(token,'[redacted]').replace(/postgres(?:ql)?:\/\/\S+/gi,'[redacted database URL]').slice(0,300)}))));return value.result;};
  const deployment=async()=>{const result=await api(base+'/deployments?per_page=1');const value=result.deployments?.[0];if(!value||value.versions?.length!==1||value.versions[0].percentage!==100)throw Error('Single current deployment required');return {id:value.id,version:value.versions[0].version_id};};
  const latest=async()=>{const value=await api(base+'/versions?per_page=1');const item=value.items?.[0];if(!item?.id)throw Error('Latest version identity unavailable');return item.id;};
  const deploy=async version=>api(base+'/deployments',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({strategy:'percentage',versions:[{version_id:version,percentage:100}]})});
@@ -87,15 +87,15 @@ async function main(){
    }
    if(!disabled)throw Error('Runtime rollback disabled-state probe failed');
    if(journal.metadata?.changed)await promoteMetadata(db,{apply:true,restore:true});
-   journal.rolledBack=true;await saveJournal(journal);console.log('PC10_ACTIVATION_ROLLBACK '+JSON.stringify({source,runtimeRestored:true,metadataRestored:!!journal.metadata?.changed,grantsChanged:0}));return;
+   journal.rolledBack=true;journal.restored=restored;await saveJournal(journal);console.log('PC10_ACTIVATION_ROLLBACK '+JSON.stringify({source,runtimeRestored:true,restoredDeployment:restored.id,restoredVersion:restored.version,metadataRestored:!!journal.metadata?.changed,grantsChanged:0}));return;
   }
   const before=await deployment(),uploadedSettings=await api(base+'/settings'),schedules=await api(base+'/schedules'),latestVersion=await latest();
   const oldVersion=await api(base+'/versions/'+before.version),etag=oldVersion.resources?.script?.etag;
-  let settings=uploadedSettings;
+  let settings=uploadedSettings,reviewedStaged=false;
   if(before.id===expected.deploymentId&&before.version===expected.versionId&&latestVersion===before.version){
    if(!etag||settings.bindings.find(b=>b.name==='PREFERENCE_SYNC_ENABLED')?.text!=='0')throw Error('Expected disabled code version required');
   }else{
-   settings=reviewedRetrySettings({before,latestVersion,etag,settings:uploadedSettings},retryBaseline);
+   settings=reviewedRetrySettings({before,latestVersion,etag,settings:uploadedSettings},retryBaseline);reviewedStaged=true;
    if(before.version!==expected.versionId)throw Error('Rollback code version differs from accepted code');
    const probe=await fetch('https://primecare-auth-api.itpro-mohammed.workers.dev/user/preferences',{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(30000)});
    const body=await probe.json();if(probe.status!==503||body.error!=='preference_sync_disabled')throw Error('Reviewed retry requires independently disabled runtime');
@@ -107,10 +107,17 @@ async function main(){
   if(canonical(await deployment())!==canonical(before)||await latest()!==latestVersion)throw Error('Provider changed before metadata promotion');
   journal.metadata=await promoteMetadata(db,{apply:true});await saveJournal(journal);
   if(canonical(await deployment())!==canonical(before)||await latest()!==latestVersion)throw Error('Provider changed before activation');
-  journal.patchAttempted=true;await saveJournal(journal);
-  const form=new FormData();form.set('settings',JSON.stringify({...patch,annotations:{'workers/message':'Activate reviewed existing PC10 own preferences; code preserved','workers/tag':'pc10-'+source.slice(0,12)}}));
-  await api(base+'/settings',{method:'PATCH',body:form});
-  journal.newVersion=await latest();await saveJournal(journal);
+  if(reviewedStaged){
+   // The reviewed immutable upload already has the desired flag and preserved
+   // code/bindings. Deploy it instead of recreating settings after rollback.
+   verifySettings(settings,uploadedSettings,'1');
+   journal.newVersion=latestVersion;journal.reusedReviewedUpload=true;await saveJournal(journal);
+  }else{
+   journal.patchAttempted=true;await saveJournal(journal);
+   const form=new FormData();form.set('settings',JSON.stringify({...patch,annotations:{'workers/message':'Activate reviewed existing PC10 own preferences; code preserved','workers/tag':'pc10-'+source.slice(0,12)}}));
+   await api(base+'/settings',{method:'PATCH',body:form});
+   journal.newVersion=await latest();await saveJournal(journal);
+  }
   const uploaded=await api(base+'/versions/'+journal.newVersion);
   if(journal.newVersion===before.version||uploaded.resources?.script?.etag!==etag)throw Error('Activation must preserve code in a distinct version');
   verifySettings(settings,await api(base+'/settings'),'1');
