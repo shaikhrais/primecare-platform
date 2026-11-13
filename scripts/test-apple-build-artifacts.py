@@ -5,6 +5,7 @@ import importlib.util
 import json
 import os
 import plistlib
+import re
 import subprocess
 import tempfile
 import urllib.request
@@ -129,25 +130,31 @@ def inspect(item, root):
                               'currentExists': current.exists()}), flush=True)
         smoke.launch(root)
     else:
-        # The iOS producer uploads Runner.app contents, without its enclosing folder.
-        info = plistlib.loads((root / 'Info.plist').read_bytes())
-        name = info.get('CFBundleExecutable')
-        if (info.get('CFBundlePackageType') != 'APPL'
-                or 'iPhoneOS' not in info.get('CFBundleSupportedPlatforms', [])
-                or not isinstance(name, str) or Path(name).name != name or name in ('.', '..')
-                or not isinstance(info.get('CFBundleIdentifier'), str) or not info['CFBundleIdentifier']):
-            raise ValueError('Invalid iPhone device application metadata')
-        executable = (root / name).resolve()
-        if not executable.is_relative_to(root.resolve()) or not executable.is_file():
-            raise ValueError('Missing or escaping iOS executable')
-        result = subprocess.run(['file', str(executable)], check=True, capture_output=True, text=True, timeout=30)
-        if 'Mach-O' not in result.stdout or 'arm64' not in result.stdout:
-            raise ValueError('Expected an arm64 Mach-O device executable')
-        with executable.open('rb') as binary:
-            digest = hashlib.file_digest(binary, 'sha256').hexdigest()
-        print(json.dumps({'artifact': item['id'], 'source': scope['source'], 'app': app,
-                          'bundleInspectionPassed': True, 'executableSha256': digest,
-                          'runtimeLaunchTested': False, 'deviceSigningRequired': True}))
+        print(json.dumps(inspect_ios_bundle(root, app, scope['source'], item['id'])))
+
+def inspect_ios_bundle(root, app, source, artifact=None):
+    """Static unsigned device-bundle inspection shared by builders and downloads."""
+    if app not in APPS or re.fullmatch('[0-9a-f]{40}', source) is None:
+        raise ValueError('Unexpected built application identity')
+    # The iOS producer uploads Runner.app contents, without its enclosing folder.
+    info = plistlib.loads((root / 'Info.plist').read_bytes())
+    name = info.get('CFBundleExecutable')
+    if (info.get('CFBundlePackageType') != 'APPL'
+            or 'iPhoneOS' not in info.get('CFBundleSupportedPlatforms', [])
+            or not isinstance(name, str) or Path(name).name != name or name in ('.', '..')
+            or not isinstance(info.get('CFBundleIdentifier'), str) or not info['CFBundleIdentifier']):
+        raise ValueError('Invalid iPhone device application metadata')
+    executable = (root / name).resolve()
+    if not executable.is_relative_to(root.resolve()) or not executable.is_file():
+        raise ValueError('Missing or escaping iOS executable')
+    result = subprocess.run(['file', str(executable)], check=True, capture_output=True, text=True, timeout=30)
+    if 'Mach-O' not in result.stdout or 'arm64' not in result.stdout:
+        raise ValueError('Expected an arm64 Mach-O device executable')
+    with executable.open('rb') as binary:
+        digest = hashlib.file_digest(binary, 'sha256').hexdigest()
+    return {'artifact': artifact, 'source': source, 'app': app,
+                      'bundleInspectionPassed': True, 'executableSha256': digest,
+                      'runtimeLaunchTested': False, 'deviceSigningRequired': True}
 
 
 if __name__ == '__main__':

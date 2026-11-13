@@ -19,6 +19,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+      - name: Verify shared artifact inspection fixtures
+        run: python3 scripts/test-apple-artifact-scope.py
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
@@ -37,6 +39,26 @@ jobs:
         run: |
           set -o pipefail
           flutter build ios --release --no-codesign --verbose 2>&1 | tee "$RUNNER_TEMP/ios-blueprint-build.log"
+      - name: Inspect the unsigned Blueprint device bundle
+        run: |
+          python3 - <<'PYCODE'
+          import importlib.util, json, os
+          from pathlib import Path
+          spec = importlib.util.spec_from_file_location('apple', 'scripts/test-apple-build-artifacts.py')
+          apple = importlib.util.module_from_spec(spec)
+          spec.loader.exec_module(apple)
+          result = apple.inspect_ios_bundle(
+              Path('apps/primecare_enterprise_blueprint/build/ios/iphoneos/Runner.app'),
+              'primecare_enterprise_blueprint', os.environ['GITHUB_SHA'])
+          print(json.dumps(result))
+          PYCODE
+      - name: Retain the inspected unsigned device bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-blueprint-unsigned-${{ github.sha }}
+          path: apps/primecare_enterprise_blueprint/build/ios/iphoneos/Runner.app
+          if-no-files-found: error
+          retention-days: 7
       - name: Retain underlying Xcode build diagnostics
         if: always()
         uses: actions/upload-artifact@v4

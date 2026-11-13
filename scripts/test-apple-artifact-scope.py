@@ -3,6 +3,9 @@ import importlib.util
 import importlib.abc
 import io
 import json
+import plistlib
+import hashlib
+from types import SimpleNamespace
 import os
 import tarfile
 import tempfile
@@ -118,6 +121,52 @@ class Scope(unittest.TestCase):
             with patch.object(importlib.util, 'spec_from_file_location', side_effect=spec_for):
                 with self.assertRaisesRegex(ValueError, 'strict signature fixture rejection'): m.inspect(item, root)
             self.assertEqual(seen, [(NEW_SOURCE, 100)])
+
+
+    def test_built_and_downloaded_ios_bundles_share_the_same_inspector(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root/'Info.plist').write_bytes(plistlib.dumps({'CFBundlePackageType': 'APPL',
+                'CFBundleSupportedPlatforms': ['iPhoneOS'], 'CFBundleExecutable': 'Runner',
+                'CFBundleIdentifier': 'com.primecare.fixture'}))
+            (root/'Runner').write_bytes(b'fixture-device-binary')
+            with patch.object(m.subprocess, 'run', return_value=SimpleNamespace(stdout='Mach-O 64-bit executable arm64')) as file_check:
+                built = m.inspect_ios_bundle(root, APP, m.SOURCE)
+                item = {**m.BUILDS[IOS], 'app': APP, 'run': IOS, 'id': 123}
+                output = io.StringIO()
+                with patch('sys.stdout', new=output): m.inspect(item, root)
+                downloaded = json.loads(output.getvalue())
+                self.assertEqual({**built, 'artifact': 123}, downloaded)
+                self.assertEqual(built['executableSha256'], hashlib.sha256(b'fixture-device-binary').hexdigest())
+                self.assertFalse(built['runtimeLaunchTested'])
+                self.assertTrue(built['deviceSigningRequired'])
+                self.assertEqual(file_check.call_count, 2)
+
+    def test_built_ios_identity_and_metadata_fail_before_binary_probe(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            valid = {'CFBundlePackageType': 'APPL', 'CFBundleSupportedPlatforms': ['iPhoneOS'],
+                     'CFBundleExecutable': 'Runner', 'CFBundleIdentifier': 'com.primecare.fixture'}
+            (root/'Runner').write_bytes(b'fixture')
+            with patch.object(m.subprocess, 'run') as file_check:
+                for app, source in [('invented', m.SOURCE), (APP, 'not-a-source')]:
+                    with self.assertRaises(ValueError): m.inspect_ios_bundle(root, app, source)
+                for field, value in [('CFBundlePackageType', 'FMWK'), ('CFBundleSupportedPlatforms', ['iPhoneSimulator']),
+                                     ('CFBundleExecutable', '../escape'), ('CFBundleIdentifier', '')]:
+                    (root/'Info.plist').write_bytes(plistlib.dumps({**valid, field: value}))
+                    with self.assertRaises(ValueError): m.inspect_ios_bundle(root, APP, m.SOURCE)
+                file_check.assert_not_called()
+
+    def test_built_ios_binary_must_remain_arm64_macho(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            (root/'Info.plist').write_bytes(plistlib.dumps({'CFBundlePackageType': 'APPL',
+                'CFBundleSupportedPlatforms': ['iPhoneOS'], 'CFBundleExecutable': 'Runner',
+                'CFBundleIdentifier': 'com.primecare.fixture'}))
+            (root/'Runner').write_bytes(b'fixture')
+            for output in ['ELF 64-bit', 'Mach-O executable x86_64']:
+                with patch.object(m.subprocess, 'run', return_value=SimpleNamespace(stdout=output)):
+                    with self.assertRaises(ValueError): m.inspect_ios_bundle(root, APP, m.SOURCE)
 
 
 if __name__ == '__main__': unittest.main()
