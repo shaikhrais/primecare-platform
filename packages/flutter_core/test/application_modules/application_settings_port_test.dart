@@ -69,6 +69,23 @@ void main(){
   final c=(oracle['mutations'] as List).first as Map,cache=SettingsCache();var writes=0;final p=port((r)async{if(r['action']=='write')writes++;return clone(c['initial']);},cache);await p.read(const WorkQuery());cache.denied=true;
   await expectLater(p.mutate(command(c['command'] as Map),c['key'] as String),throwsA(isA<WorkFailure>()));expect(writes,0);expect(p.recovery['dirty'],true);expect(p.recovery['error'],'cache_unavailable');p.dispose();
  });
+ test('explicit native retry persists a retained draft and keeps the original request key',()async{
+  final c=(oracle['mutations'] as List).first as Map,cache=SettingsCache();var state=clone(c['initial']);final requests=<Map<String,dynamic>>[];
+  final p=port((r)async{if(r['action']=='write'){requests.add(clone(r));state=clone(c['reply']);}return state;},cache);await p.read(const WorkQuery());cache.denied=true;
+  final cmd=command(c['command'] as Map),key=c['key'] as String;
+  await expectLater(p.mutate(cmd,key),throwsA(isA<WorkFailure>()));expect(requests,isEmpty);expect(p.recovery['pending'],isNull);
+  await expectLater(p.mutate(cmd,key),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','error')));expect(requests,isEmpty);expect(p.recovery['pending'],isNull);
+  await expectLater(p.mutate(WorkCommand('navigation',cmd.version,'edit',{'body':''}),key),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','conflict')));
+  await expectLater(p.mutate(cmd,'87654321-1234-4234-8234-123456789012'),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','conflict')));
+  cache.denied=false;final receipt=await p.mutate(cmd,key);expect(receipt.version,(c['receipt'] as Map)['version']);expect(requests.length,1);expect(requests.single['requestId'],key);expect(await p.readItem('navigation'),c['readback']);p.dispose();
+ });
+ test('native retry verifies acknowledged cache failures without another mutation',()async{
+  final c=(oracle['mutations'] as List).first as Map,cache=SettingsCache();var state=clone(c['initial']),writes=0;
+  final p=port((r)async{if(r['action']=='write'){writes++;state=clone(c['reply']);cache.denied=true;}return state;},cache);await p.read(const WorkQuery());
+  final cmd=command(c['command'] as Map),key=c['key'] as String;
+  await expectLater(p.mutate(cmd,key),throwsA(isA<WorkFailure>()));expect(writes,1);expect(p.recovery['pending'],isNull);expect(p.recovery['dirty'],false);
+  cache.denied=false;final receipt=await p.mutate(cmd,key);expect(receipt.version,(c['receipt'] as Map)['version']);expect(writes,1);expect(await p.readItem('navigation'),c['readback']);p.dispose();
+ });
  test('restart retains owned dirty/pending data and requires explicit recovery instead of replaying',()async{
   final c=(oracle['mutations'] as List).first as Map,cache=SettingsCache();var state=clone(c['initial']),writes=0;
   Future<Object?> send(Map<String,dynamic> r)async{if(r['action']=='write'){state=clone(c['reply']);writes++;throw const PreferenceFailure('offline');}return state;}

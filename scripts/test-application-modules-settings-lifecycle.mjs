@@ -39,6 +39,24 @@ test('cancelled settings save does not stage or dispatch a new mutation',async()
  await assert.rejects(()=>port.mutate(command,key,abort.signal),e=>e.code==='unavailable');
  assert.equal(state.writes.length,0);assert.equal(state.cacheWrites,before);assert.equal(port.recovery.dirty,false);port.dispose();
 });
+test('explicit settings retry recovers a transient draft-cache failure with the original key',async()=>{
+ const {port,state}=fixture();await port.read({search:'',offset:0},signal());state.onCache=()=>{throw Error('cache unavailable');};
+ await assert.rejects(()=>port.mutate(command,key,signal()),e=>e.code==='error');
+ assert.equal(port.recovery.error,'cache_unavailable');assert.equal(port.recovery.pending,null);assert.equal(state.writes.length,0);
+ await assert.rejects(()=>port.mutate({...command,fields:{body:''}},key,signal()),e=>e.code==='conflict');
+ await assert.rejects(()=>port.mutate(command,'87654321-1234-4234-8234-123456789012',signal()),e=>e.code==='conflict');
+ state.onCache=()=>{};const receipt=await port.mutate(command,key,signal());assert.equal(receipt.version,2);assert.equal(state.writes.length,1);assert.equal(state.writes[0].requestId,key);await port.readItem('navigation',signal());port.dispose();
+});
+test('settings retry still refuses transport while its draft cache remains unavailable',async()=>{
+ const {port,state}=fixture();await port.read({search:'',offset:0},signal());state.onCache=()=>{throw Error('cache unavailable');};
+ for(let i=0;i<2;i++)await assert.rejects(()=>port.mutate(command,key,signal()),e=>e.code==='error');
+ assert.equal(state.writes.length,0);assert.equal(port.recovery.pending,null);assert.equal(port.recovery.dirty,true);port.dispose();
+});
+test('settings retry after acknowledged-save cache failure verifies without another write',async()=>{
+ const {port,state}=fixture();await port.read({search:'',offset:0},signal());state.onWrite=()=>{state.onCache=()=>{throw Error('cache unavailable');};};
+ await assert.rejects(()=>port.mutate(command,key,signal()),e=>e.code==='error');assert.equal(state.writes.length,1);assert.equal(port.recovery.pending,null);assert.equal(port.recovery.dirty,false);
+ state.onCache=()=>{};const receipt=await port.mutate(command,key,signal());assert.equal(receipt.version,2);assert.equal(state.writes.length,1);await port.readItem('navigation',signal());port.dispose();
+});
 test('cancellation after durable staging retains draft and explicit retry reuses original key',async()=>{
  const {port,state}=fixture(),abort=new AbortController();await port.read({search:'',offset:0},signal());
  state.onCache=record=>{if(record.dirty&&!record.pending)abort.abort();};

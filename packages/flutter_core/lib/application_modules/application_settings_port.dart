@@ -60,6 +60,10 @@ class ApplicationSettingsPort implements WorkPort {
       try{preferenceDocument('shortcuts',document,binding);}catch(_){throw const WorkFailure('invalid',400);}if(_commands.length>=10)throw const WorkFailure('unavailable');
       pending=_SettingsCommand(command,document);_commands[key]=pending;_wireKey=key;await _client.edit(document);_open();if(_client.current['status']!='dirty')_fail();await _client.save();
     }else{final state=_client.current;if(state['pending']!=null){if((state['pending'] as Map)['requestId']!=key)throw const WorkFailure('conflict',409);await _client.retryPending();}
+      else if((state['status']=='dirty'||state['status']=='error'&&state['error']=='cache_unavailable')&&state['dirty']==true&&state['remote']==null&&((state['base'] as Map)['revision'] as int)+1==command.version&&canonicalPreference(state['draft'])==canonicalPreference(pending.document)){
+        _wireKey=key;await _client.edit(pending.document);_open();if(_client.current['status']!='dirty')_fail();await _client.save();
+      }
+      else if(state['status']=='error'&&state['error']=='cache_unavailable'&&state['dirty']==false&&state['remote']==null&&(state['base'] as Map)['revision']==command.version&&canonicalPreference((state['base'] as Map)['document'])==canonicalPreference(pending.document)){await _client.load();_open();}
       else if(state['status']!='clean'||(state['base'] as Map)['revision']!=command.version||canonicalPreference((state['base'] as Map)['document'])!=canonicalPreference(pending.document))throw const WorkFailure('conflict',409);}
     _open();final state=_client.current,base=Map<String,dynamic>.from(state['base'] as Map);
     if(state['status']!='clean'||base['revision']!=command.version||canonicalPreference(base['document'])!=canonicalPreference(pending.document))_fail();
