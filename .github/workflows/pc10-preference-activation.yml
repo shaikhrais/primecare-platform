@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/pc10-preference-activation.yml'
       - 'tools/governance-production/pc10-preference-activation.mjs'
+      - 'tools/governance-production/pc10-preference-retry-baseline.json'
       - 'scripts/test-pc10-preference-activation.mjs'
       - 'tools/auth-verification/test-live-pc10-preferences.py'
 permissions: {contents: read}

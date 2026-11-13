@@ -12,6 +12,7 @@ export const canonical=value=>JSON.stringify(value,(_,v)=>v&&typeof v==='object'
 const fingerprint=value=>createHash('sha256').update(canonical(value)).digest('hex');
 const table=name=>'"'+pin.schema+'"."'+pin.tablePrefix+name+'"';
 const expected=accepted.currentCodeRelease;
+const retryBaseline=JSON.parse(await readFile(new URL('./pc10-preference-retry-baseline.json',import.meta.url)));
 const worker='primecare-auth-api',base='/workers/scripts/'+worker,journalPath='test-results/pc10-preferences/activation.json';
 const configKeys=['cache_options','compatibility_date','compatibility_flags','limits','logpush','observability','placement','tags','tail_consumers','usage_model'];
 export function activationSettings(settings,flag='1'){
@@ -25,6 +26,14 @@ export function verifySettings(before,after,flag){
  const normalize=bindings=>bindings.map(b=>b.type==='secret_text'?{name:b.name,type:b.type}:b).sort((a,b)=>a.name.localeCompare(b.name));
  const wanted=before.bindings.map(b=>b.name==='PREFERENCE_SYNC_ENABLED'?{...b,text:flag}:b);
  if(canonical(normalize(wanted))!==canonical(normalize(after.bindings))||configKeys.some(k=>canonical(before[k])!==canonical(after[k])))throw Error('Settings changed beyond the preference flag');
+}
+export function reviewedRetrySettings({before,latestVersion,etag,settings},plan){
+ if(plan.format!==1||plan.failedSource!=='19d76d8e076c63e2246c01938b538e16ba154b4a'||plan.failedRun!==43508698188||plan.failedJob!==132173573294||plan.runtimeRestored!==true||plan.metadataRestored!==true||plan.grantsChanged!==0||before.id!==plan.rollbackDeployment||before.version!==plan.activeVersion||latestVersion!==plan.stagedVersion||etag!==plan.codeEtag)throw Error('Reviewed rollback identity mismatch');
+ const normalized=structuredClone(settings);const flag=normalized.bindings?.find(b=>b.name==='PREFERENCE_SYNC_ENABLED');
+ if(flag?.type!=='plain_text'||!['0','1'].includes(flag.text))throw Error('Rollback binding type changed');
+ flag.text='0';activationSettings(normalized);
+ if(fingerprint(normalized.bindings)!==plan.disabledBindingFingerprint)throw Error('Rollback bindings changed beyond staged preference flag');
+ return normalized;
 }
 export async function promoteMetadata(db,{apply=false,restore=false}={}){
  await checkPreferenceDefinition();await readbackPreferences(db);
@@ -80,17 +89,24 @@ async function main(){
    if(journal.metadata?.changed)await promoteMetadata(db,{apply:true,restore:true});
    journal.rolledBack=true;await saveJournal(journal);console.log('PC10_ACTIVATION_ROLLBACK '+JSON.stringify({source,runtimeRestored:true,metadataRestored:!!journal.metadata?.changed,grantsChanged:0}));return;
   }
-  const before=await deployment(),settings=await api(base+'/settings'),schedules=await api(base+'/schedules');
-  if(before.id!==expected.deploymentId||before.version!==expected.versionId||await latest()!==before.version)throw Error('Accepted active/latest version changed; re-review required');
+  const before=await deployment(),uploadedSettings=await api(base+'/settings'),schedules=await api(base+'/schedules'),latestVersion=await latest();
   const oldVersion=await api(base+'/versions/'+before.version),etag=oldVersion.resources?.script?.etag;
-  if(!etag||settings.bindings.find(b=>b.name==='PREFERENCE_SYNC_ENABLED')?.text!=='0')throw Error('Expected disabled code version required');
+  let settings=uploadedSettings;
+  if(before.id===expected.deploymentId&&before.version===expected.versionId&&latestVersion===before.version){
+   if(!etag||settings.bindings.find(b=>b.name==='PREFERENCE_SYNC_ENABLED')?.text!=='0')throw Error('Expected disabled code version required');
+  }else{
+   settings=reviewedRetrySettings({before,latestVersion,etag,settings:uploadedSettings},retryBaseline);
+   if(before.version!==expected.versionId)throw Error('Rollback code version differs from accepted code');
+   const probe=await fetch('https://primecare-auth-api.itpro-mohammed.workers.dev/user/preferences',{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(30000)});
+   const body=await probe.json();if(probe.status!==503||body.error!=='preference_sync_disabled')throw Error('Reviewed retry requires independently disabled runtime');
+  }
   const patch=activationSettings(settings,'1');
   const plan=await promoteMetadata(db);console.log('PC10_ACTIVATION_PLAN '+JSON.stringify({source,before,metadata:plan,existingBindings:settings.bindings.map(b=>({name:b.name,type:b.type})),grantsChanged:0,codeChanged:false}));
   if(!apply)return;
   const journal={source,before,metadata:null,patchAttempted:false,newVersion:null,bindingFingerprint:fingerprint(settings.bindings),codeEtag:etag};await saveJournal(journal);
-  if(canonical(await deployment())!==canonical(before)||await latest()!==before.version)throw Error('Provider changed before metadata promotion');
+  if(canonical(await deployment())!==canonical(before)||await latest()!==latestVersion)throw Error('Provider changed before metadata promotion');
   journal.metadata=await promoteMetadata(db,{apply:true});await saveJournal(journal);
-  if(canonical(await deployment())!==canonical(before)||await latest()!==before.version)throw Error('Provider changed before activation');
+  if(canonical(await deployment())!==canonical(before)||await latest()!==latestVersion)throw Error('Provider changed before activation');
   journal.patchAttempted=true;await saveJournal(journal);
   const form=new FormData();form.set('settings',JSON.stringify({...patch,annotations:{'workers/message':'Activate reviewed existing PC10 own preferences; code preserved','workers/tag':'pc10-'+source.slice(0,12)}}));
   await api(base+'/settings',{method:'PATCH',body:form});

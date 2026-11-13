@@ -62,7 +62,7 @@ try:
    with page.expect_response(lambda r:r.url.split('?')[0].endswith('/v1/user/preferences') and r.request.method=='POST' and (r.request.post_data_json or {}).get('action')=='write',timeout=30000) as acknowledgement:save.click()
    response=acknowledgement.value;request=response.request.post_data_json;reply=response.json();must(response.status==200 and reply['revision']==1,locale+' actual Save commits canonical API777')
    words=json.loads(pathlib.Path('packages/primecare_ui/catalogs/shell-utilities.registration.json').read_text())['locales'][locale]
-   page.wait_for_function("message => document.querySelector('[data-cy=shell-utilities-status]')?.textContent===message",words['saved'],timeout=30000)
+   page.wait_for_function("message => document.querySelector('[data-cy=shell-utilities-status]')?.textContent===message",arg=words['saved'],timeout=30000)
    expected={'version':1,'screenIds':['2534','1269']};must(reply['document']==expected and snapshot(owner['id'],owner['tenant'])==(1,expected),locale+' UI acknowledgement equals independent production SQL')
    before=audit_count(owner['id']);status,replay=call(request,token);must(status==200 and replay==reply and audit_count(owner['id'])==before,locale+' original receipt replay is idempotent')
    page.reload(wait_until='domcontentloaded');host.wait_for(timeout=30000);page.wait_for_function("() => document.querySelector('[data-cy=shell-utilities-favourite-toggle-1269]')?.getAttribute('aria-pressed')==='true'",timeout=30000)

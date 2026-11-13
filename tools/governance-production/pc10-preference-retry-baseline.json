@@ -1,0 +1,18 @@
+{
+  "format": 1,
+  "failedSource": "19d76d8e076c63e2246c01938b538e16ba154b4a",
+  "failedRun": 43508698188,
+  "failedJob": 132173573294,
+  "reason": "Owned UI save succeeded; Python Playwright positional-argument error stopped proof; exact fixture cleanup and runtime/metadata rollback passed",
+  "readbackRun": 43509478515,
+  "readbackJob": 132175676524,
+  "rollbackDeployment": "90959fdc-99b1-40c6-b974-79b0376d4ad0",
+  "activeVersion": "e667ecba-f0ef-45c1-ad85-1262e23a3e67",
+  "stagedVersion": "ddf1584a-f2a6-43d5-aefa-33b141aebd1d",
+  "codeEtag": "9c4addc0ad9a7de3c355782aba45cc33df9a7bd0c4786a587a84eb38ce1ac708",
+  "disabledBindingFingerprint": "9c80374f84341fa6d176872265894b01f861e481299ec0731f033a3121d8fe8d",
+  "runtimeRestored": true,
+  "metadataRestored": true,
+  "grantsChanged": 0,
+  "humanReviewApproved": false
+}

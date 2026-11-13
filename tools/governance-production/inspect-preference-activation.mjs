@@ -28,7 +28,10 @@ try{
  const response=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/settings',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
  const result=await response.json();if(!response.ok||result.success!==true||!Array.isArray(result.result?.bindings))throw Error('Worker settings unavailable');
  const flags=result.result.bindings.filter(b=>b.name==='PREFERENCE_SYNC_ENABLED');
- const preferenceFlag=flags.length===0?'absent':flags.length===1&&flags[0].type==='plain_text'&&['0','1'].includes(flags[0].text)?flags[0].text:'unexpected';
+ const uploadedPreferenceFlag=flags.length===0?'absent':flags.length===1&&flags[0].type==='plain_text'&&['0','1'].includes(flags[0].text)?flags[0].text:'unexpected';
+ const runtimeProbe=await fetch('https://primecare-auth-api.itpro-mohammed.workers.dev/user/preferences',{method:'POST',headers:{'content-type':'application/json'},body:'{}',signal:AbortSignal.timeout(30000)});
+ const runtimeBody=await runtimeProbe.json();
+ const preferenceFlag=runtimeProbe.status===503&&runtimeBody.error==='preference_sync_disabled'?'0':runtimeProbe.status===401&&runtimeBody.error==='unauthenticated'?'1':'unexpected';
  const deploymentResponse=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/deployments?per_page=1',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
  const deploymentResult=await deploymentResponse.json();
  if(!deploymentResponse.ok||deploymentResult.success!==true)throw Error('Worker deployment unavailable');
@@ -53,5 +56,5 @@ try{
  const requiredHostLinksPresent=[1269,2534].every(id=>links.some(link=>Number(link.screen_id)===id&&Number(link.api_id)===777));
  const existingAdminGrantsMatch=approvedAdmins.length===3&&approvedAdmins.every(row=>Number(row.active)===1&&Number(row.can_access)===1&&row.permission_key===definition.permissionKey&&Number(row.runtime_artifact_id)===2);
  const preflight={canonicalRegistrationAndSchemaVerified:registration.independentReadback===true,endpointImplemented,requiredHostLinksPresent,existingAdminGrantsMatch,activeMatchesAccepted,flagDisabled:['absent','0'].includes(preferenceFlag),runtimeActivationPerformed:false,humanReviewApproved:false,ownedProductionSaveTested:false};
- console.log(JSON.stringify({latestUploadedVersion,registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
+ console.log(JSON.stringify({uploadedPreferenceFlag,runtimeProbeStatus:runtimeProbe.status,latestUploadedVersion,registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
 }finally{await db.end();}
