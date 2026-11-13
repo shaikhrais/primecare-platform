@@ -86,8 +86,12 @@ void main(){
           child:MaterialApp(locale:Locale(locale),supportedLocales:const[Locale('en'),Locale('fr'),Locale('es')],
             localizationsDelegates:GlobalMaterialLocalizations.delegates,
             home:managedPrimeCarePage(nativeTenantApplicationRoute,(_)=>const TenantApplicationScreen())))));
-        await until(tester,()=>find.byType(PrimeApplicationShortcuts).evaluate().isNotEmpty &&
-          tester.widget<PrimeApplicationShortcuts>(find.byType(PrimeApplicationShortcuts)).editor.current['loaded']==true,'mount',events);
+        await until(tester,(){
+          final picker=find.byType(PrimeApplicationShortcuts),choice=find.widgetWithText(TextButton,'Platform Administration');
+          return picker.evaluate().isNotEmpty && choice.evaluate().length==1 &&
+            tester.widget<PrimeApplicationShortcuts>(picker).editor.current['loaded']==true &&
+            tester.widget<TextButton>(choice).onPressed!=null;
+        },'mount-controls-enabled',events);
       }
       await mount();
       expect(requests.where((r)=>r['action']!='read'),isEmpty);
@@ -95,6 +99,7 @@ void main(){
       final choice=find.widgetWithText(TextButton,'Platform Administration');
       await tester.ensureVisible(choice);await tester.tap(choice);await tester.pump();
       final save=find.widgetWithText(TextButton,nativeApplicationShell['locales'][locale]['save'] as String);
+      await until(tester,()=>save.evaluate().length==1&&tester.widget<TextButton>(save).onPressed!=null,'save-enabled',events);
       await tester.ensureVisible(save);await tester.tap(save);await tester.pump();
       await until(tester,(){
         final state=tester.widget<PrimeApplicationShortcuts>(find.byType(PrimeApplicationShortcuts)).editor.current;
