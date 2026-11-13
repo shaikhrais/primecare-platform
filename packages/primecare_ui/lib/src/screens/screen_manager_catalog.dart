@@ -3,6 +3,7 @@ import 'package:flutter_core/models/screen.dart' show AppShellBoundary;
 import 'package:flutter_core/models/screen_manager.dart';
 import '../features/auth/generated_managed_routes.g.dart';
 import '../features/platform/platform_master_catalog.g.dart';
+import '../features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;
 import '../theme/prime_theme.dart';
 import 'module_screen_registrations.dart';
 import 'workspace_screen_registrations.dart';
@@ -22,6 +23,7 @@ final ScreenManager primeCareScreenManager = ScreenManager([
   const ManagedScreenRegistration(id: '/consent'),
   const ManagedScreenRegistration(id: '/success'),
   ManagedScreenRegistration(id: platformAdministrationRoute),
+  const ManagedScreenRegistration(id: nativeTenantApplicationRoute),
   const ManagedScreenRegistration(id: '/maintenance/configuration'),
   const ManagedScreenRegistration(id: '/internal/training/guide'),
   const ManagedScreenRegistration(id: '/internal/training/detail'),

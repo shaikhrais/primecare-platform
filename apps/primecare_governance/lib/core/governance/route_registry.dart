@@ -3,6 +3,8 @@ import 'package:primecare_ui/primecare_ui.dart' show PrimeIconButton;
 import 'package:go_router/go_router.dart';
 import 'package:flutter_core/src/network/api_client.dart';
 import 'governance_route_access.dart';
+import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
+import 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;
 import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
 import 'package:primecare_ui/src/features/workspace/workspace_routes_generated.dart';
 import 'package:flutter_core/models/screen_manager.dart';
@@ -32,6 +34,7 @@ import '../../features/executive/screens/proposals_screen.dart';
 // Presentation registrations only. The router's redirect remains responsible
 // for authentication and exact server-filtered route grants. APIs retain data authorization.
 const governanceNativeScreenRoutes = <String>{
+  nativeTenantApplicationRoute,
   '/admin/screen-health', '/admin/reality-check', '/admin/role-screen-carousel',
   '/admin/screenshot-gallery', '/generated/audit-dashboard',
   '/generated/compliance-reviews', '/generated/incident-reports',
@@ -101,10 +104,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (!session.isAuthenticated && state.uri.path == CommonRoutes.authCallback) {
         return CommonRoutes.login;
       }
+      // Registered entry renders no protected child until API16578 authorizes it.
+      if (state.uri.path == nativeTenantApplicationRoute) {
+        return session.isAuthenticated ? null : '/login';
+      }
       final isAuth = session.isAuthenticated;
       final isLoggingIn = state.matchedLocation == '/login' || 
                           state.matchedLocation == '/' ||
                           state.matchedLocation == '/auth/callback';
+      if (isAuth && isLoggingIn && session.role == 'tenant_admin') return nativeTenantApplicationRoute;
       
       if (!isAuth && !isLoggingIn &&
           !SharedAuthRoutes.publicPaths.contains(state.uri.path)) return '/login';
@@ -195,6 +203,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
+          GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),
           // Native QA & Compliance Routes
           GoRoute(path: '/admin/screen-health', builder: (context, state) => const AdminScreenHealthScreen()),
           GoRoute(path: '/admin/reality-check', builder: (context, state) => const AdminRealityCheckScreen()),

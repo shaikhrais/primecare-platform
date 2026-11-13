@@ -6,6 +6,8 @@ import 'package:go_router/go_router.dart';
 import 'login_view.dart';
 import '../maintenance/maintenance_configuration_screen.dart';
 import '../platform/platform_master_screen.dart';
+import '../tenant_applications/tenant_application_screen.dart';
+import '../tenant_applications/tenant_application_catalog.g.dart' show nativeTenantApplicationRoute;
 import '../platform/platform_master_catalog.g.dart';
 import '../workspace/governed_workspace_screen.dart';
 import '../workspace/workspace_routes_generated.dart';
@@ -56,7 +58,7 @@ class SharedAuthRouter {
     // Route metadata does not itself register a screen: the independent
     // presentation catalog must contain the path before its builder can run.
     final screenManager = SharedAuthRoutes.screenManager;
-    final dashboard = auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
+    final dashboard = auth.isAuthenticated && auth.role == 'tenant_admin' ? nativeTenantApplicationRoute : auth.isAuthenticated && auth.role == 'code_admin' ? '/success' : auth.isAuthenticated && auth.role == 'maintenance' ? '/maintenance/configuration' : !auth.isAuthenticated
         ? CommonRoutes.login
         : governedWorkspaceLandings[auth.role] ?? application.getDefinition(activeRole)?.dashboardRoute ??
             AuthNotifier.getDashboardRouteForRole(auth.role ?? '');
@@ -84,8 +86,8 @@ class SharedAuthRouter {
         }
         // This registered entry renders no tenant data until its API authorizes
         // the current session. Do not infer platform access from a role name.
-        if (path == platformAdministrationRoute) {
-          return session.isAuthenticated ? null : destination('/login?returnUrl=$platformAdministrationRoute');
+        if (path == platformAdministrationRoute || path == nativeTenantApplicationRoute) {
+          return session.isAuthenticated ? null : destination('/login?returnUrl=$path');
         }
         if (session.isAuthenticated && landing) {
           final target = validateAppReturnUrl(
@@ -129,6 +131,7 @@ class SharedAuthRouter {
             : destination(result.redirectRoute ?? CommonRoutes.globalSettings);
       },
       publicRoutes: [
+        GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => SharedAuthRoutes.managedPage(nativeTenantApplicationRoute, (_) => const TenantApplicationScreen())),
         GoRoute(path: platformAdministrationRoute, builder: (context, state) => SharedAuthRoutes.managedPage(platformAdministrationRoute, (_) => const PlatformMasterScreen())),
         GoRoute(path: '/maintenance/configuration', builder: (context, state) => SharedAuthRoutes.managedPage('/maintenance/configuration', (_) => const MaintenanceConfigurationScreen())),
         ...SharedAuthRoutes.routes(),
