@@ -57,12 +57,23 @@ def main():
                                    'stderrTail': child.stderr[-2048:].decode('utf-8', errors='replace')}
             if child.returncode != 0 or not results['filtered']['enteredMain'] or not isolation.verified:
                 raise RuntimeError('Filtered App Sandbox startup control failed')
+        # Exercise the exact production harness's 10-second liveness and stop
+        # path with a long-lived local control, not merely a short exec.
+        source.write_text('#include <stdio.h>\n#include <unistd.h>\nint main(void){puts("STARTUP_CONTROL_ENTERED_MAIN");fflush(stdout);sleep(30);return 0;}\n')
+        subprocess.run(['xcrun', 'clang', str(source), '-o', str(binary)], check=True)
+        subprocess.run(['codesign', '--force', '--sign', '-', '--entitlements', str(entitlements), str(app)], check=True)
+        spec = importlib.util.spec_from_file_location('startup_harness', Path(__file__).with_name('test-macos-clinic-artifact.py'))
+        harness = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(harness)
+        harness.ARTIFACT = None
+        harness.SOURCE = os.environ['GITHUB_SHA']
+        harness.launch(root)
         direct = results['direct'].get('returnCode') == 0 and results['direct']['enteredMain']
         nested = results['nested'].get('returnCode') == 0 and results['nested']['enteredMain']
         report = {'control': 'locally compiled no-network-entitlement App Sandbox fixture',
                   'source': os.environ.get('GITHUB_SHA'), 'results': results,
                   'nestedSandboxFailureReproduced': direct and not nested,
-                  'packetFilterControlPassed': True, 'packetFilterCleanupPassed': True,
+                  'packetFilterControlPassed': True, 'packetFilterCleanupPassed': True, 'controlLivenessAndShutdownPassed': True,
                   'productStartupTested': False, 'featureAcceptance': False}
         Path('macos-sandbox-control.json').write_text(json.dumps(report, indent=2) + '\n')
         print(json.dumps(report))
