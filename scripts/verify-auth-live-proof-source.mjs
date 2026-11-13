@@ -3,8 +3,18 @@ import {readFile,mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {pathToFileURL} from 'node:url';
 export const accepted=JSON.parse(await readFile(new URL('../tools/auth-verification/accepted-auth-live-proof-release.json',import.meta.url),'utf8'));
+/** Select the recorded code release, preserving historical source/reconciliation identities in the policy file.
+ * Selection grants nothing: main still verifies exact Worker bytes, successful CI, uploaded receipt and live provider.
+ */
+export function selectAuthLiveProofPolicy(policy=accepted){
+ if(!Object.hasOwn(policy,'currentCodeRelease'))return policy;
+ const c=policy.currentCodeRelease,e=c?.evidence;
+ if(c?.format!==1||!/^[a-f0-9]{40}$/.test(c.source??'')||c.worker!==policy.worker||c.service!=='auth'||!/^[a-f0-9-]{36}$/i.test(c.deploymentId??'')||!/^[a-f0-9-]{36}$/i.test(c.versionId??'')||c.trafficPercent!==100||c.independentlyReadDeployment!==true||c.sourceCheckoutVerified!==true||c.existingBindingsPreserved!==true||c.existingCronSchedulesPreserved!==true||c.keySelectionChanged!==false||c.sourceFingerprintUpdated!==true||c.preferenceRuntimeActivated!==false||policy.preferenceRuntimeActivated!==false||c.productionGrantsChanged!==0||c.productionSchemaChanged!==false||c.registeredGovernanceArtifactId!==null||c.grantAssociationApproved!==false||c.healthStatus!==200||c.disabledPreferenceProbe!==503||!Number.isSafeInteger(e?.runId)||e.runId<=0||!Number.isSafeInteger(e?.jobId)||e.jobId<=0||e.workflow!=='.github/workflows/auth-preference-candidate.yml'||e.conclusion!=='success'||e.event!=='workflow_dispatch'||e.headBranch!=='main')throw Error('Current auth code release policy invalid');
+ return {...policy,source:c.source,run:e.runId,job:e.jobId,workflow:e.workflow,deploymentId:c.deploymentId,versionId:c.versionId,reconciledActive:undefined};
+}
 export function checkAuthLiveProof({policy=accepted,run,job,receipt,workerSourceMatches}){
  if(!/^[a-f0-9]{40}$/.test(policy.source)||!Number.isSafeInteger(policy.run)||!Number.isSafeInteger(policy.job)||policy.worker!=='primecare-auth-api'||policy.workflow!=='.github/workflows/auth-preference-candidate.yml'||typeof policy.preferenceRuntimeActivated!=='boolean'||workerSourceMatches!==true)throw Error('Unapproved auth source');
+ if(policy.currentCodeRelease?.source===policy.source&&(run?.event!=='workflow_dispatch'||receipt?.format!==1||receipt.sourceFingerprintUpdated!==true||receipt.productionGrantsChanged!==0||receipt.productionSchemaChanged!==false||receipt.registeredGovernanceArtifactId!==null||receipt.grantAssociationApproved!==false))throw Error('Auth deployment receipt not accepted');
  if(run?.id!==policy.run||run.head_sha!==policy.source||run.head_branch!=='main'||run.path!==policy.workflow||run.status!=='completed'||run.conclusion!=='success')throw Error('Auth deployment run not accepted');
  if(job?.id!==policy.job||job.run_id!==policy.run||job.name!=='deploy-code'||job.status!=='completed'||job.conclusion!=='success')throw Error('Auth deployment job not accepted');
  if(receipt?.source!==policy.source||receipt.worker!==policy.worker||receipt.service!=='auth'||receipt.versionId!==policy.versionId||receipt.deploymentId!==policy.deploymentId||receipt.trafficPercent!==100||receipt.independentlyReadDeployment!==true||receipt.sourceCheckoutVerified!==true||receipt.existingBindingsPreserved!==true||receipt.existingCronSchedulesPreserved!==true||receipt.keySelectionChanged!==false||receipt.preferenceRuntimeActivated!==policy.preferenceRuntimeActivated||receipt.healthStatus!==200||receipt.disabledPreferenceProbe!==503)throw Error('Auth deployment receipt not accepted');
@@ -25,41 +35,42 @@ export function checkAuthProvider({policy=accepted,auth,reconciliation=null}){
 }
 let phase='configuration';
 async function main(){
- if(process.env.GITHUB_REPOSITORY!=='shaikhrais/primecare-platform'||!/^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA??'')||!/^[a-f0-9]{40}$/.test(accepted.source)||!Number.isSafeInteger(accepted.run)||!Number.isSafeInteger(accepted.job))throw Error('Pinned repository and release required');
+ const policy=selectAuthLiveProofPolicy();
+ if(process.env.GITHUB_REPOSITORY!=='shaikhrais/primecare-platform'||!/^[a-f0-9]{40}$/.test(process.env.GITHUB_SHA??'')||!/^[a-f0-9]{40}$/.test(policy.source)||!Number.isSafeInteger(policy.run)||!Number.isSafeInteger(policy.job))throw Error('Pinned repository and release required');
  const call=(program,args)=>execFileSync(program,args,{encoding:'utf8',maxBuffer:16*1024*1024,stdio:['ignore','pipe','pipe']});
  phase='checkout_and_worker_source';
  if(call('git',['rev-parse','HEAD']).trim()!==process.env.GITHUB_SHA)throw Error('Proof checkout does not match its producer');
- call('git',['fetch','--no-tags','--depth=1','origin',accepted.source]);
+ call('git',['fetch','--no-tags','--depth=1','origin',policy.source]);
  // Compare the exact Worker tree, including service composition and gateway, with the uploaded source.
- call('git',['diff','--exit-code',accepted.source,'HEAD','--','cloudflare/workers']);
+ call('git',['diff','--exit-code',policy.source,'HEAD','--','cloudflare/workers']);
  const base='repos/'+process.env.GITHUB_REPOSITORY+'/actions/';
- phase='successful_ci_run';const run=JSON.parse(call('gh',['api',base+'runs/'+accepted.run]));
- phase='successful_ci_job';const job=JSON.parse(call('gh',['api',base+'jobs/'+accepted.job]));
+ phase='successful_ci_run';const run=JSON.parse(call('gh',['api',base+'runs/'+policy.run]));
+ phase='successful_ci_job';const job=JSON.parse(call('gh',['api',base+'jobs/'+policy.job]));
  phase='uploaded_version_receipt';
- const log=call('gh',['run','view',String(accepted.run),'--repo',process.env.GITHUB_REPOSITORY,'--job',String(accepted.job),'--log']),marker='AUTH_PREFERENCE_CODE_DEPLOYED ';
+ const log=call('gh',['run','view',String(policy.run),'--repo',process.env.GITHUB_REPOSITORY,'--job',String(policy.job),'--log']),marker='AUTH_PREFERENCE_CODE_DEPLOYED ';
  const lines=log.split('\n').filter(line=>line.includes(marker+'{'));console.log('AUTH_LIVE_CI_RECEIPT_COUNT '+JSON.stringify({count:lines.length}));if(lines.length!==1)throw Error('Unique uploaded-version receipt required');
  const receipt=JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length));
  phase='ci_receipt_validation';
- const approved=checkAuthLiveProof({run,job,receipt,workerSourceMatches:true});
+ const approved=checkAuthLiveProof({policy,run,job,receipt,workerSourceMatches:true});
  let reconciliation=null;
- if(accepted.reconciledActive){
-  const r=accepted.reconciledActive;phase='comparison_ci_run';
+ if(policy.reconciledActive){
+  const r=policy.reconciledActive;phase='comparison_ci_run';
   const compareRun=JSON.parse(call('gh',['api',base+'runs/'+r.run]));
   const compareJob=JSON.parse(call('gh',['api',base+'jobs/'+r.job]));
   const compareLog=call('gh',['run','view',String(r.run),'--repo',process.env.GITHUB_REPOSITORY,'--job',String(r.job),'--log']);
   const marker='AUTH_GENERIC_CODE_COMPARISON ',lines=compareLog.split('\n').filter(line=>line.includes(marker+'{'));
   if(lines.length!==1)throw Error('Unique auth comparison receipt required');
   const compareReceipt=JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length));
-  reconciliation=checkAuthReconciliation({run:compareRun,job:compareJob,receipt:compareReceipt});
+  reconciliation=checkAuthReconciliation({policy,run:compareRun,job:compareJob,receipt:compareReceipt});
  }
  const {auditRuntimeArtifacts}=await import('./audit-theme-runtime-artifacts.mjs');
  phase='provider_read';
  const live=await auditRuntimeArtifacts({account:process.env.CLOUDFLARE_ACCOUNT_ID,token:process.env.CLOUDFLARE_API_TOKEN});
  const auth=live.artifacts.find(a=>a.service==='auth');
  console.log('AUTH_LIVE_AUTH_IDENTITY '+JSON.stringify({worker:auth?.worker,service:auth?.service,deploymentId:auth?.deploymentId,versions:auth?.versions?.map(v=>({versionId:v.versionId,trafficPercent:v.trafficPercent})),preferenceSyncEnabled:auth?.preferenceSyncEnabled}));
- phase='provider_identity_match';checkAuthProvider({auth,reconciliation});
- const result={...approved,...(reconciliation?{versionId:reconciliation.versionId,deploymentId:reconciliation.deploymentId,reconciliation}:{}),producer:process.env.GITHUB_SHA,independentActiveDeploymentRead:true,preferenceRuntimeActivated:accepted.preferenceRuntimeActivated};
+ phase='provider_identity_match';checkAuthProvider({policy,auth,reconciliation});
+ const result={...approved,...(reconciliation?{versionId:reconciliation.versionId,deploymentId:reconciliation.deploymentId,reconciliation}:{}),producer:process.env.GITHUB_SHA,independentActiveDeploymentRead:true,preferenceRuntimeActivated:policy.preferenceRuntimeActivated};
  await mkdir('test-results/account-mutations',{recursive:true});await writeFile('test-results/account-mutations/auth-release-approved.json',JSON.stringify(result,null,2)+'\n');
  console.log('AUTH_LIVE_PROOF_SOURCE '+JSON.stringify(result));
 }
-if(import.meta.url===pathToFileURL(process.argv[1]??'').href)main().catch(e=>{const reason=['Unapproved auth source','Auth deployment run not accepted','Auth deployment job not accepted','Auth deployment receipt not accepted','Active auth provider identity differs','Auth reconciliation policy invalid','Auth comparison run not accepted','Auth comparison receipt not accepted','Auth reconciliation not accepted'].includes(e?.message)?e.message:'source_or_provider_validation';const status=String(e?.stderr??'').match(/HTTP (\d{3})/);console.error('AUTH_LIVE_PROOF_SOURCE_REJECTED '+JSON.stringify({phase,reason,httpStatus:status?Number(status[1]):null}));process.exitCode=1;});
+if(import.meta.url===pathToFileURL(process.argv[1]??'').href)main().catch(e=>{const reason=['Current auth code release policy invalid','Unapproved auth source','Auth deployment run not accepted','Auth deployment job not accepted','Auth deployment receipt not accepted','Active auth provider identity differs','Auth reconciliation policy invalid','Auth comparison run not accepted','Auth comparison receipt not accepted','Auth reconciliation not accepted'].includes(e?.message)?e.message:'source_or_provider_validation';const status=String(e?.stderr??'').match(/HTTP (\d{3})/);console.error('AUTH_LIVE_PROOF_SOURCE_REJECTED '+JSON.stringify({phase,reason,httpStatus:status?Number(status[1]):null}));process.exitCode=1;});

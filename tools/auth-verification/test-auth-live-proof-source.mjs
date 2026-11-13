@@ -1,3 +1,4 @@
+import * as proof from '../../scripts/verify-auth-live-proof-source.mjs';
 import {test} from 'node:test';import assert from 'node:assert/strict';import {accepted,checkAuthLiveProof,checkAuthProvider,checkAuthReconciliation} from '../../scripts/verify-auth-live-proof-source.mjs';
 const fixture=()=>({run:{id:accepted.run,head_sha:accepted.source,head_branch:'main',path:accepted.workflow,status:'completed',conclusion:'success'},job:{id:accepted.job,run_id:accepted.run,name:'deploy-code',status:'completed',conclusion:'success'},receipt:{source:accepted.source,worker:accepted.worker,service:'auth',versionId:accepted.versionId,deploymentId:accepted.deploymentId,trafficPercent:100,independentlyReadDeployment:true,sourceCheckoutVerified:true,existingBindingsPreserved:true,existingCronSchedulesPreserved:true,keySelectionChanged:false,preferenceRuntimeActivated:false,healthStatus:200,disabledPreferenceProbe:503},workerSourceMatches:true});
 test('accepts only the successful deployment receipt for the exact Worker source',()=>assert.equal(checkAuthLiveProof(fixture()).releaseSource,accepted.source));
@@ -17,3 +18,28 @@ test('reconciliation rejects altered source, CI, version, bytes, activation and 
  const f=reconcileFixture(),p=structuredClone(accepted);p.reconciledActive.workflow='.github/workflows/other.yml';assert.throws(()=>checkAuthReconciliation({...f,policy:p}));
 });
 test('reconciled provider identity cannot be supplied without matching evidence fields',()=>{const r=accepted.reconciledActive,auth={worker:accepted.worker,service:'auth',deploymentId:r.deploymentId,independentlyReadDeployment:true,preferenceSyncEnabled:false,versions:[{versionId:r.versionId,trafficPercent:100}]};assert.throws(()=>checkAuthProvider({auth,reconciliation:{deploymentId:r.deploymentId,versionId:r.versionId,independentModuleMatch:true}}));});
+
+const currentFixture=()=>{const c=accepted.currentCodeRelease,policy=(proof.selectAuthLiveProofPolicy??(p=>p))(accepted);return {policy,run:{id:c.evidence.runId,head_sha:c.source,head_branch:'main',event:'workflow_dispatch',path:c.evidence.workflow,status:'completed',conclusion:'success'},job:{id:c.evidence.jobId,run_id:c.evidence.runId,name:'deploy-code',status:'completed',conclusion:'success'},receipt:structuredClone(c),workerSourceMatches:true};};
+test('current checked code release is selected and must match its independently active deployment',()=>{
+ const f=currentFixture(),c=accepted.currentCodeRelease;
+ const approved=checkAuthLiveProof(f);assert.equal(approved.releaseSource,c.source);
+ checkAuthProvider({policy:f.policy,auth:{worker:c.worker,service:'auth',deploymentId:c.deploymentId,independentlyReadDeployment:true,preferenceSyncEnabled:false,versions:[{versionId:c.versionId,trafficPercent:100}]}});
+ assert.throws(()=>checkAuthProvider({policy:f.policy,reconciliation:checkAuthReconciliation(reconcileFixture()),auth:{worker:c.worker,service:'auth',deploymentId:accepted.reconciledActive.deploymentId,independentlyReadDeployment:true,preferenceSyncEnabled:false,versions:[{versionId:accepted.reconciledActive.versionId,trafficPercent:100}]}}));
+});
+
+test('current release selection preserves history and keeps legacy-only policies supported',()=>{
+ const before=JSON.stringify(accepted),selected=proof.selectAuthLiveProofPolicy();assert.equal(JSON.stringify(accepted),before);assert.equal(selected.reconciledActive,undefined);
+ const legacy=structuredClone(accepted);delete legacy.currentCodeRelease;assert.equal(proof.selectAuthLiveProofPolicy(legacy),legacy);
+});
+test('incomplete current release cannot fall back to historical deployment',()=>{
+ for(const patch of [null,{}, {source:'0'}, {worker:'other'},{service:'other'},{trafficPercent:50},{sourceCheckoutVerified:false},{independentlyReadDeployment:false},{existingBindingsPreserved:false},{existingCronSchedulesPreserved:false},{keySelectionChanged:true},{sourceFingerprintUpdated:false},{preferenceRuntimeActivated:true},{productionGrantsChanged:1},{productionSchemaChanged:true},{registeredGovernanceArtifactId:1},{grantAssociationApproved:true},{healthStatus:503},{disabledPreferenceProbe:200}]){
+  const p=structuredClone(accepted);p.currentCodeRelease=patch===null?null:{...p.currentCodeRelease,...patch};if(patch&&Object.keys(patch).length===0)p.currentCodeRelease={};assert.throws(()=>proof.selectAuthLiveProofPolicy(p));
+ }
+ for(const patch of [{runId:0},{jobId:0},{workflow:'other'},{event:'push'},{headBranch:'other'},{conclusion:'failure'}]){const p=structuredClone(accepted);Object.assign(p.currentCodeRelease.evidence,patch);assert.throws(()=>proof.selectAuthLiveProofPolicy(p));}
+});
+test('current release still requires exact CI, Worker bytes, receipt and disabled runtime',()=>{
+ for(const [part,patch] of [['run',{head_sha:accepted.source}],['run',{event:'push'}],['run',{conclusion:'failure'}],['job',{id:accepted.job}],['job',{name:'compare'}],['receipt',{source:accepted.source}],['receipt',{versionId:accepted.versionId}],['receipt',{deploymentId:accepted.deploymentId}],['receipt',{sourceFingerprintUpdated:false}],['receipt',{productionGrantsChanged:1}],['receipt',{productionSchemaChanged:true}],['receipt',{grantAssociationApproved:true}],['receipt',{registeredGovernanceArtifactId:1}],['receipt',{preferenceRuntimeActivated:true}],['receipt',{disabledPreferenceProbe:200}]]){const f=currentFixture();Object.assign(f[part],patch);assert.throws(()=>checkAuthLiveProof(f));}
+ const f=currentFixture();f.workerSourceMatches=false;assert.throws(()=>checkAuthLiveProof(f));
+ const c=accepted.currentCodeRelease,auth={worker:c.worker,service:'auth',deploymentId:c.deploymentId,independentlyReadDeployment:true,preferenceSyncEnabled:false,versions:[{versionId:c.versionId,trafficPercent:100}]};
+ for(const patch of [{preferenceSyncEnabled:true},{deploymentId:accepted.deploymentId},{independentlyReadDeployment:false},{versions:[]},{versions:[{versionId:c.versionId,trafficPercent:50}]}])assert.throws(()=>checkAuthProvider({policy:f.policy,auth:{...auth,...patch}}));
+});
