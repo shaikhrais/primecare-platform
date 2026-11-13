@@ -44,7 +44,14 @@ try{
   " WHERE screen_id=ANY($1::bigint[]) AND (data_cy ILIKE '%theme%' OR data_cy ILIKE '%appearance%') ORDER BY screen_id,data_cy",
   [[1269,2534]]
  )).rows;
+ const shortcutDestinations=(await db.query(
+  'SELECT DISTINCT r.id AS role_id,r.role_code,s.id AS screen_id,s.screen_code,s.screen_name,s.route_path '+
+  'FROM '+relation('roles')+' r JOIN '+relation('role_screen_permissions')+' p ON p.role_id=r.id '+
+  'JOIN '+relation('screens')+' s ON s.id=p.screen_id '+
+  'WHERE r.id=ANY($1::bigint[]) AND r.active=1 AND p.can_view=1 AND s.active=1 ORDER BY r.id,s.id',
+  [[70,72,80]]
+ )).rows;
  const settingDefinitions=(await db.query('SELECT setting_code,setting_type,default_value FROM '+relation('user_setting_definitions')+' ORDER BY id LIMIT 100')).rows;
  const actorColumns=(await db.query("SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema='public' AND table_name IN ('users','auth_sessions','tenants') AND column_name IN ('id','roles','tenant_id','status','user_id','token_hash','expires_at') ORDER BY table_name,column_name")).rows;
- const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,hostCandidates,registeredThemeControls,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
+ const report={format:1,sourceCommit:process.env.GITHUB_SHA,authority:'pinned-production-postgresql',manifestSha256:pin.manifestSha256,writes:0,accountRowsRead:0,preferenceValuesRead:0,columns,endpoints,permissions,links,storage,actorColumns,roles,resourceScreens,resourceControls,hostBindings,hostCandidates,registeredThemeControls,shortcutDestinations,settingDefinitions};await db.query('ROLLBACK');await mkdir('test-results/preference-sync',{recursive:true});await writeFile('test-results/preference-sync/discovery.json',JSON.stringify(report,null,2)+'\n');console.log('PREFERENCE_SYNC_DISCOVERY '+JSON.stringify(report));
 }catch{console.error('Preference synchronization metadata inspection failed; no mutations were attempted.');process.exitCode=1;}finally{if(db)await db.end();}
