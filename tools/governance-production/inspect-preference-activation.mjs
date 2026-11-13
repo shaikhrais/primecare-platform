@@ -32,6 +32,9 @@ try{
  const deploymentResponse=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/deployments?per_page=1',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
  const deploymentResult=await deploymentResponse.json();
  if(!deploymentResponse.ok||deploymentResult.success!==true)throw Error('Worker deployment unavailable');
+ const latestResponse=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/primecare-auth-api/versions?per_page=1',{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});
+ const latestResult=await latestResponse.json();if(!latestResponse.ok||latestResult.success!==true||!latestResult.result?.items?.[0]?.id)throw Error('Latest version read unavailable');
+ const latestUploadedVersion=latestResult.result.items[0].id;
  const versions=deploymentResult.result?.deployments?.[0]?.versions;
  if(!Array.isArray(versions))throw Error('Worker version unavailable');
  const releaseVersion=codeRelease?.versionId??accepted.reconciledActive?.versionId??accepted.versionId;
@@ -50,5 +53,5 @@ try{
  const requiredHostLinksPresent=[1269,2534].every(id=>links.some(link=>Number(link.screen_id)===id&&Number(link.api_id)===777));
  const existingAdminGrantsMatch=approvedAdmins.length===3&&approvedAdmins.every(row=>Number(row.active)===1&&Number(row.can_access)===1&&row.permission_key===definition.permissionKey&&Number(row.runtime_artifact_id)===2);
  const preflight={canonicalRegistrationAndSchemaVerified:registration.independentReadback===true,endpointImplemented,requiredHostLinksPresent,existingAdminGrantsMatch,activeMatchesAccepted,flagDisabled:['absent','0'].includes(preferenceFlag),runtimeActivationPerformed:false,humanReviewApproved:false,ownedProductionSaveTested:false};
- console.log(JSON.stringify({registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
+ console.log(JSON.stringify({latestUploadedVersion,registration,approvedAdmins,preflight,endpoint,links,controls,preferenceFlag,acceptedCodeSource:codeRelease?.source??null,acceptedVersion,acceptedDeployment,activeDeployment,activeMatchesAccepted,activeVersions,writes:0}));
 }finally{await db.end();}
