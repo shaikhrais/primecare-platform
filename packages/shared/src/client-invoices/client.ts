@@ -26,7 +26,9 @@ export class ClientInvoices{
  private currentRequest(n:number){return !this.dead&&this.epoch===n&&this.isCurrent();}
  private async json(path:string,n:number,signal:AbortSignal):Promise<unknown>{
   if(!this.currentRequest(n))throw Error('scope_changed');
-  const response=await this.fetcher(this.origin+path,{method:'GET',headers:{authorization:'Bearer '+this.token,accept:'application/json'},cache:'no-store',credentials:'omit',redirect:'error',signal});
+  // Native browser fetch must not receive this client object as its Window receiver.
+  const send=this.fetcher;
+  const response=await send(this.origin+path,{method:'GET',headers:{authorization:'Bearer '+this.token,accept:'application/json'},cache:'no-store',credentials:'omit',redirect:'error',signal});
   if(!this.currentRequest(n)){await response.body?.cancel();throw Error('scope_changed');}
   if(response.status!==200){await response.body?.cancel();throw Error(response.status===401?'unauthenticated':response.status===403?'forbidden':response.status===404?'unavailable':'request_failed');}
   if(!response.headers.get('content-type')?.toLowerCase().includes('application/json')||!response.body){await response.body?.cancel();throw Error('invalid_response');}
