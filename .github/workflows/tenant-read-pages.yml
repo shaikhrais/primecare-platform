@@ -22,10 +22,42 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix /tmp/read-host-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1
+          npm install --prefix /tmp/read-host-tools --ignore-scripts --no-audit --no-fund axe-core@4.10.3 esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 ajv@8.17.1 ajv-formats@3.0.1
           ln -s /tmp/read-host-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node --test scripts/test-tenant-read-page-host.mjs
           node scripts/test-tenant-read-page-host-browser.mjs
+          node scripts/test-tenant-read-page-host-accessibility.mjs
           node scripts/test-tenant-work-module-host.mjs
           node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule websites/typescript/src/tenant-dashboard/index.ts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-read-accessibility-pglite
+          path: artifacts/tenant-read-accessibility
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: psw_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PSW_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/psw_test
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/read-host-tools --ignore-scripts --no-audit --no-fund axe-core@4.10.3 esbuild@0.27.2 playwright@1.60.0 bcryptjs@3.0.2 pg@8.16.3
+          ln -s /tmp/read-host-tools/node_modules node_modules
+          npx playwright install --with-deps chromium
+          node scripts/test-tenant-read-page-host-accessibility.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-read-accessibility-postgres
+          path: artifacts/tenant-read-accessibility
