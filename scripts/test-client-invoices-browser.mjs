@@ -1,5 +1,5 @@
-import assert from 'node:assert/strict';import {build} from 'esbuild';import {createServer} from 'node:http';import {readFile} from 'node:fs/promises';import {chromium} from 'playwright';import {clientInvoicesFixture} from './client-invoices-fixture.mjs';import metadata from '../packages/primecare_ui/catalogs/client-invoices.registration.json' with {type:'json'};
-const f=await clientInvoicesFixture();let server,browser,page,writes=0,checks=0,hold=false,lastWorkspaceStatus=null;const pending=[];
+import assert from 'node:assert/strict';import {build} from 'esbuild';import {createServer} from 'node:http';import {readFile,mkdir,writeFile} from 'node:fs/promises';import {createRequire} from 'node:module';import {chromium} from 'playwright';import {clientInvoicesFixture} from './client-invoices-fixture.mjs';import metadata from '../packages/primecare_ui/catalogs/client-invoices.registration.json' with {type:'json'};
+const f=await clientInvoicesFixture();let server,browser,page,writes=0,checks=0,hold=false,failInvoices=false,lastWorkspaceStatus=null;const pending=[];
 try{
  const built=await build({stdin:{contents:`import {ClientInvoices} from './packages/shared/src/client-invoices/client';import {renderWorkspace} from './websites/typescript/src/workspace';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute(location.pathname,'ci')]);window.__invoiceStates=[];const emit=ClientInvoices.prototype.emit;ClientInvoices.prototype.emit=function(){window.__invoiceStates.push({status:this.current.status,error:this.current.error});return emit.call(this);};window.render=()=>renderWorkspace(root,location.origin);window.render();`,resolveDir:process.cwd()},bundle:true,format:'iife',write:false});
  server=createServer(async(req,res)=>{try{
@@ -8,7 +8,7 @@ try{
   if(path==='/app.js'){res.setHeader('content-type','text/javascript');res.end(built.outputFiles[0].text);return;}
   if(path.startsWith('/v1/')){
    if(req.method!=='GET')writes++;
-   const response=await f.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:new Headers(req.headers)}));
+   const response=failInvoices&&path==='/v1/client/invoices'?new Response('{}',{status:503,headers:{'content-type':'application/json'}}):await f.fetch(new Request('http://127.0.0.1'+req.url,{method:req.method,headers:new Headers(req.headers)}));
    if(path==='/v1/governance/workspace')lastWorkspaceStatus=response.status;
    if(hold&&path==='/v1/client/invoices')await new Promise(resolve=>pending.push(resolve));
    if(res.destroyed)return;res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;
@@ -17,10 +17,30 @@ try{
  }catch(error){console.error(error);if(!res.headersSent)res.writeHead(500);res.end();}});await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const origin='http://127.0.0.1:'+server.address().port;
  browser=await chromium.launch(process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH?{executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH,args:['--no-sandbox','--disable-dev-shm-usage']}:{});const context=await browser.newContext();await context.addInitScript(token=>sessionStorage.setItem('primecare_session',token),f.tokens.user1);page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  const ready=async()=>{await page.waitForFunction(()=>document.querySelectorAll('[data-cy=client-invoice-row]').length>0);};const cy=k=>page.locator('[data-cy="client-invoices-'+k+'"]');
+ const auditDir='artifacts/client-invoices-accessibility';await mkdir(auditDir,{recursive:true});
+ const audit=async(locale,state)=>{
+  if(!await page.evaluate(()=>Boolean(window.axe)))await page.addScriptTag({path:createRequire(import.meta.url).resolve('axe-core/axe.min.js')});
+  const result=await page.locator('[data-cy=client-invoice-host]').evaluate(async element=>window.axe.run(element,{runOnly:{type:'tag',values:['wcag2a','wcag2aa','wcag21a','wcag21aa','wcag22aa']}}));
+  await writeFile(`${auditDir}/${locale}-${state}.json`,JSON.stringify(result,null,2));await page.screenshot({path:`${auditDir}/${locale}-${state}.png`,fullPage:true});
+  assert.deepEqual(result.violations.map(v=>({id:v.id,targets:v.nodes.map(n=>n.target)})),[],`${locale} ${state} automated accessibility`);
+ };
+ const held=async()=>{const deadline=Date.now()+5000;while(!pending.length&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,10));assert.equal(pending.length,1,'exactly one owned invoice request');};
  const original=Number((await f.db.query('SELECT COUNT(*)::int AS n FROM invoices')).rows[0].n);
- for(const [locale,width] of [['en',390],['fr',768],['es',1440]]){
+ for(const [locale,width] of [['en',320],['fr',768],['es',1440]]){
   await page.setViewportSize({width,height:900});await page.goto(origin+'/clinic/client-profile?locale='+locale);await ready();assert.equal(await cy('panel').getAttribute('data-control-id'),'823');assert.equal(await page.locator('[data-cy=client-invoice-row]').count(),25);assert.match(await cy('panel').innerText(),/12345678901234567890\.123456790/);assert.ok((await cy('panel').innerText()).includes(metadata.locales[locale].missing));assert.ok(!(await cy('panel').innerText()).includes('PRIVATE-'));assert.equal(await cy('panel').locator('img').count(),0);assert.equal(await cy('panel').locator('th[scope=col]').count(),8);assert.equal(await cy('panel').locator('button').count(),3);assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),true);checks++;
   await cy('next').click();await page.waitForFunction(()=>document.querySelectorAll('[data-cy=client-invoice-row]').length===2);assert.equal(await cy('next').isDisabled(),true);await cy('previous').click();await ready();assert.equal(await page.locator('[data-cy=client-invoice-row]').count(),25);await page.reload();await ready();checks++;
+  await audit(locale,'ready');
+  await page.evaluate(()=>{window.__statusNode=document.querySelector('[data-cy=client-invoices-status]');window.__refreshNode=document.querySelector('[data-cy=client-invoices-refresh]');});
+  hold=true;await cy('refresh').focus();await page.keyboard.press('Enter');await held();await page.waitForFunction(()=>document.querySelector('[data-cy=client-invoices-status]').textContent.length>0);
+  assert.equal(await cy('refresh').evaluate(el=>el===document.activeElement&&el===window.__refreshNode),true,'refresh keeps keyboard focus');
+  assert.equal(await cy('status').evaluate(el=>el===window.__statusNode&&el.isConnected&&!el.closest('[aria-busy=true]')),true,'live region persists outside busy panel');
+  await page.keyboard.press('Enter');await audit(locale,'loading');assert.equal(pending.length,1,'repeat activation cannot start another read');
+  hold=false;pending.splice(0).forEach(fn=>fn());await ready();
+  failInvoices=true;await page.keyboard.press('Enter');await page.waitForFunction(message=>document.querySelector('[data-cy=client-invoices-status]')?.textContent===message,metadata.locales[locale].error);
+  assert.equal(await cy('refresh').evaluate(el=>el===document.activeElement&&el===window.__refreshNode),true);assert.equal(await cy('status').evaluate(el=>el===window.__statusNode),true);assert.equal(await page.locator('[data-cy=client-invoice-row]').count(),0);await audit(locale,'error');
+  failInvoices=false;await page.keyboard.press('Enter');await ready();assert.equal(await cy('status').evaluate(el=>el===window.__statusNode),true);
+  await page.locator('.table-scroll').focus();await page.keyboard.press('ArrowRight');assert.equal(await page.locator('.table-scroll').evaluate(el=>el===document.activeElement),true);checks++;
+
  }
  // BFCache ownership: hide must clear private content and restore must independently reload it.
  await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));assert.equal(await page.locator('[data-cy=client-invoice-host]').count(),0);await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));await ready();checks++;
