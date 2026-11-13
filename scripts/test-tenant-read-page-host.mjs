@@ -56,3 +56,12 @@ test('profile host displays self identity read only and clears it when parent in
   h.dispose();assert.equal(root.textContent,'Existing workspace');
  }finally{globalThis.fetch=previous;}
 });
+test('profile response waits for restored owner instead of becoming denied in BFCache',async()=>{
+ const previous=globalThis.fetch;let deliver,resume;
+ try{
+  globalThis.fetch=()=>new Promise(resolve=>deliver=()=>resolve(Response.json({status:'authenticated',userId:'user',tenantId:'tenant',roles:'tenant_admin'})));
+  const {root,options}=fixture('profile');let active=true;options.isCurrent=()=>active;options.whenActive=()=>active?Promise.resolve(true):new Promise(resolve=>resume=resolve);
+  const h=mountTenantReadHost(root,options);active=false;deliver();await new Promise(resolve=>setImmediate(resolve));assert.doesNotMatch(root.textContent,/user/);
+  active=true;resume(true);h.syncControls();for(let i=0;i<10&&!root.querySelector('[data-work-card]');i++)await new Promise(resolve=>setImmediate(resolve));assert.match(root.textContent,/user/);h.dispose();
+ }finally{globalThis.fetch=previous;}
+});

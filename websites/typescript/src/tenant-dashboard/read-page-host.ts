@@ -21,9 +21,16 @@ export function mountTenantReadHost(root:HTMLElement,options:{gateway:string;tok
  const handle:TenantReadHost={dispose:()=>{if(dead)return;dead=true;view?.dispose();session?.dispose();slot.remove();},syncControls:()=>{if(dead)return;if(!root.contains(slot)){handle.dispose();return;}if(!current())return;view?.render();}};
  try{
   if(kind==='profile'){
-   const port=new ApplicationProfilePort(options.gateway,options.token,scope,()=>{if(!current())throw Error('scope_changed');return {token:options.token,scope};},application.locales[locale]);
-   // Hold transport results while the owner is in BFCache, before the profile guard or renderer runs.
-   const read=port.read.bind(port);port.read=async(query,signal)=>{await options.whenActive();return read(query,signal);};
+   // The parent suspends in BFCache. Hold headers and body chunks before the port's scope guard.
+   const fetcher:typeof fetch=async(input,init)=>{
+    const response=await fetch(input,init);
+    if(!await options.whenActive()){await response.body?.cancel();throw Error('scope_changed');}
+    if(!response.body)return response;
+    const reader=response.body.getReader();
+    const body=new ReadableStream<Uint8Array>({async pull(controller){try{const part=await reader.read();if(!await options.whenActive()){await reader.cancel();throw Error('scope_changed');}if(part.done)controller.close();else controller.enqueue(part.value);}catch(error){controller.error(error);}},cancel:reason=>reader.cancel(reason)});
+    return new Response(body,{status:response.status,statusText:response.statusText,headers:response.headers});
+   };
+   const port=new ApplicationProfilePort(options.gateway,options.token,scope,()=>{if(!current())throw Error('scope_changed');return {token:options.token,scope};},application.locales[locale],fetcher);
    session=new WorkModuleSession(scope,'profile',port);
    class OwnedProfile extends PrimeApplicationModule {override render(){if(current())super.render();}}
    view=new OwnedProfile(slot,session,{locale,year:Number(data.today.slice(0,4)),month:Number(data.today.slice(5,7)),firstWeekday:1});
