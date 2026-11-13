@@ -20,22 +20,32 @@ class LiveAuth extends AuthNotifier {
     userId:actor['id'] as String,tenantId:actor['tenant'] as String,role:'tenant_admin',token:actor['token'] as String);
   void logoutFixture(){state=AuthState(isInitialized:true);}
 }
+class _NetworkResult {
+  final http.StreamedResponse? response;
+  final Object? error;
+  final StackTrace? stack;
+  const _NetworkResult(this.response,this.error,this.stack);
+}
 class Wire extends http.BaseClient {
   final http.Client delegate;
   final List<Map<String,dynamic>> requests,events;
   final Zone networkZone;
   Wire(this.delegate,this.requests,this.events,this.networkZone);
-  @override Future<http.StreamedResponse> send(http.BaseRequest request){
+  @override Future<http.StreamedResponse> send(http.BaseRequest request)async{
     if(request is http.Request && request.url.path=='/v1/user/preferences'){
       final body=Map<String,dynamic>.from(jsonDecode(request.body) as Map);
       // Never record headers, tokens or credentials.
       requests.add({'action':body['action'],'requestId':body['requestId'],'revision':body['revision'],'document':body['document']});
     }
     events.add({'path':request.url.path,'phase':'send'});
-    return networkZone.run(()async{
-      try{final response=await delegate.send(request);events.add({'path':request.url.path,'status':response.statusCode,'length':response.contentLength});return response;}
-      catch(error){events.add({'path':request.url.path,'errorType':error.runtimeType.toString()});rethrow;}
+    // A value may cross the runner's error zones; an error Future may not.
+    // Re-throw in the caller's zone so the real port owns cancellation cleanup.
+    final result=await networkZone.run<Future<_NetworkResult>>(()async{
+      try{final response=await delegate.send(request);events.add({'path':request.url.path,'status':response.statusCode,'length':response.contentLength});return _NetworkResult(response,null,null);}
+      catch(error,stack){events.add({'path':request.url.path,'errorType':error.runtimeType.toString()});return _NetworkResult(null,error,stack);}
     });
+    if(result.error!=null)Error.throwWithStackTrace(result.error!,result.stack!);
+    return result.response!;
   }
   @override void close()=>delegate.close();
 }
