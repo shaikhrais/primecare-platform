@@ -88,3 +88,14 @@ The latest production inspection reported the preference flag absent and API777 
 
 
 The Flutter `ApplicationShortcutEditor` and `PrimeApplicationShortcuts` expose the same picker and explicit recovery semantics for existing native hosts. Supply the registered `ShellUtilityLabels`, call `load`, and dispose the editor when its authenticated scope ends. Its original `ApplicationSettingsPort` cannot simultaneously be used by a WorkModuleSession. Linux and Windows verification exercises the widget and lost-receipt/reload/conflict paths; this is source/widget evidence, not physical-device or human release acceptance.
+
+
+## Explicit corrupt/revoked-cache recovery
+
+The picker’s separately registered recovery controls use existing API777 read/reset operations. Review performs only an account/role/tenant/dataset/resource-scoped read. A confirmation is bound to the reviewed server revision, original browser bytes and in-memory draft/receipt; a changed server value or another tab’s cache requires a fresh review. Invalid or revoked references are never applied to the active UI.
+
+Confirmation first writes and reads back an immutable `.quarantine.<review UUID>` record in the same private account-scoped cache namespace. It contains the exact original raw record, retained in-memory draft/pending request and reviewed owned server snapshot. Nothing in the backup is uploaded or automatically replayed. Backups remain in that browser until the user clears the site’s data. Storage failure preserves the original record and blocks a reset. Cancel only closes the review.
+
+Use saved version is offered only when the server document is valid and no original pending request is uncertain. Otherwise, an explicit Reset uses the reviewed revision with a new UUID, durably staged before dispatch. The old raw request remains in quarantine. A lost reset response is retried with the exact reset UUID; reload never automatically retries. The server’s CAS check prevents a late original request from overwriting a completed reset. Successful reset acknowledgement is independently read back. No other account’s cache, grant, cloud document, schema or runtime flag is changed.
+
+Flutter hosts pass `CatalogueLabels.fromMetadata(applicationRecoveryMetadata, locale)` through `PrimeApplicationShortcuts.recoveryLabels`; existing `ShellUtilityLabels` remain unchanged. This additive catalogue does not alter the original B15 labels or native replay oracle. Production preference activation and human/device acceptance remain separate.

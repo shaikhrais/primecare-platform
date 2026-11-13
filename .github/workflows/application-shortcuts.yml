@@ -4,6 +4,11 @@ on:
     branches: [main]
     paths:
       - 'packages/shared/src/application-modules/**'
+      - 'packages/shared/src/preference-sync/**'
+      - 'packages/flutter_core/lib/preference_sync/**'
+      - 'packages/flutter_core/test/preference_sync/**'
+      - 'packages/primecare_ui/catalogs/application-recovery.registration.json'
+      - 'scripts/test-preference-recovery.mjs'
       - 'packages/flutter_core/lib/application_modules.dart'
       - 'packages/flutter_core/lib/application_modules/**'
       - 'packages/flutter_core/test/application_modules/**'
@@ -28,7 +33,7 @@ jobs:
           npm install --prefix /tmp/shortcut-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s /tmp/shortcut-tools/node_modules node_modules
           npx playwright install --with-deps chromium
-          node --test scripts/test-application-shortcut-editor.mjs scripts/test-application-shortcut-view.mjs scripts/test-application-modules-settings-lifecycle.mjs scripts/test-preference-client.mjs
+          node --test scripts/test-application-shortcut-editor.mjs scripts/test-application-shortcut-view.mjs scripts/test-application-modules-settings-lifecycle.mjs scripts/test-preference-client.mjs scripts/test-preference-recovery.mjs
           node scripts/test-application-shortcut-browser.mjs
           node scripts/test-tenant-read-page-host-browser.mjs
           node scripts/test-tenant-work-module-host.mjs
@@ -67,7 +72,7 @@ jobs:
         with: {flutter-version: '3.41.5', channel: stable, cache: true}
       - run: flutter pub get
         working-directory: packages/flutter_core
-      - run: flutter analyze --no-fatal-infos lib/application_modules.dart lib/application_modules test/application_modules
+      - run: flutter analyze --no-fatal-infos lib/application_modules.dart lib/application_modules lib/preference_sync test/application_modules test/preference_sync
         working-directory: packages/flutter_core
-      - run: flutter test test/application_modules
+      - run: flutter test test/application_modules test/preference_sync
         working-directory: packages/flutter_core

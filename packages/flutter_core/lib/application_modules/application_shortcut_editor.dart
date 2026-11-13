@@ -11,6 +11,10 @@ class ApplicationShortcutEditor extends ChangeNotifier {
  ApplicationShortcutEditor(this.port){_owned=port.claimShortcutEditor(_uuid);if(_owned.names.keys.any((id)=>!RegExp(r'^[1-9][0-9]{0,9}$').hasMatch(id))){port.dispose();throw const WorkFailure('invalid');}_owned.client.addListener(_changed);}
  static String _uuid(){final random=Random.secure(),bytes=List.generate(16,(_)=>random.nextInt(256));bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;final hex=bytes.map((b)=>b.toRadixString(16).padLeft(2,'0')).join();return '${hex.substring(0,8)}-${hex.substring(8,12)}-${hex.substring(12,16)}-${hex.substring(16,20)}-${hex.substring(20)}';}
  void _changed(){if(!_dead)notifyListeners();}
+ Map<String,dynamic>? get recoveryPreview=>_owned.client.recoveryPreview;
+ Future<Map<String,dynamic>?> reviewRecovery()async{_open();return _owned.client.reviewRecovery();}
+ void cancelRecovery(){_open();_owned.client.cancelRecovery();}
+ Future<void> confirmRecovery(String token,String mode)async{_open();await _owned.client.confirmRecovery(token,mode);}
  PreferenceBinding get binding=>_owned.client.binding;
  Map<String,dynamic> get current{final state=_owned.client.current,draft=state['draft'] as Map?;return {...state,'selected':List<String>.from(draft?['screenIds'] as List? ?? _owned.defaults)};}
  List<({String id,String title})> destinations([String query='']){if(query.length>100)throw const WorkFailure('invalid');final search=query.toLowerCase();return [for(final e in _owned.names.entries)if(e.value.toLowerCase().contains(search))(id:e.key,title:e.value)];}

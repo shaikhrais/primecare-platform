@@ -4,6 +4,10 @@ import {WorkFailure} from '../../../domain/src/work_modules';
 export class ApplicationShortcutEditor {
  private owned:ReturnType<ApplicationSettingsPort['claimShortcutEditor']>;private dead=false;
  constructor(private port:ApplicationSettingsPort){this.owned=port.claimShortcutEditor();if(Object.keys(this.owned.names).some(id=>!/^[1-9][0-9]{0,9}$/.test(id))){port.dispose();throw new WorkFailure('invalid');}}
+ get recoveryPreview(){return this.owned.client.recoveryPreview;}
+ async reviewRecovery(){this.open();return this.owned.client.reviewRecovery();}
+ cancelRecovery(){this.open();this.owned.client.cancelRecovery();}
+ async confirmRecovery(token:string,mode:'restore'|'reset'){this.open();await this.owned.client.confirmRecovery(token,mode);}
  get binding(){return this.owned.client.binding;}
  get current(){const state=this.owned.client.current;return {...state,selected:[...((state.draft as {screenIds:string[]}|null)?.screenIds??this.owned.defaults)]};}
  subscribe(listener:()=>void){return this.owned.client.subscribe(listener);}
