@@ -17,6 +17,8 @@ spec = importlib.util.spec_from_file_location('apple', Path(__file__).with_name(
 m = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(m)
 OLD, IOS, NEW = 43328101727, 43328101736, 43349642502
+LATEST_MAC = 43493359962
+LATEST_MAC_SOURCE = '723dd19b0d6a1cab4a0342686880c61ec6db2cd0'
 LATEST_IOS = 43456846629
 LATEST_IOS_SOURCE = 'a41163b1da96015c05618b30a68d0af6c1929471'
 CURRENT_IOS = 43442916442
@@ -34,7 +36,7 @@ def artifact(run):
     return {'id': BLUEPRINT_ARTIFACT if run == BLUEPRINT else run + 100,
             'name': 'ios-blueprint-unsigned-' + BLUEPRINT_SOURCE if run == BLUEPRINT else f'{platform}-build-{APP}', 'expired': False,
             'size_in_bytes': 1, 'workflow_run': {'id': run,
-            'head_sha': LATEST_IOS_SOURCE if run == LATEST_IOS else CURRENT_IOS_SOURCE if run == CURRENT_IOS else BLUEPRINT_SOURCE if run == BLUEPRINT else NEW_SOURCE if run == NEW else m.SOURCE,
+            'head_sha': LATEST_MAC_SOURCE if run == LATEST_MAC else LATEST_IOS_SOURCE if run == LATEST_IOS else CURRENT_IOS_SOURCE if run == CURRENT_IOS else BLUEPRINT_SOURCE if run == BLUEPRINT else NEW_SOURCE if run == NEW else m.SOURCE,
             'head_branch': 'main', 'repository_id': 7, 'head_repository_id': 7}}
 
 
@@ -46,7 +48,7 @@ def api(path):
     if '/jobs?' in path:
         return {'total_count': 1, 'jobs': [{'name': 'unsigned_blueprint' if run == BLUEPRINT else f'build_{platform} ({APP})',
                                          'status': 'completed', 'conclusion': 'success'}]}
-    return {'head_sha': LATEST_IOS_SOURCE if run == LATEST_IOS else CURRENT_IOS_SOURCE if run == CURRENT_IOS else BLUEPRINT_SOURCE if run == BLUEPRINT else NEW_SOURCE if run == NEW else m.SOURCE, 'head_branch': 'main',
+    return {'head_sha': LATEST_MAC_SOURCE if run == LATEST_MAC else LATEST_IOS_SOURCE if run == LATEST_IOS else CURRENT_IOS_SOURCE if run == CURRENT_IOS else BLUEPRINT_SOURCE if run == BLUEPRINT else NEW_SOURCE if run == NEW else m.SOURCE, 'head_branch': 'main',
             'path': '.github/workflows/ios-blueprint-diagnostic.yml' if run == BLUEPRINT else f'.github/workflows/build_{platform}.yml',
             'repository': {'full_name': m.REPOSITORY}, 'head_repository': {'full_name': m.REPOSITORY}}
 
@@ -68,19 +70,19 @@ class Scope(unittest.TestCase):
 
     def test_new_producer_is_inventoried_without_relabeling_historical_sources(self):
         report, matrix = self.inventory()
-        self.assertEqual(len(report['coverage']), 46)
-        self.assertEqual(len(matrix), 6)
-        self.assertEqual({item['run'] for item in matrix}, {OLD, IOS, NEW, BLUEPRINT, CURRENT_IOS, LATEST_IOS})
+        self.assertEqual(len(report['coverage']), 55)
+        self.assertEqual(len(matrix), 7)
+        self.assertEqual({item['run'] for item in matrix}, {OLD, IOS, NEW, BLUEPRINT, CURRENT_IOS, LATEST_IOS, LATEST_MAC})
         self.assertEqual(next(item for item in matrix if item['run'] == NEW)['source'], NEW_SOURCE)
         self.assertEqual(next(item for item in matrix if item['run'] == OLD)['source'], m.SOURCE)
         self.assertFalse(report['runtimeAcceptance'])
 
     def test_completed_producer_selection_does_not_schedule_old_artifacts(self):
         report, matrix = self.inventory(str(NEW))
-        self.assertEqual(len(report['coverage']), 46)
+        self.assertEqual(len(report['coverage']), 55)
         self.assertEqual([item['run'] for item in matrix], [NEW])
         self.assertEqual(report['artifactTestsScheduled'], 1)
-        self.assertEqual(sum(row['build'] == 'missing' for row in report['coverage']), 40)
+        self.assertEqual(sum(row['build'] == 'missing' for row in report['coverage']), 48)
 
     def test_completed_nine_app_ios_producer_remains_exactly_scoped(self):
         report, matrix = self.inventory(str(CURRENT_IOS))
@@ -122,13 +124,40 @@ class Scope(unittest.TestCase):
             finally:
                 os.chdir(previous)
 
+    def test_all_nine_preserved_mac_artifacts_are_scheduled_once(self):
+        def nine_api(path):
+            if f'/{LATEST_MAC}/artifacts?' in path:
+                rows = []
+                for index, app in enumerate(m.APPS):
+                    row = artifact(LATEST_MAC)
+                    row.update(id=LATEST_MAC + index, name=f'macos-build-{app}')
+                    rows.append(row)
+                return {'total_count': len(rows), 'artifacts': rows}
+            if f'/{LATEST_MAC}/jobs?' in path:
+                return {'total_count': len(m.APPS), 'jobs': [
+                    {'name': f'build_macos ({app})', 'status': 'completed', 'conclusion': 'success'}
+                    for app in m.APPS]}
+            return api(path)
+        with tempfile.TemporaryDirectory() as temporary:
+            previous = Path.cwd()
+            try:
+                os.chdir(temporary)
+                with patch.dict(os.environ, {'BUILD_RUN_ID': str(LATEST_MAC), 'GITHUB_OUTPUT': str(Path(temporary)/'output')}), patch.object(m, 'api', side_effect=nine_api), patch('sys.stdout', new=io.StringIO()):
+                    m.discover()
+                matrix = json.loads(Path('output').read_text().splitlines()[0].removeprefix('matrix='))['include']
+                self.assertEqual(len(matrix), 9)
+                self.assertEqual({row['app'] for row in matrix}, set(m.APPS))
+                self.assertTrue(all(row['run'] == LATEST_MAC and row['source'] == LATEST_MAC_SOURCE and row['archiveFormat'] == 'tar' and row['runner'] == 'macos-26-intel' for row in matrix))
+            finally:
+                os.chdir(previous)
+
     def test_unknown_producer_selection_fails_before_api(self):
         with patch.dict(os.environ, {'BUILD_RUN_ID': '123'}), patch.object(m, 'api') as request:
             with self.assertRaises(ValueError): m.discover()
             request.assert_not_called()
 
     def test_each_source_rejects_cross_source_and_expired_metadata(self):
-        for run in (OLD, IOS, NEW):
+        for run in (OLD, IOS, NEW, LATEST_MAC):
             platform = 'ios' if run in (IOS, BLUEPRINT, CURRENT_IOS, LATEST_IOS) else 'macos'
             m.validate(artifact(run), platform, APP, run)
             for field, value in [('head_sha', '0'*40), ('id', 123)]:
@@ -220,7 +249,7 @@ class Scope(unittest.TestCase):
 
     def test_reviewed_blueprint_schedules_only_its_single_app(self):
         report, matrix = self.inventory(str(BLUEPRINT))
-        self.assertEqual(len(report['coverage']), 46)
+        self.assertEqual(len(report['coverage']), 55)
         self.assertEqual(len(matrix), 1)
         self.assertEqual(matrix[0]['app'], BLUEPRINT_APP)
         self.assertEqual(matrix[0]['source'], BLUEPRINT_SOURCE)
