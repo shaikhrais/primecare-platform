@@ -6,8 +6,9 @@ export class DashboardPageSession {
     this.family=family; this.scope=Object.freeze({...scope}); this.read=read; this.current=current; this.project=project;
   }
   get state(){return structuredClone(this.#state);}
-  subscribe(listener){this.#listeners.add(listener);return ()=>this.#listeners.delete(listener);}
-  #emit(status,projection=null){this.#state={status,projection};for(const listener of this.#listeners)listener(this.state);}
+  subscribe(listener){if(this.#dead)return ()=>{};const owned=value=>listener(value);this.#listeners.add(owned);return ()=>this.#listeners.delete(owned);}
+  #notify(){const state=this.#state;for(const listener of [...this.#listeners]){if(this.#state!==state)break;if(!this.#listeners.has(listener))continue;try{listener(this.state);}catch{ /* Display observers do not own transport or session state. */ }}}
+  #emit(status,projection=null){this.#state={status,projection};this.#notify();}
   #matches(){try{const now=this.current();return !!now && ['userId','tenantId','role','dataset'].every(k=>now[k]===this.scope[k]);}catch{return false;}}
   invalidate(){if(this.#dead)return;this.#epoch++;this.#abort?.abort();this.#emit('denied');}
   async load(){
@@ -33,5 +34,6 @@ export class DashboardPageSession {
       this.#emit(denied?'denied':'error');
     }
   }
-  dispose(){if(this.#dead)return;this.#dead=true;this.#epoch++;this.#abort?.abort();this.#state={status:'disposed',projection:null};for(const listener of this.#listeners)listener(this.state);this.#listeners.clear();}
+  dispose(){if(this.#dead)return;this.#dead=true;this.#epoch++;this.#abort?.abort();this.#state={status:'disposed',projection:null};try{this.#notify();}finally{this.#listeners.clear();}}
 }
+
