@@ -9,6 +9,7 @@ const importCode = async options => {
 const core = await importCode({entryPoints:['packages/primecare_ui/web/screen-manager.ts']});
 const {ScreenManager, ScreenConfigurationError} = core;
 const {resolveManagedRoute} = await importCode({entryPoints:['websites/typescript/src/managed-routes.ts']});
+const presentation = await importCode({stdin:{contents:`export {installPortalPresentation} from './websites/typescript/src/screen-presentation';export {ScreenManager,installScreenManager,requireScreenManager} from './packages/primecare_ui/web/screen-manager';`,resolveDir:process.cwd()}});
 const connectionNames = ['layout','theme','language','responsive'];
 const connections = () => Object.fromEntries(connectionNames.map(name=>[name,()=>{}]));
 const registration = (id='one',route='/one') => ({id,route,kind:'governed',adapter:'workspace'});
@@ -93,6 +94,32 @@ function browser(path,styles=true) {
   Object.assign(globalThis,{document:doc,window:doc.defaultView,location:{pathname:path,search:'',assign(url){this.assigned=url;},reload(){}},sessionStorage:storage,localStorage:storage,getComputedStyle:doc.defaultView.getComputedStyle});
   return {root,doc,storage,events};
 }
+test('rejected duplicate portal installation preserves the active theme and presentation owner',()=>{
+ const {root,doc,events}=browser('/login');
+ const manager=presentation.installPortalPresentation(root,{'--color-primary':'#006b68'},'https://gateway.invalid');
+ manager.registerScope('entry',[registration()]);
+ const primary=doc.documentElement.style.getPropertyValue('--color-primary');
+ const listeners=new Map([...events].map(([name,callbacks])=>[name,callbacks.size]));
+ assert.throws(()=>presentation.installPortalPresentation(root,{'--color-primary':'#ff0000','--rejected-token':'bad'},'https://other.invalid'));
+ assert.equal(doc.documentElement.style.getPropertyValue('--color-primary'),primary);
+ assert.equal(doc.documentElement.style.getPropertyValue('--rejected-token'),'');
+ assert.equal(presentation.requireScreenManager(root),manager);
+ assert.deepEqual(new Map([...events].map(([name,callbacks])=>[name,callbacks.size])),listeners);
+ assert.equal(manager.enter('one','/one').id,'one');
+});
+test('a preinstalled manager rejects portal setup before acquiring environment ownership',()=>{
+ const {root,doc,events}=browser('/login');
+ root.setAttribute('dir','rtl');root.style.scrollbarColor='existing';
+ doc.documentElement.style.setProperty('--color-primary','#123456');
+ const manager=new presentation.ScreenManager(connections());presentation.installScreenManager(root,manager);
+ assert.throws(()=>presentation.installPortalPresentation(root,{'--color-primary':'#ff0000'},'https://gateway.invalid'),/Root already has a manager/);
+ assert.equal(root.getAttribute('dir'),'rtl');
+ assert.equal(root.style.scrollbarColor,'existing');
+ assert.equal(root.getAttribute('data-pc-shell-environment'),null);
+ assert.equal(doc.documentElement.style.getPropertyValue('--color-primary'),'#123456');
+ assert.equal(events.size,0);
+ assert.equal(presentation.requireScreenManager(root),manager);
+});
 test('missing root manager clears previous protected content and reports a developer error',()=>{
   const {root}=browser('/one');root.innerHTML='private';assert.throws(()=>core.requireScreenManager(root),/Missing manager/);
   assert.equal(root.innerHTML,'');assert.match(root.children[0].textContent,/Missing manager/);

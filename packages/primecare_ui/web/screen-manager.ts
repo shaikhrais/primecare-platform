@@ -73,8 +73,12 @@ export class ScreenManager {
 }
 
 const managers = new WeakMap<HTMLElement, ScreenManager>();
-export function installScreenManager(root: HTMLElement, manager: ScreenManager): void {
+/** Check before acquiring presentation resources or changing shared document tokens. */
+export function assertScreenManagerAvailable(root: HTMLElement): void {
   if (managers.has(root)) throw new ScreenConfigurationError('Root already has a manager');
+}
+export function installScreenManager(root: HTMLElement, manager: ScreenManager): void {
+  assertScreenManagerAvailable(root);
   managers.set(root, manager);
 }
 export function requireScreenManager(root: HTMLElement): ScreenManager {

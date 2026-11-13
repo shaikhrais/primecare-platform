@@ -4,13 +4,14 @@ import {PortalDocumentScroll} from './document-scroll';
 import {ShellEnvironment} from '../../../packages/primecare_ui/web/shell-environment';
 import {applyMediaTokens} from './media-look';
 import {liveScreenText} from './screen-text';
-import {ScreenManager, installScreenManager} from '../../../packages/primecare_ui/web/screen-manager';
+import {ScreenManager, installScreenManager, assertScreenManagerAvailable} from '../../../packages/primecare_ui/web/screen-manager';
 
 /** Bridge existing DOM renderers without replacing their business or account-scoped layouts.
  * Shell renderers retain renderShell/bindShell and their BaseLayoutManager/Theme Center.
  * Raw HTML adapters use the same default-only layout owner, without adding shell chrome.
  */
 export function installPortalPresentation(root: HTMLElement, theme: Record<string, string>, gateway: string): ScreenManager {
+  assertScreenManagerAvailable(root);
   if (!theme || typeof theme !== 'object' || Array.isArray(theme) ||
       typeof theme['--color-primary'] !== 'string' || !theme['--color-primary'].trim() ||
       Object.entries(theme).some(([key, value]) => !/^--[A-Za-z0-9_-]+$/.test(key) || typeof value !== 'string' || !value.trim())) {
