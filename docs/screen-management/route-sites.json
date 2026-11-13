@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 31862)
-Total output lines: 3362
-
 [
   {
     "file": "apps/primecare_business_development/lib/core/routing/business_development_routes.dart",
@@ -1368,7 +1365,637 @@ Total output lines: 3362
     "digest": "6e2490955d89f7b4bb2547d0c5e8a35f6746752f20106d902e4d9a66e922a631"
   },
   {
-    "file":…5862 tokens truncated…e/routing/corporate_routes.dart",
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1050,
+    "constructor": "PrimeCareScreen",
+    "class": "ReleaseOperationsScreen",
+    "digest": "6cbcde456f7ba99f729bb302009db97b509ba9f8d4f4cce529adeeddd8337bac"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1057,
+    "constructor": "PrimeCareScreen",
+    "class": "ResponsivePreviewScreen",
+    "digest": "3160ca36e15d5498cb42456de83c168017f7c54d4595a53689c858cde80f372c"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1064,
+    "constructor": "PrimeCareScreen",
+    "class": "RoleCoverageDashboardScreen",
+    "digest": "37b02e744e3cf441b23d83075b776b867f5f91609c499a7a264efd585b763a2a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1071,
+    "constructor": "PrimeCareScreen",
+    "class": "RuntimeVerificationScreen",
+    "digest": "4baecfc449af541c97998a23af744dadedfc42cfb50cb8c52e1b5f90a30f2435"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1078,
+    "constructor": "PrimeCareScreen",
+    "class": "SystemDashboardScreen",
+    "digest": "c78f6faf25d56db9338b82aa4c7ac4500f7ecd1bab61e7579710d8cbb5218dc6"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1085,
+    "constructor": "PrimeCareScreen",
+    "class": "WorkflowExecutionScreen",
+    "digest": "b46f76aa604772e40699141fb84d93f92ed115c74169f1d54056e4dcaa8a01a4"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1092,
+    "constructor": "PrimeCareScreen",
+    "class": "GovernanceOfficerAnalyticsScreen",
+    "digest": "79bf4a43134d7a7785f0b77baa884738d0227a48271730015ff721fbf4c52fc1"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1099,
+    "constructor": "PrimeCareScreen",
+    "class": "GovernanceOfficerComplianceScreen",
+    "digest": "743caecee7ca112cf935e16ddd19a13ff9117dc6c168e9a0498470093bfbecda"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1106,
+    "constructor": "PrimeCareScreen",
+    "class": "GovernanceOfficerDashboardScreen",
+    "digest": "814667dfc095ef97f0de9c8833e74fb402d2b38ccd3e12eefdbcc85891a64c3b"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1113,
+    "constructor": "PrimeCareScreen",
+    "class": "GovernanceOfficerWorkflowScreen",
+    "digest": "bb76695f243b358876a388dac3a01f3d7fbc4b070a9a9a567c7e0b390a12bbdb"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1120,
+    "constructor": "PrimeCareScreen",
+    "class": "RnFieldSupervisorDashboardScreen",
+    "digest": "815a9ae641f1556b569d252021445f0ce47008552e98bdb7b8cc717020c0216c"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1149,
+    "constructor": "PrimeCareScreen",
+    "class": "CareDashboardScreen",
+    "digest": "11844a25a1a1d0f32699105d60ed678dffd23e3a168699ff0fd93bb3c0259aff"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1155,
+    "constructor": "PrimeCareScreen",
+    "class": "PswMyShiftsScreen",
+    "digest": "a50d5b823625e94608672013d4180a563340c0b79c7ee9b95fb9522b1bfb7624"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1161,
+    "constructor": "PrimeCareScreen",
+    "class": "PswMessagesScreen",
+    "digest": "fffc72a1cbfa109ae6d8b231263451907dd9bdcc4905613ad233076a9e9c447a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1167,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeCoordinatorDashboardScreen",
+    "digest": "8f9cc36995e3f74a1d17c5ea6ad9139d112fa181aab58bc3854e25fb72838322"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1174,
+    "constructor": "PrimeCareScreen",
+    "class": "TrainingCoordinatorDashboardScreen",
+    "digest": "1f35731569f687d9a210247c59d3bc4ff83b42ca9368c4cc863196e14a236527"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1182,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeAnalyticsScreen",
+    "digest": "3bf45d0c99bf790069d7fc93902992baf981dea8541bbd73a158d3979afd3e0a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1189,
+    "constructor": "PrimeCareScreen",
+    "class": "BookingScreen",
+    "digest": "72cd0566f109870e80af7cb1156b584b496e8120feafa500299c9a32249aa14a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1196,
+    "constructor": "PrimeCareScreen",
+    "class": "ClientIntakeScreen",
+    "digest": "e8027fde084a4f57543b1d33329c6598991a18adb93b661ef3db0a42d903e872"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1203,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeComplianceScreen",
+    "digest": "8f106769ca729447ec5f026712ddee0e6d0e08390e0b5ba658133bb1d06cccde"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1210,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeCoordinatorAnalyticsScreen",
+    "digest": "f44cf11998743feefe71a0457daea42c7b09524cf68e24722294dc028c8a914a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1217,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeCoordinatorComplianceScreen",
+    "digest": "a3e633cbcea6487aadf2008ccbe182b8354ec6ca7ea6fcee10431eb746b1b083"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1224,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeCoordinatorDashboardScreen",
+    "digest": "cf31eae2a2139df23d8decd512fee4ea59e2cac168401683628a51b73449945a"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1231,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeCoordinatorWorkflowScreen",
+    "digest": "4528251694e9b6f1452b40e4576135d5d985ffb60551f490192f6f6302cd6cc3"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1238,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeDashboardScreen",
+    "digest": "7e78750674b34bedd659a09b34b91a73d5581cecaa90a0c2c4ec779900e853a2"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1245,
+    "constructor": "PrimeCareScreen",
+    "class": "FollowupScreen",
+    "digest": "f01bd655cc37c8db3026aff62b4b899ca194a19965c3e50c8b2d46de154ba6d1"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1252,
+    "constructor": "PrimeCareScreen",
+    "class": "ReferralManagementScreen",
+    "digest": "8c3697b544240fb0b8bb5685adeff13d98ab64e6d51a367610dec5011a74f829"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1259,
+    "constructor": "PrimeCareScreen",
+    "class": "IntakeWorkflowScreen",
+    "digest": "b4a06cd83d21d304a8868c5e5e6e99533b985788a507aab775c1fad5011032a5"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1285,
+    "constructor": "PrimeCareScreen",
+    "class": "ClinicIncidentReportScreen",
+    "digest": "ece4a74791df82532e7c9990a6c813a07b0162513c485aacaab0830a2434c025"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1291,
+    "constructor": "PrimeCareScreen",
+    "class": "ClinicHistoryLogsScreen",
+    "digest": "c4362101fd991aeeb9bf5ba65dce570a866386c4bde7549962c15d7d8d324371"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1297,
+    "constructor": "PrimeCareScreen",
+    "class": "QaDashboardScreen",
+    "digest": "ef144296ee3231794fd11cbfed6a4b5575c06585f602b864bcd89e9132213eef"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1318,
+    "constructor": "PrimeCareScreen",
+    "class": "CareDashboardScreen",
+    "digest": "4ecabb9665106e584ae19a148da5c34456fa9a557686ac6b691251b8bb301d1d"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1324,
+    "constructor": "PrimeCareScreen",
+    "class": "PswShiftTrackerScreen",
+    "digest": "605d4f764e49d1448d121ca75fc265626d3e589b97839ce15ae71cd103dfd005"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1330,
+    "constructor": "PrimeCareScreen",
+    "class": "PswClientsScreen",
+    "digest": "190d67f7d561186d662d97a3a5303c790627270ac7c8cb75ff55f3faa3ac98ea"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1336,
+    "constructor": "PrimeCareScreen",
+    "class": "PswTasksScreen",
+    "digest": "333704561afe293229aaa398e8d13db64ecb7023b6c2fa1bb04cbdaac085b8c2"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1342,
+    "constructor": "PrimeCareScreen",
+    "class": "PswMessagesScreen",
+    "digest": "b4df65fc40916aed771db4409d966fe3d77737cfac9f190554cd943cbaf4c02d"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1348,
+    "constructor": "PrimeCareScreen",
+    "class": "PswVisitNotesScreen",
+    "digest": "388bfb7dd5413694e9481479fcc36b602c96c6ab9ce9f4df9fd94bcb1c625123"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1354,
+    "constructor": "PrimeCareScreen",
+    "class": "PswClientProfileScreen",
+    "digest": "da9311d48f14f3aab67eb61c5b6c13a2d60c80d3b57689e54a915d3587021898"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1360,
+    "constructor": "PrimeCareScreen",
+    "class": "PswAnalyticsScreen",
+    "digest": "524b207d0c037e9f9bebda646eca3afcb33b4b3379680576c5cc2f0a06b0d9d6"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1366,
+    "constructor": "PrimeCareScreen",
+    "class": "PswDocumentsScreen",
+    "digest": "efb8871f3346e251e1360aaf6a3881a1c5a88687863d28c46970ddc2f540c10e"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1372,
+    "constructor": "PrimeCareScreen",
+    "class": "PswShiftTrackerScreen",
+    "digest": "c490506d05fddd7819ae40e1ff6b4bcd5edd46bd837d2fe1d255800fc57387be"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1378,
+    "constructor": "PrimeCareScreen",
+    "class": "PswCommandCenterScreen",
+    "digest": "a9f340b0dae83cd0f33eb008eafc68f6f25a6e923c8341fa22490fac03916fc2"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1384,
+    "constructor": "PrimeCareScreen",
+    "class": "PswMessagesScreen",
+    "digest": "874bc0a79ac0e9239391f3e55cf3b527be3236eb53cc2b8862c409d1b141f19b"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1390,
+    "constructor": "PrimeCareScreen",
+    "class": "PswComplianceScreen",
+    "digest": "531e18d83b6b0ea9ed9b9ea5f463787f869ae498efcd4315d88cd1f0d9b82e25"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1396,
+    "constructor": "PrimeCareScreen",
+    "class": "PswCarePlanScreen",
+    "digest": "9a500406e5a231e55e760c2e5da70f92e443b108854ff91ea2864f64f2ed36a6"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1403,
+    "constructor": "PrimeCareScreen",
+    "class": "PswAnalyticsScreen",
+    "digest": "4f2763773377de783a2afd9f75db53e11eb0b289c019cb630d8a20d0308ea54d"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1410,
+    "constructor": "PrimeCareScreen",
+    "class": "PswClientProfileScreen",
+    "digest": "e3fb5806ce42ad3d6888ac690653c10ece99c3dc8b44a6a258b819cc017500db"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1417,
+    "constructor": "PrimeCareScreen",
+    "class": "PswCommandCenterScreen",
+    "digest": "79bfd662551538d1ebee00998c3e9bc4d81d904729eeef2956586c1f4ea041a3"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1424,
+    "constructor": "PrimeCareScreen",
+    "class": "PswComplianceScreen",
+    "digest": "361ccf93829c6ce0c80ce17e7819fe9627bf59109b0770b6fee641ae4def2074"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1431,
+    "constructor": "PrimeCareScreen",
+    "class": "PswMyShiftsScreen",
+    "digest": "85d430b3b794242b31dff245be6030b592a5d32b092c82f26733c5aef41bcca6"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1438,
+    "constructor": "PrimeCareScreen",
+    "class": "PswWorkflowScreen",
+    "digest": "a5414a9f23ea5bae2d87c834ba69749ea3750776427ac5a81d10bc3935e7ee1d"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1445,
+    "constructor": "PrimeCareScreen",
+    "class": "ShiftTasksScreen",
+    "digest": "adb3f7d19d1761d363e9c908d01bb7c2db5bfe292e928509c633607f3d747ac6"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1452,
+    "constructor": "PrimeCareScreen",
+    "class": "VitalsEntryScreen",
+    "digest": "f3237cd0a7c751b33da078a7e2fc91f1cba13603d0deb3b475af5af4f5e05440"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1459,
+    "constructor": "PrimeCareScreen",
+    "class": "PswVitalsLogScreen",
+    "digest": "07ba57be4a969ee6d4e36fa1cbdfc776cca5f8559973335350e1cf1c4696edff"
+  },
+  {
+    "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+    "line": 1466,
+    "constructor": "PrimeCareScreen",
+    "class": "PswIncidentReportScreen",
+    "digest": "8598cf2357ea8c46f5e1cdfe02675a4bca256a86a77b5e0fb3c59d08a5f89db5"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 34,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoDashboardScreen",
+    "digest": "080324777f7dc5556860f36a2f8681321d05a71312cc3e77e69fae5b3dff4064"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 39,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoEnterpriseOverviewScreen",
+    "digest": "4a1d58779cce548a3bdf80648f1f400aa1a820792619b4b67a7cdf3b22f34a0b"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 44,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoFranchiseOverviewScreen",
+    "digest": "9bdf37605dce744c362d050a90545c4fbadd0d7afca7cb1b7608e2553c7f9f5a"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 49,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoRegionPerformanceScreen",
+    "digest": "c18c9621450eceed0aa240bea1fd2eb938652131ca8349ca62f85172c5676784"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 54,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoRevenueSummaryScreen",
+    "digest": "173b5e299757f18a02bcbdefadb194022e35229658b417b90f6a89574980e41e"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 59,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoStrategicKpisScreen",
+    "digest": "24815f87411874680455fbf118807932e1d8185f13d4e9e844041573d4fca0ca"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 64,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoGrowthPipelineScreen",
+    "digest": "0a02d4e08e9a165d1a03ef7c139f59967673f35c94b4cfa98c144a0caff2dca0"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 69,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoLeadershipReportsScreen",
+    "digest": "6523474834dbb1bb13752c6215e8fc934db51516b9dc9899af8a11a4e3a22b55"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 74,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoAlertsAndRisksScreen",
+    "digest": "6fd58be3eb58940b946d821998d7eae66136dfbac3acb41aa389205423b75716"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 79,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoOrganizationMapScreen",
+    "digest": "f9192bb1140a1a782a58bc32dea17691625e0e051704cb06b6eb3e63051c2670"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 84,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoApprovalsScreen",
+    "digest": "9916b0246975de40d1ba16a99429615ab78a37b2556fd05108fb84631c09253a"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 89,
+    "constructor": "PrimeCareScreen",
+    "class": "CeoReportsScreen",
+    "digest": "48e876ae5fc2373b98e16f46715a0526e1dc76275a4e923d05de456fb0d5e88d"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 111,
+    "constructor": "PrimeCareScreen",
+    "class": "OwnerDashboardScreen",
+    "digest": "f5d4dc0bf684a2bfa96fc43415ddd1706e2309dec3afdbe8b5e672eb0dbba717"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 133,
+    "constructor": "PrimeCareScreen",
+    "class": "CooDashboardScreen",
+    "digest": "6ed3330a9c542af8f5ed6995a5402b9221ec8631fabaa19e8fd052e1939304b1"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 138,
+    "constructor": "PrimeCareScreen",
+    "class": "CooOperationsOverviewScreen",
+    "digest": "900483263b8eac152090f3a3da4bb8908194ef0210c7102df5d2537a461e2826"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 143,
+    "constructor": "PrimeCareScreen",
+    "class": "CooBranchOperationsScreen",
+    "digest": "459f5c13e607cf3ad47ab55371539ffe7202f551c38918c5fd053395ee9a4429"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 148,
+    "constructor": "PrimeCareScreen",
+    "class": "CooStaffingEfficiencyScreen",
+    "digest": "9e0c439b971c16e2aaca33c13022c020f0369110f2c1ba71c1fc1e595357dd78"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 153,
+    "constructor": "PrimeCareScreen",
+    "class": "CooSchedulingHealthScreen",
+    "digest": "937945117726dbf4a926595c44253ba3d61535333896ba21bbcbfa0720f3fcd3"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 158,
+    "constructor": "PrimeCareScreen",
+    "class": "CooServiceDeliveryScreen",
+    "digest": "dafc67f3955e11fa9c7787c8f1c522307559a13600a5d5740e2f00c636df2269"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 163,
+    "constructor": "PrimeCareScreen",
+    "class": "CooIssueEscalationsScreen",
+    "digest": "031724b5254f205b6fb3eba627352e9fb8d6f84f490a006179ea6e03f3934949"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 168,
+    "constructor": "PrimeCareScreen",
+    "class": "CooComplianceViewScreen",
+    "digest": "50e1b27d5a5bed5f0b75fa13529cd6f9ed0150d15634b3fec279f97bae570bf8"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 173,
+    "constructor": "PrimeCareScreen",
+    "class": "CooWorkflowPerformanceScreen",
+    "digest": "dcc7401e7b784349024618494d8d5c213b853f548fd6d47a59fd7df3fb3c704f"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 178,
+    "constructor": "PrimeCareScreen",
+    "class": "CooBranchComparisonScreen",
+    "digest": "2865ba7d93713aa9f6ceb51851f5ed3e719d130c26a185d59c917c1ae1168e8f"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 183,
+    "constructor": "PrimeCareScreen",
+    "class": "CooReportsScreen",
+    "digest": "c87578ca626bf32ee21b9f4424c188355568578c7aed32a56bd9cfddabae929d"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 205,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoDashboardScreen",
+    "digest": "899819eaacc7a0dff0f7421cbebe14735a731225f295f307166607701ffdcba5"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 210,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoFinancialOverviewScreen",
+    "digest": "a19f7cce10608fa4fdbfab981e9cee4744e712cbd9e1f7471b8db5c90d1ae81c"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 215,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoRevenueScreen",
+    "digest": "4d04c12189585d8ee299b59a51373d085579079660d8e2ee0763f752a16743d0"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 220,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoExpensesScreen",
+    "digest": "dcd4cfe1248445d230510584d5493abb0bb372058034c9fe620572b816995a92"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 225,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoFranchiseFinancialsScreen",
+    "digest": "df83b8aeb99f3bc9ed62a0796bbeaf1c3a391f9b39e75b9cfc474269aaebfc96"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 230,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoPayrollScreen",
+    "digest": "a9eba3f671b29e02f804bc5ca9ef90efe46dffb593e9292ae4b1d1a2a8e46d12"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 235,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoAccountsReceivableScreen",
+    "digest": "07556a6d69a32ce826d6761470ca2425bb883ff266cc2918fd3fd11f034df8d8"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 240,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoAccountsPayableScreen",
+    "digest": "d69253256e3d1068542041de5d34b64878d6cea29424a2397da99a6900456fd7"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 245,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoInvoicesScreen",
+    "digest": "5cdc90b415a2fb8c4e1867780215ea4c41e2e4a6ae43d4c5f0b9bb58d195a934"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 250,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoProfitabilityScreen",
+    "digest": "fe44d180987fb0ca006610f48b7aeef7970ae0232e53c9d88ec3cbb83e142866"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
+    "line": 255,
+    "constructor": "PrimeCareScreen",
+    "class": "CfoTaxAndRemittanceScreen",
+    "digest": "e4ba9e309c37570e76e592783d068780cf99452db2805a2280c6750c9c90c9fe"
+  },
+  {
+    "file": "apps/primecare_corporate/lib/core/routing/corporate_routes.dart",
     "line": 260,
     "constructor": "PrimeCareScreen",
     "class": "CfoReportsScreen",
