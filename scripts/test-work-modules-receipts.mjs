@@ -119,5 +119,17 @@ await observerCase('throwing owned port cleanup still clears private records and
  await session.load();await assert.rejects(()=>session.submit(item.id,'edit',{title:'Saved'},1));assert.equal(session.current.pending,true);
  assert.throws(()=>session.dispose(),/Owned transport cleanup failed/);assert.equal(session.status,'disposed');assert.equal(session.current.snapshot,null);assert.equal(session.current.pending,false);session.dispose();assert.equal(cleanup,1);await session.load();assert.equal(session.status,'disposed');
 });
+for(const action of ['dispose','reload'])await observerCase('successful receipt outcome survives observer '+action,async()=>{
+ let reads=0,writes=0,release,reload,once=true;const saved={...snapshot,items:[{...item,version:2,title:'Saved'}]};
+ const s=new WorkModuleSession(scope,'tasks',{read:async()=>{if(++reads===1)return snapshot;return new Promise(resolve=>release=()=>resolve(saved));},mutate:async()=>{writes++;return{itemId:item.id,version:2,action:'edit',expected:{title:'Saved'}};},readItem:async()=>saved});
+ await s.load();s.subscribe(()=>{if(s.status==='success'&&once){once=false;if(action==='dispose')s.dispose();else reload=s.load();}});
+ try{await assert.doesNotReject(()=>s.submit(item.id,'edit',{title:'Saved'},1));assert.equal(s.status,action==='dispose'?'disposed':'loading');assert.equal(s.current.pending,false);assert.equal(writes,1);}finally{if(release)release();if(reload)await reload;s.dispose();}
+});
+for(const phase of ['mutation','readback'])for(const action of ['retry','dispose'])await observerCase('failed '+phase+' outcome survives observer '+action,async()=>{
+ let writes=0,reads=0,release,retry,once=true;const keys=[],saved={...snapshot,items:[{...item,version:2,title:'Saved'}]};
+ const s=new WorkModuleSession(scope,'tasks',{read:async()=>snapshot,mutate:async(_,key)=>{writes++;keys.push(key);if(phase==='mutation'&&writes===1)throw new WorkFailure('error',503);if(phase==='mutation')return new Promise(resolve=>release=()=>resolve({itemId:item.id,version:2,action:'edit',expected:{title:'Saved'}}));return{itemId:item.id,version:2,action:'edit',expected:{title:'Saved'}};},readItem:async()=>{reads++;if(phase==='readback'&&reads===1)throw new WorkFailure('error',503);if(phase==='readback')return new Promise(resolve=>release=()=>resolve(saved));return saved;}});
+ await s.load();s.subscribe(()=>{if(s.status==='error'&&once){once=false;if(action==='dispose')s.dispose();else retry=s.retryPending();}});
+ try{await assert.rejects(()=>s.submit(item.id,'edit',{title:'Saved'},1),e=>e.code==='error');assert.equal(s.status,action==='dispose'?'disposed':'saving');assert.equal(writes,phase==='mutation'&&action==='retry'?2:1);if(keys.length===2)assert.equal(keys[0],keys[1]);}finally{if(release)release();if(retry)await retry;s.dispose();}
+});
 assert.deepEqual(observerFailures,[],'Observer regressions must all pass');
 console.log(`PASS work receipt regressions: ${checks} cases; acknowledged retries read only, drafts retained, denial clears data, rejected writes unlock`);
