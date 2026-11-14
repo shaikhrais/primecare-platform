@@ -122,6 +122,7 @@ Future<void> waitForTaskStatus(WidgetTester tester,WorkModuleSession session,Set
 }
 
 Finder taskModule()=>find.byWidgetPredicate((widget)=>widget is PrimeWorkModule&&widget.session.module=='tasks');
+WorkModuleSession profileSession(WidgetTester tester)=>tester.widgetList<PrimeWorkModule>(find.byType(PrimeWorkModule)).singleWhere((widget)=>widget.session.module=='profile').session;
 String taskText(String key,{String locale='en'})=>nativeApplicationWork['locales'][locale][key] as String;
 Finder taskButton(String key,{String locale='en'})=>find.descendant(of:taskModule(),matching:find.widgetWithText(TextButton,taskText(key,locale:locale))).first;
 Finder taskTitleField({String locale='en'})=>find.descendant(of:taskModule(),matching:find.byWidgetPredicate((widget)=>widget is TextField&&widget.decoration?.labelText==taskText('title',locale:locale)));
@@ -176,7 +177,7 @@ void main(){
     await mount(tester,container,locale:'fr');
     expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
     expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,dashboardReads+1);
-    expect(find.text(nativeApplicationApplication['locales']['fr']['profile'] as String),findsWidgets);
+    expect(profileSession(tester).snapshot!.items.single.title,nativeApplicationApplication['locales']['fr']['profile']);
     expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
   });
   testWidgets('dirty shortcut defers locale reconstruction until the existing save completes',(tester)async{
@@ -189,8 +190,32 @@ void main(){
     expect(f.writes.length,1);expect((f.document as Map)['screenIds'],contains('1269'));
     expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
     expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,2);
-    expect(find.text(nativeApplicationApplication['locales']['es']['profile'] as String),findsWidgets);
+    expect(profileSession(tester).snapshot!.items.single.title,nativeApplicationApplication['locales']['es']['profile']);
     expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('returning to original locale cancels a deferred shortcut reconstruction',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture(),container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    await press(tester,choice());final original=List<OwnedClient>.of(f.clients),profile=profileSession(tester);
+    await mount(tester,container,locale:'fr');await mount(tester,container);
+    await press(tester,find.widgetWithText(TextButton,shellText('en','save')));
+    expect(f.writes.length,1);expect(f.clients.length,4);expect(original.every((client)=>client.closes==0),true);
+    expect(profileSession(tester),same(profile));expect(profile.snapshot!.items.single.title,nativeApplicationApplication['locales']['en']['profile']);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(original.every((client)=>client.closes==1),true);
+  });
+  testWidgets('dirty task keeps its draft across locale changes then reconstructs latest locale once',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,2400));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture()..includeTask=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    await editTask(tester,'Retained locale task draft');final original=List<OwnedClient>.of(f.clients),tasks=tester.widget<PrimeWorkModule>(taskModule()).session;
+    await mount(tester,container,locale:'fr');await mount(tester,container,locale:'es');
+    expect(tester.widget<PrimeWorkModule>(taskModule()).session,same(tasks));expect(taskBlock(container).value,true);
+    expect(tester.widget<TextField>(taskTitleField(locale:'es')).controller!.text,'Retained locale task draft');
+    expect(f.clients.length,4);expect(original.every((client)=>client.closes==0),true);expect(f.taskWrites,isEmpty);
+    await press(tester,taskButton('close',locale:'es'));
+    expect(taskBlock(container).value,false);expect(f.clients.length,8);expect(original.every((client)=>client.closes==1),true);
+    expect(profileSession(tester).snapshot!.items.single.title,nativeApplicationApplication['locales']['es']['profile']);
+    expect(tester.widget<PrimeWorkModule>(taskModule()).session.snapshot!.items.single.title,'Native owned task');expect(f.taskWrites,isEmpty);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
   });
   for(final failing in [<int>[0],<int>[1],<int>[0,1]]){
     testWidgets('native retirement attempts every client and reports only first failure $failing',(tester)async{

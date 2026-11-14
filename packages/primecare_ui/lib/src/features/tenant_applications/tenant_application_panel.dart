@@ -69,16 +69,17 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   @override void didChangeDependencies(){
     super.didChangeDependencies();
     final locale=_locale(context);
-    if(_loadedLocale!=null&&locale!=_loadedLocale){_pendingLocale=locale;_queueLocaleReload();}
+    if(_loadedLocale!=null){_pendingLocale=locale==_loadedLocale?null:locale;_queueLocaleReload();}
   }
   void _queueLocaleReload(){
     if(_localeReloadScheduled||!_current||_blocked||_pendingLocale==null||_pendingLocale==_loadedLocale)return;
     _localeReloadScheduled=true;
-    Future<void>.microtask(()async{
+    WidgetsBinding.instance.addPostFrameCallback((_){
       _localeReloadScheduled=false;
       if(!_current||_blocked||_pendingLocale==null||_pendingLocale==_loadedLocale)return;
-      await _load();
+      unawaited(_load());
     });
+    WidgetsBinding.instance.ensureVisualUpdate();
   }
   void _changed(){if(_current){setState((){});_queueLocaleReload();}}
   void _cleanup(Iterable<void Function()> actions){
