@@ -91,8 +91,10 @@ export class PrimeDataControls extends ThemeControlBase {
    status.textContent=!port?this.text('unsupported'):['error','remove-error'].includes(task.status)?this.text('error'):['success','removed'].includes(task.status)?this.text('success'):['uploading','removing'].includes(task.status)?this.text('loading'):task.files.map(f=>f.name).join(', ');
    for(let i=0;i<choices.length;i++){const item=choices[i],file=task.files[i];item.row.hidden=!file;item.name.textContent=file?.name??'';item.button.disabled=task.status!=='ready';item.button.setAttribute('aria-label',this.text('remove')+' '+(file?.name??''));}
   };
-  task.subscribe(draw);for(const b of [send,cancel,retry,remove,...choices.map(c=>c.button)])b.addEventListener('pc-idle',draw,{signal:this.abort.signal});
-  input.addEventListener('change',()=>{try{task.choose([...input.files??[]].map(f=>({name:f.name,size:f.size,type:f.type,handle:f})));}catch{status.textContent=this.text('invalid');input.value='';}},{signal:this.abort.signal});this.cleanup.add(()=>task.dispose());box.append(label,input,selected,send,cancel,retry,remove,unsupported,progress,status);draw();return {element:box,task};
+  const owned=()=>!this.dead&&this.root.contains(box)&&[input,progress,status,selected,send,cancel,retry,remove,unsupported,...choices.map(c=>c.button)].every(control=>box.contains(control));
+  const drawOwned=()=>{if(owned())draw();};
+  task.subscribe(drawOwned);for(const b of [send,cancel,retry,remove,...choices.map(c=>c.button)])b.addEventListener('pc-idle',drawOwned,{signal:this.abort.signal});
+  input.addEventListener('change',()=>{if(!owned())return;try{task.choose([...input.files??[]].map(f=>({name:f.name,size:f.size,type:f.type,handle:f})));}catch{status.textContent=this.text('invalid');input.value='';}},{signal:this.abort.signal});this.cleanup.add(()=>task.dispose());box.append(label,input,selected,send,cancel,retry,remove,unsupported,progress,status);draw();return {element:box,task};
  }
  dispose(){if(!this.endControlScope())return;this.generation++;for(const f of this.cleanup)f();this.cleanup.clear();this.root.replaceChildren();this.root.removeAttribute('data-pc-data-controls');owners.delete(this.root);}
 }

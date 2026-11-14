@@ -43,6 +43,19 @@ test('in-flight form completion cannot publish into a foreign host',async t=>{
  const status=root.querySelector('[data-cy=data-controls-submit-status]'),loading=status.textContent,foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(button);
  finish();await settle();assert.equal(status.textContent,loading,'foreign completion must not publish terminal status');assert.equal(button.disabled,true);assert.equal(button.getAttribute('aria-busy'),'true');assert.equal(idle,0);
 });
+for(const fail of [false,true])test('upload retains its task outcome without redrawing a foreign host after '+(fail?'error':'receipt'),async t=>{
+ const {root,kit}=fixture(t);let finish,report;const upload=kit.upload({maxFiles:1,maxBytes:10,types:['text/plain']},request=>{report=request.progress;return new Promise((resolve,reject)=>finish=fail?reject:resolve);});root.append(upload.element);
+ upload.task.choose([{name:'owned.txt',size:5,type:'text/plain',handle:{}}]);const sending=upload.task.send(),status=upload.element.querySelector('[data-cy=data-controls-upload-status]'),progress=upload.element.querySelector('progress'),input=upload.element.querySelector('[type=file]'),loading=status.textContent;
+ const foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(upload.element);report(.5);assert.equal(progress.value,0);
+ finish(fail?Error('unavailable'):{receiptId:'owned-receipt'});await sending;await settle();assert.equal(status.textContent,loading);assert.equal(progress.value,0);assert.equal(input.disabled,true);
+ assert.equal(upload.task.status,fail?'error':'success');assert.equal(upload.task.receiptId,fail?null:'owned-receipt');
+});
+test('upload file change outside its owning root cannot replace the selected task',t=>{
+ const {root,kit,Event}=fixture(t),upload=kit.upload({maxFiles:1,maxBytes:10,types:['text/plain']},async()=>({receiptId:'owned-receipt'}));root.append(upload.element);
+ upload.task.choose([{name:'owned.txt',size:5,type:'text/plain',handle:{}}]);const input=upload.element.querySelector('[type=file]');Object.defineProperty(input,'files',{value:[{name:'foreign.txt',size:4,type:'text/plain'}]});
+ const foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(upload.element);input.dispatchEvent(new Event('change'));assert.deepEqual(upload.task.files.map(file=>file.name),['owned.txt']);
+ root.append(upload.element);input.dispatchEvent(new Event('change'));assert.deepEqual(upload.task.files.map(file=>file.name),['foreign.txt']);
+});
 test('field keeps displayed numeric constraints after caller policy mutation',t=>{
  const {root,kit}=fixture(t),constraint={required:true,min:1,max:5,step:1},field=kit.field('number',constraint);root.append(field.element);
  Object.assign(constraint,{required:false,min:-10,max:100,step:.5});
