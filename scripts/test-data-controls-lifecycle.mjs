@@ -74,6 +74,20 @@ test('autocomplete rejects detached old-result clicks and preserves current poin
  old.dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,[]);assert.equal(input.value,'second');
  root.querySelector('[role=option]').dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.deepEqual(selected,['second']);assert.equal(input.value,'second label');
 });
+test('autocomplete outside its owning root cannot dispatch a provider or selection',async t=>{
+ const {root,kit,Event}=fixture(t),selected=[];let calls=0;const box=kit.autocomplete(async query=>{calls++;return[{value:query,label:query+' label'}];},value=>selected.push(value));root.append(box);
+ const input=box.querySelector('[role=combobox]');input.value='owned';input.dispatchEvent(new Event('input'));await settle();const option=box.querySelector('[role=option]');
+ const foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(box);
+ option.dispatchEvent(new Event('pointerdown',{cancelable:true}));const down=new Event('keydown',{cancelable:true});down.key='ArrowDown';input.dispatchEvent(down);const enter=new Event('keydown',{cancelable:true});enter.key='Enter';input.dispatchEvent(enter);
+ assert.deepEqual(selected,[]);input.value='foreign';input.dispatchEvent(new Event('input'));await settle();assert.equal(calls,1);
+ root.append(box);input.value='current';input.dispatchEvent(new Event('input'));await settle();box.querySelector('[role=option]').dispatchEvent(new Event('pointerdown',{cancelable:true}));assert.equal(calls,2);assert.deepEqual(selected,['current']);
+});
+for(const fail of [false,true])test('autocomplete suppresses foreign-host late '+(fail?'failure':'result'),async t=>{
+ const {root,kit,Event}=fixture(t);let finish;const box=kit.autocomplete(()=>new Promise((resolve,reject)=>finish=fail?reject:resolve));root.append(box);
+ const input=box.querySelector('[role=combobox]'),list=box.querySelector('[role=listbox]'),status=box.querySelector('[role=status]');input.value='pending';input.dispatchEvent(new Event('input'));const loading=status.textContent;
+ const foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(box);finish(fail?Error('late failure'):[{value:'late',label:'Late result'}]);await settle();
+ assert.equal(status.textContent,loading);assert.equal(list.childElementCount,0);assert.equal(list.hidden,true);assert.equal(input.getAttribute('aria-expanded'),'false');
+});
 test('autocomplete hidden options cannot select after Escape or blur',async t=>{
  const {root,kit,Event}=fixture(t),selected=[];root.append(kit.autocomplete(async()=>[{value:'a',label:'A'}],value=>selected.push(value)));
  const input=root.querySelector('[role=combobox]');
