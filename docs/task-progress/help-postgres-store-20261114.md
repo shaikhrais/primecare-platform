@@ -1,0 +1,11 @@
+# Help registered operational adapter and cleanup engine
+
+Baseb8bdc15287c0f36ee60745d51d61dd2949f16481. Manual claim6885901416. Actual schema758d07a6/43651758632 and definitionsf7440e48/43652983016 already production verified; not rerun or credited again.
+
+New shared PostgreSQL operational adapter implements the existing HelpOperationalStore. It captures original reader/quota query methods, rejects the same database object for both roles, independently verifies pinned authority and exact quota/audit definitions, and holds definition row locks during reader transactions. Host must supply a separate dedicated autocommit quota connection; reader transaction owns its audit write. Approved scope/arguments are validated,31st reservation denies, counter saturates31, audit projects only approved scalar metadata and validates exact server30dayexpiry, and failures expose only503.
+
+Bounded cleanup engine runs on a dedicated scheduler connection, verifies the same policy/authority, deletes only expired rows in batches<=1000 using SKIP LOCKED, preserves fresh rows and rolls back failures. This is NOT a mounted/verified schedule. Source reader/host/grants/provider and64legacygrant disposition are unchanged; reader remains unmounted.
+
+Local12engine/model checksPASS,4native-onlySKIPPED, strictTypeScript/syntax/YAML/diffPASS. Tests include promoted-SQL parity, real metadata, revocation-before-write, isolation/30-31/reset/saturation, private-field projection, immutable adapters, bounded idle cleanup and production-marker/URL guards. New CI must independently prove actual service/audit commit, quota survival across reader rollback and31stHTTP429,40concurrent reservations, locked-row cleanup and policy read-locking on separate PostgreSQL16connections. Existing Help workflow executes the new fixture separately from other native tests to avoid shared-schema races. No new production operational rows, host activation or live reader acceptance is claimed.
+
+Next group1Help: inspect exact-source CI, wire cleanup to an approved existing scheduler with idle-period receipt, then reconcile legitimatePSW51/screen685/API794controls/runtime/access before sharedweb/native host mounting. Preserve unrelated64legacygrants and control779; no invented provider/runtime artifact. Group1remainsopen; group2notstarted.

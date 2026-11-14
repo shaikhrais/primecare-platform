@@ -9,10 +9,14 @@ on:
       - 'scripts/test-help-reader-service.mjs'
       - 'scripts/test-help-operational-effects.mjs'
       - 'scripts/test-help-storage-proposal.mjs'
+      - 'scripts/test-help-postgres-store.mjs'
+      - 'scripts/help-postgres-store-fixture.mjs'
       - 'docs/appearance/pc10-help-storage-*'
       - 'scripts/help-reader-service-fixture.mjs'
       - 'tools/governance-production/pc10-help-reader-contract.json'
       - 'tools/governance-production/pc10-help-schema*'
+      - 'tools/governance-production/pc10-help-storage*'
+      - 'tools/governance-production/pc10-help-policy*'
       - '.github/workflows/help-reader-service.yml'
 permissions: {contents: read}
 concurrency:
@@ -41,6 +45,8 @@ jobs:
         run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
       - name: PGlite storage candidate acceptance
         run: node --test scripts/test-help-storage-proposal.mjs
+      - name: PGlite registered operational store acceptance
+        run: node --test scripts/test-help-postgres-store.mjs
       - name: Repeat against native PostgreSQL 16
         run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
         env:
@@ -50,4 +56,8 @@ jobs:
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: Strict shared service types
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts packages/shared/src/help-reader/postgres-store.ts
+      - name: PostgreSQL 16 real adapter, autocommit and policy locking
+        run: node --test scripts/test-help-postgres-store.mjs
+        env:
+          HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
