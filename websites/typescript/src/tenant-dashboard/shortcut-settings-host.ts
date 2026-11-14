@@ -8,16 +8,36 @@ import application from '../../../../packages/primecare_ui/catalogs/application-
 export type TenantShortcutHost={blocked:()=>boolean;syncControls:()=>void;dispose:()=>void};
 /** Pilot uses existing active role-screen permissions; API777 still authorizes every read/write. */
 export function mountTenantShortcutHost(root:HTMLElement,options:{gateway:string;token:string;data:any;params:URLSearchParams;locale:'en'|'fr'|'es';isCurrent:()=>boolean;whenActive:()=>Promise<boolean>;lock:(blocked:boolean)=>void;invalidated:()=>void}):TenantShortcutHost|null {
- if(options.params.get('applicationModule')!=='settings'||!options.isCurrent()||options.data.dataset!=='live'||options.data.identity.role!==destinations.host.role)return null;
- const {data}=options,scope={tenantId:data.organization.id,userId:data.identity.userId,role:data.identity.role,dataset:data.dataset};validateDashboardResponseScope(data,scope);
+ if(options.params.get('applicationModule')!=='settings')return null;
+ const {gateway,token,locale,data}=options,isCurrent=options.isCurrent.bind(options),whenActive=options.whenActive.bind(options),lock=options.lock.bind(options),invalidated=options.invalidated.bind(options);
+ const scope=Object.freeze({tenantId:data?.organization?.id,userId:data?.identity?.userId,role:data?.identity?.role,dataset:data?.dataset});
+ const parentCurrent=()=>{try{return isCurrent()===true;}catch{return false;}};
+ if(!parentCurrent()||scope.dataset!=='live'||scope.role!==destinations.host.role)return null;
+ validateDashboardResponseScope(data,scope);
  if(destinations.kind!=='verified_metadata_export'||destinations.host.screenId!==2534||!destinations.source.jobId||destinations.destinations.some(d=>!/^\/[a-z0-9/-]+(?:#[a-z0-9-]+)?$/.test(d.route)))throw Error('Verified shortcut destinations required');
  const main=root.querySelector<HTMLElement>('main.tenant-dashboard-main');if(!main)return null;const slot=root.ownerDocument.createElement('section');slot.dataset.pcTenantShortcutHost='';main.prepend(slot);
- let dead=false,editor:ApplicationShortcutEditor|undefined,view:PrimeApplicationShortcuts|undefined,off=()=>{};let observer:MutationObserver|undefined;
- const current=()=>{try{return !dead&&root.contains(slot)&&options.isCurrent()&&sessionStorage.getItem('primecare_session')===options.token;}catch{return false;}};
- const handle:TenantShortcutHost={blocked:()=>{if(dead||!editor)return false;const state=editor.current;return state.dirty||!!state.pending||!!state.remote||!!editor.recoveryPreview||['loading','saving','discarding','recovering'].includes(state.status);},syncControls:()=>{if(dead)return;if(!root.contains(slot)){handle.dispose();return;}if(!current())return;if(editor&&['scope_changed','forbidden','unauthenticated'].includes(editor.current.error??'')){handle.dispose();options.invalidated();return;}options.lock(handle.blocked());view?.render();},dispose:()=>{if(dead)return;dead=true;observer?.disconnect();off();view?.dispose();editor?.dispose();slot.remove();options.lock(false);}};
+ let dead=false,port:ApplicationSettingsPort|undefined,editor:ApplicationShortcutEditor|undefined,view:PrimeApplicationShortcuts|undefined,off=()=>{};let observer:MutationObserver|undefined;
+ const current=()=>{try{if(dead||!root.contains(slot)||!parentCurrent()||dead||!root.contains(slot))return false;const sameToken=sessionStorage.getItem('primecare_session')===token;return sameToken&&!dead&&root.contains(slot);}catch{return false;}};
+ const handle:TenantShortcutHost={
+  blocked:()=>{if(dead||!editor)return false;const state=editor.current;return state.dirty||!!state.pending||!!state.remote||!!editor.recoveryPreview||['loading','saving','discarding','recovering'].includes(state.status);},
+  syncControls:()=>{
+   if(dead)return;if(!root.contains(slot)||!current()){handle.dispose();return;}
+   if(editor&&['scope_changed','forbidden','unauthenticated'].includes(editor.current.error??'')){
+    let failure:{error:unknown}|undefined;try{handle.dispose();}catch(error){failure={error};}try{invalidated();}catch(error){failure??={error};}if(failure)throw failure.error;return;
+   }
+   lock(handle.blocked());if(current())view?.render();else handle.dispose();
+  },
+  dispose:()=>{
+   if(dead)return;dead=true;
+   let failure:{error:unknown}|undefined;
+   const attempt=(cleanup:()=>void)=>{try{cleanup();}catch(error){failure??={error};}};
+   attempt(()=>observer?.disconnect());attempt(()=>off());attempt(()=>view?.dispose());attempt(()=>editor?.dispose());attempt(()=>port?.dispose());attempt(()=>slot.remove());attempt(()=>lock(false));
+   if(failure)throw failure.error;
+  }
+ };
  try{
-  const send=preferenceHttpTransport(options.gateway,options.token),binding={scope,kind:'shortcuts' as const,resource:'navigation',policy:{panelIds:[],screenIds:destinations.destinations.map(d=>d.id)}};
-  const port=new ApplicationSettingsPort(binding,async(request,signal)=>{if(!await options.whenActive()||!current())throw new PreferenceFailure('scope_changed',403);try{return await send(request,signal);}finally{if(!await options.whenActive()||!current())throw new PreferenceFailure('scope_changed',403);}},preferenceStorageCache(localStorage),Object.fromEntries(destinations.destinations.map(d=>[d.id,d.title])),application.locales[options.locale],['2534']);
-  editor=new ApplicationShortcutEditor(port);view=new PrimeApplicationShortcuts(slot,editor,options.locale,current);off=editor.subscribe(()=>handle.syncControls());observer=new MutationObserver(()=>{if(!root.isConnected||!root.contains(slot))handle.dispose();});observer.observe(root.ownerDocument,{childList:true,subtree:true});void editor.load().catch(()=>handle.syncControls());return handle;
- }catch(error){handle.dispose();throw error;}
+  const send=preferenceHttpTransport(gateway,token),binding={scope,kind:'shortcuts' as const,resource:'navigation',policy:{panelIds:[],screenIds:destinations.destinations.map(d=>d.id)}};
+  port=new ApplicationSettingsPort(binding,async(request,signal)=>{if(!await whenActive()||!current())throw new PreferenceFailure('scope_changed',403);try{return await send(request,signal);}finally{if(!await whenActive()||!current())throw new PreferenceFailure('scope_changed',403);}},preferenceStorageCache(localStorage),Object.fromEntries(destinations.destinations.map(d=>[d.id,d.title])),application.locales[locale],['2534']);
+  editor=new ApplicationShortcutEditor(port);view=new PrimeApplicationShortcuts(slot,editor,locale,current);off=editor.subscribe(()=>handle.syncControls());observer=new MutationObserver(()=>{if(!root.isConnected||!root.contains(slot))handle.dispose();});observer.observe(root.ownerDocument,{childList:true,subtree:true});void editor.load().catch(()=>handle.syncControls());return handle;
+ }catch(error){try{handle.dispose();}catch{}throw error;}
 }

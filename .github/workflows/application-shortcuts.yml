@@ -33,7 +33,7 @@ jobs:
           npm install --prefix /tmp/shortcut-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 linkedom@0.18.12 playwright@1.60.0 @electric-sql/pglite@0.3.14 pg@8.16.3 bcryptjs@3.0.2 ajv@8.17.1 ajv-formats@3.0.1 postal-mime@4.1.2 htmlparser2@12.0.0
           ln -s /tmp/shortcut-tools/node_modules node_modules
           npx playwright install --with-deps chromium
-          node --test scripts/test-application-shortcut-editor.mjs scripts/test-application-shortcut-view.mjs scripts/test-application-modules-settings-lifecycle.mjs scripts/test-preference-client.mjs scripts/test-preference-recovery.mjs
+          node --test scripts/test-application-shortcut-host-lifecycle.mjs scripts/test-application-shortcut-editor.mjs scripts/test-application-shortcut-view.mjs scripts/test-application-modules-settings-lifecycle.mjs scripts/test-preference-client.mjs scripts/test-preference-recovery.mjs
           node scripts/test-application-shortcut-browser.mjs
           node scripts/test-tenant-read-page-host-browser.mjs
           node scripts/test-tenant-work-module-host.mjs
