@@ -180,29 +180,39 @@
     {
       "path": "packages/primecare_ui/web/workspace-layout.ts",
       "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-      "currentSha256": "401deef7d35e47d6325a5fa4b5203cf6cd0b128276a182e0d0bf8119adf84038",
-      "sourceCommit": "e08460baca1dcf5094ab5dac2753cb78852ed71d",
+      "currentSha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
+      "sourceCommit": "3cfccf41ff633c79d07247207c31335a24430a4c",
       "verification": {
         "status": "source_revision_only_runtime_unverified",
-        "scope": "Owned slot/attribute/stage/root restoration continues after cleanup failure; 10 old-source failures reproduced across related shell adapters and 69 local shell checks passed. Actual browser/native CI pending; no production registration, runtime activation or human approval."
+        "scope": "Captured workspace slots restore after failed initialization/cleanup and reentrant storage reads cannot claim another owner. Eight old-source ownership cases reproduced; 54 local ownership/layout checks pass. Browser/native CI pending; no production registration, runtime activation or human approval."
       },
       "previousRevision": {
         "path": "packages/primecare_ui/web/workspace-layout.ts",
         "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-        "currentSha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
-        "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
+        "currentSha256": "401deef7d35e47d6325a5fa4b5203cf6cd0b128276a182e0d0bf8119adf84038",
+        "sourceCommit": "e08460baca1dcf5094ab5dac2753cb78852ed71d",
         "verification": {
           "status": "source_revision_only_runtime_unverified",
-          "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+          "scope": "Owned slot/attribute/stage/root restoration continues after cleanup failure; 10 old-source failures reproduced across related shell adapters and 69 local shell checks passed. Actual browser/native CI pending; no production registration, runtime activation or human approval."
         },
         "previousRevision": {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
-          "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
-          "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+          "currentSha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+          "sourceCommit": "fc132899a015482f286ebdc69b9d2486cd917de4",
           "verification": {
             "status": "source_revision_only_runtime_unverified",
-            "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+            "scope": "PC-02 retired undo/redo/save guards; 12 local slot cases passed. Browser/native execution pending; no runtime activation or human approval."
+          },
+          "previousRevision": {
+            "path": "packages/primecare_ui/web/workspace-layout.ts",
+            "originalSha256": "c1cad0928f83bb1a72b3bd3393ceaa0e1dd8ad5913bce75fa541fcde4146ca40",
+            "currentSha256": "993c63c3bee1acc25d8975b4455501a7d1c13ab768ac5c8b09af4c63660b1cb9",
+            "sourceCommit": "e875e644b19e1bf7e773190311d85c286195991e",
+            "verification": {
+              "status": "source_revision_only_runtime_unverified",
+              "scope": "PC-02 snapshot authorized slot membership; eight local slot lifecycle tests passed; browser fixture authored and syntax checked, actual browser/native pending. No runtime activation or human approval."
+            }
           }
         }
       }
