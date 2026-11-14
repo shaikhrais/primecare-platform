@@ -21,7 +21,12 @@ export async function handleHelpRead(request:Request,context:HelpHttpContext):Pr
   if(!db||typeof db.query!=='function'||typeof authenticate!=='function'||!effects||typeof effects.isCurrent!=='function'||typeof effects.consumeQuota!=='function'||typeof effects.auditRead!=='function')throw new HelpReadFailure('unavailable',503);
   // Capture the adapters before the first asynchronous operation.
   const owner=effects.isCurrent,consumeQuota=effects.consumeQuota,auditRead=effects.auditRead;
-  const current=()=>{if(request.signal.aborted||owner()!==true)throw new HelpReadFailure('conflict',409);};
+  const database={query:db.query.bind(db)};
+  const current=()=>{
+   if(request.signal.aborted)throw new HelpReadFailure('conflict',409);
+   const active=owner();
+   if(request.signal.aborted||active!==true)throw new HelpReadFailure('conflict',409);
+  };
   const url=new URL(request.url);
   if(request.method!==contract.method||url.pathname!==contract.path||url.search||request.headers.get('content-encoding')&&!/^identity$/i.test(request.headers.get('content-encoding')!))throw new HelpReadFailure('invalid_request',400);
   if(!/^application\/json(?:\s*;\s*charset\s*=\s*utf-8)?$/i.test(request.headers.get('content-type')??''))throw new HelpReadFailure('invalid_request',400);
@@ -29,7 +34,7 @@ export async function handleHelpRead(request:Request,context:HelpHttpContext):Pr
   if(!tokenHash)throw new HelpReadFailure('unauthenticated',401);
   body=new Response(request.body,{headers:request.headers});
   const raw=await guardedJson(body,65536,current,()=>new HelpReadFailure('invalid_request',400),request.signal);current();
-  const result=await readPublishedHelp(db,tokenHash,raw,{consumeQuota,auditRead,isCurrent:()=>{current();return true;}});current();
+  const result=await readPublishedHelp(database,tokenHash,raw,{consumeQuota,auditRead,isCurrent:()=>{current();return true;}});current();
   return reply(result,200);
  }catch(error){
   const safe=error instanceof HelpReadFailure&&failures[error.code]===error.status?error:new HelpReadFailure('unavailable',503);

@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "apiId": 794,
+  "key": "psw_published_help_read",
+  "maxReads": 30,
+  "windowSeconds": 60,
+  "scope": "tenant-user",
+  "auditRetentionSeconds": 2592000,
+  "auditFields": ["tenantId", "userId", "action", "locale", "returned"],
+  "decision": "User approved 2026-11-14 in the Help implementation conversation",
+  "productionRegistered": false
+}

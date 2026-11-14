@@ -4,6 +4,30 @@ const {readPublishedHelp,HelpReadFailure}=await import('data:text/javascript;bas
 const list={version:1,locale:'en',action:'list',query:'',offset:0,limit:25},read=id=>({version:1,locale:'en',action:'read',articleId:id}),hash='a'.repeat(64);
 async function fixture(run,allowed=true){const f=await helpFixture();try{if(allowed)await f.allow();await run(f);}finally{await f.close();}}
 const failure=code=>e=>e instanceof HelpReadFailure&&e.code===code;
+test('service retains original quota and audit adapters across the first database await',()=>fixture(async f=>{
+ const effects={...f.effects};let changed=false;
+ const db={query:async(...args)=>{if(!changed){changed=true;effects.consumeQuota=async()=>{};effects.auditRead=async()=>{};}return f.db.query(...args);}};
+ const reply=await readPublishedHelp(db,hash,list,effects);
+ assert.equal(reply.total,1);assert.deepEqual(f.events,['quota','audit']);
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),1);
+}));
+test('service cannot replace the original session guard during quota consumption',()=>fixture(async f=>{
+ const effects={...f.effects,consumeQuota:async(actor,key)=>{await f.effects.consumeQuota(actor,key);f.stale();effects.isCurrent=()=>true;}};
+ await assert.rejects(readPublishedHelp(f.db,hash,list,effects),failure('conflict'));
+ assert.deepEqual(f.events,['quota']);
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_quota')).rows[0].n),0);
+}));
+test('service cannot bypass the original audit failure by replacing its adapter',()=>fixture(async f=>{
+ const effects={...f.effects,auditRead:async()=>{throw Error('private audit failure');},consumeQuota:async(actor,key)=>{await f.effects.consumeQuota(actor,key);effects.auditRead=async()=>{};}};
+ await assert.rejects(readPublishedHelp(f.db,hash,list,effects),failure('unavailable'));
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_quota')).rows[0].n),0);
+}));
+test('service cannot redirect later SQL to a replaced database query method',()=>fixture(async f=>{
+ let redirected=0;const db={query:(...args)=>f.db.query(...args)};
+ const effects={...f.effects,consumeQuota:async(actor,key)=>{await f.effects.consumeQuota(actor,key);db.query=async()=>{redirected++;throw Error('replacement database');};}};
+ assert.equal((await readPublishedHelp(db,hash,list,effects)).total,1);
+ assert.equal(redirected,0);assert.deepEqual(f.events,['quota','audit']);
+}));
 test('registered but unrelated legacy grant denies reads; no effect or article disclosure',()=>fixture(async f=>{await assert.rejects(readPublishedHelp(f.db,hash,list,f.effects),failure('forbidden'));assert.deepEqual(f.events,[]);},false));
 test('published list/detail use exact safe projections and independent SQL counts',()=>fixture(async f=>{const r=await readPublishedHelp(f.db,hash,list,f.effects);assert.equal(r.total,Number((await f.db.query("SELECT count(*) n FROM faqs WHERE tenant_id='tenant-a' AND locale='en' AND publication_state='published'")).rows[0].n));assert.deepEqual(r.items,[{id:'a-en',revision:2,title:'Guide 100%_\\',category:'general',summary:'Exact %_ literal'}]);assert.deepEqual(r.scope,{tenantId:'tenant-a',userId:'psw-a',role:'psw',dataset:'live'});assert.ok(!JSON.stringify(r).includes('PRIVATE'));const detail=await readPublishedHelp(f.db,hash,read('a-en'),f.effects);assert.equal(detail.article.body,'Reviewed fixture body');assert.equal('summary' in detail.article,false);assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),2);}));
 test('empty later page retains independent total and no language fallback',()=>fixture(async f=>{const page=await readPublishedHelp(f.db,hash,{...list,offset:100},f.effects);assert.equal(page.total,1);assert.deepEqual(page.items,[]);const french=await readPublishedHelp(f.db,hash,{...list,locale:'fr'},f.effects);assert.deepEqual(french.items.map(x=>x.id),['a-fr']);const spanish=await readPublishedHelp(f.db,hash,{...list,locale:'es'},f.effects);assert.deepEqual(spanish.items.map(x=>x.id),['a-es']);}));
@@ -64,3 +88,23 @@ const authBuild=await build({entryPoints:['cloudflare/workers/src/session-token.
 const sessionAdapter=await import('data:text/javascript;base64,'+Buffer.from(authBuild.outputFiles[0].text).toString('base64'));
 test('HTTP integrates the existing session parser/hash adapter against persisted session identity',()=>fixture(async f=>{const token='t'.repeat(43),digest=await sessionAdapter.sha256(token);await f.db.query('UPDATE auth_sessions SET token_hash=$1 WHERE user_id=$2',[digest,'psw-a']);const authenticate=async request=>{const token=sessionAdapter.tokenFrom(request);return token?sessionAdapter.sha256(token):null;};const response=await handleHelpRead(httpRequest(),{...httpContext(f),authenticate});assert.equal(response.status,200);assert.equal((await response.json()).scope.userId,'psw-a');const denied=await handleHelpRead(httpRequest(list,{headers:{'content-type':'application/json',authorization:'Bearer invalid',cookie:'session_token='+token}}),{...httpContext(f),authenticate});assert.equal(denied.status,401);assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),1);}));
 for(const kind of ['quota','audit','owner'])test('HTTP '+kind+' failure preserves denial and transaction rollback',()=>fixture(async f=>{const effects={...f.effects};if(kind==='quota')effects.consumeQuota=async()=>{throw new HttpFailure('rate_limited',429);};if(kind==='audit')effects.auditRead=async()=>{throw Error('private storage diagnostic');};if(kind==='owner')effects.auditRead=async(actor,event)=>{await f.effects.auditRead(actor,event);f.stale();};const r=await handleHelpRead(httpRequest(),{...httpContext(f),effects});assert.equal(r.status,kind==='quota'?429:kind==='owner'?409:503);assert.equal(r.headers.get('cache-control'),'no-store');assert.deepEqual(await r.json(),{version:1,error:{code:kind==='quota'?'rate_limited':kind==='owner'?'conflict':'unavailable'}});assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),0);assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_quota')).rows[0].n),0);}));
+
+test('HTTP retains its original database method across authentication',()=>fixture(async f=>{
+ let redirected=0;const db={query:(...args)=>f.db.query(...args)};
+ const response=await handleHelpRead(httpRequest(),{...httpContext(f),db,authenticate:async()=>{db.query=async()=>{redirected++;throw Error('replacement database');};return hash;}});
+ assert.equal(response.status,200);assert.equal((await response.json()).items[0].id,'a-en');
+ assert.equal(redirected,0);assert.deepEqual(f.events,['quota','audit']);
+}));
+test('HTTP retains its original database method while the upload is decoded',()=>fixture(async f=>{
+ let redirected=0;const db={query:(...args)=>f.db.query(...args)};
+ const stream=new ReadableStream({pull(controller){db.query=async()=>{redirected++;throw Error('replacement database');};controller.enqueue(new TextEncoder().encode(JSON.stringify(list)));controller.close();}},{highWaterMark:0});
+ const response=await handleHelpRead(httpRequest(list,{body:stream,duplex:'half'}),{...httpContext(f),db});
+ assert.equal(response.status,200);assert.equal((await response.json()).total,1);
+ assert.equal(redirected,0);assert.deepEqual(f.events,['quota','audit']);
+}));
+test('HTTP cancellation inside the owner callback prevents authentication and releases upload',()=>fixture(async f=>{
+ const abort=new AbortController();let authenticated=0,cancelled=0;
+ const request=httpRequest(list,{signal:abort.signal,body:new ReadableStream({cancel(){cancelled++;}}),duplex:'half'});
+ const response=await handleHelpRead(request,{...httpContext(f),authenticate:async()=>{authenticated++;return hash;},effects:{...f.effects,isCurrent:()=>{abort.abort();return true;}}});
+ assert.equal(response.status,409);assert.equal(authenticated,0);assert.equal(cancelled,1);assert.deepEqual(f.events,[]);
+}));
