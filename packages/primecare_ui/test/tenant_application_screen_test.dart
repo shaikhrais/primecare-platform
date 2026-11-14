@@ -110,6 +110,10 @@ Future<void> mount(WidgetTester tester,ProviderContainer container,{String local
 Finder choice()=>find.widgetWithText(TextButton,'Platform Administration');
 String shellText(String locale,String key)=>nativeApplicationShell['locales'][locale][key] as String;
 Future<void> press(WidgetTester tester,Finder target)async{await tester.ensureVisible(target);await tester.tap(target);await tester.pumpAndSettle();}
+Future<void> waitForTaskStatus(WidgetTester tester,WorkModuleSession session,Set<String> terminal)async{
+ for(var pump=0;pump<100&&!terminal.contains(session.status);pump++){await tester.pump(const Duration(milliseconds:10));}
+ expect(terminal,contains(session.status));await tester.pumpAndSettle();
+}
 
 Finder taskModule()=>find.byWidgetPredicate((widget)=>widget is PrimeWorkModule&&widget.session.module=='tasks');
 String taskText(String key,{String locale='en'})=>nativeApplicationWork['locales'][locale][key] as String;
@@ -297,7 +301,8 @@ void main(){
     await press(tester,taskButton('save'));final original=f.taskWrites.single;
     expect(f.taskApplied,1);expect(tester.widget<PrimeWorkModule>(taskModule()).session.pending,isNotNull);expect(taskBlock(container).value,true);
     await press(tester,taskButton('close'));expect(taskBlock(container).value,true);
-    await press(tester,taskButton('save'));expect(taskBlock(container).value,false);expect(f.taskApplied,1);
+    final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;
+    await press(tester,taskButton('save'));await waitForTaskStatus(tester,tasks,{'success'});expect(taskBlock(container).value,false);expect(f.taskApplied,1);
     expect(tester.widget<PrimeWorkModule>(taskModule()).session.status,'success');
     if(mode=='lost acknowledgement'){
       expect(f.taskWrites.length,2);expect(f.taskWrites.last.headers['idempotency-key'],original.headers['idempotency-key']);expect(f.taskWrites.last.body,original.body);
@@ -307,7 +312,8 @@ void main(){
   testWidgets('native task conflict retains draft until Close and fresh parent reload',(tester)async{
     await tester.binding.setSurfaceSize(const Size(1200,2400));addTearDown(()=>tester.binding.setSurfaceSize(null));
     final f=HostFixture()..includeTask=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
-    await editTask(tester,'Conflicting local draft');f.taskConflict=true;await press(tester,taskButton('save'));
+    await editTask(tester,'Conflicting local draft');final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;
+    f.taskConflict=true;await press(tester,taskButton('save'));await waitForTaskStatus(tester,tasks,{'conflict'});
     expect(f.taskApplied,0);expect(f.taskWrites.length,1);expect(tester.widget<PrimeWorkModule>(taskModule()).session.status,'conflict');expect(taskBlock(container).value,true);
     expect(tester.widget<TextField>(taskTitleField()).controller!.text,'Conflicting local draft');await press(tester,taskButton('close'));expect(taskBlock(container).value,false);
     final reload=find.descendant(of:find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-reload-dashboard'),matching:find.byType(TextButton));
@@ -348,7 +354,7 @@ void main(){
     final f=HostFixture()..includeTask=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
     final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;expect(tasks.snapshot!.items.single.title,'Native owned task');
     if(denial=='tenant')f.dashboardTenant='different-tenant';if(denial=='actor')f.dashboardUser='different-actor';if(denial=='http')f.dashboardStatus=403;
-    await tasks.load();await tester.pumpAndSettle();expect(tasks.status,'denied');expect(tasks.snapshot,isNull);expect(f.taskWrites,isEmpty);expect(find.descendant(of:taskModule(),matching:find.text('Native owned task')),findsNothing);
+    final load=tasks.load();await tester.pumpAndSettle();await load;await tester.pumpAndSettle();expect(tasks.status,'denied');expect(tasks.snapshot,isNull);expect(f.taskWrites,isEmpty);expect(find.descendant(of:taskModule(),matching:find.text('Native owned task')),findsNothing);
     expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
   });
 
