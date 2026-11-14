@@ -76,6 +76,6 @@ class ApplicationSettingsPort implements WorkPort {
     _confirmed=snapshot;_commands.clear();return _project(snapshot).toJson();}
   /// Claim before any WorkPort operation; reuse its original durable client and cache.
   ({PreferenceSyncClient client,Map<String,String> names,List<String> defaults}) claimShortcutEditor(String Function() uuid){_open();if(_editorClaimed||_workStarted||_confirmed!=null||_commands.isNotEmpty||_client.current['status']!='idle')throw const WorkFailure('unavailable');_editorClaimed=true;_editorUuid=uuid;return (client:_client,names:names,defaults:defaults);}
-  Map<String,dynamic> get recovery=>_client.current;
+  Map<String,dynamic> get recovery{_open();return _client.current;}
   @override void dispose(){if(_dead)return;_dead=true;_client.dispose();_commands.clear();_confirmed=null;closeTransport?.call();}
 }

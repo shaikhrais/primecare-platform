@@ -17,6 +17,6 @@ export class ApplicationSettingsPort implements WorkPort {
  /** Choose one editor before any WorkModuleSession read. The existing cache/client stays owned here. */
  claimShortcutEditor(){this.open();if(this.editorClaimed||this.workStarted||this.confirmed||this.commands.size||this.client.current.status!=='idle')throw new WorkFailure('unavailable');this.editorClaimed=true;return {client:this.client,names:this.names,defaults:this.defaults};}
  /** Existing dirty/pending drafts require the B07 explicit reconciliation flow after a reload. */
- get recovery(){return this.client.current;}
+ get recovery(){this.open();return this.client.current;}
  dispose(){if(this.dead)return;this.dead=true;this.mutationSignal=undefined;for(const read of this.reads)read.abort();this.reads.clear();void this.client.dispose();this.commands.clear();this.confirmed=null;}
 }

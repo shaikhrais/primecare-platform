@@ -25,6 +25,17 @@ void main(){
  Map<String,dynamic> clone(Object? v)=>Map<String,dynamic>.from(jsonDecode(jsonEncode(v)) as Map);
  ApplicationSettingsPort port(PreferenceTransport transport,[SettingsCache? cache])=>ApplicationSettingsPort(binding:binding,transport:transport,cache:cache??SettingsCache(),names:names,labels:labels,defaults:defaults);
  WorkCommand command(Map<dynamic,dynamic> c)=>WorkCommand(c['itemId'] as String,c['version'] as int,c['action'] as String,Map<String,String>.from(c['fields'] as Map));
+ test('disposed settings recovery denies retained account state without another request',()async{
+  var requests=0;final p=port((_)async{requests++;return {'version':1,'scope':scope.toJson(),'kind':'shortcuts','resource':'navigation','revision':7,'document':{'version':1,'screenIds':['1']}};});
+  await p.read(const WorkQuery());final retained=p.recovery,again=p.recovery;
+  expect((retained['base'] as Map)['revision'],7);
+  (((retained['base'] as Map)['document'] as Map)['screenIds'] as List).clear();
+  expect(((again['base'] as Map)['document'] as Map)['screenIds'],['1']);
+  expect(((p.recovery['base'] as Map)['document'] as Map)['screenIds'],['1']);
+  final before=requests;p.dispose();p.dispose();
+  for(var i=0;i<2;i++){expect(()=>p.recovery,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));}
+  expect(((again['base'] as Map)['document'] as Map)['screenIds'],['1']);expect(requests,before);
+ });
  for(final tokenCallback in [false,true]){
   test('native settings throwing ${tokenCallback?'token':'scope'} context denies before HTTP dispatch',()async{
    var calls=0;final token='a'*43,client=SettingsWire((_)async{calls++;return http.StreamedResponse(Stream.value(utf8.encode('{}')),200);});

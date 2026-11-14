@@ -133,6 +133,18 @@ function settingsPort(transport){
  const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1']}};
  return new ApplicationSettingsPort(binding,transport,{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':'Overview'},{shortcuts:'Shortcuts',editShortcuts:'Edit'});
 }
+test('disposed settings recovery cannot expose retained account state or issue requests',async()=>{
+ let requests=0;
+ const port=settingsPort(async()=>{requests++;return {version:1,scope,kind:'shortcuts',resource:'navigation',revision:7,document:{version:1,screenIds:['1']}};});
+ await port.read(query,new AbortController().signal);
+ const retained=port.recovery,again=port.recovery;
+ assert.equal(retained.base.revision,7);assert.deepEqual(retained.base.document.screenIds,['1']);
+ retained.base.document.screenIds.length=0;
+ assert.deepEqual(again.base.document.screenIds,['1']);assert.deepEqual(port.recovery.base.document.screenIds,['1']);
+ const before=requests;port.dispose();port.dispose();
+ for(let i=0;i<2;i++)assert.throws(()=>port.recovery,error=>error.code==='unavailable'&&error.status===0);
+ assert.deepEqual(again.base.document.screenIds,['1']);assert.equal(requests,before);
+});
 test('settings disposal aborts its owned stalled reads without aborting callers',async()=>{
  let transportSignal,release;const caller=new AbortController(),port=settingsPort((request,signal)=>{transportSignal=signal;return new Promise((resolve,reject)=>{release=()=>resolve({version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null});signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});});
  const pending=port.readItem('navigation',caller.signal).then(value=>({value}),error=>({error}));
