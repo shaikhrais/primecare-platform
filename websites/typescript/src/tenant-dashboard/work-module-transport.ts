@@ -13,6 +13,6 @@ export function tenantTaskModuleTransport(origin:string,token:string,fetcher:typ
   const response=await fetcher(url,{method:request.method,signal,cache:'no-store',redirect:'error',headers:{authorization:'Bearer '+token,...(request.method==='POST'?{'content-type':'application/json','idempotency-key':request.requestId!}:{})},...(request.body===undefined?{}:{body:JSON.stringify(request.body)})});
   try{guard();if(!response.ok)throw new WorkFailure(response.status===401||response.status===403?'denied':response.status===409?'conflict':response.status===400?'invalid':'error',response.status);}
   catch(error){if(response.body)await response.body.cancel().catch(()=>{});guard();throw error;}
-  return guardedJson(response,maxReplyBytes,guard,()=>new WorkFailure('error',502));
+  return guardedJson(response,maxReplyBytes,guard,()=>new WorkFailure('error',502),signal);
  };
 }

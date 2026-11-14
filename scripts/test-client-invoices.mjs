@@ -41,3 +41,20 @@ test('scope loss during a streamed invoice read cancels the reader and suppresse
  const pending=f.client.load();await reading;f.stale();controller.enqueue(new TextEncoder().encode(JSON.stringify(page())));await pending;
  assert.equal(f.client.current.status,'disposed');assert.equal(f.client.current.page,null);assert.equal(f.calls.length,2);assert.equal(cancelled,1);
 });
+
+for(const stage of [1,2,3])for(const retirement of ['dispose','replacement'])test('stalled invoice read phase '+stage+' settles on '+retirement+' before another byte',async()=>{
+ let started,source,cancelled=0;const ready=new Promise(r=>started=r),calls=[];
+ const client=new ClientInvoices('https://api.invalid','session',{userId:'owner',role:'guest'},()=>true,async(url,init)=>{
+  calls.push({url,init});if(calls.length===stage){started();return new Response(new ReadableStream({start(c){source=c;},cancel(){cancelled++;}}),{headers:{'content-type':'application/json'}});}
+  return url.endsWith('/v1/auth/me')?selfReply():Response.json(page());
+ });
+ const pending=client.load();await ready;await new Promise(r=>setImmediate(r));
+ if(retirement==='dispose')client.dispose();else await client.load();
+ let timer;const observed=await Promise.race([pending.then(()=>true),new Promise(r=>timer=setTimeout(()=>r(false),100))]);clearTimeout(timer);
+ try{
+  assert.equal(observed,true,'owned retirement must settle without a further response byte');assert.equal(cancelled,1);assert.equal(calls[stage-1].init.signal.aborted,true);
+  if(retirement==='dispose'){assert.equal(client.current.status,'disposed');assert.equal(client.current.page,null);assert.equal(calls.length,stage);}
+  else{assert.equal(client.current.status,'ready');assert.equal(client.current.page.invoices[0].total,invoice.total);assert.equal(calls.length,stage+3);assert.equal(calls.at(-1).init.signal.aborted,false);}
+  for(const call of calls){assert.equal(call.init.method,'GET');assert.equal(call.init.cache,'no-store');assert.equal(call.init.headers.authorization,'Bearer session');}
+ }finally{if(!observed){source.enqueue(new TextEncoder().encode('{}'));await pending;}client.dispose();}
+});

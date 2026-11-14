@@ -15,3 +15,20 @@ test('HTTP denied, conflict and invalid responses retain typed failures',async()
 test('invalid origins and header-breaking tokens reject construction',()=>{for(const origin of ['http://remote.test','https://u:p@fixture.test','https://fixture.test/path','https://fixture.test/?x=y'])assert.throws(()=>tenantTaskModuleTransport(origin,'captured'));for(const value of ['', 'bad\r\ntoken','bad token'])assert.throws(()=>tenantTaskModuleTransport('https://fixture.test',value));});
 
 test('session changes during asynchronous stream cleanup cannot publish',async()=>{const send=make(async()=>{const response=Response.json({old:true}),reader=response.body.getReader(),cancel=reader.cancel.bind(reader);reader.cancel=async()=>{await cancel();token='changed';};response.body.getReader=()=>reader;return response;});await assert.rejects(()=>send(req,new AbortController().signal),failure('denied'));});
+
+for(const method of ['GET','POST'])test('stalled '+method+' task reply cancels before another byte without replaying its receipt',async()=>{
+ const caller=new AbortController();let source,cancelled=0,calls=0,captured,response;
+ const request=method==='GET'?req:{method:'POST',filters:{dataset:'live'},body:{action:'edit',id:'task1',version:2,value:{notes:'Owned draft'}},requestId:'00000000-0000-4000-8000-000000000001'};
+ const send=make(async(url,options)=>{calls++;captured={url:String(url),options};response=new Response(new ReadableStream({start(controller){source=controller;},cancel(){cancelled++;}}));return response;});
+ const pending=send(request,caller.signal).then(value=>({value}),error=>({error}));
+ await new Promise(resolve=>setImmediate(resolve));caller.abort();
+ let timer;const stalled=Symbol('stalled'),result=await Promise.race([pending,new Promise(resolve=>{timer=setTimeout(()=>resolve(stalled),100);})]);clearTimeout(timer);
+ try{
+  assert.notEqual(result,stalled,'aborted task read must settle before another response byte');
+  assert.equal(result.error?.code,'unavailable');assert.equal(cancelled,1);assert.equal(response.body.locked,false);assert.equal(calls,1);
+  assert.equal(captured.options.signal,caller.signal);assert.equal(captured.options.method,method);assert.equal(captured.options.headers.authorization,'Bearer captured');
+  assert.equal(captured.options.cache,'no-store');assert.equal(captured.options.redirect,'error');
+  assert.equal(new URL(captured.url).pathname,'/v1/governance/tenant-dashboard');
+  if(method==='POST'){assert.equal(captured.options.headers['idempotency-key'],request.requestId);assert.deepEqual(JSON.parse(captured.options.body),request.body);}else assert.equal(captured.options.body,undefined);
+ }finally{if(result===stalled){source.enqueue(new TextEncoder().encode('{}'));await pending;}}
+});

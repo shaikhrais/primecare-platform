@@ -33,7 +33,7 @@ export class ClientInvoices{
   if(!this.currentRequest(n)){await response.body?.cancel();throw Error('scope_changed');}
   if(response.status!==200){await response.body?.cancel();throw Error(response.status===401?'unauthenticated':response.status===403?'forbidden':response.status===404?'unavailable':'request_failed');}
   if(!response.headers.get('content-type')?.toLowerCase().includes('application/json')||!response.body){await response.body?.cancel();throw Error('invalid_response');}
-  return guardedJson(response,131072,()=>{if(!this.currentRequest(n))throw Error('scope_changed');},()=>Error('invalid_response'));
+  return guardedJson(response,131072,()=>{if(!this.currentRequest(n))throw Error('scope_changed');},()=>Error('invalid_response'),signal);
  }
  private async self(n:number,signal:AbortSignal):Promise<InvoiceScope>{
   const raw=await this.json('/v1/auth/me',n,signal);
