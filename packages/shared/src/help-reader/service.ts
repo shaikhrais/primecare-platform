@@ -40,7 +40,7 @@ export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown
   const roles=(await db.query('SELECT id FROM '+table('roles')+" WHERE id=51 AND role_code='psw' AND active=1 FOR SHARE")).rows;
   const grants=(await db.query('SELECT can_access,permission_key FROM '+table('api_permissions')+' WHERE api_id=794 AND role_id=51 AND permission_key=$1 FOR SHARE',[contract.permissionKey])).rows;
   if(roles.length!==1||grants.length!==1||Number(grants[0].can_access)!==1||grants[0].permission_key!==contract.permissionKey)throw new HelpReadFailure('forbidden',403);
-  const screens=(await db.query('SELECT s.id FROM '+table('screens')+' s JOIN '+table('role_screen_permissions')+' p ON p.screen_id=s.id JOIN '+table('role_screen_map')+" m ON m.screen_id=s.id AND m.role_id=p.role_id WHERE s.id=685 AND s.screen_code='psw_help_support' AND s.route_path='/generated/psw-help-support' AND s.active=1 AND p.role_id=51 AND p.can_view=1 FOR SHARE OF s,p,m")).rows;
+  const screens=(await db.query('SELECT s.id FROM '+table('screens')+' s JOIN '+table('role_screen_permissions')+' p ON p.screen_id=s.id JOIN '+table('role_screen_map')+" m ON m.screen_id=s.id AND m.role_id=p.role_id WHERE s.id=685 AND s.screen_code='psw_help_support' AND s.route_path='/generated/psw-help-support' AND s.active=1 AND p.role_id=51 AND p.can_view=1 AND m.can_view=1 FOR SHARE OF s,p,m")).rows;
   const links=(await db.query('SELECT id,purpose FROM '+table('screen_api_links')+' WHERE screen_id=685 AND api_id=794 FOR SHARE')).rows;
   if(screens.length!==1||links.length!==1||links[0].purpose!==contract.linkPurpose)throw new HelpReadFailure('forbidden',403);
   current();await effects.consumeQuota(actor,contract.rateLimitKey);current();
