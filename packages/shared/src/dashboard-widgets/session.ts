@@ -35,7 +35,7 @@ export class DashboardSession {
    if(verified.revision!==pending.acknowledged.revision||canonicalPreference(verified.document)!==canonicalPreference(pending.document))throw Object.assign(Error('readback_mismatch'),{code:'revision_conflict'});
    this.revision=verified.revision;this.knownContent=canonicalPreference(verified.document);this.pending=null;this.status=this.edits===pending.edits?'clean':'dirty';
   }catch(e){if(this.dead||g!==this.epoch)return;this.status=(e as {code?:string})?.code==='revision_conflict'?'conflict':'error';if(this.status==='conflict')this.pending=null;}
-  this.emit();if(this.status==='error'||this.status==='conflict')throw Error('dashboard_save_failed');
+  const failed=this.status==='error'||this.status==='conflict';this.emit();if(failed)throw Error('dashboard_save_failed');
  }
 
  dispose(){this.dead=true;this.epoch++;this.abort.abort();this.pending=null;this.status='disposed';this.listeners.clear();}

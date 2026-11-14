@@ -93,3 +93,16 @@ for(const phase of ['loading','ready','error'])test('dashboard observer '+phase+
 for(const phase of ['saving','clean'])test('dashboard observer '+phase+' exceptions preserve acknowledgement and independent readback',async()=>{const f=observerDashboard();await f.session.load();f.session.edit(defaults);f.session.subscribe(()=>{if(f.session.status===phase)throw Error('renderer');});await f.session.save();assert.equal(f.session.status,'clean');assert.equal(f.session.current.pending,false);assert.equal(f.session.current.revision,1);assert.equal(f.writes(),1);f.session.dispose();});
 test('dashboard duplicate listener cleanup owns only its subscription',async()=>{const f=observerDashboard();let calls=0;const fn=()=>calls++,off=f.session.subscribe(fn),keep=f.session.subscribe(fn);off();off();await f.session.load();assert.equal(calls,2);keep();f.session.dispose();});
 test('dashboard emissions defer new listeners and stop on reentrant disposal',async()=>{const f=observerDashboard();let added=false,late=0;f.session.subscribe(()=>{if(!added){added=true;f.session.subscribe(()=>late++);}});await f.session.load();assert.equal(late,1);f.session.dispose();const other=observerDashboard();let stale=0;other.session.subscribe(()=>other.session.dispose());other.session.subscribe(()=>stale++);await other.session.load();assert.equal(stale,0);});
+
+for(const phase of ['write','readback'])for(const action of ['retry','dispose'])test('failed dashboard '+phase+' stays rejected after observer '+action,async()=>{
+ let writes=0,reads=0,release,retry,revision=0,document=null,first=true;const keys=[];
+ const port={read:async()=>{reads++;if(reads===2&&phase==='readback')throw Error('isolated readback unavailable');if(reads===3&&phase==='readback')return new Promise(resolve=>release=()=>resolve({scope,resource:'fixture',revision,document}));return{scope,resource:'fixture',revision,document};},write:async request=>{writes++;keys.push(request.requestId);if(writes===1&&phase==='write')throw Error('isolated write unavailable');if(phase==='write')return new Promise(resolve=>release=()=>{revision=1;document=request.document;resolve({scope,resource:'fixture',revision,document});});revision=1;document=request.document;return{scope,resource:'fixture',revision,document};}};
+ const s=new api.DashboardSession(scope,'fixture',widgets,views,defaults,port,uuid);await s.load();s.subscribe(()=>{if(s.status==='error'&&first){first=false;if(action==='retry')retry=s.retryPending();else s.dispose();}});
+ try{
+  await assert.rejects(()=>s.save(),/dashboard_save_failed/);
+  assert.equal(s.status,action==='retry'?'saving':'disposed');assert.equal(s.current.pending,action==='retry');
+  assert.equal(writes,phase==='write'&&action==='retry'?2:1);if(keys.length===2)assert.equal(keys[0],keys[1]);
+ }finally{if(release)release();if(retry)await retry;}
+ if(action==='retry'){assert.equal(s.status,'clean');assert.equal(s.current.pending,false);assert.equal(s.current.revision,1);assert.equal(writes,phase==='write'?2:1);}
+ s.dispose();
+});
