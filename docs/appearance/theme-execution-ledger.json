@@ -5284,7 +5284,7 @@
       {
         "path": "websites/typescript/src/tenant-dashboard/shortcut-settings-host.ts",
         "symbol": "ApplicationSettingsPort",
-        "line": 20,
+        "line": 40,
         "classification": "static_constructor_candidate_not_runtime_acceptance"
       },
       {
