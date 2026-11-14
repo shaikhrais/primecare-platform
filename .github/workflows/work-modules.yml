@@ -15,6 +15,7 @@ on:
       - 'websites/typescript/src/tenant-dashboard/index.ts'
       - 'packages/shared/src/tenant-dashboard/view.mjs'
       - 'scripts/test-tenant-work-module-host.mjs'
+      - 'scripts/test-tenant-work-host-lifecycle.mjs'
       - 'packages/flutter_core/lib/work_modules*'
       - 'packages/flutter_core/lib/work_modules/**'
       - 'packages/flutter_core/test/work_modules/**'
@@ -38,7 +39,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/work-modules-native-fixtures.mjs --check
-          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
+          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs scripts/test-tenant-work-host-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-receipts.mjs
@@ -71,7 +72,7 @@ jobs:
           ln -s /tmp/work-tools/node_modules node_modules
           npx playwright install --with-deps chromium
           node scripts/work-modules-native-fixtures.mjs --check
-          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs
+          node --test scripts/test-work-modules-calendar.mjs scripts/test-work-modules-lifecycle.mjs scripts/test-tenant-work-host-lifecycle.mjs
           node scripts/test-work-modules-transport.mjs
           node scripts/test-work-modules.mjs
           node scripts/test-work-modules-receipts.mjs
