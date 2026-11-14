@@ -51,6 +51,7 @@ class HostFixture {
   int? failFactoryAt;
   Completer<http.Response>? delayedDashboard,delayedProfile;
   Map<String,dynamic> get scope=>{'tenantId':'tenant-a','userId':'user-a','role':'tenant_admin','dataset':'live'};
+  int get parentDashboardReads=>requests.where((request)=>request.method=='GET'&&request.url.path=='/v1/governance/tenant-dashboard'&&request.url.queryParameters.length==1&&request.url.queryParameters['dataset']=='live').length;
   Map<String,dynamic> get snapshot=>{'version':1,'scope':scope,'kind':'shortcuts','resource':'navigation','revision':revision,'document':document};
   http.Response response(Object? data,[int status=200])=>http.Response(jsonEncode(data),status,headers:{'content-type':'application/json'});
   http.Client client(){if(clients.length==failFactoryAt)throw StateError('fixture client construction failure');final value=OwnedClient(handle,closeFailure:closeFailures[clients.length]);clients.add(value);return value;}
@@ -171,10 +172,10 @@ void main(){
   testWidgets('clean locale change reconstructs localized owned ports once',(tester)async{
     await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
     final f=HostFixture(),container=f.container();addTearDown(container.dispose);await mount(tester,container);
-    final original=List<OwnedClient>.of(f.clients),dashboardReads=f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length;
+    final original=List<OwnedClient>.of(f.clients),dashboardReads=f.parentDashboardReads;
     await mount(tester,container,locale:'fr');
     expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
-    expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,dashboardReads+1);
+    expect(f.parentDashboardReads,dashboardReads+1);
     expect(profileSession(tester).snapshot!.items.single.title,nativeApplicationApplication['locales']['fr']['profile']);
     expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
   });
@@ -187,7 +188,7 @@ void main(){
     await press(tester,find.widgetWithText(TextButton,shellText('es','save')));
     expect(f.writes.length,1);expect((f.document as Map)['screenIds'],contains('1269'));
     expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
-    expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,2);
+    expect(f.parentDashboardReads,2);
     expect(profileSession(tester).snapshot!.items.single.title,nativeApplicationApplication['locales']['es']['profile']);
     expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
   });
@@ -350,10 +351,12 @@ void main(){
     final f=HostFixture()..includeTask=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
     await editTask(tester,'Retained original task receipt');
     if(mode=='lost acknowledgement')f.taskLoseAcknowledgement=true;else f.taskFailReadback=true;
-    await press(tester,taskButton('save'));final original=f.taskWrites.single;
+    final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;
+    await press(tester,taskButton('save'));await waitForTaskStatus(tester,tasks,{'error'});final original=f.taskWrites.single;
+    expect(tasks.busy,false);expect(tasks.pendingKey,original.headers['idempotency-key']);
+    if(mode=='readback failure')expect(tasks.pendingReceipt,isNotNull);
     expect(f.taskApplied,1);expect(tester.widget<PrimeWorkModule>(taskModule()).session.pending,isNotNull);expect(taskBlock(container).value,true);
     await press(tester,taskButton('close'));expect(taskBlock(container).value,true);
-    final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;
     await press(tester,taskButton('save'));await waitForTaskStatus(tester,tasks,{'success'});expect(taskBlock(container).value,false);expect(f.taskApplied,1);
     expect(tester.widget<PrimeWorkModule>(taskModule()).session.status,'success');
     if(mode=='lost acknowledgement'){
