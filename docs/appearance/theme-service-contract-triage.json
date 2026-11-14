@@ -10,7 +10,7 @@
   "freshProductionReadByThisIndex": false,
   "candidateSnapshotCapturedAt": "2026-11-01T21:11:27.100669+00:00",
   "candidateCount": 187,
-  "candidatesWithLiteralMatches": 0,
+  "candidatesWithLiteralMatches": 1,
   "candidatesWithRegisteredDynamicContracts": 7,
   "candidatesWithHistoricalWorkflowGaps": 141,
   "approvedBindings": 0,
@@ -4167,7 +4167,13 @@
       },
       "screenLinkCount": 0,
       "service": "PRISMA",
-      "sourceLiteralMatches": [],
+      "sourceLiteralMatches": [
+        {
+          "path": "packages/shared/src/help-reader/client.ts",
+          "line": 35,
+          "literal": "/v1/psw/help-support"
+        }
+      ],
       "historicalWorkflowReview": {
         "evidence": "docs/api/api-family-reconciliation.json",
         "family": "gateway_unmapped_requires_workflow_review",
@@ -4182,7 +4188,7 @@
         "freshProductionProof": false
       },
       "registeredContractMatches": [],
-      "classification": "no_exact_source_literal_match",
+      "classification": "implementation_candidate_requires_contract_review",
       "runtimeActivated": false,
       "reviewRequired": [
         "canonical method/path and router",
