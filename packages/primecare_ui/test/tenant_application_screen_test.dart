@@ -111,8 +111,14 @@ Finder choice()=>find.widgetWithText(TextButton,'Platform Administration');
 String shellText(String locale,String key)=>nativeApplicationShell['locales'][locale][key] as String;
 Future<void> press(WidgetTester tester,Finder target)async{await tester.ensureVisible(target);await tester.tap(target);await tester.pumpAndSettle();}
 Future<void> waitForTaskStatus(WidgetTester tester,WorkModuleSession session,Set<String> terminal)async{
- for(var pump=0;pump<100&&!terminal.contains(session.status);pump++){await tester.pump(const Duration(milliseconds:10));}
- expect(terminal,contains(session.status));await tester.pumpAndSettle();
+ await tester.runAsync(()async{
+   if(terminal.contains(session.status))return;
+   final done=Completer<void>();
+   void changed(){if(terminal.contains(session.status)&&!done.isCompleted)done.complete();}
+   session.addListener(changed);
+   try{changed();await done.future;}finally{session.removeListener(changed);}
+ });
+ await tester.pumpAndSettle();expect(session.status,isIn(terminal));
 }
 
 Finder taskModule()=>find.byWidgetPredicate((widget)=>widget is PrimeWorkModule&&widget.session.module=='tasks');
@@ -377,7 +383,7 @@ void main(){
     final f=HostFixture()..includeTask=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
     final tasks=tester.widget<PrimeWorkModule>(taskModule()).session;expect(tasks.snapshot!.items.single.title,'Native owned task');
     if(denial=='tenant')f.dashboardTenant='different-tenant';if(denial=='actor')f.dashboardUser='different-actor';if(denial=='http')f.dashboardStatus=403;
-    final load=tasks.load();await tester.pumpAndSettle();await load;await tester.pumpAndSettle();expect(tasks.status,'denied');expect(tasks.snapshot,isNull);expect(f.taskWrites,isEmpty);expect(find.descendant(of:taskModule(),matching:find.text('Native owned task')),findsNothing);
+    await tester.runAsync(()=>tasks.load());await tester.pumpAndSettle();expect(tasks.status,'denied');expect(tasks.snapshot,isNull);expect(f.taskWrites,isEmpty);expect(find.descendant(of:taskModule(),matching:find.text('Native owned task')),findsNothing);
     expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
   });
 
