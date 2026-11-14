@@ -1,9 +1,13 @@
 name: Help schema and access reconciliation
 on:
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'tools/governance-production/pc10-help-discovery.mjs'
+      - 'tools/governance-production/pc10-help-reader-contract.json'
+      - 'tools/governance-production/pc10-help-schema.definition.json'
+      - 'packages/shared/src/help-reader/operational-policy.json'
       - 'scripts/test-pc10-help-discovery.mjs'
       - '.github/workflows/pc10-help-discovery.yml'
 permissions: {contents: read}
