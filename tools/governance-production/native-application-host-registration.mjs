@@ -11,6 +11,10 @@ const canonical=value=>JSON.stringify(value&&typeof value==='object' ? Array.isA
 
 export async function registerNativeApplicationHost(db,{commit=false,readOnly=false}={}){
   if(commit&&readOnly)throw Error('Read-only registration cannot commit');
+  if(commit){
+    const observed=await registerNativeApplicationHost(db,{readOnly:true});
+    if(!observed.missing)return {...observed,existingVerified:true};
+  }
   await db.query(readOnly?'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY':'BEGIN ISOLATION LEVEL SERIALIZABLE');
   try{
     await db.query("SET LOCAL statement_timeout='20s'");
@@ -41,7 +45,13 @@ export async function registerNativeApplicationHost(db,{commit=false,readOnly=fa
     if(canonical(after)!==before)throw Error('Native registration changed permissions');
     await db.query(commit?'COMMIT':'ROLLBACK');
     return {screenId:2534,apiId:16402,missing:readOnly?missing:false,plannedInsert:missing?1:0,writes:commit&&missing?1:0,committed:commit,grantsChanged:0,schemaChanges:false,businessRowsChanged:0,reviewApproved:false};
-  }catch(error){await db.query('ROLLBACK');throw error;}
+  }catch(error){try{await db.query('ROLLBACK');}catch{}throw error;}
+}
+
+export function nativeRegistrationFailure(error){
+  const kinds={'55P03':'lock_unavailable','40001':'serialization_failure','57014':'query_cancelled','40P01':'deadlock'};
+  const code=typeof error?.code==='string'?error.code:'';
+  return Object.hasOwn(kinds,code)?{kind:kinds[code],sqlState:code}:{kind:'registration_rejected'};
 }
 
 async function main(){
@@ -62,4 +72,4 @@ async function main(){
     console.log('PC10_NATIVE_HOST_REGISTRATION '+JSON.stringify({source:process.env.GITHUB_SHA,...receipt}));
   }finally{await db.end();}
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(()=>{console.error('Native host registration failed closed; inspect exact metadata contract and current source.');process.exitCode=1;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{console.error('PC10_NATIVE_HOST_REGISTRATION_FAILED '+JSON.stringify(nativeRegistrationFailure(error)));process.exitCode=1;});
