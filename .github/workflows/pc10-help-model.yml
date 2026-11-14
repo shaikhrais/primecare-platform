@@ -1,0 +1,22 @@
+name: Help Prisma model validation
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/database/prisma/schema/**'
+      - '.github/workflows/pc10-help-model.yml'
+permissions: {contents: read}
+jobs:
+  model:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm install --prefix /tmp/help-model-tools --ignore-scripts --no-audit --no-fund prisma@5.22.0
+      - name: Validate the complete source model without connecting to a database
+        run: /tmp/help-model-tools/node_modules/.bin/prisma validate --schema packages/database/prisma/schema
+        env:
+          DATABASE_URL: postgresql://fixture:fixture@127.0.0.1:5432/help_fixture

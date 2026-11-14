@@ -89,6 +89,7 @@ model Tenant {
   timesheets             Timesheet[]
   staffTasks             StaffTask[]
   leads                  Lead[]
+  helpArticles           FAQ[]
   users                  User[]
   checkEvents            VisitCheckEvent[]
   visits                 Visit[]
@@ -313,6 +314,15 @@ model FAQ {
   category  String
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  // Additive Help reader schema: legacy rows remain unowned and unpublished.
+  tenantId         String?   @map("tenant_id")
+  tenant           Tenant?   @relation(fields: [tenantId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  locale           String?
+  publicationState String    @default("draft") @map("publication_state")
+  revision         BigInt    @default(1)
+  summary          String    @default("")
+  publishedAt      DateTime? @db.Timestamptz(6) @map("published_at")
+  // Publication checks, managed revisions and the partial read index are SQL-owned.
 
   @@map("faqs")
 }
