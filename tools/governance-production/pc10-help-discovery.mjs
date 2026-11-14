@@ -36,6 +36,13 @@ export async function discoverHelp(db){
   // Names/columns only: operational audit, quota and rate rows may contain private data.
   const runtimeRelations=await bounded(`SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema IN ('public',$1) AND table_type='BASE TABLE' AND (table_name ILIKE '%help%' OR table_name ILIKE '%quota%' OR table_name ILIKE '%rate%' OR table_name ILIKE '%audit%') ORDER BY table_schema,table_name LIMIT 301`,[pin.schema]);
   const runtimePolicyColumns=await bounded(`SELECT table_name,column_name,data_type,is_nullable,column_default FROM information_schema.columns WHERE table_schema=$1 AND (table_name ILIKE '%quota%' OR table_name ILIKE '%rate%' OR table_name ILIKE '%audit%') ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema]);
+  // Read only registered policy definitions, never operational counters or audit records.
+  const policyShape=(name,shape)=>Object.entries(shape).every(([column,type])=>runtimePolicyColumns.some(c=>c.table_name===pin.tablePrefix+name&&c.column_name===column&&c.data_type===type));
+  const rateShape=policyShape('api_rate_limits',{id:'jsonb',api_id:'jsonb',runtime_artifact_id:'jsonb',limit_key:'jsonb',max_requests:'jsonb',time_window:'jsonb'});
+  const auditShape=policyShape('audit_event_definitions',{id:'bigint',event_code:'text',event_name:'text',severity:'text',description:'text'});
+  const ratePolicies=rateShape?await bounded('SELECT id,api_id,runtime_artifact_id,limit_key,max_requests,time_window FROM '+table('api_rate_limits')+" WHERE api_id #>> '{}'=$1 ORDER BY id::text LIMIT 301",['794']):[];
+  const auditDefinitions=auditShape?await bounded('SELECT id,event_code,event_name,severity,description FROM '+table('audit_event_definitions')+" WHERE event_code ILIKE $1 ORDER BY id LIMIT 301",['%help%']):[];
+  const policyDefinitionReadback={rateSchemaSupported:rateShape,auditSchemaSupported:auditShape,ratePolicies,auditDefinitions,authorityInferred:false,operationalRowsRead:0};
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.
@@ -46,7 +53,7 @@ export async function discoverHelp(db){
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
-  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,runtimePolicyValuesRead:0,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
+  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
  }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
