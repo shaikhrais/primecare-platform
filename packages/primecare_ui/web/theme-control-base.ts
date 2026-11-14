@@ -11,5 +11,16 @@ export abstract class ThemeControlBase {
   this.abort.abort();
   return true;
  }
+ /** Release all owned resources and report the first failure, including thrown null/undefined. */
+ protected cleanupControlResources(cleanups:readonly (()=>void)[]):void {
+  let failure:{error:unknown}|undefined;
+  for(const cleanup of cleanups){try{cleanup();}catch(error){failure??={error};}}
+  if(failure)throw failure.error;
+ }
+ /** Retire callbacks before cleanup. Reentrant or repeated disposal cannot touch a replacement. */
+ protected disposeControlScope(cleanups:readonly (()=>void)[]):void {
+  if(this.dead)return;
+  this.cleanupControlResources([()=>{this.endControlScope();},...cleanups]);
+ }
  abstract dispose():void;
 }

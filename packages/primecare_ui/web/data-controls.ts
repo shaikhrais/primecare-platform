@@ -96,5 +96,5 @@ export class PrimeDataControls extends ThemeControlBase {
   task.subscribe(drawOwned);for(const b of [send,cancel,retry,remove,...choices.map(c=>c.button)])b.addEventListener('pc-idle',drawOwned,{signal:this.abort.signal});
   input.addEventListener('change',()=>{if(!owned())return;try{task.choose([...input.files??[]].map(f=>({name:f.name,size:f.size,type:f.type,handle:f})));}catch{status.textContent=this.text('invalid');input.value='';}},{signal:this.abort.signal});this.cleanup.add(()=>task.dispose());box.append(label,input,selected,send,cancel,retry,remove,unsupported,progress,status);draw();return {element:box,task};
  }
- dispose(){if(!this.endControlScope())return;this.generation++;for(const f of this.cleanup)f();this.cleanup.clear();this.root.replaceChildren();this.root.removeAttribute('data-pc-data-controls');owners.delete(this.root);}
+ dispose(){this.disposeControlScope([()=>{this.generation++;},...this.cleanup,()=>this.cleanup.clear(),()=>this.root.replaceChildren(),()=>this.root.removeAttribute('data-pc-data-controls'),()=>{owners.delete(this.root);}]);}
 }

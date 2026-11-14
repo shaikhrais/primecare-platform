@@ -109,10 +109,11 @@ export class PrimeClientInvoices extends ThemeControlBase{
   this.announce(message);
   if(!busy&&Object.values(this.buttons).some(button=>button===focused&&button.disabled))this.buttons.refresh.focus({preventScroll:true});
  }
- dispose(){
-  if(!this.endControlScope())return;
-  if(this.announcement!==null){clearTimeout(this.announcement);this.announcement=null;}
-  this.off();this.client.dispose();
-  if(owners.get(this.root)===this){owners.delete(this.root);this.root.replaceChildren();this.root.removeAttribute('data-pc-client-invoices');}
- }
+ dispose(){this.disposeControlScope([
+  ()=>{if(this.announcement!==null){clearTimeout(this.announcement);this.announcement=null;}},
+  ()=>this.off(),()=>this.client.dispose(),
+  ()=>{if(owners.get(this.root)===this)this.root.replaceChildren();},
+  ()=>{if(owners.get(this.root)===this)this.root.removeAttribute('data-pc-client-invoices');},
+  ()=>{if(owners.get(this.root)===this)owners.delete(this.root);}
+ ]);}
 }

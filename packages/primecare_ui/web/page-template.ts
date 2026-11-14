@@ -22,13 +22,13 @@ export class PageTemplateView extends ThemeControlBase {
   const doc=root.ownerDocument;if(!doc.querySelector('[data-pc-page-styles]')){const s=doc.createElement('style');s.dataset.pcPageStyles='';s.textContent=pageTemplateStyles;doc.head.append(s);}
   pageOwners.add(root);
   try{this.window.addEventListener('resize',this.resize,{signal:this.abort.signal});this.update(options,slots);}
-  catch(error){this.events.abort();this.endControlScope();pageOwners.delete(root);throw error;}
+  catch(error){try{this.disposeControlScope([()=>this.events.abort(),()=>{pageOwners.delete(root);}]);}catch{}throw error;}
  }
  private get window(){return this.root.ownerDocument.defaultView!;}
  private temporary(side:Side){const mode=this.route!.layout[side].mode;return mode==='temporary'||mode==='responsive'&&this.narrow;}
  private element<K extends keyof HTMLElementTagNameMap>(tag:K,attr?:string){const el=this.root.ownerDocument.createElement(tag);if(attr)el.setAttribute(attr,'');return el;}
  private revokeLinks(){for(const a of this.root.querySelectorAll('[data-pc-page-breadcrumbs] a'))a.removeAttribute('href');}
- private clear(){this.epoch++;this.closeDialogs();this.revokeLinks();this.events.abort();this.events=new AbortController();this.root.replaceChildren();this.root.removeAttribute('data-pc-page');this.route=undefined;this.options?.chrome?.apply({navigation:true,toolbar:true,footer:true});if(this.changedTitle===this.root.ownerDocument.title)this.root.ownerDocument.title=this.title;this.changedTitle=undefined;}
+ private clear(){this.epoch++;this.cleanupControlResources([()=>this.closeDialogs(),()=>this.revokeLinks(),()=>this.events.abort(),()=>{if(!this.dead)this.events=new AbortController();},()=>this.root.replaceChildren(),()=>this.root.removeAttribute('data-pc-page'),()=>{this.route=undefined;},()=>this.options?.chrome?.apply({navigation:true,toolbar:true,footer:true}),()=>{if(this.changedTitle===this.root.ownerDocument.title)this.root.ownerDocument.title=this.title;this.changedTitle=undefined;}]);}
  update(options:PageOptions,slots:PageSlots=this.slots):void{
   if(this.dead)throw Error('Page disposed');
   try{
@@ -47,7 +47,7 @@ export class PageTemplateView extends ThemeControlBase {
    if(!route){this.clear();return;}
    if(!same)this.open={left:route.layout.left.open&&!this.temporary('left'),right:route.layout.right.open&&!this.temporary('right')};else for(const side of ['left','right'] as const)if(this.temporary(side)&&!previousTemporary[side])this.open[side]=false;
    this.render(active);if(same){this.root.scrollTop=oldScroll.page;this.content.scrollTop=oldScroll.content;}else{this.root.scrollTop=0;this.content.scrollTop=0;if(route.layout.scroll==='normal')this.window.scrollTo(0,0);this.root.querySelector<HTMLElement>('[data-pc-page-heading]')?.focus({preventScroll:true});}
-  }catch(error){this.clear();throw error;}
+  }catch(error){try{this.clear();}catch{}throw error;}
  }
  private render(active:HTMLElement|null){
   const route=this.route!,doc=this.root.ownerDocument;
@@ -80,8 +80,8 @@ export class PageTemplateView extends ThemeControlBase {
   dialog.addEventListener('cancel',e=>{e.preventDefault();this.toggle(side);},{signal:this.events.signal});
   dialog.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const targets=[...dialog.querySelectorAll<HTMLElement>('button:not(:disabled),a[href],input:not(:disabled),select:not(:disabled),textarea:not(:disabled),[tabindex="0"]')].filter(el=>el.getClientRects().length&&!el.closest('[hidden],[inert]'));const first=targets[0],last=targets.at(-1);if(e.shiftKey&&this.root.ownerDocument.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&this.root.ownerDocument.activeElement===last){e.preventDefault();first?.focus();}},{signal:this.events.signal});dialog.showModal();close.focus();
  }
- private closeDialog(side:Side){const dialog=this.dialogs[side];if(!dialog)return;const slot=this.slots[side];if(slot)this.sides[side]?.append(slot);dialog.close();dialog.remove();delete this.dialogs[side];this.controls[side]?.focus({preventScroll:true});}
- private closeDialogs(){for(const side of ['left','right'] as const)this.closeDialog(side);}
+ private closeDialog(side:Side){const dialog=this.dialogs[side];if(!dialog)return;const slot=this.slots[side];this.cleanupControlResources([()=>{if(slot)this.sides[side]?.append(slot);},()=>dialog.close(),()=>dialog.remove(),()=>{delete this.dialogs[side];},()=>this.controls[side]?.focus({preventScroll:true})]);}
+ private closeDialogs(){this.cleanupControlResources([()=>this.closeDialog('left'),()=>this.closeDialog('right')]);}
  private resize=()=>{if(!this.route||this.dead)return;const narrow=this.window.innerWidth<=1024;if(narrow!==this.narrow){this.closeDialogs();this.narrow=narrow;for(const side of ['left','right'] as const){if(this.temporary(side))this.open[side]=false;this.place(side);}}};
- dispose():void{if(this.dead)return;this.clear();this.endControlScope();pageOwners.delete(this.root);}
+ dispose():void{this.disposeControlScope([()=>this.clear(),()=>{pageOwners.delete(this.root);}]);}
 }
