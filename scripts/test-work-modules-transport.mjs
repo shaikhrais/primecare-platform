@@ -32,3 +32,17 @@ for(const method of ['GET','POST'])test('stalled '+method+' task reply cancels b
   if(method==='POST'){assert.equal(captured.options.headers['idempotency-key'],request.requestId);assert.deepEqual(JSON.parse(captured.options.body),request.body);}else assert.equal(captured.options.body,undefined);
  }finally{if(result===stalled){source.enqueue(new TextEncoder().encode('{}'));await pending;}}
 });
+
+for(const method of ['GET','POST'])for(const change of ['logout','abort','current'])test(method+' rejected fetch rechecks '+change+' ownership without replay',async()=>{
+ const caller=new AbortController(),original=Error('offline');let rejectFetch,calls=0,captured;
+ const request=method==='GET'?req:{method:'POST',filters:{dataset:'live'},body:{action:'edit',id:'task1',version:2,value:{notes:'Owned draft'}},requestId:'00000000-0000-4000-8000-000000000001'};
+ const send=make((url,options)=>{calls++;captured={url:String(url),options};return new Promise((_,reject)=>{rejectFetch=reject;});});
+ const pending=send(request,caller.signal);
+ if(change==='logout')token='other-session';else if(change==='abort')caller.abort();
+ rejectFetch(original);
+ await assert.rejects(()=>pending,error=>change==='current'?error===original:change==='logout'?error.code==='denied'&&error.status===401:error.code==='unavailable');
+ assert.equal(calls,1);assert.equal(captured.options.signal,caller.signal);assert.equal(captured.options.method,method);
+ assert.equal(captured.options.headers.authorization,'Bearer captured');assert.equal(captured.options.cache,'no-store');assert.equal(captured.options.redirect,'error');
+ assert.equal(new URL(captured.url).pathname,'/v1/governance/tenant-dashboard');
+ if(method==='POST'){assert.equal(captured.options.headers['idempotency-key'],request.requestId);assert.deepEqual(JSON.parse(captured.options.body),request.body);}else assert.equal(captured.options.body,undefined);
+});

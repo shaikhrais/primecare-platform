@@ -10,7 +10,7 @@ export function tenantTaskModuleTransport(origin:string,token:string,fetcher:typ
  return async(request,signal)=>{
   const guard=()=>{if(signal.aborted)throw new WorkFailure('unavailable');if(sessionStorage.getItem('primecare_session')!==token)throw new WorkFailure('denied',401);};
   guard();const url=new URL(catalog.endpoint,base);url.search=new URLSearchParams(request.filters).toString();
-  const response=await fetcher(url,{method:request.method,signal,cache:'no-store',redirect:'error',headers:{authorization:'Bearer '+token,...(request.method==='POST'?{'content-type':'application/json','idempotency-key':request.requestId!}:{})},...(request.body===undefined?{}:{body:JSON.stringify(request.body)})});
+  let response:Response;try{response=await fetcher(url,{method:request.method,signal,cache:'no-store',redirect:'error',headers:{authorization:'Bearer '+token,...(request.method==='POST'?{'content-type':'application/json','idempotency-key':request.requestId!}:{})},...(request.body===undefined?{}:{body:JSON.stringify(request.body)})});}catch(error){guard();throw error;}
   try{guard();if(!response.ok)throw new WorkFailure(response.status===401||response.status===403?'denied':response.status===409?'conflict':response.status===400?'invalid':'error',response.status);}
   catch(error){if(response.body)await response.body.cancel().catch(()=>{});guard();throw error;}
   return guardedJson(response,maxReplyBytes,guard,()=>new WorkFailure('error',502),signal);

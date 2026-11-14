@@ -15,5 +15,20 @@ try{
  await mount('notifications');assert.equal(await page.evaluate(()=>window.session.status),'unavailable');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;
  for(const locale of ['fr','es']){await mount('messenger','outbound',locale);await open();assert.equal(await cy('action').locator('option[value="send"]').count(),1);checks++;}
  await page.evaluate(()=>window.scope={...window.scope,userId:'changed-actor'});await cy('reload').click();await page.waitForFunction(()=>window.session.status==='denied');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;assert.equal(f.sends(),0);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
+ // Failed network reads and uncertain sends after actor replacement must revoke the session.
+ for(const method of ['GET','POST']){
+  await page.reload();await mount('messenger');let release,started;const held=new Promise(resolve=>started=resolve);let dispatches=0,receipt;
+  const intercept=async route=>{if(route.request().method()!==method){await route.continue();return;}dispatches++;receipt=route.request().postDataJSON()?.key;release=()=>route.abort('failed');started();};
+  await page.route('**/v1/messages**',intercept);
+  await page.evaluate(method=>{window.pendingMessageFailure=(method==='GET'?window.session.load():window.session.submit(window.session.current.snapshot.items[0].id,'send',{body:'Unsent after actor replacement'})).catch(error=>({code:error.code}));},method);
+  let heldTimer;try{await Promise.race([held,new Promise((_,reject)=>{heldTimer=setTimeout(()=>reject(Error('Expected message request was not dispatched')),10000);})]);}finally{clearTimeout(heldTimer);}
+  await page.evaluate(()=>window.scope={...window.scope,userId:'replaced-actor'});await release();
+  const outcome=await page.evaluate(async()=>{await window.pendingMessageFailure;return window.session.current;});
+  assert.equal(outcome.status,'denied');assert.equal(outcome.snapshot,null);assert.equal(outcome.pending,false);assert.equal(dispatches,1);assert.equal(await page.locator('[data-work-card]').count(),0);
+  if(method==='POST')assert.match(receipt,/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);else assert.equal(receipt,undefined);
+  assert.deepEqual((await f.db.query('SELECT state FROM business_work_aggregates WHERE id=$1',[f.thread])).rows[0].state,row);
+  await page.unroute('**/v1/messages**',intercept);checks++;
+ }
+ assert.equal(f.sends(),0);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);
  console.log(`PASS communication module browser: ${checks} checks; four templates, safe mail preview, retained draft, exactly-once retry, SQL/reload, localization, scope denial, zero external sends/requests (${f.native?'native PostgreSQL':'PGlite PostgreSQL'})`);
 }finally{await browser?.close();if(server)await new Promise(r=>server.close(r));await f.close();}

@@ -1,7 +1,7 @@
 import {test} from 'node:test';import assert from 'node:assert/strict';import {build} from 'esbuild';
 const b=await build({entryPoints:['packages/shared/src/communications/module-transport.ts'],bundle:true,platform:'node',format:'esm',write:false});const {RegisteredModuleTransport}=await import('data:text/javascript;base64,'+Buffer.from(b.outputFiles[0].text).toString('base64'));
 const scope={tenantId:'tenant',userId:'user1',role:'psw',dataset:'live'};
-function transport(fetcher){let current={token:'captured',scope};return {wire:new RegisteredModuleTransport('https://fixture.test','captured',scope,()=>current,fetcher),change:()=>{current={token:'other',scope};}};}
+function transport(fetcher){let current={token:'captured',scope};return {wire:new RegisteredModuleTransport('https://fixture.test','captured',scope,()=>current,fetcher),change:(replacement={token:'other',scope})=>{current=replacement;}};}
 test('registered operations preserve paths, query semantics and original message receipt',async()=>{const calls=[],t=transport(async(url,options)=>{calls.push({url:String(url),options});return Response.json({ok:true});}),signal=new AbortController().signal;for(const [op,value]of [['message.inbox',{limit:100}],['message.read',{id:'thread1'}],['message.send',{id:'thread1',key:'original',version:2,text:'Body',pictureIds:[]}],['message.mark_read',{id:'thread1',key:'read-key',version:2,sequence:1}],['email.inbox',{direction:'outbound',limit:100}],['email.read',{id:'mail1'}]])assert.deepEqual(await t.wire.execute(op,value,signal),{ok:true});assert.deepEqual(calls.map(x=>new URL(x.url).pathname),['/v1/messages/inbox','/v1/messages','/v1/messages','/v1/messages','/v1/messages/email/inbox','/v1/messages/email']);assert.equal(JSON.parse(calls[2].options.body).key,'original');for(const c of calls){assert.equal(c.options.redirect,'error');assert.equal(c.options.headers.authorization,'Bearer captured');}t.wire.close();});
 test('identity aliases, unsupported providers and cancelled calls cannot reach fetch',async()=>{let calls=0;const t=transport(async()=>{calls++;return Response.json({});});for(const key of ['actor','actorId','userId','tenantId','role','roles','dataset'])await assert.rejects(()=>t.wire.execute('message.read',{id:'thread1',[key]:'other'},new AbortController().signal));await assert.rejects(()=>t.wire.execute('email.queue',{to:'someone@example.invalid'},new AbortController().signal));const abort=new AbortController();abort.abort();await assert.rejects(()=>t.wire.execute('message.inbox',{},abort.signal));assert.equal(calls,0);t.wire.close();});
 test('scope changes and disposal while reading cannot publish old replies',async()=>{for(const close of [false,true]){let finish,cancelled=false;const t=transport(async()=>new Response(new ReadableStream({start(c){finish=()=>c.enqueue(new TextEncoder().encode('{}'));},cancel(){cancelled=true;}})));const pending=t.wire.execute('message.inbox',{},new AbortController().signal);await new Promise(r=>setImmediate(r));if(close)t.wire.close();else t.change();if(!cancelled)finish();await assert.rejects(()=>pending);assert.equal(cancelled,true);}});
@@ -51,4 +51,20 @@ for(const mode of ['caller abort','transport close'])test('stalled message respo
   if(result===stalled){source.enqueue(new TextEncoder().encode('{}'));await pending;}
   t.wire.close();
  }
+});
+
+for(const operation of ['message.inbox','message.send'])for(const change of ['token','tenantId','userId','role','dataset','invalid','abort','current'])test(operation+' rejected dispatch rechecks '+change+' without replay',async()=>{
+ const caller=new AbortController(),original=Error('offline');let rejectFetch,calls=0,captured;
+ const value=operation==='message.inbox'?{limit:100}:{id:'thread1',key:'original-receipt',version:2,text:'Body',pictureIds:[]};
+ const t=transport((url,options)=>{calls++;captured={url:String(url),options};return new Promise((_,reject)=>rejectFetch=reject);});
+ const pending=t.wire.execute(operation,value,caller.signal);
+ if(change==='abort')caller.abort();else if(change==='token')t.change();else if(change==='invalid')t.change({token:'captured',scope:null});else if(change!=='current')t.change({token:'captured',scope:{...scope,[change]:change==='dataset'?'demo':'other'}});
+ rejectFetch(original);
+ try{
+  await assert.rejects(()=>pending,error=>change==='current'?error===original:change==='abort'?error.code==='unavailable':error.code==='denied'&&error.status===401);
+  assert.equal(calls,1);assert.equal(captured.options.signal.aborted,change==='abort');assert.equal(captured.options.headers.authorization,'Bearer captured');
+  assert.equal(captured.options.redirect,'error');assert.equal(captured.options.cache,'no-store');assert.equal(caller.signal.aborted,change==='abort');
+  assert.equal(new URL(captured.url).pathname,operation==='message.inbox'?'/v1/messages/inbox':'/v1/messages');
+  if(operation==='message.send')assert.deepEqual(JSON.parse(captured.options.body),{...value,action:'send'});else assert.equal(captured.options.body,undefined);
+ }finally{t.wire.close();}
 });

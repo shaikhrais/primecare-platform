@@ -69,5 +69,20 @@ try{
  await page.reload();await mount('tasks');assert.ok((await page.locator('main').innerText()).includes(row.title));checks++;
  // An expired/changed host session must clear the old authorized result.
  await page.evaluate(async()=>{sessionStorage.removeItem('primecare_session');await window.session.load();});assert.equal(await page.evaluate(()=>window.session.status),'denied');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;assert.deepEqual(errors,[]);
+ // A network rejection after logout must revoke both reads and an uncertain write.
+ for(const method of ['GET','POST']){
+  await mount('tasks');let release,started;const held=new Promise(resolve=>started=resolve);let dispatches=0,receipt;
+  const intercept=async route=>{if(route.request().method()!==method){await route.continue();return;}dispatches++;receipt=route.request().headers()['idempotency-key'];release=()=>route.abort('failed');started();};
+  await page.route('**/v1/governance/tenant-dashboard**',intercept);
+  await page.evaluate(method=>{window.pendingTaskFailure=(method==='GET'?window.session.load():window.session.submit(window.session.current.snapshot.items[0].id,'edit',{title:'Unsent after logout',body:'Unsent owned draft',date:'2026-11-09'})).catch(error=>({code:error.code}));},method);
+  let heldTimer;try{await Promise.race([held,new Promise((_,reject)=>{heldTimer=setTimeout(()=>reject(Error('Expected task request was not dispatched')),10000);})]);}finally{clearTimeout(heldTimer);}
+  await page.evaluate(()=>sessionStorage.setItem('primecare_session','changed-session'));await release();
+  const outcome=await page.evaluate(async()=>{await window.pendingTaskFailure;return window.session.current;});
+  assert.equal(outcome.status,'denied');assert.equal(outcome.snapshot,null);assert.equal(outcome.pending,false);assert.equal(dispatches,1);assert.equal(await page.locator('[data-work-card]').count(),0);
+  if(method==='POST')assert.match(receipt,/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);else assert.equal(receipt,undefined);
+  assert.deepEqual((await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0],row);
+  await page.unroute('**/v1/governance/tenant-dashboard**',intercept);checks++;
+ }
+ assert.deepEqual(errors,[]);
  console.log(`PASS work modules browser: ${checks} checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (${f.native?'native PostgreSQL':'PGlite PostgreSQL'})`);
 }finally{await browser?.close();if(server)await new Promise(r=>server.close(r));await f.close();}
