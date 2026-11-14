@@ -112,11 +112,9 @@ String shellText(String locale,String key)=>nativeApplicationShell['locales'][lo
 Future<void> press(WidgetTester tester,Finder target)async{await tester.ensureVisible(target);await tester.tap(target);await tester.pumpAndSettle();}
 Future<void> waitForTaskStatus(WidgetTester tester,WorkModuleSession session,Set<String> terminal)async{
  await tester.runAsync(()async{
-   if(terminal.contains(session.status))return;
-   final done=Completer<void>();
-   void changed(){if(terminal.contains(session.status)&&!done.isCompleted)done.complete();}
-   session.addListener(changed);
-   try{changed();await done.future;}finally{session.removeListener(changed);}
+   for(var pump=0;pump<100&&!terminal.contains(session.status);pump++){
+     await Future<void>.delayed(const Duration(milliseconds:10));await tester.pump();
+   }
  });
  await tester.pumpAndSettle();expect(session.status,isIn(terminal));
 }
