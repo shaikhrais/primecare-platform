@@ -1,0 +1,168 @@
+{
+  "scope": "draft-DDL-and-read-predicates-in-isolated-PGlite-only",
+  "migrationSha256": "23d6e55923c993c04f1fb27869236e6d90efb8ba582a61669f3bc254295b52d9",
+  "rollbackSha256": "1343cad2348ea6568834d4c4e1ac043cda2794547d9a6c876b8deb32a96ded37",
+  "casesPassed": 38,
+  "results": [
+    {
+      "name": "text: migration requires isolated-fixture opt-in",
+      "passed": true
+    },
+    {
+      "name": "text: old FAQ content preserved and unpublished",
+      "passed": true
+    },
+    {
+      "name": "text: list isolates tenant and omits legacy/draft/withdrawn",
+      "passed": true
+    },
+    {
+      "name": "text: other tenant list stays independent",
+      "passed": true
+    },
+    {
+      "name": "text: exact locale and no locale fallback",
+      "passed": true
+    },
+    {
+      "name": "text: other tenant or unpublished detail is absent",
+      "passed": true
+    },
+    {
+      "name": "text: detail returns only approved projection",
+      "passed": true
+    },
+    {
+      "name": "text: stable paging and empty page keep accurate total",
+      "passed": true
+    },
+    {
+      "name": "text: search treats SQL and wildcard characters as literal data",
+      "passed": true
+    },
+    {
+      "name": "text: publishing requires assigned tenant/locale/time",
+      "passed": true
+    },
+    {
+      "name": "text: publication rejects unknown tenant and locale",
+      "passed": true
+    },
+    {
+      "name": "text: published article identity and UTF16 limits enforced",
+      "passed": true
+    },
+    {
+      "name": "text: changing published content withdraws it and bumps revision",
+      "passed": true
+    },
+    {
+      "name": "text: reassignment and manual revision edits rejected",
+      "passed": true
+    },
+    {
+      "name": "text: stale revision cannot overwrite newer content",
+      "passed": true
+    },
+    {
+      "name": "text: republish is separate and increments revision",
+      "passed": true
+    },
+    {
+      "name": "text: future publication time and invalid withdrawal rejected",
+      "passed": true
+    },
+    {
+      "name": "text: rollback refuses to discard adopted data",
+      "passed": true
+    },
+    {
+      "name": "text: unadopted rollback preserves legacy columns and content",
+      "passed": true
+    },
+    {
+      "name": "uuid: migration requires isolated-fixture opt-in",
+      "passed": true
+    },
+    {
+      "name": "uuid: old FAQ content preserved and unpublished",
+      "passed": true
+    },
+    {
+      "name": "uuid: list isolates tenant and omits legacy/draft/withdrawn",
+      "passed": true
+    },
+    {
+      "name": "uuid: other tenant list stays independent",
+      "passed": true
+    },
+    {
+      "name": "uuid: exact locale and no locale fallback",
+      "passed": true
+    },
+    {
+      "name": "uuid: other tenant or unpublished detail is absent",
+      "passed": true
+    },
+    {
+      "name": "uuid: detail returns only approved projection",
+      "passed": true
+    },
+    {
+      "name": "uuid: stable paging and empty page keep accurate total",
+      "passed": true
+    },
+    {
+      "name": "uuid: search treats SQL and wildcard characters as literal data",
+      "passed": true
+    },
+    {
+      "name": "uuid: publishing requires assigned tenant/locale/time",
+      "passed": true
+    },
+    {
+      "name": "uuid: publication rejects unknown tenant and locale",
+      "passed": true
+    },
+    {
+      "name": "uuid: published article identity and UTF16 limits enforced",
+      "passed": true
+    },
+    {
+      "name": "uuid: changing published content withdraws it and bumps revision",
+      "passed": true
+    },
+    {
+      "name": "uuid: reassignment and manual revision edits rejected",
+      "passed": true
+    },
+    {
+      "name": "uuid: stale revision cannot overwrite newer content",
+      "passed": true
+    },
+    {
+      "name": "uuid: republish is separate and increments revision",
+      "passed": true
+    },
+    {
+      "name": "uuid: future publication time and invalid withdrawal rejected",
+      "passed": true
+    },
+    {
+      "name": "uuid: rollback refuses to discard adopted data",
+      "passed": true
+    },
+    {
+      "name": "uuid: unadopted rollback preserves legacy columns and content",
+      "passed": true
+    }
+  ],
+  "productionMigrationApplied": false,
+  "productionRowsRead": 0,
+  "productionWrites": 0,
+  "apiHandlerImplemented": false,
+  "hostActivated": false,
+  "roleGrantsChanged": 0,
+  "actualAuthenticationTested": false,
+  "humanReviewApproved": false
+}
