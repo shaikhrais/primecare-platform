@@ -37,6 +37,8 @@ try:
   matches=dashboard.get('identity')=={'userId':actor['id'],'role':'tenant_admin'} and dashboard.get('organization',{}).get('id')==actor['tenant']
   print('PC10_NATIVE_DASHBOARD_PREFLIGHT '+json.dumps({'locale':actor['locale'],'status':status,'bytes':len(payload),'scopeMatches':matches,'todayIsIso':bool(re.fullmatch(r'\d{4}-\d{2}-\d{2}',str(dashboard.get('today'))))}))
   must(status==200 and matches,actor['locale']+' independent dashboard scope preflight')
+  actor['expectedProject']={key:dashboard['taskStats'][key] for key in ['open','review','blocked','overdue','completed']}
+  actor['expectedAnalytics']={key:dashboard['stats'][key] for key in ['staff','clients','visits','requests','time','care','plans']}
   actor.pop('password');actor.pop('email')
  fixture.write_text(json.dumps(actors));fixture.chmod(0o600)
  temporary=pathlib.Path('packages/primecare_ui/test/owned_native_live_test.dart')
@@ -52,6 +54,9 @@ try:
  native=json.loads((out/'dart-owned.json').read_text())
  must(len(native['results'])==3 and all(r.get('passed') is True for r in native['results']),'All three locale/viewport native results present')
  for actor in actors:
+  result=next(r for r in native['results'] if r['userId']==actor['id'])
+  must(result.get('readViews')==['project','analytics','activity','search'] and result.get('boundedSearch') is True,actor['locale']+' actual four native read views and bounded search')
+  must({m['key']:m['value'] for m in result['project']['metrics']}==actor['expectedProject'] and {m['key']:m['value'] for m in result['analytics']['metrics']}==actor['expectedAnalytics'],actor['locale']+' rendered metric projections match independently fetched API')
   row=db.execute("SELECT revision,document FROM account_preference_documents WHERE user_id=%s AND tenant_id=%s AND actor_role='tenant_admin' AND dataset='live' AND kind='shortcuts' AND resource='navigation'",(actor['id'],actor['tenant'])).fetchone();db.commit()
   must(row==(1,{'version':1,'screenIds':['2534','1269']}),actor['locale']+' independent SQL matches native saved choice')
   count=db.execute('SELECT COUNT(*) FROM account_preference_audit WHERE user_id=%s AND tenant_id=%s',(actor['id'],actor['tenant'])).fetchone()[0];db.commit()

@@ -3,6 +3,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/lib/src/features/tenant_applications/**'
+      - 'packages/primecare_ui/test/tenant_application_screen_test.dart'
+      - 'scripts/generate-native-application-host.mjs'
       - 'tools/governance-production/pc10-business-contract-discovery.mjs'
       - 'tools/governance-production/native-application-host-registration.mjs'
       - 'scripts/test-native-application-host-registration.mjs'

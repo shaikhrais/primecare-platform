@@ -38,6 +38,10 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   ApplicationShortcutEditor? _editor;
   String _status='loading';
   DateTime? _today;
+  Map<String,dynamic>? _source;
+  DashboardPageProjection? _project,_analytics;
+  RecordPageProjection? _activity,_records;
+  final _recordSearch=TextEditingController();
   int _generation=0;
   bool get _current => mounted && widget.identity.matches(ref.read(authProvider));
   PreferenceScope? _scope() => _current ? widget.identity.scope : null;
@@ -47,9 +51,11 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       (state['dirty']==true || state['pending']!=null || state['remote']!=null ||
        ['loading','saving','discarding','recovering'].contains(state['status']));}
   @override void initState(){super.initState();Future<void>.microtask(_load);}
-  void _retire(){_profile?.dispose();_profile=null;_editor?.dispose();_editor=null;
+  void _changed(){if(_current)setState((){});}
+  void _retire(){_source=null;_project=null;_analytics=null;_activity=null;_records=null;
+    _profile?.dispose();_profile=null;_editor?.removeListener(_changed);_editor?.dispose();_editor=null;
     _dashboard?.dispose();_dashboard=null;for(final client in _clients){client.close();}_clients.clear();}
-  @override void dispose(){_generation++;_retire();super.dispose();}
+  @override void dispose(){_generation++;_retire();_recordSearch.dispose();super.dispose();}
   Future<void> _load()async{
     if(!_current || _blocked)return;
     final generation=++_generation;_retire();setState(()=>_status='loading');
@@ -60,6 +66,8 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
         currentToken:_token,currentScope:_scope,maxBytes:1048576,client:_client());
       final raw=validateDashboardResponseScope(await _dashboard!.read(),scope);
       if(!active())return;
+      final project=DashboardPageProjection.fromResponse('project',raw,scope),analytics=DashboardPageProjection.fromResponse('analytics',raw,scope);
+      final activity=RecordPageProjection.fromResponse('activity',raw,scope),records=RecordPageProjection.fromResponse('search',raw,scope,query:_recordSearch.text);
       final today=raw['today'];
       if(today is! String || !RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(today))throw const FormatException();
       final parsed=DateTime.parse(today);
@@ -75,11 +83,11 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
         binding:PreferenceBinding(scope:scope,kind:'shortcuts',resource:'navigation',screenIds:names.keys.toList()),
         cache:SharedPreferenceCache(preferences),names:names,labels:words,defaults:const ['2534'],
         currentToken:_token,currentScope:_scope,client:_client());
-      _editor=ApplicationShortcutEditor(settings);
+      _editor=ApplicationShortcutEditor(settings)..addListener(_changed);
       _profile=WorkModuleSession(scope,'profile',port:ApplicationProfilePort(origin:origin,
         token:widget.identity.token,scope:scope,currentToken:_token,currentScope:_scope,
         identityLabel:words['profile']!,client:_client()));
-      _today=parsed;
+      _today=parsed;_source=Map.unmodifiable(raw);_project=project;_analytics=analytics;_activity=activity;_records=records;
       setState(()=>_status='ready');
       unawaited(_editor!.load());
     }catch(_){if(active()){_retire();setState(()=>_status='unavailable');}}
@@ -92,6 +100,12 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
     final shell=ShellUtilityLabels(Map<String,String>.from(nativeApplicationShell['locales'][locale] as Map),
       {for(final row in nativeApplicationShell['controls'] as List)row['key'] as String:row['testId'] as String});
     final profile=_profile,editor=_editor,today=_today,theme=context.theme;
+    final readLabels=<String,String>{for(final entry in (nativeApplicationDashboard['resources'] as Map).entries)
+      (entry.key as String).substring('dashboardPages.'.length):(entry.value as Map)[locale] as String,
+      'live':nativeApplicationTenant['labels']['live'] as String,'demo':nativeApplicationTenant['labels']['demo'] as String,
+      'bounded':nativeApplicationDashboard['resources']['dashboardPages.partial'][locale] as String};
+    Widget readView(String key,Widget child)=>Semantics(container:true,identifier:
+      (nativeApplicationDashboard['controls'] as List).singleWhere((row)=>row['key']==key)['testId'] as String,child:child);
     return PrimePageScaffold(title:PrimeText(application.text('settings')),
       body:SingleChildScrollView(padding:EdgeInsets.all(theme.spacing.lg),
         child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
@@ -105,6 +119,18 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
               year:today.year,month:today.month,gap:theme.spacing.md,boardWidth:MediaQuery.sizeOf(context).width),
             SizedBox(height:theme.spacing.lg),
             PrimeApplicationShortcuts(editor:editor,labels:shell,recoveryLabels:recovery),
+            SizedBox(height:theme.spacing.lg),
+            application.identify('reload','prime_button',PrimeTextButton(onPressed:_blocked?null:_load,
+              child:PrimeText(application.text('reload'))),suffix:'-dashboard'),
+            if(_project!=null)readView('project',PrimeDashboardPage(projection:_project!,labels:readLabels)),
+            if(_analytics!=null)readView('analytics',PrimeDashboardPage(projection:_analytics!,labels:readLabels)),
+            if(_activity!=null)readView('activity',PrimeRecordPage(projection:_activity!,labels:readLabels)),
+            application.identify('filter','prime_text_field',PrimeTextField(controller:_recordSearch,maxLength:100,
+              decoration:InputDecoration(labelText:readLabels['search']),onChanged:(value){
+                if(!_current||_source==null||value.length>100)return;
+                setState(()=>_records=RecordPageProjection.fromResponse('search',_source,widget.identity.scope,query:value));
+              }),suffix:'-dashboard-search'),
+            if(_records!=null)readView('search',PrimeRecordPage(projection:_records!,labels:readLabels)),
           ],
         ])));
   }

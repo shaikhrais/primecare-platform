@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:http/io_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/application_modules.dart';
+import 'package:flutter_core/dashboard_pages.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_catalog.g.dart';
@@ -94,6 +95,20 @@ void main(){
         },'mount-controls-enabled',events);
       }
       await mount();
+      expect(find.byType(PrimeDashboardPage),findsNWidgets(2));
+      expect(find.byType(PrimeRecordPage),findsNWidgets(2));
+      final dashboards=tester.widgetList<PrimeDashboardPage>(find.byType(PrimeDashboardPage));
+      expect(dashboards.every((view)=>view.projection.status=='ready'),true);
+      final recordViews=tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage));
+      expect(recordViews.every((view)=>['ready','empty'].contains(view.projection.status)),true);
+      final project=Map<String,Object?>.from(dashboards.singleWhere((view)=>view.projection.family=='project').projection.toJson());
+      final analytics=Map<String,Object?>.from(dashboards.singleWhere((view)=>view.projection.family=='analytics').projection.toJson());
+      expect({for(final metric in project['metrics'] as List)(metric as Map)['key']:metric['value']},actor['expectedProject']);
+      expect({for(final metric in analytics['metrics'] as List)(metric as Map)['key']:metric['value']},actor['expectedAnalytics']);
+      final search=find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-filter-dashboard-search');
+      final searchField=find.descendant(of:search,matching:find.byType(TextField));
+      await tester.ensureVisible(searchField);await tester.enterText(searchField,'pc10-no-matching-owned-guide');await tester.pump();
+      expect(tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage)).singleWhere((view)=>view.projection.kind=='search').projection.status,'empty');
       expect(requests.where((r)=>r['action']!='read'),isEmpty);
       await until(tester,()=>find.text(actor['id'] as String).evaluate().isNotEmpty,'profile',events);
       final choice=find.widgetWithText(TextButton,'Platform Administration');
@@ -115,7 +130,7 @@ void main(){
       expect(find.byType(PrimeApplicationShortcuts),findsNothing);expect(find.text(actor['id'] as String),findsNothing);
       expect(tester.takeException(),isNull);
       results.add({'locale':locale,'width':width,'userId':actor['id'],'tenantId':actor['tenant'],
-        'profileRead':true,'saveReadback':true,'reloadWithoutReplay':true,'sessionRetired':true,'writes':1,'passed':true});
+        'readViews':['project','analytics','activity','search'],'project':project,'analytics':analytics,'boundedSearch':true,'profileRead':true,'saveReadback':true,'reloadWithoutReplay':true,'sessionRetired':true,'writes':1,'passed':true});
       final report=File('../../test-results/pc10-native/dart-owned.json');report.parent.createSync(recursive:true);
       report.writeAsStringSync(jsonEncode({'scope':'native-widget-real-production-API','cachePlatform':'SharedPreferences test platform; widget restart only','physicalDeviceTested':false,'humanReviewApproved':false,'results':results}));
       await tester.pumpWidget(const SizedBox());

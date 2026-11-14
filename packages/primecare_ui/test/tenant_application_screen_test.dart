@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_core/dashboard_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/features/tenant_applications/tenant_application_screen.dart';
@@ -43,7 +44,11 @@ class HostFixture {
       expect(request.method,'GET');expect(request.url.queryParameters,{'dataset':'live'});
       if(delayedDashboard!=null)return delayedDashboard!.future;
       return response({'dataset':'live','synthetic':false,'identity':{'userId':dashboardUser,'role':'tenant_admin'},
-        'organization':{'id':'tenant-a'},'today':'2026-11-13'},dashboardStatus);
+        'organization':{'id':'tenant-a'},'today':'2026-11-13',
+        'allowedViews':['tasks','operations','audit','workflows'],
+        'taskStats':{'open':0,'review':0,'blocked':0,'overdue':0,'completed':0},
+        'stats':{'staff':1,'clients':0,'visits':null,'requests':null,'time':null,'care':null,'plans':0},
+        'events':[],'tasks':[],'workflows':[{'title':'Owned workflow guide','flow_id':'owned.workflow'}]},dashboardStatus);
     }
     if(request.url.path=='/v1/auth/me'){
       expect(request.method,'GET');
@@ -93,6 +98,11 @@ void main(){
       expect(f.requests.first.url.path,'/v1/governance/tenant-dashboard');
       expect(f.requests.any((r)=>r.url.path=='/v1/auth/me'),true);
       expect(f.writes,isEmpty);expect(choice(),findsOneWidget);
+      expect(find.byType(PrimeDashboardPage),findsNWidgets(2));expect(find.byType(PrimeRecordPage),findsNWidgets(2));
+      final search=find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-filter-dashboard-search');
+      final field=find.descendant(of:search,matching:find.byType(TextField));
+      await tester.ensureVisible(field);await tester.enterText(field,'no matching guide');await tester.pump();
+      expect(tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage)).singleWhere((w)=>w.projection.kind=='search').projection.status,'empty');
       await press(tester,choice());expect(f.writes,isEmpty);
       await press(tester,find.widgetWithText(TextButton,shellText(row.$1,'save')));
       expect(f.revision,1);expect((f.document as Map)['screenIds'],contains('1269'));
