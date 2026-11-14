@@ -35,7 +35,7 @@ export async function discoverHelp(db){
   for(const name of [...new Set(governanceColumns.filter(c=>c.column_name==='screen_id').map(c=>c.table_name))]){
    if(['screens','screen_components','screen_required_elements','screen_api_links','role_screen_permissions'].some(t=>name===pin.tablePrefix+t))continue;
    if(!/^govt_[a-z0-9_]+$/.test(name))throw Error('Invalid relation');
-   related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id=685 LIMIT 301').then(rows=>rows.map(r=>r.metadata));
+   related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
   return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
