@@ -24,7 +24,7 @@ export class ClientInvoices{
  get current():InvoiceState{return {...this.state};}
  subscribe(fn:()=>void){if(this.dead){try{fn();}catch{}return()=>{};}this.listeners.add(fn);try{fn();}catch{/* Host observers do not own transport outcomes. */}return ()=>this.listeners.delete(fn);}
  private emit(){const final=this.dead;for(const fn of [...this.listeners]){if(!final&&this.dead)break;if(this.listeners.has(fn)){try{fn();}catch{/* Rendering failures cannot retain private state or replace real read outcomes. */}}}}
- private currentRequest(n:number){return !this.dead&&this.epoch===n&&this.isCurrent();}
+ private currentRequest(n:number){if(this.dead||this.epoch!==n)return false;let current=false;try{current=this.isCurrent()===true;}catch{}return !this.dead&&this.epoch===n&&current;}
  private async json(path:string,n:number,signal:AbortSignal):Promise<unknown>{
   if(!this.currentRequest(n))throw Error('scope_changed');
   // Native browser fetch must not receive this client object as its Window receiver.
@@ -32,7 +32,7 @@ export class ClientInvoices{
   const response=await send(this.origin+path,{method:'GET',headers:{authorization:'Bearer '+this.token,accept:'application/json'},cache:'no-store',credentials:'omit',redirect:'error',signal});
   if(!this.currentRequest(n)){await response.body?.cancel();throw Error('scope_changed');}
   if(response.status!==200){await response.body?.cancel();throw Error(response.status===401?'unauthenticated':response.status===403?'forbidden':response.status===404?'unavailable':'request_failed');}
-  if(!response.headers.get('content-type')?.toLowerCase().includes('application/json')||!response.body){await response.body?.cancel();throw Error('invalid_response');}
+  if(!(response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()==='application/json')||!response.body){await response.body?.cancel();throw Error('invalid_response');}
   return guardedJson(response,131072,()=>{if(!this.currentRequest(n))throw Error('scope_changed');},()=>Error('invalid_response'),signal);
  }
  private async self(n:number,signal:AbortSignal):Promise<InvoiceScope>{
