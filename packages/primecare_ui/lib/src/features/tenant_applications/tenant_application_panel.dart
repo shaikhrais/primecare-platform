@@ -171,7 +171,8 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
     final work=CatalogueLabels.fromMetadata(nativeApplicationWork,locale);
     final readLabels=<String,String>{for(final entry in (nativeApplicationDashboard['resources'] as Map).entries)
       (entry.key as String).substring('dashboardPages.'.length):(entry.value as Map)[locale] as String,
-      'live':nativeApplicationTenant['labels']['live'] as String,'demo':nativeApplicationTenant['labels']['demo'] as String,
+      'live':nativeApplicationDashboard['resources']['dashboardPages.ready'][locale] as String,
+      'demo':nativeApplicationTenant['labels']['demo'] as String,
       'bounded':nativeApplicationDashboard['resources']['dashboardPages.partial'][locale] as String};
     Widget readView(String key,Widget child)=>Semantics(container:true,identifier:
       (nativeApplicationDashboard['controls'] as List).singleWhere((row)=>row['key']==key)['testId'] as String,child:child);

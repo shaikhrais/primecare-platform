@@ -150,6 +150,15 @@ void main(){
       expect(f.requests.any((r)=>r.url.path=='/v1/auth/me'),true);
       expect(f.writes,isEmpty);expect(choice(),findsOneWidget);
       expect(find.byType(PrimeDashboardPage),findsNWidgets(2));expect(find.byType(PrimeRecordPage),findsNWidgets(2));
+      final expectedLive=nativeApplicationDashboard['resources']['dashboardPages.ready'][row.$1] as String;
+      final expectedDemo=nativeApplicationTenant['labels']['demo'] as String;
+      for(final page in tester.widgetList<PrimeDashboardPage>(find.byType(PrimeDashboardPage))){
+        expect(page.labels['live'],expectedLive);expect(page.labels['demo'],expectedDemo);
+      }
+      for(final page in tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage))){
+        expect(page.labels['live'],expectedLive);expect(page.labels['demo'],expectedDemo);
+      }
+      if(row.$1!='en')expect(find.text(nativeApplicationTenant['labels']['live'] as String),findsNothing);
       final search=find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-filter-dashboard-search');
       final field=find.descendant(of:search,matching:find.byType(TextField));
       await tester.ensureVisible(field);await tester.enterText(field,'no matching guide');await tester.pump();
