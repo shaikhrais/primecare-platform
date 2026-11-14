@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';import {build} from 'esbuild';import {createServer} from 'node:http';import {readFile,mkdir,writeFile} from 'node:fs/promises';import {createRequire} from 'node:module';import {chromium} from 'playwright';import {clientInvoicesFixture} from './client-invoices-fixture.mjs';import metadata from '../packages/primecare_ui/catalogs/client-invoices.registration.json' with {type:'json'};
 const f=await clientInvoicesFixture();let server,browser,page,writes=0,checks=0,hold=false,failInvoices=false,lastWorkspaceStatus=null;const pending=[];
 try{
- const built=await build({stdin:{contents:`import {ClientInvoices} from './packages/shared/src/client-invoices/client';import {renderWorkspace} from './websites/typescript/src/workspace';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute(location.pathname,'ci')]);window.__invoiceStates=[];const emit=ClientInvoices.prototype.emit;ClientInvoices.prototype.emit=function(){window.__invoiceStates.push({status:this.current.status,error:this.current.error});return emit.call(this);};window.render=()=>renderWorkspace(root,location.origin);window.render();`,resolveDir:process.cwd()},bundle:true,format:'iife',write:false});
+ const built=await build({stdin:{contents:`import {ClientInvoices} from './packages/shared/src/client-invoices/client';import {PrimeClientInvoices} from './packages/primecare_ui/web/client-invoices';import {renderWorkspace} from './websites/typescript/src/workspace';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute(location.pathname,'ci')]);window.__invoiceFixture={ClientInvoices,PrimeClientInvoices};window.__invoiceStates=[];const emit=ClientInvoices.prototype.emit;ClientInvoices.prototype.emit=function(){window.__invoiceStates.push({status:this.current.status,error:this.current.error});return emit.call(this);};window.render=()=>renderWorkspace(root,location.origin);window.render();`,resolveDir:process.cwd()},bundle:true,format:'iife',write:false});
  server=createServer(async(req,res)=>{try{
   const path=new URL(req.url,'http://fixture').pathname;
   if(path==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));return;}
@@ -43,9 +43,42 @@ try{
   await cy('panel').locator('.table-scroll').focus();await page.keyboard.press('ArrowRight');assert.equal(await cy('panel').locator('.table-scroll').evaluate(el=>el===document.activeElement),true);checks++;
 
  }
+ // Exercise failed construction and owner retirement with the actual browser and owned service.
+ const construction=await page.evaluate(async()=>{
+  const {ClientInvoices,PrimeClientInvoices}=window.__invoiceFixture,token=sessionStorage.getItem('primecare_session');
+  const client=new ClientInvoices(location.origin,token,{userId:'user1',role:'guest'},()=>sessionStorage.getItem('primecare_session')===token);
+  const root=document.createElement('section'),child=document.createElement('span');child.textContent='caller content';root.append(child);root.setAttribute('data-pc-client-invoices','caller-marker');document.querySelector('#app main').append(root);
+  const create=document.createElement.bind(document),failure=Error('fixture button failure');let caught=false;
+  try{document.createElement=(tag,...args)=>{if(tag==='button')throw failure;return create(tag,...args);};try{new PrimeClientInvoices(root,client,'en',()=>true);}catch(error){caught=error===failure;}}
+  finally{document.createElement=create;}
+  const restored=caught&&root.firstChild===child&&root.childNodes.length===1&&root.getAttribute('data-pc-client-invoices')==='caller-marker'&&client.current.status==='idle';
+  await client.load();const outcomes=[];
+  try{
+   for(const error of [Error('fixture table failure'),undefined,null]){
+    let same=false;try{document.createElement=(tag,...args)=>{if(tag==='table')throw error;return create(tag,...args);};try{new PrimeClientInvoices(root,client,'en',()=>true);}catch(thrown){same=thrown===error;}}
+    finally{document.createElement=create;}
+    outcomes.push(same&&root.firstChild===child&&root.getAttribute('data-pc-client-invoices')==='caller-marker'&&client.current.status==='ready');
+   }
+   const view=new PrimeClientInvoices(root,client,'en',()=>true),reused=root.querySelectorAll('[data-cy=client-invoice-row]').length===25;view.dispose();
+   return{restored,outcomes,reused,cleared:root.childNodes.length===0&&client.current.status==='disposed'};
+  }finally{client.dispose();root.remove();}
+ });
+ assert.deepEqual(construction,{restored:true,outcomes:[true,true,true],reused:true,cleared:true});checks++;
+ for(const trigger of ['render','refresh']){
+  const retired=await page.evaluate(async trigger=>{
+   const {ClientInvoices,PrimeClientInvoices}=window.__invoiceFixture,token=sessionStorage.getItem('primecare_session');let reads=0,broken=false;
+   const client=new ClientInvoices(location.origin,token,{userId:'user1',role:'guest'},()=>sessionStorage.getItem('primecare_session')===token,async(...args)=>{reads++;return fetch(...args);});
+   const root=document.createElement('section');document.querySelector('#app main').append(root);const view=new PrimeClientInvoices(root,client,'en',()=>{if(broken)throw Error('fixture owner failed');return true;});
+   try{await client.load();const visible=root.querySelectorAll('[data-cy=client-invoice-row]').length===25,before=reads;broken=true;
+    if(trigger==='render')view.render();else root.querySelector('[data-cy=client-invoices-refresh]').click();
+    return{visible,cleared:root.childNodes.length===0&&!root.hasAttribute('data-pc-client-invoices'),disposed:client.current.status==='disposed'&&client.current.page===null,noExtraRead:reads===before};
+   }finally{view.dispose();client.dispose();root.remove();}
+  },trigger);
+  assert.deepEqual(retired,{visible:true,cleared:true,disposed:true,noExtraRead:true});checks++;
+ }
  // BFCache ownership: hide must clear private content and restore must independently reload it.
  await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pagehide',{persisted:true})));assert.equal(await page.locator('[data-cy=client-invoice-host]').count(),0);await page.evaluate(()=>dispatchEvent(new PageTransitionEvent('pageshow',{persisted:true})));await ready();checks++;
  // The response is held only after the real database transaction ends. A changed actor cannot receive it.
  hold=true;await cy('refresh').click();await page.waitForFunction(()=>document.querySelector('[data-cy=client-invoices-panel]')?.getAttribute('aria-busy')==='true');const deadline=Date.now()+5000;while(!pending.length&&Date.now()<deadline)await new Promise(resolve=>setTimeout(resolve,10));assert.equal(pending.length,1,'actual database response must be held');await page.evaluate(token=>sessionStorage.setItem('primecare_session',token),f.tokens.admin);hold=false;pending.splice(0).forEach(fn=>fn());await page.evaluate(()=>window.render());await page.waitForFunction(()=>!document.querySelector('[data-cy=client-invoice-host]'));assert.equal(lastWorkspaceStatus,200,'changed actor workspace must load normally before route denial');assert.ok(!(await page.locator('#app').innerText()).includes('12345678901234567890'));checks++;
- assert.equal(writes,0);assert.equal(Number((await f.db.query('SELECT COUNT(*)::int AS n FROM invoices')).rows[0].n),original);assert.deepEqual(errors,[]);console.log(`PASS client invoice host: ${checks} real browser groups; registered EN/FR/ES controls, exact nullable decimals, native SQL counts, pagination/reload, owner/tenant isolation, no payment actions, responsive widths, BFCache and late-actor teardown; zero writes (${f.native?'native PostgreSQL':'PGlite PostgreSQL'}).`);
+ assert.equal(writes,0);assert.equal(Number((await f.db.query('SELECT COUNT(*)::int AS n FROM invoices')).rows[0].n),original);assert.deepEqual(errors,[]);console.log(`PASS client invoice host: ${checks} real browser groups; registered EN/FR/ES controls, exact nullable decimals, native SQL counts, pagination/reload, owner/tenant isolation, no payment actions, responsive widths, constructor rollback/caller-client reuse/owner-error cleanup, BFCache and late-actor teardown; zero writes (${f.native?'native PostgreSQL':'PGlite PostgreSQL'}).`);
 }catch(error){if(page)console.error('CLIENT_INVOICE_BROWSER_DIAGNOSTICS '+JSON.stringify(await page.evaluate(()=>({url:location.href,text:document.body.innerText.slice(0,4000),states:window.__invoiceStates?.slice(-20)})).catch(()=>({closed:true}))));throw error;}finally{hold=false;pending.splice(0).forEach(fn=>fn());await browser?.close();if(server)await new Promise(resolve=>server.close(resolve));await f.close();}
