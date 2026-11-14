@@ -1,0 +1,498 @@
+{
+  "scope": "four-draft-contracts-and-synthetic-examples-only",
+  "proposalSha256": "1032f2cae5cb462ea634e104d5fca47cb337f0c07b5892f7383195dc5d3000c9",
+  "casesPassed": 121,
+  "results": [
+    {
+      "name": "AcademyCatalogRequest valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolRequest rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "AiProtocolResponse rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "Error valid synthetic example",
+      "passed": true
+    },
+    {
+      "name": "Error rejects injected tenantId",
+      "passed": true
+    },
+    {
+      "name": "Error rejects injected userId",
+      "passed": true
+    },
+    {
+      "name": "Error rejects injected role",
+      "passed": true
+    },
+    {
+      "name": "Error rejects injected permission",
+      "passed": true
+    },
+    {
+      "name": "Error rejects injected providerKey",
+      "passed": true
+    },
+    {
+      "name": "Error rejects missing required field",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse empty is not fake content",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse bounded rows",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse empty is not fake content",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse bounded rows",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects limit0",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects limit101",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects offset-1",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects limit0",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects limit101",
+      "passed": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects offset-1",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects limit0",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects limit101",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects offset-1",
+      "passed": true
+    },
+    {
+      "name": "commerce invalid quantity0",
+      "passed": true
+    },
+    {
+      "name": "commerce invalid quantity-1",
+      "passed": true
+    },
+    {
+      "name": "commerce invalid quantity1.5",
+      "passed": true
+    },
+    {
+      "name": "commerce invalid quantity10001",
+      "passed": true
+    },
+    {
+      "name": "commerce rejects action",
+      "passed": true
+    },
+    {
+      "name": "commerce rejects idempotencyKey",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount12.34",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount12.34",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount1e3",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount1e3",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount-1.0000",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount-1.0000",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount12.34",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount12.34",
+      "passed": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount10000000000000000.0000",
+      "passed": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount10000000000000000.0000",
+      "passed": true
+    },
+    {
+      "name": "AI rejects oversized/unsafe text4001",
+      "passed": true
+    },
+    {
+      "name": "AI rejects oversized/unsafe text2001",
+      "passed": true
+    },
+    {
+      "name": "AI rejects oversized/unsafe text11",
+      "passed": true
+    },
+    {
+      "name": "AI no unapproved tools",
+      "passed": true
+    },
+    {
+      "name": "ledger rejects query offset-1",
+      "passed": true
+    },
+    {
+      "name": "ledger rejects query offset1.5",
+      "passed": true
+    },
+    {
+      "name": "ledger rejects query offset100001",
+      "passed": true
+    },
+    {
+      "name": "ledger rejects query offset01",
+      "passed": true
+    },
+    {
+      "name": "strict error invalid_request",
+      "passed": true
+    },
+    {
+      "name": "strict error unauthenticated",
+      "passed": true
+    },
+    {
+      "name": "strict error forbidden",
+      "passed": true
+    },
+    {
+      "name": "strict error not_found",
+      "passed": true
+    },
+    {
+      "name": "strict error conflict",
+      "passed": true
+    },
+    {
+      "name": "strict error rate_limited",
+      "passed": true
+    },
+    {
+      "name": "strict error unavailable",
+      "passed": true
+    }
+  ],
+  "declaredOperationIdentitiesChecked": 4,
+  "canonicalAiChatOperationEstablished": false,
+  "proposalApproved": false,
+  "handlerImplemented": false,
+  "liveDatabaseTested": false,
+  "providerCalled": false,
+  "implementationCredits": 0
+}

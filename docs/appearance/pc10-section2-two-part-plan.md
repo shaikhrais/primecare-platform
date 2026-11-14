@@ -4,7 +4,7 @@ This replaces the stale secret-retention split. The authoritative Section 2 scop
 
 | Part | Concrete scope | Exit evidence | Current state |
 | --- | --- | --- | --- |
-| 2A — Failure handling and contract preparation | Stop synthetic success/private path-only cache on recorded business operations; reproduce old-client defect and run repaired transport tests; recover exact identities; publish reviewable Help proposal and remaining domain decisions. | Exact-source CI for the repair; reviewable draft contracts with request/response, identity/permission/host, persistence, provider/transition and validation evidence. | Repair published as 7f7d5c39402f9f9e8e6f50eb7bdcb3c24ce0e684; exact-source CI pending. Help draft has 32/32 mechanical examples, not runtime acceptance. Other four domains have decision outlines, not complete contracts. |
+| 2A — Failure handling and contract preparation | Stop synthetic success/private path-only cache on recorded business operations; reproduce old-client defect and run repaired transport tests; recover exact identities; publish reviewable Help proposal and remaining domain decisions. | Exact-source CI for the repair; reviewable draft contracts with request/response, identity/permission/host, persistence, provider/transition and validation evidence. | Repair7f7d5c39 now5/5SUCCESS on43553547629; added Academy failure repair63472904 has68/68actual service/control casesPASS on43555533770. Help draft has32/32 mechanical examples. The other four domains now have concrete draft schemas/proposals and121/121 examples, with unresolved authority/source/provider decisions explicit; none is runtime acceptance. |
 | 2B — Agreed implementation and acceptance | Reconcile approved production metadata and models, implement agreed business service/shared host, then verify permissions, tenant/actor isolation, persistence/reload, errors and actual browser/native behavior. | Registered approved contracts/hosts plus exact-source service/API/PostgreSQL/browser/native evidence; device/human gates remain Section 3. | Not started; requires the specific missing contracts and authority. No invented route, grant or provider side effect. |
 
 ## Immediate 2A result
@@ -25,6 +25,12 @@ The legacy-control parser now accepts Dart's actual `Actual: <true>` format as w
 
 Help schema validation is reproducible with `python3 docs/appearance/pc10-section2-validate-help-proposal.py --check` (Python jsonschema required). It proves synthetic schema consistency only. Proposal approval, implementation, production writes, grant changes and provider calls remain false/zero.
 
+## Current continuation
+
+The original APIclient repair now has all5web/PostgreSQL/Linux/Windows/macOS passes; downloaded Mac log confirms old-source control and1557+11tests. Follow-up contract43554180918 and catalogue43554180883 nowSUCCESS. An additional actual Academy service defect was found: database errors could fabricate verified certificates and training/compliance records. Published63472904 removes5fallback blocks;68local and exact-source GitHub actual service/control casesPASS. See [four detailed proposals](pc10-section2-business-proposals.md) and the companionJSON. Both concrete failure repairs are source and dedicated-CI verified. Five draft contracts are reviewable (32Help+121other schema cases); their business/access/source/provider decisions remain pending. Broader cross-batch native closure stays separate. No new business API/grant/provider/host is activated.
+
 ## Schedule
 
 Original Section2 estimate2–4active hours and22:40Toronto checkpoint on November13 are retained. This continuation resumes at22:49Toronto with20–40active minutes plus CI wait for the bounded repair/contract publication; revised checkpoint23:15Toronto. The original22:40 checkpoint was missed; overall delivery remains BEHIND. Remaining four-domain contract work and subsequent implementation are not sized by this limited repair estimate. CI queues and external policy/device/reviewer waits are separate.
+
+Continuation November13,23:08Toronto:30–60active minutes for the four concrete drafts, with a bounded20–40minute Academy failure repair found during recovery; these are overlapping work within the same continuation, not additive full-module estimates. Checkpoint23:45Toronto. CIqueue/contract decisions remain separate; original22:40miss is preserved.

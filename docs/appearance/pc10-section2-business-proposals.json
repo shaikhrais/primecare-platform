@@ -1,0 +1,5356 @@
+{
+  "status": "draft-unapproved",
+  "noActivation": true,
+  "implementationCredits": 0,
+  "runtimeImplemented": false,
+  "productionWrites": 0,
+  "grantsChanged": 0,
+  "providerCalls": 0,
+  "examplesAreSynthetic": true,
+  "sourceMain": "96ee5d1af5c6c1404edf740cf995212ddfe8d11f",
+  "trainingRepairSource": "6347290414d5cbb7a6e8eea0c0293e877f8cd73a",
+  "recordedProductionDiscovery": {
+    "source": "9f65531b43a6bb3be0942acc8203f6e9c41fef63",
+    "run": 43535550518,
+    "job": 132265141091,
+    "readOnly": true
+  },
+  "sourceEvidence": [
+    {
+      "path": "packages/database/generated/client/schema.prisma",
+      "sha256": "47d694c34fcef368b93d1975493c83c50d932ee42c97572d6f7840a38ddd37dd",
+      "kind": "source/model evidence only, no business access grant"
+    },
+    {
+      "path": "packages/domain/src/services/TrainingService.ts",
+      "sha256": "dc47a3b82d875c437b57b58d817a166989d3eb5aafe1bc4a72b1b442d09136d9",
+      "kind": "source/model evidence only, no business access grant"
+    },
+    {
+      "path": "packages/domain/src/services/LedgerService.ts",
+      "sha256": "deeefd00bf0a8afa413e1a44f34ca187ff6be55192dd7e10168cd8db03858168",
+      "kind": "source/model evidence only, no business access grant"
+    },
+    {
+      "path": "packages/domain/src/work_modules.ts",
+      "sha256": "471b1a68f9d721cbf496eeb3e7d9cb00392342df6367a20d584a16be2583ac02",
+      "kind": "source/model evidence only, no business access grant"
+    },
+    {
+      "path": "packages/primecare_ui/catalogs/application-modules.registration.json",
+      "sha256": "b8d0604de8d94217f768efda4b627b6a3b82ebc5b3aecf9925121a57678ff081",
+      "kind": "source/model evidence only, no business access grant"
+    }
+  ],
+  "schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "Scope": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tenantId",
+          "userId",
+          "role",
+          "dataset"
+        ],
+        "properties": {
+          "tenantId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          },
+          "userId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          },
+          "role": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          },
+          "dataset": {
+            "const": "live"
+          }
+        }
+      },
+      "AcademyCatalogRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "action",
+          "locale",
+          "offset",
+          "limit"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "action": {
+            "const": "list_assigned"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          }
+        }
+      },
+      "AcademyCatalogResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "scope",
+          "locale",
+          "items",
+          "offset",
+          "limit",
+          "total"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "scope": {
+            "$ref": "#/$defs/Scope"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "assignmentId",
+                "moduleId",
+                "title",
+                "category",
+                "status",
+                "assignedAt",
+                "dueAt",
+                "completedAt"
+              ],
+              "properties": {
+                "assignmentId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "moduleId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "x-utf16MaxCodeUnits": 500,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+                },
+                "category": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "minLength": 1,
+                  "maxLength": 200,
+                  "x-utf16MaxCodeUnits": 200,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+                },
+                "status": {
+                  "enum": [
+                    "assigned",
+                    "completed"
+                  ]
+                },
+                "assignedAt": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "dueAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                },
+                "completedAt": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "AcademyProgressRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "action",
+          "locale",
+          "assignmentId"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "action": {
+            "const": "read_progress"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "assignmentId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          }
+        }
+      },
+      "AcademyProgressResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "scope",
+          "locale",
+          "assignment"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "scope": {
+            "$ref": "#/$defs/Scope"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "assignment": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "assignmentId",
+              "moduleId",
+              "title",
+              "category",
+              "status",
+              "assignedAt",
+              "dueAt",
+              "completedAt"
+            ],
+            "properties": {
+              "assignmentId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+              },
+              "moduleId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "x-utf16MaxCodeUnits": 500,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+              },
+              "category": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "minLength": 1,
+                "maxLength": 200,
+                "x-utf16MaxCodeUnits": 200,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+              },
+              "status": {
+                "enum": [
+                  "assigned",
+                  "completed"
+                ]
+              },
+              "assignedAt": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "dueAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "completedAt": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      },
+      "CommerceDraftRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "action",
+          "supplierId",
+          "idempotencyKey",
+          "items"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "action": {
+            "const": "create_draft"
+          },
+          "supplierId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          },
+          "idempotencyKey": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "itemId",
+                "quantity"
+              ],
+              "properties": {
+                "itemId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 10000
+                }
+              }
+            }
+          }
+        }
+      },
+      "CommerceDraftResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "scope",
+          "order"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "scope": {
+            "$ref": "#/$defs/Scope"
+          },
+          "order": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "revision",
+              "status",
+              "supplierId",
+              "currency",
+              "amount"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+              },
+              "revision": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "status": {
+                "const": "draft"
+              },
+              "supplierId": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              },
+              "amount": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,15})\\.[0-9]{4}$"
+              }
+            }
+          }
+        }
+      },
+      "AiProtocolRequest": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "requestId",
+          "locale",
+          "message"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "x-utf16MaxCodeUnits": 4000,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+          }
+        }
+      },
+      "AiProtocolResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "scope",
+          "requestId",
+          "locale",
+          "reply",
+          "toolsExecuted"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "scope": {
+            "$ref": "#/$defs/Scope"
+          },
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "locale": {
+            "enum": [
+              "en",
+              "fr",
+              "es"
+            ]
+          },
+          "reply": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 5000,
+            "x-utf16MaxCodeUnits": 5000,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+          },
+          "toolsExecuted": {
+            "const": 0
+          }
+        }
+      },
+      "FinanceLedgerQuery": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "offset",
+          "limit"
+        ],
+        "properties": {
+          "version": {
+            "const": "1"
+          },
+          "offset": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,4}|100000)$"
+          },
+          "limit": {
+            "type": "string",
+            "pattern": "^([1-9]|[1-9][0-9]|100)$"
+          }
+        }
+      },
+      "FinanceLedgerResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "scope",
+          "items",
+          "offset",
+          "limit",
+          "total"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "scope": {
+            "$ref": "#/$defs/Scope"
+          },
+          "items": {
+            "type": "array",
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "transactionType",
+                "referenceType",
+                "referenceId",
+                "debitAccount",
+                "creditAccount",
+                "amount",
+                "currency",
+                "status",
+                "createdAt"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "transactionType": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "x-utf16MaxCodeUnits": 80,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+                },
+                "referenceType": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "x-utf16MaxCodeUnits": 80,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+                },
+                "referenceId": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "debitAccount": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "creditAccount": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+                },
+                "amount": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,15})\\.[0-9]{4}$"
+                },
+                "currency": {
+                  "type": "string",
+                  "pattern": "^[A-Z]{3}$"
+                },
+                "status": {
+                  "enum": [
+                    "sealed",
+                    "voided"
+                  ]
+                },
+                "createdAt": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "offset": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "error",
+          "correlationId"
+        ],
+        "properties": {
+          "version": {
+            "const": 1
+          },
+          "error": {
+            "enum": [
+              "invalid_request",
+              "unauthenticated",
+              "forbidden",
+              "not_found",
+              "conflict",
+              "rate_limited",
+              "unavailable"
+            ]
+          },
+          "correlationId": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,200}$"
+          }
+        }
+      }
+    }
+  },
+  "proposals": [
+    {
+      "module": "Academy",
+      "operationCandidates": [
+        {
+          "id": 279,
+          "method": "POST",
+          "path": "/v1/user/training/catalog",
+          "proposedRequest": "AcademyCatalogRequest",
+          "proposedResponse": "AcademyCatalogResponse"
+        },
+        {
+          "id": 280,
+          "method": "POST",
+          "path": "/v1/user/training/my-progress",
+          "proposedRequest": "AcademyProgressRequest",
+          "proposedResponse": "AcademyProgressResponse"
+        }
+      ],
+      "firstScope": "Read only the authenticated actor's assigned tenant modules and own recorded progress. No completion write, certification decision, manager assignment, export or central sync.",
+      "authority": "Proposed assigned-only audience; exact approved role and screen/section/element/API/permission mappings remain unresolved. Shared Academy factory is not authority.",
+      "persistence": "TrainingAssignment joined to TrainingModule with module.tenantId=currentTenant and independently resolved providerId OR staffId=current actor's approved identity mapping. Missing or ambiguous mapping denies, not name matching. Draft query must not expose other assignments or the entire tenant catalogue.",
+      "transitions": "Read only. Report stored assigned/completed state as recorded progress; it does not certify competence or renew/verify a certificate.",
+      "providerRules": "No external video URL automatically fetched; no external training/certification/sync provider. Content localization/publication source still requires approval.",
+      "decisions": [
+        "Approve assigned-only first scope versus tenant-wide catalogue",
+        "Approve exact providerId/staffId actor mapping and role/host/permission",
+        "Define localized content authority, completion evidence, expiry and publication rules before writes"
+      ],
+      "modelGaps": [
+        "TrainingModule has tenantId but no locale/publication/revision",
+        "TrainingAssignment has providerId/staffId without direct authenticated user ownership relation",
+        "CertificationNode identifies staff by name and cannot establish authenticated identity"
+      ],
+      "status": "draft-unapproved",
+      "noActivation": true,
+      "handlerImplemented": false,
+      "permissionKey": null,
+      "hostBindingApproved": false,
+      "ratePolicy": "Proposed per-tenant+actor read/request quota; exact counts/source/retention need review. Shared distributed store failure returns503;429 carries Retry-After. No implicit provider spend on retries.",
+      "auditPolicy": "Proposed operational event with tenant/actor/API/result/server UTC/correlation and record identifiers only; no tokens, query/body/transcript or private provider payload. Required audit/source quota and retention are explicit review dependencies. Audit store failure503.",
+      "validation": "Reject duplicate keys, unknown fields, client identity/tenant/role/permission selectors, unsupported content type and malformed/oversized UTF-8 before parsing. Draft commerce body cap32768bytes, other bodies8192bytes; responses131072bytes. UTF-16 and cross-field/server checks supplement JSON Schema.",
+      "clientBinding": "Only an exactly approved registered host may adapt the response to shared WorkSnapshot/control factories. Use captured live scope, no path-only private cache, discard stale actor/tenant/token replies, no actions synthesized from data. Existing generic factories/fixtures do not prove a live service.",
+      "verificationRequired": [
+        "Approved source/role/host and schema registration",
+        "Real API/PostgreSQL tenant/actor/role isolation",
+        "Malformed/oversized/duplicate inputs and exact response types",
+        "Actual success/empty/error/no fabricated fallback",
+        "Refresh/reload/logout/revocation and late-response cleanup",
+        "EN/FR/ES shared host keyboard and automated accessibility",
+        "Required device/human review separately in Section3"
+      ]
+    },
+    {
+      "module": "Commerce",
+      "operationCandidates": [
+        {
+          "id": 104,
+          "method": "POST",
+          "path": "/v1/admin/erp/purchase-orders",
+          "proposedRequest": "CommerceDraftRequest",
+          "proposedResponse": "CommerceDraftResponse"
+        }
+      ],
+      "firstScope": "Proposed tenant-owned draft requisition only; no send/receive/cancel/payment/supplier API. Existing purchase-order declaration does not establish a catalogue.",
+      "authority": "Exact purchaser role, tenant supplier visibility, item source and host/permission unresolved. Caller never supplies actor/tenant, prices, tax, totals or approval status.",
+      "persistence": "Proposed transaction validates approved tenant supplier/item catalogue, resolves server-side price/currency/tax quote and creates draft with receipt. Existing PurchaseOrder Float totalAmount cannot safely fulfill exact-decimal proposal without reviewed migration.",
+      "transitions": "Only absent->draft proposed. Same tenant+actor+key+canonical payload returns same receipt; changed payload with key returns409. Keys/receipt scoped and atomic; no blind retry if commit status unknown. Approval and supplier effects require separate contracts.",
+      "providerRules": "Zero supplier/provider/payment calls. No charges, orders or deliveries occur from saving a local draft.",
+      "decisions": [
+        "Approve draft-only scope and exact purchaser/supplier/item authority",
+        "Choose authoritative catalogue/price/currency/tax source and decimal model migration",
+        "Define receipt retention/revision/concurrency and later approval transitions separately"
+      ],
+      "modelGaps": [
+        "PurchaseOrder totalAmount is Float and lacks line items/currency/tax/revision/idempotent receipt",
+        "MarketplaceListing nullable tenant and category do not establish approved purchasable catalogue",
+        "No new item API or permission inferred"
+      ],
+      "status": "draft-unapproved",
+      "noActivation": true,
+      "handlerImplemented": false,
+      "permissionKey": null,
+      "hostBindingApproved": false,
+      "ratePolicy": "Proposed per-tenant+actor read/request quota; exact counts/source/retention need review. Shared distributed store failure returns503;429 carries Retry-After. No implicit provider spend on retries.",
+      "auditPolicy": "Proposed operational event with tenant/actor/API/result/server UTC/correlation and record identifiers only; no tokens, query/body/transcript or private provider payload. Required audit/source quota and retention are explicit review dependencies. Audit store failure503.",
+      "validation": "Reject duplicate keys, unknown fields, client identity/tenant/role/permission selectors, unsupported content type and malformed/oversized UTF-8 before parsing. Draft commerce body cap32768bytes, other bodies8192bytes; responses131072bytes. UTF-16 and cross-field/server checks supplement JSON Schema.",
+      "clientBinding": "Only an exactly approved registered host may adapt the response to shared WorkSnapshot/control factories. Use captured live scope, no path-only private cache, discard stale actor/tenant/token replies, no actions synthesized from data. Existing generic factories/fixtures do not prove a live service.",
+      "verificationRequired": [
+        "Approved source/role/host and schema registration",
+        "Real API/PostgreSQL tenant/actor/role isolation",
+        "Malformed/oversized/duplicate inputs and exact response types",
+        "Actual success/empty/error/no fabricated fallback",
+        "Refresh/reload/logout/revocation and late-response cleanup",
+        "EN/FR/ES shared host keyboard and automated accessibility",
+        "Required device/human review separately in Section3"
+      ]
+    },
+    {
+      "module": "AI-chat",
+      "operationCandidates": [],
+      "nearbyOperationsNotChat": [
+        308,
+        309,
+        310,
+        408
+      ],
+      "firstScope": "Unbound text protocol for optional product-help conversation; no tools, account/business mutation, clinical decision or private-record retrieval. No API path is proposed because no canonical chat identity has been established.",
+      "authority": "Must define exact API, participant role/tenant/host and session ownership before implementation. Analytics308–310, support408, and ai-images control are not chat authority.",
+      "persistence": "Proposed first stage ephemeral current-session conversation only, no local transcript cache; no retention until an approved policy/model is defined. Captured tenant/actor/request identity required; discard late scope-changed reply.",
+      "transitions": "Proposed one request->one reply or explicit error. Cancellation/log out retires in-flight rendering. Provider outcome unknown after timeout never causes an automatic duplicate paid request.",
+      "providerRules": "Provider/model/account/data policy, spend/input/output budgets and rate limit must be chosen and enforced server-side. Keys never reach clients; no arbitrary tools/URLs, private uploads or client-selected model. Until configured, unavailable; no demo answer.",
+      "decisions": [
+        "Choose actual governed chat operation and exact host/role/permission",
+        "Choose provider/model/account, allowed data, budget and cancellation policy",
+        "Approve no-retention first scope or define participants/retention/consent/audit before persistence"
+      ],
+      "modelGaps": [
+        "No approved canonical chat operation/participant model found",
+        "Nearby analytics/support declarations do not define model, transcript membership or chat authority"
+      ],
+      "status": "draft-unapproved",
+      "noActivation": true,
+      "handlerImplemented": false,
+      "permissionKey": null,
+      "hostBindingApproved": false,
+      "ratePolicy": "Proposed per-tenant+actor read/request quota; exact counts/source/retention need review. Shared distributed store failure returns503;429 carries Retry-After. No implicit provider spend on retries.",
+      "auditPolicy": "Proposed operational event with tenant/actor/API/result/server UTC/correlation and record identifiers only; no tokens, query/body/transcript or private provider payload. Required audit/source quota and retention are explicit review dependencies. Audit store failure503.",
+      "validation": "Reject duplicate keys, unknown fields, client identity/tenant/role/permission selectors, unsupported content type and malformed/oversized UTF-8 before parsing. Draft commerce body cap32768bytes, other bodies8192bytes; responses131072bytes. UTF-16 and cross-field/server checks supplement JSON Schema.",
+      "clientBinding": "Only an exactly approved registered host may adapt the response to shared WorkSnapshot/control factories. Use captured live scope, no path-only private cache, discard stale actor/tenant/token replies, no actions synthesized from data. Existing generic factories/fixtures do not prove a live service.",
+      "verificationRequired": [
+        "Approved source/role/host and schema registration",
+        "Real API/PostgreSQL tenant/actor/role isolation",
+        "Malformed/oversized/duplicate inputs and exact response types",
+        "Actual success/empty/error/no fabricated fallback",
+        "Refresh/reload/logout/revocation and late-response cleanup",
+        "EN/FR/ES shared host keyboard and automated accessibility",
+        "Required device/human review separately in Section3"
+      ]
+    },
+    {
+      "module": "Finance",
+      "operationCandidates": [
+        {
+          "id": 1122,
+          "method": "GET",
+          "path": "/v1/premium/transactionledger",
+          "proposedRequest": "FinanceLedgerQuery",
+          "proposedResponse": "FinanceLedgerResponse"
+        }
+      ],
+      "specificAuthorityNotGeneralized": [
+        16475
+      ],
+      "firstScope": "Proposed tenant-authorized read-only ledger projection. No invoice creation, payment, void/reversal, payroll, reconciliation, accounting-period closure or export.",
+      "authority": "Exact financial-reader role/permission and approved host unresolved. Tenant scope comes only from current session and revalidated resource policy. Existing owner invoice reads and Founder Growth finance remain in their original hosts and scopes.",
+      "persistence": "Read TransactionLedger with tenantId=currentTenant, exact Decimal(20,4) amounts serialized as four-place strings, stable createdAt/id ordering and snapshot-consistent count/rows. No binary floating-point arithmetic, inferred currency, cross-currency totals, IP metadata or raw provider payload.",
+      "transitions": "No business state changes. Stored sealed/voided projected only; unknown state yields unavailable pending reviewed mapping. No mutation/correction of historical rows.",
+      "providerRules": "No payment/accounting/tax/exchange provider called. No signed payment links or charges implied by this projection.",
+      "decisions": [
+        "Approve read-only ledger first scope and exact financial-reader role/host",
+        "Approve visible fields and tenant/account/resource restrictions; separately decide accounting/tax/currency rules for writes",
+        "Keep payment/reversal/period controls and provider contract as separate reviewed work"
+      ],
+      "modelGaps": [
+        "TransactionLedger is tenant-scoped with Decimal(20,4); generic read access still unapproved",
+        "LedgerService write algorithms and Invoice/Payment models do not grant generic financial authority"
+      ],
+      "status": "draft-unapproved",
+      "noActivation": true,
+      "handlerImplemented": false,
+      "permissionKey": null,
+      "hostBindingApproved": false,
+      "ratePolicy": "Proposed per-tenant+actor read/request quota; exact counts/source/retention need review. Shared distributed store failure returns503;429 carries Retry-After. No implicit provider spend on retries.",
+      "auditPolicy": "Proposed operational event with tenant/actor/API/result/server UTC/correlation and record identifiers only; no tokens, query/body/transcript or private provider payload. Required audit/source quota and retention are explicit review dependencies. Audit store failure503.",
+      "validation": "Reject duplicate keys, unknown fields, client identity/tenant/role/permission selectors, unsupported content type and malformed/oversized UTF-8 before parsing. Draft commerce body cap32768bytes, other bodies8192bytes; responses131072bytes. UTF-16 and cross-field/server checks supplement JSON Schema.",
+      "clientBinding": "Only an exactly approved registered host may adapt the response to shared WorkSnapshot/control factories. Use captured live scope, no path-only private cache, discard stale actor/tenant/token replies, no actions synthesized from data. Existing generic factories/fixtures do not prove a live service.",
+      "verificationRequired": [
+        "Approved source/role/host and schema registration",
+        "Real API/PostgreSQL tenant/actor/role isolation",
+        "Malformed/oversized/duplicate inputs and exact response types",
+        "Actual success/empty/error/no fabricated fallback",
+        "Refresh/reload/logout/revocation and late-response cleanup",
+        "EN/FR/ES shared host keyboard and automated accessibility",
+        "Required device/human review separately in Section3"
+      ]
+    }
+  ],
+  "mechanicalSchemaCases": [
+    {
+      "name": "AcademyCatalogRequest valid synthetic example",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25
+      },
+      "valid": true
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected tenantId",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25,
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected userId",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25,
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected role",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25,
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected permission",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25,
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects injected providerKey",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25,
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects missing required field",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 25
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse valid synthetic example",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": true
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected tenantId",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected userId",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected role",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected permission",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects injected providerKey",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects missing required field",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest valid synthetic example",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected tenantId",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1",
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected userId",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1",
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected role",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1",
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected permission",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1",
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest rejects injected providerKey",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "version": 1,
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1",
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressRequest rejects missing required field",
+      "schema": "AcademyProgressRequest",
+      "value": {
+        "action": "read_progress",
+        "locale": "fr",
+        "assignmentId": "assignment-1"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse valid synthetic example",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        }
+      },
+      "valid": true
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected tenantId",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        },
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected userId",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        },
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected role",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        },
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected permission",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        },
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse rejects injected providerKey",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        },
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyProgressResponse rejects missing required field",
+      "schema": "AcademyProgressResponse",
+      "value": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "fr",
+        "assignment": {
+          "assignmentId": "assignment-1",
+          "moduleId": "module-1",
+          "title": "Synthetic assigned module",
+          "category": null,
+          "status": "assigned",
+          "assignedAt": "2026-01-01T00:00:00Z",
+          "dueAt": null,
+          "completedAt": null
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest valid synthetic example",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ]
+      },
+      "valid": true
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected tenantId",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ],
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected userId",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ],
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected role",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ],
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected permission",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ],
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest rejects injected providerKey",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ],
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftRequest rejects missing required field",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse valid synthetic example",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        }
+      },
+      "valid": true
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected tenantId",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        },
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected userId",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        },
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected role",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        },
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected permission",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        },
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects injected providerKey",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        },
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects missing required field",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.3400"
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest valid synthetic example",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question"
+      },
+      "valid": true
+    },
+    {
+      "name": "AiProtocolRequest rejects injected tenantId",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question",
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest rejects injected userId",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question",
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest rejects injected role",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question",
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest rejects injected permission",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question",
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest rejects injected providerKey",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question",
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolRequest rejects missing required field",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "Synthetic product help question"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse valid synthetic example",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0
+      },
+      "valid": true
+    },
+    {
+      "name": "AiProtocolResponse rejects injected tenantId",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0,
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse rejects injected userId",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0,
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse rejects injected role",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0,
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse rejects injected permission",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0,
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse rejects injected providerKey",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0,
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "AiProtocolResponse rejects missing required field",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 0
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery valid synthetic example",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25"
+      },
+      "valid": true
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected tenantId",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25",
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected userId",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25",
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected role",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25",
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected permission",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25",
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery rejects injected providerKey",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "0",
+        "limit": "25",
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerQuery rejects missing required field",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "offset": "0",
+        "limit": "25"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse valid synthetic example",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": true
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected tenantId",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected userId",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected role",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected permission",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects injected providerKey",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1,
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects missing required field",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "Error valid synthetic example",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "Error rejects injected tenantId",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1",
+        "tenantId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "Error rejects injected userId",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1",
+        "userId": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "Error rejects injected role",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1",
+        "role": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "Error rejects injected permission",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1",
+        "permission": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "Error rejects injected providerKey",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1",
+        "providerKey": "injected"
+      },
+      "valid": false
+    },
+    {
+      "name": "Error rejects missing required field",
+      "schema": "Error",
+      "value": {
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse empty is not fake content",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [],
+        "offset": 0,
+        "limit": 25,
+        "total": 0
+      },
+      "valid": true
+    },
+    {
+      "name": "AcademyCatalogResponse bounded rows",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          },
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse empty is not fake content",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [],
+        "offset": 0,
+        "limit": 25,
+        "total": 0
+      },
+      "valid": true
+    },
+    {
+      "name": "FinanceLedgerResponse bounded rows",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          },
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects limit0",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 0
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects limit101",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": 0,
+        "limit": 101
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogRequest rejects offset-1",
+      "schema": "AcademyCatalogRequest",
+      "value": {
+        "version": 1,
+        "action": "list_assigned",
+        "locale": "en",
+        "offset": -1,
+        "limit": 25
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects limit0",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 0,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects limit101",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": 0,
+        "limit": 101,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "AcademyCatalogResponse rejects offset-1",
+      "schema": "AcademyCatalogResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "locale": "en",
+        "items": [
+          {
+            "assignmentId": "assignment-1",
+            "moduleId": "module-1",
+            "title": "Synthetic assigned module",
+            "category": null,
+            "status": "assigned",
+            "assignedAt": "2026-01-01T00:00:00Z",
+            "dueAt": null,
+            "completedAt": null
+          }
+        ],
+        "offset": -1,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects limit0",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 0,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects limit101",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 101,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects offset-1",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.3400",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": -1,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce invalid quantity0",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 0
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce invalid quantity-1",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": -1
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce invalid quantity1.5",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 1.5
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce invalid quantity10001",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 10001
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce rejects action",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "send_order",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "00000000-0000-4000-8000-000000000001",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "commerce rejects idempotencyKey",
+      "schema": "CommerceDraftRequest",
+      "value": {
+        "version": 1,
+        "action": "create_draft",
+        "supplierId": "supplier-1",
+        "idempotencyKey": "not-a-uuid",
+        "items": [
+          {
+            "itemId": "item-1",
+            "quantity": 2
+          }
+        ]
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount12.34",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": 12.34
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount12.34",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": 12.34,
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount1e3",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "1e3"
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount1e3",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "1e3",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount-1.0000",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "-1.0000"
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount-1.0000",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "-1.0000",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount12.34",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "12.34"
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount12.34",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "12.34",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "CommerceDraftResponse rejects unsafe amount10000000000000000.0000",
+      "schema": "CommerceDraftResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "order": {
+          "id": "draft-1",
+          "revision": 1,
+          "status": "draft",
+          "supplierId": "supplier-1",
+          "currency": "CAD",
+          "amount": "10000000000000000.0000"
+        }
+      },
+      "valid": false
+    },
+    {
+      "name": "FinanceLedgerResponse rejects unsafe amount10000000000000000.0000",
+      "schema": "FinanceLedgerResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "items": [
+          {
+            "id": "entry-1",
+            "transactionType": "PAYMENT",
+            "referenceType": "Invoice",
+            "referenceId": "invoice-1",
+            "debitAccount": "cash",
+            "creditAccount": "receivable",
+            "amount": "10000000000000000.0000",
+            "currency": "CAD",
+            "status": "sealed",
+            "createdAt": "2026-01-01T00:00:00Z"
+          }
+        ],
+        "offset": 0,
+        "limit": 25,
+        "total": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "AI rejects oversized/unsafe text4001",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+      },
+      "valid": false
+    },
+    {
+      "name": "AI rejects oversized/unsafe text2001",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀"
+      },
+      "valid": false
+    },
+    {
+      "name": "AI rejects oversized/unsafe text11",
+      "schema": "AiProtocolRequest",
+      "value": {
+        "version": 1,
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "message": "bad\u0000content"
+      },
+      "valid": false
+    },
+    {
+      "name": "AI no unapproved tools",
+      "schema": "AiProtocolResponse",
+      "value": {
+        "version": 1,
+        "scope": {
+          "tenantId": "synthetic-tenant",
+          "userId": "synthetic-user",
+          "role": "synthetic-approved-role",
+          "dataset": "live"
+        },
+        "requestId": "00000000-0000-4000-8000-000000000002",
+        "locale": "en",
+        "reply": "Synthetic draft protocol example only.",
+        "toolsExecuted": 1
+      },
+      "valid": false
+    },
+    {
+      "name": "ledger rejects query offset-1",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "-1",
+        "limit": "25"
+      },
+      "valid": false
+    },
+    {
+      "name": "ledger rejects query offset1.5",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "1.5",
+        "limit": "25"
+      },
+      "valid": false
+    },
+    {
+      "name": "ledger rejects query offset100001",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "100001",
+        "limit": "25"
+      },
+      "valid": false
+    },
+    {
+      "name": "ledger rejects query offset01",
+      "schema": "FinanceLedgerQuery",
+      "value": {
+        "version": "1",
+        "offset": "01",
+        "limit": "25"
+      },
+      "valid": false
+    },
+    {
+      "name": "strict error invalid_request",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "invalid_request",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error unauthenticated",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unauthenticated",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error forbidden",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "forbidden",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error not_found",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "not_found",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error conflict",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "conflict",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error rate_limited",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "rate_limited",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    },
+    {
+      "name": "strict error unavailable",
+      "schema": "Error",
+      "value": {
+        "version": 1,
+        "error": "unavailable",
+        "correlationId": "synthetic-request-1"
+      },
+      "valid": true
+    }
+  ],
+  "crossFieldRequirements": [
+    "Match captured response tenant/user/role/dataset and requested locale/action/record identity; schema scope shape is not identity authorization",
+    "Snapshot-consistent count/rows and requested pagination must match; total covers returned offset/rows",
+    "Academy completedAt/state consistency and independently resolved staff/provider mapping; no name-based authorization",
+    "Commerce quantities/items must be unique and approved tenant catalogue prices server-resolved; atomic receipt canonical payload digest prevents duplicate drafts",
+    "AI reply requestId/scope/locale must match the actual request; provider outcome and budget tracking separate",
+    "Finance exact amount/currency/state mapping must match approved DB source; no sum/conversion inferred from examples",
+    "All quotas/audit/retention/provider decisions and schema/source migrations reviewed before activation"
+  ],
+  "existingTrainingRepairEvidence": {
+    "source": "6347290414d5cbb7a6e8eea0c0293e877f8cd73a",
+    "run": 43555533770,
+    "job": 132327428987,
+    "serviceCasesPassed": 68,
+    "oldSourceControlExecuted": true,
+    "liveDatabaseTested": false,
+    "newBusinessContractImplemented": false
+  }
+}
