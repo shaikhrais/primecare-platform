@@ -3,7 +3,7 @@ const bundle=await build({stdin:{contents:`export {ApplicationSettingsPort} from
 const {ApplicationSettingsPort,ApplicationProfilePort,applicationPreferenceTransport,dashboardPageTransport}=await import('data:text/javascript;base64,'+Buffer.from(bundle.outputFiles[0].text).toString('base64'));
 const scope={tenantId:'tenant',userId:'user1',role:'psw',dataset:'live'},identity={status:'authenticated',tenantId:'tenant',userId:'user1',roles:'psw'},query={search:'',offset:0};
 function profile(fetcher){let session={token:'captured',scope};const port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>session,{identity:'Identity'},fetcher);return {port,change:()=>{session={token:'other',scope};}};}
-function delayed(){let finish,cancelled=false;const response=new Response(new ReadableStream({start(controller){finish=()=>{controller.enqueue(new TextEncoder().encode(JSON.stringify(identity)));};},cancel(){cancelled=true;}}));return {response,finish:()=>finish(),cancelled:()=>cancelled};}
+function delayed(){let finish,cancelled=false;const response=new Response(new ReadableStream({start(controller){finish=()=>{if(!cancelled)controller.enqueue(new TextEncoder().encode(JSON.stringify(identity)));};},cancel(){cancelled=true;}}));return {response,finish:()=>finish(),cancelled:()=>cancelled};}
 test('profile owns its label snapshot across asynchronous reads',async()=>{
  let finish;const labels={identity:'Identity'},port=new ApplicationProfilePort('https://fixture.test','captured',scope,()=>({token:'captured',scope}),labels,()=>new Promise(resolve=>{finish=()=>resolve(Response.json(identity));}));
  const pending=port.read(query,new AbortController().signal);labels.identity='Changed by caller';finish();
@@ -113,4 +113,17 @@ test('profile releases caller abort subscription on successful and rejected requ
 test('profile disposal leaves completed fetch signals retired and caller cancellation still forwards',async()=>{
  let completedSignal;const done=profile(async(url,options)=>{completedSignal=options.signal;return Response.json(identity);});await done.port.read(query,new AbortController().signal);done.port.dispose();assert.equal(completedSignal.aborted,false);
  let activeSignal;const caller=new AbortController(),p=profile((url,options)=>{activeSignal=options.signal;return new Promise((resolve,reject)=>options.signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true}));});const pending=p.port.read(query,caller.signal);caller.abort();assert.equal(activeSignal.aborted,true);await assert.rejects(()=>pending,e=>e.code==='unavailable');p.port.dispose();
+});
+
+for(const mode of ['abort','dispose'])test('profile '+mode+' releases a stalled response without another byte',async()=>{
+ let source,cancelled=0,calls=0;
+ const p=profile(async()=>{calls++;return calls===1?new Response(new ReadableStream({start(c){source=c;},cancel(){cancelled++;}})):Response.json(identity);}),caller=new AbortController();
+ const pending=p.port.read(query,caller.signal).then(value=>({value}),error=>({error}));
+ await new Promise(r=>setImmediate(r));if(mode==='dispose')p.port.dispose();else caller.abort();
+ let timer;const observed=await Promise.race([pending,new Promise(r=>timer=setTimeout(()=>r(null),100))]);clearTimeout(timer);
+ // Clean up the deliberately stalled old implementation before reporting a failed regression.
+ if(observed===null){source.enqueue(new TextEncoder().encode(JSON.stringify(identity)));await pending;}
+ assert.notEqual(observed,null,'cancellation must settle before any further response byte');
+ assert.equal(observed.error?.code,'unavailable');assert.equal(cancelled,1);assert.equal(calls,1);assert.equal(caller.signal.aborted,mode==='abort');
+ if(mode==='abort'){assert.equal((await p.port.read(query,new AbortController().signal)).items[0].id,'user1');assert.equal(calls,2);}p.port.dispose();
 });
