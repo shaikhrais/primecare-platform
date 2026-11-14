@@ -69,6 +69,20 @@ try{
  await page.reload();await mount('tasks');assert.ok((await page.locator('main').innerText()).includes(row.title));checks++;
  // An expired/changed host session must clear the old authorized result.
  await page.evaluate(async()=>{sessionStorage.removeItem('primecare_session');await window.session.load();});assert.equal(await page.evaluate(()=>window.session.status),'denied');assert.equal(await page.locator('[data-work-card]').count(),0);checks++;assert.deepEqual(errors,[]);
+ // A successful, correctly scoped HTTP response with a revoked view must clear rendered private data.
+ for(const module of ['tasks','contacts']){
+  await mount(module);let intercepted=0;
+  const revoke=async route=>{const response=await route.fetch(),data=await response.json();data.allowedViews=[module==='contacts'?'tasks':'people'];intercepted++;await route.fulfill({response,json:data});};
+  await page.route('**/v1/governance/tenant-dashboard**',revoke);
+  await page.evaluate(async()=>{await window.session.load();});
+  assert.equal(await page.evaluate(()=>window.session.status),'denied');
+  assert.equal(await page.evaluate(()=>window.session.current.snapshot),null);
+  assert.equal(await page.evaluate(()=>window.session.current.pending),false);
+  assert.equal(await page.locator('[data-work-card]').count(),0);assert.equal(intercepted,1);
+  assert.equal(await page.evaluate(()=>window.writes),0);
+  assert.deepEqual((await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0],row);
+  await page.unroute('**/v1/governance/tenant-dashboard**',revoke);checks++;
+ }
  // A network rejection after logout must revoke both reads and an uncertain write.
  for(const method of ['GET','POST']){
   await mount('tasks');let release,started;const held=new Promise(resolve=>started=resolve);let dispatches=0,receipt;
@@ -83,6 +97,15 @@ try{
   assert.deepEqual((await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0],row);
   await page.unroute('**/v1/governance/tenant-dashboard**',intercept);checks++;
  }
+ // Revocation in a committed POST reply denies the UI without replaying the original mutation.
+ await mount('tasks');let revokedPosts=0,originalReceipt;
+ const revokePost=async route=>{if(route.request().method()!=='POST'){await route.continue();return;}revokedPosts++;originalReceipt=route.request().headers()['idempotency-key'];const response=await route.fetch();assert.equal(response.status(),200);const data=await response.json();data.allowedViews=['people'];await route.fulfill({response,json:data});};
+ await page.route('**/v1/governance/tenant-dashboard**',revokePost);
+ const deniedPost=await page.evaluate(async()=>{try{await window.session.submit(window.session.current.snapshot.items[0].id,'edit',{title:'Committed before view revocation',body:'Saved browser task instructions',date:'2026-11-09'});}catch(error){return error.code;}});
+ assert.equal(deniedPost,'denied');assert.equal(await page.evaluate(()=>window.session.status),'denied');assert.equal(await page.evaluate(()=>window.session.current.snapshot),null);assert.equal(await page.evaluate(()=>window.session.current.pending),false);
+ assert.equal(await page.locator('[data-work-card]').count(),0);assert.equal(revokedPosts,1);assert.match(originalReceipt,/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
+ assert.deepEqual((await f.db.query('SELECT title,notes,due_on::text,status,version FROM tenant_work_tasks WHERE id=$1',[item.id])).rows[0],{...row,title:'Committed before view revocation',version:row.version+1});
+ await page.unroute('**/v1/governance/tenant-dashboard**',revokePost);checks++;
  assert.deepEqual(errors,[]);
  console.log(`PASS work modules browser: ${checks} checks; five templates, retained invalid draft, API writes, independent SQL, reload and session denial (${f.native?'native PostgreSQL':'PGlite PostgreSQL'})`);
 }finally{await browser?.close();if(server)await new Promise(r=>server.close(r));await f.close();}

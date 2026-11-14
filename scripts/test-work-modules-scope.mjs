@@ -8,7 +8,7 @@ const dir=await mkdtemp(join(tmpdir(),'work-scope-'));
 await build({stdin:{contents:`export * from './packages/shared/src/work-modules/tenant-task-adapter';export * from './packages/shared/src/work-modules/session';export {WorkFailure} from './packages/domain/src/work_modules';`,resolveDir:process.cwd(),loader:'ts'},outfile:join(dir,'test.cjs'),bundle:true,platform:'node',format:'cjs'});
 const {TenantTaskModulePort,WorkModuleSession,WorkFailure}=createRequire(import.meta.url)(join(dir,'test.cjs'));
 const original={tenantId:'tenant-a',userId:'actor-a',role:'manager',dataset:'live'};
-const raw={organization:{id:'tenant-a'},identity:{userId:'actor-a',role:'manager'},dataset:'live',synthetic:false,database:'PostgreSQL',tasks:[],users:[],clients:[],taskPage:{total:0}};
+const raw={organization:{id:'tenant-a'},identity:{userId:'actor-a',role:'manager'},dataset:'live',synthetic:false,database:'PostgreSQL',allowedViews:['tasks','people'],tasks:[],users:[],clients:[],taskPage:{total:0}};
 let checks=0;
 // Definitive rejected writes cannot consume the bounded uncertain-replay capacity.
 for(const status of [400,401,403,404,409]){
@@ -233,5 +233,24 @@ for(const module of ['tasks','contacts']){
  finish({...raw,users:[{id:'alice',name:'Alice',email:'alice@example.invalid'}]});const result=await pending;
  assert.equal(result.offset,0);if(module==='contacts')assert.deepEqual(result.items.map(i=>i.title),['Alice']);else assert.equal(sent[0].filters.search,'Requested');
  port.dispose();checks++;
+}
+// Every fresh response must retain the server view required by this module.
+for(const module of ['calendar','contacts','tasks','notes','board'])for(const allowedViews of [undefined,[],['overview'],[module==='contacts'?'tasks':'people']]){
+ const port=new TenantTaskModulePort(original,module,async()=>({...raw,allowedViews}));
+ await assert.rejects(()=>port.read({search:'',offset:0},new AbortController().signal),e=>e.code==='denied'&&e.status===403);
+ port.dispose();checks++;
+}
+for(const phase of ['reload','mutation','verification']){
+ const task={id:'task-a',version:1,title:'Owned task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};
+ let revoked=false,posts=0;
+ const port=new TenantTaskModulePort(original,'tasks',async request=>{
+  if(request.method==='POST'){posts++;return {...raw,allowedViews:phase==='mutation'?['people']:raw.allowedViews,tasks:[{...task,version:2,title:'Saved'}],taskPage:{total:1}};}
+  return {...raw,allowedViews:revoked?['people']:raw.allowedViews,tasks:[task],taskPage:{total:1}};
+ });
+ const session=new WorkModuleSession(original,'tasks',port);await session.load();assert.equal(session.current.snapshot.items[0].title,task.title);
+ if(phase==='reload'){revoked=true;await session.load();}
+ else{if(phase==='verification')revoked=true;await assert.rejects(()=>session.submit(task.id,'edit',{title:'Saved',body:'Instructions',date:task.due_on},1),e=>e.code==='denied');}
+ assert.equal(session.status,'denied');assert.equal(session.current.snapshot,null);assert.equal(session.current.pending,false);assert.equal(posts,phase==='reload'?0:1);
+ session.dispose();checks++;
 }
 console.log(`PASS tenant work scope: ${checks} cases; immutable actor/dataset binding and foreign response denial`);
