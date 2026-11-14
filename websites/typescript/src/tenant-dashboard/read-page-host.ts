@@ -44,7 +44,7 @@ export function mountTenantReadHost(root:HTMLElement,options:{gateway:string;tok
    view=new OwnedProfile(slot,session,{locale,year:Number(data.today.slice(0,4)),month:Number(data.today.slice(5,7)),firstWeekday:1});
   }else{
    const resources=Object.fromEntries(Object.entries(contract.resources).map(([key,value])=>[key.slice('dashboardPages.'.length),value[locale]]));
-   const labels={...resources,live:tenant.labels.live,demo:tenant.labels.demo,bounded:resources.partial};
+   const labels={...resources,live:resources.ready,demo:tenant.labels.demo,bounded:resources.partial};
    if(kind==='activity'||kind==='search')renderRecordPage(slot,projectRecordPage(kind,data,scope,kind==='search'?options.params.get('readQuery')??'':''),labels);
    else renderDashboardProjection(slot,projectDashboard(kind,data,scope),{...labels,title:resources[kind],denied:resources.denied,unavailable:resources.unavailable,metrics:resources});
   }

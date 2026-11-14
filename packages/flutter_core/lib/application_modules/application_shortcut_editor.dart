@@ -15,7 +15,7 @@ class ApplicationShortcutEditor extends ChangeNotifier {
  Future<void> confirmRecovery(String token,String mode)async{_open();await _owned.client.confirmRecovery(token,mode);}
  PreferenceBinding get binding=>_owned.client.binding;
  Map<String,dynamic> get current{final state=_owned.client.current,draft=state['draft'] as Map?;return {...state,'selected':List<String>.from(draft?['screenIds'] as List? ?? _owned.defaults)};}
- List<({String id,String title})> destinations([String query='']){if(query.length>100)throw const WorkFailure('invalid');final search=query.toLowerCase();return [for(final e in _owned.names.entries)if(e.value.toLowerCase().contains(search))(id:e.key,title:e.value)];}
+ List<({String id,String title})> destinations([String query='']){_open();if(query.length>100)throw const WorkFailure('invalid');final search=query.toLowerCase();return [for(final e in _owned.names.entries)if(e.value.toLowerCase().contains(search))(id:e.key,title:e.value)];}
  void _open(){if(_dead)throw const WorkFailure('unavailable');}
  void _editable(){_open();final state=current;if(state['loaded']!=true||state['pending']!=null||state['remote']!=null||!['clean','dirty','offline'].contains(state['status']))throw const WorkFailure('conflict',409);}
  Future<void> load()async{_open();await _owned.client.load();}

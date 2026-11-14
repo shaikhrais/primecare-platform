@@ -1,7 +1,10 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
 import {build} from 'esbuild';
 import {parseHTML} from 'linkedom';
+const contract=JSON.parse(readFileSync(new URL('../tools/governance-production/dashboard-pages-contract.json',import.meta.url),'utf8'));
+const tenant=JSON.parse(readFileSync(new URL('../packages/shared/src/tenant-dashboard/catalog.json',import.meta.url),'utf8'));
 const built=await build({entryPoints:['websites/typescript/src/tenant-dashboard/read-page-host.ts'],bundle:true,write:false,format:'esm',platform:'node'});
 const {mountTenantReadHost}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
 function fixture(kind,locale='en'){
@@ -33,7 +36,13 @@ test('unsupported, stale and demo profile requests do not mount',()=>{
  const demo=fixture('profile');demo.options.data.dataset='demo';demo.options.data.synthetic=true;assert.equal(mountTenantReadHost(demo.root,demo.options),null);
 });
 test('read host uses registered French and Spanish resources',()=>{
- for(const locale of ['fr','es']){const {root,options}=fixture('activity',locale),h=mountTenantReadHost(root,options);assert.doesNotMatch(root.textContent,/Current authorized data/);assert.match(root.textContent,/task_created/);h.dispose();}
+ for(const locale of ['fr','es'])for(const kind of ['project','activity']){
+  const {root,options}=fixture(kind,locale),h=mountTenantReadHost(root,options),ready=contract.resources['dashboardPages.ready'][locale];
+  assert.equal(root.textContent.includes(tenant.labels.live),false);
+  assert.equal(root.textContent.split(ready).length-1,kind==='activity'?2:1);
+  if(kind==='activity')assert.match(root.textContent,/task_created/);
+  h.dispose();
+ }
 });
 test('old cleanup does not remove a replacement host',()=>{
  const {root,options}=fixture('project'),old=mountTenantReadHost(root,options);root.querySelector('main').replaceChildren();const next=mountTenantReadHost(root,{...options,params:new URLSearchParams({readPage:'search'})});old.dispose();assert.match(root.textContent,/Authorized task/);next.dispose();
