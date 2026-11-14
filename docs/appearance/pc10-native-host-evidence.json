@@ -59,8 +59,11 @@
     },
     "macos": {
       "jobId": 132262330487,
-      "status": "pending_at_receipt"
-    }
+      "status": "success",
+      "hostTestsPassed": 11,
+      "sharedTestsPassed": 148
+    },
+    "allFiveJobs": "success"
   },
   "readViews": [
     "profile",
