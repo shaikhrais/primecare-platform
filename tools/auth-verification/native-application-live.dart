@@ -127,6 +127,7 @@ void main(){
       final state=tester.widget<PrimeApplicationShortcuts>(find.byType(PrimeApplicationShortcuts)).editor.current;
       expect(state['selected'],['2534','1269']);expect(requests.where((r)=>r['action']!='read').length,1);
       (container.read(authProvider.notifier) as LiveAuth).logoutFixture();await tester.pump();
+      expect(find.byType(PrimeDashboardPage),findsNothing);expect(find.byType(PrimeRecordPage),findsNothing);
       expect(find.byType(PrimeApplicationShortcuts),findsNothing);expect(find.text(actor['id'] as String),findsNothing);
       expect(tester.takeException(),isNull);
       results.add({'locale':locale,'width':width,'userId':actor['id'],'tenantId':actor['tenant'],

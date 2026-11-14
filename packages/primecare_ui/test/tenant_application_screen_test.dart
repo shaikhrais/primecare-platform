@@ -48,7 +48,7 @@ class HostFixture {
         'allowedViews':['tasks','operations','audit','workflows'],
         'taskStats':{'open':0,'review':0,'blocked':0,'overdue':0,'completed':0},
         'stats':{'staff':1,'clients':0,'visits':null,'requests':null,'time':null,'care':null,'plans':0},
-        'events':[],'tasks':[],'workflows':[{'title':'Owned workflow guide','flow_id':'owned.workflow'}]},dashboardStatus);
+        'events':<Map<String,dynamic>>[],'tasks':<Map<String,dynamic>>[],'workflows':[{'title':'Owned workflow guide','flow_id':'owned.workflow'}]},dashboardStatus);
     }
     if(request.url.path=='/v1/auth/me'){
       expect(request.method,'GET');
@@ -103,8 +103,15 @@ void main(){
       final field=find.descendant(of:search,matching:find.byType(TextField));
       await tester.ensureVisible(field);await tester.enterText(field,'no matching guide');await tester.pump();
       expect(tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage)).singleWhere((w)=>w.projection.kind=='search').projection.status,'empty');
+      await tester.enterText(field,List.filled(100,'😀').join());await tester.pump();
+      expect(tester.widget<TextField>(field).controller!.text.length,lessThanOrEqualTo(100));
+      expect(tester.widgetList<PrimeRecordPage>(find.byType(PrimeRecordPage)).singleWhere((w)=>w.projection.kind=='search').projection.status,'empty');
+      final refresh=find.descendant(of:find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-reload-dashboard'),matching:find.byType(TextButton));
+      expect(tester.widget<TextButton>(refresh).onPressed,isNotNull);
       await press(tester,choice());expect(f.writes,isEmpty);
+      expect(tester.widget<TextButton>(refresh).onPressed,isNull);
       await press(tester,find.widgetWithText(TextButton,shellText(row.$1,'save')));
+      expect(tester.widget<TextButton>(refresh).onPressed,isNotNull);
       expect(f.revision,1);expect((f.document as Map)['screenIds'],contains('1269'));
       expect(f.writes.length,1);expect(f.requests.where((r)=>r.url.path=='/v1/user/preferences'&&jsonDecode(r.body)['action']=='read').length,greaterThanOrEqualTo(2));
       await tester.pumpWidget(const SizedBox());await tester.pumpAndSettle();

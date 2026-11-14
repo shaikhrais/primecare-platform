@@ -127,8 +127,16 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
             if(_activity!=null)readView('activity',PrimeRecordPage(projection:_activity!,labels:readLabels)),
             application.identify('filter','prime_text_field',PrimeTextField(controller:_recordSearch,maxLength:100,
               decoration:InputDecoration(labelText:readLabels['search']),onChanged:(value){
-                if(!_current||_source==null||value.length>100)return;
-                setState(()=>_records=RecordPageProjection.fromResponse('search',_source,widget.identity.scope,query:value));
+                if(!_current||_source==null)return;
+                var query=value;
+                // TextField limits graphemes; the shared API projection bounds UTF-16 units.
+                if(query.length>100){
+                  var end=100;final last=query.codeUnitAt(99);
+                  if(last>=0xD800&&last<=0xDBFF)end--;
+                  query=query.substring(0,end);
+                  _recordSearch.value=TextEditingValue(text:query,selection:TextSelection.collapsed(offset:query.length));
+                }
+                setState(()=>_records=RecordPageProjection.fromResponse('search',_source,widget.identity.scope,query:query));
               }),suffix:'-dashboard-search'),
             if(_records!=null)readView('search',PrimeRecordPage(projection:_records!,labels:readLabels)),
           ],
