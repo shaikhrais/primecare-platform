@@ -1,0 +1,213 @@
+{
+  "migrationSha256": "a40d7e4d9c97e273e13378cb6fbde5a50e46ca8f6139450babf86db8b40df87e",
+  "shape": {
+    "columns": [
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "id",
+        "data_type": "bigint",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "YES",
+        "identity_generation": "ALWAYS"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "user_id",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "action",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "locale",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "returned",
+        "data_type": "integer",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "created_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "NO",
+        "column_default": "statement_timestamp()",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_audit",
+        "column_name": "expires_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "NO",
+        "column_default": "(statement_timestamp() + '720:00:00'::interval)",
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_rate",
+        "column_name": "tenant_id",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_rate",
+        "column_name": "user_id",
+        "data_type": "text",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_rate",
+        "column_name": "attempts",
+        "data_type": "integer",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      },
+      {
+        "table_name": "help_reader_rate",
+        "column_name": "reset_at",
+        "data_type": "timestamp with time zone",
+        "is_nullable": "NO",
+        "column_default": null,
+        "is_identity": "NO",
+        "identity_generation": null
+      }
+    ],
+    "constraints": [
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_action_check",
+        "convalidated": true,
+        "definition": "CHECK ((action = ANY (ARRAY['list'::text, 'read'::text])))"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_check",
+        "convalidated": true,
+        "definition": "CHECK ((((returned >= 0) AND (returned <= 100)) AND ((action <> 'read'::text) OR (returned = 1))))"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_check1",
+        "convalidated": true,
+        "definition": "CHECK ((expires_at = (created_at + '720:00:00'::interval)))"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_locale_check",
+        "convalidated": true,
+        "definition": "CHECK ((locale = ANY (ARRAY['en'::text, 'fr'::text, 'es'::text])))"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_pkey",
+        "convalidated": true,
+        "definition": "PRIMARY KEY (id)"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_tenant_id_fkey",
+        "convalidated": true,
+        "definition": "FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE"
+      },
+      {
+        "table_name": "help_reader_audit",
+        "conname": "help_reader_audit_user_id_fkey",
+        "convalidated": true,
+        "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      },
+      {
+        "table_name": "help_reader_rate",
+        "conname": "help_reader_rate_attempts_check",
+        "convalidated": true,
+        "definition": "CHECK (((attempts >= 1) AND (attempts <= 31)))"
+      },
+      {
+        "table_name": "help_reader_rate",
+        "conname": "help_reader_rate_pkey",
+        "convalidated": true,
+        "definition": "PRIMARY KEY (tenant_id, user_id)"
+      },
+      {
+        "table_name": "help_reader_rate",
+        "conname": "help_reader_rate_tenant_id_fkey",
+        "convalidated": true,
+        "definition": "FOREIGN KEY (tenant_id) REFERENCES tenants(id) ON DELETE CASCADE"
+      },
+      {
+        "table_name": "help_reader_rate",
+        "conname": "help_reader_rate_user_id_fkey",
+        "convalidated": true,
+        "definition": "FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE"
+      }
+    ],
+    "indexes": [
+      {
+        "tablename": "help_reader_audit",
+        "indexname": "help_reader_audit_expiry",
+        "indexdef": "CREATE INDEX help_reader_audit_expiry ON public.help_reader_audit USING btree (expires_at)"
+      },
+      {
+        "tablename": "help_reader_audit",
+        "indexname": "help_reader_audit_pkey",
+        "indexdef": "CREATE UNIQUE INDEX help_reader_audit_pkey ON public.help_reader_audit USING btree (id)"
+      },
+      {
+        "tablename": "help_reader_rate",
+        "indexname": "help_reader_rate_pkey",
+        "indexdef": "CREATE UNIQUE INDEX help_reader_rate_pkey ON public.help_reader_rate USING btree (tenant_id, user_id)"
+      }
+    ],
+    "relations": [
+      {
+        "relname": "help_reader_audit",
+        "relkind": "r",
+        "comment": "primecare.help-reader.operational-policy.v1"
+      },
+      {
+        "relname": "help_reader_rate",
+        "relkind": "r",
+        "comment": "primecare.help-reader.operational-policy.v1"
+      }
+    ],
+    "triggers": []
+  }
+}
