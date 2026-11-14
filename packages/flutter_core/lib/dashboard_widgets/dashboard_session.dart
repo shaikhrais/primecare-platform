@@ -27,7 +27,7 @@ class DashboardSession extends ChangeNotifier {final PreferenceScope scope;final
    if(verified.revision!=_acknowledged!.revision||canonicalPreference(verified.document?.toJson())!=canonicalPreference(p.document.toJson()))throw const DashboardConflict();
    revision=verified.revision;_knownContent=canonicalPreference(verified.document?.toJson());_pending=null;_acknowledged=null;status=_edits==p.edits?'clean':'dirty';
   }catch(e){if(_dead||g!=_epoch)return;status=e is DashboardConflict?'conflict':'error';if(status=='conflict'){_pending=null;_acknowledged=null;}}
-  notifyListeners();if(['error','conflict'].contains(status))throw StateError('dashboard_save_failed');
+  final failed=['error','conflict'].contains(status);notifyListeners();if(failed)throw StateError('dashboard_save_failed');
  }
 
  @override void dispose(){_dead=true;_epoch++;_pending=null;_acknowledged=null;status='disposed';super.dispose();}}

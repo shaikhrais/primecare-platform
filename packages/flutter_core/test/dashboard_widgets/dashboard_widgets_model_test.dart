@@ -59,4 +59,10 @@ void main(){final fixture=jsonDecode(File('test/dashboard_widgets/model-fixtures
   await s.load();await expectLater(s.save(),throwsStateError);expect(s.status,'disposed');expect(s.pending,false);expect(port.state.revision,0);
  });
 
+ for(final loseAck in [true,false])test('failed dashboard attempt rejects after observer starts receipt retry $loseAck',()async{
+  final p=RecoveryPort(DashboardSnapshot(scope,'fixture',0,null),loseAck),s=session(p);await s.load();Future<void>? retry;var started=false;
+  s.addListener((){if(s.status=='error'&&!started){started=true;retry=s.retryPending();}});
+  try{await expectLater(s.save(),throwsA(isA<StateError>().having((error)=>error.message,'message','dashboard_save_failed')));}finally{await retry;}
+  expect(started,true);expect(s.status,'clean');expect(s.pending,false);expect(p.applied,1);expect(p.writes,loseAck?2:1);if(p.keys.length==2)expect(p.keys[0],p.keys[1]);s.dispose();
+ });
 }

@@ -383,5 +383,17 @@ void main(){
   expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());a.dispose();b.dispose();first.dispose();second.dispose();replace.dispose();
  });
 
+ for(final loseAck in [true,false])test('failed work attempt preserves its error after observer retry $loseAck',()async{
+  final p=Port('tasks');p.lose=loseAck;p.loseRead=!loseAck;final s=session('tasks',p);await s.load();Future<void>? retry;var started=false;
+  s.addListener((){if(s.status=='error'&&!started){started=true;retry=s.retryPending();}});
+  try{await expectLater(s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>().having((error)=>error.code,'code','error')));}finally{await retry;}
+  expect(started,true);expect(s.status,'success');expect(s.pending,isNull);expect(p.calls,loseAck?2:1);if(p.keys.length==2)expect(p.keys[0],p.keys[1]);s.dispose();
+ });
+ test('successful work receipt is not failed by observer reload',()async{
+  final p=Port('tasks'),s=session('tasks',p);await s.load();Future<void>? reload;var started=false;
+  s.addListener((){if(s.status=='success'&&!started){started=true;reload=s.load();}});
+  try{await s.submit('Task-A','edit',{'title':'Verified','body':'Instructions','date':'2026-11-06'});}finally{await reload;}
+  expect(started,true);expect(s.status,'ready');expect(s.snapshot!.items.single.version,2);expect(p.calls,1);expect(s.pending,isNull);s.dispose();
+ });
 }
 
