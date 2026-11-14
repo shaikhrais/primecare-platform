@@ -9,6 +9,7 @@ import '../../communications/communication_core.dart' show isCommunicationPath, 
 import '../../communications/dio_communication_transport.dart';
 import '../../communications/registered_communication_bindings.dart';
 import '../../communications/registered_voice_contact_bindings.dart';
+import '../../application_modules/application_workflow_paths.dart';
 /// A provider for the [ApiClient], ensuring a single instance is used across the app.
 final apiClientProvider = Provider<ApiClient>((ref) {
   return ApiClient(ref);
@@ -385,7 +386,7 @@ class ApiClient {
   static bool _isUncachedWorkflowPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
-    return isCommunicationPath(path) ||
+    return isApplicationWorkflowPath(path) || isCommunicationPath(path) ||
         route == '/v1/governance/platform' || route.startsWith('/v1/governance/platform/') ||
         route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
         route == '/v1/clinical/dashboard' ||
@@ -408,9 +409,10 @@ class ApiClient {
 
   static ApiResponse _workflowFailure(Object error) {
     final response = error is DioException ? error.response : null;
+    final status = response?.statusCode;
     return ApiResponse(
       data: response?.data ?? <String, dynamic>{},
-      statusCode: response?.statusCode ?? 503,
+      statusCode: status != null && status >= 400 && status <= 599 ? status : 503,
       error: 'Workflow request failed.',
     );
   }
@@ -551,7 +553,7 @@ class ApiClient {
       final response = await _dio.post<Map<String, dynamic>>(path, data: body, options: Options(headers: headers));
       return ApiResponse(
         data: response.data,
-        statusCode: response.statusCode ?? 200,
+        statusCode: response.statusCode ?? (_isUncachedWorkflowPath(path) ? 503 : 200),
       );
     } catch (e) {
       if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
@@ -582,7 +584,7 @@ class ApiClient {
       final response = await _dio.put<Map<String, dynamic>>(path, data: body);
       return ApiResponse(
         data: response.data,
-        statusCode: response.statusCode ?? 200,
+        statusCode: response.statusCode ?? (_isUncachedWorkflowPath(path) ? 503 : 200),
       );
     } catch (e) {
       if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
@@ -613,7 +615,7 @@ class ApiClient {
       final response = await _dio.patch<Map<String, dynamic>>(path, data: body);
       return ApiResponse(
         data: response.data,
-        statusCode: response.statusCode ?? 200,
+        statusCode: response.statusCode ?? (_isUncachedWorkflowPath(path) ? 503 : 200),
       );
     } catch (e) {
       if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
@@ -644,7 +646,7 @@ class ApiClient {
       final response = await _dio.delete<Map<String, dynamic>>(path);
       return ApiResponse(
         data: response.data,
-        statusCode: response.statusCode ?? 200,
+        statusCode: response.statusCode ?? (_isUncachedWorkflowPath(path) ? 503 : 200),
       );
     } catch (e) {
       if (_isUncachedWorkflowPath(path)) return _workflowFailure(e);
