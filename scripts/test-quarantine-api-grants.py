@@ -91,6 +91,7 @@ class QuarantineTest(unittest.TestCase):
 class ProductionConsumerReviewTest(unittest.TestCase):
     # Explicit test inventory: do not derive from the implementation allowlist.
     reviewed_paths = (
+        'packages/shared/src/help-reader/service.ts',
         'cloudflare/workers/src/business-tasks/endpoint-policy.ts',
         'cloudflare/workers/src/vapi-administration-policy.ts',
         'cloudflare/workers/src/look/access.ts',

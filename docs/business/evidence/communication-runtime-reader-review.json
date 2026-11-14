@@ -96,5 +96,22 @@
     "activation": false,
     "reviewType": "source-inspection",
     "independentAcceptance": "pending"
+  },
+  "packages/shared/src/help-reader/service.ts": {
+    "sha256": "7243e10be98703dcf90fac847f5c993934635075fb886f5600b409e1cbbbbd73",
+    "authority": "pinned-production-postgresql",
+    "historicalCatalogAccess": false,
+    "basis": [
+      "Source inspection: pinned manifest is checked inside the PostgreSQL transaction; all governance relations use the pinned schema/prefix with no SQLite path or fallback",
+      "Captured live session, active tenant/user and exact PSW role are checked; API794 requires the registered Help contract and explicit psw_published_help_read grant rather than any legacy api_permission_* collision key",
+      "Existing PSW screen685 permission/map and exact API link purpose are mandatory; published article reads are tenant/locale scoped and parameterized",
+      "Captured quota/audit adapters are mandatory; ownership checks surround asynchronous boundaries, failures roll back and never become synthetic content",
+      "Source admission only: service is unmounted, durable effects and legitimate runtime artifact/role/control bindings remain unresolved; this does not validate the runtime_artifact_id of a grant or confer activation authority"
+    ],
+    "reviewScope": "docs/api/API_PERMISSION_QUARANTINE.md",
+    "activation": false,
+    "nativeTest": "scripts/test-help-reader-service.mjs",
+    "reviewType": "source-inspection",
+    "independentAcceptance": "pending"
   }
 }

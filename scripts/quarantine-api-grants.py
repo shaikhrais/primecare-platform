@@ -114,6 +114,7 @@ def apply(db,expected_digest,fail_after=None):
 # This finite code-reviewed list cannot be expanded by a manifest entry alone.
 # Admission identifies current PostgreSQL consumers, not permission to execute them.
 REVIEWED_PRODUCTION_CONSUMERS = frozenset((
+    'packages/shared/src/help-reader/service.ts',
     'cloudflare/workers/src/account-preferences.ts',
     'cloudflare/workers/src/business-tasks/endpoint-policy.ts',
     'cloudflare/workers/src/vapi-administration-policy.ts',
