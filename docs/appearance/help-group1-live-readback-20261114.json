@@ -1,0 +1,260 @@
+{
+  "format": 1,
+  "sourceCommit": "1ba6c23c3e7def57c6f1103a9e1c4737899818cb",
+  "runId": 43650870897,
+  "jobId": 132618824980,
+  "conclusion": "success",
+  "recordedAt": "2026-11-14T22:59:41Z",
+  "acceptedScope": {
+    "apiId": 794,
+    "roleId": 51,
+    "roleCode": "psw",
+    "screenId": 685,
+    "permissionKey": "psw_published_help_read",
+    "locales": [
+      "en",
+      "fr",
+      "es"
+    ],
+    "publishedTenantOnly": true,
+    "legacyAutoPublication": false
+  },
+  "observed": {
+    "storage": {
+      "schema": "public",
+      "requestedTables": [
+        "help_reader_rate",
+        "help_reader_audit"
+      ],
+      "presentTables": [],
+      "columns": [],
+      "constraints": [],
+      "indexes": []
+    },
+    "policyDefinitionReadback": {
+      "rateSchemaSupported": true,
+      "auditSchemaSupported": true,
+      "ratePolicies": [],
+      "auditDefinitions": [],
+      "authorityInferred": false,
+      "operationalRowsRead": 0
+    },
+    "policyRegistrationShape": {
+      "schema": "governance_68b0b02dd1215f58630d2c1a",
+      "requestedTables": [
+        "govt_api_rate_limits",
+        "govt_audit_event_definitions"
+      ],
+      "presentTables": [
+        "govt_api_rate_limits",
+        "govt_audit_event_definitions"
+      ],
+      "columns": [
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "_primecare_import_row",
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "id",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "api_id",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "runtime_artifact_id",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "limit_key",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "max_requests",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "time_window",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_api_rate_limits",
+          "column_name": "created_at",
+          "data_type": "jsonb",
+          "udt_name": "jsonb",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "_primecare_import_row",
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "NO",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "id",
+          "data_type": "bigint",
+          "udt_name": "int8",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "event_code",
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "event_name",
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "severity",
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "column_name": "description",
+          "data_type": "text",
+          "udt_name": "text",
+          "is_nullable": "YES",
+          "column_default": null
+        }
+      ],
+      "constraints": [
+        {
+          "table_name": "govt_api_rate_limits",
+          "conname": "api_rate_limits_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (_primecare_import_row)"
+        },
+        {
+          "table_name": "govt_audit_event_definitions",
+          "conname": "audit_event_definitions_pkey",
+          "contype": "p",
+          "definition": "PRIMARY KEY (_primecare_import_row)"
+        }
+      ],
+      "indexes": [
+        {
+          "tablename": "govt_api_rate_limits",
+          "indexname": "api_rate_limits_pkey",
+          "indexdef": "CREATE UNIQUE INDEX api_rate_limits_pkey ON governance_68b0b02dd1215f58630d2c1a.govt_api_rate_limits USING btree (_primecare_import_row)"
+        },
+        {
+          "tablename": "govt_audit_event_definitions",
+          "indexname": "audit_event_definitions_pkey",
+          "indexdef": "CREATE UNIQUE INDEX audit_event_definitions_pkey ON governance_68b0b02dd1215f58630d2c1a.govt_audit_event_definitions USING btree (_primecare_import_row)"
+        }
+      ]
+    },
+    "screen": [
+      {
+        "id": 685,
+        "roleId": 13,
+        "route": "/generated/psw-help-support",
+        "implementationTag": "partial"
+      }
+    ],
+    "screenPermissions": [
+      {
+        "id": 6157,
+        "role_id": 13,
+        "can_edit": 1,
+        "can_view": 1,
+        "screen_id": 685,
+        "can_create": 1,
+        "can_delete": 1,
+        "can_export": 1
+      }
+    ],
+    "controls": [
+      {
+        "id": 779,
+        "data_cy": "application-modules-help",
+        "file_path": "packages/primecare_ui/web/application-modules.ts",
+        "screen_id": 2534,
+        "component_code": "applicationModules.application-modules-help",
+        "component_name": "Help centre",
+        "component_type": "prime_card",
+        "implementation_status": "registered-unimplemented"
+      }
+    ],
+    "registryMatches": 0,
+    "endpoint": [
+      {
+        "id": 794,
+        "method": "POST",
+        "path": "/v1/psw/help-support",
+        "permissionKey": "psw_published_help_read",
+        "status": "registered-unimplemented"
+      }
+    ],
+    "readerGrants": 0,
+    "legacy": {
+      "grantCount": 64,
+      "origin": [
+        {
+          "id": 794,
+          "api_id": 5041,
+          "endpoint_code": "api_v1_clinical_director_quality_metrics_list_get",
+          "method": "GET",
+          "endpoint_path": "/v1/clinical-director-quality-metrics"
+        }
+      ],
+      "canonicalCandidates": [],
+      "missingArtifactIds": [
+        "1"
+      ]
+    }
+  },
+  "limits": {
+    "writes": 0,
+    "businessRowsRead": 0,
+    "grantsChanged": 0,
+    "hostActivated": false,
+    "authorityInferred": false
+  }
+}
