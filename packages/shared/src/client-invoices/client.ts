@@ -22,7 +22,7 @@ export class ClientInvoices{
   const u=new URL(gateway);if(!['https:','http:'].includes(u.protocol)||u.protocol==='http:'&&!['127.0.0.1','localhost','[::1]'].includes(u.hostname)||u.username||u.password||u.search||u.hash||!['','/'].includes(u.pathname)||!token||!expected.userId||expected.role!=='guest')throw Error('invalid_binding');this.origin=u.origin;this.expected=Object.freeze({...expected});
  }
  get current():InvoiceState{return {...this.state};}
- subscribe(fn:()=>void){if(this.dead){try{fn();}catch{}return()=>{};}this.listeners.add(fn);try{fn();}catch{/* Host observers do not own transport outcomes. */}return ()=>this.listeners.delete(fn);}
+ subscribe(fn:()=>void){if(this.dead){try{fn();}catch{}return()=>{};}const subscription=()=>fn();this.listeners.add(subscription);try{subscription();}catch{/* Host observers do not own transport outcomes. */}return ()=>this.listeners.delete(subscription);}
  private emit(){const final=this.dead;for(const fn of [...this.listeners]){if(!final&&this.dead)break;if(this.listeners.has(fn)){try{fn();}catch{/* Rendering failures cannot retain private state or replace real read outcomes. */}}}}
  private currentRequest(n:number){if(this.dead||this.epoch!==n)return false;let current=false;try{current=this.isCurrent()===true;}catch{}return !this.dead&&this.epoch===n&&current;}
  private async json(path:string,n:number,signal:AbortSignal):Promise<unknown>{

@@ -11,8 +11,8 @@ export class ShellUtilitiesController {
   if(Object.keys(ports).some(k=>!utilityKinds.includes(k as UtilityKind)))throw Error('invalid_utility_port');
   this.scope=Object.freeze(preferenceScope(scope));if(JSON.stringify(this.scope)!==JSON.stringify(preferenceScope(favourites.binding.scope))||favourites.binding.kind!=='shortcuts'||favourites.binding.resource!=='navigation')throw Error('utility_scope_mismatch');this.destinations=utilityDestinations(destinations,favourites.binding.policy.screenIds);this.ports=Object.fromEntries(Object.entries(ports).map(([k,p])=>[k,p?{load:p.load.bind(p),...(p.markRead?{markRead:p.markRead.bind(p)}:{}),...(p.activate?{activate:p.activate.bind(p)}:{})}:undefined]));for(const k of utilityKinds)this.states[k]={status:this.ports[k]?'idle':'unavailable',error:null,items:[],busy:false};this.offPreference=favourites.subscribe(()=>this.emit());
  }
- subscribe(listener:()=>void){this.listeners.add(listener);return ()=>{this.listeners.delete(listener);};}
- private emit(){if(!this.dead)for(const f of this.listeners)f();}
+ subscribe(listener:()=>void){if(this.dead)return()=>{};const subscription=()=>listener();this.listeners.add(subscription);return()=>{this.listeners.delete(subscription);};}
+ private emit(){if(this.dead)return;for(const subscription of [...this.listeners]){if(this.dead)break;if(this.listeners.has(subscription)){try{subscription();}catch{/* Presentation observers cannot replace model or persistence outcomes. */}}}}
  get current(){return structuredClone(this.states);}
  canActivate(kind:UtilityKind){return !!this.ports[kind]?.activate;}
  canMarkRead(kind:UtilityKind){return !!this.ports[kind]?.markRead;}
