@@ -12,7 +12,7 @@ export class ApplicationShortcutEditor {
  get current(){this.open();const state=this.owned.client.current;return {...state,selected:[...((state.draft as {screenIds:string[]}|null)?.screenIds??this.owned.defaults)]};}
  subscribe(listener:()=>void){this.open();return this.owned.client.subscribe(listener);}
  destinations(query='',locale:'en'|'fr'|'es'='en'){this.open();if(typeof query!=='string'||query.length>100||!['en','fr','es'].includes(locale))throw new WorkFailure('invalid');const search=query.toLocaleLowerCase(locale);return Object.entries(this.owned.names).filter(([,name])=>name.toLocaleLowerCase(locale).includes(search)).map(([id,title])=>({id,title}));}
- private open(){if(this.dead)throw new WorkFailure('unavailable');}
+ private open(){if(this.dead||this.owned.client.current.status==='disposed')throw new WorkFailure('unavailable');}
  private editable(){this.open();const state=this.current;if(!state.loaded||state.pending||state.remote||!['clean','dirty','offline'].includes(state.status))throw new WorkFailure('conflict',409);}
  async load(){this.open();await this.owned.client.load();}
  async toggle(id:string){this.editable();if(!Object.hasOwn(this.owned.names,id))throw new WorkFailure('denied',403);const ids=this.current.selected,index=ids.indexOf(id);if(index<0)ids.push(id);else ids.splice(index,1);await this.owned.client.edit({version:1,screenIds:ids});}

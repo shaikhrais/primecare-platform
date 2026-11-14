@@ -16,7 +16,8 @@ class ApplicationShortcutEditor extends ChangeNotifier {
  PreferenceBinding get binding{_open();return _owned.client.binding;}
  Map<String,dynamic> get current{_open();final state=_owned.client.current,draft=state['draft'] as Map?;return {...state,'selected':List<String>.from(draft?['screenIds'] as List? ?? _owned.defaults)};}
  List<({String id,String title})> destinations([String query='']){_open();if(query.length>100)throw const WorkFailure('invalid');final search=query.toLowerCase();return [for(final e in _owned.names.entries)if(e.value.toLowerCase().contains(search))(id:e.key,title:e.value)];}
- void _open(){if(_dead)throw const WorkFailure('unavailable');}
+ void _open(){if(_dead||_owned.client.current['status']=='disposed')throw const WorkFailure('unavailable');}
+ @override void addListener(VoidCallback listener){_open();super.addListener(listener);}
  void _editable(){_open();final state=current;if(state['loaded']!=true||state['pending']!=null||state['remote']!=null||!['clean','dirty','offline'].contains(state['status']))throw const WorkFailure('conflict',409);}
  Future<void> load()async{_open();await _owned.client.load();}
  Future<void> toggle(String id)async{_editable();if(!_owned.names.containsKey(id))throw const WorkFailure('denied',403);final ids=List<String>.from(current['selected'] as List);if(ids.contains(id)){ids.remove(id);}else{ids.add(id);}await _owned.client.edit({'version':1,'screenIds':ids});}

@@ -20,6 +20,15 @@ class ShortcutFixture {
  ApplicationShortcutEditor editor()=>ApplicationShortcutEditor(port());
 }
 void main(){
+ test('owning native port disposal invalidates retained editor access and commands without IO',()async{
+  final f=ShortcutFixture(),port=f.port(),editor=ApplicationShortcutEditor(port);await editor.load();await editor.toggle('2');
+  final retained=editor.current,reads=f.reads,writes=f.writes.length;port.dispose();
+  final unavailable=isA<WorkFailure>().having((e)=>e.code,'code','unavailable');
+  for(final access in <Object? Function()>[()=>editor.binding,()=>editor.current,()=>editor.recoveryPreview,()=>editor.destinations(),(){editor.addListener((){});return null;},(){editor.cancelRecovery();return null;}]){expect(access,throwsA(unavailable));}
+  for(final action in <Future<dynamic> Function()>[()=>editor.load(),()=>editor.toggle('3'),()=>editor.useDefaults(),()=>editor.save(),()=>editor.retryPending(),()=>editor.acceptRemote(),()=>editor.keepLocal(),()=>editor.reviewRecovery(),()=>editor.confirmRecovery('old','reset')]){await expectLater(action(),throwsA(unavailable));}
+  expect(retained['selected'],['1','2']);expect(f.reads,reads);expect(f.writes.length,writes);editor.dispose();editor.dispose();
+  final replacement=f.editor();await replacement.load();expect(replacement.current['selected'],['1','2']);replacement.dispose();
+ });
  test('native editor owns the original port exclusively',()async{final f=ShortcutFixture(),port=f.port(),editor=ApplicationShortcutEditor(port);expect(()=>ApplicationShortcutEditor(port),throwsA(isA<WorkFailure>()));await expectLater(port.read(const WorkQuery()),throwsA(isA<WorkFailure>()));await expectLater(port.readItem('navigation'),throwsA(isA<WorkFailure>()));await editor.load();editor.dispose();expect(()=>editor.destinations(),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));final used=f.port();await used.read(const WorkQuery());expect(()=>ApplicationShortcutEditor(used),throwsA(isA<WorkFailure>()));used.dispose();});
 
  test('native disposed editor hides account state and captured snapshots stay detached',()async{final f=ShortcutFixture(),editor=f.editor();await editor.load();final state=editor.current,bindingSnapshot=editor.binding,recoverySnapshot=editor.recoveryPreview;(state['selected'] as List).add('3');expect(editor.current['selected'],['1']);editor.dispose();for(final read in <Object? Function()>[()=>editor.recoveryPreview,()=>editor.binding,()=>editor.current,()=>editor.destinations()]){expect(read,throwsA(isA<WorkFailure>().having((e)=>e.code,'code','unavailable')));}expect(state['selected'],['1','3']);expect(bindingSnapshot.scope.userId,'user');expect(recoverySnapshot,isNull);expect(f.writes,isEmpty);});

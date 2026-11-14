@@ -1,0 +1,9 @@
+# Retained shortcut editor ownership repair
+
+Base9d3278551e1847d9a57a734a73a8c4e5e63b7460. Claim6885395426 after prior publisher release. The previous port recovery privacy repair is preserved, not replayed.
+
+Defect: disposing ApplicationSettingsPort externally disposed its preference client but left the retained ApplicationShortcutEditor live flag false. Its getters could expose prior account state and its methods could reach lower-layer disposed failures instead of the domain unavailable failure. Both editor guards now reject an already-disposed owned preference client. Native listener registration uses the same existing guard; listener removal/cleanup stays available.
+
+Existing-suite regressions exercise binding/current/recovery/destinations, subscriptions and recovery cancellation, then load/toggle/default/save/retry/conflict/recovery commands:15entry points per platform. A dirty detached snapshot remains unchanged, no further IO occurs, double cleanup is safe, and a replacement editor can recover the original durable draft. Web old-source control fails Missing expected exception; repaired editor+transport+settings lifecycle82/82PASS. Existing view/host suites31/31PASS. Total113local tests, targetedTypeScript and diff checkPASS. These are model/DOM fixture checks, not real-browser/native evidence. Matching Flutter test is authored/reviewed; existing application-shortcuts/application-modules workflows must execute it.
+
+Four source/test files plus this note only; no control/role/API/grant/provider change, no new branch or PR. Full72feature acceptance remains0. Pending Help authority/store/host mappings, four other business-contract decisions, platform queues and physical-device/human reviews are unchanged. Inspect existing exact-source CI before retrying or claiming completion; no duplicate runs/cancellations.
