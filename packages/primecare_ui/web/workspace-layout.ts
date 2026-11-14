@@ -1,3 +1,4 @@
+import {cleanupOwnedResources} from './theme-control-base';
 import {defaultWorkspaceLayout, parseWorkspaceLayout, validateWorkspaceLayout, type WorkspaceLayout, type PanelDock} from '../../domain/src/workspace_layout';
 import {workspaceLayoutStyles} from './workspace-layout-styles';
 export {defaultWorkspaceLayout};
@@ -156,8 +157,17 @@ export class WorkspaceLayoutManager {
     this.change({...this.current, panels:{...this.current.panels,[target.id]:{...p,...(resize ? {width:Math.min(1200,Math.max(180,p.width+d[0])),height:Math.min(1200,Math.max(120,p.height+d[1]))} : {dock:'floating',x:Math.max(0,Math.min(10000,Math.round(box.x)+d[0])),y:Math.max(0,Math.min(10000,Math.round(box.y)+d[1]))})}}});
   };
   dispose(): void {
-    if (this.disposed) return; this.disposed = true; this.abort.abort(); this.observer.disconnect();
-    for (const item of [...this.originals].reverse()) {item.anchor.replaceWith(item.element); for (const a of [...item.element.attributes]) item.element.removeAttribute(a.name); for (const [k,v] of item.attributes) item.element.setAttribute(k,v);}
-    this.stage.remove(); for (const a of [...this.root.attributes]) this.root.removeAttribute(a.name); for (const [k,v] of this.rootAttributes) this.root.setAttribute(k,v);
+    if (this.disposed) return; this.disposed = true;
+    cleanupOwnedResources([
+      ()=>this.abort.abort(),()=>this.observer.disconnect(),
+      ...[...this.originals].reverse().flatMap(item=>[
+        ()=>{item.anchor.replaceWith(item.element);},
+        ...[...item.element.attributes].map(a=>()=>item.element.removeAttribute(a.name)),
+        ...item.attributes.map(([key,value])=>()=>item.element.setAttribute(key,value))
+      ]),()=>this.stage.remove(),
+      ...[...this.root.attributes].map(a=>()=>this.root.removeAttribute(a.name)),
+      ...this.rootAttributes.map(([key,value])=>()=>this.root.setAttribute(key,value)),
+      ()=>{this.originals=[];this.docks.clear();}
+    ]);
   }
 }

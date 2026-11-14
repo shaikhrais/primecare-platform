@@ -1,3 +1,9 @@
+/** Cleanup for existing scoped controls and non-widget shell adapters. No authority is granted. */
+export function cleanupOwnedResources(cleanups:readonly (()=>void)[]):void {
+ let failure:{error:unknown}|undefined;
+ for(const cleanup of cleanups){try{cleanup();}catch(error){failure??={error};}}
+ if(failure)throw failure.error;
+}
 /** Shared lifecycle for a scoped control group. Hosts remain responsible for authorization. */
 export abstract class ThemeControlBase {
  protected readonly abort=new AbortController();
@@ -13,9 +19,7 @@ export abstract class ThemeControlBase {
  }
  /** Release all owned resources and report the first failure, including thrown null/undefined. */
  protected cleanupControlResources(cleanups:readonly (()=>void)[]):void {
-  let failure:{error:unknown}|undefined;
-  for(const cleanup of cleanups){try{cleanup();}catch(error){failure??={error};}}
-  if(failure)throw failure.error;
+  cleanupOwnedResources(cleanups);
  }
  /** Retire callbacks before cleanup. Reentrant or repeated disposal cannot touch a replacement. */
  protected disposeControlScope(cleanups:readonly (()=>void)[]):void {
