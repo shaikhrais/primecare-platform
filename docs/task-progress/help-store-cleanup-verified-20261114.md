@@ -1,0 +1,14 @@
+# Help durable store and expiry cleanup: verified receipt
+
+Adapter137d43b2415240ed6a602cef8ced8e0fd067ca3a: Registered Help reader service43654237715/job132629141602SUCCESS. Downloaded log confirms all16PostgreSQL cases: real reader/audit commit; failed-reader rollback retains autocommitted quota;31st read yields service429;40concurrent reservations admit exactly30; locked expired-row cleanup; policy row locks survive until transaction end. Local12PASS4native-onlySKIP. Shared UI boundary passed. Adapter remains unmounted from Help's live route/host.
+
+Cleanup binding3d8d1d1c75e83e8eaf6fd7e65358ae46cec50425 extends the EXISTINGauth-counter-cleanup.yml cron17* * * *, retaining Auth apply defaultfalse and original counter step. Help manual apply is separate/defaultfalse. Push activation requires dedicated engine/native proof; scheduled/manual runs reuse the approved existing production workflow owner. Exact cleanup definition/script/store/workflow hashes are registered in production-pin. Only expired Help audit metadata is deleted, <=1000perbatch and20batches; partial/locked backlog returnsincomplete, fresh rows preserved. No new ChatGPT automation/provider/reader grant.
+
+Cleanup43654929742 BOTHjobsSUCCESS. Proof132631258147: PostgreSQL16store16/16 plus cleanup9/9; localengine12+8PASS,4+1native-onlySKIP. Existing Auth cleanup4model testsPASS. Real first-production cleanup132631735882 at23:49:16Z completed with0expired/0deleted/0remaining andindependentReadback:true. Auth counter step was previewonly. This proves first production execution, not deletion of invented live data. Native tests prove actual expired-row deletion/idle behavior/locking/boundedbacklog.
+
+2026-11-14T23:49:10.7734772Z {"mode":"preview","expiredUpToLimit":0,"limit":10000}
+2026-11-14T23:49:16.7128458Z HELP_AUDIT_CLEANUP {"sourceCommit":"3d8d1d1c75e83e8eaf6fd7e65358ae46cec50425","event":"push","scheduledInvocation":false,"expiredBefore":0,"deleted":0,"expiredRemaining":0,"complete":true,"applied":true,"grantsChanged":0,"contentWrites":0,"hostActivated":false,"independentReadback":true}
+
+SCHEDULE LIMIT: eventpush,scheduledInvocation:false. Hourly configuration is installed, but the first actual cron invocation must still be inspected; keep purgeScheduleVerified:false until that receipt. No live reader quota/audit traffic, content or grants changed. Current Help gaps are legitimateAPI794legacy/runtime/PSW51screen685access/control registration, mounted sharedweb/native reader journey, and device/human/release gates. Preserve all64legacyclinical-directorgrants/control779/quarantine. Group1notdone/group2notstarted.
+
+Manual publisher6885901416 completed/releases18:50Toronto before20:00checkpoint. Continue onlyHelp after freshownership/head checks. Do not repeat completed storage/definitions/adapter/cleanup engine as new fixes; inspect next scheduled cleanup and finish actualaccess/host gaps.
