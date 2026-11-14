@@ -34,6 +34,6 @@ export class ShellUtilitiesView extends ThemeControlBase {
   this.status.textContent=this.error?this.labels.error:state?this.labels[state]??this.labels.error:'';const fs=this.dialog.querySelector<HTMLButtonElement>('[data-cy="'+this.ids.fullscreen+'"]')!;fs.disabled=!this.env.supported;fs.textContent=this.labels[this.env.fullscreen?'exitFullscreen':'fullscreen'];if(focus&&active&&!active.isConnected)this.root.querySelector<HTMLElement>('[data-cy="'+CSS.escape(focus)+'"]')?.focus({preventScroll:true});
  }
  routeChanged(key:string,scrollRoots?:readonly HTMLElement[]){this.env.routeChanged(key,scrollRoots);}
- async dispose(){if(!this.endControlScope())return;this.bodyAbort.abort();this.off();this.dialog.close();const disposed=this.controller.dispose();this.root.replaceChildren();try{await disposed;}finally{await this.env.dispose();}}
+ async dispose(){if(!this.endControlScope())return;let failure:{error:unknown}|undefined,disposed:Promise<void>|undefined;const attempt=(cleanup:()=>void)=>{try{cleanup();}catch(error){failure??={error};}};attempt(()=>this.bodyAbort.abort());attempt(()=>this.off());attempt(()=>this.dialog.close());attempt(()=>{disposed=this.controller.dispose();});attempt(()=>this.root.replaceChildren());try{await disposed;}catch(error){failure??={error};}try{await this.env.dispose();}catch(error){failure??={error};}if(failure)throw failure.error;}
 }
 
