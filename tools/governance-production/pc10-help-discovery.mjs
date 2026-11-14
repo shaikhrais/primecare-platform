@@ -6,12 +6,14 @@ const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.
 const quote=s=>'"'+s.replaceAll('"','""')+'"';
 const table=name=>quote(pin.schema)+'.'+quote(pin.tablePrefix+name);
 export async function discoverHelp(db){
- await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+ let phase='begin';
+ const query=async(sql,args=[])=>{phase=sql.includes('information_schema.columns')?'columns':sql.includes('pg_constraint')?'constraints':sql.includes('pg_indexes')?'indexes':sql.match(/govt_([a-z_]+)/)?.[1]??'transaction';return db.query(sql,args);};
+ await query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
  try{
-  await db.query("SET LOCAL statement_timeout='20s'");
-  const manifest=(await db.query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
+  await query("SET LOCAL statement_timeout='20s'");
+  const manifest=(await query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
   if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256)throw Error('Authority mismatch');
-  const bounded=async(sql,args=[])=>{const rows=(await db.query(sql,args)).rows;if(rows.length>300)throw Error('Metadata bound exceeded');return rows;};
+  const bounded=async(sql,args=[])=>{const rows=(await query(sql,args)).rows;if(rows.length>300)throw Error('Metadata bound exceeded');return rows;};
   const metadata=(name,where,args=[])=>bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+table(name)+' x WHERE '+where+' LIMIT 301',args).then(rows=>rows.map(r=>r.metadata));
   const screens=await metadata('screens','id=685');
   const endpoints=await metadata('api_endpoints','id=794');
@@ -35,9 +37,9 @@ export async function discoverHelp(db){
    if(!/^govt_[a-z0-9_]+$/.test(name))throw Error('Invalid relation');
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id=685 LIMIT 301').then(rows=>rows.map(r=>r.metadata));
   }
-  await db.query('ROLLBACK');
+  await query('ROLLBACK');
   return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
- }catch(error){await db.query('ROLLBACK');throw error;}
+ }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
  const raw=process.env.PRODUCTION_DATABASE_URL;if(!raw)throw Error('Missing connection');
@@ -45,4 +47,4 @@ async function main(){
  const db=new pg.Client({connectionString:raw,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
  try{await db.connect();const result=await discoverHelp(db);await mkdir('test-results/pc10-help',{recursive:true});await writeFile('test-results/pc10-help/discovery.json',JSON.stringify(result,null,2)+'\n');console.log('PC10_HELP_DISCOVERY '+JSON.stringify(result));}finally{await db.end();}
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(()=>{console.error('Help schema/access discovery failed closed; no mutations attempted.');process.exitCode=1;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{console.error('Help schema/access discovery failed closed; no mutations attempted. '+JSON.stringify({phase:error.helpPhase??'connection',sqlstate:/^[0-9A-Z]{5}$/.test(error.code??'')?error.code:null,bounded:error.message==='Metadata bound exceeded'}));process.exitCode=1;});
