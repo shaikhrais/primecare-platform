@@ -1,0 +1,145 @@
+{
+  "version": 1,
+  "featureSource": "dbc88c150a7758676b0f5e807e12cace490c056b",
+  "existingHost": {
+    "screenId": 2534,
+    "route": "/tenant-dashboard",
+    "role": "tenant_admin",
+    "newRoleGrants": 0
+  },
+  "registration": {
+    "source": "8dacb8de113cb051689db718e7ebbd53a94104da",
+    "runId": 43523414453,
+    "linksAdded": 1,
+    "apiId": 16402,
+    "grantsChanged": 0
+  },
+  "productionNative": {
+    "runId": 43535179819,
+    "jobId": 132262954955,
+    "checksPassed": 29,
+    "nativeCases": 3,
+    "localesAndWidths": [
+      [
+        "en",
+        320
+      ],
+      [
+        "fr",
+        768
+      ],
+      [
+        "es",
+        1440
+      ]
+    ],
+    "realCredentialLogin": true,
+    "realProductionHttp": true,
+    "independentSqlCountsAndPreferences": true,
+    "reloadWithoutReplay": true,
+    "exactFixtureCleanup": true,
+    "unchangedGrants": true,
+    "cachePlatform": "SharedPreferences test platform; widget restart only",
+    "physicalDeviceTested": false,
+    "humanReviewApproved": false,
+    "repeatRunId": 43535550518,
+    "repeatChecksPassed": 29
+  },
+  "targetedNative": {
+    "runId": 43535179991,
+    "linux": {
+      "jobId": 132262330538,
+      "hostTestsPassed": 11,
+      "sharedTestsPassed": 148
+    },
+    "windows": {
+      "jobId": 132262330655,
+      "hostTestsPassed": 11,
+      "sharedTestsPassed": 148
+    },
+    "macos": {
+      "jobId": 132262330487,
+      "status": "pending_at_receipt"
+    }
+  },
+  "readViews": [
+    "profile",
+    "project",
+    "analytics",
+    "activity",
+    "search"
+  ],
+  "settingsScope": "Existing API777 navigation shortcuts only",
+  "businessApisCreated": 0,
+  "physicalDeviceTested": false,
+  "humanReviewApproved": false,
+  "fullPc10Accepted": false,
+  "fullFlutterSuite": {
+    "runId": 43535179773,
+    "security": "success",
+    "aggregate": "success"
+  },
+  "strictSharedThemeBoundary": {
+    "runId": 43535179771,
+    "status": "success"
+  },
+  "businessContractDiscovery": {
+    "source": "9f65531b43a6bb3be0942acc8203f6e9c41fef63",
+    "runId": 43535550518,
+    "jobId": 132265141091,
+    "writes": 0,
+    "businessRowsRead": 0,
+    "providerActions": 0,
+    "businessCandidates": 114,
+    "missingBothSchemas": 108,
+    "nativeApiIds": [
+      777,
+      16402
+    ],
+    "matchingBusinessDefinitions": [
+      {
+        "id": "care.handover.receive-acknowledge",
+        "digest": "0c58c8d0deac440b9bec67f6d659fd07e2c94ce8a22b88ff806034a76d17f451",
+        "scope": "existing care delivery"
+      },
+      {
+        "id": "care.visit.execute-review",
+        "digest": "fae18e814f18db3b5c690a089a8c20069801dc6a967358c87cc174ac7cf6e655",
+        "scope": "existing care delivery"
+      },
+      {
+        "id": "growth.record-invoice",
+        "digest": "7c0de4bade9840dd97bc9da36dbb854356c6c52337ce8d105ac6995c2b2f0525",
+        "scope": "existing Founder Growth finance"
+      },
+      {
+        "id": "growth.record-payment",
+        "digest": "a5aca3eb8b1e1776761ade0762ec04bb2f77e70b3e42c31942664d3982557045",
+        "scope": "existing Founder Growth finance"
+      },
+      {
+        "id": "platform.training-check",
+        "digest": "013b20654ac9eef942b07ae59158c0139a19b54607089bb212b50dc75a9ba6c4",
+        "scope": "device-local administrator self-assessment"
+      },
+      {
+        "id": "platform.training-export",
+        "digest": "2593b0bfa654b6004ce347268d03b2ec3b2c88ebbbb3bbac75f7f21db2ab6ff9",
+        "scope": "device-local administrator self-assessment"
+      },
+      {
+        "id": "platform.training-read",
+        "digest": "f3e789db0e0d157d638b1bc483432b6a1544de9f58188ec0924d7aec77dcc27b",
+        "scope": "device-local administrator self-assessment"
+      },
+      {
+        "id": "platform.training-reset",
+        "digest": "4e60b9ce0f428d2d9451b3a24d634e35d2eb3c336832368f18ead469674dc6d9",
+        "scope": "device-local administrator self-assessment"
+      }
+    ],
+    "businessDefinitionsTruncated": false,
+    "otherGuidesTruncated": true,
+    "noGenericBusinessAuthorityInferred": true
+  }
+}
