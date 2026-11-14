@@ -31,6 +31,18 @@ test('actual form retry clears stale alert role and retains error/loading/succes
  button.dispatchEvent(new Event('click'));assert.equal(calls,2,'retry is serialized');finish();await settle();
  assert.equal(status.textContent,kit.text('success'));assert.equal(status.getAttribute('role'),'status');assert.equal(button.disabled,false);assert.equal(button.getAttribute('aria-busy'),null);
 });
+test('detached form action cannot dispatch and the current owner still can',async t=>{
+ const {root,kit,Event}=fixture(t);let calls=0;const form=kit.form([],async()=>{calls++;});root.append(form);
+ const button=root.querySelector('[data-cy=data-controls-submit]'),foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(button);
+ button.dispatchEvent(new Event('click'));await settle();assert.equal(calls,0,'a control outside its factory root must be inert');
+ form.append(button);button.dispatchEvent(new Event('click'));await settle();assert.equal(calls,1,'the current owned control must keep working');
+});
+test('in-flight form completion cannot publish into a foreign host',async t=>{
+ const {root,kit,Event}=fixture(t);let calls=0,finish,idle=0;const form=kit.form([],async()=>{calls++;await new Promise(resolve=>finish=resolve);});root.append(form);
+ const button=root.querySelector('[data-cy=data-controls-submit]');button.addEventListener('pc-idle',()=>idle++);button.dispatchEvent(new Event('click'));assert.equal(calls,1);
+ const status=root.querySelector('[data-cy=data-controls-submit-status]'),loading=status.textContent,foreign=root.ownerDocument.createElement('aside');root.ownerDocument.body.append(foreign);foreign.append(button);
+ finish();await settle();assert.equal(status.textContent,loading,'foreign completion must not publish terminal status');assert.equal(button.disabled,true);assert.equal(button.getAttribute('aria-busy'),'true');assert.equal(idle,0);
+});
 test('field keeps displayed numeric constraints after caller policy mutation',t=>{
  const {root,kit}=fixture(t),constraint={required:true,min:1,max:5,step:1},field=kit.field('number',constraint);root.append(field.element);
  Object.assign(constraint,{required:false,min:-10,max:100,step:.5});
