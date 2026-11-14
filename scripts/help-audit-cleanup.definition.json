@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "table": "public.help_reader_audit",
+  "retentionSeconds": 2592000,
+  "batchSize": 1000,
+  "maxBatches": 20,
+  "workflow": ".github/workflows/auth-counter-cleanup.yml",
+  "cron": "17 * * * *",
+  "expiredOnly": true,
+  "contentWrites": false,
+  "grantsChanged": false,
+  "runtimeActivation": false
+}

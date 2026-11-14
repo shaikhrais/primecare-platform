@@ -26,6 +26,7 @@ export const helpQuotaSql=`INSERT INTO public.help_reader_rate(tenant_id,user_id
  reset_at=CASE WHEN help_reader_rate.reset_at<=statement_timestamp() THEN statement_timestamp()+interval '60 seconds' ELSE help_reader_rate.reset_at END
  RETURNING attempts<=30 AS allowed,CASE WHEN attempts<=30 THEN 0 ELSE GREATEST(1,LEAST(60,CEIL(EXTRACT(EPOCH FROM reset_at-statement_timestamp()))::integer)) END AS retry_after_seconds`;
 export const helpAuditSql=`INSERT INTO public.help_reader_audit(tenant_id,user_id,action,locale,returned) VALUES($1,$2,$3,$4,$5) RETURNING id,created_at,expires_at`;
+export async function verifyHelpPostgresPolicy(db:Database){try{return await verified(capture(db),expected);}catch{throw unavailable();}}
 export function createHelpPostgresStore(reader:Database,autocommitQuota:Database):HelpOperationalStore{
  if(reader===autocommitQuota)throw unavailable();const query=capture(reader),quota=capture(autocommitQuota);
  const safe=async<T>(run:()=>Promise<T>)=>{try{return await run();}catch{throw unavailable();}};

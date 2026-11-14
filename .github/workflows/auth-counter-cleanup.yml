@@ -1,5 +1,13 @@
 name: Clean expired authentication counters
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/cleanup-help-audit.mjs'
+      - 'scripts/help-audit-cleanup.definition.json'
+      - 'scripts/test-help-audit-cleanup.mjs'
+      - 'packages/shared/src/help-reader/postgres-store.ts'
+      - '.github/workflows/auth-counter-cleanup.yml'
   schedule:
     - cron: '17 * * * *'
   workflow_dispatch:
@@ -8,13 +16,45 @@ on:
         description: Delete expired counters (false previews only)
         type: boolean
         default: false
+      help_apply:
+        description: Delete expired Help audit metadata (false previews only)
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
   group: auth-counter-cleanup-production
   cancel-in-progress: false
 jobs:
+  help-proof:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: help_service, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/help-cleanup-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/help-cleanup-tools/node_modules node_modules
+          node --test scripts/test-help-postgres-store.mjs
+          node --test scripts/test-help-audit-cleanup.mjs
+      - name: Independent PostgreSQL store and cleanup proof
+        run: |
+          node --test scripts/test-help-postgres-store.mjs
+          node --test scripts/test-help-audit-cleanup.mjs
+        env:
+          HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
   cleanup:
+    needs: help-proof
+    if: always() && (github.event_name != 'push' || needs.help-proof.result == 'success')
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 5
@@ -26,7 +66,7 @@ jobs:
       - name: Install isolated PostgreSQL dependency
         run: |
           mkdir -p "$RUNNER_TEMP/auth-cleanup-dependencies"
-          npm install --prefix "$RUNNER_TEMP/auth-cleanup-dependencies" --ignore-scripts pg@8.16.3
+          npm install --prefix "$RUNNER_TEMP/auth-cleanup-dependencies" --ignore-scripts pg@8.16.3 esbuild@0.27.2
           ln -s "$RUNNER_TEMP/auth-cleanup-dependencies/node_modules" node_modules
       - name: Clean expired counters or preview
         env:
@@ -37,4 +77,15 @@ jobs:
             node scripts/cleanup-auth-rate-limits.mjs --apply
           else
             node scripts/cleanup-auth-rate-limits.mjs
+          fi
+      - name: Purge expired Help audit metadata or preview
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          APPLY_HELP_AUDIT_CLEANUP: ${{ github.event_name == 'schedule' || github.event_name == 'push' || inputs.help_apply }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "$APPLY_HELP_AUDIT_CLEANUP" = "true" ]; then
+            node scripts/cleanup-help-audit.mjs --apply
+          else
+            node scripts/cleanup-help-audit.mjs
           fi

@@ -2054,5 +2054,20 @@
     "contentWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "helpAuditCleanup": {
+    "optInVariable": "APPLY_HELP_AUDIT_CLEANUP",
+    "tables": [
+      "public.help_reader_audit"
+    ],
+    "deleteExpiredOnly": true,
+    "schemaChanges": false,
+    "contentWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false,
+    "definitionSha256": "df4da7b47cba2c4587a16e087fc9958ef661a482797b28efb8fbf3ce0477fc92",
+    "scriptSha256": "0eced1feb37d710193624ba413c68bf1ead761cf13bb0c1edd943da408ced89b",
+    "storeSha256": "dbc012a638f091ab4b4dda9cd28a44998349bd1467f0a74f707e2b0a59f9a47c",
+    "workflowSha256": "c1df882963434de2d8720848951d44c85a6b2f967f14a05856dc371fe78a3e63"
   }
 }
