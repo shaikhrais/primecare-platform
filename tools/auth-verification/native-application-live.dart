@@ -69,8 +69,8 @@ void main(){
   // default. Only this explicitly opted-in production proof uses real networking.
   HttpOverrides.global=null;
   final networkZone=Zone.current;
-  // Two mounts per actor; dashboard, settings, profile and tasks each own a client.
-  final clients=List.generate(actors.length*2*4,(_)=>IOClient(HttpClient()));
+  // Two mounts per actor; dashboard, settings, profile, tasks and directory each own a client.
+  final clients=List.generate(actors.length*2*5,(_)=>IOClient(HttpClient()));
   final available=[...clients];
   final results=<Map<String,dynamic>>[];
   tearDownAll((){for(final client in clients){client.close();}});
@@ -81,7 +81,10 @@ void main(){
       await tester.binding.setSurfaceSize(Size(width,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
       final requests=<Map<String,dynamic>>[],events=<Map<String,dynamic>>[];
       final container=ProviderContainer(overrides:[authProvider.overrideWith(()=>LiveAuth(actor)),
-        nativeApplicationClientProvider.overrideWithValue(()=>Wire(available.removeAt(0),requests,events,networkZone))]);
+        nativeApplicationClientProvider.overrideWithValue((){
+          if(available.isEmpty){events.add({'phase':'owned-client-pool-exhausted'});throw StateError('Owned native client pool exhausted');}
+          return Wire(available.removeAt(0),requests,events,networkZone);
+        })]);
       addTearDown(container.dispose);
       Future<void> mount()async{
         await tester.pumpWidget(UncontrolledProviderScope(container:container,child:PrimeTheme(data:const PrimeThemeData(),
