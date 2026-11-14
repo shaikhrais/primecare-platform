@@ -6,7 +6,7 @@ const pin=JSON.parse(await readFile(new URL('../tools/governance-production/prod
 const work=rows.find(row=>row.key==='work').value;
 if(work.manifestSha256!==pin.manifestSha256||work.contractSha256!==pin.workModulesWriter.contractSha256||
  work.apiBindings?.GET!==16578||work.apiBindings?.POST!==16579||
- !work.controls.some(control=>control.key==='tasks'&&control.controlId===735&&control.componentCode==='prime_card'))throw Error('Existing native task binding differs');
+ ![['tasks',735],['contacts',734]].every(([key,id])=>work.controls.some(control=>control.key===key&&control.controlId===id&&control.componentCode==='prime_card')))throw Error('Existing native task/directory binding differs');
 for(const [key,path,expected] of [
  ['dashboard','tools/governance-production/dashboard-pages-contract.json',pin.dashboardPagesWriter.contractSha256],
  ['tenant','packages/shared/src/tenant-dashboard/catalog.json',pin.tenantDashboardWriter.catalogSha256],

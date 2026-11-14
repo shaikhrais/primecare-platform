@@ -31,7 +31,7 @@ class HostFixture {
   final closeFailures=<int,Object>{};
   final receipts=<String,Map<String,dynamic>>{};
   int revision=0,dashboardStatus=200;
-  bool includeTask=false,allowTasks=true,taskLoseAcknowledgement=false,taskConflict=false,taskFailReadback=false;
+  bool includeTask=false,allowTasks=true,allowPeople=false,includeDirectory=false,taskLoseAcknowledgement=false,taskConflict=false,taskFailReadback=false;
   int taskVersion=1,taskApplied=0,taskVerificationReads=0;
   String taskTitle='Native owned task';
   final taskWrites=<http.Request>[],taskReceipts=<String,Map<String,dynamic>>{};
@@ -40,7 +40,9 @@ class HostFixture {
     'due_on':'2026-11-13','status':'open','owner_id':'user-a','priority':'normal','flow_id':'owned.workflow','evidence':null,'submitted_by':null,'actions':['edit','start','block','submit','cancel']};
   Map<String,dynamic> get dashboard=>{'dataset':'live','database':'PostgreSQL','synthetic':false,'identity':{'userId':dashboardUser,'role':'tenant_admin'},
     'organization':{'id':dashboardTenant},'today':'2026-11-13','canManage':true,'canCreate':true,'taskActorId':'user-a',
-    'allowedViews':[if(allowTasks)'tasks','operations','audit','workflows'],'users':<Map<String,dynamic>>[],'clients':<Map<String,dynamic>>[],
+    'allowedViews':[if(allowTasks)'tasks',if(allowPeople)'people','operations','audit','workflows'],
+    'users':<Map<String,dynamic>>[if(includeDirectory){'id':'staff-a','name':'Owned directory staff','email':'owned@example.invalid'}],
+    'clients':<Map<String,dynamic>>[if(includeDirectory){'id':'client-a','name':'Owned directory client'}],
     'taskStats':{'open':includeTask?1:0,'review':0,'blocked':0,'overdue':0,'completed':0},
     'stats':{'staff':1,'clients':0,'visits':null,'requests':null,'time':null,'care':null,'plans':0},
     'events':<Map<String,dynamic>>[],'tasks':[if(includeTask)taskRow],'taskPage':{'offset':0,'total':includeTask?1:0,'limit':100},
@@ -121,6 +123,7 @@ Future<void> waitForTaskStatus(WidgetTester tester,WorkModuleSession session,Set
 }
 
 Finder taskModule()=>find.byWidgetPredicate((widget)=>widget is PrimeWorkModule&&widget.session.module=='tasks');
+Finder directoryModule()=>find.byWidgetPredicate((widget)=>widget is PrimeWorkModule&&widget.session.module=='contacts');
 WorkModuleSession profileSession(WidgetTester tester)=>tester.widgetList<PrimeWorkModule>(find.byType(PrimeWorkModule)).singleWhere((widget)=>widget.session.module=='profile').session;
 String taskText(String key,{String locale='en'})=>nativeApplicationWork['locales'][locale][key] as String;
 Finder taskButton(String key,{String locale='en'})=>find.descendant(of:taskModule(),matching:find.widgetWithText(TextButton,taskText(key,locale:locale))).first;
@@ -336,6 +339,42 @@ void main(){
     final f=HostFixture()..includeTask=true..allowTasks=false,container=f.container();addTearDown(container.dispose);await mount(tester,container);
     expect(taskModule(),findsNothing);expect(choice(),findsOneWidget);expect(f.clients.length,3);expect(f.taskWrites,isEmpty);
     expect(f.requests.where((request)=>request.url.queryParameters.containsKey('taskOffset')),isEmpty);expect(taskBlock(container).value,false);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
+  for(final locale in ['en','fr','es'])testWidgets('$locale native directory mounts only existing read-only scoped records',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,2800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture()..allowPeople=true..includeDirectory=true,container=f.container();addTearDown(container.dispose);await mount(tester,container,locale:locale);
+    expect(directoryModule(),findsOneWidget);expect((nativeApplicationWork['controls'] as List).singleWhere((row)=>row['key']=='contacts')['controlId'],734);
+    final directory=tester.widget<PrimeWorkModule>(directoryModule()).session;
+    final workIdentifiers=tester.widgetList<Semantics>(find.byWidgetPredicate((widget)=>widget is Semantics&&(widget.properties.identifier??'').startsWith('work-modules-'))).map((widget)=>widget.properties.identifier).toList();
+    expect(workIdentifiers.toSet().length,workIdentifiers.length);expect(workIdentifiers,contains('work-modules-filter-contacts'));expect(workIdentifiers,contains('work-modules-filter'));
+    expect(directory.snapshot!.items.map((item)=>item.title),['Owned directory staff','Owned directory client']);expect(directory.snapshot!.items.every((item)=>item.actions.isEmpty),true);
+    final create=find.descendant(of:directoryModule(),matching:find.widgetWithText(TextButton,taskText('create',locale:locale)));expect(tester.widget<TextButton>(create).onPressed,isNull);
+    await expectLater(directory.submit('staff:staff-a','edit',{'body':'Forbidden write'}),throwsA(isA<WorkFailure>().having((error)=>error.code,'code','denied')));
+    expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);expect(f.clients.length,5);expect(taskBlock(container).value,false);
+    final search=find.descendant(of:directoryModule(),matching:find.byType(TextField));await tester.ensureVisible(search);await tester.enterText(search,'directory client');await tester.testTextInput.receiveAction(TextInputAction.done);await waitForTaskStatus(tester,directory,{'ready'});
+    expect(directory.snapshot!.items.single.title,'Owned directory client');expect(directory.snapshot!.items.single.actions,isEmpty);expect(f.taskWrites,isEmpty);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
+  });
+  testWidgets('task view permission does not authorize the native directory',(tester)async{
+    final f=HostFixture()..includeDirectory=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    expect(taskModule(),findsOneWidget);expect(directoryModule(),findsNothing);expect(find.text('Owned directory staff'),findsNothing);expect(find.text('Owned directory client'),findsNothing);
+    expect(f.clients.length,4);expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('parent people-view revocation retires the native directory and its client',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,2800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture()..allowPeople=true..includeDirectory=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    final original=List<OwnedClient>.of(f.clients),directory=tester.widget<PrimeWorkModule>(directoryModule()).session;f.allowPeople=false;
+    final reload=find.descendant(of:find.byWidgetPredicate((widget)=>widget is Semantics&&widget.properties.identifier=='application-modules-reload-dashboard'),matching:find.byType(TextButton));await press(tester,reload);
+    expect(directoryModule(),findsNothing);expect(directory.dead,true);expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,9);
+    expect(find.text('Owned directory staff'),findsNothing);expect(find.text('Owned directory client'),findsNothing);expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
+  });
+  for(final denial in ['tenant','actor','http'])testWidgets('native directory $denial denial clears protected records',(tester)async{
+    final f=HostFixture()..allowPeople=true..includeDirectory=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    final directory=tester.widget<PrimeWorkModule>(directoryModule()).session;if(denial=='tenant')f.dashboardTenant='different-tenant';if(denial=='actor')f.dashboardUser='different-actor';if(denial=='http')f.dashboardStatus=403;
+    await tester.runAsync(()=>directory.load());await tester.pumpAndSettle();expect(directory.status,'denied');expect(directory.snapshot,isNull);
+    expect(find.descendant(of:directoryModule(),matching:find.text('Owned directory staff')),findsNothing);expect(find.descendant(of:directoryModule(),matching:find.text('Owned directory client')),findsNothing);
+    expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
   });
   testWidgets('dirty task synchronously blocks a previously captured parent reload callback',(tester)async{
     await tester.binding.setSurfaceSize(const Size(1200,2400));addTearDown(()=>tester.binding.setSurfaceSize(null));

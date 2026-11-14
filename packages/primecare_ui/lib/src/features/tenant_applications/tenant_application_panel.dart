@@ -2,7 +2,7 @@ import 'dart:async' show unawaited;
 import 'package:flutter_core/application_modules.dart';
 import 'package:flutter_core/work_modules.dart';
 import 'package:flutter_core/dashboard_pages.dart';
-import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels;
+import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels,CatalogueLabelInstances;
 import 'package:flutter_core/preference_sync/preference_adapters.dart';
 import 'package:flutter_core/shell_utilities.dart' show ShellUtilityLabels;
 import 'package:flutter_core/src/network/api_client.dart' show ApiConfig;
@@ -44,7 +44,7 @@ class TenantApplicationPanel extends ConsumerStatefulWidget {
 class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   final _clients=<http.Client>[];
   DashboardPageTransport? _dashboard;
-  WorkModuleSession? _profile,_tasks;
+  WorkModuleSession? _profile,_tasks,_contacts;
   late final WorkModuleLeaveBlock _taskLeaveBlock;
   ApplicationShortcutEditor? _editor;
   String _status='loading';
@@ -90,10 +90,10 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   void _reportCleanup(Object error,StackTrace stack)=>FlutterError.reportError(FlutterErrorDetails(
     exception:error,stack:stack,library:'PrimeCare',context:ErrorDescription('retiring an owned application host')));
   void _retire(){
-    final profile=_profile,tasks=_tasks,editor=_editor,dashboard=_dashboard,clients=List<http.Client>.of(_clients);
-    _profile=null;_tasks=null;_editor=null;_dashboard=null;_clients.clear();
+    final profile=_profile,tasks=_tasks,contacts=_contacts,editor=_editor,dashboard=_dashboard,clients=List<http.Client>.of(_clients);
+    _profile=null;_tasks=null;_contacts=null;_editor=null;_dashboard=null;_clients.clear();
     _source=null;_project=null;_analytics=null;_activity=null;_records=null;
-    _cleanup([()=>profile?.dispose(),()=>tasks?.dispose(),()=>editor?.removeListener(_changed),()=>editor?.dispose(),
+    _cleanup([()=>profile?.dispose(),()=>tasks?.dispose(),()=>contacts?.dispose(),()=>editor?.removeListener(_changed),()=>editor?.dispose(),
       ()=>dashboard?.dispose(),for(final client in clients)client.close]);
   }
   @override void dispose(){
@@ -137,12 +137,17 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       _profile=WorkModuleSession(scope,'profile',port:ApplicationProfilePort(origin:origin,
         token:widget.identity.token,scope:scope,currentToken:_token,currentScope:_scope,
         identityLabel:words['profile']!,client:_client()));
+      // Domain actions use the same pinned tenant labels as the existing web/native adapter.
+      final taskWords=<String,String>{...Map<String,String>.from(nativeApplicationTenant['labels'] as Map),
+        ...Map<String,String>.from(nativeApplicationTenant['controls'] as Map)};
       if(raw['allowedViews'] is List&&(raw['allowedViews'] as List).contains('tasks')){
-        // Domain actions use the same pinned tenant labels as the existing web/native adapter.
-        final taskWords=<String,String>{...Map<String,String>.from(nativeApplicationTenant['labels'] as Map),
-          ...Map<String,String>.from(nativeApplicationTenant['controls'] as Map)};
         _tasks=WorkModuleSession(scope,'tasks',requestId:PreferenceSyncClient.newRequestId,port:TenantTaskModulePort.authenticated(
           origin:origin,token:widget.identity.token,scope:scope,module:'tasks',labels:taskWords,
+          currentToken:_token,currentScope:_scope,client:_client()));
+      }
+      if(raw['allowedViews'] is List&&(raw['allowedViews'] as List).contains('people')){
+        _contacts=WorkModuleSession(scope,'contacts',port:TenantTaskModulePort.authenticated(
+          origin:origin,token:widget.identity.token,scope:scope,module:'contacts',labels:taskWords,
           currentToken:_token,currentScope:_scope,client:_client()));
       }
       _today=parsed;_source=Map.unmodifiable(raw);_project=project;_analytics=analytics;_activity=activity;_records=records;
@@ -162,7 +167,7 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       recovery=CatalogueLabels.fromMetadata(nativeApplicationRecovery,locale);
     final shell=ShellUtilityLabels(Map<String,String>.from(nativeApplicationShell['locales'][locale] as Map),
       {for(final row in nativeApplicationShell['controls'] as List)row['key'] as String:row['testId'] as String});
-    final profile=_profile,tasks=_tasks,editor=_editor,today=_today,theme=context.theme;
+    final profile=_profile,tasks=_tasks,contacts=_contacts,editor=_editor,today=_today,theme=context.theme;
     final work=CatalogueLabels.fromMetadata(nativeApplicationWork,locale);
     final readLabels=<String,String>{for(final entry in (nativeApplicationDashboard['resources'] as Map).entries)
       (entry.key as String).substring('dashboardPages.'.length):(entry.value as Map)[locale] as String,
@@ -185,6 +190,11 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
               SizedBox(height:theme.spacing.lg),
               PrimeWorkModule(labels:work,session:tasks,scope:'${tasks.scope.tenantId}:${tasks.scope.userId}:${tasks.scope.role}:live',
                 leaveBlock:_taskLeaveBlock,year:today.year,month:today.month,gap:theme.spacing.md,boardWidth:MediaQuery.sizeOf(context).width),
+            ],
+            if(contacts!=null)...[
+              SizedBox(height:theme.spacing.lg),
+              PrimeWorkModule(labels:work.forInstance('contacts'),session:contacts,scope:'${contacts.scope.tenantId}:${contacts.scope.userId}:${contacts.scope.role}:live',
+                year:today.year,month:today.month,gap:theme.spacing.md,boardWidth:MediaQuery.sizeOf(context).width),
             ],
             SizedBox(height:theme.spacing.lg),
             PrimeApplicationShortcuts(editor:editor,labels:shell,recoveryLabels:recovery),

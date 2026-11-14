@@ -4,6 +4,23 @@ final labels=CatalogueLabels.fromMetadata(jsonDecode(File('../primecare_ui/catal
 Finder cy(String key)=>find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='component-catalogue-$key');
 Widget scene(Widget child,{bool rtl=false})=>MaterialApp(home:Scaffold(body:Directionality(textDirection:rtl?TextDirection.rtl:TextDirection.ltr,child:SingleChildScrollView(child:child))));
 void main(){
+ test('registered label instances preserve bindings and reject invalid identifier suffixes',(){
+  final contacts=labels.forInstance('contacts');
+  expect(contacts.labels,same(labels.labels));expect(contacts.codes,same(labels.codes));expect(contacts.ids['button'],'${labels.ids['button']}-contacts');
+  expect(labels.ids['button'],'component-catalogue-button');expect(contacts.id('button','prime_button',suffix:'-record'),'component-catalogue-button-contacts-record');
+  expect(()=>contacts.ids['button']='changed',throwsUnsupportedError);
+  for(final invalid in ['', 'Upper', 'two words', '../foreign',List.filled(401,'a').join()])expect(()=>labels.forInstance(invalid),throwsArgumentError);
+ });
+ testWidgets('changing registered label instance isolates a pending old action',(t)async{
+  final instance=ValueNotifier('first'),old=Completer<void>(),next=Completer<void>();var oldCalls=0,nextCalls=0;
+  await t.pumpWidget(scene(ValueListenableBuilder<String>(valueListenable:instance,builder:(context,value,child)=>PrimeCatalogueAction(labels:labels.forInstance(value),scope:'account',control:'button',action:()async{if(value=='first'){oldCalls++;await old.future;}else{nextCalls++;await next.future;}}))));
+  await t.tap(cy('button-first'));await t.pump();instance.value='second';await t.pumpAndSettle();
+  final current=find.descendant(of:cy('button-second'),matching:find.byType(TextButton));expect(t.widget<TextButton>(current).onPressed,isNotNull);
+  await t.tap(current);await t.pump();old.completeError(StateError('retired instance'));await t.pumpAndSettle();
+  expect(t.widget<TextButton>(current).onPressed,isNull);expect(find.text(labels.text('actionError')),findsNothing);expect(oldCalls,1);expect(nextCalls,1);
+  next.complete();await t.pumpAndSettle();expect(find.text(labels.text('success')),findsOneWidget);expect(t.widget<TextButton>(current).onPressed,isNotNull);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());instance.dispose();
+ });
  testWidgets('actions preserve accessible labels busy guard and typed input on rejection',(t)async{final pending=Completer<void>(),input=TextEditingController(text:'keep'),kit=PrimeComponentKit(labels,'account');var calls=0;await t.pumpWidget(scene(Column(children:[kit.field('input',input),kit.button('button',()async{calls++;await pending.future;})])));await t.tap(cy('button'));await t.pump();await t.tap(cy('button'),warnIfMissed:false);expect(calls,1);expect(find.text(labels.text('button')),findsOneWidget);pending.completeError(StateError('denied'));await t.pumpAndSettle();expect(find.text(labels.text('actionError')),findsOneWidget);expect(input.text,'keep');await t.pumpWidget(const SizedBox.shrink());input.dispose();});
  for(final rejects in [false,true])testWidgets('resource suffix change isolates old ${rejects?'failure':'success'} from a pending new action',(t)async{
   final suffix=ValueNotifier('-first'),first=Completer<void>(),next=Completer<void>();var firstCalls=0,nextCalls=0;
