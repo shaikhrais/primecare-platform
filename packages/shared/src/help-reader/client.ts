@@ -28,7 +28,7 @@ export function createHelpReaderClient(options:{origin:string;getToken:()=>strin
     try{guard();if(response.status!==200){const map:Record<number,[HelpReadFailure['code'],number]>={401:['unauthenticated',401],403:['forbidden',403],404:['not_found',404],409:['conflict',409],429:['rate_limited',429]};const e=map[response.status]??['unavailable',503];throw new HelpReadFailure(e[0],e[1]);}
      if(response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')throw new HelpReadFailure('unavailable',503);
     }catch(error){await response.body?.cancel().catch(()=>{});guard();throw error;}
-    return guardedJson(response,max,guard,()=>new HelpReadFailure('unavailable',503));
+    return guardedJson(response,max,guard,()=>new HelpReadFailure('unavailable',503),controller.signal);
    };
    const self=async()=>{const a:any=await json('/v1/auth/me');guard();if(a?.status!=='authenticated'||a.userId!==scope.userId||a.tenantId!==scope.tenantId||a.roles!==scope.role)throw new HelpReadFailure('conflict',409);};
    try{
