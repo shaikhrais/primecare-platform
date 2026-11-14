@@ -2,6 +2,9 @@ name: API result caller regressions
 on:
   pull_request:
     paths:
+      - 'packages/domain/src/services/TrainingService.ts'
+      - 'packages/domain/src/utils/Result.ts'
+      - 'scripts/test-training-failure-boundary.mjs'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
@@ -17,6 +20,9 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/domain/src/services/TrainingService.ts'
+      - 'packages/domain/src/utils/Result.ts'
+      - 'scripts/test-training-failure-boundary.mjs'
       - 'packages/flutter_core/lib/src/network/api_client.dart'
       - 'packages/flutter_core/lib/src/repositories/own_notifications_repository.dart'
       - 'packages/flutter_core/lib/flutter_core.dart'
@@ -37,6 +43,13 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify real training failures and pinned old-source control
+        run: |
+          npm install --prefix "$RUNNER_TEMP/training-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/training-tools/node_modules" node_modules
+          node --test scripts/test-training-failure-boundary.mjs
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
