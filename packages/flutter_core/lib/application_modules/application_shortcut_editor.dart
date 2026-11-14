@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/foundation.dart';
 import '../preference_sync/preference_sync_client.dart';
 import '../work_modules/work_module_model.dart';
@@ -8,8 +7,7 @@ class ApplicationShortcutEditor extends ChangeNotifier {
  final ApplicationSettingsPort port;
  late final ({PreferenceSyncClient client,Map<String,String> names,List<String> defaults}) _owned;
  bool _dead=false;
- ApplicationShortcutEditor(this.port){_owned=port.claimShortcutEditor(_uuid);if(_owned.names.keys.any((id)=>!RegExp(r'^[1-9][0-9]{0,9}$').hasMatch(id))){port.dispose();throw const WorkFailure('invalid');}_owned.client.addListener(_changed);}
- static String _uuid(){final random=Random.secure(),bytes=List.generate(16,(_)=>random.nextInt(256));bytes[6]=(bytes[6]&15)|64;bytes[8]=(bytes[8]&63)|128;final hex=bytes.map((b)=>b.toRadixString(16).padLeft(2,'0')).join();return '${hex.substring(0,8)}-${hex.substring(8,12)}-${hex.substring(12,16)}-${hex.substring(16,20)}-${hex.substring(20)}';}
+ ApplicationShortcutEditor(this.port){_owned=port.claimShortcutEditor(PreferenceSyncClient.newRequestId);if(_owned.names.keys.any((id)=>!RegExp(r'^[1-9][0-9]{0,9}$').hasMatch(id))){port.dispose();throw const WorkFailure('invalid');}_owned.client.addListener(_changed);}
  void _changed(){if(!_dead)notifyListeners();}
  Map<String,dynamic>? get recoveryPreview=>_owned.client.recoveryPreview;
  Future<Map<String,dynamic>?> reviewRecovery()async{_open();return _owned.client.reviewRecovery();}

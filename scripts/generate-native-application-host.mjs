@@ -1,8 +1,12 @@
 import {readFile,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
-const files={application:'application-modules.registration.json',shell:'shell-utilities.registration.json',recovery:'application-recovery.registration.json',destinations:'application-shortcuts.destinations.json'};
+const files={work:'work-modules.registration.json',application:'application-modules.registration.json',shell:'shell-utilities.registration.json',recovery:'application-recovery.registration.json',destinations:'application-shortcuts.destinations.json'};
 const rows=await Promise.all(Object.entries(files).map(async([key,name])=>{const bytes=await readFile(new URL('../packages/primecare_ui/catalogs/'+name,import.meta.url),'utf8'),value=JSON.parse(bytes);if(value.kind!=='verified_metadata_export'||bytes.includes("'''"))throw Error('Verified catalog required');return {key,name,bytes,value};}));
 const pin=JSON.parse(await readFile(new URL('../tools/governance-production/production-pin.json',import.meta.url),'utf8'));
+const work=rows.find(row=>row.key==='work').value;
+if(work.manifestSha256!==pin.manifestSha256||work.contractSha256!==pin.workModulesWriter.contractSha256||
+ work.apiBindings?.GET!==16578||work.apiBindings?.POST!==16579||
+ !work.controls.some(control=>control.key==='tasks'&&control.controlId===735&&control.componentCode==='prime_card'))throw Error('Existing native task binding differs');
 for(const [key,path,expected] of [
  ['dashboard','tools/governance-production/dashboard-pages-contract.json',pin.dashboardPagesWriter.contractSha256],
  ['tenant','packages/shared/src/tenant-dashboard/catalog.json',pin.tenantDashboardWriter.catalogSha256],

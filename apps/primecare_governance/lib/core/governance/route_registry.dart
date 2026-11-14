@@ -223,7 +223,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           );
         },
         routes: [
-          GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),
+          GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen(),
+            onExit:(context,state)=>canLeaveNativeApplicationTasks(ref.read(authProvider),
+              (identity)=>ref.read(nativeTaskLeaveBlockProvider(identity)))),
           // Native QA & Compliance Routes
           GoRoute(path: '/admin/screen-health', builder: (context, state) => const AdminScreenHealthScreen()),
           GoRoute(path: '/admin/reality-check', builder: (context, state) => const AdminRealityCheckScreen()),

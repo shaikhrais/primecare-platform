@@ -1,5 +1,6 @@
 import 'dart:async' show unawaited;
 import 'package:flutter_core/application_modules.dart';
+import 'package:flutter_core/work_modules.dart';
 import 'package:flutter_core/dashboard_pages.dart';
 import 'package:flutter_core/component_catalogue/prime_component_catalogue.dart' show CatalogueLabels;
 import 'package:flutter_core/preference_sync/preference_adapters.dart';
@@ -26,6 +27,15 @@ class NativeApplicationIdentity {
   @override String toString() => 'NativeApplicationIdentity(redacted)';
 }
 
+/// Scoped by captured identity; old account claims never restrict a new account or logout.
+final nativeTaskLeaveBlockProvider=Provider.autoDispose.family<WorkModuleLeaveBlock,NativeApplicationIdentity>((ref,identity){
+ final block=WorkModuleLeaveBlock();ref.onDispose(block.dispose);return block;
+});
+bool canLeaveNativeApplicationTasks(AuthState auth,WorkModuleLeaveBlock Function(NativeApplicationIdentity) lookup){
+ if(!auth.isInitialized||!auth.isAuthenticated||auth.userId?.isNotEmpty!=true||auth.tenantId?.isNotEmpty!=true||auth.role?.isNotEmpty!=true||auth.token?.isNotEmpty!=true)return true;
+ return !lookup(NativeApplicationIdentity(auth.userId!,auth.tenantId!,auth.role!,auth.token!)).value;
+}
+
 class TenantApplicationPanel extends ConsumerStatefulWidget {
   final NativeApplicationIdentity identity;
   const TenantApplicationPanel({super.key,required this.identity});
@@ -34,7 +44,8 @@ class TenantApplicationPanel extends ConsumerStatefulWidget {
 class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   final _clients=<http.Client>[];
   DashboardPageTransport? _dashboard;
-  WorkModuleSession? _profile;
+  WorkModuleSession? _profile,_tasks;
+  late final WorkModuleLeaveBlock _taskLeaveBlock;
   ApplicationShortcutEditor? _editor;
   String _status='loading';
   DateTime? _today;
@@ -48,10 +59,11 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   PreferenceScope? _scope() => _current ? widget.identity.scope : null;
   String? _token() => _current ? widget.identity.token : null;
   http.Client _client() {final client=ref.read(nativeApplicationClientProvider)();_clients.add(client);return client;}
-  bool get _blocked {final state=_editor?.current;return state!=null &&
+  bool get _taskBlocked=>_current&&_taskLeaveBlock.value;
+  bool get _blocked {if(_taskBlocked)return true;final state=_editor?.current;return state!=null &&
       (state['dirty']==true || state['pending']!=null || state['remote']!=null ||
        ['loading','saving','discarding','recovering'].contains(state['status']));}
-  @override void initState(){super.initState();Future<void>.microtask(_load);}
+  @override void initState(){super.initState();_taskLeaveBlock=ref.read(nativeTaskLeaveBlockProvider(widget.identity))..addListener(_changed);Future<void>.microtask(_load);}
   void _changed(){if(_current)setState((){});}
   void _cleanup(Iterable<void Function()> actions){
     Object? firstError;StackTrace? firstStack;
@@ -61,15 +73,15 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   void _reportCleanup(Object error,StackTrace stack)=>FlutterError.reportError(FlutterErrorDetails(
     exception:error,stack:stack,library:'PrimeCare',context:ErrorDescription('retiring an owned application host')));
   void _retire(){
-    final profile=_profile,editor=_editor,dashboard=_dashboard,clients=List<http.Client>.of(_clients);
-    _profile=null;_editor=null;_dashboard=null;_clients.clear();
+    final profile=_profile,tasks=_tasks,editor=_editor,dashboard=_dashboard,clients=List<http.Client>.of(_clients);
+    _profile=null;_tasks=null;_editor=null;_dashboard=null;_clients.clear();
     _source=null;_project=null;_analytics=null;_activity=null;_records=null;
-    _cleanup([()=>profile?.dispose(),()=>editor?.removeListener(_changed),()=>editor?.dispose(),
+    _cleanup([()=>profile?.dispose(),()=>tasks?.dispose(),()=>editor?.removeListener(_changed),()=>editor?.dispose(),
       ()=>dashboard?.dispose(),for(final client in clients)client.close]);
   }
   @override void dispose(){
     _disposed=true;_generation++;
-    try{_cleanup([_retire,_recordSearch.dispose,()=>super.dispose()]);}
+    try{_cleanup([_retire,()=>_taskLeaveBlock.removeListener(_changed),_recordSearch.dispose,()=>super.dispose()]);}
     catch(error,stack){_reportCleanup(error,stack);}
   }
   Future<void> _load()async{
@@ -108,6 +120,12 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       _profile=WorkModuleSession(scope,'profile',port:ApplicationProfilePort(origin:origin,
         token:widget.identity.token,scope:scope,currentToken:_token,currentScope:_scope,
         identityLabel:words['profile']!,client:_client()));
+      if(raw['allowedViews'] is List&&(raw['allowedViews'] as List).contains('tasks')){
+        final taskWords=Map<String,String>.from(nativeApplicationWork['locales'][locale] as Map);
+        _tasks=WorkModuleSession(scope,'tasks',requestId:PreferenceSyncClient.newRequestId,port:TenantTaskModulePort.authenticated(
+          origin:origin,token:widget.identity.token,scope:scope,module:'tasks',labels:taskWords,
+          currentToken:_token,currentScope:_scope,client:_client()));
+      }
       _today=parsed;_source=Map.unmodifiable(raw);_project=project;_analytics=analytics;_activity=activity;_records=records;
       setState(()=>_status='ready');
       unawaited(_editor!.load());
@@ -119,11 +137,13 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   String _locale(BuildContext context){final value=Localizations.localeOf(context).languageCode;
     return ['en','fr','es'].contains(value)?value:'en';}
   @override Widget build(BuildContext context){
+    ref.watch(nativeTaskLeaveBlockProvider(widget.identity));
     final locale=_locale(context),application=CatalogueLabels.fromMetadata(nativeApplicationApplication,locale),
       recovery=CatalogueLabels.fromMetadata(nativeApplicationRecovery,locale);
     final shell=ShellUtilityLabels(Map<String,String>.from(nativeApplicationShell['locales'][locale] as Map),
       {for(final row in nativeApplicationShell['controls'] as List)row['key'] as String:row['testId'] as String});
-    final profile=_profile,editor=_editor,today=_today,theme=context.theme;
+    final profile=_profile,tasks=_tasks,editor=_editor,today=_today,theme=context.theme;
+    final work=CatalogueLabels.fromMetadata(nativeApplicationWork,locale);
     final readLabels=<String,String>{for(final entry in (nativeApplicationDashboard['resources'] as Map).entries)
       (entry.key as String).substring('dashboardPages.'.length):(entry.value as Map)[locale] as String,
       'live':nativeApplicationTenant['labels']['live'] as String,'demo':nativeApplicationTenant['labels']['demo'] as String,
@@ -134,13 +154,18 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       body:SingleChildScrollView(padding:EdgeInsets.all(theme.spacing.lg),
         child:Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
           application.identify('open','prime_button',PrimeTextButton(
-            onPressed:()=>context.go('/success?enable-semantics=true'),
+            onPressed:_taskBlocked?null:(){if(_current&&!_taskLeaveBlock.value)context.go('/success?enable-semantics=true');},
             child:PrimeText('${application.text('open')} ${application.text('profile')}')),suffix:'-account'),
           if(_status!='ready')Semantics(liveRegion:true,child:PrimeText(application.text(_status))),
           if(_status=='unavailable')PrimeTextButton(onPressed:_load,child:PrimeText(application.text('reload'))),
           if(profile!=null && editor!=null && today!=null)...[
             PrimeWorkModule(labels:application,session:profile,scope:'${profile.scope.tenantId}:${profile.scope.userId}:${profile.scope.role}:live',
               year:today.year,month:today.month,gap:theme.spacing.md,boardWidth:MediaQuery.sizeOf(context).width),
+            if(tasks!=null)...[
+              SizedBox(height:theme.spacing.lg),
+              PrimeWorkModule(labels:work,session:tasks,scope:'${tasks.scope.tenantId}:${tasks.scope.userId}:${tasks.scope.role}:live',
+                leaveBlock:_taskLeaveBlock,year:today.year,month:today.month,gap:theme.spacing.md,boardWidth:MediaQuery.sizeOf(context).width),
+            ],
             SizedBox(height:theme.spacing.lg),
             PrimeApplicationShortcuts(editor:editor,labels:shell,recoveryLabels:recovery),
             SizedBox(height:theme.spacing.lg),

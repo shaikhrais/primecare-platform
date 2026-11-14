@@ -6,7 +6,7 @@
     {
       "path": "apps/primecare_governance/lib/core/governance/route_registry.dart",
       "beforeSha256": "cd7819feed255d774c96e52cfcfeee4df4190111e9c6768026823230ae9d2575",
-      "afterSha256": "55eadd3e8584cff740e123b9b3bd781b2cd5a6d18e3d3849bc05d653eade5c56",
+      "afterSha256": "8aa775d464e4fbf37b1e41bc250f29ff4ea92151929fa7a05dd36a690bd44096",
       "edits": [
         {
           "begin": 337,
@@ -26,7 +26,7 @@
         {
           "begin": 9452,
           "old": "",
-          "new": "GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen()),\n          "
+          "new": "GoRoute(path: nativeTenantApplicationRoute, builder: (context, state) => const TenantApplicationScreen(),\n            onExit:(context,state)=>canLeaveNativeApplicationTasks(ref.read(authProvider),\n              (identity)=>ref.read(nativeTaskLeaveBlockProvider(identity)))),\n          "
         }
       ]
     }
