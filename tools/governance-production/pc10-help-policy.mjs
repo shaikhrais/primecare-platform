@@ -17,7 +17,7 @@ export async function registerHelpPolicy(db,{apply=false}={}){
  await db.query(apply?'BEGIN ISOLATION LEVEL SERIALIZABLE':'BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
  try{
   await db.query("SET LOCAL statement_timeout='20s'");await db.query("SET LOCAL lock_timeout='5s'");
-  if(apply){await db.query('LOCK TABLE '+table('api_rate_limits')+','+table('audit_event_definitions')+' IN SHARE ROW EXCLUSIVE MODE');await db.query('LOCK TABLE '+table('api_endpoints')+',public.help_reader_rate,public.help_reader_audit IN SHARE MODE');}
+  if(apply){await db.query('LOCK TABLE '+table('api_rate_limits')+','+table('audit_event_definitions')+' IN SHARE ROW EXCLUSIVE MODE');await db.query('LOCK TABLE public.help_reader_rate,public.help_reader_audit IN ACCESS SHARE MODE');}
   const manifest=(await db.query('SELECT manifest_sha256 FROM '+table('source_manifest'))).rows;
   if(manifest.length!==1||manifest[0].manifest_sha256!==pin.manifestSha256||JSON.stringify(await inspectHelpStorage(db))!==JSON.stringify(storageDefinition.shape))throw Error('Storage or authority changed');
   for(const [name,expected] of [['api_rate_limits',rateColumns],['audit_event_definitions',auditColumns]]){
@@ -26,7 +26,7 @@ export async function registerHelpPolicy(db,{apply=false}={}){
    const constraints=(await db.query('SELECT c.contype,pg_get_constraintdef(c.oid) AS definition FROM pg_constraint c JOIN pg_class r ON r.oid=c.conrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=$2',[pin.schema,pin.tablePrefix+name])).rows;
    if(constraints.length!==1||constraints[0].contype!=='p'||constraints[0].definition!=='PRIMARY KEY (_primecare_import_row)')throw Error('Policy constraints differ');
   }
-  const e=(await db.query('SELECT id,http_method,route_path,permission_key,rate_limit_key,service_name FROM '+table('api_endpoints')+' WHERE id=794')).rows;
+  const e=(await db.query('SELECT id,http_method,route_path,permission_key,rate_limit_key,service_name FROM '+table('api_endpoints')+' WHERE id=794'+(apply?' FOR SHARE':''))).rows;
   if(e.length!==1||e[0].http_method!=='POST'||e[0].route_path!=='/v1/psw/help-support'||e[0].permission_key!==helpPolicy.key||e[0].rate_limit_key!==helpPolicy.key||e[0].service_name!=='governance')throw Error('Accepted reader definition differs');
   const rateQuery='SELECT id,api_id,runtime_artifact_id,limit_key,max_requests,time_window FROM '+table('api_rate_limits')+" WHERE api_id #>> '{}'='794' OR api_id->>'v'='794' OR limit_key #>> '{}'=$1 OR limit_key->>'v'=$1";
   const auditQuery='SELECT id,event_code,event_name,severity,description FROM '+table('audit_event_definitions')+' WHERE event_code=$1';
