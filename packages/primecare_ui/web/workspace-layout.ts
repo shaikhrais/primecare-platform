@@ -37,10 +37,12 @@ export class WorkspaceLayoutManager {
     if (root.hasAttribute('data-pc-workspace')) throw Error('Workspace is already managed');
     this.win = root.ownerDocument.defaultView!;
     this.rootAttributes = [...root.attributes].map(a => [a.name,a.value]);
-    this.originals = elements.map(element => {const anchor=root.ownerDocument.createComment('PrimeCare layout slot');element.before(anchor);return {element,anchor,attributes:[...element.attributes].map(a => [a.name,a.value])};});
+    this.originals=[];let createdStyle:HTMLStyleElement|undefined;try{
+    root.dataset.pcWorkspace='';
+    for(const element of elements){const anchor=root.ownerDocument.createComment('PrimeCare layout slot');element.before(anchor);this.originals.push({element,anchor,attributes:[...element.attributes].map(a=>[a.name,a.value])});}
     try { const text = storage.getItem(storageKey); if (text) this.profile = parseWorkspaceLayout(text, this.ids); } catch { /* Invalid or inaccessible preferences keep safe defaults. */ }
     const doc = root.ownerDocument;
-    if (!doc.querySelector('[data-primecare-workspace-styles]')) {const style = doc.createElement('style'); style.dataset.primecareWorkspaceStyles = ''; style.textContent = workspaceLayoutStyles; doc.head.append(style);}
+    if (!doc.querySelector('[data-primecare-workspace-styles]')) {const style = createdStyle = doc.createElement('style'); style.dataset.primecareWorkspaceStyles = ''; style.textContent = workspaceLayoutStyles; doc.head.append(style);}
     this.stage = doc.createElement('div'); this.stage.dataset.pcStage = '';
     for (const dock of ['left','right','top','bottom']) {const host = doc.createElement('div'); host.dataset.pcDock = dock; this.docks.set(dock, host); this.stage.append(host);}
     slots.navigation.dataset.pcSlot = 'nav'; slots.toolbar.dataset.pcSlot = 'toolbar'; slots.main.dataset.pcSlot = 'main';
@@ -57,6 +59,7 @@ export class WorkspaceLayoutManager {
     this.win.addEventListener('resize', this.apply, {signal});
     this.observer = new ResizeObserver(this.apply); this.observer.observe(root); this.observer.observe(slots.toolbar);
     this.apply();
+    }catch(error){try{cleanupOwnedResources([()=>this.dispose(),()=>createdStyle?.remove()]);}catch{}throw error;}
   }
   get current(): WorkspaceLayout { return structuredClone(this.profile); }
   get canUndo(): boolean { return this.undoStack.length > 0; }
@@ -159,12 +162,12 @@ export class WorkspaceLayoutManager {
   dispose(): void {
     if (this.disposed) return; this.disposed = true;
     cleanupOwnedResources([
-      ()=>this.abort.abort(),()=>this.observer.disconnect(),
+      ()=>this.abort.abort(),()=>this.observer?.disconnect(),
       ...[...this.originals].reverse().flatMap(item=>[
         ()=>{item.anchor.replaceWith(item.element);},
         ...[...item.element.attributes].map(a=>()=>item.element.removeAttribute(a.name)),
         ...item.attributes.map(([key,value])=>()=>item.element.setAttribute(key,value))
-      ]),()=>this.stage.remove(),
+      ]),()=>this.stage?.remove(),
       ...[...this.root.attributes].map(a=>()=>this.root.removeAttribute(a.name)),
       ...this.rootAttributes.map(([key,value])=>()=>this.root.setAttribute(key,value)),
       ()=>{this.originals=[];this.docks.clear();}

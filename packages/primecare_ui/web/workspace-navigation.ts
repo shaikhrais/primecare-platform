@@ -60,7 +60,7 @@ export class WorkspaceNavigationView {
   if(this.options&&this.options.frame?.element!==next.frame?.element)throw Error('Remount when replacing the workspace frame');
   const nodes=buildWorkspaceNavigation(next.items,next.authority);activeWorkspaceDestination(nodes,next.currentRoute);
   const changed=this.options?.scope!==next.scope,routeChanged=this.options?.currentRoute!==next.currentRoute;
-  this.options={...next,labels:{...next.labels}};this.nodes=nodes;
+  const frame=next.frame;this.options={...next,labels:{...next.labels},...(frame?{frame:Object.freeze({element:frame.element,profile:frame.profile.bind(frame)})}:{})};this.nodes=nodes;
   const groups=flattenWorkspaceNavigation(nodes).filter(n=>n.kind==='group'&&!n.disabled).map(n=>n.id);
   this.expanded=changed?new Set():new Set([...this.expanded].filter(id=>groups.includes(id)));
   if(changed){this.pinned=next.pinned??true;this.selected=undefined;this.drawer=false;}
