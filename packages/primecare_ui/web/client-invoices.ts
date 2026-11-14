@@ -31,7 +31,7 @@ export class PrimeClientInvoices extends ThemeControlBase{
   for(const key of ['refresh','previous','next'] as const){
    const button=this.control('button',key);button.type='button';button.textContent=words[key];this.buttons[key]=button;
    button.addEventListener('click',()=>{
-    if(this.dead)return;if(!this.isCurrent()){this.dispose();return;}
+    if(this.dead)return;if(!this.ownerCurrent()){this.dispose();return;}
     if(button.disabled||button.getAttribute('aria-disabled')==='true'||this.client.current.status==='loading')return;
     const offset=key==='previous'?Math.max(0,this.offset-25):key==='next'?this.offset+25:this.offset;
     void this.client.load(offset);
@@ -60,6 +60,7 @@ export class PrimeClientInvoices extends ThemeControlBase{
    throw error;
   }
  }
+ private ownerCurrent(){if(this.dead)return false;try{return this.isCurrent()===true&&!this.dead;}catch{return false;}}
  private control<K extends keyof HTMLElementTagNameMap>(tag:K,key:string){
   const spec=metadata.controls.find(c=>c.key===key);if(!spec?.controlId)throw Error('missing_registered_invoice_control');
   const node=this.root.ownerDocument.createElement(tag);node.dataset.cy=spec.testId;node.dataset.controlId=String(spec.controlId);return node;
@@ -69,12 +70,12 @@ export class PrimeClientInvoices extends ThemeControlBase{
   // Establish an initially empty region before changing its message in a later task.
   this.announcement=setTimeout(()=>{
    this.announcement=null;
-   if(this.dead)return;if(!this.isCurrent()||!this.root.contains(this.status)){this.dispose();return;}
+   if(this.dead)return;if(!this.ownerCurrent()||!this.root.contains(this.status)){this.dispose();return;}
    this.status.textContent=message;
   },0);
  }
  render(){
-  if(this.dead)return;if(!this.isCurrent()||!this.root.isConnected){this.dispose();return;}
+  if(this.dead)return;if(!this.ownerCurrent()||!this.root.isConnected){this.dispose();return;}
   const doc=this.root.ownerDocument,focused=doc.activeElement,state=this.client.current,words=metadata.locales[this.locale];
   const busy=state.status==='loading',page=state.page;
   if(page)this.offset=page.pagination.offset;
