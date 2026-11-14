@@ -2713,7 +2713,7 @@
     "line": 89,
     "constructor": "GoRouter",
     "class": "<nested route container>",
-    "digest": "5cffb2d04b39facfc60d960fb3063cc1af053056dfccbd53cd7599e36335f730"
+    "digest": "c6cc373a8af58ba3b325e432f1aaabe95d7b7730a090c6fb17fe505b54146061"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
@@ -2727,14 +2727,14 @@
     "line": 181,
     "constructor": "ShellRoute",
     "class": "<nested route container>",
-    "digest": "d65da7c4b93b6b4dc72ca7ee5bfa809a993796ad27efeebac6d5dbaa4fc793a0"
+    "digest": "6d920fe76b333d3c13b819173600213bdfc5e75eff6c5cf3f275e2dab336c975"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",
     "line": 226,
     "constructor": "GoRoute",
     "class": "TenantApplicationScreen",
-    "digest": "5fbfb19f20836cb0dcc3c246ca76273214b26e131a96c220bdb9dab94c448be0"
+    "digest": "c9ecae1db9c8aff7c53c002cf048a0b96324fa36eb7ac84a677261c6127dd105"
   },
   {
     "file": "apps/primecare_governance/lib/core/governance/route_registry.dart",

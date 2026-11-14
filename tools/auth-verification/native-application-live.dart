@@ -69,7 +69,8 @@ void main(){
   // default. Only this explicitly opted-in production proof uses real networking.
   HttpOverrides.global=null;
   final networkZone=Zone.current;
-  final clients=List.generate(18,(_)=>IOClient(HttpClient()));
+  // Two mounts per actor; dashboard, settings, profile and tasks each own a client.
+  final clients=List.generate(actors.length*2*4,(_)=>IOClient(HttpClient()));
   final available=[...clients];
   final results=<Map<String,dynamic>>[];
   tearDownAll((){for(final client in clients){client.close();}});
