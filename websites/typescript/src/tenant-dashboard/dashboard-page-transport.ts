@@ -11,6 +11,6 @@ export function dashboardPageTransport(origin:string, token:string, dataset:'liv
   try{response=await fetcher(url,{method:'GET',headers:{authorization:'Bearer '+token},signal,cache:'no-store',redirect:'error'});}
   catch(error){guard();throw error;}
   try{guard();if(!response.ok)throw Error(response.status===401||response.status===403?'denied':'read_failed');}catch(error){if(response.body)await response.body.cancel().catch(()=>{});guard();throw error;}
-  return guardedJson(response,1048576,guard,()=>Error('invalid_response'));
+  return guardedJson(response,1048576,guard,()=>Error('invalid_response'),signal);
  };
 }

@@ -9,6 +9,7 @@ on:
       - packages/primecare_ui/web/supporting-pages.ts
       - packages/primecare_ui/web/record-pages.ts
       - scripts/test-dashboard-record-pages.mjs
+      - scripts/test-dashboard-read-cancellation.mjs
       - packages/flutter_core/lib/dashboard_pages*
       - packages/flutter_core/lib/dashboard_pages/**
       - packages/flutter_core/test/dashboard_pages/**
@@ -30,7 +31,7 @@ jobs:
           npm install --prefix /tmp/dashboard-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 playwright@1.60.0 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 pg@8.16.3 linkedom@0.18.12
           ln -s /tmp/dashboard-tools/node_modules node_modules
           npx playwright install --with-deps chromium
-          node --test scripts/test-dashboard-pages-observer-isolation.mjs scripts/test-dashboard-pages-lifecycle.mjs scripts/test-dashboard-pages-projection.mjs scripts/test-dashboard-pages-session.mjs scripts/test-dashboard-record-pages.mjs
+          node --test scripts/test-dashboard-read-cancellation.mjs scripts/test-dashboard-pages-observer-isolation.mjs scripts/test-dashboard-pages-lifecycle.mjs scripts/test-dashboard-pages-projection.mjs scripts/test-dashboard-pages-session.mjs scripts/test-dashboard-record-pages.mjs
           node scripts/test-dashboard-pages-parity.mjs
           node scripts/test-dashboard-pages-integration.mjs
           node scripts/test-dashboard-pages-browser.mjs
