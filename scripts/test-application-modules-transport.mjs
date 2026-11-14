@@ -127,3 +127,34 @@ for(const mode of ['abort','dispose'])test('profile '+mode+' releases a stalled 
  assert.equal(observed.error?.code,'unavailable');assert.equal(cancelled,1);assert.equal(calls,1);assert.equal(caller.signal.aborted,mode==='abort');
  if(mode==='abort'){assert.equal((await p.port.read(query,new AbortController().signal)).items[0].id,'user1');assert.equal(calls,2);}p.port.dispose();
 });
+
+
+function settingsPort(transport){
+ const binding={scope,kind:'shortcuts',resource:'navigation',policy:{panelIds:[],screenIds:['1']}};
+ return new ApplicationSettingsPort(binding,transport,{read:async()=>null,write:async()=>{},remove:async()=>{}},{'1':'Overview'},{shortcuts:'Shortcuts',editShortcuts:'Edit'});
+}
+test('settings disposal aborts its owned stalled reads without aborting callers',async()=>{
+ let transportSignal,release;const caller=new AbortController(),port=settingsPort((request,signal)=>{transportSignal=signal;return new Promise((resolve,reject)=>{release=()=>resolve({version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null});signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});});
+ const pending=port.readItem('navigation',caller.signal).then(value=>({value}),error=>({error}));
+ await new Promise(r=>setImmediate(r));port.dispose();const aborted=transportSignal.aborted;if(!aborted)release();
+ const observed=await pending;assert.equal(aborted,true);assert.equal(observed.error?.code,'unavailable');assert.equal(caller.signal.aborted,false);
+});
+test('settings disposal aborts every concurrent owned read',async()=>{
+ const signals=[],release=[];const port=settingsPort((request,signal)=>{signals.push(signal);return new Promise((resolve,reject)=>{release.push(()=>resolve({version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null}));signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true});});}),caller=new AbortController();
+ const pending=[port.readItem('navigation',caller.signal),port.readItem('navigation',caller.signal)].map(value=>value.then(result=>({result}),error=>({error})));
+ await new Promise(r=>setImmediate(r));port.dispose();const aborted=signals.map(signal=>signal.aborted);for(let i=0;i<signals.length;i++)if(!aborted[i])release[i]();
+ const observed=await Promise.all(pending);assert.deepEqual(aborted,[true,true]);assert.deepEqual(observed.map(value=>value.error?.code),['unavailable','unavailable']);assert.equal(caller.signal.aborted,false);
+});
+test('settings caller cancellation forwards and completed read signals retire',async()=>{
+ let activeSignal;const caller=new AbortController(),active=settingsPort((request,signal)=>{activeSignal=signal;return new Promise((resolve,reject)=>signal.addEventListener('abort',()=>reject(Error('aborted')),{once:true}));});
+ const pending=active.readItem('navigation',caller.signal);caller.abort();assert.equal(activeSignal.aborted,true);await assert.rejects(()=>pending,error=>error.code==='unavailable');active.dispose();
+ let completedSignal;const done=settingsPort(async(request,signal)=>{completedSignal=signal;return {version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null};});
+ await done.readItem('navigation',new AbortController().signal);done.dispose();assert.equal(completedSignal.aborted,false);
+});
+test('settings releases caller abort subscriptions after success and failure',async()=>{
+ for(const fail of [false,true]){const caller=new AbortController(),add=caller.signal.addEventListener.bind(caller.signal),remove=caller.signal.removeEventListener.bind(caller.signal);let balance=0;
+  caller.signal.addEventListener=(type,fn,options)=>{if(type==='abort')balance++;return add(type,fn,options);};caller.signal.removeEventListener=(type,fn,options)=>{if(type==='abort')balance--;return remove(type,fn,options);};
+  const port=settingsPort(async()=>{if(fail)throw Error('offline');return {version:1,scope,kind:'shortcuts',resource:'navigation',revision:0,document:null};});
+  if(fail)await assert.rejects(()=>port.readItem('navigation',caller.signal));else await port.readItem('navigation',caller.signal);assert.equal(balance,0);port.dispose();
+ }
+});

@@ -32,7 +32,7 @@ class ApplicationSettingsPort implements WorkPort {
     final wire=PreferenceHttpTransport(origin:origin,token:token,client:client);
     late ApplicationSettingsPort port;
     void guard(){port._open();var matches=false;try{final now=currentScope();matches=currentToken()==token&&now!=null&&now.same(binding.scope);}catch(_){}port._open();if(!matches)throw const PreferenceFailure('scope_changed',403);}
-    try{port=ApplicationSettingsPort(binding:binding,cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:client==null?wire.close:null,
+    try{port=ApplicationSettingsPort(binding:binding,cache:cache,names:names,labels:labels,defaults:defaults,closeTransport:(){wire.cancelPending();if(client==null)wire.close();},
       transport:(request)async{guard();try{final raw=await wire.call(request);guard();return raw;}catch(_){guard();rethrow;}});return port;}catch(_){if(client==null)wire.close();rethrow;}
   }
   void _workOpen(){_open();if(_editorClaimed)throw const WorkFailure('unavailable');_workStarted=true;}
@@ -45,7 +45,7 @@ class ApplicationSettingsPort implements WorkPort {
       'actions':[{'id':'edit','label':labels['editShortcuts'],'fields':['body'],'target':''}]}],
     'lanes':<Object?>[],'offset':0,'total':1,'partial':false},binding.scope,'settings');
   Future<Map<String,dynamic>> _fresh()async{_open();try{final raw=await transport({'version':1,'expectedScope':binding.scope.toJson(),'dataset':binding.scope.dataset,
-    'kind':'shortcuts','resource':'navigation','action':'read'});_open();return preferenceSnapshot(raw,binding);}catch(e){_fail(e);}}
+    'kind':'shortcuts','resource':'navigation','action':'read'});_open();return preferenceSnapshot(raw,binding);}catch(e){_open();_fail(e);}}
   @override Future<Object?> read(WorkQuery query)async{
     _workOpen();if(query.offset!=0||query.search.length>100)throw const WorkFailure('invalid',400);await _client.load();_open();final state=_client.current;
     if(['error','offline'].contains(state['status']))_fail();if(state['pending']!=null||state['dirty']==true||state['remote']!=null)throw const WorkFailure('conflict',409);

@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import '../preference_sync/preference_protocol.dart' show PreferenceScope;
@@ -16,6 +17,7 @@ class ApplicationProfilePort implements WorkPort {
   final Uri _url;
   final int maxBytes;
   bool _dead = false;
+  final _requests = <Completer<void>>{};
 
   ApplicationProfilePort({required Uri origin, required String token,
     required this.scope, required this.currentToken, required this.currentScope,
@@ -56,8 +58,10 @@ class ApplicationProfilePort implements WorkPort {
     if (query.offset != 0 || query.search.length > 100) {
       throw const WorkFailure('invalid', 400);
     }
+    final abort = Completer<void>();
+    _requests.add(abort);
     try {
-      final request = http.Request('GET', _url)..followRedirects = false
+      final request = http.AbortableRequest('GET', _url, abortTrigger: abort.future)..followRedirects = false
         ..headers.addAll({'authorization': 'Bearer $_token', 'cache-control': 'no-store'});
       final response = await _client.send(request);
       try { _check(); } on WorkFailure { await response.stream.listen(null).cancel(); rethrow; }
@@ -97,6 +101,8 @@ class ApplicationProfilePort implements WorkPort {
     } catch (_) {
       _check();
       throw const WorkFailure('error', 502);
+    } finally {
+      _requests.remove(abort);
     }
   }
 
@@ -107,6 +113,5 @@ class ApplicationProfilePort implements WorkPort {
   @override
   Future<Object?> readItem(String id) async { throw const WorkFailure('denied', 403); }
   @override
-  void dispose() { if (_dead) return; _dead = true; if (_owned) _client.close(); }
+  void dispose() { if (_dead) return; _dead = true; for (final request in _requests) { if (!request.isCompleted) request.complete(); } _requests.clear(); if (_owned) _client.close(); }
 }
-
