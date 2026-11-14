@@ -22,8 +22,8 @@ export class ClientInvoices{
   const u=new URL(gateway);if(!['https:','http:'].includes(u.protocol)||u.protocol==='http:'&&!['127.0.0.1','localhost','[::1]'].includes(u.hostname)||u.username||u.password||u.search||u.hash||!['','/'].includes(u.pathname)||!token||!expected.userId||expected.role!=='guest')throw Error('invalid_binding');this.origin=u.origin;this.expected=Object.freeze({...expected});
  }
  get current():InvoiceState{return {...this.state};}
- subscribe(fn:()=>void){this.listeners.add(fn);fn();return ()=>this.listeners.delete(fn);}
- private emit(){for(const fn of this.listeners)fn();}
+ subscribe(fn:()=>void){if(this.dead){try{fn();}catch{}return()=>{};}this.listeners.add(fn);try{fn();}catch{/* Host observers do not own transport outcomes. */}return ()=>this.listeners.delete(fn);}
+ private emit(){const final=this.dead;for(const fn of [...this.listeners]){if(!final&&this.dead)break;if(this.listeners.has(fn)){try{fn();}catch{/* Rendering failures cannot retain private state or replace real read outcomes. */}}}}
  private currentRequest(n:number){return !this.dead&&this.epoch===n&&this.isCurrent();}
  private async json(path:string,n:number,signal:AbortSignal):Promise<unknown>{
   if(!this.currentRequest(n))throw Error('scope_changed');
@@ -51,5 +51,5 @@ export class ClientInvoices{
    this.state={status:'ready',page,error:null};this.emit();
   }catch(error){if(!this.currentRequest(n)){if(!this.dead&&this.epoch===n)this.dispose();return;}const code=error instanceof Error?error.message:'request_failed';this.state={status:'error',page:null,error:['scope_changed','unauthenticated','forbidden','unavailable','invalid_response'].includes(code)?code:'request_failed'};this.emit();}
  }
- dispose(){if(this.dead)return;this.dead=true;this.epoch++;this.abort.abort();this.scope=null;this.state={status:'disposed',page:null,error:null};this.emit();this.listeners.clear();}
+ dispose(){if(this.dead)return;this.dead=true;this.epoch++;this.abort.abort();this.scope=null;this.state={status:'disposed',page:null,error:null};try{this.emit();}finally{this.listeners.clear();}}
 }
