@@ -25,7 +25,11 @@ class TenantTaskModulePort implements WorkPort {
     required String module,required Map<String,String> labels,required String? Function() currentToken,
     required PreferenceScope? Function() currentScope,int maxBytes=1048576,http.Client? client}){
     final wire=TenantTaskHttpTransport(origin:origin,token:token,scope:scope,currentToken:currentToken,currentScope:currentScope,maxBytes:maxBytes,client:client);
-    try{return TenantTaskModulePort(scope:scope,module:module,labels:labels,transport:wire.call,closeTransport:wire.dispose);}
+    try{return TenantTaskModulePort(scope:scope,module:module,labels:labels,transport:(request)async{
+      final raw=await wire.call(request),requiredView=module=='contacts'?'people':'tasks';
+      if(raw is! Map||raw['allowedViews'] is! List||!(raw['allowedViews'] as List).contains(requiredView))throw const WorkFailure('denied',403);
+      return raw;
+    },closeTransport:wire.dispose);}
     catch(_){wire.dispose();rethrow;}
   }
   void _open(){if(_dead)throw const WorkFailure('unavailable');}

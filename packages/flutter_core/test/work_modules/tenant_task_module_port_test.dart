@@ -115,10 +115,27 @@ void main(){
  });
  test('authenticated factory completes the native session HTTP save and independent readback',()async{
   final c=(oracle['mutations'] as List).cast<Map<dynamic,dynamic>>().firstWhere((c)=>c['name']=='tasks-open-manager-edit'),methods=<String>[];var changed=false;
-  final client=WireClient((r)async{methods.add(r.method);if(r.method=='POST'){changed=true;expect(jsonDecode((r as http.Request).body),(c['request'] as Map)['body']);}return http.StreamedResponse(Stream.value(utf8.encode(jsonEncode(c[changed?'reply':'raw']))),200);});
+  final client=WireClient((r)async{methods.add(r.method);if(r.method=='POST'){changed=true;expect(jsonDecode((r as http.Request).body),(c['request'] as Map)['body']);}return http.StreamedResponse(Stream.value(utf8.encode(jsonEncode({...clone(c[changed?'reply':'raw']),'allowedViews':['tasks']}))),200);});
   final p=TenantTaskModulePort.authenticated(origin:Uri.parse('https://fixture.test'),token:'captured',scope:scope,module:'tasks',labels:labels,currentToken:()=> 'captured',currentScope:()=>scope,client:client);
   final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=>c['key'] as String);await session.load();final cmd=command(c['command'] as Map);await session.submit(cmd.itemId,cmd.action,cmd.fields);
   expect(session.status,'success');expect(methods,['GET','POST','GET']);expect(session.snapshot!.items.single.version,2);session.dispose();await expectLater(p.read(const WorkQuery()),throwsA(isA<WorkFailure>()));expect(client.closed,false);client.close();
+ });
+ for(final module in ['contacts','tasks','notes','calendar','board'])for(final mode in ['missing','wrong view','malformed','revoked'])test('authenticated $module denies $mode server view authority',()async{
+  var allowed=true,posts=0;
+  final requiredView=module=='contacts'?'people':'tasks';
+  final client=WireClient((request)async{
+   if(request.method=='POST')posts++;
+   final raw=clone(first);
+   if(allowed)raw['allowedViews']=[requiredView];
+   else if(mode=='wrong view')raw['allowedViews']=[requiredView=='people'?'tasks':'people'];
+   else if(mode=='malformed')raw['allowedViews']=requiredView;
+   else if(mode=='revoked')raw['allowedViews']=<String>[];
+   return http.StreamedResponse(Stream.value(utf8.encode(jsonEncode(raw))),200);
+  });
+  final p=TenantTaskModulePort.authenticated(origin:Uri.parse('https://fixture.test'),token:'captured',scope:scope,module:module,labels:labels,currentToken:()=> 'captured',currentScope:()=>scope,client:client);
+  final session=WorkModuleSession(scope,module,port:p);await session.load();expect(session.status,'ready');expect(session.snapshot!.items,isNotEmpty);
+  allowed=false;await session.load();expect(session.status,'denied');expect(session.snapshot,isNull);expect(session.pending,isNull);expect(posts,0);
+  session.dispose();expect(client.closed,false);client.close();
  });
  test('demo writes preserve workspace revision and requests cannot override dataset',()async{
   final demoScope=PreferenceScope(scope.tenantId,scope.userId,scope.role,'demo'),raw=clone(first)..['dataset']='demo'..['synthetic']=true..['workspaceVersion']=7;TenantTaskRequest? posted;

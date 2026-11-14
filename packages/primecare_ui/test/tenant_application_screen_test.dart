@@ -369,9 +369,9 @@ void main(){
     expect(find.text('Owned directory staff'),findsNothing);expect(find.text('Owned directory client'),findsNothing);expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);
     expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
   });
-  for(final denial in ['tenant','actor','http'])testWidgets('native directory $denial denial clears protected records',(tester)async{
+  for(final denial in ['tenant','actor','http','people view'])testWidgets('native directory $denial denial clears protected records',(tester)async{
     final f=HostFixture()..allowPeople=true..includeDirectory=true,container=f.container();addTearDown(container.dispose);await mount(tester,container);
-    final directory=tester.widget<PrimeWorkModule>(directoryModule()).session;if(denial=='tenant')f.dashboardTenant='different-tenant';if(denial=='actor')f.dashboardUser='different-actor';if(denial=='http')f.dashboardStatus=403;
+    final directory=tester.widget<PrimeWorkModule>(directoryModule()).session;if(denial=='tenant')f.dashboardTenant='different-tenant';if(denial=='actor')f.dashboardUser='different-actor';if(denial=='http')f.dashboardStatus=403;if(denial=='people view')f.allowPeople=false;
     await tester.runAsync(()=>directory.load());await tester.pumpAndSettle();expect(directory.status,'denied');expect(directory.snapshot,isNull);
     expect(find.descendant(of:directoryModule(),matching:find.text('Owned directory staff')),findsNothing);expect(find.descendant(of:directoryModule(),matching:find.text('Owned directory client')),findsNothing);
     expect(f.taskWrites,isEmpty);expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());expect(f.clients.every((client)=>client.closes==1),true);
