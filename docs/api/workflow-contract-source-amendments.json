@@ -3,7 +3,7 @@
   "noActivation": true,
   "implementationCredits": 0,
   "retirementCredits": 0,
-  "reviewedAtCommit": "d7ad1681c32340e18eeb9124a47eb855871d6850",
+  "reviewedAtCommit": "4e994d553cc04746040408cb94e69dbd785e6bde",
   "scope": "Exact source amendments only. Historical hashes, pending operation identities/stages and authority decisions remain unchanged. Any extra source drift fails.",
   "entries": [
     {
@@ -395,6 +395,23 @@
         {
           "before": "    return \"\".join(x.title() for x in components)\n\ndef main():\n    if not os.path.exists(DB_PATH):\n        print(f\"Error: Database not found at {DB_PATH}\")\n        return\n",
           "after": "    return \"\".join(x.title() for x in components)\n\ndef main():\n    raise SystemExit(\n        'Legacy screen scaffolder is disabled: its template invents operational '\n        'status and API actions and does not register managed routes. Use '\n        'tools/mvc_generator/generate_screen.dart or '\n        'scripts/generate_and_verify_planned_screens.py with an isolated fixture '\n        'and review the generated route and authorization.'\n    )\n    if not os.path.exists(DB_PATH):\n        print(f\"Error: Database not found at {DB_PATH}\")\n        return\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/database/prisma/schema/01_platform.prisma",
+      "baselineCommit": "20a537bbd542d51484d14404085d97a9bd88affa",
+      "baselineSha256": "7b1f6fac5692022a3cd657241c3e523a0d6a82d851880abd644f159712fae0ea",
+      "reviewedSha256": "01026026b25792d21e64fdb60e2adf609e4653280c004815c6006150d177380f",
+      "reason": "Exact additive FAQ Help reader model and Tenant relation matching verified production migration 20a537bb/run43558971378. Legacy content stays unowned/draft, SQL owns publication checks and revision trigger; no API implementation, grant, host activation or unresolved-operation credit. All other models and historical source hashes remain unchanged.",
+      "hunks": [
+        {
+          "before": "  leads                  Lead[]\n",
+          "after": "  leads                  Lead[]\n  helpArticles           FAQ[]\n"
+        },
+        {
+          "before": "model FAQ {\n  id        String   @id @default(uuid())\n  question  String\n  answer    String\n  category  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n\n  @@map(\"faqs\")\n}\n",
+          "after": "model FAQ {\n  id        String   @id @default(uuid())\n  question  String\n  answer    String\n  category  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @updatedAt @map(\"updated_at\")\n  // Additive Help reader schema: legacy rows remain unowned and unpublished.\n  tenantId         String?   @map(\"tenant_id\")\n  tenant           Tenant?   @relation(fields: [tenantId], references: [id], onDelete: NoAction, onUpdate: NoAction)\n  locale           String?\n  publicationState String    @default(\"draft\") @map(\"publication_state\")\n  revision         BigInt    @default(1)\n  summary          String    @default(\"\")\n  publishedAt      DateTime? @db.Timestamptz(6) @map(\"published_at\")\n  // Publication checks, managed revisions and the partial read index are SQL-owned.\n\n  @@map(\"faqs\")\n}\n"
         }
       ]
     }
