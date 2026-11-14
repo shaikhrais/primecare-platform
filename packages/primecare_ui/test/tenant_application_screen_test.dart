@@ -163,6 +163,29 @@ void main(){
       await tester.pumpWidget(const SizedBox());
     });
   }
+  testWidgets('clean locale change reconstructs localized owned ports once',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture(),container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    final original=List<OwnedClient>.of(f.clients),dashboardReads=f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length;
+    await mount(tester,container,locale:'fr');
+    expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
+    expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,dashboardReads+1);
+    expect(find.text(nativeApplicationApplication['locales']['fr']['profile'] as String),findsWidgets);
+    expect(f.writes,isEmpty);expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('dirty shortcut defers locale reconstruction until the existing save completes',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture(),container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    await press(tester,choice());final original=List<OwnedClient>.of(f.clients),requests=f.requests.length;
+    await mount(tester,container,locale:'es');
+    expect(f.clients.length,4);expect(original.every((client)=>client.closes==0),true);expect(f.requests.length,requests);expect(f.writes,isEmpty);
+    await press(tester,find.widgetWithText(TextButton,shellText('es','save')));
+    expect(f.writes.length,1);expect((f.document as Map)['screenIds'],contains('1269'));
+    expect(original.every((client)=>client.closes==1),true);expect(f.clients.length,8);
+    expect(f.requests.where((request)=>request.url.path=='/v1/governance/tenant-dashboard').length,2);
+    expect(find.text(nativeApplicationApplication['locales']['es']['profile'] as String),findsWidgets);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
   for(final failing in [<int>[0],<int>[1],<int>[0,1]]){
     testWidgets('native retirement attempts every client and reports only first failure $failing',(tester)async{
       final f=HostFixture(),first=StateError('first owned close failure');

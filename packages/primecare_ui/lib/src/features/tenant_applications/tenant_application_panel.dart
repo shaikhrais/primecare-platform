@@ -54,6 +54,8 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   RecordPageProjection? _activity,_records;
   final _recordSearch=TextEditingController();
   int _generation=0;
+  String? _loadedLocale,_pendingLocale;
+  bool _localeReloadScheduled=false;
   bool _disposed=false;
   bool get _current => !_disposed && mounted && widget.identity.matches(ref.read(authProvider));
   PreferenceScope? _scope() => _current ? widget.identity.scope : null;
@@ -64,7 +66,21 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       (state['dirty']==true || state['pending']!=null || state['remote']!=null ||
        ['loading','saving','discarding','recovering'].contains(state['status']));}
   @override void initState(){super.initState();_taskLeaveBlock=ref.read(nativeTaskLeaveBlockProvider(widget.identity))..addListener(_changed);Future<void>.microtask(_load);}
-  void _changed(){if(_current)setState((){});}
+  @override void didChangeDependencies(){
+    super.didChangeDependencies();
+    final locale=_locale(context);
+    if(_loadedLocale!=null&&locale!=_loadedLocale){_pendingLocale=locale;_queueLocaleReload();}
+  }
+  void _queueLocaleReload(){
+    if(_localeReloadScheduled||!_current||_blocked||_pendingLocale==null||_pendingLocale==_loadedLocale)return;
+    _localeReloadScheduled=true;
+    Future<void>.microtask(()async{
+      _localeReloadScheduled=false;
+      if(!_current||_blocked||_pendingLocale==null||_pendingLocale==_loadedLocale)return;
+      await _load();
+    });
+  }
+  void _changed(){if(_current){setState((){});_queueLocaleReload();}}
   void _cleanup(Iterable<void Function()> actions){
     Object? firstError;StackTrace? firstStack;
     for(final action in actions){try{action();}catch(error,stack){firstError??=error;firstStack??=stack;}}
@@ -129,6 +145,7 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
           currentToken:_token,currentScope:_scope,client:_client()));
       }
       _today=parsed;_source=Map.unmodifiable(raw);_project=project;_analytics=analytics;_activity=activity;_records=records;
+      _loadedLocale=locale;if(_pendingLocale==locale)_pendingLocale=null;
       setState(()=>_status='ready');
       unawaited(_editor!.load());
     }catch(_){if(active()){
