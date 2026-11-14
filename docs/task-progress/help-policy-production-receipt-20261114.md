@@ -1,0 +1,14 @@
+# Help quota and audit definitions: production receipt
+
+Sourcef7440e48804ea970763fbd5b9f9d75a628895032, run43652983016. PostgreSQL-proof132625293040SUCCESS: local/PGlite17passed+1native-onlyskip, PostgreSQL16all18PASS. Downloaded log explicitly confirms the new two-connection unrelated-API-writer regression. Initial43652626389 failed safely with55P03; the overly broad API-table read lock was replaced by exact API794row protection, retaining metadata allocation locks,5s timeout, serializable transactions and authority/source/schema/hash checks.
+
+Production-registration132625548228SUCCESS. At2026-11-14T23:24:36Z apply added exactly1quota definition and1audit definition; separate connection independentReadback:true. Policy is30reads/60seconds/tenant-user and2,592,000-second audit retention with only tenantId/userId/action/locale/returned fields. Metadata IDs allocated under lock and definitions deeply immutable; duplicate/conflicting/tagged legacy definitions fail rather than get silently rewritten. Unrelated definitions and all64legacygrants preserved;0operationalrows and0grants changed; runtimeActivated:false.
+
+2026-11-14T23:24:34.7500909Z PC10_HELP_POLICY {"sourceCommit":"f7440e48804ea970763fbd5b9f9d75a628895032","apiId":794,"alreadyRegistered":false,"applied":false,"quotaDefinitionsAdded":0,"auditDefinitionsAdded":0,"grantsChanged":0,"operationalRowsWritten":0,"runtimeActivated":false}
+2026-11-14T23:24:36.1705858Z PC10_HELP_POLICY {"sourceCommit":"f7440e48804ea970763fbd5b9f9d75a628895032","apiId":794,"alreadyRegistered":false,"applied":true,"quotaDefinitionsAdded":1,"auditDefinitionsAdded":1,"grantsChanged":0,"operationalRowsWritten":0,"runtimeActivated":false,"independentReadback":true}
+
+Storage was already created/independently verified by758d07a6b6016e87f3875d5b255e04ac2056ff8c/run43651758632. Both storage schema and operational definitions are now removed from group1pending. Source policy acknowledgement now productionRegistered:true, runtimeBound:false, purgeScheduleVerified:false. This is definition registration, not actual quota enforcement, active reader or verified deletion schedule.
+
+Continue group1Help next: implement/bind real separate-autocommit quota and transactional audit adapter; configure and verify scheduled expired-audit cleanup; reconcile legitimate PSW51/screen685/API794reader access/control/runtime mappings without retargeting64legacyclinical-directorgrants/control779; mount shared web/native reader and verify real API/SQL/reload/logout/denial flows. No automatic legacy publication or new publisher role. Group1notdone, group2notstarted. Original full72/device/human acceptance unchanged.
+
+Manual publisher6885721059 completes/releases at18:27Toronto before19:45checkpoint. Existing hourly PC01 resumes, with fresh ownership/head/expected-head protection. No branches/PRs/force/cancellation or gate weakening.

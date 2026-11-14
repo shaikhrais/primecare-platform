@@ -6,7 +6,15 @@
   "windowSeconds": 60,
   "scope": "tenant-user",
   "auditRetentionSeconds": 2592000,
-  "auditFields": ["tenantId", "userId", "action", "locale", "returned"],
+  "auditFields": [
+    "tenantId",
+    "userId",
+    "action",
+    "locale",
+    "returned"
+  ],
   "decision": "User approved 2026-11-14 in the Help implementation conversation",
-  "productionRegistered": false
+  "productionRegistered": true,
+  "runtimeBound": false,
+  "purgeScheduleVerified": false
 }
