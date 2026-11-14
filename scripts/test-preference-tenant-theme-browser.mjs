@@ -36,6 +36,20 @@ try{
   if(localStorage.getItem(key)===null)localStorage.setItem(key,source);
   window.disposeHost=Migration.mountTenantThemePreference(document.querySelector('#root'),{gateway:location.origin,token,locale:'en',tenantId:scope.tenantId,userId:scope.userId,dataset:scope.dataset,isCurrent:()=>true});
  },{scope,key,source,token:fixture.tokens.admin});
+ // Hold the real PostgreSQL-backed read while the original owner is revoked.
+ let held,releaseHeld;const holding=new Promise(resolve=>held=resolve),release=new Promise(resolve=>releaseHeld=resolve);
+ await page.route('**/v1/user/preferences',async route=>{const response=await route.fetch();held();await release;await route.fulfill({response});},{times:1});
+ await page.evaluate(({scope,key,source,token})=>{
+  localStorage.setItem(key,source);window.ownerActive=true;window.resumeChecks=0;
+  window.themeHostOptions={gateway:location.origin,token,locale:'en',tenantId:scope.tenantId,userId:scope.userId,dataset:scope.dataset,isCurrent:()=>window.ownerActive,whenActive:async()=>{window.resumeChecks++;return true;}};
+  window.disposeHost=Migration.mountTenantThemePreference(document.querySelector('#root'),window.themeHostOptions);
+ },{scope,key,source,token:fixture.tokens.admin});
+ await page.locator('[data-cy=appearance-open]').click();await holding;
+ await page.evaluate(()=>{window.ownerActive=false;window.themeHostOptions.isCurrent=()=>true;});releaseHeld();
+ await page.waitForFunction(()=>window.resumeChecks===1);
+ await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+ assert.equal(await page.locator('[data-cy=theme-migration-review]').count(),0);
+ await page.evaluate(()=>window.disposeHost());await page.reload();
  await mount();
  await page.locator('[data-cy=appearance-open]').click();
  await page.locator('[data-cy=theme-migration-review]').waitFor();

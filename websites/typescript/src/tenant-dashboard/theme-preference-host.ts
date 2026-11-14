@@ -7,36 +7,44 @@ import {mountTenantThemeRestore} from '../../../../packages/primecare_ui/web/adv
 type Options={gateway:string;token:string;locale:'en'|'fr'|'es';tenantId:string;userId:string;dataset:'live'|'demo';isCurrent:()=>boolean;whenActive?:()=>Promise<boolean>};
 /** Mount the registered controls only when the owned preference service is available. */
 export function mountTenantThemePreference(root:HTMLElement,options:Options) {
+ const {gateway,token,locale,tenantId,userId,dataset}=options,isCurrent=options.isCurrent.bind(options),whenActive=options.whenActive?.bind(options);
+ const scope=Object.freeze({tenantId,userId,role:'tenant_admin',dataset});
+ const parentCurrent=()=>{try{return isCurrent()===true;}catch{return false;}};
  let disposed=false,removeControl:(()=>void)|undefined,client:PreferenceSyncClient|undefined,draftChanged=false;
  const dialog=root.querySelector<HTMLElement>('[data-cy=theme-center]');
  const opener=root.querySelector<HTMLElement>('[data-cy=appearance-open]');
- if(!dialog||!opener||!options.isCurrent())return ()=>{};
+ if(!dialog||!opener||!parentCurrent())return ()=>{};
  let started=false;let start=()=>{};
  const touched=(event:Event)=>{const target=event.target;if(target instanceof Element&&!target.closest('[data-cy=theme-restore-review],[data-cy=theme-restore-confirm]')&&target.closest('[data-cy^=theme-center-],[data-cy^=theme-quick-]'))draftChanged=true;};
  for(const name of ['input','change','click'])dialog.addEventListener(name,touched,true);
+ const dispose=()=>{
+  if(disposed)return;disposed=true;let failure:{error:unknown}|undefined;
+  const attempt=(cleanup:()=>void)=>{try{cleanup();}catch(error){failure??={error};}};
+  attempt(()=>opener.removeEventListener('click',start));for(const name of ['input','change','click'])attempt(()=>dialog.removeEventListener(name,touched,true));
+  attempt(()=>removeControl?.());attempt(()=>{if(client)void client.dispose();});if(failure)throw failure.error;
+ };
  try {
-  const scope={tenantId:options.tenantId,userId:options.userId,role:'tenant_admin',dataset:options.dataset};
   const binding={scope,kind:'theme' as const,resource:'advanced-v2',policy:{panelIds:[],screenIds:[]}};
   const key='primecare-themes:v1:'+encodeURIComponent(JSON.stringify(['tenant-dashboard',scope.dataset,scope.tenantId,scope.userId,scope.role]));
-  const send=preferenceHttpTransport(options.gateway,options.token);
-  const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
+  const send=preferenceHttpTransport(gateway,token);
+  const valid=()=>!disposed&&root.contains(dialog)&&parentCurrent()&&!disposed&&root.contains(dialog);
   client=new PreferenceSyncClient(binding,async(request,signal)=>{
    if(!valid())throw new PreferenceFailure('busy_or_disposed');
    try{return await send(request,signal);}
-   finally{if(options.whenActive)await options.whenActive();if(!valid())throw new PreferenceFailure('busy_or_disposed');}
+   finally{if(whenActive&&!await whenActive())throw new PreferenceFailure('busy_or_disposed');if(!valid())throw new PreferenceFailure('busy_or_disposed');}
   },preferenceStorageCache(localStorage));
   const current=client;
   start=()=>{if(started||!valid())return;started=true;void (async()=>{
    await current.load();
-   if(disposed||!options.isCurrent()||!root.contains(dialog))return;
+   if(!valid())return;
    const state=current.current;
    if(!state.loaded||!['clean','dirty','conflict','offline'].includes(state.status))return;
-   const valid=()=>!disposed&&options.isCurrent()&&root.contains(dialog);
-   if(localStorage.getItem(key)!==null||state.pending)removeControl=mountTenantThemeMigration(dialog,current,localStorage,options.locale,valid);
-   else if(themeLibraryAbsent(localStorage,key)&&state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,options.locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
+   if(localStorage.getItem(key)!==null||state.pending)removeControl=mountTenantThemeMigration(dialog,current,localStorage,locale,valid);
+   else if(themeLibraryAbsent(localStorage,key)&&state.status==='clean'&&state.base.document!==null&&state.base.revision>0)removeControl=mountTenantThemeRestore(dialog,current,localStorage,key,locale,valid,()=>draftChanged,()=>root.ownerDocument.defaultView?.location.reload());
   })().catch(()=>{}).finally(()=>{if(!removeControl)started=false;});};
   opener.addEventListener('click',start);
   if(dialog.closest('dialog')?.open)start();
- }catch{}
- return ()=>{disposed=true;opener.removeEventListener('click',start);for(const name of ['input','change','click'])dialog.removeEventListener(name,touched,true);removeControl?.();if(client)void client.dispose();};
+ }catch{try{dispose();}catch{}}
+ return dispose;
+
 }
