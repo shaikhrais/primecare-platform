@@ -174,7 +174,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
@@ -428,7 +428,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
@@ -712,7 +712,7 @@
         {
           "path": "packages/primecare_ui/web/workspace-layout.ts",
           "present": true,
-          "sha256": "2327ce4f95443f1aecf946ca73fc68f77fa2d896e8d9b098d05bd396bc92eca8",
+          "sha256": "ac34515537dfb4b50f256a11e88d3b407973312d71df56fcdd480254531f6b42",
           "matchesOriginalProposalHash": false,
           "declaredSymbols": [
             "WorkspaceHistory",
