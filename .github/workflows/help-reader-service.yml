@@ -1,0 +1,42 @@
+name: Registered Help reader service
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/help-reader/**'
+      - 'scripts/test-help-reader-service.mjs'
+      - 'scripts/help-reader-service-fixture.mjs'
+      - 'tools/governance-production/pc10-help-reader-contract.json'
+      - 'tools/governance-production/pc10-help-schema*'
+      - '.github/workflows/help-reader-service.yml'
+permissions: {contents: read}
+concurrency:
+  group: help-reader-service-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: help_service, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated test tools
+        run: |
+          npm install --prefix /tmp/help-reader-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/help-reader-tools/node_modules node_modules
+      - name: PGlite reader, policy and independent SQL acceptance
+        run: node --test scripts/test-help-reader-service.mjs
+      - name: Repeat against native PostgreSQL 16
+        run: node --test scripts/test-help-reader-service.mjs
+        env:
+          HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
+      - name: Strict shared service types
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts
