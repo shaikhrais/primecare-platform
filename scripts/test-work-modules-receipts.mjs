@@ -87,4 +87,32 @@ await reentrant.load({search:'retired',offset:0});await nested;assert.deepEqual(
  query.search='Caller replacement';captured.search='Later port replacement';
  assert.deepEqual(session.current.query,{search:'Requested',offset:100});assert.equal(session.status,'ready');session.dispose();checks++;
 }
+// Host observer failures must not control transport/persistence or retain busy state.
+const observerFailures=[];
+async function observerCase(name,run){try{await run();checks++;console.log('PASS observer '+name);}catch(error){observerFailures.push(name+': '+error.message);console.log('FAIL observer '+name+': '+error.message);}}
+function observerFixture({readError,writeError,verifyOnce=false}={}){
+ let reads=0,writes=0,verifications=0;
+ const session=new WorkModuleSession(scope,'tasks',{
+  read:async()=>{reads++;if(readError)throw readError;return snapshot;},
+  mutate:async()=>{writes++;if(writeError)throw writeError;return{itemId:item.id,version:2,action:'edit',expected:{title:'Saved'}};},
+  readItem:async()=>{verifications++;if(verifyOnce&&verifications===1)throw new WorkFailure('error',503);return{...snapshot,items:[{...item,version:2,title:'Saved'}]};}
+ });return{session,counts:()=>({reads,writes,verifications})};
+}
+for(const status of ['loading','ready','error'])await observerCase(status+' observer exception preserves read outcome',async()=>{
+ const f=observerFixture({readError:status==='error'?new WorkFailure('error',503):undefined});
+ f.session.subscribe(()=>{if(f.session.status===status)throw Error('Host render failed');});
+ let later=0;f.session.subscribe(()=>later++);await f.session.load();
+ assert.equal(f.session.status,status==='error'?'error':'ready');assert.equal(f.counts().reads,1);assert.equal(later,2);f.session.dispose();
+});
+for(const status of ['saving','success'])await observerCase(status+' observer exception preserves acknowledged save',async()=>{
+ const f=observerFixture();await f.session.load();f.session.subscribe(()=>{if(f.session.status===status)throw Error('Host render failed');});
+ await f.session.submit(item.id,'edit',{title:'Saved'},1);assert.equal(f.session.status,'success');assert.equal(f.session.current.pending,false);assert.equal(f.session.current.snapshot.items[0].title,'Saved');assert.equal(f.counts().writes,1);
+ await f.session.load();assert.equal(f.session.status,'ready');assert.equal(f.counts().reads,2);f.session.dispose();
+});
+await observerCase('real denial remains denial after render exception',async()=>{const f=observerFixture({writeError:new WorkFailure('denied',403)});await f.session.load();f.session.subscribe(()=>{throw Error('Host render failed');});await assert.rejects(()=>f.session.submit(item.id,'edit',{title:'Saved'},1),e=>e.code==='denied');assert.equal(f.session.status,'denied');assert.equal(f.session.current.snapshot,null);assert.equal(f.session.current.pending,false);assert.equal(f.counts().writes,1);f.session.dispose();});
+await observerCase('acknowledged retry remains read-only with throwing observer',async()=>{const f=observerFixture({verifyOnce:true});await f.session.load();f.session.subscribe(()=>{throw Error('Host render failed');});await assert.rejects(()=>f.session.submit(item.id,'edit',{title:'Saved'},1),e=>e.code==='error');assert.equal(f.session.current.pending,true);await f.session.retryPending();assert.equal(f.session.status,'success');assert.deepEqual(f.counts(),{reads:1,writes:1,verifications:2});f.session.dispose();});
+await observerCase('new subscriptions wait until the next emission; removed subscriptions stay removed',async()=>{const f=observerFixture();const calls=[];let added=false,remove;f.session.subscribe(()=>{calls.push('first');if(!added){added=true;f.session.subscribe(()=>calls.push('new'));remove();}});remove=f.session.subscribe(()=>calls.push('removed'));await f.session.load();assert.deepEqual(calls,['first','first','new']);f.session.dispose();});
+await observerCase('duplicate listener cleanup owns only its subscription',async()=>{const f=observerFixture();let calls=0;const listener=()=>calls++;const first=f.session.subscribe(listener);f.session.subscribe(listener);first();first();await f.session.load();assert.equal(calls,2);f.session.dispose();});
+await observerCase('disposal stops captured observers and transport even when disposing observer throws',async()=>{const f=observerFixture();let later=0;f.session.subscribe(()=>{f.session.dispose();throw Error('Host removed');});f.session.subscribe(()=>later++);await f.session.load();assert.equal(f.session.status,'disposed');assert.equal(later,0);assert.equal(f.counts().reads,0);});
+assert.deepEqual(observerFailures,[],'Observer regressions must all pass');
 console.log(`PASS work receipt regressions: ${checks} cases; acknowledged retries read only, drafts retained, denial clears data, rejected writes unlock`);
