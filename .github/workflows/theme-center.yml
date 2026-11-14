@@ -8,7 +8,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: theme-center-${{ github.ref }}
+  group: theme-center-${{ github.ref }}-${{ github.sha }}
   cancel-in-progress: false
 jobs:
   website:
