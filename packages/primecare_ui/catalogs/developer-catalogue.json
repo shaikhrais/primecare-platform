@@ -15702,6 +15702,7 @@
       "sharedImportFiles": [
         "apps/primecare_governance/bin/inspect_parity.dart",
         "apps/primecare_governance/lib/core/governance/governance_provider.dart",
+        "apps/primecare_governance/lib/core/governance/native_application_access.dart",
         "apps/primecare_governance/lib/core/governance/registries/api_governance_registry.dart",
         "apps/primecare_governance/lib/core/governance/registries/core_governance_registry.dart",
         "apps/primecare_governance/lib/core/governance/registries/index.dart",
