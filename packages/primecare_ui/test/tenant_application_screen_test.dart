@@ -21,21 +21,24 @@ class HostAuth extends AuthNotifier {
 }
 class OwnedClient extends MockClient {
   int closes=0;
-  OwnedClient(Future<http.Response> Function(http.Request) handle):super(handle);
-  @override void close(){closes++;super.close();}
+  final Object? closeFailure;
+  OwnedClient(Future<http.Response> Function(http.Request) handle,{this.closeFailure}):super(handle);
+  @override void close(){closes++;super.close();final error=closeFailure;if(error!=null)throw error;}
 }
 class HostFixture {
   final requests=<http.Request>[],clients=<OwnedClient>[],writes=<Map<String,dynamic>>[];
+  final closeFailures=<int,Object>{};
   final receipts=<String,Map<String,dynamic>>{};
   int revision=0,dashboardStatus=200;
   String dashboardUser='user-a';
   Object? document;
   bool loseAcknowledgement=false;
+  int? failFactoryAt;
   Completer<http.Response>? delayedDashboard,delayedProfile;
   Map<String,dynamic> get scope=>{'tenantId':'tenant-a','userId':'user-a','role':'tenant_admin','dataset':'live'};
   Map<String,dynamic> get snapshot=>{'version':1,'scope':scope,'kind':'shortcuts','resource':'navigation','revision':revision,'document':document};
   http.Response response(Object? data,[int status=200])=>http.Response(jsonEncode(data),status,headers:{'content-type':'application/json'});
-  http.Client client(){final value=OwnedClient(handle);clients.add(value);return value;}
+  http.Client client(){if(clients.length==failFactoryAt)throw StateError('fixture client construction failure');final value=OwnedClient(handle,closeFailure:closeFailures[clients.length]);clients.add(value);return value;}
   Future<http.Response> handle(http.Request request)async{
     requests.add(request);
     expect(request.headers['authorization'],'Bearer $capturedToken');
@@ -121,6 +124,47 @@ void main(){
       await tester.pumpWidget(const SizedBox());
     });
   }
+  for(final failing in [<int>[0],<int>[1],<int>[0,1]]){
+    testWidgets('native retirement attempts every client and reports only first failure $failing',(tester)async{
+      final f=HostFixture(),first=StateError('first owned close failure');
+      for(final index in failing){f.closeFailures[index]=index==failing.first?first:StateError('later owned close failure');}
+      final container=f.container();addTearDown(container.dispose);await mount(tester,container);
+      expect(f.clients.length,3);expect(choice(),findsOneWidget);expect(f.writes,isEmpty);
+      await tester.pumpWidget(const SizedBox());await tester.pumpAndSettle();
+      expect(tester.takeException(),same(first));expect(tester.takeException(),isNull);
+      expect(f.clients.every((client)=>client.closes==1),true);expect(f.writes,isEmpty);
+      expect(find.byType(PrimeDashboardPage),findsNothing);expect(find.byType(PrimeRecordPage),findsNothing);
+      f.closeFailures.clear();await mount(tester,container);
+      expect(choice(),findsOneWidget);expect(f.clients.take(3).every((client)=>client.closes==1),true);
+      expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+    });
+  }
+  testWidgets('reload cleanup failure clears protected views and can retry without reclosing old clients',(tester)async{
+    await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
+    final f=HostFixture(),failure=StateError('reload owned close failure');f.closeFailures[0]=failure;
+    final container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    final reload=find.descendant(of:find.byWidgetPredicate((w)=>w is Semantics&&w.properties.identifier=='application-modules-reload-dashboard'),matching:find.byType(TextButton));
+    await press(tester,reload);expect(tester.takeException(),same(failure));expect(tester.takeException(),isNull);
+    expect(f.clients.length,3);expect(f.clients.every((client)=>client.closes==1),true);
+    expect(choice(),findsNothing);expect(find.byType(PrimeDashboardPage),findsNothing);expect(find.byType(PrimeRecordPage),findsNothing);
+    expect(find.text(nativeApplicationApplication['locales']['en']['unavailable'] as String),findsOneWidget);
+    final requests=f.requests.length;f.closeFailures.clear();
+    await press(tester,find.widgetWithText(TextButton,nativeApplicationApplication['locales']['en']['reload'] as String));
+    expect(choice(),findsOneWidget);expect(f.requests.length,greaterThan(requests));
+    expect(f.clients.take(3).every((client)=>client.closes==1),true);expect(f.writes,isEmpty);
+    expect(tester.takeException(),isNull);await tester.pumpWidget(const SizedBox());
+  });
+  testWidgets('startup failure still retires every allocated client when cleanup also fails',(tester)async{
+    final f=HostFixture(),failure=StateError('startup owned close failure');
+    f.failFactoryAt=2;f.closeFailures[0]=failure;
+    final container=f.container();addTearDown(container.dispose);await mount(tester,container);
+    expect(tester.takeException(),same(failure));expect(tester.takeException(),isNull);
+    expect(f.clients.length,2);expect(f.clients.every((client)=>client.closes==1),true);
+    expect(choice(),findsNothing);expect(find.byType(PrimeDashboardPage),findsNothing);expect(find.byType(PrimeRecordPage),findsNothing);
+    expect(find.text(nativeApplicationApplication['locales']['en']['unavailable'] as String),findsOneWidget);
+    expect(f.writes,isEmpty);await tester.pumpWidget(const SizedBox());
+    expect(f.clients.every((client)=>client.closes==1),true);expect(tester.takeException(),isNull);
+  });
   testWidgets('native host preserves uncertain receipt through restart and explicit retry',(tester)async{
     await tester.binding.setSurfaceSize(const Size(1200,1800));addTearDown(()=>tester.binding.setSurfaceSize(null));
     final f=HostFixture(),container=f.container();addTearDown(container.dispose);

@@ -43,7 +43,8 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
   RecordPageProjection? _activity,_records;
   final _recordSearch=TextEditingController();
   int _generation=0;
-  bool get _current => mounted && widget.identity.matches(ref.read(authProvider));
+  bool _disposed=false;
+  bool get _current => !_disposed && mounted && widget.identity.matches(ref.read(authProvider));
   PreferenceScope? _scope() => _current ? widget.identity.scope : null;
   String? _token() => _current ? widget.identity.token : null;
   http.Client _client() {final client=ref.read(nativeApplicationClientProvider)();_clients.add(client);return client;}
@@ -52,14 +53,34 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
        ['loading','saving','discarding','recovering'].contains(state['status']));}
   @override void initState(){super.initState();Future<void>.microtask(_load);}
   void _changed(){if(_current)setState((){});}
-  void _retire(){_source=null;_project=null;_analytics=null;_activity=null;_records=null;
-    _profile?.dispose();_profile=null;_editor?.removeListener(_changed);_editor?.dispose();_editor=null;
-    _dashboard?.dispose();_dashboard=null;for(final client in _clients){client.close();}_clients.clear();}
-  @override void dispose(){_generation++;_retire();_recordSearch.dispose();super.dispose();}
+  void _cleanup(Iterable<void Function()> actions){
+    Object? firstError;StackTrace? firstStack;
+    for(final action in actions){try{action();}catch(error,stack){firstError??=error;firstStack??=stack;}}
+    if(firstError!=null)Error.throwWithStackTrace(firstError,firstStack!);
+  }
+  void _reportCleanup(Object error,StackTrace stack)=>FlutterError.reportError(FlutterErrorDetails(
+    exception:error,stack:stack,library:'PrimeCare',context:ErrorDescription('retiring an owned application host')));
+  void _retire(){
+    final profile=_profile,editor=_editor,dashboard=_dashboard,clients=List<http.Client>.of(_clients);
+    _profile=null;_editor=null;_dashboard=null;_clients.clear();
+    _source=null;_project=null;_analytics=null;_activity=null;_records=null;
+    _cleanup([()=>profile?.dispose(),()=>editor?.removeListener(_changed),()=>editor?.dispose(),
+      ()=>dashboard?.dispose(),for(final client in clients)client.close]);
+  }
+  @override void dispose(){
+    _disposed=true;_generation++;
+    try{_cleanup([_retire,_recordSearch.dispose,()=>super.dispose()]);}
+    catch(error,stack){_reportCleanup(error,stack);}
+  }
   Future<void> _load()async{
     if(!_current || _blocked)return;
-    final generation=++_generation;_retire();setState(()=>_status='loading');
+    final generation=++_generation;
     bool active()=>_current && generation==_generation;
+    try{_retire();}catch(error,stack){
+      if(active())setState(()=>_status='unavailable');
+      _reportCleanup(error,stack);return;
+    }
+    setState(()=>_status='loading');
     try{
       final scope=widget.identity.scope,origin=Uri.parse(ApiConfig.baseUrl.isEmpty?Uri.base.origin:ApiConfig.baseUrl);
       _dashboard=DashboardPageTransport(origin:origin,token:widget.identity.token,scope:scope,
@@ -90,7 +111,10 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
       _today=parsed;_source=Map.unmodifiable(raw);_project=project;_analytics=analytics;_activity=activity;_records=records;
       setState(()=>_status='ready');
       unawaited(_editor!.load());
-    }catch(_){if(active()){_retire();setState(()=>_status='unavailable');}}
+    }catch(_){if(active()){
+      try{_retire();}catch(error,stack){_reportCleanup(error,stack);}
+      if(active())setState(()=>_status='unavailable');
+    }}
   }
   String _locale(BuildContext context){final value=Localizations.localeOf(context).languageCode;
     return ['en','fr','es'].contains(value)?value:'en';}
