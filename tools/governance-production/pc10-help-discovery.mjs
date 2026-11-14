@@ -43,6 +43,24 @@ export async function discoverHelp(db){
   const ratePolicies=rateShape?await bounded('SELECT id,api_id,runtime_artifact_id,limit_key,max_requests,time_window FROM '+table('api_rate_limits')+" WHERE api_id #>> '{}'=$1 ORDER BY id::text LIMIT 301",['794']):[];
   const auditDefinitions=auditShape?await bounded('SELECT id,event_code,event_name,severity,description FROM '+table('audit_event_definitions')+" WHERE event_code ILIKE $1 ORDER BY id LIMIT 301",['%help%']):[];
   const policyDefinitionReadback={rateSchemaSupported:rateShape,auditSchemaSupported:auditShape,ratePolicies,auditDefinitions,authorityInferred:false,operationalRowsRead:0};
+  // Exact legacy identity evidence only. Candidate matches never confer authority.
+  const legacyKey='api_permission_api_v1_clinical_director_quality_metrics_list_get';
+  const identityColumns=await bounded(`SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND table_name=ANY($2::text[]) ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema,['api_endpoint_registry','runtime_artifacts','api_endpoints'].map(n=>pin.tablePrefix+n)]);
+  const hasColumns=(name,columns)=>columns.every(column=>identityColumns.some(c=>c.table_name===pin.tablePrefix+name&&c.column_name===column));
+  const originFields=['id','api_id','endpoint_code','method','endpoint_path'];
+  const endpointFields=['id','http_method','route_path','permission_key'];
+  const selectFields=fields=>fields.map(f=>`to_jsonb(x)->'${f}' AS "${f}"`).join(',');
+  const originSchemaSupported=hasColumns('api_endpoint_registry',originFields);
+  const endpointSchemaSupported=hasColumns('api_endpoints',endpointFields);
+  const artifactSchemaSupported=hasColumns('runtime_artifacts',['id']);
+  const origins=originSchemaSupported?await bounded('SELECT '+selectFields(originFields)+' FROM '+table('api_endpoint_registry')+" x WHERE 'api_permission_'||(to_jsonb(x)->>'endpoint_code')=$1 ORDER BY to_jsonb(x)->>'id' LIMIT 301",[legacyKey]):[];
+  const members=apiPermissions.filter(r=>r.permission_key===legacyKey).map(r=>Object.fromEntries(['id','api_id','role_id','runtime_artifact_id','permission_key','can_access'].map(k=>[k,r[k]??null])));
+  const operationPairs=origins.filter(o=>typeof o.method==='string'&&typeof o.endpoint_path==='string').map(o=>({method:o.method,path:o.endpoint_path}));
+  const canonicalCandidates=endpointSchemaSupported&&operationPairs.length?await bounded('SELECT '+selectFields(endpointFields)+' FROM '+table('api_endpoints')+" x WHERE EXISTS(SELECT 1 FROM jsonb_to_recordset($1::jsonb) AS o(method text,path text) WHERE o.method=(to_jsonb(x)->>'http_method') AND o.path=(to_jsonb(x)->>'route_path')) ORDER BY to_jsonb(x)->>'id' LIMIT 301",[JSON.stringify(operationPairs)]):[];
+  const referencedArtifactIds=[...new Set(members.filter(r=>r.runtime_artifact_id!==null).map(r=>String(r.runtime_artifact_id)))].sort();
+  const artifactIds=artifactSchemaSupported&&referencedArtifactIds.length?await bounded('SELECT '+selectFields(['id'])+' FROM '+table('runtime_artifacts')+" x WHERE to_jsonb(x)->>'id'=ANY($1::text[]) ORDER BY to_jsonb(x)->>'id' LIMIT 301",[referencedArtifactIds]):[];
+  const presentArtifactIds=artifactIds.map(r=>String(r.id));
+  const legacyIdentityReview={permissionKey:legacyKey,identityColumns,originSchemaSupported,endpointSchemaSupported,artifactSchemaSupported,origins,members,canonicalCandidates,referencedArtifactIds,presentArtifactIds,missingArtifactIds:artifactSchemaSupported?referencedArtifactIds.filter(id=>!presentArtifactIds.includes(id)):null,authorityInferred:false,grantsChanged:0};
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.
@@ -53,7 +71,7 @@ export async function discoverHelp(db){
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
-  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
+  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,legacyIdentityReview,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
  }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
