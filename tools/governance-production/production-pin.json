@@ -2041,5 +2041,18 @@
     "roleGrants": false,
     "runtimeActivation": false,
     "definitionSha256": "f4eecd87e79849d21659ec868616ae9de3ba9d5b4989b95f5e684ba8f832d2d3"
+  },
+  "helpOperationalPolicyWriter": {
+    "optInVariable": "REGISTER_PC10_HELP_POLICY",
+    "tables": [
+      "api_rate_limits",
+      "audit_event_definitions"
+    ],
+    "apiId": 794,
+    "definitionSha256": "2d68f652c62f9117728ca7d5a0da5a3a4d4bf3abc818e68528b707ed5a70bf22",
+    "schemaChanges": false,
+    "contentWrites": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }
