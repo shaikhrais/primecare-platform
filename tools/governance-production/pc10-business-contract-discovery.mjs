@@ -1,5 +1,5 @@
 /** Read existing PC10 business and native identity/settings links; no provider or business-row access. */
-import {readFile} from 'node:fs/promises';import pg from 'pg';
+import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import pg from 'pg';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url)));
 const raw=process.env.PRODUCTION_DATABASE_URL,url=new URL(raw??'');
 if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Pinned read-only connection required');
@@ -20,10 +20,15 @@ try{
  const grants=ids.length?(await db.query('SELECT p.api_id,r.id AS role_id,r.role_code,r.active,p.can_access,p.permission_key FROM '+table('api_permissions')+' p JOIN '+table('roles')+' r ON r.id=p.role_id WHERE p.api_id=ANY($1::bigint[]) AND p.can_access=1 ORDER BY p.api_id,r.id',[ids])).rows:[];
  const workflowPattern='(academy|course|training|commerce|purchase|help|knowledge|article|finance|ledger|invoice|payment|chat)';
  const definitions=(await db.query('SELECT flow_id,title,flow_kind,actor_roles_json,definition_status,verification_status,test_status,blocker_json FROM '+table('virtual_workflow_definitions')+" WHERE title ~* $1 OR flow_id ~* $1 ORDER BY CASE WHEN flow_kind='action_journey' THEN 1 ELSE 0 END,flow_id LIMIT 51",[workflowPattern])).rows;
- const selected=definitions.slice(0,50),flowIds=selected.map(row=>row.flow_id);
+ const businessDefinitions=(await db.query('SELECT flow_id,title,flow_kind,actor_roles_json,definition_status,verification_status,test_status,blocker_json,definition_json,definition_sha256 FROM '+table('virtual_workflow_definitions')+" WHERE flow_kind='business_process' AND (title ~* $1 OR flow_id ~* $1) ORDER BY flow_id LIMIT 51",[workflowPattern])).rows;
+ for(const row of businessDefinitions){
+  if(typeof row.definition_json!=='string'||createHash('sha256').update(row.definition_json).digest('hex')!==row.definition_sha256)throw Error('Business workflow definition digest mismatch');
+  row.definition=JSON.parse(row.definition_json);delete row.definition_json;
+ }
+ const selected=[...businessDefinitions.slice(0,50),...definitions.slice(0,50).filter(row=>!businessDefinitions.some(b=>b.flow_id===row.flow_id))],flowIds=selected.map(row=>row.flow_id);
  const steps=flowIds.length?(await db.query('SELECT flow_id,step_order,action_text,expected_text,api_method,api_path FROM '+table('virtual_workflow_steps')+' WHERE flow_id=ANY($1::text[]) ORDER BY flow_id,step_order LIMIT 1001',[flowIds])).rows:[];
  const sourceLinks=flowIds.length?(await db.query('SELECT flow_id,source_table,source_key,source_key_columns,reference_status FROM '+table('virtual_workflow_source_links')+' WHERE flow_id=ANY($1::text[]) ORDER BY flow_id,source_table,source_key LIMIT 1001',[flowIds])).rows:[];
- const workflowSpecifications={sourceLinks:sourceLinks.slice(0,1000),sourceLinksTruncated:sourceLinks.length>1000,definitions:selected,definitionsTruncated:definitions.length>50,steps:steps.slice(0,1000),stepsTruncated:steps.length>1000,authoritativeContractsInferred:false};
+ const workflowSpecifications={businessDefinitionsSelected:businessDefinitions.slice(0,50).length,businessDefinitionsTruncated:businessDefinitions.length>50,sourceLinks:sourceLinks.slice(0,1000),sourceLinksTruncated:sourceLinks.length>1000,definitions:selected,definitionsTruncated:definitions.length>50,steps:steps.slice(0,1000),stepsTruncated:steps.length>1000,authoritativeContractsInferred:false};
  await db.query('ROLLBACK');
  console.log('PC10_BUSINESS_CONTRACT_DISCOVERY '+JSON.stringify({workflowSpecifications,selectedExistingApiIds:nativeApiIds,manifestSha256:pin.manifestSha256,endpoints:endpoints.map(({request_schema,response_schema,...e})=>({...e,request:schemaSummary(request_schema),response:schemaSummary(response_schema),links:links.filter(l=>String(l.api_id)===String(e.id)),grantCount:grants.filter(g=>String(g.api_id)===String(e.id)).length,roles:grants.filter(g=>String(g.api_id)===String(e.id)).map(g=>[Number(g.role_id),g.role_code,Number(g.active),g.permission_key===e.permission_key])})),screens,writes:0,businessRowsRead:0,providerActions:0,authorityInferred:false}));
 }finally{await db.end();}
