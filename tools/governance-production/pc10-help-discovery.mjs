@@ -43,6 +43,18 @@ export async function discoverHelp(db){
   const ratePolicies=rateShape?await bounded('SELECT id,api_id,runtime_artifact_id,limit_key,max_requests,time_window FROM '+table('api_rate_limits')+" WHERE api_id #>> '{}'=$1 ORDER BY id::text LIMIT 301",['794']):[];
   const auditDefinitions=auditShape?await bounded('SELECT id,event_code,event_name,severity,description FROM '+table('audit_event_definitions')+" WHERE event_code ILIKE $1 ORDER BY id LIMIT 301",['%help%']):[];
   const policyDefinitionReadback={rateSchemaSupported:rateShape,auditSchemaSupported:auditShape,ratePolicies,auditDefinitions,authorityInferred:false,operationalRowsRead:0};
+  // Exact registration and prospective storage shapes only, never operational rows.
+  const relationShape=async(schema,names)=>{
+   const columns=await bounded(`SELECT table_name,column_name,data_type,udt_name,is_nullable,column_default FROM information_schema.columns WHERE table_schema=$1 AND table_name=ANY($2::text[]) ORDER BY table_name,ordinal_position LIMIT 301`,[schema,names]);
+   const constraints=await bounded(`SELECT r.relname AS table_name,c.conname,c.contype,pg_get_constraintdef(c.oid) AS definition FROM pg_constraint c JOIN pg_class r ON r.oid=c.conrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=ANY($2::text[]) ORDER BY r.relname,c.conname LIMIT 301`,[schema,names]);
+   const indexes=await bounded(`SELECT tablename,indexname,indexdef FROM pg_indexes WHERE schemaname=$1 AND tablename=ANY($2::text[]) ORDER BY tablename,indexname LIMIT 301`,[schema,names]);
+   return {schema,requestedTables:names,presentTables:[...new Set(columns.map(c=>c.table_name))],columns,constraints,indexes};
+  };
+  const operationalRegistrationShape={
+   policies:await relationShape(pin.schema,['api_rate_limits','audit_event_definitions'].map(n=>pin.tablePrefix+n)),
+   storage:await relationShape('public',['help_reader_rate','help_reader_audit']),
+   operationalRowsRead:0,writes:0,authorityInferred:false
+  };
   // Exact legacy identity evidence only. Candidate matches never confer authority.
   const legacyKey='api_permission_api_v1_clinical_director_quality_metrics_list_get';
   const identityColumns=await bounded(`SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND table_name=ANY($2::text[]) ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema,['api_endpoint_registry','runtime_artifacts','api_endpoints'].map(n=>pin.tablePrefix+n)]);
@@ -71,7 +83,7 @@ export async function discoverHelp(db){
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
-  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,legacyIdentityReview,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
+  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,operationalRegistrationShape,legacyIdentityReview,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
  }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
