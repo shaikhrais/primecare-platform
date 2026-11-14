@@ -1,0 +1,6 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {runInNewContext} from 'node:vm';
+const source=await readFile('scripts/test-client-invoices-browser.mjs','utf8'),match=source.match(/context\.addInitScript\(([\s\S]*?),f\.tokens\.user1\)/);
+assert.ok(match,'existing browser bootstrap must be present');
+function fixture(){const values=new Map(),sessionStorage={getItem:key=>values.get(key)??null,setItem:(key,value)=>values.set(key,String(value)),removeItem:key=>values.delete(key)};const seed=runInNewContext('('+match[1]+')',{sessionStorage});return{sessionStorage,seed};}
+test('invoice browser bootstrap preserves a changed actor across reloads',()=>{const f=fixture();f.seed('guest-token');assert.equal(f.sessionStorage.getItem('primecare_session'),'guest-token');f.sessionStorage.setItem('primecare_session','new-actor-token');f.seed('guest-token');assert.equal(f.sessionStorage.getItem('primecare_session'),'new-actor-token');});
+test('invoice browser bootstrap does not recreate credentials after logout',()=>{const f=fixture();f.seed('guest-token');f.sessionStorage.removeItem('primecare_session');f.seed('guest-token');assert.equal(f.sessionStorage.getItem('primecare_session'),null);});
