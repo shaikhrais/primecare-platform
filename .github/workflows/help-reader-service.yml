@@ -8,6 +8,8 @@ on:
       - 'cloudflare/workers/src/session-token.ts'
       - 'scripts/test-help-reader-service.mjs'
       - 'scripts/test-help-operational-effects.mjs'
+      - 'scripts/test-help-storage-proposal.mjs'
+      - 'docs/appearance/pc10-help-storage-*'
       - 'scripts/help-reader-service-fixture.mjs'
       - 'tools/governance-production/pc10-help-reader-contract.json'
       - 'tools/governance-production/pc10-help-schema*'
@@ -37,8 +39,14 @@ jobs:
           ln -s /tmp/help-reader-tools/node_modules node_modules
       - name: PGlite reader, policy and independent SQL acceptance
         run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
+      - name: PGlite storage candidate acceptance
+        run: node --test scripts/test-help-storage-proposal.mjs
       - name: Repeat against native PostgreSQL 16
         run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
+        env:
+          HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
+      - name: PostgreSQL 16 atomic storage and independent sessions
+        run: node --test scripts/test-help-storage-proposal.mjs
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: Strict shared service types
