@@ -15,11 +15,13 @@ export class PrimeClientInvoices extends ThemeControlBase{
  private announcement:ReturnType<typeof setTimeout>|null=null;
  constructor(root:HTMLElement,readonly client:ClientInvoices,private locale:'en'|'fr'|'es',private isCurrent:()=>boolean){
   super(root);
-  if(owners.has(root)||[root.ownerDocument.body,root.ownerDocument.documentElement].includes(root)||metadata.kind!=='verified_metadata_export'||metadata.host.screenId!==665||metadata.api.id!==16432||metadata.api.method!=='GET'||metadata.api.path!=='/v1/client/invoices'||metadata.api.permission!=='authenticated_client_profile_owner'||!metadata.source.jobId)throw Error('registered_invoice_slot_required');
+  if(owners.has(root)||[root.ownerDocument.body,root.ownerDocument.documentElement].includes(root)||metadata.kind!=='verified_metadata_export'||metadata.host.screenId!==665||metadata.api.id!==16432||metadata.api.method!=='GET'||metadata.api.path!=='/v1/client/invoices'||metadata.api.permission!=='authenticated_client_profile_owner'||!metadata.source.jobId||!Object.hasOwn(metadata.locales,locale))throw Error('registered_invoice_slot_required');
+  const previousChildren=Array.from(root.childNodes),previousMarker=root.getAttribute('data-pc-client-invoices'),doc=root.ownerDocument,words=metadata.locales[locale];
+  let createdStyle:HTMLStyleElement|undefined;
+  try{
   owners.set(root,this);root.dataset.pcClientInvoices='';
-  const doc=root.ownerDocument,words=metadata.locales[locale];
   if(!doc.querySelector('[data-pc-client-invoices-style]')){
-   const style=doc.createElement('style');style.dataset.pcClientInvoicesStyle='';
+   const style=doc.createElement('style');createdStyle=style;style.dataset.pcClientInvoicesStyle='';
    style.textContent='[data-pc-client-invoices]{font:inherit;color:var(--color-text);background:var(--color-surface);max-inline-size:100%;min-inline-size:0}[data-pc-client-invoices] button{font:inherit;min-block-size:var(--control-min-height);padding:var(--spacing-sm);color:inherit;background:var(--color-surface);border:var(--border-width) solid var(--color-border);border-radius:var(--radius-md)}[data-pc-client-invoices] button[aria-disabled=true]{cursor:wait}[data-pc-client-invoices] .table-scroll{max-inline-size:100%;overflow:auto}[data-pc-client-invoices] th,[data-pc-client-invoices] td{padding:var(--spacing-sm);overflow-wrap:anywhere;text-align:start}[data-pc-client-invoices] :focus-visible{outline:var(--border-width) solid var(--color-primary);outline-offset:var(--spacing-sm)}';
    doc.head.append(style);
   }
@@ -40,7 +42,23 @@ export class PrimeClientInvoices extends ThemeControlBase{
   this.status=this.control('p','status');this.status.setAttribute('role','status');
   this.status.setAttribute('aria-live','polite');this.status.setAttribute('aria-atomic','true');
   root.replaceChildren(this.panel,this.status);
-  try{this.off=client.subscribe(()=>this.render());}catch(error){this.dispose();throw error;}
+  let initial=true,initialFailure:{error:unknown}|undefined;
+  this.off=client.subscribe(()=>{try{this.render();}catch(error){if(initial)initialFailure={error};else throw error;}});
+  initial=false;
+  if(initialFailure)throw initialFailure.error;
+  }catch(error){
+   // A failed view does not own the caller's client or the host's previous nodes.
+   this.endControlScope();
+   if(this.announcement!==null){clearTimeout(this.announcement);this.announcement=null;}
+   try{this.off();}catch{}
+   if(owners.get(root)===this){
+    owners.delete(root);
+    try{root.replaceChildren(...previousChildren);}catch{}
+    try{if(previousMarker===null)root.removeAttribute('data-pc-client-invoices');else root.setAttribute('data-pc-client-invoices',previousMarker);}catch{}
+   }
+   try{createdStyle?.remove();}catch{}
+   throw error;
+  }
  }
  private control<K extends keyof HTMLElementTagNameMap>(tag:K,key:string){
   const spec=metadata.controls.find(c=>c.key===key);if(!spec?.controlId)throw Error('missing_registered_invoice_control');
