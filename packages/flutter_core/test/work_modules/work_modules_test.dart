@@ -278,5 +278,110 @@ void main(){
   await t.pumpWidget(const SizedBox());s.dispose();
  });
 
+
+ testWidgets('leave block reads dirty state synchronously and releases on revert or Close',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),block=WorkModuleLeaveBlock(),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  var notifications=0;block.addListener(()=>notifications++);
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'leave-draft',leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();expect(block.value,false);
+  await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Unsaved title');expect(block.value,true);expect(notifications,0);
+  await t.pump();expect(notifications,1);
+  await t.enterText(find.byType(TextField).at(1),'Original task');expect(block.value,false);await t.pump();
+  await t.enterText(find.byType(TextField).at(1),'Another draft');expect(block.value,true);
+  final close=find.widgetWithText(TextButton,labels.text('close')).first;await t.ensureVisible(close);await t.tap(close);
+  expect(block.value,false);await t.pumpAndSettle();expect(p.calls,0);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();block.dispose();
+ });
+ testWidgets('verified Save releases the leave block after independent readback',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final p=Port('tasks'),s=session('tasks',p),block=WorkModuleLeaveBlock(),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'leave-save',leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Verified saved task');expect(block.value,true);
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pumpAndSettle();
+  expect(s.status,'success');expect(block.value,false);expect(p.calls,1);expect(p.readCalls,1);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();block.dispose();
+ });
+ for(final phase in ['saving','readback'])testWidgets('leave block retains $phase command after editor Close',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final Port p=phase=='saving'?DelayedPort():Port('tasks');if(phase=='readback')p.loseRead=true;
+  final s=session('tasks',p),block=WorkModuleLeaveBlock(),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'leave-pending',leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Pending saved task');
+  final save=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(save);await t.tap(save);await t.pump();
+  if(phase=='readback')await t.pumpAndSettle();expect(s.pending,isNotNull);expect(block.value,true);
+  final close=find.widgetWithText(TextButton,labels.text('close')).first;await t.ensureVisible(close);await t.tap(close);await t.pump();
+  expect(s.pending,isNotNull);expect(block.value,true);
+  if(phase=='saving'){(p as DelayedPort).gate.complete();}else{
+   final retry=find.widgetWithText(TextButton,labels.text('save')).first;await t.ensureVisible(retry);await t.tap(retry);
+  }
+  await t.pumpAndSettle();expect(s.status,'success');expect(block.value,false);expect(p.calls,1);expect(p.readCalls,phase=='readback'?2:1);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());s.dispose();block.dispose();
+ });
+ testWidgets('scope session and controller replacement publish only current owner state after build',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final old=session('tasks',Port('tasks')),pendingPort=Port('tasks')..loseRead=true,next=session('tasks',pendingPort);
+  await next.load();await expectLater(next.submit('Task-A','edit',{'title':'Pending replacement','body':'Instructions','date':'2026-11-06'}),throwsA(isA<WorkFailure>()));
+  final first=WorkModuleLeaveBlock(),second=WorkModuleLeaveBlock(),replace=ValueNotifier(false),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:ValueListenableBuilder<bool>(valueListenable:replace,builder:(context,useNext,child)=>Column(children:[
+   ValueListenableBuilder<bool>(valueListenable:first,builder:(context,blocked,child)=>Text('first:$blocked')),
+   ValueListenableBuilder<bool>(valueListenable:second,builder:(context,blocked,child)=>Text('second:$blocked')),
+   PrimeWorkModule(key:const ValueKey('same-module'),labels:labels,session:useNext?next:old,scope:useNext?'replacement-scope':'old-scope',leaveBlock:useNext?second:first,year:2026,month:11,gap:8,boardWidth:250),
+  ]))))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Retired draft');expect(first.value,true);
+  replace.value=true;await t.pumpAndSettle();expect(first.value,false);expect(second.value,true);expect(find.text('second:true'),findsOneWidget);expect(t.takeException(),isNull);
+  await next.retryPending();await t.pumpAndSettle();expect(second.value,false);expect(pendingPort.calls,1);
+  await t.pumpWidget(const SizedBox());old.dispose();next.dispose();first.dispose();second.dispose();replace.dispose();
+ });
+ testWidgets('old module disposal cannot release a replacement claim on a shared leave block',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,2400));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final a=session('tasks',Port('tasks')),b=session('tasks',Port('tasks')),block=WorkModuleLeaveBlock(),keepOld=ValueNotifier(true),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  final seen=<bool>[];block.addListener(()=>seen.add(block.value));
+  Widget module(String id,WorkModuleSession s)=>PrimeWorkModule(key:ValueKey(id),labels:labels,session:s,scope:id,leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250);
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:ValueListenableBuilder<bool>(valueListenable:keepOld,builder:(context,keep,child)=>Column(children:[if(keep)module('old',a),module('replacement',b)]))))));
+  await t.pumpAndSettle();
+  for(final id in ['old','replacement']){
+   final owner=find.byKey(ValueKey(id)),open=find.descendant(of:owner,matching:find.widgetWithText(TextButton,labels.text('open'))).first;
+   await t.ensureVisible(open);await t.tap(open);await t.pumpAndSettle();
+   await t.enterText(find.descendant(of:owner,matching:find.byType(TextField)).at(1),'$id draft');await t.pumpAndSettle();
+  }
+  expect(block.value,true);seen.clear();keepOld.value=false;await t.pumpAndSettle();expect(block.value,true);expect(seen, isNot(contains(false)));
+  final close=find.widgetWithText(TextButton,labels.text('close')).first;await t.ensureVisible(close);await t.tap(close);expect(block.value,false);await t.pumpAndSettle();expect(seen.last,false);expect(t.takeException(),isNull);
+  await t.pumpWidget(const SizedBox());a.dispose();b.dispose();block.dispose();keepOld.dispose();
+ });
+ testWidgets('caller retains leave block ownership and may dispose it before the module',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final s=session('tasks',Port('tasks')),block=WorkModuleLeaveBlock(),labels=CatalogueLabels.fromMetadata(metadata,'en');var notices=0;block.addListener(()=>notices++);
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'leave-dispose',leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();await t.enterText(find.byType(TextField).at(1),'Queued dirty notification');expect(block.value,true);
+  block.dispose();await t.pumpWidget(const SizedBox());await t.pump();expect(notices,0);expect(block.value,false);expect(t.takeException(),isNull);s.dispose();
+ });
+ testWidgets('removing a module releases its claim without disposing the caller leave block',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final s=session('tasks',Port('tasks')),block=WorkModuleLeaveBlock(),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:PrimeWorkModule(labels:labels,session:s,scope:'leave-remove',leaveBlock:block,year:2026,month:11,gap:8,boardWidth:250)))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();await t.enterText(find.byType(TextField).at(1),'Draft to retire');expect(block.value,true);
+  await t.pumpWidget(const SizedBox());expect(block.value,false);block.addListener((){});await t.pump();expect(t.takeException(),isNull);s.dispose();block.dispose();
+ });
+
+ for(final change in ['controller','scope','session'])testWidgets('leave block handles isolated $change replacement',(t)async{
+  await t.binding.setSurfaceSize(const Size(1400,1800));addTearDown(()=>t.binding.setSurfaceSize(null));
+  final a=session('tasks',Port('tasks')),b=session('tasks',Port('tasks')),first=WorkModuleLeaveBlock(),second=WorkModuleLeaveBlock(),replace=ValueNotifier(false),labels=CatalogueLabels.fromMetadata(metadata,'en');
+  await t.pumpWidget(MaterialApp(home:Scaffold(body:SingleChildScrollView(child:ValueListenableBuilder<bool>(valueListenable:replace,builder:(context,next,child)=>PrimeWorkModule(
+   key:const ValueKey('isolated-replacement'),labels:labels,session:next&&change=='session'?b:a,scope:next&&change=='scope'?'changed-scope':'same-scope',
+   leaveBlock:next&&change=='controller'?second:first,year:2026,month:11,gap:8,boardWidth:250))))));
+  await t.pumpAndSettle();await t.tap(find.widgetWithText(TextButton,labels.text('open')).first);await t.pumpAndSettle();
+  await t.enterText(find.byType(TextField).at(1),'Owned before replacement');expect(first.value,true);
+  replace.value=true;await t.pumpAndSettle();
+  if(change=='controller'){
+   expect(first.value,false);expect(second.value,true);expect(t.widget<TextField>(find.byType(TextField).at(1)).controller!.text,'Owned before replacement');
+  }else{expect(first.value,false);expect(second.value,false);expect(find.widgetWithText(TextButton,labels.text('close')),findsNothing);}
+  expect(t.takeException(),isNull);await t.pumpWidget(const SizedBox());a.dispose();b.dispose();first.dispose();second.dispose();replace.dispose();
+ });
+
 }
 
