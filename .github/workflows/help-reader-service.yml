@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'packages/shared/src/help-reader/**'
+      - 'packages/shared/src/guarded-json.ts'
       - 'scripts/test-help-reader-service.mjs'
       - 'scripts/help-reader-service-fixture.mjs'
       - 'tools/governance-production/pc10-help-reader-contract.json'
@@ -39,4 +40,4 @@ jobs:
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: Strict shared service types
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts

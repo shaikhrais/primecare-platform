@@ -1,11 +1,8 @@
 import pin from '../../../../tools/governance-production/production-pin.json';
 import contract from '../../../../tools/governance-production/pc10-help-reader-contract.json';
 
-export class HelpReadFailure extends Error {
- constructor(public readonly code:'invalid_request'|'unauthenticated'|'forbidden'|'not_found'|'conflict'|'rate_limited'|'unavailable',public readonly status:number){super(code);}
-}
-type Actor=Readonly<{tenantId:string;userId:string;role:'psw';dataset:'live'}>;
-type Input={version:1;locale:'en'|'fr'|'es'}&({action:'list';query:string;offset:number;limit:number}|{action:'read';articleId:string});
+import {HelpReadFailure,helpRequest,helpResponse,helpId as id,helpText as text,helpInteger as integer,type HelpActor as Actor} from './protocol';
+export {HelpReadFailure} from './protocol';
 type Database={query:(sql:string,values?:unknown[])=>Promise<{rows:any[]}>};
 export type HelpReadEffects={
  /** Mandatory host adapters. This service supplies no quota amount, audit storage or permissive fallback. */
@@ -14,18 +11,6 @@ export type HelpReadEffects={
  isCurrent:()=>boolean;
 };
 const table=(name:string)=>`"${pin.schema}"."${pin.tablePrefix}${name}"`;
-const id=(v:unknown):v is string=>typeof v==='string'&&/^[A-Za-z0-9][A-Za-z0-9._:-]{0,199}$/.test(v);
-const text=(v:unknown,min:number,max:number):v is string=>typeof v==='string'&&v.length<=max&&v.length>=min&&(!min||v.trim().length>0)&&!/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(v);
-const integer=(v:unknown,min:number,max:number)=>typeof v==='number'&&Number.isSafeInteger(v)&&v>=min&&v<=max;
-function input(raw:unknown):Input{
- if(!raw||typeof raw!=='object'||Array.isArray(raw))throw new HelpReadFailure('invalid_request',400);
- const v=raw as Record<string,unknown>,keys=v.action==='list'?['version','locale','action','query','offset','limit']:['version','locale','action','articleId'];
- if(Object.keys(v).length!==keys.length||!keys.every(k=>Object.hasOwn(v,k))||v.version!==1||!['en','fr','es'].includes(String(v.locale))||typeof v.locale!=='string')throw new HelpReadFailure('invalid_request',400);
- if(v.action==='list'){
-  if(!text(v.query,0,100)||!integer(v.offset,0,100000)||!integer(v.limit,1,100))throw new HelpReadFailure('invalid_request',400);
- }else if(v.action!=='read'||!id(v.articleId))throw new HelpReadFailure('invalid_request',400);
- return Object.freeze({...v}) as Input;
-}
 const sessionSql=`SELECT u.id,u.roles,u.tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id JOIN public.tenants t ON t.id=u.tenant_id WHERE s.token_hash=$1 AND s.expires_at>CURRENT_TIMESTAMP AND lower(u.status)='active' AND lower(t.status)='active' FOR SHARE OF s,u,t`;
 const published=`tenant_id=$1 AND locale=$2 AND publication_state='published' AND published_at<=CURRENT_TIMESTAMP`;
 function article(row:any,detail:boolean){
@@ -35,7 +20,7 @@ function article(row:any,detail:boolean){
 }
 /** Unmounted registered API794 reader. A host must supply real quota/audit and captured-session adapters before exposure. */
 export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown,effects:HelpReadEffects){
- const request=input(raw);
+ const request=helpRequest(raw);
  if(typeof tokenHash!=='string'||!/^[0-9a-f]{64}$/.test(tokenHash))throw new HelpReadFailure('unauthenticated',401);
  if(!effects||typeof effects.consumeQuota!=='function'||typeof effects.auditRead!=='function'||typeof effects.isCurrent!=='function')throw new HelpReadFailure('unavailable',503);
  const current=()=>{if(effects.isCurrent()!==true)throw new HelpReadFailure('conflict',409);};
@@ -53,7 +38,7 @@ export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown
   const endpoints=(await db.query('SELECT * FROM '+table('api_endpoints')+' WHERE id=794 FOR SHARE')).rows,e=endpoints[0];
   if(endpoints.length!==1||e.http_method!==contract.method||e.route_path!==contract.path||Number(e.auth_required)!==1||e.permission_key!==contract.permissionKey||e.rate_limit_key!==contract.rateLimitKey||e.service_name!==contract.service||e.implementation_status!=='implemented-unverified'||e.request_schema!==JSON.stringify(contract.requestSchema)||e.response_schema!==JSON.stringify(contract.responseSchema))throw new HelpReadFailure('unavailable',503);
   const roles=(await db.query('SELECT id FROM '+table('roles')+" WHERE id=51 AND role_code='psw' AND active=1 FOR SHARE")).rows;
-  const grants=(await db.query('SELECT can_access,permission_key FROM '+table('api_permissions')+' WHERE api_id=794 AND role_id=51 FOR SHARE')).rows;
+  const grants=(await db.query('SELECT can_access,permission_key FROM '+table('api_permissions')+' WHERE api_id=794 AND role_id=51 AND permission_key=$1 FOR SHARE',[contract.permissionKey])).rows;
   if(roles.length!==1||grants.length!==1||Number(grants[0].can_access)!==1||grants[0].permission_key!==contract.permissionKey)throw new HelpReadFailure('forbidden',403);
   const screens=(await db.query('SELECT s.id FROM '+table('screens')+' s JOIN '+table('role_screen_permissions')+' p ON p.screen_id=s.id JOIN '+table('role_screen_map')+" m ON m.screen_id=s.id AND m.role_id=p.role_id WHERE s.id=685 AND s.screen_code='psw_help_support' AND s.route_path='/generated/psw-help-support' AND s.active=1 AND p.role_id=51 AND p.can_view=1 FOR SHARE OF s,p,m")).rows;
   const links=(await db.query('SELECT id,purpose FROM '+table('screen_api_links')+' WHERE screen_id=685 AND api_id=794 FOR SHARE')).rows;
@@ -77,7 +62,7 @@ export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown
    response={version:1,locale:request.locale,action:'list',scope:actor,items,offset:request.offset,limit:request.limit,total};returned=items.length;
   }
   current();await effects.auditRead(actor,Object.freeze({action:request.action,locale:request.locale,returned}));current();
-  await db.query('COMMIT');begun=false;current();return response;
+  const result=helpResponse(response,request,actor);await db.query('COMMIT');begun=false;current();return result;
  }catch(error){
   let rollbackFailed=false;if(begun){try{await db.query('ROLLBACK');}catch{rollbackFailed=true;}}
   if(!rollbackFailed&&error instanceof HelpReadFailure)throw error;throw new HelpReadFailure('unavailable',503);
