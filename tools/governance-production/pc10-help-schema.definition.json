@@ -1,0 +1,30 @@
+{
+  "format": 1,
+  "scope": "Accepted additive Help reader data model; no publisher, grant or runtime activation",
+  "constraints": [
+    {
+      "conname": "faqs_locale_check",
+      "definition": "CHECK ((locale = ANY (ARRAY['en'::text, 'fr'::text, 'es'::text])))"
+    },
+    {
+      "conname": "faqs_publication_state_check",
+      "definition": "CHECK ((publication_state = ANY (ARRAY['draft'::text, 'published'::text, 'withdrawn'::text])))"
+    },
+    {
+      "conname": "faqs_revision_check",
+      "definition": "CHECK (((revision >= 1) AND (revision <= '9007199254740991'::bigint)))"
+    },
+    {
+      "conname": "faqs_tenant_id_fkey",
+      "definition": "FOREIGN KEY (tenant_id) REFERENCES tenants(id)"
+    },
+    {
+      "conname": "pc10_help_v1_publication_content",
+      "definition": "CHECK (((publication_state <> 'published'::text) OR ((tenant_id IS NOT NULL) AND (locale IS NOT NULL) AND (published_at IS NOT NULL) AND (published_at <= CURRENT_TIMESTAMP) AND (id ~ '^[A-Za-z0-9][A-Za-z0-9._:-]{0,199}$'::text) AND pc10_help_v1_valid_text(question, 1, 500) AND pc10_help_v1_valid_text(answer, 1, 5000) AND pc10_help_v1_valid_text(category, 1, 100) AND pc10_help_v1_valid_text(summary, 0, 1000))))"
+    },
+    {
+      "conname": "pc10_help_v1_unpublished_timestamp",
+      "definition": "CHECK (((publication_state = 'published'::text) OR (published_at IS NULL)))"
+    }
+  ]
+}

@@ -2014,5 +2014,19 @@
     "businessDataWrites": false,
     "roleGrants": false,
     "runtimeActivation": false
+  },
+  "helpGuideSchemaMigration": {
+    "optInVariable": "APPLY_PC10_HELP_SCHEMA",
+    "migrationSha256": "95afeeda753c18da6baa7ae2bf6a6dcfb739b323aa10c6a5f7d1868ac308d35d",
+    "schema": "public",
+    "tables": [
+      "faqs"
+    ],
+    "acceptedScope": "Existing FAQ; tenant-specific published EN/FR/ES guides; PSW-only readers",
+    "legacyAutoPublication": false,
+    "contentWrites": false,
+    "publisherCreated": false,
+    "roleGrants": false,
+    "runtimeActivation": false
   }
 }

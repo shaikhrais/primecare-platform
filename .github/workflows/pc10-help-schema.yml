@@ -1,0 +1,56 @@
+name: Help additive schema verification
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/pc10-help-schema*'
+      - 'scripts/test-pc10-help-schema.mjs'
+      - '.github/workflows/pc10-help-schema.yml'
+permissions: {contents: read}
+concurrency:
+  group: pc10-help-schema-migration
+  cancel-in-progress: false
+jobs:
+  postgres-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: help_fixture, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/help-schema-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/help-schema-tools/node_modules node_modules
+          node --test scripts/test-pc10-help-schema.mjs
+      - name: Repeat against independent PostgreSQL server, not a database mock
+        run: node --test scripts/test-pc10-help-schema.mjs
+        env:
+          HELP_SCHEMA_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_fixture
+  production-schema:
+    needs: postgres-proof
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix /tmp/help-schema-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/help-schema-tools/node_modules node_modules
+      - name: Check actual legacy schema then apply the registered additive reader model
+        run: |
+          node tools/governance-production/pc10-help-schema.mjs --plan
+          node tools/governance-production/pc10-help-schema.mjs --apply
+        env:
+          GH_TOKEN: ${{ github.token }}
+          APPLY_PC10_HELP_SCHEMA: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
