@@ -28,6 +28,14 @@ export async function discoverHelp(db){
   const constraints=await bounded(`SELECT c.conrelid::regclass::text AS relation,c.conname,c.contype,pg_get_constraintdef(c.oid) AS definition FROM pg_constraint c JOIN pg_class r ON r.oid=c.conrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname='public' AND r.relname IN ('faqs','tenants','users') ORDER BY relation,c.conname LIMIT 301`);
   const indexes=await bounded(`SELECT schemaname,tablename,indexname,indexdef FROM pg_indexes WHERE schemaname='public' AND tablename IN ('faqs','tenants','users') ORDER BY tablename,indexname LIMIT 301`);
   const governanceColumns=await bounded(`SELECT table_name,column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND (table_name LIKE $2 OR table_name LIKE $3 OR table_name=$4) AND column_name IN ('screen_id','role_id','id','permission_key','can_access','can_view') ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema,pin.tablePrefix+'%permission%',pin.tablePrefix+'%screen%',pin.tablePrefix+'primecare_ui_component_registry']);
+  // Describe prospective binding writers, never infer a grant from a role/screen name.
+  const bindingTables=['api_permissions','role_screen_permissions','role_screen_map','screen_components','screen_required_elements','screen_api_links','section_permissions','element_permissions'].map(name=>pin.tablePrefix+name);
+  const bindingColumns=await bounded(`SELECT table_name,column_name,data_type,udt_name,is_nullable,column_default FROM information_schema.columns WHERE table_schema=$1 AND table_name=ANY($2::text[]) ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema,bindingTables]);
+  const bindingConstraints=await bounded(`SELECT r.relname AS table_name,c.conname,c.contype,pg_get_constraintdef(c.oid) AS definition FROM pg_constraint c JOIN pg_class r ON r.oid=c.conrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=ANY($2::text[]) ORDER BY r.relname,c.conname LIMIT 301`,[pin.schema,bindingTables]);
+  const bindingIndexes=await bounded(`SELECT tablename,indexname,indexdef FROM pg_indexes WHERE schemaname=$1 AND tablename=ANY($2::text[]) ORDER BY tablename,indexname LIMIT 301`,[pin.schema,bindingTables]);
+  // Names/columns only: operational audit, quota and rate rows may contain private data.
+  const runtimeRelations=await bounded(`SELECT table_schema,table_name FROM information_schema.tables WHERE table_schema IN ('public',$1) AND table_type='BASE TABLE' AND (table_name ILIKE '%help%' OR table_name ILIKE '%quota%' OR table_name ILIKE '%rate%' OR table_name ILIKE '%audit%') ORDER BY table_schema,table_name LIMIT 301`,[pin.schema]);
+  const runtimePolicyColumns=await bounded(`SELECT table_name,column_name,data_type,is_nullable,column_default FROM information_schema.columns WHERE table_schema=$1 AND (table_name ILIKE '%quota%' OR table_name ILIKE '%rate%' OR table_name ILIKE '%audit%') ORDER BY table_name,ordinal_position LIMIT 301`,[pin.schema]);
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.
@@ -38,7 +46,7 @@ export async function discoverHelp(db){
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
-  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
+  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,runtimePolicyValuesRead:0,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
  }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
