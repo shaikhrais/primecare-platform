@@ -10,7 +10,7 @@ Future<bool> authorizeNativeApplicationRoute({required String? userId,
     if(!isCurrent())return false;
     final raw=await loadDashboard();
     if(!isCurrent())return false;
-    validateDashboardResponseScope(raw,PreferenceScope(tenantId,userId,role,'live'));
+    validateDashboardResponseScope(raw,PreferenceScope(tenantId,userId,role!,'live'));
     return isCurrent();
   }catch(_){return false;}
 }
