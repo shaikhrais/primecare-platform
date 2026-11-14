@@ -5278,7 +5278,7 @@
       {
         "path": "websites/typescript/src/tenant-dashboard/read-page-host.ts",
         "symbol": "ApplicationProfilePort",
-        "line": 33,
+        "line": 41,
         "classification": "static_constructor_candidate_not_runtime_acceptance"
       },
       {
