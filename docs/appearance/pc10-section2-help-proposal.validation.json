@@ -1,0 +1,140 @@
+{
+  "scope": "draft-schema-examples-only",
+  "openapiSha256": "c708461761fa547a398dd1eb388600a6991ba0216a24aab7997185824e1602b2",
+  "casesPassed": 32,
+  "results": [
+    {
+      "name": "strict list request",
+      "passed": true
+    },
+    {
+      "name": "strict French detail request",
+      "passed": true
+    },
+    {
+      "name": "scoped list result",
+      "passed": true
+    },
+    {
+      "name": "scoped French detail result",
+      "passed": true
+    },
+    {
+      "name": "empty result is not fabricated content",
+      "passed": true
+    },
+    {
+      "name": "reject client tenantId",
+      "passed": true
+    },
+    {
+      "name": "reject client userId",
+      "passed": true
+    },
+    {
+      "name": "reject client role",
+      "passed": true
+    },
+    {
+      "name": "reject client dataset",
+      "passed": true
+    },
+    {
+      "name": "reject client permission",
+      "passed": true
+    },
+    {
+      "name": "reject invalid limit 0",
+      "passed": true
+    },
+    {
+      "name": "reject invalid limit 101",
+      "passed": true
+    },
+    {
+      "name": "reject invalid offset -1",
+      "passed": true
+    },
+    {
+      "name": "reject invalid locale de",
+      "passed": true
+    },
+    {
+      "name": "reject invalid query xxxxxxxxxxxx",
+      "passed": true
+    },
+    {
+      "name": "reject invalid query 😀😀😀😀😀😀😀😀😀😀😀😀",
+      "passed": true
+    },
+    {
+      "name": "reject invalid query bad\u0000query",
+      "passed": true
+    },
+    {
+      "name": "reject invalid action create",
+      "passed": true
+    },
+    {
+      "name": "reject invented supportNumber",
+      "passed": true
+    },
+    {
+      "name": "reject invented chatAvailable",
+      "passed": true
+    },
+    {
+      "name": "reject invented success",
+      "passed": true
+    },
+    {
+      "name": "reject invalid article ID",
+      "passed": true
+    },
+    {
+      "name": "reject body beyond shared UTF16 limit",
+      "passed": true
+    },
+    {
+      "name": "proposal audience is not a broad role grant",
+      "passed": true
+    },
+    {
+      "name": "strict invalid_request error",
+      "passed": true
+    },
+    {
+      "name": "strict unauthenticated error",
+      "passed": true
+    },
+    {
+      "name": "strict forbidden error",
+      "passed": true
+    },
+    {
+      "name": "strict not_found error",
+      "passed": true
+    },
+    {
+      "name": "strict conflict error",
+      "passed": true
+    },
+    {
+      "name": "strict rate_limited error",
+      "passed": true
+    },
+    {
+      "name": "strict unavailable error",
+      "passed": true
+    },
+    {
+      "name": "reject leaked error metadata",
+      "passed": true
+    }
+  ],
+  "proposalApproved": false,
+  "handlerImplemented": false,
+  "liveDatabaseTested": false,
+  "providerCalled": false,
+  "implementationCredits": 0
+}
