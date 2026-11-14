@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/shared/src/application-modules/**'
       - 'packages/shared/src/preference-sync/**'
       - 'packages/flutter_core/lib/preference_sync/**'

@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/shared/src/client-invoices/**'
       - 'packages/shared/src/guarded-json.ts'
       - 'packages/primecare_ui/web/client-invoices.ts'

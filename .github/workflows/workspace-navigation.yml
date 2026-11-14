@@ -3,6 +3,7 @@ on:
   push:
     branches: [main]
     paths:
+      - 'packages/primecare_ui/web/theme-control-base.ts'
       - 'packages/domain/src/workspace_navigation.ts'
       - 'packages/primecare_ui/web/navigation.ts'
       - 'packages/primecare_ui/web/layout-manager.ts'
