@@ -1,0 +1,581 @@
+{
+  "kind": "recorded_production_failure_boundary_input",
+  "noActivation": true,
+  "source": "9f65531b43a6bb3be0942acc8203f6e9c41fef63",
+  "runId": 43535550518,
+  "jobId": 132265141091,
+  "manifestSha256": "68b0b02dd1215f58630d2c1aea3c5e1cfd488a9cbcfe5c96bea9dcfd89944c42",
+  "purpose": "Failure/cache exclusion only; not handler, contract, role, permission or host authority",
+  "operations": [
+    {
+      "id": 42,
+      "method": "POST",
+      "path": "/v1/admin/actions/training-modules"
+    },
+    {
+      "id": 80,
+      "method": "POST",
+      "path": "/v1/admin/financial/invoices"
+    },
+    {
+      "id": 103,
+      "method": "POST",
+      "path": "/v1/admin/erp/inventory"
+    },
+    {
+      "id": 104,
+      "method": "POST",
+      "path": "/v1/admin/erp/purchase-orders"
+    },
+    {
+      "id": 106,
+      "method": "POST",
+      "path": "/v1/admin/erp/inventory/add"
+    },
+    {
+      "id": 128,
+      "method": "POST",
+      "path": "/v1/admin/marketing/churn-risks"
+    },
+    {
+      "id": 129,
+      "method": "POST",
+      "path": "/v1/admin/marketing/drip-sequences"
+    },
+    {
+      "id": 130,
+      "method": "POST",
+      "path": "/v1/admin/marketing/revenue-attribution"
+    },
+    {
+      "id": 131,
+      "method": "POST",
+      "path": "/v1/admin/marketing/subscribers"
+    },
+    {
+      "id": 132,
+      "method": "POST",
+      "path": "/v1/admin/marketing/promotions"
+    },
+    {
+      "id": 133,
+      "method": "POST",
+      "path": "/v1/admin/marketing/syndication/vault"
+    },
+    {
+      "id": 134,
+      "method": "POST",
+      "path": "/v1/admin/marketing/syndication/post"
+    },
+    {
+      "id": 143,
+      "method": "POST",
+      "path": "/v1/admin/system-data/ai-inferences"
+    },
+    {
+      "id": 151,
+      "method": "POST",
+      "path": "/v1/admin/cron/training-reminders"
+    },
+    {
+      "id": 153,
+      "method": "POST",
+      "path": "/v1/admin/cron/inventory-reorder"
+    },
+    {
+      "id": 157,
+      "method": "POST",
+      "path": "/v1/admin/ai-iot/predictions"
+    },
+    {
+      "id": 158,
+      "method": "POST",
+      "path": "/v1/admin/ai-iot/telehealth/session"
+    },
+    {
+      "id": 169,
+      "method": "POST",
+      "path": "/v1/manager/finance/payroll-audit"
+    },
+    {
+      "id": 179,
+      "method": "POST",
+      "path": "/v1/manager/training/assign"
+    },
+    {
+      "id": 180,
+      "method": "POST",
+      "path": "/v1/manager/training/compliance"
+    },
+    {
+      "id": 181,
+      "method": "POST",
+      "path": "/v1/manager/training/modules"
+    },
+    {
+      "id": 212,
+      "method": "POST",
+      "path": "/v1/psw/home/hardware/purchase"
+    },
+    {
+      "id": 219,
+      "method": "POST",
+      "path": "/v1/psw/schedule/marketplace"
+    },
+    {
+      "id": 220,
+      "method": "POST",
+      "path": "/v1/psw/schedule/marketplace/swaps"
+    },
+    {
+      "id": 232,
+      "method": "POST",
+      "path": "/v1/psw/training/assigned"
+    },
+    {
+      "id": 239,
+      "method": "POST",
+      "path": "/v1/client/invoices"
+    },
+    {
+      "id": 244,
+      "method": "POST",
+      "path": "/v1/client/engagement/pay-invoice"
+    },
+    {
+      "id": 248,
+      "method": "POST",
+      "path": "/v1/client/billing/invoices"
+    },
+    {
+      "id": 279,
+      "method": "POST",
+      "path": "/v1/user/training/catalog"
+    },
+    {
+      "id": 280,
+      "method": "POST",
+      "path": "/v1/user/training/my-progress"
+    },
+    {
+      "id": 308,
+      "method": "POST",
+      "path": "/v1/ai/insights"
+    },
+    {
+      "id": 309,
+      "method": "POST",
+      "path": "/v1/ai/predictive"
+    },
+    {
+      "id": 310,
+      "method": "POST",
+      "path": "/v1/ai/churn"
+    },
+    {
+      "id": 311,
+      "method": "POST",
+      "path": "/v1/ai/optimization"
+    },
+    {
+      "id": 334,
+      "method": "POST",
+      "path": "/v1/admin/marketing/campaigns"
+    },
+    {
+      "id": 378,
+      "method": "POST",
+      "path": "/v1/admin/ai-command"
+    },
+    {
+      "id": 379,
+      "method": "POST",
+      "path": "/v1/admin/ai-command/models"
+    },
+    {
+      "id": 380,
+      "method": "POST",
+      "path": "/v1/admin/ai-command/inferences"
+    },
+    {
+      "id": 381,
+      "method": "POST",
+      "path": "/v1/admin/ai-command/config"
+    },
+    {
+      "id": 382,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency"
+    },
+    {
+      "id": 383,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency/rates"
+    },
+    {
+      "id": 384,
+      "method": "POST",
+      "path": "/v1/admin/finance/multi-currency/conversions"
+    },
+    {
+      "id": 391,
+      "method": "POST",
+      "path": "/v1/admin/supply-chain/purchase-orders"
+    },
+    {
+      "id": 392,
+      "method": "POST",
+      "path": "/v1/admin/supply-chain/inventory/sync"
+    },
+    {
+      "id": 408,
+      "method": "POST",
+      "path": "/v1/support/chat"
+    },
+    {
+      "id": 421,
+      "method": "POST",
+      "path": "/v1/admin/invoices"
+    },
+    {
+      "id": 499,
+      "method": "POST",
+      "path": "/v1/ai/visit-sentiment"
+    },
+    {
+      "id": 500,
+      "method": "POST",
+      "path": "/v1/ai/optimize-flow"
+    },
+    {
+      "id": 501,
+      "method": "POST",
+      "path": "/v1/ai/sentiment-scan"
+    },
+    {
+      "id": 502,
+      "method": "POST",
+      "path": "/v1/ai/insights/refresh"
+    },
+    {
+      "id": 503,
+      "method": "POST",
+      "path": "/v1/ai/autopilot/engage"
+    },
+    {
+      "id": 517,
+      "method": "POST",
+      "path": "/v1/manager/finance/pl"
+    },
+    {
+      "id": 519,
+      "method": "POST",
+      "path": "/v1/manager/finance/billing/finalize"
+    },
+    {
+      "id": 520,
+      "method": "POST",
+      "path": "/v1/manager/training"
+    },
+    {
+      "id": 544,
+      "method": "POST",
+      "path": "/v1/manager/training/academy"
+    },
+    {
+      "id": 545,
+      "method": "POST",
+      "path": "/v1/manager/training/academy/modules"
+    },
+    {
+      "id": 546,
+      "method": "POST",
+      "path": "/v1/manager/training/academy/progress"
+    },
+    {
+      "id": 627,
+      "method": "POST",
+      "path": "/v1/finance/void"
+    },
+    {
+      "id": 628,
+      "method": "POST",
+      "path": "/v1/finance/seal"
+    },
+    {
+      "id": 629,
+      "method": "POST",
+      "path": "/v1/finance/tax/report"
+    },
+    {
+      "id": 632,
+      "method": "POST",
+      "path": "/v1/training/assign"
+    },
+    {
+      "id": 633,
+      "method": "POST",
+      "path": "/v1/training/verify"
+    },
+    {
+      "id": 634,
+      "method": "POST",
+      "path": "/v1/training/renew"
+    },
+    {
+      "id": 635,
+      "method": "POST",
+      "path": "/v1/training/export"
+    },
+    {
+      "id": 714,
+      "method": "POST",
+      "path": "/v1/admin/training/stats"
+    },
+    {
+      "id": 715,
+      "method": "POST",
+      "path": "/v1/staff/training/summary"
+    },
+    {
+      "id": 716,
+      "method": "POST",
+      "path": "/v1/admin/training/architect/audit"
+    },
+    {
+      "id": 740,
+      "method": "POST",
+      "path": "/v1/admin/training/stats/compliance-overview"
+    },
+    {
+      "id": 741,
+      "method": "POST",
+      "path": "/v1/admin/training/stats/expiring-certs"
+    },
+    {
+      "id": 794,
+      "method": "POST",
+      "path": "/v1/psw/help-support"
+    },
+    {
+      "id": 812,
+      "method": "POST",
+      "path": "/v1/marketing/"
+    },
+    {
+      "id": 814,
+      "method": "POST",
+      "path": "/v1/marketing/leads"
+    },
+    {
+      "id": 834,
+      "method": "GET",
+      "path": "/v1/admin/compliance/training"
+    },
+    {
+      "id": 865,
+      "method": "GET",
+      "path": "/v1/admin/marketing/touchpoints"
+    },
+    {
+      "id": 870,
+      "method": "GET",
+      "path": "/v1/analytics/finance/forecast"
+    },
+    {
+      "id": 871,
+      "method": "GET",
+      "path": "/v1/analytics/marketing/roi"
+    },
+    {
+      "id": 982,
+      "method": "GET",
+      "path": "/v1/premium/localfinancenode"
+    },
+    {
+      "id": 984,
+      "method": "GET",
+      "path": "/v1/premium/localmarketinganalyticnode"
+    },
+    {
+      "id": 989,
+      "method": "GET",
+      "path": "/v1/premium/invoicerecord"
+    },
+    {
+      "id": 1011,
+      "method": "GET",
+      "path": "/v1/premium/marketingcampaignnode"
+    },
+    {
+      "id": 1108,
+      "method": "GET",
+      "path": "/v1/premium/invoice"
+    },
+    {
+      "id": 1122,
+      "method": "GET",
+      "path": "/v1/premium/transactionledger"
+    },
+    {
+      "id": 1125,
+      "method": "GET",
+      "path": "/v1/premium/trainingmodule"
+    },
+    {
+      "id": 1126,
+      "method": "GET",
+      "path": "/v1/premium/trainingassignment"
+    },
+    {
+      "id": 1137,
+      "method": "GET",
+      "path": "/v1/premium/inventoryitem"
+    },
+    {
+      "id": 1138,
+      "method": "GET",
+      "path": "/v1/premium/purchaseorder"
+    },
+    {
+      "id": 1140,
+      "method": "GET",
+      "path": "/v1/premium/marketplacelisting"
+    },
+    {
+      "id": 1143,
+      "method": "GET",
+      "path": "/v1/marketing/assets"
+    },
+    {
+      "id": 1144,
+      "method": "GET",
+      "path": "/v1/marketing/campaigns/performance"
+    },
+    {
+      "id": 1145,
+      "method": "GET",
+      "path": "/v1/marketing/competitors/analysis"
+    },
+    {
+      "id": 1146,
+      "method": "GET",
+      "path": "/v1/marketing/email/journeys"
+    },
+    {
+      "id": 1147,
+      "method": "GET",
+      "path": "/v1/marketing/events"
+    },
+    {
+      "id": 1148,
+      "method": "GET",
+      "path": "/v1/marketing/leads/conversion"
+    },
+    {
+      "id": 1149,
+      "method": "GET",
+      "path": "/v1/marketing/cac/tracker"
+    },
+    {
+      "id": 1150,
+      "method": "GET",
+      "path": "/v1/marketing/referrals/network"
+    },
+    {
+      "id": 1151,
+      "method": "GET",
+      "path": "/v1/marketing/social/sentiment"
+    },
+    {
+      "id": 1152,
+      "method": "GET",
+      "path": "/v1/marketing/territories"
+    },
+    {
+      "id": 1248,
+      "method": "POST",
+      "path": "/v1/caregiver/meds/acknowledge"
+    },
+    {
+      "id": 1281,
+      "method": "POST",
+      "path": "/v1/cfo-invoices/compliance/scan"
+    },
+    {
+      "id": 1302,
+      "method": "POST",
+      "path": "/v1/finance-director-analytics/compliance/scan"
+    },
+    {
+      "id": 1303,
+      "method": "POST",
+      "path": "/v1/finance-director-workflow/compliance/scan"
+    },
+    {
+      "id": 1315,
+      "method": "POST",
+      "path": "/v1/franchise-owner-finance-snapshot/compliance/scan"
+    },
+    {
+      "id": 1324,
+      "method": "POST",
+      "path": "/v1/hr-director-training/compliance/scan"
+    },
+    {
+      "id": 1351,
+      "method": "POST",
+      "path": "/v1/training-director-workflow/compliance/scan"
+    },
+    {
+      "id": 1380,
+      "method": "POST",
+      "path": "/v1/training-management/compliance/scan"
+    },
+    {
+      "id": 1447,
+      "method": "POST",
+      "path": "/v1/course-assignment/compliance/scan"
+    },
+    {
+      "id": 1462,
+      "method": "POST",
+      "path": "/v1/invoice-management/compliance/scan"
+    },
+    {
+      "id": 1483,
+      "method": "POST",
+      "path": "/v1/training-dashboard/compliance/scan"
+    },
+    {
+      "id": 16432,
+      "method": "GET",
+      "path": "/v1/client/invoices"
+    },
+    {
+      "id": 16475,
+      "method": "POST",
+      "path": "/v1/governance/growth/finance"
+    },
+    {
+      "id": 16476,
+      "method": "GET",
+      "path": "/v1/governance/growth/marketing-statement"
+    },
+    {
+      "id": 16477,
+      "method": "GET",
+      "path": "/v1/governance/growth/marketing-statement/pdf"
+    },
+    {
+      "id": 16559,
+      "method": "POST",
+      "path": "/v1/governance/look/reviews/{id}/ai"
+    },
+    {
+      "id": 16561,
+      "method": "GET",
+      "path": "/v1/governance/platform/vapi/inventory"
+    }
+  ]
+}

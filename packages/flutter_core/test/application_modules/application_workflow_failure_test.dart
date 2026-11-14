@@ -1,4 +1,6 @@
 import 'dart:typed_data';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -132,6 +134,19 @@ Future<ApiResponse> send(_Harness h,String method,String path) => switch(method)
 };
 void main(){
  TestWidgetsFlutterBinding.ensureInitialized();
+ final recorded=jsonDecode(File('test/application_modules/fixtures/application_workflow_identities.json').readAsStringSync()) as Map<String,dynamic>;
+ final declarations=List<Map<String,dynamic>>.from((recorded['operations'] as List).map((row)=>Map<String,dynamic>.from(row as Map)));
+ test('all114recorded declarations remain failure boundaries, never grants',(){
+  expect(declarations,hasLength(114));expect(recorded['noActivation'],isTrue);
+  for(final row in declarations){expect(isApplicationWorkflowPath((row['path'] as String).replaceAll('{id}','fixture-record')),isTrue);}
+ });
+ for(final row in declarations){
+  final path=(row['path'] as String).replaceAll('{id}','fixture-record');
+  test('registered API${row['id']} failure cannot expose stale cache or synthetic success',()async{
+   final h=_Harness(cachedData:_staleData);h.fail(DioExceptionType.connectionError);
+   _expectFailure(await send(h,row['method'] as String,path),503,isEmpty);h.expectUncached();
+  });
+ }
  test('failed help request never invents a reachable support service',()async{
   final h=_Harness(cachedData:_staleData);h.fail(DioExceptionType.connectionError);
   final response=await h.client.post('/v1/psw/help-support',body:<String,dynamic>{});
@@ -180,6 +195,16 @@ void main(){
    });
   }
  }
+ test('recorded trailing slash route uses the same normalized identity',(){
+  expect(isApplicationWorkflowPath('/v1/marketing/'),isTrue);
+  expect(isApplicationWorkflowPath('/v1/marketing'),isTrue);
+  expect(isApplicationWorkflowPath('/v1/marketing-extra'),isFalse);
+ });
+ test('recorded parameter template matches one path segment only',(){
+  expect(isApplicationWorkflowPath('/v1/governance/look/reviews/owned-review/ai'),isTrue);
+  expect(isApplicationWorkflowPath('/v1/governance/look/reviews/a/b/ai'),isFalse);
+  expect(isApplicationWorkflowPath('/v1/governance/look/reviews/owned-review/ai-extra'),isFalse);
+ });
  test('unrelated offline behavior is outside this repair',()async{
   final h=_Harness(cachedData:_staleData);h.fail(DioExceptionType.connectionError);
   expect((await h.client.get('/v1/unrelated-fixture')).data,_staleData);

@@ -41,7 +41,7 @@ try:
     print(output[-6000:].encode('ascii', 'backslashreplace').decode('ascii'))
     if (result.returncode == 0 or TARGET not in output or
             re.search(r'Expected:\s*false', output) is None or
-            re.search(r'Actual:\s*true', output) is None):
+            re.search(r'Actual:\s*(?:<true>|true)', output) is None):
         raise RuntimeError('Expected old-source false-success regression was not reproduced')
     print('PC10_SECTION2_OLD_SOURCE_CONTROL ' + BASE + ' ' + OLD_BLOB +
           ' reproduced_false_success=true')

@@ -315,18 +315,6 @@ class ApiClient {
       );
     }
 
-    if (cleanPath == '/v1/psw/help-support') {
-      return ApiResponse(
-        statusCode: 200,
-        data: {
-          'supportNumber': '1-800-555-CARE',
-          'supportEmail': 'support@primecare.com',
-          'chatAvailable': true,
-          'faqUrl': 'https://help.primecare.com/psw',
-        },
-      );
-    }
-
     // Generic fallbacks for any other endpoints to ensure they never crash
     return ApiResponse(
       statusCode: 200,

@@ -1,22 +1,130 @@
-/// Existing declared operations inspected by production discovery 43535550518.
-/// A failure boundary only: this does not bind handlers or authorize a request.
-const _applicationWorkflowPaths = {
-  '/v1/admin/erp/purchase-orders', // API 104
-  '/v1/user/training/catalog', // API 279
-  '/v1/user/training/my-progress', // API 280
-  '/v1/ai/insights', // API 308; analytics, not authority for AI chat
-  '/v1/ai/predictive', // API 309
-  '/v1/ai/churn', // API 310
-  '/v1/support/chat', // API 408; support membership remains undefined
-  '/v1/psw/help-support', // API 794
-  '/v1/premium/transactionledger', // API 1122; not general finance authority
+// Generated from recorded production discovery 43535550518; do not hand-edit.
+// Input sha256 5c5b367b82b37bc627c14d2fdb1ce7eb2e8ecc0ee1db732b9cfe905d3126b1cd
+/// Failure/cache exclusion only; no handler, role, permission or host authority.
+const _applicationWorkflowExactPaths = {
+  '/v1/admin/actions/training-modules',
+  '/v1/admin/ai-command',
+  '/v1/admin/ai-command/config',
+  '/v1/admin/ai-command/inferences',
+  '/v1/admin/ai-command/models',
+  '/v1/admin/ai-iot/predictions',
+  '/v1/admin/ai-iot/telehealth/session',
+  '/v1/admin/compliance/training',
+  '/v1/admin/cron/inventory-reorder',
+  '/v1/admin/cron/training-reminders',
+  '/v1/admin/erp/inventory',
+  '/v1/admin/erp/inventory/add',
+  '/v1/admin/erp/purchase-orders',
+  '/v1/admin/finance/multi-currency',
+  '/v1/admin/finance/multi-currency/conversions',
+  '/v1/admin/finance/multi-currency/rates',
+  '/v1/admin/financial/invoices',
+  '/v1/admin/invoices',
+  '/v1/admin/marketing/campaigns',
+  '/v1/admin/marketing/churn-risks',
+  '/v1/admin/marketing/drip-sequences',
+  '/v1/admin/marketing/promotions',
+  '/v1/admin/marketing/revenue-attribution',
+  '/v1/admin/marketing/subscribers',
+  '/v1/admin/marketing/syndication/post',
+  '/v1/admin/marketing/syndication/vault',
+  '/v1/admin/marketing/touchpoints',
+  '/v1/admin/supply-chain/inventory/sync',
+  '/v1/admin/supply-chain/purchase-orders',
+  '/v1/admin/system-data/ai-inferences',
+  '/v1/admin/training/architect/audit',
+  '/v1/admin/training/stats',
+  '/v1/admin/training/stats/compliance-overview',
+  '/v1/admin/training/stats/expiring-certs',
+  '/v1/ai/autopilot/engage',
+  '/v1/ai/churn',
+  '/v1/ai/insights',
+  '/v1/ai/insights/refresh',
+  '/v1/ai/optimization',
+  '/v1/ai/optimize-flow',
+  '/v1/ai/predictive',
+  '/v1/ai/sentiment-scan',
+  '/v1/ai/visit-sentiment',
+  '/v1/analytics/finance/forecast',
+  '/v1/analytics/marketing/roi',
+  '/v1/caregiver/meds/acknowledge',
+  '/v1/cfo-invoices/compliance/scan',
+  '/v1/client/billing/invoices',
+  '/v1/client/engagement/pay-invoice',
+  '/v1/client/invoices',
+  '/v1/course-assignment/compliance/scan',
+  '/v1/finance-director-analytics/compliance/scan',
+  '/v1/finance-director-workflow/compliance/scan',
+  '/v1/finance/seal',
+  '/v1/finance/tax/report',
+  '/v1/finance/void',
+  '/v1/franchise-owner-finance-snapshot/compliance/scan',
+  '/v1/governance/growth/finance',
+  '/v1/governance/growth/marketing-statement',
+  '/v1/governance/growth/marketing-statement/pdf',
+  '/v1/governance/platform/vapi/inventory',
+  '/v1/hr-director-training/compliance/scan',
+  '/v1/invoice-management/compliance/scan',
+  '/v1/manager/finance/billing/finalize',
+  '/v1/manager/finance/payroll-audit',
+  '/v1/manager/finance/pl',
+  '/v1/manager/training',
+  '/v1/manager/training/academy',
+  '/v1/manager/training/academy/modules',
+  '/v1/manager/training/academy/progress',
+  '/v1/manager/training/assign',
+  '/v1/manager/training/compliance',
+  '/v1/manager/training/modules',
+  '/v1/marketing',
+  '/v1/marketing/assets',
+  '/v1/marketing/cac/tracker',
+  '/v1/marketing/campaigns/performance',
+  '/v1/marketing/competitors/analysis',
+  '/v1/marketing/email/journeys',
+  '/v1/marketing/events',
+  '/v1/marketing/leads',
+  '/v1/marketing/leads/conversion',
+  '/v1/marketing/referrals/network',
+  '/v1/marketing/social/sentiment',
+  '/v1/marketing/territories',
+  '/v1/premium/inventoryitem',
+  '/v1/premium/invoice',
+  '/v1/premium/invoicerecord',
+  '/v1/premium/localfinancenode',
+  '/v1/premium/localmarketinganalyticnode',
+  '/v1/premium/marketingcampaignnode',
+  '/v1/premium/marketplacelisting',
+  '/v1/premium/purchaseorder',
+  '/v1/premium/trainingassignment',
+  '/v1/premium/trainingmodule',
+  '/v1/premium/transactionledger',
+  '/v1/psw/help-support',
+  '/v1/psw/home/hardware/purchase',
+  '/v1/psw/schedule/marketplace',
+  '/v1/psw/schedule/marketplace/swaps',
+  '/v1/psw/training/assigned',
+  '/v1/staff/training/summary',
+  '/v1/support/chat',
+  '/v1/training-dashboard/compliance/scan',
+  '/v1/training-director-workflow/compliance/scan',
+  '/v1/training-management/compliance/scan',
+  '/v1/training/assign',
+  '/v1/training/export',
+  '/v1/training/renew',
+  '/v1/training/verify',
+  '/v1/user/training/catalog',
+  '/v1/user/training/my-progress',
 };
+final _applicationWorkflowPatterns = <RegExp>[
+  RegExp(r'^/v1/governance/look/reviews/[^/]+/ai$'),
+];
 
 bool isApplicationWorkflowPath(String path) {
   final uri = Uri.tryParse(path);
   if (uri == null) return false;
-  // Resolve relative and absolute forms consistently, without performing I/O.
+  // Normalize relative/absolute forms without I/O or adding route authority.
   final route = Uri.parse('https://api.invalid/').resolveUri(uri)
       .normalizePath().path.replaceFirst(RegExp(r'/+$'), '');
-  return _applicationWorkflowPaths.contains(route);
+  return _applicationWorkflowExactPaths.contains(route) ||
+      _applicationWorkflowPatterns.any((pattern) => pattern.hasMatch(route));
 }
