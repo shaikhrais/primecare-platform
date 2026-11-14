@@ -121,7 +121,9 @@ class _ApplicationsState extends ConsumerState<TenantApplicationPanel> {
         token:widget.identity.token,scope:scope,currentToken:_token,currentScope:_scope,
         identityLabel:words['profile']!,client:_client()));
       if(raw['allowedViews'] is List&&(raw['allowedViews'] as List).contains('tasks')){
-        final taskWords=Map<String,String>.from(nativeApplicationWork['locales'][locale] as Map);
+        // Domain actions use the same pinned tenant labels as the existing web/native adapter.
+        final taskWords=<String,String>{...Map<String,String>.from(nativeApplicationTenant['labels'] as Map),
+          ...Map<String,String>.from(nativeApplicationTenant['controls'] as Map)};
         _tasks=WorkModuleSession(scope,'tasks',requestId:PreferenceSyncClient.newRequestId,port:TenantTaskModulePort.authenticated(
           origin:origin,token:widget.identity.token,scope:scope,module:'tasks',labels:taskWords,
           currentToken:_token,currentScope:_scope,client:_client()));
