@@ -694,14 +694,14 @@
     {
       "id": 57,
       "path": "scripts/test-pc10-help-discovery.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "d919fd3f73b4606c6e45c05cdcbb02ca62d77fc5",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help discovery regression suite (schema, access, privacy, bounds, grant-retirement reference inventory and RLS denial) against discovery implementation; no confirmed safe defect. Tests not executed.",
+      "outcome": "ok"
     },
     {
       "id": 58,
@@ -778,14 +778,14 @@
     {
       "id": 64,
       "path": "scripts/test-help-reader-service.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "d2ee7334ad196ec129dad7558d8ad8a876c51d05",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help reader service and HTTP/client regression suite, including tenant isolation, grants, transaction rollback, cancellation and immutable adapter ownership; no confirmed test-code defect. Tests not executed; existing shared cancellation blocker tracked separately.",
+      "outcome": "ok"
     },
     {
       "id": 65,
