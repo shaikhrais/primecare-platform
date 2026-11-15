@@ -8,20 +8,11 @@ import 'package:flutter_core/flutter_core.dart';
 
 final psw_help_supportDataProvider = FutureProvider.autoDispose<Map<String, dynamic>>((ref) async {
   final api = ref.read(apiClientProvider);
-  try {
-    // API Endpoint: GET /v1/psw-help-support
-    // API Endpoint: POST /v1/psw-help-support
-    // API Endpoint: PATCH /v1/psw-help-support/:id
-    final response = await api.get('/v1/psw-help-support');
-    return response.data is Map ? Map<String, dynamic>.from(response.data as Map) : {};
-  } catch (_) {
-    return {
-      'status': 'success',
-      'screen_code': 'psw_help_support',
-      'role_code': 'guest',
-      'timestamp': DateTime.now().toIso8601String(),
-    };
+  final response = await api.get('/v1/psw-help-support');
+  if (!response.isSuccess || response.data is! Map) {
+    throw StateError('help_reader_unavailable');
   }
+  return Map<String, dynamic>.from(response.data as Map);
 });
 
 /// PswHelpSupportScreen - Governed screen implementation for Primecare Clinic (Guest).
@@ -33,6 +24,16 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
   Widget buildScreen(BuildContext context, WidgetRef ref) {
     final theme = context.theme;
     final dataState = ref.watch(psw_help_supportDataProvider);
+
+    if (dataState.isLoading) {
+      return const Center(child: PrimeLoadingIndicator());
+    }
+    if (dataState.hasError) {
+      return DashboardErrorWidget(
+        message: 'workspace.unavailable'.tr(),
+        onRetry: () => ref.invalidate(psw_help_supportDataProvider),
+      );
+    }
 
     return Scaffold(
       backgroundColor:  theme.colors.background,
@@ -92,11 +93,6 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       Text(
                         'Target Role: Guest',
                         style:  TextStyle(fontWeight: FontWeight.bold, color: theme.colors.onSurface, fontSize: 14),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                        decoration: BoxDecoration(color:  theme.colors.success.withOpacity(0.1), borderRadius: BorderRadius.circular(6)),
-                        child:  Text('100% READY', style: TextStyle(color: theme.colors.success, fontSize: 10, fontWeight: FontWeight.bold)),
                       ),
                     ],
                   ),
@@ -177,7 +173,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    onPressed: () {},
+                    onPressed: null,
                     child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -254,7 +250,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    onPressed: () {},
+                    onPressed: null,
                     child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -331,7 +327,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    onPressed: () {},
+                    onPressed: null,
                     child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -408,7 +404,7 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    onPressed: () {},
+                    onPressed: null,
                     child:  Text('Execute Action', style: TextStyle(color: theme.colors.onPrimary, fontSize: 11, fontWeight: FontWeight.bold)),
                   ),
                 ),
@@ -440,7 +436,6 @@ class PswHelpSupportScreen extends GovernedConsumerWidget {
                   const SizedBox(height: 4),
                    Text('• Cypress Selector: data-cy="screen-psw-help-support"', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12, fontFamily: 'monospace')),
                   const SizedBox(height: 4),
-                   Text('• Accessibility WCAG 2.2 AA: PASSED (Keyboard Nav & ARIA Labeled)', style: TextStyle(color: theme.colors.inverseOnSurface, fontSize: 12)),
                 ],
               ),
             ),
