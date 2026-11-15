@@ -51,7 +51,8 @@ export async function handleHelpRead(request:Request,context:HelpHttpContext):Pr
    const active=owner();
    if(request.signal.aborted||active!==true)throw new HelpReadFailure('conflict',409);
   };
-  const url=new URL(request.url);
+  let url:URL;
+  try{url=new URL(request.url);}catch{throw new HelpReadFailure('invalid_request',400);}
   if(request.method!==contract.method||url.pathname!==contract.path||url.search||request.headers.get('content-encoding')&&!/^identity$/i.test(request.headers.get('content-encoding')!))throw new HelpReadFailure('invalid_request',400);
   if(!/^application\/json(?:\s*;\s*charset\s*=\s*utf-8)?$/i.test(request.headers.get('content-type')??''))throw new HelpReadFailure('invalid_request',400);
   current();const tokenHash=await authenticate(request);current();
