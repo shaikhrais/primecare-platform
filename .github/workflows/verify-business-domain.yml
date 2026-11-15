@@ -13,6 +13,7 @@ on:
       - 'scripts/test-ledger-seal-postgres.mjs'
       - 'packages/domain/src/services/__tests__/LedgerVoid.test.ts'
       - 'scripts/test-training-certificate-validity.mjs'
+      - 'scripts/test-training-module-boundary.mjs'
       - '.github/workflows/verify-business-domain.yml'
   workflow_dispatch:
 permissions:
@@ -28,7 +29,7 @@ jobs:
       - name: Check shared rules and candidate handoffs without production access
         run: node --test packages/shared/test/business-*.test.mjs
       - name: Reject foreign ledger accounts and invalid training certificates
-        run: node --test scripts/test-ledger-account-isolation.mjs scripts/test-ledger-reversal-atomicity.mjs scripts/test-training-certificate-validity.mjs
+        run: node --test scripts/test-ledger-account-isolation.mjs scripts/test-ledger-reversal-atomicity.mjs scripts/test-training-certificate-validity.mjs scripts/test-training-module-boundary.mjs
   ledger-postgres:
     runs-on: ubuntu-24.04
     timeout-minutes: 10

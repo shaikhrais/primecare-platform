@@ -64,8 +64,11 @@ export class LedgerService {
 
             if (tenant?.taxSettings) {
                 const settings = tenant.taxSettings as any;
-                if (settings.closedUntil) {
+                if (settings.closedUntil !== undefined && settings.closedUntil !== null) {
                     const closedUntil = new Date(settings.closedUntil);
+                    if (typeof settings.closedUntil !== 'string' || !Number.isFinite(closedUntil.getTime())) {
+                        throw new Error('Invalid existing sealed period cutoff');
+                    }
                     const now = new Date(); // Or input.transactionDate if we support it
                     if (now <= closedUntil) {
                         throw new Error(`Financial period is sealed until ${closedUntil.toLocaleDateString()}. Retroactive entries are prohibited.`);

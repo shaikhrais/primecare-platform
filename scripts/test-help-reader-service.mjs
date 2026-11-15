@@ -93,6 +93,32 @@ const httpBuild=await build({entryPoints:['packages/shared/src/help-reader/http.
 const {handleHelpRead,HelpReadFailure:HttpFailure}=await import('data:text/javascript;base64,'+Buffer.from(httpBuild.outputFiles[0].text+'\n//# sourceURL=help-reader-http-fixture.mjs').toString('base64'));
 const httpRequest=(body=list,init={})=>new Request('https://help.test/v1/psw/help-support',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+'t'.repeat(43)},body:JSON.stringify(body),...init});
 const httpContext=f=>({db:f.db,effects:f.effects,authenticate:async()=>hash});
+test('HTTP excessive owned upload denies without awaiting an uncooperative source cancellation',()=>fixture(async f=>{
+ let cancelled=0,pulls=0,finish;const pending=new Promise(resolve=>finish=resolve);
+ const stream=new ReadableStream({pull(controller){pulls++;controller.enqueue(new Uint8Array(65537));return new Promise(()=>{});},cancel(){cancelled++;return pending;}},{highWaterMark:0});
+ const result=handleHelpRead(httpRequest(list,{body:stream,duplex:'half'}),httpContext(f));
+ const raced=await Promise.race([result,new Promise(resolve=>setTimeout(()=>resolve('stalled'),100))]);
+ const released=!stream.locked;finish();const response=await result;
+ assert.notEqual(raced,'stalled');assert.equal(released,true);assert.equal(response.status,400);assert.deepEqual(await response.json(),{version:1,error:{code:'invalid_request'}});assert.equal(cancelled,1);assert.equal(pulls,1);assert.deepEqual(f.events,[]);
+}));
+test('HTTP abort releases an owned upload despite an uncooperative source cancellation',()=>fixture(async f=>{
+ let started,finish,cancelled=0,pulls=0;const ready=new Promise(resolve=>started=resolve),pending=new Promise(resolve=>finish=resolve),abort=new AbortController();
+ const stream=new ReadableStream({pull(){pulls++;started();return new Promise(()=>{});},cancel(){cancelled++;return pending;}},{highWaterMark:0});
+ const result=handleHelpRead(httpRequest(list,{body:stream,duplex:'half',signal:abort.signal}),httpContext(f));
+ await ready;abort.abort();const raced=await Promise.race([result,new Promise(resolve=>setTimeout(()=>resolve('stalled'),100))]);
+ const released=!stream.locked;finish();const response=await result;
+ assert.notEqual(raced,'stalled');assert.equal(released,true);assert.equal(response.status,409);assert.deepEqual(await response.json(),{version:1,error:{code:'conflict'}});assert.equal(cancelled,1);assert.equal(pulls,1);assert.deepEqual(f.events,[]);
+}));
+for(const [label,bytes]of [['malformed JSON',new TextEncoder().encode('{')],['invalid UTF8',new Uint8Array([0xc3,0x28])]])test('HTTP owned '+label+' upload preserves400 and releases its finite source',()=>fixture(async f=>{
+ let pulls=0,cancelled=0;const stream=new ReadableStream({pull(controller){if(++pulls===1)controller.enqueue(bytes);else controller.close();},cancel(){cancelled++;}},{highWaterMark:0});
+ const response=await handleHelpRead(httpRequest(list,{body:stream,duplex:'half'}),httpContext(f));
+ assert.equal(response.status,400);assert.deepEqual(await response.json(),{version:1,error:{code:'invalid_request'}});assert.equal(pulls,2);assert.equal(cancelled,0);assert.equal(stream.locked,false);assert.deepEqual(f.events,[]);
+}));
+test('HTTP owned upload transport failure remains a private503 and releases its source',()=>fixture(async f=>{
+ let pulls=0;const stream=new ReadableStream({pull(controller){pulls++;controller.error(Error('private transport diagnostic'));}},{highWaterMark:0});
+ const response=await handleHelpRead(httpRequest(list,{body:stream,duplex:'half'}),httpContext(f));
+ assert.equal(response.status,503);assert.deepEqual(await response.json(),{version:1,error:{code:'unavailable'}});assert.equal(pulls,1);assert.equal(stream.locked,false);assert.deepEqual(f.events,[]);
+}));
 test('HTTP boundary executes the registered reader and never caches private JSON',()=>fixture(async f=>{const response=await handleHelpRead(httpRequest(),httpContext(f));assert.equal(response.status,200);assert.equal(response.headers.get('cache-control'),'no-store');assert.equal(response.headers.get('x-content-type-options'),'nosniff');assert.equal((await response.json()).items[0].id,'a-en');assert.deepEqual(f.events,['quota','audit']);}));
 test('HTTP rejection does not wait for an uncooperative upload cancellation',async()=>{
  let finish,cancelled=0,authenticated=0,queries=0;

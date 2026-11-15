@@ -60,3 +60,60 @@ test('interruption after task submission closes instead of replaying an uncertai
 test('close cancels a stalled HTTP response body and releases its reader',async()=>{
  let cancelled=false,started;const reading=new Promise(resolve=>{started=resolve;});const stream=new ReadableStream({pull(){started();},cancel(){cancelled=true;}});const f=fixture([new Response(stream)]);const pending=f.respond();await reading;await new Promise(r=>setImmediate(r));f.model.close();await assert.rejects(pending,/Voice model unavailable/);assert.equal(cancelled,true);
 });
+test('interruption and close settle an ignoring provider before its late body arrives',async()=>{
+ for(const close of [false,true]){
+  let deliver,cancelled=0;const f=fixture([()=>new Promise(resolve=>deliver=resolve)]),controller=new AbortController();
+  const pending=f.respond('old',controller.signal),outcome=pending.then(()=> 'success',error=>error.message);
+  if(close)f.model.close();else controller.abort();
+  const observed=await Promise.race([outcome,new Promise(resolve=>setTimeout(()=>resolve('still pending'),30))]);
+  deliver(new Response(new ReadableStream({cancel(){cancelled++;return new Promise(()=>{});}})));await outcome;
+  await new Promise(resolve=>setImmediate(resolve));f.model.close();
+  assert.equal(observed,'Voice model unavailable');assert.equal(cancelled,1);assert.equal(f.requests.length,1);assert.deepEqual(f.invocations,[]);
+ }
+});
+test('elapsed provider headers never invoke an allowed task before the deadline timer can run',async t=>{
+ let elapsed=0;t.mock.method(performance,'now',()=>elapsed);
+ for(const output of [call('execute_task',{intentId}),call('propose_task',{taskId,argsJson:'{"reason":"general"}'})]){
+  elapsed=0;const f=fixture([()=>{elapsed=12000;return reply([output]);}]);
+  await assert.rejects(f.respond(),/^Error: Voice model unavailable$/);assert.deepEqual(f.invocations,[]);assert.equal(f.requests.length,1);
+ }
+});
+test('interruption after submission settles an ignoring task port without replay or claimed success',async()=>{
+ let entered,release;const started=new Promise(resolve=>entered=resolve);
+ const f=fixture([reply([call('execute_task',{intentId})])]);
+ f.tools.execute=()=>{f.invocations.push(['execute']);entered();return new Promise(resolve=>release=resolve);};
+ const controller=new AbortController(),pending=f.respond('execute',controller.signal),outcome=pending.then(()=> 'success',error=>error.message);
+ await started;controller.abort();
+ const observed=await Promise.race([outcome,new Promise(resolve=>setTimeout(()=>resolve('still pending'),30))]);
+ release({status:'completed'});await outcome;await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(observed,'Voice model unavailable');assert.equal(f.model.closed,true);assert.equal(f.invocations.length,1);assert.equal(f.requests.length,1);
+ await assert.rejects(f.respond(),/closed/);
+});
+test('the relay deadline settles an ignoring provider without waiting for its response',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});let deliver;
+ const f=fixture([()=>new Promise(resolve=>deliver=resolve)]),pending=f.respond(),outcome=pending.then(()=> 'success',error=>error.message);
+ t.mock.timers.tick(12000);
+ const observed=await Promise.race([outcome,new Promise(resolve=>setImmediate(()=>resolve('still pending')))]);
+ deliver(reply([call('execute_task',{intentId})]));await outcome;
+ assert.equal(observed,'Voice model unavailable');assert.equal(f.model.closed,true);assert.deepEqual(f.invocations,[]);assert.equal(f.requests.length,1);
+});
+test('elapsed response body never invokes an allowed tool before the timer callback runs',async t=>{
+ let elapsed=0;t.mock.method(performance,'now',()=>elapsed);let complete;
+ const bytes=new TextEncoder().encode(JSON.stringify({status:'completed',output:[call('execute_task',{intentId})]}));
+ const f=fixture([new Response(new ReadableStream({start(controller){complete=()=>{elapsed=12000;controller.enqueue(bytes);controller.close();};}}))]);
+ const pending=f.respond();await new Promise(resolve=>setImmediate(resolve));complete();
+ await assert.rejects(pending,/^Error: Voice model unavailable$/);assert.deepEqual(f.invocations,[]);assert.equal(f.requests.length,1);
+});
+test('non-success responses reject without waiting for uncooperative body cancellation',async()=>{
+ let release,cancelled=0;const f=fixture([new Response(new ReadableStream({cancel(){cancelled++;return new Promise(resolve=>release=resolve);}}),{status:503})]);
+ const pending=f.respond(),outcome=pending.then(()=> 'success',error=>error.message);
+ const observed=await Promise.race([outcome,new Promise(resolve=>setTimeout(()=>resolve('still pending'),30))]);
+ release();await outcome;assert.equal(observed,'Voice model unavailable');assert.equal(cancelled,1);assert.deepEqual(f.invocations,[]);
+});
+test('pending provider output cannot replace the captured task callbacks',async()=>{
+ let deliver;const f=fixture([()=>new Promise(resolve=>deliver=resolve),reply([message('Review the app.')])]);
+ const pending=f.respond();let replacement=0;
+ f.tools.execute=async()=>{replacement++;return {status:'completed'};};
+ deliver(reply([call('execute_task',{intentId})]));assert.equal(await pending,'Review the app.');
+ assert.equal(replacement,0);assert.deepEqual(f.invocations,[['execute',intentId]]);f.model.close();
+});

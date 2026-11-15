@@ -7,6 +7,30 @@ import { Result } from '../utils/Result';
 const knownCertificationStatus = (status: unknown): boolean =>
     status === 'Compliant' || status === 'Expiring' || status === 'Expired';
 
+type TrainingModuleFields = { title?: string; description?: string | null; category?: string | null; videoUrl?: string | null };
+const captureModuleFields = (data: unknown, requireTitle: boolean): TrainingModuleFields => {
+    if (!data || typeof data !== 'object' || Array.isArray(data) ||
+        ![Object.prototype, null].includes(Object.getPrototypeOf(data))) {
+        throw new Error('Training module fields are invalid.');
+    }
+    const allowed = ['title', 'description', 'category', 'videoUrl'];
+    const fields: Record<string, string | null | undefined> = {};
+    for (const key of Reflect.ownKeys(data)) {
+        if (typeof key !== 'string' || !allowed.includes(key)) {
+            throw new Error('Training module fields are invalid.');
+        }
+        const value = (data as Record<string, unknown>)[key];
+        if (value !== undefined && typeof value !== 'string' && !(key !== 'title' && value === null)) {
+            throw new Error('Training module fields are invalid.');
+        }
+        fields[key] = value as string | null | undefined;
+    }
+    if (requireTitle && typeof fields.title !== 'string') {
+        throw new Error('Training module title is required.');
+    }
+    return fields;
+};
+
 /**
  * TrainingService
  * Centralized business logic for staff training, module management, and compliance assignments.
@@ -257,9 +281,11 @@ export class TrainingService {
         data: { title: string; description?: string; category?: string; videoUrl?: string }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            const fields = captureModuleFields(data, true);
             return prisma.trainingModule.create({
                 data: {
-                    ...data,
+                    ...fields,
+                    title: fields.title!,
                     tenantId
                 }
             });
@@ -276,6 +302,9 @@ export class TrainingService {
         data: { title?: string; description?: string; category?: string; videoUrl?: string }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            // Capture only declared scalar fields before the ownership lookup.
+            // Later caller mutation cannot introduce nested Prisma writes.
+            const fields = captureModuleFields(data, false);
             // Verify ownership
             const existing = await prisma.trainingModule.findFirst({
                 where: { id, tenantId }
@@ -286,10 +315,11 @@ export class TrainingService {
             }
 
             return prisma.trainingModule.update({
-                where: { id },
-                data
+                where: { id, tenantId },
+                data: fields
             });
         });
     }
 }
+
 

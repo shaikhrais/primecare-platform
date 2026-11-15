@@ -21,12 +21,12 @@ const LedgerService=new Function('Prisma','CurrencyService','TaxService','create
 const local={id:'local-account',tenantId:'tenant-a',code:'1000',type:'ASSET'};
 const foreign={id:'foreign-account',tenantId:'tenant-b',code:'1000',type:'ASSET'};
 const credit={id:'local-credit',tenantId:'tenant-a',code:'2000',type:'LIABILITY'};
-function fixture(accounts=[foreign,local,credit]){
+function fixture(accounts=[foreign,local,credit],taxSettings=null){
  const writes=[],locks=[],lookups=[];
  // Model the Prisma AND/OR predicate against both tenants rather than returning a canned account.
  const matches=(row,where)=>Object.entries(where).every(([key,value])=>key==='OR'?value.some(part=>matches(row,part)):row[key]===value);
  const db={
-  tenant:{findUnique:async()=>({taxSettings:null})},
+  tenant:{findUnique:async()=>({taxSettings})},
   chartOfAccount:{findFirst:async({where})=>{lookups.push(where);return accounts.find(row=>matches(row,where))??null;}},
   $transaction:async callback=>callback(db),
   $executeRaw:async(strings,...values)=>{locks.push(values);return 1;},
@@ -65,4 +65,21 @@ test('foreign-only account code fails closed without financial writes',async()=>
  assert.equal(result.isFailure,true);
  assert.equal(f.writes.length,0);
  assert.equal(f.locks.length,0);
+});
+for(const cutoff of ['invalid','',false,0,{},[]])test('recording denies malformed present sealed cutoff '+JSON.stringify(cutoff)+' before account locks or writes',async()=>{
+ const f=fixture(undefined,{closedUntil:cutoff});const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isFailure,true);assert.match(result.error,/Invalid existing sealed period cutoff/);
+ assert.equal(f.lookups.length,0);assert.equal(f.locks.length,0);assert.equal(f.writes.length,0);
+});
+test('recording preserves the existing valid future-cutoff denial',async()=>{
+ const f=fixture(undefined,{closedUntil:'9999-12-31T23:59:59.000Z'});const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isFailure,true);assert.match(result.error,/Financial period is sealed/);assert.equal(f.writes.length,0);
+});
+test('recording after a valid past cutoff retains the owned-account journal path',async()=>{
+ const f=fixture(undefined,{closedUntil:'1970-01-01T00:00:00.000Z'});const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isSuccess,true,result.isFailure?result.error:'');assert.equal(f.writes.filter(([kind])=>kind==='journal').length,2);
+});
+for(const taxSettings of [{},{closedUntil:null}])test('recording retains absent or null cutoff behavior '+JSON.stringify(taxSettings),async()=>{
+ const f=fixture(undefined,taxSettings);const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isSuccess,true,result.isFailure?result.error:'');assert.equal(f.writes.filter(([kind])=>kind==='ledger').length,1);
 });
