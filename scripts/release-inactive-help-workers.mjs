@@ -144,6 +144,20 @@ const inert=value=>value===undefined||value===null||value===false||Array.isArray
  * Refuse meaningful values rather than guessing that Wrangler will retain them. */
 const settingType=value=>value===null?'null':Array.isArray(value)?'array':typeof value;
 const usageObservation=(has,value)=>({enum:!has?'absent':['standard','bundled','unbound'].includes(value)?value:'unrecognized',type:!has?'absent':settingType(value)});
+function annotationProjection(value){
+ const fields=[];let truncated=false;
+ function visit(current,path,depth){
+  if(fields.length>=256){truncated=true;return;}
+  const field={path,type:settingType(current),valueSha256:hash(canonical(current)??'undefined'),emptyObject:!!current&&typeof current==='object'&&!Array.isArray(current)&&Object.keys(current).length===0,emptyArray:Array.isArray(current)&&current.length===0};
+  if(path==='annotations.workers/triggered_by'&&['upload','secret','rollback','promotion'].includes(current))field.operation=current;
+  fields.push(field);
+  if(current&&typeof current==='object'){
+   if(depth>=6){if(Object.keys(current).length)truncated=true;return;}
+   for(const key of Object.keys(current).sort())visit(current[key],path+'.'+(/^[a-z0-9_/-]{1,80}$/i.test(key)?key:'unrecognized-key'),depth+1);
+  }
+ }
+ visit(value,'annotations',0);return {fields,truncated};
+}
 export function assertSupportedSettings(settings,{version}={}){
  const known=new Set(['bindings','compatibility_date','compatibility_flags','observability']);
  const emptyOnly=new Set(['placement','limits','tail_consumers','logpush','migrations','routes','workers_dev','assets','annotations']);
@@ -153,6 +167,7 @@ export function assertSupportedSettings(settings,{version}={}){
  const unsupported=[];
  for(const [key,value] of Object.entries(settings)){
   if(known.has(key))continue;
+  if(key==='tags'&&Array.isArray(value)&&value.length===0)continue;
   // Cloudflare removed this Wrangler option in v4. Observe standard only; never add it to config.
   // https://developers.cloudflare.com/workers/wrangler/migration/update-v3-to-v4/
   if(key==='usage_model'&&value==='standard')continue;
@@ -162,7 +177,7 @@ export function assertSupportedSettings(settings,{version}={}){
   unsupported.push({key:/^[a-z][a-z0-9_]{0,79}$/i.test(key)?key:'unrecognized-key',type:settingType(value),inert:!!inert(value),emptyObject:!!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===0,emptyArray:Array.isArray(value)&&value.length===0});
  }
  if(runtime&&Object.hasOwn(runtime,'usage_model')&&runtime.usage_model!=='standard')unsupported.push({key:'version-runtime.usage_model',type:settingType(runtime.usage_model),inert:!!inert(runtime.usage_model),emptyObject:false,emptyArray:false});
- if(unsupported.length){const error=new ProducerError('Unsupported meaningful Worker settings');error.unsupportedSettings=unsupported;error.usageModel=usageModel;throw error;}
+ if(unsupported.length){const error=new ProducerError('Unsupported meaningful Worker settings');error.unsupportedSettings=unsupported;error.usageModel=usageModel;if(Object.hasOwn(settings,'annotations'))error.annotationProjection=annotationProjection(settings.annotations);throw error;}
  return usageModel;
 }
 export function inactiveConfig(service,generated,hosting){
@@ -465,7 +480,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}

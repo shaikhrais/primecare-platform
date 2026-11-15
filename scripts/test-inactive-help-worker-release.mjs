@@ -169,6 +169,26 @@ test('successful Auth component proof is retained before later batched target se
  await assert.rejects(produceInactiveHelp({...f,mode:'plan',recordAuthProof:async proof=>retained.push(clone(proof))}),error=>error.unsupportedSettings.length===2);
  assert.equal(retained.length,1);assert.deepEqual(retained[0],await f.authProof());assert.equal(f.events.some(e=>e.startsWith('PUBLISH')),false);
 });
+test('empty tags are supported without accepting nonempty tags or emitting a config field',async()=>{
+ const f=fixture(),before=await produceInactiveHelp({...f,mode:'plan'});f.states.governance.settings.tags=[];
+ const after=await produceInactiveHelp({...f,mode:'plan'});assert.notEqual(before.targets[0].before.settingsSha256,after.targets[0].before.settingsSha256);
+ assert.equal(Object.hasOwn(inactiveConfig('governance',f.configs.governance,{enabled:true,previews_enabled:false}),'tags'),false);
+ for(const tags of [['PRIVATE_TAG'],{},null,false])assert.throws(()=>assertSupportedSettings({...f.states.governance.settings,tags}),error=>error.unsupportedSettings.some(field=>field.key==='tags')&&!JSON.stringify(error).includes('PRIVATE_TAG'));
+});
+test('nonempty annotations remain closed while all nested keys/types/hashes and documented operation labels are projected safely',()=>{
+ const settings={...fixture().states.governance.settings,tags:[],annotations:{'workers/triggered_by':'upload','workers/message':'PRIVATE_ANNOTATION_MESSAGE',unknown:{nested:'PRIVATE_UNKNOWN_STRING',more:{flag:true}}}};
+ assert.throws(()=>assertSupportedSettings(settings),error=>{
+  assert.deepEqual(error.unsupportedSettings.map(field=>field.key),['annotations']);
+  const fields=error.annotationProjection.fields;
+  for(const path of ['annotations.workers/triggered_by','annotations.workers/message','annotations.unknown.nested','annotations.unknown.more.flag'])assert.ok(fields.some(field=>field.path===path));
+  assert.equal(fields.find(field=>field.path==='annotations.workers/triggered_by').operation,'upload');
+  assert.ok(fields.every(field=>/^[a-f0-9]{64}$/.test(field.valueSha256)));assert.equal(error.annotationProjection.truncated,false);
+  const output=JSON.stringify(error);assert.equal(output.includes('PRIVATE_ANNOTATION_MESSAGE'),false);assert.equal(output.includes('PRIVATE_UNKNOWN_STRING'),false);return true;
+ });
+ for(const operation of ['secret','rollback','promotion','PRIVATE_OPERATION'])assert.throws(()=>assertSupportedSettings({...settings,annotations:{'workers/triggered_by':operation}}),error=>{
+  const field=error.annotationProjection.fields.find(field=>field.path==='annotations.workers/triggered_by');assert.equal(field.operation,operation==='PRIVATE_OPERATION'?undefined:operation);assert.equal(JSON.stringify(error).includes('PRIVATE_OPERATION'),false);return true;
+ });
+});
 test('stream bounds are enforced before complete provider body buffering',async()=>{
  let cancelled=false;
  const body=new ReadableStream({pull(controller){controller.enqueue(new Uint8Array(5));},cancel(){cancelled=true;}});
