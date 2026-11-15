@@ -1,7 +1,8 @@
-import pg from 'pg';import {helpFixture,table} from './help-reader-service-fixture.mjs';
+import pg from 'pg';import {helpFixture,helpFixtureConnectionString,table} from './help-reader-service-fixture.mjs';
 import {migrateHelpStorage} from '../tools/governance-production/pc10-help-storage.mjs';
 import {registerHelpPolicy} from '../tools/governance-production/pc10-help-policy.mjs';
 export async function postgresStoreFixture(){
+ const connectionString=helpFixtureConnectionString(process.env);
  if(['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DB_URL'].some(k=>Object.hasOwn(process.env,k)))throw Error('Production credentials forbidden in store fixtures');
  if(process.env.HELP_SERVICE_TEST_DATABASE_URL!==undefined){const u=new URL(process.env.HELP_SERVICE_TEST_DATABASE_URL);if(!['postgres:','postgresql:'].includes(u.protocol)||u.hostname!=='127.0.0.1'||u.pathname!=='/help_service'||u.search||u.hash)throw Error('Explicit isolated store fixture required');}
  const f=await helpFixture();let connection;
@@ -11,7 +12,8 @@ export async function postgresStoreFixture(){
   // Local engine cases run outside reader transactions. Only native PostgreSQL
   // cases below prove separate autocommit connections and rollback survival.
   let quota={query:(...args)=>f.db.query(...args)};
-  if(process.env.HELP_SERVICE_TEST_DATABASE_URL){connection=new pg.Client({connectionString:process.env.HELP_SERVICE_TEST_DATABASE_URL});await connection.connect();quota=connection;}
+  if(connectionString!==null){connection=new pg.Client({connectionString});await connection.connect();quota=connection;}
   const close=f.close;return {...f,quota,close:async()=>{try{await connection?.end();}finally{await close();}}};
  }catch(error){await connection?.end();await f.close();throw error;}
 }
+

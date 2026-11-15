@@ -6,10 +6,19 @@ export const contract=JSON.parse(await readFile(new URL('../tools/governance-pro
 export const fixtureArtifactId=900794;
 export const fixtureArtifactIdentity={t:'integer',v:String(fixtureArtifactId)};
 export const table=n=>'"'+pin.schema+'"."'+pin.tablePrefix+n+'"';
+/** Validate before allocating either engine; URL query options can override pg's host. */
+export function helpFixtureConnectionString(env){
+ const names=Object.keys(env);
+ if(names.some(name=>['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DATABASE_URL','DB_URL','DIRECT_URL'].includes(name.toUpperCase())||/(?:PRODUCTION|GOVERNANCE)/i.test(name)&&/(?:DATABASE|DB).*URL|URL.*(?:DATABASE|DB)/i.test(name)))throw Error('Isolated Help service fixture only');
+ if(!Object.hasOwn(env,'HELP_SERVICE_TEST_DATABASE_URL'))return null;
+ let url;try{url=new URL(env.HELP_SERVICE_TEST_DATABASE_URL);}catch{throw Error('Isolated Help service fixture only');}
+ if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='127.0.0.1'||url.port!=='5432'||url.pathname!=='/help_service'||url.search||url.hash)throw Error('Isolated Help service fixture only');
+ return url.toString();
+}
 export async function helpFixture(){
- let db;if(process.env.HELP_SERVICE_TEST_DATABASE_URL){
-  const u=new URL(process.env.HELP_SERVICE_TEST_DATABASE_URL);if(u.hostname!=='127.0.0.1'||u.pathname!=='/help_service'||process.env.PRODUCTION_DATABASE_URL)throw Error('Isolated Help service fixture only');
-  const c=new pg.Client({connectionString:u.toString()});await c.connect();db={query:(...a)=>c.query(...a),exec:s=>c.query(s),close:()=>c.end()};
+ const connectionString=helpFixtureConnectionString(process.env);
+ let db;if(connectionString!==null){
+  const c=new pg.Client({connectionString});await c.connect();db={query:(...a)=>c.query(...a),exec:s=>c.query(s),close:()=>c.end()};
   await db.exec('DROP SCHEMA public CASCADE;CREATE SCHEMA public;DROP SCHEMA IF EXISTS "'+pin.schema+'" CASCADE');
  }else db=new PGlite();
  await db.exec('CREATE SCHEMA "'+pin.schema+'";CREATE TABLE '+table('source_manifest')+'(manifest_sha256 text);CREATE TABLE public.tenants(id text PRIMARY KEY,status text);CREATE TABLE public.users(id text PRIMARY KEY,tenant_id text,roles text,status text);CREATE TABLE public.auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz);CREATE TABLE public.faqs(id text PRIMARY KEY,question text NOT NULL,answer text NOT NULL,category text NOT NULL,created_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,updated_at timestamp NOT NULL);CREATE TABLE public.test_help_quota(user_id text PRIMARY KEY,n int);CREATE TABLE public.test_help_audit(user_id text,tenant_id text,action text,locale text,returned int)');

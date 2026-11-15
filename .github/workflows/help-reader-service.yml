@@ -4,6 +4,10 @@ on:
     branches: [main]
     paths:
       - 'packages/shared/src/help-reader/**'
+      - 'services/governance_api/worker/**'
+      - 'services/api_gateway/worker/**'
+      - 'scripts/test-help-worker-composition.mjs'
+      - 'scripts/test-help-fixture-isolation.mjs'
       - 'packages/shared/src/guarded-json.ts'
       - 'cloudflare/workers/src/session-token.ts'
       - 'scripts/test-help-reader-service.mjs'
@@ -40,10 +44,14 @@ jobs:
         with: {node-version: '24'}
       - name: Install isolated test tools
         run: |
-          npm install --prefix /tmp/help-reader-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @electric-sql/pglite@0.3.14
+          npm install --prefix /tmp/help-reader-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @electric-sql/pglite@0.3.14 bcryptjs@3.0.2 @types/pg@8.15.5 @cloudflare/workers-types@4.20260403.1
           ln -s /tmp/help-reader-tools/node_modules node_modules
       - name: Help client denial cancellation regression
         run: node --test scripts/test-help-reader-client-cancellation.mjs
+      - name: Reject remote and mutable native fixture targets
+        run: node --test scripts/test-help-fixture-isolation.mjs
+      - name: PGlite inactive Help Worker composition
+        run: node --test scripts/test-help-worker-composition.mjs
       - name: PGlite reader, policy and independent SQL acceptance
         run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
       - name: PGlite storage candidate acceptance
@@ -64,3 +72,11 @@ jobs:
         run: node --test scripts/test-help-postgres-store.mjs
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
+      - name: Native Help composition holds binding locks through quota and commit
+        run: node --test scripts/test-help-worker-composition.mjs
+        env:
+          HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
+      - name: Strict inactive Help adapter and activation types
+        run: node_modules/.bin/tsc --noEmit --allowImportingTsExtensions --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule services/governance_api/worker/help-reader.ts services/governance_api/worker/help-reader-activation.ts
+      - name: Typecheck inherited Worker entries with existing Worker import semantics
+        run: node_modules/.bin/tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types services/governance_api/worker/governance-help-service.ts services/api_gateway/worker/help-gateway.ts
