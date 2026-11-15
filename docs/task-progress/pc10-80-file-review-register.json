@@ -452,14 +452,16 @@
     {
       "id": 37,
       "path": "packages/shared/src/help-reader/http.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "d917862be56e273be6dd118a95cae4b8e5153301",
       "commitSha": null,
-      "findings": [],
-      "blocker": null,
+      "findings": [
+        "guardedJson finally awaits reader.cancel() and can prevent timely denial when cancellation never settles"
+      ],
+      "blocker": "Shared guarded-json cancellation semantics require dependency-wide review before correction",
       "validation": "not-run",
-      "note": "Previously edited, but full review not established.",
-      "outcome": null
+      "note": "Confirmed potential indefinite denial delay: handleHelpRead awaits guardedJson, whose finally awaits reader.cancel() on an untrusted stream. Safe fix requires reviewing shared guarded-json consumers; no unsafe isolated patch made.",
+      "outcome": "blocked"
     },
     {
       "id": 38,
@@ -536,14 +538,14 @@
     {
       "id": 44,
       "path": "packages/shared/src/help-reader/postgres-store.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "6282c698aab7828d5894b00e5b322e8f362eb364",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": "Previously edited, but full review not established.",
-      "outcome": null
+      "note": "Reviewed full PostgreSQL operational store, quota autocommit SQL, audit projections, policy verification and bounded expiry purge against registered storage; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 45,
@@ -572,26 +574,26 @@
     {
       "id": 47,
       "path": "docs/appearance/pc10-native-host-evidence.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "96b460c50156362d4fce51a99d183bc3d393f69d",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full historical native-host evidence and explicit physical-device/human limitations against native harness; no confirmed internal discrepancy.",
+      "outcome": "ok"
     },
     {
       "id": 48,
       "path": "scripts/test-pc10-help-schema.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "d06976068e8500f999385bfc25f8de3044fbfcfd",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete schema fixture test source and migration wrapper, isolation guard and assertions; not executed, no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 49,
