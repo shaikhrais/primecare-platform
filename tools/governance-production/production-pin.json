@@ -2069,5 +2069,21 @@
     "scriptSha256": "0eced1feb37d710193624ba413c68bf1ead761cf13bb0c1edd943da408ced89b",
     "storeSha256": "dbc012a638f091ab4b4dda9cd28a44998349bd1467f0a74f707e2b0a59f9a47c",
     "workflowSha256": "c1df882963434de2d8720848951d44c85a6b2f967f14a05856dc371fe78a3e63"
+  },
+  "helpLegacyGrantRetirementWriter": {
+    "archiveOptInVariable": "REGISTER_PC10_HELP_LEGACY_ARCHIVE",
+    "retirementOptInVariable": "RETIRE_PC10_HELP_LEGACY_GRANTS",
+    "definitionSha256": "8c5901e5ea1a60ea19677c719fb5447bd5be445aab29dee7f87989a7f5b936e8",
+    "archiveSqlSha256": "e7c9c6809bba1ab769ad52870f675fff1622bf137ba88f9a92d3c43de7c7089f",
+    "scriptSha256": "a544eef3f81c9dd97f91ae5b6add8d45d7ac1ac67453c092af1c989ce85e1f55",
+    "sourceTable": "api_permissions",
+    "archiveTable": "help_legacy_grant_archive",
+    "apiId": 794,
+    "expectedRows": 64,
+    "groupFingerprint": "393d8cfbcbc2d0d93170408674329463ec65e6f620996cec105b45319b33f238",
+    "schemaChanges": true,
+    "grantsRetired": 64,
+    "newRoleGrants": false,
+    "runtimeActivation": false
   }
 }

@@ -1,6 +1,6 @@
-# API794 legacy grant disposition — decision required
+# API794 legacy grant disposition — approved retirement
 
-Status: proposal only. No archive, deletion, grant, baseline amendment or production change is authorized or executed by this document.
+Status: the user explicitly approved this exact disposition with “Move it”. Production archival remains pending native PostgreSQL proof, inspection and independent readback. This approval covers only the exact64-row retirement described below.
 
 ## Confirmed conflict
 
@@ -44,3 +44,9 @@ The alternative is to leave all 64 rows active and retain the release blocker un
 Rollback after archival is not an automatic restoration of invalid active access. Preserve archive evidence. Any restoration must have a separately reviewed canonical operation/runtime identity and must fail if it would conflict with later Help registration or permissions.
 
 This proposal does not resolve the separate registered PSW screen/control, legitimate Help runtime, actual scheduled-purge, mounted-reader, device or human acceptance gates.
+
+## Approved execution checkpoint
+
+Read-only production discovery [43668252604](https://github.com/shaikhrais/primecare-platform/actions/runs/43668252604), job132672350917, succeeded on source `6266498e83d01266b4afcd24f288f62fb76a7f9a`. It preserved64 complete8-column source rows; full ordered raw-row SHA256 is `76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269`. No physical inbound foreign keys were found. The exact source-reviewed `public.communication_voice_otp.grant_id` column has zero aggregate matches to source IDs/import ordinals; no OTP payload was read. The immutable manifest's two API-permission SQL objects, actual table shape and reference inventory are pinned by the retirement definition.
+
+The new archive stores the original PostgreSQL JSONB values and operation context. The writer compares originals before deletion, snapshots unrelated permission values, locks source/archive/context/reference relations, rejects reference or schema drift and independently reconnects after commit. The first workflow publication disables the production job so the native proof can be inspected before enabling the already-approved move. Source publication alone is not execution evidence.

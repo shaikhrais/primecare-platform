@@ -1,0 +1,86 @@
+name: Archive approved API794 legacy grants without changing other access
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/pc10-help-legacy-retirement.mjs'
+      - 'tools/governance-production/pc10-help-legacy-retirement.definition.json'
+      - 'tools/governance-production/pc10-help-legacy-archive.sql'
+      - 'scripts/test-help-legacy-retirement.mjs'
+      - '.github/workflows/pc10-help-legacy-retirement.yml'
+permissions: {contents: read}
+concurrency:
+  group: pc10-help-legacy-grant-retirement
+  cancel-in-progress: false
+jobs:
+  postgres-proof:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: help_legacy_retirement, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated proof tools
+        run: |
+          npm install --prefix /tmp/help-retirement-tools --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14
+          ln -s /tmp/help-retirement-tools/node_modules node_modules
+      - name: Exercise exact archive preservation and fail-closed boundaries
+        run: node --test scripts/test-help-legacy-retirement.mjs
+        env:
+          HELP_LEGACY_RETIREMENT_FIXTURE: '1'
+      - name: Prove atomic retirement, rollback and locking on PostgreSQL 16
+        run: node --test scripts/test-help-legacy-retirement.mjs
+        env:
+          HELP_LEGACY_RETIREMENT_FIXTURE: '1'
+          HELP_LEGACY_RETIREMENT_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_legacy_retirement
+  production-retirement:
+    # Enabled only after the native PostgreSQL proof is inspected.
+    if: ${{ false }}
+    needs: postgres-proof
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 15
+    concurrency:
+      group: primecare-cloudflare-typescript-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install the pinned production adapters
+        run: |
+          npm install --prefix /tmp/help-retirement-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/help-retirement-tools/node_modules node_modules
+          pip install -r tools/governance-production/requirements.txt
+      - name: Register the reviewed archive, then move only the approved rows
+        run: |
+          node tools/governance-production/pc10-help-legacy-retirement.mjs --plan-archive
+          node tools/governance-production/pc10-help-legacy-retirement.mjs --register-archive
+          node tools/governance-production/pc10-help-legacy-retirement.mjs --plan
+          node tools/governance-production/pc10-help-legacy-retirement.mjs --apply
+          node tools/governance-production/pc10-help-legacy-retirement.mjs --readback
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REGISTER_PC10_HELP_LEGACY_ARCHIVE: '1'
+          RETIRE_PC10_HELP_LEGACY_GRANTS: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - name: Check the catalogue against its unchanged quarantine baseline
+        run: python3 scripts/check-api-catalog-identity.py
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: pc10-help-legacy-retirement
+          path: test-results/pc10-help-legacy-retirement
+          if-no-files-found: warn

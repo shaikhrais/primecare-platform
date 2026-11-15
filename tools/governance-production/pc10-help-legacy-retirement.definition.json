@@ -1,0 +1,75 @@
+{
+  "format": 1,
+  "operationId": "pc10.help.api794.legacy-retirement.v1",
+  "approval": "User approved: Move it",
+  "apiId": 794,
+  "sourceTable": "api_permissions",
+  "archiveTable": "help_legacy_grant_archive",
+  "permissionKey": "api_permission_api_v1_clinical_director_quality_metrics_list_get",
+  "expectedCount": 64,
+  "groupFingerprint": "393d8cfbcbc2d0d93170408674329463ec65e6f620996cec105b45319b33f238",
+  "sourceRowsSha256": "76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269",
+  "sourceShapeSha256": "2e6fc151a23de8472d87ca22226dcde296993789bb13a0a186e4eec4ecf27d78",
+  "referenceInventorySha256": "c2b3c095a283c1af9d4d1da21d045b38d63225340bd24fb80087bf4dcd6c8fc4",
+  "origin": {
+    "id": 794,
+    "api_id": 5041,
+    "endpoint_code": "api_v1_clinical_director_quality_metrics_list_get",
+    "method": "GET",
+    "endpoint_path": "/v1/clinical-director-quality-metrics"
+  },
+  "helpContractSha256": "b2ffabc953ce16e3febcc8c0aaac755ac63f13733449396b56ba9a0f8669ddef",
+  "missingArtifactIds": [
+    "1"
+  ],
+  "logicalReferenceColumns": [
+    "api_permission_id",
+    "api_permission_row_id",
+    "permission_id",
+    "permission_row_id",
+    "grant_id",
+    "grant_row_id",
+    "source_permission_id",
+    "source_grant_id",
+    "api_permission_ids",
+    "permission_ids",
+    "grant_ids",
+    "api_permission_import_row",
+    "grant_import_row",
+    "permission_key"
+  ],
+  "reviewedOutsideColumns": [
+    {
+      "table_schema": "public",
+      "table_name": "communication_voice_otp",
+      "column_name": "grant_id",
+      "data_type": "text",
+      "udt_name": "text",
+      "sourcePath": "cloudflare/workers/src/business-tasks/voice-otp.ts",
+      "sourceSha256": "7e0488c911bbdd603682efbee96404a1adf3d54a690879206cf06bba4080ec3e",
+      "migrationPath": "packages/database/migrations/20261023_communication_voice_otp.sql",
+      "migrationSha256": "be23c218580c5727064cd971d66e288c2ed5b0500eef523a851b9c71d9e86a6c"
+    }
+  ],
+  "archiveOptInVariable": "REGISTER_PC10_HELP_LEGACY_ARCHIVE",
+  "retirementOptInVariable": "RETIRE_PC10_HELP_LEGACY_GRANTS",
+  "newRoleGrants": false,
+  "runtimeActivation": false,
+  "contentWrites": false,
+  "baselineChanged": false,
+  "manifestDeclaredReferences": [
+    {
+      "object_type": "index",
+      "object_name": "idx_api_permissions_api",
+      "table_name": "api_permissions",
+      "sql": "CREATE INDEX idx_api_permissions_api ON api_permissions(api_id)"
+    },
+    {
+      "object_type": "table",
+      "object_name": "api_permissions",
+      "table_name": "api_permissions",
+      "sql": "CREATE TABLE api_permissions (\n      id INTEGER PRIMARY KEY AUTOINCREMENT,\n      api_id INTEGER NOT NULL,\n      role_id INTEGER NOT NULL,\n      runtime_artifact_id INTEGER,\n      permission_key TEXT NOT NULL,\n      can_access INTEGER DEFAULT 1,\n      created_at TEXT DEFAULT CURRENT_TIMESTAMP,\n      FOREIGN KEY (api_id) REFERENCES api_endpoints(id) ON DELETE CASCADE,\n      FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE,\n      FOREIGN KEY (runtime_artifact_id) REFERENCES runtime_artifacts(id) ON DELETE SET NULL,\n      UNIQUE(api_id, role_id)\n    )"
+    }
+  ],
+  "manifestDeclaredReferencesSha256": "746e84c11d1fa03b429a9d946147281a53d6fd29d68e7352689f45350bf66a3c"
+}
