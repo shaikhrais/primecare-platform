@@ -3,6 +3,16 @@ import {createHash} from 'node:crypto';
 import {PGlite} from '@electric-sql/pglite';import {discoverHelp} from '../tools/governance-production/pc10-help-discovery.mjs';
 const pin=JSON.parse(await readFile(new URL('../tools/governance-production/production-pin.json',import.meta.url)));
 const t=n=>'"'+pin.schema+'"."govt_'+n+'"';
+test('privilege diagnostics report a read-only principal missing CREATE and write-lock authority without changing grants',async()=>{const db=await fixture();try{
+ await db.exec('CREATE ROLE fixture_help_reader;GRANT USAGE ON SCHEMA "'+pin.schema+'" TO fixture_help_reader;GRANT SELECT ON ALL TABLES IN SCHEMA "'+pin.schema+'" TO fixture_help_reader;SET ROLE fixture_help_reader');
+ const queries=[];const r=await discoverHelp({query:async(sql,args)=>{queries.push(sql);return db.query(sql,args);}});
+ const d=r.legacyRetirementDiscovery.privilegeDiagnostics,p=d.principals[0];
+ assert.equal(p.current_user,'fixture_help_reader');assert.equal(p.schema_usage,true);assert.equal(p.schema_create,false);assert.equal(typeof p.schema_owner,'string');assert.equal(typeof p.session_user,'string');
+ for(const name of ['api_permissions','source_manifest','api_endpoints']){const v=d.tablePrivileges.find(x=>x.table_name==='govt_'+name);assert.equal(v.exists,true);assert.equal(v.can_select,true);for(const k of ['can_insert','can_update','can_update_any_column','can_delete','can_truncate'])assert.equal(v[k],false);assert.equal(typeof v.owner,'string');}
+ assert.deepEqual(d.tablePrivileges.find(x=>x.table_name==='govt_help_legacy_grant_archive'),{table_schema:pin.schema,table_name:'govt_help_legacy_grant_archive',exists:false});
+ assert.equal(typeof d.functionPrivileges[0].advisory_xact_lock_integer_integer_execute,'boolean');assert.equal(queries.filter(sql=>sql.includes('pg_advisory_xact_lock')).length,1);assert.ok(queries.find(sql=>sql.includes('pg_advisory_xact_lock')).includes('has_function_privilege'));
+ assert.equal(d.authorityChanged,false);assert.ok(!queries.some(sql=>/^\s*(GRANT|REVOKE|SET ROLE|ALTER|CREATE|INSERT|UPDATE|DELETE|TRUNCATE|LOCK)\b/i.test(sql)));assert.doesNotMatch(JSON.stringify(d),/PRIVATE-|password|token/i);
+ }finally{await db.close();}});
 async function fixture(){const db=new PGlite();await db.exec('CREATE SCHEMA "'+pin.schema+'"');
  for(const [name,columns] of Object.entries({source_manifest:'manifest_sha256 text',screens:'id bigint,screen_code text',api_endpoints:'id bigint,route_path text',roles:'id bigint,role_code text,active bigint',api_permissions:'id bigint,api_id bigint,role_id bigint,can_access bigint',role_screen_permissions:'screen_id bigint,role_id bigint,can_view bigint',screen_api_links:'screen_id bigint,api_id bigint',screen_components:'id bigint,screen_id bigint',screen_required_elements:'id bigint,screen_id bigint',primecare_ui_component_registry:'id bigint,component_code text',section_permissions:'screen_id bigint,role_id bigint,can_access bigint'}))await db.exec('CREATE TABLE '+t(name)+'('+columns+')');
  await db.query('INSERT INTO '+t('source_manifest')+' VALUES($1)',[pin.manifestSha256]);

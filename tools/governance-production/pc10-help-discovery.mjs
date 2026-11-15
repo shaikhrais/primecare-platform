@@ -138,6 +138,19 @@ export async function discoverHelp(db){
    }
   }
   const legacyRetirementDiscovery={archiveTable:quote(pin.schema)+'.'+quote(archiveName),sourceAndArchiveShape,triggers,relationSecurity,rules,rowSecurityPolicies,manifestDeclaredReferences,rawRowsSupported,expectedRows:64,sourceRows:sourceRows.map(r=>({...r,sha256:sha256(r.original_row_text)})),sourceRowsSha256:rawRowsSupported?sha256(JSON.stringify(sourceRows.map(r=>r.original_row_text))):null,hashEncoding:'sha256 UTF-8 JSON.stringify(original_row_text strings ordered by numeric source ordinal)',incomingForeignKeys,logicalReferenceNames,logicalReferenceColumns,logicalReferences,reviewedOutsideColumns,archiveContentsRead:false,archiveContentsReason:'Shape only; existing archive contents require the exact reviewed retirement writer',writes:0,businessRowsRead:0,businessRowPayloadsRead:0,outsideReferenceCountQueries:logicalReferences.filter(v=>v.reviewedCountOnly).length,authorityInferred:false};
+  // Principal/ACL diagnostics only: never assume that read credentials may create or lock.
+  const principals=await bounded('SELECT current_user AS current_user,session_user AS session_user,n.nspname AS schema_name,pg_get_userbyid(n.nspowner) AS schema_owner,has_schema_privilege(current_user,n.oid,\'USAGE\') AS schema_usage,has_schema_privilege(current_user,n.oid,\'CREATE\') AS schema_create FROM pg_namespace n WHERE n.nspname=$1',[pin.schema]);
+  const privilegeTargets=[...new Map([
+   ...['api_permissions','source_manifest','api_endpoints','api_endpoint_registry','runtime_artifacts','help_legacy_grant_archive'].map(name=>({table_schema:pin.schema,table_name:pin.tablePrefix+name})),
+   ...logicalReferenceColumns,...incomingForeignKeys.map(r=>({table_schema:r.source_schema,table_name:r.source_table})),
+  ].map(r=>[r.table_schema+'.'+r.table_name,{table_schema:r.table_schema,table_name:r.table_name}])).values()];
+  const tablePrivileges=[];
+  for(const target of privilegeTargets){
+   const rows=await bounded('SELECT pg_get_userbyid(r.relowner) AS owner,has_table_privilege(current_user,r.oid,\'SELECT\') AS can_select,has_table_privilege(current_user,r.oid,\'INSERT\') AS can_insert,has_table_privilege(current_user,r.oid,\'UPDATE\') AS can_update,has_any_column_privilege(current_user,r.oid,\'UPDATE\') AS can_update_any_column,has_table_privilege(current_user,r.oid,\'DELETE\') AS can_delete,has_table_privilege(current_user,r.oid,\'TRUNCATE\') AS can_truncate FROM pg_class r JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=$2',[target.table_schema,target.table_name]);
+   tablePrivileges.push({...target,exists:rows.length===1,...(rows[0]??{})});
+  }
+  const functionPrivileges=await bounded("SELECT has_function_privilege(current_user,'pg_catalog.pg_advisory_xact_lock(integer,integer)','EXECUTE') AS advisory_xact_lock_integer_integer_execute");
+  legacyRetirementDiscovery.privilegeDiagnostics={principals,tablePrivileges,functionPrivileges,authorityChanged:false};
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.
