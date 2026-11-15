@@ -634,62 +634,62 @@
     {
       "id": 52,
       "path": "tools/auth-verification/test-live-pc10-native.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "7e3b49df5c50e6105849994c3253353f561a67f3",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete owned native live QA harness, fixture actor creation, production HTTP and exact cleanup; no confirmed safe defect. Not executed.",
+      "outcome": "ok"
     },
     {
       "id": 53,
       "path": "tools/auth-verification/test-live-pc10-preferences.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f7de575ffae9d10066e96df2afad2872b5691a9e",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete owned browser preference QA harness, session/grant denial, revision replay, scoped fixture cleanup; no confirmed safe defect. Not executed.",
+      "outcome": "ok"
     },
     {
       "id": 54,
       "path": "scripts/test-pc10-preference-activation.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ac3a891a8f26074cf6120ed680b16c6bd39a2f9b",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete preference activation fixture suite and implementation contracts; no confirmed safe defect. Tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 55,
       "path": "scripts/test-pc10-help-registration.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "b17af4e9f78a5373f946014495dd8f8d6d76c6b8",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help registration fixture suite and registered writer; no confirmed safe defect. Tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 56,
       "path": "docs/appearance/pc10-section2-test-help-data-proposal.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f874bc204c4a05ec8ec9dcb33e1e4a008c47f98f",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete fixture-only Help proposal PGlite harness, publication/rollback tests and source SQL; no confirmed safe defect. Not executed.",
+      "outcome": "ok"
     },
     {
       "id": 57,
