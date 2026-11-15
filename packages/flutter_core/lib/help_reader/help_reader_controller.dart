@@ -101,8 +101,8 @@ class HelpReaderController extends ChangeNotifier {
     // All private results are removed before notifying a new request's listeners.
     _retryArticle = null;
     _retryList = false;
-    final loading = HelpReaderState(locale: previous.locale, query: previous.query,
-      offset: previous.offset, limit: previous.limit, phase: 'loading');
+    final loading = HelpReaderState(locale: locale, query: query,
+      offset: offset, limit: previous.limit, phase: 'loading');
     _state = loading;
     _reader.cancelPending();
     _set(loading);
