@@ -83,7 +83,7 @@ class HelpReaderController extends ChangeNotifier {
   Future<void> backToList() => _list(_state.locale, _state.query, _state.offset);
   Future<void> openArticle(String id) => _request(_state.locale, _state.query, _state.offset, articleId: id);
   Future<void> retry() async {
-    if (_disposed || _retired || _state.loading) return;
+    if (_disposed || _retired || _state.loading || _state.phase != 'error') return;
     final article = _retryArticle;
     if (article != null) { await openArticle(article); }
     else if (_retryList) { await load(); }
