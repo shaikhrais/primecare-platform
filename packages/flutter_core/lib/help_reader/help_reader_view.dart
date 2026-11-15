@@ -34,8 +34,10 @@ class HelpReaderView {
         AdvancedThemeTokens(AdvancedTheme.defaults(), 'main');
       final spacing = effective.spacing;
       final layout = effective.theme.layout;
-      final maxWidth = layout['container'] == 'fullwidth' ? double.infinity :
-        (layout['maxWidth'] is num ? (layout['maxWidth'] as num).toDouble() : double.infinity);
+      final configuredWidth = layout['maxWidth'];
+      final width = configuredWidth is num ? configuredWidth.toDouble() : double.infinity;
+      final maxWidth = layout['container'] == 'fullwidth' ||
+          !width.isFinite || width <= 0 ? double.infinity : width;
       Widget frame(Widget child) => FocusTraversalGroup(child: SingleChildScrollView(
         child: Align(alignment: AlignmentDirectional.topCenter,
           child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxWidth),
