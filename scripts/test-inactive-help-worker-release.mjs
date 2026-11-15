@@ -144,6 +144,31 @@ test('meaningful unsupported categories and unknown keys fail closed',()=>{
  for(const [key,value] of Object.entries({placement:{mode:'smart'},limits:{cpu_ms:30000},tail_consumers:[{service:'tail'}],logpush:true,routes:[{pattern:'example.com/*'}],workers_dev:true,unknown:false}))assert.throws(()=>assertSupportedSettings({...settings,[key]:value}),/Unsupported meaningful/);
  assert.doesNotThrow(()=>assertSupportedSettings({...settings,placement:{},limits:null,tail_consumers:[],logpush:false}));
 });
+test('standard usage metadata is observed without adding a config option and remains in the complete settings digest',async()=>{
+ const f=fixture(),before=await produceInactiveHelp({...f,mode:'plan'});
+ f.states.governance.settings.usage_model='standard';
+ const plan=await produceInactiveHelp({...f,mode:'plan'});
+ assert.equal(plan.targets[0].before.usageModel.settings.enum,'standard');
+ assert.notEqual(before.targets[0].before.settingsSha256,plan.targets[0].before.settingsSha256);
+ assert.equal(Object.hasOwn(inactiveConfig('governance',f.configs.governance,{enabled:true,previews_enabled:false}),'usage_model'),false);
+ assert.equal(assertSupportedSettings(f.states.governance.settings,{version:{resources:{script_runtime:{usage_model:'standard'}}}}).versionRuntime.enum,'standard');
+});
+test('all unsupported settings are projected together with only allowlisted usage enums and no raw values',()=>{
+ const settings={...fixture().states.governance.settings,usage_model:'unbound',placement:{mode:'smart'},future_setting:{credential:'PRIVATE_PROVIDER_VALUE'},tags:['PRIVATE_TAG']};
+ assert.throws(()=>assertSupportedSettings(settings,{version:{resources:{script_runtime:{usage_model:'bundled'}}}}),error=>{
+  assert.deepEqual(error.unsupportedSettings.map(s=>s.key),['usage_model','placement','future_setting','tags','version-runtime.usage_model']);
+  assert.equal(error.usageModel.settings.enum,'unbound');assert.equal(error.usageModel.versionRuntime.enum,'bundled');
+  const output=JSON.stringify(error);assert.equal(output.includes('PRIVATE_PROVIDER_VALUE'),false);assert.equal(output.includes('PRIVATE_TAG'),false);assert.equal(output.includes('smart'),false);return true;
+ });
+ for(const value of ['bundled','unbound','PRIVATE_ENUM_VALUE',null,42,true,{}])assert.throws(()=>assertSupportedSettings({...settings,usage_model:value}),error=>{
+  assert.equal(JSON.stringify(error).includes('PRIVATE_ENUM_VALUE'),false);assert.equal(error.usageModel.settings.enum,['bundled','unbound'].includes(value)?value:'unrecognized');return true;
+ });
+});
+test('successful Auth component proof is retained before later batched target setting rejection',async()=>{
+ const f=fixture(),retained=[];f.states.governance.settings.usage_model='bundled';f.states.governance.settings.unknown_setting={private:'DO_NOT_PRINT'};
+ await assert.rejects(produceInactiveHelp({...f,mode:'plan',recordAuthProof:async proof=>retained.push(clone(proof))}),error=>error.unsupportedSettings.length===2);
+ assert.equal(retained.length,1);assert.deepEqual(retained[0],await f.authProof());assert.equal(f.events.some(e=>e.startsWith('PUBLISH')),false);
+});
 test('stream bounds are enforced before complete provider body buffering',async()=>{
  let cancelled=false;
  const body=new ReadableStream({pull(controller){controller.enqueue(new Uint8Array(5));},cancel(){cancelled=true;}});

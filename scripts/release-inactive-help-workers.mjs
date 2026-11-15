@@ -142,17 +142,28 @@ const inert=value=>value===undefined||value===null||value===false||Array.isArray
 
 /** These categories have no supported non-default representation in the generic generator.
  * Refuse meaningful values rather than guessing that Wrangler will retain them. */
-export function assertSupportedSettings(settings){
+const settingType=value=>value===null?'null':Array.isArray(value)?'array':typeof value;
+const usageObservation=(has,value)=>({enum:!has?'absent':['standard','bundled','unbound'].includes(value)?value:'unrecognized',type:!has?'absent':settingType(value)});
+export function assertSupportedSettings(settings,{version}={}){
  const known=new Set(['bindings','compatibility_date','compatibility_flags','observability']);
  const emptyOnly=new Set(['placement','limits','tail_consumers','logpush','migrations','routes','workers_dev','assets','annotations']);
  if(!settings||typeof settings!=='object'||Array.isArray(settings))throw new ProducerError('Worker settings unavailable');
+ const runtime=version?.resources?.script_runtime;
+ const usageModel={settings:usageObservation(Object.hasOwn(settings,'usage_model'),settings.usage_model),versionRuntime:usageObservation(!!runtime&&Object.hasOwn(runtime,'usage_model'),runtime?.usage_model)};
+ const unsupported=[];
  for(const [key,value] of Object.entries(settings)){
   if(known.has(key))continue;
+  // Cloudflare removed this Wrangler option in v4. Observe standard only; never add it to config.
+  // https://developers.cloudflare.com/workers/wrangler/migration/update-v3-to-v4/
+  if(key==='usage_model'&&value==='standard')continue;
   if(emptyOnly.has(key)&&inert(value))continue;
   // Metadata is deliberately narrow. Unknown meaningful settings always stop publication.
   if(['etag','created_on','modified_on'].includes(key)&&typeof value==='string')continue;
-  throw new ProducerError('Unsupported meaningful Worker setting: '+key.replace(/[^a-z0-9_]/gi,'?').slice(0,80));
+  unsupported.push({key:/^[a-z][a-z0-9_]{0,79}$/i.test(key)?key:'unrecognized-key',type:settingType(value),inert:!!inert(value),emptyObject:!!value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).length===0,emptyArray:Array.isArray(value)&&value.length===0});
  }
+ if(runtime&&Object.hasOwn(runtime,'usage_model')&&runtime.usage_model!=='standard')unsupported.push({key:'version-runtime.usage_model',type:settingType(runtime.usage_model),inert:!!inert(runtime.usage_model),emptyObject:false,emptyArray:false});
+ if(unsupported.length){const error=new ProducerError('Unsupported meaningful Worker settings');error.unsupportedSettings=unsupported;error.usageModel=usageModel;throw error;}
+ return usageModel;
 }
 export function inactiveConfig(service,generated,hosting){
  scoped(service);
@@ -227,7 +238,7 @@ export async function captureWorker({api,content,service,config,expectedModule,b
  const version=await api(base+'/versions/'+before.versionId);
  if(version?.id!==before.versionId)throw new ProducerError('Version identity mismatch');
  const [settings,schedules,subdomain,routes]=await Promise.all([api(base+'/settings'),api(base+'/schedules'),api(base+'/subdomain'),api.routes(worker)]);
- assertSupportedSettings(settings);
+ const usageModel=assertSupportedSettings(settings,{version});
  meaningfulSchedules(schedules);
  if(subdomain?.enabled!==config.workers_dev||subdomain?.previews_enabled!==config.preview_urls||Object.keys(subdomain).some(k=>!['enabled','previews_enabled'].includes(k)))throw new ProducerError('Worker subdomain configuration unsupported');
  if(!Array.isArray(routes)||routes.length!==0)throw new ProducerError('Existing Worker routes require explicit preservation support');
@@ -236,11 +247,11 @@ export async function captureWorker({api,content,service,config,expectedModule,b
  const module=await moduleEvidence(await content(worker),expectedModule,{worker,buildLabel});
  const after=activeLineage(await api(base+'/deployments?per_page=2'));
  if(canonical(before)!==canonical(after)||latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Worker lineage changed during byte inspection');
- return {worker,...before,settings,schedules,subdomain,routes,module,predecessorDeploymentId:deployments.deployments[1]?.id??null};
+ return {worker,...before,settings,schedules,subdomain,routes,module,usageModel,predecessorDeploymentId:deployments.deployments[1]?.id??null};
 }
 function publicSnapshot(snapshot){
  return {worker:snapshot.worker,deploymentId:snapshot.deploymentId,versionId:snapshot.versionId,
-  predecessorDeploymentId:snapshot.predecessorDeploymentId,module:snapshot.module,
+  predecessorDeploymentId:snapshot.predecessorDeploymentId,module:snapshot.module,usageModel:snapshot.usageModel,
   settingsSha256:hash(canonical(meaningfulSettings(snapshot.settings))),schedulesSha256:hash(canonical(meaningfulSchedules(snapshot.schedules))),
   subdomainSha256:hash(canonical(snapshot.subdomain)),routesSha256:hash(canonical(snapshot.routes)),
   secretBindingIdentities:snapshot.settings.bindings.filter(b=>['secret_text','secret_key'].includes(b.type)).map(b=>({name:b.name,type:b.type})).sort((a,b)=>a.name.localeCompare(b.name))};
@@ -250,10 +261,11 @@ export function assertPriorPlan(prior,current){
  if(!Number.isSafeInteger(prior.producer?.runId)||prior.producer.runId<=0||!Number.isSafeInteger(prior.producer?.jobId)||prior.producer.jobId<=0||!Number.isSafeInteger(prior.producer.runAttempt)||prior.producer.runAttempt<=0||prior.producer.workflow!==WORKFLOW||prior.producer.job!==PLAN_JOB)throw new ProducerError('Prior plan producer unavailable');
 }
 /** All injected publication hooks are called only after both targets pass complete preflight. */
-export async function produceInactiveHelp({mode,source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState,expectedInputs,verifyPrior,freshMain,writeConfig,publish,recordAttempt=async()=>{},recordReceipt=async()=>{},wait=()=>new Promise(r=>setTimeout(r,1000))}){
+export async function produceInactiveHelp({mode,source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState,expectedInputs,verifyPrior,freshMain,writeConfig,publish,recordAuthProof=async()=>{},recordAttempt=async()=>{},recordReceipt=async()=>{},wait=()=>new Promise(r=>setTimeout(r,1000))}){
  if(!['plan','deploy'].includes(mode)||!sha.test(source??'')||!producer||!Number.isSafeInteger(producer.runId)||producer.runId<=0||!Number.isSafeInteger(producer.jobId)||producer.jobId<=0||!Number.isSafeInteger(producer.runAttempt)||producer.runAttempt<=0||producer.workflow!==WORKFLOW||producer.job!==(mode==='plan'?PLAN_JOB:RELEASE_JOB))throw new ProducerError('Exact producer and mode required');
  const inputs=await sourceProof();
- const auth=await authProof();
+ const checkedAuth=async()=>{const proof=await authProof();await recordAuthProof(proof);return proof;};
+ const auth=await checkedAuth();
  const prepared={},snapshots={},targets=[];
  for(const service of Object.keys(SCOPE)){
   const generic=retainedGenericConfig(service,configs[service]);
@@ -277,7 +289,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
   await writeConfig(service,candidate);
   const fresh=await captureWorker({api,content,service,config:candidate,expectedModule:oldModule});
   if(canonical(publicSnapshot(fresh))!==canonical(publicSnapshot(snapshots[service])))throw new ProducerError('Worker changed after plan');
-  if(canonical(await sourceProof())!==canonical(inputs)||canonical(await authProof())!==canonical(auth))throw new ProducerError('Source or Auth proof changed before publication');
+  if(canonical(await sourceProof())!==canonical(inputs)||canonical(await checkedAuth())!==canonical(auth))throw new ProducerError('Source or Auth proof changed before publication');
   for(const [previous,completed] of Object.entries(released)){
    const current=await captureWorker({api,content,service:previous,config:prepared[previous].candidate,expectedModule:prepared[previous].newModule,buildLabel:'inactive'});
    if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Previously released Worker changed before next publication');
@@ -307,7 +319,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
    inactiveBindingLiteralNull:true,runtimeActivated:false,productionGrantsChanged:0,productionSchemaChanged:false,registeredGovernanceArtifactId:null,grantAssociationApproved:false});
   await recordReceipt(receipts[receipts.length-1]);
  }
- if(canonical(await authProof())!==canonical(auth))throw new ProducerError('Auth changed before aggregate completion');
+ if(canonical(await checkedAuth())!==canonical(auth))throw new ProducerError('Auth changed before aggregate completion');
  for(const [service,completed] of Object.entries(released)){
   const current=await captureWorker({api,content,service,config:prepared[service].candidate,expectedModule:prepared[service].newModule,buildLabel:'inactive'});
   if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Released Worker changed before aggregate completion');
@@ -443,6 +455,7 @@ async function main(){
  };
  phase='complete_preflight_and_optional_scoped_publication';
  const result=await produceInactiveHelp({mode:mode.slice(2),source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState:args[3],expectedInputs:args[5],verifyPrior,
+  recordAuthProof:async proof=>{const receipt={format:1,component:'accepted-auth-bytes',currentProducerSource:source,producer,worker:'primecare-auth-api',...proof,independentlyReadDeployment:true,deploymentReadiness:false,componentProviderWrites:0};await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/accepted-auth-bytes.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_ACCEPTED_AUTH_BYTES '+JSON.stringify({source,producer,acceptedSource:proof.acceptedSource,worker:'primecare-auth-api',deploymentId:proof.deploymentId,versionId:proof.versionId,moduleSha256:proof.moduleSha256,moduleBytes:proof.moduleBytes,exactBytes:proof.exactBytes,deploymentReadiness:false,componentProviderWrites:0}));},
   recordAttempt:async attempt=>{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+attempt.service+'-attempt.json',JSON.stringify(attempt,null,2)+'\n');},
   recordReceipt:async receipt=>{await writeFile('test-results/inactive-help/'+receipt.service+'-receipt.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_WORKER_RECEIPT '+JSON.stringify({source,producer,service:receipt.service,worker:receipt.worker,versionId:receipt.versionId,deploymentId:receipt.after.deploymentId,previousDeploymentId:receipt.before.deploymentId,moduleSha256:receipt.after.module.moduleSha256,receiptSha256:hash(canonical(receipt)),runtimeActivated:false}));},
   freshMain:async s=>verifyMain(s),writeConfig:async(service,config)=>writeFile('.cloudflare-workers/'+service+'.jsonc',JSON.stringify(config,null,2)+'\n'),
@@ -452,7 +465,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}
