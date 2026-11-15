@@ -1667,10 +1667,10 @@
   },
   {
     "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
-    "line": 1390,
+    "line": 1391,
     "constructor": "PrimeCareScreen",
-    "class": "PswComplianceScreen",
-    "digest": "531e18d83b6b0ea9ed9b9ea5f463787f869ae498efcd4315d88cd1f0d9b82e25"
+    "class": "<dynamic or nested builder>",
+    "digest": "f00269910d6b65799f86ae699bd43907f600d37f5f4d21d2942660b9b6dbb497"
   },
   {
     "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",

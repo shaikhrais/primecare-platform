@@ -123,5 +123,30 @@
       "authority": "API_NONE; DB_NONE; QA_NOT_STARTED; FINAL_NOT_READY; PROGRESS=0"
     }
   },
-  "verification": "Existing verify_amended_source passes the current source with 17 exact hunks; reversing the appended hunk reconstructs the prior reviewed SHA, then the preserved 16 hunks reconstruct the unchanged historical baseline. Old entry rejects current source; new entry rejects extra newline drift. CI must still run the full inventory and entire contract-plan comparison."
+  "verification": "Existing verify_amended_source passes the current source with 17 exact hunks; reversing the appended hunk reconstructs the prior reviewed SHA, then the preserved 16 hunks reconstruct the unchanged historical baseline. Old entry rejects current source; new entry rejects extra newline drift. CI must still run the full inventory and entire contract-plan comparison.",
+  "routeSiteAmendment": {
+    "sourceChangeCommit": "92fe911c54d13893ca36b27a39ad906eca9e4183",
+    "reviewedSourceCommit": "079c1d10ba5cb12c70fedf3105f817bb7ae0093e",
+    "priorCount": 480,
+    "currentCount": 480,
+    "priorInventoryCanonicalSha256": "61c0a1a7381627cc3d44d3b14db6a10b2de3d6d6e3155474bbdcccac0eaf2910",
+    "retainedOther479CanonicalSha256": "9b14d8e01629bc645a14161093bf108e99944849b76fd97d2a974cea5b2d2898",
+    "priorRow": {
+      "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+      "line": 1390,
+      "constructor": "PrimeCareScreen",
+      "class": "PswComplianceScreen",
+      "digest": "531e18d83b6b0ea9ed9b9ea5f463787f869ae498efcd4315d88cd1f0d9b82e25"
+    },
+    "currentRow": {
+      "file": "apps/primecare_clinic/lib/core/routing/clinic_routes.dart",
+      "line": 1391,
+      "constructor": "PrimeCareScreen",
+      "class": "<dynamic or nested builder>",
+      "digest": "f00269910d6b65799f86ae699bd43907f600d37f5f4d21d2942660b9b6dbb497"
+    },
+    "priorSegment": "PrimeCareScreen(\n      title: 'Help & Support',\n      route: ClinicalRoutes.pswHelpSupport,\n      icon: LucideIcons.helpCircle,\n      builder: (context) => PswComplianceScreen(),\n    )",
+    "currentSegment": "PrimeCareScreen(\n      title: 'Help & Support',\n      route: ClinicalRoutes.pswHelpSupport,\n      icon: LucideIcons.helpCircle,\n      builder: (context) => const help_support.PswHelpSupportScreen(),\n    )",
+    "reason": "The existing registered PSW Help route now builds its governed Help screen instead of the unrelated compliance screen. Route, title, icon and all other route-site rows remain unchanged. The conservative scanner reports the prefixed constructor as dynamic; its exact segment digest remains guarded. No route registration, API/DB authority or activation is added."
+  }
 }
