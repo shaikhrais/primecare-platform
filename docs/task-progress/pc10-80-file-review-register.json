@@ -826,74 +826,74 @@
     {
       "id": 68,
       "path": ".github/workflows/pc10-help-model.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "11137f49fe7b5a93556e9bfc1cb49629d72b5c47",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Prisma model validation workflow, fixture-only DATABASE_URL and read-only permissions; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 69,
       "path": ".github/workflows/pc10-help-schema.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f4d4089cfeecad449a5b7f4087e081a5ea9ef773",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help schema workflow, PostgreSQL fixture and guarded production migration flags; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 70,
       "path": ".github/workflows/pc10-help-policy.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "e207f00c1dc676996fd1086264d4c90e83ee3bd5",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help policy workflow, PostgreSQL proof and guarded registration; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 71,
       "path": ".github/workflows/pc10-help-storage.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "5b9fd5cf2d02d24c778df671cca50fb066afbfe6",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help storage workflow, fixture and guarded additive schema registration; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 72,
       "path": ".github/workflows/pc10-help-discovery.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "c147d805ff4e652d651ef5f94efeea23b32b274a",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete read-only Help discovery workflow and artifact upload, no mutation step; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 73,
       "path": ".github/workflows/pc10-help-registration.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "512dee501c3e0eee1c36404ba33e547ebbe0474e",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help reader registration workflow, test gate and guarded production apply; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 74,
