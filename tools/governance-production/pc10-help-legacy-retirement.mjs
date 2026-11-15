@@ -14,10 +14,9 @@ const sha=value=>createHash('sha256').update(value).digest('hex');
 export const legacyRetirementDefinitionHash=sha(definitionBytes),legacyArchiveSqlHash=sha(archiveSql);
 export function helpLegacyArchiveStatements(){
  const expectedCreate='CREATE TABLE "'+pin.schema+'"."'+pin.tablePrefix+'help_legacy_grant_archive"';
- const revoke='REVOKE ALL ON TABLE "'+pin.schema+'"."'+pin.tablePrefix+'help_legacy_grant_archive" FROM PUBLIC;';
- const start=archiveSql.indexOf(expectedCreate),end=archiveSql.indexOf(revoke);
- if(start<=0||end<=start||archiveSql.indexOf(expectedCreate,start+1)!==-1||archiveSql.indexOf(revoke,end+1)!==-1||archiveSql.slice(end).trim()!==revoke||!archiveSql.slice(0,start).trimEnd().endsWith('END $$;')||!archiveSql.slice(start,end).trimEnd().endsWith(');'))throw Error('Reviewed archive SQL markers differ');
- const parts=[{phase:'archive-registration-ddl-guard',sql:archiveSql.slice(0,start)},{phase:'archive-registration-ddl-create',sql:archiveSql.slice(start,end)},{phase:'archive-registration-ddl-revoke',sql:archiveSql.slice(end)}];
+ const start=archiveSql.indexOf(expectedCreate);
+ if(start<=0||archiveSql.indexOf(expectedCreate,start+1)!==-1||!archiveSql.slice(0,start).trimEnd().endsWith('END $$;')||!archiveSql.slice(start).trimEnd().endsWith(');'))throw Error('Reviewed archive SQL markers differ');
+ const parts=[{phase:'archive-registration-ddl-guard',sql:archiveSql.slice(0,start)},{phase:'archive-registration-ddl-create',sql:archiveSql.slice(start)}];
  if(parts.map(p=>p.sql).join('')!==archiveSql)throw Error('Reviewed archive SQL bytes differ');return parts;
 }
 export const legacyRetirementScriptHash=sha(await readFile(new URL(import.meta.url)));

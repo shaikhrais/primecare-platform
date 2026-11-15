@@ -1,5 +1,8 @@
 -- Approved storage for the exact API794 legacy-grant retirement.
 -- Only the pinned registration tool may execute this file in its transaction.
+-- The registered writer requires effective PUBLIC privileges to be zero
+-- immediately after CREATE and before COMMIT. Unexpected defaults abort
+-- the transaction; this operation never changes existing PostgreSQL grants.
 DO $$ BEGIN
  IF current_setting('primecare.help_legacy_archive_registration', true) IS DISTINCT FROM '1' THEN
   RAISE EXCEPTION 'Explicit registered Help legacy archive scope required';
@@ -20,5 +23,3 @@ CREATE TABLE "governance_68b0b02dd1215f58630d2c1a"."govt_help_legacy_grant_archi
  CONSTRAINT pc10_help_legacy_context CHECK (jsonb_typeof(operation_context)='object'),
  CONSTRAINT pc10_help_legacy_fingerprint CHECK (group_fingerprint ~ '^[0-9a-f]{64}$')
 );
-
-REVOKE ALL ON TABLE "governance_68b0b02dd1215f58630d2c1a"."govt_help_legacy_grant_archive" FROM PUBLIC;

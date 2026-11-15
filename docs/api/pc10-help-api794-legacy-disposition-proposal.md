@@ -1,6 +1,6 @@
 # API794 legacy grant disposition — approved retirement
 
-Status: the user explicitly approved this exact disposition with “Move it”. Native PostgreSQL proof and independent review passed. Production archive registration failed with SQLSTATE42501; a subsequent read-only check confirmed no archive and all64 source rows unchanged. Precise failure-stage diagnosis is in progress. This approval covers only the exact64-row retirement described below.
+Status: the user explicitly approved this exact disposition with “Move it”. Native PostgreSQL proof and independent review passed. Production archive registration failed with SQLSTATE42501; a subsequent read-only check confirmed no archive and all64 source rows unchanged. The exact failed command was REVOKE; a removal-only fix is prepared under the unchanged mandatory PUBLIC-zero guard. This approval covers only the exact64-row retirement described below.
 
 ## Confirmed conflict
 
@@ -58,3 +58,9 @@ Native proof run [43668646678](https://github.com/shaikhrais/primecare-platform/
 Production job132674134928 returned `archivePresent:false` from the read-only archive plan, then failed archive registration with SQLSTATE42501. Retirement, independent retirement readback and catalogue guard did not run; no successful move is claimed.
 
 Fresh read-only run [43669181100](https://github.com/shaikhrais/primecare-platform/actions/runs/43669181100), job132675185259, on `24894726911524d0583615eaceb31e29497caed3` confirms the archive is absent and exactly64 active source rows still have the unchanged full-row hash above. OTP matches remain0. Current/session role `prisma_migration` owns the pinned schema and all existing target relations; schema USAGE/CREATE, reported table permissions, any-column UPDATE and advisory-function EXECUTE are all allowed. This evidence does not support requesting a general GRANT or switching roles. Identify the exact denied operation before proposing a remedy; retain existing locks and full-row checks.
+
+## Exact denied command and bounded remedy
+
+Actual production run [43670370814](https://github.com/shaikhrais/primecare-platform/actions/runs/43670370814), job132679087944, on `09a780511c7a9161d9261ac7756a7e44f6c2dc79` failed specifically at `archive-registration-ddl-revoke` with42501. The scope guard and CREATE had passed inside the still-uncommitted registration transaction; the catch rolled back that transaction. No active grants were retired.
+
+The reviewed remedy removes only the denied REVOKE statement. It performs no PostgreSQL grant or role changes and retains the original guard, CREATE, transaction, source/context/reference locks and explicit opt-ins. The writer must prove effective PUBLIC privileges are zero immediately after CREATE and before COMMIT, and again before copying/deleting any grant. Unexpected PUBLIC defaults abort and roll back the new table; no permission repair or fallback is attempted. Independent focused tests include actual PUBLIC SELECT default privileges and prove rejection, table rollback and all64 source rows retained. Full native proof and production readback remain required; this preparation is not a completed move.
