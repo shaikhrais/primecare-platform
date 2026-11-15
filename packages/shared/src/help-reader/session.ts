@@ -30,6 +30,9 @@ export function createHelpReaderSession(options:Parameters<typeof createHelpRead
  const first=helpRequest({version:1,action:'list',locale,query:'',offset:0,limit});
  if(first.action!=='list')throw new HelpReadFailure('invalid_request',400);
  const capturedOptions={...options},owner=capturedOptions.isCurrent,getToken=capturedOptions.getToken;
+ if(typeof owner!=='function'||typeof getToken!=='function'){
+  throw new HelpReadFailure('invalid_request',400);
+ }
  const reader=createHelpReaderClient(capturedOptions);
  let capturedToken:string|null;try{capturedToken=getToken();}catch{reader.dispose();throw new HelpReadFailure('unauthenticated',401);}
  if(typeof capturedToken!=='string'||!/^[A-Za-z0-9_-]{43}$/.test(capturedToken)){reader.dispose();throw new HelpReadFailure('unauthenticated',401);}
