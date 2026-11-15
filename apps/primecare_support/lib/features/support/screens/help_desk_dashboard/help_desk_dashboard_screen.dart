@@ -16,11 +16,11 @@ class HelpDeskDashboardScreen extends StatelessWidget {
       title: 'Help Desk Dashboard',
       child: Column(
         children: const [
-          const HelpDeskDashboardHeaderSection(),
-          const HelpDeskDashboardSummaryCardsSection(),
-          const HelpDeskDashboardChartOverviewSection(),
-          const HelpDeskDashboardRecentActivitySection(),
-          const HelpDeskDashboardQuickActionsSection(),
+          HelpDeskDashboardHeaderSection(),
+          HelpDeskDashboardSummaryCardsSection(),
+          HelpDeskDashboardChartOverviewSection(),
+          HelpDeskDashboardRecentActivitySection(),
+          HelpDeskDashboardQuickActionsSection(),
         ],
       ),
     );
