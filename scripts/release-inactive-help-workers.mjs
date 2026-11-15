@@ -18,6 +18,22 @@ let rejectionContext=null;
 const acceptedCloudflareTree='88b9689f0efd5c892be0e57bed063131b0f9541c';
 const guardSource='718eaff3e6b3d4c5b26d68ec0b7a6ceaca5da3ea';
 export const RELEASE_TOOLCHAIN=Object.freeze({nodeMajor:24,wrangler:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'});
+export const GOVERNANCE_PREDECESSOR=Object.freeze({source:'07a2ea799d6bda0adcca60531f20a5f02766358f',runId:43669947275,jobId:132678080810,acceptanceJobId:132677568913,workflow:'.github/workflows/psw-workspace.yml',deploymentId:'0b5b8ae3-e38a-468d-b5b9-ead32b267c80',versionId:'4f12b2ed-53d8-4c8a-9811-7199e18bb7f3'});
+export function assertGovernancePredecessorIdentity(identity){
+ if(identity?.service!=='governance'||identity.worker!=='primecare-governance-api'||identity.deploymentId!==GOVERNANCE_PREDECESSOR.deploymentId||identity.versionId!==GOVERNANCE_PREDECESSOR.versionId||identity.latestVersionId!==GOVERNANCE_PREDECESSOR.versionId)throw new ProducerError('Governance predecessor differs from recorded code deployment');
+}
+/** The code step succeeded; the historical parent later failed. Never promote that parent to success. */
+export function checkGovernanceHistoricalProducer({run,job,acceptance,receipt}){
+ const p=GOVERNANCE_PREDECESSOR;
+ if(run?.id!==p.runId||run.head_sha!==p.source||run.head_branch!=='main'||run.path!==p.workflow||run.event!=='workflow_dispatch'||run.status!=='completed'||run.conclusion!=='failure'||job?.id!==p.jobId||job.run_id!==p.runId||job.name!=='publish'||job.status!=='completed'||job.conclusion!=='failure'||acceptance?.id!==p.acceptanceJobId||acceptance.run_id!==p.runId||acceptance.name!=='acceptance'||acceptance.status!=='completed'||acceptance.conclusion!=='success')throw new ProducerError('Exact historical governance producer required');
+ const steps=job.steps;
+ if(!Array.isArray(steps))throw new ProducerError('Historical governance code-step evidence required');
+ const find=name=>steps.map((step,index)=>({step,index})).filter(item=>item.step.name===name);
+ const fresh=find('Verify current main before publication'),code=find('Publish governance API while preserving existing live bindings'),failed=steps.map((step,index)=>({step,index})).filter(item=>item.step.conclusion==='failure');
+ if(fresh.length!==1||fresh[0].step.conclusion!=='success'||code.length!==1||code[0].step.conclusion!=='success'||fresh[0].index>=code[0].index||failed.length!==1||failed[0].step.name!=='Verify current main before Pages publication'||failed[0].index<=code[0].index||steps.slice(failed[0].index+1).some(step=>!step.name.startsWith('Post ')&&!['Run actions/upload-artifact@v4','Complete job'].includes(step.name)&&!['skipped',null,undefined].includes(step.conclusion)))throw new ProducerError('Historical governance code success and later parent failure required');
+ if(receipt?.format!==1||receipt.source!==p.source||receipt.worker!=='primecare-governance-api'||receipt.service!=='governance'||receipt.deploymentId!==p.deploymentId||receipt.versionId!==p.versionId||receipt.trafficPercent!==100||receipt.independentlyReadDeployment!==true||receipt.sourceCheckoutVerified!==true||receipt.existingBindingsPreserved!==true||receipt.healthStatus!==200||receipt.otherWorkersModified!==0)throw new ProducerError('Exact historical governance uploaded receipt required');
+ return {...p,codeStepConclusion:'success',acceptanceJobConclusion:'success',parentJobConclusion:'failure',parentRunConclusion:'failure',wholePipelineAccepted:false,historicalReceiptSha256:hash(canonical(receipt))};
+}
 /** Match the accepted 15c release's Node major, actual locked Wrangler and entire npm lock. */
 export function assertReleaseToolchain({nodeVersion,wranglerVersion,lockBlob}){
  if(!/^24\./.test(nodeVersion??'')||wranglerVersion!==RELEASE_TOOLCHAIN.wrangler||lockBlob!==RELEASE_TOOLCHAIN.lockBlob)throw new ProducerError('Accepted locked release toolchain required');
@@ -129,6 +145,18 @@ export function assertAcceptedAuthSourceRecords(records){
  }
  return {comparedSourceFiles:records.length,historicalSourceDifferences:changed};
 }
+/** Separate, fixed governance predecessor rule; it does not alter accepted Auth source policy. */
+export function assertGovernanceSourceRecords(records){
+ if(!Array.isArray(records)||!records.length||new Set(records.map(r=>r.path)).size!==records.length)throw new ProducerError('Unique governance source identity records required');
+ const changed=[];
+ for(const record of records){
+  if(record.currentMode!=='100644'||record.acceptedMode!=='100644'||!sha.test(record.currentBlob??'')||!sha.test(record.acceptedBlob??''))throw new ProducerError('Regular immutable governance source files required');
+  if(record.currentBlob===record.acceptedBlob)continue;
+  if(record.path!=='tools/governance-production/production-pin.json'||record.acceptedBlob!=='05e7a153405ffa5210927c20357d92248023f358'||record.currentBlob!=='8478c2892885e57109e898736b1f1995344cb70b')throw new ProducerError('Unreviewed governance transitive source difference');
+  changed.push({...record});
+ }
+ return {comparedSourceFiles:records.length,historicalSourceDifferences:changed};
+}
 const meaningfulSettings=settings=>Object.fromEntries(Object.entries(settings).filter(([key])=>!['etag','created_on','modified_on'].includes(key)));
 function meaningfulSchedules(raw){
  if(!Array.isArray(raw?.schedules)||Object.keys(raw).some(k=>k!=='schedules'))throw new ProducerError('Schedule metadata unsupported');
@@ -205,6 +233,48 @@ export function activeLineage(raw){
  return {deploymentId:active.id,versionId:versions[0].version_id};
 }
 function latest(raw){const id=raw?.items?.[0]?.id;if(!uuid.test(id??''))throw new ProducerError('Latest Worker upload unavailable');return id;}
+const providerSourceEnums=new Set(['unknown','api','wrangler','terraform','dash','cf_cli','dash_template','integration','quick_editor','playground','workersci']);
+const safeSource=value=>({enum:value===undefined?'absent':providerSourceEnums.has(value)?value:'unrecognized',...(value!==undefined&&!providerSourceEnums.has(value)?{valueSha256:hash(canonical(value)??'undefined')}: {})});
+const safeCreatedOn=value=>typeof value==='string'&&/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,9})?Z$/.test(value)&&Number.isFinite(Date.parse(value))?value:null;
+/** Identity only: this never asserts code equivalence, preserved settings, or deployment readiness. */
+export async function inspectWorkerPredecessor({api,service}){
+ const worker=scoped(service),base='/workers/scripts/'+worker,raw=await api(base+'/deployments?per_page=2'),before=activeLineage(raw);
+ if(latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Latest upload is not active');
+ const version=await api(base+'/versions/'+before.versionId);if(version?.id!==before.versionId)throw new ProducerError('Version identity mismatch');
+ const after=activeLineage(await api(base+'/deployments?per_page=2'));
+ if(canonical(before)!==canonical(after)||latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Worker lineage changed during predecessor inspection');
+ return {format:1,component:'worker-predecessor-identity',service,worker,...before,latestVersionId:before.versionId,
+  predecessorDeploymentId:uuid.test(raw.deployments?.[1]?.id??'')?raw.deployments[1].id:null,
+  deploymentCreatedOn:safeCreatedOn(raw.deployments[0].created_on),versionCreatedOn:safeCreatedOn(version.metadata?.created_on),
+  versionSource:safeSource(version.metadata?.source),lastDeployedFrom:safeSource(version.resources?.script?.last_deployed_from),
+  versionNumber:Number.isSafeInteger(version.number)&&version.number>0?version.number:null,
+  independentProviderIdentityRead:true,baselineBytesVerified:false,settingsPreservationVerified:false,deploymentReadiness:false,componentProviderWrites:0};
+}
+/** Hash/range diagnostics use provider bytes privately; section names come only from local build inputs. */
+export function moduleMismatchAttribution(expected,actual){
+ const limit=Math.min(expected.length,actual.length);let prefix=0,suffix=0;
+ while(prefix<limit&&expected[prefix]===actual[prefix])prefix++;
+ while(suffix<limit-prefix&&expected[expected.length-1-suffix]===actual[actual.length-1-suffix])suffix++;
+ const known=new Set((expected.inputEvidence??[]).filter(input=>!input.virtual).map(input=>withoutJsonAttributes(input.path))),sections=[];
+ for(let position=0;position<expected.length;){
+  let end=expected.indexOf(10,position);if(end===-1)end=expected.length;
+  if(end-position<300&&expected[position]===47&&expected[position+1]===47&&expected[position+2]===32){
+   const path=withoutJsonAttributes(expected.subarray(position+3,end).toString('utf8').trim()).replace(/^(?:\.\.\/)+/,'');
+   if(known.has(path)&&/^[A-Za-z0-9_@./-]+$/.test(path))sections.push({start:position,path});
+  }
+  position=end+1;
+ }
+ const sectionAt=position=>{for(let i=sections.length-1;i>=0;i--)if(sections[i].start<=position){const section=sections[i],end=sections[i+1]?.start??expected.length;return {path:section.path,headerOffset:section.start,localSectionSha256:hash(expected.subarray(section.start,end))};}return null;};
+ const ranges=[];let count=0,differingBytes=Math.abs(expected.length-actual.length);
+ for(let position=prefix;position<limit;){
+  if(expected[position]===actual[position]){position++;continue;}
+  const start=position;while(position<limit&&expected[position]!==actual[position])position++;
+  count++;differingBytes+=position-start;
+  if(ranges.length<16)ranges.push({start,endExclusive:position,expectedRangeSha256:hash(expected.subarray(start,position)),providerRangeSha256:hash(actual.subarray(start,position)),localSection:sectionAt(start)});
+ }
+ if(expected.length!==actual.length){count++;if(ranges.length<16)ranges.push({start:limit,expectedEndExclusive:expected.length,providerEndExclusive:actual.length,expectedRangeSha256:hash(expected.subarray(limit)),providerRangeSha256:hash(actual.subarray(limit)),localSection:sectionAt(limit)});}
+ return {comparison:'same-byte-offset',commonPrefixBytes:prefix,commonSuffixBytes:suffix,differingByteCount:differingBytes,changedRangeCount:count,ranges,rangesTruncated:count>ranges.length};
+}
 export async function boundedBody(response,limit=MAX_BYTES){
  if(!response.ok||!response.body)throw new ProducerError('Provider content unavailable');
  const declared=response.headers.get('content-length');if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>limit))throw new ProducerError('Provider content exceeds bound');
@@ -228,6 +298,7 @@ export async function moduleEvidence(response,expected,context){
  if(modules.length!==1||!modules[0].equals(expected)){
   const error=new ProducerError('Provider module bytes differ from exact rebuilt module');
   error.moduleComparison={...(context?{worker:context.worker,buildLabel:context.buildLabel}:{}),expected:{moduleBytes:expected.length,moduleSha256:hash(expected)},moduleCount:modules.length,providerModuleBytes:modules.reduce((total,module)=>total+module.length,0),providerModules:modules.slice(0,8).map(module=>({moduleBytes:module.length,moduleSha256:hash(module)})),providerModuleDiagnosticsTruncated:modules.length>8};
+  if(modules.length===1)error.moduleComparison.byteAttribution=moduleMismatchAttribution(expected,modules[0]);
   throw error;
  }
  return {moduleCount:1,moduleBytes:expected.length,moduleSha256:hash(expected),exactBytes:true};
@@ -284,20 +355,25 @@ export function assertPriorPlan(prior,current){
  if(!Number.isSafeInteger(prior.producer?.runId)||prior.producer.runId<=0||!Number.isSafeInteger(prior.producer?.jobId)||prior.producer.jobId<=0||!Number.isSafeInteger(prior.producer.runAttempt)||prior.producer.runAttempt<=0||prior.producer.workflow!==WORKFLOW||prior.producer.job!==PLAN_JOB)throw new ProducerError('Prior plan producer unavailable');
 }
 /** All injected publication hooks are called only after both targets pass complete preflight. */
-export async function produceInactiveHelp({mode,source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState,expectedInputs,verifyPrior,freshMain,writeConfig,publish,recordAuthProof=async()=>{},recordAttempt=async()=>{},recordReceipt=async()=>{},wait=()=>new Promise(r=>setTimeout(r,1000))}){
+export async function produceInactiveHelp({mode,source,producer,configs,build,baselineModule=async({currentModule})=>({module:currentModule,sourceProof:null}),api,content,authProof,sourceProof,prior,expectedPreState,expectedInputs,verifyPrior,freshMain,writeConfig,publish,recordAuthProof=async()=>{},recordPredecessor=async()=>{},recordBaselineProof=async()=>{},recordAttempt=async()=>{},recordReceipt=async()=>{},wait=()=>new Promise(r=>setTimeout(r,1000))}){
  if(!['plan','deploy'].includes(mode)||!sha.test(source??'')||!producer||!Number.isSafeInteger(producer.runId)||producer.runId<=0||!Number.isSafeInteger(producer.jobId)||producer.jobId<=0||!Number.isSafeInteger(producer.runAttempt)||producer.runAttempt<=0||producer.workflow!==WORKFLOW||producer.job!==(mode==='plan'?PLAN_JOB:RELEASE_JOB))throw new ProducerError('Exact producer and mode required');
  const inputs=await sourceProof();
  const checkedAuth=async()=>{const proof=await authProof();await recordAuthProof(proof);return proof;};
  const auth=await checkedAuth();
+ const predecessors={};
+ for(const service of Object.keys(SCOPE)){const identity=await inspectWorkerPredecessor({api,service});predecessors[service]=identity;await recordPredecessor(identity);}
  const prepared={},snapshots={},targets=[];
  for(const service of Object.keys(SCOPE)){
   const generic=retainedGenericConfig(service,configs[service]);
   const hosting=await api('/workers/scripts/'+scoped(service)+'/subdomain');
   const candidate=inactiveConfig(service,configs[service],hosting);
-  const oldModule=await build(service,generic,'baseline'),newModule=await build(service,candidate,'inactive');
+  const currentModule=await build(service,generic,'baseline'),newModule=await build(service,candidate,'inactive');
+  const baseline=await baselineModule({service,config:generic,currentModule,predecessor:predecessors[service]}),oldModule=baseline.module;
   const snapshot=await captureWorker({api,content,service,config:candidate,expectedModule:oldModule});
+  if(snapshot.deploymentId!==predecessors[service].deploymentId||snapshot.versionId!==predecessors[service].versionId)throw new ProducerError('Worker changed after predecessor identity inspection');
+  await recordBaselineProof({service,worker:snapshot.worker,deploymentId:snapshot.deploymentId,versionId:snapshot.versionId,module:snapshot.module,sourceProof:baseline.sourceProof,exactProviderBytes:true,deploymentReadiness:false,componentProviderWrites:0});
   prepared[service]={candidate,newModule,oldModule};snapshots[service]=snapshot;
-  targets.push({service,entry:SCOPE[service],configSha256:hash(canonical(candidate)),before:publicSnapshot(snapshot),candidateModule:{moduleBytes:newModule.length,moduleSha256:hash(newModule),inputs:newModule.inputEvidence??null}});
+  targets.push({service,entry:SCOPE[service],configSha256:hash(canonical(candidate)),before:publicSnapshot(snapshot),baselineSourceProof:baseline.sourceProof,candidateModule:{moduleBytes:newModule.length,moduleSha256:hash(newModule),inputs:newModule.inputEvidence??null}});
  }
  const {inputs:authInputs,...authProvider}=auth;
  const preStateDigest=hash(canonical({auth:authProvider,targets:targets.map(t=>({service:t.service,before:t.before}))}));
@@ -432,14 +508,8 @@ async function main(){
   Object.defineProperty(module,'verifyInputs',{value:async()=>{for(const input of physicalInputs)if(await realpath(input.absolute)!==input.actual||hash(await readFile(input.absolute))!==input.sha256)throw new ProducerError('Prepared build input changed');}});
   return module;
  };
- const authProof=async()=>{
-  phase='unchanged_auth_source_gate_and_exact_provider_bytes';
-  call('node',['scripts/verify-auth-live-proof-source.mjs']);
-  const {selectAuthLiveProofPolicy}=await import('./verify-auth-live-proof-source.mjs');
-  const acceptedSource=selectAuthLiveProofPolicy().source;
-  const config=JSON.parse(await readFile('.cloudflare-workers/auth.jsonc','utf8'));
-  return verifyAcceptedAuthBytes({api,content,acceptedSource,rebuildAccepted:async source=>{
-   const currentModule=await build('auth',config,'current-auth');await currentModule.verifyInputs();
+ const rebuildHistoricalModule=async({service,config,currentModule,source,assertRecords})=>{
+   await currentModule.verifyInputs();
    const initialPaths=acceptedAuthArchivePaths(currentModule.inputEvidence),metadataCandidates=authCompilerMetadataCandidates(initialPaths);
    const metadataPaths=ref=>call('git',['ls-tree','-r','--name-only',ref,'--',...metadataCandidates]).trim().split('\n').filter(Boolean);
    const paths=[...new Set([...initialPaths,...metadataPaths(source),...metadataPaths('HEAD')])].sort(),records=[];
@@ -451,14 +521,14 @@ async function main(){
     if(gitBlob(await readFile(path))!==current.blob)throw new ProducerError('Current Auth archive input changed');
     records.push({path,currentMode:current.mode,currentBlob:current.blob,acceptedMode:accepted.mode,acceptedBlob:accepted.blob});
    }
-   const sourceComparison={...assertAcceptedAuthSourceRecords(records),currentModule:{moduleBytes:currentModule.length,moduleSha256:hash(currentModule)}};
+   const sourceComparison={...assertRecords(records),currentModule:{moduleBytes:currentModule.length,moduleSha256:hash(currentModule)}};
    for(const path of paths.filter(path=>/(?:^|\/)(?:tsconfig|jsconfig)\.json$/.test(path)))if(/"extends"\s*:/.test(call('git',['show',source+':'+path])))throw new ProducerError('Accepted compiler metadata inheritance requires explicit archive');
-   const root=resolve(env.RUNNER_TEMP,'inactive-help-accepted-auth-source');await rm(root,{recursive:true,force:true});await mkdir(root,{recursive:true});
+   const root=resolve(env.RUNNER_TEMP,'inactive-help-accepted-'+service+'-source');await rm(root,{recursive:true,force:true});await mkdir(root,{recursive:true});
    const archive=call('git',['archive','--format=tar',source,'--',...paths],{encoding:null});
    const archivePath=resolve(root,'accepted-auth.tar');await writeFile(archivePath,archive);call('tar',['-xf',archivePath,'-C',root]);await rm(archivePath);
    for(const record of records){const file=resolve(root,record.path);if(!(await lstat(file)).isFile()||await realpath(file)!==file||gitBlob(await readFile(file))!==record.acceptedBlob)throw new ProducerError('Accepted Auth archive file identity differs');}
    sourceComparison.dependencies=await copyLockedDependencies({source:await realpath('node_modules'),destination:resolve(root,'node_modules')});
-   const module=await build('auth',config,'accepted-auth',{root,sourceRef:source});
+   const module=await build(service,config,'accepted-'+service,{root,sourceRef:source});
    const currentInputs=new Map(currentModule.inputEvidence.map(input=>[input.path,input]));
    if(module.inputEvidence.length!==currentInputs.size)throw new ProducerError('Accepted Auth build input graph changed');
    for(const input of module.inputEvidence){const before=currentInputs.get(input.path);if(!before)throw new ProducerError('Accepted Auth build input graph changed');
@@ -467,7 +537,34 @@ async function main(){
    }
    await module.verifyInputs();
    return {module,sourceComparison};
+ };
+ const authProof=async()=>{
+  phase='unchanged_auth_source_gate_and_exact_provider_bytes';
+  call('node',['scripts/verify-auth-live-proof-source.mjs']);
+  const {selectAuthLiveProofPolicy}=await import('./verify-auth-live-proof-source.mjs');
+  const acceptedSource=selectAuthLiveProofPolicy().source;
+  const config=JSON.parse(await readFile('.cloudflare-workers/auth.jsonc','utf8'));
+  return verifyAcceptedAuthBytes({api,content,acceptedSource,rebuildAccepted:async source=>{
+   const currentModule=await build('auth',config,'current-auth');
+   return rebuildHistoricalModule({service:'auth',config,currentModule,source,assertRecords:assertAcceptedAuthSourceRecords});
   }});
+ };
+ const baselineModule=async({service,config,currentModule,predecessor})=>{
+  if(service!=='governance')return {module:currentModule,sourceProof:null};
+  assertGovernancePredecessorIdentity(predecessor);
+  const p=GOVERNANCE_PREDECESSOR;
+  const run=JSON.parse(call('gh',['api',base+'runs/'+p.runId]));
+  const job=JSON.parse(call('gh',['api',base+'jobs/'+p.jobId]));
+  const acceptance=JSON.parse(call('gh',['api',base+'jobs/'+p.acceptanceJobId]));
+  const log=call('gh',['api',base+'jobs/'+p.jobId+'/logs']),marker='APPROVED_GOVERNANCE_DEPLOYED ';
+  const lines=log.split('\n').filter(line=>line.includes(marker+'{'));
+  if(lines.length!==1)throw new ProducerError('Unique historical governance uploaded receipt required');
+  const receipt=JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length));
+  const evidence=checkGovernanceHistoricalProducer({run,job,acceptance,receipt});
+  call('git',['fetch','--no-tags','--depth=1','origin',p.source]);
+  if(call('git',['rev-parse',p.source+':cloudflare']).trim()!==acceptedCloudflareTree||call('git',['rev-parse',p.source+':package-lock.json']).trim()!==RELEASE_TOOLCHAIN.lockBlob)throw new ProducerError('Historical governance tree or locked dependencies changed');
+  const rebuilt=await rebuildHistoricalModule({service,config,currentModule,source:p.source,assertRecords:assertGovernanceSourceRecords});
+  return {module:rebuilt.module,sourceProof:{...evidence,sourceComparison:rebuilt.sourceComparison}};
  };
  const prior=mode==='--deploy'?JSON.parse(await readFile(args[1],'utf8')):undefined;
  const verifyPrior=async plan=>{
@@ -480,8 +577,10 @@ async function main(){
   if(receipt?.format!==1||receipt.source!==plan.source||receipt.planSha256!==hash(canonical(plan))||canonical(receipt.producer)!==canonical(plan.producer)||receipt.preStateDigest!==plan.preStateDigest||receipt.inputsDigest!==plan.inputsDigest||receipt.providerWrites!==0)throw new ProducerError('Prior plan differs from independent CI receipt');
  };
  phase='complete_preflight_and_optional_scoped_publication';
- const result=await produceInactiveHelp({mode:mode.slice(2),source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState:args[3],expectedInputs:args[5],verifyPrior,
+ const result=await produceInactiveHelp({mode:mode.slice(2),source,producer,configs,build,baselineModule,api,content,authProof,sourceProof,prior,expectedPreState:args[3],expectedInputs:args[5],verifyPrior,
   recordAuthProof:async proof=>{const receipt={format:1,component:'accepted-auth-bytes',currentProducerSource:source,producer,worker:'primecare-auth-api',...proof,independentlyReadDeployment:true,deploymentReadiness:false,componentProviderWrites:0};await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/accepted-auth-bytes.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_ACCEPTED_AUTH_BYTES '+JSON.stringify({source,producer,acceptedSource:proof.acceptedSource,worker:'primecare-auth-api',deploymentId:proof.deploymentId,versionId:proof.versionId,moduleSha256:proof.moduleSha256,moduleBytes:proof.moduleBytes,exactBytes:proof.exactBytes,deploymentReadiness:false,componentProviderWrites:0}));},
+  recordPredecessor:async identity=>{const receipt={...identity,currentProducerSource:source,producer};await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+identity.service+'-predecessor.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_PREDECESSOR_IDENTITY '+JSON.stringify(receipt));},
+  recordBaselineProof:async proof=>{const receipt={format:1,component:'target-baseline-bytes',currentProducerSource:source,producer,...proof};await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+proof.service+'-baseline-bytes.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_BASELINE_BYTES '+JSON.stringify({source,producer,service:proof.service,worker:proof.worker,deploymentId:proof.deploymentId,versionId:proof.versionId,moduleSha256:proof.module.moduleSha256,moduleBytes:proof.module.moduleBytes,historicalSource:proof.sourceProof?.source??null,historicalParentConclusion:proof.sourceProof?.parentJobConclusion??null,exactProviderBytes:true,deploymentReadiness:false,componentProviderWrites:0}));},
   recordAttempt:async attempt=>{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+attempt.service+'-attempt.json',JSON.stringify(attempt,null,2)+'\n');},
   recordReceipt:async receipt=>{await writeFile('test-results/inactive-help/'+receipt.service+'-receipt.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_WORKER_RECEIPT '+JSON.stringify({source,producer,service:receipt.service,worker:receipt.worker,versionId:receipt.versionId,deploymentId:receipt.after.deploymentId,previousDeploymentId:receipt.before.deploymentId,moduleSha256:receipt.after.module.moduleSha256,receiptSha256:hash(canonical(receipt)),runtimeActivated:false}));},
   freshMain:async s=>verifyMain(s),writeConfig:async(service,config)=>writeFile('.cloudflare-workers/'+service+'.jsonc',JSON.stringify(config,null,2)+'\n'),

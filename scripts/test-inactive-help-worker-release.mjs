@@ -3,10 +3,31 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,chmod,symlink,readlink,realpath,cp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+function governanceProducerFixture(){
+ const p=GOVERNANCE_PREDECESSOR;
+ return {run:{id:p.runId,head_sha:p.source,head_branch:'main',path:p.workflow,event:'workflow_dispatch',status:'completed',conclusion:'failure'},
+  job:{id:p.jobId,run_id:p.runId,name:'publish',status:'completed',conclusion:'failure',steps:[{name:'Verify current main before publication',conclusion:'success'},{name:'Publish governance API while preserving existing live bindings',conclusion:'success'},{name:'Build database-governed portals',conclusion:'success'},{name:'Verify current main before Pages publication',conclusion:'failure'},{name:'Publish the PSW route to every existing portal',conclusion:'skipped'},{name:'Run actions/upload-artifact@v4',conclusion:'success'}]},
+  acceptance:{id:p.acceptanceJobId,run_id:p.runId,name:'acceptance',status:'completed',conclusion:'success'},
+  receipt:{format:1,source:p.source,worker:'primecare-governance-api',service:'governance',deploymentId:p.deploymentId,versionId:p.versionId,trafficPercent:100,independentlyReadDeployment:true,sourceCheckoutVerified:true,existingBindingsPreserved:true,healthStatus:200,otherWorkersModified:0}};
+}
+test('historical governance association requires exact live IDs and preserves the actual failed parent status',()=>{
+ const p=GOVERNANCE_PREDECESSOR,identity={service:'governance',worker:'primecare-governance-api',deploymentId:p.deploymentId,versionId:p.versionId,latestVersionId:p.versionId};
+ assert.doesNotThrow(()=>assertGovernancePredecessorIdentity(identity));assert.throws(()=>assertGovernancePredecessorIdentity({...identity,versionId:id(800)}),/differs from recorded/);
+ const proof=checkGovernanceHistoricalProducer(governanceProducerFixture());assert.equal(proof.source,p.source);assert.equal(proof.codeStepConclusion,'success');assert.equal(proof.parentJobConclusion,'failure');assert.equal(proof.wholePipelineAccepted,false);
+ for(const mutate of [f=>{f.run.head_sha='f'.repeat(40);},f=>{f.run.conclusion='success';},f=>{f.job.steps[1].conclusion='skipped';},f=>{f.job.steps[3].name='Unrelated failure';},f=>{f.acceptance.conclusion='failure';},f=>{f.receipt.versionId=id(801);}]){const fixture=governanceProducerFixture();mutate(fixture);assert.throws(()=>checkGovernanceHistoricalProducer(fixture));}
+});
+test('governance historical pin rule is fixed and separate from the unchanged Auth pin rule',()=>{
+ const pin={path:'tools/governance-production/production-pin.json',currentMode:'100644',acceptedMode:'100644',currentBlob:'8478c2892885e57109e898736b1f1995344cb70b',acceptedBlob:'05e7a153405ffa5210927c20357d92248023f358'};
+ assert.equal(assertGovernanceSourceRecords([pin]).historicalSourceDifferences.length,1);
+ assert.throws(()=>assertAcceptedAuthSourceRecords([pin]),/Unreviewed Auth/);
+ assert.throws(()=>assertGovernanceSourceRecords([{...pin,acceptedBlob:'ab9d20ad4516a70063f77a9483856d2738f1a51e'}]),/Unreviewed governance/);
+ assert.throws(()=>assertGovernanceSourceRecords([{...pin,path:'packages/shared/src/unrelated.ts'}]),/Unreviewed governance/);
+ assert.throws(()=>assertGovernanceSourceRecords([{...pin,acceptedMode:'120000'}]),/Regular immutable governance/);
+});
 async function dependencyFixture(){
  const root=await mkdtemp(join(tmpdir(),'inactive-help-dependency-copy-')),source=join(root,'current/node_modules'),destination=join(root,'accepted/node_modules');
  await mkdir(join(source,'wrangler/bin'),{recursive:true});await mkdir(join(source,'.bin'));await mkdir(join(root,'accepted'));
@@ -233,6 +254,41 @@ test('byte mismatch identifies exact known worker/build and bounded hashes witho
   });
  }
  await assert.rejects(moduleEvidence(new Response(actual),expected,{worker:'UNREVIEWED_PRIVATE_WORKER',buildLabel:'baseline'}),/Known module comparison context/);
+});
+test('code mismatch attributes byte ranges only to actual local build inputs and never prints provider code',()=>{
+ const expected=Buffer.from('// tools/governance-production/production-pin.json\nconst marker = "PRIVATE_LOCAL_LITERAL_A";\n');
+ Object.defineProperty(expected,'inputEvidence',{value:[{path:'tools/governance-production/production-pin.json'}]});
+ const actual=Buffer.from(expected),position=expected.indexOf('LITERAL_A')+'LITERAL_'.length;actual[position]=66;
+ const result=moduleMismatchAttribution(expected,actual);assert.equal(result.differingByteCount,1);assert.equal(result.changedRangeCount,1);
+ assert.equal(result.ranges[0].start,position);assert.equal(result.ranges[0].localSection.path,'tools/governance-production/production-pin.json');
+ assert.match(result.ranges[0].providerRangeSha256,/^[a-f0-9]{64}$/);assert.equal(JSON.stringify(result).includes('PRIVATE_LOCAL_LITERAL'),false);
+ const noisy=Buffer.alloc(100,65),other=Buffer.from(noisy);for(let i=0;i<other.length;i+=2)other[i]=66;
+ const bounded=moduleMismatchAttribution(noisy,other);assert.equal(bounded.changedRangeCount,50);assert.equal(bounded.ranges.length,16);assert.equal(bounded.rangesTruncated,true);
+ const untrustedHeader=moduleMismatchAttribution(Buffer.from('// PRIVATE_PROVIDER_PATH\nLOCAL_PRIVATE'),Buffer.from('// OTHER_PROVIDER_PATH__\nREMOTE_PRIVATE'));
+ assert.ok(untrustedHeader.ranges.every(range=>range.localSection===null));assert.equal(JSON.stringify(untrustedHeader).includes('PRIVATE_PROVIDER_PATH'),false);
+});
+test('predecessor identity records stable provider UUIDs and allowlisted provenance without authors or code-readiness claims',async()=>{
+ const f=fixture(),api=f.api;
+ const wrapped=async path=>{const response=await api(path);if(path.includes('/versions/')){response.metadata={created_on:'2026-11-15T03:00:12.010824Z',source:'wrangler',author_email:'PRIVATE_AUTHOR'};response.number=4;response.resources.script={last_deployed_from:'PRIVATE_PROVIDER_SOURCE'};}return response;};
+ const identity=await inspectWorkerPredecessor({api:wrapped,service:'governance'});
+ assert.equal(identity.worker,'primecare-governance-api');assert.equal(identity.versionCreatedOn,'2026-11-15T03:00:12.010824Z');assert.equal(identity.versionSource.enum,'wrangler');
+ assert.equal(identity.baselineBytesVerified,false);assert.equal(identity.settingsPreservationVerified,false);assert.equal(identity.deploymentReadiness,false);
+ assert.equal(identity.lastDeployedFrom.enum,'unrecognized');assert.equal(JSON.stringify(identity).includes('PRIVATE_AUTHOR'),false);assert.equal(JSON.stringify(identity).includes('PRIVATE_PROVIDER_SOURCE'),false);
+});
+test('both target predecessor receipts survive the first baseline byte rejection without claiming either baseline passed',async()=>{
+ const f=fixture(),recorded=[];f.states.governance.module=Buffer.from('different actual provider module');
+ await assert.rejects(produceInactiveHelp({...f,mode:'plan',recordPredecessor:async identity=>recorded.push(identity)}),/bytes differ/);
+ assert.deepEqual(recorded.map(identity=>identity.service),['governance','gateway']);assert.ok(recorded.every(identity=>identity.baselineBytesVerified===false&&identity.deploymentReadiness===false));
+ assert.equal(f.events.some(event=>event.startsWith('PUBLISH')),false);
+});
+test('historical governance baseline must match exact provider bytes and its component proof survives a later gateway rejection',async()=>{
+ const f=fixture(),p=GOVERNANCE_PREDECESSOR,retained=[],historical=Buffer.from('exact historical governance module');
+ Object.assign(f.states.governance,{deploymentId:p.deploymentId,versionId:p.versionId,latest:p.versionId,module:historical});f.states.gateway.module=Buffer.from('unexpected gateway baseline');
+ await assert.rejects(produceInactiveHelp({...f,mode:'plan',recordBaselineProof:async proof=>retained.push(proof),baselineModule:async({service,currentModule,predecessor})=>{if(service!=='governance')return {module:currentModule,sourceProof:null};assertGovernancePredecessorIdentity(predecessor);return {module:historical,sourceProof:checkGovernanceHistoricalProducer(governanceProducerFixture())};}}),error=>error.moduleComparison.worker==='primecare-api-gateway');
+ assert.equal(retained.length,1);assert.equal(retained[0].service,'governance');assert.equal(retained[0].exactProviderBytes,true);assert.equal(retained[0].sourceProof.parentJobConclusion,'failure');assert.equal(retained[0].sourceProof.wholePipelineAccepted,false);assert.equal(retained[0].deploymentReadiness,false);
+ f.states.gateway.module=Buffer.from('old-gateway');f.states.governance.module=Buffer.from('different actual governance bytes');
+ await assert.rejects(produceInactiveHelp({...f,mode:'plan',baselineModule:async({service,currentModule,predecessor})=>{if(service!=='governance')return {module:currentModule};assertGovernancePredecessorIdentity(predecessor);return {module:historical,sourceProof:null};}}),error=>error.moduleComparison.worker==='primecare-governance-api');
+ assert.equal(f.events.some(event=>event.startsWith('PUBLISH')),false);
 });
 test('Wrangler graph requires actual positive Help contributions and excludes Help from Auth',()=>{
  const paths=[SCOPE.governance,'packages/shared/src/help-reader/service.ts','packages/shared/src/help-reader/postgres-store.ts','packages/shared/src/help-reader/operational-effects.ts'];
