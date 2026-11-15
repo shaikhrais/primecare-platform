@@ -1,5 +1,5 @@
 /** Narrow inactive Help publication. --plan performs provider GETs only. */
-import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath,symlink} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {resolve,dirname} from 'node:path';
@@ -56,6 +56,42 @@ export function verifyInactiveSourceGit(run){
 }
 const canonical=value=>JSON.stringify(value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])):Array.isArray(value)?value.map(x=>JSON.parse(canonical(x))):value);
 const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+const gitBlob=bytes=>createHash('sha1').update('blob '+bytes.length+'\0').update(bytes).digest('hex');
+const withoutJsonAttributes=path=>path.replace(/ with \{ type: ['"]json['"] \}$/,'');
+export function acceptedAuthArchivePaths(inputs){
+ if(!Array.isArray(inputs)||!inputs.length)throw new ProducerError('Current Auth build input identities required');
+ const paths=new Set(['package.json','package-lock.json']);
+ for(const input of inputs){
+  if(input.virtual===true||input.path?.startsWith('node_modules/'))continue;
+  const path=typeof input.path==='string'?withoutJsonAttributes(input.path):'';
+  if(!/^(cloudflare|packages|tools|scripts)\/[A-Za-z0-9_@./-]+$/.test(path)||path.split('/').some(part=>part==='.'||part==='..'))throw new ProducerError('Tracked Auth archive input path invalid');
+  paths.add(path);
+ }
+ return [...paths].sort();
+}
+/** Esbuild does not list package/TS configuration scopes in its input metafile. */
+export function authCompilerMetadataCandidates(paths){
+ const candidates=new Set(['package.json','tsconfig.json','jsconfig.json']);
+ for(const path of paths){let directory=dirname(path);while(directory!=='.'){
+  for(const file of ['package.json','tsconfig.json','jsconfig.json'])candidates.add(directory+'/'+file);
+  directory=dirname(directory);
+ }}
+ return [...candidates].sort();
+}
+/** Compare historical sources, not a replacement authority or a deployment exemption.
+ * The sole recorded historical difference stays inside the isolated accepted-source archive.
+ */
+export function assertAcceptedAuthSourceRecords(records){
+ if(!Array.isArray(records)||!records.length||new Set(records.map(r=>r.path)).size!==records.length)throw new ProducerError('Unique Auth source identity records required');
+ const changed=[];
+ for(const record of records){
+  if(record.currentMode!=='100644'||record.acceptedMode!=='100644'||!sha.test(record.currentBlob??'')||!sha.test(record.acceptedBlob??''))throw new ProducerError('Regular immutable Auth source files required');
+  if(record.currentBlob===record.acceptedBlob)continue;
+  if(record.path!=='tools/governance-production/production-pin.json'||record.acceptedBlob!=='ab9d20ad4516a70063f77a9483856d2738f1a51e'||record.currentBlob!=='8478c2892885e57109e898736b1f1995344cb70b')throw new ProducerError('Unreviewed Auth transitive source difference');
+  changed.push({...record});
+ }
+ return {comparedSourceFiles:records.length,historicalSourceDifferences:changed};
+}
 const meaningfulSettings=settings=>Object.fromEntries(Object.entries(settings).filter(([key])=>!['etag','created_on','modified_on'].includes(key)));
 function meaningfulSchedules(raw){
  if(!Array.isArray(raw?.schedules)||Object.keys(raw).some(k=>k!=='schedules'))throw new ProducerError('Schedule metadata unsupported');
@@ -124,6 +160,16 @@ export async function moduleEvidence(response,expected,context){
   throw error;
  }
  return {moduleCount:1,moduleBytes:expected.length,moduleSha256:hash(expected),exactBytes:true};
+}
+/** Supplemental bytes must come from the actual accepted release source, never today's pin. */
+export async function verifyAcceptedAuthBytes({api,content,acceptedSource,rebuildAccepted}){
+ if(!sha.test(acceptedSource??''))throw new ProducerError('Immutable accepted Auth source required');
+ const rebuilt=await rebuildAccepted(acceptedSource);
+ const before=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
+ const proof=await moduleEvidence(await content('primecare-auth-api'),rebuilt.module,{worker:'primecare-auth-api',buildLabel:'accepted-auth'});
+ const after=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
+ if(canonical(before)!==canonical(after))throw new ProducerError('Auth changed during byte comparison');
+ return {...before,...proof,acceptedSource,inputs:rebuilt.module.inputEvidence,sourceComparison:rebuilt.sourceComparison};
 }
 export function assertBuildGraph(meta,service,label,{baseDirectory=resolve('.')}={}){
  if(!meta?.inputs||!meta?.outputs)throw new ProducerError('Actual Wrangler build graph required');
@@ -233,7 +279,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
  return {format:1,mode:'deploy',source,producer,receipts,providerWriteInvocations:receipts.length,runtimeActivated:false};
 }
 
-const call=(program,args)=>execFileSync(program,args,{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:32*1024*1024});
+const call=(program,args,options={})=>execFileSync(program,args,{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:32*1024*1024,...options});
 function verifyMain(source){
  if(call('git',['rev-parse','HEAD']).trim()!==source)throw new ProducerError('Checkout source mismatch');
  call('git',['diff','--quiet','HEAD']);
@@ -288,15 +334,15 @@ async function main(){
  };
  call('node',['scripts/generate-cloudflare-worker-config.mjs']);
  const configs=Object.fromEntries(await Promise.all(Object.keys(SCOPE).map(async service=>[service,JSON.parse(await readFile('.cloudflare-workers/'+service+'.jsonc','utf8'))])));
- const build=async(service,config,label)=>{
+ const build=async(service,config,label,{root=resolve('.'),sourceRef='HEAD'}={})=>{
   phase='actual_wrangler_dry_run_and_graph';
-  const file='.cloudflare-workers/'+service+'.jsonc',out=resolve(env.RUNNER_TEMP,'inactive-help-'+service+'-'+label);
-  await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});await writeFile(file,JSON.stringify(config,null,2)+'\n');
-  call('node_modules/.bin/wrangler',['deploy','--dry-run','--config',file,'--outdir',out,'--metafile',out+'/metafile.json']);
+  const file=resolve(root,'.cloudflare-workers',service+'.jsonc'),out=resolve(env.RUNNER_TEMP,'inactive-help-'+service+'-'+label);
+  await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});await mkdir(dirname(file),{recursive:true});await writeFile(file,JSON.stringify(config,null,2)+'\n');
+  call('node_modules/.bin/wrangler',['deploy','--dry-run','--config',file,'--outdir',out,'--metafile',out+'/metafile.json'],{cwd:root});
   const files=(await readdir(out)).filter(name=>name.endsWith('.js'));if(files.length!==1)throw new ProducerError('Single rebuilt module required');
   const meta=JSON.parse(await readFile(out+'/metafile.json','utf8')),baseDirectory=resolve(dirname(file));
   const paths=assertBuildGraph(meta,service,label,{baseDirectory});
-  const inputEvidence=[],physicalInputs=[],cwd=resolve('.'),dependencies=await realpath('node_modules');for(const path of paths){
+  const inputEvidence=[],physicalInputs=[],cwd=root,dependencies=await realpath(resolve(root,'node_modules'));for(const path of paths){
    if(/^node-built-in-modules:[a-z0-9_/-]+$/.test(path)){
     const record=meta.inputs[path];if(!Number.isSafeInteger(record.bytes)||record.bytes<0)throw new ProducerError('Virtual built-in input unavailable');
     inputEvidence.push({path,virtual:true,bytes:record.bytes,imports:record.imports});continue;
@@ -304,7 +350,7 @@ async function main(){
    const attributes=path.match(/ with \{ type: ['"]json['"] \}$/)?.[0]??'';
    const absolute=resolve(baseDirectory,attributes?path.slice(0,-attributes.length):path),actual=await realpath(absolute),dependency=actual.startsWith(dependencies+'/');
    const relative=dependency?'node_modules/'+actual.slice(dependencies.length+1):absolute.slice(cwd.length+1);
-   if(!(await lstat(absolute)).isFile()||!dependency&&(!absolute.startsWith(cwd+'/')||actual!==absolute||!/^100644 blob [a-f0-9]{40}\t/.test(call('git',['ls-tree','HEAD','--',relative]).trim())))throw new ProducerError('Build input outside checked source');
+   if(!(await lstat(absolute)).isFile()||!dependency&&(!absolute.startsWith(cwd+'/')||actual!==absolute||!/^100644 blob [a-f0-9]{40}\t/.test(call('git',['ls-tree',sourceRef,'--',relative]).trim())))throw new ProducerError('Build input outside checked source');
    const sha256=hash(await readFile(absolute));inputEvidence.push({path:relative+attributes,sha256});physicalInputs.push({absolute,actual,sha256});
   }
   const module=await readFile(out+'/'+files[0]);Object.defineProperty(module,'inputEvidence',{value:inputEvidence});
@@ -314,13 +360,39 @@ async function main(){
  const authProof=async()=>{
   phase='unchanged_auth_source_gate_and_exact_provider_bytes';
   call('node',['scripts/verify-auth-live-proof-source.mjs']);
+  const {selectAuthLiveProofPolicy}=await import('./verify-auth-live-proof-source.mjs');
+  const acceptedSource=selectAuthLiveProofPolicy().source;
   const config=JSON.parse(await readFile('.cloudflare-workers/auth.jsonc','utf8'));
-  const module=await build('auth',config,'accepted-auth');
-  const before=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
-  const proof=await moduleEvidence(await content('primecare-auth-api'),module,{worker:'primecare-auth-api',buildLabel:'accepted-auth'});
-  const after=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
-  if(canonical(before)!==canonical(after))throw new ProducerError('Auth changed during byte comparison');
-  return {...before,...proof,inputs:module.inputEvidence};
+  return verifyAcceptedAuthBytes({api,content,acceptedSource,rebuildAccepted:async source=>{
+   const currentModule=await build('auth',config,'current-auth');await currentModule.verifyInputs();
+   const initialPaths=acceptedAuthArchivePaths(currentModule.inputEvidence),metadataCandidates=authCompilerMetadataCandidates(initialPaths);
+   const metadataPaths=ref=>call('git',['ls-tree','-r','--name-only',ref,'--',...metadataCandidates]).trim().split('\n').filter(Boolean);
+   const paths=[...new Set([...initialPaths,...metadataPaths(source),...metadataPaths('HEAD')])].sort(),records=[];
+   const identity=(ref,path)=>{
+    const line=call('git',['ls-tree',ref,'--',path]).trim(),match=line.match(/^(100644) blob ([a-f0-9]{40})\t/);
+    if(!match)throw new ProducerError('Regular tracked accepted Auth source required');return {mode:match[1],blob:match[2]};
+   };
+   for(const path of paths){const current=identity('HEAD',path),accepted=identity(source,path);
+    if(gitBlob(await readFile(path))!==current.blob)throw new ProducerError('Current Auth archive input changed');
+    records.push({path,currentMode:current.mode,currentBlob:current.blob,acceptedMode:accepted.mode,acceptedBlob:accepted.blob});
+   }
+   const sourceComparison={...assertAcceptedAuthSourceRecords(records),currentModule:{moduleBytes:currentModule.length,moduleSha256:hash(currentModule)}};
+   for(const path of paths.filter(path=>/(?:^|\/)(?:tsconfig|jsconfig)\.json$/.test(path)))if(/"extends"\s*:/.test(call('git',['show',source+':'+path])))throw new ProducerError('Accepted compiler metadata inheritance requires explicit archive');
+   const root=resolve(env.RUNNER_TEMP,'inactive-help-accepted-auth-source');await rm(root,{recursive:true,force:true});await mkdir(root,{recursive:true});
+   const archive=call('git',['archive','--format=tar',source,'--',...paths],{encoding:null});
+   const archivePath=resolve(root,'accepted-auth.tar');await writeFile(archivePath,archive);call('tar',['-xf',archivePath,'-C',root]);await rm(archivePath);
+   for(const record of records){const file=resolve(root,record.path);if(!(await lstat(file)).isFile()||await realpath(file)!==file||gitBlob(await readFile(file))!==record.acceptedBlob)throw new ProducerError('Accepted Auth archive file identity differs');}
+   await symlink(await realpath('node_modules'),resolve(root,'node_modules'),'dir');
+   const module=await build('auth',config,'accepted-auth',{root,sourceRef:source});
+   const currentInputs=new Map(currentModule.inputEvidence.map(input=>[input.path,input]));
+   if(module.inputEvidence.length!==currentInputs.size)throw new ProducerError('Accepted Auth build input graph changed');
+   for(const input of module.inputEvidence){const before=currentInputs.get(input.path);if(!before)throw new ProducerError('Accepted Auth build input graph changed');
+    if(withoutJsonAttributes(input.path)==='tools/governance-production/production-pin.json')continue;
+    if(canonical(before)!==canonical(input))throw new ProducerError('Accepted Auth source or dependency input differs');
+   }
+   await module.verifyInputs();
+   return {module,sourceComparison};
+  }});
  };
  const prior=mode==='--deploy'?JSON.parse(await readFile(args[1],'utf8')):undefined;
  const verifyPrior=async plan=>{

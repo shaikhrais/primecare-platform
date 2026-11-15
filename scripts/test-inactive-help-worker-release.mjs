@@ -1,9 +1,38 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+test('accepted Auth archive uses the actual tracked closure plus lockfiles and excludes installed dependencies',()=>{
+ const paths=acceptedAuthArchivePaths([{path:'cloudflare/workers/src/service.ts'},{path:"packages/shared/src/auth-elevation.json with { type: 'json' }"},{path:'packages/shared/src/auth-elevation.json'},{path:'node_modules/pg/lib/index.js'},{path:'node-built-in-modules:events',virtual:true}]);
+ assert.deepEqual(paths,['cloudflare/workers/src/service.ts','package-lock.json','package.json','packages/shared/src/auth-elevation.json']);
+ for(const path of ['../production-pin.json','packages/../production-pin.json','packages/shared/./source.ts','/absolute/source.ts'])assert.throws(()=>acceptedAuthArchivePaths([{path}]),/archive input path invalid/);
+});
+test('accepted Auth archive discovers ancestor package/TS metadata omitted from esbuild input lists',()=>{
+ const candidates=authCompilerMetadataCandidates(['packages/domain/src/theme_center.ts','cloudflare/workers/src/service.ts']);
+ for(const path of ['package.json','packages/domain/package.json','packages/domain/tsconfig.json','packages/domain/src/tsconfig.json','cloudflare/workers/package.json','cloudflare/workers/src/tsconfig.json'])assert.ok(candidates.includes(path));
+ assert.equal(candidates.some(path=>path.includes('node_modules')||path.startsWith('../')),false);assert.equal(new Set(candidates).size,candidates.length);
+});
+test('accepted/current Auth closure records permit only the exact historical pin identities while preserving all other sources',()=>{
+ const ordinary={path:'cloudflare/workers/src/service.ts',currentMode:'100644',acceptedMode:'100644',currentBlob:'a'.repeat(40),acceptedBlob:'a'.repeat(40)};
+ const pin={path:'tools/governance-production/production-pin.json',currentMode:'100644',acceptedMode:'100644',currentBlob:'8478c2892885e57109e898736b1f1995344cb70b',acceptedBlob:'ab9d20ad4516a70063f77a9483856d2738f1a51e'};
+ assert.deepEqual(assertAcceptedAuthSourceRecords([ordinary,pin]),{comparedSourceFiles:2,historicalSourceDifferences:[pin]});
+ assert.throws(()=>assertAcceptedAuthSourceRecords([{...ordinary,currentBlob:'b'.repeat(40)},pin]),/Unreviewed Auth transitive/);
+ assert.throws(()=>assertAcceptedAuthSourceRecords([ordinary,{...pin,currentBlob:'b'.repeat(40)}]),/Unreviewed Auth transitive/);
+ assert.throws(()=>assertAcceptedAuthSourceRecords([{...ordinary,acceptedMode:'120000'}]),/Regular immutable/);
+ assert.throws(()=>assertAcceptedAuthSourceRecords([ordinary,ordinary]),/Unique Auth source/);
+});
+test('supplemental Auth byte proof rebuilds the immutable accepted source and retains before/after provider lineage guards',async()=>{
+ const acceptedSource='15c1be77fde175c2f397b78a893c2bf985db21db',acceptedModule=Buffer.from('ACTUAL ACCEPTED HISTORICAL PIN MODULE');
+ Object.defineProperty(acceptedModule,'inputEvidence',{value:[{path:'tools/governance-production/production-pin.json',sha256:'a'.repeat(64)}]});
+ let reads=0,sourceUsed;
+ const api=async()=>{reads++;return {deployments:[{id:id(1),versions:[{version_id:id(2),percentage:100}]}]};};
+ const input={api,acceptedSource,content:async worker=>{assert.equal(worker,'primecare-auth-api');return new Response(acceptedModule,{headers:{'content-type':'application/javascript'}});},rebuildAccepted:async source=>{sourceUsed=source;return {module:acceptedModule,sourceComparison:{comparedSourceFiles:185}};}};
+ const proof=await verifyAcceptedAuthBytes(input);assert.equal(sourceUsed,acceptedSource);assert.equal(proof.exactBytes,true);assert.equal(proof.acceptedSource,acceptedSource);assert.equal(reads,2);
+ await assert.rejects(verifyAcceptedAuthBytes({...input,content:async()=>new Response('TODAYS DIFFERENT PIN MODULE',{headers:{'content-type':'application/javascript'}})}),/bytes differ/);
+ let n=0;await assert.rejects(verifyAcceptedAuthBytes({...input,api:async()=>({deployments:[{id:id(++n===1?1:9),versions:[{version_id:id(2),percentage:100}]}]})}),/Auth changed during byte comparison/);
+});
 test('release toolchain matches accepted Node24 and locked Wrangler4.86.0 rather than a floating lower manifest range',()=>{
  const accepted={nodeVersion:'24.0.0',wranglerVersion:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'};
  assert.deepEqual(assertReleaseToolchain(accepted),RELEASE_TOOLCHAIN);
