@@ -562,14 +562,14 @@
     {
       "id": 46,
       "path": "tools/governance-production/production-pin.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "8478c2892885e57109e898736b1f1995344cb70b",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete parsed 109-key production authority pin, writer/migration object shapes, exact PostgreSQL authority and PC10 Help, preferences and application opt-in scopes against reviewed consumers. No confirmed safe defect; no live DB checks or hash recomputation performed.",
+      "outcome": "ok"
     },
     {
       "id": 47,
