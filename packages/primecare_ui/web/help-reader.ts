@@ -99,7 +99,7 @@ export class HelpReaderView extends ThemeControlBase {
   if(!this.current(state))return;
   const doc=this.root.ownerDocument,active=doc.activeElement;
   const ownedFocus=!!active&&this.root.contains(active);
-  if(ownedFocus&&active.id){const field=active as HTMLInputElement;this.focus={id:active.id,start:field.selectionStart??null,end:field.selectionEnd??null};}
+  if(ownedFocus&&active.id){const field=active as HTMLElement;const selectable=field instanceof doc.defaultView!.HTMLInputElement || field instanceof doc.defaultView!.HTMLTextAreaElement;this.focus={id:active.id,start:selectable?(field as HTMLInputElement).selectionStart:null,end:selectable?(field as HTMLInputElement).selectionEnd:null};}
   else if(active&&active!==doc.body&&active!==doc.documentElement)this.focus=undefined;
   this.renderAbort.abort();this.renderAbort=new AbortController();
   const previous=this.kit;this.kit=undefined;previous?.dispose();
