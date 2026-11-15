@@ -32,10 +32,10 @@ export function mountTenantReadHost(root:HTMLElement,options:{gateway:string;tok
    // The parent suspends in BFCache. Hold headers and body chunks before the port's scope guard.
    const fetcher:typeof fetch=async(input,init)=>{
     const response=await fetch(input,init);
-    try{if(!await whenActive()||!current())throw Error('scope_changed');}catch(error){await response.body?.cancel().catch(()=>{});throw error;}
+    try{if(!await whenActive()||!current())throw Error('scope_changed');}catch(error){try{void response.body?.cancel().catch(()=>{});}catch{}throw error;}
     if(!response.body)return response;
     const reader=response.body.getReader();
-    const body=new ReadableStream<Uint8Array>({async pull(controller){try{const part=await reader.read();if(!await whenActive()||!current()){await reader.cancel();throw Error('scope_changed');}if(part.done)controller.close();else controller.enqueue(part.value);}catch(error){await reader.cancel().catch(()=>{});controller.error(error);}},cancel:reason=>reader.cancel(reason)});
+    const body=new ReadableStream<Uint8Array>({async pull(controller){try{const part=await reader.read();if(!await whenActive()||!current()){try{void reader.cancel().catch(()=>{});}catch{}throw Error('scope_changed');}if(part.done)controller.close();else controller.enqueue(part.value);}catch(error){try{void reader.cancel().catch(()=>{});}catch{}controller.error(error);}},cancel:reason=>reader.cancel(reason)});
     return new Response(body,{status:response.status,statusText:response.statusText,headers:response.headers});
    };
    port=new ApplicationProfilePort(gateway,token,scope,()=>{if(!current())throw Error('scope_changed');return {token,scope};},application.locales[locale],fetcher);
