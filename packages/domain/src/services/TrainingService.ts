@@ -133,7 +133,14 @@ export class TrainingService {
                 };
             }
 
-            const isExpired = new Date(cert.expiresAt) < new Date();
+            // expiresAt is a required Prisma DateTime. Invalid or missing values
+            // cannot establish validity, and an explicit Expired state wins over
+            // a contradictory future timestamp.
+            if (!(cert.expiresAt instanceof Date) || !Number.isFinite(cert.expiresAt.getTime())) {
+                throw new Error('Certification expiry is invalid.');
+            }
+            const expiredByDate = cert.expiresAt.getTime() <= Date.now();
+            const isExpired = cert.status === 'Expired' || expiredByDate;
 
             return {
                 verified: !isExpired,
@@ -142,7 +149,9 @@ export class TrainingService {
                 staffName: cert.staffName,
                 certName: cert.certName,
                 message: isExpired
-                    ? `Certification found but expired on ${cert.expiresAt.toDateString()}.`
+                    ? expiredByDate
+                        ? `Certification found but expired on ${cert.expiresAt.toDateString()}.`
+                        : 'Certification is marked Expired.'
                     : `Valid certification confirmed for ${cert.staffName}.`
             };
         });
@@ -264,3 +273,4 @@ export class TrainingService {
         });
     }
 }
+

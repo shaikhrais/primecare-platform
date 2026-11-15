@@ -11,7 +11,7 @@ export type HelpReadEffects={
  isCurrent:()=>boolean;
 };
 const table=(name:string)=>`"${pin.schema}"."${pin.tablePrefix}${name}"`;
-const sessionSql=`SELECT u.id,u.roles,u.tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id JOIN public.tenants t ON t.id=u.tenant_id WHERE s.token_hash=$1 AND s.expires_at>CURRENT_TIMESTAMP AND lower(u.status)='active' AND lower(t.status)='active' FOR SHARE OF s,u,t`;
+const sessionSql=`SELECT u.id,u.roles,u.tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id JOIN public.tenants t ON t.id=u.tenant_id WHERE s.token_hash=$1 AND s.expires_at>clock_timestamp() AND lower(u.status)='active' AND lower(t.status)='active' FOR SHARE OF s,u,t`;
 const published=`tenant_id=$1 AND locale=$2 AND publication_state='published' AND published_at<=CURRENT_TIMESTAMP`;
 function article(row:any,detail:boolean){
  const revision=typeof row.revision==='string'&&/^[1-9][0-9]*$/.test(row.revision)?Number(row.revision):row.revision;
@@ -65,9 +65,16 @@ export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown
    response={version:1,locale:request.locale,action:'list',scope:actor,items,offset:request.offset,limit:request.limit,total};returned=items.length;
   }
   current();await auditRead(actor,Object.freeze({action:request.action,locale:request.locale,returned}));current();
-  const result=helpResponse(response,request,actor);await query('COMMIT');begun=false;current();return result;
+  const result=helpResponse(response,request,actor);
+  // PostgreSQL transaction time is frozen. Recheck server-clock expiry after all
+  // awaited effects so an expired bearer cannot commit an audit or return guides.
+  const active=(await query(sessionSql,[tokenHash])).rows;current();
+  if(active.length!==1)throw new HelpReadFailure('unauthenticated',401);
+  if(active[0].id!==actor.userId||active[0].tenant_id!==actor.tenantId||active[0].roles!==actor.role)throw new HelpReadFailure('conflict',409);
+  await query('COMMIT');begun=false;current();return result;
  }catch(error){
   let rollbackFailed=false;if(begun){try{await query('ROLLBACK');}catch{rollbackFailed=true;}}
   if(!rollbackFailed&&error instanceof HelpReadFailure)throw error;throw new HelpReadFailure('unavailable',503);
  }
 }
+

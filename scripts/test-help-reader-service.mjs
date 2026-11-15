@@ -4,6 +4,25 @@ const {readPublishedHelp,HelpReadFailure}=await import('data:text/javascript;bas
 const list={version:1,locale:'en',action:'list',query:'',offset:0,limit:25},read=id=>({version:1,locale:'en',action:'read',articleId:id}),hash='a'.repeat(64);
 async function fixture(run,allowed=true){const f=await helpFixture();try{if(allowed)await f.allow();await run(f);}finally{await f.close();}}
 const failure=code=>e=>e instanceof HelpReadFailure&&e.code===code;
+test('session expiring during quota and audit awaits cannot return guides or commit audit',()=>fixture(async f=>{
+ let expired=false;
+ const effects={...f.effects,
+  consumeQuota:async(actor,key)=>{await f.effects.consumeQuota(actor,key);await f.db.query("UPDATE auth_sessions SET expires_at=clock_timestamp()+interval '50 milliseconds' WHERE token_hash=$1",[hash]);},
+  auditRead:async(actor,event)=>{await f.effects.auditRead(actor,event);await f.db.query('SELECT pg_sleep(0.08)');const rows=(await f.db.query('SELECT expires_at<=clock_timestamp() AS expired,expires_at>CURRENT_TIMESTAMP AS valid_at_begin FROM auth_sessions WHERE token_hash=$1',[hash])).rows;assert.equal(rows[0].valid_at_begin,true);expired=rows[0].expired;assert.equal(expired,true);}
+ };
+ await assert.rejects(readPublishedHelp(f.db,hash,list,effects),failure('unauthenticated'));
+ assert.equal(expired,true);assert.deepEqual(f.events,['quota','audit']);
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),0);
+}));
+test('initial session validity uses current database time instead of transaction start',()=>fixture(async f=>{
+ let checked=false;
+ const db={query:async(sql,...args)=>{
+  if(!checked&&sql.includes('FROM public.auth_sessions')){checked=true;await f.db.query('SELECT pg_sleep(0.02)');await f.db.query("UPDATE auth_sessions SET expires_at=clock_timestamp()-interval '1 millisecond' WHERE token_hash=$1",[hash]);}
+  return f.db.query(sql,...args);
+ }};
+ await assert.rejects(readPublishedHelp(db,hash,list,f.effects),failure('unauthenticated'));
+ assert.equal(checked,true);assert.deepEqual(f.events,[]);
+}));
 test('service retains original quota and audit adapters across the first database await',()=>fixture(async f=>{
  const effects={...f.effects};let changed=false;
  const db={query:async(...args)=>{if(!changed){changed=true;effects.consumeQuota=async()=>{};effects.auditRead=async()=>{};}return f.db.query(...args);}};
@@ -108,3 +127,4 @@ test('HTTP cancellation inside the owner callback prevents authentication and re
  const response=await handleHelpRead(request,{...httpContext(f),authenticate:async()=>{authenticated++;return hash;},effects:{...f.effects,isCurrent:()=>{abort.abort();return true;}}});
  assert.equal(response.status,409);assert.equal(authenticated,0);assert.equal(cancelled,1);assert.deepEqual(f.events,[]);
 }));
+

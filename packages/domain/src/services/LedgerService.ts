@@ -115,12 +115,13 @@ export class LedgerService {
                 const accountMap = new Map<string, any>();
 
                 for (const entry of input.entries) {
-                    // Resolve account by ID first (primary key), fallback to Code within tenant
+                    // Both primary IDs and code fallbacks must belong to this tenant.
                     const account = await tx.chartOfAccount.findFirst({
                         where: {
+                            tenantId: input.tenantId,
                             OR: [
                                 { id: entry.accountId },
-                                { tenantId: input.tenantId, code: entry.accountId }
+                                { code: entry.accountId }
                             ]
                         }
                     });

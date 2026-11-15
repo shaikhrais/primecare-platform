@@ -29,3 +29,43 @@ test('oversized streams and invalid input are rejected without tools or retries'
  const f=fixture(async()=>new Response('x'.repeat(32769)));await assert.rejects(f.reply(),/unavailable/);assert.equal(f.requests.length,1);
  for(const text of ['', 'x'.repeat(1601),'bad\u0000text'])await assert.rejects(f.reply(text));assert.equal(f.requests.length,1);f.model.close();
 });
+test('abort and close settle even when the injected provider ignores its signal, and discard late bodies',async()=>{
+ for(const close of [false,true]){
+  let deliver,cancelled=0;const input=new AbortController();
+  const f=fixture(()=>new Promise(resolve=>{deliver=resolve;}));
+  const pending=f.model.reply({text:'Hello',signal:input.signal});
+  const outcome=pending.then(()=> 'unexpected success',error=>error.message);
+  if(close)f.model.close();else input.abort();
+  const observed=await Promise.race([outcome,new Promise(resolve=>setTimeout(()=>resolve('still pending'),50))]);
+  deliver(new Response(new ReadableStream({cancel(){cancelled++;}})));
+  await outcome;
+  await new Promise(resolve=>setImmediate(resolve));
+  f.model.close();
+  assert.equal(observed,'Message model unavailable');assert.equal(cancelled,1);
+  assert.equal(f.requests.length,1);
+ }
+});
+test('abort settles a stalled response body without waiting for faulty cancellation',async()=>{
+ let cancelled=0;const input=new AbortController();
+ const f=fixture(async()=>new Response(new ReadableStream({cancel(){cancelled++;return new Promise(()=>{});}})));
+ const pending=f.model.reply({text:'Hello',signal:input.signal});
+ const outcome=pending.then(()=> 'unexpected success',error=>error.message);
+ await new Promise(resolve=>setImmediate(resolve));input.abort();
+ const observed=await Promise.race([outcome,new Promise(resolve=>setTimeout(()=>resolve('still pending'),50))]);
+ f.model.close();assert.equal(observed,'Message model unavailable');assert.equal(cancelled,1);assert.equal(f.requests.length,1);
+});
+test('the fixed provider deadline settles an adapter that ignores abort',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ let deliver;const f=fixture(()=>new Promise(resolve=>{deliver=resolve;}));
+ const pending=f.reply(),outcome=pending.then(()=> 'unexpected success',error=>error.message);
+ t.mock.timers.tick(12000);
+ const observed=await Promise.race([outcome,new Promise(resolve=>setImmediate(()=>resolve('still pending')))]);
+ deliver(response());await outcome;f.model.close();t.mock.timers.reset();
+ assert.equal(observed,'Message model unavailable');assert.equal(f.requests.length,1);
+});
+test('synchronous provider failure during abort stays a private handled error',async()=>{
+ const input=new AbortController();
+ const f=fixture(()=>{input.abort();throw Error('PRIVATE');});
+ await assert.rejects(f.model.reply({text:'Hello',signal:input.signal}),/^Error: Message model unavailable$/);
+ f.model.close();
+});
