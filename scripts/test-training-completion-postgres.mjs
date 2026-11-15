@@ -37,11 +37,17 @@ async function prepareClient(connection){
  // the captured URL and rejected every production/governance marker.
  const cliPackage=require.resolve('prisma/package.json'),clientPackage=require.resolve('@prisma/client/package.json');
  for(const path of [cliPackage,clientPackage])if(JSON.parse(await readFile(path,'utf8')).version!=='5.22.0')throw Error('Pinned Prisma and client 5.22.0 are required.');
- const source=await readFile(new URL('packages/database/prisma/schema/06_extensions.prisma',root),'utf8');
- const models=['TrainingModule','TrainingAssignment'].map(name=>{
-  const matches=[...source.matchAll(new RegExp('model '+name+' \\{[\\s\\S]*?\\n\\}','g'))];
-  if(matches.length!==1)throw Error('Actual training model fixture source is ambiguous.');return matches[0][0];
- }).join('\n\n');
+ const models=[];
+ for(const [path,names] of [
+  ['packages/database/prisma/schema/06_extensions.prisma',['TrainingModule','TrainingAssignment']],
+  ['packages/database/prisma/schema/d_training.prisma',['CurriculumNode','CertificationNode']],
+ ]){
+  const source=await readFile(new URL(path,root),'utf8');
+  for(const name of names){
+   const matches=[...source.matchAll(new RegExp('model '+name+' \\{[\\s\\S]*?\\n\\}','g'))];
+   if(matches.length!==1)throw Error('Actual training model fixture source is ambiguous.');models.push(matches[0][0]);
+  }
+ }
  const dir=await mkdtemp(join(tmpdir(),'training-completion-postgres-'));
  try{
   await writeFile(join(dir,'package.json'),JSON.stringify({private:true,dependencies:{prisma:'5.22.0','@prisma/client':'5.22.0'}}));
@@ -49,7 +55,7 @@ async function prepareClient(connection){
   const schema='generator client {\n provider = "prisma-client-js"\n output = "./client"\n}\n'+
    'datasource db {\n provider = "postgresql"\n url = env("TRAINING_TEST_DATABASE_URL")\n}\n'+
    '// Minimal synthetic parent; training models below are copied verbatim from the repository.\n'+
-   'model Tenant {\n id String @id\n trainingModules TrainingModule[]\n}\n'+models+'\n';
+   'model Tenant {\n id String @id\n trainingModules TrainingModule[]\n}\n'+models.join('\n\n')+'\n';
   const schemaPath=join(dir,'schema.prisma');await writeFile(schemaPath,schema);
   const env={TRAINING_TEST_DATABASE_URL:connection,PRISMA_GENERATE_SKIP_AUTOINSTALL:'1'};
   for(const name of ['PATH','HOME','TMPDIR','TEMP','SystemRoot','HTTP_PROXY','HTTPS_PROXY','ALL_PROXY','NO_PROXY','NODE_EXTRA_CA_CERTS','SSL_CERT_FILE','SSL_CERT_DIR'])if(process.env[name]!==undefined)env[name]=process.env[name];
@@ -77,10 +83,19 @@ function nativeTests(){
  });
  after(async()=>{try{if(prisma)await prisma.$disconnect();}finally{if(fixture)await rm(fixture.dir,{recursive:true,force:true});}});
  beforeEach(async()=>{
+  await prisma.certificationNode.deleteMany();await prisma.curriculumNode.deleteMany();
   await prisma.trainingAssignment.deleteMany();await prisma.trainingModule.deleteMany();await prisma.tenant.deleteMany();
   await prisma.tenant.createMany({data:[{id:tenant},{id:otherTenant}]});
   await prisma.trainingModule.createMany({data:[{id:'owned-module',tenantId:tenant,title:'Synthetic owned module'},{id:'foreign-module',tenantId:otherTenant,title:'Synthetic foreign module'}]});
   await prisma.trainingAssignment.createMany({data:[{id:ownId,moduleId:'owned-module',status:'assigned'},{id:foreignId,moduleId:'foreign-module',status:'assigned'}]});
+  await prisma.certificationNode.createMany({data:[
+   {id:'own-cert',tenantId:tenant,staffName:'Synthetic own staff',clinicalRole:'Synthetic role',certName:'Synthetic own certificate',expiresAt:new Date('2099-01-01'),status:'Compliant'},
+   {id:'foreign-cert',tenantId:otherTenant,staffName:'Synthetic foreign staff',clinicalRole:'Synthetic role',certName:'Synthetic foreign certificate',expiresAt:new Date('2099-01-01'),status:'Expired'},
+  ]});
+  await prisma.curriculumNode.createMany({data:[
+   {id:'own-curriculum',tenantId:tenant,programName:'Synthetic own curriculum',department:'Synthetic',status:'Synthetic',completionPct:0},
+   {id:'foreign-curriculum',tenantId:otherTenant,programName:'Synthetic foreign curriculum',department:'Synthetic',status:'Synthetic',completionPct:0},
+  ]});
   queries=[];
  });
  test('native actual Prisma 5.22 completion updates and independently reads only the owning tenant assignment',async()=>{
@@ -119,6 +134,42 @@ function nativeTests(){
    assert.equal(value.isFailure,true);assert.ok(value.error.length>0);assert.throws(()=>value.data);
   }finally{await prisma.$executeRawUnsafe('ALTER TABLE "training_assignments" DROP CONSTRAINT "synthetic_reject_training_completion"');}
   assert.deepEqual(await prisma.trainingAssignment.findMany({orderBy:{id:'asc'}}),before);
+ });
+ test('native Prisma undefined predicates omit tenant scope while the service refuses the same missing context',async()=>{
+  const unscoped=await prisma.trainingModule.findMany({where:{tenantId:undefined}});
+  assert.deepEqual(new Set(unscoped.map(row=>row.tenantId)),new Set([tenant,otherTenant]));
+  const foreignBefore=await prisma.trainingModule.findUnique({where:{id:'foreign-module'}});
+  const baseline=await prisma.trainingModule.update({where:{id:'foreign-module',tenantId:undefined},data:{title:'Synthetic omission baseline'}});
+  assert.equal(baseline.tenantId,otherTenant);assert.equal(baseline.title,'Synthetic omission baseline');
+  await prisma.trainingModule.update({where:{id:'foreign-module'},data:{title:foreignBefore.title}});
+  const beforeDenial=await prisma.trainingModule.findUnique({where:{id:'foreign-module'}});
+  // This baseline is direct Prisma behavior, not a claim of old-service native execution.
+  queries=[];
+  const read=await TrainingService.listModules(prisma,undefined);
+  const write=await TrainingService.updateModule(prisma,undefined,'foreign-module',{title:'Must not be stored'});
+  assert.equal(read.isFailure,true);assert.equal(write.isFailure,true);assert.equal(queries.length,0);
+  assert.deepEqual(await prisma.trainingModule.findUnique({where:{id:'foreign-module'}}),beforeDenial);
+ });
+ test('native Academy entry points reject missing or invalid tenant context before any SQL',async()=>{
+  const operations=[['listModules',[]],['assignModule',[{moduleId:'foreign-module'}]],['getTrainingComplianceSummary',[]],
+   ['verifyCertificate',[{staffName:'Synthetic foreign staff',certName:'Synthetic foreign certificate'}]],['getRecentActivity',[]],
+   ['getCurricula',[]],['getCertifications',[]],['createModule',[{title:'Must not be stored'}]],['updateModule',['foreign-module',{title:'Must not be stored'}]]];
+  for(const invalid of [undefined,null,'','   ',{},[],{not:tenant}])for(const [method,args] of operations){
+   const value=await TrainingService[method](prisma,invalid,...args);assert.equal(value.isFailure,true);assert.equal(queries.length,0);
+  }
+  assert.equal((await prisma.trainingModule.findUnique({where:{id:'foreign-module'}})).title,'Synthetic foreign module');
+  assert.equal(await prisma.trainingModule.count(),2);assert.equal(await prisma.trainingAssignment.count(),2);
+ });
+ test('native valid tenant reads and module operations retain their existing behavior',async()=>{
+  const modules=await TrainingService.listModules(prisma,tenant),certificates=await TrainingService.getCertifications(prisma,tenant),curricula=await TrainingService.getCurricula(prisma,tenant);
+  assert.deepEqual(modules.data.map(row=>row.id),['owned-module']);assert.deepEqual(certificates.data.map(row=>row.id),['own-cert']);assert.deepEqual(curricula.data.map(row=>row.id),['own-curriculum']);
+  const summary=await TrainingService.getTrainingComplianceSummary(prisma,tenant);assert.equal(summary.data.totalActiveAssignments,1);assert.equal(summary.data.complianceStatus,100);
+  const recent=await TrainingService.getRecentActivity(prisma,tenant);assert.deepEqual(recent.data.map(row=>row.id),['own-cert']);
+  const certificate=await TrainingService.verifyCertificate(prisma,tenant,{staffName:'Synthetic own staff',certName:'Synthetic own certificate'});assert.equal(certificate.data.verified,true);
+  const updated=await TrainingService.updateModule(prisma,tenant,'owned-module',{title:'Synthetic updated owned module'});assert.equal(updated.data.title,'Synthetic updated owned module');
+  const created=await TrainingService.createModule(prisma,tenant,{title:'Synthetic created module'});assert.equal(created.data.tenantId,tenant);
+  const assigned=await TrainingService.assignModule(prisma,tenant,{moduleId:'owned-module'});assert.equal(assigned.isSuccess,true);assert.equal(assigned.data.moduleId,'owned-module');
+  assert.equal((await prisma.trainingModule.findUnique({where:{id:'foreign-module'}})).title,'Synthetic foreign module');
  });
 }
 

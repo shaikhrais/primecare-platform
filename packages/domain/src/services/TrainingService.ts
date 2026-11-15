@@ -7,6 +7,12 @@ import { Result } from '../utils/Result';
 const knownCertificationStatus = (status: unknown): boolean =>
     status === 'Compliant' || status === 'Expiring' || status === 'Expired';
 
+const requireTrainingTenant = (tenantId: unknown): void => {
+    if (typeof tenantId !== 'string' || tenantId.trim().length === 0) {
+        throw new Error('Training tenant identifier is required.');
+    }
+};
+
 type TrainingModuleFields = { title?: string; description?: string | null; category?: string | null; videoUrl?: string | null };
 const captureModuleFields = (data: unknown, requireTitle: boolean): TrainingModuleFields => {
     if (!data || typeof data !== 'object' || Array.isArray(data) ||
@@ -41,6 +47,7 @@ export class TrainingService {
      */
     static async listModules(prisma: PrismaClient, tenantId: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             return prisma.trainingModule.findMany({
                 where: { tenantId },
                 orderBy: { title: 'asc' }
@@ -62,6 +69,7 @@ export class TrainingService {
         }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             // Keep the checked module and assignment fields stable across the
             // ownership await, including callers that reuse the input record.
             const { moduleId, staffId, providerId, dueDate } = data;
@@ -114,6 +122,7 @@ export class TrainingService {
      */
     static async getTrainingComplianceSummary(prisma: PrismaClient, tenantId: string): Promise<Result<any>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             const [assignments, certifications] = await Promise.all([
                 prisma.trainingAssignment.findMany({
                     where: { module: { tenantId } },
@@ -168,6 +177,7 @@ export class TrainingService {
         data: { staffName: string; certName: string }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             const cert = await prisma.certificationNode.findFirst({
                 where: {
                     tenantId,
@@ -215,6 +225,7 @@ export class TrainingService {
      */
     static async getRecentActivity(prisma: PrismaClient, tenantId: string, limit: number = 10): Promise<Result<any[]>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             const [assignments, certifications] = await Promise.all([
                 prisma.trainingAssignment.findMany({
                     where: {
@@ -262,6 +273,7 @@ export class TrainingService {
      */
     static async getCurricula(prisma: PrismaClient, tenantId: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             return prisma.curriculumNode.findMany({
                 where: { tenantId },
                 orderBy: { programName: 'asc' }
@@ -274,6 +286,7 @@ export class TrainingService {
      */
     static async getCertifications(prisma: PrismaClient, tenantId: string): Promise<Result<any[]>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             return prisma.certificationNode.findMany({
                 where: { tenantId },
                 orderBy: { expiresAt: 'asc' }
@@ -291,6 +304,7 @@ export class TrainingService {
         data: { title: string; description?: string; category?: string; videoUrl?: string }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             const fields = captureModuleFields(data, true);
             return prisma.trainingModule.create({
                 data: {
@@ -312,6 +326,7 @@ export class TrainingService {
         data: { title?: string; description?: string; category?: string; videoUrl?: string }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            requireTrainingTenant(tenantId);
             // Capture only declared scalar fields before the ownership lookup.
             // Later caller mutation cannot introduce nested Prisma writes.
             const fields = captureModuleFields(data, false);
