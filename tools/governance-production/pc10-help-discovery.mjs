@@ -6,6 +6,12 @@ import pg from 'pg';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url)));
 const quote=s=>'"'+s.replaceAll('"','""')+'"';
 const table=name=>quote(pin.schema)+'.'+quote(pin.tablePrefix+name);
+// Finite source-reviewed count exception, not permission to read OTP records.
+// grant_id is a generated call/session UUID, not an API permission foreign key.
+const reviewedOutsideColumns=Object.freeze([{schema:'public',table:'communication_voice_otp',column:'grant_id',dataType:'text',requiredApplyLock:'SHARE',evidence:[
+ {path:'cloudflare/workers/src/business-tasks/voice-otp.ts',sha256:'7e0488c911bbdd603682efbee96404a1adf3d54a690879206cf06bba4080ec3e'},
+ {path:'packages/database/migrations/20261023_communication_voice_otp.sql',sha256:'be23c218580c5727064cd971d66e288c2ed5b0500eef523a851b9c71d9e86a6c'},
+]}]);
 export async function discoverHelp(db){
  let phase='begin';
  const query=async(sql,args=[])=>{phase=sql.includes('information_schema.columns')?'columns':sql.includes('pg_constraint')?'constraints':sql.includes('pg_indexes')?'indexes':sql.match(/govt_([a-z_]+)/)?.[1]??'transaction';return db.query(sql,args);};
@@ -101,6 +107,16 @@ export async function discoverHelp(db){
   const logicalReferences=[];
   for(const column of logicalReferenceColumns){
    if(column.table_schema!==pin.schema||!/^govt_[a-z0-9_]+$/.test(column.table_name)){
+    const reviewed=reviewedOutsideColumns.find(v=>v.schema===column.table_schema&&v.table===column.table_name&&v.column===column.column_name);
+    if(reviewed){
+     if(!rawRowsSupported||column.data_type!==reviewed.dataType)throw Error('Reviewed outside reference shape differs');
+     for(const evidence of reviewed.evidence){const content=await readFile(new URL('../../'+evidence.path,import.meta.url));if(createHash('sha256').update(content).digest('hex')!==evidence.sha256)throw Error('Reviewed outside reference source differs');}
+     const security=await bounded('SELECT r.relkind,r.relrowsecurity,r.relforcerowsecurity FROM pg_class r JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=$2',[reviewed.schema,reviewed.table]);
+     if(security.length!==1||security[0].relkind!=='r'||security[0].relrowsecurity!==false||security[0].relforcerowsecurity!==false)throw Error('Reviewed outside reference visibility differs');
+     const rows=await bounded('SELECT COUNT(*)::text AS matching_rows FROM '+quote(reviewed.schema)+'.'+quote(reviewed.table)+' WHERE '+quote(reviewed.column)+'=ANY($1::text[])',[[...new Set([...sourceIds,...sourceOrdinals])]]);
+     if(rows.length!==1||typeof rows[0].matching_rows!=='string'||!/^\d+$/.test(rows[0].matching_rows))throw Error('Invalid reviewed outside reference count');
+     logicalReferences.push({...column,outOfMetadataScope:true,reviewedCountOnly:true,matchCountRead:true,matching_rows:rows[0].matching_rows,retirementBlocked:rows[0].matching_rows!=='0',businessRowPayloadsRead:0,matches:[],authorityInferred:false});continue;
+    }
     logicalReferences.push({...column,outOfMetadataScope:true,matchCountRead:false,matches:[],authorityInferred:false});continue;
    }
    const targets=column.column_name==='permission_key'?[legacyKey]:[...new Set([...sourceIds,...sourceOrdinals])];
@@ -121,7 +137,7 @@ export async function discoverHelp(db){
     manifestDeclaredReferences.supported=true;manifestDeclaredReferences.unsupportedReason=null;manifestDeclaredReferences.objects=objects;
    }
   }
-  const legacyRetirementDiscovery={archiveTable:quote(pin.schema)+'.'+quote(archiveName),sourceAndArchiveShape,triggers,relationSecurity,rules,rowSecurityPolicies,manifestDeclaredReferences,rawRowsSupported,expectedRows:64,sourceRows:sourceRows.map(r=>({...r,sha256:sha256(r.original_row_text)})),sourceRowsSha256:rawRowsSupported?sha256(JSON.stringify(sourceRows.map(r=>r.original_row_text))):null,hashEncoding:'sha256 UTF-8 JSON.stringify(original_row_text strings ordered by numeric source ordinal)',incomingForeignKeys,logicalReferenceNames,logicalReferenceColumns,logicalReferences,archiveContentsRead:false,archiveContentsReason:'Shape only; existing archive contents require the exact reviewed retirement writer',writes:0,businessRowsRead:0,authorityInferred:false};
+  const legacyRetirementDiscovery={archiveTable:quote(pin.schema)+'.'+quote(archiveName),sourceAndArchiveShape,triggers,relationSecurity,rules,rowSecurityPolicies,manifestDeclaredReferences,rawRowsSupported,expectedRows:64,sourceRows:sourceRows.map(r=>({...r,sha256:sha256(r.original_row_text)})),sourceRowsSha256:rawRowsSupported?sha256(JSON.stringify(sourceRows.map(r=>r.original_row_text))):null,hashEncoding:'sha256 UTF-8 JSON.stringify(original_row_text strings ordered by numeric source ordinal)',incomingForeignKeys,logicalReferenceNames,logicalReferenceColumns,logicalReferences,reviewedOutsideColumns,archiveContentsRead:false,archiveContentsReason:'Shape only; existing archive contents require the exact reviewed retirement writer',writes:0,businessRowsRead:0,businessRowPayloadsRead:0,outsideReferenceCountQueries:logicalReferences.filter(v=>v.reviewedCountOnly).length,authorityInferred:false};
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.

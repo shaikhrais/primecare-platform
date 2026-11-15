@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile,mkdtemp,mkdir,writeFile,symlink,realpath,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join,dirname} from 'node:path';import {pathToFileURL} from 'node:url';
 import {createHash} from 'node:crypto';
 import {PGlite} from '@electric-sql/pglite';import {discoverHelp} from '../tools/governance-production/pc10-help-discovery.mjs';
 const pin=JSON.parse(await readFile(new URL('../tools/governance-production/production-pin.json',import.meta.url)));
@@ -148,5 +148,48 @@ test('declared permission source-object overflow fails closed without executing 
   await db.query('UPDATE '+t('source_manifest')+' SET manifest=$1::jsonb',[JSON.stringify({format:'primecare-governance-snapshot-v1',sqlite_objects:Array.from({length:301},(_,i)=>['view','ref_'+i,'ref_'+i,'CREATE VIEW ref_'+i+' AS SELECT id FROM api_permissions'])})]);
   await assert.rejects(discoverHelp(db),/Metadata bound exceeded/);await db.exec('CREATE TABLE after_declared_reference_bound(id int)');
  }finally{await db.close();}
+});
+test('the one reviewed public OTP column exposes only a bounded reference count and preserves every private field',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE public.communication_voice_otp(grant_id text,phone text,token text);INSERT INTO public.communication_voice_otp VALUES(\'123e4567-e89b-12d3-a456-426614174000\',\'PRIVATE-PHONE\',\'PRIVATE-TOKEN\')');
+  const before=(await db.query('SELECT * FROM public.communication_voice_otp')).rows,queries=[];
+  const receipt=await discoverHelp({query:(sql,args)=>{queries.push(sql);return db.query(sql,args);}}),r=receipt.legacyRetirementDiscovery;
+  const otp=r.logicalReferences.find(x=>x.table_schema==='public'&&x.table_name==='communication_voice_otp');
+  assert.equal(otp.reviewedCountOnly,true);assert.equal(otp.matchCountRead,true);assert.equal(otp.matching_rows,'0');assert.equal(otp.retirementBlocked,false);assert.deepEqual(otp.matches,[]);assert.equal(otp.businessRowPayloadsRead,0);
+  assert.equal(r.reviewedOutsideColumns.length,1);assert.equal(r.reviewedOutsideColumns[0].requiredApplyLock,'SHARE');assert.equal(r.reviewedOutsideColumns[0].evidence.length,2);assert.equal(r.outsideReferenceCountQueries,1);
+  assert.deepEqual(queries.filter(sql=>sql.includes('"public"."communication_voice_otp"')),['SELECT COUNT(*)::text AS matching_rows FROM "public"."communication_voice_otp" WHERE "grant_id"=ANY($1::text[])']);
+  assert.doesNotMatch(JSON.stringify(receipt),/PRIVATE-PHONE|PRIVATE-TOKEN|123e4567-e89b-12d3-a456-426614174000/);assert.deepEqual((await db.query('SELECT * FROM public.communication_voice_otp')).rows,before);
+ }finally{await db.close();}
+});
+test('any exact API grant ID or source ordinal match in the reviewed OTP column blocks retirement without exposing rows',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE public.communication_voice_otp(grant_id text,private_note text);INSERT INTO public.communication_voice_otp VALUES(\'9007199254740993\',\'PRIVATE-ONE\'),(\'1\',\'PRIVATE-TWO\'),(\'90071992547409930\',\'PRIVATE-UNRELATED\')');
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery,otp=r.logicalReferences.find(x=>x.table_schema==='public'&&x.table_name==='communication_voice_otp');
+  assert.equal(otp.matching_rows,'2');assert.equal(otp.retirementBlocked,true);assert.deepEqual(otp.matches,[]);assert.doesNotMatch(JSON.stringify(r),/PRIVATE-/);
+  assert.equal((await db.query('SELECT COUNT(*)::int n FROM public.communication_voice_otp')).rows[0].n,3);
+ }finally{await db.close();}
+});
+test('reviewed OTP count rejects datatype drift rather than querying business values under another interpretation',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE public.communication_voice_otp(grant_id bigint)');let counted=0;
+  await assert.rejects(discoverHelp({query:(sql,args)=>{if(sql.includes('"public"."communication_voice_otp"'))counted++;return db.query(sql,args);}}),/Reviewed outside reference shape differs/);assert.equal(counted,0);
+ }finally{await db.close();}
+});
+test('reviewed OTP count rejects RLS visibility instead of accepting a potentially hidden zero',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE public.communication_voice_otp(grant_id text);ALTER TABLE public.communication_voice_otp ENABLE ROW LEVEL SECURITY');let counted=0;
+  await assert.rejects(discoverHelp({query:(sql,args)=>{if(sql.includes('"public"."communication_voice_otp"'))counted++;return db.query(sql,args);}}),/Reviewed outside reference visibility differs/);assert.equal(counted,0);
+ }finally{await db.close();}
+});
+test('an altered OTP source evidence file cannot authorize even the count-only exception',async()=>{
+ const db=await retirementFixture(),dir=await mkdtemp(join(tmpdir(),'help-otp-reference-pin-'));try{
+  await db.exec('CREATE TABLE public.communication_voice_otp(grant_id text)');
+  for(const file of ['tools/governance-production/pc10-help-discovery.mjs','tools/governance-production/production-pin.json','cloudflare/workers/src/business-tasks/voice-otp.ts','packages/database/migrations/20261023_communication_voice_otp.sql']){
+   await mkdir(dirname(join(dir,file)),{recursive:true});let content=await readFile(new URL('../'+file,import.meta.url));if(file.endsWith('voice-otp.ts'))content=Buffer.concat([content,Buffer.from('\n// altered source\n')]);await writeFile(join(dir,file),content);
+  }
+  await symlink(await realpath(new URL('../node_modules',import.meta.url)),join(dir,'node_modules'),'dir');
+  const module=await import(pathToFileURL(join(dir,'tools/governance-production/pc10-help-discovery.mjs')).href);let counted=0;
+  await assert.rejects(module.discoverHelp({query:(sql,args)=>{if(sql.includes('"public"."communication_voice_otp"'))counted++;return db.query(sql,args);}}),/Reviewed outside reference source differs/);assert.equal(counted,0);
+ }finally{await db.close();await rm(dir,{recursive:true,force:true});}
 });
 
