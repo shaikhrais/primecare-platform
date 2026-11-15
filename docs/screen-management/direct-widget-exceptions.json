@@ -520,11 +520,6 @@
     "base": "ConsumerWidget"
   },
   {
-    "file": "apps/primecare_clinic/lib/features/generated_screens/psw_help_support_screen.dart",
-    "class": "PswHelpSupportScreen",
-    "base": "ConsumerWidget"
-  },
-  {
     "file": "apps/primecare_clinic/lib/features/generated_screens/psw_notifications_screen.dart",
     "class": "PswNotificationsScreen",
     "base": "ConsumerWidget"
@@ -582,11 +577,6 @@
   {
     "file": "apps/primecare_clinic/lib/features/psw/screens/psw_daily_notes/psw_daily_notes_screen.dart",
     "class": "PswDailyNotesScreen",
-    "base": "StatelessWidget"
-  },
-  {
-    "file": "apps/primecare_clinic/lib/features/psw/screens/psw_help_support/psw_help_support_screen.dart",
-    "class": "PswHelpSupportScreen",
     "base": "StatelessWidget"
   },
   {
