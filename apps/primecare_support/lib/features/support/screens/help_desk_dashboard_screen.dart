@@ -46,11 +46,8 @@ class HelpDeskDashboardScreenController extends BaseWorkspaceController<HelpDesk
           HelpDeskDashboardScreenState(
             isLoading: false,
             title: 'Help Desk Dashboard'.tr(),
-            logs: const [
-              'Workspace initialized.',
-              'Security clearance sync complete.',
-            ],
-            hasData: true,
+            logs: const [],
+            hasData: false,
           ),
         ) {
     _init();
