@@ -67,6 +67,8 @@ export async function handleHelpRead(request:Request,context:HelpHttpContext):Pr
  }finally{
   // Start releasing rejected uploads, but an untrusted source's cancellation
   // promise must not hold the safe denial response open indefinitely.
-  if(!body&&request.body&&!request.body.locked)void request.body.cancel().catch(()=>{});
+  if(!body&&request.body&&!request.body.locked){
+   try{void request.body.cancel().catch(()=>{});}catch{/* Best-effort cleanup must not replace a safe denial. */}
+  }
  }
 }
