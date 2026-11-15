@@ -12,6 +12,7 @@ on:
       - 'cloudflare/workers/src/session-token.ts'
       - 'scripts/test-help-reader-service.mjs'
       - 'scripts/test-help-reader-client-cancellation.mjs'
+      - 'scripts/test-help-reader-session.mjs'
       - 'scripts/test-help-operational-effects.mjs'
       - 'scripts/test-help-storage-proposal.mjs'
       - 'scripts/test-help-postgres-store.mjs'
@@ -48,6 +49,8 @@ jobs:
           ln -s /tmp/help-reader-tools/node_modules node_modules
       - name: Help client denial cancellation regression
         run: node --test scripts/test-help-reader-client-cancellation.mjs
+      - name: Help reader state ownership and public failure projection
+        run: node --test scripts/test-help-reader-session.mjs
       - name: Reject remote and mutable native fixture targets
         run: node --test scripts/test-help-fixture-isolation.mjs
       - name: PGlite inactive Help Worker composition
@@ -67,7 +70,7 @@ jobs:
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: Strict shared service types
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts packages/shared/src/help-reader/postgres-store.ts
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/session.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts packages/shared/src/help-reader/postgres-store.ts
       - name: PostgreSQL 16 real adapter, autocommit and policy locking
         run: node --test scripts/test-help-postgres-store.mjs
         env:

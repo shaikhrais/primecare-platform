@@ -92,7 +92,10 @@ class HelpReaderController extends ChangeNotifier {
 
   Future<void> _request(String locale, String query, int offset, {String? articleId}) async {
     if (_disposed || _retired) return;
-    if (!_matchesSession()) { retire(); return; }
+    final beforeSessionCheck = _generation;
+    final initialSessionMatches = _matchesSession();
+    if (!_current(beforeSessionCheck)) return;
+    if (!initialSessionMatches) { retire(); return; }
     final previous = _state;
     final generation = ++_generation;
     // All private results are removed before notifying a new request's listeners.
@@ -110,7 +113,9 @@ class HelpReaderController extends ChangeNotifier {
         ? await _reader.list(locale: locale, query: query, offset: offset, limit: previous.limit)
         : await _reader.readArticle(locale: locale, articleId: articleId);
       if (!_current(generation)) return;
-      if (!_matchesSession()) { retire(); return; }
+      final sessionMatches = _matchesSession();
+      if (!_current(generation)) return;
+      if (!sessionMatches) { retire(); return; }
       if (articleId != null) {
         _set(HelpReaderState(locale: locale, query: query, offset: offset, limit: previous.limit,
           article: raw['article'] as Map<String, Object?>, phase: 'detail'));
@@ -122,8 +127,11 @@ class HelpReaderController extends ChangeNotifier {
       }
     } catch (error) {
       if (!_current(generation)) return;
-      if (!_matchesSession()) { retire(); return; }
+      final sessionMatches = _matchesSession();
+      if (!_current(generation)) return;
+      if (!sessionMatches) { retire(); return; }
       final failure = HelpReaderFailure.sanitize(error);
+      if (!_current(generation)) return;
       if (failure.status == 401 || failure.status == 403 || failure.status == 409) {
         retire(failure: failure);
         return;
@@ -140,16 +148,21 @@ class HelpReaderController extends ChangeNotifier {
 
   /// Called by the host's existing session observer; never polls credentials.
   void sessionChanged() {
-    if (!_disposed && !_retired && !_matchesSession()) retire();
+    if (_disposed || _retired) return;
+    final generation = _generation;
+    final matches = _matchesSession();
+    if (_current(generation) && !matches) retire();
   }
   void retire({HelpReaderFailure failure = const HelpReaderFailure('conflict', 409)}) {
     if (_disposed || _retired) return;
     _retired = true;
-    _generation++;
+    final generation = ++_generation;
     _retryArticle = null;
     _retryList = false;
+    final safeFailure = HelpReaderFailure.sanitize(failure);
+    if (_disposed || generation != _generation) return;
     final retired = HelpReaderState(locale: _state.locale, limit: _state.limit,
-      failure: HelpReaderFailure.sanitize(failure), phase: 'retired');
+      failure: safeFailure, phase: 'retired');
     _state = retired;
     _reader.cancelPending();
     _set(retired);

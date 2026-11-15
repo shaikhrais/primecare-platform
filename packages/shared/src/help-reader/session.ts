@@ -9,7 +9,16 @@ export type HelpReaderState = Readonly<{
  items:readonly Summary[];article:Article|null;error:HelpReadFailure|null;
 }>;
 const statuses={invalid_request:400,unauthenticated:401,forbidden:403,not_found:404,conflict:409,rate_limited:429,unavailable:503};
-const safeFailure=(error:unknown)=>error instanceof HelpReadFailure&&statuses[error.code]===error.status?error:new HelpReadFailure('unavailable',503);
+const safeFailure=(error:unknown):HelpReadFailure=>{
+ // Transport errors may carry credentials/content or mutable accessor properties.
+ // Publish a fresh immutable approved pair, never the producer's Error instance.
+ try{if(error instanceof HelpReadFailure){
+  const code=Object.getOwnPropertyDescriptor(error,'code')?.value as HelpReadFailure['code'];
+  const status=Object.getOwnPropertyDescriptor(error,'status')?.value;
+  if(typeof code==='string'&&Object.hasOwn(statuses,code)&&statuses[code]===status)return Object.freeze(new HelpReadFailure(code,status));
+ }}catch{/* An uninspectable producer failure is unavailable. */}
+ return Object.freeze(new HelpReadFailure('unavailable',503));
+};
 const blank=(locale:HelpRequest['locale'],limit:number):HelpReaderState=>Object.freeze({phase:'idle',locale,query:'',offset:0,limit,total:0,items:Object.freeze([]),article:null,error:null});
 
 /** Unmounted reader state. A registered host supplies captured session callbacks,
@@ -39,6 +48,7 @@ export function createHelpReaderSession(options:Parameters<typeof createHelpRead
   }
  };
  const replaceAndAbort=(next:HelpReaderState,previous?:AbortController)=>{
+  if(disposed){previous?.abort();return;}
   state=Object.freeze(next);
   previous?.abort();
   if(!disposed&&state===next)publish(next);
@@ -52,13 +62,19 @@ export function createHelpReaderSession(options:Parameters<typeof createHelpRead
  };
  const issue=async(raw:unknown):Promise<void>=>{
   if(disposed||retired)return;
-  if(!current()){retire();return;}
+  const started=generation,active=current();
+  if(disposed||retired||started!==generation)return;
+  if(!active){retire();return;}
   let request:HelpRequest;
   try{request=helpRequest(raw);}catch(error){
+   if(disposed||retired||started!==generation)return;
+   const failure=safeFailure(error);
+   if(disposed||retired||started!==generation)return;
    generation++;lastRequest=undefined;const previous=pending;pending=undefined;
-   replaceAndAbort({...blank(state.locale,limit),query:listRequest.query,offset:listRequest.offset,phase:'error',error:safeFailure(error)},previous);
+   replaceAndAbort({...blank(state.locale,limit),query:listRequest.query,offset:listRequest.offset,phase:'error',error:failure},previous);
    return;
   }
+  if(disposed||retired||started!==generation)return;
   const n=++generation,previous=pending;
   const controller=new AbortController();pending=controller;lastRequest=undefined;
   if(request.action==='list')listRequest=request;
@@ -74,15 +90,20 @@ export function createHelpReaderSession(options:Parameters<typeof createHelpRead
    // The outer lifetime must settle even if a transport's body cleanup does not.
    const reply=await Promise.race([reader.read(request,controller.signal),cancellation]);
    if(disposed||retired||n!==generation)return;
-   if(!current()){retire();return;}
+   const active=current();
+   if(disposed||retired||n!==generation)return;
+   if(!active){retire();return;}
    if(reply.action==='list')publish({...blank(reply.locale,limit),query:listRequest.query,
     offset:reply.offset,total:reply.total,items:reply.items,phase:reply.items.length?'list':'empty'});
    else publish({...blank(reply.locale,limit),query:listRequest.query,offset:listRequest.offset,
     article:reply.article,phase:'detail'});
   }catch(error){
    if(disposed||retired||n!==generation)return;
-   if(!current()){retire();return;}
+   const active=current();
+   if(disposed||retired||n!==generation)return;
+   if(!active){retire();return;}
    const failure=safeFailure(error);
+   if(disposed||retired||n!==generation)return;
    if([401,403,409].includes(failure.status)){retire(failure);return;}
    lastRequest=failure.status===400?undefined:request;
    publish({...blank(request.locale,limit),query:listRequest.query,offset:listRequest.offset,phase:'error',error:failure});
@@ -108,7 +129,7 @@ export function createHelpReaderSession(options:Parameters<typeof createHelpRead
   openArticle(articleId:string){return issue({version:1,action:'read',locale:state.locale,articleId});},
   backToList(){return issue(listRequest);},
   retry(){return lastRequest&&state.phase==='error'?issue(lastRequest):Promise.resolve();},
-  sessionChanged(){if(!disposed&&!retired&&!current())retire();},
+  sessionChanged(){if(disposed||retired)return;const observed=generation,active=current();if(!disposed&&!retired&&observed===generation&&!active)retire();},
   retire,
   dispose(){
    if(disposed)return;

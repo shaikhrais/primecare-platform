@@ -144,12 +144,17 @@ const inert=value=>value===undefined||value===null||value===false||Array.isArray
  * Refuse meaningful values rather than guessing that Wrangler will retain them. */
 const settingType=value=>value===null?'null':Array.isArray(value)?'array':typeof value;
 const usageObservation=(has,value)=>({enum:!has?'absent':['standard','bundled','unbound'].includes(value)?value:'unrecognized',type:!has?'absent':settingType(value)});
+function readOnlyUploadAnnotation(value){
+ if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).length!==1)return false;
+ const field=Object.getOwnPropertyDescriptor(value,'workers/triggered_by');
+ return field?.enumerable===true&&field.value==='version_upload';
+}
 function annotationProjection(value){
  const fields=[];let truncated=false;
  function visit(current,path,depth){
   if(fields.length>=256){truncated=true;return;}
   const field={path,type:settingType(current),valueSha256:hash(canonical(current)??'undefined'),emptyObject:!!current&&typeof current==='object'&&!Array.isArray(current)&&Object.keys(current).length===0,emptyArray:Array.isArray(current)&&current.length===0};
-  if(path==='annotations.workers/triggered_by'&&['upload','secret','rollback','promotion'].includes(current))field.operation=current;
+  if(path==='annotations.workers/triggered_by'&&['upload','secret','rollback','promotion','version_upload'].includes(current))field.operation=current;
   fields.push(field);
   if(current&&typeof current==='object'){
    if(depth>=6){if(Object.keys(current).length)truncated=true;return;}
@@ -168,6 +173,9 @@ export function assertSupportedSettings(settings,{version}={}){
  for(const [key,value] of Object.entries(settings)){
   if(known.has(key))continue;
   if(key==='tags'&&Array.isArray(value)&&value.length===0)continue;
+  // Actual one-key object observed in run 43685442567. The API marks this field read-only/server-set.
+  // https://developers.cloudflare.com/api/resources/workers/subresources/scripts/subresources/script_and_version_settings/methods/get/
+  if(key==='annotations'&&readOnlyUploadAnnotation(value))continue;
   // Cloudflare removed this Wrangler option in v4. Observe standard only; never add it to config.
   // https://developers.cloudflare.com/workers/wrangler/migration/update-v3-to-v4/
   if(key==='usage_model'&&value==='standard')continue;
@@ -266,7 +274,7 @@ export async function captureWorker({api,content,service,config,expectedModule,b
 }
 function publicSnapshot(snapshot){
  return {worker:snapshot.worker,deploymentId:snapshot.deploymentId,versionId:snapshot.versionId,
-  predecessorDeploymentId:snapshot.predecessorDeploymentId,module:snapshot.module,usageModel:snapshot.usageModel,
+  predecessorDeploymentId:snapshot.predecessorDeploymentId,module:snapshot.module,usageModel:snapshot.usageModel,serverOperation:readOnlyUploadAnnotation(snapshot.settings.annotations)?'version_upload':null,
   settingsSha256:hash(canonical(meaningfulSettings(snapshot.settings))),schedulesSha256:hash(canonical(meaningfulSchedules(snapshot.schedules))),
   subdomainSha256:hash(canonical(snapshot.subdomain)),routesSha256:hash(canonical(snapshot.routes)),
   secretBindingIdentities:snapshot.settings.bindings.filter(b=>['secret_text','secret_key'].includes(b.type)).map(b=>({name:b.name,type:b.type})).sort((a,b)=>a.name.localeCompare(b.name))};
@@ -310,7 +318,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
    if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Previously released Worker changed before next publication');
   }
   if(newModule.inputEvidence){if(typeof newModule.verifyInputs!=='function')throw new ProducerError('Prepared input verification unavailable');await newModule.verifyInputs();}
-  const attempt={format:1,source,producer,service,worker:scoped(service),reportedVersionId:null,previousDeploymentId:fresh.deploymentId,publicationInvocationIntent:true,independentlyVerified:false};
+  const attempt={format:1,source,producer,service,worker:scoped(service),reportedVersionId:null,previousDeploymentId:fresh.deploymentId,previousServerOperation:readOnlyUploadAnnotation(fresh.settings.annotations)?'version_upload':null,publicationInvocationIntent:true,independentlyVerified:false};
   // Persist intent before Wrangler: an invocation may upload and then fail without a parseable ID.
   await recordAttempt(attempt);
   // Last operation before the sole provider-writing invocation. This hook fetches remote main.
@@ -321,12 +329,15 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
   for(let n=0;n<4;n++){
    try{after=await captureWorker({api,content,service,config:candidate,expectedModule:newModule,buildLabel:'inactive'});
     if(after.versionId!==versionId||after.deploymentId===fresh.deploymentId||after.predecessorDeploymentId!==fresh.deploymentId)throw new ProducerError('Exact upload and predecessor lineage required');lastError=null;break;
-   }catch(error){lastError=error;if(n<3)await wait();}
+   }catch(error){
+    if(error instanceof ProducerError&&error.annotationProjection){const observed=error.annotationProjection.fields.find(field=>field.path==='annotations.workers/triggered_by'),operation=observed?.operation??(observed?'unrecognized':null);if(operation!==attempt.previousServerOperation)error.serverOperationTransition={before:attempt.previousServerOperation,after:observed?{operation,valueSha256:observed.valueSha256}:null,permitted:false};}
+    lastError=error;if(n<3)await wait();
+   }
   }
   if(lastError)throw lastError;
   released[service]=after;
   assertWorkerSecretBindingsPreserved(fresh.settings,after.settings);
-  if(canonical(meaningfulSettings(fresh.settings))!==canonical(meaningfulSettings(after.settings)))throw new ProducerError('Worker preservation changed: settings');
+  if(canonical(meaningfulSettings(fresh.settings))!==canonical(meaningfulSettings(after.settings))){const error=new ProducerError('Worker preservation changed: settings');const operation=readOnlyUploadAnnotation(after.settings.annotations)?'version_upload':null;if(operation!==attempt.previousServerOperation)error.serverOperationTransition={before:attempt.previousServerOperation,after:operation,permitted:false};throw error;}
   if(canonical(meaningfulSchedules(fresh.schedules))!==canonical(meaningfulSchedules(after.schedules)))throw new ProducerError('Worker preservation changed: schedules');
   for(const key of ['subdomain','routes'])if(canonical(fresh[key])!==canonical(after[key]))throw new ProducerError('Worker preservation changed: '+key);
   receipts.push({format:1,source,producer,service,worker:after.worker,before:publicSnapshot(fresh),after:publicSnapshot(after),versionId,
@@ -480,7 +491,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{}),...(error instanceof ProducerError&&error.serverOperationTransition?{serverOperationTransition:error.serverOperationTransition}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}

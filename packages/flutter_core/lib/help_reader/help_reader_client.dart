@@ -11,8 +11,13 @@ class HelpReaderFailure implements Exception {
     const statuses = {'invalid_request': 400, 'unauthenticated': 401,
       'forbidden': 403, 'not_found': 404, 'conflict': 409,
       'rate_limited': 429, 'unavailable': 503};
-    return error is HelpReaderFailure && statuses[error.code] == error.status
-      ? error : const HelpReaderFailure('unavailable', 503);
+    if (error is HelpReaderFailure) {
+      try {
+        final code = error.code, status = error.status;
+        if (statuses[code] == status) return HelpReaderFailure(code, status);
+      } catch (_) { /* A hostile subclass cannot supply safe public metadata. */ }
+    }
+    return const HelpReaderFailure('unavailable', 503);
   }
   @override
   String toString() => code;

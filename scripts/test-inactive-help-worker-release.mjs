@@ -175,7 +175,7 @@ test('empty tags are supported without accepting nonempty tags or emitting a con
  assert.equal(Object.hasOwn(inactiveConfig('governance',f.configs.governance,{enabled:true,previews_enabled:false}),'tags'),false);
  for(const tags of [['PRIVATE_TAG'],{},null,false])assert.throws(()=>assertSupportedSettings({...f.states.governance.settings,tags}),error=>error.unsupportedSettings.some(field=>field.key==='tags')&&!JSON.stringify(error).includes('PRIVATE_TAG'));
 });
-test('nonempty annotations remain closed while all nested keys/types/hashes and documented operation labels are projected safely',()=>{
+test('unsupported annotations remain closed while all nested keys/types/hashes and documented operation labels are projected safely',()=>{
  const settings={...fixture().states.governance.settings,tags:[],annotations:{'workers/triggered_by':'upload','workers/message':'PRIVATE_ANNOTATION_MESSAGE',unknown:{nested:'PRIVATE_UNKNOWN_STRING',more:{flag:true}}}};
  assert.throws(()=>assertSupportedSettings(settings),error=>{
   assert.deepEqual(error.unsupportedSettings.map(field=>field.key),['annotations']);
@@ -188,6 +188,22 @@ test('nonempty annotations remain closed while all nested keys/types/hashes and 
  for(const operation of ['secret','rollback','promotion','PRIVATE_OPERATION'])assert.throws(()=>assertSupportedSettings({...settings,annotations:{'workers/triggered_by':operation}}),error=>{
   const field=error.annotationProjection.fields.find(field=>field.path==='annotations.workers/triggered_by');assert.equal(field.operation,operation==='PRIVATE_OPERATION'?undefined:operation);assert.equal(JSON.stringify(error).includes('PRIVATE_OPERATION'),false);return true;
  });
+});
+test('only the exact observed read-only version_upload annotation is supported and stays in full state hashes',async()=>{
+ const f=fixture(),before=await produceInactiveHelp({...f,mode:'plan'});f.states.governance.settings.annotations={'workers/triggered_by':'version_upload'};
+ const plan=await produceInactiveHelp({...f,mode:'plan'});assert.equal(plan.targets[0].before.serverOperation,'version_upload');assert.notEqual(before.targets[0].before.settingsSha256,plan.targets[0].before.settingsSha256);
+ assert.equal(Object.hasOwn(inactiveConfig('governance',f.configs.governance,{enabled:true,previews_enabled:false}),'annotations'),false);
+ for(const annotations of [{'workers/triggered_by':'upload'},{'workers/triggered_by':'version_upload','workers/message':''},{'workers/triggered_by':'version_upload','workers/tag':'PRIVATE_TAG'},{'workers/triggered_by':'PRIVATE_OPERATION'}])assert.throws(()=>assertSupportedSettings({...f.states.governance.settings,annotations}),error=>error.unsupportedSettings.some(field=>field.key==='annotations')&&!JSON.stringify(error).includes('PRIVATE_TAG')&&!JSON.stringify(error).includes('PRIVATE_OPERATION'));
+});
+test('read-only operation transitions are explicitly rejected and recorded before any second target publication',async()=>{
+ for(const change of ['secret','absent']){
+  const f=fixture();f.states.governance.settings.annotations={'workers/triggered_by':'version_upload'};
+  const prior=await produceInactiveHelp({...f,mode:'plan'}),publish=f.publish,attempts=[];
+  await assert.rejects(produceInactiveHelp({...f,mode:'deploy',producer:{...f.producer,job:RELEASE_JOB},prior,expectedPreState:prior.preStateDigest,expectedInputs:prior.inputsDigest,recordAttempt:async a=>attempts.push(a),publish:async(...args)=>{const output=await publish(...args);if(args[0]==='governance')f.states.governance.settings.annotations=change==='secret'?{'workers/triggered_by':'secret'}:{};return output;}}),error=>{
+   assert.equal(error.serverOperationTransition.before,'version_upload');assert.equal(error.serverOperationTransition.permitted,false);assert.equal(change==='secret'?error.serverOperationTransition.after.operation:error.serverOperationTransition.after,change==='secret'?'secret':null);return true;
+  });
+  assert.equal(attempts[0].previousServerOperation,'version_upload');assert.deepEqual(f.events.filter(event=>event.startsWith('PUBLISH')),['PUBLISH governance']);
+ }
 });
 test('stream bounds are enforced before complete provider body buffering',async()=>{
  let cancelled=false;
