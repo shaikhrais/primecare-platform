@@ -10,6 +10,7 @@ on:
       - 'packages/domain/src/utils/Result.ts'
       - 'scripts/test-ledger-account-isolation.mjs'
       - 'scripts/test-ledger-reversal-atomicity.mjs'
+      - 'scripts/test-ledger-seal-postgres.mjs'
       - 'packages/domain/src/services/__tests__/LedgerVoid.test.ts'
       - 'scripts/test-training-certificate-validity.mjs'
       - '.github/workflows/verify-business-domain.yml'
@@ -28,3 +29,25 @@ jobs:
         run: node --test packages/shared/test/business-*.test.mjs
       - name: Reject foreign ledger accounts and invalid training certificates
         run: node --test scripts/test-ledger-account-isolation.mjs scripts/test-ledger-reversal-atomicity.mjs scripts/test-training-certificate-validity.mjs
+  ledger-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16
+        env: {POSTGRES_DB: ledger_seal_test, POSTGRES_USER: postgres, POSTGRES_PASSWORD: fixture}
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated PostgreSQL adapter
+        run: |
+          npm install --prefix /tmp/ledger-seal-tools --ignore-scripts --no-audit --no-fund pg@8.16.3
+          ln -s /tmp/ledger-seal-tools/node_modules node_modules
+      - name: Verify native row locking and actual audit rollback
+        run: node --test scripts/test-ledger-seal-postgres.mjs
+        env:
+          LEDGER_SEAL_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/ledger_seal_test

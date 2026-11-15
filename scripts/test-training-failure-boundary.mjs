@@ -23,9 +23,9 @@ const tenant='synthetic-owned-tenant';
 const request={staffName:'Synthetic trainee',certName:'Synthetic certificate'};
 const methods=['getTrainingComplianceSummary','verifyCertificate','getRecentActivity','getCurricula','getCertifications'];
 const future=new Date('2099-01-01T00:00:00Z'),past=new Date('2000-01-01T00:00:00Z');
-function fixture({error,mode='async',empty=false,expired=false,failModel}={}){
+function fixture({error,mode='async',empty=false,expired=false,failModel,status}={}){
  const calls=[];
- const cert={id:'real-fixture-cert',tenantId:tenant,staffName:request.staffName,certName:request.certName,status:expired?'Expired':'Active',expiresAt:expired?past:future,createdAt:past};
+ const cert={id:'real-fixture-cert',tenantId:tenant,staffName:request.staffName,certName:request.certName,status:status??(expired?'Expired':'Compliant'),expiresAt:expired?past:future,createdAt:past};
  const assignment={id:'real-fixture-assignment',module:{title:'Real fixture module'},status:'completed',completedAt:past,assignedAt:past,dueDate:past,providerId:'synthetic-provider',staffId:null};
  function read(model,method,rows){return query=>{
   calls.push({model,method,query});
@@ -78,6 +78,12 @@ test('a real expired certificate or missing record stays unverified',async()=>{
  for(const options of [{expired:true},{empty:true}]){
   const result=await call(current,'verifyCertificate',fixture(options));
   assert.equal(result.isSuccess,true);assert.equal(result.data.verified,false);
+ }
+});
+test('legacy Active is not a registered certificate status and fails closed',async()=>{
+ for(const method of ['getTrainingComplianceSummary','verifyCertificate']){
+  const result=await call(current,method,fixture({status:'Active'}));
+  assert.equal(result.isFailure,true);assert.throws(()=>result.data,/Cannot access data/);
  }
 });
 console.log('PC10_TRAINING_FAILURE_CONTROL source='+base+' blob='+blob+' syntheticOnly=true liveDatabaseTested=false');
