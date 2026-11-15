@@ -23,11 +23,22 @@ export function createHelpReaderClient(options:{origin:string;getToken:()=>strin
     const validOwner=ownerCurrent();if(dead||epoch!==n||controller.signal.aborted||!validOwner)throw new HelpReadFailure('conflict',409);
     const activeToken=tokenNow();if(dead||epoch!==n||controller.signal.aborted||activeToken!==token)throw new HelpReadFailure('conflict',409);
    };
+   const discard=(response:Response)=>{try{void response.body?.cancel().catch(()=>{});}catch{}};
    const json=async(path:string,body?:unknown,max=65536)=>{
-    guard();const response=await send(url.origin+path,{method:body===undefined?'GET':'POST',headers:{authorization:'Bearer '+token,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body),cache:'no-store',credentials:'omit',redirect:'error',signal:controller.signal});
+    guard();const response=await new Promise<Response>((resolve,reject)=>{
+     let settled=false;
+     const cleanup=()=>{settled=true;controller.signal.removeEventListener('abort',onAbort);};
+     const onAbort=()=>{if(settled)return;cleanup();reject(new HelpReadFailure('conflict',409));};
+     controller.signal.addEventListener('abort',onAbort,{once:true});
+     if(controller.signal.aborted){onAbort();return;}
+     try{
+      const headers=send(url.origin+path,{method:body===undefined?'GET':'POST',headers:{authorization:'Bearer '+token,accept:'application/json',...(body===undefined?{}:{'content-type':'application/json'})},body:body===undefined?undefined:JSON.stringify(body),cache:'no-store',credentials:'omit',redirect:'error',signal:controller.signal});
+      Promise.resolve(headers).then(value=>{if(settled){discard(value);return;}cleanup();resolve(value);},error=>{if(settled)return;cleanup();reject(error);});
+     }catch(error){cleanup();reject(error);}
+    });
     try{guard();if(response.status!==200){const map:Record<number,[HelpReadFailure['code'],number]>={401:['unauthenticated',401],403:['forbidden',403],404:['not_found',404],409:['conflict',409],429:['rate_limited',429]};const e=map[response.status]??['unavailable',503];throw new HelpReadFailure(e[0],e[1]);}
      if(response.headers.get('content-type')?.split(';')[0].trim().toLowerCase()!=='application/json')throw new HelpReadFailure('unavailable',503);
-    }catch(error){void response.body?.cancel().catch(()=>{});guard();throw error;}
+    }catch(error){discard(response);guard();throw error;}
     return guardedJson(response,max,guard,()=>new HelpReadFailure('unavailable',503),controller.signal);
    };
    const self=async()=>{const a:any=await json('/v1/auth/me');guard();if(a?.status!=='authenticated'||a.userId!==scope.userId||a.tenantId!==scope.tenantId||a.roles!==scope.role)throw new HelpReadFailure('conflict',409);};

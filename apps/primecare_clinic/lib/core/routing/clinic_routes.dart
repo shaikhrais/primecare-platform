@@ -2,6 +2,7 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:flutter_core/theme/theme_config_generated.dart';
 import '../../features/shared/screens/clinic_incident_report_screen.dart';
 import '../../features/shared/screens/clinic_history_logs_screen.dart';
+import '../../features/psw/screens/psw_help_support_screen.dart' as help_support;
 
 class ClinicTenant extends PlatformTenant {
   @override
@@ -1391,7 +1392,7 @@ class ClinicPswModule extends PlatformModule {
       title: 'Help & Support',
       route: ClinicalRoutes.pswHelpSupport,
       icon: LucideIcons.helpCircle,
-      builder: (context) => PswComplianceScreen(),
+      builder: (context) => const help_support.PswHelpSupportScreen(),
     ),
     PrimeCareScreen(
       title: 'Psw Care Plan',

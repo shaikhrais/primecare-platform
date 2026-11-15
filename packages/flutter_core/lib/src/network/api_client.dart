@@ -374,7 +374,9 @@ class ApiClient {
   static bool _isUncachedWorkflowPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
-    return isApplicationWorkflowPath(path) || isCommunicationPath(path) ||
+    // Legacy Help URLs must fail honestly too; this adds no route or grant.
+    return route == '/v1/psw-help-support' || route.startsWith('/v1/psw-help-support/') ||
+        isApplicationWorkflowPath(path) || isCommunicationPath(path) ||
         route == '/v1/governance/platform' || route.startsWith('/v1/governance/platform/') ||
         route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
         route == '/v1/clinical/dashboard' ||
