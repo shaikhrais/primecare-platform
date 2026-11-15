@@ -46,3 +46,10 @@ Develop new features only with PrimeCare-owned theme, tokens, and shared UI comp
 - Updated the existing appearance CI workflow to typecheck `primecare_appearance.ts` rather than the compatibility module (commit `36e27a7cab896c53a4b8aaabe0aac0757ef4799b`).
 - Deleted `packages/domain/src/fuse_theme_adapter.ts` after repository search found only its test, CI and historical documentation references (commit `17a0b2b7f413624517030627a93c0e9e694d0395`). This search is not a full consumer/import-graph proof.
 - No tests, builds or deployed artefact inspections were executed in this follow-up. Flutter's deprecated `prime_fuse_theme.dart` alias remains until downstream consumers are verified. Full licence clearance remains OPEN.
+
+## Follow-up — Flutter compatibility alias removal (2026-11-15)
+- Removed the deprecated `prime_fuse_theme.dart` export from the public Flutter UI barrel (`1ea5c95b00a0c740fb49f9e5450b53bdc8c61b0a`).
+- Removed the obsolete path filter from the appearance CI workflow (`3f3a3e8d22478c37ea0e8db0b0c494a89cfb0bf8`).
+- Deleted the PrimeCare-owned, Fuse-named typedef alias module `packages/primecare_ui/lib/src/theme/prime_fuse_theme.dart` (`310a940026e9950b6a5dc68e90231740b3f87861`). The original `PrimeCareTheme` implementation remains.
+- Repository search indicated no additional named alias consumers, but indexed search results can lag current main. **No Flutter build, analysis, tests or full import-graph inspection was run.** Verify downstream packages and CI before claiming safe platform-wide removal.
+- Historic reference inventory and old preset artefacts remain; no complete transitive dependency/asset licence clearance is claimed.
