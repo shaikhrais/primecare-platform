@@ -114,7 +114,9 @@ export class HelpReaderView extends ThemeControlBase {
   else{
    const locales=this.names[state.locale],choices=(['en','fr','es'] as const).map(value=>({value,label:locales[value]}));
    const row=kit.select(b.locale,choices,value=>{if(['en','fr','es'].includes(value))void this.action(state,()=>this.actions.changeLocale(value as CatalogueLocale),'search')().catch(()=>{});},busy);
-   row.querySelector('select')!.value=state.locale;
+   const localeSelect=row.querySelector('select');
+   if(!localeSelect){kit.dispose();throw Error('Registered Help locale control missing');}
+   localeSelect.value=state.locale;
    const field=kit.field(b.search,{value:state.query,disabled:busy,kind:'input'});search=field.input as HTMLInputElement;search.type='search';search.maxLength=100;
    search.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();if(!this.root.contains(field.element)||!field.element.contains(field.input)||field.input.disabled)return;void this.action(state,()=>this.actions.search(field.input.value),'search')().catch(()=>{});}},{signal:this.renderAbort.signal});
    box.append(row,field.element);
