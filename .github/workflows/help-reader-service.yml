@@ -50,7 +50,8 @@ jobs:
       - name: PGlite registered operational store acceptance
         run: node --test scripts/test-help-postgres-store.mjs
       - name: Repeat against native PostgreSQL 16
-        run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs scripts/test-help-worker-adapter.mjs
+        # Reader and adapter fixtures reset the same disposable schemas.
+        run: node --test --test-concurrency=1 scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs scripts/test-help-worker-adapter.mjs
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: PostgreSQL 16 atomic storage and independent sessions
