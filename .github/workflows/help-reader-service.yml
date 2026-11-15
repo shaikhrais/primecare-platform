@@ -6,6 +6,8 @@ on:
       - 'packages/shared/src/help-reader/**'
       - 'packages/shared/src/guarded-json.ts'
       - 'cloudflare/workers/src/session-token.ts'
+      - 'cloudflare/workers/src/help-reader.ts'
+      - 'scripts/test-help-worker-adapter.mjs'
       - 'scripts/test-help-reader-service.mjs'
       - 'scripts/test-help-operational-effects.mjs'
       - 'scripts/test-help-storage-proposal.mjs'
@@ -39,16 +41,16 @@ jobs:
         with: {node-version: '24'}
       - name: Install isolated test tools
         run: |
-          npm install --prefix /tmp/help-reader-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @electric-sql/pglite@0.3.14
+          npm install --prefix /tmp/help-reader-tools --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 @types/pg@8.15.6 @types/node@24.0.0 @electric-sql/pglite@0.3.14
           ln -s /tmp/help-reader-tools/node_modules node_modules
       - name: PGlite reader, policy and independent SQL acceptance
-        run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
+        run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs scripts/test-help-worker-adapter.mjs
       - name: PGlite storage candidate acceptance
         run: node --test scripts/test-help-storage-proposal.mjs
       - name: PGlite registered operational store acceptance
         run: node --test scripts/test-help-postgres-store.mjs
       - name: Repeat against native PostgreSQL 16
-        run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs
+        run: node --test scripts/test-help-reader-service.mjs scripts/test-help-operational-effects.mjs scripts/test-help-worker-adapter.mjs
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: PostgreSQL 16 atomic storage and independent sessions
@@ -56,7 +58,7 @@ jobs:
         env:
           HELP_SERVICE_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_service
       - name: Strict shared service types
-        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts packages/shared/src/help-reader/postgres-store.ts
+        run: node_modules/.bin/tsc --noEmit --skipLibCheck --strict --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM --resolveJsonModule packages/shared/src/help-reader/service.ts packages/shared/src/help-reader/client.ts packages/shared/src/help-reader/http.ts packages/shared/src/help-reader/operational-effects.ts packages/shared/src/help-reader/postgres-store.ts cloudflare/workers/src/help-reader.ts
       - name: PostgreSQL 16 real adapter, autocommit and policy locking
         run: node --test scripts/test-help-postgres-store.mjs
         env:

@@ -49,6 +49,12 @@ export class LedgerService {
      * If valid, commits the transaction and ledger to PostgreSQL atomically.
      */
     static async recordTransaction(prisma: any, input: RecordTransactionInput): Promise<Result<any>> {
+        return LedgerService.recordTransactionWithClient(prisma, input);
+    }
+
+    // Prisma interactive transaction clients omit $transaction. Reversals reuse
+    // their caller's transaction so status, journal and ledger changes are atomic.
+    private static async recordTransactionWithClient(prisma: any, input: RecordTransactionInput, inTransaction = false): Promise<Result<any>> {
         return Result.guard(async () => {
             // STEP -1: PERIOD SEAL CHECK
             const tenant = await prisma.tenant.findUnique({
@@ -109,7 +115,7 @@ export class LedgerService {
             }
 
 
-            return prisma.$transaction(async (tx: any) => {
+            const record = async (tx: any) => {
                 // STEP 1: ACCOUNT RESOLUTION & CONCURRENCY LOCKING
                 const resolvedEntries: any[] = [];
                 const accountMap = new Map<string, any>();
@@ -169,7 +175,7 @@ export class LedgerService {
                 });
 
                 // Record Audit Log for Transaction Creation
-                await AuditService.recordLog(tx, {
+                const creationAudit = await AuditService.recordLog(tx, {
                     tenantId: input.tenantId,
                     actorUserId: input.actorUserId,
                     action: 'CREATE_FINANCIAL_TRANSACTION',
@@ -182,6 +188,7 @@ export class LedgerService {
                         referenceId: input.referenceId
                     }
                 });
+                if (creationAudit.isSuccess !== true) throw new Error(creationAudit.error);
 
                 // STEP 2: JOURNAL ENTRY CREATION & TAX ADJUSTMENT
                 const taxAccount = await tx.chartOfAccount.findFirst({
@@ -309,7 +316,8 @@ export class LedgerService {
                     ledgerEntryId: record.id,
                     metrics: { durationMs: duration }
                 };
-            }, { timeout: 15000 });
+            };
+            return inTransaction ? record(prisma) : prisma.$transaction(record, { timeout: 15000 });
         });
     }
 
@@ -338,14 +346,16 @@ export class LedgerService {
                     credit: je.debit ? Number(je.debit) : 0 
                 }));
 
-                // Mark origin voided
-                await tx.financialTransaction.update({
-                    where: { id: transactionId },
+                // Claim exactly the version read. Concurrent voids cannot both
+                // reverse it; a later recording failure rolls this claim back.
+                const claimed = await tx.financialTransaction.updateMany({
+                    where: { id: transactionId, tenantId, status: originalTx.status },
                     data: { status: 'voided' }
                 });
+                if (claimed.count !== 1) throw new Error('Transaction already voided or changed');
 
                 // Post Reversal
-                const reversalResult = await LedgerService.recordTransaction(tx, {
+                const reversalResult = await LedgerService.recordTransactionWithClient(tx, {
                     tenantId: originalTx.tenantId,
                     type: 'REVERSAL',
                     referenceId: originalTx.id,
@@ -354,7 +364,7 @@ export class LedgerService {
                     actorUserId: actorUserId,
                     currency: originalTx.currency,
                     exchangeRate: Number(originalTx.exchangeRate)
-                });
+                }, true);
 
                 if (reversalResult.isFailure) throw new Error(reversalResult.error);
 
@@ -362,7 +372,7 @@ export class LedgerService {
 
                 // Mark ledger origin voided
                 const originalLedger = await tx.transactionLedger.findFirst({
-                    where: { referenceId: originalTx.id }
+                    where: { tenantId: originalTx.tenantId, referenceId: originalTx.id }
                 });
 
                 if (originalLedger) {
@@ -376,7 +386,7 @@ export class LedgerService {
                 }
 
                 // Record Audit Log for Void Action
-                await AuditService.recordLog(tx, {
+                const voidAudit = await AuditService.recordLog(tx, {
                     tenantId: originalTx.tenantId,
                     actorUserId: actorUserId,
                     action: 'VOID_FINANCIAL_TRANSACTION',
@@ -387,6 +397,7 @@ export class LedgerService {
                         reason: 'User Requested Void'
                     }
                 });
+                if (voidAudit.isSuccess !== true) throw new Error(voidAudit.error);
 
                 return reversalData;
             }, { timeout: 15000 });

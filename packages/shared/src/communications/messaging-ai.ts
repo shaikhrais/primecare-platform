@@ -61,14 +61,18 @@ export class MessagingAiReplyService extends ScopedServiceBase {
   });
   if(result.claim!==claim)return this.read(actor,id);
   const state=await this.read(actor,id);let reply:string|null=null;
-  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),15000);
+  const controller=new AbortController(),deadline=performance.now()+15000,timer=setTimeout(()=>controller.abort(),15000);
+  const current=()=>{if(controller.signal.aborted||performance.now()>=deadline){controller.abort();throw Error('Reply generation timeout');}};
   try{
-   await this.authorize(actor,'messaging.ai.generate',state);
-   const pending=this.model.reply({text:state.text,signal:controller.signal});
+   await this.authorize(actor,'messaging.ai.generate',state);current();
+   // Install the abort race before invoking a model, even one that completes or
+   // consumes the remaining deadline synchronously. Expired policy reads must
+   // never start another paid operation.
+   const pending=Promise.resolve().then(()=>{current();return this.model.reply({text:state.text,signal:controller.signal});});
    // Bound even a faulty model port that ignores abort; no result after timeout
    // can be persisted or queued. The model has no business-action tools.
    const value=await Promise.race([pending,new Promise<never>((_,reject)=>controller.signal.addEventListener('abort',()=>reject(Error('Reply generation timeout')),{once:true}))]);
-   text(value);await this.authorize(actor,'messaging.ai.generate',state);reply=value;
+   text(value);current();await this.authorize(actor,'messaging.ai.generate',state);current();reply=value;
   }catch{/* Never automatically regenerate an uncertain attempt. */}
   finally{clearTimeout(timer);controller.abort();}
   await this.store.run({actor,id,key:key+':result',expectedVersion:result.version,type:'messaging.ai.result',payload:{reply}},current=>this.authorize(actor,'messaging.ai.generate',current),async current=>{

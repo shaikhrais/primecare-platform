@@ -28,6 +28,9 @@ const { mockPrisma } = vi.hoisted(() => {
         implementationEvent: {
             create: vi.fn().mockResolvedValue({ id: 'event-id' })
         },
+        auditLog: {
+            create: vi.fn().mockResolvedValue({ id: 'audit-id' })
+        },
         transactionLedger: {
             create: vi.fn().mockResolvedValue({ id: 'ledger-entry-uuid' }),
             findFirst: vi.fn(),

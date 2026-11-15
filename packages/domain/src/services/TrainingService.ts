@@ -95,7 +95,15 @@ export class TrainingService {
 
             // Certification Metrics
             const totalCerts = certifications.length;
-            const expiredCerts = certifications.filter(c => c.status === 'Expired' || new Date(c.expiresAt) < new Date()).length;
+            const checkedAt = Date.now();
+            const expiredCerts = certifications.filter(c => {
+                // Match certificate verification: a malformed required DateTime
+                // cannot be counted as compliant or hidden by an Expired state.
+                if (!(c.expiresAt instanceof Date) || !Number.isFinite(c.expiresAt.getTime())) {
+                    throw new Error('Certification expiry is invalid.');
+                }
+                return c.status === 'Expired' || c.expiresAt.getTime() <= checkedAt;
+            }).length;
             const expiringCerts = certifications.filter(c => c.status === 'Expiring').length;
 
             return {

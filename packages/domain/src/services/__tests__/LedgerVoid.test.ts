@@ -5,7 +5,10 @@ import { Prisma } from '@primecare/database';
 // Use vi.hoisted to ensure the mock object is available during vi.mock execution
 const { mockPrisma } = vi.hoisted(() => {
     const mock: any = {
-        $transaction: vi.fn((callback) => callback(mock)),
+        $transaction: vi.fn((callback) => {
+            const { $transaction, ...transactionClient } = mock;
+            return callback(transactionClient);
+        }),
         $executeRaw: vi.fn().mockResolvedValue(1),
         $queryRaw: vi.fn().mockResolvedValue([{ id: 'last-ledger-id', checksum: 'prev-hash' }]),
         tenant: {
@@ -19,6 +22,7 @@ const { mockPrisma } = vi.hoisted(() => {
             findUnique: vi.fn(),
             create: vi.fn().mockResolvedValue({ id: 'new-tx-id' }),
             update: vi.fn(),
+            updateMany: vi.fn().mockResolvedValue({ count: 1 }),
         },
         journalEntry: {
             create: vi.fn(),
@@ -26,6 +30,9 @@ const { mockPrisma } = vi.hoisted(() => {
         },
         implementationEvent: {
             create: vi.fn().mockResolvedValue({ id: 'event-id' }),
+        },
+        auditLog: {
+            create: vi.fn().mockResolvedValue({ id: 'audit-id' }),
         },
         transactionLedger: {
             create: vi.fn().mockResolvedValue({ id: 'ledger-entry-uuid' }),
@@ -59,6 +66,7 @@ describe('Ledger Reversal (Voiding)', () => {
 
     beforeEach(() => {
         vi.clearAllMocks();
+        mockPrisma.financialTransaction.updateMany.mockResolvedValue({ count: 1 });
         
         // Setup default account lookups
         mockPrisma.chartOfAccount.findUnique.mockImplementation(({ where }: any) => {
@@ -116,8 +124,8 @@ describe('Ledger Reversal (Voiding)', () => {
         expect(result.isSuccess).toBe(true);
 
         // Assertions
-        expect(mockPrisma.financialTransaction.update).toHaveBeenCalledWith({
-            where: { id: transactionId },
+        expect(mockPrisma.financialTransaction.updateMany).toHaveBeenCalledWith({
+            where: { id: transactionId, tenantId, status: 'posted' },
             data: { status: 'voided' }
         });
 
@@ -220,5 +228,18 @@ describe('Ledger Reversal (Voiding)', () => {
         const taxReversal = createCalls.find((c: any) => c[0].data.accountId === 'acc-2100')[0].data;
         expect(taxReversal.debit.toString()).toBe('13');
         expect(taxReversal.paidOutAmount.toString()).toBe('0');
+    });
+
+    it('must not post a reversal after another operation claimed the transaction', async () => {
+        mockPrisma.financialTransaction.findUnique.mockResolvedValue({
+            id: transactionId, tenantId, status: 'posted', journalEntries: []
+        });
+        mockPrisma.financialTransaction.updateMany.mockResolvedValue({ count: 0 });
+        const result = await LedgerService.voidTransaction(mockPrisma, transactionId, tenantId, actorUserId);
+        expect(result.isFailure).toBe(true);
+        expect(result.error).toMatch('Transaction already voided or changed');
+        expect(mockPrisma.financialTransaction.create).not.toHaveBeenCalled();
+        expect(mockPrisma.journalEntry.create).not.toHaveBeenCalled();
+        expect(mockPrisma.transactionLedger.update).not.toHaveBeenCalled();
     });
 });

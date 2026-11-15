@@ -26,7 +26,13 @@ jobs:
             core.setOutput('producer_run',run.id);core.setOutput('producer_sha',run.head_sha);
             if(run.status!=='completed'||run.conclusion!=='success')throw Error('Deployed session proof has not passed');
             const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner:context.repo.owner,repo:context.repo.repo,run_id:run.id,per_page:100});
-            if(jobs.filter(j=>j.name.startsWith('proof (')&&j.conclusion==='success').length!==3)throw Error('Three successful live browser proof jobs required');
+            // Account proof job contract: retain immutable historical matrix receipts.
+            const proofJobs=jobs.filter(j=>j.name.startsWith('proof ('));
+            const legacyProofNames=['proof (en, 320)','proof (fr, 768)','proof (es, 1440)'];
+            const legacyProof=proofJobs.length===3&&legacyProofNames.every(name=>proofJobs.filter(j=>j.name===name&&j.conclusion==='success').length===1);
+            const lockedProof=proofJobs.length===1&&proofJobs[0].name==='proof (all locales, locked-v1)'&&proofJobs[0].conclusion==='success';
+            if(!legacyProof&&!lockedProof)throw Error('Complete historical matrix or exact locked all-locale proof required');
+            // Publisher job contract remains independent of browser proof structure.
             const owner=context.repo.owner,repo=context.repo.repo;
             if(run.path!=='.github/workflows/verify-account-mutations.yml'||run.head_branch!=='main')throw Error('Exact main account producer required');
             let portal=run;
@@ -206,3 +212,4 @@ jobs:
           name: current-deployed-account-lifecycle-attestation
           path: test-results/account-lifecycle-attestation
           retention-days: 90
+

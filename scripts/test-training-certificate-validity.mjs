@@ -51,3 +51,38 @@ test('past expiry, missing certificate and database failures retain failure boun
  const missing=await verify({missing:true});assert.equal(missing.data.verified,false);
  const failed=await verify({error:Error('Synthetic database outage')});assert.equal(failed.isFailure,true);assert.equal(failed.error,'Synthetic database outage');
 });
+async function summary(certifications){
+ const calls=[];
+ const db={
+  trainingAssignment:{findMany:async query=>{calls.push(['assignments',query]);return [];}},
+  certificationNode:{findMany:async query=>{calls.push(['certifications',query]);return certifications;}}
+ };
+ const value=await TrainingService.getTrainingComplianceSummary(db,tenant);
+ assert.deepEqual(calls,[
+  ['assignments',{where:{module:{tenantId:tenant}},select:{status:true,dueDate:true}}],
+  ['certifications',{where:{tenantId:tenant},select:{status:true,expiresAt:true}}]
+ ]);
+ return value;
+}
+test('compliance summary rejects malformed or missing required certificate expiry',async()=>{
+ for(const expiresAt of [new Date('invalid'),undefined,null,'2099-01-01T00:00:00Z']){
+  for(const status of ['Compliant','Expiring','Expired']){
+   const value=await summary([{status,expiresAt}]);assert.equal(value.isFailure,true);assert.throws(()=>value.data);
+  }
+ }
+});
+test('compliance summary uses explicit Expired state and actual past expiry without changing stored expiring count',async()=>{
+ const value=await summary([
+  {status:'Compliant',expiresAt:future},{status:'Expiring',expiresAt:future},
+  {status:'Expired',expiresAt:future},{status:'Compliant',expiresAt:past}
+ ]);
+ assert.equal(value.isSuccess,true);assert.deepEqual(value.data,{
+  totalActiveAssignments:0,completionRate:100,overdueCount:0,complianceStatus:50,expiringCertifications:1,recentCompletions:0
+ });
+ const empty=await summary([]);assert.equal(empty.data.complianceStatus,100);
+});
+test('compliance summary and verifier both reject the exact expiry instant',async()=>{
+ const originalNow=Date.now,instant=new Date('2030-01-01T00:00:00Z');
+ try{Date.now=()=>instant.getTime();const value=await summary([{status:'Compliant',expiresAt:instant}]);assert.equal(value.data.complianceStatus,0);}
+ finally{Date.now=originalNow;}
+});

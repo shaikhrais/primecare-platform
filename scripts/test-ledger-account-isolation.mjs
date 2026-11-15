@@ -6,16 +6,17 @@ import assert from 'node:assert/strict';
 
 const source=await readFile(process.env.LEDGER_TEST_SOURCE??new URL('../packages/domain/src/services/LedgerService.ts',import.meta.url),'utf8');
 const resultSource=await readFile(new URL('../packages/domain/src/utils/Result.ts',import.meta.url),'utf8');
+const auditSource=await readFile(new URL('../packages/domain/src/services/AuditService.ts',import.meta.url),'utf8');
 const js=text=>stripTypeScriptTypes(text.replace(/^import .*;\r?\n/gm,''),{mode:'transform'}).replace(/^export /gm,'');
 const {createHash}=await import('node:crypto');
 // Integer-only fixture arithmetic: these cases verify account isolation, not Decimal or tax algorithms.
 class Decimal{constructor(value){this.value=Number(value);}mul(value){return new Decimal(this.value*Number(value));}}
-const LedgerService=new Function('Prisma','CurrencyService','TaxService','AuditService','createHash',
- js(resultSource)+'\n'+js(source)+'\nreturn LedgerService;')(
+const LedgerService=new Function('Prisma','CurrencyService','TaxService','createHash',
+ js(resultSource)+'\n'+js(auditSource)+'\n'+js(source)+'\nreturn LedgerService;')(
  {Decimal},
  {convertToBase:async()=>({data:{rate:1,baseCurrency:'CAD'}})},
  {calculateTax:async()=>{throw Error('No tax provider allowed in account-isolation fixture');}},
- {recordLog:async()=>{}},createHash);
+ createHash);
 
 const local={id:'local-account',tenantId:'tenant-a',code:'1000',type:'ASSET'};
 const foreign={id:'foreign-account',tenantId:'tenant-b',code:'1000',type:'ASSET'};
@@ -32,6 +33,7 @@ function fixture(accounts=[foreign,local,credit]){
   $queryRaw:async()=>[],
   financialTransaction:{create:async({data})=>{writes.push(['transaction',data]);return{id:'transaction-a'};}},
   journalEntry:{findFirst:async()=>null,create:async({data})=>{writes.push(['journal',data]);return{id:'journal-a'};}},
+  auditLog:{create:async({data})=>{writes.push(['audit',data]);return{id:'audit-a'};}},
   transactionLedger:{create:async({data})=>{writes.push(['ledger',data]);return{id:'ledger-a'};}}
  };
  return{db,writes,locks,lookups};

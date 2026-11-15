@@ -69,6 +69,41 @@ test('a model that ignores cancellation cannot persist a late response or block 
  assert.equal((await pending).status,'generation_failed');release('Too late');await Promise.resolve();
  assert.equal((await f.service.read(actor,input.eventId)).reply,null);assert.equal(f.outgoing.length,0);
 });
+test('expired authorization never starts a model or misses its elapsed generation deadline',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);
+ const resolve=f.ports.links.resolve.bind(f.ports.links);let calls=0,entered,release,releaseModel;
+ const started=new Promise(resolve=>entered=resolve),gate=new Promise(resolve=>release=resolve);
+ f.ports.links.resolve=async(...args)=>{if(++calls===3){entered();await gate;}return resolve(...args);};
+ f.ports.model.reply=()=>{f.calls.push('model');return new Promise(resolve=>releaseModel=resolve);};
+ const pending=f.service.generate(actor,input.eventId,'generate',1);await started;t.mock.timers.tick(15001);release();
+ await new Promise(resolve=>setImmediate(resolve));
+ if(releaseModel)releaseModel('Late answer');const observed=await pending;
+ assert.equal(f.calls.length,0);assert.equal(observed.status,'generation_failed');assert.equal(observed.reply,null);assert.equal(f.outgoing.length,0);
+});
+test('authorization finishing after the reply deadline cannot persist an otherwise valid model answer',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);
+ const resolve=f.ports.links.resolve.bind(f.ports.links);let calls=0,entered,release;
+ const started=new Promise(resolve=>entered=resolve),gate=new Promise(resolve=>release=resolve);
+ f.ports.links.resolve=async(...args)=>{if(++calls===4){entered();await gate;}return resolve(...args);};
+ const pending=f.service.generate(actor,input.eventId,'generate',1);await started;t.mock.timers.tick(15001);release();
+ const state=await pending;assert.equal(state.status,'generation_failed');assert.equal(state.reply,null);assert.equal(f.calls.length,1);assert.equal(f.outgoing.length,0);
+});
+test('a model consuming its deadline synchronously cannot publish a late answer',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});
+ const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);
+ f.ports.model.reply=()=>{f.calls.push('model');t.mock.timers.tick(15001);return Promise.resolve('Too late');};
+ const state=await f.service.generate(actor,input.eventId,'generate',1);
+ assert.equal(state.status,'generation_failed');assert.equal(state.reply,null);assert.equal(f.calls.length,1);assert.equal(f.outgoing.length,0);
+});
+test('elapsed monotonic deadline rejects synchronous replies before the timer callback runs',async t=>{
+ let now=0;t.mock.method(performance,'now',()=>now);
+ const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);let signal;
+ f.ports.model.reply=input=>{f.calls.push('model');signal=input.signal;now=15000;return Promise.resolve('Too late');};
+ const state=await f.service.generate(actor,input.eventId,'generate',1);
+ assert.equal(state.status,'generation_failed');assert.equal(state.reply,null);assert.equal(f.calls.length,1);assert.equal(f.outgoing.length,0);assert.equal(signal.aborted,true);
+});
 test('link change after generation blocks outbox queue',async()=>{
  const f=fixture();await f.service.queue(actor,input.eventId,'receive',input);await f.service.generate(actor,input.eventId,'generate',1);f.changeLink();await assert.rejects(f.service.queueReply(actor,input.eventId,'send',3),/link changed/);assert.equal(f.outgoing.length,0);
 });
