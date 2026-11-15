@@ -1,7 +1,9 @@
 /** Read existing PC10 business and native identity/settings links; no provider or business-row access. */
 import {readFile} from 'node:fs/promises';import {createHash} from 'node:crypto';import pg from 'pg';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url)));
-const raw=process.env.PRODUCTION_DATABASE_URL,url=new URL(raw??'');
+const raw=process.env.PRODUCTION_DATABASE_URL;
+let url;
+try{url=new URL(raw??'');}catch{throw Error('Pinned read-only connection required');}
 if(!['postgres:','postgresql:'].includes(url.protocol)||url.hostname!=='pooled.db.prisma.io'||url.pathname!=='/postgres')throw Error('Pinned read-only connection required');
 const db=new pg.Client({connectionString:raw,ssl:{rejectUnauthorized:true},connectionTimeoutMillis:10000});
 const table=name=>'"'+pin.schema+'"."'+pin.tablePrefix+name+'"';
