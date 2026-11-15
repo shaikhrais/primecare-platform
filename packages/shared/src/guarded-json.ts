@@ -12,5 +12,16 @@ export async function guardedJson(response:Response,maxBytes:number,guard:()=>vo
   let raw:unknown;try{raw=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));}catch{throw invalid();}
   guard();return raw;
  }catch(error){guard();throw error;}
- finally{signal?.removeEventListener('abort',abort);if(reader){await reader.cancel().catch(()=>{});reader.releaseLock();}else if(response.body)await response.body.cancel().catch(()=>{});guard();}
+ finally{
+  signal?.removeEventListener('abort',abort);
+  // Stream cancellation is best-effort: an uncooperative source must never
+  // delay an already determined denial or successful bounded decode.
+  if(reader){
+   try{void reader.cancel().catch(()=>{});}catch{}
+   try{reader.releaseLock();}catch{}
+  }else if(response.body){
+   try{void response.body.cancel().catch(()=>{});}catch{}
+  }
+  guard();
+ }
 }
