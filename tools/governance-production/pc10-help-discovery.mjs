@@ -1,5 +1,6 @@
 /** Bounded Help schema/access readback. Never reads business rows or changes authority. */
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {pathToFileURL} from 'node:url';
 import pg from 'pg';
 const pin=JSON.parse(await readFile(new URL('./production-pin.json',import.meta.url)));
@@ -73,6 +74,54 @@ export async function discoverHelp(db){
   const artifactIds=artifactSchemaSupported&&referencedArtifactIds.length?await bounded('SELECT '+selectFields(['id'])+' FROM '+table('runtime_artifacts')+" x WHERE to_jsonb(x)->>'id'=ANY($1::text[]) ORDER BY to_jsonb(x)->>'id' LIMIT 301",[referencedArtifactIds]):[];
   const presentArtifactIds=artifactIds.map(r=>String(r.id));
   const legacyIdentityReview={permissionKey:legacyKey,identityColumns,originSchemaSupported,endpointSchemaSupported,artifactSchemaSupported,origins,members,canonicalCandidates,referencedArtifactIds,presentArtifactIds,missingArtifactIds:artifactSchemaSupported?referencedArtifactIds.filter(id=>!presentArtifactIds.includes(id)):null,authorityInferred:false,grantsChanged:0};
+  // Retirement preparation is metadata only. Preserve PostgreSQL's complete JSONB
+  // text rather than parsing bigint values through JavaScript's Number domain.
+  const archiveName=pin.tablePrefix+'help_legacy_grant_archive';
+  const sourceAndArchiveShape=await relationShape(pin.schema,[pin.tablePrefix+'api_permissions',archiveName]);
+  const grantColumns=['_primecare_import_row','id','api_id','role_id','runtime_artifact_id','permission_key','can_access','created_at'];
+  const sourceColumns=sourceAndArchiveShape.columns.filter(c=>c.table_name===pin.tablePrefix+'api_permissions');
+  const rawRowsSupported=sourceColumns.length===grantColumns.length&&grantColumns.every(name=>sourceColumns.some(c=>c.column_name===name&&c.data_type===(['permission_key','created_at'].includes(name)?'text':'bigint')));
+  const sourceRows=rawRowsSupported?await bounded('SELECT _primecare_import_row::text AS source_ordinal,id::text AS source_id,to_jsonb(x)::text AS original_row_text FROM '+table('api_permissions')+' x WHERE api_id=794 AND permission_key=$1 ORDER BY _primecare_import_row,id LIMIT 65',[legacyKey]):[];
+  if(sourceRows.length>64)throw Error('Legacy retirement row bound exceeded');
+  const sha256=text=>createHash('sha256').update(text,'utf8').digest('hex');
+  if(sourceRows.some(r=>typeof r.original_row_text!=='string'||r.original_row_text.length>16384||!/^\d+$/.test(r.source_ordinal??'')||!/^\d+$/.test(r.source_id??'')))throw Error('Unsupported retirement row encoding');
+  const sourceIds=sourceRows.map(r=>r.source_id);
+  const incomingForeignKeys=await bounded(`SELECT ns.nspname AS source_schema,r.relname AS source_table,c.conname AS constraint_name,ARRAY(SELECT a.attname FROM unnest(c.conkey) WITH ORDINALITY k(attnum,n) JOIN pg_attribute a ON a.attrelid=c.conrelid AND a.attnum=k.attnum ORDER BY k.n) AS source_columns,ARRAY(SELECT a.attname FROM unnest(c.confkey) WITH ORDINALITY k(attnum,n) JOIN pg_attribute a ON a.attrelid=c.confrelid AND a.attnum=k.attnum ORDER BY k.n) AS referenced_columns,c.confupdtype AS update_action,c.confdeltype AS delete_action,c.convalidated AS validated,c.condeferrable AS deferrable,c.condeferred AS initially_deferred,pg_get_constraintdef(c.oid) AS definition FROM pg_constraint c JOIN pg_class r ON r.oid=c.conrelid JOIN pg_namespace ns ON ns.oid=r.relnamespace WHERE c.contype='f' AND c.confrelid=to_regclass($1) ORDER BY ns.nspname,r.relname,c.conname LIMIT 301`,[table('api_permissions')]);
+  for(const fk of incomingForeignKeys){
+   fk.matchingRows=null;fk.matchCountRead=false;
+   if(fk.source_schema!==pin.schema||!/^govt_[a-z0-9_]+$/.test(fk.source_table)){fk.outOfMetadataScope=true;continue;}
+   if(!rawRowsSupported||!Array.isArray(fk.source_columns)||!fk.source_columns.length||fk.source_columns.length!==fk.referenced_columns?.length||fk.referenced_columns.some(c=>!grantColumns.includes(c)))continue;
+   const join=fk.source_columns.map((column,i)=>'r.'+quote(column)+'=p.'+quote(fk.referenced_columns[i])).join(' AND ');
+   const rows=await bounded('SELECT COUNT(*)::text AS matching_rows FROM '+quote(pin.schema)+'.'+quote(fk.source_table)+' r WHERE EXISTS(SELECT 1 FROM '+table('api_permissions')+' p WHERE p.api_id=794 AND p.permission_key=$1 AND '+join+')',[legacyKey]);
+   fk.matchingRows=rows[0]?.matching_rows??null;fk.matchCountRead=true;fk.outOfMetadataScope=false;
+  }
+  const logicalReferenceNames=['api_permission_id','api_permission_row_id','permission_id','permission_row_id','grant_id','grant_row_id','source_permission_id','source_grant_id','api_permission_ids','permission_ids','grant_ids','api_permission_import_row','grant_import_row','permission_key'];
+  const sourceOrdinals=sourceRows.map(r=>r.source_ordinal);
+  const logicalReferenceColumns=await bounded(`SELECT c.table_schema,c.table_name,c.column_name,c.data_type,c.udt_name,c.is_nullable,c.column_default FROM information_schema.columns c JOIN information_schema.tables t ON t.table_schema=c.table_schema AND t.table_name=c.table_name WHERE c.table_schema<>'information_schema' AND NOT starts_with(c.table_schema,'pg_') AND t.table_type='BASE TABLE' AND NOT(c.table_schema=$1 AND c.table_name=ANY($2::text[])) AND c.column_name=ANY($3::text[]) ORDER BY c.table_schema,c.table_name,c.ordinal_position LIMIT 301`,[pin.schema,[pin.tablePrefix+'api_permissions',archiveName],logicalReferenceNames]);
+  const logicalReferences=[];
+  for(const column of logicalReferenceColumns){
+   if(column.table_schema!==pin.schema||!/^govt_[a-z0-9_]+$/.test(column.table_name)){
+    logicalReferences.push({...column,outOfMetadataScope:true,matchCountRead:false,matches:[],authorityInferred:false});continue;
+   }
+   const targets=column.column_name==='permission_key'?[legacyKey]:[...new Set([...sourceIds,...sourceOrdinals])];
+   const matches=rawRowsSupported&&sourceIds.length?await bounded('SELECT refs.referenced_grant_id,COUNT(*)::text AS matching_rows FROM '+quote(pin.schema)+'.'+quote(column.table_name)+" x CROSS JOIN LATERAL (SELECT DISTINCT value #>> '{}' AS referenced_grant_id FROM jsonb_path_query(to_jsonb(x)->$1::text,'strict $.**') AS values(value) WHERE jsonb_typeof(value) IN ('number','string')) refs WHERE refs.referenced_grant_id=ANY($2::text[]) GROUP BY 1 ORDER BY 1 LIMIT 301",[column.column_name,targets]):[];
+   logicalReferences.push({...column,outOfMetadataScope:false,matchCountRead:rawRowsSupported,matchValueDomain:column.column_name==='permission_key'?'legacy-permission-key':'source-id-or-import-ordinal; target ownership not inferred',matches:matches.map(r=>({...r,matchesSourceId:sourceIds.includes(r.referenced_grant_id),matchesSourceOrdinal:sourceOrdinals.includes(r.referenced_grant_id)})),authorityInferred:false});
+  }
+  const triggers=await bounded(`SELECT r.relname AS table_name,t.tgname AS trigger_name,pg_get_triggerdef(t.oid) AS definition FROM pg_trigger t JOIN pg_class r ON r.oid=t.tgrelid JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=ANY($2::text[]) AND NOT t.tgisinternal ORDER BY r.relname,t.tgname LIMIT 301`,[pin.schema,[pin.tablePrefix+'api_permissions',archiveName]]);
+  const relationSecurity=await bounded(`SELECT r.relname AS table_name,r.relrowsecurity AS row_security,r.relforcerowsecurity AS force_row_security,r.relowner::text AS owner_oid,r.relacl::text AS acl FROM pg_class r JOIN pg_namespace n ON n.oid=r.relnamespace WHERE n.nspname=$1 AND r.relname=ANY($2::text[]) ORDER BY r.relname LIMIT 301`,[pin.schema,[pin.tablePrefix+'api_permissions',archiveName]]);
+  const rules=await bounded(`SELECT tablename AS table_name,rulename AS rule_name,definition FROM pg_rules WHERE schemaname=$1 AND tablename=ANY($2::text[]) ORDER BY tablename,rulename LIMIT 301`,[pin.schema,[pin.tablePrefix+'api_permissions',archiveName]]);
+  const rowSecurityPolicies=await bounded(`SELECT tablename AS table_name,policyname AS policy_name,permissive,roles,cmd,qual,with_check FROM pg_policies WHERE schemaname=$1 AND tablename=ANY($2::text[]) ORDER BY tablename,policyname LIMIT 301`,[pin.schema,[pin.tablePrefix+'api_permissions',archiveName]]);
+  const manifestColumns=await bounded(`SELECT column_name,data_type FROM information_schema.columns WHERE table_schema=$1 AND table_name=$2 ORDER BY ordinal_position LIMIT 301`,[pin.schema,pin.tablePrefix+'source_manifest']);
+  const manifestDeclaredReferences={supported:false,unsupportedReason:'Missing supported manifest JSONB snapshot format and sqlite_objects array',manifestColumns,objects:[],inspectionRequired:true,sqlExecuted:false,authorityInferred:false};
+  if(manifestColumns.some(c=>c.column_name==='manifest'&&c.data_type==='jsonb')){
+   const shape=(await query('SELECT manifest->>\'format\' AS format,jsonb_typeof(manifest->\'sqlite_objects\') AS objects_type FROM '+table('source_manifest'))).rows;
+   if(shape.length===1&&shape[0].format==='primecare-governance-snapshot-v1'&&shape[0].objects_type==='array'){
+    const objects=await bounded('SELECT object->>0 AS object_type,object->>1 AS object_name,object->>2 AS table_name,object->>3 AS sql FROM '+table('source_manifest')+" m CROSS JOIN LATERAL jsonb_array_elements(m.manifest->'sqlite_objects') AS objects(object) WHERE object->>3 ILIKE $1 ORDER BY object->>0,object->>1 LIMIT 301",['%api_permissions%']);
+    if(objects.some(o=>!['table','index','view','trigger'].includes(o.object_type)||typeof o.object_name!=='string'||typeof o.table_name!=='string'||typeof o.sql!=='string'||o.sql.length>262144))throw Error('Unsupported declared reference metadata');
+    manifestDeclaredReferences.supported=true;manifestDeclaredReferences.unsupportedReason=null;manifestDeclaredReferences.objects=objects;
+   }
+  }
+  const legacyRetirementDiscovery={archiveTable:quote(pin.schema)+'.'+quote(archiveName),sourceAndArchiveShape,triggers,relationSecurity,rules,rowSecurityPolicies,manifestDeclaredReferences,rawRowsSupported,expectedRows:64,sourceRows:sourceRows.map(r=>({...r,sha256:sha256(r.original_row_text)})),sourceRowsSha256:rawRowsSupported?sha256(JSON.stringify(sourceRows.map(r=>r.original_row_text))):null,hashEncoding:'sha256 UTF-8 JSON.stringify(original_row_text strings ordered by numeric source ordinal)',incomingForeignKeys,logicalReferenceNames,logicalReferenceColumns,logicalReferences,archiveContentsRead:false,archiveContentsReason:'Shape only; existing archive contents require the exact reviewed retirement writer',writes:0,businessRowsRead:0,authorityInferred:false};
   const registryColumns=governanceColumns.filter(c=>c.table_name===pin.tablePrefix+'primecare_ui_component_registry').map(c=>c.column_name);
   const registry=registryColumns.includes('id')?await metadata('primecare_ui_component_registry','id=779'):[];
   // Exact screen-associated access metadata only; a missing table/column is reported, never guessed.
@@ -83,7 +132,7 @@ export async function discoverHelp(db){
    related[name]=await bounded('SELECT to_jsonb(x)-\'_primecare_import_row\' AS metadata FROM '+quote(pin.schema)+'.'+quote(name)+' x WHERE screen_id::text=$1 LIMIT 301',['685']).then(rows=>rows.map(r=>r.metadata));
   }
   await query('ROLLBACK');
-  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,operationalRegistrationShape,legacyIdentityReview,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
+  return {format:1,sourceCommit:process.env.GITHUB_SHA??null,manifestSha256:pin.manifestSha256,screens,endpoints,roles,apiPermissions,screenPermissions,links,controls,elements,registry,businessColumns,constraints,indexes,governanceColumns,related,bindingColumns,bindingConstraints,bindingIndexes,runtimeRelations,runtimePolicyColumns,policyDefinitionReadback,operationalRegistrationShape,legacyIdentityReview,legacyRetirementDiscovery,runtimePolicyValuesRead:ratePolicies.length+auditDefinitions.length,writes:0,businessRowsRead:0,grantsChanged:0,hostActivated:false,authorityInferred:false};
  }catch(error){const failedPhase=phase;await db.query('ROLLBACK');error.helpPhase=failedPhase;throw error;}
 }
 async function main(){
@@ -93,3 +142,4 @@ async function main(){
  try{await db.connect();const result=await discoverHelp(db);await mkdir('test-results/pc10-help',{recursive:true});await writeFile('test-results/pc10-help/discovery.json',JSON.stringify(result,null,2)+'\n');console.log('PC10_HELP_DISCOVERY '+JSON.stringify(result));}finally{await db.end();}
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{console.error('Help schema/access discovery failed closed; no mutations attempted. '+JSON.stringify({phase:error.helpPhase??'connection',sqlstate:/^[0-9A-Z]{5}$/.test(error.code??'')?error.code:null,bounded:error.message==='Metadata bound exceeded'}));process.exitCode=1;});
+

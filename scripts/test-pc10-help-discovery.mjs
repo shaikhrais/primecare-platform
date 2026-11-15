@@ -1,4 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
+import {createHash} from 'node:crypto';
 import {PGlite} from '@electric-sql/pglite';import {discoverHelp} from '../tools/governance-production/pc10-help-discovery.mjs';
 const pin=JSON.parse(await readFile(new URL('../tools/governance-production/production-pin.json',import.meta.url)));
 const t=n=>'"'+pin.schema+'"."govt_'+n+'"';
@@ -39,3 +40,113 @@ test('legacy origin overflow fails closed and releases transaction',async()=>{co
 test('operational registration shape reports exact defaults, uniqueness and indexes without reading counters or audit rows',async()=>{const db=await fixture();try{await policyTables(db);await db.exec('ALTER TABLE '+t('api_rate_limits')+' ADD CONSTRAINT fixture_policy_identity UNIQUE(api_id,limit_key);ALTER TABLE '+t('audit_event_definitions')+' ADD CONSTRAINT fixture_event_code UNIQUE(event_code);CREATE TABLE public.help_reader_rate(tenant_id text NOT NULL,user_id text NOT NULL,attempts integer DEFAULT 1 CHECK(attempts BETWEEN 1 AND 31),reset_at timestamptz,PRIMARY KEY(tenant_id,user_id));CREATE TABLE public.help_reader_audit(id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,private_note text,expires_at timestamptz DEFAULT statement_timestamp());CREATE INDEX fixture_expiry ON public.help_reader_audit(expires_at);INSERT INTO public.help_reader_audit(private_note) VALUES(\'PRIVATE-AUDIT-CANARY\');INSERT INTO public.help_reader_rate VALUES(\'PRIVATE-TENANT\',\'PRIVATE-USER\',7,now())');const v=(await discoverHelp(db)).operationalRegistrationShape;assert.ok(v.policies.constraints.some(c=>c.conname==='fixture_policy_identity'));assert.ok(v.policies.indexes.some(c=>c.indexname==='fixture_event_code'));assert.deepEqual(v.storage.presentTables,['help_reader_audit','help_reader_rate']);assert.ok(v.storage.columns.some(c=>c.column_name==='attempts'&&c.column_default==='1'&&c.data_type==='integer'));assert.ok(v.storage.constraints.some(c=>c.contype==='p'&&c.definition==='PRIMARY KEY (tenant_id, user_id)'));assert.ok(v.storage.indexes.some(c=>c.indexname==='fixture_expiry'));assert.equal(v.operationalRowsRead,0);assert.equal(v.writes,0);assert.equal(v.authorityInferred,false);assert.doesNotMatch(JSON.stringify(v),/PRIVATE-/);assert.equal((await db.query('SELECT attempts FROM public.help_reader_rate')).rows[0].attempts,7);}finally{await db.close();}});
 test('absent operational registration/storage tables remain explicitly absent, without inferred policies',async()=>{const db=await fixture();try{const v=(await discoverHelp(db)).operationalRegistrationShape;assert.deepEqual(v.policies.presentTables,[]);assert.deepEqual(v.storage.presentTables,[]);assert.deepEqual(v.storage.constraints,[]);assert.deepEqual(v.storage.indexes,[]);assert.deepEqual(v.storage.columns,[]);assert.equal(v.authorityInferred,false);}finally{await db.close();}});
 test('prospective storage shape retains 300-row bound and releases failed transaction',async()=>{const db=await fixture();try{await db.exec('CREATE TABLE public.help_reader_rate('+Array.from({length:301},(_,i)=>'field_'+i+' text').join(',')+')');await assert.rejects(discoverHelp(db),/Metadata bound exceeded/);await db.exec('CREATE TABLE after_storage_shape_bound(id int)');}finally{await db.close();}});
+
+async function retirementFixture(){
+ const db=await fixture();await identityTables(db);
+ await db.exec('ALTER TABLE '+t('api_permissions')+' ADD COLUMN _primecare_import_row bigint,ADD COLUMN created_at text;DELETE FROM '+t('api_permissions'));
+ await db.query('INSERT INTO '+t('api_permissions')+'(id,api_id,role_id,can_access,permission_key,runtime_artifact_id,_primecare_import_row,created_at) SELECT 9007199254740992+n,794,n,1,$1,1,n,\'2026-01-01 12:34:56\' FROM generate_series(1,64)n',[legacyKey]);
+ await db.exec('ALTER TABLE '+t('api_permissions')+' ADD PRIMARY KEY(_primecare_import_row);ALTER TABLE '+t('api_permissions')+' ADD UNIQUE(id)');return db;
+}
+test('retirement evidence retains all64 complete SQL JSONB rows and exact large numeric lexemes without mutation',async()=>{
+ const db=await retirementFixture();try{
+  const before=(await db.query('SELECT to_jsonb(x)::text original_row_text FROM '+t('api_permissions')+' x ORDER BY _primecare_import_row,id')).rows;
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  assert.equal(r.rawRowsSupported,true);assert.equal(r.sourceRows.length,64);
+  assert.equal(r.sourceRows[0].source_id,'9007199254740993');assert.equal(r.sourceRows[0].source_ordinal,'1');
+  assert.match(r.sourceRows[0].original_row_text,/9007199254740993/);assert.match(r.sourceRows[0].original_row_text,/_primecare_import_row/);assert.match(r.sourceRows[0].original_row_text,/2026-01-01 12:34:56/);
+  const digest=value=>createHash('sha256').update(value,'utf8').digest('hex');
+  assert.deepEqual(r.sourceRows.map(x=>x.original_row_text),before.map(x=>x.original_row_text));
+  assert.equal(r.sourceRowsSha256,digest(JSON.stringify(before.map(x=>x.original_row_text))));
+  assert.ok(r.sourceRows.every(x=>x.sha256===digest(x.original_row_text)));
+  assert.ok(r.sourceAndArchiveShape.constraints.some(x=>x.definition==='PRIMARY KEY (_primecare_import_row)'));
+  assert.equal(r.archiveContentsRead,false);assert.equal(r.authorityInferred,false);assert.equal(r.businessRowsRead,0);assert.equal(r.writes,0);
+  assert.deepEqual((await db.query('SELECT to_jsonb(x)::text original_row_text FROM '+t('api_permissions')+' x ORDER BY _primecare_import_row,id')).rows,before);
+ }finally{await db.close();}
+});
+test('retirement discovery reports every physical inbound FK but counts only pinned metadata references',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE '+t('grant_reference')+'(id bigint,permission_id bigint REFERENCES '+t('api_permissions')+'(id));INSERT INTO '+t('grant_reference')+' VALUES(1,9007199254740993);CREATE TABLE public.private_grant_reference(private_note text,grant_id bigint REFERENCES '+t('api_permissions')+'(id));INSERT INTO public.private_grant_reference VALUES(\'PRIVATE-BUSINESS-CANARY\',9007199254740993)');
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  const owned=r.incomingForeignKeys.find(x=>x.source_table==='govt_grant_reference');assert.deepEqual(owned.source_columns,['permission_id']);assert.deepEqual(owned.referenced_columns,['id']);assert.equal(owned.matchingRows,'1');assert.equal(owned.matchCountRead,true);
+  const outside=r.incomingForeignKeys.find(x=>x.source_schema==='public');assert.equal(outside.outOfMetadataScope,true);assert.equal(outside.matchCountRead,false);assert.equal(outside.matchingRows,null);
+  assert.doesNotMatch(JSON.stringify(r),/PRIVATE-BUSINESS-CANARY/);assert.equal(r.businessRowsRead,0);
+ }finally{await db.close();}
+});
+test('logical retirement references match exact large grant IDs in scalar or imported JSONB fields without exposing other metadata',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE '+t('grant_logical_refs')+'(id bigint,grant_id jsonb,private_note text);INSERT INTO '+t('grant_logical_refs')+' VALUES(1,\'9007199254740993\',\'PRIVATE-REF\'),(2,\'{"t":"integer","v":9007199254740993}\',\'PRIVATE-REF\'),(3,\'90071992547409930\',\'PRIVATE-UNRELATED\');CREATE TABLE '+t('help_legacy_grant_archive')+'(source_ordinal bigint PRIMARY KEY,group_fingerprint text NOT NULL,original_row jsonb NOT NULL,operation_context jsonb NOT NULL,retired_at timestamptz NOT NULL DEFAULT clock_timestamp())');
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  const ref=r.logicalReferences.find(x=>x.table_name==='govt_grant_logical_refs');assert.deepEqual(ref.matches,[{referenced_grant_id:'9007199254740993',matching_rows:'2',matchesSourceId:true,matchesSourceOrdinal:false}]);
+  assert.ok(r.sourceAndArchiveShape.presentTables.includes('govt_help_legacy_grant_archive'));assert.ok(r.sourceAndArchiveShape.columns.some(x=>x.table_name==='govt_help_legacy_grant_archive'&&x.column_name==='original_row'&&x.data_type==='jsonb'));
+  assert.doesNotMatch(JSON.stringify(r),/PRIVATE-/);assert.equal(r.authorityInferred,false);
+ }finally{await db.close();}
+});
+test('incomplete grant row schema is explicit and never presents a fabricated archival hash',async()=>{
+ const db=await fixture();try{const r=(await discoverHelp(db)).legacyRetirementDiscovery;assert.equal(r.rawRowsSupported,false);assert.deepEqual(r.sourceRows,[]);assert.equal(r.sourceRowsSha256,null);}finally{await db.close();}
+});
+test('more than64 exact retirement candidates fails closed and releases the read-only transaction',async()=>{
+ const db=await retirementFixture();try{await db.query('INSERT INTO '+t('api_permissions')+' VALUES(999,794,65,1,$1,1,65,\'unexpected\')',[legacyKey]);await assert.rejects(discoverHelp(db),/retirement row bound/);await db.exec('CREATE TABLE after_retirement_bound(id int)');}finally{await db.close();}
+});
+test('retirement inventory finds array, ordinal and permission-key candidates without inferring reference ownership',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE '+t('grant_array_refs')+'(id bigint,permission_ids jsonb,grant_import_row bigint,permission_key text);INSERT INTO '+t('grant_array_refs')+' VALUES(1,\'[9007199254740993,9007199254740993,{"t":"int","v":9007199254740994}]\',1,NULL)');await db.query('UPDATE '+t('grant_array_refs')+' SET permission_key=$1',[legacyKey]);
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery,refs=r.logicalReferences.filter(x=>x.table_name==='govt_grant_array_refs');
+  assert.equal(refs.length,3);const array=refs.find(x=>x.column_name==='permission_ids');assert.deepEqual(array.matches.map(x=>[x.referenced_grant_id,x.matching_rows]),[['9007199254740993','1'],['9007199254740994','1']]);
+  const ordinal=refs.find(x=>x.column_name==='grant_import_row').matches[0];assert.equal(ordinal.referenced_grant_id,'1');assert.equal(ordinal.matchesSourceOrdinal,true);assert.equal(ordinal.matchesSourceId,false);
+  assert.equal(refs.find(x=>x.column_name==='permission_key').matches[0].referenced_grant_id,legacyKey);assert.ok(refs.every(x=>x.authorityInferred===false));
+ }finally{await db.close();}
+});
+test('manifest retirement discovery emits only declared API permission schema objects and never executes them',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('ALTER TABLE '+t('source_manifest')+' ADD COLUMN manifest jsonb');
+  const source={format:'primecare-governance-snapshot-v1',sqlite_objects:[['table','fixture_reference','fixture_reference','CREATE TABLE fixture_reference(permission_row_id INTEGER REFERENCES api_permissions(id))'],['trigger','fixture_delete','api_permissions','CREATE TRIGGER fixture_delete AFTER DELETE ON api_permissions BEGIN DELETE FROM fixture_reference; END'],['table','unrelated','unrelated','CREATE TABLE unrelated(private_note TEXT DEFAULT \'PRIVATE-UNRELATED\')']]};
+  await db.query('UPDATE '+t('source_manifest')+' SET manifest=$1::jsonb',[JSON.stringify(source)]);
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  assert.equal(r.manifestDeclaredReferences.supported,true);assert.equal(r.manifestDeclaredReferences.objects.length,2);assert.equal(r.manifestDeclaredReferences.inspectionRequired,true);assert.equal(r.manifestDeclaredReferences.sqlExecuted,false);assert.doesNotMatch(JSON.stringify(r),/PRIVATE-UNRELATED/);
+  assert.equal((await db.query("SELECT to_regclass('fixture_reference') AS relation")).rows[0].relation,null);
+  assert.equal((await db.query('SELECT COUNT(*)::int n FROM '+t('api_permissions'))).rows[0].n,64);
+ }finally{await db.close();}
+});
+test('outside-schema logical reference shapes are explicit and never read business rows',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE SCHEMA business;CREATE TABLE business.private_refs(grant_id bigint,private_note text);INSERT INTO business.private_refs VALUES(9007199254740993,\'PRIVATE-LOGICAL-CANARY\');CREATE TABLE public.private_permission(permission_ids jsonb);INSERT INTO public.private_permission VALUES(\'[9007199254740993]\')');
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  for(const name of ['private_refs','private_permission']){const v=r.logicalReferences.find(x=>x.table_name===name);assert.equal(v.outOfMetadataScope,true);assert.equal(v.matchCountRead,false);assert.deepEqual(v.matches,[]);}
+  assert.doesNotMatch(JSON.stringify(r),/PRIVATE-LOGICAL-CANARY/);assert.equal(r.businessRowsRead,0);
+ }finally{await db.close();}
+});
+test('retirement reports source DELETE triggers and RLS policy metadata without firing them',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('CREATE TABLE public.trigger_canary(id int);CREATE FUNCTION public.retirement_trigger_canary() RETURNS trigger LANGUAGE plpgsql AS $$BEGIN INSERT INTO public.trigger_canary VALUES(1);RETURN OLD;END$$;CREATE TRIGGER unexpected_delete AFTER DELETE ON '+t('api_permissions')+' FOR EACH ROW EXECUTE FUNCTION public.retirement_trigger_canary();ALTER TABLE '+t('api_permissions')+' ENABLE ROW LEVEL SECURITY;CREATE POLICY retirement_fixture_policy ON '+t('api_permissions')+' USING(true)');
+  const r=(await discoverHelp(db)).legacyRetirementDiscovery;
+  assert.ok(r.triggers.some(x=>x.trigger_name==='unexpected_delete'&&/AFTER DELETE/.test(x.definition)));assert.ok(r.relationSecurity.some(x=>x.table_name==='govt_api_permissions'&&x.row_security===true));assert.ok(r.rowSecurityPolicies.some(x=>x.policy_name==='retirement_fixture_policy'));
+  assert.equal((await db.query('SELECT COUNT(*)::int n FROM public.trigger_canary')).rows[0].n,0);
+ }finally{await db.close();}
+});
+test('unsupported declared reference manifest stays explicit instead of asserting no inbound references',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('ALTER TABLE '+t('source_manifest')+' ADD COLUMN manifest jsonb');await db.query('UPDATE '+t('source_manifest')+' SET manifest=$1::jsonb',[JSON.stringify({format:'unknown',sqlite_objects:[]})]);
+  const v=(await discoverHelp(db)).legacyRetirementDiscovery.manifestDeclaredReferences;
+  assert.equal(v.supported,false);assert.match(v.unsupportedReason,/Missing supported/);assert.equal(v.inspectionRequired,true);assert.deepEqual(v.objects,[]);
+ }finally{await db.close();}
+});
+test('logical reference shape inventory overflow fails closed rather than truncating outside-schema candidates',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec(Array.from({length:301},(_,i)=>'CREATE TABLE public.retirement_ref_'+i+'(grant_id bigint)').join(';'));
+  await assert.rejects(discoverHelp(db),/Metadata bound exceeded/);await db.exec('CREATE TABLE after_logical_reference_bound(id int)');
+ }finally{await db.close();}
+});
+test('oversized full-row retirement metadata fails before emitting an incomplete preservation packet',async()=>{
+ const db=await retirementFixture();try{
+  await db.query('UPDATE '+t('api_permissions')+' SET created_at=$1 WHERE _primecare_import_row=1',['x'.repeat(16385)]);
+  await assert.rejects(discoverHelp(db),/Unsupported retirement row encoding/);assert.equal((await db.query('SELECT length(created_at)::int n FROM '+t('api_permissions')+' WHERE _primecare_import_row=1')).rows[0].n,16385);
+ }finally{await db.close();}
+});
+test('declared permission source-object overflow fails closed without executing source SQL',async()=>{
+ const db=await retirementFixture();try{
+  await db.exec('ALTER TABLE '+t('source_manifest')+' ADD COLUMN manifest jsonb');
+  await db.query('UPDATE '+t('source_manifest')+' SET manifest=$1::jsonb',[JSON.stringify({format:'primecare-governance-snapshot-v1',sqlite_objects:Array.from({length:301},(_,i)=>['view','ref_'+i,'ref_'+i,'CREATE VIEW ref_'+i+' AS SELECT id FROM api_permissions'])})]);
+  await assert.rejects(discoverHelp(db),/Metadata bound exceeded/);await db.exec('CREATE TABLE after_declared_reference_bound(id int)');
+ }finally{await db.close();}
+});
+
