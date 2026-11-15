@@ -96,6 +96,9 @@ class HelpReaderController extends ChangeNotifier {
     final initialSessionMatches = _matchesSession();
     if (!_current(beforeSessionCheck)) return;
     if (!initialSessionMatches) { retire(); return; }
+    // Reject unsupported locales before cancelling the current request or
+    // publishing a loading state that cannot be fulfilled.
+    _locale(locale);
     final previous = _state;
     final generation = ++_generation;
     // All private results are removed before notifying a new request's listeners.
@@ -108,7 +111,6 @@ class HelpReaderController extends ChangeNotifier {
     _set(loading);
     if (!_current(generation)) return;
     try {
-      _locale(locale);
       final raw = articleId == null
         ? await _reader.list(locale: locale, query: query, offset: offset, limit: previous.limit)
         : await _reader.readArticle(locale: locale, articleId: articleId);
