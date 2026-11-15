@@ -8,7 +8,11 @@ const { mockPrisma } = vi.hoisted(() => {
     const mock: any = {
         $transaction: vi.fn((callback) => callback(mock)),
         $executeRaw: vi.fn().mockResolvedValue(1),
-        $queryRaw: vi.fn().mockResolvedValue([{ id: 'last-ledger-id', checksum: 'prev-hash' }]),
+        $queryRaw: vi.fn().mockImplementation((strings: TemplateStringsArray, ...values: unknown[]) => Promise.resolve(
+            strings.join('?').includes('FROM tenants')
+                ? [{ id: values[0], recordedAt: new Date() }]
+                : [{ id: 'last-ledger-id', checksum: 'prev-hash' }]
+        )),
         tenant: {
             findUnique: vi.fn()
         },

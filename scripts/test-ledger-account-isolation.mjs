@@ -21,16 +21,16 @@ const LedgerService=new Function('Prisma','CurrencyService','TaxService','create
 const local={id:'local-account',tenantId:'tenant-a',code:'1000',type:'ASSET'};
 const foreign={id:'foreign-account',tenantId:'tenant-b',code:'1000',type:'ASSET'};
 const credit={id:'local-credit',tenantId:'tenant-a',code:'2000',type:'LIABILITY'};
-function fixture(accounts=[foreign,local,credit],taxSettings=null){
+function fixture(accounts=[foreign,local,credit],taxSettings=null,{sealAtTransactionStart=false,transactionCutoff='9999-12-31T23:59:59.000Z',recordedAt=new Date()}={}){
  const writes=[],locks=[],lookups=[];
  // Model the Prisma AND/OR predicate against both tenants rather than returning a canned account.
  const matches=(row,where)=>Object.entries(where).every(([key,value])=>key==='OR'?value.some(part=>matches(row,part)):row[key]===value);
  const db={
   tenant:{findUnique:async()=>({taxSettings})},
   chartOfAccount:{findFirst:async({where})=>{lookups.push(where);return accounts.find(row=>matches(row,where))??null;}},
-  $transaction:async callback=>callback(db),
+  $transaction:async callback=>{if(sealAtTransactionStart)taxSettings={closedUntil:transactionCutoff};return callback(db);},
   $executeRaw:async(strings,...values)=>{locks.push(values);return 1;},
-  $queryRaw:async()=>[],
+  $queryRaw:async(strings,...values)=>strings.join('?').includes('FROM tenants')?[{id:values[0],recordedAt}]:[],
   financialTransaction:{create:async({data})=>{writes.push(['transaction',data]);return{id:'transaction-a'};}},
   journalEntry:{findFirst:async()=>null,create:async({data})=>{writes.push(['journal',data]);return{id:'journal-a'};}},
   auditLog:{create:async({data})=>{writes.push(['audit',data]);return{id:'audit-a'};}},
@@ -82,4 +82,22 @@ test('recording after a valid past cutoff retains the owned-account journal path
 for(const taxSettings of [{},{closedUntil:null}])test('recording retains absent or null cutoff behavior '+JSON.stringify(taxSettings),async()=>{
  const f=fixture(undefined,taxSettings);const result=await LedgerService.recordTransaction(f.db,input(local.id));
  assert.equal(result.isSuccess,true,result.isFailure?result.error:'');assert.equal(f.writes.filter(([kind])=>kind==='ledger').length,1);
+});
+test('recording rechecks a seal committed after preflight before any financial writes',async()=>{
+ const f=fixture(undefined,null,{sealAtTransactionStart:true});
+ const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isFailure,true);assert.match(result.error,/Financial period is sealed/);
+ assert.equal(f.lookups.length,0);assert.equal(f.locks.length,0);assert.equal(f.writes.length,0);
+});
+test('recording compares the persisted transaction timestamp after a wait beyond the cutoff',async()=>{
+ const f=fixture(undefined,null,{sealAtTransactionStart:true,transactionCutoff:'2001-01-01T00:00:00.000Z',recordedAt:new Date('2000-01-01T00:00:00.000Z')});
+ const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isFailure,true);assert.match(result.error,/Financial period is sealed/);
+ assert.equal(f.lookups.length,0);assert.equal(f.locks.length,0);assert.equal(f.writes.length,0);
+});
+for(const recordedAt of [null,'2000-01-01T00:00:00.000Z',new Date('invalid')])test('recording refuses an invalid server transaction timestamp '+String(recordedAt),async()=>{
+ const f=fixture(undefined,null,{recordedAt});
+ const result=await LedgerService.recordTransaction(f.db,input(local.id));
+ assert.equal(result.isFailure,true);assert.match(result.error,/Invalid recording transaction timestamp/);
+ assert.equal(f.lookups.length,0);assert.equal(f.locks.length,0);assert.equal(f.writes.length,0);
 });

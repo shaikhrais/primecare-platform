@@ -22,11 +22,11 @@ function fixture({failLedger=false,failVoidAudit=false,failCreationAudit=false,r
   {id:'foreign-ledger',tenantId:'tenant-b',referenceId:'original',status:'sealed',amount:700,checksum:'foreign-hash'},
   {id:'original-ledger',tenantId:'tenant-a',referenceId:'original',status:'sealed',amount:100,checksum:'original-hash'}
  ]};
- let queue=Promise.resolve(),transactionCalls=0,rolledBack=0,reads=0,releaseReaders;
+ let queue=Promise.resolve(),transactionCalls=0,rolledBack=0,reads=0,releaseReaders;const events=[];
  const readGate=new Promise(resolve=>releaseReaders=resolve);
  const matches=(row,where)=>Object.entries(where).every(([key,value])=>key==='OR'?value.some(part=>matches(row,part)):row[key]===value);
  const root={tenant:{findUnique:async()=>({taxSettings:null})},$transaction:async callback=>{
-  transactionCalls++;let working=structuredClone(state),release,locked=false;
+  transactionCalls++;let working=structuredClone(state),release,locked=false,tenantLocked=false;
   const claim=async()=>{
    if(locked)return;const wait=queue;queue=new Promise(resolve=>release=resolve);await wait;
    // READ COMMITTED update rechecks the row after the previous writer commits.
@@ -37,9 +37,10 @@ function fixture({failLedger=false,failVoidAudit=false,failCreationAudit=false,r
    chartOfAccount:{findFirst:async({where})=>accounts.find(row=>matches(row,where))??null},
    financialTransaction:{
     findUnique:async({where})=>{
+     events.push('financial-read');
      const row=working.transactions.find(row=>matches(row,where));
      const copy=row?structuredClone(row):null;
-     if(racingReaders&&row?.id==='original'){if(++reads===racingReaders)releaseReaders();await readGate;}
+     if(racingReaders&&row?.id==='original'&&!tenantLocked){if(++reads===racingReaders)releaseReaders();await readGate;}
      return copy;
     },
     updateMany:async({where,data})=>{await claim();const rows=working.transactions.filter(row=>matches(row,where));rows.forEach(row=>Object.assign(row,data));return{count:rows.length};},
@@ -52,7 +53,10 @@ function fixture({failLedger=false,failVoidAudit=false,failCreationAudit=false,r
     create:async({data})=>{if(failLedger)throw Error('ledger unavailable');const row={id:'reversal-ledger-'+working.ledgers.length,...data};working.ledgers.push(row);return row;},
     update:async({where,data})=>{const row=working.ledgers.find(row=>matches(row,where));if(!row)throw Error('Missing ledger');Object.assign(row,data);return row;}
    },
-   $executeRaw:async()=>{await claim();return 1;},$queryRaw:async()=>[],
+   $executeRaw:async()=>{await claim();return 1;},$queryRaw:async(strings,...values)=>{
+    if(strings.join('?').includes('FROM tenants')){await claim();tenantLocked=true;events.push('tenant-lock');return[{id:values[0],recordedAt:new Date()}];}
+    return[];
+   },
    auditLog:{create:async({data})=>{if(failVoidAudit&&data.action==='VOID_FINANCIAL_TRANSACTION')throw Error('void audit unavailable');if(failCreationAudit&&data.action==='CREATE_FINANCIAL_TRANSACTION')throw Error('creation audit unavailable');working.audits.push(data);return{id:'audit-'+working.audits.length};}}
   };
   // Dedicated lookup/race cases permit the old mock's nested-client shape,
@@ -62,7 +66,7 @@ function fixture({failLedger=false,failVoidAudit=false,failCreationAudit=false,r
   catch(error){rolledBack++;throw error;}
   finally{release?.();}
  }};
- return{root,state:()=>state,metrics:()=>({transactionCalls,rolledBack})};
+ return{root,state:()=>state,metrics:()=>({transactionCalls,rolledBack,events})};
 }
 test('reversal reuses a transaction client that has no nested $transaction method',async()=>{
  const f=fixture();const result=await LedgerService.voidTransaction(f.root,'original','tenant-a','actor');
@@ -100,14 +104,19 @@ test('wrong-tenant reversal cannot claim or mutate the original transaction',asy
  const f=fixture();const before=structuredClone(f.state());const result=await LedgerService.voidTransaction(f.root,'original','tenant-b','actor');
  assert.equal(result.isFailure,true);assert.match(result.error,/Transaction not found/);assert.deepEqual(f.state(),before);
 });
-test('two readers of the same posted state can commit only one conditional reversal claim',async()=>{
+test('concurrent reversal requests can commit only one conditional reversal claim',async()=>{
  const f=fixture({racingReaders:2,allowLegacyNested:true});const results=await Promise.all([
   LedgerService.voidTransaction(f.root,'original','tenant-a','actor-a'),LedgerService.voidTransaction(f.root,'original','tenant-a','actor-b')]);
  assert.equal(results.filter(result=>result.isSuccess).length,1);
  assert.equal(results.filter(result=>result.isFailure).length,1);
- assert.match(results.find(result=>result.isFailure).error,/already voided or changed/);
+ assert.match(results.find(result=>result.isFailure).error,/already voided(?: or changed)?/);
  assert.equal(f.state().transactions.filter(row=>row.type==='REVERSAL').length,1);
  assert.equal(f.state().journals.length,2);assert.equal(f.state().audits.length,2);
+});
+test('reversal acquires the tenant lock before reading or claiming financial rows',async()=>{
+ const f=fixture();const result=await LedgerService.voidTransaction(f.root,'original','tenant-a','actor');
+ assert.equal(result.isSuccess,true,result.isFailure?result.error:'');
+ assert.deepEqual(f.metrics().events.slice(0,2),['tenant-lock','financial-read']);
 });
 
 function sealingFixture({failAudit=false,closedUntil}={}){

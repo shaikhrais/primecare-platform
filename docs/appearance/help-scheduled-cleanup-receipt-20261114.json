@@ -1,0 +1,35 @@
+{
+  "format": 1,
+  "sourceCommit": "5762f66e54ce208244f1c123a527341ca5ebc142",
+  "runId": 43665156888,
+  "jobId": 132662775893,
+  "workflow": ".github/workflows/auth-counter-cleanup.yml",
+  "event": "schedule",
+  "conclusion": "success",
+  "receiptAt": "2026-11-15T01:53:38.263697Z",
+  "receiptTimezone": "America/Toronto",
+  "scope": "registered Help audit expiry maintenance",
+  "receipt": {
+    "scheduledInvocation": true,
+    "applied": true,
+    "expiredBefore": 0,
+    "deleted": 0,
+    "expiredRemaining": 0,
+    "complete": true,
+    "independentReadback": true,
+    "grantsChanged": 0,
+    "contentWrites": 0,
+    "hostActivated": false
+  },
+  "registeredSha256": {
+    "definitionSha256": "df4da7b47cba2c4587a16e087fc9958ef661a482797b28efb8fbf3ce0477fc92",
+    "scriptSha256": "0eced1feb37d710193624ba413c68bf1ead761cf13bb0c1edd943da408ced89b",
+    "storeSha256": "dbc012a638f091ab4b4dda9cd28a44998349bd1467f0a74f707e2b0a59f9a47c",
+    "workflowSha256": "c1df882963434de2d8720848951d44c85a6b2f967f14a05856dc371fe78a3e63"
+  },
+  "limits": [
+    "The production audit store was empty; this proves scheduled invocation and independent expiry readback, not deletion of a production expired row.",
+    "Help reader remains unmounted and runtimeBound remains false.",
+    "No API, role, control, runtime artifact, content, device, human review or whole-feature acceptance is inferred."
+  ]
+}

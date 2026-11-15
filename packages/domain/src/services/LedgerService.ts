@@ -35,6 +35,34 @@ export type RecordTransactionInput = {
 };
 
 export class LedgerService {
+    private static validateRecordingPeriod(tenant: any, recordedAt = new Date()): void {
+        const settings = tenant?.taxSettings;
+        if (settings?.closedUntil !== undefined && settings.closedUntil !== null) {
+            const closedUntil = new Date(settings.closedUntil);
+            if (typeof settings.closedUntil !== 'string' || !Number.isFinite(closedUntil.getTime())) {
+                throw new Error('Invalid existing sealed period cutoff');
+            }
+            if (recordedAt <= closedUntil) {
+                throw new Error(`Financial period is sealed until ${closedUntil.toLocaleDateString()}. Retroactive entries are prohibited.`);
+            }
+        }
+    }
+
+    // All recording, reversal and sealing paths lock tenant metadata before
+    // financial rows. Recheck after locking so an earlier preflight cannot race a seal.
+    private static async lockRecordingPeriod(tx: any, tenantId: string): Promise<void> {
+        const rows = await tx.$queryRaw`SELECT id, transaction_timestamp() AS "recordedAt" FROM tenants WHERE id = ${tenantId} FOR NO KEY UPDATE`;
+        if (rows.length !== 1) throw new Error('Tenant not found');
+        // FinancialTransaction.createdAt defaults to PostgreSQL now(), which is
+        // fixed at transaction start even if this lock waits beyond the cutoff.
+        const recordedAt = rows[0].recordedAt;
+        if (!(recordedAt instanceof Date) || !Number.isFinite(recordedAt.getTime())) {
+            throw new Error('Invalid recording transaction timestamp');
+        }
+        const tenant = await tx.tenant.findUnique({ where: { id: tenantId }, select: { taxSettings: true } });
+        if (!tenant) throw new Error('Tenant not found');
+        LedgerService.validateRecordingPeriod(tenant, recordedAt);
+    }
     /**
      * Generates a deterministic SHA-256 hash for the immutable ledger tracking
      */
@@ -56,25 +84,14 @@ export class LedgerService {
     // their caller's transaction so status, journal and ledger changes are atomic.
     private static async recordTransactionWithClient(prisma: any, input: RecordTransactionInput, inTransaction = false): Promise<Result<any>> {
         return Result.guard(async () => {
+            const tenantId = input.tenantId;
             // STEP -1: PERIOD SEAL CHECK
             const tenant = await prisma.tenant.findUnique({
-                where: { id: input.tenantId },
+                where: { id: tenantId },
                 select: { taxSettings: true }
             });
 
-            if (tenant?.taxSettings) {
-                const settings = tenant.taxSettings as any;
-                if (settings.closedUntil !== undefined && settings.closedUntil !== null) {
-                    const closedUntil = new Date(settings.closedUntil);
-                    if (typeof settings.closedUntil !== 'string' || !Number.isFinite(closedUntil.getTime())) {
-                        throw new Error('Invalid existing sealed period cutoff');
-                    }
-                    const now = new Date(); // Or input.transactionDate if we support it
-                    if (now <= closedUntil) {
-                        throw new Error(`Financial period is sealed until ${closedUntil.toLocaleDateString()}. Retroactive entries are prohibited.`);
-                    }
-                }
-            }
+            LedgerService.validateRecordingPeriod(tenant);
 
             const startTime = Date.now();
             let totalDebit = 0;
@@ -96,7 +113,7 @@ export class LedgerService {
                 prisma,
                 totalDebit,
                 input.currency || 'CAD',
-                input.tenantId
+                tenantId
             );
             const conversion = conversionResult.data;
 
@@ -119,6 +136,7 @@ export class LedgerService {
 
 
             const record = async (tx: any) => {
+                await LedgerService.lockRecordingPeriod(tx, tenantId);
                 // STEP 1: ACCOUNT RESOLUTION & CONCURRENCY LOCKING
                 const resolvedEntries: any[] = [];
                 const accountMap = new Map<string, any>();
@@ -127,7 +145,7 @@ export class LedgerService {
                     // Both primary IDs and code fallbacks must belong to this tenant.
                     const account = await tx.chartOfAccount.findFirst({
                         where: {
-                            tenantId: input.tenantId,
+                            tenantId,
                             OR: [
                                 { id: entry.accountId },
                                 { code: entry.accountId }
@@ -155,7 +173,7 @@ export class LedgerService {
                 // Create root Financial Transaction
                 const transaction = await tx.financialTransaction.create({
                     data: {
-                        tenantId: input.tenantId,
+                        tenantId,
                         type: input.type,
                         referenceId: input.referenceId,
                         amount: totalDebit,
@@ -179,7 +197,7 @@ export class LedgerService {
 
                 // Record Audit Log for Transaction Creation
                 const creationAudit = await AuditService.recordLog(tx, {
-                    tenantId: input.tenantId,
+                    tenantId,
                     actorUserId: input.actorUserId,
                     action: 'CREATE_FINANCIAL_TRANSACTION',
                     resourceType: 'FINANCIAL_TRANSACTION',
@@ -195,7 +213,7 @@ export class LedgerService {
 
                 // STEP 2: JOURNAL ENTRY CREATION & TAX ADJUSTMENT
                 const taxAccount = await tx.chartOfAccount.findFirst({
-                    where: { tenantId: input.tenantId, code: '2100' }
+                    where: { tenantId, code: '2100' }
                 });
 
                 for (const entry of resolvedEntries) {
@@ -230,7 +248,7 @@ export class LedgerService {
                         data: {
                             transactionId: transaction.id,
                             accountId: account.id,
-                            tenantId: input.tenantId,
+                            tenantId,
                             debit: entryDebit,
                             paidOutAmount: entryCredit,
                             currency: input.currency || 'CAD',
@@ -255,7 +273,7 @@ export class LedgerService {
                         data: {
                             transactionId: transaction.id,
                             accountId: taxAccount.id,
-                            tenantId: input.tenantId,
+                            tenantId,
                             debit: 0,
                             paidOutAmount: taxAmount,
                             currency: input.currency || 'CAD',
@@ -271,7 +289,7 @@ export class LedgerService {
                 const tailLock: any = await tx.$queryRaw`
                     SELECT id, checksum 
                     FROM transaction_ledger 
-                    WHERE tenant_id = ${input.tenantId} 
+                    WHERE tenant_id = ${tenantId}
                     ORDER BY created_at DESC 
                     LIMIT 1 
                     FOR UPDATE
@@ -280,7 +298,7 @@ export class LedgerService {
                 const previousChecksum = tailLock?.[0]?.checksum || null;
                 const rawData = JSON.stringify({
                     txId: transaction.id,
-                    tenant: input.tenantId,
+                    tenant: tenantId,
                     amount: totalDebit,
                     ts: new Date().toISOString()
                 });
@@ -289,7 +307,7 @@ export class LedgerService {
 
                 const record = await tx.transactionLedger.create({
                     data: {
-                        tenantId: input.tenantId,
+                        tenantId,
                         transactionType: input.type,
                         referenceType: 'SYS', 
                         referenceId: transaction.id,
@@ -330,6 +348,7 @@ export class LedgerService {
     static async voidTransaction(prisma: any, transactionId: string, tenantId: string, actorUserId?: string): Promise<Result<any>> {
         return Result.guard(async () => {
             return prisma.$transaction(async (tx: any) => {
+                await LedgerService.lockRecordingPeriod(tx, tenantId);
                 const originalTx = await tx.financialTransaction.findUnique({
                     where: { id: transactionId, tenantId },
                     include: {
