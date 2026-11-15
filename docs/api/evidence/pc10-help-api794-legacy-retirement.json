@@ -1,0 +1,128 @@
+{
+  "format": 1,
+  "operationId": "pc10.help.api794.legacy-retirement.v1",
+  "approval": "User approved: Move it",
+  "status": "executed-and-independently-verified",
+  "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+  "runId": 43670904250,
+  "nativeJobId": 132680487552,
+  "productionJobId": 132680762295,
+  "runUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/43670904250",
+  "schema": "governance_68b0b02dd1215f58630d2c1a",
+  "sourceTable": "govt_api_permissions",
+  "archiveTable": "govt_help_legacy_grant_archive",
+  "apiId": 794,
+  "expectedRows": 64,
+  "nativePostgreSQL": {
+    "tests": 32,
+    "passed": 32,
+    "failed": 0,
+    "skipped": 0
+  },
+  "sourceHashes": {
+    "writer": "32a78715eaf7d1310b5f402ba745ad05e525cd98f3913ebe425bd29411b53500",
+    "definition": "8c5901e5ea1a60ea19677c719fb5447bd5be445aab29dee7f87989a7f5b936e8",
+    "archiveSql": "3f01e1330dac4214f37d0c4718f46cd68df1e5036b1f2f71b4b37e5cac94a772"
+  },
+  "unchangedGitBlobs": {
+    "baseline": "a709f95c3fc3ba0ef826cee6634c0299e9ecbadd",
+    "catalogueGuard": "0f2462321b3f0a5552d74fb47ca56ddb2ef41563"
+  },
+  "receipts": [
+    {
+      "recordedAt": "2026-11-15T03:10:06.9832589Z",
+      "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+      "archivePresent": false,
+      "applied": false,
+      "grantsRetired": 0,
+      "newRoleGrants": 0,
+      "runtimeActivated": false
+    },
+    {
+      "recordedAt": "2026-11-15T03:10:11.5703688Z",
+      "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+      "archivePresent": true,
+      "applied": true,
+      "grantsRetired": 0,
+      "newRoleGrants": 0,
+      "runtimeActivated": false,
+      "independentReadback": true,
+      "readback": {
+        "archivePresent": true,
+        "applied": false,
+        "grantsRetired": 0,
+        "newRoleGrants": 0,
+        "runtimeActivated": false
+      }
+    },
+    {
+      "recordedAt": "2026-11-15T03:10:15.9330677Z",
+      "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+      "applied": false,
+      "alreadyRetired": false,
+      "activeLegacyRows": 64,
+      "archivedRows": 0,
+      "sourceRowsSha256": "76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269",
+      "unrelatedBefore": {
+        "count": "79947",
+        "sha256": "047322986e302dc04ca51a589f61df4b572fb57fda7b4677393838e86b7467c9"
+      },
+      "newRoleGrants": 0,
+      "runtimeActivated": false
+    },
+    {
+      "recordedAt": "2026-11-15T03:10:33.5018951Z",
+      "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+      "applied": true,
+      "alreadyRetired": false,
+      "activeLegacyRows": 0,
+      "archivedRows": 64,
+      "sourceRowsSha256": "76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269",
+      "unrelatedBefore": {
+        "count": "79947",
+        "sha256": "047322986e302dc04ca51a589f61df4b572fb57fda7b4677393838e86b7467c9"
+      },
+      "newRoleGrants": 0,
+      "runtimeActivated": false,
+      "independentReadback": true,
+      "readback": {
+        "archivedRows": 64,
+        "activeLegacyRows": 0,
+        "sourceRowsSha256": "76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269",
+        "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+        "unrelatedBefore": {
+          "count": "79947",
+          "sha256": "047322986e302dc04ca51a589f61df4b572fb57fda7b4677393838e86b7467c9"
+        },
+        "independentReadback": true,
+        "newRoleGrants": 0,
+        "runtimeActivated": false
+      }
+    },
+    {
+      "recordedAt": "2026-11-15T03:10:38.0549815Z",
+      "sourceCommit": "4a9bb9d7da610771751a403a79bfb2af470e77f2",
+      "archivedRows": 64,
+      "activeLegacyRows": 0,
+      "sourceRowsSha256": "76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269",
+      "unrelatedBefore": {
+        "count": "79947",
+        "sha256": "047322986e302dc04ca51a589f61df4b572fb57fda7b4677393838e86b7467c9"
+      },
+      "independentReadback": true,
+      "newRoleGrants": 0,
+      "runtimeActivated": false
+    }
+  ],
+  "guard": {
+    "currentQuarantinedGroups": 2493,
+    "removedOrRepairedGroups": 7,
+    "newViolations": 0,
+    "authorityEstablished": false
+  },
+  "publicArchivePrivileges": "mandatory-zero check passed before commit and independent readbacks",
+  "newRoleGrants": 0,
+  "runtimeActivated": false,
+  "task1Complete": false,
+  "remainingScope": "Separate Help screen/control, runtime/access, scheduled-purge, mounted-reader, device and human acceptance gates are not established by this retirement."
+}
