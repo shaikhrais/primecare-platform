@@ -2075,7 +2075,7 @@
     "retirementOptInVariable": "RETIRE_PC10_HELP_LEGACY_GRANTS",
     "definitionSha256": "8c5901e5ea1a60ea19677c719fb5447bd5be445aab29dee7f87989a7f5b936e8",
     "archiveSqlSha256": "e7c9c6809bba1ab769ad52870f675fff1622bf137ba88f9a92d3c43de7c7089f",
-    "scriptSha256": "a544eef3f81c9dd97f91ae5b6add8d45d7ac1ac67453c092af1c989ce85e1f55",
+    "scriptSha256": "b68ea078b1d7e6303eca4ac60df6c32d80b17cf51b175d4e5c084b4534cbe2ac",
     "sourceTable": "api_permissions",
     "archiveTable": "help_legacy_grant_archive",
     "apiId": 794,

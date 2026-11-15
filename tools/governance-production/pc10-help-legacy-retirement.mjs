@@ -141,13 +141,34 @@ export async function inspectHelpLegacyRetirement(db){
  return {sourceRows:rows.map(r=>({source_ordinal:r.source_ordinal,source_id:r.source_id,original_row_text:r.original_row_text})),sourceRowsSha256:rowDigest(rows),sourceShape:shape,sourceShapeSha256:helpLegacyDigest(shape),referenceInventory:inventory,referenceInventorySha256:helpLegacyDigest(inventory),groupFingerprint:helpLegacyDigest({members:projection(rows),endpoint:{id:794,http_method:e.http_method,route_path:e.route_path,permission_key:e.permission_key},origins:o.projected}),helpContractSha256:contractHash};
 }
 export async function registerHelpLegacyArchive(db,{apply=false,fixtureDefinition}={}){
- const {d}=selectDefinition(fixtureDefinition);if(!fixtureDefinition)await outsideEvidence(d);await begin(db,apply);
+ let phase='archive-registration-definition',begun=false;
  try{
-  if(apply){await db.query('SELECT pg_advisory_xact_lock(794,685)');await db.query('LOCK TABLE '+source+' IN SHARE MODE');}
-  await manifest(db,apply,d);let exists=await archiveShape(db);const existed=exists;
-  if(!exists&&apply){await db.query("SELECT set_config('primecare.help_legacy_archive_registration','1',true)");if(typeof db.exec==='function')await db.exec(archiveSql);else await db.query(archiveSql);exists=await archiveShape(db);if(!exists)throw Error('Archive creation readback missing');}
-  await db.query(apply?'COMMIT':'ROLLBACK');return {archivePresent:exists,applied:apply&&!existed,grantsRetired:0,newRoleGrants:0,runtimeActivated:false};
- }catch(error){await db.query('ROLLBACK');throw error;}
+  const {d}=selectDefinition(fixtureDefinition);phase='archive-registration-evidence';if(!fixtureDefinition)await outsideEvidence(d);
+  phase='archive-registration-begin';await begin(db,apply);begun=true;
+  if(apply){phase='archive-registration-advisory';await db.query('SELECT pg_advisory_xact_lock(794,685)');phase='archive-registration-source-lock';await db.query('LOCK TABLE '+source+' IN SHARE MODE');}
+  phase='archive-registration-authority';await manifest(db,apply,d);phase='archive-registration-preflight';let exists=await archiveShape(db);const existed=exists;
+  if(!exists&&apply){phase='archive-registration-set-config';await db.query("SELECT set_config('primecare.help_legacy_archive_registration','1',true)");phase='archive-registration-ddl';if(typeof db.exec==='function')await db.exec(archiveSql);else await db.query(archiveSql);phase='archive-registration-readback';exists=await archiveShape(db);if(!exists)throw Error('Archive creation readback missing');}
+  phase=apply?'archive-registration-commit':'archive-registration-rollback';await db.query(apply?'COMMIT':'ROLLBACK');begun=false;return {archivePresent:exists,applied:apply&&!existed,grantsRetired:0,newRoleGrants:0,runtimeActivated:false};
+ }catch(error){if(error&&typeof error==='object')error.retirementPhase=phase;if(begun)await db.query('ROLLBACK');throw error;}
+}
+/** Only fixed registration phases and complete PostgreSQL permission sentences.
+ * Never serialize DETAIL, HINT, SQL, connection data, or arbitrary error text.
+ */
+export function retirementFailureDiagnostic(error){
+ const sqlstate=/^[0-9A-Z]{5}$/.test(error?.code??'')?error.code:null;
+ const phases=['definition','evidence','begin','advisory','source-lock','authority','preflight','set-config','ddl','readback','commit','rollback'].map(p=>'archive-registration-'+p);
+ const result={sqlstate,phase:phases.includes(error?.retirementPhase)?error.retirementPhase:null};
+ if(sqlstate==='42501'){
+  result.category='insufficient_privilege';const raw=typeof error.message==='string'?error.message:'';
+  const message=raw.replace(/\([^\r\n]*\)$/,'(...)');
+  if(message.length<=200&&!/[\r\n]|:\/\/|@|password|credential|token/i.test(message)&&[
+   /^permission denied for (?:schema|table|relation|sequence|database) "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?$/,
+   /^permission denied for function "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?(?:\(\.\.\.\))?$/,
+   /^permission denied to set parameter "[A-Za-z_][A-Za-z0-9_.-]{0,127}"$/,
+   /^must be owner of (?:schema|table|relation|sequence|database) "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?$/
+  ].some(pattern=>pattern.test(message)))result.message=message;
+ }
+ return result;
 }
 async function archiveRows(db){return (await db.query("SELECT source_ordinal::text,original_row->>'id' AS source_id,group_fingerprint,original_row::text AS original_row_text,operation_context::text AS context_text,operation_context->'endpoint' AS endpoint_context,operation_context->'origins' AS origins_context,retired_at<=clock_timestamp() AS valid_time FROM "+archive+' ORDER BY source_ordinal LIMIT 65')).rows;}
 async function checkedState(db,d,definitionHash,lock){
@@ -205,4 +226,4 @@ async function main(){
  if(apply){const reader=connect();try{await reader.connect();const readback=mode==='--register-archive'?await registerHelpLegacyArchive(reader):await readHelpLegacyRetirement(reader);if(mode==='--register-archive'&&!readback.archivePresent)throw Error('Independent archive readback missing');result={...result,independentReadback:true,readback};}finally{await reader.end();}}
  await mkdir(new URL('test-results/pc10-help-legacy-retirement/',root),{recursive:true});await writeFile(new URL('test-results/pc10-help-legacy-retirement/'+mode.slice(2)+'.json',root),JSON.stringify({sourceCommit:process.env.GITHUB_SHA,...result},null,2)+'\n');console.log('PC10_HELP_LEGACY_RETIREMENT '+JSON.stringify({sourceCommit:process.env.GITHUB_SHA,...result}));
 }
-if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{console.error('Help legacy retirement failed closed. '+JSON.stringify({sqlstate:/^[0-9A-Z]{5}$/.test(error.code??'')?error.code:null}));process.exitCode=1;});
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(error=>{console.error('Help legacy retirement failed closed. '+JSON.stringify(retirementFailureDiagnostic(error)));process.exitCode=1;});

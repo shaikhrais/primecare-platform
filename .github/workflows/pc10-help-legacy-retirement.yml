@@ -41,6 +41,8 @@ jobs:
           HELP_LEGACY_RETIREMENT_FIXTURE: '1'
           HELP_LEGACY_RETIREMENT_TEST_DATABASE_URL: postgresql://postgres:fixture@127.0.0.1:5432/help_legacy_retirement
   production-retirement:
+    # Enabled only after the native PostgreSQL proof is inspected.
+    if: ${{ false }}
     needs: postgres-proof
     runs-on: ubuntu-24.04
     environment: production

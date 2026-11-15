@@ -1,6 +1,6 @@
 # API794 legacy grant disposition — approved retirement
 
-Status: the user explicitly approved this exact disposition with “Move it”. Production archival remains pending native PostgreSQL proof, inspection and independent readback. This approval covers only the exact64-row retirement described below.
+Status: the user explicitly approved this exact disposition with “Move it”. Native PostgreSQL proof and independent review passed. Production archive registration failed with SQLSTATE42501; a subsequent read-only check confirmed no archive and all64 source rows unchanged. Precise failure-stage diagnosis is in progress. This approval covers only the exact64-row retirement described below.
 
 ## Confirmed conflict
 
@@ -50,3 +50,11 @@ This proposal does not resolve the separate registered PSW screen/control, legit
 Read-only production discovery [43668252604](https://github.com/shaikhrais/primecare-platform/actions/runs/43668252604), job132672350917, succeeded on source `6266498e83d01266b4afcd24f288f62fb76a7f9a`. It preserved64 complete8-column source rows; full ordered raw-row SHA256 is `76c84a508c9ea77fa080fbf0c251a856690bb519b8d00fe9e0d6d7d705eb0269`. No physical inbound foreign keys were found. The exact source-reviewed `public.communication_voice_otp.grant_id` column has zero aggregate matches to source IDs/import ordinals; no OTP payload was read. The immutable manifest's two API-permission SQL objects, actual table shape and reference inventory are pinned by the retirement definition.
 
 The new archive stores the original PostgreSQL JSONB values and operation context. The writer compares originals before deletion, snapshots unrelated permission values, locks source/archive/context/reference relations, rejects reference or schema drift and independently reconnects after commit. The first workflow publication disables the production job so the native proof can be inspected before enabling the already-approved move. Source publication alone is not execution evidence.
+
+## Production attempt and verified unchanged state
+
+Native proof run [43668646678](https://github.com/shaikhrais/primecare-platform/actions/runs/43668646678), job132673544752, passed27/27 tests with zero skips, including actual concurrent artifact insertion and source-row mutation lock checks. After source review, workflow-only enablement on `8a12a53818b3d80f87542cbcf1b6d9cabb1a73ca` repeated27/27 native passes in run [43668764772](https://github.com/shaikhrais/primecare-platform/actions/runs/43668764772).
+
+Production job132674134928 returned `archivePresent:false` from the read-only archive plan, then failed archive registration with SQLSTATE42501. Retirement, independent retirement readback and catalogue guard did not run; no successful move is claimed.
+
+Fresh read-only run [43669181100](https://github.com/shaikhrais/primecare-platform/actions/runs/43669181100), job132675185259, on `24894726911524d0583615eaceb31e29497caed3` confirms the archive is absent and exactly64 active source rows still have the unchanged full-row hash above. OTP matches remain0. Current/session role `prisma_migration` owns the pinned schema and all existing target relations; schema USAGE/CREATE, reported table permissions, any-column UPDATE and advisory-function EXECUTE are all allowed. This evidence does not support requesting a general GRANT or switching roles. Identify the exact denied operation before proposing a remedy; retain existing locks and full-row checks.

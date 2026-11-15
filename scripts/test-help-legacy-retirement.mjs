@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';import {randomUUID,createHash} from 'node:crypto';import {PGlite} from '@electric-sql/pglite';import pg from 'pg';
-import {helpLegacyRetirement,helpLegacyDigest,inspectHelpLegacyRetirement,registerHelpLegacyArchive,retireHelpLegacyGrants,readHelpLegacyRetirement} from '../tools/governance-production/pc10-help-legacy-retirement.mjs';
+import {helpLegacyRetirement,helpLegacyDigest,inspectHelpLegacyRetirement,registerHelpLegacyArchive,retireHelpLegacyGrants,readHelpLegacyRetirement,retirementFailureDiagnostic} from '../tools/governance-production/pc10-help-legacy-retirement.mjs';
 const pin=JSON.parse(await readFile(new URL('../tools/governance-production/production-pin.json',import.meta.url))),contract=JSON.parse(await readFile(new URL('../tools/governance-production/pc10-help-reader-contract.json',import.meta.url)));
 const table=n=>'"'+pin.schema+'"."'+pin.tablePrefix+n+'"',source=table('api_permissions'),archive=table('help_legacy_grant_archive'),commit='a'.repeat(40),key=helpLegacyRetirement.permissionKey;
 function fixtureContext(){if(process.env.HELP_LEGACY_RETIREMENT_FIXTURE!=='1'||['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DB_URL'].some(k=>Object.hasOwn(process.env,k)))throw Error('Explicit isolated retirement test required');const value=process.env.HELP_LEGACY_RETIREMENT_TEST_DATABASE_URL;if(value){const u=new URL(value);if(!['postgres:','postgresql:'].includes(u.protocol)||u.hostname!=='127.0.0.1'||u.pathname!=='/help_legacy_retirement'||u.search||u.hash)throw Error('Explicit localhost retirement test required');}return value;}
@@ -24,6 +24,18 @@ async function fixture(run,{registered=true}={}){
  }finally{await db.close();}
 }
 const counts=async db=>({source:Number((await db.query('SELECT count(*)::text AS n FROM '+source+' WHERE permission_key=$1',[key])).rows[0].n),archive:Number((await db.query('SELECT count(*)::text AS n FROM '+archive)).rows[0].n)});
+test('registration42501 identifies the exact failed phase while preserving rollback and grants',()=>fixture(async f=>{
+ const query=f.db.query.bind(f.db),db={query:async(sql,...args)=>{if(sql.startsWith('LOCK TABLE '+source+' IN SHARE MODE'))throw Object.assign(Error('permission denied for table govt_api_permissions'),{code:'42501',detail:'private detail',hint:'private hint'});return query(sql,...args);}};
+ await assert.rejects(registerHelpLegacyArchive(db,{...f.options,apply:true}),error=>{assert.deepEqual(retirementFailureDiagnostic(error),{sqlstate:'42501',phase:'archive-registration-source-lock',category:'insufficient_privilege',message:'permission denied for table govt_api_permissions'});return true;});
+ assert.deepEqual(await counts(f.db),{source:64,archive:0});
+}));
+test('retirement diagnostics reject arbitrary text, URLs, SQL, details and non42501 messages',()=>{
+ const phase='archive-registration-ddl';
+ for(const message of ['permission denied for table secret password=hidden','permission denied for schema https://user:secret@example.test','permission denied for table api\nDETAIL:private','SELECT private FROM secret'])assert.deepEqual(retirementFailureDiagnostic({code:'42501',retirementPhase:phase,message,detail:'private',hint:'private',query:'private'}),{sqlstate:'42501',phase,category:'insufficient_privilege'});
+ assert.deepEqual(retirementFailureDiagnostic({code:'42501',retirementPhase:phase,message:'permission denied to set parameter "primecare.help_legacy_archive_registration"'}),{sqlstate:'42501',phase,category:'insufficient_privilege',message:'permission denied to set parameter "primecare.help_legacy_archive_registration"'});
+ assert.deepEqual(retirementFailureDiagnostic({code:'42501',retirementPhase:phase,message:'permission denied for function pg_advisory_xact_lock(integer, integer)'}),{sqlstate:'42501',phase,category:'insufficient_privilege',message:'permission denied for function pg_advisory_xact_lock(...)'});
+ assert.deepEqual(retirementFailureDiagnostic({code:'XX000',retirementPhase:'private phase',message:'private'}),{sqlstate:'XX000',phase:null});
+});
 test('test harness refuses production markers and remote URL overrides before connections',async()=>{
  const old=process.env.PRODUCTION_DATABASE_URL;try{process.env.PRODUCTION_DATABASE_URL='fixture-marker';assert.throws(fixtureContext,/Explicit isolated/);await assert.rejects(registerHelpLegacyArchive({},{fixtureDefinition:helpLegacyRetirement}),/Explicit isolated/);}finally{if(old===undefined)delete process.env.PRODUCTION_DATABASE_URL;else process.env.PRODUCTION_DATABASE_URL=old;}
 });
