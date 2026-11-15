@@ -5,6 +5,7 @@ import {pathToFileURL} from 'node:url';
 const repository='shaikhrais/primecare-platform';
 const workflow='.github/workflows/psw-workspace.yml';
 const prepublication='Verify current main before publication';
+const prePages='Verify current main before Pages publication';
 const shaPattern=/^[0-9a-f]{40}$/;
 export function retryDecision({run,jobs,currentHead,currentRuns}) {
  if(!run||run.repository?.full_name!==repository||run.head_repository?.full_name!==repository||
@@ -20,8 +21,17 @@ export function retryDecision({run,jobs,currentHead,currentRuns}) {
  const steps=publish[0].steps;
  if(!Array.isArray(steps))throw Error('Missing publication steps');
  const failed=steps.filter(s=>s.conclusion==='failure');
- if(failed.length!==1||failed[0].name!==prepublication)return {retry:false,reason:'not_a_prepublication_stale_guard'};
+ if(failed.length!==1||![prepublication,prePages].includes(failed[0].name))return {retry:false,reason:'not_a_prepublication_stale_guard'};
  const index=steps.indexOf(failed[0]);
+ if(failed[0].name===prePages){
+  // Only the standalone guard can prove no Pages deployment began. A failure
+  // inside the deployment loop may follow a partial release and stays manual.
+  for(const name of [prepublication,'Build database-governed portals']){
+   const matches=steps.filter(s=>s.name===name);
+   if(matches.length!==1||matches[0].conclusion!=='success'||steps.indexOf(matches[0])>=index)
+    return {retry:false,reason:'pages_preparation_not_successful'};
+  }
+ }
  // The workflow always uploads its evidence after a rejection. That evidence-only
  // artifact step is not a provider publication and must not suppress verification.
  if(steps.slice(index+1).some(s=>!s.name.startsWith('Post ')&&s.name!=='Complete job'&&s.name!=='Run actions/upload-artifact@v4'&&
@@ -72,3 +82,4 @@ if(import.meta.url===pathToFileURL(process.argv[1]??'').href){
  const event=JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH,'utf8'));
  console.log(JSON.stringify(await queueFreshVerification({event,token:process.env.GITHUB_TOKEN})));
 }
+

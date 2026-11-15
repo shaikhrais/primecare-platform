@@ -6,6 +6,26 @@ const run={id:17,repository:{full_name:'shaikhrais/primecare-platform'},head_rep
 const jobs=[{name:'acceptance',conclusion:'success',steps:[]},{name:'publish',conclusion:'failure',steps:[{name:'Setup',conclusion:'success'},{name:'Verify current main before publication',conclusion:'failure'},{name:'Publish governance API',conclusion:'skipped'},{name:'Post Run actions/checkout@v4',conclusion:'success'}]}];
 const input=()=>({run:structuredClone(run),jobs:structuredClone(jobs),currentHead:head,currentRuns:[]});
 test('only a prepublication stale guard queues fresh verification',()=>assert.deepEqual(retryDecision(input()),{retry:true,reason:'verify_new_main',source:head,ref:'main'}));
+test('explicit pre-Pages stale guard queues full fresh acceptance after successful preparation',()=>{
+ const i=input();i.jobs[1].steps=[
+  {name:'Verify current main before publication',conclusion:'success'},
+  {name:'Build database-governed portals',conclusion:'success'},
+  {name:'Verify current main before Pages publication',conclusion:'failure'},
+  {name:'Publish the PSW route to every existing portal',conclusion:'skipped'},
+  {name:'Run actions/upload-artifact@v4',conclusion:'success'}
+ ];
+ assert.equal(retryDecision(i).retry,true);
+ for(const index of [0,1])for(const conclusion of ['failure','skipped',null]){
+  const changed=structuredClone(i);changed.jobs[1].steps[index].conclusion=conclusion;
+  assert.equal(retryDecision(changed).retry,false);
+ }
+ const duplicate=structuredClone(i);duplicate.jobs[1].steps.unshift({...i.jobs[1].steps[0]});
+ assert.equal(retryDecision(duplicate).retry,false);
+ const deployed=structuredClone(i);deployed.jobs[1].steps[3].conclusion='success';
+ assert.equal(retryDecision(deployed).reason,'later_steps_executed');
+ const provider=structuredClone(i);provider.jobs[1].steps[2].conclusion='success';provider.jobs[1].steps[3].conclusion='failure';
+ assert.equal(retryDecision(provider).retry,false);
+});
 test('the always-run evidence upload does not suppress fresh verification after a stale rejection',()=>{
  const i=input();i.jobs[1].steps.splice(3,0,{name:'Run actions/upload-artifact@v4',conclusion:'success'});
  assert.equal(retryDecision(i).retry,true);
@@ -42,3 +62,4 @@ test('changed main or incomplete API reads never dispatch',async()=>{
  assert.equal((await queueFreshVerification({event:{workflow_run:run},token:'fixture',fetcher})).reason,'main_changed_during_scheduling');assert.equal(posts,0);
  await assert.rejects(queueFreshVerification({event:{workflow_run:run},token:'fixture',fetcher:async()=>new Response('',{status:403})}));
 });
+

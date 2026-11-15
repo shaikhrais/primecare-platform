@@ -121,11 +121,14 @@ jobs:
           python3 tools/governance-production/theme_workspace_implementation.py --apply
       - name: Build database-governed portals
         run: node scripts/build-typescript-websites.mjs
-      - name: Publish the PSW route to every existing portal
+      - name: Verify current main before Pages publication
         run: |
           set -euo pipefail
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+      - name: Publish the PSW route to every existing portal
+        run: |
+          set -euo pipefail
           for project in $(node -e "console.log(Object.keys(require('./websites/typescript/projects.json')).join(' '))"); do
             git fetch origin main
             test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
@@ -143,3 +146,4 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with: {name: psw-workspace-production-receipt, path: 'test-results/', retention-days: 30}
+
