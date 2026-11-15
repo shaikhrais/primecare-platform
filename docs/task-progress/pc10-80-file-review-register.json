@@ -416,14 +416,14 @@
     {
       "id": 34,
       "path": "scripts/verify-auth-live-proof-source.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f2d34d2a660b0fd4b7203873b950a4ffe15aa1b9",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Auth live proof source, receipt/CI/provider identity checks and approved activation policy; no confirmed safe defect. No provider verification executed.",
+      "outcome": "ok"
     },
     {
       "id": 35,
@@ -464,26 +464,26 @@
     {
       "id": 38,
       "path": "docs/appearance/theme-gap-register.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "de49d9509c005d807f67c5d38d479dfb3961d3ca",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed theme gap register and batch closure plan, including scoped historical acceptance versus remaining device/host gates; no confirmed internal discrepancy.",
+      "outcome": "ok"
     },
     {
       "id": 39,
       "path": "tools/governance-production/native-application-host-registration.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "7b70d084f7b76afd8e0084c24765d983abfeaffc",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete native host registration, source contract, guarded transaction and independent readback; no confirmed safe defect. No production write performed.",
+      "outcome": "ok"
     },
     {
       "id": 40,
