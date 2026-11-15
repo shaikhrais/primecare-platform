@@ -68,26 +68,26 @@
     {
       "id": 5,
       "path": "docs/appearance/pc10-section2-help-data-rollback.sql",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "19296bcb3529ae856cdbe021e47fde438d1d8ff0",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete fixture-only rollback against companion proposal; verifies explicit fixture guard and adopted-data refusal. No confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 6,
       "path": "docs/appearance/pc10-section2-help-data-proposal.sql",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "1452ea27e3c01e0ffc86c94033afa4a5c5615952",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete fixture-only proposal and rollback; explicit draft-only guard, tenant schema validation and publication constraints. No confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 7,
