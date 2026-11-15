@@ -392,14 +392,14 @@
     {
       "id": 32,
       "path": "tools/auth-verification/native-application-live.dart",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ff9a3cfcb9e5e8dfe334bf813ba23500ee3c09e6",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full owned native widget proof harness, actor fixtures, request capture, lifecycle and result labeling; no confirmed safe defect. Not executed.",
+      "outcome": "ok"
     },
     {
       "id": 33,
@@ -428,26 +428,26 @@
     {
       "id": 35,
       "path": "scripts/cleanup-help-audit.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "87b780232c92c7755822da0c5431df9c7dc8dd1d",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full registered Help audit cleanup writer, pin/hash checks, bounded expiry deletion, independent readback and failure boundaries; no confirmed safe defect. Not executed.",
+      "outcome": "ok"
     },
     {
       "id": 36,
       "path": "docs/appearance/theme-closure-repair-plan.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "09a08a8f5d375d342e53cff7d9bd16900443c3f7",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed theme closure repair plan and scope labels; correctly separates scoped evidence from incomplete batch/device acceptance; no confirmed inconsistency.",
+      "outcome": "ok"
     },
     {
       "id": 37,
