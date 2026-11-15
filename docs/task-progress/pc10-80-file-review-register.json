@@ -44,26 +44,26 @@
     {
       "id": 3,
       "path": "tools/governance-production/pc10-help-policy.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "117fde9a1b73cb81e860141f0e552c50d2ce285d",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete policy registration, policy definition, storage dependency, transaction guards, and readback; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 4,
       "path": "tools/governance-production/pc10-help-storage.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "6dfe9ff7cfececcc79455e2da0a9ba5e2a26d6c2",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete storage migration, SQL and exact shape definition, transaction/manifest controls; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 5,
