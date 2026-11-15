@@ -1,9 +1,41 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {build} from 'esbuild';import {helpFixture,table} from './help-reader-service-fixture.mjs';
+import test from 'node:test';import assert from 'node:assert/strict';import {build} from 'esbuild';import {helpFixture,table,fixtureArtifactId,fixtureArtifactIdentity} from './help-reader-service-fixture.mjs';
 const compiled=await build({entryPoints:['packages/shared/src/help-reader/service.ts'],bundle:true,write:false,platform:'node',format:'esm'});
 const {readPublishedHelp,HelpReadFailure}=await import('data:text/javascript;base64,'+Buffer.from(compiled.outputFiles[0].text+'\n//# sourceURL=help-reader-service-fixture.mjs').toString('base64'));
 const list={version:1,locale:'en',action:'list',query:'',offset:0,limit:25},read=id=>({version:1,locale:'en',action:'read',articleId:id}),hash='a'.repeat(64);
 async function fixture(run,allowed=true){const f=await helpFixture();try{if(allowed)await f.allow();await run(f);}finally{await f.close();}}
 const failure=code=>e=>e instanceof HelpReadFailure&&e.code===code;
+// These fixtures exercise only structural provenance. Their synthetic artifact
+// does not supply the still-unregistered production Help source/deployment binding.
+async function artifactDenied(f,override){
+ const seen=[];
+ const db={query:async(sql,...args)=>{seen.push(sql);const result=await f.db.query(sql,...args);return override?override(sql,result):result;}};
+ for(const request of [list,read('a-en')])await assert.rejects(readPublishedHelp(db,hash,request,f.effects),failure('forbidden'));
+ assert.deepEqual(f.events,[]);
+ assert.equal(seen.some(sql=>sql.includes('public.faqs')),false);
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_quota')).rows[0].n),0);
+ assert.equal(Number((await f.db.query('SELECT count(*) n FROM test_help_audit')).rows[0].n),0);
+}
+for(const [label,value] of [['NULL',null],['zero',0],['negative',-1],['foreign',999999]])test(label+' grant artifact denies list/detail before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('UPDATE '+table('api_permissions')+' SET runtime_artifact_id=$1',[value]);await artifactDenied(f);
+}));
+test('matching but nonexistent endpoint/grant artifact denies before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('UPDATE '+table('api_permissions')+' SET runtime_artifact_id=999999');await f.db.query('UPDATE '+table('api_endpoints')+' SET runtime_artifact_id=$1::jsonb',[JSON.stringify({t:'integer',v:'999999'})]);await artifactDenied(f);
+}));
+for(const [label,value] of [['SQL NULL',undefined],['JSON null',null],['imported null tag',{t:'null',v:null}],['scalar number',fixtureArtifactId],['scalar string',String(fixtureArtifactId)],['wrong tag',{t:'text',v:String(fixtureArtifactId)}],['numeric tagged value',{t:'integer',v:fixtureArtifactId}],['noncanonical tagged value',{t:'integer',v:'0'+fixtureArtifactId}],['extra tagged property',{...fixtureArtifactIdentity,foreign:true}],['foreign tagged identity',{t:'integer',v:'999999'}]])test(label+' endpoint artifact denies before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('UPDATE '+table('api_endpoints')+' SET runtime_artifact_id=$1::jsonb',[value===undefined?null:JSON.stringify(value)]);await artifactDenied(f);
+}));
+test('missing artifact row denies before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('DELETE FROM '+table('runtime_artifacts'));await artifactDenied(f);
+}));
+for(const [label,value] of [['scalar identity',fixtureArtifactId],['wrong-tag identity',{t:'text',v:String(fixtureArtifactId)}],['numeric-tag identity',{t:'integer',v:fixtureArtifactId}],['extra-property identity',{...fixtureArtifactIdentity,foreign:true}]])test(label+' runtime row denies before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('UPDATE '+table('runtime_artifacts')+' SET id=$1::jsonb',[JSON.stringify(value)]);await artifactDenied(f);
+}));
+test('duplicate artifact identity denies before effects or FAQ SQL',()=>fixture(async f=>{
+ await f.db.query('INSERT INTO '+table('runtime_artifacts')+' VALUES(2,$1::jsonb)',[JSON.stringify(fixtureArtifactIdentity)]);await artifactDenied(f);
+}));
+for(const [label,value] of [['missing value',undefined],['unsafe number',9007199254740992],['overflow string','9223372036854775808'],['leading-zero string','0900794'],['exponent string','9.00794e5'],['boolean',true]])test(label+' grant projection cannot be coerced into a valid artifact',()=>fixture(async f=>{
+ await artifactDenied(f,(sql,result)=>sql.startsWith('SELECT can_access,permission_key')?{rows:result.rows.map(row=>({...row,runtime_artifact_id:value}))}:result);
+}));
 test('session expiring during quota and audit awaits cannot return guides or commit audit',()=>fixture(async f=>{
  let expired=false;
  const effects={...f.effects,

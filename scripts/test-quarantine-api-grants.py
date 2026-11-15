@@ -93,8 +93,8 @@ class ProductionConsumerReviewTest(unittest.TestCase):
         import hashlib
         root=Path(__file__).resolve().parents[1]
         relative='packages/shared/src/help-reader/service.ts'
-        entry=json.loads((root/'docs/business/evidence/communication-runtime-reader-review.json').read_text())[relative]
-        self.assertEqual(entry['sha256'],hashlib.sha256((root/relative).read_bytes()).hexdigest())
+        entry=json.loads((root/'docs/business/evidence/communication-runtime-reader-review.json').read_text())[relative]['previousReview']
+        self.assertEqual(entry['sha256'],'b546807b5cb7294c759a384d9201780688291ca4fbb1d8f938ad75753f3f4865')
         self.assertEqual(entry['reviewedRevision'],'c635640f1f46e4e547cac666e887004bf481a6ce')
         previous=entry['previousReview']
         self.assertEqual(previous['sha256'],'7243e10be98703dcf90fac847f5c993934635075fb886f5600b409e1cbbbbd73')
@@ -105,6 +105,22 @@ class ProductionConsumerReviewTest(unittest.TestCase):
             self.assertEqual(reviewed['authority'],'pinned-production-postgresql')
             self.assertEqual(reviewed['reviewType'],'source-inspection')
             self.assertEqual(reviewed['independentAcceptance'],'pending')
+
+    def test_help_structural_runtime_revision_preserves_full_prior_inspection(self):
+        import hashlib
+        root=Path(__file__).resolve().parents[1]
+        relative='packages/shared/src/help-reader/service.ts'
+        entry=json.loads((root/'docs/business/evidence/communication-runtime-reader-review.json').read_text())[relative]
+        self.assertEqual(entry['sha256'],hashlib.sha256((root/relative).read_bytes()).hexdigest())
+        self.assertEqual(entry['reviewedSourceBase'],'9ca6b069dfd5805f5db097e7fcba706aae594f9c')
+        previous_bytes=json.dumps(entry['previousReview'],sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()
+        self.assertEqual(hashlib.sha256(previous_bytes).hexdigest(),'0d2b83e24b13377a27dc7c0ace1811df2895edfd26eeaeab92f20541954130af')
+        self.assertIs(entry['structuralValidationOnly'],True)
+        self.assertIs(entry['historicalCatalogAccess'],False)
+        self.assertIs(entry['activation'],False)
+        self.assertEqual(entry['authority'],'pinned-production-postgresql')
+        self.assertEqual(entry['reviewType'],'source-inspection')
+        self.assertEqual(entry['independentAcceptance'],'pending')
 
     # Explicit test inventory: do not derive from the implementation allowlist.
     reviewed_paths = (

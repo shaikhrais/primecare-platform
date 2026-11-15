@@ -62,9 +62,13 @@ export class TrainingService {
         }
     ): Promise<Result<any>> {
         return Result.guard(async () => {
+            // Keep the checked module and assignment fields stable across the
+            // ownership await, including callers that reuse the input record.
+            const { moduleId, staffId, providerId, dueDate } = data;
+            const assignmentDueDate = dueDate ? new Date(dueDate) : null;
             // Verify module exists and belongs to tenant
             const module = await prisma.trainingModule.findFirst({
-                where: { id: data.moduleId, tenantId }
+                where: { id: moduleId, tenantId }
             });
 
             if (!module) {
@@ -73,10 +77,10 @@ export class TrainingService {
 
             return prisma.trainingAssignment.create({
                 data: {
-                    moduleId: data.moduleId,
-                    staffId: data.staffId,
-                    providerId: data.providerId,
-                    dueDate: data.dueDate ? new Date(data.dueDate) : null,
+                    moduleId,
+                    staffId,
+                    providerId,
+                    dueDate: assignmentDueDate,
                     status: 'assigned'
                 }
             });
@@ -86,10 +90,16 @@ export class TrainingService {
     /**
      * Marks a training assignment as completed.
      */
-    static async completeAssignment(prisma: PrismaClient, assignmentId: string): Promise<Result<any>> {
+    static async completeAssignment(prisma: PrismaClient, tenantId: string, assignmentId: string): Promise<Result<any>> {
         return Result.guard(async () => {
+            if (typeof tenantId !== 'string' || tenantId.trim().length === 0 ||
+                typeof assignmentId !== 'string' || assignmentId.trim().length === 0) {
+                throw new Error('Tenant and training assignment identifiers are required.');
+            }
             return prisma.trainingAssignment.update({
-                where: { id: assignmentId },
+                // TrainingAssignment has no tenant column; ownership belongs
+                // to its module and must constrain the write itself.
+                where: { id: assignmentId, module: { tenantId } },
                 data: {
                     status: 'completed',
                     completedAt: new Date()

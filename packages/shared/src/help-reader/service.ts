@@ -13,6 +13,18 @@ export type HelpReadEffects={
 const table=(name:string)=>`"${pin.schema}"."${pin.tablePrefix}${name}"`;
 const sessionSql=`SELECT u.id,u.roles,u.tenant_id FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id JOIN public.tenants t ON t.id=u.tenant_id WHERE s.token_hash=$1 AND s.expires_at>clock_timestamp() AND lower(u.status)='active' AND lower(t.status)='active' FOR SHARE OF s,u,t`;
 const published=`tenant_id=$1 AND locale=$2 AND publication_state='published' AND published_at<=CURRENT_TIMESTAMP`;
+// PostgreSQL int8 grants and the pinned import's tagged JSONB references must
+// retain exact identities; coercion must never round or reinterpret a value.
+function artifactId(value:unknown):string|null{
+ if(typeof value==='number')return Number.isSafeInteger(value)&&value>0?String(value):null;
+ if(typeof value!=='string'||! /^[1-9][0-9]{0,18}$/.test(value)||value.length===19&&value>'9223372036854775807')return null;
+ return value;
+}
+function taggedArtifactId(value:unknown):string|null{
+ if(!value||typeof value!=='object'||Array.isArray(value)||Object.keys(value).sort().join(',')!=='t,v')return null;
+ const tagged=value as {t:unknown;v:unknown};
+ return tagged.t==='integer'&&typeof tagged.v==='string'?artifactId(tagged.v):null;
+}
 function article(row:any,detail:boolean){
  const revision=typeof row.revision==='string'&&/^[1-9][0-9]*$/.test(row.revision)?Number(row.revision):row.revision;
  if(!id(row.id)||!integer(revision,1,Number.MAX_SAFE_INTEGER)||!text(row.question,1,500)||!text(row.category,1,100)||!text(detail?row.answer:row.summary,detail?1:0,detail?5000:1000))throw new HelpReadFailure('unavailable',503);
@@ -41,8 +53,14 @@ export async function readPublishedHelp(db:Database,tokenHash:string,raw:unknown
   const endpoints=(await query('SELECT * FROM '+table('api_endpoints')+' WHERE id=794 FOR SHARE')).rows,e=endpoints[0];
   if(endpoints.length!==1||e.http_method!==contract.method||e.route_path!==contract.path||Number(e.auth_required)!==1||e.permission_key!==contract.permissionKey||e.rate_limit_key!==contract.rateLimitKey||e.service_name!==contract.service||e.implementation_status!=='implemented-unverified'||e.request_schema!==JSON.stringify(contract.requestSchema)||e.response_schema!==JSON.stringify(contract.responseSchema))throw new HelpReadFailure('unavailable',503);
   const roles=(await query('SELECT id FROM '+table('roles')+" WHERE id=51 AND role_code='psw' AND active=1 FOR SHARE")).rows;
-  const grants=(await query('SELECT can_access,permission_key FROM '+table('api_permissions')+' WHERE api_id=794 AND role_id=51 AND permission_key=$1 FOR SHARE',[contract.permissionKey])).rows;
+  const grants=(await query('SELECT can_access,permission_key,runtime_artifact_id FROM '+table('api_permissions')+' WHERE api_id=794 AND role_id=51 AND permission_key=$1 FOR SHARE',[contract.permissionKey])).rows;
   if(roles.length!==1||grants.length!==1||Number(grants[0].can_access)!==1||grants[0].permission_key!==contract.permissionKey)throw new HelpReadFailure('forbidden',403);
+  const grantArtifact=artifactId(grants[0].runtime_artifact_id);
+  if(grantArtifact===null||taggedArtifactId(e.runtime_artifact_id)!==grantArtifact)throw new HelpReadFailure('forbidden',403);
+  const artifacts=(await query('SELECT id FROM '+table('runtime_artifacts')+' WHERE id=$1::jsonb LIMIT 2 FOR SHARE',[JSON.stringify({t:'integer',v:grantArtifact})])).rows;
+  if(artifacts.length!==1||taggedArtifactId(artifacts[0].id)!==grantArtifact)throw new HelpReadFailure('forbidden',403);
+  // Structural provenance is necessary, not Help source/deployment authority.
+  // The reader remains unmounted until its separate reviewed runtime binding.
   const screens=(await query('SELECT s.id FROM '+table('screens')+' s JOIN '+table('role_screen_permissions')+' p ON p.screen_id=s.id JOIN '+table('role_screen_map')+" m ON m.screen_id=s.id AND m.role_id=p.role_id WHERE s.id=685 AND s.screen_code='psw_help_support' AND s.route_path='/generated/psw-help-support' AND s.active=1 AND p.role_id=51 AND p.can_view=1 AND m.can_view=1 FOR SHARE OF s,p,m")).rows;
   const links=(await query('SELECT id,purpose FROM '+table('screen_api_links')+' WHERE screen_id=685 AND api_id=794 FOR SHARE')).rows;
   if(screens.length!==1||links.length!==1||links[0].purpose!==contract.linkPurpose)throw new HelpReadFailure('forbidden',403);
