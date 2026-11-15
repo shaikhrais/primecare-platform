@@ -68,11 +68,13 @@ class HelpDeskDashboardScreenController extends BaseWorkspaceController<HelpDesk
 
 
   Future<void> refreshData() async {
+    if (!mounted) return;
     state = state.copyWith(isLoading: true, error: null);
     
     try {
 
       final res_loadApiV1HelpDeskList = await ref.read(generatedApiClientProvider).loadApiV1HelpDeskList();
+      if (!mounted) return;
       if (!res_loadApiV1HelpDeskList.isSuccess) {
         state = state.copyWith(isLoading: false, error: res_loadApiV1HelpDeskList.error ?? 'Failed to load Load Help Desk List Data', hasData: false);
         return;
@@ -83,6 +85,7 @@ class HelpDeskDashboardScreenController extends BaseWorkspaceController<HelpDesk
       }
       state = state.copyWith(isLoading: false, hasData: true);
     } catch (e) {
+      if (!mounted) return;
       state = state.copyWith(isLoading: false, error: e.toString(), hasData: false);
     }
   }
