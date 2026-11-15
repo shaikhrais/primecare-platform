@@ -260,86 +260,86 @@
     {
       "id": 21,
       "path": "tools/governance-production/pc10-help-runtime-registration.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "45511a6175b6b044b00446ce9e3077ae30b2d468",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed read-only runtime registration discovery against exact definition, projections, schema checks and transaction cleanup; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 22,
       "path": "tools/governance-production/pc10-help-discovery.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "4f26bbc2131fc94ce3c2b1481b3de9833920dcfd",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed Help metadata discovery including bounded queries, reference evidence, privileges, output and rollback; no confirmed safe defect. No live execution.",
+      "outcome": "ok"
     },
     {
       "id": 23,
       "path": "docs/appearance/pc10-preferences-activation.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "98aa93bf4c0e33852d5ea55b619509f4639fdd4d",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed historical preference activation receipt against activation writer identity and stated limitations; no internal discrepancy. External proof not rerun.",
+      "outcome": "ok"
     },
     {
       "id": 24,
       "path": "tools/governance-production/pc10-help-schema.definition.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "d99086b33a211bfeab0ff66ab57c32679a459753",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed Help schema definition against SQL migration and wrapper checks; no confirmed mismatch.",
+      "outcome": "ok"
     },
     {
       "id": 25,
       "path": "tools/governance-production/pc10-help-legacy-retirement.definition.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "9e62684796c166b8b674d0123b122bb925d6ff8f",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed exact legacy retirement definition against writer constants and documented retirement evidence; no confirmed mismatch.",
+      "outcome": "ok"
     },
     {
       "id": 26,
       "path": "tools/governance-production/pc10-help-runtime-registration.definition.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ad1d8c91ea976e9b5bfcd486bebfa08beaa2f739",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed read-only runtime registration definition against discovery code, role, screen and relation allowlist; no confirmed mismatch.",
+      "outcome": "ok"
     },
     {
       "id": 27,
       "path": "docs/api/evidence/pc10-help-api794-legacy-retirement.json",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f4434b14cc3b836a67b5fc0feac2b32d358cd4b8",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete historical API794 retirement receipt against accompanying report, expected counts, digest fields and scope; no internal discrepancy. Production not independently queried.",
+      "outcome": "ok"
     },
     {
       "id": 28,
