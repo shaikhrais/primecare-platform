@@ -33,3 +33,10 @@
 
 ## Current decision
 Develop new features only with PrimeCare-owned theme, tokens, and shared UI components. Do not import vendor Fuse packages or assets. Keep the release licence gate **OPEN** until the complete dependency graph, built artefacts, notices, and legal review are evidenced.
+
+## Follow-up — active-entrypoint guard (2026-11-15)
+- Code search for `@fuse/core` returned the historical skeleton scanner, theme-adoption contract and skeleton inventory; no active application import was identified by that query. This is not a complete filesystem/import-graph proof.
+- `PrimeFuseTheme` is a deprecated alias for `PrimeCareTheme`; `toFuseAppearance` and `approvedFuseProfile` are TypeScript compatibility reexports of PrimeCare appearance functions. Their existence is not itself a vendor binary dependency.
+- Commit `c06202aa0ec815d775d4ff0b3c40b3a9b16976eb` added an original-theme regression gate for root npm and PrimeCare UI Flutter manifests and selected public theme entrypoints. **The test has not been executed in this follow-up.**
+- Legacy Fuse-named tests, CI workflow paths and historical preset/evidence files are retained until their consumers and pinned evidence are migrated. Do not remove them merely to make a text search return zero matches.
+- Full workspace/lockfile/transitive licence audit and deployed artefact review remain open; this is not release clearance.
