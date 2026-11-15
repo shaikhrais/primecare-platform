@@ -754,26 +754,26 @@
     {
       "id": 62,
       "path": "scripts/test-help-postgres-store.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "7fade3b7dbaa22b32407adf1368ad3a433129623",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed operational PostgreSQL store fixture tests and quota/audit/policy locking dependencies; no confirmed safe defect; tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 63,
       "path": "scripts/test-help-runtime-registration.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "c2ac222e0e3746ed9048966f05a8133ac50573c1",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed runtime registration discovery tests, fake metadata projections, fail-closed behavior and read-only transaction expectations; no confirmed safe defect; tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 64,
@@ -814,14 +814,14 @@
     {
       "id": 67,
       "path": "tools/auth-verification/test-auth-live-proof-source.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "49f3b6b37ad1fb3e511a120658bf086d0dc04fd8",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed auth live proof source test coverage against release/activation verification functions and provider identity checks; no confirmed safe defect; tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 68,
