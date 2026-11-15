@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/verify-account-mutations.yml
+      - cloudflare/workers/**
       - websites/typescript/src/account-mutations-*.ts
       - websites/typescript/src/tenant-accounts-*.ts
       - websites/typescript/src/infrastructure/http/base-session-client.ts

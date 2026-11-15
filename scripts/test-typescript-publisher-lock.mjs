@@ -4,6 +4,11 @@ import {readFile,mkdtemp,mkdir,writeFile,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {spawnSync} from 'node:child_process';
+test('auth live source verification is triggered by the Worker tree its source gate compares',async()=>{
+ const account=await readFile('.github/workflows/verify-account-mutations.yml','utf8');
+ const paths=account.split('\n  push:\n')[1]?.split('\n  workflow_run:')[0];
+ assert.match(paths??'',/      - cloudflare\/workers\/\*\*/);
+});
 test('live account journeys retain one non-cancelling publisher lock across all locales',async()=>{
  const text=await readFile('.github/workflows/verify-account-mutations.yml','utf8');
  const proof=text.split('\n  proof:\n')[1];
