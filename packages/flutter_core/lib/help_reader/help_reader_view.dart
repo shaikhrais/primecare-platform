@@ -3,6 +3,8 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart'
     show PrimeCard, PrimeCircularProgressIndicator, PrimeDropdownButtonFormField,
         PrimeText, PrimeTextButton, PrimeTextFormField;
 import '../component_catalogue/prime_component_catalogue.dart' show CatalogueLabels;
+import '../advanced_theme/advanced_theme_model.dart' show AdvancedTheme;
+import '../advanced_theme/advanced_theme_region.dart' show AdvancedThemeTokens;
 import 'help_reader_controller.dart';
 
 /// Caller-supplied references to existing verified controls, never registrations.
@@ -27,6 +29,17 @@ class HelpReaderView {
     builder: (context, _) {
       final state = controller.state;
       final labels = labelsForLocale(state.locale);
+      final materialTheme = Theme.of(context);
+      final effective = materialTheme.extension<AdvancedThemeTokens>() ??
+        AdvancedThemeTokens(AdvancedTheme.defaults(), 'main');
+      final spacing = effective.spacing;
+      final layout = effective.theme.layout;
+      final maxWidth = layout['container'] == 'fullwidth' ? double.infinity :
+        (layout['maxWidth']! as num).toDouble();
+      Widget frame(Widget child) => FocusTraversalGroup(child: SingleChildScrollView(
+        child: Align(alignment: AlignmentDirectional.topCenter,
+          child: ConstrainedBox(constraints: BoxConstraints(maxWidth: maxWidth),
+            child: Padding(padding: EdgeInsets.all(spacing), child: child)))));
       final closed = state.phase == 'retired' || state.phase == 'disposed';
       Widget button(String binding, Future<void> Function()? action,
           {String? text, String suffix = ''}) => labels.identify(binding,
@@ -38,10 +51,10 @@ class HelpReaderView {
         }, child: PrimeText(text ?? labels.text(binding))), suffix: suffix);
       Widget status(String binding, {bool busy = false}) => labels.identify(
         binding, 'prime_card', Semantics(liveRegion: true, child: PrimeCard(
-          child: Padding(padding: const EdgeInsets.all(16), child: Column(
+          child: Padding(padding: EdgeInsets.all(spacing), child: Column(
             mainAxisSize: MainAxisSize.min, children: [PrimeText(labels.text(binding)),
               if (busy) PrimeCircularProgressIndicator(semanticsLabel: labels.text(binding))])))));
-      if (closed) return status(retired);
+      if (closed) return frame(status(retired));
       final options = localeNames(state.locale);
       if (options.length != 3 || !options.keys.toSet().containsAll(['en', 'fr', 'es']) ||
           options.values.any((name) => name.trim().isEmpty)) {
@@ -69,7 +82,7 @@ class HelpReaderView {
           button(back, controller.backToList)],
         if (state.phase == 'list') for (var index = 0; index < state.items.length; index++)
           labels.identify(article, 'prime_card', PrimeCard(child: Padding(
-            padding: const EdgeInsets.all(12), child: Column(
+            padding: EdgeInsets.all(spacing), child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, children: [
                 button(open, () => controller.openArticle(state.items[index]['id'] as String),
                   text: state.items[index]['title'] as String, suffix: '-article-$index'),
@@ -79,27 +92,23 @@ class HelpReaderView {
         if (state.phase == 'detail' && state.article != null) ...[
           button(back, controller.backToList),
           labels.identify(article, 'prime_card', PrimeCard(child: Padding(
-            padding: const EdgeInsets.all(12), child: Column(
+            padding: EdgeInsets.all(spacing), child: Column(
               crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Semantics(header: true, child: PrimeText(state.article!['title'] as String,
-                  style: Theme.of(context).textTheme.titleLarge)),
+                  style: materialTheme.textTheme.titleLarge)),
                 PrimeText(state.article!['category'] as String),
                 SelectableText(state.article!['body'] as String,
-                  style: Theme.of(context).textTheme.bodyLarge),
+                  style: materialTheme.textTheme.bodyLarge),
               ])))),
         ],
         if (state.phase == 'list' || state.phase == 'empty')
-          Wrap(spacing: 12, runSpacing: 8, children: [
+          Wrap(spacing: spacing, runSpacing: spacing, children: [
             button(previous, state.canPrevious ? controller.previousPage : null),
             button(next, state.canNext ? controller.nextPage : null),
           ]),
       ];
-      return FocusTraversalGroup(child: SingleChildScrollView(child: Align(
-        alignment: AlignmentDirectional.topCenter, child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 800), child: Padding(
-            padding: const EdgeInsets.all(16), child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [for (final child in children) Padding(
-                padding: const EdgeInsets.only(bottom: 12), child: child)]))))));
+      return frame(Column(crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [for (final child in children) Padding(
+          padding: EdgeInsets.only(bottom: spacing), child: child)]));
     });
 }

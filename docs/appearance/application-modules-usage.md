@@ -99,3 +99,24 @@ Confirmation first writes and reads back an immutable `.quarantine.<review UUID>
 Use saved version is offered only when the server document is valid and no original pending request is uncertain. Otherwise, an explicit Reset uses the reviewed revision with a new UUID, durably staged before dispatch. The old raw request remains in quarantine. A lost reset response is retried with the exact reset UUID; reload never automatically retries. The server’s CAS check prevents a late original request from overwriting a completed reset. Successful reset acknowledgement is independently read back. No other account’s cache, grant, cloud document, schema or runtime flag is changed.
 
 Flutter hosts pass `CatalogueLabels.fromMetadata(applicationRecoveryMetadata, locale)` through `PrimeApplicationShortcuts.recoveryLabels`; existing `ShellUtilityLabels` remain unchanged. This additive catalogue does not alter the original B15 labels or native replay oracle. Production preference activation and human/device acceptance remain separate.
+
+## Dedicated Help reader bodies — unmounted
+
+The historical collection-template discovery above does not describe the dedicated API794 reader. Its accepted scope is authenticated PSW users reading their own tenant's published FAQ guides in EN/FR/ES through `POST /v1/psw/help-support`; no legacy content is automatically published. Keep the optional `PrimeApplicationModule` Help port unavailable rather than assigning it a guessed adapter.
+
+The dedicated browser body is `HelpReaderView` in `packages/primecare_ui/web/help-reader.ts`, composed with the existing `createHelpReaderSession`. Its caller supplies the session, scope, verified control/text export, exact binding keys and localized EN/FR/ES names. It uses the public `PrimeComponentFactory`, preserving supplied control IDs/test IDs instead of substituting command-centre controls. Structural export validation is not runtime access approval. Construction does not load guides or register a route.
+
+The browser body borrows its session: disposing the body releases its listeners and clears its DOM, while the host remains responsible for calling the session's authentication observer and retiring or disposing that session on navigation/logout. Detached or stale controls cannot start another read. Native hosts use `HelpReaderView` from `packages/flutter_core/lib/help_reader/help_reader_view.dart` with the existing controller and verified `CatalogueLabels`; layout dimensions come from `AdvancedThemeTokens`, with only the existing default theme as fallback.
+
+The current presentation requires the following semantic references. These names are caller arguments, not allocated governance keys, IDs or approved translated copy:
+
+| Binding arguments | Existing shared component code required |
+| --- | --- |
+| `start`, `previous`, `next`, `back`, `retry`, `open` | `prime_button` |
+| `search` | `prime_text_field` |
+| `locale` | `prime_dropdown_web` |
+| `article`, `idle`, `loading`, `empty`, `error`, `retired` | `prime_card` |
+
+Every binding needs an existing control/test ID and EN/FR/ES text in the supplied export. Locale display names also come from the host's approved localized resources. Article instances retain their binding and use a bounded instance suffix; article content is plain text. The current generic error and retired presentations do not close the separate denied/unavailable/rate-limit resource, accessibility or host-registration requirements. Resolve those registered definitions before exposing the full reader.
+
+These are source bodies, not activated hosts. Before mounting either, complete the exact runtime/source/deployment, PSW51/screen685 access, controls and localization requirements in `docs/api/pc10-help-reader-host-registration-proposal.md`. Keep the runtime binding null and activation false until those requirements are met. Required browser/native, real API/SQL/reload/denial, device and human-review evidence remains separate; no whole-feature acceptance follows from this recipe.

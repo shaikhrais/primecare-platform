@@ -13,6 +13,10 @@ on:
       - 'packages/domain/src/component_catalogue.ts'
       - 'packages/shared/src/component-catalogue/**'
       - 'packages/primecare_ui/web/component-catalogue.ts'
+      - 'packages/primecare_ui/web/help-reader.ts'
+      - 'packages/shared/src/help-reader/**'
+      - 'scripts/test-help-reader-view.mjs'
+      - 'scripts/test-help-reader-view-browser.mjs'
       - 'packages/primecare_ui/catalogs/component-catalogue.registration.json'
       - 'packages/flutter_core/lib/component_catalogue*'
       - 'packages/flutter_core/lib/component_catalogue/**'
@@ -46,8 +50,10 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/test-component-catalogue-model.mjs
           node --test scripts/test-component-catalogue-lifecycle.mjs scripts/test-workspace-shell-environment.mjs
+          node --test scripts/test-help-reader-view.mjs
           node scripts/test-component-catalogue-browser.mjs
-          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/component-catalogue.ts
+          node scripts/test-help-reader-view-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --lib ES2022,DOM,DOM.Iterable --resolveJsonModule packages/primecare_ui/web/component-catalogue.ts packages/primecare_ui/web/help-reader.ts
       - run: |
           pip install -r tools/governance-production/requirements.txt
           python3 tools/governance-production/test-component-catalogue-registration.py
