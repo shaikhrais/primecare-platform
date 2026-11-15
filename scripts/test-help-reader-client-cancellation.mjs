@@ -130,3 +130,27 @@ test('valid reader preserves identity checks and scoped projection',async()=>{
  }});
  try{assert.deepEqual(await client.read(request),wire);assert.equal(calls,3);}finally{client.dispose();}
 });
+
+// Shared bounded decoder must not await cancellation of an uncooperative body.
+const guardedBuild=await build({entryPoints:['packages/shared/src/guarded-json.ts'],bundle:true,write:false,platform:'node',format:'esm'});
+const {guardedJson}=await import('data:text/javascript;base64,'+Buffer.from(guardedBuild.outputFiles[0].text).toString('base64'));
+for(const [name,bytes,limit,expected] of [
+ ['valid JSON',new TextEncoder().encode('{"ok":true}'),100,'ok'],
+ ['invalid JSON',new TextEncoder().encode('{bad'),100,'invalid'],
+ ['oversized JSON',new Uint8Array(20),10,'invalid'],
+])test('shared decoder settles '+name+' without waiting for body cancellation',async()=>{
+ let cancelled=0;
+ const body=new ReadableStream({start(controller){controller.enqueue(bytes);controller.close();},cancel(){cancelled++;return new Promise(()=>{});}});
+ const task=guardedJson(new Response(body),limit,()=>{},()=>new Error('invalid'));
+ const settled=await prompt(task.then(value=>({value}),error=>({error})));
+ assert.notEqual(settled,'stalled');
+ if(expected==='ok')assert.deepEqual(settled.value,{ok:true});
+ else assert.match(settled.error.message,/invalid/);
+});
+test('shared decoder abort settles despite a never-resolving stream cancellation',async()=>{
+ const abort=new AbortController();let cancelled=0;
+ const body=new ReadableStream({cancel(){cancelled++;return new Promise(()=>{});}});
+ const task=guardedJson(new Response(body),100,()=>{if(abort.signal.aborted)throw Error('conflict');},()=>Error('invalid'),abort.signal);
+ abort.abort();const settled=await prompt(task.then(()=>null,error=>error));
+ assert.notEqual(settled,'stalled');assert.match(settled.message,/conflict/);assert.equal(cancelled,1);
+});
