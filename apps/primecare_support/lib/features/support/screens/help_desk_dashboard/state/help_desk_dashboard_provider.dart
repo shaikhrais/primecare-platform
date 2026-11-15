@@ -5,11 +5,15 @@ class HelpDeskDashboardNotifier extends StateNotifier<HelpDeskDashboardModel> {
   HelpDeskDashboardNotifier() : super(const HelpDeskDashboardModel(isLoading: true));
 
   Future<void> loadData() async {
+    if (!mounted) return;
     state = state.copyWith(isLoading: true);
     try {
-      // TODO: Call API service
-      state = state.copyWith(isLoading: false, data: const <String, dynamic>{});
+      // No authorized dashboard service is connected to this legacy provider.
+      if (!mounted) return;
+      state = state.copyWith(isLoading: false,
+        errorMessage: 'Help Desk data unavailable: service binding required.');
     } catch (e) {
+      if (!mounted) return;
       state = state.copyWith(isLoading: false, errorMessage: e.toString());
     }
   }
