@@ -3,10 +3,32 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,chmod,symlink,readlink,realpath,cp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,classifyProducerCommand,producerFailureDiagnostics,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,classifyProducerCommand,producerFailureDiagnostics,fetchGithubJobLog,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+test('bounded GitHub plaintext log transport authenticates only the API request and strips credentials on signed redirects',async()=>{
+ const calls=[],log='timestamp APPROVED_GOVERNANCE_DEPLOYED {"fixture":true}\n';
+ const result=await fetchGithubJobLog({jobId:132678080810,token:'PRIVATE_FIXTURE_TOKEN',fetcher:async(url,options)=>{calls.push({url,options});return calls.length===1?new Response(null,{status:302,headers:{location:'https://productionresultssa1.blob.core.windows.net/actions-results/log.txt?sig=PRIVATE_SIGNED_QUERY'}}):new Response(log,{headers:{'content-type':'text/plain; charset=utf-8'}});}});
+ assert.equal(result,log);assert.equal(calls.length,2);assert.equal(calls[0].options.headers.authorization,'Bearer PRIVATE_FIXTURE_TOKEN');assert.equal(calls[0].options.headers['x-github-api-version'],'2026-03-10');
+ assert.equal(calls[1].options.headers.authorization,undefined);assert.ok(calls.every(call=>call.options.method==='GET'&&call.options.redirect==='manual'));
+});
+test('GitHub job log errors expose safe HTTP category and stage without response bodies, signed URLs or credentials',async()=>{
+ for(const [status,category] of [[401,'authentication-required'],[403,'permission-denied'],[404,'not-found'],[410,'logs-expired'],[429,'rate-limited'],[503,'upstream-failure'],[206,'unexpected-status']])await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',fetcher:async()=>new Response('PRIVATE_PROVIDER_MESSAGE',{status,headers:{'content-type':'text/plain'}})}),error=>{
+  assert.deepEqual(error.githubEvidence,{operation:'github-job-log-read',category,stage:'api',httpStatus:status});assert.equal((String(error)+JSON.stringify(error)).includes('PRIVATE'),false);return true;
+ });
+ await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',fetcher:async()=>new Response('PRIVATE_RATE_LIMIT_BODY',{status:403,headers:{'x-ratelimit-remaining':'0'}})}),error=>error.githubEvidence.category==='rate-limited');
+ await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',fetcher:async()=>{throw Error('PRIVATE_TRANSPORT_URL_TOKEN');}}),error=>error.githubEvidence.category==='transport-unavailable'&&!JSON.stringify(error).includes('PRIVATE'));
+});
+test('GitHub job log transport rejects unsafe redirect hosts and URL credentials before any second request',async()=>{
+ for(const location of ['http://pipelines.actions.githubusercontent.com/private','https://PRIVATE_TOKEN@pipelines.actions.githubusercontent.com/log','https://127.0.0.1/log','https://attacker.invalid/PRIVATE_SIGNED_QUERY','https://pipelines.actions.githubusercontent.com.attacker.invalid/log','https://productionresultssa1.blob.core.windows.net:444/log']){
+  let calls=0;await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',fetcher:async()=>{calls++;return new Response(null,{status:302,headers:{location}});}}),error=>error.githubEvidence.category==='redirect-rejected'&&!JSON.stringify(error).includes('PRIVATE'));assert.equal(calls,1);
+ }
+ let requests=0;await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',fetcher:async()=>{requests++;return new Response(null,{status:302,headers:{location:'https://pipelines.actions.githubusercontent.com/log?sig=PRIVATE'}});}}),error=>error.githubEvidence.category==='redirect-limit');assert.equal(requests,3);
+});
+test('GitHub job log transport enforces plain text, byte bounds and strict UTF8 decoding',async()=>{
+ for(const [response,category] of [[new Response('PRIVATE_HTML',{headers:{'content-type':'text/html'}}),'content-type-rejected'],[new Response('PRIVATE_LARGE_TEXT',{headers:{'content-type':'text/plain','content-length':'999'}}),'body-read-or-size-rejected'],[new Response(new Uint8Array([255]),{headers:{'content-type':'text/plain'}}),'text-decoding-rejected']])await assert.rejects(fetchGithubJobLog({jobId:1,token:'PRIVATE_TOKEN',maxBytes:8,fetcher:async()=>response}),error=>error.githubEvidence.category===category&&!JSON.stringify(error).includes('PRIVATE'));
+});
 test('safe producer failures disclose only fixed operation/class, own line/column frames and bounded command status',()=>{
  const error=new SyntaxError('PRIVATE_PROVIDER_MESSAGE_TOKEN_BODY');
  error.stack='SyntaxError: PRIVATE_PROVIDER_MESSAGE_TOKEN_BODY\n    at parse (file:///PRIVATE_WORKSPACE/scripts/release-inactive-help-workers.mjs:530:12)\n    at provider (/PRIVATE_SOURCE.js:1:2)';

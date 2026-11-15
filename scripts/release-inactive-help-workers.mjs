@@ -89,6 +89,40 @@ export async function readProviderResponse(operation,request){
  }
  return response;
 }
+function githubLogError(category,stage,httpStatus=null){
+ const error=new ProducerError('GitHub job log evidence unavailable');error.githubEvidence={operation:'github-job-log-read',category,stage,httpStatus};return error;
+}
+function trustedGithubLogLocation(value){
+ try{const url=new URL(value);if(url.protocol!=='https:'||url.username||url.password||url.hash||url.port)return false;
+  return url.hostname.endsWith('.actions.githubusercontent.com')||/^productionresultssa[a-z0-9]*\.blob\.core\.windows\.net$/.test(url.hostname);
+ }catch{return false;}
+}
+/** GitHub documents a 302 to a short-lived plaintext log URL. Never forward the API credential. */
+export async function fetchGithubJobLog({jobId,token,fetcher=fetch,maxBytes=32*1024*1024}){
+ producerOperation='github-job-log-read';
+ if(!Number.isSafeInteger(maxBytes)||maxBytes<=0||maxBytes>32*1024*1024)throw githubLogError('body-bound-required','api');
+ if(!Number.isSafeInteger(jobId)||jobId<=0||typeof token!=='string'||!token)throw githubLogError('authentication-or-job-identity-required','api');
+ let url='https://api.github.com/repos/shaikhrais/primecare-platform/actions/jobs/'+jobId+'/logs';
+ for(let redirects=0;redirects<=2;redirects++){
+  const stage=redirects===0?'api':'signed-log';let response;
+  try{response=await fetcher(url,{method:'GET',redirect:'manual',headers:redirects===0?{authorization:'Bearer '+token,accept:'application/vnd.github+json','x-github-api-version':'2026-03-10','user-agent':'primecare-readonly-producer-evidence'}:{accept:'text/plain','user-agent':'primecare-readonly-producer-evidence'},signal:AbortSignal.timeout(30000)});}catch{throw githubLogError('transport-unavailable',stage);}
+  if([301,302,303,307,308].includes(response.status)){
+   const location=response.headers.get('location');await response.body?.cancel().catch(()=>{});
+   if(redirects===2)throw githubLogError('redirect-limit',stage,response.status);
+   if(!trustedGithubLogLocation(location))throw githubLogError('redirect-rejected',stage,response.status);
+   url=location;continue;
+  }
+  if(response.status!==200){
+   const status=response.status,category=status===401?'authentication-required':status===403?(response.headers.get('x-ratelimit-remaining')==='0'?'rate-limited':'permission-denied'):status===404?'not-found':status===410?'logs-expired':status===429?'rate-limited':status>=500?'upstream-failure':'unexpected-status';
+   await response.body?.cancel().catch(()=>{});throw githubLogError(category,stage,status);
+  }
+  const type=(response.headers.get('content-type')??'').split(';')[0].trim().toLowerCase();
+  if(!['text/plain','application/octet-stream'].includes(type)){await response.body?.cancel().catch(()=>{});throw githubLogError('content-type-rejected',stage,response.status);}
+  let bytes;try{bytes=await boundedBody(response,maxBytes);}catch{throw githubLogError('body-read-or-size-rejected',stage,response.status);}
+  try{return new TextDecoder('utf-8',{fatal:true}).decode(bytes);}catch{throw githubLogError('text-decoding-rejected',stage,response.status);}
+ }
+ throw githubLogError('redirect-limit','signed-log');
+}
 /** The accepted identity is a subtree, never a repository commit or fetch ref. */
 export function verifyInactiveSourceGit(run){
  run('git',['fetch','--no-tags','--depth=1','origin',guardSource]);
@@ -593,7 +627,7 @@ async function main(){
   const run=JSON.parse(call('gh',['api',base+'runs/'+p.runId]));
   const job=JSON.parse(call('gh',['api',base+'jobs/'+p.jobId]));
   const acceptance=JSON.parse(call('gh',['api',base+'jobs/'+p.acceptanceJobId]));
-  const log=call('gh',['api',base+'jobs/'+p.jobId+'/logs']),marker='APPROVED_GOVERNANCE_DEPLOYED ';
+  const log=await fetchGithubJobLog({jobId:p.jobId,token:env.GH_TOKEN}),marker='APPROVED_GOVERNANCE_DEPLOYED ';
   const lines=log.split('\n').filter(line=>line.includes(marker+'{'));
   if(lines.length!==1)throw new ProducerError('Unique historical governance uploaded receipt required');
   producerOperation='governance-history-receipt-parse';
@@ -610,7 +644,7 @@ async function main(){
   const r=JSON.parse(call('gh',['api',base+'runs/'+plan.producer.runId]));
   const j=JSON.parse(call('gh',['api',base+'jobs/'+plan.producer.jobId]));
   if(r.id!==plan.producer.runId||r.head_sha!==source||r.path!==WORKFLOW||r.head_branch!=='main'||!['push','workflow_dispatch'].includes(r.event)||!(r.id===runId&&r.status==='in_progress'||r.status==='completed'&&r.conclusion==='success')||j.id!==plan.producer.jobId||j.run_id!==r.id||j.run_attempt!==plan.producer.runAttempt||j.name!==PLAN_JOB||j.status!=='completed'||j.conclusion!=='success')throw new ProducerError('Prior successful plan CI required');
-  const log=call('gh',['api',base+'jobs/'+j.id+'/logs']);
+  const log=await fetchGithubJobLog({jobId:j.id,token:env.GH_TOKEN});
   const marker='INACTIVE_HELP_PLAN ',lines=log.split('\n').filter(line=>line.includes(marker+'{'));
   const receipt=lines.length===1?JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length)):null;
   if(receipt?.format!==1||receipt.source!==plan.source||receipt.planSha256!==hash(canonical(plan))||canonical(receipt.producer)!==canonical(plan.producer)||receipt.preStateDigest!==plan.preStateDigest||receipt.inputsDigest!==plan.inputsDigest||receipt.providerWrites!==0)throw new ProducerError('Prior plan differs from independent CI receipt');
@@ -629,7 +663,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',errorDiagnostics:error?.safeProducerDiagnostics??producerFailureDiagnostics(error),...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{}),...(error instanceof ProducerError&&error.serverOperationTransition?{serverOperationTransition:error.serverOperationTransition}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',errorDiagnostics:error?.safeProducerDiagnostics??producerFailureDiagnostics(error),...(error instanceof ProducerError&&error.githubEvidence?{githubEvidence:error.githubEvidence}:{}),...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{}),...(error instanceof ProducerError&&error.serverOperationTransition?{serverOperationTransition:error.serverOperationTransition}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}
