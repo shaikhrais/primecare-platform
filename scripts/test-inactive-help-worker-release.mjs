@@ -91,6 +91,20 @@ test('byte comparison accepts exact raw or multipart single module and rejects c
  await assert.rejects(moduleEvidence(new Response('changed',{headers:{'content-type':'application/javascript'}}),expected),/bytes differ/);
  await assert.rejects(moduleEvidence(new Response(expected,{headers:{'content-type':'text/plain'}}),expected),/content type/);
 });
+test('byte mismatch identifies exact known worker/build and bounded hashes without exposing module contents',async()=>{
+ const expected=Buffer.from('EXPECTED_PRIVATE_SOURCE_DO_NOT_PRINT'),actual=Buffer.from('PROVIDER_PRIVATE_SOURCE_AND_TOKEN_DO_NOT_PRINT');
+ for(const context of [{worker:'primecare-auth-api',buildLabel:'accepted-auth'},{worker:'primecare-governance-api',buildLabel:'baseline'}]){
+  await assert.rejects(moduleEvidence(new Response(actual,{headers:{'content-type':'application/javascript'}}),expected,context),error=>{
+   assert.equal(error.message,'Provider module bytes differ from exact rebuilt module');
+   assert.equal(error.moduleComparison.worker,context.worker);assert.equal(error.moduleComparison.buildLabel,context.buildLabel);
+   assert.equal(error.moduleComparison.expected.moduleBytes,expected.length);assert.equal(error.moduleComparison.providerModules[0].moduleBytes,actual.length);
+   assert.match(error.moduleComparison.expected.moduleSha256,/^[a-f0-9]{64}$/);assert.match(error.moduleComparison.providerModules[0].moduleSha256,/^[a-f0-9]{64}$/);
+   assert.notEqual(error.moduleComparison.expected.moduleSha256,error.moduleComparison.providerModules[0].moduleSha256);
+   const diagnostic=String(error)+JSON.stringify(error);assert.equal(diagnostic.includes(expected.toString()),false);assert.equal(diagnostic.includes(actual.toString()),false);return true;
+  });
+ }
+ await assert.rejects(moduleEvidence(new Response(actual),expected,{worker:'UNREVIEWED_PRIVATE_WORKER',buildLabel:'baseline'}),/Known module comparison context/);
+});
 test('Wrangler graph requires actual positive Help contributions and excludes Help from Auth',()=>{
  const paths=[SCOPE.governance,'packages/shared/src/help-reader/service.ts','packages/shared/src/help-reader/postgres-store.ts','packages/shared/src/help-reader/operational-effects.ts'];
  const graph={inputs:Object.fromEntries(paths.map(p=>[p,{}])),outputs:{'worker.js':{inputs:Object.fromEntries(paths.map(p=>[p,{bytesInOutput:10}]))}}};
@@ -132,7 +146,7 @@ test('prior plan CI and unambiguous source receipt are mandatory before publicat
 });
 test('newer inactive upload and provider byte mismatch block read-only preflight',async()=>{
  const f=fixture();f.states.gateway.latest=id(999);await assert.rejects(produceInactiveHelp({...f,mode:'plan'}),/Latest upload/);assert.equal(f.events.some(e=>e.startsWith('PUBLISH')),false);
- const g=fixture();g.states.governance.module=Buffer.from('wrong');await assert.rejects(produceInactiveHelp({...g,mode:'plan'}),/bytes differ/);
+ const g=fixture();g.states.governance.module=Buffer.from('wrong');await assert.rejects(produceInactiveHelp({...g,mode:'plan'}),error=>error.message.includes('bytes differ')&&error.moduleComparison.worker==='primecare-governance-api'&&error.moduleComparison.buildLabel==='baseline');
 });
 test('remote main advancement prevents provider-changing invocation',async()=>{
  const f=await ready();await assert.rejects(produceInactiveHelp({...f,freshMain:async()=>{throw Error('Remote main advanced');}}),/Remote main advanced/);assert.equal(f.events.some(e=>e.startsWith('PUBLISH')),false);

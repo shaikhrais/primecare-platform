@@ -100,8 +100,9 @@ export async function boundedBody(response,limit=MAX_BYTES){
  catch(error){await reader.cancel().catch(()=>{});throw error;}finally{reader.releaseLock();}
  return Buffer.concat(parts,length);
 }
-export async function moduleEvidence(response,expected){
+export async function moduleEvidence(response,expected,context){
  if(!Buffer.isBuffer(expected)||!expected.length||expected.length>MAX_BYTES)throw new ProducerError('Bounded rebuilt module required');
+ if(context&&(!['primecare-auth-api','primecare-governance-api','primecare-api-gateway'].includes(context.worker)||!['accepted-auth','baseline','inactive'].includes(context.buildLabel)))throw new ProducerError('Known module comparison context required');
  const bytes=await boundedBody(response),type=response.headers.get('content-type')??'';let modules;
  if(/^multipart\/form-data\s*;/i.test(type)){
   const form=await new Response(bytes,{headers:{'content-type':type}}).formData();
@@ -111,7 +112,11 @@ export async function moduleEvidence(response,expected){
   }
  }else if(/^(application|text)\/(javascript|ecmascript)(?:;|$)/i.test(type))modules=[bytes];
  else throw new ProducerError('Unexpected provider content type');
- if(modules.length!==1||!modules[0].equals(expected))throw new ProducerError('Provider module bytes differ from exact rebuilt module');
+ if(modules.length!==1||!modules[0].equals(expected)){
+  const error=new ProducerError('Provider module bytes differ from exact rebuilt module');
+  error.moduleComparison={...(context?{worker:context.worker,buildLabel:context.buildLabel}:{}),expected:{moduleBytes:expected.length,moduleSha256:hash(expected)},moduleCount:modules.length,providerModuleBytes:modules.reduce((total,module)=>total+module.length,0),providerModules:modules.slice(0,8).map(module=>({moduleBytes:module.length,moduleSha256:hash(module)})),providerModuleDiagnosticsTruncated:modules.length>8};
+  throw error;
+ }
  return {moduleCount:1,moduleBytes:expected.length,moduleSha256:hash(expected),exactBytes:true};
 }
 export function assertBuildGraph(meta,service,label,{baseDirectory=resolve('.')}={}){
@@ -126,7 +131,7 @@ export function assertBuildGraph(meta,service,label,{baseDirectory=resolve('.')}
  if(service==='auth'&&Object.keys(meta.inputs).some(path=>path.includes('/help-reader/')||path.includes('/governance_api/worker/')))throw new ProducerError('Auth graph unexpectedly contains Help code');
  return Object.keys(meta.inputs).sort();
 }
-export async function captureWorker({api,content,service,config,expectedModule}){
+export async function captureWorker({api,content,service,config,expectedModule,buildLabel='baseline'}){
  const worker=scoped(service),base='/workers/scripts/'+worker;
  const deployments=await api(base+'/deployments?per_page=2'),before=activeLineage(deployments);
  if(latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Latest upload is not active');
@@ -139,7 +144,7 @@ export async function captureWorker({api,content,service,config,expectedModule})
  if(!Array.isArray(routes)||routes.length!==0)throw new ProducerError('Existing Worker routes require explicit preservation support');
  assertWorkerSecretBindingsPreserved(version.resources,settings);
  assertRetainedGenericPreserves(service,settings,schedules,config);
- const module=await moduleEvidence(await content(worker),expectedModule);
+ const module=await moduleEvidence(await content(worker),expectedModule,{worker,buildLabel});
  const after=activeLineage(await api(base+'/deployments?per_page=2'));
  if(canonical(before)!==canonical(after)||latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Worker lineage changed during byte inspection');
  return {worker,...before,settings,schedules,subdomain,routes,module,predecessorDeploymentId:deployments.deployments[1]?.id??null};
@@ -185,7 +190,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
   if(canonical(publicSnapshot(fresh))!==canonical(publicSnapshot(snapshots[service])))throw new ProducerError('Worker changed after plan');
   if(canonical(await sourceProof())!==canonical(inputs)||canonical(await authProof())!==canonical(auth))throw new ProducerError('Source or Auth proof changed before publication');
   for(const [previous,completed] of Object.entries(released)){
-   const current=await captureWorker({api,content,service:previous,config:prepared[previous].candidate,expectedModule:prepared[previous].newModule});
+   const current=await captureWorker({api,content,service:previous,config:prepared[previous].candidate,expectedModule:prepared[previous].newModule,buildLabel:'inactive'});
    if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Previously released Worker changed before next publication');
   }
   if(newModule.inputEvidence){if(typeof newModule.verifyInputs!=='function')throw new ProducerError('Prepared input verification unavailable');await newModule.verifyInputs();}
@@ -198,7 +203,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
   await recordAttempt({...attempt,reportedVersionId:versionId});
   let after,lastError;
   for(let n=0;n<4;n++){
-   try{after=await captureWorker({api,content,service,config:candidate,expectedModule:newModule});
+   try{after=await captureWorker({api,content,service,config:candidate,expectedModule:newModule,buildLabel:'inactive'});
     if(after.versionId!==versionId||after.deploymentId===fresh.deploymentId||after.predecessorDeploymentId!==fresh.deploymentId)throw new ProducerError('Exact upload and predecessor lineage required');lastError=null;break;
    }catch(error){lastError=error;if(n<3)await wait();}
   }
@@ -215,7 +220,7 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ap
  }
  if(canonical(await authProof())!==canonical(auth))throw new ProducerError('Auth changed before aggregate completion');
  for(const [service,completed] of Object.entries(released)){
-  const current=await captureWorker({api,content,service,config:prepared[service].candidate,expectedModule:prepared[service].newModule});
+  const current=await captureWorker({api,content,service,config:prepared[service].candidate,expectedModule:prepared[service].newModule,buildLabel:'inactive'});
   if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Released Worker changed before aggregate completion');
  }
  // Wrangler owns its internal HTTP sequence. Count guarded CLI invocations, not fabricated HTTP writes.
@@ -306,7 +311,7 @@ async function main(){
   const config=JSON.parse(await readFile('.cloudflare-workers/auth.jsonc','utf8'));
   const module=await build('auth',config,'accepted-auth');
   const before=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
-  const proof=await moduleEvidence(await content('primecare-auth-api'),module);
+  const proof=await moduleEvidence(await content('primecare-auth-api'),module,{worker:'primecare-auth-api',buildLabel:'accepted-auth'});
   const after=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
   if(canonical(before)!==canonical(after))throw new ProducerError('Auth changed during byte comparison');
   return {...before,...proof,inputs:module.inputEvidence};
@@ -332,7 +337,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}
