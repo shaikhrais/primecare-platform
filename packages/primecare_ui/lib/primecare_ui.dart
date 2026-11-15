@@ -11,7 +11,6 @@ export 'src/features/common_ui/domain/main_project_selection_view_model.dart';
 export 'src/theme/prime_theme.dart';
 export 'src/theme/prime_screen_inheritance.dart';
 export 'src/theme/primecare_theme.dart';
-export 'src/theme/prime_fuse_theme.dart';
 export 'src/theme/vision_modes.dart';
 export 'src/theme/vision_provider.dart';
 export 'src/theme/screen_scaling.dart';
