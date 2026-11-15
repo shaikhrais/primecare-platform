@@ -3,7 +3,10 @@ import {HelpReadFailure,helpRequest,helpResponse,helpScope,type HelpActor,type H
 export {HelpReadFailure} from './protocol';
 /** Unmounted API794 client. Hosts still need registered controls, permission and lifecycle binding. */
 export function createHelpReaderClient(options:{origin:string;getToken:()=>string|null;scope:HelpActor;isCurrent:()=>boolean;fetcher?:typeof fetch}){
- const url=new URL(options.origin),scope=helpScope(options.scope),getToken=options.getToken,isCurrent=options.isCurrent;
+ let url:URL;
+ try{url=new URL(options.origin);}catch{throw new HelpReadFailure('invalid_request',400);}
+ const scope=helpScope(options.scope),getToken=options.getToken,isCurrent=options.isCurrent;
+ if(typeof getToken!=='function'||typeof isCurrent!=='function')throw new HelpReadFailure('invalid_request',400);
  if(url.protocol!=='https:'||url.username||url.password||url.search||url.hash||url.pathname!=='/')throw new HelpReadFailure('invalid_request',400);
  const send=options.fetcher??globalThis.fetch;
  const tokenNow=()=>{try{return getToken();}catch{return null;}};
