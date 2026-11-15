@@ -16,6 +16,12 @@ let phase='configuration';
 let rejectionContext=null;
 const acceptedCloudflareTree='88b9689f0efd5c892be0e57bed063131b0f9541c';
 const guardSource='718eaff3e6b3d4c5b26d68ec0b7a6ceaca5da3ea';
+export const RELEASE_TOOLCHAIN=Object.freeze({nodeMajor:24,wrangler:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'});
+/** Match the accepted 15c release's Node major, actual locked Wrangler and entire npm lock. */
+export function assertReleaseToolchain({nodeVersion,wranglerVersion,lockBlob}){
+ if(!/^24\./.test(nodeVersion??'')||wranglerVersion!==RELEASE_TOOLCHAIN.wrangler||lockBlob!==RELEASE_TOOLCHAIN.lockBlob)throw new ProducerError('Accepted locked release toolchain required');
+ return {...RELEASE_TOOLCHAIN};
+}
 const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
 const sha=/^[a-f0-9]{40}$/;
 const MAX_BYTES=25*1024*1024;
@@ -45,7 +51,7 @@ export function verifyInactiveSourceGit(run){
  run('git',['fetch','--no-tags','--depth=1','origin',guardSource]);
  const tree=run('git',['rev-parse','HEAD:cloudflare']).trim();
  if(tree!==acceptedCloudflareTree||run('git',['cat-file','-t',tree]).trim()!=='tree')throw new ProducerError('Accepted entire Cloudflare subtree changed');
- run('git',['diff','--exit-code',guardSource,'HEAD','--','tools/governance-production/production-pin.json','scripts/verify-auth-live-proof-source.mjs','scripts/generic-worker-release.mjs','scripts/check-generic-worker-deploy.mjs','scripts/preserve-generic-worker-observability.mjs','scripts/worker-secret-retention.mjs','scripts/worker-deployment-receipt.mjs']);
+ run('git',['diff','--exit-code',guardSource,'HEAD','--','package.json','package-lock.json','tools/governance-production/production-pin.json','scripts/verify-auth-live-proof-source.mjs','scripts/generic-worker-release.mjs','scripts/check-generic-worker-deploy.mjs','scripts/preserve-generic-worker-observability.mjs','scripts/worker-secret-retention.mjs','scripts/worker-deployment-receipt.mjs']);
  return {cloudflareTree:tree,protectedSource:guardSource};
 }
 const canonical=value=>JSON.stringify(value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])):Array.isArray(value)?value.map(x=>JSON.parse(canonical(x))):value);
@@ -243,7 +249,7 @@ async function main(){
  if(env.GITHUB_REPOSITORY!=='shaikhrais/primecare-platform'||env.GITHUB_REF!=='refs/heads/main'||!['push','workflow_dispatch'].includes(env.GITHUB_EVENT_NAME)||!sha.test(source??'')||!env.RUNNER_TEMP||env.GITHUB_JOB!==expectedJob)throw new ProducerError('Exact main producer required');
  if(mode==='--deploy'&&env.INACTIVE_HELP_DEPLOYMENT_AUTHORIZATION!=='DEPLOY_INACTIVE_HELP')throw new ProducerError('Explicit inactive Help deployment opt-in required');
  verifyMain(source);
- if(call('node_modules/.bin/wrangler',['--version']).trim()!=='4.68.1')throw new ProducerError('Wrangler 4.68.1 required');
+ assertReleaseToolchain({nodeVersion:process.versions.node,wranglerVersion:call('node_modules/.bin/wrangler',['--version']).trim(),lockBlob:call('git',['rev-parse','HEAD:package-lock.json']).trim()});
  const runId=Number(env.GITHUB_RUN_ID),base='repos/'+env.GITHUB_REPOSITORY+'/actions/';
  const run=JSON.parse(call('gh',['api',base+'runs/'+runId]));
  const jobs=JSON.parse(call('gh',['api',base+'runs/'+runId+'/jobs?per_page=100']));
@@ -272,7 +278,7 @@ async function main(){
   if(await readFile('services/governance_api/worker/help-reader-runtime-binding.json','utf8')!=='null\n')throw new ProducerError('Inactive Help binding must remain literal null');
   const policy=JSON.parse(await readFile('packages/shared/src/help-reader/operational-policy.json','utf8'));
   if(policy.runtimeBound!==false||policy.purgeScheduleVerified!==true)throw new ProducerError('Help operational policy must remain inactive with verified inherited purge schedule');
-  const sourceFiles=[...Object.values(SCOPE),'services/governance_api/worker/help-reader-runtime-binding.json','packages/shared/src/help-reader/operational-policy.json','scripts/release-inactive-help-workers.mjs'];
+  const sourceFiles=[...Object.values(SCOPE),'services/governance_api/worker/help-reader-runtime-binding.json','packages/shared/src/help-reader/operational-policy.json','scripts/release-inactive-help-workers.mjs','package.json','package-lock.json'];
   const identities=[];for(const file of sourceFiles){
    const record=call('git',['ls-tree','HEAD','--',file]).trim();
    if(!/^100644 blob [a-f0-9]{40}\t/.test(record)||(await lstat(file)).isSymbolicLink()||await realpath(file)!==resolve(file))throw new ProducerError('Regular tracked inactive source required');

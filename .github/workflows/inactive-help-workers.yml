@@ -22,7 +22,7 @@ env:
 jobs:
   source-tests:
     name: source-tests
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
     name: production-plan
     needs: source-tests
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 30
     concurrency:
@@ -63,18 +63,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
-      - name: Install one isolated pinned dependency root
+      - name: Restore the accepted release's committed dependency graph
         shell: bash
         run: |
           set -euo pipefail
           test ! -e node_modules
-          dependency_root="$RUNNER_TEMP/inactive-help-dependencies"
-          mkdir -p "$dependency_root"
-          npm install --prefix "$dependency_root" --ignore-scripts --no-audit --no-fund \
-            wrangler@4.68.1 esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 \
-            typescript@5.9.3 @electric-sql/pglite@0.3.14 \
-            @cloudflare/workers-types@4.20260403.1 @types/pg@8.15.5
-          ln -s "$dependency_root/node_modules" node_modules
+          npm ci --ignore-scripts
+          test "$(node_modules/.bin/wrangler --version)" = '4.86.0'
+          git diff --exit-code -- package.json package-lock.json
       - name: Read the exact production state and build inactive candidates
         shell: bash
         run: |

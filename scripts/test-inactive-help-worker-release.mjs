@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+test('release toolchain matches accepted Node24 and locked Wrangler4.86.0 rather than a floating lower manifest range',()=>{
+ const accepted={nodeVersion:'24.0.0',wranglerVersion:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'};
+ assert.deepEqual(assertReleaseToolchain(accepted),RELEASE_TOOLCHAIN);
+ for(const changed of [{wranglerVersion:'4.68.1'},{wranglerVersion:'4.86.1'},{nodeVersion:'22.0.0'},{lockBlob:'f'.repeat(40)}])assert.throws(()=>assertReleaseToolchain({...accepted,...changed}),/Accepted locked release toolchain/);
+});
 test('provider 403 diagnostic identifies fixed operation and HTTP status without credential-bearing body or URL',async()=>{
  const credential='DO_NOT_DISCLOSE_TOKEN_OR_PROVIDER_MESSAGE',account='a'.repeat(32),zone='b'.repeat(32);
  const cases=[['/zones?account.id='+account+'&secret='+credential,'zone-inventory'],['/zones/'+zone+'/workers/routes','zone-routes'],...['settings','schedules','subdomain','versions?per_page=1','deployments?per_page=2'].map(path=>['/accounts/'+account+'/workers/scripts/primecare-governance-api/'+path,path.startsWith('settings')?'worker-settings':path.split('?')[0]])];
@@ -23,7 +28,7 @@ test('CLI source guard distinguishes accepted Cloudflare subtree from commit and
  assert.deepEqual(verifyInactiveSourceGit(run),{cloudflareTree:accepted,protectedSource:guard});
  assert.deepEqual(calls.filter(([,args])=>args[0]==='fetch').map(([,args])=>args.at(-1)),[guard]);
  assert.deepEqual(calls.find(([,args])=>args[0]==='rev-parse')[1],['rev-parse','HEAD:cloudflare']);
- const diff=calls.find(([,args])=>args[0]==='diff')[1];assert.equal(diff[2],guard);assert.ok(diff.includes('tools/governance-production/production-pin.json'));assert.ok(diff.includes('scripts/verify-auth-live-proof-source.mjs'));
+ const diff=calls.find(([,args])=>args[0]==='diff')[1];assert.equal(diff[2],guard);assert.ok(diff.includes('tools/governance-production/production-pin.json'));assert.ok(diff.includes('scripts/verify-auth-live-proof-source.mjs'));assert.ok(diff.includes('package-lock.json'));assert.ok(diff.includes('package.json'));
  assert.equal(calls.some(([,args])=>args[0]==='diff'&&args.includes(accepted)),false);
  assert.throws(()=>verifyInactiveSourceGit((program,args)=>args[0]==='rev-parse'?'0'.repeat(40):run(program,args)),/entire Cloudflare subtree/);
  assert.throws(()=>verifyInactiveSourceGit((program,args)=>args[0]==='cat-file'?'blob':run(program,args)),/entire Cloudflare subtree/);
