@@ -32,7 +32,7 @@ export function createHelpOperationalEffects(store:HelpOperationalStore,isCurren
    if(!result.allowed)throw new HelpReadFailure('rate_limited',429);
   },true),
   auditRead:async(actor:HelpActor,event:Parameters<HelpReadEffects['auditRead']>[1])=>safe(async()=>{
-   const scope=helpScope(actor);
+   current();const scope=helpScope(actor);
    if(!event||!['list','read'].includes(event.action)||!['en','fr','es'].includes(event.locale)||!helpInteger(event.returned,0,100)||(event.action==='read'&&event.returned!==1))throw new HelpReadFailure('unavailable',503);
    // Project approved metadata before any await; never forward caller-owned objects.
    const audit:Audit=Object.freeze({tenantId:scope.tenantId,userId:scope.userId,action:event.action,locale:event.locale as Audit['locale'],returned:event.returned});
