@@ -730,14 +730,14 @@
     {
       "id": 60,
       "path": "scripts/test-help-legacy-retirement.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "853a65d2a0658f5346134a796be08640990eca7a",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed legacy grant retirement fixture suite, exact archive preservation, public privilege denial, referential blockers and concurrent source locks. No confirmed safe defect; tests not executed.",
+      "outcome": "ok"
     },
     {
       "id": 61,
@@ -790,14 +790,14 @@
     {
       "id": 65,
       "path": "scripts/test-help-worker-composition.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "6dcd58243a996ae8d2fcee2458d84630d2a05721",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed Help Worker composition fixture suite, source-bound runtime activation, cancellation denial, gateway integration and original Auth bundle isolation. No confirmed safe defect; tests not executed.",
+      "outcome": "ok"
     },
     {
       "id": 66,
