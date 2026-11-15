@@ -30,7 +30,8 @@ export class ScreenManager {
           !['public', 'workspace-host', 'governed', 'feature'].includes(registration.kind)) {
         throw new ScreenConfigurationError('Invalid registration');
       }
-      if (next.has(registration.id) || ids.has(registration.id) || routes.has(registration.route)) {
+      if (next.has(registration.id) || ids.has(registration.id) || routes.has(registration.route) ||
+          [...next.values()].some(existing => existing.route === registration.route)) {
         throw new ScreenConfigurationError(`Duplicate registration: ${registration.id}`);
       }
       ids.add(registration.id); routes.add(registration.route);
