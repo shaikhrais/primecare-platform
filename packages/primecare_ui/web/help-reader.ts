@@ -145,7 +145,7 @@ export class HelpReaderView extends ThemeControlBase {
   if(!busy&&!closed){
    if(ownedFocus||!active||active===doc.body||active===doc.documentElement){
     const target=this.destination==='content'?detail:this.destination==='search'?search:this.focus?[...this.root.querySelectorAll<HTMLElement>('[id]')].find(node=>node.id===this.focus?.id):undefined;
-    if(target&&this.root.contains(target)&&!(target as HTMLInputElement).disabled){target.focus();if(target===search&&this.focus?.id===target.id&&this.focus.start!==null&&this.focus.end!==null)search?.setSelectionRange(this.focus.start,this.focus.end);}
+    if(target&&this.root.contains(target)&&!target.hasAttribute('disabled')&&!target.closest('[inert]')){target.focus();if(target===search&&this.focus?.id===target.id&&this.focus.start!==null&&this.focus.end!==null)search?.setSelectionRange(this.focus.start,this.focus.end);}
    }
    this.destination=undefined;
   }
