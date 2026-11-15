@@ -33,20 +33,20 @@ export function createHelpPostgresStore(reader:Database,autocommitQuota:Database
  return Object.freeze({
   verifyPolicy:(value:Expected)=>safe(()=>verified(query,value)),
   reserveRead:(actor,key,maxReads,windowSeconds)=>safe(async()=>{
-   const scope=helpScope(actor);if(key!==policy.key||maxReads!==30||windowSeconds!==60)throw unavailable();
+   const scope=helpScope(actor);if(key!==policy.key||maxReads!==policy.maxReads||windowSeconds!==policy.windowSeconds)throw unavailable();
    const rows=(await quota(helpQuotaSql,[scope.tenantId,scope.userId])).rows,r=rows[0];
-   if(rows.length!==1||typeof r.allowed!=='boolean'||!helpInteger(r.retry_after_seconds,r.allowed?0:1,r.allowed?0:60))throw unavailable();
+   if(rows.length!==1||typeof r.allowed!=='boolean'||!helpInteger(r.retry_after_seconds,r.allowed?0:1,r.allowed?0:policy.windowSeconds))throw unavailable();
    return Object.freeze({allowed:r.allowed,retryAfterSeconds:r.retry_after_seconds});
   }),
   appendAudit:(event,retentionSeconds)=>safe(async()=>{
-   if(!event||!['list','read'].includes(event.action)||!['en','fr','es'].includes(event.locale)||!helpInteger(event.returned,0,100)||(event.action==='read'&&event.returned!==1)||retentionSeconds!==2592000)throw unavailable();
+   if(!event||!['list','read'].includes(event.action)||!['en','fr','es'].includes(event.locale)||!helpInteger(event.returned,0,100)||(event.action==='read'&&event.returned!==1)||retentionSeconds!==policy.auditRetentionSeconds)throw unavailable();
    const scope=helpScope({tenantId:event.tenantId,userId:event.userId,role:'psw',dataset:'live'});
    // Project scalar approved fields before any await; never forward extra data.
    const values=[scope.tenantId,scope.userId,event.action,event.locale,event.returned];
    const rows=(await query(helpAuditSql,values)).rows;
    if(rows.length!==1)throw unavailable();
    const created=new Date(rows[0].created_at).getTime(),expires=new Date(rows[0].expires_at).getTime();
-   if(!Number.isFinite(created)||expires-created!==2592000000)throw unavailable();
+   if(!Number.isFinite(created)||expires-created!==policy.auditRetentionSeconds*1000)throw unavailable();
   })
  });
 }
