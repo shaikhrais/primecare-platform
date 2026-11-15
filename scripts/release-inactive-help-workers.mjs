@@ -3,7 +3,7 @@ import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath,readlink,cp} from 'no
 import {createReadStream} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
-import {resolve,dirname} from 'node:path';
+import {resolve,dirname,relative} from 'node:path';
 import {pathToFileURL} from 'node:url';
 import {genericWorkerName,retainedGenericConfig,assertRetainedGenericPreserves} from './generic-worker-release.mjs';
 import {assertWorkerSecretBindingsPreserved} from './worker-secret-retention.mjs';
@@ -28,7 +28,7 @@ export function classifyProducerCommand(program,args){
  }
  if(program==='node'&&args[0]==='scripts/verify-auth-live-proof-source.mjs')return 'auth-source-gate';
  if(program==='node'&&args[0]==='scripts/generate-cloudflare-worker-config.mjs')return 'local-config-generation';
- if(program==='node_modules/.bin/wrangler')return args.includes('--dry-run')?'wrangler-dry-run':args.includes('--version')?'wrangler-version':args[0]==='deploy'?'wrangler-publish':'local-child-other';
+ if(program==='node_modules/.bin/wrangler'||program.endsWith('/_temp/worker-dependencies/node_modules/.bin/wrangler'))return args.includes('--dry-run')?'wrangler-dry-run':args.includes('--version')?'wrangler-version':args[0]==='deploy'?'wrangler-publish':'local-child-other';
  return program==='tar'?'local-archive-extract':'local-child-other';
 }
 export function producerFailureDiagnostics(error,{operation=producerOperation,childCommand=error?.safeChildCommand,lastCompletedCommand=lastCompletedChildCommand}={}){
@@ -44,6 +44,42 @@ export function producerFailureDiagnostics(error,{operation=producerOperation,ch
 const acceptedCloudflareTree='88b9689f0efd5c892be0e57bed063131b0f9541c';
 const guardSource='718eaff3e6b3d4c5b26d68ec0b7a6ceaca5da3ea';
 export const RELEASE_TOOLCHAIN=Object.freeze({nodeMajor:24,wrangler:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'});
+/** Byte reproduction only: the original Gateway publisher/run remains unknown. */
+export const GATEWAY_REPRODUCTION=Object.freeze({profile:'gateway-wrangler-4.68.1-byte-reproduction-v1',wrangler:'4.68.1',lockSha256:'6b20b277bf1f57eddf14a9a325f9b9aaf27f62de9a8a108472308add79693752',packageSha256:'73086d337b2c14da43c086487b5e1c31005bd8998b61d54d20c76ac3c70e99c0',deploymentId:'af3ae49b-3d12-481b-86b1-30cb4fff1f3f',versionId:'9f8654b5-a5a0-4e91-854a-325cb754afdc',moduleBytes:153692,moduleSha256:'f8e2c8b6c951b06344c1640f96db62c6c93698ed28a87922b92f1a29e52d66c2',dependencyLabel:'../../../_temp/worker-dependencies/node_modules'});
+export const GATEWAY_REPRODUCTION_SOURCES=Object.freeze({
+ 'docs/transport/compression-policy.json':'38d101c1fb33e6b87ea3e2a80e4a560388a4c1f2',
+ 'cloudflare/workers/src/core/response-compression.ts':'3b85b77f5bb0b8420b1400baeaff741a06e8c3db',
+ 'cloudflare/workers/src/core/base-worker.ts':'edb4b57c5253e83529fc0a58dbaffb58868dab0a',
+ 'cloudflare/workers/src/governed-read-aliases.json':'eb958d6998e5af9ded08baf60540d87ac31b3a2c',
+ 'tools/governance-production/external-call-registration.json':'b736fb30143c917663344827316cc5888df0f947',
+ 'tools/governance-production/internal-call-preparation-registration.json':'2a57eec02a63fe2a6e112da00442ae1ab6c46157',
+ 'tools/governance-production/internal-call-events-registration.json':'5d514cc7ba0257e8b1acfddb6dc77a23a8c93e0c',
+ 'tools/governance-production/internal-call-contracts-registration.json':'6d1a795ea93a22f52fd4309c785011521e66a261',
+ 'tools/governance-production/voice-contact-contracts-registration.json':'e4394bb97a0d43aa69d7ff038eb5d7f19a84106b',
+ 'tools/governance-production/twilio-contracts-registration.json':'9e347860fd4ec386885f86d677a68920930688bb',
+ 'packages/shared/src/communications/registered-contracts.json':'e61526a1e59fdca2604ae5a0eeaa51537900c8e6',
+ 'cloudflare/workers/src/gateway.ts':'f4364d399be57acd67968c9a889b16ce17ee729e'});
+export function assertGatewayReproductionIdentity(identity){
+ const p=GATEWAY_REPRODUCTION;
+ if(identity?.service!=='gateway'||identity.worker!=='primecare-api-gateway'||identity.deploymentId!==p.deploymentId||identity.versionId!==p.versionId||identity.latestVersionId!==p.versionId)throw new ProducerError('Gateway identity differs from fixed byte reproduction profile');
+}
+export function assertGatewayReproductionSources(records){
+ if(!Array.isArray(records)||records.length!==Object.keys(GATEWAY_REPRODUCTION_SOURCES).length||new Set(records.map(r=>r.path)).size!==records.length)throw new ProducerError('Exact Gateway reproduction source closure required');
+ for(const r of records)if(r.mode!=='100644'||r.type!=='blob'||!Object.hasOwn(GATEWAY_REPRODUCTION_SOURCES,r.path)||r.blob!==GATEWAY_REPRODUCTION_SOURCES[r.path])throw new ProducerError('Gateway reproduction source identity differs');
+}
+export function assertGatewayReproductionToolchain({nodeVersion,wranglerVersion,packageSha256,lockSha256,dependencyLabel}){
+ const p=GATEWAY_REPRODUCTION;
+ if(!/^24\./.test(nodeVersion??'')||wranglerVersion!==p.wrangler||packageSha256!==p.packageSha256||lockSha256!==p.lockSha256||dependencyLabel!==p.dependencyLabel)throw new ProducerError('Fixed Gateway reproduction compiler, lock and physical layout required');
+ return {profile:p.profile,wrangler:p.wrangler,nodeMajor:24,packageSha256,lockSha256,dependencyLabel,originalPublisherKnown:false,historicalSourceAssociationVerified:false,deploymentReadiness:false};
+}
+export function assertGatewayReproductionGraph(inputs){
+ const expected=[...Object.keys(GATEWAY_REPRODUCTION_SOURCES),'node_modules/unenv/dist/runtime/_internal/utils.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/performance.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/histogram.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/constants.mjs','node_modules/unenv/dist/runtime/node/perf_hooks.mjs','node_modules/@cloudflare/unenv-preset/dist/runtime/polyfill/performance.mjs'].sort();
+ if(!Array.isArray(inputs)||canonical(inputs.map(i=>i.path).sort())!==canonical(expected))throw new ProducerError('Exact Gateway reproduction emitted input graph required');
+}
+export function assertGatewayReproductionBytes(module){
+ const p=GATEWAY_REPRODUCTION;
+ if(!Buffer.isBuffer(module)||module.length!==p.moduleBytes||hash(module)!==p.moduleSha256)throw new ProducerError('Fixed Gateway reproduction raw module bytes differ');
+}
 export const GOVERNANCE_PREDECESSOR=Object.freeze({source:'07a2ea799d6bda0adcca60531f20a5f02766358f',runId:43669947275,jobId:132678080810,acceptanceJobId:132677568913,workflow:'.github/workflows/psw-workspace.yml',deploymentId:'0b5b8ae3-e38a-468d-b5b9-ead32b267c80',versionId:'4f12b2ed-53d8-4c8a-9811-7199e18bb7f3'});
 export function assertGovernancePredecessorIdentity(identity){
  if(identity?.service!=='governance'||identity.worker!=='primecare-governance-api'||identity.deploymentId!==GOVERNANCE_PREDECESSOR.deploymentId||identity.versionId!==GOVERNANCE_PREDECESSOR.versionId||identity.latestVersionId!==GOVERNANCE_PREDECESSOR.versionId)throw new ProducerError('Governance predecessor differs from recorded code deployment');
@@ -539,7 +575,7 @@ async function main(){
   if(await readFile('services/governance_api/worker/help-reader-runtime-binding.json','utf8')!=='null\n')throw new ProducerError('Inactive Help binding must remain literal null');
   const policy=JSON.parse(await readFile('packages/shared/src/help-reader/operational-policy.json','utf8'));
   if(policy.runtimeBound!==false||policy.purgeScheduleVerified!==true)throw new ProducerError('Help operational policy must remain inactive with verified inherited purge schedule');
-  const sourceFiles=[...Object.values(SCOPE),'services/governance_api/worker/help-reader-runtime-binding.json','packages/shared/src/help-reader/operational-policy.json','scripts/release-inactive-help-workers.mjs','package.json','package-lock.json'];
+  const sourceFiles=[...Object.values(SCOPE),'services/governance_api/worker/help-reader-runtime-binding.json','packages/shared/src/help-reader/operational-policy.json','scripts/release-inactive-help-workers.mjs','package.json','package-lock.json','tools/inactive-help-gateway-reproduction/package.json','tools/inactive-help-gateway-reproduction/package-lock.json'];
   const identities=[];for(const file of sourceFiles){
    const record=call('git',['ls-tree','HEAD','--',file]).trim();
    if(!/^100644 blob [a-f0-9]{40}\t/.test(record)||(await lstat(file)).isSymbolicLink()||await realpath(file)!==resolve(file))throw new ProducerError('Regular tracked inactive source required');
@@ -549,15 +585,15 @@ async function main(){
  };
  call('node',['scripts/generate-cloudflare-worker-config.mjs']);
  const configs=Object.fromEntries(await Promise.all(Object.keys(SCOPE).map(async service=>[service,JSON.parse(await readFile('.cloudflare-workers/'+service+'.jsonc','utf8'))])));
- const build=async(service,config,label,{root=resolve('.'),sourceRef='HEAD'}={})=>{
+ const build=async(service,config,label,{root=resolve('.'),sourceRef='HEAD',compiler='node_modules/.bin/wrangler',dependencyRoot=resolve(root,'node_modules')}={})=>{
   phase='actual_wrangler_dry_run_and_graph';
   const file=resolve(root,'.cloudflare-workers',service+'.jsonc'),out=resolve(env.RUNNER_TEMP,'inactive-help-'+service+'-'+label);
   await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});await mkdir(dirname(file),{recursive:true});await writeFile(file,JSON.stringify(config,null,2)+'\n');
-  call('node_modules/.bin/wrangler',['deploy','--dry-run','--config',file,'--outdir',out,'--metafile',out+'/metafile.json'],{cwd:root});
+  call(compiler,['deploy','--dry-run','--config',file,'--outdir',out,'--metafile',out+'/metafile.json'],{cwd:root});
   const files=(await readdir(out)).filter(name=>name.endsWith('.js'));if(files.length!==1)throw new ProducerError('Single rebuilt module required');
   const meta=JSON.parse(await readFile(out+'/metafile.json','utf8')),baseDirectory=resolve(dirname(file));
   const paths=assertBuildGraph(meta,service,label,{baseDirectory});
-  const inputEvidence=[],physicalInputs=[],cwd=root,dependencies=await realpath(resolve(root,'node_modules'));for(const path of paths){
+  const inputEvidence=[],physicalInputs=[],cwd=root,dependencies=await realpath(dependencyRoot);for(const path of paths){
    if(/^node-built-in-modules:[a-z0-9_/-]+$/.test(path)){
     const record=meta.inputs[path];if(!Number.isSafeInteger(record.bytes)||record.bytes<0)throw new ProducerError('Virtual built-in input unavailable');
     inputEvidence.push({path,virtual:true,bytes:record.bytes,imports:record.imports});continue;
@@ -621,7 +657,27 @@ async function main(){
   }});
  };
  const baselineModule=async({service,config,currentModule,predecessor})=>{
-  if(service!=='governance')return {module:currentModule,sourceProof:null};
+  if(service==='gateway'){
+   assertGatewayReproductionIdentity(predecessor);
+   const p=GATEWAY_REPRODUCTION,directory=resolve(env.RUNNER_TEMP,'worker-dependencies'),dependencies=resolve(directory,'node_modules'),compiler=resolve(dependencies,'.bin/wrangler');
+   if(await realpath(directory)!==directory||await realpath(dependencies)!==dependencies||!(await realpath(compiler)).startsWith(dependencies+'/'))throw new ProducerError('Gateway reproduction compiler escapes physical install');
+   const profileDirectory='tools/inactive-help-gateway-reproduction';
+   for(const file of ['package.json','package-lock.json'])if(!Buffer.from(await readFile(resolve(directory,file))).equals(await readFile(resolve(profileDirectory,file))))throw new ProducerError('Gateway reproduction installed lock differs from tracked profile');
+   const toolchain=assertGatewayReproductionToolchain({nodeVersion:process.versions.node,wranglerVersion:call(compiler,['--version']).trim(),packageSha256:hash(await readFile(profileDirectory+'/package.json')),lockSha256:hash(await readFile(profileDirectory+'/package-lock.json')),dependencyLabel:relative(resolve('.cloudflare-workers'),dependencies)});
+   const records=[];
+   for(const path of Object.keys(GATEWAY_REPRODUCTION_SOURCES)){
+    const match=call('git',['ls-tree','HEAD','--',path]).trim().match(/^(100644) (blob) ([a-f0-9]{40})\t/);
+    if(!match||await realpath(path)!==resolve(path)||!(await lstat(path)).isFile()||gitBlob(await readFile(path))!==match[3])throw new ProducerError('Regular unchanged Gateway reproduction source required');
+    records.push({path,mode:match[1],type:match[2],blob:match[3]});
+   }
+   assertGatewayReproductionSources(records);
+   const before=await dependencyTreeIdentity(dependencies);
+   const module=await build(service,config,'gateway-byte-reproduction',{compiler,dependencyRoot:dependencies});
+   assertGatewayReproductionGraph(module.inputEvidence);assertGatewayReproductionBytes(module);await module.verifyInputs();
+   if(canonical(before)!==canonical(await dependencyTreeIdentity(dependencies)))throw new ProducerError('Gateway reproduction dependency tree changed');
+   return {module,sourceProof:{...toolchain,sourceRecords:records,configSha256:hash(canonical(config)),compilerInputs:module.inputEvidence,dependencies:before,rawModuleBytes:p.moduleBytes,rawModuleSha256:p.moduleSha256,exactRebuiltBytes:true,originalPublisherRunId:null,originalPublisherJobId:null}};
+  }
+  if(service!=='governance')throw new ProducerError('Unsupported baseline service');
   assertGovernancePredecessorIdentity(predecessor);
   const p=GOVERNANCE_PREDECESSOR;
   const run=JSON.parse(call('gh',['api',base+'runs/'+p.runId]));

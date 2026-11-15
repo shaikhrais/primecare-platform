@@ -9,6 +9,8 @@ on:
       - 'packages/shared/src/help-reader/**'
       - 'scripts/release-inactive-help-workers.mjs'
       - 'scripts/test-inactive-help-worker-release.mjs'
+      - 'tools/inactive-help-gateway-reproduction/package.json'
+      - 'tools/inactive-help-gateway-reproduction/package-lock.json'
       - '.github/workflows/inactive-help-workers.yml'
   workflow_dispatch:
 
@@ -71,6 +73,17 @@ jobs:
           npm ci --ignore-scripts
           test "$(node_modules/.bin/wrangler --version)" = '4.86.0'
           git diff --exit-code -- package.json package-lock.json
+      - name: Install the locked Gateway byte-reproduction compiler separately
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e "$RUNNER_TEMP/worker-dependencies"
+          test ! -L "$RUNNER_TEMP/worker-dependencies"
+          mkdir "$RUNNER_TEMP/worker-dependencies"
+          cp tools/inactive-help-gateway-reproduction/package.json tools/inactive-help-gateway-reproduction/package-lock.json "$RUNNER_TEMP/worker-dependencies/"
+          npm ci --prefix "$RUNNER_TEMP/worker-dependencies" --ignore-scripts --no-audit --no-fund
+          test "$("$RUNNER_TEMP/worker-dependencies/node_modules/.bin/wrangler" --version)" = '4.68.1'
+          git diff --exit-code -- tools/inactive-help-gateway-reproduction/package.json tools/inactive-help-gateway-reproduction/package-lock.json
       - name: Read the exact production state and build inactive candidates
         shell: bash
         run: |

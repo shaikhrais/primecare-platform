@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,chmod,symlink,readlink,realpath,cp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,classifyProducerCommand,producerFailureDiagnostics,fetchGithubJobLog,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GATEWAY_REPRODUCTION,GATEWAY_REPRODUCTION_SOURCES,assertGatewayReproductionIdentity,assertGatewayReproductionSources,assertGatewayReproductionToolchain,assertGatewayReproductionGraph,assertGatewayReproductionBytes,GOVERNANCE_PREDECESSOR,classifyProducerCommand,producerFailureDiagnostics,fetchGithubJobLog,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
@@ -419,4 +419,37 @@ test('final aggregate verification rejects Auth drift during the last upload',as
  const f=await ready(),publish=f.publish,authProof=f.authProof;let changed=false;
  await assert.rejects(produceInactiveHelp({...f,authProof:async()=>({...await authProof(),...(changed?{versionId:id(994)}:{})}),publish:async(...args)=>{const output=await publish(...args);if(args[0]==='gateway')changed=true;return output;}}),/Auth changed before aggregate completion/);
  assert.deepEqual(f.events.filter(e=>e.startsWith('PUBLISH')),['PUBLISH governance','PUBLISH gateway']);
+});
+
+const gatewayReproductionIdentity=()=>({service:'gateway',worker:'primecare-api-gateway',deploymentId:GATEWAY_REPRODUCTION.deploymentId,versionId:GATEWAY_REPRODUCTION.versionId,latestVersionId:GATEWAY_REPRODUCTION.versionId});
+const gatewayReproductionRecords=()=>Object.entries(GATEWAY_REPRODUCTION_SOURCES).map(([path,blob])=>({path,blob,mode:'100644',type:'blob'}));
+const gatewayReproductionToolchain=()=>({nodeVersion:'24.22.1',wranglerVersion:'4.68.1',packageSha256:GATEWAY_REPRODUCTION.packageSha256,lockSha256:GATEWAY_REPRODUCTION.lockSha256,dependencyLabel:GATEWAY_REPRODUCTION.dependencyLabel});
+test('Gateway byte reproduction requires the independently observed sole live version and deployment',()=>{
+ assert.doesNotThrow(()=>assertGatewayReproductionIdentity(gatewayReproductionIdentity()));
+ for(const key of ['service','worker','deploymentId','versionId','latestVersionId'])assert.throws(()=>assertGatewayReproductionIdentity({...gatewayReproductionIdentity(),[key]:'different'}),/Gateway identity/);
+});
+test('Gateway reproduction pins every source blob and rejects missing, duplicate, extra, executable or symlink source',()=>{
+ const records=gatewayReproductionRecords();assert.doesNotThrow(()=>assertGatewayReproductionSources(records));
+ for(const changed of [records.slice(1),[...records,records[0]],records.map((r,i)=>i? r:{...r,blob:'0'.repeat(40)}),records.map((r,i)=>i?r:{...r,mode:'100755'}),records.map((r,i)=>i?r:{...r,mode:'120000'}),records.map((r,i)=>i?r:{...r,type:'tree'}),records.map((r,i)=>i?r:{...r,path:'unreviewed.ts'})])assert.throws(()=>assertGatewayReproductionSources(changed),/Gateway reproduction/);
+});
+test('Gateway reproduction compiler and lock are separate from accepted Auth and candidate toolchains',()=>{
+ const evidence=assertGatewayReproductionToolchain(gatewayReproductionToolchain());
+ assert.equal(evidence.originalPublisherKnown,false);assert.equal(evidence.historicalSourceAssociationVerified,false);assert.equal(evidence.deploymentReadiness,false);assert.equal(RELEASE_TOOLCHAIN.wrangler,'4.86.0');
+ for(const [key,value] of [['nodeVersion','22.0.0'],['wranglerVersion','4.86.0'],['packageSha256','0'.repeat(64)],['lockSha256','0'.repeat(64)],['dependencyLabel','../../../../../../tmp/gateway-cors/node_modules']])assert.throws(()=>assertGatewayReproductionToolchain({...gatewayReproductionToolchain(),[key]:value}),/Fixed Gateway/);
+});
+test('Gateway reproduction requires the complete actual 18-input compiler graph, including nonemitted polyfill inputs',()=>{
+ const paths=[...Object.keys(GATEWAY_REPRODUCTION_SOURCES),'node_modules/unenv/dist/runtime/_internal/utils.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/performance.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/histogram.mjs','node_modules/unenv/dist/runtime/node/internal/perf_hooks/constants.mjs','node_modules/unenv/dist/runtime/node/perf_hooks.mjs','node_modules/@cloudflare/unenv-preset/dist/runtime/polyfill/performance.mjs'];
+ const inputs=paths.map(path=>({path,sha256:'a'.repeat(64)}));assert.doesNotThrow(()=>assertGatewayReproductionGraph(inputs));
+ for(const changed of [inputs.slice(1),[...inputs,inputs[0]],inputs.map((r,i)=>i?r:{...r,path:'node_modules/unknown.mjs'})])assert.throws(()=>assertGatewayReproductionGraph(changed),/emitted input graph/);
+});
+test('Gateway reproduction never accepts body size alone or comment-normalized bytes',()=>{
+ assert.throws(()=>assertGatewayReproductionBytes(Buffer.alloc(GATEWAY_REPRODUCTION.moduleBytes)),/raw module bytes/);
+ assert.throws(()=>assertGatewayReproductionBytes(Buffer.alloc(146913)),/raw module bytes/);
+});
+test('Gateway reproduction package and whole npm lock agree with their fixed audited identities',async()=>{
+ const {createHash}=await import('node:crypto');
+ const directory=new URL('../tools/inactive-help-gateway-reproduction/',import.meta.url);
+ const pkg=await readFile(new URL('package.json',directory)),lock=await readFile(new URL('package-lock.json',directory));
+ assert.equal(createHash('sha256').update(pkg).digest('hex'),GATEWAY_REPRODUCTION.packageSha256);assert.equal(createHash('sha256').update(lock).digest('hex'),GATEWAY_REPRODUCTION.lockSha256);
+ const packageJson=JSON.parse(pkg),lockJson=JSON.parse(lock);assert.equal(packageJson.dependencies.wrangler,'4.68.1');assert.deepEqual(lockJson.packages[''].dependencies,packageJson.dependencies);assert.equal(lockJson.packages['node_modules/wrangler'].version,'4.68.1');assert.equal(lockJson.packages['node_modules/unenv'].version,'2.0.0-rc.24');assert.equal(lockJson.packages['node_modules/@cloudflare/unenv-preset'].version,'2.14.0');
 });
