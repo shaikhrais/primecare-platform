@@ -176,26 +176,26 @@
     {
       "id": 14,
       "path": "tools/governance-production/pc10-help-registration.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "70fd58ed47151432edf1d969895ba457306dc2f2",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed Help contract registration code against endpoint, host and permission boundaries; guarded migration/rollback and independent readback. No confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 15,
       "path": "docs/appearance/pc10-section2-business-proposals.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "9a5c5d38219e649e0d42cfb1c88e11d52b4a5fa5",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete four-domain draft proposal and Section 2 plan; clearly distinguishes proposed contracts from approved runtime. No confirmed inconsistency.",
+      "outcome": "ok"
     },
     {
       "id": 16,
