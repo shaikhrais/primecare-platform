@@ -706,26 +706,26 @@
     {
       "id": 58,
       "path": "scripts/test-help-audit-cleanup.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ebbca2c75f14699ec34c0c4b67e0902c2970e68b",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help audit cleanup tests against bounded cleanup writer and fixture setup; no confirmed safe defect. Not run.",
+      "outcome": "ok"
     },
     {
       "id": 59,
       "path": "scripts/test-help-storage-proposal.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "b609644f58917a12c6aed71d9f614034b02dca07",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full isolated Help storage proposal suite, quotas, audit expiry, concurrent native reservations and fixture guard; no confirmed safe defect. Not run.",
+      "outcome": "ok"
     },
     {
       "id": 60,
@@ -742,14 +742,14 @@
     {
       "id": 61,
       "path": "scripts/test-training-failure-boundary.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "35b43f0344ca851fb4ad47a1543e6dcc1687350f",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full pinned historical TrainingService failure regression suite and scoped current service expectations; no confirmed safe defect. Not run.",
+      "outcome": "ok"
     },
     {
       "id": 62,
@@ -802,14 +802,14 @@
     {
       "id": 66,
       "path": "packages/flutter_core/test/application_modules/verify_legacy_failure_control.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "108add7bdfefee116461902a81b7fed071a3a330",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full pinned legacy Flutter ApiClient failure reproduction harness, source restore in finally and exact digest checks; no confirmed safe defect. Not run.",
+      "outcome": "ok"
     },
     {
       "id": 67,
