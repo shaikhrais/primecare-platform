@@ -140,38 +140,38 @@
     {
       "id": 11,
       "path": "tools/governance-production/pc10-preference-activation.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "dbafe1f078ea964dc23715d049c0eac712da56cd",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete bounded preference activation code, retry baseline, active receipt, preference registration and admin grant policy; no confirmed safe correction. Deployment/human evidence not independently rerun.",
+      "outcome": "ok"
     },
     {
       "id": 12,
       "path": "docs/appearance/pc10-section2-validate-business-proposals.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "474017514104e4ccc9e88ab762e425dc6fad4b08",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full draft business schema validator, synthetic-only guards, identity fixture reference and helper import; no confirmed defect.",
+      "outcome": "ok"
     },
     {
       "id": 13,
       "path": "docs/appearance/pc10-help-approved-operational-policy.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "84801d586e337b8b740a7a67b9607cc55cdbc3a8",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed approved operational policy document against quota/audit implementation boundaries and runtime caveats; no confirmed defect.",
+      "outcome": "ok"
     },
     {
       "id": 14,
