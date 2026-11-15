@@ -898,74 +898,74 @@
     {
       "id": 74,
       "path": ".github/workflows/pc10-business-contracts.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "05cb88d73673b36eff6b3fae409754d7f949ca0a",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete native PC10 business-contract workflow, fixture compile gate, guarded registration and owned native acceptance; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 75,
       "path": ".github/workflows/pc10-preference-activation.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "fa3cd6f3772ca90480f1cb39f83b8e6a93d0b8ac",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete preference activation workflow, scoped source/rollback and owned browser proof; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 76,
       "path": ".github/workflows/pc10-help-legacy-retirement.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "bf9c0dd271c6d28d5a0d7723ffcabc35ae9c67f2",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete legacy grant retirement workflow, exact archive/readback, production gate and unchanged baseline check; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 77,
       "path": ".github/workflows/help-reader-service.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "f98fc096c2feb4f401b9ec404f5458f36831d013",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help reader service workflow, PGlite/Postgres fixtures, strict types and isolated service composition; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 78,
       "path": ".github/workflows/inspect-preference-activation.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "0b1f137070dbd47f4501bd2d95686672e7c7961e",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete read-only preference activation inspection workflow, pinned secrets and no mutation step; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 79,
       "path": ".github/workflows/help-runtime-registration-discovery.yml",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "92495826e549852b4d0b4e32bcc5ca1f4a361e2c",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help runtime discovery workflow, bounded production read-only plan and artifact upload; no confirmed safe defect. Not dispatched.",
+      "outcome": "ok"
     },
     {
       "id": 80,
