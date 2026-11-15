@@ -26,7 +26,7 @@ export function createHelpOperationalEffects(store:HelpOperationalStore,isCurren
  return Object.freeze({
   isCurrent:()=>{current();return true;},
   consumeQuota:async(actor:HelpActor,key:string)=>safe(async()=>{
-   const scope=helpScope(actor);if(key!==expected.key)throw new HelpReadFailure('unavailable',503);
+   current();const scope=helpScope(actor);if(key!==expected.key)throw new HelpReadFailure('unavailable',503);
    await verified();const result=await reserve(scope,expected.key,expected.maxReads,expected.windowSeconds);current();
    if(!result||typeof result.allowed!=='boolean'||!helpInteger(result.retryAfterSeconds,result.allowed?0:1,result.allowed?0:expected.windowSeconds))throw new HelpReadFailure('unavailable',503);
    if(!result.allowed)throw new HelpReadFailure('rate_limited',429);
