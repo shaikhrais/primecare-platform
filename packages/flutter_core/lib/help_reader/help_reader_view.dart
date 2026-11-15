@@ -32,7 +32,8 @@ class HelpReaderView {
       final materialTheme = Theme.of(context);
       final effective = materialTheme.extension<AdvancedThemeTokens>() ??
         AdvancedThemeTokens(AdvancedTheme.defaults(), 'main');
-      final spacing = effective.spacing;
+      final rawSpacing = effective.spacing;
+      final spacing = rawSpacing.isFinite && rawSpacing >= 0 ? rawSpacing : 0.0;
       final layout = effective.theme.layout;
       final configuredWidth = layout['maxWidth'];
       final width = configuredWidth is num ? configuredWidth.toDouble() : double.infinity;
