@@ -20,26 +20,26 @@
     {
       "id": 1,
       "path": "tools/governance-production/pc10-help-schema.sql",
-      "status": "not_reviewed",
+      "status": "reviewed",
       "reviewedSourceSha": "9fa58654bf6e3642a3bb352e91e9d6e8b8fb4142",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": "Initial SQL inspection performed, dependency review incomplete; not counted as reviewed.",
-      "outcome": null
+      "note": "Reviewed complete SQL against migration wrapper and exact constraint definitions; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 2,
       "path": "tools/governance-production/pc10-help-schema.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "8f90bbb3247ca3f7261f79f58f7950592a9532f7",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete migration wrapper, transaction/manifest checks, schema verification, and referenced SQL/definitions; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 3,
