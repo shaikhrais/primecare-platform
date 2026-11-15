@@ -488,50 +488,50 @@
     {
       "id": 40,
       "path": "services/governance_api/worker/help-reader.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "cae10da598e1c04169b873fea867615ee3e3cfd8",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete inactive Help Worker composition against HTTP, service, activation, operational effects and Postgres store; no confirmed safe defect; not activated or tested.",
+      "outcome": "ok"
     },
     {
       "id": 41,
       "path": "services/governance_api/worker/help-reader-activation.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "9fdbaba556f439a9472e2748ab92840ddd17e3f0",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help runtime binding loader, pinned source footprint and exact metadata snapshot checks; inactive null binding remains closed, no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 42,
       "path": "docs/appearance/application-modules-usage.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "0e41dc6f8113f1563efaa523948a2d99ce05f2a6",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed application module usage guide against documented source-only versus runtime acceptance and approved scope; no confirmed inconsistency.",
+      "outcome": "ok"
     },
     {
       "id": 43,
       "path": "packages/shared/src/help-reader/service.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "6d5d801e4f9c1e2d6df93661b096ff96cfc815c4",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help reader service against protocol, HTTP boundary, tenant/role grant, artifact, audit/quota, session expiry and transactional rollback; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 44,
