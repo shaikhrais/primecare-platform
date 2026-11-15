@@ -92,50 +92,50 @@
     {
       "id": 7,
       "path": "docs/appearance/pc10-section2-two-part-plan.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "a119531517b086004d5a4422ca824454d451b0fc",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed Section 2A/2B scope and cross-references to draft proposals; historical status and estimates are explicitly dated; no confirmed correction.",
+      "outcome": "ok"
     },
     {
       "id": 8,
       "path": "docs/appearance/pc10-section2-validate-help-proposal.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "1b689bf1dea4dd1d5bdb5c204c12cc8acfa30210",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full draft-only JSON Schema validator; schema references, UTF-16 check, draft safeguards and report behavior; no confirmed defect.",
+      "outcome": "ok"
     },
     {
       "id": 9,
       "path": "tools/governance-production/pc10-help-legacy-archive.sql",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "614dceb7dcda6c8306c260a02a6f9b7b48ac0d1f",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed archive SQL against documented approved retirement and transaction/privilege requirements; guarded DDL, constrained rows; no confirmed defect.",
+      "outcome": "ok"
     },
     {
       "id": 10,
       "path": "docs/api/pc10-help-api794-legacy-disposition-proposal.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "bff64c2f130a0fc3a527654dbbde12c0b7b54b60",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete API794 legacy retirement record against evidence references and scope; no confirmed internal inconsistency. Historical production claims not reverified.",
+      "outcome": "ok"
     },
     {
       "id": 11,
