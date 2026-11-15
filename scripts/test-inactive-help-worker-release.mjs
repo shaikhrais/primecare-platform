@@ -3,10 +3,26 @@ import assert from 'node:assert/strict';
 import {mkdtemp,mkdir,writeFile,readFile,chmod,symlink,readlink,realpath,cp,rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,GOVERNANCE_PREDECESSOR,classifyProducerCommand,producerFailureDiagnostics,assertGovernancePredecessorIdentity,checkGovernanceHistoricalProducer,assertGovernanceSourceRecords,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,inspectWorkerPredecessor,moduleMismatchAttribution,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+test('safe producer failures disclose only fixed operation/class, own line/column frames and bounded command status',()=>{
+ const error=new SyntaxError('PRIVATE_PROVIDER_MESSAGE_TOKEN_BODY');
+ error.stack='SyntaxError: PRIVATE_PROVIDER_MESSAGE_TOKEN_BODY\n    at parse (file:///PRIVATE_WORKSPACE/scripts/release-inactive-help-workers.mjs:530:12)\n    at provider (/PRIVATE_SOURCE.js:1:2)';
+ const result=producerFailureDiagnostics(error,{operation:'governance-history-receipt-parse',childCommand:{kind:'github-job-log-read',exitStatus:17,args:['PRIVATE_TOKEN'],stdout:'PRIVATE_PROVIDER_BODY',stderr:'PRIVATE_CREDENTIAL'},lastCompletedCommand:{kind:'github-job-read',exitStatus:0}});
+ assert.deepEqual(result,{errorClass:'SyntaxError',operation:'governance-history-receipt-parse',producerFrames:[{line:530,column:12}],childCommand:{kind:'github-job-log-read',exitStatus:17},lastCompletedChildCommand:{kind:'github-job-read',exitStatus:0}});
+ assert.equal(JSON.stringify(result).includes('PRIVATE'),false);
+ const unknown=producerFailureDiagnostics({name:'PRIVATE_ERROR_CLASS',stack:'PRIVATE_STACK'},{operation:'PRIVATE_OPERATION',childCommand:{kind:'PRIVATE_COMMAND',exitStatus:'PRIVATE_STATUS'},lastCompletedCommand:null});
+ assert.deepEqual(unknown,{errorClass:'Error',operation:'configuration',producerFrames:[],childCommand:{kind:'local-child-other',exitStatus:null}});
+});
+test('child command diagnostics classify known operation kinds without echoing programs, arguments or URLs',()=>{
+ assert.equal(classifyProducerCommand('gh',['api','repos/shaikhrais/primecare-platform/actions/jobs/132678080810/logs']),'github-job-log-read');
+ assert.equal(classifyProducerCommand('gh',['api','repos/shaikhrais/primecare-platform/actions/runs/43669947275']),'github-run-read');
+ assert.equal(classifyProducerCommand('git',['archive','--format=tar','PRIVATE_SOURCE']),'git-archive');
+ assert.equal(classifyProducerCommand('node_modules/.bin/wrangler',['deploy','--dry-run','PRIVATE_TOKEN']),'wrangler-dry-run');
+ assert.equal(classifyProducerCommand('PRIVATE_PROGRAM',['PRIVATE_ARGUMENT']),'local-child-other');
+});
 function governanceProducerFixture(){
  const p=GOVERNANCE_PREDECESSOR;
  return {run:{id:p.runId,head_sha:p.source,head_branch:'main',path:p.workflow,event:'workflow_dispatch',status:'completed',conclusion:'failure'},

@@ -15,6 +15,32 @@ export const PLAN_JOB='production-plan',RELEASE_JOB='production-release';
 class ProducerError extends Error {}
 let phase='configuration';
 let rejectionContext=null;
+let producerOperation='configuration',lastCompletedChildCommand=null;
+const commandKinds=new Set(['git-fetch','git-archive','git-source-read','git-worktree-check','git-remote-main','github-run-read','github-job-read','github-job-log-read','github-run-jobs-read','auth-source-gate','local-config-generation','wrangler-dry-run','wrangler-version','wrangler-publish','local-archive-extract','local-child-other']);
+const operationKinds=new Set([...commandKinds,'configuration','historical-source-identities','historical-source-config-metadata','historical-source-archive','historical-archive-files-verify','historical-dependency-copy','historical-bundle-build','historical-input-hash-compare','governance-history-receipt-parse','governance-history-validation']);
+export function classifyProducerCommand(program,args){
+ if(program==='git')return ({fetch:'git-fetch',archive:'git-archive','rev-parse':'git-source-read','cat-file':'git-source-read','ls-tree':'git-source-read',show:'git-source-read',diff:'git-worktree-check','ls-remote':'git-remote-main'})[args[0]]??'local-child-other';
+ if(program==='gh'&&args[0]==='api'){
+  if(/\/jobs\/\d+\/logs$/.test(args[1]??''))return 'github-job-log-read';
+  if(/\/jobs\/\d+$/.test(args[1]??''))return 'github-job-read';
+  if(/\/runs\/\d+\/jobs(?:\?|$)/.test(args[1]??''))return 'github-run-jobs-read';
+  if(/\/runs\/\d+$/.test(args[1]??''))return 'github-run-read';
+ }
+ if(program==='node'&&args[0]==='scripts/verify-auth-live-proof-source.mjs')return 'auth-source-gate';
+ if(program==='node'&&args[0]==='scripts/generate-cloudflare-worker-config.mjs')return 'local-config-generation';
+ if(program==='node_modules/.bin/wrangler')return args.includes('--dry-run')?'wrangler-dry-run':args.includes('--version')?'wrangler-version':args[0]==='deploy'?'wrangler-publish':'local-child-other';
+ return program==='tar'?'local-archive-extract':'local-child-other';
+}
+export function producerFailureDiagnostics(error,{operation=producerOperation,childCommand=error?.safeChildCommand,lastCompletedCommand=lastCompletedChildCommand}={}){
+ const names=new Set(['Error','TypeError','SyntaxError','RangeError','ReferenceError','URIError','EvalError','AggregateError','AbortError','SystemError']);
+ const frames=[];
+ for(const line of String(error?.stack??'').split('\n').slice(1)){
+  const match=line.match(/\/scripts\/release-inactive-help-workers\.mjs:(\d{1,6}):(\d{1,6})\)?\s*$/);
+  if(match&&frames.length<8)frames.push({line:Number(match[1]),column:Number(match[2])});
+ }
+ const safeCommand=value=>value?{kind:commandKinds.has(value.kind)?value.kind:'local-child-other',exitStatus:Number.isInteger(value.exitStatus)&&value.exitStatus>=0&&value.exitStatus<=255?value.exitStatus:null}:null;
+ return {errorClass:names.has(error?.originalErrorClass??error?.name)?error.originalErrorClass??error.name:'Error',operation:operationKinds.has(operation)?operation:'configuration',producerFrames:frames,...(childCommand?{childCommand:safeCommand(childCommand)}:{}),...(lastCompletedCommand?{lastCompletedChildCommand:safeCommand(lastCompletedCommand)}:{})};
+}
 const acceptedCloudflareTree='88b9689f0efd5c892be0e57bed063131b0f9541c';
 const guardSource='718eaff3e6b3d4c5b26d68ec0b7a6ceaca5da3ea';
 export const RELEASE_TOOLCHAIN=Object.freeze({nodeMajor:24,wrangler:'4.86.0',lockBlob:'0a25c42592d30c27e41e4a643144909f532590eb'});
@@ -430,7 +456,11 @@ export async function produceInactiveHelp({mode,source,producer,configs,build,ba
  return {format:1,mode:'deploy',source,producer,receipts,providerWriteInvocations:receipts.length,runtimeActivated:false};
 }
 
-const call=(program,args,options={})=>execFileSync(program,args,{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:32*1024*1024,...options});
+const call=(program,args,options={})=>{
+ const kind=classifyProducerCommand(program,args);producerOperation=kind;
+ try{const output=execFileSync(program,args,{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:32*1024*1024,...options});lastCompletedChildCommand={kind,exitStatus:0};return output;}
+ catch(original){const error=new ProducerError('Known child command failed');error.originalErrorClass=['Error','TypeError','SyntaxError','RangeError','ReferenceError'].includes(original?.name)?original.name:'Error';error.safeChildCommand={kind,exitStatus:original?.status};error.safeProducerDiagnostics=producerFailureDiagnostics(original,{operation:kind,childCommand:error.safeChildCommand});throw error;}
+};
 function verifyMain(source){
  if(call('git',['rev-parse','HEAD']).trim()!==source)throw new ProducerError('Checkout source mismatch');
  call('git',['diff','--quiet','HEAD']);
@@ -510,6 +540,7 @@ async function main(){
  };
  const rebuildHistoricalModule=async({service,config,currentModule,source,assertRecords})=>{
    await currentModule.verifyInputs();
+   producerOperation='historical-source-identities';
    const initialPaths=acceptedAuthArchivePaths(currentModule.inputEvidence),metadataCandidates=authCompilerMetadataCandidates(initialPaths);
    const metadataPaths=ref=>call('git',['ls-tree','-r','--name-only',ref,'--',...metadataCandidates]).trim().split('\n').filter(Boolean);
    const paths=[...new Set([...initialPaths,...metadataPaths(source),...metadataPaths('HEAD')])].sort(),records=[];
@@ -522,13 +553,19 @@ async function main(){
     records.push({path,currentMode:current.mode,currentBlob:current.blob,acceptedMode:accepted.mode,acceptedBlob:accepted.blob});
    }
    const sourceComparison={...assertRecords(records),currentModule:{moduleBytes:currentModule.length,moduleSha256:hash(currentModule)}};
+   producerOperation='historical-source-config-metadata';
    for(const path of paths.filter(path=>/(?:^|\/)(?:tsconfig|jsconfig)\.json$/.test(path)))if(/"extends"\s*:/.test(call('git',['show',source+':'+path])))throw new ProducerError('Accepted compiler metadata inheritance requires explicit archive');
    const root=resolve(env.RUNNER_TEMP,'inactive-help-accepted-'+service+'-source');await rm(root,{recursive:true,force:true});await mkdir(root,{recursive:true});
    const archive=call('git',['archive','--format=tar',source,'--',...paths],{encoding:null});
+   producerOperation='historical-source-archive';
    const archivePath=resolve(root,'accepted-auth.tar');await writeFile(archivePath,archive);call('tar',['-xf',archivePath,'-C',root]);await rm(archivePath);
+   producerOperation='historical-archive-files-verify';
    for(const record of records){const file=resolve(root,record.path);if(!(await lstat(file)).isFile()||await realpath(file)!==file||gitBlob(await readFile(file))!==record.acceptedBlob)throw new ProducerError('Accepted Auth archive file identity differs');}
+   producerOperation='historical-dependency-copy';
    sourceComparison.dependencies=await copyLockedDependencies({source:await realpath('node_modules'),destination:resolve(root,'node_modules')});
+   producerOperation='historical-bundle-build';
    const module=await build(service,config,'accepted-'+service,{root,sourceRef:source});
+   producerOperation='historical-input-hash-compare';
    const currentInputs=new Map(currentModule.inputEvidence.map(input=>[input.path,input]));
    if(module.inputEvidence.length!==currentInputs.size)throw new ProducerError('Accepted Auth build input graph changed');
    for(const input of module.inputEvidence){const before=currentInputs.get(input.path);if(!before)throw new ProducerError('Accepted Auth build input graph changed');
@@ -559,7 +596,9 @@ async function main(){
   const log=call('gh',['api',base+'jobs/'+p.jobId+'/logs']),marker='APPROVED_GOVERNANCE_DEPLOYED ';
   const lines=log.split('\n').filter(line=>line.includes(marker+'{'));
   if(lines.length!==1)throw new ProducerError('Unique historical governance uploaded receipt required');
+  producerOperation='governance-history-receipt-parse';
   const receipt=JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length));
+  producerOperation='governance-history-validation';
   const evidence=checkGovernanceHistoricalProducer({run,job,acceptance,receipt});
   call('git',['fetch','--no-tags','--depth=1','origin',p.source]);
   if(call('git',['rev-parse',p.source+':cloudflare']).trim()!==acceptedCloudflareTree||call('git',['rev-parse',p.source+':package-lock.json']).trim()!==RELEASE_TOOLCHAIN.lockBlob)throw new ProducerError('Historical governance tree or locked dependencies changed');
@@ -590,7 +629,7 @@ async function main(){
  else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
 }
 if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
- const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{}),...(error instanceof ProducerError&&error.serverOperationTransition?{serverOperationTransition:error.serverOperationTransition}:{})};
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',errorDiagnostics:error?.safeProducerDiagnostics??producerFailureDiagnostics(error),...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{}),...(error instanceof ProducerError&&error.moduleComparison?{moduleComparison:error.moduleComparison}:{}),...(error instanceof ProducerError&&error.unsupportedSettings?{unsupportedSettings:error.unsupportedSettings,usageModel:error.usageModel,...(error.annotationProjection?{annotationProjection:error.annotationProjection}:{})}:{}),...(error instanceof ProducerError&&error.serverOperationTransition?{serverOperationTransition:error.serverOperationTransition}:{})};
  if(rejectionContext?.mode==='plan'){
   failure.providerWrites=0;
   try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}
