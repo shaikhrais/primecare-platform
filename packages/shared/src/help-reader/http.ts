@@ -40,7 +40,8 @@ export async function handleHelpRead(request:Request,context:HelpHttpContext):Pr
   const safe=error instanceof HelpReadFailure&&failures[error.code]===error.status?error:new HelpReadFailure('unavailable',503);
   return reply({version:1,error:{code:safe.code}},safe.status);
  }finally{
-  // Also release bodies rejected before decoding (auth, media type or route errors).
-  if(!body&&request.body&&!request.body.locked)await request.body.cancel().catch(()=>{});
+  // Start releasing rejected uploads, but an untrusted source's cancellation
+  // promise must not hold the safe denial response open indefinitely.
+  if(!body&&request.body&&!request.body.locked)void request.body.cancel().catch(()=>{});
  }
 }

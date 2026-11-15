@@ -69,3 +69,25 @@ test('synchronous provider failure during abort stays a private handled error',a
  await assert.rejects(f.model.reply({text:'Hello',signal:input.signal}),/^Error: Message model unavailable$/);
  f.model.close();
 });
+test('elapsed provider deadline before dispatch rejects without invoking the provider',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});let reads=0;
+ t.mock.method(performance,'now',()=>reads++?12000:0);
+ const f=fixture();await assert.rejects(f.reply(),/^Error: Message model unavailable$/);
+ assert.equal(f.requests.length,0);f.model.close();await new Promise(resolve=>setImmediate(resolve));
+});
+test('elapsed provider deadline rejects headers even before its timer can run',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});let elapsed=0;
+ t.mock.method(performance,'now',()=>elapsed);
+ const f=fixture(()=>{elapsed=12000;return response('Late headers');});
+ await assert.rejects(f.reply(),/^Error: Message model unavailable$/);
+ assert.equal(f.requests.length,1);f.model.close();
+});
+test('elapsed provider deadline rejects a body completed before its timer can run',async t=>{
+ t.mock.timers.enable({apis:['setTimeout']});let elapsed=0;
+ t.mock.method(performance,'now',()=>elapsed);
+ const bytes=new TextEncoder().encode(JSON.stringify({status:'completed',output:[{type:'message',role:'assistant',status:'completed',content:[{type:'output_text',text:'Late answer'}]}]}));
+ let complete;const f=fixture(()=>new Response(new ReadableStream({start(controller){complete=()=>{elapsed=12001;controller.enqueue(bytes);controller.close();};}})));
+ const pending=f.reply();await new Promise(resolve=>setImmediate(resolve));complete();
+ await assert.rejects(pending,/^Error: Message model unavailable$/);
+ assert.equal(f.requests.length,1);f.model.close();
+});

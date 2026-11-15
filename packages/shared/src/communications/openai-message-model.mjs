@@ -18,26 +18,32 @@ export class OpenAiMessageModel extends CommunicationResourceBase {
  }
  async reply({text,signal}){
   this.assertOpen();bounded(text,6400);if(text.length>1600||!signal||signal.aborted||this.#active.size>=16)throw fail();
-  const controller=new AbortController();this.#active.add(controller);
+  const controller=new AbortController(),deadline=performance.now()+12000;this.#active.add(controller);
   const abort=()=>controller.abort();signal.addEventListener('abort',abort,{once:true});const timer=setTimeout(abort,12000);
   let rejectAborted;
   const aborted=new Promise((_,reject)=>{rejectAborted=()=>reject(fail());controller.signal.addEventListener('abort',rejectAborted,{once:true});});
+  aborted.catch(()=>{}); // Initial expiry may abort before the race is attached.
+  // Timers cannot fire while synchronous provider/stream work occupies the turn.
+  // Recheck elapsed time at each result boundary before accepting late output.
+  const current=()=>{this.assertOpen();if(controller.signal.aborted||performance.now()>=deadline){controller.abort();throw fail();}};
   try{
+   current();
    const pending=new Promise(resolve=>resolve(this.#fetch('https://api.openai.com/v1/responses',{method:'POST',redirect:'error',signal:controller.signal,
     headers:{authorization:`Bearer ${this.#key}`,'content-type':'application/json'},
     body:JSON.stringify({model:this.#model,instructions:instructions+'\nApproved service information:\n'+this.#guide,input:[{role:'user',content:text}],store:false,max_output_tokens:512})}))).then(response=>{
-     if(controller.signal.aborted){discard(response);throw fail();}return response;
+     try{current();return response;}catch{discard(response);throw fail();}
     });
    const response=await Promise.race([pending,aborted]);
-   if(controller.signal.aborted||!response.ok){discard(response);throw fail();}
+   try{current();if(!response.ok)throw fail();current();}catch{discard(response);throw fail();}
    const bytes=await Promise.race([reader.readBoundedBody(response.body.pipeThrough(new TransformStream(),{signal:controller.signal})),aborted]);
+   current();
    const payload=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(bytes));
    this.assertOpen();if(controller.signal.aborted||payload.status!=='completed'||!Array.isArray(payload.output)||!payload.output.length||payload.output.length>16)throw fail();
    // Tool calls or unsupported output types are never executed or forwarded.
    const messages=payload.output.filter(item=>item?.type==='message');
    if(!messages.length||payload.output.some(item=>!['message','reasoning'].includes(item?.type))||messages.some(item=>item.role!=='assistant'||item.status!=='completed'||!Array.isArray(item.content)||!item.content.length||item.content.some(part=>part?.type!=='output_text'||typeof part.text!=='string')))throw fail();
    const answer=messages.flatMap(item=>item.content.map(part=>part.text)).join(' ');bounded(answer,6400);if(answer.length>1600||/[<>\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(answer))throw fail();
-   return answer;
+   current();return answer;
   }catch{throw fail();}finally{clearTimeout(timer);signal.removeEventListener('abort',abort);controller.signal.removeEventListener('abort',rejectAborted);controller.abort();this.#active.delete(controller);}
  }
 }

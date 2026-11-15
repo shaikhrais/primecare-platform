@@ -86,3 +86,14 @@ test('compliance summary and verifier both reject the exact expiry instant',asyn
  try{Date.now=()=>instant.getTime();const value=await summary([{status:'Compliant',expiresAt:instant}]);assert.equal(value.data.complianceStatus,0);}
  finally{Date.now=originalNow;}
 });
+test('unknown required status cannot verify a future-dated certificate or inflate compliance',async()=>{
+ for(const status of [undefined,null,'','Pending','compliant',1]){
+  const db={certificationNode:{findFirst:async()=>({...request,status,expiresAt:future})}};
+  const verified=await TrainingService.verifyCertificate(db,tenant,request);
+  assert.equal(verified.isFailure,true,`verification accepted status ${String(status)}`);
+  assert.throws(()=>verified.data);
+  const aggregate=await summary([{status,expiresAt:future}]);
+  assert.equal(aggregate.isFailure,true,`summary accepted status ${String(status)}`);
+  assert.throws(()=>aggregate.data);
+ }
+});

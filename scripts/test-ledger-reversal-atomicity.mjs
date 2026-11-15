@@ -109,3 +109,74 @@ test('two readers of the same posted state can commit only one conditional rever
  assert.equal(f.state().transactions.filter(row=>row.type==='REVERSAL').length,1);
  assert.equal(f.state().journals.length,2);assert.equal(f.state().audits.length,2);
 });
+
+function sealingFixture({failAudit=false,closedUntil}={}){
+ const endDate=new Date('2026-01-31T23:59:59Z');
+ let state={transactions:[
+  {id:'posted',tenantId:'tenant-a',status:'posted',createdAt:new Date('2026-01-01')},
+  {id:'voided',tenantId:'tenant-a',status:'voided',createdAt:new Date('2026-01-01')},
+  {id:'sealed',tenantId:'tenant-a',status:'sealed',createdAt:new Date('2026-01-01')},
+  {id:'future',tenantId:'tenant-a',status:'posted',createdAt:new Date('2026-02-01')},
+  {id:'foreign',tenantId:'tenant-b',status:'posted',createdAt:new Date('2026-01-01')}
+ ],tenant:{id:'tenant-a',taxSettings:{existing:'preserve',...(closedUntil===undefined?{}:{closedUntil})}},audits:[]};
+ let queue=Promise.resolve();
+ const db={$transaction:async callback=>{
+  let working=structuredClone(state),release;
+  const tx={
+   $queryRaw:async(strings,...values)=>{
+    assert.match(strings.join('?'),/SELECT id FROM tenants WHERE id = \? FOR NO KEY UPDATE/);
+    assert.deepEqual(values,['tenant-a']);
+    const wait=queue;queue=new Promise(resolve=>release=resolve);await wait;
+    // READ COMMITTED sees the previous seal after acquiring the tenant row lock.
+    working=structuredClone(state);return[{id:'tenant-a'}];
+   },
+   financialTransaction:{updateMany:async({where,data})=>{
+    const rows=working.transactions.filter(row=>row.tenantId===where.tenantId&&row.createdAt<=where.createdAt.lte&&
+     (where.status.notIn?!where.status.notIn.includes(row.status):row.status!==where.status.not));
+    rows.forEach(row=>Object.assign(row,data));return{count:rows.length};
+   }},
+   tenant:{findUnique:async()=>working.tenant,update:async({data})=>{Object.assign(working.tenant,data);return working.tenant;}},
+   auditLog:{create:async({data})=>{if(failAudit)throw Error('seal audit unavailable');working.audits.push(data);return{id:'seal-audit'};}}
+  };
+  try{const result=await callback(tx);state=working;return result;}finally{release?.();}
+ }};
+ return{db,endDate,state:()=>state};
+}
+test('period sealing preserves voided, sealed, future and foreign transaction state',async()=>{
+ const f=sealingFixture(),before=structuredClone(f.state());
+ const result=await LedgerService.sealLedgerPeriod(f.db,'tenant-a',f.endDate,'actor');
+ assert.equal(result.isSuccess,true,result.isFailure?result.error:'');
+ assert.equal(result.data.count,1);
+ assert.equal(f.state().transactions[0].status,'sealed');
+ assert.deepEqual(f.state().transactions.slice(1),before.transactions.slice(1));
+ assert.equal(f.state().tenant.taxSettings.existing,'preserve');
+ assert.equal(f.state().audits.length,1);assert.equal(f.state().audits[0].action,'SEAL_LEDGER_PERIOD');
+});
+test('actual seal audit Result failure rolls back transaction statuses and period metadata',async()=>{
+ const f=sealingFixture({failAudit:true}),before=structuredClone(f.state());
+ const result=await LedgerService.sealLedgerPeriod(f.db,'tenant-a',f.endDate,'actor');
+ assert.equal(result.isFailure,true);assert.match(result.error,/seal audit unavailable/);
+ assert.deepEqual(f.state(),before);
+});
+test('an earlier requested cutoff cannot reopen an already sealed period',async()=>{
+ const f=sealingFixture({closedUntil:'2026-03-31T23:59:59.000Z'}),before=structuredClone(f.state());
+ const result=await LedgerService.sealLedgerPeriod(f.db,'tenant-a',f.endDate,'actor');
+ assert.equal(result.isFailure,true);assert.match(result.error,/earlier than the existing sealed period/);
+ assert.deepEqual(f.state(),before);
+});
+test('concurrent seals retain the later committed cutoff and reject backwards replacement',async()=>{
+ const f=sealingFixture(),later=new Date('2026-03-31T23:59:59.000Z');
+ const results=await Promise.all([
+  LedgerService.sealLedgerPeriod(f.db,'tenant-a',later,'later-actor'),
+  LedgerService.sealLedgerPeriod(f.db,'tenant-a',f.endDate,'earlier-actor')
+ ]);
+ assert.equal(results.filter(r=>r.isSuccess).length,1);assert.equal(results.filter(r=>r.isFailure).length,1);
+ assert.equal(f.state().tenant.taxSettings.closedUntil,later.toISOString());
+ assert.equal(f.state().tenant.taxSettings.sealedBy,'later-actor');assert.equal(f.state().audits.length,1);
+});
+test('invalid existing cutoff fails closed rather than replacing the period boundary',async()=>{
+ const f=sealingFixture({closedUntil:'invalid'}),before=structuredClone(f.state());
+ const result=await LedgerService.sealLedgerPeriod(f.db,'tenant-a',f.endDate,'actor');
+ assert.equal(result.isFailure,true);assert.match(result.error,/Invalid existing sealed period/);
+ assert.deepEqual(f.state(),before);
+});

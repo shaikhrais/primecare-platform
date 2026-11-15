@@ -459,27 +459,44 @@ export class LedgerService {
      */
     static async sealLedgerPeriod(prisma: any, tenantId: string, endDate: Date, actorUserId: string): Promise<Result<any>> {
         return Result.guard(async () => {
+            const sealUntil = new Date(endDate.getTime());
+            if (!Number.isFinite(sealUntil.getTime())) throw new Error('Invalid sealed period cutoff');
             return prisma.$transaction(async (tx: any) => {
+                // Serialize metadata writers on the mapped tenant row. This
+                // protects the cutoff without conflicting with foreign-key readers.
+                const lockedTenants = await tx.$queryRaw`SELECT id FROM tenants WHERE id = ${tenantId} FOR NO KEY UPDATE`;
+                if (lockedTenants.length !== 1) throw new Error('Tenant not found');
+                const tenant = await tx.tenant.findUnique({ where: { id: tenantId } });
+                if (!tenant) throw new Error('Tenant not found');
+                const currentSettings = (tenant.taxSettings as any) || {};
+                if (currentSettings.closedUntil !== undefined && currentSettings.closedUntil !== null) {
+                    const previousCutoff = new Date(currentSettings.closedUntil).getTime();
+                    if (typeof currentSettings.closedUntil !== 'string' || !Number.isFinite(previousCutoff)) {
+                        throw new Error('Invalid existing sealed period cutoff');
+                    }
+                    if (sealUntil.getTime() < previousCutoff) {
+                        throw new Error('Requested cutoff is earlier than the existing sealed period');
+                    }
+                }
                 // 1. Mark all transactions in the period as sealed
                 const updateResult = await tx.financialTransaction.updateMany({
                     where: {
                         tenantId,
-                        createdAt: { lte: endDate },
-                        status: { not: 'sealed' }
+                        createdAt: { lte: sealUntil },
+                        // Voids are terminal: sealing must not make a reversed
+                        // transaction eligible for a second reversal.
+                        status: { notIn: ['sealed', 'voided'] }
                     },
                     data: { status: 'sealed' }
                 });
 
                 // 2. Update Tenant metadata to block future entries
-                const tenant = await tx.tenant.findUnique({ where: { id: tenantId } });
-                const currentSettings = (tenant?.taxSettings as any) || {};
-                
                 await tx.tenant.update({
                     where: { id: tenantId },
                     data: {
                         taxSettings: {
                             ...currentSettings,
-                            closedUntil: endDate.toISOString(),
+                            closedUntil: sealUntil.toISOString(),
                             lastSealedAt: new Date().toISOString(),
                             sealedBy: actorUserId
                         }
@@ -487,20 +504,21 @@ export class LedgerService {
                 });
 
                 // 3. Log Audit
-                await AuditService.recordLog(tx, {
+                const sealAudit = await AuditService.recordLog(tx, {
                     tenantId,
                     actorUserId,
                     action: 'SEAL_LEDGER_PERIOD',
                     resourceType: 'TENANT',
                     resourceId: tenantId,
                     metadata: {
-                        sealedUntil: endDate,
+                        sealedUntil: sealUntil,
                         transactionsAffected: updateResult.count
                     }
                 });
+                if (sealAudit.isSuccess !== true) throw new Error(sealAudit.error);
 
                 return {
-                    sealedUntil: endDate,
+                    sealedUntil: sealUntil,
                     count: updateResult.count
                 };
             });

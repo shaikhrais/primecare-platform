@@ -89,6 +89,23 @@ class QuarantineTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError,'Runtime consumers'):m.consumer_preflight(root)
 
 class ProductionConsumerReviewTest(unittest.TestCase):
+    def test_help_clock_revision_keeps_original_inspection_and_no_activation(self):
+        import hashlib
+        root=Path(__file__).resolve().parents[1]
+        relative='packages/shared/src/help-reader/service.ts'
+        entry=json.loads((root/'docs/business/evidence/communication-runtime-reader-review.json').read_text())[relative]
+        self.assertEqual(entry['sha256'],hashlib.sha256((root/relative).read_bytes()).hexdigest())
+        self.assertEqual(entry['reviewedRevision'],'c635640f1f46e4e547cac666e887004bf481a6ce')
+        previous=entry['previousReview']
+        self.assertEqual(previous['sha256'],'7243e10be98703dcf90fac847f5c993934635075fb886f5600b409e1cbbbbd73')
+        self.assertEqual(previous['reviewScope'],entry['reviewScope'])
+        for reviewed in (previous,entry):
+            self.assertIs(reviewed['historicalCatalogAccess'],False)
+            self.assertIs(reviewed['activation'],False)
+            self.assertEqual(reviewed['authority'],'pinned-production-postgresql')
+            self.assertEqual(reviewed['reviewType'],'source-inspection')
+            self.assertEqual(reviewed['independentAcceptance'],'pending')
+
     # Explicit test inventory: do not derive from the implementation allowlist.
     reviewed_paths = (
         'packages/shared/src/help-reader/service.ts',

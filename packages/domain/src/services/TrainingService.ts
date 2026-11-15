@@ -2,6 +2,11 @@
 import { PrismaClient } from '@primecare/database';
 import { Result } from '../utils/Result';
 
+// CertificationNode documents these three states. A future timestamp alone
+// cannot establish compliance when the stored classification is unknown.
+const knownCertificationStatus = (status: unknown): boolean =>
+    status === 'Compliant' || status === 'Expiring' || status === 'Expired';
+
 /**
  * TrainingService
  * Centralized business logic for staff training, module management, and compliance assignments.
@@ -97,6 +102,9 @@ export class TrainingService {
             const totalCerts = certifications.length;
             const checkedAt = Date.now();
             const expiredCerts = certifications.filter(c => {
+                if (!knownCertificationStatus(c.status)) {
+                    throw new Error('Certification status is invalid.');
+                }
                 // Match certificate verification: a malformed required DateTime
                 // cannot be counted as compliant or hidden by an Expired state.
                 if (!(c.expiresAt instanceof Date) || !Number.isFinite(c.expiresAt.getTime())) {
@@ -144,6 +152,9 @@ export class TrainingService {
             // expiresAt is a required Prisma DateTime. Invalid or missing values
             // cannot establish validity, and an explicit Expired state wins over
             // a contradictory future timestamp.
+            if (!knownCertificationStatus(cert.status)) {
+                throw new Error('Certification status is invalid.');
+            }
             if (!(cert.expiresAt instanceof Date) || !Number.isFinite(cert.expiresAt.getTime())) {
                 throw new Error('Certification expiry is invalid.');
             }
