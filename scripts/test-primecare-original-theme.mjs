@@ -24,3 +24,22 @@ test('Active generators and shared factories do not import vendor presets or wid
  assert.doesNotMatch(css,/@import|url\(|#[\da-f]{3,8}\b/i);
  assert.ok(css.includes('prefers-reduced-motion'));
 });
+
+// Guard active package entrypoints against reintroducing licensed Fuse imports.
+// Historical inventory and compatibility files are deliberately outside this gate.
+test('Active PrimeCare package manifests and public entrypoints do not depend on Fuse',async()=>{
+ const manifests=['package.json','packages/primecare_ui/pubspec.yaml'];
+ for(const path of manifests){
+  const source=await readFile(path,'utf8');
+  assert.doesNotMatch(source,/['"@]fuse(?:[\\/"'@-]|$)|fuse-react|fuse-theme/i,path);
+ }
+ for(const path of [
+  'packages/primecare_ui/web/index.ts',
+  'packages/primecare_ui/lib/src/theme/primecare_theme.dart',
+  'packages/domain/src/primecare_appearance.ts',
+  'packages/primecare_ui/web/prime-skeleton.css',
+ ]){
+  const source=await readFile(path,'utf8');
+  assert.doesNotMatch(source,/(?:from\\s*['"]|import\\s*\\(\\s*['"]|@import\\s*['"])[^'"]*(?:@fuse|fuse-react|fuse-theme)/i,path);
+ }
+});
