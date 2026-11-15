@@ -53,6 +53,18 @@ test('snapshot replacement is atomic, rejects duplicates and drops previous acto
   assert.throws(()=>manager.enter('one','/one'),/Missing registration/);
   assert.equal(manager.enter('two','/two').id,'two');
 });
+test('registration scopes cannot claim an existing route under a different screen ID',()=>{
+  const manager=new ScreenManager(connections());
+  manager.registerScope('public',[registration('public-login','/login')]);
+  manager.registerScope('tenant',[registration('tenant-home','/tenant-dashboard')]);
+  assert.throws(()=>manager.registerScope('tenant',[registration('tenant-shadow','/login')]),/Duplicate registration/);
+  assert.equal(manager.enter('public-login','/login').id,'public-login');
+  assert.equal(manager.enter('tenant-home','/tenant-dashboard').id,'tenant-home');
+  assert.throws(()=>manager.enter('tenant-shadow','/login'),/Missing registration/);
+  manager.registerScope('public',[]);
+  manager.registerScope('tenant',[registration('tenant-login','/login')]);
+  assert.equal(manager.enter('tenant-login','/login').id,'tenant-login');
+});
 test('configuration is immutable and presentation never turns renderer errors into success',async()=>{
   const manager=new ScreenManager(connections()),config=registration();manager.registerScope('routes',[config]);config.route='/changed';
   assert.equal(manager.enter('one','/one').route,'/one');
