@@ -200,62 +200,62 @@
     {
       "id": 16,
       "path": "tools/governance-production/pc10-help-legacy-retirement.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "0c007f0d7a3dde3da3884568bd67e2dac20bf2ee",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete legacy retirement source, archive SQL, source/reference checks, transaction locking, archive equality, readback and diagnostics; no confirmed safe defect. Production receipts not rerun.",
+      "outcome": "ok"
     },
     {
       "id": 17,
       "path": "docs/appearance/pc10-commerce-requisition-candidate.sql",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ce8d85cfdaf6da1c084bfcb95574b0f0c05fd4d2",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete commerce candidate SQL; fixture-only transaction rollback, ownership caveats and missing approval explicitly documented. No confirmed defect in draft.",
+      "outcome": "ok"
     },
     {
       "id": 18,
       "path": "tools/governance-production/pc10-business-contract-discovery.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "908e7071b87df59871921b19d398bd81a2675e54",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": "Previously edited, but full review not established.",
-      "outcome": null
+      "note": "Reviewed complete read-only business contract discovery, bounded queries, manifest check, schema summaries and transaction cleanup; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 19,
       "path": "docs/api/pc10-help-reader-host-registration-proposal.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "6fc9b24aa203c7c44325ff13e74505436e188234",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help host registration proposal against accepted API794/PSW51/screen685 boundaries; missing producer/access authority explicitly identified, no false activation claim.",
+      "outcome": "ok"
     },
     {
       "id": 20,
       "path": "docs/appearance/pc10-section2-help-implementation-plan.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "9cdcc853be5fdd14e8de371f8ba76e4649103964",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full Help implementation plan against fixture SQL and runtime-host proposal; accurately labels draft/fixture-only behavior and required access approvals.",
+      "outcome": "ok"
     },
     {
       "id": 21,
