@@ -1,0 +1,108 @@
+name: Inactive Help Workers
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'services/governance_api/worker/**'
+      - 'services/api_gateway/worker/**'
+      - 'packages/shared/src/help-reader/**'
+      - 'scripts/release-inactive-help-workers.mjs'
+      - 'scripts/test-inactive-help-worker-release.mjs'
+      - '.github/workflows/inactive-help-workers.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+env:
+  WRANGLER_SEND_METRICS: 'false'
+
+jobs:
+  source-tests:
+    name: source-tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify the scoped producer without provider credentials
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p test-results/inactive-help
+          node --test scripts/test-inactive-help-worker-release.mjs 2>&1 | tee test-results/inactive-help/source-tests.tap
+      - name: Preserve source-test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inactive-help-source-tests-${{ github.run_id }}-${{ github.run_attempt }}
+          path: test-results/inactive-help/source-tests.tap
+          if-no-files-found: warn
+          retention-days: 14
+
+  production-plan:
+    name: production-plan
+    needs: source-tests
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 30
+    concurrency:
+      group: primecare-cloudflare-typescript-production
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install one isolated pinned dependency root
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e node_modules
+          dependency_root="$RUNNER_TEMP/inactive-help-dependencies"
+          mkdir -p "$dependency_root"
+          npm install --prefix "$dependency_root" --ignore-scripts --no-audit --no-fund \
+            wrangler@4.68.1 esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 \
+            typescript@5.9.3 @electric-sql/pglite@0.3.14 \
+            @cloudflare/workers-types@4.20260403.1 @types/pg@8.15.5
+          ln -s "$dependency_root/node_modules" node_modules
+      - name: Read the exact production state and build inactive candidates
+        shell: bash
+        run: |
+          set -euo pipefail
+          node scripts/release-inactive-help-workers.mjs --plan
+      - name: Preserve plan, rejected-plan and exact build-graph evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: inactive-help-plan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            test-results/inactive-help/
+            test-results/account-mutations/auth-release-approved.json
+            ${{ runner.temp }}/inactive-help-*/metafile.json
+          if-no-files-found: warn
+          retention-days: 14
+
+  production-release:
+    name: production-release
+    needs: [source-tests, production-plan]
+    # The initial publication authorizes read-only evidence only. There is no publisher here.
+    if: ${{ false }}
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 10
+    concurrency:
+      group: primecare-cloudflare-typescript-production
+      cancel-in-progress: false
+    steps:
+      - name: Production deployment remains disabled
+        run: echo 'Deployment is disabled in this read-only preflight workflow.'

@@ -1,0 +1,341 @@
+/** Narrow inactive Help publication. --plan performs provider GETs only. */
+import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath} from 'node:fs/promises';
+import {execFileSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import {resolve,dirname} from 'node:path';
+import {pathToFileURL} from 'node:url';
+import {genericWorkerName,retainedGenericConfig,assertRetainedGenericPreserves} from './generic-worker-release.mjs';
+import {assertWorkerSecretBindingsPreserved} from './worker-secret-retention.mjs';
+import {uploadedWorkerVersion} from './worker-deployment-receipt.mjs';
+
+export const SCOPE=Object.freeze({governance:'services/governance_api/worker/governance-help-service.ts',gateway:'services/api_gateway/worker/help-gateway.ts'});
+export const WORKFLOW='.github/workflows/inactive-help-workers.yml';
+export const PLAN_JOB='production-plan',RELEASE_JOB='production-release';
+class ProducerError extends Error {}
+let phase='configuration';
+let rejectionContext=null;
+const acceptedCloudflareTree='88b9689f0efd5c892be0e57bed063131b0f9541c';
+const guardSource='718eaff3e6b3d4c5b26d68ec0b7a6ceaca5da3ea';
+const uuid=/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i;
+const sha=/^[a-f0-9]{40}$/;
+const MAX_BYTES=25*1024*1024;
+const readOperations=new Set(['zone-inventory','zone-routes','worker-settings','schedules','subdomain','versions','deployments','content']);
+export function providerReadOperation(path){
+ if(/^\/zones\?/.test(path))return 'zone-inventory';
+ if(/^\/zones\/[a-f0-9]{32}\/workers\/routes$/.test(path))return 'zone-routes';
+ if(/^\/accounts\/[a-f0-9]{32}\/workers\/subdomain$/.test(path))return 'subdomain';
+ const match=path.match(/^\/accounts\/[a-f0-9]{32}\/workers\/scripts\/(?:primecare-governance-api|primecare-api-gateway|primecare-auth-api)\/(settings|schedules|subdomain|versions|deployments)(?:\?|\/|$)/);
+ if(match)return match[1]==='settings'?'worker-settings':match[1];
+ throw new ProducerError('Unsupported provider read operation');
+}
+/** Never include provider bodies, messages, URLs or credentials in rejected-read evidence. */
+export async function readProviderResponse(operation,request){
+ if(!readOperations.has(operation))throw new ProducerError('Unsupported provider read operation');
+ let response;try{response=await request();}catch{
+  const error=new ProducerError('Provider read failed: '+operation+' HTTP unavailable');error.providerRead={operation,httpStatus:null};throw error;
+ }
+ if(!response.ok){
+  const status=Number.isInteger(response.status)&&response.status>=100&&response.status<=599?response.status:null;
+  const error=new ProducerError('Provider read rejected: '+operation+' HTTP '+(status??'unavailable'));error.providerRead={operation,httpStatus:status};throw error;
+ }
+ return response;
+}
+/** The accepted identity is a subtree, never a repository commit or fetch ref. */
+export function verifyInactiveSourceGit(run){
+ run('git',['fetch','--no-tags','--depth=1','origin',guardSource]);
+ const tree=run('git',['rev-parse','HEAD:cloudflare']).trim();
+ if(tree!==acceptedCloudflareTree||run('git',['cat-file','-t',tree]).trim()!=='tree')throw new ProducerError('Accepted entire Cloudflare subtree changed');
+ run('git',['diff','--exit-code',guardSource,'HEAD','--','tools/governance-production/production-pin.json','scripts/verify-auth-live-proof-source.mjs','scripts/generic-worker-release.mjs','scripts/check-generic-worker-deploy.mjs','scripts/preserve-generic-worker-observability.mjs','scripts/worker-secret-retention.mjs','scripts/worker-deployment-receipt.mjs']);
+ return {cloudflareTree:tree,protectedSource:guardSource};
+}
+const canonical=value=>JSON.stringify(value&&typeof value==='object'&&!Array.isArray(value)?Object.fromEntries(Object.keys(value).sort().map(k=>[k,JSON.parse(canonical(value[k]))])):Array.isArray(value)?value.map(x=>JSON.parse(canonical(x))):value);
+const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
+const meaningfulSettings=settings=>Object.fromEntries(Object.entries(settings).filter(([key])=>!['etag','created_on','modified_on'].includes(key)));
+function meaningfulSchedules(raw){
+ if(!Array.isArray(raw?.schedules)||Object.keys(raw).some(k=>k!=='schedules'))throw new ProducerError('Schedule metadata unsupported');
+ return {schedules:raw.schedules.map(schedule=>{
+  if(typeof schedule.cron!=='string'||Object.keys(schedule).some(k=>!['cron','created_on','modified_on'].includes(k)))throw new ProducerError('Schedule metadata unsupported');
+  return {cron:schedule.cron};
+ }).sort((a,b)=>a.cron.localeCompare(b.cron))};
+}
+function scoped(service){if(!Object.hasOwn(SCOPE,service))throw new ProducerError('Only governance and gateway are authorized');return genericWorkerName(service);}
+const inert=value=>value===undefined||value===null||value===false||Array.isArray(value)&&value.length===0||value&&typeof value==='object'&&Object.keys(value).length===0;
+
+/** These categories have no supported non-default representation in the generic generator.
+ * Refuse meaningful values rather than guessing that Wrangler will retain them. */
+export function assertSupportedSettings(settings){
+ const known=new Set(['bindings','compatibility_date','compatibility_flags','observability']);
+ const emptyOnly=new Set(['placement','limits','tail_consumers','logpush','migrations','routes','workers_dev','assets','annotations']);
+ if(!settings||typeof settings!=='object'||Array.isArray(settings))throw new ProducerError('Worker settings unavailable');
+ for(const [key,value] of Object.entries(settings)){
+  if(known.has(key))continue;
+  if(emptyOnly.has(key)&&inert(value))continue;
+  // Metadata is deliberately narrow. Unknown meaningful settings always stop publication.
+  if(['etag','created_on','modified_on'].includes(key)&&typeof value==='string')continue;
+  throw new ProducerError('Unsupported meaningful Worker setting: '+key.replace(/[^a-z0-9_]/gi,'?').slice(0,80));
+ }
+}
+export function inactiveConfig(service,generated,hosting){
+ scoped(service);
+ // Preserve the generic helper's original entrypoint check. Substitute only after it passes.
+ const candidate=retainedGenericConfig(service,generated);
+ if(!hosting||hosting.enabled!==candidate.workers_dev||typeof hosting.previews_enabled!=='boolean'||Object.keys(hosting).some(k=>!['enabled','previews_enabled'].includes(k)))throw new ProducerError('Worker subdomain configuration unsupported');
+ candidate.main='../'+SCOPE[service];
+ candidate.preview_urls=hosting.previews_enabled;
+ candidate.routes=[];
+ return candidate;
+}
+export function activeLineage(raw){
+ const active=raw?.deployments?.[0],versions=active?.versions;
+ if(!uuid.test(active?.id??'')||versions?.length!==1||!uuid.test(versions[0]?.version_id??'')||versions[0].percentage!==100)
+  throw new ProducerError('Sole active Worker deployment required');
+ return {deploymentId:active.id,versionId:versions[0].version_id};
+}
+function latest(raw){const id=raw?.items?.[0]?.id;if(!uuid.test(id??''))throw new ProducerError('Latest Worker upload unavailable');return id;}
+export async function boundedBody(response,limit=MAX_BYTES){
+ if(!response.ok||!response.body)throw new ProducerError('Provider content unavailable');
+ const declared=response.headers.get('content-length');if(declared!==null&&(!/^\d+$/.test(declared)||Number(declared)>limit))throw new ProducerError('Provider content exceeds bound');
+ const reader=response.body.getReader(),parts=[];let length=0;
+ try{for(;;){const {done,value}=await reader.read();if(done)break;length+=value.byteLength;if(length>limit)throw new ProducerError('Provider content exceeds bound');parts.push(Buffer.from(value));}}
+ catch(error){await reader.cancel().catch(()=>{});throw error;}finally{reader.releaseLock();}
+ return Buffer.concat(parts,length);
+}
+export async function moduleEvidence(response,expected){
+ if(!Buffer.isBuffer(expected)||!expected.length||expected.length>MAX_BYTES)throw new ProducerError('Bounded rebuilt module required');
+ const bytes=await boundedBody(response),type=response.headers.get('content-type')??'';let modules;
+ if(/^multipart\/form-data\s*;/i.test(type)){
+  const form=await new Response(bytes,{headers:{'content-type':type}}).formData();
+  modules=[];for(const [name,value] of form.entries()){
+   if(typeof value==='string'){if(name!=='metadata')throw new ProducerError('Unexpected provider content field');continue;}
+   modules.push(Buffer.from(await value.arrayBuffer()));
+  }
+ }else if(/^(application|text)\/(javascript|ecmascript)(?:;|$)/i.test(type))modules=[bytes];
+ else throw new ProducerError('Unexpected provider content type');
+ if(modules.length!==1||!modules[0].equals(expected))throw new ProducerError('Provider module bytes differ from exact rebuilt module');
+ return {moduleCount:1,moduleBytes:expected.length,moduleSha256:hash(expected),exactBytes:true};
+}
+export function assertBuildGraph(meta,service,label,{baseDirectory=resolve('.')}={}){
+ if(!meta?.inputs||!meta?.outputs)throw new ProducerError('Actual Wrangler build graph required');
+ const emitted=new Map();
+ for(const output of Object.values(meta.outputs))for(const [path,record] of Object.entries(output.inputs??{})){
+  if(!Number.isSafeInteger(record.bytesInOutput)||record.bytesInOutput<0)throw new ProducerError('Build contribution metadata invalid');
+  const absolute=resolve(baseDirectory,path);emitted.set(absolute,(emitted.get(absolute)??0)+record.bytesInOutput);
+ }
+ const required=label==='inactive'?[SCOPE[service],...(service==='governance'?['packages/shared/src/help-reader/service.ts','packages/shared/src/help-reader/postgres-store.ts','packages/shared/src/help-reader/operational-effects.ts']:[])]:[];
+ for(const path of required)if(!Object.keys(meta.inputs).some(p=>resolve(baseDirectory,p)===resolve(path))||!(emitted.get(resolve(path))>0))throw new ProducerError('Required Help code absent from actual emitted graph');
+ if(service==='auth'&&Object.keys(meta.inputs).some(path=>path.includes('/help-reader/')||path.includes('/governance_api/worker/')))throw new ProducerError('Auth graph unexpectedly contains Help code');
+ return Object.keys(meta.inputs).sort();
+}
+export async function captureWorker({api,content,service,config,expectedModule}){
+ const worker=scoped(service),base='/workers/scripts/'+worker;
+ const deployments=await api(base+'/deployments?per_page=2'),before=activeLineage(deployments);
+ if(latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Latest upload is not active');
+ const version=await api(base+'/versions/'+before.versionId);
+ if(version?.id!==before.versionId)throw new ProducerError('Version identity mismatch');
+ const [settings,schedules,subdomain,routes]=await Promise.all([api(base+'/settings'),api(base+'/schedules'),api(base+'/subdomain'),api.routes(worker)]);
+ assertSupportedSettings(settings);
+ meaningfulSchedules(schedules);
+ if(subdomain?.enabled!==config.workers_dev||subdomain?.previews_enabled!==config.preview_urls||Object.keys(subdomain).some(k=>!['enabled','previews_enabled'].includes(k)))throw new ProducerError('Worker subdomain configuration unsupported');
+ if(!Array.isArray(routes)||routes.length!==0)throw new ProducerError('Existing Worker routes require explicit preservation support');
+ assertWorkerSecretBindingsPreserved(version.resources,settings);
+ assertRetainedGenericPreserves(service,settings,schedules,config);
+ const module=await moduleEvidence(await content(worker),expectedModule);
+ const after=activeLineage(await api(base+'/deployments?per_page=2'));
+ if(canonical(before)!==canonical(after)||latest(await api(base+'/versions?per_page=1'))!==before.versionId)throw new ProducerError('Worker lineage changed during byte inspection');
+ return {worker,...before,settings,schedules,subdomain,routes,module,predecessorDeploymentId:deployments.deployments[1]?.id??null};
+}
+function publicSnapshot(snapshot){
+ return {worker:snapshot.worker,deploymentId:snapshot.deploymentId,versionId:snapshot.versionId,
+  predecessorDeploymentId:snapshot.predecessorDeploymentId,module:snapshot.module,
+  settingsSha256:hash(canonical(meaningfulSettings(snapshot.settings))),schedulesSha256:hash(canonical(meaningfulSchedules(snapshot.schedules))),
+  subdomainSha256:hash(canonical(snapshot.subdomain)),routesSha256:hash(canonical(snapshot.routes)),
+  secretBindingIdentities:snapshot.settings.bindings.filter(b=>['secret_text','secret_key'].includes(b.type)).map(b=>({name:b.name,type:b.type})).sort((a,b)=>a.name.localeCompare(b.name))};
+}
+export function assertPriorPlan(prior,current){
+ if(prior?.format!==1||prior.mode!=='plan'||prior.providerWrites!==0||prior.source!==current.source||prior.preStateDigest!==current.preStateDigest||prior.inputsDigest!==current.inputsDigest||prior.authGateUnchanged!==true||prior.inactiveBindingLiteralNull!==true||canonical(prior.targets)!==canonical(current.targets)||canonical(prior.auth)!==canonical(current.auth))throw new ProducerError('Fresh plan differs from reviewed prior plan');
+ if(!Number.isSafeInteger(prior.producer?.runId)||prior.producer.runId<=0||!Number.isSafeInteger(prior.producer?.jobId)||prior.producer.jobId<=0||!Number.isSafeInteger(prior.producer.runAttempt)||prior.producer.runAttempt<=0||prior.producer.workflow!==WORKFLOW||prior.producer.job!==PLAN_JOB)throw new ProducerError('Prior plan producer unavailable');
+}
+/** All injected publication hooks are called only after both targets pass complete preflight. */
+export async function produceInactiveHelp({mode,source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState,expectedInputs,verifyPrior,freshMain,writeConfig,publish,recordAttempt=async()=>{},recordReceipt=async()=>{},wait=()=>new Promise(r=>setTimeout(r,1000))}){
+ if(!['plan','deploy'].includes(mode)||!sha.test(source??'')||!producer||!Number.isSafeInteger(producer.runId)||producer.runId<=0||!Number.isSafeInteger(producer.jobId)||producer.jobId<=0||!Number.isSafeInteger(producer.runAttempt)||producer.runAttempt<=0||producer.workflow!==WORKFLOW||producer.job!==(mode==='plan'?PLAN_JOB:RELEASE_JOB))throw new ProducerError('Exact producer and mode required');
+ const inputs=await sourceProof();
+ const auth=await authProof();
+ const prepared={},snapshots={},targets=[];
+ for(const service of Object.keys(SCOPE)){
+  const generic=retainedGenericConfig(service,configs[service]);
+  const hosting=await api('/workers/scripts/'+scoped(service)+'/subdomain');
+  const candidate=inactiveConfig(service,configs[service],hosting);
+  const oldModule=await build(service,generic,'baseline'),newModule=await build(service,candidate,'inactive');
+  const snapshot=await captureWorker({api,content,service,config:candidate,expectedModule:oldModule});
+  prepared[service]={candidate,newModule,oldModule};snapshots[service]=snapshot;
+  targets.push({service,entry:SCOPE[service],configSha256:hash(canonical(candidate)),before:publicSnapshot(snapshot),candidateModule:{moduleBytes:newModule.length,moduleSha256:hash(newModule),inputs:newModule.inputEvidence??null}});
+ }
+ const {inputs:authInputs,...authProvider}=auth;
+ const preStateDigest=hash(canonical({auth:authProvider,targets:targets.map(t=>({service:t.service,before:t.before}))}));
+ const inputsDigest=hash(canonical({inputs,authInputs:authInputs??null,targets:targets.map(t=>({service:t.service,entry:t.entry,configSha256:t.configSha256,candidateModule:t.candidateModule}))}));
+ const plan={format:1,mode:'plan',source,producer,authGateUnchanged:true,inactiveBindingLiteralNull:true,auth,targets,preStateDigest,inputsDigest,providerWrites:0};
+ if(mode==='plan')return plan;
+ if(!/^[a-f0-9]{64}$/.test(expectedPreState??'')||!/^[a-f0-9]{64}$/.test(expectedInputs??'')||preStateDigest!==expectedPreState||inputsDigest!==expectedInputs)throw new ProducerError('Actual state and inputs differ from reviewed digest guards');
+ assertPriorPlan(prior,plan);await verifyPrior(prior);
+ const receipts=[],released={};
+ for(const service of Object.keys(SCOPE)){
+  const {candidate,newModule,oldModule}=prepared[service];
+  await writeConfig(service,candidate);
+  const fresh=await captureWorker({api,content,service,config:candidate,expectedModule:oldModule});
+  if(canonical(publicSnapshot(fresh))!==canonical(publicSnapshot(snapshots[service])))throw new ProducerError('Worker changed after plan');
+  if(canonical(await sourceProof())!==canonical(inputs)||canonical(await authProof())!==canonical(auth))throw new ProducerError('Source or Auth proof changed before publication');
+  for(const [previous,completed] of Object.entries(released)){
+   const current=await captureWorker({api,content,service:previous,config:prepared[previous].candidate,expectedModule:prepared[previous].newModule});
+   if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Previously released Worker changed before next publication');
+  }
+  if(newModule.inputEvidence){if(typeof newModule.verifyInputs!=='function')throw new ProducerError('Prepared input verification unavailable');await newModule.verifyInputs();}
+  const attempt={format:1,source,producer,service,worker:scoped(service),reportedVersionId:null,previousDeploymentId:fresh.deploymentId,publicationInvocationIntent:true,independentlyVerified:false};
+  // Persist intent before Wrangler: an invocation may upload and then fail without a parseable ID.
+  await recordAttempt(attempt);
+  // Last operation before the sole provider-writing invocation. This hook fetches remote main.
+  await freshMain(source);
+  const versionId=uploadedWorkerVersion(await publish(service,candidate));
+  await recordAttempt({...attempt,reportedVersionId:versionId});
+  let after,lastError;
+  for(let n=0;n<4;n++){
+   try{after=await captureWorker({api,content,service,config:candidate,expectedModule:newModule});
+    if(after.versionId!==versionId||after.deploymentId===fresh.deploymentId||after.predecessorDeploymentId!==fresh.deploymentId)throw new ProducerError('Exact upload and predecessor lineage required');lastError=null;break;
+   }catch(error){lastError=error;if(n<3)await wait();}
+  }
+  if(lastError)throw lastError;
+  released[service]=after;
+  assertWorkerSecretBindingsPreserved(fresh.settings,after.settings);
+  if(canonical(meaningfulSettings(fresh.settings))!==canonical(meaningfulSettings(after.settings)))throw new ProducerError('Worker preservation changed: settings');
+  if(canonical(meaningfulSchedules(fresh.schedules))!==canonical(meaningfulSchedules(after.schedules)))throw new ProducerError('Worker preservation changed: schedules');
+  for(const key of ['subdomain','routes'])if(canonical(fresh[key])!==canonical(after[key]))throw new ProducerError('Worker preservation changed: '+key);
+  receipts.push({format:1,source,producer,service,worker:after.worker,before:publicSnapshot(fresh),after:publicSnapshot(after),versionId,
+   independentlyReadDeployment:true,exactUploadedModuleBytes:true,existingSettingsPreserved:true,secretBindingsPreserved:true,keepVars:true,trafficPercent:100,
+   inactiveBindingLiteralNull:true,runtimeActivated:false,productionGrantsChanged:0,productionSchemaChanged:false,registeredGovernanceArtifactId:null,grantAssociationApproved:false});
+  await recordReceipt(receipts[receipts.length-1]);
+ }
+ if(canonical(await authProof())!==canonical(auth))throw new ProducerError('Auth changed before aggregate completion');
+ for(const [service,completed] of Object.entries(released)){
+  const current=await captureWorker({api,content,service,config:prepared[service].candidate,expectedModule:prepared[service].newModule});
+  if(canonical(publicSnapshot(current))!==canonical(publicSnapshot(completed)))throw new ProducerError('Released Worker changed before aggregate completion');
+ }
+ // Wrangler owns its internal HTTP sequence. Count guarded CLI invocations, not fabricated HTTP writes.
+ return {format:1,mode:'deploy',source,producer,receipts,providerWriteInvocations:receipts.length,runtimeActivated:false};
+}
+
+const call=(program,args)=>execFileSync(program,args,{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:32*1024*1024});
+function verifyMain(source){
+ if(call('git',['rev-parse','HEAD']).trim()!==source)throw new ProducerError('Checkout source mismatch');
+ call('git',['diff','--quiet','HEAD']);
+ const line=call('git',['ls-remote','--exit-code','origin','refs/heads/main']).trim();
+ if(line!==source+'\trefs/heads/main')throw new ProducerError('Remote main advanced');
+}
+async function main(){
+ const args=process.argv.slice(2),mode=args.shift();
+ if(!['--plan','--deploy'].includes(mode)||args.length!==(mode==='--plan'?0:6)||mode==='--deploy'&&(args[0]!=='--plan-file'||args[2]!=='--expected-pre-state'||args[4]!=='--expected-inputs'))throw new ProducerError('Expected --plan or --deploy --plan-file PATH --expected-pre-state SHA256 --expected-inputs SHA256');
+ const env=process.env,source=env.GITHUB_SHA;
+ const expectedJob=mode==='--plan'?PLAN_JOB:RELEASE_JOB;
+ rejectionContext={mode:mode.slice(2),source:sha.test(source??'')?source:null,producer:{workflow:WORKFLOW,job:expectedJob,runId:Number.isSafeInteger(Number(env.GITHUB_RUN_ID))?Number(env.GITHUB_RUN_ID):null}};
+ if(env.GITHUB_REPOSITORY!=='shaikhrais/primecare-platform'||env.GITHUB_REF!=='refs/heads/main'||!['push','workflow_dispatch'].includes(env.GITHUB_EVENT_NAME)||!sha.test(source??'')||!env.RUNNER_TEMP||env.GITHUB_JOB!==expectedJob)throw new ProducerError('Exact main producer required');
+ if(mode==='--deploy'&&env.INACTIVE_HELP_DEPLOYMENT_AUTHORIZATION!=='DEPLOY_INACTIVE_HELP')throw new ProducerError('Explicit inactive Help deployment opt-in required');
+ verifyMain(source);
+ if(call('node_modules/.bin/wrangler',['--version']).trim()!=='4.68.1')throw new ProducerError('Wrangler 4.68.1 required');
+ const runId=Number(env.GITHUB_RUN_ID),base='repos/'+env.GITHUB_REPOSITORY+'/actions/';
+ const run=JSON.parse(call('gh',['api',base+'runs/'+runId]));
+ const jobs=JSON.parse(call('gh',['api',base+'runs/'+runId+'/jobs?per_page=100']));
+ const job=jobs.jobs?.filter(j=>j.name===expectedJob&&j.run_id===runId&&j.status==='in_progress');
+ if(!Number.isSafeInteger(runId)||runId<=0||run.id!==runId||run.head_sha!==source||run.head_branch!=='main'||run.path!==WORKFLOW||run.event!==env.GITHUB_EVENT_NAME||run.run_attempt!==Number(env.GITHUB_RUN_ATTEMPT)||jobs.total_count>100||job?.length!==1||!Number.isSafeInteger(job[0].id)||job[0].id<=0||job[0].run_attempt!==run.run_attempt)throw new ProducerError('Exact GitHub run and job required');
+ const producer={runId,jobId:job[0].id,workflow:WORKFLOW,job:expectedJob,runAttempt:Number(env.GITHUB_RUN_ATTEMPT)};
+ rejectionContext.producer=producer;
+ const account=env.CLOUDFLARE_ACCOUNT_ID,token=env.CLOUDFLARE_API_TOKEN;
+ if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw new ProducerError('Scoped provider credentials required');
+ const get=async path=>{const operation=providerReadOperation(path),response=await readProviderResponse(operation,()=>fetch('https://api.cloudflare.com/client/v4'+path,{redirect:'error',headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)}));const raw=JSON.parse((await boundedBody(response,2*1024*1024)).toString());if(raw.success!==true)throw new ProducerError('Provider metadata unavailable: '+operation);return raw;};
+ const api=async path=>{phase='provider_read_only_preservation';return (await get('/accounts/'+account+path)).result;};
+ if((await api('/workers/subdomain'))?.subdomain!=='itpro-mohammed')throw new ProducerError('Worker account host mismatch');
+ api.routes=async worker=>{
+  const zones=[];for(let page=1;page<=20;page++){
+   const raw=await get('/zones?account.id='+account+'&per_page=50&page='+page);
+   if(!Array.isArray(raw.result)||!Number.isSafeInteger(raw.result_info?.total_pages)||raw.result_info.total_pages>20)throw new ProducerError('Bounded route inventory unavailable');
+   zones.push(...raw.result);if(page>=raw.result_info.total_pages)break;
+  }
+  const routes=[];for(const zone of zones){if(!/^[a-f0-9]{32}$/.test(zone.id??''))throw new ProducerError('Zone identity unavailable');const raw=await get('/zones/'+zone.id+'/workers/routes');if(!Array.isArray(raw.result)||raw.result_info?.total_pages>1)throw new ProducerError('Complete route inventory unavailable');routes.push(...raw.result.filter(r=>r.script===worker));}
+  return routes;
+ };
+ const content=worker=>readProviderResponse('content',()=>fetch('https://api.cloudflare.com/client/v4/accounts/'+account+'/workers/scripts/'+worker+'/content/v2',{redirect:'error',headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)}));
+ const sourceProof=async()=>{
+  phase='source_identity_and_inactive_contract';
+  verifyInactiveSourceGit(call);
+  if(await readFile('services/governance_api/worker/help-reader-runtime-binding.json','utf8')!=='null\n')throw new ProducerError('Inactive Help binding must remain literal null');
+  const policy=JSON.parse(await readFile('packages/shared/src/help-reader/operational-policy.json','utf8'));
+  if(policy.runtimeBound!==false||policy.purgeScheduleVerified!==true)throw new ProducerError('Help operational policy must remain inactive with verified inherited purge schedule');
+  const sourceFiles=[...Object.values(SCOPE),'services/governance_api/worker/help-reader-runtime-binding.json','packages/shared/src/help-reader/operational-policy.json','scripts/release-inactive-help-workers.mjs'];
+  const identities=[];for(const file of sourceFiles){
+   const record=call('git',['ls-tree','HEAD','--',file]).trim();
+   if(!/^100644 blob [a-f0-9]{40}\t/.test(record)||(await lstat(file)).isSymbolicLink()||await realpath(file)!==resolve(file))throw new ProducerError('Regular tracked inactive source required');
+   identities.push({path:file,sha256:hash(await readFile(file))});
+  }
+  return identities;
+ };
+ call('node',['scripts/generate-cloudflare-worker-config.mjs']);
+ const configs=Object.fromEntries(await Promise.all(Object.keys(SCOPE).map(async service=>[service,JSON.parse(await readFile('.cloudflare-workers/'+service+'.jsonc','utf8'))])));
+ const build=async(service,config,label)=>{
+  phase='actual_wrangler_dry_run_and_graph';
+  const file='.cloudflare-workers/'+service+'.jsonc',out=resolve(env.RUNNER_TEMP,'inactive-help-'+service+'-'+label);
+  await rm(out,{recursive:true,force:true});await mkdir(out,{recursive:true});await writeFile(file,JSON.stringify(config,null,2)+'\n');
+  call('node_modules/.bin/wrangler',['deploy','--dry-run','--config',file,'--outdir',out,'--metafile',out+'/metafile.json']);
+  const files=(await readdir(out)).filter(name=>name.endsWith('.js'));if(files.length!==1)throw new ProducerError('Single rebuilt module required');
+  const meta=JSON.parse(await readFile(out+'/metafile.json','utf8')),baseDirectory=resolve(dirname(file));
+  const paths=assertBuildGraph(meta,service,label,{baseDirectory});
+  const inputEvidence=[],physicalInputs=[],cwd=resolve('.'),dependencies=await realpath('node_modules');for(const path of paths){
+   if(/^node-built-in-modules:[a-z0-9_/-]+$/.test(path)){
+    const record=meta.inputs[path];if(!Number.isSafeInteger(record.bytes)||record.bytes<0)throw new ProducerError('Virtual built-in input unavailable');
+    inputEvidence.push({path,virtual:true,bytes:record.bytes,imports:record.imports});continue;
+   }
+   const attributes=path.match(/ with \{ type: ['"]json['"] \}$/)?.[0]??'';
+   const absolute=resolve(baseDirectory,attributes?path.slice(0,-attributes.length):path),actual=await realpath(absolute),dependency=actual.startsWith(dependencies+'/');
+   const relative=dependency?'node_modules/'+actual.slice(dependencies.length+1):absolute.slice(cwd.length+1);
+   if(!(await lstat(absolute)).isFile()||!dependency&&(!absolute.startsWith(cwd+'/')||actual!==absolute||!/^100644 blob [a-f0-9]{40}\t/.test(call('git',['ls-tree','HEAD','--',relative]).trim())))throw new ProducerError('Build input outside checked source');
+   const sha256=hash(await readFile(absolute));inputEvidence.push({path:relative+attributes,sha256});physicalInputs.push({absolute,actual,sha256});
+  }
+  const module=await readFile(out+'/'+files[0]);Object.defineProperty(module,'inputEvidence',{value:inputEvidence});
+  Object.defineProperty(module,'verifyInputs',{value:async()=>{for(const input of physicalInputs)if(await realpath(input.absolute)!==input.actual||hash(await readFile(input.absolute))!==input.sha256)throw new ProducerError('Prepared build input changed');}});
+  return module;
+ };
+ const authProof=async()=>{
+  phase='unchanged_auth_source_gate_and_exact_provider_bytes';
+  call('node',['scripts/verify-auth-live-proof-source.mjs']);
+  const config=JSON.parse(await readFile('.cloudflare-workers/auth.jsonc','utf8'));
+  const module=await build('auth',config,'accepted-auth');
+  const before=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
+  const proof=await moduleEvidence(await content('primecare-auth-api'),module);
+  const after=activeLineage(await api('/workers/scripts/primecare-auth-api/deployments?per_page=1'));
+  if(canonical(before)!==canonical(after))throw new ProducerError('Auth changed during byte comparison');
+  return {...before,...proof,inputs:module.inputEvidence};
+ };
+ const prior=mode==='--deploy'?JSON.parse(await readFile(args[1],'utf8')):undefined;
+ const verifyPrior=async plan=>{
+  const r=JSON.parse(call('gh',['api',base+'runs/'+plan.producer.runId]));
+  const j=JSON.parse(call('gh',['api',base+'jobs/'+plan.producer.jobId]));
+  if(r.id!==plan.producer.runId||r.head_sha!==source||r.path!==WORKFLOW||r.head_branch!=='main'||!['push','workflow_dispatch'].includes(r.event)||!(r.id===runId&&r.status==='in_progress'||r.status==='completed'&&r.conclusion==='success')||j.id!==plan.producer.jobId||j.run_id!==r.id||j.run_attempt!==plan.producer.runAttempt||j.name!==PLAN_JOB||j.status!=='completed'||j.conclusion!=='success')throw new ProducerError('Prior successful plan CI required');
+  const log=call('gh',['api',base+'jobs/'+j.id+'/logs']);
+  const marker='INACTIVE_HELP_PLAN ',lines=log.split('\n').filter(line=>line.includes(marker+'{'));
+  const receipt=lines.length===1?JSON.parse(lines[0].slice(lines[0].indexOf(marker)+marker.length)):null;
+  if(receipt?.format!==1||receipt.source!==plan.source||receipt.planSha256!==hash(canonical(plan))||canonical(receipt.producer)!==canonical(plan.producer)||receipt.preStateDigest!==plan.preStateDigest||receipt.inputsDigest!==plan.inputsDigest||receipt.providerWrites!==0)throw new ProducerError('Prior plan differs from independent CI receipt');
+ };
+ phase='complete_preflight_and_optional_scoped_publication';
+ const result=await produceInactiveHelp({mode:mode.slice(2),source,producer,configs,build,api,content,authProof,sourceProof,prior,expectedPreState:args[3],expectedInputs:args[5],verifyPrior,
+  recordAttempt:async attempt=>{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+attempt.service+'-attempt.json',JSON.stringify(attempt,null,2)+'\n');},
+  recordReceipt:async receipt=>{await writeFile('test-results/inactive-help/'+receipt.service+'-receipt.json',JSON.stringify(receipt,null,2)+'\n');console.log('INACTIVE_HELP_WORKER_RECEIPT '+JSON.stringify({source,producer,service:receipt.service,worker:receipt.worker,versionId:receipt.versionId,deploymentId:receipt.after.deploymentId,previousDeploymentId:receipt.before.deploymentId,moduleSha256:receipt.after.module.moduleSha256,receiptSha256:hash(canonical(receipt)),runtimeActivated:false}));},
+  freshMain:async s=>verifyMain(s),writeConfig:async(service,config)=>writeFile('.cloudflare-workers/'+service+'.jsonc',JSON.stringify(config,null,2)+'\n'),
+  publish:async(service,config)=>{const file='.cloudflare-workers/'+service+'.jsonc';if(await readFile(file,'utf8')!==JSON.stringify(config,null,2)+'\n')throw new ProducerError('Prepared configuration changed');return call('node_modules/.bin/wrangler',['deploy','--config',file,'--keep-vars']);}});
+ await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/'+mode.slice(2)+'.json',JSON.stringify(result,null,2)+'\n');
+ if(mode==='--plan')console.log('INACTIVE_HELP_PLAN '+JSON.stringify({format:1,source,producer,planSha256:hash(canonical(result)),preStateDigest:result.preStateDigest,inputsDigest:result.inputsDigest,providerWrites:0}));
+ else console.log('INACTIVE_HELP_DEPLOYED '+JSON.stringify({format:1,source,producer,receiptSha256:hash(canonical(result)),providerWriteInvocations:result.providerWriteInvocations,receipts:result.receipts.map(r=>({service:r.service,worker:r.worker,versionId:r.versionId,deploymentId:r.after.deploymentId,predecessorDeploymentId:r.before.deploymentId,moduleSha256:r.after.module.moduleSha256})),runtimeActivated:false}));
+}
+if(process.argv[1]&&import.meta.url===pathToFileURL(process.argv[1]).href)main().catch(async error=>{
+ const failure={format:1,...rejectionContext,phase,reason:error instanceof ProducerError?error.message:'source_build_or_preservation_gate_failed',...(error instanceof ProducerError&&error.providerRead?{providerRead:error.providerRead}:{})};
+ if(rejectionContext?.mode==='plan'){
+  failure.providerWrites=0;
+  try{await mkdir('test-results/inactive-help',{recursive:true});await writeFile('test-results/inactive-help/plan-rejected.json',JSON.stringify(failure,null,2)+'\n');}catch{}
+ }
+ console.error('INACTIVE_HELP_REJECTED '+JSON.stringify(failure));process.exitCode=1;
+});
