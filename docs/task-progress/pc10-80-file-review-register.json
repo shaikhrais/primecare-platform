@@ -25,13 +25,13 @@
     {
       "id": 1,
       "path": "tools/governance-production/pc10-help-schema.sql",
-      "status": "pending",
-      "reviewedSourceSha": null,
+      "status": "reviewing",
+      "reviewedSourceSha": "9fa58654bf6e3642a3bb352e91e9d6e8b8fb4142",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null
+      "note": "Full SQL read; migration wrapper and schema dependencies must be cross-checked before OK classification."
     },
     {
       "id": 2,
