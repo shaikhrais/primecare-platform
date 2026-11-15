@@ -91,14 +91,12 @@ class HelpDeskDashboardScreenController extends BaseWorkspaceController<HelpDesk
   }
 
   Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(milliseconds: 300));
+    if (!mounted) return;
+    // No registered compliance-audit action is bound to this screen.
+    // Never report a completed audit without an authorized API receipt.
     state = state.copyWith(
       isLoading: false,
-      logs: [
-        ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-      ],
+      error: 'Compliance audit unavailable: no registered action is bound.',
     );
   }
 }
