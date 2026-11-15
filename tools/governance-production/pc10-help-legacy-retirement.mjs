@@ -12,6 +12,14 @@ const contract=JSON.parse(contractBytes);
 const archiveSql=await readFile(new URL('./pc10-help-legacy-archive.sql',import.meta.url),'utf8');
 const sha=value=>createHash('sha256').update(value).digest('hex');
 export const legacyRetirementDefinitionHash=sha(definitionBytes),legacyArchiveSqlHash=sha(archiveSql);
+export function helpLegacyArchiveStatements(){
+ const expectedCreate='CREATE TABLE "'+pin.schema+'"."'+pin.tablePrefix+'help_legacy_grant_archive"';
+ const revoke='REVOKE ALL ON TABLE "'+pin.schema+'"."'+pin.tablePrefix+'help_legacy_grant_archive" FROM PUBLIC;';
+ const start=archiveSql.indexOf(expectedCreate),end=archiveSql.indexOf(revoke);
+ if(start<=0||end<=start||archiveSql.indexOf(expectedCreate,start+1)!==-1||archiveSql.indexOf(revoke,end+1)!==-1||archiveSql.slice(end).trim()!==revoke||!archiveSql.slice(0,start).trimEnd().endsWith('END $$;')||!archiveSql.slice(start,end).trimEnd().endsWith(');'))throw Error('Reviewed archive SQL markers differ');
+ const parts=[{phase:'archive-registration-ddl-guard',sql:archiveSql.slice(0,start)},{phase:'archive-registration-ddl-create',sql:archiveSql.slice(start,end)},{phase:'archive-registration-ddl-revoke',sql:archiveSql.slice(end)}];
+ if(parts.map(p=>p.sql).join('')!==archiveSql)throw Error('Reviewed archive SQL bytes differ');return parts;
+}
 export const legacyRetirementScriptHash=sha(await readFile(new URL(import.meta.url)));
 const contractHash=sha(contractBytes),q=name=>'"'+name.replaceAll('"','""')+'"',table=name=>q(pin.schema)+'.'+q(pin.tablePrefix+name);
 const source=table('api_permissions'),archive=table('help_legacy_grant_archive');
@@ -147,7 +155,7 @@ export async function registerHelpLegacyArchive(db,{apply=false,fixtureDefinitio
   phase='archive-registration-begin';await begin(db,apply);begun=true;
   if(apply){phase='archive-registration-advisory';await db.query('SELECT pg_advisory_xact_lock(794,685)');phase='archive-registration-source-lock';await db.query('LOCK TABLE '+source+' IN SHARE MODE');}
   phase='archive-registration-authority';await manifest(db,apply,d);phase='archive-registration-preflight';let exists=await archiveShape(db);const existed=exists;
-  if(!exists&&apply){phase='archive-registration-set-config';await db.query("SELECT set_config('primecare.help_legacy_archive_registration','1',true)");phase='archive-registration-ddl';if(typeof db.exec==='function')await db.exec(archiveSql);else await db.query(archiveSql);phase='archive-registration-readback';exists=await archiveShape(db);if(!exists)throw Error('Archive creation readback missing');}
+  if(!exists&&apply){phase='archive-registration-set-config';await db.query("SELECT set_config('primecare.help_legacy_archive_registration','1',true)");for(const statement of helpLegacyArchiveStatements()){phase=statement.phase;if(typeof db.exec==='function')await db.exec(statement.sql);else await db.query(statement.sql);}phase='archive-registration-readback';exists=await archiveShape(db);if(!exists)throw Error('Archive creation readback missing');}
   phase=apply?'archive-registration-commit':'archive-registration-rollback';await db.query(apply?'COMMIT':'ROLLBACK');begun=false;return {archivePresent:exists,applied:apply&&!existed,grantsRetired:0,newRoleGrants:0,runtimeActivated:false};
  }catch(error){if(error&&typeof error==='object')error.retirementPhase=phase;if(begun)await db.query('ROLLBACK');throw error;}
 }
@@ -156,13 +164,13 @@ export async function registerHelpLegacyArchive(db,{apply=false,fixtureDefinitio
  */
 export function retirementFailureDiagnostic(error){
  const sqlstate=/^[0-9A-Z]{5}$/.test(error?.code??'')?error.code:null;
- const phases=['definition','evidence','begin','advisory','source-lock','authority','preflight','set-config','ddl','readback','commit','rollback'].map(p=>'archive-registration-'+p);
+ const phases=['definition','evidence','begin','advisory','source-lock','authority','preflight','set-config','ddl','ddl-guard','ddl-create','ddl-revoke','readback','commit','rollback'].map(p=>'archive-registration-'+p);
  const result={sqlstate,phase:phases.includes(error?.retirementPhase)?error.retirementPhase:null};
  if(sqlstate==='42501'){
   result.category='insufficient_privilege';const raw=typeof error.message==='string'?error.message:'';
   const message=raw.replace(/\([^\r\n]*\)$/,'(...)');
   if(message.length<=200&&!/[\r\n]|:\/\/|@|password|credential|token/i.test(message)&&[
-   /^permission denied for (?:schema|table|relation|sequence|database) "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?$/,
+   /^permission denied for (?:schema|table|relation|sequence|database|language) "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?$/,
    /^permission denied for function "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?(?:\(\.\.\.\))?$/,
    /^permission denied to set parameter "[A-Za-z_][A-Za-z0-9_.-]{0,127}"$/,
    /^must be owner of (?:schema|table|relation|sequence|database) "?[A-Za-z_][A-Za-z0-9_.-]{0,127}"?$/
