@@ -454,14 +454,14 @@
       "path": "packages/shared/src/help-reader/http.ts",
       "status": "reviewed",
       "reviewedSourceSha": "d917862be56e273be6dd118a95cae4b8e5153301",
-      "commitSha": null,
+      "commitSha": "a8ecfa70f082f8aacf6e309b32a511218206076f",
       "findings": [
         "guardedJson finally awaits reader.cancel() and can prevent timely denial when cancellation never settles"
       ],
-      "blocker": "Shared guarded-json cancellation semantics require dependency-wide review before correction",
+      "blocker": null,
       "validation": "not-run",
-      "note": "Confirmed potential indefinite denial delay: handleHelpRead awaits guardedJson, whose finally awaits reader.cancel() on an untrusted stream. Safe fix requires reviewing shared guarded-json consumers; no unsafe isolated patch made.",
-      "outcome": "blocked"
+      "note": "Fixed shared guardedJson cleanup: cancellation is best-effort and never awaited, so an uncooperative stream cancellation cannot delay a bounded JSON success/denial. Reviewed HTTP and client consumers; source-reviewed, tests not run.",
+      "outcome": "fixed"
     },
     {
       "id": 38,
