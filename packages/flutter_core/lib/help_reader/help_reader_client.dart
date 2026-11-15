@@ -7,6 +7,13 @@ class HelpReaderFailure implements Exception {
   final String code;
   final int status;
   const HelpReaderFailure(this.code, this.status);
+  static HelpReaderFailure sanitize(Object? error) {
+    const statuses = {'invalid_request': 400, 'unauthenticated': 401,
+      'forbidden': 403, 'not_found': 404, 'conflict': 409,
+      'rate_limited': 429, 'unavailable': 503};
+    return error is HelpReaderFailure && statuses[error.code] == error.status
+      ? error : const HelpReaderFailure('unavailable', 503);
+  }
   @override
   String toString() => code;
 }
@@ -88,8 +95,9 @@ class HelpReaderClient {
       await _identity(operation);
       _check(operation);
       return result;
-    } on HelpReaderFailure {
-      rethrow;
+    } on HelpReaderFailure catch (failure) {
+      _check(operation);
+      throw HelpReaderFailure.sanitize(failure);
     } catch (_) {
       _check(operation);
       throw const HelpReaderFailure('unavailable', 503);
