@@ -40,3 +40,9 @@ Develop new features only with PrimeCare-owned theme, tokens, and shared UI comp
 - Commit `c06202aa0ec815d775d4ff0b3c40b3a9b16976eb` added an original-theme regression gate for root npm and PrimeCare UI Flutter manifests and selected public theme entrypoints. **The test has not been executed in this follow-up.**
 - Legacy Fuse-named tests, CI workflow paths and historical preset/evidence files are retained until their consumers and pinned evidence are migrated. Do not remove them merely to make a text search return zero matches.
 - Full workspace/lockfile/transitive licence audit and deployed artefact review remain open; this is not release clearance.
+
+## Follow-up — TypeScript compatibility removal (2026-11-15)
+- Updated `scripts/test-fuse-theme-adapter.mjs` to bundle and exercise `packages/domain/src/primecare_appearance.ts` and its original `toPrimeCareAppearance` / `defaultPrimeCareProfile` exports (commit `cac3e3ab440db8901f15cb782208569fce2d2bd0`).
+- Updated the existing appearance CI workflow to typecheck `primecare_appearance.ts` rather than the compatibility module (commit `36e27a7cab896c53a4b8aaabe0aac0757ef4799b`).
+- Deleted `packages/domain/src/fuse_theme_adapter.ts` after repository search found only its test, CI and historical documentation references (commit `17a0b2b7f413624517030627a93c0e9e694d0395`). This search is not a full consumer/import-graph proof.
+- No tests, builds or deployed artefact inspections were executed in this follow-up. Flutter's deprecated `prime_fuse_theme.dart` alias remains until downstream consumers are verified. Full licence clearance remains OPEN.
