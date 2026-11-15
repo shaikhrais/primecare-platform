@@ -550,14 +550,14 @@
     {
       "id": 45,
       "path": "tools/governance-production/inspect-preference-activation.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "db896e033683b98ff889ee861d5da071ab929d18",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete read-only preference activation inspection against accepted activation receipt and registration; provider responses are only read, no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 46,
@@ -598,38 +598,38 @@
     {
       "id": 49,
       "path": "scripts/test-pc10-help-policy.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "104d768e4e897feb327883ac20cf33b20710c23c",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help policy fixture suite and policy/storage registration dependencies; no confirmed safe defect. Tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 50,
       "path": "scripts/test-pc10-help-storage.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "ea55e70f22ba89ec52de81ab4e5e3ff2f8e9fa19",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete Help storage fixture suite and migration wrapper, pin drift and schema isolation cases; no confirmed safe defect. Tests not run.",
+      "outcome": "ok"
     },
     {
       "id": 51,
       "path": "scripts/test-pc10-help-reader-schema.py",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "713b3d632dedd08a094c13df6c1a43a2b480755b",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete accepted Help schema Python validation and contract/case references; no confirmed safe defect. Not run.",
+      "outcome": "ok"
     },
     {
       "id": 52,
