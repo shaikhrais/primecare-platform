@@ -344,50 +344,50 @@
     {
       "id": 28,
       "path": "scripts/help-postgres-store-fixture.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "933e4649a49b15f24f4bfc9aa8c2c5ecbb08c531",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete PostgreSQL store fixture against shared Help fixture and policy/storage wrappers; isolated fixture credentials and teardown, no confirmed defect.",
+      "outcome": "ok"
     },
     {
       "id": 29,
       "path": "services/api_gateway/worker/help-gateway.ts",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "3bbdab8e67332688baecf20a7ff88b3c67e2d590",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed canonical Help gateway rewrite and parent delegation; no confirmed safe defect, no runtime activation.",
+      "outcome": "ok"
     },
     {
       "id": 30,
       "path": "docs/task-progress/help-policy-production-receipt-20261114.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "0f9ddcdacf37dcf4cd2a49cd940f17a9cbcf30e2",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete historical Help policy receipt and referenced storage/policy definitions; clearly distinguishes metadata registration from runtime. Historical CI not rerun.",
+      "outcome": "ok"
     },
     {
       "id": 31,
       "path": "docs/task-progress/help-storage-production-receipt-20261114.md",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "e18fedb67dffa800f7dc970e233c7a37d10b06a7",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed complete historical Help storage receipt against additive SQL and migration wrapper; no internal discrepancy. Production not independently rechecked.",
+      "outcome": "ok"
     },
     {
       "id": 32,
@@ -404,14 +404,14 @@
     {
       "id": 33,
       "path": "scripts/help-reader-service-fixture.mjs",
-      "status": "not_reviewed",
-      "reviewedSourceSha": null,
+      "status": "reviewed",
+      "reviewedSourceSha": "74eae379041d6341abc96dec193b5844c5c8659a",
       "commitSha": null,
       "findings": [],
       "blocker": null,
       "validation": "not-run",
-      "note": null,
-      "outcome": null
+      "note": "Reviewed full isolated Help reader service fixture and store fixture consumer; synthetic tenant/role identities, guarded localhost connection and cleanup; no confirmed safe defect.",
+      "outcome": "ok"
     },
     {
       "id": 34,
