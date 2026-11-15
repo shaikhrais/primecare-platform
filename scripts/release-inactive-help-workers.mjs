@@ -64,7 +64,8 @@ export function acceptedAuthArchivePaths(inputs){
  for(const input of inputs){
   if(input.virtual===true||input.path?.startsWith('node_modules/'))continue;
   const path=typeof input.path==='string'?withoutJsonAttributes(input.path):'';
-  if(!/^(cloudflare|packages|tools|scripts)\/[A-Za-z0-9_@./-]+$/.test(path)||path.split('/').some(part=>part==='.'||part==='..'))throw new ProducerError('Tracked Auth archive input path invalid');
+  const trackedScope=/^(cloudflare|packages|tools|scripts)\/[A-Za-z0-9_@./-]+$/.test(path)||path==='docs/transport/compression-policy.json';
+  if(!trackedScope||path.split('/').some(part=>part==='.'||part==='..'))throw new ProducerError('Tracked Auth archive input path invalid');
   paths.add(path);
  }
  return [...paths].sort();

@@ -14,6 +14,12 @@ test('accepted Auth archive discovers ancestor package/TS metadata omitted from 
  for(const path of ['package.json','packages/domain/package.json','packages/domain/tsconfig.json','packages/domain/src/tsconfig.json','cloudflare/workers/package.json','cloudflare/workers/src/tsconfig.json'])assert.ok(candidates.includes(path));
  assert.equal(candidates.some(path=>path.includes('node_modules')||path.startsWith('../')),false);assert.equal(new Set(candidates).size,candidates.length);
 });
+test('actual response-compression metadata input is archived without granting a broad docs path scope',()=>{
+ // Run 43682002773 current-auth metafile: ../docs/transport/compression-policy.json.
+ const paths=acceptedAuthArchivePaths([{path:'docs/transport/compression-policy.json'}]);
+ assert.deepEqual(paths,['docs/transport/compression-policy.json','package-lock.json','package.json']);
+ for(const path of ['docs/transport/other.json','docs/transport/../compression-policy.json','docs/private.json'])assert.throws(()=>acceptedAuthArchivePaths([{path}]),/archive input path invalid/);
+});
 test('accepted/current Auth closure records permit only the exact historical pin identities while preserving all other sources',()=>{
  const ordinary={path:'cloudflare/workers/src/service.ts',currentMode:'100644',acceptedMode:'100644',currentBlob:'a'.repeat(40),acceptedBlob:'a'.repeat(40)};
  const pin={path:'tools/governance-production/production-pin.json',currentMode:'100644',acceptedMode:'100644',currentBlob:'8478c2892885e57109e898736b1f1995344cb70b',acceptedBlob:'ab9d20ad4516a70063f77a9483856d2738f1a51e'};
