@@ -1,5 +1,6 @@
 /** Narrow inactive Help publication. --plan performs provider GETs only. */
-import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath,symlink} from 'node:fs/promises';
+import {readFile,writeFile,mkdir,readdir,rm,lstat,realpath,readlink,cp} from 'node:fs/promises';
+import {createReadStream} from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {createHash} from 'node:crypto';
 import {resolve,dirname} from 'node:path';
@@ -78,6 +79,41 @@ export function authCompilerMetadataCandidates(paths){
   directory=dirname(directory);
  }}
  return [...candidates].sort();
+}
+/** Verify the complete locked install without following workspace or executable symlinks. */
+export async function dependencyTreeIdentity(directory,{maxEntries=100000,maxBytes=4*1024*1024*1024}={}){
+ const root=resolve(directory),container=dirname(root),entries=[];let totalBytes=0;
+ if(await realpath(root)!==root||!(await lstat(root)).isDirectory())throw new ProducerError('Physical dependency directory required');
+ async function visit(current){
+  for(const name of (await readdir(current)).sort()){
+   const file=resolve(current,name),path=file.slice(root.length+1),stat=await lstat(file);
+   if(entries.length>=maxEntries)throw new ProducerError('Dependency tree exceeds verification bound');
+   if(stat.isSymbolicLink()){
+    const target=await readlink(file),destination=resolve(dirname(file),target);
+    if(target.startsWith('/')||!destination.startsWith(container+'/'))throw new ProducerError('Dependency symlink escapes isolated source layout');
+    entries.push({path,type:'symlink',target});
+   }else if(stat.isDirectory()){
+    entries.push({path,type:'directory',mode:stat.mode&0o777});await visit(file);
+   }else if(stat.isFile()){
+    const digest=createHash('sha256');let bytes=0;
+    for await(const chunk of createReadStream(file)){bytes+=chunk.length;totalBytes+=chunk.length;if(totalBytes>maxBytes)throw new ProducerError('Dependency tree exceeds verification bound');digest.update(chunk);}
+    if(bytes!==stat.size)throw new ProducerError('Dependency file changed during verification');
+    entries.push({path,type:'file',mode:stat.mode&0o777,bytes,sha256:digest.digest('hex')});
+   }else throw new ProducerError('Unsupported dependency filesystem entry');
+  }
+ }
+ await visit(root);
+ return {entries:entries.length,files:entries.filter(e=>e.type==='file').length,symlinks:entries.filter(e=>e.type==='symlink').length,totalBytes,manifestSha256:hash(canonical(entries))};
+}
+/** Physical layout is part of emitted bytes: a symlink to another source root changes labels. */
+export async function copyLockedDependencies({source,destination,copyTree=cp}){
+ const before=await dependencyTreeIdentity(source);
+ await copyTree(source,destination,{recursive:true,dereference:false,verbatimSymlinks:true,preserveTimestamps:true,errorOnExist:true,force:false});
+ const copied=await dependencyTreeIdentity(destination),confirmed=await dependencyTreeIdentity(source);
+ if(canonical(before)!==canonical(copied)||canonical(before)!==canonical(confirmed))throw new ProducerError('Physical locked dependency copy differs');
+ const binary=await realpath(resolve(destination,'.bin/wrangler'));
+ if(!binary.startsWith(resolve(destination)+'/'))throw new ProducerError('Archived Wrangler escapes physical dependency copy');
+ return {...copied,physicalCopyVerified:true,wranglerRelativePath:binary.slice(resolve(destination).length+1)};
 }
 /** Compare historical sources, not a replacement authority or a deployment exemption.
  * The sole recorded historical difference stays inside the isolated accepted-source archive.
@@ -383,7 +419,7 @@ async function main(){
    const archive=call('git',['archive','--format=tar',source,'--',...paths],{encoding:null});
    const archivePath=resolve(root,'accepted-auth.tar');await writeFile(archivePath,archive);call('tar',['-xf',archivePath,'-C',root]);await rm(archivePath);
    for(const record of records){const file=resolve(root,record.path);if(!(await lstat(file)).isFile()||await realpath(file)!==file||gitBlob(await readFile(file))!==record.acceptedBlob)throw new ProducerError('Accepted Auth archive file identity differs');}
-   await symlink(await realpath('node_modules'),resolve(root,'node_modules'),'dir');
+   sourceComparison.dependencies=await copyLockedDependencies({source:await realpath('node_modules'),destination:resolve(root,'node_modules')});
    const module=await build('auth',config,'accepted-auth',{root,sourceRef:source});
    const currentInputs=new Map(currentModule.inputEvidence.map(input=>[input.path,input]));
    if(module.inputEvidence.length!==currentInputs.size)throw new ProducerError('Accepted Auth build input graph changed');

@@ -19,6 +19,13 @@ function safeHeaders(response:Response,outer:HeadersInit){
  response.headers.forEach((value,key)=>{if(key==='vary')value=[...new Set([...value.split(','),...(headers.get(key)??'').split(',')].map(v=>v.trim()).filter(Boolean))].join(', ');headers.set(key,value);});
  return new Response(response.body,{status:response.status,headers});
 }
+// Body cancellation is best-effort cleanup, not authority or database cleanup.
+// An owned stream may never settle its cancellation promise; denial must not
+// wait for that promise, and synchronous/rejected cancellation stays private.
+function cancelBody(body:ReadableStream<Uint8Array>|null|undefined){
+ if(!body||body.locked)return;
+ try{void body.cancel().catch(()=>{});}catch{}
+}
 
 /** Concrete inactive composition. There is no injected verifier, client factory,
  * environment-only activation switch, memory store, or permissive fallback.
@@ -68,8 +75,8 @@ export async function helpReader(request:Request,env:HelpWorkerEnvironment,path:
   alive=false;let cleanupFailed=false;
   if(transaction&&clients[0])await Promise.resolve().then(()=>clients[0].query('ROLLBACK')).catch(()=>{cleanupFailed=true;});
   const closed=await Promise.allSettled(clients.map(client=>Promise.resolve().then(()=>client.end())));
-  if(cleanupFailed||closed.some(result=>result.status==='rejected')){await response?.body?.cancel().catch(()=>{});response=failure('unavailable');}
-  if(request.body&&!request.body.locked)await request.body.cancel().catch(()=>{});
+  if(cleanupFailed||closed.some(result=>result.status==='rejected')){cancelBody(response?.body);response=failure('unavailable');}
+  cancelBody(request.body);
  }
  return safeHeaders(response??failure('unavailable'),headers);
 }

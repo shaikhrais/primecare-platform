@@ -1,9 +1,37 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
+import {mkdtemp,mkdir,writeFile,readFile,chmod,symlink,readlink,realpath,cp,rm} from 'node:fs/promises';
+import {tmpdir} from 'node:os';
+import {join} from 'node:path';
+import {SCOPE,WORKFLOW,PLAN_JOB,RELEASE_JOB,RELEASE_TOOLCHAIN,assertReleaseToolchain,acceptedAuthArchivePaths,authCompilerMetadataCandidates,assertAcceptedAuthSourceRecords,dependencyTreeIdentity,copyLockedDependencies,verifyAcceptedAuthBytes,providerReadOperation,readProviderResponse,verifyInactiveSourceGit,inactiveConfig,assertSupportedSettings,activeLineage,boundedBody,moduleEvidence,assertBuildGraph,assertPriorPlan,produceInactiveHelp} from './release-inactive-help-workers.mjs';
 
 const source='a'.repeat(40),id=n=>'00000000-0000-4000-8000-'+String(n).padStart(12,'0');
 const clone=value=>structuredClone(value);
+async function dependencyFixture(){
+ const root=await mkdtemp(join(tmpdir(),'inactive-help-dependency-copy-')),source=join(root,'current/node_modules'),destination=join(root,'accepted/node_modules');
+ await mkdir(join(source,'wrangler/bin'),{recursive:true});await mkdir(join(source,'.bin'));await mkdir(join(root,'accepted'));
+ await writeFile(join(source,'wrangler/bin/wrangler.js'),'locked executable bytes');await chmod(join(source,'wrangler/bin/wrangler.js'),0o755);
+ await writeFile(join(source,'.package-lock.json'),'locked dependency identity');await symlink('../wrangler/bin/wrangler.js',join(source,'.bin/wrangler'));
+ return {root,source,destination};
+}
+test('physical locked dependency copy preserves full bytes, modes and relative executable links inside accepted source',async()=>{
+ const f=await dependencyFixture();try{
+  const result=await copyLockedDependencies(f);assert.equal(result.physicalCopyVerified,true);assert.equal(result.wranglerRelativePath,'wrangler/bin/wrangler.js');
+  assert.equal(await readlink(join(f.destination,'.bin/wrangler')),'../wrangler/bin/wrangler.js');
+  assert.ok((await realpath(join(f.destination,'.bin/wrangler'))).startsWith(f.destination+'/'));
+  assert.equal(await readFile(join(f.destination,'.package-lock.json'),'utf8'),'locked dependency identity');
+  assert.deepEqual(await dependencyTreeIdentity(f.source),await dependencyTreeIdentity(f.destination));
+ }finally{await rm(f.root,{recursive:true,force:true});}
+});
+test('dependency copy rejects byte mutation, changed source during copy, escaped links and bounded-tree overflow',async()=>{
+ for(const failure of ['destination','source','symlink','bound']){
+  const f=await dependencyFixture();try{
+   if(failure==='symlink'){await symlink('/outside/credential',join(f.source,'external'));await assert.rejects(dependencyTreeIdentity(f.source),/symlink escapes/);continue;}
+   if(failure==='bound'){await assert.rejects(dependencyTreeIdentity(f.source,{maxBytes:1}),/exceeds verification bound/);continue;}
+   await assert.rejects(copyLockedDependencies({...f,copyTree:async(source,destination,options)=>{assert.equal(options.verbatimSymlinks,true);await cp(source,destination,options);await writeFile(join(failure==='source'?source:destination,'.package-lock.json'),'mutated bytes');}}),/Physical locked dependency copy differs/);
+  }finally{await rm(f.root,{recursive:true,force:true});}
+ }
+});
 test('accepted Auth archive uses the actual tracked closure plus lockfiles and excludes installed dependencies',()=>{
  const paths=acceptedAuthArchivePaths([{path:'cloudflare/workers/src/service.ts'},{path:"packages/shared/src/auth-elevation.json with { type: 'json' }"},{path:'packages/shared/src/auth-elevation.json'},{path:'node_modules/pg/lib/index.js'},{path:'node-built-in-modules:events',virtual:true}]);
  assert.deepEqual(paths,['cloudflare/workers/src/service.ts','package-lock.json','package.json','packages/shared/src/auth-elevation.json']);

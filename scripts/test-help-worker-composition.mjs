@@ -78,6 +78,46 @@ test('actual governance child denies unregistered canonical Help before legacy, 
  const response=await app.fetch(request(),env);assert.equal(response.status,503);assert.deepEqual(await response.json(),{version:1,error:{code:'unavailable'}});
  assert.deepEqual([calls.constructed,calls.stores,calls.effects,calls.legacy,calls.bcrypt],[0,0,0,0,0]);assert.equal(response.headers.get('cache-control'),'no-store');
 });
+function deadline(promise,milliseconds=100){
+ let timer;const expired=Symbol('cleanup deadline');
+ return Promise.race([promise,new Promise(resolve=>timer=setTimeout(()=>resolve(expired),milliseconds))]).then(value=>{assert.notEqual(value,expired,'safe response waited for best-effort body cancellation');return value;}).finally(()=>clearTimeout(timer));
+}
+for(const [label,method,status]of[['missing binding','POST',503],['wrong method','PATCH',405]])test(label+' denial does not await a real request stream cancellation promise',async()=>{
+ const calls=state(),module=await moduleFor({legacy:true}),app=new module.GovernanceHelpServiceApplication();
+ let cancelled=0,release;const held=new Promise(resolve=>release=resolve);
+ const body=new ReadableStream({cancel(){cancelled++;return held;}});
+ const pending=app.fetch(request(contract.path,{method,body,duplex:'half'}),env);
+ try{
+  const response=await deadline(pending);assert.equal(response.status,status);assert.equal(cancelled,1);
+  assert.equal(response.headers.get('cache-control'),'no-store');
+  assert.deepEqual([calls.constructed,calls.stores,calls.effects,calls.legacy,calls.bcrypt],[0,0,0,0,0]);
+  assert.deepEqual(await response.json(),{version:1,error:{code:status===405?'invalid_request':'unavailable'}});
+ }finally{release();await pending.catch(()=>{});delete globalThis[slot];}
+});
+test('a rejected request stream cancellation stays private and preserves the original denial',async()=>{
+ const calls=state(),module=await moduleFor({legacy:true}),app=new module.GovernanceHelpServiceApplication();let cancelled=0;
+ const body=new ReadableStream({cancel(){cancelled++;return Promise.reject(Error('private cancellation detail'));}});
+ const response=await app.fetch(request(contract.path,{body,duplex:'half'}),env);
+ assert.equal(response.status,503);assert.equal(cancelled,1);assert.deepEqual(await response.json(),{version:1,error:{code:'unavailable'}});
+ assert.deepEqual([calls.constructed,calls.stores,calls.effects,calls.legacy],[0,0,0,0]);delete globalThis[slot];
+});
+test('an uncooperative obsolete-response cancellation cannot hold the cleanup-failure denial open',()=>fixture(async f=>{
+ const factory=f.calls.factory;f.calls.factory=options=>{const port=factory(options);return {...port,end:async()=>{await port.end();throw Error('private client close detail');}};};
+ const original=ReadableStream.prototype.cancel;let release,reached,armed=true,cancelled=0,readyTimer;
+ const held=new Promise(resolve=>release=resolve),ready=new Promise(resolve=>reached=resolve),req=request();
+ ReadableStream.prototype.cancel=function(...args){
+  if(armed&&f.calls.ended===2&&this!==req.body){cancelled++;reached();return original.apply(this,args).then(()=>held);}
+  return original.apply(this,args);
+ };
+ const pending=f.app.fetch(req,env);
+ try{
+  await Promise.race([ready,new Promise((_,reject)=>readyTimer=setTimeout(()=>reject(Error('obsolete response cancellation was not reached')),5000))]);clearTimeout(readyTimer);
+  const response=await deadline(pending);armed=false;assert.equal(response.status,503);assert.equal(cancelled,1);
+  assert.deepEqual(await response.json(),{version:1,error:{code:'unavailable'}});
+  assert.deepEqual([f.calls.constructed,f.calls.connected,f.calls.ended],[2,2,2]);
+  assert.deepEqual(await counts(f),{quota:1,audit:1});assert.equal(f.calls.trace.filter(value=>value.sql==='COMMIT').length,1);
+ }finally{armed=false;clearTimeout(readyTimer);release();await pending.catch(()=>{});ReadableStream.prototype.cancel=original;}
+}));
 test('environment flags, headers and request fields cannot supply a missing registered plan',async()=>{
  const calls=state(),module=await moduleFor({legacy:true}),app=new module.GovernanceHelpServiceApplication();
  for(const environment of [{...env,HELP_READER_ENABLED:'1'},{...env,HELP_READER_RUNTIME_BOUND:true}])assert.equal((await app.fetch(request(),environment)).status,503);
