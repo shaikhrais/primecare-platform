@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "operation": "pc10.help.runtime-registration-discovery.v1",
+  "mode": "read-only",
+  "apiId": 794,
+  "roleId": 51,
+  "screenId": 685,
+  "permissionKey": "psw_published_help_read",
+  "relations": ["runtime_artifacts", "api_endpoints", "api_permissions", "role_screen_permissions", "role_screen_map", "screen_components", "screen_api_links", "roles", "screens"],
+  "businessRowsRead": false,
+  "writes": false,
+  "identityAllocation": false,
+  "runtimeActivation": false,
+  "preserve": {"guestRole": 13, "guestPermission": 6157, "guestMap": 603, "unrelatedControl": 779, "unrelatedScreen": 2534, "retiredApiGrants": 64},
+  "remainingInputs": ["actual independently verified inactive producer receipt", "reviewed artifact source/deployment/status values", "fresh complete schema and security snapshot", "separate reader control and localized-resource definition"]
+}

@@ -1,0 +1,42 @@
+name: Help runtime registration read-only discovery
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/governance-production/pc10-help-runtime-registration.mjs'
+      - 'tools/governance-production/pc10-help-runtime-registration.definition.json'
+      - 'scripts/test-help-runtime-registration.mjs'
+      - '.github/workflows/help-runtime-registration-discovery.yml'
+permissions: {contents: read}
+concurrency:
+  group: pc10-help-runtime-registration-readback
+  cancel-in-progress: false
+jobs:
+  production-read-only:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Install isolated discovery dependencies and run PostgreSQL-engine tests
+        run: |
+          npm install --prefix "$RUNNER_TEMP/help-runtime-registration" --ignore-scripts --no-audit --no-fund pg@8.16.3 @electric-sql/pglite@0.3.14
+          test ! -e node_modules
+          ln -s "$RUNNER_TEMP/help-runtime-registration/node_modules" node_modules
+          node --test scripts/test-help-runtime-registration.mjs
+      - name: Read pinned schema and finite Help metadata without changing registration
+        run: |
+          mkdir -p test-results/help-runtime-registration
+          node tools/governance-production/pc10-help-runtime-registration.mjs --plan > test-results/help-runtime-registration/discovery.log
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: help-runtime-registration-read-only
+          path: test-results/help-runtime-registration/discovery.log
+          if-no-files-found: error
