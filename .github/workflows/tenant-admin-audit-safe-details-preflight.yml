@@ -62,7 +62,7 @@ jobs:
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
       - run: |
-          npm install --prefix "$RUNNER_TEMP/audit-ui-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          npm install --prefix "$RUNNER_TEMP/audit-ui-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 @twilio/voice-sdk@2.18.5
           ln -s "$RUNNER_TEMP/audit-ui-tools/node_modules" node_modules
       - name: Verify existing renderer and safe details in every existing locale
         run: |
