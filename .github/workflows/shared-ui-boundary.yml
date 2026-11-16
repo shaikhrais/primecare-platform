@@ -25,3 +25,20 @@ jobs:
         run: python3 -m unittest discover -s scripts/tests -p test_migrate_premium_progress.py
       - name: Reject direct controls and colors outside shared theme definitions
         run: python3 scripts/check-shared-ui-boundary.py
+  screen-style-boundary:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          filter: blob:none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify screen style and registration guard diagnostics
+        run: python3 -m unittest discover -s scripts/tests -p 'test_screen_style_boundary.py'
+      - name: Reject screen-local styling and lost leadership routes
+        run: |
+          baseline="$(python3 scripts/check-screen-style-boundary.py --baseline-ref)"
+          git fetch --no-tags --depth=1 --filter=blob:none origin "$baseline"
+          python3 scripts/check-screen-style-boundary.py
