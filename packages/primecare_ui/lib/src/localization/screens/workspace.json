@@ -37,7 +37,12 @@
       "invoices": "Invoices",
       "schedules": "Schedules",
       "unconnected": "Data source unavailable",
-      "request_failed": "Request failed"
+      "request_failed": "Request failed",
+      "readiness_inventory": "Authorized page readiness",
+      "readiness_ready": "Marked ready",
+      "readiness_pending": "Not marked ready",
+      "readiness_unknown": "Readiness unknown",
+      "readiness_empty": "No authorized pages match the current filters."
     },
     "fr": {
       "title": "Vue d’ensemble de l’organisation",
@@ -74,7 +79,12 @@
       "invoices": "Factures",
       "schedules": "Plannings",
       "unconnected": "Source de données indisponible",
-      "request_failed": "Échec de la demande"
+      "request_failed": "Échec de la demande",
+      "readiness_inventory": "État de préparation des pages autorisées",
+      "readiness_ready": "Marquée prête",
+      "readiness_pending": "Pas marquée prête",
+      "readiness_unknown": "État de préparation inconnu",
+      "readiness_empty": "Aucune page autorisée ne correspond aux filtres actuels."
     },
     "es": {
       "title": "Resumen de la organización",
@@ -111,7 +121,12 @@
       "invoices": "Facturas",
       "schedules": "Horarios",
       "unconnected": "Fuente de datos no disponible",
-      "request_failed": "La solicitud falló"
+      "request_failed": "La solicitud falló",
+      "readiness_inventory": "Preparación de páginas autorizadas",
+      "readiness_ready": "Marcada como lista",
+      "readiness_pending": "No marcada como lista",
+      "readiness_unknown": "Preparación desconocida",
+      "readiness_empty": "Ninguna página autorizada coincide con los filtros actuales."
     }
   }
 }

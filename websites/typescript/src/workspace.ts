@@ -40,10 +40,10 @@ export async function loadWorkspace(gateway:string,token:string,send:typeof fetc
   if(!data.identity || !Array.isArray(data.screens) || !data.overview || !Array.isArray(data.inventory))throw new Error('Invalid workspace response');
   return data;
 }
-export function inventoryCsv(pages:Page[]):string {
+export function inventoryCsv(pages:Page[],unknownReadiness?:string):string {
   const quote=(v:unknown)=>'"'+String(v??'').replace(/^([=+@-])/,'\t$1').replaceAll('"','""')+'"';
   return [['Screen','Name','App','Role','Route','Page status','Production ready','Pending work'],
-    ...pages.map(p=>[p.code,p.name,p.appCode,p.role,p.route,p.lifecycle,p.productionReady?'Yes':'No',p.blockers.join('; ')])]
+    ...pages.map(p=>[p.code,p.name,p.appCode,p.role,p.route,p.lifecycle,unknownReadiness!==undefined&&typeof p.productionReady!=='boolean'?unknownReadiness:p.productionReady?'Yes':'No',p.blockers.join('; ')])]
     .map(row=>row.map(quote).join(',')).join('\r\n');
 }
 const workspaceLoads=new WeakMap<HTMLElement,number>();
@@ -225,8 +225,14 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     // DOM handlers belong to this particular render, not just to its session.
     // A removed control must not act on a replacement view with the same token.
     const active=()=>version===renderVersion&&location.pathname===route&&currentNavigation()&&enter(id,route);
-    const pending=data.inventory.filter(p=>p.blockers.length>0);
-    const rows=data.inventory.filter(p=>(!pendingOnly||p.blockers.length>0)&&`${p.name} ${p.role} ${p.appCode} ${p.route}`.toLowerCase().includes(search.toLowerCase()));
+    // The CISO home is a read-only view of the same server-authorized pages
+    // that registered this session's navigation. Never use expanded inventory here.
+    const cisoReadiness=data.identity.role==='ciso'&&page?.code==='ciso_dashboard'&&
+      route==='/offices/corporate/roles/ciso/dashboard';
+    const source=cisoReadiness?data.screens:data.inventory;
+    const isPending=(p:Page)=>cisoReadiness?p.productionReady!==true:p.blockers.length>0;
+    const pending=source.filter(isPending);
+    const rows=source.filter(p=>(!pendingOnly||isPending(p))&&`${p.name} ${p.role} ${p.appCode} ${p.route}`.toLowerCase().includes(search.toLowerCase()));
     const countPages=Math.max(1,Math.ceil(rows.length/25));pageNumber=Math.min(pageNumber,countPages-1);
     const allowed=new Set(data.screens.map(p=>p.code));
     const callEntry=callScreens[0];
@@ -244,18 +250,18 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       body+=section.elements.map(e=>`<div data-cy="${escapeHtml(e.testId)}">${escapeHtml(e.key.endsWith('-role-badge')?data.identity.role:e.label||e.key)}${e.actionRequired?`<p class="notice">${t('no_action')}</p>`:''}</div>`).join('');
       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
-    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
+    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t(cisoReadiness?(p.productionReady===true?'readiness_ready':p.productionReady===false?'readiness_pending':'readiness_unknown'):'created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
       `${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join('')}</div></section>
       <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
-      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
-      <div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
+      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t(cisoReadiness?'readiness_inventory':'inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
+      ${cisoReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${t('readiness_empty')}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
-      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,'en',{
+      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,locale,{
         // Cached report state survives same-screen shell redraws. Its active
         // route and parent lifecycle, not a removed shell's version, own it.
         isCurrent:()=>currentNavigation()&&location.pathname===route&&enter(id,route),
@@ -281,7 +287,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{if(!active())return;pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
     root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{if(!active())return;pageNumber--;draw();});
     root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{if(!active())return;pageNumber++;draw();});
-    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
+    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows,cisoReadiness?text('readiness_unknown'):undefined)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&mutationActorForScreen(page.code,data.identity.role)&&!account){root.querySelector('main')!.insertAdjacentHTML('beforeend',accountCreationMarkup());disposeAccountCreation=bindAccountCreation(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&!account)disposeInvoices=mountClientInvoices(root,{gateway,token,page,identity:data.identity,locale,isCurrent:active});
