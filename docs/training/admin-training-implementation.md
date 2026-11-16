@@ -13,3 +13,10 @@ The handbook gives a recommended operating cadence and report cover-note templat
 Native training uses the same governed course exported to typed Dart models and resource catalogs. The shared Account screen and authorized workspace toolbar open it using the existing verified auth user ID. Switching or signing out of the account hides the previous account’s lesson/progress controls. No additional business API request is made. Native progress uses application preferences scoped to gateway/account/course version; it does not synchronize automatically with the TypeScript browser’s storage.
 
 The native controller serializes writes for the same scope, records correct answers only after successful persistence, validates stored results and preserves choices during label/language refresh. Summary PDFs use the existing desktop file-dialog/mobile share exporter and use built-in Latin PDF fonts; no font service is contacted. Results remain explicitly unverified device self-assessment. Desktop save or mobile share does not send an email automatically.
+
+
+## Code Admin task-first console
+
+The existing authenticated console view at `/platform/administration#training` uses a task-first presentation for the `code_admin` role after the existing training capability check. It opens the existing lesson block before the introductory guide, keeps the governed eight-module sequence, and starts at the first lesson not passed on this device. This uses the existing EN/FR/ES course text, controls, and account-scoped progress; other roles and the workspace dialog retain their existing presentation. No API, storage key, track assignment, permission, or certification behavior changes.
+
+This does not import the standalone preview's task IDs or additional controls. A device chooser, approved lesson media per device, and request workflow need review and registration against pinned production governance before integration. There are no approved lesson recordings bundled with this change.
