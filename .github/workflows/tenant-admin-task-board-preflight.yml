@@ -1,0 +1,42 @@
+name: Preflight Tenant Admin Task Board (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-task-board-preflight.yml
+      - tests/fixtures/tenant-admin-task-board/empty-states.patch
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  native-tenant-task-board:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: psw_test, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply reviewed empty states in disposable checkout only
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/tenant-admin-task-board/empty-states.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm ci --ignore-scripts
+      - run: npm install --prefix /tmp/psw-tools --ignore-scripts --no-audit --no-fund @electric-sql/pglite@0.3.14 bcryptjs@3.0.2
+      - run: test -e node_modules/bcryptjs || ln -s /tmp/psw-tools/node_modules/bcryptjs node_modules/bcryptjs
+      - run: mkdir -p node_modules/@electric-sql && test -e node_modules/@electric-sql/pglite || ln -s /tmp/psw-tools/node_modules/@electric-sql/pglite node_modules/@electric-sql/pglite
+      - name: Verify Task Board, native PostgreSQL assignments, and ownership
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-tenant-dashboard.mjs
