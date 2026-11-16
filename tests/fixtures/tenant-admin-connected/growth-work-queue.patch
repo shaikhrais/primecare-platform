@@ -1,0 +1,57 @@
+--- a/scripts/test-growth-browser.mjs
++++ b/scripts/test-growth-browser.mjs
+@@ -86,5 +86,54 @@
+   const assigned=['growth_caller','growth_coordinator'].includes(role);if(assigned){await page.locator(`[data-cy="growth-lead-${id}"]`).waitFor();assert.equal(await page.locator('[data-cy=growth-campaigns]').count(),0);await page.locator('[data-cy=growth-call-lead]').selectOption(id);await page.locator('[data-cy=growth-call-outcome]').selectOption('contacted');await page.locator('[data-cy=growth-call-notes]').fill('Synthetic assigned call');await page.locator('[data-cy=growth-call-save]').click();await page.locator('[data-cy=growth-calls]').filter({hasText:'Synthetic assigned call'}).waitFor();assert.equal((await db.query('SELECT COUNT(*)::int AS n FROM growth_calls WHERE lead_id=$1',[id])).rows[0].n,1);await page.locator(`[data-cy="growth-contact-open-${id}"]`).click();await page.locator(`[data-cy="growth-contact-phone-${id}"]`).fill('+1 555 010 0201');await page.locator(`[data-cy="growth-contact-evidence-${id}"]`).fill('Synthetic caller phone correction');await page.locator(`[data-cy="growth-contact-save-${id}"]`).click();await page.locator(`[data-cy="growth-lead-${id}"]`).filter({hasText:'+1 555 010 0201'}).waitFor();}else{assert.equal(await page.locator('[data-cy=growth-leads]').count(),0);assert.equal(await page.locator('[data-cy=growth-calls]').count(),0);assert.equal(await page.locator('[data-cy=growth-appointments]').count(),0);const values=await page.locator('[data-cy=growth-campaign-source]').evaluate(e=>Array.from(e.options).map(o=>o.value));assert.deepEqual(values,registry.staffPolicies[role].sources);const el=id=>page.locator(`[data-cy="${id}"]`);await el('growth-campaign-name').fill('Synthetic owned '+role);await el('growth-campaign-reference').fill('Synthetic source specialist plan');const newCampaignSaved=page.waitForResponse(r=>r.url().endsWith('/growth/campaigns')&&r.request().method()==='POST');await el('growth-campaign-save').click();assert.equal((await newCampaignSaved).status(),201);const cid=(await db.query('SELECT id FROM growth_campaigns WHERE name=$1',['Synthetic owned '+role])).rows[0].id;await el('growth-brief-open-'+cid).waitFor();await el('growth-brief-open-'+cid).click();await el('growth-brief-owner-'+cid).selectOption(staffIds[role]);await el('growth-brief-audience-'+cid).fill('Synthetic local audience');await el('growth-brief-offer-'+cid).fill('Synthetic enquiry offer');await el('growth-brief-creative-'+cid).fill('Synthetic specialist creative');await el('growth-brief-target_leads-'+cid).fill('12');const specialistBrief=page.waitForResponse(r=>r.url().endsWith('/briefs/'+cid));await el('growth-brief-save-'+cid).click();assert.equal((await specialistBrief).status(),200);assert.equal((await db.query('SELECT owner_id FROM growth_campaign_briefs WHERE campaign_id=$1',[cid])).rows[0].owner_id,staffIds[role]);}
+   if(role==='growth_caller'){await page.evaluate(()=>{const p=document.createElement('p');p.textContent='Synthetic fixture data - automated test, not production results';document.querySelector('main').prepend(p);});await page.screenshot({path:'test-results/growth/caller-current.png'});}await page.waitForFunction(()=>!document.querySelector('[data-cy=growth-refresh]')?.disabled);const status=await page.evaluate(async assigned=>fetch('/v1/governance/growth/'+(assigned?'leads':'calls'),{method:'POST',headers:{authorization:'Bearer '+sessionStorage.getItem('primecare_session'),'content-type':'application/json','idempotency-key':crypto.randomUUID()},body:'{}'}).then(r=>r.status),assigned);assert.equal(status,403);assert.deepEqual(errors,[]);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth+1));await page.close();
+  });
++ await test('source-mapped growth work queue and due alerts without invoice authority',async()=>{
++  const role='growth_caller',owner=staffIds[role],ownLead=crypto.randomUUID(),otherLead=crypto.randomUUID();
++  const ownTask=crypto.randomUUID(),otherTask=crypto.randomUUID(),futureTask=crypto.randomUUID();
++  const ownName='Fixture queue requested lead',otherName='Fixture queue other-owner lead';
++  for(const [id,name,user] of [[ownLead,ownName,owner],[otherLead,otherName,marketer]])
++   await db.query("INSERT INTO growth_leads(id,tenant_id,pipeline,name,email,phone,source,reference,contact_basis,contact_hash,owner_id,due_at) VALUES($1,$2,'client',$3,$4,'+1 555 010 0290','website','Synthetic queue item','requested',$5,$6,NOW()-INTERVAL '1 hour')",[id,tenant,name,id+'@example.test',id,user]);
++  for(const [id,name,user,interval] of [[ownTask,'Fixture queue overdue task',owner,'-1 hour'],[otherTask,'Fixture queue other-owner task',marketer,'-1 hour'],[futureTask,'Fixture queue later task',owner,'2 day']])
++   await db.query("INSERT INTO growth_tasks(id,tenant_id,name,owner_id,due_at) VALUES($1,$2,$3,$4,NOW()+$5::interval)",[id,tenant,name,user,interval]);
++  const page=await browser.newPage({viewport:{width:1440,height:1000}});
++  try{
++   await page.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens[role]);
++   const cy=id=>page.locator('[data-cy="'+id+'"]');
++   const receives=action=>Promise.all([
++    page.waitForResponse(r=>new URL(r.url()).pathname==='/v1/governance/growth'&&r.request().method()==='GET'),
++    action()
++   ]).then(async ([response])=>{assert.equal(response.status(),200);return response.json();});
++   const workAlert=cy('growth-alert-task_attention-'+ownTask);
++   const callback=cy('growth-alert-callback_due-'+ownLead);
++   const first=await receives(()=>page.goto(base+'/growth?enable-semantics=true'));
++   assert.equal(first.identity.role,role);
++   assert.equal(first.identity.tenantId,tenant);
++   assert.equal(first.tasks.find(row=>row.id===ownTask)?.overdue,true);
++   assert.equal(first.tasks.find(row=>row.id===futureTask)?.overdue,false);
++   assert.ok(!first.tasks.some(row=>row.id===otherTask));
++   assert.ok(!first.leads.some(row=>row.id===otherLead));
++   await cy('growth-lead-'+ownLead).waitFor();
++   await workAlert.waitFor();
++   await callback.waitFor();
++   assert.equal(await cy('growth-alert-task_attention-'+otherTask).count(),0);
++   assert.equal(await cy('growth-alert-task_attention-'+futureTask).count(),0);
++   await cy('growth-query').fill('fixture-that-matches-no-lead');
++   const filtered=await receives(()=>cy('growth-filter-save').click());
++   assert.equal(filtered.stats.total,0);
++   assert.deepEqual(filtered.leads,[]);
++   await cy('growth-lead-'+ownLead).waitFor({state:'detached'});
++   // Registered lead filters narrow the lead list, not assigned work alerts.
++   assert.ok(filtered.alerts.some(row=>row.kind==='task_attention'&&row.id===ownTask));
++   await workAlert.waitFor();
++   const fresh=await receives(()=>page.reload());
++   assert.equal(fresh.identity.tenantId,tenant);
++   assert.ok(fresh.alerts.some(row=>row.kind==='callback_due'&&row.id===ownLead));
++   await callback.waitFor();
++   assert.equal(await cy('growth-alert-callback_due-'+otherLead).count(),0);
++   assert.equal(await cy('growth-business').count(),0);
++   const stored=(await db.query('SELECT id,owner_id,status,version FROM growth_tasks WHERE id=ANY($1::uuid[]) ORDER BY id',[[ownTask,otherTask,futureTask]])).rows;
++   assert.equal(stored.length,3);
++   for(const row of stored)assert.deepEqual({owner:row.owner_id,status:row.status,version:row.version},{owner:row.id===otherTask?marketer:owner,status:'open',version:1});
++  }finally{await page.close();}
++ });
+  await test('marketing cannot change founder targets; unrelated role cannot load the dashboard',async()=>{const page=await browser.newPage();await page.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.marketing);await page.goto(base+'/growth?enable-semantics=true');await page.locator('[data-cy=screen-founder-growth-dashboard]').waitFor();assert.equal(await page.locator('[data-cy=growth-plan-form]').count(),0);const response=await page.evaluate(async()=>fetch('/v1/governance/growth/plan',{method:'PUT',headers:{authorization:'Bearer '+sessionStorage.getItem('primecare_session'),'content-type':'application/json','idempotency-key':crypto.randomUUID()},body:JSON.stringify({})}).then(r=>r.status));assert.equal(response,403);await page.close();const deniedPage=await browser.newPage();await deniedPage.addInitScript(token=>sessionStorage.setItem('primecare_session',token),tokens.admin);await deniedPage.goto(base+'/growth?enable-semantics=true');await deniedPage.locator('[data-cy=growth-error]').waitFor();assert.equal(await deniedPage.locator('[data-cy=growth-lead-form]').count(),0);await deniedPage.close();});
+ }finally{await browser.close();await new Promise(r=>server.close(r));await db.query('SET search_path TO public');await db.query(`DROP SCHEMA ${schema} CASCADE`);await db.end();}

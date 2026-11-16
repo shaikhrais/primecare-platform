@@ -1,0 +1,53 @@
+name: Tenant Admin connected workflow preflight
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/tenant-admin-connected-acceptance.yml'
+      - 'tests/fixtures/tenant-admin-connected/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  growth-work-queue:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: growth_test
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: growth_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U growth_test -d growth_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      GROWTH_TEST_DATABASE_URL: postgresql://growth_test:integration-only@127.0.0.1:5432/growth_test
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Apply the acceptance case in the disposable checkout
+        run: git apply --check --whitespace=error-all tests/fixtures/tenant-admin-connected/growth-work-queue.patch && git apply --whitespace=error-all tests/fixtures/tenant-admin-connected/growth-work-queue.patch
+      - name: Prepare isolated browser fixture
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: |
+          python3 -m pip install -r tools/governance-production/requirements.txt
+          python3 tools/governance-production/prepare-ci-fixture.py
+      - name: Install pinned browser and test dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/growth-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 @types/node@22 @types/pg@8 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsqr@1.4.0 miniflare@4.20260730.0 jsdom@26 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/growth-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Check the source-mapped Growth queue scope without invoices
+        run: |
+          set -o pipefail
+          node --test --test-reporter=tap --test-name-pattern='^source-mapped growth work queue and due alerts without invoice authority$' scripts/test-growth-browser.mjs | tee "$RUNNER_TEMP/growth-queue.tap"
+          grep -E '^ok [0-9]+ - source-mapped growth work queue and due alerts without invoice authority$' "$RUNNER_TEMP/growth-queue.tap"
