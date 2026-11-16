@@ -1,0 +1,63 @@
+name: Tenant audit rolling-version diagnostic
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-audit-rolling-diagnostic.yml
+      - scripts/test-tenant-audit-rolling-api-diagnostic.mjs
+      - scripts/test-tenant-audit-rolling-web-diagnostic.mjs
+permissions: {contents: read}
+concurrency:
+  group: tenant-audit-rolling-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  diagnostic-matrix:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_DB: platform_audit_rolling_test, POSTGRES_USER: fixture, POSTGRES_PASSWORD: fixture-only}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U fixture -d platform_audit_rolling_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          npm install --prefix "$RUNNER_TEMP/audit-rolling-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/audit-rolling-tools/node_modules" node_modules
+      - name: Capture exact synthetic API variants and diagnose web mixtures
+        run: |
+          set -euo pipefail
+          capture_api() {
+            env -i PATH="$PATH" HOME="$HOME" RUNNER_TEMP="$RUNNER_TEMP" GITHUB_ACTIONS=true GITHUB_SHA="$GITHUB_SHA" ROLLING_FIXTURE_DIR="$RUNNER_TEMP/audit-rolling-responses" ROLLING_VERSION="$1" PLATFORM_TEST_DATABASE_URL=postgresql://fixture:fixture-only@127.0.0.1:5432/platform_audit_rolling_test node scripts/test-tenant-audit-rolling-api-diagnostic.mjs
+          }
+          inspect_web() {
+            env -i PATH="$PATH" HOME="$HOME" RUNNER_TEMP="$RUNNER_TEMP" GITHUB_ACTIONS=true GITHUB_SHA="$GITHUB_SHA" ROLLING_FIXTURE_DIR="$RUNNER_TEMP/audit-rolling-responses" ROLLING_VERSION="$1" node scripts/test-tenant-audit-rolling-web-diagnostic.mjs
+          }
+          capture_api live
+          git apply --check --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git apply --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          capture_api safe
+          git apply --check --whitespace=error-all tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
+          git apply --whitespace=error-all tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
+          capture_api partial
+          inspect_web partial
+          git apply -R --check tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
+          git apply -R tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
+          inspect_web safe
+          git apply -R --check tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git apply -R tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          inspect_web live
+          git diff --exit-code
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-audit-rolling-diagnostic-summary
+          path: test-results/tenant-audit-rolling/*.json
+          if-no-files-found: error
+          retention-days: 7
