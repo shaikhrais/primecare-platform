@@ -1,0 +1,65 @@
+diff --git a/scripts/test-tenant-dashboard.mjs b/scripts/test-tenant-dashboard.mjs
+--- a/scripts/test-tenant-dashboard.mjs
++++ b/scripts/test-tenant-dashboard.mjs
+@@ -17,2 +17,61 @@
+  for(let i=0;i<101;i++)await f.db.query('INSERT INTO "'+f.pin.schema+'".govt_virtual_workflow_definitions VALUES($1,$2,\'business_process\',\'["tenant_admin"]\',\'source_mapped\',\'unverified\',\'not_run\',\'[]\')',['bulk.'+i,'Bulk workflow '+i]);check((await read('admin','?flowOffset=100')).workflows.length===3,'workflow library pagination reaches all registered rows');check((await read('admin','?search=Bulk')).workflowPage.total===101,'workflow search queries entire registry');
++ // Full operational lifecycle in the existing disposable tenant fixture. No new role or live data.
++ {
++  const {taskDetail}=await import('../packages/shared/src/tenant-dashboard/view.mjs');
++  const title='Lifecycle acceptance: blocked work returned and reviewed';
++  const created=await change('admin',{action:'create',value:{...input,title}}),task=created.tasks.find(t=>t.title===title);
++  assert.ok(task);assert.equal(task.status,'open');assert.equal(task.version,1);
++  const eventsFor=async taskId=>(await f.db.query('SELECT id::text,tenant_id,dataset,workspace_key,task_id,actor_id,actor_role,action,detail FROM tenant_dashboard_events WHERE task_id=$1 ORDER BY id',[taskId])).rows;
++  const rowFor=async taskId=>(await f.db.query('SELECT id::text,tenant_id,owner_id,status,evidence,submitted_by,version FROM tenant_work_tasks WHERE id=$1',[taskId])).rows[0];
++  let history=await eventsFor(task.id);assert.equal(history.length,1);assert.equal(history[0].action,'create');assert.equal(history[0].detail.title,title);
++  const steps=[
++   {role:'psw',action:'start',from:'open',to:'in_progress',evidence:'Starting the registered task in the isolated fixture.',submittedBy:null},
++   {role:'psw',action:'block',from:'in_progress',to:'blocked',evidence:'Work blocked pending a documented operational clarification.',submittedBy:null},
++   {role:'psw',action:'submit',from:'blocked',to:'submitted',evidence:'Initial operational result is ready for independent review.',submittedBy:f.actors.psw.id},
++   {role:'admin',action:'return',from:'submitted',to:'in_progress',evidence:'Returned for a specific correction before approval.',submittedBy:null},
++   {role:'psw',action:'submit',from:'in_progress',to:'submitted',evidence:'Correction addressed and result resubmitted for independent review.',submittedBy:f.actors.psw.id},
++   {role:'admin',action:'complete',from:'submitted',to:'completed',evidence:'Independent reviewer confirmed the corrected operational result.',submittedBy:f.actors.psw.id},
++  ];
++  let version=1;
++  for(const step of steps){
++   const command={action:step.action,id:task.id,version,value:{evidence:step.evidence}};
++   await denied(404,'psw2',command);await denied(404,'foreign',command);
++   if(step.action==='return'||step.action==='complete')await denied(403,'psw',command);
++   assert.deepEqual(await eventsFor(task.id),history,'denied transitions must not append history');
++   const requestKey=randomUUID(),changed=await change(step.role,command,'',requestKey);version++;
++   const changedTask=changed.tasks.find(t=>t.id===task.id);assert.equal(changedTask.status,step.to);assert.equal(changedTask.version,version);
++   const sql=await rowFor(task.id);assert.deepEqual(sql,{id:task.id,tenant_id:f.tenants[0],owner_id:f.actors.psw.id,status:step.to,evidence:step.evidence,submitted_by:step.submittedBy,version});
++   const nextHistory=await eventsFor(task.id);assert.equal(nextHistory.length,history.length+1);
++   for(const old of history)assert.deepEqual(nextHistory.find(e=>e.id===old.id),old,'prior audit events must remain unchanged');
++   const appended=nextHistory.find(e=>!history.some(old=>old.id===e.id));
++   assert.deepEqual(appended,{id:appended.id,tenant_id:f.tenants[0],dataset:'live',workspace_key:null,task_id:task.id,actor_id:f.actors[step.role].id,actor_role:f.actors[step.role].role,action:step.action,detail:{from:step.from,to:step.to,evidence:step.evidence}});
++   // Replay the original accepted command once; neither task version nor audit count may grow.
++   assert.deepEqual(await change(step.role,command,'',requestKey),changed);assert.deepEqual(await rowFor(task.id),sql);assert.deepEqual(await eventsFor(task.id),nextHistory);
++   for(const role of ['admin','psw']){
++    const reloaded=await read(role),row=reloaded.tasks.find(t=>t.id===task.id);assert.ok(row);assert.equal(row.status,step.to);assert.equal(row.version,version);assert.equal(row.evidence,step.evidence);assert.equal(row.submitted_by,step.submittedBy);
++    const event=reloaded.events.find(e=>e.task_id===task.id&&e.action===step.action&&e.detail.evidence===step.evidence);assert.ok(event);assert.equal(event.actor_id,f.actors[step.role].id);assert.deepEqual(event.detail,appended.detail);
++    if(role==='admin'){const editable=!['submitted','completed'].includes(step.to);assert.equal(row.actions.includes('edit'),editable);assert.equal(taskDetail(row).includes('data-task-action="edit"'),editable,'default detail must honor the independently authorized live actions');}
++   }
++   for(const role of ['psw2','foreign']){const unrelated=await read(role);assert.equal(unrelated.tasks.some(t=>t.id===task.id),false);assert.equal(unrelated.events.some(e=>e.task_id===task.id),false);}
++   if(step.to==='submitted'){await denied(409,'admin',{action:'edit',id:task.id,version,value:{...input,title:'Submitted work must be returned before editing'}});assert.deepEqual(await rowFor(task.id),sql);assert.deepEqual(await eventsFor(task.id),nextHistory);}
++   history=nextHistory;n++;
++  }
++  const completed=(await read()).tasks.find(t=>t.id===task.id);assert.deepEqual(completed.actions,[]);await denied(400,'admin',{action:'cancel',id:task.id,version,value:{evidence:'Completed work cannot be cancelled afterward.'}});
++  assert.deepEqual(await eventsFor(task.id),history);
++  const cancelledTitle='Lifecycle acceptance: cancelled operational task',cancelCreate=await change('admin',{action:'create',value:{...input,title:cancelledTitle}}),cancelTask=cancelCreate.tasks.find(t=>t.title===cancelledTitle);
++  assert.ok(cancelTask);const beforeCancel=await eventsFor(cancelTask.id),cancelEvidence='Cancelled by the tenant administrator with a retained reason.',cancelCommand={action:'cancel',id:cancelTask.id,version:1,value:{evidence:cancelEvidence}};
++  await denied(403,'psw',cancelCommand);await denied(404,'psw2',cancelCommand);await denied(404,'foreign',cancelCommand);assert.deepEqual(await eventsFor(cancelTask.id),beforeCancel);
++  await change('admin',cancelCommand);const cancelled=await rowFor(cancelTask.id);assert.equal(cancelled.status,'cancelled');assert.equal(cancelled.version,2);assert.equal(cancelled.evidence,cancelEvidence);
++  const cancelHistory=await eventsFor(cancelTask.id);assert.equal(cancelHistory.length,2);assert.deepEqual(cancelHistory.find(e=>e.id===beforeCancel[0].id),beforeCancel[0]);
++  const cancelEvent=cancelHistory.find(e=>e.action==='cancel');assert.ok(cancelEvent);assert.equal(cancelEvent.actor_id,f.actors.admin.id);assert.deepEqual(cancelEvent.detail,{from:'open',to:'cancelled',evidence:cancelEvidence});
++  for(const role of ['admin','psw']){const reloaded=await read(role),row=reloaded.tasks.find(t=>t.id===cancelTask.id);assert.equal(row.status,'cancelled');assert.equal(row.version,2);assert.deepEqual(row.actions,[]);assert.equal(reloaded.events.filter(e=>e.task_id===cancelTask.id).length,2);}
++  await denied(409,'admin',{action:'edit',id:cancelTask.id,version:2,value:{...input,title:'Cancelled work must remain closed'}});
++  await denied(400,'psw',{action:'start',id:cancelTask.id,version:2,value:{evidence:'Cancelled work must not restart.'}});
++  await assert.rejects(()=>f.db.query("UPDATE tenant_dashboard_events SET detail='{}'::jsonb WHERE id=$1",[cancelEvent.id]),/Tenant dashboard audit is immutable/);
++  await assert.rejects(()=>f.db.query('DELETE FROM tenant_dashboard_events WHERE id=$1',[cancelEvent.id]),/Tenant dashboard audit is immutable/);
++  assert.deepEqual(await eventsFor(task.id),history);assert.deepEqual(await eventsFor(cancelTask.id),cancelHistory);assert.deepEqual(await rowFor(cancelTask.id),cancelled);
++  const finalReload=await read();assert.equal(finalReload.tasks.find(t=>t.id===task.id).status,'completed');assert.equal(finalReload.tasks.find(t=>t.id===cancelTask.id).status,'cancelled');
++  for(const event of [...history,...cancelHistory])assert.ok(finalReload.events.some(e=>e.task_id===event.task_id&&e.action===event.action&&JSON.stringify(e.detail)===JSON.stringify(event.detail)),'immutable history remains visible after reload');
++  n++;console.log(`PASS tenant task lifecycle (${f.native?'native PostgreSQL':'PGlite'}): block, return, resubmit, independent completion, cancel, reload, isolation and immutable history`);
++ }
+  await f.db.query("UPDATE users SET status='inactive' WHERE id=$1",[f.actors.psw.id]);await denied(401,'psw');await denied(400,'admin',{action:'create',value:input});

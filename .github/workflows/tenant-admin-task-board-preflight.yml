@@ -6,6 +6,7 @@ on:
       - .github/workflows/tenant-admin-task-board-preflight.yml
       - tests/fixtures/tenant-admin-task-board/empty-states.patch
       - tests/fixtures/tenant-admin-task-board/lifecycle-limits.patch
+      - tests/fixtures/tenant-admin-task-board/default-lifecycle-acceptance.patch
   workflow_dispatch:
 permissions:
   contents: read
@@ -35,6 +36,8 @@ jobs:
             git apply --check --whitespace=error-all tests/fixtures/tenant-admin-task-board/lifecycle-limits.patch
             git apply --whitespace=error-all tests/fixtures/tenant-admin-task-board/lifecycle-limits.patch
           fi
+          git apply --check --whitespace=error-all tests/fixtures/tenant-admin-task-board/default-lifecycle-acceptance.patch
+          git apply --whitespace=error-all tests/fixtures/tenant-admin-task-board/default-lifecycle-acceptance.patch
           git diff --check
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
