@@ -1,0 +1,34 @@
+name: CISO web readiness isolated preflight
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ciso-web-readiness-preflight.yml
+      - tests/fixtures/ciso-web-readiness/preflight.patch
+permissions:
+  contents: read
+jobs:
+  synthetic-dom:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Apply held CISO source and test only inside this disposable checkout
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git apply --check --whitespace=error-all tests/fixtures/ciso-web-readiness/preflight.patch
+          git apply --whitespace=error-all tests/fixtures/ciso-web-readiness/preflight.patch
+      - name: Install exact synthetic-test tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ciso-web" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 jsdom@26 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/ciso-web/node_modules" node_modules
+      - name: Check the actual workspace renderer with only simulated sessions
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" node --test scripts/test-workspace-browser.mjs
+          node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/main.ts
+          git apply -R --check tests/fixtures/ciso-web-readiness/preflight.patch
+          git apply -R tests/fixtures/ciso-web-readiness/preflight.patch
+          git diff --exit-code
