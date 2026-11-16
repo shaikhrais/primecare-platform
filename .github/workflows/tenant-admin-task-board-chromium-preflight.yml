@@ -1,0 +1,43 @@
+name: Verify Tenant Admin Task Board in isolated Chromium
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-task-board-chromium-preflight.yml
+      - scripts/test-tenant-admin-task-board-browser.mjs
+      - tests/fixtures/tenant-admin-task-board/empty-states.patch
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-browser:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: fixture, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: tenant_task_board_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U fixture -d tenant_task_board_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply held Task Board presentation candidate only in runner
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/tenant-admin-task-board/empty-states.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm install --prefix "$RUNNER_TEMP/tenant-task-board" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 bcryptjs@3 playwright@1.60.0 @twilio/voice-sdk@2.18.5
+      - run: ln -s "$RUNNER_TEMP/tenant-task-board/node_modules" node_modules
+      - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Exercise real handlers with synthetic tasks only
+        env:
+          TENANT_TASK_BOARD_TEST_DATABASE_URL: postgresql://fixture:fixture-only@127.0.0.1:5432/tenant_task_board_test
+        run: node scripts/test-tenant-admin-task-board-browser.mjs
