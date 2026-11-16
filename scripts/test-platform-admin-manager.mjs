@@ -249,7 +249,7 @@ for(const locale of ['en','fr','es'])test('recording reload resolves an unselect
 });
 const ownTenant={id:'tenant-a',name:'Tenant A',slug:'tenant-a'};
 test('Tenant Admin landing enables existing staff actions without selecting the sole organization again',async()=>{
- const f=browser({role:'tenant_admin',capabilities:{tenants:[ownTenant]}});await f.render();
+ const f=browser({role:'tenant_admin'});assert.deepEqual(f.data.tenants,[ownTenant]);await f.render();
  assert.equal(f.root.view,'organizations');
  assert.equal(f.dashboard.selected,'tenant-a');
  assert.deepEqual(f.requests.map(r=>r.url),['https://gateway.invalid/v1/governance/platform']);

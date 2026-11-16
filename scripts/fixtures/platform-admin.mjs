@@ -108,7 +108,10 @@ const token='fixture-admin-token';
 function deferred(){let resolve,reject;const promise=new Promise((a,b)=>{resolve=a;reject=b;});return {promise,resolve,reject};}
 const settle=async()=>{for(let i=0;i<6;i++)await new Promise(resolve=>setImmediate(resolve));};
 function browser({hash='',role='platform_admin',locale='en',capabilities={},path='/platform/administration',canCall=false,installManager=true}={}){
-  const data={role,scope:role==='tenant_admin'?'tenant':'global',canCreateTenant:role!=='tenant_admin',canViewReports:true,canViewTerritories:true,canViewOperations:true,canViewBundle:true,extended:role==='platform_admin',canViewTraining:true,growthDashboard:false,identity:{userId:'fixture-admin'},tenants:[{id:'tenant-a',name:'Tenant A',slug:'tenant-a'},{id:'tenant-b',name:'Tenant B',slug:'tenant-b'}],assignableRoles:['admin'],masterTypes:['fixture'],...capabilities};
+  // Match the administration API: tenant-scoped roles receive only their own
+  // organization; callers can still override tenants for denial/drift cases.
+  const tenants=[{id:'tenant-a',name:'Tenant A',slug:'tenant-a'},{id:'tenant-b',name:'Tenant B',slug:'tenant-b'}];
+  const data={role,scope:role==='tenant_admin'?'tenant':'global',canCreateTenant:role!=='tenant_admin',canViewReports:true,canViewTerritories:true,canViewOperations:true,canViewBundle:true,extended:role==='platform_admin',canViewTraining:true,growthDashboard:false,identity:{userId:'fixture-admin'},tenants:role==='tenant_admin'?tenants.slice(0,1):tenants,assignableRoles:['admin'],masterTypes:['fixture'],...capabilities};
   const values=new Map([['primecare_session',token]]), storage={getItem:k=>values.get(k)??null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};
   const doc={baseURI:'https://fixture.invalid'+path+'?locale='+locale+'&context=keep&enable-semantics=true'+hash};doc.documentElement=new Element(doc);doc.documentElement.lang=locale;doc.createElement=()=>new Element(doc);
   const root=new Element(doc),events=new Map(),assigned=[],replaced=[],pushes=[],historyReplacements=[],requests=[],loads=[],mounts=[],live=new Set(),controllers={};let reloads=0,historyIndex=0;const historyStack=[doc.baseURI];
