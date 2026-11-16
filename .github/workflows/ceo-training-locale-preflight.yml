@@ -1,0 +1,36 @@
+name: Preflight CEO workspace Training language (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ceo-training-locale-preflight.yml
+      - tests/fixtures/ceo-training/workspace-training-locale.patch
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  workspace-training-language:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply reviewed patch only inside the disposable checkout
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/ceo-training/workspace-training-locale.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+          expected=$(printf '%s\n' scripts/test-workspace-manager-boundaries.mjs websites/typescript/src/workspace.ts)
+          test "$(git diff --name-only)" = "$expected"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Verify CEO Training launch locale and workspace ownership regressions
+        run: env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-workspace-manager-boundaries.mjs

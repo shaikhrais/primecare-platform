@@ -1,0 +1,29 @@
+--- a/websites/typescript/src/workspace.ts
++++ b/websites/typescript/src/workspace.ts
+@@ -265,7 +265,7 @@
+       reportLifecycles.get(page.code)?.redraw();if(!active())return;
+     }
+     bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)})),data.identity.role+':'+data.identity.userId);
+-    root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId);};
++    root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId,locale);};
+     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>{if(active())void renderWorkspace(root,gateway);};
+     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async event=>{
+       if(signingOut||!active())return;
+--- a/scripts/test-workspace-manager-boundaries.mjs
++++ b/scripts/test-workspace-manager-boundaries.mjs
+@@ -235,6 +235,15 @@
+  f.click(f.root.querySelector('[data-cy="workspace-account"]'));await f.render();assert.match(f.root.innerHTML,/screen-account/);assert.equal(f.manager.enter(entry.id,entry.route).route,f.data.landing);
+  f.manager.registerScope('entry',[]);const count=f.requests.length;await f.render();assert.match(error(f),/Missing registration/);assert.equal(f.requests.length,count);checkRetired(f);
+ });
++for(const locale of ['en','fr','es'])test('CEO training opens with the active workspace locale '+locale,async()=>{
++ const f=await browser({role:'ceo',locale});await f.render();
++ assert.equal(f.data.landing,'/offices/corporate/roles/ceo/dashboard');
++ assert.equal(f.data.identity.role,'ceo');
++ const training=control(f,'workspace-training');await invoke(training);
++ assert.deepEqual(__training,[['https://gateway.invalid',f.data.identity.userId,locale]]);
++ assert.equal(f.requests.length,1);
++});
++
+ test('current training/export/refresh and confirmed logout retain their existing behavior',async()=>{
+  const f=await browser();await f.render();await invoke(control(f,'workspace-training'));await invoke(control(f,'workspace-export'));
+  assert.equal(__training.length,1);assert.equal(__downloads.length,1);await invoke(control(f,'workspace-refresh'));assert.equal(f.requests.length,2);assert.equal(__workspaceRouteLive.size,1);
