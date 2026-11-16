@@ -61,11 +61,12 @@ try{
    ]);
    assert.equal(login.status(),200);assert.equal(dashboard.status(),200);
    const snapshot=await dashboard.json();assert.equal(snapshot.identity.role,'tenant_admin');assert.equal(snapshot.organization.id,tenant);
-   assert.equal(new URL(page.url()).pathname,'/tenant-dashboard');
+   assert.equal(new URL(page.url()).pathname,'/tenant-dashboard');assert.equal(await page.locator('html').getAttribute('lang'),locale,'Login landing language must match requested locale');
    assert.ok((await setup.query('SELECT COUNT(*)::int AS n FROM auth_sessions WHERE user_id=$1',[actor])).rows[0].n>0);
    if(!await cy('tenant-nav-people').isVisible())await cy('sidebar-toggle').click();await cy('tenant-nav-people').click();
+   const shortcutUrl=new URL(await cy('tenant-shortcut-accounts').getAttribute('href'),origin);assert.equal(shortcutUrl.origin,origin);assert.equal(shortcutUrl.pathname,'/platform/administration');assert.equal(shortcutUrl.hash,'#accounts');assert.equal(shortcutUrl.searchParams.get('locale')||'en',locale,'Accounts shortcut must retain language');
    await waitForFixtureStartup(page,()=>cy('tenant-shortcut-accounts').click(),{selector:'[data-cy=platform-account-form]',timeoutMs:30000});
-   assert.equal(new URL(page.url()).pathname,'/platform/administration');assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);
+   assert.equal(new URL(page.url()).pathname,'/platform/administration');assert.equal(new URL(page.url()).searchParams.get('locale')||'en',locale);assert.equal(await page.locator('html').getAttribute('lang'),locale);assert.equal(await cy('platform-language').inputValue(),locale);assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);
    assert.deepEqual(await cy('platform-topbar-tenant').locator('option').evaluateAll(o=>o.map(x=>x.value)),['',tenant]);
    if(!await cy('platform-nav-audit').isVisible())await cy('sidebar-toggle').click();
    await cy('platform-nav-audit').click();await cy('platform-audit').waitFor();
@@ -79,7 +80,7 @@ try{
     assert.equal(value.data.events.slice(2).every(e=>!Object.hasOwn(e,'unavailable_details')),true);
     assert.equal(await cy('platform-audit').locator('[data-audit-detail-unavailable="previous_state.status"]').count(),2);
     const rendered=await cy('platform-audit').innerText();for(const text of [target,'master_updated','Synthetic before','Synthetic revised','Synthetic prior','2026-01-03'])assert.ok(rendered.includes(text),'Required safe detail missing');
-    for(const value of ['psw','rmt','account_updated',({en:'Previous status unavailable',fr:'Statut précédent indisponible',es:'El estado anterior no está disponible'})[locale]])assert.ok(rendered.includes(value));assert.equal(rendered.includes('failed'),false);
+    for(const value of ['psw','rmt','account_updated',({en:'Previous status unavailable',fr:'Statut précédent indisponible',es:'El estado anterior no está disponible'})[locale]])assert.ok(rendered.includes(value),'Expected audit detail not rendered for '+locale);assert.equal(rendered.includes('failed'),false);
     assert.ok(rendered.indexOf('Synthetic revised')<rendered.indexOf('Synthetic prior'),'Newest event first');
     assert.equal(rendered.includes('UNAPPROVED_CANARY'),false);assert.equal(rendered.includes('FOREIGN_CANARY'),false);assert.equal(rendered.includes(email),false);assert.equal(rendered.includes(actor),false);
     assert.equal(await cy('platform-audit').locator('script,img').count(),0);
@@ -87,12 +88,12 @@ try{
    }
    const first=await checkAudit();const address=page.url();assert.equal(new URL(address).hash,'#audit');
    await waitForFixtureStartup(page,()=>page.reload(),{selector:'[data-cy=platform-audit]',timeoutMs:30000});
-   assert.equal(page.url(),address);assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);assert.equal(await checkAudit(),first);
+   assert.equal(page.url(),address);assert.equal(await page.locator('html').getAttribute('lang'),locale);assert.equal(await cy('platform-language').inputValue(),locale);assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);assert.equal(await checkAudit(),first);
    const denials=await page.evaluate(async({own,foreign})=>{const token=sessionStorage.getItem('primecare_session');const run=(path,headers={})=>fetch(path,{headers}).then(r=>r.status);return {unauthenticated:await run(own),foreign:await run(foreign,{authorization:'Bearer '+token}),override:await run(own,{authorization:'Bearer '+token,'x-tenant-id':'audit-other'})};},{own:auditPath,foreign:'/test-api/v1/governance/platform/tenants/'+foreign+'/audit'});
    assert.deepEqual(denials,{unauthenticated:401,foreign:403,override:400});
    assert.equal(JSON.stringify((await setup.query('SELECT * FROM platform_administration_audit ORDER BY id')).rows),before);
    assert.equal(errors.length,0);assert.equal(serverFailed,false);
-   summary.results.push({locale,realCredentialSignIn:true,persistedSession:true,dashboardAndAccountsShortcut:true,ownTenantOnly:true,safeAuditDetails:true,eventCount:4,explicitUnavailableDetails:2,noEventsDropped:true,noInventedState:true,newestFirst:true,reloadStable:true,actorNotDisclosed:true,scopeDenials:true,historyUnchanged:true});
+   summary.results.push({locale,localeVerifiedAtDashboardAndAdministration:true,shortcutLocalePreserved:true,reloadLocalePreserved:true,realCredentialSignIn:true,persistedSession:true,dashboardAndAccountsShortcut:true,ownTenantOnly:true,safeAuditDetails:true,eventCount:4,explicitUnavailableDetails:2,noEventsDropped:true,noInventedState:true,newestFirst:true,reloadStable:true,actorNotDisclosed:true,scopeDenials:true,historyUnchanged:true});
   }finally{await context.close();}
  }
 }finally{
