@@ -149,3 +149,24 @@ test('new explicit navigation after nested completion supersedes older queued tr
 test('embedded account navigation retains common focus completion behavior',async()=>{
   const f=browser();await f.render();const focus=f.root.focusCount;await f.click('account');assert.equal(f.root.focusCount,focus+1);assert.equal(f.root.view,'account');
 });
+
+test('Tenant Admin training opens the registered tenant dashboard, preserving the selected language',async()=>{
+ const f=browser({hash:'#training',role:'tenant_admin',locale:'fr'});f.data.tenants=f.data.tenants.slice(0,1);
+ await f.render();assert.equal(f.root.view,'training');
+ assert.equal(f.anchor('training').getAttribute('aria-current'),'page');
+ assert.equal(f.requests.length,1);
+ const goToDashboard=f.trainingDashboard;assert.equal(typeof goToDashboard,'function');goToDashboard();
+ assert.equal(f.assigned.length,1);
+ const target=new URL(f.assigned[0],location.href);
+ assert.equal(target.pathname,'/tenant-dashboard');assert.equal(target.searchParams.get('locale'),'fr');
+ assert.equal(target.searchParams.get('enable-semantics'),'true');assert.equal(target.hash,'');
+ assert.equal(f.requests.length,1);
+ await f.click('appearance');goToDashboard();assert.equal(f.assigned.length,1,'Retained callback is inert away from the training view');
+});
+test('Denied Tenant Admin training does not mount on an exact training link',async()=>{
+ const f=browser({hash:'#training',role:'tenant_admin',capabilities:{canViewTraining:false,extended:false}});
+ f.data.tenants=f.data.tenants.slice(0,1);await f.render();
+ assert.equal(location.hash,'#training');assert.equal(f.root.view,'organizations');
+ assert.ok(!f.root.anchors.some(a=>a.dataset.section==='training'));
+ assert.equal(f.trainingDashboard,undefined);assert.equal(f.assigned.length,0);
+});

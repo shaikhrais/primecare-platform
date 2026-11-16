@@ -30,6 +30,7 @@ import {accountMarkup,bindAccount} from './account';
 import {renderShell,bindShell} from './shell';
 import {reportPanel} from './reports';
 import hierarchy from '../../../cloudflare/workers/src/admin-hierarchy.json';
+import adminEntryRoutes from '../../../packages/shared/src/admin-entry-routes.json';
 import bundledText from '../../../cloudflare/workers/src/screen-text-defaults.json';
 const resources=bundledText.platform_administration;
 import {escapeHtml} from './workspace';
@@ -188,7 +189,11 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
  if(view==='calls'&&demoDataset?.examples?.calls){const rows=demoDataset.examples.calls.filter((c:any)=>!selected||demoDataset.tenantIds[c.tenant]===selected);mountDemoCallHistory(root.querySelector<HTMLElement>('[data-cy=platform-demo-calls]')!,rows);}
  if(canCall)mountExternalDialer(gateway,token);root.querySelector('[data-cy=platform-open-dialer]')?.addEventListener('click',()=>mountExternalDialer(gateway,token,true));
  if(view==='vapi'&&adminRole==='code_admin')mountVapiAdmin(root.querySelector<HTMLElement>('[data-cy=platform-vapi]')!,gateway,token,locale);
- if(view==='training')root.querySelector('[data-cy=code-admin-page-body]')!.append(trainingPanel(gateway,actor,locale,()=>jump('tenants'),adminRole==='code_admin'?'task-first':'shared'));
+ if(view==='training')root.querySelector('[data-cy=code-admin-page-body]')!.append(trainingPanel(gateway,actor,locale,()=>{
+  if(!current()||view!=='training'||navigationPending()||denied||!resolveView('training')||!enterPresentation())return;
+  if(adminRole==='tenant_admin'&&scope==='tenant')location.assign(navigationUrl(adminEntryRoutes.tenant_admin));
+  else void jump('tenants');
+ },adminRole==='code_admin'?'task-first':'shared'));
  if(view==='reports'){if(!reports||reportsLocale!==locale){reports=reportPanel(gateway,'/v1/governance/reports',token,actor,locale);reportsLocale=locale;}reports.id='reports';root.querySelector('[data-cy=code-admin-page-body]')!.append(reports);}
  root.querySelectorAll<HTMLAnchorElement>('[data-section]').forEach(link=>link.onclick=e=>{if(e.defaultPrevented||e.button>0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||link.target&&link.target!=='_self'||link.hasAttribute('download'))return;e.preventDefault();root.querySelector<HTMLDetailsElement>('[data-cy=shell-utilities]')?.removeAttribute('open');jump(link.dataset.section!);});
  bindShell(root,view==='bundle'?bundleText(locale,'title'):view==='operations'?operationsText(locale,'title'):view==='territories'?territoryText(locale,'title'):view==='training'?trainingText(gateway,locale,'title'):view==='calls'?callLabel():text(view==='tenants'?'title':view),locale,text('search_scope'),()=>[

@@ -18,6 +18,55 @@ const out=resolve('test-results/code-admin-browser');await mkdir(out,{recursive:
 await build({stdin:{contents:"import {renderAuth} from './websites/typescript/src/auth-screen';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import theme from './packages/shared/src/solid-theme.json';import {renderPlatformAdmin} from './websites/typescript/src/platform-admin';const locale=new URLSearchParams(location.search).get('locale')||'en';document.documentElement.lang=locale;const root=document.getElementById('app');const gateway='http://127.0.0.1:4184/test-api';const manager=installPortalPresentation(root,theme,gateway);const entry=resolveManagedRoute(location.pathname,'au');manager.registerScope('entry',[entry]);void manager.present(entry.id,entry.route,()=>location.pathname==='/login'?renderAuth(root,gateway,'PrimeCare',locale):renderPlatformAdmin(root,gateway));",resolveDir:process.cwd()},bundle:true,outfile:join(site,'assets/app.js')});
 await writeFile(join(site,'index.html'),'<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="/assets/app.css"></head><body><div id="app"></div><script src="/assets/app.js"></script></body></html>');await writeFile(join(site,'assets/app.css'),await readFile('websites/typescript/src/styles.css'));
 const origin='http://127.0.0.1:4184',requests=[];
+async function verifyTenantAdminTrainingRoute(browser) {
+ const tenant='tenant-training-fixture',password='TestOnly-TenantTraining-2026!';
+ const adminEmail='training-admin@example.test',pswEmail='training-psw@example.test';
+ await setup.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Tenant Training Fixture',$1,'active')",[tenant]);
+ const hash=await bcrypt.hash(password,12);
+ await setup.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'tenant_admin',$3,$4,'active'),($5,$6,'psw',$3,$4,'active')",[crypto.randomUUID(),adminEmail,tenant,hash,crypto.randomUUID(),pswEmail]);
+ const url=origin+'/platform/administration?locale=fr&enable-semantics=true#training';
+ async function signedIn(roleEmail,exercise){
+  const context=await browser.newContext({viewport:{width:1280,height:900}});
+  try{
+   // Exercise real auth with synthetic rows without browser footage or secret output.
+   const authResult=await context.request.post(origin+'/test-api/v1/auth/login',{data:{email:roleEmail,password}});
+   assert.equal(authResult.status(),200);
+   const {token}=await authResult.json();
+   assert.ok(typeof token==='string'&&token.length>0,'Synthetic login must issue a session');
+   const page=await context.newPage();
+   await page.addInitScript(({origin,token})=>{
+    if(location.origin===origin&&location.pathname==='/platform/administration')sessionStorage.setItem('primecare_session',token);
+   },{origin,token});
+   await exercise(page);
+  }finally{await context.close();}
+ }
+ await signedIn(adminEmail,async page=>{
+  const guide=page.locator('[data-cy=getting-started-guide]');
+  await waitForFixtureStartup(page,()=>page.goto(url),{selector:'[data-cy=getting-started-guide]',timeoutMs:30000});
+  assert.equal(new URL(page.url()).hash,'#training');
+  assert.equal(await page.locator('[data-cy=platform-nav-training]').getAttribute('aria-current'),'page');
+  await page.locator('.guide-detailed-lessons summary').click();
+  const training=page.locator('[data-cy=screen-admin-training]');
+  await training.getByRole('heading',{level:2}).waitFor();
+  assert.equal(await training.getAttribute('lang'),'fr');
+  await guide.locator('[data-step]').last().click();
+  const address=page.waitForURL(candidate=>candidate.pathname==='/tenant-dashboard');
+  await guide.locator('[data-guide-dashboard]').click();
+  await address;
+  const target=new URL(page.url());
+  assert.equal(target.origin,origin);assert.equal(target.hash,'');
+  assert.equal(target.searchParams.get('locale'),'fr');assert.equal(target.searchParams.get('enable-semantics'),'true');
+ });
+ await signedIn(pswEmail,async page=>{
+  const denied=page.waitForResponse(r=>new URL(r.url()).pathname==='/test-api/v1/governance/platform'&&r.request().method()==='GET');
+  await page.goto(url);
+  assert.equal((await denied).status(),403);
+  await page.getByRole('alert').waitFor();
+  assert.equal(await page.locator('[data-cy=screen-admin-training], [data-cy=platform-nav-training]').count(),0);
+ });
+ return {tenantTrainingDirectEntry:true,trainingLanguage:'fr',dashboardNavigation:true,unauthorizedRoleDenied:true,dashboardRenderVerified:false,scope:'Real auth and administration worker against isolated native PostgreSQL; Chromium; destination URL only'};
+}
+
 const trainingDevices=[['desktop',1440,900],['tablet',820,900],['mobile',390,844]];
 async function recordTrainingLesson(browser,session,device,width,height) {
  assert.ok(typeof session==='string'&&session.length>0,'Synthetic browser session required for media');
@@ -58,7 +107,7 @@ async function recordTrainingLesson(browser,session,device,width,height) {
  }finally{await context.close();}
 }
 const server=createServer(async(req,res)=>{try{const path=new URL(req.url,origin).pathname;if(path.startsWith('/test-api/')){let body='';for await(const chunk of req)body+=chunk;const url=origin+req.url.replace('/test-api','');requests.push({method:req.method,path:new URL(url).pathname});const r=new Request(url,{method:req.method,headers:req.headers,...(body?{body}:{})});const route=new URL(url).pathname.replace(/^\/v1\/(governance|auth)/,'').replace(/^\/v1\/user\/change-password$/,'/change-password');const response=(path.includes('/v1/auth/')||path.includes('/v1/user/'))?await auth(r,{...env,SERVICE_NAME:'auth'},route,{}):route.startsWith('/platform')?await platformAdministration(r,env,route,{}):route==='/workspace'?await workspace(r,env,route,{}):await reporting(r,env,route,{});if(!response){res.writeHead(404);res.end();return;}res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;}const file=path==='/portal.json'?'portal.json':path.startsWith('/assets/')?path.slice(1):'index.html';res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');res.end(await readFile(join(site,file)));}catch(e){console.error(e);res.writeHead(500);res.end('Test server failure');}});
-await new Promise(r=>server.listen(4184,'127.0.0.1',r));const browser=await chromium.launch();const results=[],trainingMedia=[];
+await new Promise(r=>server.listen(4184,'127.0.0.1',r));const browser=await chromium.launch();const results=[],trainingMedia=[];let tenantAdminTraining=null;
 try{
  for(const [locale,width] of [['en',1440],['fr',1024],['es',768]]){
   const context=await browser.newContext({viewport:{width,height:1000}});const page=await context.newPage();const cy=id=>page.locator('[data-cy="'+id+'"]');
@@ -94,4 +143,6 @@ try{
  }
  assert.equal((await setup.query("SELECT COUNT(*)::int AS n FROM platform_administration_audit WHERE action='account_created'")).rows[0].n,3);
  console.log('CODE_ADMIN_BROWSER_PASS '+JSON.stringify(results));
-}finally{await writeFile(join(out,'results.json'),JSON.stringify({source:'Actual UI and handlers; isolated native PostgreSQL; synthetic accounts',commit:process.env.GITHUB_SHA??null,run:process.env.GITHUB_RUN_ID??null,results,trainingMedia},null,2));await browser.close();await new Promise(r=>server.close(r));await setup.query('SET search_path TO public');await setup.query(`DROP SCHEMA ${schema} CASCADE`);await setup.end();}
+ tenantAdminTraining=await verifyTenantAdminTrainingRoute(browser);
+ console.log('TENANT_ADMIN_TRAINING_ROUTE_PASS '+JSON.stringify(tenantAdminTraining));
+}finally{await writeFile(join(out,'results.json'),JSON.stringify({source:'Actual UI and handlers; isolated native PostgreSQL; synthetic accounts',commit:process.env.GITHUB_SHA??null,run:process.env.GITHUB_RUN_ID??null,results,trainingMedia,tenantAdminTraining},null,2));await browser.close();await new Promise(r=>server.close(r));await setup.query('SET search_path TO public');await setup.query(`DROP SCHEMA ${schema} CASCADE`);await setup.end();}

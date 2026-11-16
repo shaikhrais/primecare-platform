@@ -39,7 +39,7 @@ const fixtures = {
   './form-draft': 'export class FormDraft {capture(){} restore(){}}',
   './media-look': 'export class DashboardMediaLook {navigationIcon(){return "";}}',
   './platform-onboarding': 'export const onboardingPanel=partners=>partners.map(p=>`<form data-partner="${p.id}" data-cy="fixture-partner-${p.id}"></form>`).join("");',
-  './admin-training': 'export const trainingPanel=()=>document.createElement("section"); export const trainingText=(_gateway,_locale,key)=>key;',
+  './admin-training': 'export const trainingPanel=(_gateway,_actor,_locale,onDashboard)=>{globalThis.__adminFixture.trainingDashboard=onDashboard;return document.createElement("section");}; export const trainingText=(_gateway,_locale,key)=>key;',
   './screen-text-editor': 'export const screenTextEditor=async()=>globalThis.__adminFixture.mounts.push("text");',
   './screen-text': 'export const liveScreenText=()=>({text:(_s,_l,_k,fallback)=>fallback,subscribe:callback=>{globalThis.__adminFixture.live.add(callback);return ()=>globalThis.__adminFixture.live.delete(callback);}});',
   './account': 'export const accountMarkup=()=>"account fixture"; export const bindAccount=()=>{};',
