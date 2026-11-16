@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import {randomUUID} from 'node:crypto';
 import {createServer} from 'node:http';
-import {mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
+import {mkdir,mkdtemp,readFile,rm,writeFile} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {join} from 'node:path';
 import {createRequire} from 'node:module';
@@ -11,6 +11,9 @@ import {chromium} from 'playwright';
 import pg from 'pg';
 import {waitForFixtureStartup} from './fixtures/browser-startup.mjs';
 
+const caseName=process.env.TENANT_ADMIN_BROWSER_CASE??'own-sessions';
+assert.ok(['own-sessions','password-and-logout'].includes(caseName),'Recognized synthetic browser case only');
+const passwordAndLogout=caseName==='password-and-logout';
 const dbUrl=new URL(process.env.TENANT_OWN_SESSIONS_TEST_DATABASE_URL??'');
 if(!['localhost','127.0.0.1'].includes(dbUrl.hostname)||dbUrl.pathname!=='/tenant_own_sessions_test'||process.env.PRODUCTION_DATABASE_URL)
  throw Error('Disposable local tenant_own_sessions_test PostgreSQL only');
@@ -32,7 +35,7 @@ try{
   CREATE TABLE auth_sessions(user_id uuid REFERENCES users(id),token_hash text PRIMARY KEY,expires_at timestamptz,created_at timestamptz DEFAULT NOW());
   CREATE TABLE provider_profiles(user_id uuid REFERENCES users(id),tenant_id uuid REFERENCES tenants(id),full_name text);
  `);
- for(const migration of ['20260928_auth_rate_limits.sql','20260928_auth_management_audit.sql','20261003_auth_password_resets.sql','20261025_auth_mfa.sql','20261031_tenant_dashboard.sql'])
+ for(const migration of ['20260928_auth_rate_limits.sql','20260928_auth_management_audit.sql',...(passwordAndLogout?['20260928_auth_password_audit.sql']:[]),'20261003_auth_password_resets.sql','20261025_auth_mfa.sql','20261031_tenant_dashboard.sql'])
   await db.query(await readFile('packages/database/migrations/'+migration,'utf8'));
  // The real dashboard worker must pass the pinned-manifest check even in this
  // fixture. Only empty synthetic catalog tables are created on the service DB.
@@ -41,11 +44,13 @@ try{
  await db.query('INSERT INTO '+relation('source_manifest')+' VALUES($1)',[pin.manifestSha256]);
  await db.query('CREATE TABLE '+relation('virtual_workflow_definitions')+'(flow_id text primary key,title text,flow_kind text,actor_roles_json text,definition_status text,verification_status text,test_status text,blocker_json text)');
  await db.query('CREATE TABLE '+relation('virtual_workflow_steps')+'(flow_id text,step_order integer,action_text text,expected_text text,api_method text,api_path text)');
- const tenant=randomUUID(),otherTenant=randomUUID(),own=randomUUID(),other=randomUUID();
+ const tenant=randomUUID(),otherTenant=randomUUID(),own=randomUUID(),other=randomUUID(),staff=randomUUID();
+ const staffEmail='staff@example.test';
  const ownEmail='own-admin@example.test',otherEmail='foreign-admin@example.test',password='Synthetic-Tenant-Own-Sessions-2026!';
  const hash=await bcrypt.hash(password,12);
  await db.query("INSERT INTO tenants VALUES($1,'Own fixture agency','own-fixture','active'),($2,'Other fixture agency','other-fixture','active')",[tenant,otherTenant]);
  await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'tenant_admin',$3,$5,'active'),($4,$6,'tenant_admin',$7,$5,'active')",[own,ownEmail,tenant,other,hash,otherEmail,otherTenant]);
+ if(passwordAndLogout)await db.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'psw',$3,$4,'active')",[staff,staffEmail,tenant,hash]);
  dbUrl.searchParams.set('options','-c search_path='+schema);
  const workerEnv={DB_URL:dbUrl.href,MFA_ENCRYPTION_KEY:'a1'.repeat(32)};
  const entries={auth:'cloudflare/workers/src/auth.ts',workspace:'cloudflare/workers/src/workspace.ts',tenant:'cloudflare/workers/src/tenant-dashboard/service.ts'};
@@ -71,7 +76,7 @@ try{
    path==='/tenant-dashboard'?renderTenantDashboard(root,gateway):renderWorkspace(root,gateway));
  `},bundle:true,platform:'browser',write:false});
  const css=await readFile('websites/typescript/src/styles.css');
- const ownSessionDeletes=[];
+ const ownSessionDeletes=[],proofResponses=[];
  server=createServer(async(req,res)=>{
   try{
    const url=new URL(req.url,'http://127.0.0.1');
@@ -85,11 +90,13 @@ try{
    for await(const chunk of req)chunks.push(chunk);
    const body=Buffer.concat(chunks),request=new Request(url,{method:req.method,headers,...(body.length?{body}:{})});
    const path=url.pathname,type=path==='/v1/governance/tenant-dashboard'?'tenant':path==='/v1/governance/workspace'?'workspace':'auth';
-   const handlerPath=path==='/v1/user/sessions'?'/user/sessions':path.replace(/^\/v1\/(governance|auth)/,'');
+   const handlerPath=path==='/v1/user/change-password'?'/change-password':path==='/v1/user/sessions'?'/user/sessions':path.replace(/^\/v1\/(governance|auth)/,'');
    const result=await handlers[type](request,{...workerEnv,SERVICE_NAME:type==='auth'?'auth':'governance'},handlerPath,{});
    if(!result){res.writeHead(404);res.end();return;}
    const payload=Buffer.from(await result.arrayBuffer());
    if(path==='/v1/user/sessions'&&req.method==='DELETE')ownSessionDeletes.push({status:result.status,body:JSON.parse(payload.toString('utf8'))});
+   if(passwordAndLogout&&req.method==='POST'&&['/v1/user/change-password','/v1/auth/logout'].includes(path))
+    proofResponses.push({path,status:result.status,body:JSON.parse(payload.toString('utf8'))});
    res.writeHead(result.status,Object.fromEntries(result.headers));res.end(payload);
   }catch{res.writeHead(500);res.end('Fixture handler failed');}
  });
@@ -101,8 +108,9 @@ try{
  await page.route('**/*',route=>new URL(route.request().url()).origin===origin?route.continue():route.abort());
  const match=(path,method)=>r=>new URL(r.url()).pathname===path&&r.request().method()===method;
  const sessionCount=async user=>(await db.query('SELECT COUNT(*)::int AS n FROM auth_sessions WHERE user_id=$1',[user])).rows[0].n;
- const extraLogin=async email=>{
-  const result=await context.request.post(origin+'/v1/auth/login',{data:{email,password}});
+ const attemptLogin=(email,supplied)=>context.request.post(origin+'/v1/auth/login',{data:{email,password:supplied}});
+ const extraLogin=async(email,supplied=password)=>{
+  const result=await attemptLogin(email,supplied);
   assert.equal(result.status(),200);
   const {token}=await result.json();assert.ok(typeof token==='string'&&token.length>0);
   return token;
@@ -121,6 +129,66 @@ try{
  assert.equal(new URL(page.url()).pathname,'/tenant-dashboard');
  const second=await extraLogin(ownEmail);assert.ok(first!==second,'Two distinct own-device tokens needed');
  assert.equal(await sessionCount(own),2);assert.equal(await sessionCount(other),1);
+ if(passwordAndLogout){
+  const staffToken=await extraLogin(staffEmail);
+  const unchanged=async()=>assert.deepEqual((await db.query('SELECT id,roles,password_hash FROM users WHERE id=ANY($1::uuid[]) ORDER BY id',[other,staff])).rows,
+   [other,staff].sort().map(id=>({id,roles:id===other?'tenant_admin':'psw',password_hash:hash})));
+  const ownPassword=async()=>(await db.query('SELECT password_hash FROM users WHERE id=$1',[own])).rows[0].password_hash;
+  const passwordAudit=async()=>(await db.query('SELECT user_id,action FROM auth_password_audit ORDER BY created_at')).rows;
+  const currentToken=()=>page.evaluate(()=>sessionStorage.getItem('primecare_session'));
+  const openAccount=()=>waitForFixtureStartup(page,()=>cy('tenant-top-account').click(),{selector:'[data-cy=change-password-form]',timeoutMs:30000});
+  await openAccount();
+  await cy('own-sessions-table-row-1').waitFor();
+  assert.equal(new URL(page.url()).pathname,'/success');
+  const initial=await readSessions(first);assert.equal(initial.status(),200);
+  const current=await initial.json();assert.equal(current.pagination.total,2);
+  assert.equal(current.sessions.filter(row=>row.current).length,1);
+  const changedPassword='Synthetic-Tenant-New-Password-2026!';
+  const fill=(value)=>Promise.all([cy('current-password').fill(value),cy('new-password').fill(changedPassword)]);
+  await fill('Wrong-synthetic-current-password!');
+  const [bad]=await Promise.all([page.waitForResponse(match('/v1/user/change-password','POST')),cy('change-password-submit').click()]);
+  assert.equal(bad.status(),401);
+  await page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]').disabled);
+  assert.equal(await currentToken(),first);assert.equal(await sessionCount(own),2);
+  assert.equal(await ownPassword(),hash);assert.deepEqual(await passwordAudit(),[]);
+  await unchanged();
+  await fill(password);
+  const [changed]=await Promise.all([
+   page.waitForResponse(match('/v1/user/change-password','POST')),
+   page.waitForURL(url=>url.pathname==='/login'),cy('change-password-submit').click(),
+  ]);
+  assert.equal(changed.status(),200);await cy('login-submit').waitFor();
+  assert.equal(await currentToken(),null);
+  assert.deepEqual(proofResponses.at(-1),{path:'/v1/user/change-password',status:200,body:{status:'password_changed',reauthenticationRequired:true}});
+  assert.ok(await bcrypt.compare(changedPassword,await ownPassword()));
+  assert.deepEqual(await passwordAudit(),[{user_id:own,action:'password_changed'}]);
+  assert.equal(await sessionCount(own),0);
+  for(const token of [first,second])assert.equal((await readSessions(token)).status(),401);
+  for(const token of [otherToken,staffToken])assert.equal((await readSessions(token)).status(),200);
+  await unchanged();
+  assert.equal((await attemptLogin(ownEmail,password)).status(),401);
+  await cy('login-email').fill(ownEmail);await cy('login-password').fill(changedPassword);
+  await waitForFixtureStartup(page,()=>cy('login-submit').click(),{selector:'[data-cy=screen-tenant-admin-dashboard]',timeoutMs:30000});
+  const currentDevice=await currentToken(),siblingDevice=await extraLogin(ownEmail,changedPassword);
+  assert.ok(currentDevice&&currentDevice!==siblingDevice);
+  await openAccount();
+  if(!await cy('workspace-logout').isVisible())await page.locator('[data-cy=shell-utilities] summary').click();
+  const [loggedOut]=await Promise.all([
+   page.waitForResponse(match('/v1/auth/logout','POST')),
+   page.waitForURL(url=>url.pathname==='/login'),cy('workspace-logout').click(),
+  ]);
+  assert.equal(loggedOut.status(),200);await cy('login-submit').waitFor();
+  assert.deepEqual(proofResponses.at(-1),{path:'/v1/auth/logout',status:200,body:{status:'signed_out'}});
+  assert.equal(await currentToken(),null);assert.equal(await sessionCount(own),1);
+  assert.equal((await readSessions(currentDevice)).status(),401);
+  for(const token of [siblingDevice,otherToken,staffToken])assert.equal((await readSessions(token)).status(),200);
+  assert.equal(await sessionCount(other),1);assert.equal(await sessionCount(staff),1);
+  assert.deepEqual(await passwordAudit(),[{user_id:own,action:'password_changed'}]);await unchanged();
+  await page.goto(origin+'/success?enable-semantics=true');await page.waitForURL(url=>url.pathname==='/login');
+  await page.reload();await cy('login-submit').waitFor();
+  assert.equal(await cy('change-password-form').count(),0);
+  assert.equal(await currentToken(),null);
+ }else{
  const [listed]=await Promise.all([
   page.waitForResponse(match('/v1/user/sessions','GET')),
   waitForFixtureStartup(page,()=>cy('tenant-top-account').click(),{selector:'[data-cy=own-sessions-table-row-1]',timeoutMs:30000}),
@@ -167,6 +235,7 @@ try{
  assert.equal(await cy('own-sessions-panel').count(),0);
  assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')===null),true);
  console.log('TENANT_ADMIN_OWN_SESSIONS_SCOPED_PASS sign-in/dashboard/account/list/cancel/revoke/reload/other-tenant/audit; synthetic Chromium + native PostgreSQL only');
+ }
 }finally{
  try{
   await browser?.close();
@@ -182,4 +251,15 @@ try{
    }
   }finally{await db.end();await rm(dir,{recursive:true,force:true});}
  }
+}
+
+if(passwordAndLogout){
+ const sourceCommit=process.env.GITHUB_SHA;
+ assert.match(sourceCommit??'',/^[a-f0-9]{40}$/);
+ const out='test-results/tenant-admin-password-logout';await mkdir(out,{recursive:true});
+ await writeFile(out+'/results.json',JSON.stringify({sourceCommit,scope:'synthetic Chromium and native PostgreSQL; no production',role:'tenant_admin',cleanupVerified:true,wholeTaskVerified:false,cases:[
+  {workflowId:'auth.change-password',status:'scoped-pass',wrongCurrentPreservesSession:true,currentAndSiblingInvalidated:true,otherTenantAndStaffUnaffected:true,auditOwnActor:true,oldRejectedAndNewLoginAccepted:true},
+  {workflowId:'auth.logout',status:'scoped-pass',explicitAccountSignout:true,currentSessionInvalidated:true,siblingAndOtherAccountsPreserved:true,anonymousReloadDenied:true},
+ ]},null,2)+'\n');
+ console.log('TENANT_ADMIN_PASSWORD_LOGOUT_SCOPED_PASS own password and current-session signout; synthetic Chromium + native PostgreSQL only');
 }
