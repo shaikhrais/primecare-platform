@@ -1,0 +1,35 @@
+name: Rehearse Tenant Admin training assignment (fixture only)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-training-assignment-rehearsal.yml
+      - tests/fixtures/tenant-admin-training/assignment-rehearsal.sql
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-rehearsal:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: rehearsal
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: tenant_training_rehearsal
+        options: --health-cmd "pg_isready -U rehearsal -d tenant_training_rehearsal" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Exercise proposed assignment in disposable PostgreSQL
+        env:
+          REHEARSAL_CONTAINER_ID: ${{ job.services.postgres.id }}
+        run: |
+          test -n "$REHEARSAL_CONTAINER_ID"
+          docker exec -i "$REHEARSAL_CONTAINER_ID" psql -X --username=rehearsal --dbname=tenant_training_rehearsal --set=ON_ERROR_STOP=on \
+            < tests/fixtures/tenant-admin-training/assignment-rehearsal.sql
