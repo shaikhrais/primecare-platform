@@ -97,7 +97,7 @@
    void replace(AuthState value) { state = value; }
  }
  
-@@ -42,24 +47,94 @@
+@@ -42,24 +47,98 @@
      }
    });
  
@@ -188,7 +188,11 @@
 +      await tester.scrollUntilVisible(reportRow, 180, scrollable: workspaceScroll);
 +      final launch = find.descendant(of: reportRow, matching: find.byIcon(Icons.arrow_forward));
 +      expect(launch, findsOneWidget);
-+      await tester.tap(launch);
++      await tester.ensureVisible(launch);
++      await tester.pumpAndSettle();
++      final visibleLaunch = launch.hitTestable();
++      expect(visibleLaunch, findsOneWidget);
++      await tester.tap(visibleLaunch);
 +      await tester.pumpAndSettle();
 +      expect(find.text('Managed destination entered'), findsOneWidget);
 +      expect(calls, 1);
