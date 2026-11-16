@@ -1,0 +1,43 @@
+name: Audit Tenant Admin training registration
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-training-registration-audit.yml
+      - tools/governance-production/audit-tenant-admin-training.py
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  registration:
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned read-only adapter dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/tenant-training-reader" --ignore-scripts --no-audit --no-fund pg@8.11.3
+          ln -s "$RUNNER_TEMP/tenant-training-reader/node_modules" node_modules
+          python -m pip install -r tools/governance-production/requirements.txt
+      - name: Read aggregate training registration from pinned production governance
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python tools/governance-production/audit-tenant-admin-training.py > "$RUNNER_TEMP/tenant-admin-training-registration.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tenant-admin-training-registration
+          path: ${{ runner.temp }}/tenant-admin-training-registration.json
+          if-no-files-found: error
+          retention-days: 7
