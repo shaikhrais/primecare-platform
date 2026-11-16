@@ -220,7 +220,7 @@ diff --git a/packages/flutter_core/test/work_modules/tenant_task_module_port_tes
 +  for(final module in ['tasks','board']){
 +   final before=clone(first),after=clone(first);var writes=0,reads=0;
 +   final changedTask=(after['tasks'] as List).cast<Map<dynamic,dynamic>>().single;
-+   changedTask.addAll({'version':2,'status':'in_progress','evidence':evidence,'actions':['block','submit','edit','cancel']});
++   changedTask.addAll(<String,dynamic>{'version':2,'status':'in_progress','evidence':evidence,'actions':['block','submit','edit','cancel']});
 +   final p=port(module,(r)async{if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['evidence'],evidence);return after;}if(writes>0)reads++;return writes>0?after:before;});
 +   final session=WorkModuleSession(scope,module,port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');await session.load();
 +   await session.submit('task1','start',{'body':evidence});expect(session.status,'success');expect(session.snapshot!.items.single.meta,evidence);expect(writes,1);expect(reads,1);session.dispose();
@@ -243,7 +243,7 @@ diff --git a/packages/flutter_core/test/work_modules/tenant_task_module_port_tes
 + for(final title in boundaryTitles)test('native ${title.length}-unit title readback preserves the full title and safe search prefix ${title.startsWith('U')}',()async{
 +  final before=clone(first),after=clone(first);final expectedSearch=title.startsWith('U')?List.filled(99,'U').join():title.substring(0,100);
 +  (before['tasks'] as List).cast<Map<dynamic,dynamic>>().single['title']=title;
-+  (after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll({'title':title,'version':2});
++  (after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll(<String,dynamic>{'title':title,'version':2});
 +  var writes=0;final searches=<String>[];
 +  final p=port('tasks',(r)async{if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['title'],title);}else{searches.add(r.filters['search']!);expect(r.filters['search']!.length,lessThanOrEqualTo(100));}return writes>0?after:before;});
 +  await p.read(const WorkQuery());final original=WorkSnapshot.fromJson(await p.readItem('task1'),scope,'tasks');expect(original.items.single.title,title);expect(searches.last,expectedSearch);
@@ -252,7 +252,7 @@ diff --git a/packages/flutter_core/test/work_modules/tenant_task_module_port_tes
 + });
 + test('bounded native locator retains exact ID, full title and acknowledgment through paginated mismatch retry',()async{
 +  final prefix=List.filled(100,'P').join(),title=prefix+List.filled(100,'A').join(),wrongTitle=prefix+List.filled(100,'B').join();
-+  final after=clone(first);(after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll({'title':title,'version':2});
++  final after=clone(first);(after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll(<String,dynamic>{'title':title,'version':2});
 +  var writes=0,readbacks=0;final offsets=<String>[];
 +  final p=port('tasks',(r)async{
 +   if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['title'],title);return after;}
