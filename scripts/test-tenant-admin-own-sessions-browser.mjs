@@ -71,6 +71,7 @@ try{
    path==='/tenant-dashboard'?renderTenantDashboard(root,gateway):renderWorkspace(root,gateway));
  `},bundle:true,platform:'browser',write:false});
  const css=await readFile('websites/typescript/src/styles.css');
+ const ownSessionDeletes=[];
  server=createServer(async(req,res)=>{
   try{
    const url=new URL(req.url,'http://127.0.0.1');
@@ -87,7 +88,9 @@ try{
    const handlerPath=path==='/v1/user/sessions'?'/user/sessions':path.replace(/^\/v1\/(governance|auth)/,'');
    const result=await handlers[type](request,{...workerEnv,SERVICE_NAME:type==='auth'?'auth':'governance'},handlerPath,{});
    if(!result){res.writeHead(404);res.end();return;}
-   res.writeHead(result.status,Object.fromEntries(result.headers));res.end(Buffer.from(await result.arrayBuffer()));
+   const payload=Buffer.from(await result.arrayBuffer());
+   if(path==='/v1/user/sessions'&&req.method==='DELETE')ownSessionDeletes.push({status:result.status,body:JSON.parse(payload.toString('utf8'))});
+   res.writeHead(result.status,Object.fromEntries(result.headers));res.end(payload);
   }catch{res.writeHead(500);res.end('Fixture handler failed');}
  });
  await new Promise((resolve,reject)=>{server.once('error',reject);server.listen(0,'127.0.0.1',resolve);});
@@ -113,7 +116,8 @@ try{
   waitForFixtureStartup(page,()=>cy('login-submit').click(),{selector:'[data-cy=screen-tenant-admin-dashboard]',timeoutMs:30000}),
  ]);
  assert.equal(browserLogin.status(),200);
- const first=(await browserLogin.json()).token;assert.ok(typeof first==='string'&&first.length>0);
+ // The click navigates: read the session persisted by the real login UI, not a retired CDP response body.
+ const first=await page.evaluate(()=>sessionStorage.getItem('primecare_session'));assert.ok(typeof first==='string'&&first.length>0);
  assert.equal(new URL(page.url()).pathname,'/tenant-dashboard');
  const second=await extraLogin(ownEmail);assert.ok(first!==second,'Two distinct own-device tokens needed');
  assert.equal(await sessionCount(own),2);assert.equal(await sessionCount(other),1);
@@ -150,7 +154,7 @@ try{
   cy('own-sessions-confirm-revoke').click(),
  ]);
  assert.equal(revoked.status(),200);
- assert.deepEqual(await revoked.json(),{revokedSessions:2,status:'signed_out_all_devices'});
+ assert.deepEqual(ownSessionDeletes,[{status:200,body:{revokedSessions:2,status:'signed_out_all_devices'}}]);
  assert.equal(await sessionCount(own),0);assert.equal(await sessionCount(other),1);
  assert.equal((await readSessions(first)).status(),401);
  assert.equal((await readSessions(second)).status(),401);
