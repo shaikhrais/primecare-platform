@@ -1,0 +1,35 @@
+name: Verify Tenant Admin own sessions in isolated browser
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-own-sessions-browser.yml
+      - scripts/test-tenant-admin-own-sessions-browser.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-browser:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: fixture, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: tenant_own_sessions_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U fixture -d tenant_own_sessions_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: npm install --prefix "$RUNNER_TEMP/tenant-own-sessions" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 bcryptjs@3 playwright@1.60.0 @twilio/voice-sdk@2.18.5
+      - run: ln -s "$RUNNER_TEMP/tenant-own-sessions/node_modules" node_modules
+      - run: node_modules/.bin/playwright install --with-deps chromium
+      - name: Exercise live handlers with disposable sessions only
+        env:
+          TENANT_OWN_SESSIONS_TEST_DATABASE_URL: postgresql://fixture:fixture-only@127.0.0.1:5432/tenant_own_sessions_test
+        run: node scripts/test-tenant-admin-own-sessions-browser.mjs
