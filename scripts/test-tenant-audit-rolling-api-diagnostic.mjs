@@ -7,7 +7,7 @@ import {createRequire} from 'node:module';
 import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
 assert.equal(process.env.GITHUB_ACTIONS,'true');assert.match(process.env.GITHUB_SHA??'',/^[a-f0-9]{40}$/);
-const version=process.env.ROLLING_VERSION;assert.ok(['live','safe','partial'].includes(version));
+const version=process.env.ROLLING_VERSION;assert.ok(['live','safe','partial','boundary'].includes(version));
 const dir=process.env.ROLLING_FIXTURE_DIR;assert.ok(dir&&dir.startsWith(process.env.RUNNER_TEMP+'/'));
 if(process.env.PRODUCTION_DATABASE_URL||process.env.DATABASE_URL||process.env.DB_URL)throw Error('Only disposable connection permitted');
 const connection=process.env.PLATFORM_TEST_DATABASE_URL,u=new URL(connection);assert.ok(['postgres:','postgresql:'].includes(u.protocol)&&['127.0.0.1','localhost'].includes(u.hostname)&&u.pathname==='/platform_audit_rolling_test'&&!u.search&&!u.hash);
@@ -23,7 +23,7 @@ try{
   await db.query('DELETE FROM platform_administration_audit');await db.query("INSERT INTO platform_administration_audit(id,actor_id,tenant_id,target_id,action,previous_state,current_state,created_at) VALUES($1,'synthetic-actor','synthetic-tenant','synthetic-target','account_updated',$2,$3,'2026-01-01T00:00:00Z')",[randomUUID(),JSON.stringify(previous),JSON.stringify(current)]);
   const before=JSON.stringify((await db.query('SELECT * FROM platform_administration_audit')).rows),response=await call(),body=await response.json();assert.equal(JSON.stringify((await db.query('SELECT * FROM platform_administration_audit')).rows),before);
   const expected=version==='live'?200:name==='malformed_current'||version==='safe'&&name.startsWith('legacy_')?503:200;assert.equal(response.status,expected);assert.equal(JSON.stringify(body).includes('synthetic-actor'),false);
-  const marker=body.events?.[0]?.unavailable_details?.[0]==='previous_state.status';assert.equal(marker,version==='partial'&&name.startsWith('legacy_'));if(response.status!==200)assert.equal(Object.hasOwn(body,'events'),false);
+  const marker=body.events?.[0]?.unavailable_details?.[0]==='previous_state.status';assert.equal(marker,['partial','boundary'].includes(version)&&name.startsWith('legacy_'));if(response.status!==200)assert.equal(Object.hasOwn(body,'events'),false);
   // These exact synthetic responses remain runner-local, never uploaded as artifacts.
   responses.push({name,status:response.status,body});summary.cases.push({case:name,status:response.status,markerPresent:marker,actorNotDisclosed:true,historyUnchanged:true});
  }
@@ -32,6 +32,17 @@ try{
   const built=await build({entryPoints:['packages/shared/src/platform-administration-audit.ts'],bundle:true,write:false,platform:'node',format:'esm'}),{projectAdministrationAuditHistory:project}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
   const raw={id:'synthetic-event',action:'account_updated',target_id:'synthetic-target',created_at:'2026-01-01T00:00:00.000Z',previous_state:{role:'psw'},current_state:{role:'rmt',status:'active'},unavailable_details:['previous_state.status']};
   const accepted=project(raw);assert.deepEqual(accepted.unavailable_details,['previous_state.status']);summary.forgedNormalizedObjectAcceptedBySharedProjector=true;summary.rawDatabaseAndNormalizedResponseTrustBoundarySeparated=false;
+ }
+ if(version==='boundary'){
+  const built=await build({entryPoints:['packages/shared/src/platform-administration-audit.ts'],bundle:true,write:false,platform:'node',format:'esm'});
+  const {projectAdministrationAuditHistoryRow:projectRow,parseAdministrationAuditHistoryResponse:parseResponse}=await import('data:text/javascript;base64,'+Buffer.from(built.outputFiles[0].text).toString('base64'));
+  const normalized=responses.find(({name})=>name==='legacy_null').body.events[0];
+  const original=responses.find(({name})=>name==='valid').body.events[0];
+  assert.deepEqual(projectRow(original),original);
+  assert.deepEqual(parseResponse(normalized),normalized);
+  assert.throws(()=>projectRow(normalized),/^Error: Invalid administration audit projection$/);
+  summary.knownNormalizedResponseAccepted=true;
+  summary.rawDatabaseAndNormalizedResponseTrustBoundarySeparated=true;
  }
  await mkdir(dir,{recursive:true});await writeFile(join(dir,version+'-responses.json'),JSON.stringify(responses),{mode:0o600});
 }finally{

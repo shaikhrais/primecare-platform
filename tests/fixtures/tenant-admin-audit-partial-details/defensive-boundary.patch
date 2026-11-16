@@ -1,0 +1,59 @@
+--- a/packages/shared/src/platform-administration-audit.ts
++++ b/packages/shared/src/platform-administration-audit.ts
+@@ -35,10 +35,21 @@
+  * projector remains unchanged for all other historical fields and consumers. */
+ export type AdministrationAuditHistoryEvent=AdministrationAuditEvent&{unavailable_details?:['previous_state.status']};
+-export function projectAdministrationAuditHistory(raw:unknown):AdministrationAuditHistoryEvent{
++/** Database rows may contain raw legacy history, never response metadata. */
++export function projectAdministrationAuditHistoryRow(raw:unknown):AdministrationAuditHistoryEvent{
+  const row=object(raw);
+- if(Object.hasOwn(row,'unavailable_details')){
+-  if(row.action!=='account_updated'||!Array.isArray(row.unavailable_details)||row.unavailable_details.length!==1||row.unavailable_details[0]!=='previous_state.status'||Object.hasOwn(object(row.previous_state),'status'))return invalid();
+-  return {...projectAdministrationAudit(row),unavailable_details:['previous_state.status']};
+- }
++ if(Object.hasOwn(row,'unavailable_details'))return invalid();
++ return projectLegacyAuditHistory(row);
++}
++
++/** Validate the new response and tolerate the older response during a rollout. */
++export function parseAdministrationAuditHistoryResponse(raw:unknown):AdministrationAuditHistoryEvent{
++ const row=object(raw);
++ if(!Object.hasOwn(row,'unavailable_details'))return projectLegacyAuditHistory(row);
++ const details=row.unavailable_details;
++ if(row.action!=='account_updated'||!Array.isArray(details)||details.length!==1||details[0]!=='previous_state.status'||Object.hasOwn(object(row.previous_state),'status'))return invalid();
++ return {...projectAdministrationAudit(row),unavailable_details:['previous_state.status']};
++}
++
++function projectLegacyAuditHistory(row:Record<string,unknown>):AdministrationAuditHistoryEvent{
+  if(row.action!=='account_updated')return projectAdministrationAudit(row);
+  const previous=object(row.previous_state);
+--- a/cloudflare/workers/src/platform-administration.ts
++++ b/cloudflare/workers/src/platform-administration.ts
+@@ -13,5 +13,5 @@
+ import {privilegedActor,mutatedAccount} from './auth-projection';
+ import {accountUser} from './account-read-projection';
+-import {projectAdministrationAuditHistory} from '../../../packages/shared/src/platform-administration-audit';
++import {projectAdministrationAuditHistoryRow} from '../../../packages/shared/src/platform-administration-audit';
+ import {optionalRow,requiredRow} from './database-results';
+ import policy from './account-policy.json';
+@@ -83,5 +83,5 @@
+      if(!optionalRow((await db.query('SELECT id FROM tenants WHERE id::text=$1'+(mutation?' FOR SHARE':''),[tenantId])).rows))fail(404,'Tenant not found');
+      if(!entity)result={tenant:requiredRow((await db.query('SELECT id,slug,name,created_at FROM tenants WHERE id::text=$1',[tenantId])).rows)};
+-     else if(!mutation){if(entity==='accounts')result={users:(await db.query("SELECT id,email,roles,status,updated_at FROM users WHERE tenant_id::text=$1 AND roles NOT IN ('central_admin','code_admin') AND (roles <> 'platform_admin' OR $2 IN ('central_admin','code_admin')) ORDER BY LOWER(email),id LIMIT 100",[tenantId,actor.roles])).rows.map(row=>({...accountUser(row,actor.id),canModify:String(row.id).toLowerCase()!==actor.id.toLowerCase()&&(['central_admin','code_admin'].includes(actor.roles)||!hierarchy.protected.includes(String(row.roles)))&&(scopes[actor.roles].scope!=='tenant'||!hierarchy.localProtected.includes(String(row.roles)))})),assignableRoles:scopes[actor.roles].assignable};else if(entity==='masters')result={records:(await db.query('SELECT id,type,code,label,status,version FROM platform_master_records WHERE tenant_id::text=$1 ORDER BY type,code LIMIT 100',[tenantId])).rows,types};else{const rows=(await db.query('SELECT id,action,target_id,previous_state,current_state,created_at FROM platform_administration_audit WHERE tenant_id::text=$1 ORDER BY created_at DESC,id DESC LIMIT 100',[tenantId])).rows;/* Narrow this tenant-admin read only. Existing code-admin demo bootstrap consumes the legacy state. */result={events:actor.roles==='tenant_admin'?rows.map(projectAdministrationAuditHistory):rows};}}
++     else if(!mutation){if(entity==='accounts')result={users:(await db.query("SELECT id,email,roles,status,updated_at FROM users WHERE tenant_id::text=$1 AND roles NOT IN ('central_admin','code_admin') AND (roles <> 'platform_admin' OR $2 IN ('central_admin','code_admin')) ORDER BY LOWER(email),id LIMIT 100",[tenantId,actor.roles])).rows.map(row=>({...accountUser(row,actor.id),canModify:String(row.id).toLowerCase()!==actor.id.toLowerCase()&&(['central_admin','code_admin'].includes(actor.roles)||!hierarchy.protected.includes(String(row.roles)))&&(scopes[actor.roles].scope!=='tenant'||!hierarchy.localProtected.includes(String(row.roles)))})),assignableRoles:scopes[actor.roles].assignable};else if(entity==='masters')result={records:(await db.query('SELECT id,type,code,label,status,version FROM platform_master_records WHERE tenant_id::text=$1 ORDER BY type,code LIMIT 100',[tenantId])).rows,types};else{const rows=(await db.query('SELECT id,action,target_id,previous_state,current_state,created_at FROM platform_administration_audit WHERE tenant_id::text=$1 ORDER BY created_at DESC,id DESC LIMIT 100',[tenantId])).rows;/* Narrow this tenant-admin read only. Existing code-admin demo bootstrap consumes the legacy state. */result={events:actor.roles==='tenant_admin'?rows.map(projectAdministrationAuditHistoryRow):rows};}}
+      else if(entity==='accounts'){
+       if(!id){const email=(body.email as string).trim().toLowerCase();await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);if(optionalRow((await db.query('SELECT id FROM users WHERE LOWER(email)=$1',[email])).rows))fail(409,'Account already exists');const createdId=crypto.randomUUID();const user=requiredRow((await db.query("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES($1,$2,$3,$4,$5,'active',NOW()) RETURNING id,email,roles,status,tenant_id,updated_at",[createdId,email,tenantId,body.role,await bcrypt.hash(body.password as string,12)])).rows);mutatedAccount(user,{id:createdId,email,tenantId,role:body.role as string,status:'active'});result={user:accountUser(user,actor.id)};status=201;await audit('account_created',tenantId,String(user.id),{},{role:user.roles,status:user.status});}
+--- a/websites/typescript/src/platform-audit-view.ts
++++ b/websites/typescript/src/platform-audit-view.ts
+@@ -1,3 +1,3 @@
+-import {projectAdministrationAudit,projectAdministrationAuditHistory,type AdministrationAuditHistoryEvent} from '../../../packages/shared/src/platform-administration-audit';
++import {projectAdministrationAudit,parseAdministrationAuditHistoryResponse,type AdministrationAuditHistoryEvent} from '../../../packages/shared/src/platform-administration-audit';
+ import {escapeHtml} from './workspace';
+ // Existing field labels stay governed; optional legacy warning copy is an isolated prototype.
+@@ -5,5 +5,5 @@
+ export function platformAuditItems(events:unknown[],text:(key:string)=>string,legacyText?:{detail:string;notice:string}):string{
+  return events.map(raw=>{
+-  const event:AdministrationAuditHistoryEvent=legacyText?projectAdministrationAuditHistory(raw):projectAdministrationAudit(raw),target=event.action.startsWith('account_')?'account':event.action.startsWith('master_')?'masters':'tenant';
++  const event:AdministrationAuditHistoryEvent=legacyText?parseAdministrationAuditHistoryResponse(raw):projectAdministrationAudit(raw),target=event.action.startsWith('account_')?'account':event.action.startsWith('master_')?'masters':'tenant';
+   const changes=Object.entries(labels).filter(([key])=>Object.hasOwn(event.previous_state,key)||Object.hasOwn(event.current_state,key)).map(([key,label])=>{
+    const value=(state:Record<string,unknown>)=>{if(key==='status'&&state===event.previous_state&&event.unavailable_details)return legacyText!.detail;const v=state[key];return v===undefined?'':key==='status'?text(String(v)):String(v);};

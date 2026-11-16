@@ -1,0 +1,40 @@
+name: Preflight separate Tenant Admin training progress (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-training-progress-preflight.yml
+      - tests/fixtures/tenant-admin-training/course-progress-scope.patch
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  device-progress:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply the reviewed test-only patch in the disposable checkout
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/tenant-admin-training/course-progress-scope.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+          expected=$(printf '%s\n' scripts/test-admin-training.mjs websites/typescript/src/training/progress.ts)
+          test "$(git diff --name-only)" = "$expected"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install only the pinned training test dependency
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/training-progress-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/training-progress-tools/node_modules" node_modules
+      - name: Test shared compatibility and synthetic separate-course isolation
+        run: env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-admin-training.mjs

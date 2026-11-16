@@ -1,0 +1,64 @@
+diff --git a/scripts/test-admin-training.mjs b/scripts/test-admin-training.mjs
+index 51614c8..40d99bd 100644
+--- a/scripts/test-admin-training.mjs
++++ b/scripts/test-admin-training.mjs
+@@ -11,3 +11,20 @@ test('invalid input and storage failure cannot create a passed record',()=>{
+ test('corrupt, oversized and unknown results are rejected; reset removes only current account',()=>{
+  const p=new TrainingProgress('https://one','a',storage);const key=[...values.keys()][0];values.set(key,'x'.repeat(32769));assert.deepEqual(p.results(),[]);values.set(key,JSON.stringify(Array(9).fill({lesson:'authority',passedAt:'2026-10-13'})));assert.deepEqual(p.results(),[]);values.set(key,'{invalid');assert.deepEqual(p.results(),[]);values.set(key,JSON.stringify([{lesson:'unknown',passedAt:'2026-10-13'}, {lesson:'authority',passedAt:'invalid'}]));assert.deepEqual(p.results(),[]);p.answer('authority',1);const other=new TrainingProgress('https://one','b',storage);other.answer('authority',1);p.reset();assert.equal(p.results().length,0);assert.equal(other.results().length,1);
+ });
++test('a separate course never reads or resets the shared course, even with identical lesson IDs and versions',()=>{
++ const entries=new Map();const isolatedStorage={getItem:key=>entries.get(key)??null,setItem:(key,value)=>entries.set(key,value),removeItem:key=>entries.delete(key)};
++ const gateway='https://course.example';const actor='test-account';
++ const shared=new TrainingProgress(gateway,actor,isolatedStorage);const version=shared.summary().version;
++ // Pre-existing installations used this exact key for the shared course.
++ const oldKey='primecare.training.v1.'+encodeURIComponent(gateway)+'.'+encodeURIComponent(actor)+'.'+version;
++ entries.set(oldKey,JSON.stringify([{lesson:'authority',passedAt:'2026-10-13T00:00:00Z'}]));
++ assert.equal(shared.results().length,1);
++ const fixture={course:'fixture-other-course',version,modules:[{id:'authority',correct:0}]};
++ const separate=new TrainingProgress(gateway+'/',actor,isolatedStorage,fixture);
++ assert.deepEqual(separate.results(),[]);assert.equal(separate.answer('authority',1),false);assert.equal(separate.answer('authority',0),true);
++ const readback=new TrainingProgress(gateway,actor,isolatedStorage,fixture);
++ assert.equal(readback.results().length,1);assert.equal(readback.summary().course,fixture.course);assert.equal(readback.summary().total,1);
++ assert.deepEqual(new TrainingProgress(gateway,actor,isolatedStorage,{...fixture,version:version+'.next'}).results(),[]);
++ assert.deepEqual(new TrainingProgress(gateway,'another-account',isolatedStorage,fixture).results(),[]);
++ readback.reset();assert.deepEqual(readback.results(),[]);assert.equal(shared.results().length,1);
++});
+diff --git a/websites/typescript/src/training/progress.ts b/websites/typescript/src/training/progress.ts
+index b483c91..7ffaaa8 100644
+--- a/websites/typescript/src/training/progress.ts
++++ b/websites/typescript/src/training/progress.ts
+@@ -1,22 +1,28 @@
+-import course from './admin-course.json';
++import sharedCourse from './admin-course.json';
+ export type TrainingResult={lesson:string;passedAt:string};
+ export type TrainingSummary={course:string;version:string;recordType:'device-self-assessment';generatedAt:string;passed:TrainingResult[];total:number;supervisorVerified:false};
+-/** Device progress is scoped to gateway, account and immutable course version. */
++type TrainingCourse={readonly course:string;readonly version:string;readonly modules:readonly {readonly id:string;readonly correct:number}[]};
++/** Device progress is scoped to gateway, account and immutable course identity. */
+ export class TrainingProgress {
+  private key:string;
+- constructor(gateway:string,actor:string,private storage:Pick<Storage,'getItem'|'setItem'|'removeItem'>=localStorage){
++ constructor(gateway:string,actor:string,private storage:Pick<Storage,'getItem'|'setItem'|'removeItem'>=localStorage,private readonly course:TrainingCourse=sharedCourse){
+   if(!actor)throw Error('Training account scope required');
+-  this.key='primecare.training.v1.'+encodeURIComponent(gateway.replace(/\/+$/,''))+'.'+encodeURIComponent(actor)+'.'+course.version;
++  const normalizedGateway=gateway.replace(/\/+$/,'');
++  // Existing shared-course device progress stays readable under its original key.
++  this.key=course.course===sharedCourse.course&&course.version===sharedCourse.version
++   ?'primecare.training.v1.'+encodeURIComponent(normalizedGateway)+'.'+encodeURIComponent(actor)+'.'+course.version
++   :'primecare.training.v2.'+encodeURIComponent(JSON.stringify([normalizedGateway,actor,course.course,course.version]));
+  }
+  results():TrainingResult[]{
++  const course=this.course;
+   try{const raw=this.storage.getItem(this.key)??'[]';if(raw.length>32768)return [];const value=JSON.parse(raw);if(!Array.isArray(value)||value.length>course.modules.length)return [];const seen=new Set<string>();return value.filter(r=>r&&typeof r.lesson==='string'&&course.modules.some(m=>m.id===r.lesson)&&typeof r.passedAt==='string'&&Number.isFinite(Date.parse(r.passedAt))&&!seen.has(r.lesson)&&!!seen.add(r.lesson)).map(({lesson,passedAt})=>({lesson,passedAt}));}catch{return [];}
+  }
+  answer(lesson:string,answer:number):boolean{
+-  const module=course.modules.find(m=>m.id===lesson);if(!module||!Number.isInteger(answer)||answer<0||answer>2)throw Error('Invalid training answer');
++  const module=this.course.modules.find(m=>m.id===lesson);if(!module||!Number.isInteger(answer)||answer<0||answer>2)throw Error('Invalid training answer');
+   if(module.correct!==answer)return false;
+   const results=this.results();if(!results.some(r=>r.lesson===lesson))results.push({lesson,passedAt:new Date().toISOString()});
+   this.storage.setItem(this.key,JSON.stringify(results));return true;
+  }
+  reset(){this.storage.removeItem(this.key);}
+- summary():TrainingSummary{return {course:course.course,version:course.version,recordType:'device-self-assessment',generatedAt:new Date().toISOString(),passed:this.results(),total:course.modules.length,supervisorVerified:false};}
++ summary():TrainingSummary{return {course:this.course.course,version:this.course.version,recordType:'device-self-assessment',generatedAt:new Date().toISOString(),passed:this.results(),total:this.course.modules.length,supervisorVerified:false};}
+ }

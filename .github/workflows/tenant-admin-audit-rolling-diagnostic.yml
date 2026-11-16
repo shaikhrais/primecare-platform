@@ -7,6 +7,7 @@ on:
       - .github/workflows/tenant-admin-audit-rolling-diagnostic.yml
       - scripts/test-tenant-audit-rolling-api-diagnostic.mjs
       - scripts/test-tenant-audit-rolling-web-diagnostic.mjs
+      - tests/fixtures/tenant-admin-audit-partial-details/defensive-boundary.patch
 permissions: {contents: read}
 concurrency:
   group: tenant-audit-rolling-${{ github.ref }}-${{ github.sha }}
@@ -46,6 +47,13 @@ jobs:
           git apply --check --whitespace=error-all tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
           git apply --whitespace=error-all tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
           capture_api partial
+          boundary=tests/fixtures/tenant-admin-audit-partial-details/defensive-boundary.patch
+          git apply --check --whitespace=error-all "$boundary"
+          git apply --whitespace=error-all "$boundary"
+          capture_api boundary
+          inspect_web boundary
+          git apply -R --check "$boundary"
+          git apply -R "$boundary"
           inspect_web partial
           git apply -R --check tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
           git apply -R tests/fixtures/tenant-admin-audit-partial-details/partial-details.patch
