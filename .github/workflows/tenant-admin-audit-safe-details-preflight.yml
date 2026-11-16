@@ -1,0 +1,78 @@
+name: Tenant administration audit safe-details preflight
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/tenant-admin-audit-safe-details-preflight.yml
+      - tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+      - scripts/test-tenant-administration-audit-safe-projection-postgres.mjs
+      - scripts/test-tenant-administration-audit-safe-details.mjs
+permissions: {contents: read}
+concurrency:
+  group: tenant-admin-audit-safe-details-${{ github.ref }}-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  native-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_DB: platform_audit_test, POSTGRES_USER: fixture, POSTGRES_PASSWORD: fixture-only}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U fixture" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - name: Apply held candidate only in disposable checkout
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git apply --check --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git apply --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git diff --check
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/audit-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 bcryptjs@3.0.2
+          ln -s "$RUNNER_TEMP/audit-tools/node_modules" node_modules
+      - name: Verify narrow projection and preserve existing consumer
+        env:
+          PLATFORM_TEST_DATABASE_URL: postgresql://fixture:fixture-only@127.0.0.1:5432/platform_audit_test
+        run: node --test scripts/test-tenant-administration-audit-safe-projection-postgres.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-administration-audit-safe-api-summary
+          path: test-results/tenant-administration-audit/safe-api-summary.json
+          if-no-files-found: error
+          retention-days: 7
+  renderer-and-projection:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - name: Apply held candidate only in disposable checkout
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git apply --check --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git apply --whitespace=error-all tests/fixtures/tenant-admin-audit-safe-details/projection-and-view.patch
+          git diff --check
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/audit-ui-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+          ln -s "$RUNNER_TEMP/audit-ui-tools/node_modules" node_modules
+      - name: Verify existing renderer and safe details in every existing locale
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" GITHUB_ACTIONS=true GITHUB_SHA="$GITHUB_SHA" node --test scripts/test-tenant-administration-audit-presentation-diagnostic.mjs scripts/test-tenant-administration-audit-safe-details.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: tenant-administration-audit-safe-presentation-summary
+          path: |
+            test-results/tenant-administration-audit/safe-presentation-summary.json
+            test-results/tenant-administration-audit/presentation-summary.json
+          if-no-files-found: error
+          retention-days: 7

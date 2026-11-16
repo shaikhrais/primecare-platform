@@ -1,0 +1,104 @@
+diff --git a/packages/shared/src/platform-administration-audit.ts b/packages/shared/src/platform-administration-audit.ts
+new file mode 100644
+--- /dev/null
++++ b/packages/shared/src/platform-administration-audit.ts
+@@ -0,0 +1,31 @@
++/** Read-only projection of fields already written by platform administration.
++ * No actor disclosure, role grant, mutation, route or new response property. */
++export type AdministrationAuditState=Partial<Record<'slug'|'name'|'role'|'status'|'type'|'code'|'label',string>>&{version?:number};
++export type AdministrationAuditEvent={id:string;action:string;target_id:string;previous_state:AdministrationAuditState;current_state:AdministrationAuditState;created_at:string};
++const fields:Record<string,{previous:readonly string[];current:readonly string[]}>=Object.freeze({
++ tenant_created:{previous:[],current:['slug','name']},
++ account_created:{previous:[],current:['role','status']},
++ account_updated:{previous:['role','status'],current:['role','status']},
++ master_created:{previous:[],current:['type','code','label','status','version']},
++ master_updated:{previous:['label','status','version'],current:['label','status','version']},
++});
++const invalid=():never=>{throw Error('Invalid administration audit projection');};
++function object(value:unknown):Record<string,unknown>{if(!value||typeof value!=='object'||Array.isArray(value))return invalid();return value as Record<string,unknown>;}
++function identifier(value:unknown){if(typeof value!=='string'||!/^[A-Za-z0-9][A-Za-z0-9_-]{0,199}$/.test(value))return invalid();return value;}
++function state(raw:unknown,allowed:readonly string[]):AdministrationAuditState{
++ const source=object(raw),result:Record<string,string|number>={};
++ for(const key of allowed){if(!Object.hasOwn(source,key))continue;const value=source[key];
++  if(key==='version'){if(!Number.isSafeInteger(value)||Number(value)<1)return invalid();result[key]=Number(value);continue;}
++  const max=key==='slug'?63:key==='code'?64:key==='role'?200:150;
++  if(typeof value!=='string'||!value.trim()||value.length>max||/[\u0000-\u001f\u007f]/.test(value))return invalid();
++  if(key==='status'&&!['active','inactive'].includes(value)||key==='type'&&!['location','department','service_category'].includes(value)||key==='slug'&&!/^[a-z][a-z0-9-]{2,62}$/.test(value)||key==='code'&&!/^[a-z][a-z0-9_-]{1,63}$/.test(value))return invalid();
++  result[key]=value;
++ }
++ return result as AdministrationAuditState;
++}
++export function projectAdministrationAudit(raw:unknown):AdministrationAuditEvent{
++ const row=object(raw);if(['id','action','target_id','previous_state','current_state','created_at'].some(key=>!Object.hasOwn(row,key)))return invalid();if(typeof row.action!=='string'||!Object.hasOwn(fields,row.action))return invalid();
++ const value=row.created_at instanceof Date?row.created_at.toISOString():row.created_at;
++ if(typeof value!=='string'||!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/.test(value)||!Number.isFinite(Date.parse(value))||new Date(value).toISOString()!==value)return invalid();
++ const shape=fields[row.action];return{id:identifier(row.id),action:row.action,target_id:identifier(row.target_id),previous_state:state(row.previous_state,shape.previous),current_state:state(row.current_state,shape.current),created_at:value};
++}
+diff --git a/websites/typescript/src/platform-audit-view.ts b/websites/typescript/src/platform-audit-view.ts
+new file mode 100644
+--- /dev/null
++++ b/websites/typescript/src/platform-audit-view.ts
+@@ -0,0 +1,14 @@
++import {projectAdministrationAudit} from '../../../packages/shared/src/platform-administration-audit';
++import {escapeHtml} from './workspace';
++// Reuse existing registered platform-administration labels, not new audit fields/labels.
++const labels={slug:'slug',name:'name',role:'assigned_role',status:'status',type:'type',code:'code',label:'label'} as const;
++export function platformAuditItems(events:unknown[],text:(key:string)=>string):string{
++ return events.map(raw=>{
++  const event=projectAdministrationAudit(raw),target=event.action.startsWith('account_')?'account':event.action.startsWith('master_')?'masters':'tenant';
++  const changes=Object.entries(labels).filter(([key])=>Object.hasOwn(event.previous_state,key)||Object.hasOwn(event.current_state,key)).map(([key,label])=>{
++   const value=(state:Record<string,unknown>)=>{const v=state[key];return v===undefined?'':key==='status'?text(String(v)):String(v);};
++   return `<dt>${escapeHtml(text(label))}</dt><dd>${escapeHtml(value(event.previous_state))} → ${escapeHtml(value(event.current_state))}</dd>`;
++  }).join('');
++  return `<li><p>${escapeHtml(event.action)} · ${escapeHtml(event.created_at)}</p><p>${escapeHtml(text(target))}: <code>${escapeHtml(event.target_id)}</code></p>${changes?`<dl>${changes}</dl>`:''}</li>`;
++ }).join('');
++}
+diff --git a/cloudflare/workers/src/platform-administration.ts b/cloudflare/workers/src/platform-administration.ts
+--- a/cloudflare/workers/src/platform-administration.ts
++++ b/cloudflare/workers/src/platform-administration.ts
+@@ -12,6 +12,7 @@
+ import {json,withDb,tokenFrom,sha256,parseBody,bodyFailure,type Env} from './auth';
+ import {privilegedActor,mutatedAccount} from './auth-projection';
+ import {accountUser} from './account-read-projection';
++import {projectAdministrationAudit} from '../../../packages/shared/src/platform-administration-audit';
+ import {optionalRow,requiredRow} from './database-results';
+ import policy from './account-policy.json';
+ import hierarchy from './admin-hierarchy.json';
+@@ -81,7 +82,7 @@
+     else{
+      if(!optionalRow((await db.query('SELECT id FROM tenants WHERE id::text=$1'+(mutation?' FOR SHARE':''),[tenantId])).rows))fail(404,'Tenant not found');
+      if(!entity)result={tenant:requiredRow((await db.query('SELECT id,slug,name,created_at FROM tenants WHERE id::text=$1',[tenantId])).rows)};
+-     else if(!mutation){if(entity==='accounts')result={users:(await db.query("SELECT id,email,roles,status,updated_at FROM users WHERE tenant_id::text=$1 AND roles NOT IN ('central_admin','code_admin') AND (roles <> 'platform_admin' OR $2 IN ('central_admin','code_admin')) ORDER BY LOWER(email),id LIMIT 100",[tenantId,actor.roles])).rows.map(row=>({...accountUser(row,actor.id),canModify:String(row.id).toLowerCase()!==actor.id.toLowerCase()&&(['central_admin','code_admin'].includes(actor.roles)||!hierarchy.protected.includes(String(row.roles)))&&(scopes[actor.roles].scope!=='tenant'||!hierarchy.localProtected.includes(String(row.roles)))})),assignableRoles:scopes[actor.roles].assignable};else if(entity==='masters')result={records:(await db.query('SELECT id,type,code,label,status,version FROM platform_master_records WHERE tenant_id::text=$1 ORDER BY type,code LIMIT 100',[tenantId])).rows,types};else result={events:(await db.query('SELECT id,action,target_id,previous_state,current_state,created_at FROM platform_administration_audit WHERE tenant_id::text=$1 ORDER BY created_at DESC,id DESC LIMIT 100',[tenantId])).rows};}
++     else if(!mutation){if(entity==='accounts')result={users:(await db.query("SELECT id,email,roles,status,updated_at FROM users WHERE tenant_id::text=$1 AND roles NOT IN ('central_admin','code_admin') AND (roles <> 'platform_admin' OR $2 IN ('central_admin','code_admin')) ORDER BY LOWER(email),id LIMIT 100",[tenantId,actor.roles])).rows.map(row=>({...accountUser(row,actor.id),canModify:String(row.id).toLowerCase()!==actor.id.toLowerCase()&&(['central_admin','code_admin'].includes(actor.roles)||!hierarchy.protected.includes(String(row.roles)))&&(scopes[actor.roles].scope!=='tenant'||!hierarchy.localProtected.includes(String(row.roles)))})),assignableRoles:scopes[actor.roles].assignable};else if(entity==='masters')result={records:(await db.query('SELECT id,type,code,label,status,version FROM platform_master_records WHERE tenant_id::text=$1 ORDER BY type,code LIMIT 100',[tenantId])).rows,types};else{const rows=(await db.query('SELECT id,action,target_id,previous_state,current_state,created_at FROM platform_administration_audit WHERE tenant_id::text=$1 ORDER BY created_at DESC,id DESC LIMIT 100',[tenantId])).rows;/* Narrow this tenant-admin read only. Existing code-admin demo bootstrap consumes the legacy state. */result={events:actor.roles==='tenant_admin'?rows.map(projectAdministrationAudit):rows};}}
+      else if(entity==='accounts'){
+       if(!id){const email=(body.email as string).trim().toLowerCase();await db.query('SELECT pg_advisory_xact_lock(hashtext($1))',[email]);if(optionalRow((await db.query('SELECT id FROM users WHERE LOWER(email)=$1',[email])).rows))fail(409,'Account already exists');const createdId=crypto.randomUUID();const user=requiredRow((await db.query("INSERT INTO users(id,email,tenant_id,roles,password_hash,status,updated_at) VALUES($1,$2,$3,$4,$5,'active',NOW()) RETURNING id,email,roles,status,tenant_id,updated_at",[createdId,email,tenantId,body.role,await bcrypt.hash(body.password as string,12)])).rows);mutatedAccount(user,{id:createdId,email,tenantId,role:body.role as string,status:'active'});result={user:accountUser(user,actor.id)};status=201;await audit('account_created',tenantId,String(user.id),{},{role:user.roles,status:user.status});}
+       else{if(id.toLowerCase()===actor.id.toLowerCase())fail(403,'Cannot modify your own account');const user=optionalRow((await db.query('SELECT id,roles,status FROM users WHERE id::text=$1 AND tenant_id::text=$2 FOR UPDATE',[id,tenantId])).rows);if(!user)fail(404,'Account not found');if(['central_admin','code_admin'].includes(String(user.roles))||hierarchy.protected.includes(String(user.roles))&&!['central_admin','code_admin'].includes(actor.roles)||scopes[actor.roles].scope==='tenant'&&[...hierarchy.protected,...hierarchy.localProtected].includes(String(user.roles)))fail(403,'Protected administrator account');const updated=requiredRow((await db.query('UPDATE users SET roles=$1,status=$2,updated_at=NOW() WHERE id::text=$3 AND tenant_id::text=$4 RETURNING id,email,roles,status,tenant_id,updated_at',[body.role,body.status,id,tenantId])).rows);mutatedAccount(updated,{id,tenantId,role:body.role as string,status:body.status as string});await db.query('DELETE FROM auth_sessions WHERE user_id::text=$1',[id]);await audit('account_updated',tenantId,id,{role:user.roles,status:user.status},{role:updated.roles,status:updated.status});result={user:accountUser(updated,actor.id)};}
+diff --git a/websites/typescript/src/platform-admin.ts b/websites/typescript/src/platform-admin.ts
+--- a/websites/typescript/src/platform-admin.ts
++++ b/websites/typescript/src/platform-admin.ts
+@@ -29,6 +29,7 @@
+ import {accountMarkup,bindAccount} from './account';
+ import {renderShell,bindShell} from './shell';
+ import {reportPanel} from './reports';
++import {platformAuditItems} from './platform-audit-view';
+ import hierarchy from '../../../cloudflare/workers/src/admin-hierarchy.json';
+ import adminEntryRoutes from '../../../packages/shared/src/admin-entry-routes.json';
+ import bundledText from '../../../cloudflare/workers/src/screen-text-defaults.json';
+@@ -48,7 +49,7 @@
+  const savedRows=new Set<string>();let discardRows=false;let renderedDraftScope='';let partners:any[]=[];let reports:HTMLElement|null=null;let reportsLocale='';let view='tenants',initialNavigation=true;let dirtyForm=false;const live=liveScreenText(gateway);
+  let adminRole='',scope='',canCreateTenant=true,extended=true,canViewTraining=false,growthDashboard=false,canViewReports=false,canViewTerritories=false,canViewOperations=false,canViewBundle=false;let bundle:BundleController|null=null;let operations:OperationsController|null=null;let territories:TerritoryController|null=null;
+  let locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';const text=(key:string)=>((hierarchy.locales[locale] as Record<string,string>)[key==='role'||key==='title'?adminRole:key==='scope'?scope+'_scope':key]??live.text('platform_administration',locale,key,(resources[locale] as Record<string,string>)[key]??key));const label=(key:string)=>escapeHtml(text(key));
+- const base=gateway.replace(/\/+$/,'')+'/v1/governance/platform';let tenants:Tenant[]=[],roles:string[]=[],types:string[]=[],users:User[]=[],records:Master[]=[],events:{action:string;created_at:string}[]=[],selected='',actor='',busy=false,denied=false,notice='';
++ const base=gateway.replace(/\/+$/,'')+'/v1/governance/platform';let tenants:Tenant[]=[],roles:string[]=[],types:string[]=[],users:User[]=[],records:Master[]=[],events:unknown[]=[],selected='',actor='',busy=false,denied=false,notice='';
+  let disposed=false,stopLive=()=>{},pendingHistory=false,historyTimer:ReturnType<typeof setTimeout>|undefined;
+  const dispose=()=>{if(disposed)return;disposed=true;stopLive();operations?.dispose();territories?.dispose();window.removeEventListener('hashchange',onHistory);window.removeEventListener('popstate',onHistory);window.removeEventListener('pagehide',onPageHide);window.removeEventListener('pageshow',onPageShow);root.removeEventListener('input',onInput);if(historyTimer!==undefined)clearTimeout(historyTimer);if(adminOwners.get(root)===dispose)adminOwners.delete(root);};
+  adminOwners.set(root,dispose);
+@@ -170,7 +171,7 @@
+ ${view==='masters'&&selected?`<section id="masters" class="section"><h2 tabindex="-1">${label('masters')}</h2><p>${label('master_scope')}</p><form data-cy="platform-master-form"><label>${label('type')}<select name="type" data-cy="platform-master-create-type">${types.map(t=>`<option>${escapeHtml(t)}</option>`).join('')}</select></label><label>${label('code')}<input data-cy="platform-master-create-code" name="code" required pattern="[a-z][a-z0-9_-]{1,63}" maxlength="64"></label><label>${label('label')}<input data-cy="platform-master-create-label" name="label" required maxlength="150"></label><button data-cy="platform-master-create-submit">${label('create_master')}</button></form><div class="table-scroll" tabindex="0" role="region" aria-label="${label('masters')}"><table data-cy="platform-masters"><thead><tr><th>${label('type')} / ${label('code')}</th><th>${label('label')}</th><th>${label('status')}</th><th>${label('action')}</th></tr></thead><tbody>${records.map(r=>`<tr data-master="${escapeHtml(r.id)}" data-row-draft="master-${escapeHtml(r.id)}" data-cy="platform-master-${escapeHtml(r.id)}" data-draft-baseline="${escapeHtml(JSON.stringify([r.version,r.label,r.status]))}"><td>${escapeHtml(r.type)} / ${escapeHtml(r.code)}</td><td><input data-label data-cy="platform-master-label-${escapeHtml(r.id)}" aria-label="${label('label')} · ${escapeHtml(r.code)}" value="${escapeHtml(r.label)}" maxlength="150" required></td><td><select data-status data-cy="platform-master-status-${escapeHtml(r.id)}" aria-label="${label('status')} · ${escapeHtml(r.code)}">${statusOptions(r.status)}</select></td><td><button data-save-master data-cy="platform-master-save-${escapeHtml(r.id)}">${label('save')}</button></td></tr>`).join('')}</tbody></table></div></section>`:''}
+ ${view==='calls'?'<div data-cy=platform-demo-calls></div>'+(canCall?'<section data-cy=platform-native-calls><h2>Phone dialer</h2><p>Use the floating phone in the bottom corner. Minimize it to continue working while a call is connected.</p><button type="button" data-cy=platform-open-dialer>Open dialer</button></section>':''):''}
+ ${view==='account'?accountMarkup(label):''}
+-${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1">${label('audit')}</h2><ul data-cy="platform-audit">${events.map(e=>`<li>${escapeHtml(e.action)} · ${escapeHtml(e.created_at)}</li>`).join('')}</ul></section>`:''}
++${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1">${label('audit')}</h2><ul data-cy="platform-audit">${platformAuditItems(events,text)}</ul></section>`:''}
+ `})});
+  if(adminRole==='code_admin'&&demoDataset)root.querySelectorAll<HTMLElement>('#tenants,#tenant-selection').forEach(e=>e.hidden=true);
+  if(view==='organizations')root.querySelector('[data-cy=platform-nav-tenant-selection]')?.setAttribute('aria-current','page');
