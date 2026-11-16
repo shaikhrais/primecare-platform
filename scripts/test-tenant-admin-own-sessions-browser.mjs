@@ -131,7 +131,7 @@ try{
  assert.equal(await sessionCount(own),2);assert.equal(await sessionCount(other),1);
  if(passwordAndLogout){
   const staffToken=await extraLogin(staffEmail);
-  const unchanged=async()=>assert.deepEqual((await db.query('SELECT id,roles,password_hash FROM users WHERE id=ANY($1::uuid[]) ORDER BY id',[other,staff])).rows,
+  const unchanged=async()=>assert.deepEqual((await db.query('SELECT id,roles,password_hash FROM users WHERE id=ANY($1::uuid[]) ORDER BY id',[[other,staff]])).rows,
    [other,staff].sort().map(id=>({id,roles:id===other?'tenant_admin':'psw',password_hash:hash})));
   const ownPassword=async()=>(await db.query('SELECT password_hash FROM users WHERE id=$1',[own])).rows[0].password_hash;
   const passwordAudit=async()=>(await db.query('SELECT user_id,action FROM auth_password_audit ORDER BY created_at')).rows;
