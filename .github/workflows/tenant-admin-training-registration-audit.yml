@@ -5,6 +5,7 @@ on:
     paths:
       - .github/workflows/tenant-admin-training-registration-audit.yml
       - tools/governance-production/audit-tenant-admin-training.py
+      - tools/governance-production/audit-tenant-admin-workflow-catalog.py
   workflow_dispatch:
 permissions:
   contents: read
@@ -35,9 +36,12 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
           python tools/governance-production/audit-tenant-admin-training.py > "$RUNNER_TEMP/tenant-admin-training-registration.json"
+          python tools/governance-production/audit-tenant-admin-workflow-catalog.py > "$RUNNER_TEMP/tenant-admin-workflow-catalog.json"
       - uses: actions/upload-artifact@v4
         with:
           name: tenant-admin-training-registration
-          path: ${{ runner.temp }}/tenant-admin-training-registration.json
+          path: |
+            ${{ runner.temp }}/tenant-admin-training-registration.json
+            ${{ runner.temp }}/tenant-admin-workflow-catalog.json
           if-no-files-found: error
           retention-days: 7
