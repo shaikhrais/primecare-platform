@@ -67,6 +67,55 @@ async function verifyTenantAdminTrainingRoute(browser) {
  return {tenantTrainingDirectEntry:true,trainingLanguage:'fr',dashboardNavigation:true,unauthorizedRoleDenied:true,dashboardRenderVerified:false,scope:'Real auth and administration worker against isolated native PostgreSQL; Chromium; destination URL only'};
 }
 
+async function verifyTenantAdminOnboarding(browser) {
+ const tenant='tenant-onboarding-fixture',actorId=crypto.randomUUID();
+ const adminEmail='tenant-admin-onboarding@example.test',staffEmail='tenant-admin-psw@example.test';
+ const adminPassword='TestOnly-TenantAdmin-Onboarding-2026!',staffPassword='TestOnly-Staff-Onboarding-2026!';
+ await setup.query("INSERT INTO tenants(id,name,slug,status) VALUES($1,'Tenant Onboarding Fixture',$1,'active')",[tenant]);
+ await setup.query("INSERT INTO users(id,email,roles,tenant_id,password_hash,status) VALUES($1,$2,'tenant_admin',$3,$4,'active')",[actorId,adminEmail,tenant,await bcrypt.hash(adminPassword,12)]);
+ const context=await browser.newContext({viewport:{width:1440,height:1000}});
+ try {
+  const page=await context.newPage(),cy=id=>page.locator('[data-cy="'+id+'"]');
+  // Real login API plus direct console view. This does not cover dashboard shortcut wiring.
+  const login=await context.request.post(origin+'/test-api/v1/auth/login',{data:{email:adminEmail,password:adminPassword}});
+  assert.equal(login.status(),200);
+  const {token:session}=await login.json();
+  assert.ok(typeof session==='string'&&session.length>0,'Tenant Admin test session not issued');
+  await page.addInitScript(({origin,value})=>{
+   if(location.origin===origin&&location.pathname==='/platform/administration'&&!sessionStorage.getItem('primecare_session'))sessionStorage.setItem('primecare_session',value);
+  },{origin,value:session});
+  const landing=origin+'/platform/administration?enable-semantics=true';
+  await waitForFixtureStartup(page,()=>page.goto(landing),{selector:'[data-cy=admin-organizations]',timeoutMs:30000});
+  assert.equal(new URL(page.url()).hash,'');
+  assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);
+  assert.deepEqual(await cy('platform-topbar-tenant').locator('option').evaluateAll(options=>options.map(o=>o.value)),['',tenant]);
+  assert.equal(await cy('platform-tenant-form').count(),0);
+  if(!await cy('platform-nav-accounts').isVisible())await cy('sidebar-toggle').click();
+  await cy('platform-nav-accounts').click();
+  const account=cy('platform-account-form');await account.waitFor();
+  assert.equal(new URL(page.url()).hash,'#accounts');
+  const offered=await account.locator('[name=role] option').evaluateAll(options=>options.map(o=>o.value));
+  assert.ok(offered.includes('psw'));
+  assert.ok(['tenant_admin','platform_admin','code_admin'].every(role=>!offered.includes(role)));
+  await account.locator('[name=email]').fill(staffEmail);
+  await account.locator('[name=password]').fill(staffPassword);
+  await account.locator('[name=role]').selectOption('psw');
+  await account.locator('button').click();
+  const staffRow=cy('platform-users').getByText(staffEmail,{exact:true});await staffRow.waitFor();
+  const stored=(await setup.query("SELECT id,tenant_id,roles,status FROM users WHERE email=$1",[staffEmail])).rows;
+  assert.equal(stored.length,1);
+  assert.deepEqual({tenant:stored[0].tenant_id,role:stored[0].roles,status:stored[0].status},{tenant,role:'psw',status:'active'});
+  await waitForFixtureStartup(page,()=>page.reload(),{selector:'[data-cy=platform-account-form]',timeoutMs:30000});
+  await staffRow.waitFor();assert.equal(await cy('platform-topbar-tenant').inputValue(),tenant);
+  if(!await cy('platform-nav-audit').isVisible())await cy('sidebar-toggle').click();
+  await cy('platform-nav-audit').click();await cy('platform-audit').getByText(/account_created/).waitFor();
+  const audit=(await setup.query("SELECT actor_id,tenant_id,target_id,current_state FROM platform_administration_audit WHERE action='account_created' AND target_id=$1",[stored[0].id])).rows;
+  assert.deepEqual(audit,[{actor_id:actorId,tenant_id:tenant,target_id:stored[0].id,current_state:{role:'psw',status:'active'}}]);
+  const foreign=await context.request.get(origin+'/test-api/v1/governance/platform/tenants/platform-root/accounts',{headers:{authorization:'Bearer '+session}});
+  assert.equal(foreign.status(),403);
+  return {existingTenantAutoSelected:true,staffAccount:true,accountReload:true,audit:true,foreignReadDenied:true,scope:'Direct Tenant Admin console with real auth/API and isolated PostgreSQL; dashboard shortcut not exercised'};
+ }finally{await context.close();}
+}
 const trainingDevices=[['desktop',1440,900],['tablet',820,900],['mobile',390,844]];
 async function recordTrainingLesson(browser,session,device,width,height) {
  assert.ok(typeof session==='string'&&session.length>0,'Synthetic browser session required for media');
@@ -107,7 +156,7 @@ async function recordTrainingLesson(browser,session,device,width,height) {
  }finally{await context.close();}
 }
 const server=createServer(async(req,res)=>{try{const path=new URL(req.url,origin).pathname;if(path.startsWith('/test-api/')){let body='';for await(const chunk of req)body+=chunk;const url=origin+req.url.replace('/test-api','');requests.push({method:req.method,path:new URL(url).pathname});const r=new Request(url,{method:req.method,headers:req.headers,...(body?{body}:{})});const route=new URL(url).pathname.replace(/^\/v1\/(governance|auth)/,'').replace(/^\/v1\/user\/change-password$/,'/change-password');const response=(path.includes('/v1/auth/')||path.includes('/v1/user/'))?await auth(r,{...env,SERVICE_NAME:'auth'},route,{}):route.startsWith('/platform')?await platformAdministration(r,env,route,{}):route==='/workspace'?await workspace(r,env,route,{}):await reporting(r,env,route,{});if(!response){res.writeHead(404);res.end();return;}res.writeHead(response.status,Object.fromEntries(response.headers));res.end(Buffer.from(await response.arrayBuffer()));return;}const file=path==='/portal.json'?'portal.json':path.startsWith('/assets/')?path.slice(1):'index.html';res.setHeader('content-type',file.endsWith('.js')?'text/javascript':file.endsWith('.css')?'text/css':file.endsWith('.json')?'application/json':'text/html');res.end(await readFile(join(site,file)));}catch(e){console.error(e);res.writeHead(500);res.end('Test server failure');}});
-await new Promise(r=>server.listen(4184,'127.0.0.1',r));const browser=await chromium.launch();const results=[],trainingMedia=[];let tenantAdminTraining=null;
+await new Promise(r=>server.listen(4184,'127.0.0.1',r));const browser=await chromium.launch();const results=[],trainingMedia=[];let tenantAdminTraining=null,tenantAdminOnboarding=null;
 try{
  for(const [locale,width] of [['en',1440],['fr',1024],['es',768]]){
   const context=await browser.newContext({viewport:{width,height:1000}});const page=await context.newPage();const cy=id=>page.locator('[data-cy="'+id+'"]');
@@ -145,4 +194,6 @@ try{
  console.log('CODE_ADMIN_BROWSER_PASS '+JSON.stringify(results));
  tenantAdminTraining=await verifyTenantAdminTrainingRoute(browser);
  console.log('TENANT_ADMIN_TRAINING_ROUTE_PASS '+JSON.stringify(tenantAdminTraining));
-}finally{await writeFile(join(out,'results.json'),JSON.stringify({source:'Actual UI and handlers; isolated native PostgreSQL; synthetic accounts',commit:process.env.GITHUB_SHA??null,run:process.env.GITHUB_RUN_ID??null,results,trainingMedia,tenantAdminTraining},null,2));await browser.close();await new Promise(r=>server.close(r));await setup.query('SET search_path TO public');await setup.query(`DROP SCHEMA ${schema} CASCADE`);await setup.end();}
+ tenantAdminOnboarding=await verifyTenantAdminOnboarding(browser);
+ console.log('TENANT_ADMIN_ONBOARDING_PASS '+JSON.stringify(tenantAdminOnboarding));
+}finally{await writeFile(join(out,'results.json'),JSON.stringify({source:'Actual UI and handlers; isolated native PostgreSQL; synthetic accounts',commit:process.env.GITHUB_SHA??null,run:process.env.GITHUB_RUN_ID??null,results,trainingMedia,tenantAdminTraining,tenantAdminOnboarding},null,2));await browser.close();await new Promise(r=>server.close(r));await setup.query('SET search_path TO public');await setup.query(`DROP SCHEMA ${schema} CASCADE`);await setup.end();}

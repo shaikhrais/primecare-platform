@@ -247,6 +247,28 @@ for(const locale of ['en','fr','es'])test('recording reload resolves an unselect
  assert.equal(f.root.querySelector('[data-cy=platform-topbar-tenant]').value,'');assert.equal(f.dashboard.selected,'');assert.equal(f.dashboard.directory,true);
  assert.deepEqual(f.requests.slice(before).map(r=>({url:r.url,method:r.options.method,cache:r.options.cache,authorization:r.options.headers.authorization})),[{url:'https://gateway.invalid/v1/governance/platform',method:'GET',cache:'no-store',authorization:'Bearer fixture-admin-token'}]);
 });
+const ownTenant={id:'tenant-a',name:'Tenant A',slug:'tenant-a'};
+test('Tenant Admin landing enables existing staff actions without selecting the sole organization again',async()=>{
+ const f=browser({role:'tenant_admin',capabilities:{tenants:[ownTenant]}});await f.render();
+ assert.equal(f.root.view,'organizations');
+ assert.equal(f.dashboard.selected,'tenant-a');
+ assert.deepEqual(f.requests.map(r=>r.url),['https://gateway.invalid/v1/governance/platform']);
+ for(const id of ['accounts','masters','audit']){
+  const start=f.requests.length;await f.click(id);
+  assert.equal(f.root.view,id);
+  assert.deepEqual(f.requests.slice(start).map(r=>r.url),['https://gateway.invalid/v1/governance/platform/tenants/tenant-a/'+id]);
+ }
+ await f.click('accounts');assert.ok(f.root.querySelector('[data-cy=platform-account-form]'));
+ assert.equal(f.root.querySelector('[data-cy=platform-tenant-form]'),null);
+});
+for(const [title,scope,tenants] of [
+ ['empty','tenant',[]],['ambiguous','tenant',[ownTenant,{id:'tenant-b',name:'Tenant B',slug:'tenant-b'}]],['unexpected scope','global',[ownTenant]],
+])test('Tenant Admin never infers an organization from '+title+' metadata',async()=>{
+ const f=browser({role:'tenant_admin',hash:'#accounts',capabilities:{scope,tenants}});await f.render();
+ assert.equal(f.root.view,'organizations');assert.equal(f.dashboard.selected,'');
+ assert.equal(f.root.querySelector('[data-cy=platform-account-form]'),null);
+ assert.deepEqual(f.requests.map(r=>r.url),['https://gateway.invalid/v1/governance/platform']);
+});
 test('tenant-scoped Accounts reload retains only its server-authorized tenant',async()=>{
  const f=browser({hash:'#accounts',role:'tenant_admin'});f.data.tenants=f.data.tenants.slice(0,1);await f.render();const address=location.href,before=f.requests.length;await f.render();
  assert.equal(location.href,address);assert.equal(f.root.view,'accounts');assert.ok(f.root.querySelector('[data-cy=platform-account-form]'));assert.equal(f.root.querySelector('[data-cy=platform-tenant-form]'),null);

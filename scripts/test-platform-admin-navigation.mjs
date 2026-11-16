@@ -33,7 +33,7 @@ for(const hash of ['#unknown','#organizations','#account','#%61ppearance','#APPE
 for(const id of ['accounts','masters','audit'])test(id+' requires tenant selection, retaining tenant-admin initial behavior',async()=>{
   let f=browser({hash:'#'+id});await f.render();assert.equal(f.root.view,'organizations');assert.equal(f.requests.length,1);assert.equal(location.hash,'#'+id);
   const select=f.root.querySelector('[data-cy=platform-topbar-tenant]');select.onchange({currentTarget:{value:'tenant-a'}});await settle();assert.equal(f.root.view,id);assert.ok(f.requests.at(-1).url.endsWith('/tenants/tenant-a/'+id));
-  f=browser({hash:'#'+id,role:'tenant_admin'});await f.render();assert.equal(f.root.view,id);assert.ok(f.requests.at(-1).url.endsWith('/tenants/tenant-a/'+id));
+  f=browser({hash:'#'+id,role:'tenant_admin',capabilities:{tenants:[{id:'tenant-a',name:'Tenant A',slug:'tenant-a'}]}});await f.render();assert.equal(f.root.view,id);assert.ok(f.requests.at(-1).url.endsWith('/tenants/tenant-a/'+id));
 });
 test('role-specific Vapi/calls availability is identical for initial hash and sidebar',async()=>{
   let f=browser({hash:'#vapi',role:'code_admin'});await f.render();assert.equal(f.root.view,'vapi');assert.ok(f.anchor('vapi'));assert.ok(f.mounts.includes('vapi'));

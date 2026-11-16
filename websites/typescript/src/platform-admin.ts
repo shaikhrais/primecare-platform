@@ -233,7 +233,13 @@ ${view==='audit'&&selected?`<section id="audit" class="section"><h2 tabindex="-1
   if(!actor||refresh){
    const data=(await request()).consume();
    if(!Object.keys(hierarchy.roles).includes(data.role))throw new Error('Administrator required');
-   adminRole=data.role;if(adminRole==='tenant_admin'&&location.hash&&!selected)selected=data.tenants[0]?.id||'';
+   adminRole=data.role;
+   // A fresh, tenant-scoped Tenant Admin document has no organization choice
+   // when the server returns exactly its own organization. Use the same
+   // confirmed organization for bare entry and guarded target deep links.
+   if(initialNavigation&&!selected&&adminRole==='tenant_admin'&&data.scope==='tenant'&&Array.isArray(data.tenants)&&data.tenants.length===1&&typeof data.tenants[0]?.id==='string'){
+    selected=data.tenants[0].id;
+   }
    scope=data.scope;canCreateTenant=data.canCreateTenant;canViewReports=data.canViewReports===true;canViewTerritories=data.canViewTerritories===true;canViewOperations=data.canViewOperations===true;canViewBundle=data.canViewBundle===true;extended=data.extended;canViewTraining=data.canViewTraining===true||data.extended===true;growthDashboard=data.growthDashboard;actor=data.identity.userId;
    const calls=await readForCurrent(()=>canUseExternalCalls(gateway,token));requireCurrent();canCall=calls;
    tenants=data.tenants;roles=data.assignableRoles;types=data.masterTypes;
