@@ -1,0 +1,273 @@
+diff --git a/packages/domain/src/work_modules.ts b/packages/domain/src/work_modules.ts
+--- a/packages/domain/src/work_modules.ts
++++ b/packages/domain/src/work_modules.ts
+@@ -1,4 +1,6 @@
+ import {preferenceScope,samePreferenceScope,type PreferenceScope} from './preference_sync';
++// Task-backed metadata must retain the registered API's complete evidence.
++export const WORK_SEARCH_MAX_LENGTH=100,WORK_META_MAX_LENGTH=2000;
+ export type WorkModule='calendar'|'contacts'|'tasks'|'notes'|'board'|'mailbox'|'messenger'|'notifications'|'files'|'academy'|'commerce'|'ai-images'|'profile'|'settings'|'help';
+ export type WorkAction={id:string;label:string;fields:string[];target:string};
+ export type WorkItem={id:string;version:number;title:string;body:string;date:string;lane:string;meta:string;actions:WorkAction[]};
+@@ -8,6 +10,6 @@
+ function text(v:unknown,max:number,empty=false){if(typeof v!=='string'||v.length>max||!empty&&!v.trim()||/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/.test(v))throw new WorkFailure('invalid');return v;}
+ export function validWorkDate(v:string){if(!/^\d{4}-\d{2}-\d{2}$/.test(v)||v.startsWith('0000'))return false;const d=new Date(v+'T00:00:00Z');return Number.isFinite(d.getTime())&&d.toISOString().slice(0,10)===v;}
+ export function recordSuffix(id:string){if(!/^[A-Za-z0-9._:-]{1,200}$/.test(id))throw new WorkFailure('invalid');return Array.from(new TextEncoder().encode(id),x=>x.toString(16).padStart(2,'0')).join('');}
+-export function validateWorkSnapshot(raw:unknown,scope:PreferenceScope,module:WorkModule):WorkSnapshot{const v=object(raw,['scope','module','items','lanes','offset','total','partial']);if(!samePreferenceScope(preferenceScope(v.scope),scope)||v.module!==module)throw new WorkFailure('denied',403);if(!Array.isArray(v.items)||v.items.length>1000||!Array.isArray(v.lanes)||v.lanes.length>20||!Number.isSafeInteger(v.offset)||Number(v.offset)<0||!Number.isSafeInteger(v.total)||Number(v.total)<0||typeof v.partial!=='boolean')throw new WorkFailure('invalid');const lanes=v.lanes.map(raw=>{const r=object(raw,['id','label']);recordSuffix(text(r.id,200));return{id:r.id as string,label:text(r.label,200)};});if(new Set(lanes.map(l=>l.id)).size!==lanes.length)throw new WorkFailure('invalid');const items=v.items.map(raw=>{const r=object(raw,['id','version','title','body','date','lane','meta','actions']);recordSuffix(text(r.id,200));if(!Number.isSafeInteger(r.version)||Number(r.version)<1||!Array.isArray(r.actions)||r.actions.length>20||r.date!==''&&!validWorkDate(String(r.date))||r.lane!==''&&!lanes.some(l=>l.id===r.lane))throw new WorkFailure('invalid');const actions=r.actions.map(raw=>{const a=object(raw,['id','label','fields','target']);recordSuffix(text(a.id,80));if(!Array.isArray(a.fields)||a.fields.some(f=>!['title','body','date'].includes(String(f)))||new Set(a.fields).size!==a.fields.length||typeof a.target!=='string'||a.target!==''&&!lanes.some(l=>l.id===a.target))throw new WorkFailure('invalid');return{id:a.id as string,label:text(a.label,200),fields:[...a.fields] as string[],target:a.target};});if(new Set(actions.map(a=>a.id)).size!==actions.length)throw new WorkFailure('invalid');return{id:r.id as string,version:Number(r.version),title:text(r.title,500),body:text(r.body,5000,true),date:r.date as string,lane:r.lane as string,meta:text(r.meta,1000,true),actions};});if(new Set(items.map(i=>i.id)).size!==items.length||Number(v.total)<items.length)throw new WorkFailure('invalid');return{scope:preferenceScope(v.scope),module,items,lanes,offset:Number(v.offset),total:Number(v.total),partial:v.partial};}
++export function validateWorkSnapshot(raw:unknown,scope:PreferenceScope,module:WorkModule):WorkSnapshot{const v=object(raw,['scope','module','items','lanes','offset','total','partial']);if(!samePreferenceScope(preferenceScope(v.scope),scope)||v.module!==module)throw new WorkFailure('denied',403);if(!Array.isArray(v.items)||v.items.length>1000||!Array.isArray(v.lanes)||v.lanes.length>20||!Number.isSafeInteger(v.offset)||Number(v.offset)<0||!Number.isSafeInteger(v.total)||Number(v.total)<0||typeof v.partial!=='boolean')throw new WorkFailure('invalid');const lanes=v.lanes.map(raw=>{const r=object(raw,['id','label']);recordSuffix(text(r.id,200));return{id:r.id as string,label:text(r.label,200)};});if(new Set(lanes.map(l=>l.id)).size!==lanes.length)throw new WorkFailure('invalid');const items=v.items.map(raw=>{const r=object(raw,['id','version','title','body','date','lane','meta','actions']);recordSuffix(text(r.id,200));if(!Number.isSafeInteger(r.version)||Number(r.version)<1||!Array.isArray(r.actions)||r.actions.length>20||r.date!==''&&!validWorkDate(String(r.date))||r.lane!==''&&!lanes.some(l=>l.id===r.lane))throw new WorkFailure('invalid');const actions=r.actions.map(raw=>{const a=object(raw,['id','label','fields','target']);recordSuffix(text(a.id,80));if(!Array.isArray(a.fields)||a.fields.some(f=>!['title','body','date'].includes(String(f)))||new Set(a.fields).size!==a.fields.length||typeof a.target!=='string'||a.target!==''&&!lanes.some(l=>l.id===a.target))throw new WorkFailure('invalid');return{id:a.id as string,label:text(a.label,200),fields:[...a.fields] as string[],target:a.target};});if(new Set(actions.map(a=>a.id)).size!==actions.length)throw new WorkFailure('invalid');return{id:r.id as string,version:Number(r.version),title:text(r.title,500),body:text(r.body,5000,true),date:r.date as string,lane:r.lane as string,meta:text(r.meta,WORK_META_MAX_LENGTH,true),actions};});if(new Set(items.map(i=>i.id)).size!==items.length||Number(v.total)<items.length)throw new WorkFailure('invalid');return{scope:preferenceScope(v.scope),module,items,lanes,offset:Number(v.offset),total:Number(v.total),partial:v.partial};}
+ export function workMonth(year:number,month:number,firstWeekday=0){if(!Number.isInteger(year)||year<1900||year>2200||!Number.isInteger(month)||month<1||month>12||!Number.isInteger(firstWeekday)||firstWeekday<0||firstWeekday>6)throw new WorkFailure('invalid');const start=new Date(Date.UTC(year,month-1,1)),delta=(start.getUTCDay()-firstWeekday+7)%7;start.setUTCDate(start.getUTCDate()-delta);return Array.from({length:42},(_,i)=>{const d=new Date(start);d.setUTCDate(d.getUTCDate()+i);return{date:d.toISOString().slice(0,10),day:d.getUTCDate(),inMonth:d.getUTCMonth()===month-1};});}
+ export function validateWorkCommand(item:WorkItem,actionId:string,fields:Record<string,string>){const action=item.actions.find(a=>a.id===actionId);if(!action)throw new WorkFailure('denied',403);if(!fields||Object.keys(fields).some(k=>!action.fields.includes(k))||action.fields.some(k=>!Object.hasOwn(fields,k)))throw new WorkFailure('invalid',400);for(const [key,value] of Object.entries(fields)){text(value,key==='body'?5000:500,true);if(key==='date'&&!validWorkDate(value))throw new WorkFailure('invalid',400);}return{itemId:item.id,version:item.version,action:action.id,fields:{...fields}};}
+diff --git a/packages/shared/src/work-modules/session.ts b/packages/shared/src/work-modules/session.ts
+--- a/packages/shared/src/work-modules/session.ts
++++ b/packages/shared/src/work-modules/session.ts
+@@ -1,5 +1,5 @@
+ import {preferenceScope,canonicalPreference,type PreferenceScope} from '../../../domain/src/preference_sync';
+-import {WorkFailure,validateWorkSnapshot,validateWorkCommand,type WorkModule,type WorkSnapshot} from '../../../domain/src/work_modules';
++import {WORK_SEARCH_MAX_LENGTH,WorkFailure,validateWorkSnapshot,validateWorkCommand,type WorkModule,type WorkSnapshot} from '../../../domain/src/work_modules';
+ export type WorkCommand=ReturnType<typeof validateWorkCommand>;
+ export type WorkReceipt={itemId:string;version:number;action:string;expected:Record<string,string>};
+ export type WorkQuery={search:string;offset:number};
+@@ -11,7 +11,7 @@
+  get current(){return{status:this.status,snapshot:this.data===null?null:structuredClone(this.data),pending:this.pending!==null,query:{...this.query}};}
+  subscribe(f:()=>void){const subscription=()=>f();this.listeners.add(subscription);return()=>{this.listeners.delete(subscription);};}private emit(){if(this.dead)return;const listeners=[...this.listeners];for(const listener of listeners){if(this.dead)break;if(this.listeners.has(listener)){try{listener();}catch{/* Host observer failures cannot alter transport, pending receipts or persistence outcomes. */}}}}
+  private fail(error:unknown){this.status=error instanceof WorkFailure?error.code:'error';}
+- async load(query:WorkQuery=this.query){if(this.dead||!this.port||this.busy)return;if(this.pending)throw new WorkFailure('conflict',409);if(typeof query.search!=='string'||query.search.length>100||!Number.isSafeInteger(query.offset)||query.offset<0||query.offset>100000)throw new WorkFailure('invalid');this.query={...query};const g=++this.generation;this.abort.abort();this.abort=new AbortController();this.status='loading';this.data=null;this.emit();try{if(this.dead||g!==this.generation)return;const raw=await this.port.read({...this.query},this.abort.signal);if(this.dead||g!==this.generation)return;this.data=validateWorkSnapshot(raw,this.scope,this.module);this.status='ready';}catch(e){if(this.dead||g!==this.generation)return;this.fail(e);}this.emit();}
++ async load(query:WorkQuery=this.query){if(this.dead||!this.port||this.busy)return;if(this.pending)throw new WorkFailure('conflict',409);if(typeof query.search!=='string'||query.search.length>WORK_SEARCH_MAX_LENGTH||!Number.isSafeInteger(query.offset)||query.offset<0||query.offset>100000)throw new WorkFailure('invalid');this.query={...query};const g=++this.generation;this.abort.abort();this.abort=new AbortController();this.status='loading';this.data=null;this.emit();try{if(this.dead||g!==this.generation)return;const raw=await this.port.read({...this.query},this.abort.signal);if(this.dead||g!==this.generation)return;this.data=validateWorkSnapshot(raw,this.scope,this.module);this.status='ready';}catch(e){if(this.dead||g!==this.generation)return;this.fail(e);}this.emit();}
+  async submit(id:string,action:string,fields:Record<string,string>,expectedVersion?:number){if(this.dead||this.busy||!this.port||!this.data||this.status==='loading')throw new WorkFailure('unavailable');const item=this.data.items.find(i=>i.id===id);if(!item)throw new WorkFailure('denied',403);if(expectedVersion!==undefined&&expectedVersion!==item.version)throw new WorkFailure('conflict',409);const command=validateWorkCommand(item,action,fields);if(this.pending&&canonicalPreference(this.pending.command)!==canonicalPreference(command))throw new WorkFailure('conflict',409);if(!this.pending){const key=this.uuid();if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(key))throw new WorkFailure('invalid');this.pending={command,key};}return this.send();}
+  async retryPending(){if(this.dead||this.busy||!this.pending||!this.port)throw new WorkFailure('unavailable');return this.send();}
+  private async send(){this.busy=true;const g=++this.generation,pending=this.pending!;this.status='saving';this.emit();try{if(this.dead||g!==this.generation)return;const receipt=structuredClone(pending.receipt??await this.port!.mutate(structuredClone(pending.command),pending.key,this.abort.signal));if(this.dead||g!==this.generation)return;if(receipt.itemId!==pending.command.itemId||receipt.action!==pending.command.action||receipt.version!==pending.command.version+1||!receipt.expected||Object.entries(receipt.expected).some(([k,v])=>!['title','body','date','lane','meta'].includes(k)||typeof v!=='string'))throw new WorkFailure('error',502);pending.receipt=structuredClone(receipt);const raw=await this.port!.readItem(receipt.itemId,this.abort.signal);if(this.dead||g!==this.generation)return;const verified=validateWorkSnapshot(raw,this.scope,this.module),item=verified.items.find(i=>i.id===receipt.itemId);if(!item||item.version!==receipt.version||Object.entries(receipt.expected).some(([k,v])=>item[k as keyof typeof item]!==v))throw new WorkFailure('conflict',409);const rows=this.data!.items.map(old=>old.id===item.id?item:old);this.data={...this.data!,items:rows};this.pending=null;this.status='success';}catch(e){if(this.dead||g!==this.generation)return;/* Once acknowledged, verification errors must never unlock a fresh mutation key. Denial still clears the session. */if(e instanceof WorkFailure&&([401,403].includes(e.status)||!pending.receipt&&[400,404,409].includes(e.status)))this.pending=null;this.fail(e);if(this.status==='denied')this.data=null;}finally{this.busy=false;}const outcome=this.status;this.emit();if(outcome!=='success')throw new WorkFailure(outcome as WorkFailure['code']);}
+diff --git a/packages/shared/src/work-modules/tenant-task-adapter.ts b/packages/shared/src/work-modules/tenant-task-adapter.ts
+--- a/packages/shared/src/work-modules/tenant-task-adapter.ts
++++ b/packages/shared/src/work-modules/tenant-task-adapter.ts
+@@ -1,10 +1,12 @@
+ import catalog from '../tenant-dashboard/catalog.json';
+ import {transition} from '../tenant-dashboard/core.mjs';
+ import {samePreferenceScope,preferenceScope,canonicalPreference,type PreferenceScope} from '../../../domain/src/preference_sync';
+-import {WorkFailure,validateWorkSnapshot,validateWorkCommand,type WorkModule,type WorkSnapshot,type WorkItem} from '../../../domain/src/work_modules';
++import {WORK_SEARCH_MAX_LENGTH,WorkFailure,validateWorkSnapshot,validateWorkCommand,type WorkModule,type WorkSnapshot,type WorkItem} from '../../../domain/src/work_modules';
+ import type {WorkPort,WorkCommand,WorkQuery,WorkReceipt} from './session';
+ /** Existing registered API 16578/16579 only. The transport and server retain authentication/tenant authority. */
+ export type TenantTaskTransport=(request:{method:'GET'|'POST';filters:Record<string,string>;body?:unknown;requestId?:string},signal:AbortSignal)=>Promise<unknown>;
++// Search is only a locator. Receipts still verify the complete title, identity and version.
++function taskSearchPrefix(title:string){let end=Math.min(title.length,WORK_SEARCH_MAX_LENGTH);if(end>0&&end<title.length&&/[\uD800-\uDBFF]/.test(title[end-1])&&/[\uDC00-\uDFFF]/.test(title[end]))end--;return title.slice(0,end);}
+ export class TenantTaskModulePort implements WorkPort {
+  private raw:any=null;private dead=false;private readEpoch=0;private payloads=new Map<string,{fingerprint:string;body:unknown;expected:Record<string,string>;search:string}>();
+  constructor(readonly scope:PreferenceScope,readonly module:WorkModule,private transport:TenantTaskTransport){this.scope=Object.freeze(preferenceScope(scope));if(!['calendar','contacts','tasks','notes','board'].includes(module))throw new WorkFailure('invalid',400);}
+@@ -13,8 +15,8 @@
+  if(this.module==='contacts'){const rows=[...raw.users.map((r:any)=>({id:'staff:'+r.id,title:r.name,meta:r.email||''})),...raw.clients.map((r:any)=>({id:'client:'+r.id,title:r.name,meta:''}))].filter(r=>(r.title+' '+r.meta).toLowerCase().includes(search.toLowerCase()));total=rows.length;items=rows.slice(offset,offset+100).map(r=>({...r,version:1,body:'',date:'',lane:'',actions:[]}));partial=raw.directoryTruncated===true||total>items.length;}
+  else{items=raw.tasks.map((task:any)=>{if(!Array.isArray(task.actions))throw new WorkFailure('invalid');let actions=task.actions.flatMap((a:string)=>{if(a==='edit'){if(this.module==='board')return [];return[{id:this.module==='calendar'?'reschedule':'edit',label:catalog.controls.edit,fields:this.module==='calendar'?['date']:this.module==='notes'?['body']:['title','body','date'],target:''}];}if(this.module==='notes'||this.module==='calendar')return [];let target='';try{target=transition(task,a,'Projection only; no mutation performed.',raw.taskActorId,raw.canManage===true).status;}catch{return [];}if(!(catalog.controls as Record<string,string>)[a])throw new WorkFailure('unavailable');return[{id:a,label:(catalog.controls as Record<string,string>)[a],fields:['body'],target}];});return{id:String(task.id),version:Number(task.version),title:task.title,body:task.notes||'',date:task.due_on,lane:task.status,meta:task.evidence||'',actions};});total=Number(raw.taskPage?.total??items.length);partial=total>items.length;}
+  return validateWorkSnapshot({scope:this.scope,module:this.module,items,lanes,offset,total,partial},this.scope,this.module);}
+- async read(query:WorkQuery,signal:AbortSignal){if(this.dead||signal.aborted)throw new WorkFailure('unavailable');query={...query};if(!query||typeof query.search!=='string'||query.search.length>100||!Number.isSafeInteger(query.offset)||query.offset<0||query.offset>100000)throw new WorkFailure('invalid',400);const epoch=++this.readEpoch;const raw=this.check(await this.transport({method:'GET',filters:{dataset:this.scope.dataset,search:this.module==='contacts'?'':query.search,taskOffset:this.module==='contacts'?'0':String(query.offset),status:'all'}},signal));if(signal.aborted||epoch!==this.readEpoch)throw new WorkFailure('unavailable');const snapshot=this.project(raw,query.offset,query.search);this.raw=raw;return snapshot;}
++ async read(query:WorkQuery,signal:AbortSignal){if(this.dead||signal.aborted)throw new WorkFailure('unavailable');query={...query};if(!query||typeof query.search!=='string'||query.search.length>WORK_SEARCH_MAX_LENGTH||!Number.isSafeInteger(query.offset)||query.offset<0||query.offset>100000)throw new WorkFailure('invalid',400);const epoch=++this.readEpoch;const raw=this.check(await this.transport({method:'GET',filters:{dataset:this.scope.dataset,search:this.module==='contacts'?'':query.search,taskOffset:this.module==='contacts'?'0':String(query.offset),status:'all'}},signal));if(signal.aborted||epoch!==this.readEpoch)throw new WorkFailure('unavailable');const snapshot=this.project(raw,query.offset,query.search);this.raw=raw;return snapshot;}
+  async mutate(command:WorkCommand,requestId:string,signal:AbortSignal):Promise<WorkReceipt>{if(this.dead||signal.aborted)throw new WorkFailure('unavailable');command=structuredClone(command);if(this.module==='contacts'||!this.raw)throw new WorkFailure('denied',403);if(typeof requestId!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(requestId))throw new WorkFailure('invalid',400);const task=this.raw.tasks.find((t:any)=>String(t.id)===command.itemId);if(!task)throw new WorkFailure('denied',403);const serviceAction=command.action==='reschedule'?'edit':command.action;let payload=this.payloads.get(requestId);const fingerprint=canonicalPreference(command);if(payload&&payload.fingerprint!==fingerprint)throw new WorkFailure('conflict',409);if(!payload){const item=this.project(this.raw).items.find(i=>i.id===command.itemId);if(!item)throw new WorkFailure('denied',403);validateWorkCommand(item,command.action,command.fields);if(!task.actions.includes(serviceAction))throw new WorkFailure('denied',403);if(task.version!==command.version)throw new WorkFailure('conflict',409);let value:unknown;if(serviceAction==='edit'){value={title:command.fields.title??task.title,ownerId:task.owner_id,dueOn:command.fields.date??task.due_on,priority:task.priority,flowId:task.flow_id,notes:command.fields.body??task.notes};}else value={evidence:command.fields.body};const expected:Record<string,string>={};if(serviceAction==='edit'){for(const key of ['title','body','date'])if(command.fields[key]!==undefined)expected[key]=command.fields[key].trim();}else{try{const changed=transition(task,serviceAction,command.fields.body,this.raw.taskActorId,this.raw.canManage===true);expected.lane=changed.status;expected.meta=changed.evidence;}catch{throw new WorkFailure('invalid',400);}}payload={fingerprint,expected,search:expected.title??task.title,body:{action:serviceAction,id:command.itemId,version:command.version,value,...(this.scope.dataset==='demo'?{workspaceVersion:this.raw.workspaceVersion}:{})}};if(this.payloads.size>=10)throw new WorkFailure('unavailable');this.payloads.set(requestId,payload);}let response:any;try{response=this.check(await this.transport({method:'POST',filters:{dataset:this.scope.dataset},body:structuredClone(payload.body),requestId},signal));}catch(error){if(error instanceof WorkFailure&&[400,401,403,404,409].includes(error.status))this.payloads.delete(requestId);throw error;}if(signal.aborted)throw new WorkFailure('unavailable');const expected=payload.expected;const acknowledged=response.tasks.find((t:any)=>String(t.id)===command.itemId);if(acknowledged&&acknowledged.version!==command.version+1)throw new WorkFailure('conflict',409);return{itemId:command.itemId,version:command.version+1,action:command.action,expected:{...expected}};}
+- async readItem(id:string,signal:AbortSignal){if(this.dead||signal.aborted)throw new WorkFailure('unavailable');if(!this.raw)throw new WorkFailure('unavailable');const original=this.raw.tasks.find((t:any)=>String(t.id)===id);if(!original)throw new WorkFailure('unavailable');for(let offset=0;offset<=10000;offset+=100){const raw=this.check(await this.transport({method:'GET',filters:{dataset:this.scope.dataset,search:[...this.payloads.values()].find(p=>(p.body as {id:string}).id===id)?.search??String(original.title),taskOffset:String(offset),status:'all'}},signal));if(signal.aborted)throw new WorkFailure('unavailable');if(raw.tasks.some((t:any)=>String(t.id)===id)){const snapshot=this.project(raw,offset),item=snapshot.items.find(i=>i.id===id)!;this.raw=raw;for(const [key,payload]of this.payloads){const command=payload.body as {id:string;version:number};if(command.id===id&&item.version===command.version+1&&Object.entries(payload.expected).every(([field,value])=>item[field as keyof WorkItem]===value))this.payloads.delete(key);}return snapshot;}if(offset+raw.tasks.length>=Number(raw.taskPage?.total??0))break;}throw new WorkFailure('conflict',409);}
++ async readItem(id:string,signal:AbortSignal){if(this.dead||signal.aborted)throw new WorkFailure('unavailable');if(!this.raw)throw new WorkFailure('unavailable');const original=this.raw.tasks.find((t:any)=>String(t.id)===id);if(!original)throw new WorkFailure('unavailable');for(let offset=0;offset<=10000;offset+=100){const raw=this.check(await this.transport({method:'GET',filters:{dataset:this.scope.dataset,search:taskSearchPrefix([...this.payloads.values()].find(p=>(p.body as {id:string}).id===id)?.search??String(original.title)),taskOffset:String(offset),status:'all'}},signal));if(signal.aborted)throw new WorkFailure('unavailable');if(raw.tasks.some((t:any)=>String(t.id)===id)){const snapshot=this.project(raw,offset),item=snapshot.items.find(i=>i.id===id)!;this.raw=raw;for(const [key,payload]of this.payloads){const command=payload.body as {id:string;version:number};if(command.id===id&&item.version===command.version+1&&Object.entries(payload.expected).every(([field,value])=>item[field as keyof WorkItem]===value))this.payloads.delete(key);}return snapshot;}if(offset+raw.tasks.length>=Number(raw.taskPage?.total??0))break;}throw new WorkFailure('conflict',409);}
+  dispose(){this.dead=true;this.readEpoch++;this.raw=null;this.payloads.clear();}
+ }
+diff --git a/packages/flutter_core/lib/work_modules/work_module_model.dart b/packages/flutter_core/lib/work_modules/work_module_model.dart
+--- a/packages/flutter_core/lib/work_modules/work_module_model.dart
++++ b/packages/flutter_core/lib/work_modules/work_module_model.dart
+@@ -1,4 +1,6 @@
+ import 'dart:convert';import '../preference_sync/preference_protocol.dart' show PreferenceScope;
++// Task-backed metadata retains the registered API's complete evidence.
++const workSearchMaxLength=100,workMetaMaxLength=2000;
+ class WorkFailure implements Exception {final String code;final int status;const WorkFailure(this.code,[this.status=0]);}
+ String recordSuffix(String id){if(!RegExp(r'^[A-Za-z0-9._:-]{1,200}$').hasMatch(id))throw const WorkFailure('invalid');return utf8.encode(id).map((b)=>b.toRadixString(16).padLeft(2,'0')).join();}
+ bool validWorkDate(String value){if(!RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(value)||value.startsWith('0000'))return false;final d=DateTime.tryParse('${value}T00:00:00Z');return d!=null&&d.toIso8601String().substring(0,10)==value;}
+@@ -8,7 +10,7 @@
+ class WorkAction {final String id,label,target;final List<String> fields;WorkAction(this.id,this.label,List<String> fields,this.target):fields=List.unmodifiable(fields);Map<String,Object?> toJson()=>{'id':id,'label':label,'fields':fields,'target':target};}
+ class WorkItem {final String id,title,body,date,lane,meta;final int version;final List<WorkAction> actions;WorkItem({required this.id,required this.version,required this.title,required this.body,required this.date,required this.lane,required this.meta,required List<WorkAction> actions}):actions=List.unmodifiable(actions);Map<String,Object?> toJson()=>{'id':id,'version':version,'title':title,'body':body,'date':date,'lane':lane,'meta':meta,'actions':actions.map((a)=>a.toJson()).toList()};}
+ class WorkSnapshot {final PreferenceScope scope;final String module;final List<WorkItem> items;final List<({String id,String label})> lanes;final int offset,total;final bool partial;WorkSnapshot._(this.scope,this.module,this.items,this.lanes,this.offset,this.total,this.partial);
+- factory WorkSnapshot.fromJson(Object? raw,PreferenceScope expectedScope,String module){final v=object(raw,['scope','module','items','lanes','offset','total','partial']),scope=PreferenceScope.fromJson(v['scope']);if(!scope.same(expectedScope)||v['module']!=module)throw const WorkFailure('denied',403);if(v['items'] is! List||(v['items'] as List).length>1000||v['lanes'] is! List||(v['lanes'] as List).length>20||v['offset'] is! int||(v['offset'] as int)<0||v['total'] is! int||(v['total'] as int)<0||v['partial'] is! bool)throw const WorkFailure('invalid');final lanes=(v['lanes'] as List).map((raw){final l=object(raw,['id','label']),id=_text(l['id'],80);recordSuffix(id);return(id:id,label:_text(l['label'],200));}).toList();if(lanes.map((l)=>l.id).toSet().length!=lanes.length)throw const WorkFailure('invalid');final items=(v['items'] as List).map((raw){final r=object(raw,['id','version','title','body','date','lane','meta','actions']),id=_text(r['id'],200),date=_text(r['date'],10,true),lane=_text(r['lane'],80,true);recordSuffix(id);if(r['version'] is! int||(r['version'] as int)<1||r['actions'] is! List||(r['actions'] as List).length>20||date.isNotEmpty&&!validWorkDate(date)||lane.isNotEmpty&&!lanes.any((l)=>l.id==lane))throw const WorkFailure('invalid');final actions=(r['actions'] as List).map((raw){final a=object(raw,['id','label','fields','target']),id=_text(a['id'],80),target=_text(a['target'],80,true);recordSuffix(id);if(a['fields'] is! List||(a['fields'] as List).any((f)=>!['title','body','date'].contains(f))||(a['fields'] as List).toSet().length!=(a['fields'] as List).length||target.isNotEmpty&&!lanes.any((l)=>l.id==target))throw const WorkFailure('invalid');return WorkAction(id,_text(a['label'],200),List<String>.from(a['fields'] as List),target);}).toList();if(actions.map((a)=>a.id).toSet().length!=actions.length)throw const WorkFailure('invalid');return WorkItem(id:id,version:r['version'] as int,title:_text(r['title'],500),body:_text(r['body'],5000,true),date:date,lane:lane,meta:_text(r['meta'],1000,true),actions:actions);}).toList();if(items.map((i)=>i.id).toSet().length!=items.length||(v['total'] as int)<items.length)throw const WorkFailure('invalid');return WorkSnapshot._(scope,module,List.unmodifiable(items),List.unmodifiable(lanes),v['offset'] as int,v['total'] as int,v['partial'] as bool);}
++ factory WorkSnapshot.fromJson(Object? raw,PreferenceScope expectedScope,String module){final v=object(raw,['scope','module','items','lanes','offset','total','partial']),scope=PreferenceScope.fromJson(v['scope']);if(!scope.same(expectedScope)||v['module']!=module)throw const WorkFailure('denied',403);if(v['items'] is! List||(v['items'] as List).length>1000||v['lanes'] is! List||(v['lanes'] as List).length>20||v['offset'] is! int||(v['offset'] as int)<0||v['total'] is! int||(v['total'] as int)<0||v['partial'] is! bool)throw const WorkFailure('invalid');final lanes=(v['lanes'] as List).map((raw){final l=object(raw,['id','label']),id=_text(l['id'],80);recordSuffix(id);return(id:id,label:_text(l['label'],200));}).toList();if(lanes.map((l)=>l.id).toSet().length!=lanes.length)throw const WorkFailure('invalid');final items=(v['items'] as List).map((raw){final r=object(raw,['id','version','title','body','date','lane','meta','actions']),id=_text(r['id'],200),date=_text(r['date'],10,true),lane=_text(r['lane'],80,true);recordSuffix(id);if(r['version'] is! int||(r['version'] as int)<1||r['actions'] is! List||(r['actions'] as List).length>20||date.isNotEmpty&&!validWorkDate(date)||lane.isNotEmpty&&!lanes.any((l)=>l.id==lane))throw const WorkFailure('invalid');final actions=(r['actions'] as List).map((raw){final a=object(raw,['id','label','fields','target']),id=_text(a['id'],80),target=_text(a['target'],80,true);recordSuffix(id);if(a['fields'] is! List||(a['fields'] as List).any((f)=>!['title','body','date'].contains(f))||(a['fields'] as List).toSet().length!=(a['fields'] as List).length||target.isNotEmpty&&!lanes.any((l)=>l.id==target))throw const WorkFailure('invalid');return WorkAction(id,_text(a['label'],200),List<String>.from(a['fields'] as List),target);}).toList();if(actions.map((a)=>a.id).toSet().length!=actions.length)throw const WorkFailure('invalid');return WorkItem(id:id,version:r['version'] as int,title:_text(r['title'],500),body:_text(r['body'],5000,true),date:date,lane:lane,meta:_text(r['meta'],workMetaMaxLength,true),actions:actions);}).toList();if(items.map((i)=>i.id).toSet().length!=items.length||(v['total'] as int)<items.length)throw const WorkFailure('invalid');return WorkSnapshot._(scope,module,List.unmodifiable(items),List.unmodifiable(lanes),v['offset'] as int,v['total'] as int,v['partial'] as bool);}
+  Map<String,Object?> toJson()=>{'scope':scope.toJson(),'module':module,'items':items.map((i)=>i.toJson()).toList(),'lanes':lanes.map((l)=>{'id':l.id,'label':l.label}).toList(),'offset':offset,'total':total,'partial':partial};}
+ class WorkCommand {final String itemId,action;final int version;final Map<String,String> fields;WorkCommand(this.itemId,this.version,this.action,Map<String,String> fields):fields=Map.unmodifiable(fields);Map<String,Object?> toJson()=>{'itemId':itemId,'version':version,'action':action,'fields':fields};}
+ WorkCommand validateWorkCommand(WorkItem item,String actionId,Map<String,String> fields){final actions=item.actions.where((a)=>a.id==actionId).toList();if(actions.length!=1)throw const WorkFailure('denied',403);final action=actions.single;if(fields.keys.any((k)=>!action.fields.contains(k))||action.fields.any((k)=>!fields.containsKey(k)))throw const WorkFailure('invalid',400);for(final e in fields.entries){_text(e.value,e.key=='body'?5000:500,true);if(e.key=='date'&&!validWorkDate(e.value))throw const WorkFailure('invalid',400);}return WorkCommand(item.id,item.version,actionId,fields);}
+diff --git a/packages/flutter_core/lib/work_modules/work_module_session.dart b/packages/flutter_core/lib/work_modules/work_module_session.dart
+--- a/packages/flutter_core/lib/work_modules/work_module_session.dart
++++ b/packages/flutter_core/lib/work_modules/work_module_session.dart
+@@ -4,7 +4,7 @@
+ abstract interface class WorkPort {Future<Object?> read(WorkQuery query);Future<WorkReceipt> mutate(WorkCommand command,String requestId);Future<Object?> readItem(String id);void dispose();}
+ class WorkModuleSession extends ChangeNotifier {final PreferenceScope scope;final String module;final WorkPort? port;final String Function()? requestId;WorkSnapshot? snapshot;WorkQuery query=const WorkQuery();String status;int generation=0;bool dead=false,busy=false;WorkCommand? pending;String? pendingKey;WorkReceipt? pendingReceipt;
+  WorkModuleSession(this.scope,this.module,{this.port,this.requestId}):status=port==null?'unavailable':'idle'{if(!['calendar','contacts','tasks','notes','board','mailbox','messenger','notifications','files','academy','commerce','ai-images','profile','settings','help'].contains(module))throw const WorkFailure('invalid');}
+- Future<void> load([WorkQuery? next])async{if(dead||port==null||busy)return;if(pending!=null)throw const WorkFailure('conflict',409);final q=next??query;if(q.search.length>100||q.offset<0||q.offset>100000)throw const WorkFailure('invalid');query=q;final g=++generation;status='loading';snapshot=null;notifyListeners();try{final raw=await port!.read(query);if(dead||g!=generation)return;snapshot=WorkSnapshot.fromJson(raw,scope,module);status='ready';}catch(e){if(dead||g!=generation)return;status=e is WorkFailure?e.code:'error';}notifyListeners();}
++ Future<void> load([WorkQuery? next])async{if(dead||port==null||busy)return;if(pending!=null)throw const WorkFailure('conflict',409);final q=next??query;if(q.search.length>workSearchMaxLength||q.offset<0||q.offset>100000)throw const WorkFailure('invalid');query=q;final g=++generation;status='loading';snapshot=null;notifyListeners();try{final raw=await port!.read(query);if(dead||g!=generation)return;snapshot=WorkSnapshot.fromJson(raw,scope,module);status='ready';}catch(e){if(dead||g!=generation)return;status=e is WorkFailure?e.code:'error';}notifyListeners();}
+  Future<void> submit(String id,String action,Map<String,String> fields,{int? expectedVersion})async{if(dead||busy||port==null||snapshot==null||status=='loading')throw const WorkFailure('unavailable');final rows=snapshot!.items.where((i)=>i.id==id).toList();if(rows.length!=1)throw const WorkFailure('denied',403);final item=rows.single;if(expectedVersion!=null&&expectedVersion!=item.version)throw const WorkFailure('conflict',409);final command=validateWorkCommand(item,action,fields);if(pending!=null&&canonicalPreference(pending!.toJson())!=canonicalPreference(command.toJson()))throw const WorkFailure('conflict',409);if(pending==null){final key=requestId?.call();if(key==null||!RegExp(r'^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$',caseSensitive:false).hasMatch(key))throw const WorkFailure('invalid');pending=command;pendingKey=key;}await _send();}
+  Future<void> retryPending()async{if(dead||busy||pending==null||port==null)throw const WorkFailure('unavailable');await _send();}
+  Future<void> _send()async{busy=true;final g=++generation,command=pending!;status='saving';notifyListeners();try{final received=pendingReceipt??await port!.mutate(command,pendingKey!);if(dead||g!=generation)return;if(received.itemId!=command.itemId||received.action!=command.action||received.version!=command.version+1||received.expected.keys.any((k)=>!['title','body','date','lane','meta'].contains(k)))throw const WorkFailure('error',502);final receipt=WorkReceipt(received.itemId,received.version,received.action,Map.unmodifiable(received.expected));pendingReceipt=receipt;final raw=await port!.readItem(receipt.itemId);if(dead||g!=generation)return;final verified=WorkSnapshot.fromJson(raw,scope,module),items=verified.items.where((i)=>i.id==receipt.itemId).toList();if(items.length!=1||items.single.version!=receipt.version||receipt.expected.entries.any((e)=>items.single.toJson()[e.key]!=e.value))throw const WorkFailure('conflict',409);final updated=snapshot!.toJson();updated['items']=snapshot!.items.map((i)=>(i.id==receipt.itemId?items.single:i).toJson()).toList();snapshot=WorkSnapshot.fromJson(updated,scope,module);pending=null;pendingKey=null;pendingReceipt=null;status='success';}catch(e){if(dead||g!=generation)return;if(e is WorkFailure&&([401,403].contains(e.status)||pendingReceipt==null&&[400,404,409].contains(e.status))){pending=null;pendingKey=null;pendingReceipt=null;}status=e is WorkFailure?e.code:'error';if(status=='denied')snapshot=null;}finally{busy=false;}final outcome=status;notifyListeners();if(outcome!='success')throw WorkFailure(outcome);}
+diff --git a/packages/flutter_core/lib/work_modules/tenant_task_module_port.dart b/packages/flutter_core/lib/work_modules/tenant_task_module_port.dart
+--- a/packages/flutter_core/lib/work_modules/tenant_task_module_port.dart
++++ b/packages/flutter_core/lib/work_modules/tenant_task_module_port.dart
+@@ -5,6 +5,12 @@
+ import 'work_module_session.dart';
+ import 'tenant_task_transport.dart';
+ 
++// Search is only a locator; full receipt fields and the exact ID/version remain authoritative.
++String _taskSearchPrefix(String title){
++  var end=title.length<workSearchMaxLength?title.length:workSearchMaxLength;
++  if(end>0&&end<title.length&&title.codeUnitAt(end-1)>=0xd800&&title.codeUnitAt(end-1)<=0xdbff&&title.codeUnitAt(end)>=0xdc00&&title.codeUnitAt(end)<=0xdfff)end--;
++  return title.substring(0,end);
++}
+ const _lanes=['open','in_progress','blocked','submitted','completed','cancelled'];
+ const _actions=['edit','start','block','submit','complete','return','cancel'];
+ class _PendingTask {
+@@ -43,7 +49,7 @@
+     return raw;
+   }
+   String _target(Map<dynamic,dynamic> task,String action,String evidence,Map<dynamic,dynamic> raw){
+-    if(evidence.trim().length<10||evidence.length>2000||RegExp(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]').hasMatch(evidence)||
++    if(evidence.trim().length<10||evidence.length>workMetaMaxLength||RegExp(r'[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]').hasMatch(evidence)||
+       ['completed','cancelled'].contains(task['status']))throw const WorkFailure('invalid',400);
+     final own=task['owner_id']==raw['taskActorId'],manager=raw['canManage']==true,status=task['status'];
+     if(['start','block','submit'].contains(action)&&!own&&!manager)throw const WorkFailure('denied',403);
+@@ -86,7 +92,7 @@
+       'offset':offset,'total':total,'partial':partial},scope,module);
+   }
+   @override Future<Object?> read(WorkQuery query)async{
+-    _open();final epoch=++_readEpoch;if(query.search.length>100||query.offset<0||query.offset>100000)throw const WorkFailure('invalid',400);
++    _open();final epoch=++_readEpoch;if(query.search.length>workSearchMaxLength||query.offset<0||query.offset>100000)throw const WorkFailure('invalid',400);
+     final raw=_check(await transport(TenantTaskRequest('GET',{'dataset':scope.dataset,'search':module=='contacts'?'':query.search,
+       'taskOffset':module=='contacts'?'0':'${query.offset}','status':'all'})));
+     if(epoch!=_readEpoch)throw const WorkFailure('unavailable');final snapshot=_project(raw,query.offset,query.search);_raw=raw;return snapshot.toJson();
+@@ -125,7 +131,7 @@
+     final original=(raw['tasks'] as List).cast<Map<dynamic,dynamic>>().where((t)=>'${t['id']}'==id).toList();if(original.length!=1)throw const WorkFailure('unavailable');
+     final pending=_payloads.values.where((p)=>p.itemId==id).firstOrNull;
+     for(var offset=0;offset<=10000;offset+=100){
+-      final fresh=_check(await transport(TenantTaskRequest('GET',{'dataset':scope.dataset,'search':pending?.search??original.single['title'] as String,'taskOffset':'$offset','status':'all'})));
++      final fresh=_check(await transport(TenantTaskRequest('GET',{'dataset':scope.dataset,'search':_taskSearchPrefix(pending?.search??original.single['title'] as String),'taskOffset':'$offset','status':'all'})));
+       if((fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().any((t)=>'${t['id']}'==id)){final snapshot=_project(fresh,offset);_raw=fresh;final item=snapshot.items.where((i)=>i.id==id).single;_payloads.removeWhere((_,p)=>p.itemId==id&&item.version==(p.body['version'] as int)+1&&p.expected.entries.every((e)=>item.toJson()[e.key]==e.value));return snapshot.toJson();}
+       final page=fresh['taskPage'];if(offset+(fresh['tasks'] as List).cast<Map<dynamic,dynamic>>().length>=(page is Map?page['total'] as int? ?? 0:0))break;
+     }
+diff --git a/scripts/test-work-modules.mjs b/scripts/test-work-modules.mjs
+--- a/scripts/test-work-modules.mjs
++++ b/scripts/test-work-modules.mjs
+@@ -27,6 +27,33 @@
+  await assert.rejects(()=>fresh.submit(created.id,'edit',{title:'STALE',body:'Stale',date:'2026-11-09'},2));ok(fresh.status==='conflict');assert.notEqual((await f.db.query('SELECT title FROM tenant_work_tasks WHERE id=$1',[created.id])).rows[0].title,'STALE');
+  const contacts=new WorkModuleSession(scope,'contacts',port('contacts'));await contacts.load();ok(contacts.status==='ready');ok(contacts.current.snapshot.items.every(i=>i.actions.length===0));ok(!JSON.stringify(contacts.current.snapshot).includes('PRIVATE Foreign Client'));const before=writes;await assert.rejects(()=>contacts.submit(contacts.current.snapshot.items[0].id,'edit',{body:'forbidden'}));ok(writes===before);
+  const wrong=new WorkModuleSession(scope,'tasks',port('tasks','foreign'));await wrong.load();ok(wrong.status==='denied'&&wrong.current.snapshot===null);
++ // Registered API boundaries must survive the shared model and independent readback intact.
++ for(const length of [1000,1001,2000]){
++  const title=`Evidence boundary ${length}`,evidence='E'.repeat(length);
++  const createdResponse=await f.call('admin',{action:'create',value:{title,ownerId:f.actors.psw.id,dueOn:'2026-11-05',priority:'normal',flowId:'fixture.tenant.process',notes:'Boundary task instructions'}});
++  assert.equal(createdResponse.status,200);const createdTask=(await createdResponse.json()).tasks.find(t=>t.title===title);ok(!!createdTask);
++  const boundary=new WorkModuleSession(scope,'board',port('board'));await boundary.load();const beforeWrites=writes;
++  await boundary.submit(createdTask.id,'start',{body:evidence},1);assert.equal(boundary.status,'success');assert.equal(writes-beforeWrites,1);
++  const saved=(await f.db.query('SELECT evidence,version,status FROM tenant_work_tasks WHERE id=$1',[createdTask.id])).rows[0];
++  assert.equal(saved.evidence,evidence);assert.equal(saved.version,2);assert.equal(saved.status,'in_progress');
++  for(const module of ['tasks','board','notes','calendar']){const reload=new WorkModuleSession(scope,module,port(module));await reload.load();assert.equal(reload.status,'ready');assert.equal(reload.current.snapshot.items.find(i=>i.id===createdTask.id).meta,evidence);reload.dispose();}
++  const rejected=await f.call('admin',{action:'block',id:createdTask.id,version:2,value:{evidence:'E'.repeat(2001)}});assert.equal(rejected.status,400);
++  assert.equal((await f.db.query('SELECT version FROM tenant_work_tasks WHERE id=$1',[createdTask.id])).rows[0].version,2);
++  boundary.dispose();checks++;
++ }
++ for(const [index,title]of ['T'.repeat(100),'T'.repeat(101),'T'.repeat(200),'U'.repeat(99)+'😀'+'V'.repeat(99)].entries()){
++  const originalTitle=`Title boundary ${index}`,createdResponse=await f.call('admin',{action:'create',value:{title:originalTitle,ownerId:f.actors.psw.id,dueOn:'2026-11-05',priority:'normal',flowId:'fixture.tenant.process',notes:'Boundary task instructions'}});
++  assert.equal(createdResponse.status,200);const createdTask=(await createdResponse.json()).tasks.find(t=>t.title===originalTitle);ok(!!createdTask);
++  const boundary=new WorkModuleSession(scope,'tasks',port('tasks'));await boundary.load();const beforeWrites=writes;
++  await boundary.submit(createdTask.id,'edit',{title,body:'Boundary task instructions',date:'2026-11-05'},1);assert.equal(boundary.status,'success');assert.equal(writes-beforeWrites,1);
++  assert.equal(boundary.current.snapshot.items.find(i=>i.id===createdTask.id).title,title);
++  const saved=(await f.db.query('SELECT title,version FROM tenant_work_tasks WHERE id=$1',[createdTask.id])).rows[0];assert.equal(saved.title,title);assert.equal(saved.version,2);
++  const reload=new WorkModuleSession(scope,'tasks',port('tasks'));await reload.load();assert.equal(reload.status,'ready');assert.equal(reload.current.snapshot.items.find(i=>i.id===createdTask.id).title,title);
++  boundary.dispose();reload.dispose();checks++;
++ }
++ const oversizedTitle=await f.call('admin',{action:'create',value:{title:'T'.repeat(201),ownerId:f.actors.psw.id,dueOn:'2026-11-05',priority:'normal',flowId:'fixture.tenant.process',notes:''}});assert.equal(oversizedTitle.status,400);
++ assert.equal((await f.call('admin',null,'?search='+encodeURIComponent('S'.repeat(101)))).status,400);
++ for(const meta of ['E'.repeat(2001),'Evidence with\u0000control']){const invalid=structuredClone(task.current.snapshot);invalid.items[0].meta=meta;assert.throws(()=>model.validateWorkSnapshot(invalid,scope,'tasks'));checks++;}
+  const raw=structuredClone(task.current.snapshot);raw.items.push(raw.items[0]);assert.throws(()=>model.validateWorkSnapshot(raw,scope,'tasks'));checks++;
+  // A lost response retains one key; readback is required before success.
+  const snapshot=structuredClone(task.current.snapshot),item=snapshot.items.find(i=>i.id===created.id);let attempt=0,keys=[];
+diff --git a/scripts/test-work-modules-scope.mjs b/scripts/test-work-modules-scope.mjs
+--- a/scripts/test-work-modules-scope.mjs
++++ b/scripts/test-work-modules-scope.mjs
+@@ -253,4 +253,30 @@
+  assert.equal(session.status,'denied');assert.equal(session.current.snapshot,null);assert.equal(session.current.pending,false);assert.equal(posts,phase==='reload'?0:1);
+  session.dispose();checks++;
+ }
++// A short locator must never replace full-title identity/version receipt verification.
++{
++ const title='P'.repeat(100)+'A'.repeat(100),wrongTitle='P'.repeat(100)+'B'.repeat(100),search='P'.repeat(100);
++ const task={id:'task-a',version:1,title:'Original task',notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:['edit'],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};
++ const saved={...task,version:2,title},requests=[];let writes=0,readbacks=0;
++ const port=new TenantTaskModulePort(original,'tasks',async request=>{
++  requests.push(structuredClone(request));
++  if(request.method==='POST'){writes++;assert.equal(request.body.value.title,title);return{...raw,tasks:[saved],taskPage:{total:1}};}
++  if(!writes)return{...raw,tasks:[task],taskPage:{total:1}};
++  assert.equal(request.filters.search,search);assert.ok(request.filters.search.length<=100);
++  if(request.filters.taskOffset==='0')return{...raw,tasks:[{...saved,id:'same-prefix-other-task'}],taskPage:{total:101}};
++  assert.equal(request.filters.taskOffset,'100');return{...raw,tasks:[++readbacks===1?{...saved,title:wrongTitle}:saved],taskPage:{total:101}};
++ });
++ const session=new WorkModuleSession(original,'tasks',port);await session.load();
++ await assert.rejects(()=>session.submit(task.id,'edit',{title,body:task.notes,date:task.due_on},1),e=>e.code==='conflict');
++ assert.equal(session.current.pending,true);assert.equal(session.current.snapshot.items[0].title,task.title);
++ await session.retryPending();assert.equal(session.status,'success');assert.equal(session.current.snapshot.items[0].title,title);assert.equal(writes,1);
++ assert.deepEqual(requests.filter(r=>r.method==='GET'&&r.filters.search!=='').map(r=>r.filters.taskOffset),['0','100','0','100']);session.dispose();checks++;
++}
++// Readback without a pending rename also bounds long existing titles and avoids split surrogate pairs.
++for(const title of ['T'.repeat(100),'T'.repeat(101),'T'.repeat(200),'U'.repeat(99)+'😀'+'V'.repeat(99)]){
++ const task={id:'task-a',version:1,title,notes:'Instructions',due_on:'2026-11-12',status:'open',evidence:'',actions:[],owner_id:'actor-a',priority:'normal',flow_id:'existing-flow'};
++ const searches=[],port=new TenantTaskModulePort(original,'tasks',async request=>{searches.push(request.filters.search);assert.ok(request.filters.search.length<=100);return{...raw,tasks:[task],taskPage:{total:1}};});
++ const signal=new AbortController().signal;await port.read({search:'',offset:0},signal);const snapshot=await port.readItem(task.id,signal);
++ assert.equal(snapshot.items[0].title,title);assert.equal(searches[1],title.startsWith('U')?'U'.repeat(99):title.slice(0,100));port.dispose();checks++;
++}
+ console.log(`PASS tenant work scope: ${checks} cases; immutable actor/dataset binding and foreign response denial`);
+diff --git a/packages/flutter_core/test/work_modules/tenant_task_module_port_test.dart b/packages/flutter_core/test/work_modules/tenant_task_module_port_test.dart
+--- a/packages/flutter_core/test/work_modules/tenant_task_module_port_test.dart
++++ b/packages/flutter_core/test/work_modules/tenant_task_module_port_test.dart
+@@ -66,6 +66,59 @@
+   expect(session.pendingReceipt,isNotNull);await session.retryPending();
+   expect(session.status,'success');expect(writes,1);expect(searches,[cmd.fields['title'],cmd.fields['title']]);session.dispose();
+  });
++ for(final length in [1000,1001,2000])test('complete $length-character evidence survives native mutation and every task projection',()async{
++  final evidence=List.filled(length,'E').join();
++  for(final module in ['tasks','board']){
++   final before=clone(first),after=clone(first);var writes=0,reads=0;
++   final changedTask=(after['tasks'] as List).cast<Map<dynamic,dynamic>>().single;
++   changedTask.addAll({'version':2,'status':'in_progress','evidence':evidence,'actions':['block','submit','edit','cancel']});
++   final p=port(module,(r)async{if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['evidence'],evidence);return after;}if(writes>0)reads++;return writes>0?after:before;});
++   final session=WorkModuleSession(scope,module,port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');await session.load();
++   await session.submit('task1','start',{'body':evidence});expect(session.status,'success');expect(session.snapshot!.items.single.meta,evidence);expect(writes,1);expect(reads,1);session.dispose();
++   for(final projection in ['tasks','board','notes','calendar']){
++    final reload=port(projection,(_)async=>after),snapshot=WorkSnapshot.fromJson(await reload.read(const WorkQuery()),scope,projection);
++    expect(snapshot.items.single.meta,evidence);reload.dispose();
++   }
++  }
++ });
++ test('native evidence and query bounds remain closed above the documented limits',()async{
++  for(final evidence in [List.filled(2001,'E').join(),'Evidence with\u0000control']){
++   final invalid=clone(first);(invalid['tasks'] as List).cast<Map<dynamic,dynamic>>().single['evidence']=evidence;
++   final reader=port('tasks',(_)async=>invalid);await expectLater(reader.read(const WorkQuery()),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','invalid')));reader.dispose();
++   var posts=0;final writer=port('tasks',(r)async{if(r.method=='POST')posts++;return first;});await writer.read(const WorkQuery());
++   await expectLater(writer.mutate(WorkCommand('task1',1,'start',{'body':evidence}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));expect(posts,0);writer.dispose();
++  }
++  var reads=0;final p=port('tasks',(_)async{reads++;return first;});await expectLater(p.read(WorkQuery(List.filled(101,'S').join())),throwsA(isA<WorkFailure>()));expect(reads,0);p.dispose();
++ });
++ final boundaryTitles=[List.filled(100,'T').join(),List.filled(101,'T').join(),List.filled(200,'T').join(),'${List.filled(99,'U').join()}😀${List.filled(99,'V').join()}'];
++ for(final title in boundaryTitles)test('native ${title.length}-unit title readback preserves the full title and safe search prefix ${title.startsWith('U')}',()async{
++  final before=clone(first),after=clone(first);final expectedSearch=title.startsWith('U')?List.filled(99,'U').join():title.substring(0,100);
++  (before['tasks'] as List).cast<Map<dynamic,dynamic>>().single['title']=title;
++  (after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll({'title':title,'version':2});
++  var writes=0;final searches=<String>[];
++  final p=port('tasks',(r)async{if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['title'],title);}else{searches.add(r.filters['search']!);expect(r.filters['search']!.length,lessThanOrEqualTo(100));}return writes>0?after:before;});
++  await p.read(const WorkQuery());final original=WorkSnapshot.fromJson(await p.readItem('task1'),scope,'tasks');expect(original.items.single.title,title);expect(searches.last,expectedSearch);
++  final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');await session.load();
++  await session.submit('task1','edit',{'title':title,'body':'Current note','date':'2026-11-01'});expect(session.status,'success');expect(session.snapshot!.items.single.title,title);expect(writes,1);expect(searches.last,expectedSearch);session.dispose();
++ });
++ test('bounded native locator retains exact ID, full title and acknowledgment through paginated mismatch retry',()async{
++  final prefix=List.filled(100,'P').join(),title=prefix+List.filled(100,'A').join(),wrongTitle=prefix+List.filled(100,'B').join();
++  final after=clone(first);(after['tasks'] as List).cast<Map<dynamic,dynamic>>().single.addAll({'title':title,'version':2});
++  var writes=0,readbacks=0;final offsets=<String>[];
++  final p=port('tasks',(r)async{
++   if(r.method=='POST'){writes++;expect((r.body!['value'] as Map)['title'],title);return after;}
++   if(writes==0)return first;
++   expect(r.filters['search'],prefix);offsets.add(r.filters['taskOffset']!);final response=clone(after);response['taskPage']={'total':101};
++   final row=(response['tasks'] as List).cast<Map<dynamic,dynamic>>().single;
++   if(r.filters['taskOffset']=='0')row['id']='same-prefix-other-task';
++   else{expect(r.filters['taskOffset'],'100');if(++readbacks==1)row['title']=wrongTitle;}
++   return response;
++  });
++  final session=WorkModuleSession(scope,'tasks',port:p,requestId:()=> '00000000-0000-4000-8000-000000000001');await session.load();final originalTitle=session.snapshot!.items.single.title;
++  await expectLater(session.submit('task1','edit',{'title':title,'body':'Current note','date':'2026-11-01'}),throwsA(isA<WorkFailure>().having((e)=>e.code,'code','conflict')));
++  expect(session.pendingReceipt,isNotNull);expect(session.snapshot!.items.single.title,originalTitle);
++  await session.retryPending();expect(session.status,'success');expect(session.snapshot!.items.single.title,title);expect(writes,1);expect(offsets,['0','100','0','100']);session.dispose();
++ });
+  test('contacts remain read-only; scope, engine, versions and field grants fail closed',()async{
+   final contacts=port('contacts',(_)async=>first);await contacts.read(const WorkQuery());await expectLater(contacts.mutate(WorkCommand('staff:worker',1,'edit',{'body':'x'}),'00000000-0000-4000-8000-000000000001'),throwsA(isA<WorkFailure>()));contacts.dispose();
+   for(final raw in [ {...first,'database':'SQLite'}, {...first,'identity':{'userId':'other','role':scope.role}}, {...first,'organization':{'id':'other'}}, {...first,'synthetic':true} ]){
