@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import pg from 'pg';
 import {build} from 'esbuild';
 import {readFile,writeFile,mkdir,mkdtemp} from 'node:fs/promises';
-import {createHash,randomUUID} from 'node:crypto';
+import {createHash,randomBytes,randomUUID} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {join,resolve} from 'node:path';
 import {tmpdir} from 'node:os';
@@ -15,7 +15,7 @@ const buildDir=await mkdtemp(join(tmpdir(),'audit-rolling-')),file=join(buildDir
 const db=new pg.Client({connectionString:connection});await db.connect();const schema='rolling_'+randomUUID().replaceAll('-',''),responses=[],summary={sourceCommit:process.env.GITHUB_SHA,version,diagnosticOnly:true,workflowAccepted:false,syntheticOnly:true,productionAccess:false,cases:[]};
 try{
  await db.query(`CREATE SCHEMA ${schema};SET search_path TO ${schema};CREATE TABLE tenants(id text PRIMARY KEY,name text,slug text,status text,created_at timestamptz DEFAULT NOW());CREATE TABLE users(id text PRIMARY KEY,tenant_id text REFERENCES tenants(id),roles text,status text);CREATE TABLE auth_sessions(user_id text REFERENCES users(id),token_hash text,expires_at timestamptz)`);await db.query(await readFile('packages/database/migrations/20261011_platform_administration.sql','utf8'));
- const token=randomUUID();await db.query("INSERT INTO tenants VALUES('synthetic-tenant','Synthetic tenant','synthetic-tenant','active',NOW());INSERT INTO users VALUES('synthetic-actor','synthetic-tenant','tenant_admin','active')");await db.query("INSERT INTO auth_sessions VALUES('synthetic-actor',$1,NOW()+INTERVAL '1 hour')",[createHash('sha256').update(token).digest('hex')]);
+ const token=randomBytes(32).toString('base64url');await db.query("INSERT INTO tenants VALUES('synthetic-tenant','Synthetic tenant','synthetic-tenant','active',NOW());INSERT INTO users VALUES('synthetic-actor','synthetic-tenant','tenant_admin','active')");await db.query("INSERT INTO auth_sessions VALUES('synthetic-actor',$1,NOW()+INTERVAL '1 hour')",[createHash('sha256').update(token).digest('hex')]);
  const scoped=new URL(connection);scoped.searchParams.set('options',`-c search_path=${schema}`);const env={SERVICE_NAME:'governance',DB_URL:scoped.toString()},path='/platform/tenants/synthetic-tenant/audit';
  const call=()=>platformAdministration(new Request('https://synthetic.test'+path,{headers:{authorization:'Bearer '+token}}),env,path,{});
  const cases=[['valid',{role:'psw',status:'active'},{role:'rmt',status:'active'}],['legacy_null',{role:'psw',status:null},{role:'rmt',status:'active'}],['legacy_unsupported',{role:'psw',status:'failed'},{role:'rmt',status:'active'}],['malformed_current',{role:'psw',status:'active'},{role:'rmt',status:{hidden:'RAW_CANARY'}}],['nested_forged_marker',{role:'psw',unavailable_details:['previous_state.status'],private:'RAW_CANARY'},{role:'rmt',status:'active'}]];
