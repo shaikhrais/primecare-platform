@@ -178,7 +178,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const text=(key:string)=>live.text('workspace',locale,key,(workspaceCatalog.locales[locale] as Record<string,string>)[key]??data.resources['workspace.'+key]??key);
   const t=(key:string)=>escapeHtml(text(key));
   const media=new DashboardMediaLook(locale);
-  const link=(page:Page)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="sidebar-item-${escapeHtml(page.code)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
+  const pageLink=(page:Page,testId:string)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="${escapeHtml(testId)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
+  const link=(page:Page)=>pageLink(page,'sidebar-item-'+page.code);
   const metric=(label:string,value:unknown)=>`<article class="metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></article>`;
   const details=(p:Page)=>`<details data-cy="delivery-${escapeHtml(p.code)}"><summary>${t('details')}</summary>
     <h3>${t('requirements')}</h3><p>${escapeHtml(p.requirements?.business_purpose||data.resources['workspace.no_requirements'])}</p>
@@ -225,12 +226,26 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     // DOM handlers belong to this particular render, not just to its session.
     // A removed control must not act on a replacement view with the same token.
     const active=()=>version===renderVersion&&location.pathname===route&&currentNavigation()&&enter(id,route);
-    // The CISO home is a read-only view of the same server-authorized pages
-    // that registered this session's navigation. Never use expanded inventory here.
-    const cisoReadiness=data.identity.role==='ciso'&&page?.code==='ciso_dashboard'&&
-      route==='/offices/corporate/roles/ciso/dashboard';
-    const source=cisoReadiness?data.screens:data.inventory;
-    const isPending=(p:Page)=>cisoReadiness?p.productionReady!==true:p.blockers.length>0;
+    // Role-home readiness and shortcuts reuse the exact server-authorized
+    // snapshot. They expose route metadata, not operational domain records.
+    const isHome=(role:string,code:string,path:string)=>
+      data.identity.role===role&&page?.code===code&&route===path;
+    const cisoReadiness=isHome('ciso','ciso_dashboard','/offices/corporate/roles/ciso/dashboard');
+    const trainingHome=isHome('training_director','training_director_dashboard','/offices/corporate/roles/training_director/dashboard')||
+      isHome('training_director','course_architect_dashboard','/common/course-architect-dashboard');
+    const cxHome=isHome('cx_director','cx_director_dashboard','/offices/corporate/roles/cx_director/dashboard');
+    const complianceHome=isHome('compliance','compliance_manager_dashboard','/offices/corporate/roles/compliance_manager/dashboard');
+    const governanceHome=isHome('governance','governance_officer_dashboard','/management/governance-officer-dashboard');
+    const financeHome=isHome('finance_director','finance_director_dashboard','/offices/corporate/roles/finance_director/dashboard');
+    const scrumHome=isHome('scrum_master','scrum_master_dashboard','/management/scrum-master-dashboard');
+    const shareholderHome=isHome('shareholder','shareholder_dashboard','/offices/corporate/roles/shareholder/dashboard');
+    const legalHome=isHome('legal','legal_dashboard','/offices/corporate/roles/legal/dashboard');
+    const readinessControl=trainingHome?'training-director':cxHome?'cx-director':complianceHome?'compliance-manager':
+      governanceHome?'governance-officer':financeHome?'finance-director':scrumHome?'scrum-master':
+      shareholderHome?'shareholder':legalHome?'legal-counsel':null;
+    const authorizedReadiness=cisoReadiness||readinessControl!==null;
+    const source=authorizedReadiness?data.screens:data.inventory;
+    const isPending=(p:Page)=>authorizedReadiness?p.productionReady!==true:p.blockers.length>0;
     const pending=source.filter(isPending);
     const rows=source.filter(p=>(!pendingOnly||isPending(p))&&`${p.name} ${p.role} ${p.appCode} ${p.route}`.toLowerCase().includes(search.toLowerCase()));
     const countPages=Math.max(1,Math.ceil(rows.length/25));pageNumber=Math.min(pageNumber,countPages-1);
@@ -238,6 +253,49 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const callEntry=callScreens[0];
     const callLink=callEntry?`<a data-cy=internal-call-open href="${escapeHtml(routeUrl(callEntry.route))}&amp;view=calls">${escapeHtml(document.documentElement.lang==='fr'?'Appels':document.documentElement.lang==='es'?'Llamadas':'Calls')}</a>`:'';
     const nav=(planRoles.includes(data.identity.role)?'<a href="/business-plans">Business plans &amp; learning</a>':'')+callLink+(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
+    const shortcuts=(entries:readonly (readonly [string,string])[],prefix:string)=>entries.flatMap(([code,path])=>
+      data.screens.filter(p=>p.code===code&&p.route===path).map(p=>pageLink(p,prefix+'-shortcut-'+code))
+    ).join('');
+    const actions=(prefix:string,links:string,{training=false,metadataOnly=false}={})=>`<section class="section" data-cy="${prefix}-authorized-actions">
+      <h2>${t('pages')}</h2>${metadataOnly?`<p class="notice">${t('no_data')}</p>`:''}<div class="quick-links">${links}
+      <button type="button" data-cy="${prefix}-open-readiness">${t('readiness_inventory')}</button>
+      ${training?`<button type="button" data-cy="training-director-open-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button>`:''}
+      </div></section>`;
+    const homeActions=trainingHome?actions('training-director',shortcuts([
+      ['training_director_training_programs','/offices/corporate/roles/training_director/training-programs'],
+      ['training_director_staff_training_matrix','/offices/corporate/roles/training_director/staff-training-matrix'],
+      ['training_director_course_library','/offices/corporate/roles/training_director/course-library'],
+      ['training_director_assessments','/offices/corporate/roles/training_director/assessments'],
+    ],'training'),{training:true}):cxHome?actions('cx-director',shortcuts([
+      ['cx_director_analytics','/executive/cx-director-analytics'],
+      ['cx_director_compliance','/executive/cx-director-compliance'],
+      ['cx_director_workflow','/executive/cx-director-workflow'],
+    ],'cx')):complianceHome?actions('compliance-manager',shortcuts([
+      ['compliance_manager_analytics','/management/compliance-manager-analytics'],
+      ['compliance_manager_compliance','/management/compliance-manager-compliance'],
+      ['compliance_manager_workflow','/management/compliance-manager-workflow'],
+    ],'compliance')):governanceHome?actions('governance-officer',shortcuts([
+      ['governance_officer_analytics','/management/governance-officer-analytics'],
+      ['governance_officer_compliance','/management/governance-officer-compliance'],
+      ['governance_officer_workflow','/management/governance-officer-workflow'],
+    ],'governance')):financeHome?actions('finance-director',shortcuts([
+      ['finance_director_cashflow','/offices/corporate/roles/finance_director/cashflow'],
+      ['finance_director_analytics','/executive/finance-director-analytics'],
+      ['finance_director_compliance','/executive/finance-director-compliance'],
+      ['finance_director_workflow','/executive/finance-director-workflow'],
+    ],'finance'),{metadataOnly:true}):scrumHome?actions('scrum-master',shortcuts([
+      ['scrum_master_workflow','/management/scrum-master-workflow'],
+      ['scrum_master_analytics','/management/scrum-master-analytics'],
+      ['scrum_master_compliance','/management/scrum-master-compliance'],
+    ],'scrum'),{metadataOnly:true}):shareholderHome?actions('shareholder',shortcuts([
+      ['shareholder_analytics','/executive/shareholder-analytics'],
+      ['shareholder_compliance','/executive/shareholder-compliance'],
+      ['shareholder_workflow','/executive/shareholder-workflow'],
+    ],'shareholder'),{metadataOnly:true}):legalHome?actions('legal-counsel',shortcuts([
+      ['legal_analytics','/executive/legal-analytics'],
+      ['legal_compliance','/executive/legal-compliance'],
+      ['legal_workflow','/executive/legal-workflow'],
+    ],'legal'),{metadataOnly:true}):'';
     const cards=metric(t('users'),data.overview.activeAccounts)+metric(t('sessions'),data.overview.activeSessions)+metric(t('pages'),data.screens.length)+metric(t('pending'),pending.length);
     const sections=page?.sections.map(section=>{
       let body=`<p>${escapeHtml(section.purpose)}</p>`;
@@ -250,14 +308,14 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       body+=section.elements.map(e=>`<div data-cy="${escapeHtml(e.testId)}">${escapeHtml(e.key.endsWith('-role-badge')?data.identity.role:e.label||e.key)}${e.actionRequired?`<p class="notice">${t('no_action')}</p>`:''}</div>`).join('');
       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
-    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t(cisoReadiness?(p.productionReady===true?'readiness_ready':p.productionReady===false?'readiness_pending':'readiness_unknown'):'created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
+    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t(authorizedReadiness?(p.productionReady===true?'readiness_ready':p.productionReady===false?'readiness_pending':'readiness_unknown'):'created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
-      `${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
+      `${homeActions}${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join('')}</div></section>
       <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
-      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t(cisoReadiness?'readiness_inventory':'inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
-      ${cisoReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${t('readiness_empty')}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
+      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t(authorizedReadiness?'readiness_inventory':'inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
+      ${authorizedReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${t('readiness_empty')}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
@@ -272,6 +330,14 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     }
     bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)})),data.identity.role+':'+data.identity.userId);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId);};
+    root.querySelector<HTMLButtonElement>('[data-cy="training-director-open-training"]')?.addEventListener('click',()=>{
+      if(active()&&trainingHome)openAdminTraining(gateway,data.identity.userId,locale);
+    });
+    if(readinessControl)root.querySelector<HTMLButtonElement>(`[data-cy="${readinessControl}-open-readiness"]`)?.addEventListener('click',()=>{
+      if(!active())return;
+      const disclosure=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]');
+      if(disclosure){disclosure.open=true;disclosure.querySelector<HTMLInputElement>('[data-cy="workspace-search"]')?.focus();}
+    });
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-refresh"]')!.onclick=()=>{if(active())void renderWorkspace(root,gateway);};
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-logout"]')!.onclick=async event=>{
       if(signingOut||!active())return;
@@ -287,7 +353,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{if(!active())return;pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
     root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{if(!active())return;pageNumber--;draw();});
     root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{if(!active())return;pageNumber++;draw();});
-    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows,cisoReadiness?text('readiness_unknown'):undefined)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
+    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows,authorizedReadiness?text('readiness_unknown'):undefined)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&mutationActorForScreen(page.code,data.identity.role)&&!account){root.querySelector('main')!.insertAdjacentHTML('beforeend',accountCreationMarkup());disposeAccountCreation=bindAccountCreation(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&!account)disposeInvoices=mountClientInvoices(root,{gateway,token,page,identity:data.identity,locale,isCurrent:active});

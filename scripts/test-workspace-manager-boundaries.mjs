@@ -231,9 +231,27 @@ test('same-token remount cleans up old available panel disposers and live subscr
  f.dispatch('pagehide',{persisted:false});assert.equal(__creation.stops,3);checkRetired(f);
 });
 test('original dispatcher entry survives SPA paths and is never silently repaired after loss',async()=>{
- const f=await browser();await f.render();const entry=client.resolveManagedRoute(f.data.landing,'');
- f.click(f.root.querySelector('[data-cy="workspace-account"]'));await f.render();assert.match(f.root.innerHTML,/screen-account/);assert.equal(f.manager.enter(entry.id,entry.route).route,f.data.landing);
+ // Start on the existing dispatcher wrapper: unlike the canonical CEO route,
+ // /dashboard is not co-owned by a server-returned governed screen.
+ const wrapper='/dashboard',f=await browser({path:wrapper});
+ assert.ok(!f.data.screens.some(screen=>screen.route===wrapper));
+ await f.render();const entry=client.resolveManagedRoute(wrapper,'');
+ assert.equal(location.pathname,f.data.landing);
+ f.click(f.root.querySelector('[data-cy="workspace-account"]'));await f.render();assert.match(f.root.innerHTML,/screen-account/);assert.equal(f.manager.enter(entry.id,entry.route).route,wrapper);
  f.manager.registerScope('entry',[]);const count=f.requests.length;await f.render();assert.match(error(f),/Missing registration/);assert.equal(f.requests.length,count);checkRetired(f);
+});
+test('canonical CEO landing is owned by its governed screen until the workspace retires',async()=>{
+ const f=await browser(),entry=client.resolveManagedRoute(f.data.landing,'');
+ assert.equal(f.manager.enter(entry.id,entry.route).route,f.data.landing);
+ await f.render();
+ const governedId='governed:ceo_dashboard';
+ assert.equal(f.manager.enter(governedId,entry.route).route,f.data.landing);
+ assert.throws(()=>f.manager.enter(entry.id,entry.route),/Missing registration/);
+ f.click(f.root.querySelector('[data-cy="workspace-account"]'));await f.render();assert.match(f.root.innerHTML,/screen-account/);
+ assert.equal(f.manager.enter(governedId,entry.route).route,f.data.landing);
+ assert.throws(()=>f.manager.enter(entry.id,entry.route),/Missing registration/);
+ f.dispatch('pagehide',{persisted:false});checkRetired(f);
+ assert.equal(f.manager.enter(entry.id,entry.route).route,f.data.landing);
 });
 test('current training/export/refresh and confirmed logout retain their existing behavior',async()=>{
  const f=await browser();await f.render();await invoke(control(f,'workspace-training'));await invoke(control(f,'workspace-export'));
