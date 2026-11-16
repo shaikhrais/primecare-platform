@@ -1,0 +1,29 @@
+name: Preflight draft CEO curriculum catalog (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ceo-training-catalog-preflight.yml
+      - tests/fixtures/ceo-training/catalog/**
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  curriculum:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check draft locale parity, wiki coverage and read-only boundaries
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test tests/fixtures/ceo-training/catalog/validate-curriculum.test.mjs
+          git diff --exit-code

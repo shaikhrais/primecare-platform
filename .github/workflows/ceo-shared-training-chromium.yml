@@ -1,0 +1,72 @@
+name: Verify CEO shared Training in isolated Chromium
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/ceo-shared-training-chromium.yml
+      - tests/fixtures/ceo-training/shared-launch-chromium.patch
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  chromium:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: primecare
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: login_browser
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U primecare -d login_browser" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply existing launcher and new Chromium fixture only in runner
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          for patch in tests/fixtures/ceo-training/workspace-training-locale.patch tests/fixtures/ceo-training/shared-launch-chromium.patch; do
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          done
+          git diff --check
+          expected=$(printf '%s\n' scripts/test-workspace-manager-boundaries.mjs scripts/test-workspace-signout-workflow.mjs websites/typescript/src/workspace.ts)
+          test "$(git diff --name-only)" = "$expected"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install the existing isolated Chromium fixture dependencies
+        run: |
+          set -euo pipefail
+          npm install --prefix "$RUNNER_TEMP/ceo-chromium-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 playwright@1.60.0 pg@8.16.3 bcryptjs@3 typescript@5.9.3 jsdom@26 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/ceo-chromium-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Real synthetic CEO login, registered dashboard, and localized shared Training
+        env:
+          AUTH_WORKSPACE_TEST_FIXTURE: '1'
+          CEO_SHARED_TRAINING_ONLY: '1'
+          LOGIN_BROWSER_DATABASE_URL: postgres://primecare:fixture-only@127.0.0.1:5432/login_browser
+        run: |
+          set -euo pipefail
+          mkdir -p test-results/ceo-shared-training-browser
+          cp tools/workflow-verification/specs/auth.logout.fixture.json test-results/ceo-shared-training-browser/governance.json
+          node scripts/test-workspace-signout-workflow.mjs
+          jq -e --arg sha "$GITHUB_SHA" --arg run "$GITHUB_RUN_ID" '
+            .commit==$sha and .run==$run and .passed and .syntheticOnly and
+            (.productionAccess|not) and (.dedicatedCourseVerified|not) and
+            ([.cases[].locale]==["en","fr","es"]) and
+            ([.cases[]|(.registeredLanding and .activeLocale and .reload and .restoredFocus and .noGatewayWrites)]|all)
+          ' test-results/ceo-shared-training-browser/results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ceo-shared-training-chromium
+          path: test-results/ceo-shared-training-browser/results.json
+          retention-days: 7
+          if-no-files-found: error

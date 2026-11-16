@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "draftOnly": true,
+  "role": "ceo",
+  "sourceCommit": "ef3d1adf78dffa6178e64f2495f4f35ff8b1a7e7",
+  "routePrefixForReferenceOnly": "/offices/corporate/roles/ceo",
+  "defaultLocale": "en",
+  "localesUnderReview": ["en", "fr", "es"],
+  "taskGroups": [
+    {"id":"access","wikiTaskIds":["TSK-COR-701-01"],"exercise":"source-backed-navigation-when-available"},
+    {"id":"performance","wikiTaskIds":["TSK-COR-701-01","TSK-COR-707-01","TSK-COR-708-01","TSK-COR-709-01","TSK-COR-710-01","TSK-COR-711-01"],"exercise":"synthetic-read-only"},
+    {"id":"risk","wikiTaskIds":["TSK-COR-712-01","TSK-COR-713-01","TSK-COR-714-01","TSK-COR-715-01"],"exercise":"synthetic-read-only"},
+    {"id":"reporting","wikiTaskIds":["TSK-COR-716-01","TSK-COR-717-01"],"exercise":"synthetic-read-only"}
+  ],
+  "tasks": {
+    "TSK-COR-701-01":{"routeSuffix":"/dashboard","sourceStatus":"workspace-route-source-backed; business-metrics-not-live-verified"},
+    "TSK-COR-707-01":{"routeSuffix":"/enterprise-overview","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-708-01":{"routeSuffix":"/franchise-overview","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-709-01":{"routeSuffix":"/region-performance","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-710-01":{"routeSuffix":"/revenue-summary","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-711-01":{"routeSuffix":"/strategic-kpis","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-712-01":{"routeSuffix":"/growth-pipeline","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-713-01":{"routeSuffix":"/leadership-reports","sourceStatus":"wiki-intent; authorized personnel access not verified"},
+    "TSK-COR-714-01":{"routeSuffix":"/alerts-and-risks","sourceStatus":"live acknowledgement and action not verified"},
+    "TSK-COR-715-01":{"routeSuffix":"/organization-map","sourceStatus":"wiki-intent-not-live-verified"},
+    "TSK-COR-716-01":{"routeSuffix":"/approvals","sourceStatus":"unavailable for training; no grant established"},
+    "TSK-COR-717-01":{"routeSuffix":"/reports","sourceStatus":"live Board PDF export not verified"}
+  },
+  "copy": {
+    "en":{
+      "title":"CEO Training",
+      "boundary":"Use synthetic data. Course completion does not grant access or approve an action.",
+      "access":{"title":"Find your workspace","objective":"Sign in with your assigned CEO account and see which pages are available.","success":"Find My account and identify one unavailable or unverified capability."},
+      "performance":{"title":"Read enterprise performance","objective":"Compare synthetic franchise, regional, revenue and strategic performance using the same period, scope and units.","success":"Explain one variance or say why the comparison is not supported."},
+      "risk":{"title":"Review growth and assess risk","objective":"Use fictional examples to review pipeline, organization, leadership alignment and risks without changing records.","success":"Name a risk, its severity and the responsible owner, and explain when to escalate."},
+      "reporting":{"title":"Prepare decisions and Board reports","objective":"Review a synthetic decision and report for scope, confidentiality and reviewer. Do not approve, export or distribute live records.","success":"Produce a mock decision note and report review checklist."}
+    },
+    "fr":{
+      "title":"Formation de la direction générale",
+      "boundary":"Utilisez des données fictives. Terminer la formation ne donne aucun droit d’accès et ne vaut pas approbation.",
+      "access":{"title":"Trouver votre espace de travail","objective":"Connectez-vous avec votre compte de direction générale et repérez les pages disponibles.","success":"Trouvez Mon compte et repérez une fonction indisponible ou non vérifiée."},
+      "performance":{"title":"Lire les résultats de l’entreprise","objective":"Comparez des résultats fictifs pour les franchises, les régions, les revenus et les objectifs, en conservant la même période, le même périmètre et les mêmes unités.","success":"Expliquez un écart ou dites pourquoi la comparaison n’est pas possible."},
+      "risk":{"title":"Examiner la croissance et évaluer les risques","objective":"Utilisez des exemples fictifs pour examiner les projets de croissance, l’organisation, la coordination de la direction et les risques, sans modifier de dossier.","success":"Nommez un risque, indiquez sa gravité et la personne responsable, puis expliquez quand le signaler."},
+      "reporting":{"title":"Préparer les décisions et les rapports au conseil","objective":"Vérifiez le périmètre, la confidentialité et la personne chargée de la révision pour une décision et un rapport fictifs. N’approuvez, n’exportez et ne diffusez aucun dossier réel.","success":"Rédigez une note de décision fictive et une liste de vérification du rapport."}
+    },
+    "es":{
+      "title":"Formación de la dirección ejecutiva",
+      "boundary":"Use datos ficticios. Completar la formación no concede acceso ni aprueba ninguna acción.",
+      "access":{"title":"Encontrar su espacio de trabajo","objective":"Inicie sesión con su cuenta asignada de dirección ejecutiva e identifique las páginas disponibles.","success":"Encuentre Mi cuenta e identifique una función no disponible o sin verificar."},
+      "performance":{"title":"Interpretar el desempeño de la empresa","objective":"Compare resultados ficticios de franquicias, regiones, ingresos y objetivos usando el mismo período, alcance y unidades.","success":"Explique una diferencia o indique por qué la comparación no es válida."},
+      "risk":{"title":"Revisar el crecimiento y evaluar riesgos","objective":"Use ejemplos ficticios para revisar los proyectos de crecimiento, la organización, la coordinación directiva y los riesgos sin modificar registros.","success":"Identifique un riesgo, su gravedad y la persona responsable, y explique cuándo comunicarlo al nivel correspondiente."},
+      "reporting":{"title":"Preparar decisiones e informes para el consejo","objective":"Revise el alcance, la confidencialidad y quién debe revisar una decisión y un informe ficticios. No apruebe, exporte ni distribuya registros reales.","success":"Prepare una nota de decisión ficticia y una lista de comprobación del informe."}
+    }
+  }
+}
