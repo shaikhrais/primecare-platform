@@ -1,0 +1,11 @@
+--- a/websites/typescript/src/workspace.ts
++++ b/websites/typescript/src/workspace.ts
+@@ -255,7 +255,7 @@
+     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
+     if(page && data.reporting?.screens.includes(page.code)) {
+       let panel=reportPanels.get(page.code);
+-      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,'en',{
++      if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,locale,{
+         // Cached report state survives same-screen shell redraws. Its active
+         // route and parent lifecycle, not a removed shell's version, own it.
+         isCurrent:()=>currentNavigation()&&location.pathname===route&&enter(id,route),

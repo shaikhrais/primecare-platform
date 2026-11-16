@@ -1,0 +1,36 @@
+name: Preflight Leadership Page Readiness report locale (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/leadership-report-locale-preflight.yml
+      - tests/fixtures/leadership-report-locale/workspace-report-locale.patch
+      - tests/fixtures/leadership-report-locale/scoped.mjs
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  report-locale:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Apply the one-line candidate in the disposable checkout
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/leadership-report-locale/workspace-report-locale.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+          test "$(git diff --name-only)" = websites/typescript/src/workspace.ts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Verify actual report renderer with isolated workspace fixture and fake GET responses
+        run: env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test tests/fixtures/leadership-report-locale/scoped.mjs
