@@ -241,6 +241,23 @@ test('actual workspace registers only authorized screens, rechecks navigation, a
  history.pushState({},'','/one');window.dispatchEvent({type:'popstate'});assert.match(root.innerHTML,/screen-one/);
  manager.registerScope('workspace',[]);window.dispatchEvent({type:'popstate'});assert.equal(root.innerHTML,'');assert.match(root.children[0].textContent,/Missing registration/);
 });
+test('same-path workspace handoff is atomic, retains unrelated scopes, and restores only the dispatcher on retirement',async()=>{
+ const f=workspaceBrowser('/one'),entry=resolveManagedRoute('/one','');
+ const unrelated={id:'unrelated',route:'/unrelated',kind:'feature',adapter:'fixture'};
+ f.manager.registerScope('unrelated',[unrelated]);
+ const duplicate={id:'duplicate',route:unrelated.route,kind:'governed',adapter:'workspace'};
+ assert.throws(()=>f.manager.replaceScopes([['entry',[]],['workspace',[duplicate]]]),/Duplicate registration/);
+ assert.deepEqual(f.manager.enter(entry.id,entry.route),entry);
+ assert.deepEqual(f.manager.enter(unrelated.id,unrelated.route),unrelated);
+ await workspaceModule.renderWorkspace(f.root,'https://gateway.invalid');
+ assert.match(f.root.innerHTML,/screen-one/);
+ assert.equal(f.manager.enter('governed:one','/one').kind,'governed');
+ assert.throws(()=>f.manager.enter(entry.id,entry.route),/Missing registration/);
+ window.dispatchEvent({type:'pagehide',persisted:false});
+ assert.throws(()=>f.manager.enter('governed:one','/one'),/Missing registration/);
+ assert.deepEqual(f.manager.enter(entry.id,entry.route),entry);
+ assert.deepEqual(f.manager.enter(unrelated.id,unrelated.route),unrelated);
+});
 test('actual workspace blocks lost connections on repeated draws and requires a manager even on direct entry',async()=>{
  const {root,config}=workspaceBrowser();await workspaceModule.renderWorkspace(root,'https://gateway.invalid');
  config.layout=undefined;window.dispatchEvent({type:'popstate'});assert.equal(root.innerHTML,'');assert.match(root.children[0].textContent,/Missing layout/);

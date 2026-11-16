@@ -20,26 +20,39 @@ export class ScreenManager {
   constructor(private readonly connections: ScreenConnections) {}
 
   registerScope(scope: string, registrations: readonly ScreenRegistration[]): void {
+    this.replaceScopes([[scope, registrations]]);
+  }
+
+  /** Atomically replace presentation owners without ever accepting a duplicate path. */
+  replaceScopes(replacements: readonly (readonly [string, readonly ScreenRegistration[]])[]): void {
     const next = new Map(this.registrations);
-    for (const id of this.scopes.get(scope) ?? []) next.delete(id);
-    const ids = new Set<string>();
-    const routes = new Set<string>();
-    for (const registration of registrations) {
-      if (!registration.id || !registration.adapter || !registration.route.startsWith('/') ||
-          registration.route.startsWith('//') || /[?#\\\s]/.test(registration.route) ||
-          !['public', 'workspace-host', 'governed', 'feature'].includes(registration.kind)) {
-        throw new ScreenConfigurationError('Invalid registration');
+    const scopes = new Map(this.scopes);
+    const changed = new Set<string>();
+    for (const [scope] of replacements) {
+      if (changed.has(scope)) throw new ScreenConfigurationError('Duplicate scope replacement');
+      changed.add(scope);
+      for (const id of scopes.get(scope) ?? []) next.delete(id);
+    }
+    const routes = new Set([...next.values()].map(existing => existing.route));
+    for (const [scope, registrations] of replacements) {
+      const ids = new Set<string>();
+      for (const registration of registrations) {
+        if (!registration.id || !registration.adapter || !registration.route.startsWith('/') ||
+            registration.route.startsWith('//') || /[?#\\\s]/.test(registration.route) ||
+            !['public', 'workspace-host', 'governed', 'feature'].includes(registration.kind)) {
+          throw new ScreenConfigurationError('Invalid registration');
+        }
+        if (next.has(registration.id) || routes.has(registration.route)) {
+          throw new ScreenConfigurationError(`Duplicate registration: ${registration.id}`);
+        }
+        ids.add(registration.id); routes.add(registration.route);
+        next.set(registration.id, Object.freeze({...registration}));
       }
-      if (next.has(registration.id) || ids.has(registration.id) || routes.has(registration.route) ||
-          [...next.values()].some(existing => existing.route === registration.route)) {
-        throw new ScreenConfigurationError(`Duplicate registration: ${registration.id}`);
-      }
-      ids.add(registration.id); routes.add(registration.route);
-      next.set(registration.id, Object.freeze({...registration}));
+      scopes.set(scope, ids);
     }
     // Replace only after the complete snapshot validates; never partially install it.
     this.registrations = next;
-    this.scopes.set(scope, ids);
+    this.scopes = scopes;
   }
 
   enter(id: string, route: string): ScreenRegistration {

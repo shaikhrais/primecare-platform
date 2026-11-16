@@ -67,16 +67,23 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const callView=()=>new URLSearchParams(location.search).get('view')==='calls';
   const initialRoute=location.pathname,initialCalls=callView();
   const entry=workspaceEntries.get(root)??resolveManagedRoute(initialRoute,'');
+  let entryReplacement:{id:string;route:string}|undefined;
+  const releaseSnapshot=()=>{
+    if(entryReplacement){
+      manager.replaceScopes([['workspace',[]],['entry',[entry]]]);
+      entryReplacement=undefined;
+    }else manager.registerScope('workspace',[]);
+  };
   const onHistory=()=>{
     if(!isCurrent())return;
-    if((initialCalls||callView())&&(location.pathname!==initialRoute||callView()!==initialCalls)){if(sessionCurrent()&&enter(entry.id,entry.route))void renderWorkspace(root,gateway);}
+    if((initialCalls||callView())&&(location.pathname!==initialRoute||callView()!==initialCalls)){const activeEntry=entryReplacement??entry;if(sessionCurrent()&&enter(activeEntry.id,activeEntry.route))void renderWorkspace(root,gateway);}
     else redraw();
   };
   const retire=()=>{
     if(retired)return;retired=true;renderVersion++;
     disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
-    if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);manager.registerScope('workspace',[]);}
+    if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);releaseSnapshot();}
   };
   const fail=(error:unknown)=>{
     if(ownsRoot()){retire();showScreenConfigurationError(root,error);}return false;
@@ -94,7 +101,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   };
   const leave=(event:PageTransitionEvent)=>{
     if(!ownsRoot())return;
-    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};manager.registerScope('workspace',[]);
+    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};releaseSnapshot();
     workspaceRestores.delete(root);
     if(!event.persisted)retire();
   };
@@ -135,10 +142,18 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     // Actions are not generic screen registrations, but their navigation URLs must
     // obey the same canonical, same-origin path contract as authorized screens.
     for(const page of [...data.screens,...(data.actions??[])])routeUrl(page.route);
-    manager.registerScope('workspace',[
-    ...data.screens.map(page=>({id:'governed:'+page.code,route:page.route,kind:'governed' as const,adapter:'workspace'})),
-    {id:'typescript:account',route:'/success',kind:'feature',adapter:'workspace-account'},
-  ]);}catch(error){fail(error);return;}
+    const snapshot=[
+      ...data.screens.map(page=>({id:'governed:'+page.code,route:page.route,kind:'governed' as const,adapter:'workspace'})),
+      {id:'typescript:account',route:'/success',kind:'feature' as const,adapter:'workspace-account'},
+    ];
+    // The checked dispatcher registration is a bootstrap, not a second owner
+    // of a governed path. Replace it only after the authorized snapshot validates.
+    const replacement=snapshot.find(screen=>screen.route===entry.route);
+    if(replacement){
+      manager.replaceScopes([['entry',[]],['workspace',snapshot]]);
+      entryReplacement=replacement;
+    }else manager.registerScope('workspace',snapshot);
+  }catch(error){fail(error);return;}
   const callScreens=data.screens.filter(s=>['psw_messages','patient_messages','communication','messaging'].includes(s.code));
   if(new URLSearchParams(location.search).get('view')==='calls'&&callScreens.some(s=>s.route===location.pathname)){
     {const page=callScreens.find(s=>s.route===location.pathname)!;if(!enter('governed:'+page.code,page.route))return;}

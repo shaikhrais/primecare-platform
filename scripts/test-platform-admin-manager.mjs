@@ -53,8 +53,10 @@ for(const trigger of ['live','language','history','same-click','refresh'])test('
  if(trigger==='refresh')f.root.querySelector('[data-cy=platform-refresh]').onclick();
  await settle();assert.match(error(f),/Missing registration/);assert.equal(f.root.innerHTML,'');assert.equal(f.live.size,0);
 });
-test('entry transitions preserve unrelated and workspace-owned registrations through remount and disposal',async()=>{
- const f=browser(),account={id:'typescript:account',route:'/success',kind:'feature',adapter:'workspace-account'},governed={id:'governed:fixture',route:'/existing-fixture',kind:'governed',adapter:'workspace'};
+test('entry transitions preserve disjoint workspace and unrelated presentation scopes through remount and disposal',async()=>{
+ // The app dispatches standalone Workspace and Admin as separate document owners.
+ // Keep fixture workspace routes disjoint from real admin entry routes.
+ const f=browser(),account={id:'typescript:account',route:'/workspace-account-fixture',kind:'feature',adapter:'workspace-account'},governed={id:'governed:fixture',route:'/existing-fixture',kind:'governed',adapter:'workspace'};
  f.manager.registerScope('workspace',[account,governed]);f.manager.registerScope('unrelated',[{id:'unrelated',route:'/other-fixture',kind:'feature',adapter:'fixture'}]);
  for(let i=0;i<3;i++){
   await f.render();await f.click('account');assert.equal(f.manager.enter('typescript:workspace:/success','/success').adapter,'workspace');
