@@ -1,0 +1,198 @@
+--- a/packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart
++++ b/packages/primecare_ui/lib/src/features/workspace/governed_workspace_screen.dart
+@@ -63,7 +63,17 @@
+   String label(String key) => liveScreenText(context,'workspace',Localizations.localeOf(context).languageCode,key,Localizations.localeOf(context).languageCode=='en' ? ((_workspace?['resources'] as Map?)?['workspace.$key']?.toString() ?? 'workspace.$key'.tr()) : 'workspace.$key'.tr());
+   List<Map<String, dynamic>> list(dynamic value) => value is List
+       ? value.whereType<Map<dynamic, dynamic>>().map((v) => Map<String, dynamic>.from(v)).toList() : [];
+-  List<Map<String, dynamic>> get _pages => list(_workspace?['screens']);
++  // The workspace response grants access; the shared Screen Manager only
++  // decides whether that exact destination can be presented by this host.
++  String? _managedPath(dynamic value) => value is String &&
++      primeCareScreenManager.lookup(value) != null ? value : null;
++  List<Map<String, dynamic>> _managedEntries(dynamic value) => list(value)
++      .where((entry) => entry['code'] is String && _managedPath(entry['route']) != null)
++      .toList();
++  void _openManaged(BuildContext context, dynamic candidate) {
++    final path = _managedPath(candidate);
++    if (path != null) context.go(path);
++  }
+   @override
+   void initState() { super.initState(); Future.microtask(_load); }
+   @override
+@@ -98,14 +108,15 @@
+   @override
+   Widget build(BuildContext context) {
+     final theme = context.theme;
+-    final pages = _pages;
++    final pages = _managedEntries(_workspace?['screens']);
++    final actions = _managedEntries(_workspace?['actions']);
+     final matching = pages.where((p) => p['route'] == widget.route).toList();
+     final page = matching.isEmpty ? null : matching.first;
+     final overview = Map<String, dynamic>.from((_workspace?['overview'] as Map?) ?? {});
+     final inventory = list(_workspace?['inventory']);
+     final filtered = inventory.where((p) => '${p['name']} ${p['role']} ${p['appCode']} ${p['route']}'
+       .toLowerCase().contains(_search.toLowerCase())).toList();
+-    final allowed = pages.map((p) => p['code']).toSet();
++    final allowed = pages.map((p) => (p['code'], p['route'])).toSet();
+     return Scaffold(
+       backgroundColor: theme.colors.background,
+       appBar: AppBar(title: Text(page?['name']?.toString() ?? label('title')), actions: [
+@@ -146,9 +157,9 @@
+           _metric(label('pending'), inventory.where((p) => (p['blockers'] as List).isNotEmpty).length),
+         ]), 'workspace-metrics'),
+         _card(label('pages'), Wrap(spacing: theme.spacing.sm, runSpacing: theme.spacing.sm, children: [
+-          for (final item in list(_workspace?['actions'])) TextButton(onPressed: () => context.go(item['route'].toString()), child: Text(item['name'].toString())),
++          for (final item in actions) TextButton(onPressed: () => _openManaged(context, item['route']), child: Text(item['name'].toString())),
+           for (final item in pages) Semantics(label: 'sidebar-item-${item['code']}',
+-            child: TextButton(onPressed: () => context.go(item['route'].toString()), child: Text(item['name'].toString()))),
++            child: TextButton(onPressed: () => _openManaged(context, item['route']), child: Text(item['name'].toString()))),
+         ]), 'workspace-navigation'),
+         _card(label('roles'), Column(children: [
+           for (final item in list(overview['accountRoles'])) ListTile(title: Text(item['role'].toString()), trailing: Text(item['count'].toString())),
+@@ -170,8 +181,8 @@
+           SizedBox(height: theme.spacing.md),
+           for (final item in filtered.take(100)) ListTile(
+             title: Text(item['name'].toString()), subtitle: Text('${item['appCode']} · ${item['role']}\n${(item['blockers'] as List).join('\n')}'),
+-            trailing: allowed.contains(item['code']) ? IconButton(tooltip: label('open'), icon: const Icon(Icons.arrow_forward),
+-              onPressed: () => context.go(item['route'].toString())) : null),
++            trailing: allowed.contains((item['code'], item['route'])) ? IconButton(tooltip: label('open'), icon: const Icon(Icons.arrow_forward),
++              onPressed: () => _openManaged(context, item['route'])) : null),
+         ]), 'workspace-inventory'),
+       ]),
+     );
+@@ -186,7 +197,7 @@
+       children.add(Text((_workspace?['identity'] as Map?)?['role']?.toString() ?? ''));
+     } else if (section['type'] == 'action_bar') {
+       children.add(Wrap(children: [for (final item in pages) TextButton(
+-        onPressed: () => context.go(item['route'].toString()), child: Text(item['name'].toString()))]));
++        onPressed: () => _openManaged(context, item['route']), child: Text(item['name'].toString()))]));
+     } else if (dashboard && section['type'] == 'metrics') {
+       children.add(Wrap(spacing: context.theme.spacing.lg, children: [
+         _metric(label('users'), overview['activeAccounts']), _metric(label('sessions'), overview['activeSessions'])]));
+--- a/packages/primecare_ui/test/governed_workspace_session_test.dart
++++ b/packages/primecare_ui/test/governed_workspace_session_test.dart
+@@ -7,10 +7,13 @@
+ import 'package:flutter_test/flutter_test.dart';
+ import 'package:flutter_core/flutter_core.dart';
+ import 'package:flutter_core/models/screen_manager.dart';
++import 'package:go_router/go_router.dart';
+ import 'package:primecare_ui/src/theme/prime_theme.dart';
+ import 'package:primecare_ui/src/features/workspace/governed_workspace_screen.dart';
+ import 'package:primecare_ui/src/features/auth/shared_auth_router.dart';
+ import 'package:primecare_ui/src/features/generated_screens/ceo_dashboard.dart';
++import 'package:primecare_ui/src/features/generated_screens/coo_dashboard.dart';
++import 'package:primecare_ui/src/features/generated_screens/cfo_dashboard.dart';
+ import 'package:primecare_ui/src/features/generated_screens/hr_director_dashboard.dart';
+ import 'package:primecare_ui/src/features/generated_screens/hr_hiring_dashboard.dart';
+ import 'fixtures/role_dashboard_entries.dart';
+@@ -19,8 +22,10 @@
+ AuthState session({String user = 'alice', String tenant = 'tenant-a', String token = 'fixture-a', String role = 'ceo'}) =>
+     AuthState(isInitialized: true, isAuthenticated: true, userId: user, tenantId: tenant, token: token, role: role);
+ class WorkspaceAuthFixture extends AuthNotifier {
++  WorkspaceAuthFixture([this.role = 'ceo']);
++  final String role;
+   @override
+-  AuthState build() => session();
++  AuthState build() => session(role: role);
+   void replace(AuthState value) { state = value; }
+ }
+ 
+@@ -42,24 +47,91 @@
+     }
+   });
+ 
+-  Future<ProviderContainer> mount(WidgetTester tester, void Function(RequestOptions, RequestInterceptorHandler) handle, {Widget? screen}) async {
++  Future<ProviderContainer> mount(WidgetTester tester, void Function(RequestOptions, RequestInterceptorHandler) handle,
++      {Widget? screen, String role = 'ceo', String? destination}) async {
+     final dio = Dio(BaseOptions(baseUrl: 'https://synthetic.invalid'));
+     dio.interceptors.add(InterceptorsWrapper(onRequest: handle));
+     final container = ProviderContainer(overrides: [
+-      authProvider.overrideWith(WorkspaceAuthFixture.new),
++      authProvider.overrideWith(() => WorkspaceAuthFixture(role)),
+       apiClientProvider.overrideWith((ref) => ApiClient(ref, transport: dio)),
+     ]);
+     addTearDown(container.dispose);
+     final screenId = screen is GovernedWorkspaceEntry ? screen.route : route;
+-    await tester.pumpWidget(UncontrolledProviderScope(container: container, child: PrimeTheme(data: const PrimeThemeData(),
+-      child: MaterialApp(home: AppShellBoundary(child: ManagedScreenBoundary(
+-        manager: SharedAuthRoutes.screenManager, screenId: screenId,
+-        builder: (_) => screen ?? const GovernedWorkspaceScreen(route: route),
+-      ))))));
++    Widget managedPage() => AppShellBoundary(child: ManagedScreenBoundary(
++      manager: SharedAuthRoutes.screenManager, screenId: screenId,
++      builder: (_) => screen ?? const GovernedWorkspaceScreen(route: route),
++    ));
++    final Widget app;
++    if (destination == null) {
++      app = MaterialApp(home: managedPage());
++    } else {
++      final router = GoRouter(initialLocation: screenId, routes: [
++        GoRoute(path: screenId, builder: (_, __) => managedPage()),
++        GoRoute(path: destination, builder: (_, __) => AppShellBoundary(child: ManagedScreenBoundary(
++          manager: SharedAuthRoutes.screenManager, screenId: destination,
++          builder: (_) => const Scaffold(body: Text('Managed destination entered')),
++        ))),
++      ]);
++      addTearDown(router.dispose);
++      app = MaterialApp.router(routerConfig: router);
++    }
++    await tester.pumpWidget(UncontrolledProviderScope(container: container,
++      child: PrimeTheme(data: const PrimeThemeData(), child: app)));
+     await tester.pumpAndSettle();
+     return container;
+   }
+ 
++  for (final (role, screen, targetCode, target, readOnlyCode, readOnly) in [
++    ('ceo', const CeoDashboardScreen(), 'ceo_reports', '/offices/corporate/roles/ceo/reports',
++      'ceo_alerts_and_risks', '/offices/corporate/roles/ceo/alerts-and-risks'),
++    ('coo', const CooDashboardScreen(), 'coo_reports', '/offices/corporate/roles/coo/reports',
++      'coo_branch_comparison', '/offices/corporate/roles/coo/branch-comparison'),
++    ('cfo', const CfoDashboardScreen(), 'cfo_reports', '/offices/corporate/roles/cfo/reports',
++      'cfo_financial_overview', '/offices/corporate/roles/cfo/financial-overview'),
++  ]) {
++    testWidgets('$role launch uses the current grant and the shared registered route', (tester) async {
++      expect(SharedAuthRoutes.screenManager.lookup(screen.route), isNotNull);
++      expect(SharedAuthRoutes.screenManager.lookup(target), isNotNull);
++      expect(SharedAuthRoutes.screenManager.lookup(readOnly), isNotNull);
++      const noPresentation = '/fixture/unregistered-workspace';
++      expect(SharedAuthRoutes.screenManager.lookup(noPresentation), isNull);
++      Map<String, dynamic> row(String code, String name, String path) => {
++        'code': code, 'name': name, 'route': path, 'role': role, 'appCode': 'corporate',
++        'sections': <Object>[], 'blockers': <Object>[],
++      };
++      final payload = response('Current role workspace', pageRoute: screen.route);
++      final granted = row(targetCode, 'Reports route', target);
++      final catalogueOnly = row(readOnlyCode, 'Catalogue-only entry', readOnly);
++      final otherRegisteredRoute = row(targetCode, 'Same code, different registered route', readOnly);
++      final notRegistered = row('fixture_unregistered', 'No presentation entry', noPresentation);
++      payload['identity'] = {'role': role};
++      payload['screens'] = [...(payload['screens'] as List), granted, notRegistered];
++      payload['inventory'] = [catalogueOnly, otherRegisteredRoute, granted];
++      var calls = 0;
++      await mount(tester, (options, handler) {
++        expect(options.path, '/v1/governance/workspace'); calls++;
++        handler.resolve(Response(requestOptions: options, statusCode: 200, data: payload));
++      }, screen: screen, role: role, destination: target);
++      expect(find.text('Current role workspace'), findsWidgets);
++      expect(find.text('No presentation entry'), findsNothing);
++      final catalogueRow = find.widgetWithText(ListTile, 'Catalogue-only entry');
++      await tester.scrollUntilVisible(catalogueRow, 240);
++      expect(find.descendant(of: catalogueRow, matching: find.byIcon(Icons.arrow_forward)), findsNothing);
++      final otherRouteRow = find.widgetWithText(ListTile, 'Same code, different registered route');
++      await tester.scrollUntilVisible(otherRouteRow, 180);
++      expect(find.descendant(of: otherRouteRow, matching: find.byIcon(Icons.arrow_forward)), findsNothing);
++      final reportRow = find.widgetWithText(ListTile, 'Reports route');
++      await tester.scrollUntilVisible(reportRow, 180);
++      final launch = find.descendant(of: reportRow, matching: find.byIcon(Icons.arrow_forward));
++      expect(launch, findsOneWidget);
++      await tester.tap(launch);
++      await tester.pumpAndSettle();
++      expect(find.text('Managed destination entered'), findsOneWidget);
++      expect(calls, 1);
++      expect(tester.takeException(), isNull);
++    });
++  }
++
+   for (var index = 0; index < registeredDashboardEntries.length; index++) {
+     final entry = registeredDashboardEntries[index];
+     final expectedRoute = registeredDashboardRoutes[index];
