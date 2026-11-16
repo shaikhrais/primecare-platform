@@ -9,6 +9,7 @@ from production_reader import connect
 SHARED_COURSE = 'admin-operations'
 ROLE = 'tenant_admin'
 SCREEN_CODES = ('PLATFORM_ADMINISTRATION', 'TENANT_ADMIN_COMMAND_CENTER')
+HOST_ROUTES = ('/platform/administration', '/tenant-dashboard')
 REQUIRED_CATALOG = {'roles', 'admin_training_courses', 'admin_training_learning_grants'}
 
 
@@ -74,6 +75,45 @@ def audit(db):
                 (code, 'admin_training'),
             ).fetchone()
             result['trainingSections'][code] = {'sections': sections, 'controls': controls}
+
+    # Resolve only the two known host routes/codes. Section-code synonyms are
+    # discovery evidence, not a curriculum approval, access grant or alias rule.
+    host_relations = {'screens', 'screen_sections', 'screen_section_elements'}
+    result['missingTrainingHostRelations'] = sorted(host_relations.difference(db.tables))
+    result['trainingHostResolution'] = None
+    if not result['missingTrainingHostRelations']:
+        selectors = [('route:' + route, 's.route_path=?', (route,))
+                     for route in HOST_ROUTES]
+        selectors += [('code:' + code, 'UPPER(s.screen_code)=?', (code,))
+                      for code in SCREEN_CODES]
+        selectors.append(('uniqueMatchedHosts',
+                          '(s.route_path IN (?,?) OR UPPER(s.screen_code) IN (?,?))',
+                          HOST_ROUTES + SCREEN_CODES))
+        result['trainingHostResolution'] = {}
+        for label, predicate, args in selectors:
+            hosts, exact_sections, candidate_sections, candidate_controls = db.execute(
+                'SELECT COUNT(DISTINCT s.id), '
+                'COUNT(DISTINCT CASE WHEN ss.section_code=? THEN ss.id END), '
+                'COUNT(DISTINCT ss.id), COUNT(DISTINCT e.id) FROM screens s '
+                'LEFT JOIN screen_sections ss ON ss.screen_id=s.id AND '
+                '(LOWER(ss.section_code) LIKE ? OR LOWER(ss.section_code) LIKE ? '
+                'OR LOWER(ss.section_code) LIKE ?) '
+                'LEFT JOIN screen_section_elements e ON e.section_id=ss.id '
+                'WHERE s.active=1 AND ' + predicate,
+                ('admin_training', '%training%', '%lesson%', '%course%') + args,
+            ).fetchone()
+            result['trainingHostResolution'][label] = {
+                'activeHostMatches': hosts,
+                'exactAdminTrainingSections': exact_sections,
+                'trainingLessonCourseSectionCodeMatches': candidate_sections,
+                'controlsInMatchingSections': candidate_controls,
+            }
+        result['trainingHostResolutionScope'] = {
+            'activeHostsOnly': True,
+            'sectionCodesOnly': True,
+            'candidateDiscoveryOnly': True,
+            'selectorGroupsOverlap': True,
+        }
 
     if {'language_resources', 'language_resource_values', 'languages'}.issubset(db.tables):
         languages = db.execute(
