@@ -97,7 +97,7 @@
    void replace(AuthState value) { state = value; }
  }
  
-@@ -42,24 +47,91 @@
+@@ -42,24 +47,94 @@
      }
    });
  
@@ -175,14 +175,17 @@
 +      }, screen: screen, role: role, destination: target);
 +      expect(find.text('Current role workspace'), findsWidgets);
 +      expect(find.text('No presentation entry'), findsNothing);
++      final workspaceScroll = find.descendant(of: find.byType(ListView), matching:
++        find.byWidgetPredicate((widget) => widget is Scrollable && widget.axisDirection == AxisDirection.down));
++      expect(workspaceScroll, findsOneWidget);
 +      final catalogueRow = find.widgetWithText(ListTile, 'Catalogue-only entry');
-+      await tester.scrollUntilVisible(catalogueRow, 240);
++      await tester.scrollUntilVisible(catalogueRow, 240, scrollable: workspaceScroll);
 +      expect(find.descendant(of: catalogueRow, matching: find.byIcon(Icons.arrow_forward)), findsNothing);
 +      final otherRouteRow = find.widgetWithText(ListTile, 'Same code, different registered route');
-+      await tester.scrollUntilVisible(otherRouteRow, 180);
++      await tester.scrollUntilVisible(otherRouteRow, 180, scrollable: workspaceScroll);
 +      expect(find.descendant(of: otherRouteRow, matching: find.byIcon(Icons.arrow_forward)), findsNothing);
 +      final reportRow = find.widgetWithText(ListTile, 'Reports route');
-+      await tester.scrollUntilVisible(reportRow, 180);
++      await tester.scrollUntilVisible(reportRow, 180, scrollable: workspaceScroll);
 +      final launch = find.descendant(of: reportRow, matching: find.byIcon(Icons.arrow_forward));
 +      expect(launch, findsOneWidget);
 +      await tester.tap(launch);
