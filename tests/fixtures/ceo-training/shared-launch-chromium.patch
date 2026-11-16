@@ -20,7 +20,7 @@
  if(policy.fixture_only){assert.equal(process.env.AUTH_WORKSPACE_TEST_FIXTURE,'1');receipt.limitations.push('Explicit isolated metadata fixture, not a live production authority read.');}
  try{
   await db.query('CREATE TABLE tenants(id uuid PRIMARY KEY,name text,slug text UNIQUE,status text,created_at timestamptz DEFAULT NOW(),updated_at timestamptz DEFAULT NOW());CREATE TABLE users(id uuid PRIMARY KEY,tenant_id uuid REFERENCES tenants(id),email text UNIQUE,roles text,password_hash text,status text,updated_at timestamptz DEFAULT NOW())');
-@@ -40,6 +43,67 @@
+@@ -40,6 +43,88 @@
   const login=async email=>{const r=await fetch(origin+'/v1/auth/login',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,password})});assert.equal(r.status,200);return(await r.json()).token;};
   const me=t=>fetch(origin+'/v1/auth/me',{headers:{authorization:'Bearer '+t}}),count=async t=>Number((await db.query('SELECT COUNT(*) n FROM auth_sessions WHERE token_hash=$1',[digest(t)])).rows[0].n);
   const submit=async(page,email)=>{await cy(page,'login-email').fill(email);await cy(page,'login-password').fill(password);await cy(page,'login-submit').click();await cy(page,'workspace-title').waitFor();};
@@ -30,11 +30,26 @@
 +  const registered=registry.screens.filter(screen=>screen.role==='ceo'&&screen.code==='ceo_dashboard');
 +  assert.equal(registered.length,1,'one registered CEO landing');
 +  const course=JSON.parse(await readFile('websites/typescript/src/training/admin-course.json','utf8'));
++  const statePath='/v1/external-calls/state';
++  const readOnlyProbe={path:statePath,method:'POST',status:503};
++  // Mounted by main.ts, not the Training UI. In this fixture the gateway has
++  // no external-calling binding, so the state lookup cannot reach its worker.
++  const observeStartupState=page=>page.waitForResponse(response=>{
++   const url=new URL(response.url());
++   return url.origin===origin&&url.pathname===statePath&&!url.search&&response.request().method()==='POST';
++  },{timeout:10000});
++  function confirmStartupState(response){
++   assert.equal(response.status(),503,'unbound fixture does not dispatch phone state to any provider or worker');
++   assert.deepEqual(response.request().postDataJSON(),{},'only the empty phone-state request is accepted');
++  }
++  const nonReads=start=>receipt.trace.slice(start).filter(item=>item.method!=='GET');
 +  for(const [locale,width] of [['en',320],['fr',768],['es',1440]]){
 +   const context=await browser.newContext({viewport:{width,height:1000}}),page=await context.newPage();
 +   try{
 +    await page.goto(origin+'/login?locale='+locale+'&enable-semantics=true');
++    const firstStartup=observeStartupState(page);
 +    await submit(page,'ceo@example.invalid');
++    confirmStartupState(await firstStartup);
 +    const landing=new URL(page.url());
 +    assert.equal(landing.pathname,registered[0].route);
 +    assert.equal(await page.locator('html').getAttribute('lang'),locale);
@@ -67,18 +82,24 @@
 +    await page.keyboard.press('Escape');
 +    await first.waitFor({state:'detached'});
 +    await page.waitForFunction(()=>document.activeElement?.getAttribute('data-cy')==='workspace-training');
++    assert.deepEqual(nonReads(start),[],'opening and closing Training does not send non-GET gateway requests');
++    const reloadStart=receipt.trace.length;
++    const reloadStartup=observeStartupState(page);
 +    await page.reload();await cy(page,'workspace-title').waitFor();
++    confirmStartupState(await reloadStartup);
++    assert.deepEqual(nonReads(reloadStart),[readOnlyProbe],'reload allows only the proven unrouted phone-state lookup');
 +    assert.equal(new URL(page.url()).pathname,landing.pathname);
 +    assert.equal(await page.locator('html').getAttribute('lang'),locale);
++    const reopenStart=receipt.trace.length;
 +    const again=await openTraining();
 +    await again.locator('[data-cy=training-close]').press('Enter');
 +    await again.waitFor({state:'detached'});
 +    await page.waitForFunction(()=>document.activeElement?.getAttribute('data-cy')==='workspace-training');
 +    assert.equal(await page.evaluate(()=>sessionStorage.getItem('primecare_session')),token);
 +    assert.equal(await count(token),1);
-+    assert.ok(receipt.trace.slice(start).every(entry=>entry.method==='GET'),'training and reload do not write through the gateway');
++    assert.deepEqual(nonReads(reopenStart),[],'reopening and closing Training does not send non-GET gateway requests');
 +    receipt.cases.push({locale,width,credentialLogin:true,registeredLanding:true,sharedTraining:true,
-+      activeLocale:true,reload:true,keyboardEscape:true,closeButton:true,restoredFocus:true,noGatewayWrites:true});
++      activeLocale:true,reload:true,keyboardEscape:true,closeButton:true,restoredFocus:true,noGatewayWrites:true,fixtureOnlyPhoneStateProbe:true,trainingHasNoGatewayPosts:true});
 +   }finally{await context.close();}
 +  }
 +  assert.equal(receipt.cases.length,3);
@@ -88,7 +109,7 @@
   for(const [role,email]of [['rmt','rmt@example.invalid'],['ceo','ceo@example.invalid']])for(const [locale,width]of [['en',320],['fr',768],['es',1440]]){
    await db.query('DELETE FROM auth_sessions;DELETE FROM auth_rate_limits');
    const context=await browser.newContext({viewport:{width,height:1000},recordVideo:{dir:out+'/raw'}}),page=await context.newPage();
-@@ -66,5 +130,9 @@
+@@ -66,5 +151,9 @@
   }
   if(bridgeFailure)throw bridgeFailure;for(const[path,sha]of Object.entries(receipt.source_bindings))assert.equal(digest(await readFile(path)),sha);
   receipt.passed=!baseline;receipt.probeCompleted=baseline;receipt.criterion_results=baseline?{}:{'ui.workspace-signout-confirmation':'passed','ui.workspace-signout-session-replacement':'passed','ui.workspace-signout-localization':'passed'};
