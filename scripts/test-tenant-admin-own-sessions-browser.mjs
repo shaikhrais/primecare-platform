@@ -144,18 +144,30 @@ try{
   const current=await initial.json();assert.equal(current.pagination.total,2);
   assert.equal(current.sessions.filter(row=>row.current).length,1);
   const changedPassword='Synthetic-Tenant-New-Password-2026!';
-  const fill=(value)=>Promise.all([cy('current-password').fill(value),cy('new-password').fill(changedPassword)]);
-  await fill('Wrong-synthetic-current-password!');
-  const [bad]=await Promise.all([page.waitForResponse(match('/v1/user/change-password','POST')),cy('change-password-submit').click()]);
+  const wrongPassword='Wrong-synthetic-current-password!';
+  const submitPassword=async(value,stage)=>{
+   // Chromium text entry has one focused control. Concurrent fills race and
+   // can leave a required input empty, preventing native form submission.
+   await cy('current-password').fill(value);
+   await cy('new-password').fill(changedPassword);
+   const check=await cy('change-password-form').evaluate((form,{expectedCurrent,expectedNext})=>{
+    const fields=new FormData(form);
+    return {currentMatches:fields.get('currentPassword')===expectedCurrent,
+     nextMatches:fields.get('newPassword')===expectedNext,valid:form.matches(':valid'),
+     submitBound:typeof form.onsubmit==='function'};
+   },{expectedCurrent:value,expectedNext:changedPassword});
+   assert.deepEqual(check,{currentMatches:true,nextMatches:true,valid:true,submitBound:true},stage+' password form must be ready before submitting');
+   return cy('change-password-submit').click();
+  };
+  const [bad]=await Promise.all([page.waitForResponse(match('/v1/user/change-password','POST')),submitPassword(wrongPassword,'wrong-current')]);
   assert.equal(bad.status(),401);
   await page.waitForFunction(()=>!document.querySelector('[data-cy=change-password-submit]').disabled);
   assert.equal(await currentToken(),first);assert.equal(await sessionCount(own),2);
   assert.equal(await ownPassword(),hash);assert.deepEqual(await passwordAudit(),[]);
   await unchanged();
-  await fill(password);
   const [changed]=await Promise.all([
    page.waitForResponse(match('/v1/user/change-password','POST')),
-   page.waitForURL(url=>url.pathname==='/login'),cy('change-password-submit').click(),
+   page.waitForURL(url=>url.pathname==='/login'),submitPassword(password,'own-rotation'),
   ]);
   assert.equal(changed.status(),200);await cy('login-submit').waitFor();
   assert.equal(await currentToken(),null);
