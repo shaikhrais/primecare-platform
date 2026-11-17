@@ -146,8 +146,16 @@ void main() {
   }
 
   testWidgets('managed shared buttons respond to theme and locale changes', (tester) async {
+    // Both foregrounds meet the contrast requirement against this surface.
+    // This test verifies inheritance, not the contrast fallback.
+    const initialPrimary = Color(0xFF00695C);
+    const updatedPrimary = Color(0xFF9A3412);
     Widget app(Color primary, Locale locale) => PrimeTheme(
-      data: PrimeThemeData(colors: PrimeColors(primary: primary, onSurfaceVariant: primary)),
+      data: PrimeThemeData(colors: PrimeColors(
+        primary: primary,
+        onSurfaceVariant: primary,
+        surface: Colors.white,
+      )),
       child: MaterialApp(
         locale: locale,
         supportedLocales: const [Locale('en', 'US'), Locale('en', 'CA')],
@@ -160,16 +168,16 @@ void main() {
         )),
       ),
     );
-    await tester.pumpWidget(app(Colors.teal, const Locale('en', 'US')));
+    await tester.pumpWidget(app(initialPrimary, const Locale('en', 'US')));
     expect(find.text('American'), findsOneWidget);
     await tester.enterText(find.byKey(const Key('managed-draft')), 'keep draft');
-    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.teal);
-    await tester.pumpWidget(app(Colors.orange, const Locale('en', 'CA')));
+    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), initialPrimary);
+    await tester.pumpWidget(app(updatedPrimary, const Locale('en', 'CA')));
     await tester.pumpAndSettle();
     expect(find.text('Canadian'), findsOneWidget);
     expect(find.text('keep draft'), findsOneWidget);
-    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), Colors.orange);
-    expect(tester.widget<Text>(find.text('Ghost')).style!.color, Colors.orange);
+    expect(tester.widget<ElevatedButton>(find.byType(ElevatedButton)).style!.foregroundColor!.resolve({}), updatedPrimary);
+    expect(tester.widget<Text>(find.text('Ghost')).style!.color, updatedPrimary);
     expect(tester.takeException(), isNull);
   });
 
