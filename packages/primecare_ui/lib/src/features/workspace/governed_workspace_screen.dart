@@ -3,8 +3,6 @@ import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:go_router/go_router.dart';
 import '../reports/admin_reports_panel.dart';
-import '../../components/prime_workspace_metric.dart';
-import '../../components/prime_workspace_section_card.dart';
 
 /// Shared presentation of server-authorized governance pages and live telemetry.
 /// The server supplies navigation, labels, grants and organization scope.
@@ -89,9 +87,14 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
     } catch (_) { if (mounted) setState(() { _workspace = null; _unavailable = true; }); }
     finally { if (mounted) setState(() { _loading = false; }); }
   }
-  Widget _card(String title, Widget child, String semantics) =>
-      PrimeWorkspaceSectionCard(title: title, semanticLabel: semantics, child: child);
-
+  Widget _card(String title, Widget child, String semantics) => Semantics(
+    label: semantics, container: true,
+    child: Card(child: Padding(padding: EdgeInsets.all(context.theme.spacing.lg),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        Text(title, style: context.theme.typography.h3),
+        SizedBox(height: context.theme.spacing.md), child,
+      ]))),
+  );
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
@@ -137,11 +140,10 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
           _card(label('pending'), Column(crossAxisAlignment: CrossAxisAlignment.start,
             children: [for (final blocker in (page['blockers'] as List).whereType<String>()) Text(blocker)]), 'workspace-pending'),
         _card(label('title'), Wrap(spacing: theme.spacing.lg, runSpacing: theme.spacing.md, children: [
-          PrimeWorkspaceMetric(title: label('users'), value: "${overview['activeAccounts']}"),
-          PrimeWorkspaceMetric(title: label('sessions'), value: "${overview['activeSessions']}"),
-          PrimeWorkspaceMetric(title: label('pages'), value: '${pages.length}'),
-          PrimeWorkspaceMetric(title: label('pending'),
-            value: "${inventory.where((p) => (p['blockers'] as List).isNotEmpty).length}"),
+          _metric(label('users'), overview['activeAccounts']),
+          _metric(label('sessions'), overview['activeSessions']),
+          _metric(label('pages'), pages.length),
+          _metric(label('pending'), inventory.where((p) => (p['blockers'] as List).isNotEmpty).length),
         ]), 'workspace-metrics'),
         _card(label('pages'), Wrap(spacing: theme.spacing.sm, runSpacing: theme.spacing.sm, children: [
           for (final item in list(_workspace?['actions'])) TextButton(onPressed: () => context.go(item['route'].toString()), child: Text(item['name'].toString())),
@@ -174,6 +176,8 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
       ]),
     );
   }
+  Widget _metric(String title, dynamic value) => Semantics(label: title, child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start, children: [Text('$value', style: context.theme.typography.h1), Text(title)]));
   Widget _section(Map<String,dynamic> page, Map<String,dynamic> section,
       Map<String,dynamic> overview, List<Map<String,dynamic>> pages) {
     final dashboard = page['renderer'] == 'dashboard';
@@ -185,7 +189,7 @@ class _WorkspaceState extends ConsumerState<_ScopedWorkspaceScreen> {
         onPressed: () => context.go(item['route'].toString()), child: Text(item['name'].toString()))]));
     } else if (dashboard && section['type'] == 'metrics') {
       children.add(Wrap(spacing: context.theme.spacing.lg, children: [
-        PrimeWorkspaceMetric(title: label('users'), value: "${overview['activeAccounts']}"), PrimeWorkspaceMetric(title: label('sessions'), value: "${overview['activeSessions']}")]));
+        _metric(label('users'), overview['activeAccounts']), _metric(label('sessions'), overview['activeSessions'])]));
     } else if (dashboard && section['type'] == 'chart') {
       final total = (overview['activeAccounts'] as num?)?.toDouble() ?? 0;
       for (final role in list(overview['accountRoles'])) {
