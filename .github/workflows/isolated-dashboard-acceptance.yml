@@ -1,0 +1,84 @@
+name: Isolated dashboard acceptance
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/isolated-dashboard-acceptance.yml'
+      - 'packages/primecare_ui/web/managed-workspace-sections.ts'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  registry-and-role-browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: growth_test
+          POSTGRES_PASSWORD: integration-only
+          POSTGRES_DB: growth_test
+        ports: ['127.0.0.1:5432:5432']
+        options: --health-cmd "pg_isready -U growth_test -d growth_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Prepare the pinned historical fixture (not live authority)
+        env:
+          GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
+        run: |
+          python3 tools/governance-production/prepare-ci-fixture.py
+          python3 scripts/prepare-code-admin-audit-fixture.py
+          python3 tools/governance-production/test-ci-fixture.py
+          python3 scripts/test-code-admin-audit-fixture.py
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: |
+          npm install --prefix "$RUNNER_TEMP/dashboard-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 pg@8.16.3 bcryptjs@3 playwright@1.60.0 jsdom@26 @twilio/voice-sdk@2.18.5
+          ln -s "$RUNNER_TEMP/dashboard-tools/node_modules" node_modules
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Verify registry and exact managed routes with synthetic transport
+        run: |
+          env -i PATH="$PATH" HOME="$RUNNER_TEMP" node --test scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-role-handoff.mjs scripts/test-workspace-browser.mjs
+      - name: Audit authorized dashboard rendering with runner-only identities
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" GROWTH_TEST_DATABASE_URL=postgresql://growth_test:integration-only@localhost:5432/growth_test node scripts/audit-workspace-role-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-dashboard-registry-coverage
+          path: test-results/workspace-review/results.json
+          if-no-files-found: warn
+          retention-days: 7
+  dedicated-web-fixtures:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: psw_test
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: psw_test
+        ports: ['127.0.0.1:5432:5432']
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - run: |
+          npm ci --ignore-scripts
+          node_modules/.bin/playwright install --with-deps chromium
+      - name: Run exact Tenant Admin portal and PSW fixture checks
+        run: |
+          env -i PATH="$PATH" HOME="$HOME" PSW_TEST_DATABASE_URL=postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test bash -euo pipefail -c '
+            node scripts/test-tenant-workspace-layout.mjs
+            node scripts/test-tenant-dashboard.mjs
+            node scripts/test-psw-workspace.mjs
+            node scripts/test-psw-personal.mjs
+            node scripts/preview-psw-personal.mjs
+          '
