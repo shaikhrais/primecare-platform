@@ -10,6 +10,7 @@ import {liveScreenText} from './screen-text';
 import {accountMarkup,bindAccount} from './account';
 import {signOut} from './auth-client';
 import workspaceCatalog from '../../../packages/primecare_ui/lib/src/localization/screens/workspace.json';
+import bundledScreenText from '../../../cloudflare/workers/src/screen-text-defaults.json';
 import {renderShell,bindShell} from './shell';
 import {reportPanel} from './reports';
 type Page = {code:string;name:string;route:string;role:string;appCode:string;renderer:string;lifecycle:string;
@@ -177,6 +178,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const locale=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en';
   const text=(key:string)=>live.text('workspace',locale,key,(workspaceCatalog.locales[locale] as Record<string,string>)[key]??data.resources['workspace.'+key]??key);
   const t=(key:string)=>escapeHtml(text(key));
+  // Reuse the governed bundled reports copy; reading labels does not invoke reports.
+  const readinessText=(key:'pages'|'ready'|'empty'|'unavailable')=>
+    live.text('reports',locale,key,bundledScreenText.reports[locale][key]);
   const media=new DashboardMediaLook(locale);
   const pageLink=(page:Page,testId:string)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="${escapeHtml(testId)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
   const link=(page:Page)=>pageLink(page,'sidebar-item-'+page.code);
@@ -258,7 +262,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     ).join('');
     const actions=(prefix:string,links:string,{training=false,metadataOnly=false}={})=>`<section class="section" data-cy="${prefix}-authorized-actions">
       <h2>${t('pages')}</h2>${metadataOnly?`<p class="notice">${t('no_data')}</p>`:''}<div class="quick-links">${links}
-      <button type="button" data-cy="${prefix}-open-readiness">${t('readiness_inventory')}</button>
+      <button type="button" data-cy="${prefix}-open-readiness">${escapeHtml(readinessText('pages'))}</button>
       ${training?`<button type="button" data-cy="training-director-open-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button>`:''}
       </div></section>`;
     const homeActions=trainingHome?actions('training-director',shortcuts([
@@ -308,14 +312,14 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       body+=section.elements.map(e=>`<div data-cy="${escapeHtml(e.testId)}">${escapeHtml(e.key.endsWith('-role-badge')?data.identity.role:e.label||e.key)}${e.actionRequired?`<p class="notice">${t('no_action')}</p>`:''}</div>`).join('');
       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
     }).join('')??'';
-    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${t(authorizedReadiness?(p.productionReady===true?'readiness_ready':p.productionReady===false?'readiness_pending':'readiness_unknown'):'created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
+    const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${authorizedReadiness?(p.productionReady===true?escapeHtml(readinessText('ready')):p.productionReady===false?t('pending'):escapeHtml(readinessText('unavailable'))):t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
       `${homeActions}${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
       <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join('')}</div></section>
       <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
-      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${t(authorizedReadiness?'readiness_inventory':'inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
-      ${authorizedReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${t('readiness_empty')}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
+      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${authorizedReadiness?escapeHtml(readinessText('pages')):t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
+      ${authorizedReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${escapeHtml(readinessText('empty'))}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
@@ -353,7 +357,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     root.querySelector<HTMLInputElement>('[data-cy="workspace-pending"]')?.addEventListener('change',e=>{if(!active())return;pendingOnly=(e.currentTarget as HTMLInputElement).checked;pageNumber=0;draw();});
     root.querySelector('[data-cy="inventory-prev"]')?.addEventListener('click',()=>{if(!active())return;pageNumber--;draw();});
     root.querySelector('[data-cy="inventory-next"]')?.addEventListener('click',()=>{if(!active())return;pageNumber++;draw();});
-    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows,authorizedReadiness?text('readiness_unknown'):undefined)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
+    root.querySelector('[data-cy="workspace-export"]')?.addEventListener('click',()=>{if(!active())return;const url=URL.createObjectURL(new Blob([inventoryCsv(rows,authorizedReadiness?readinessText('unavailable'):undefined)],{type:'text/csv;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='PrimeCare-Page-Inventory.csv';a.click();URL.revokeObjectURL(url);});
     if(page?.code===tenantAccountsScreen&&!account){const target=root.querySelector('main')!;target.insertAdjacentHTML('beforeend',tenantAccountsMarkup());disposeAccountReads=bindTenantAccounts(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&mutationActorForScreen(page.code,data.identity.role)&&!account){root.querySelector('main')!.insertAdjacentHTML('beforeend',accountCreationMarkup());disposeAccountCreation=bindAccountCreation(root,gateway,token,data.identity.role,value=>media.roleLabel(value));}
     if(page&&!account)disposeInvoices=mountClientInvoices(root,{gateway,token,page,identity:data.identity,locale,isCurrent:active});
