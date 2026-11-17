@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:primecare_ui/primecare_ui.dart';
+import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusText, PrimeStatusTone;
 import 'intake_coordinator_dashboard_screen_controller.dart';
 import 'sections/intake_coordinator_dashboard_header_section.dart';
 import 'sections/intake_coordinator_dashboard_summary_cards_section.dart';
@@ -39,7 +39,12 @@ class IntakeCoordinatorDashboardScreen extends ConsumerWidget {
         body: state.isLoading 
             ? Center(key: ValueKey('intake_coordinator_dashboard_loading'), child: Semantics(label: 'intake_coordinator_dashboard_loading', child: CircularProgressIndicator()))
             : state.error != null
-                ? Center(child: Text('Error: ${state.error}'))
+                ? Center(
+                    child: PrimeStatusText(
+                      'Error: ${state.error}',
+                      tone: PrimeStatusTone.error,
+                    ),
+                  )
                 : SingleChildScrollView(
                     key: const Key('intake_coordinator_dashboard_screen'),
                     child: Column(

@@ -1,26 +1,15 @@
-import 'package:primecare_ui/primecare_ui.dart' show PrimeStatusText, PrimeStatusTone;
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+
+import '../../../../components/prime_dashboard_status_section.dart';
 
 class RnFieldSupervisorDashboardRecentActivitySection extends StatelessWidget {
   final Map<String, dynamic> data;
   const RnFieldSupervisorDashboardRecentActivitySection({super.key, required this.data});
 
   @override
-  Widget build(BuildContext context) {
-    return Semantics(
-      label: 'rn_field_supervisor_dashboard_recent_activity_title',
-      container: true,
-      child: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: const [
-            Text('Recent Activity Section', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            SizedBox(height: 4),
-            PrimeStatusText('Clinical Care Operations Status.', tone: PrimeStatusTone.muted),
-          ],
-        ),
-      ),
-    );
-  }
+  Widget build(BuildContext context) => const PrimeDashboardStatusSection(
+    semanticLabel: 'rn_field_supervisor_dashboard_recent_activity_title',
+    heading: 'Recent Activity Section',
+    status: 'Clinical Care Operations Status.',
+  );
 }

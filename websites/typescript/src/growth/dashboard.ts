@@ -12,6 +12,7 @@ import {searchView,contactView,duplicatesView,bindContacts} from './contacts';
 import {operationsView,bindOperations} from './operations';
 import {registry,stages,type Pipeline} from '../../../../packages/shared/src/growth/contract';
 import {renderShell,bindShell} from '../shell';
+import {growthDashboardStateMarkup,growthMetricMarkup} from '../../../../packages/primecare_ui/web/growth-dashboard-controls';
 import {GrowthClient} from './client';
 import {esc,growthForms,formValues,due,money,type T} from './forms';
 export async function renderGrowth(root:HTMLElement,gateway:string){
@@ -21,7 +22,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
  const client=transport;let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en',offset=0,filters:Record<string,string>={},notice='',busy=false,readVersion=0;
  const t:T=key=>esc((registry.locales as Record<string,Record<string,string>>)[locale][key]??registry.locales.en[key as keyof typeof registry.locales.en]??key);
  const moneyText=(n:unknown)=>new Intl.NumberFormat(locale,{style:'currency',currency:'CAD'}).format(Number(n)/100);
- const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>`<article class="metric growth-metric"><span class="growth-metric-icon">${icon(glyph,'metric-'+id)}</span><div><span>${label}</span><strong>${esc(value)}</strong></div></article>`;
+ const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>growthMetricMarkup(label,value,icon(glyph,'metric-'+id));
  const drafts=()=>{const saved=new Map([...root.querySelectorAll<HTMLFormElement>('form[data-cy]')].map(f=>[f.dataset.cy!,{...formValues(f),...Object.fromEntries([...f.querySelectorAll<HTMLInputElement>('input[type=checkbox][name]')].map(e=>[e.name,e.checked?'true':'false']))}]));
   for(const prefix of registry.draftPolicy.rowFieldPrefixes)for(const field of root.querySelectorAll<HTMLInputElement|HTMLSelectElement>(`[data-cy^="${prefix}"]`)){if(field.disabled)continue;const baseline=(field.closest<HTMLElement>('[data-lead-draft-baseline],[data-campaign-draft-baseline]')?.dataset.leadDraftBaseline??field.closest<HTMLElement>('[data-campaign-draft-baseline]')?.dataset.campaignDraftBaseline);if(baseline)saved.set('@row:'+field.dataset.cy,{value:field.value,baseline});}return saved;};
  const restore=(saved:Map<string,Record<string,string>>)=>{for(const [id,values] of saved){if(id.startsWith('@field:')){const field=[...root.querySelectorAll<HTMLInputElement>('[data-cy]')].find(node=>node.dataset.cy===id.slice(7));if(field){field.value=values.value;if(field.type==='checkbox')field.checked=values.checked==='true';}continue;}if(id.startsWith('@row:')){const field=root.querySelector<HTMLInputElement|HTMLSelectElement>(`[data-cy="${id.slice(5)}"]`);if(field&&!field.disabled&&(field.closest<HTMLElement>('[data-lead-draft-baseline],[data-campaign-draft-baseline]')?.dataset.leadDraftBaseline??field.closest<HTMLElement>('[data-campaign-draft-baseline]')?.dataset.campaignDraftBaseline)===values.baseline){if(!(field instanceof HTMLSelectElement)||Array.from(field.options).some(o=>o.value===values.value))field.value=values.value;}continue;}const f=root.querySelector<HTMLFormElement>(`[data-cy="${id}"]`);if(f)for(const [name,value] of Object.entries(values)){const input=f.elements.namedItem(name) as HTMLInputElement|null;if(input){if(input.type==='checkbox')input.checked=value==='true';else input.value=value;}}}};
@@ -131,7 +132,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
  }
  function renderError(error:unknown){
   if(!owner.current())return;data=undefined;report=null;marketingStatement=null;
-  renderState(false,`<section role="alert" data-cy="growth-error"><h1>${t('title')}</h1><p>${t(errorKey(error))}</p><button data-cy="growth-retry">${t('refresh')}</button><a data-cy="growth-back" href="/dashboard?enable-semantics=true">${t('back')}</a></section>`);
+  renderState(false,growthDashboardStateMarkup({kind:'error',title:t('title'),message:t(errorKey(error)),refresh:t('refresh'),back:t('back'),backHref:'/dashboard?enable-semantics=true'}));
   const active=owner.capture(),retry=root.querySelector<HTMLButtonElement>('[data-cy="growth-retry"]');if(!retry||!active())return;
   retry.onclick=()=>{if(active()&&!busy&&!loading)void load();};
   guardGrowthBindings(root,active,()=>!busy&&!loading,(_key,action)=>{action();});
@@ -163,5 +164,5 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
  function renderState(loading:boolean,content:string){
   owner.commit(()=>renderShell(root,{home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content}));
  }
- renderState(true,`<div role="status" data-cy="growth-loading">${t('loading')}</div>`);await load();
+ renderState(true,growthDashboardStateMarkup({kind:'loading',message:t('loading')}));await load();
 }

@@ -13,6 +13,7 @@ import workspaceCatalog from '../../../packages/primecare_ui/lib/src/localizatio
 import bundledScreenText from '../../../cloudflare/workers/src/screen-text-defaults.json';
 import {renderShell,bindShell} from './shell';
 import {reportPanel} from './reports';
+import {workspaceActions,workspaceActivity,workspaceInventory,workspaceMetric as metric,workspaceOverview,workspaceRoleChart,workspaceShortcuts} from '../../../packages/primecare_ui/web/managed-workspace-sections';
 type Page = {code:string;name:string;route:string;role:string;appCode:string;renderer:string;lifecycle:string;
   productionReady:boolean;blockers:string[];
   requirements?:{business_purpose?:string;user_story?:string;acceptance_criteria?:string};
@@ -184,15 +185,14 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const media=new DashboardMediaLook(locale);
   const pageLink=(page:Page,testId:string)=>`<a href="${escapeHtml(routeUrl(page.route))}" data-route="${escapeHtml(page.route)}" data-cy="${escapeHtml(testId)}">${media.sectionIcon(page.renderer==='dashboard'?'chart':'header')}${escapeHtml(page.name)}</a>`;
   const link=(page:Page)=>pageLink(page,'sidebar-item-'+page.code);
-  const metric=(label:string,value:unknown)=>`<article class="metric"><span>${label}</span><strong>${escapeHtml(value)}</strong></article>`;
   const details=(p:Page)=>`<details data-cy="delivery-${escapeHtml(p.code)}"><summary>${t('details')}</summary>
     <h3>${t('requirements')}</h3><p>${escapeHtml(p.requirements?.business_purpose||data.resources['workspace.no_requirements'])}</p>
     <p>${escapeHtml(p.requirements?.user_story)}</p><h4>${t('acceptance')}</h4><p>${escapeHtml(p.requirements?.acceptance_criteria)}</p>
     <h3>${t('contracts')}</h3>${p.contracts?.length?`<ul>${p.contracts.map(a=>`<li><code>${escapeHtml(a.method)} ${escapeHtml(a.route)}</code> · ${escapeHtml(a.implementation)} · ${escapeHtml(a.health||'not_tested')}</li>`).join('')}</ul>`:`<p>${t('no_contracts')}</p>`}
     <h3>${t('pending_actions')}</h3>${p.pendingActions?.length?`<ul>${p.pendingActions.map(a=>`<li>${escapeHtml(a.label||a.key)} · ${escapeHtml(a.status)}</li>`).join('')}</ul>`:`<p>${t('no_pending_actions')}</p>`}
     <ul>${p.blockers.map(b=>`<li>${escapeHtml(b)}</li>`).join('')}</ul></details>`;
-  const activities=()=>data.overview.activity.length?`<ul class="activity-list">${data.overview.activity.map(a=>`<li><strong>${escapeHtml(a.action.replaceAll('_',' '))}</strong><time datetime="${escapeHtml(a.created_at)}">${escapeHtml(new Date(a.created_at).toLocaleString())}</time></li>`).join('')}</ul>`:`<p class="empty">${t('empty')}</p>`;
-  const chart=()=>`<div class="role-bars">${data.overview.accountRoles.map(r=>`<div><div><span>${escapeHtml(media.roleLabel(r.role))}</span><strong>${r.count}</strong></div><meter min="0" max="${Math.max(1,data.overview.activeAccounts)}" value="${r.count}" aria-label="${escapeHtml(media.roleLabel(r.role))}">${r.count}</meter></div>`).join('')}</div>`;
+  const activities=()=>workspaceActivity(data.overview.activity,t);
+  const chart=()=>workspaceRoleChart(data.overview.accountRoles,data.overview.activeAccounts,role=>media.roleLabel(role));
   let handingOff=false;
   const currentNavigation=()=>{
     if(!isCurrent()||handingOff)return false;
@@ -257,14 +257,9 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const callEntry=callScreens[0];
     const callLink=callEntry?`<a data-cy=internal-call-open href="${escapeHtml(routeUrl(callEntry.route))}&amp;view=calls">${escapeHtml(document.documentElement.lang==='fr'?'Appels':document.documentElement.lang==='es'?'Llamadas':'Calls')}</a>`:'';
     const nav=(planRoles.includes(data.identity.role)?'<a href="/business-plans">Business plans &amp; learning</a>':'')+callLink+(data.actions??[]).map(p=>`<a href="${escapeHtml(routeUrl(p.route))}">${escapeHtml(p.name)}</a>`).join('')+data.screens.map(s=>link(s).replace('<a ',`<a ${s.code===page?.code?'aria-current="page"':''} `)).join('');
-    const shortcuts=(entries:readonly (readonly [string,string])[],prefix:string)=>entries.flatMap(([code,path])=>
-      data.screens.filter(p=>p.code===code&&p.route===path).map(p=>pageLink(p,prefix+'-shortcut-'+code))
-    ).join('');
-    const actions=(prefix:string,links:string,{training=false,metadataOnly=false}={})=>`<section class="section" data-cy="${prefix}-authorized-actions">
-      <h2>${t('pages')}</h2>${metadataOnly?`<p class="notice">${t('no_data')}</p>`:''}<div class="quick-links">${links}
-      <button type="button" data-cy="${prefix}-open-readiness">${escapeHtml(readinessText('pages'))}</button>
-      ${training?`<button type="button" data-cy="training-director-open-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button>`:''}
-      </div></section>`;
+    const shortcuts=(entries:readonly (readonly [string,string])[],prefix:string)=>workspaceShortcuts(data.screens,entries,prefix,pageLink);
+    const actions=(prefix:string,links:string,{training=false,metadataOnly=false}={})=>workspaceActions(
+      prefix,links,t,readinessText('pages'),{metadataOnly,trainingLabel:training?()=>trainingText(gateway,locale,'nav'):undefined});
     const homeActions=trainingHome?actions('training-director',shortcuts([
       ['training_director_training_programs','/offices/corporate/roles/training_director/training-programs'],
       ['training_director_staff_training_matrix','/offices/corporate/roles/training_director/staff-training-matrix'],
@@ -315,11 +310,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${authorizedReadiness?(p.productionReady===true?escapeHtml(readinessText('ready')):p.productionReady===false?t('pending'):escapeHtml(readinessText('unavailable'))):t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
-      `${homeActions}${page?.renderer!=='dashboard'?sections:''}<section class="section" data-cy="workspace-overview"><h2>${t('title')}</h2><div class="metric-grid">${cards}</div></section>
-      <section class="section" data-cy="workspace-organization"><h2>${t('roles')}</h2>${chart()}<div class="metric-grid">${data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join('')}</div></section>
-      <section class="section" data-cy="workspace-activity"><h2>${t('activity')}</h2>${activities()}</section><details class="section" data-cy="workspace-delivery"><summary>${t('details')}</summary>${details(page!)}</details>
-      <details class="section workspace-inventory-disclosure" data-cy="workspace-inventory" ${inventoryOpen?'open':''}><summary>${authorizedReadiness?escapeHtml(readinessText('pages')):t('inventory')}</summary><div class="inventory-controls"><label>${t('search')}<input data-cy="workspace-search" value="${escapeHtml(search)}"></label><label><input type="checkbox" data-cy="workspace-pending" ${pendingOnly?'checked':''}>${t('pending')}</label><button data-cy="workspace-export">${t('export')}</button></div>
-      ${authorizedReadiness&&rows.length===0?`<p role="status" data-cy="readiness-empty">${escapeHtml(readinessText('empty'))}</p>`:''}<div class="table-scroll"><table><thead><tr><th>${t('pages')}</th><th>${t('portal')}</th><th>${t('role')}</th><th>${t('status')}</th><th>${t('pending')}</th></tr></thead><tbody>${tableRows}</tbody></table></div><div class="pagination"><button data-cy="inventory-prev" aria-label="${t('previous')}" ${pageNumber===0?'disabled':''}>←</button><output data-cy="inventory-count">${rows.length} · ${pageNumber+1}/${countPages}</output><button data-cy="inventory-next" aria-label="${t('next')}" ${pageNumber+1===countPages?'disabled':''}>→</button></div></details>`}`});
+      `${homeActions}${page?.renderer!=='dashboard'?sections:''}${workspaceOverview({t,cards,chart:chart(),metrics:data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join(''),activities:activities(),details:details(page!)})}
+      ${workspaceInventory({t,inventoryOpen,readiness:authorizedReadiness?{summary:readinessText('pages'),empty:readinessText('empty')}:undefined,search,pendingOnly,rowCount:rows.length,tableRows,pageNumber,countPages})}`}`});
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
