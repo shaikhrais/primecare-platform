@@ -40,6 +40,6 @@ test('Active PrimeCare package manifests and public entrypoints do not depend on
   'packages/primecare_ui/web/prime-skeleton.css',
  ]){
   const source=await readFile(path,'utf8');
-  assert.doesNotMatch(source,/(?:from\\s*['"]|import\\s*\\(\\s*['"]|@import\\s*['"])[^'"]*(?:@fuse|fuse-react|fuse-theme)/i,path);
+  assert.doesNotMatch(source,/(?:from\s*['"]|import\s*\(\s*['"]|@import\s*['"])[^'"]*(?:@fuse|fuse-react|fuse-theme)/i,path);
  }
 });
