@@ -4317,12 +4317,12 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/admin/admin_reality_check_screen.dart",
     "class": "AdminRealityCheckScreen",
-    "base": "ConsumerStatefulWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/admin/admin_role_carousel_screen.dart",
     "class": "AdminRoleCarouselScreen",
-    "base": "ConsumerStatefulWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/admin/admin_screen_health/admin_screen_health_screen.dart",
@@ -4332,7 +4332,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/admin/admin_screenshot_gallery_screen.dart",
     "class": "AdminScreenshotGalleryScreen",
-    "base": "ConsumerStatefulWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/allied/adjustment_notes/adjustment_notes_screen.dart",
