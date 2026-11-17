@@ -1,7 +1,5 @@
 // Governance - Category: service | Purpose: Core self-diagnosis engine and metadata registry for screen health-checks.
 import 'package:flutter/material.dart';
-import 'database.dart';
-export 'database.dart';
 
 
 

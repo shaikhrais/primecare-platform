@@ -1,11 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter_core/src/network/api_client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/localization/admin_reality_filter_catalog.dart';
 import 'package:primecare_ui/src/localization/admin_reality_filter_text.dart';
 import 'package:primecare_ui/src/screens/admin/admin_reality_check_screen.dart';
 import 'auth_design_test.dart' show localized;
+
+class RealityFixtureAuth extends AuthNotifier {
+  @override
+  AuthState build() => AuthState(isInitialized: true, isAuthenticated: true,
+      role: 'platform_admin', userId: 'fixture-user', tenantId: 'fixture-tenant',
+      token: 'fixture-token');
+}
+
+class RealityFixtureApi extends Fake implements ApiClient {
+  final queries = <String?>[];
+  @override
+  Future<ApiResponse> getForSession(String path, String token) async {
+    final uri = Uri.parse(path);
+    expect(uri.path, '/v1/governance/screen-health');
+    expect(token, 'fixture-token');
+    final query = uri.queryParameters['search'];
+    queries.add(query);
+    return ApiResponse(statusCode: 200, data: {
+      'data': [
+        {'screen': 'recorded', 'name': 'Recorded page', 'productionReady': false},
+        if (query == null) {'screen': 'other', 'name': 'Other page'},
+      ],
+      'pagination': {'limit': 25, 'offset': 0, 'total': query == null ? 2 : 1,
+        'hasMore': false},
+      'source': {'evidenceType': 'registered_governance', 'catalogVersion': 1},
+    });
+  }
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -31,57 +60,38 @@ void main() {
     expect(AdminRealityFilterText.resolve('es', 'counter', args: {'label': '{count}', 'count': '3'}), '{count}: 3');
   });
 
-  testWidgets('search and filter labels switch en/es/fr while query and filtering survive', (tester) async {
-    tester.view.physicalSize = const Size(2400, 1400);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    final previous = Map<String, ScreenHealthStatus>.from(screenHealthRegistry);
-    screenHealthRegistry
-      ..clear()
-      ..['zero'] = ScreenHealthStatus.fromJson({
-        'screenName': 'Fixture zero', 'routePath': '/fixture-zero',
-        'componentFile': 'fixture.dart', 'totalInteractiveObjects': 0,
-      })
-      ..['active'] = ScreenHealthStatus.fromJson({
-        'screenName': 'Fixture active', 'routePath': '/fixture-active',
-        'componentFile': 'fixture.dart', 'totalInteractiveObjects': 4,
-      });
-    addTearDown(() { screenHealthRegistry..clear()..addAll(previous); });
-    await tester.pumpWidget(ProviderScope(child: PrimeTheme(data: const PrimeThemeData(),
-      child: localized(const AdminRealityCheckScreen()))));
+  testWidgets('API-backed title, search and reload change locale without losing search', (tester) async {
+    final api = RealityFixtureApi();
+    await tester.pumpWidget(ProviderScope(
+      overrides: [authProvider.overrideWith(RealityFixtureAuth.new),
+        apiClientProvider.overrideWithValue(api)],
+      child: PrimeTheme(data: const PrimeThemeData(),
+        child: localized(const AdminRealityCheckScreen())),
+    ));
     await tester.pumpAndSettle();
     final field = find.byType(TextField);
-    final dropdown = find.byType(DropdownButton<String>);
     final screen = find.byType(AdminRealityCheckScreen);
-    await tester.enterText(field, 'Fixture');
-    await tester.tap(dropdown);
+    expect(find.text('Other page'), findsOneWidget);
+    await tester.enterText(field, 'Recorded');
+    await tester.tap(find.text('Search'));
     await tester.pumpAndSettle();
-    await tester.tap(find.text(AdminRealityFilterText.resolve('en', 'Zero Interaction')).last);
-    await tester.pumpAndSettle();
+    expect(api.queries, [null, 'Recorded']);
+    expect(find.text('Recorded page'), findsOneWidget);
+    expect(find.text('Other page'), findsNothing);
     for (final language in ['en', 'es', 'fr']) {
+      final requests = api.queries.length;
       await tester.element(screen).setLocale(Locale(language));
       await tester.pumpAndSettle();
+      expect(api.queries.length, requests);
       expect(find.text(AdminRealityFilterText.resolve(language, 'title')), findsOneWidget);
-      expect(find.text(AdminRealityFilterText.resolve(language, 'zeroAlert')), findsOneWidget);
-      expect(find.text(AdminRealityFilterText.resolve(language, 'items', args: {'count': '0'})), findsOneWidget);
-      expect(find.text(AdminRealityFilterText.resolve(language, 'screenPurpose')), findsOneWidget);
-      expect(find.text(AdminRealityFilterText.resolve(language, 'status.NO_USER_VALUE')), findsOneWidget);
-      final widget = tester.widget<DropdownButton<String>>(dropdown);
-      expect(widget.value, 'Zero Interaction');
-      for (final item in widget.items!) {
-        expect((item.child as Text).data, AdminRealityFilterText.resolve(language, item.value!));
-      }
       final input = tester.widget<TextField>(field);
       expect(input.decoration!.hintText, AdminRealityFilterText.resolve(language, 'search'));
-      expect(input.controller!.text, 'Fixture');
-      expect(find.byTooltip(AdminRealityFilterText.resolve(language, 'reload')), findsOneWidget);
-      expect(find.text('Fixture zero'), findsOneWidget);
-      expect(find.text('Fixture active'), findsNothing);
+      expect(input.controller!.text, 'Recorded');
       await tester.tap(find.byTooltip(AdminRealityFilterText.resolve(language, 'reload')));
       await tester.pumpAndSettle();
-      expect(tester.widget<DropdownButton<String>>(dropdown).value, 'Zero Interaction');
-      expect(tester.widget<TextField>(field).controller!.text, 'Fixture');
+      expect(api.queries.last, 'Recorded');
+      expect(find.text('Recorded page'), findsOneWidget);
+      expect(find.text('Other page'), findsNothing);
       expect(tester.takeException(), isNull);
     }
   });

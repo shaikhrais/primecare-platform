@@ -379,6 +379,7 @@ class ApiClient {
         isApplicationWorkflowPath(path) || isCommunicationPath(path) ||
         route == '/v1/governance/platform' || route.startsWith('/v1/governance/platform/') ||
         route == '/v1/governance/reports' || route.startsWith('/v1/governance/reports/') ||
+        route == '/v1/governance/screen-health' ||
         route == '/v1/clinical/dashboard' ||
         route == '/v1/business-development' ||
         route.startsWith('/v1/business-development-') ||

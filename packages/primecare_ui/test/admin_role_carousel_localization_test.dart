@@ -6,6 +6,10 @@ import 'package:primecare_ui/primecare_ui.dart';
 import 'package:primecare_ui/src/localization/admin_role_carousel_catalog.dart';
 import 'package:primecare_ui/src/localization/admin_role_carousel_text.dart';
 import 'package:primecare_ui/src/screens/admin/admin_role_carousel_screen.dart';
+import 'package:flutter_core/src/network/api_client.dart';
+import 'package:primecare_ui/src/localization/admin_registered_inventory_text.dart';
+import 'package:primecare_ui/src/screens/admin/admin_screenshot_gallery_screen.dart';
+import 'admin_reality_filter_localization_test.dart' show RealityFixtureAuth;
 import 'auth_design_test.dart' show localized;
 
 void main() {
@@ -34,50 +38,85 @@ void main() {
     expect(() => AdminRoleCarouselText.resolve('es', 'unknown'), throwsArgumentError);
   });
 
-  testWidgets('carousel labels, search placeholder, tooltips and dialog switch en/es/fr without losing search', (tester) async {
-    tester.view.physicalSize = const Size(2400, 1400);
-    tester.view.devicePixelRatio = 1;
-    addTearDown(tester.view.resetPhysicalSize);
-    addTearDown(tester.view.resetDevicePixelRatio);
-    final previous = Map<String, ScreenHealthStatus>.from(screenHealthRegistry);
-    screenHealthRegistry
-      ..clear()
-      ..['fixture'] = ScreenHealthStatus.fromJson({
-        'screenName': 'Fixture', 'routePath': '/fixture', 'componentFile': 'fixture.dart',
-        'roleKey': 'qa', 'roleName': 'QA', 'roleCategory': 'corporate',
-      });
-    addTearDown(() { screenHealthRegistry..clear()..addAll(previous); });
-    await tester.pumpWidget(ProviderScope(child: PrimeTheme(data: const PrimeThemeData(),
-      child: localized(const AdminRoleCarouselScreen()))));
+  testWidgets('carousel keeps its localized controls and submitted API query',
+      (tester) async {
+    final api = _CarouselFixture();
+    await tester.pumpWidget(ProviderScope(
+      overrides: [authProvider.overrideWith(RealityFixtureAuth.new),
+        apiClientProvider.overrideWithValue(api)],
+      child: PrimeTheme(data: const PrimeThemeData(),
+        child: localized(const AdminRoleCarouselScreen())),
+    ));
     await tester.pumpAndSettle();
-    final field = find.byType(TextField);
+    final field = find.byType(TextField).first;
     final screen = find.byType(AdminRoleCarouselScreen);
+    expect(find.text('Fixture screen'), findsOneWidget);
+    expect(find.text('qa'), findsAtLeastNWidgets(1));
+    await tester.enterText(field, 'no-matching-record');
+    await tester.tap(find.text('Search'));
+    await tester.pumpAndSettle();
+    expect(api.searches, [null, 'no-matching-record']);
+    expect(find.text('Fixture screen'), findsNothing);
+
     for (final language in ['en', 'es', 'fr']) {
       await tester.element(screen).setLocale(Locale(language));
       await tester.pumpAndSettle();
       String text(String key) => AdminRoleCarouselText.resolve(language, key);
       expect(find.text(text('title')), findsOneWidget);
-      expect(find.text(text('reload')), findsOneWidget);
-      expect(find.text(text('incompleteOnly')), findsOneWidget);
       expect(tester.widget<TextField>(field).decoration!.hintText, text('search'));
-      expect(find.byTooltip(text('healthDetails')), findsOneWidget);
-      await tester.tap(find.byTooltip(text('healthDetails')));
-      await tester.pumpAndSettle();
-      expect(find.text(AdminRoleCarouselText.resolve(language, 'healthTitle', args: {'name': 'Fixture'})), findsOneWidget);
-      expect(find.text(text('missingItems')), findsOneWidget);
-      expect(find.text(text('noMissingItems')), findsOneWidget);
-      await tester.tap(find.text(text('close')));
-      await tester.pumpAndSettle();
-      await tester.enterText(field, 'no-matching-record');
-      await tester.element(screen).setLocale(Locale(language == 'fr' ? 'en' : 'fr'));
-      await tester.pumpAndSettle();
       expect(tester.widget<TextField>(field).controller!.text, 'no-matching-record');
-      final current = tester.element(screen).locale.languageCode;
-      expect(find.text(AdminRoleCarouselText.resolve(current, 'empty')), findsOneWidget);
-      await tester.tap(find.byTooltip(AdminRoleCarouselText.resolve(current, 'clearSearch')));
-      await tester.pumpAndSettle();
-      expect(tester.widget<TextField>(field).controller!.text, isEmpty);
-      expect(tester.takeException(), isNull);
+      expect(find.byTooltip(text('reload')), findsOneWidget);
+      expect(find.text(AdminRegisteredInventoryText.resolve(language, 'empty')),
+        findsOneWidget);
+      expect(api.searches, [null, 'no-matching-record']);
     }
   });
+
+  testWidgets('gallery renders catalog metadata without local artifacts and honors denial',
+      (tester) async {
+    final api = _CarouselFixture();
+    await tester.pumpWidget(ProviderScope(
+      overrides: [authProvider.overrideWith(RealityFixtureAuth.new),
+        apiClientProvider.overrideWithValue(api)],
+      child: PrimeTheme(data: const PrimeThemeData(),
+        child: localized(const AdminScreenshotGalleryScreen())),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Fixture screen'), findsOneWidget);
+    expect(find.text(AdminRegisteredInventoryText.resolve('en', 'galleryGap')),
+      findsOneWidget);
+    expect(find.text('legacy/private.png'), findsNothing);
+    expect(find.byType(Image), findsNothing);
+    api.denied = true;
+    await tester.tap(find.byTooltip('Reload'));
+    await tester.pumpAndSettle();
+    expect(find.text(AdminRegisteredInventoryText.resolve('en', 'denied')),
+      findsOneWidget);
+    expect(find.text('Fixture screen'), findsNothing);
+  });
+}
+
+class _CarouselFixture extends Fake implements ApiClient {
+  final searches = <String?>[];
+  bool denied = false;
+
+  @override
+  Future<ApiResponse> getForSession(String path, String token) async {
+    final uri = Uri.parse(path);
+    expect(uri.path, '/v1/governance/screen-health');
+    expect(token, 'fixture-token');
+    final search = uri.queryParameters['search'];
+    searches.add(search);
+    if (denied) return ApiResponse(statusCode: 403, data: const {});
+    return ApiResponse(statusCode: 200, data: {
+      'data': [
+        if (search == null)
+          {'screen': 'fixture', 'name': 'Fixture screen', 'role': 'qa',
+            'route': '/fixture', 'screenshotPath': 'legacy/private.png'},
+      ],
+      'pagination': {'offset': 0, 'limit': 25, 'total': search == null ? 1 : 0,
+        'hasMore': false},
+      'source': {'evidenceType': 'registered_governance', 'catalogVersion': 1},
+    });
+  }
 }

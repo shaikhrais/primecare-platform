@@ -60,29 +60,15 @@ void main() {
       expect(mockResponse, contains('simulated data models'));
     });
 
-    test('setDiagnosisEnabled updates the registry enabled status', () {
-      final routePath = '/offices/clinical/roles/rmt/dashboard';
-      
-      // Toggle to false
-      setDiagnosisEnabled(routePath, false);
-      expect(getScreenHealth(routePath).diagnosisEnabled, isFalse);
+    test('static diagnostics do not mutate registered screen metadata', () {
+      const route = '/offices/clinical/roles/rmt/dashboard';
+      final registered = screenHealthRegistry[route];
+      expect(registered, isNotNull);
 
-      // Toggle to true
-      setDiagnosisEnabled(routePath, true);
-      expect(getScreenHealth(routePath).diagnosisEnabled, isTrue);
-    });
+      askScreen(route, 'Are you OK?');
+      askScreen(route, 'What is missing?');
 
-    test('testSingleScreenReply and testAllScreenReplies runs without throwing', () {
-      final routePath = '/offices/clinical/roles/rmt/dashboard';
-      
-      // Should not throw, should return updated ScreenHealthStatus (with fallback registry values if db is not initialized)
-      final updated = testSingleScreenReply(routePath);
-      expect(updated.routePath, equals(routePath));
-      expect(updated.diagnosisReplyStatus, anyOf(['REPLIED_OK', 'NOT_TESTED', 'NO_REPLY', 'ERROR', 'PARTIAL_REPLY']));
-
-      // Batch check should also run without throwing
-      final allUpdated = testAllScreenReplies();
-      expect(allUpdated, isNotEmpty);
+      expect(getScreenHealth(route), same(registered));
     });
   });
 }

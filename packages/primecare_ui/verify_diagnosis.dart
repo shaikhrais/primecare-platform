@@ -30,9 +30,6 @@ void main() {
     final missingResp = askScreen(rmtRoute, 'What is missing?');
     print("Missing Response:\n$missingResp");
     
-    print("\nTesting DB loadAllScreensFromDb...");
-    final allScreens = loadAllScreensFromDb();
-    print("Loaded ${allScreens.length} screens dynamically from SQLite.");
     
     // Check one of our upgraded screens, e.g. CeoEnterpriseOverviewScreen (ID 706, route: /offices/corporate/roles/ceo/enterprise-overview)
     final ceoRoute = '/offices/corporate/roles/ceo/enterprise-overview';
