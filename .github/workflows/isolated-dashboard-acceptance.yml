@@ -5,6 +5,9 @@ on:
     paths:
       - '.github/workflows/isolated-dashboard-acceptance.yml'
       - 'packages/primecare_ui/web/managed-workspace-sections.ts'
+      - 'websites/typescript/src/growth/dashboard.ts'
+      - 'packages/primecare_ui/web/growth-dashboard-controls.ts'
+      - 'scripts/test-growth-loading-browser.mjs'
   workflow_dispatch:
 permissions:
   contents: read
@@ -82,3 +85,12 @@ jobs:
             node scripts/test-psw-personal.mjs
             node scripts/preview-psw-personal.mjs
           '
+      - name: Run Growth dashboard loading, error, and retry browser checks
+        run: env -i PATH="$PATH" HOME="$HOME" node scripts/test-growth-loading-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-growth-dashboard-state-coverage
+          path: test-results/growth/loading/results.json
+          if-no-files-found: warn
+          retention-days: 7
