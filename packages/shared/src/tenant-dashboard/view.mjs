@@ -30,6 +30,37 @@ export const tenantStyles=`.td-root{--td-foreground:var(--color-text);--td-muted
 .td-root .td-badge{font-size:var(--font-size-caption,11px);font-weight:750;display:inline-flex;align-items:center;gap:5px;padding:4px 9px;border:1px solid var(--color-border);border-radius:20px;background:var(--color-surface-soft);color:var(--color-surface-text,var(--color-text));white-space:nowrap}
 .td-root .td-badge.good{background:var(--color-primary);color:var(--color-on-primary);border-color:var(--color-primary)}
 .td-table-wrap{overflow:auto}
+.td-root .td-card:has([data-cy="tenant-task-table"]){border-top:3px solid var(--color-primary)}
+.td-root .td-grid.two:has([data-cy="tenant-task-table"]){grid-template-columns:minmax(0,2fr) minmax(0,1fr)}
+.td-root :has(>[data-cy="tenant-task-table"]){container-type:inline-size}
+.td-root [data-cy="tenant-task-table"]{border-collapse:separate;border-spacing:0 var(--spacing-sm,8px);table-layout:fixed}
+.td-root [data-cy="tenant-task-table"] th,.td-root [data-cy="tenant-task-table"] td{overflow-wrap:anywhere}
+.td-root [data-cy="tenant-task-table"] thead th{padding-block:var(--spacing-sm,8px)}
+.td-root [data-cy="tenant-task-table"] th:first-child{width:32%}
+.td-root [data-cy="tenant-task-table"] th:nth-child(2){width:23%}
+.td-root [data-cy="tenant-task-table"] th:nth-child(3){width:14%}
+.td-root [data-cy="tenant-task-table"] th:nth-child(4){width:18%}
+.td-root [data-cy="tenant-task-table"] th:last-child{width:13%}
+.td-root [data-cy="tenant-task-table"] tbody td{background:var(--color-surface-soft);border-block:1px solid var(--color-border);vertical-align:middle}
+.td-root [data-cy="tenant-task-table"] tbody td:first-child{border-inline-start:1px solid var(--color-border);border-start-start-radius:var(--radius-md,8px);border-end-start-radius:var(--radius-md,8px)}
+.td-root [data-cy="tenant-task-table"] tbody td:last-child{border-inline-end:1px solid var(--color-border);border-start-end-radius:var(--radius-md,8px);border-end-end-radius:var(--radius-md,8px)}
+.td-root [data-cy="tenant-task-table"] tbody tr:focus-within td,.td-root [data-cy="tenant-task-table"] tbody tr:hover td{background:var(--color-surface)}
+.td-root [data-cy="tenant-task-table"] strong{display:block;line-height:1.3;margin-bottom:var(--spacing-xs,4px)}
+.td-root [data-cy="tenant-task-table"] small{line-height:1.45}
+.td-root [data-cy="tenant-task-table"] .td-badge{white-space:normal;line-height:1.25}
+.td-root [data-cy="tenant-task-table"] td button{min-height:34px}
+.td-root [data-cy="tenant-search-form"]{align-items:center;gap:var(--spacing-md,12px);margin-bottom:var(--td-gap)}
+.td-root [data-cy="tenant-search-form"] label{min-width:0}
+.td-root [data-cy="tenant-search-form"] button{align-self:end;margin-bottom:10px}
+.td-root [data-cy="tenant-task-filter"]{min-width:9rem}
+.td-root .td-page-nav{flex-wrap:wrap}
+@container (max-width:410px){
+ .td-root [data-cy="tenant-task-table"] th,.td-root [data-cy="tenant-task-table"] td{padding-inline:var(--spacing-xs,4px)}
+ .td-root [data-cy="tenant-task-table"] th:first-child{width:29%}
+ .td-root [data-cy="tenant-task-table"] th:last-child{width:16%}
+ .td-root [data-cy="tenant-task-table"] .td-badge{padding-inline:var(--spacing-xs,4px)}
+ .td-root [data-cy="tenant-task-table"] td button{padding-inline:var(--spacing-xs,4px);max-width:100%}
+}
 .td-root table{width:100%;border-collapse:collapse;font-size:var(--font-size-body,13px)}
 .td-root th{text-align:left;font-size:var(--font-size-caption,11px);color:var(--td-muted);letter-spacing:.06em;font-weight:650}
 .td-root td,.td-root th{padding:14px 10px;border-bottom:1px solid var(--color-border);vertical-align:top}
@@ -68,7 +99,13 @@ export const tenantStyles=`.td-root{--td-foreground:var(--color-text);--td-muted
 .td-root h1{font-size:var(--font-size-heading,26px)}
 .td-root{padding:0}
 .td-page-nav{justify-content:start}
-.td-top-controls .td-wide{display:none}}`;
+.td-top-controls .td-wide{display:none}
+.td-root .td-grid.two:has([data-cy="tenant-task-table"]){grid-template-columns:minmax(0,1fr)}
+.td-root [data-cy="tenant-search-form"] label{flex-basis:100%!important}
+.td-root [data-cy="tenant-search-form"] button{margin-bottom:0}
+.td-dialog.td-root{position:fixed;inset:0;margin:0;width:100%;max-width:100%;height:100vh;height:100dvh;max-height:none;overflow:auto;overscroll-behavior:contain;border:0;border-radius:0;padding:var(--spacing-lg,20px)}
+.td-dialog.td-root>.td-controls,.td-dialog.td-root form>.td-controls{padding-block:var(--spacing-md,12px)}
+.td-dialog.td-root button{min-height:44px}}`;
 const url=route=>{const [path,hash]=route.split('#');return path+(path.includes('?')?'&':'?')+'enable-semantics=true'+(hash?'#'+hash:'');};
 export function tenantNavigation(view,icon,allowed=c.views.map(v=>v.id),manage=true){return c.views.filter(v=>allowed.includes(v.id)).map(v=>`<a class="td-nav-icon" href="#${v.id}" data-cy="tenant-nav-${v.id}" data-td-view="${v.id}" ${view===v.id?'aria-current="page"':''}>${icon(v.icon)}${esc(v.label)}</a>`).join('')+(manage?`<a class="td-nav-icon" href="${url('/platform/administration#accounts')}" data-cy="tenant-admin-settings">${icon('settings')}Administration</a>`:'')+`<a class="td-nav-icon" href="${url('/success')}" data-cy="tenant-account">${icon('user-circle')}Account & security</a>`;}
 export function tenantView(data,state,icon=()=>'',preview=false){const e=esc,view=state.view||'overview',stats=data.stats||{},taskStats=data.taskStats||{},current=c.views.find(v=>v.id===view)||c.views[0],filter=state.status||'all';

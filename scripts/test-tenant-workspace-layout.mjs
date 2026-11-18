@@ -13,7 +13,7 @@ const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){le
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
 const browser=await chromium.launch({headless:true,...(process.env.PRIMECARE_CHROMIUM_EXECUTABLE?{executablePath:process.env.PRIMECARE_CHROMIUM_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage']}: {})});const context=await browser.newContext({viewport:{width:1500,height:960}});await context.addInitScript(token=>sessionStorage.setItem('primecare_session',token),f.actors.admin.token);const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));const el=id=>page.locator('[data-cy='+id+']');
 try{
- await page.goto(origin+'/tenant-dashboard');
+ await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
  await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
  assert.deepEqual(errors,[],'the real Screen Manager bootstrap must succeed before layout acceptance');
  assert.equal(await el('error-state').count(),0,'presentation configuration errors must fail acceptance');
@@ -25,7 +25,14 @@ try{
  await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
  await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
- await el('tenant-dialog-close').click();await page.locator('dialog.td-dialog').waitFor({state:'detached'});
+ await page.keyboard.press('Escape');
+ assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft','Escape cannot discard a dirty task form');
+ assert.equal(writes,0,'guarded draft navigation must not write');
+ const acceptDiscard=dialog=>dialog.accept();
+ page.once('dialog',acceptDiscard);
+ try{await el('tenant-dialog-close').click();await page.locator('dialog.td-dialog').waitFor({state:'detached'});}
+ finally{page.off('dialog',acceptDiscard);}
+ await page.waitForFunction(()=>document.activeElement?.getAttribute('data-cy')==='tenant-create-task');
  await changeHistory('#audit');assert.equal(await page.locator('[data-td-view=audit]').getAttribute('aria-current'),'page');
  await page.evaluate(()=>window.routePreference=document.querySelector('[data-cy=tenant-preference-view]'));await page.evaluate(()=>dispatchEvent(new PopStateEvent('popstate')));assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await changeHistory('#overview');await page.goBack();await page.waitForFunction(()=>document.querySelector('[data-td-view=audit]').getAttribute('aria-current')==='page');await page.goForward();await page.waitForFunction(()=>document.querySelector('[data-td-view=overview]').getAttribute('aria-current')==='page');assert.equal(writes,0);
@@ -97,6 +104,50 @@ try{
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Default view saved'));
  assert.deepEqual(await storedPreference(),{view:'audit',version:beforeLost.version+2});assert.notEqual(preferencePosts[postStart+2].key,preferencePosts[postStart].key);
  assert.equal(Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total),auditCount+1);
+ // Exercise the live presentation with a disposable tenant and the existing task API.
+ await page.setViewportSize({width:1500,height:960});
+ await el('tenant-nav-tasks').click();
+ await el('tenant-task-table').waitFor();
+ const boardApi='/v1/governance/tenant-dashboard';
+ const isBoardResponse=(response,method)=>new URL(response.url()).pathname===boardApi&&response.request().method()===method;
+ await page.evaluate(()=>window.taskFilterBefore=document.querySelector('[data-cy=tenant-task-filter]'));
+ await Promise.all([
+  page.waitForResponse(r=>isBoardResponse(r,'GET')&&new URL(r.url()).searchParams.get('status')==='open'),
+  el('tenant-task-filter').selectOption('open'),
+ ]);
+ await page.waitForFunction(()=>{const current=document.querySelector('[data-cy=tenant-task-filter]');return current!==window.taskFilterBefore&&current?.value==='open';});
+ const taskWrites=writes,taskTitle='Pilot assignment from the task dashboard';
+ await el('tenant-create-task').click();
+ const sheet=page.getByRole('dialog');
+ await sheet.waitFor();
+ assert.equal(await sheet.getAttribute('aria-labelledby'),await sheet.getByRole('heading',{level:2}).getAttribute('id'));
+ await page.waitForFunction(()=>document.activeElement?.tagName==='H2'&&Boolean(document.activeElement.closest('dialog[open]')));
+ await el('tenant-task-title').fill(taskTitle);
+ await el('tenant-task-owner').selectOption(f.actors.psw.id);
+ await el('tenant-task-workflow').selectOption('fixture.tenant.process');
+ const [created]=await Promise.all([page.waitForResponse(r=>isBoardResponse(r,'POST')),el('tenant-task-save').click()]);
+ assert.equal(created.status(),200);
+ const taskReceipt=await created.json(),item=taskReceipt.tasks.find(row=>row.title===taskTitle);
+ assert.ok(item?.id);
+ assert.equal(taskReceipt.organization.id,identity.organization.id);
+ assert.deepEqual((await f.db.query('SELECT tenant_id,owner_id,flow_id,status,created_by FROM tenant_work_tasks WHERE id=$1',[item.id])).rows,[
+  {tenant_id:identity.organization.id,owner_id:f.actors.psw.id,flow_id:'fixture.tenant.process',status:'open',created_by:identity.identity.userId},
+ ]);
+ await sheet.waitFor({state:'hidden'});
+ const opener='tenant-task-open-'+item.id;
+ await el(opener).click();
+ await sheet.waitFor();
+ assert.equal(await sheet.getByRole('heading',{level:2}).textContent(),taskTitle);
+ const verifyTaskContext=async()=>{
+  await sheet.waitFor({state:'hidden'});
+  assert.equal(new URL(page.url()).hash,'#tasks');
+  assert.equal(await el('tenant-task-filter').inputValue(),'open');
+  await page.waitForFunction(id=>document.activeElement?.getAttribute('data-cy')===id,opener);
+ };
+ await page.keyboard.press('Escape');await verifyTaskContext();
+ await el(opener).press('Enter');await sheet.waitFor();
+ await page.goBack();await verifyTaskContext();
+ assert.equal(writes,taskWrites+1,'opening and dismissing task detail must not issue a task write');
  // Switching authenticated actor uses a different storage scope and never restores old panels.
  await page.evaluate(token=>{sessionStorage.setItem('primecare_session',token);history.replaceState(null,'','#clients');document.querySelector('#app').innerHTML='';return window.render();},f.actors.psw.token);
  const allowedHash=await page.evaluate(()=>{window.routePreference=document.querySelector('[data-cy=tenant-preference-view]');return location.hash;});assert.notEqual(allowedHash,'#clients');
@@ -104,5 +155,5 @@ try{
  await page.evaluate(()=>{location.hash='clients';});await page.waitForFunction(hash=>location.hash===hash,allowedHash);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
  await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
- assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
+ assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
 }finally{await context.close();await browser.close();await new Promise(r=>server.close(r));await f.close();}

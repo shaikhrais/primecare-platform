@@ -11,6 +11,8 @@ import {shellIcon} from '../shell-icons';
 import {installTenantDashboardStyles,renderTenantDashboardControls,renderTenantDashboardLoading,renderTenantDashboardUnavailable,tenantView,tenantNavigation,taskForm,taskDetail,esc} from '../../../../packages/primecare_ui/web/tenant-dashboard-presentation';
 import catalog from '../../../../packages/shared/src/tenant-dashboard/catalog.json';
 const tenantRenders=new WeakMap<HTMLElement,()=>void>();
+const taskPanelHistoryKey='primecareTenantTaskPanel';
+let tenantDialogSequence=0;
 class TenantClient extends BaseSessionClient{
  protected endpoint=catalog.endpoint;
  constructor(gateway:string,token:string,readonly dataset:string,readonly tenant:string){super(gateway,token);}
@@ -28,6 +30,16 @@ export async function renderTenantDashboard(root:HTMLElement,gateway:string){
  const language=root.ownerDocument.documentElement.lang.toLowerCase().split('-')[0],locale=language==='fr'||language==='es'?language:'en';
  tenantRenders.get(root)?.();let alive=true,suspended=false;const dialogs=new Set<HTMLDialogElement>(),dialogDrafts=new WeakMap<HTMLDialogElement,()=>boolean>();let owner:MutationObserver|undefined,ownedShell:Element|null=null,renderVersion=0;
  const eventTarget=root.ownerDocument.defaultView??window;
+ let taskPanel:{dialog:HTMLDialogElement,key:number}|undefined;
+ let returningFromTaskPanel:number|undefined;
+ const historyState=()=>history.state&&typeof history.state==='object'?history.state:{};
+ const hasTaskPanelEntry=(key:number)=>historyState()[taskPanelHistoryKey]===key;
+ function clearTaskPanelEntry(){
+  const next={...historyState()};
+  if(!(taskPanelHistoryKey in next))return;
+  delete next[taskPanelHistoryKey];
+  history.replaceState(Object.keys(next).length?next:null,'',location.href);
+ }
  let themePreferenceDispose: (()=>void)|undefined,workHost:TenantWorkHost|null=null,readHost:TenantReadHost|null=null,shortcutHost:TenantShortcutHost|null=null;
  const hostsBlocked=()=>workHost?.blocked()||shortcutHost?.blocked();
  const ownsRoot=()=>alive&&tenantRenders.get(root)===teardown;
@@ -57,10 +69,10 @@ export async function renderTenantDashboard(root:HTMLElement,gateway:string){
  function draw(){if(!current())return;readHost?.dispose();readHost=null;shortcutHost?.dispose();shortcutHost=null;const version=++renderVersion,drawnHash=location.hash,active=()=>version===renderVersion&&location.hash===drawnHash&&current(),resumeActive=async()=>{await whenActive();return active();};themePreferenceDispose?.();themePreferenceDispose=undefined;clearTenantWorkHost(root);workHost=null;renderShell(root,{home:'/tenant-dashboard?enable-semantics=true',role:data.identity.role.replaceAll('_',' '),description:data.organization.name,footer:'PrimeCare · '+esc(data.organization.name),navigation:tenantNavigation(view,shellIcon,data.allowedViews,data.canManage),controls:renderTenantDashboardControls(data.today,locale,shellIcon,data.synthetic,data.identity.role),content:tenantView(data,{view,search,status,notice},shellIcon),mainAttributes:'class="tenant-dashboard-main"'});ownedShell=root.querySelector('[data-cy=app-shell]');bindShell(root,catalog.title,locale,'tenant-dashboard',()=>catalog.views.filter(v=>data.allowedViews.includes(v.id)).map(v=>({title:v.label,detail:catalog.title,open:()=>{if(active())select(v.id);}})),JSON.stringify(['tenant-dashboard',data.dataset,data.organization.id,data.identity.userId,data.identity.role]),{},{screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':root.querySelector<HTMLFormElement>('[data-cy=tenant-preference-form]')!.closest<HTMLElement>('section')!}});
  if(data.identity.role==='tenant_admin') themePreferenceDispose=mountTenantThemePreference(root,{gateway,token,locale,tenantId:data.organization.id,userId:data.identity.userId,dataset:data.dataset,isCurrent:active,whenActive:resumeActive});
  if(!active()){themePreferenceDispose?.();return;}
- root.querySelectorAll<HTMLElement>('[data-td-view]').forEach(b=>b.onclick=e=>{e.preventDefault();if(active())select(b.dataset.tdView!);});root.querySelector('[data-cy=tenant-refresh]')!.addEventListener('click',()=>{if(active())void refresh();});root.querySelector('[data-cy=tenant-create-task]')?.addEventListener('click',()=>{if(active())openForm();});
+ root.querySelectorAll<HTMLElement>('[data-td-view]').forEach(b=>b.onclick=e=>{e.preventDefault();if(active())select(b.dataset.tdView!);});root.querySelector('[data-cy=tenant-refresh]')!.addEventListener('click',()=>{if(active())void refresh();});root.querySelector<HTMLElement>('[data-cy=tenant-create-task]')?.addEventListener('click',e=>{if(active())openForm(undefined,undefined,e.currentTarget as HTMLElement);});
  root.querySelector<HTMLFormElement>('[data-cy=tenant-search-form]')!.onsubmit=e=>{e.preventDefault();if(!active())return;search=String(new FormData(e.currentTarget as HTMLFormElement).get('search')||'');taskOffset=flowOffset=0;void load();};root.querySelector<HTMLSelectElement>('[data-cy=tenant-task-filter]')?.addEventListener('change',e=>{if(!active())return;status=(e.target as HTMLSelectElement).value;taskOffset=0;void load();});
  for(const [id,key,delta] of [['tasks-prev','task',-100],['tasks-next','task',100],['flows-prev','flow',-100],['flows-next','flow',100]] as const)root.querySelector('[data-cy=tenant-'+id+']')?.addEventListener('click',()=>{if(!active())return;if(key==='task')taskOffset=Math.max(0,taskOffset+delta);else flowOffset=Math.max(0,flowOffset+delta);void load();});
- root.querySelectorAll<HTMLElement>('[data-open-task]').forEach(b=>b.onclick=()=>{if(active())openTask(data.tasks.find((t:any)=>t.id===b.dataset.openTask));});root.querySelectorAll<HTMLElement>('[data-flow-task]').forEach(b=>b.onclick=()=>{if(active())openForm(undefined,b.dataset.flowTask);});
+ root.querySelectorAll<HTMLElement>('[data-open-task]').forEach(b=>b.onclick=()=>{if(active())openTask(data.tasks.find((t:any)=>t.id===b.dataset.openTask),b);});root.querySelectorAll<HTMLElement>('[data-flow-task]').forEach(b=>b.onclick=()=>{if(active())openForm(undefined,b.dataset.flowTask,b);});
  const preferenceForm=root.querySelector<HTMLFormElement>('[data-cy=tenant-preference-form]')!,preferenceSelect=preferenceForm.querySelector<HTMLSelectElement>('[name=view]')!;
  preferenceSelect.value=preferenceDraft?.value(data.preference,data.allowedViews)??data.preference.view;
  preferenceSelect.addEventListener('change',()=>{if(active())saveDraftView();});
@@ -72,24 +84,132 @@ export async function renderTenantDashboard(root:HTMLElement,gateway:string){
  readHost=mountTenantReadHost(root,{gateway,token,data,params,locale,isCurrent:active,whenActive:resumeActive});
  ownedShell=root.querySelector('[data-cy=app-shell]');workHost=mountTenantWorkHost(root,{gateway,token,data,view,params,isCurrent:active,whenActive:resumeActive,verified:()=>{if(!active())return;notice='Saved to PostgreSQL and independently verified.';void load();},invalidated:()=>{if(active())accessChanged();},lock:blocked=>{if(!active())return;for(const selector of ['[data-cy=tenant-refresh]','[data-cy=tenant-create-task]','[data-cy=tenant-search-form] button']){const node=root.querySelector<HTMLButtonElement>(selector);if(node)node.disabled=busy||blocked||!!shortcutHost?.blocked();}for(const node of root.querySelectorAll<HTMLElement>('[data-td-view]')){if(blocked||shortcutHost?.blocked())node.setAttribute('aria-disabled','true');else node.removeAttribute('aria-disabled');}}});
  }
- function select(next:string){if(!current()||busy||dialogs.size||hostsBlocked()||!data.allowedViews.includes(next)||next===view)return;view=next;history.pushState(null,'','#'+next);draw();root.querySelector<HTMLElement>('h1')?.setAttribute('tabindex','-1');root.querySelector<HTMLElement>('h1')?.focus();}
- const onPop=()=>{if(!current())return;if(!data)return;const next=location.hash.slice(1);if(busy||dialogs.size||hostsBlocked()||!data.allowedViews.includes(next)){history.replaceState(null,'','#'+view);return;}if(next!==view){view=next;draw();}};eventTarget.addEventListener('popstate',onPop);eventTarget.addEventListener('hashchange',onPop);
+ function select(next:string){if(!current()||busy||dialogs.size||returningFromTaskPanel||hostsBlocked()||!data.allowedViews.includes(next)||next===view)return;view=next;history.pushState(null,'','#'+next);draw();root.querySelector<HTMLElement>('h1')?.setAttribute('tabindex','-1');root.querySelector<HTMLElement>('h1')?.focus();}
+ const onPop=(event:Event)=>{
+  if(!current()||!data)return;
+  returningFromTaskPanel=undefined;
+  const next=location.hash.slice(1);
+  if(taskPanel){
+   const {dialog,key}=taskPanel;
+   if(next!==view){
+    // Keep explicit hash-view navigation blocked while any dialog is open.
+    history.replaceState({...historyState(),[taskPanelHistoryKey]:key},'','#'+view);
+    return;
+   }
+   if(hasTaskPanelEntry(key)||event.type!=='popstate'||!event.isTrusted)return;
+   if(!canDismissDialog(dialog,false)){
+    // Traversal changes the pointer first. Restore a disposable same-view entry.
+    history.pushState({...historyState(),[taskPanelHistoryKey]:key},'','#'+view);
+    return;
+   }
+   closeDialog(dialog,false);
+   return; // Back dismisses without redrawing or resetting filters.
+  }else if(taskPanelHistoryKey in historyState()){
+   // Forward after dismissal must not resurrect an old task or draft.
+   clearTaskPanelEntry();
+  }
+  if(busy||dialogs.size||hostsBlocked()||!data.allowedViews.includes(next)){history.replaceState(null,'','#'+view);return;}
+  if(next!==view){view=next;draw();}
+ };
+ eventTarget.addEventListener('popstate',onPop);eventTarget.addEventListener('hashchange',onPop);
  // Keep unsaved registered dialog fields and unresolved writes in their current document.
  const beforeLeave=(event:BeforeUnloadEvent)=>{if(!current())return;if(busy||hostsBlocked()||[...dialogs].some(dialog=>dialog.open&&dialogDrafts.get(dialog)?.())){event.preventDefault();event.returnValue='';}};
  const leave=(event:PageTransitionEvent)=>{if(event.persisted)suspended=true;else teardown();};
  const resume=(event:PageTransitionEvent)=>{if(!event.persisted||!suspended||!ownsRoot())return;suspended=false;if(current()){workHost?.syncControls();readHost?.syncControls();shortcutHost?.syncControls();}release();};
  eventTarget.addEventListener('beforeunload',beforeLeave);eventTarget.addEventListener('pagehide',leave);eventTarget.addEventListener('pageshow',resume);
- function teardown(){if(!alive)return;alive=false;suspended=false;release();renderVersion++;readHost?.dispose();readHost=null;shortcutHost?.dispose();shortcutHost=null;themePreferenceDispose?.();themePreferenceDispose=undefined;epoch++;owner?.disconnect();eventTarget.removeEventListener('popstate',onPop);eventTarget.removeEventListener('hashchange',onPop);eventTarget.removeEventListener('beforeunload',beforeLeave);eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);clearTenantWorkHost(root);workHost=null;for(const dialog of dialogs){dialog.close();dialog.remove();}dialogs.clear();if(tenantRenders.get(root)===teardown)tenantRenders.delete(root);}
+ function teardown(){if(!alive)return;alive=false;suspended=false;release();renderVersion++;readHost?.dispose();readHost=null;shortcutHost?.dispose();shortcutHost=null;themePreferenceDispose?.();themePreferenceDispose=undefined;epoch++;owner?.disconnect();eventTarget.removeEventListener('popstate',onPop);eventTarget.removeEventListener('hashchange',onPop);eventTarget.removeEventListener('beforeunload',beforeLeave);eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);clearTenantWorkHost(root);workHost=null;if(taskPanel&&hasTaskPanelEntry(taskPanel.key))clearTaskPanelEntry();taskPanel=undefined;for(const dialog of dialogs){dialog.close();dialog.remove();}dialogs.clear();if(tenantRenders.get(root)===teardown)tenantRenders.delete(root);}
  tenantRenders.set(root,teardown);owner=new MutationObserver(()=>{if(ownedShell&&(!root.isConnected||!root.contains(ownedShell)))teardown();});owner.observe(root.ownerDocument,{childList:true,subtree:true});
  function denied(error:unknown){const status=(error as {status?:number}).status;if(status===401){sessionStorage.removeItem('primecare_session');teardown();root.replaceChildren();location.assign('/login?enable-semantics=true');return true;}if(status===403){accessChanged();return true;}return false;}
  function accessChanged(){if(!owned())return;unavailable('Your access changed. Reload this workspace.');}
  function unavailable(message:string){if(!owned())return;teardown();workHost=null;const errorRoot=renderTenantDashboardUnavailable(root,message);root.querySelector('[data-cy=tenant-retry]')!.addEventListener('click',()=>{if(root.isConnected&&root.firstElementChild===errorRoot&&location.pathname+location.search===documentRoute&&!tenantRenders.has(root))void renderTenantDashboard(root,gateway);});}
  function inlineError(message:string){if(!current())return;const p=root.ownerDocument.createElement('p');p.setAttribute('role','alert');p.textContent=message;root.querySelector('main')?.prepend(p);}
 
- function modal(html:string){const d=document.createElement('dialog');d.className='td-dialog td-root';d.innerHTML=html;const fields=[...d.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>('input,select,textarea')].map(field=>({field,value:field.value}));dialogDrafts.set(d,()=>fields.some(({field,value})=>field.value!==value));const opener=document.activeElement,version=renderVersion;document.body.append(d);dialogs.add(d);d.showModal();d.querySelector('[data-td-close]')!.addEventListener('click',()=>{if(version===renderVersion&&current())d.close();});d.addEventListener('close',()=>{dialogs.delete(d);d.remove();if(version===renderVersion&&current()&&opener instanceof HTMLElement&&opener.isConnected)opener.focus();});return d;}
- function openForm(task?:any,flowId?:string){if(!current())return;const version=renderVersion;const d=modal(taskForm(data,task,flowId));d.querySelector<HTMLFormElement>('form')!.onsubmit=e=>{e.preventDefault();if(version!==renderVersion||!d.open||!dialogs.has(d)||!current())return;void mutate({action:task?'edit':'create',...(task?{id:task.id,version:task.version}:{}),value:Object.fromEntries(new FormData(e.currentTarget as HTMLFormElement))},d);};}
- function openTask(task:any){if(!task||!current())return;const version=renderVersion;const d=modal(taskDetail(task));d.querySelectorAll<HTMLButtonElement>('[data-task-action]').forEach(b=>b.onclick=()=>{if(version!==renderVersion||!d.open||!dialogs.has(d)||!current())return;const action=b.dataset.taskAction!;if(action==='edit'){d.close();openForm(task);return;}void mutate({action,id:task.id,version:task.version,value:{evidence:d.querySelector<HTMLTextAreaElement>('[data-cy=tenant-task-evidence]')!.value}},d);});}
- async function mutate(body:any,dialog?:HTMLDialogElement,requestId?:string){if(!current()||busy||hostsBlocked()||(dialog&&(!dialog.open||!dialogs.has(dialog))))return;const version=renderVersion;busy=true;const buttons=dialog||root,disabled=new Map<HTMLButtonElement,boolean>();buttons.querySelectorAll<HTMLButtonElement>('button').forEach(b=>{disabled.set(b,b.disabled);b.disabled=true;});try{const acknowledged=await api.mutate(requestId?body:{...body,...(data.synthetic?{workspaceVersion:data.workspaceVersion}:{})},requestId);await whenActive();if(version!==renderVersion||!current())return;if(body.action==='preferences')preferenceDraft!.acknowledge({view:body.value.view,version:body.version},acknowledged.preference,requestId);dialog?.close();notice=body.action==='preferences'?(preferenceDraft?.current?'Your previous choice was saved. Your newer default-view edit is still unsaved.':'Default view saved to PostgreSQL.'):'Saved to PostgreSQL. Workflow, clinical and payroll approvals remain separate.';await load();}catch(e){await whenActive();if(version!==renderVersion||!current())return;if(denied(e))return;if(body.action==='preferences'&&requestId&&(e as {status?:number}).status===409)preferenceDraft!.rejectPending(requestId);const message=body.action==='preferences'&&(e as {status?:number}).status===409?'The saved version changed. Your unsaved choice is kept. Refresh to discard it and load the latest preference.':(e as Error).message;if(dialog){const status=dialog.querySelector('[data-cy=tenant-dialog-status]');if(status)status.textContent=message;else{const p=document.createElement('p');p.setAttribute('role','alert');p.textContent=message;dialog.append(p);}}else{notice=message;if(hostsBlocked())inlineError(message);else draw();}}finally{await whenActive();busy=false;if(alive&&current()){for(const [button,wasDisabled] of disabled){if(button.isConnected)button.disabled=wasDisabled;}workHost?.syncControls();shortcutHost?.syncControls();}}}
+ const dialogOpeners=new WeakMap<HTMLDialogElement,{node:HTMLElement,version:number}>();
+ function dialogStatus(dialog:HTMLDialogElement,message:string){
+  let node=dialog.querySelector<HTMLElement>('[data-cy=tenant-dialog-status]');
+  if(!node){node=root.ownerDocument.createElement('p');node.setAttribute('role','alert');dialog.append(node);}
+  node.textContent=message;
+ }
+ function canDismissDialog(dialog:HTMLDialogElement,explicitDiscard:boolean){
+  if(busy||hostsBlocked()){
+   dialogStatus(dialog,'Please wait for the current operation to finish.');
+   return false;
+  }
+  if(!dialogDrafts.get(dialog)?.())return true;
+  if(explicitDiscard)return eventTarget.confirm('Discard your unsaved task changes?');
+  dialogStatus(dialog,'Your changes are unsaved. Save them or use Cancel to discard them.');
+  return false;
+ }
+ function closeDialog(dialog:HTMLDialogElement,consumeHistory=true){
+  if(!dialogs.delete(dialog))return;
+  const activeTask=taskPanel?.dialog===dialog?taskPanel:undefined;
+  if(activeTask)taskPanel=undefined;
+  if(dialog.open)dialog.close();
+  dialog.remove();
+  const opener=dialogOpeners.get(dialog);
+  if(opener?.version===renderVersion&&current()&&opener.node.isConnected)opener.node.focus();
+  if(activeTask&&consumeHistory&&current()&&hasTaskPanelEntry(activeTask.key)){
+   returningFromTaskPanel=activeTask.key;
+   history.back();
+   // Navigation may be suppressed by the browser; don't leave the shell locked.
+   eventTarget.setTimeout(()=>{
+    if(returningFromTaskPanel!==activeTask.key||!current())return;
+    returningFromTaskPanel=undefined;
+    if(hasTaskPanelEntry(activeTask.key))clearTaskPanelEntry();
+   },1000);
+  }
+ }
+ function setDialogContent(dialog:HTMLDialogElement,html:string){
+  dialog.innerHTML=html;
+  const heading=dialog.querySelector<HTMLElement>('h2')!;
+  heading.id='primecare-tenant-dialog-title-'+(++tenantDialogSequence);
+  heading.tabIndex=-1;
+  heading.setAttribute('autofocus','');
+  dialog.setAttribute('aria-labelledby',heading.id);
+  const fields=[...dialog.querySelectorAll<HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>('input,select,textarea')].map(field=>({field,value:field.value}));
+  dialogDrafts.set(dialog,()=>fields.some(({field,value})=>field.value!==value));
+  dialog.querySelector('[data-td-close]')!.addEventListener('click',()=>{
+   if(current()&&dialog.open&&canDismissDialog(dialog,true))closeDialog(dialog);
+  });
+  if(dialog.open)heading.focus();
+ }
+ function modal(html:string,opener?:HTMLElement,task=false){
+  const document=root.ownerDocument,d=document.createElement('dialog');
+  d.className='td-dialog td-root';
+  const origin=opener??document.activeElement;
+  if(origin instanceof HTMLElement)dialogOpeners.set(d,{node:origin,version:renderVersion});
+  setDialogContent(d,html);
+  d.addEventListener('cancel',event=>{
+   event.preventDefault();
+   if(current()&&d.open&&canDismissDialog(d,false))closeDialog(d);
+  });
+  d.addEventListener('close',()=>{if(dialogs.has(d))closeDialog(d);});
+  document.body.append(d);dialogs.add(d);d.showModal();
+  if(task&&typeof history.back==='function'){
+   const key=++tenantDialogSequence;
+   try{history.pushState({...historyState(),[taskPanelHistoryKey]:key},'',location.href);taskPanel={dialog:d,key};}catch{/* Native Cancel and Escape still work without History API support. */}
+  }
+  d.querySelector<HTMLElement>('h2')?.focus();
+  return d;
+ }
+ function openForm(task?:any,flowId?:string,opener?:HTMLElement,reuse?:HTMLDialogElement){
+  if(!current()||busy||hostsBlocked()||returningFromTaskPanel||(reuse?!reuse.open:dialogs.size>0))return;
+  const version=renderVersion,html=taskForm(data,task,flowId);
+  const d=reuse??modal(html,opener,true);
+  if(reuse)setDialogContent(d,html);
+  d.querySelector<HTMLFormElement>('form')!.onsubmit=e=>{e.preventDefault();if(version!==renderVersion||!d.open||!dialogs.has(d)||!current())return;void mutate({action:task?'edit':'create',...(task?{id:task.id,version:task.version}:{}),value:Object.fromEntries(new FormData(e.currentTarget as HTMLFormElement))},d);};
+ }
+ function openTask(task:any,opener:HTMLElement){
+  if(!task||!current()||busy||hostsBlocked()||returningFromTaskPanel||dialogs.size)return;
+  const version=renderVersion,d=modal(taskDetail(task),opener,true);
+  d.querySelectorAll<HTMLButtonElement>('[data-task-action]').forEach(b=>b.onclick=()=>{
+   if(version!==renderVersion||!d.open||!dialogs.has(d)||!current())return;
+   const action=b.dataset.taskAction!;
+   if(action==='edit'){if(canDismissDialog(d,false))openForm(task,undefined,undefined,d);return;}
+   void mutate({action,id:task.id,version:task.version,value:{evidence:d.querySelector<HTMLTextAreaElement>('[data-cy=tenant-task-evidence]')!.value}},d);
+  });
+ }
+ async function mutate(body:any,dialog?:HTMLDialogElement,requestId?:string){if(!current()||busy||hostsBlocked()||(dialog&&(!dialog.open||!dialogs.has(dialog))))return;const version=renderVersion;busy=true;const buttons=dialog||root,disabled=new Map<HTMLButtonElement|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement,boolean>();buttons.querySelectorAll<HTMLButtonElement|HTMLInputElement|HTMLSelectElement|HTMLTextAreaElement>(dialog?'button,input,select,textarea':'button').forEach(b=>{disabled.set(b,b.disabled);b.disabled=true;});try{const acknowledged=await api.mutate(requestId?body:{...body,...(data.synthetic?{workspaceVersion:data.workspaceVersion}:{})},requestId);await whenActive();if(version!==renderVersion||!current())return;if(body.action==='preferences')preferenceDraft!.acknowledge({view:body.value.view,version:body.version},acknowledged.preference,requestId);if(dialog)closeDialog(dialog);notice=body.action==='preferences'?(preferenceDraft?.current?'Your previous choice was saved. Your newer default-view edit is still unsaved.':'Default view saved to PostgreSQL.'):'Saved to PostgreSQL. Workflow, clinical and payroll approvals remain separate.';await load();}catch(e){await whenActive();if(version!==renderVersion||!current())return;if(denied(e))return;if(body.action==='preferences'&&requestId&&(e as {status?:number}).status===409)preferenceDraft!.rejectPending(requestId);const message=body.action==='preferences'&&(e as {status?:number}).status===409?'The saved version changed. Your unsaved choice is kept. Refresh to discard it and load the latest preference.':(e as Error).message;if(dialog){dialogStatus(dialog,message);}else{notice=message;if(hostsBlocked())inlineError(message);else draw();}}finally{await whenActive();busy=false;if(alive&&current()){for(const [button,wasDisabled] of disabled){if(button.isConnected)button.disabled=wasDisabled;}workHost?.syncControls();shortcutHost?.syncControls();}}}
  // A refresh begun before a dialog opened must not replace that dialog's shell
  // and strand its draft. The next explicit refresh can fetch a newer snapshot.
  async function load(){if(!current()||hostsBlocked())return;const id=++epoch;try{const next=await api.read(filters());await whenActive();if(!alive||id!==epoch||!current()||hostsBlocked()||[...dialogs].some(dialog=>dialog.open))return;const nextScope=JSON.stringify([next.organization.id,next.identity.userId,next.identity.role,next.dataset]);if(nextScope!==preferenceDraftScope){const nextDraft=new TenantPreferenceDraft({tenantId:next.organization.id,userId:next.identity.userId,role:next.identity.role,dataset:next.dataset},{getItem:key=>localStorage.getItem(key),setItem:(key,value)=>localStorage.setItem(key,value),removeItem:key=>localStorage.removeItem(key)});preferenceDraft=nextDraft;preferenceDraftScope=nextScope;}data=next;const requested=location.hash.slice(1);if(data.allowedViews.includes(requested))view=requested;else if(!requested)view='';if(!view||!data.allowedViews.includes(view))view=data.allowedViews.includes(data.preference.view)?data.preference.view:data.allowedViews[0];if(location.hash!=='#'+view)history.replaceState(null,'','#'+view);draw();}catch(e){await whenActive();if(!alive||id!==epoch||!current())return;if(denied(e))return;if(hostsBlocked()||[...dialogs].some(dialog=>dialog.open)){inlineError((e as Error).message);return;}unavailable((e as Error).message);}}
