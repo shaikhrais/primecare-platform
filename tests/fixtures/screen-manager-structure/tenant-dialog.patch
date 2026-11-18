@@ -144,11 +144,42 @@ new file mode 100644
 +    }
 +  }
 +}
+diff --git a/packages/primecare_ui/web/dashboard-render-policy.ts b/packages/primecare_ui/web/dashboard-render-policy.ts
+new file mode 100644
+--- /dev/null
++++ b/packages/primecare_ui/web/dashboard-render-policy.ts
+@@ -0,0 +1,25 @@
++import {ScreenConfigurationError} from './screen-manager';
++
++/** Routes opt in at the dispatcher before handing off to any feature renderer. */
++const required = new WeakSet<HTMLElement>();
++const permits = new WeakMap<HTMLElement,()=>boolean>();
++
++export function requireMasterDashboard(root: HTMLElement): void {
++  required.add(root);
++}
++
++/** Internal to MasterDashboard: one synchronous shell render using a live registration lease. */
++export function withMasterDashboardShell<T>(root: HTMLElement, owns: () => boolean, draw:()=>T): T {
++  if (!owns() || permits.has(root)) throw new ScreenConfigurationError('Inactive or nested MasterDashboard render');
++  permits.set(root,owns);
++  try { return draw(); }
++  finally { permits.delete(root); }
++}
++
++export function assertMasterDashboardShell(root: HTMLElement): void {
++  if (!required.has(root)) return;
++  const owns=permits.get(root);
++  // Consume before checking: even reentrant rendering cannot reuse this authorization.
++  permits.delete(root);
++  if (!owns?.()) throw new ScreenConfigurationError('Dashboard cannot render: its screen must extend MasterDashboard');
++}
 diff --git a/packages/primecare_ui/web/master-dashboard.ts b/packages/primecare_ui/web/master-dashboard.ts
 new file mode 100644
 --- /dev/null
 +++ b/packages/primecare_ui/web/master-dashboard.ts
-@@ -0,0 +1,125 @@
+@@ -0,0 +1,126 @@
++import {withMasterDashboardShell} from './dashboard-render-policy';
 +import {bindShell,renderShell,shellMarkup,type ShellContent} from './shell';
 +import {ScreenConfigurationError,type ScreenManager,type ScreenRegistration} from './screen-manager';
 +import {clearLayoutCustomizer} from './layout-customizer';
@@ -237,7 +268,7 @@ new file mode 100644
 +    let installed = false;
 +    const current = () => lease() && revision === this.revision && (!installed || binding.current()) && lease() && revision === this.revision;
 +    try {
-+      renderShell(root,binding.shell);
++      withMasterDashboardShell(root,lease,()=>renderShell(root,binding.shell));
 +      if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
 +      const shell = root.querySelector('[data-cy=app-shell]');
 +      if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
@@ -346,17 +377,33 @@ diff --git a/packages/primecare_ui/web/screen-manager.ts b/packages/primecare_ui
    const message = root.ownerDocument.createElement('main');
    message.setAttribute('data-cy', 'error-state'); message.setAttribute('role', 'alert');
    message.textContent = error instanceof ScreenConfigurationError ? error.message : 'Screen Manager: Presentation connection failed';
+diff --git a/packages/primecare_ui/web/shell.ts b/packages/primecare_ui/web/shell.ts
+--- a/packages/primecare_ui/web/shell.ts
++++ b/packages/primecare_ui/web/shell.ts
+@@ -1,3 +1,4 @@
++import {assertMasterDashboardShell} from './dashboard-render-policy';
+ import {prepareWorkspaceRender,clearWorkspaceCustomizer,type WorkspaceCustomizerOptions} from './workspace-customizer';
+ import {shellIcon} from './icons';
+ import media from '../../shared/src/media/registry.json';
+@@ -15,6 +16,7 @@
+ const utilityRoots=new WeakSet<HTMLElement>();
+ const shells=new WeakMap<HTMLElement,ShellContent>();
+ export function renderShell(root:HTMLElement,options:ShellContent):void {
++ assertMasterDashboardShell(root);
+  prepareWorkspaceRender(root);
+  applyMediaTokens();
+  const previous=shells.get(root);
 diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-workspace-layout.mjs
 --- a/scripts/test-tenant-workspace-layout.mjs
 +++ b/scripts/test-tenant-workspace-layout.mjs
-@@ -6,13 +6,90 @@
+@@ -6,13 +6,92 @@
  import {pathToFileURL} from 'node:url';
  import {join} from 'node:path';
  import {tenantFixture} from './tenant-dashboard-fixture.mjs';
 -const {chromium}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
 -const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
 +const {chromium,webkit,devices}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
-+const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
++const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
 + document.querySelector('#app').remove();
 + const testRoot=document.body.appendChild(document.createElement('div'));
 + const fixtureManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
@@ -367,6 +414,8 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
 + class FixtureDashboard extends MasterDashboard{constructor(){super(testRoot,fixtureManager,entry,config,dialogOptions);}}
 + const shell={home:entry.route,role:'Fixture',navigation:'',controls:'',content:'<h1>Fixture body</h1>'};
 + const binding={locale:'en',profileScope:'fixture:master',allowedViews:['work'],view:'work',shell,current:()=>true,select:()=>{}};
++ requireMasterDashboard(testRoot);
++ let bypassBlocked=false;try{renderShell(testRoot,shell);}catch(error){bypassBlocked=String(error).includes('must extend MasterDashboard')&&!testRoot.firstChild;}
 + fixtureManager.registerScope('fixture',[entry]);
 + const dashboard=new FixtureDashboard();
 + const screen=dashboard.mount(binding);
@@ -388,7 +437,7 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
 + dashboard.dispose();
 + const newOwnerPreserved=nextScreen.isConnected;
 + next.dispose();testRoot.remove();
-+ return {invalidSlot,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
++ return {bypassBlocked,invalidSlot,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
 +};const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
  let writes=0;const preferencePosts=[];
 -const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
@@ -444,7 +493,7 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
   await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
   await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
   assert.deepEqual(errors,[],'the real Screen Manager bootstrap must succeed before layout acceptance');
-@@ -25,7 +102,13 @@
+@@ -25,7 +104,13 @@
   await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
   await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
   await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
@@ -458,14 +507,14 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
   assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft','Escape cannot discard a dirty task form');
   assert.equal(writes,0,'guarded draft navigation must not write');
   const acceptDiscard=dialog=>dialog.accept();
-@@ -162,5 +245,10 @@
+@@ -162,5 +247,10 @@
   await page.evaluate(()=>{location.hash='clients';});await page.waitForFunction(hash=>location.hash===hash,allowedHash);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
   await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
   await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
 - assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
 + assert.deepEqual(errors,[]);
 + const core=await page.evaluate(()=>window.proveMaster());
-+ assert.deepEqual(core,{invalidSlot:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
++ assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
 + console.log(JSON.stringify({masterCore:core}));
 + console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
 + }
@@ -551,7 +600,12 @@ new file mode 100644
 diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typescript/src/tenant-dashboard/index.ts
 --- a/websites/typescript/src/tenant-dashboard/index.ts
 +++ b/websites/typescript/src/tenant-dashboard/index.ts
-@@ -6,7 +6,7 @@
+@@ -1,3 +1,4 @@
++import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
+ import {mountTenantShortcutHost,type TenantShortcutHost} from './shortcut-settings-host';
+ import {mountTenantReadHost,type TenantReadHost} from './read-page-host';
+ import {requireScreenManager,showScreenConfigurationError,ScreenConfigurationError} from '../../../../packages/primecare_ui/web/screen-manager';
+@@ -6,7 +7,7 @@
  import {TenantPreferenceDraft} from '../../../../packages/shared/src/tenant-dashboard/preference-draft';
  import {mountTenantWorkHost,clearTenantWorkHost,type TenantWorkHost} from './work-module-host';
  import {BaseSessionClient} from '../infrastructure/http/base-session-client';
@@ -560,7 +614,13 @@ diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typesc
  import {shellIcon} from '../shell-icons';
  import {installTenantDashboardStyles,renderTenantDashboardControls,renderTenantDashboardLoading,renderTenantDashboardUnavailable,tenantView,tenantNavigation,taskForm,taskDetail,esc} from '../../../../packages/primecare_ui/web/tenant-dashboard-presentation';
  import catalog from '../../../../packages/shared/src/tenant-dashboard/catalog.json';
-@@ -28,7 +28,7 @@
+@@ -23,12 +24,13 @@
+ }
+ export async function renderTenantDashboard(root:HTMLElement,gateway:string){
+  const manager=requireScreenManager(root);
++ requireMasterDashboard(root);
+  // main.ts owns this existing document entry. Hash views are server-filtered
+  // tenant views, not new ScreenManager registrations or authorization grants.
   const entry=resolveManagedRoute(catalog.route,'');
   const documentRoute=location.pathname+location.search;
   const language=root.ownerDocument.documentElement.lang.toLowerCase().split('-')[0],locale=language==='fr'||language==='es'?language:'en';
@@ -569,7 +629,7 @@ diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typesc
   const eventTarget=root.ownerDocument.defaultView??window;
   let taskPanel:{dialog:HTMLDialogElement,key:number}|undefined;
   let returningFromTaskPanel:number|undefined;
-@@ -60,13 +60,34 @@
+@@ -60,13 +62,34 @@
   let storedToken:string|null;try{storedToken=sessionStorage.getItem('primecare_session');}catch{showScreenConfigurationError(root,new ScreenConfigurationError('Session storage is unavailable'));return;}
   if(!storedToken){root.replaceChildren();location.assign('/login?enable-semantics=true');return;}const token=storedToken;
   const params=new URLSearchParams(location.search),api=new TenantClient(gateway,token,params.get('dataset')||'live',params.get('tenant')||'');let data:any,busy=false,view=catalog.views.some(v=>v.id===location.hash.slice(1))?location.hash.slice(1):'',search='',status='all',taskOffset=0,flowOffset=0,notice='',epoch=0;
@@ -605,7 +665,7 @@ diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typesc
   if(data.identity.role==='tenant_admin') themePreferenceDispose=mountTenantThemePreference(root,{gateway,token,locale,tenantId:data.organization.id,userId:data.identity.userId,dataset:data.dataset,isCurrent:active,whenActive:resumeActive});
   if(!active()){themePreferenceDispose?.();return;}
   root.querySelectorAll<HTMLElement>('[data-td-view]').forEach(b=>b.onclick=e=>{e.preventDefault();if(active())select(b.dataset.tdView!);});root.querySelector('[data-cy=tenant-refresh]')!.addEventListener('click',()=>{if(active())void refresh();});root.querySelector<HTMLElement>('[data-cy=tenant-create-task]')?.addEventListener('click',e=>{if(active())openForm(undefined,undefined,e.currentTarget as HTMLElement);});
-@@ -102,7 +123,7 @@
+@@ -102,7 +125,7 @@
      history.pushState({...historyState(),[taskPanelHistoryKey]:key},'','#'+view);
      return;
     }
@@ -614,7 +674,7 @@ diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typesc
     return; // Back dismisses without redrawing or resetting filters.
    }else if(taskPanelHistoryKey in historyState()){
     // Forward after dismissal must not resurrect an old task or draft.
-@@ -113,90 +134,40 @@
+@@ -113,90 +136,40 @@
   };
   eventTarget.addEventListener('popstate',onPop);eventTarget.addEventListener('hashchange',onPop);
   // Keep unsaved registered dialog fields and unresolved writes in their current document.
@@ -714,7 +774,7 @@ diff --git a/websites/typescript/src/tenant-dashboard/index.ts b/websites/typesc
    d.querySelector<HTMLFormElement>('form')!.onsubmit=e=>{e.preventDefault();if(version!==renderVersion||!d.open||!dialogs.has(d)||!current())return;void mutate({action:task?'edit':'create',...(task?{id:task.id,version:task.version}:{}),value:Object.fromEntries(new FormData(e.currentTarget as HTMLFormElement))},d);};
   }
   function openTask(task:any,opener:HTMLElement){
-@@ -209,10 +180,10 @@
+@@ -209,10 +182,10 @@
     void mutate({action,id:task.id,version:task.version,value:{evidence:d.querySelector<HTMLTextAreaElement>('[data-cy=tenant-task-evidence]')!.value}},d);
    });
   }
