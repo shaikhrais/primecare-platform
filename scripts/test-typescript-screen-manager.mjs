@@ -7,9 +7,30 @@ const importCode = async options => {
   return import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'));
 };
 const core = await importCode({entryPoints:['packages/primecare_ui/web/screen-manager.ts']});
-const {ScreenManager, ScreenConfigurationError} = core;
+const {ScreenManager, ScreenConfigurationError, installScreenManager} = core;
 const {resolveManagedRoute} = await importCode({entryPoints:['websites/typescript/src/managed-routes.ts']});
 const presentation = await importCode({stdin:{contents:`export {installPortalPresentation} from './websites/typescript/src/screen-presentation';export {ScreenManager,installScreenManager,requireScreenManager} from './packages/primecare_ui/web/screen-manager';export {ShellEnvironment} from './packages/primecare_ui/web/shell-environment';export {PortalDocumentScroll} from './websites/typescript/src/document-scroll';`,resolveDir:process.cwd()}});
+const {dashboardViews,MasterDashboard,TenantAdminDashboard,makeDashboardManager,installDashboardScreen} = await importCode({stdin:{contents:`export {dashboardViews,MasterDashboard} from './packages/primecare_ui/web/master-dashboard';export {TenantAdminDashboard} from './websites/typescript/src/tenant-dashboard/dashboard-presentation';export {ScreenManager as makeDashboardManager,installScreenManager as installDashboardScreen} from './packages/primecare_ui/web/screen-manager';`,resolveDir:process.cwd()}});
+test('Tenant Admin inherits the master dashboard and uses only catalog configuration',()=>{
+ const root={},manager=new makeDashboardManager(connections());
+ const entry={id:'fixture-tenant',route:'/tenant-dashboard',kind:'feature',adapter:'tenant'};
+ installDashboardScreen(root,manager);
+ manager.registerScope('entry',[entry]);
+ const options={className:'fixture',headingSelector:'h2',closeSelector:'button',statusKey:'status',current:()=>true,revision:()=>1,canDismiss:()=>true};
+ const dashboard=new TenantAdminDashboard(root,manager,entry,options);
+ assert.ok(dashboard instanceof MasterDashboard);
+ assert.deepEqual(dashboard.allowedViews(['audit']).map(view=>view.id),['audit']);
+ assert.throws(()=>dashboard.allowedViews(['not-registered']),/does not match registration/);
+ dashboard.dispose();
+ assert.doesNotThrow(()=>new TenantAdminDashboard(root,manager,entry,options).dispose());
+});
+test('master dashboard accepts only known unique server-projected views in registration order',()=>{
+ const descriptor={screenCode:'one',route:'/one',title:'Fixture dashboard',views:[{id:'work',label:'Work'},{id:'audit',label:'Audit'}]};
+ assert.deepEqual(dashboardViews(descriptor,['audit','work']).map(view=>view.id),['work','audit']);
+ assert.deepEqual(dashboardViews(descriptor,['audit']).map(view=>view.id),['audit']);
+ for(const invalid of [undefined,[],['foreign'],['work','work']])assert.throws(()=>dashboardViews(descriptor,invalid),/dashboard/i);
+ assert.throws(()=>dashboardViews({...descriptor,views:[...descriptor.views,descriptor.views[0]]},['work']),/duplicate dashboard view/);
+});
 const connectionNames = ['layout','theme','language','responsive'];
 const connections = () => Object.fromEntries(connectionNames.map(name=>[name,()=>{}]));
 const registration = (id='one',route='/one') => ({id,route,kind:'governed',adapter:'workspace'});
@@ -42,6 +63,26 @@ test('required connections fail before content callbacks, including unregistered
   manager.registerScope('routes',[registration()]);
   await assert.rejects(manager.present('one','/other',()=>assert.fail('content rendered')),/Missing registration/);
 });
+test('dashboard panel ownership requires one registered root and releases after scope replacement',()=>{
+  const manager=new ScreenManager(connections()),root={};
+  const options={className:'fixture',headingSelector:'h2',closeSelector:'button',statusKey:'message',current:()=>true,revision:()=>1,canDismiss:()=>true};
+  manager.registerScope('dashboard',[registration()]);
+  assert.throws(()=>manager.connectDashboardDialogs(root,'one','/one',options),/root is not owned/);
+  installScreenManager(root,manager);
+  assert.throws(()=>manager.connectDashboardDialogs(root,'one','/other',options),/Missing dashboard registration/);
+  const initial=manager.connectDashboardDialogs(root,'one','/one',options);
+  assert.throws(()=>manager.connectDashboardDialogs(root,'one','/one',options),/Duplicate dashboard/);
+  manager.registerScope('unrelated',[registration('two','/two')]);
+  assert.throws(()=>manager.connectDashboardDialogs(root,'two','/two',options),/Duplicate dashboard/);
+  manager.registerScope('dashboard',[registration()]);
+  assert.throws(()=>initial.open(''),/Inactive dashboard dialog owner/);
+  const replacement=manager.connectDashboardDialogs(root,'one','/one',options);
+  assert.notEqual(replacement,initial);
+  replacement.dispose();
+  assert.notEqual(manager.connectDashboardDialogs(root,'one','/one',options),replacement);
+  manager.clearDashboardDialogs(root);
+});
+
 test('snapshot replacement is atomic, rejects duplicates and drops previous actor registrations',()=>{
   const manager=new ScreenManager(connections());
   manager.registerScope('authorized-screens',[registration()]);

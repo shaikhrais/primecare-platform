@@ -1,3 +1,5 @@
+import {DashboardDialogManager,type DashboardDialogOptions} from './dashboard-dialog-manager';
+
 /** Presentation registration only. This class has no identity, grants or API access. */
 export type ScreenConnection = 'layout' | 'theme' | 'language' | 'responsive';
 export type ScreenRegistration = Readonly<{
@@ -17,6 +19,8 @@ export class ScreenConfigurationError extends Error {
 export class ScreenManager {
   private registrations = new Map<string, ScreenRegistration>();
   private scopes = new Map<string, Set<string>>();
+  private dashboardRoots = new WeakMap<HTMLElement, DashboardDialogManager>();
+  private dashboardScopes = new Map<DashboardDialogManager, ScreenRegistration>();
   constructor(private readonly connections: ScreenConnections) {}
 
   registerScope(scope: string, registrations: readonly ScreenRegistration[]): void {
@@ -51,8 +55,45 @@ export class ScreenManager {
       scopes.set(scope, ids);
     }
     // Replace only after the complete snapshot validates; never partially install it.
+    const retiring = [...this.dashboardScopes].filter(([, registration]) => next.get(registration.id) !== registration);
     this.registrations = next;
     this.scopes = scopes;
+    // Capture identities before native close/focus can synchronously replace scopes again.
+    for (const [dialogs] of retiring) dialogs.dispose();
+  }
+
+  /** Compose a dashboard's panel lifecycle on the existing registered route. */
+  connectDashboardDialogs(root: HTMLElement, id: string, route: string, options: DashboardDialogOptions, retire?: () => void): DashboardDialogManager {
+    if (managers.get(root) !== this) throw new ScreenConfigurationError('Dashboard root is not owned by this manager');
+    const registration = this.registrations.get(id);
+    if (!registration || registration.route !== route || registration.kind === 'public') {
+      throw new ScreenConfigurationError(`Missing dashboard registration for ${id} at ${route}`);
+    }
+    if (this.dashboardRoots.has(root)) throw new ScreenConfigurationError('Duplicate dashboard presentation owner');
+    const ownsRegistration = () => this.ownsDashboardDialogs(root,dialogs);
+    const dialogs = new DashboardDialogManager(root, {
+      ...options,
+      current: () => ownsRegistration() && options.current() && ownsRegistration(),
+    }, () => {
+      this.dashboardScopes.delete(dialogs);
+      if (this.dashboardRoots.get(root) === dialogs) {
+        try { retire?.(); }
+        finally { this.dashboardRoots.delete(root); }
+      }
+    });
+    this.dashboardRoots.set(root, dialogs);
+    this.dashboardScopes.set(dialogs, registration);
+    return dialogs;
+  }
+
+  ownsDashboardDialogs(root: HTMLElement, dialogs: DashboardDialogManager): boolean {
+    const registration = this.dashboardScopes.get(dialogs);
+    return !!registration && managers.get(root) === this && this.dashboardRoots.get(root) === dialogs
+      && this.registrations.get(registration.id) === registration;
+  }
+
+  clearDashboardDialogs(root: HTMLElement): void {
+    this.dashboardRoots.get(root)?.dispose();
   }
 
   enter(id: string, route: string): ScreenRegistration {
@@ -102,6 +143,7 @@ export function requireScreenManager(root: HTMLElement): ScreenManager {
 }
 export function showScreenConfigurationError(root: HTMLElement, error: unknown): void {
   // Never leave the previous screen visible, and never interpolate errors as HTML.
+  managers.get(root)?.clearDashboardDialogs(root);
   const message = root.ownerDocument.createElement('main');
   message.setAttribute('data-cy', 'error-state'); message.setAttribute('role', 'alert');
   message.textContent = error instanceof ScreenConfigurationError ? error.message : 'Screen Manager: Presentation connection failed';

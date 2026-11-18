@@ -22,8 +22,12 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
-          git apply --check --whitespace=error-all "$patch"
-          git apply --whitespace=error-all "$patch"
+          if git apply --reverse --check "$patch"; then
+            echo "The exact preflight changes are already integrated."
+          else
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          fi
           git diff --check
       - run: npm install --prefix "$RUNNER_TEMP/screen-manager" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
       - name: Verify existing and candidate presentation contracts
@@ -52,8 +56,12 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
-          git apply --check --whitespace=error-all "$patch"
-          git apply --whitespace=error-all "$patch"
+          if git apply --reverse --check "$patch"; then
+            echo "The exact preflight changes are already integrated."
+          else
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          fi
           git diff --check
           node scripts/test-tenant-workspace-layout.mjs
   devices:
@@ -88,8 +96,12 @@ jobs:
         run: |
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
-          git apply --check --whitespace=error-all "$patch"
-          git apply --whitespace=error-all "$patch"
+          if git apply --reverse --check "$patch"; then
+            echo "The exact preflight changes are already integrated."
+          else
+            git apply --check --whitespace=error-all "$patch"
+            git apply --whitespace=error-all "$patch"
+          fi
           git diff --check
           fail=0
           for profile in $PROFILES; do

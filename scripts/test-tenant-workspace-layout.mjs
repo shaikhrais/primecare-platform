@@ -6,13 +6,92 @@ import {readFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {join} from 'node:path';
 import {tenantFixture} from './tenant-dashboard-fixture.mjs';
-const {chromium}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
-const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
+const {chromium,webkit,devices}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
+const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
+ document.querySelector('#app').remove();
+ const testRoot=document.body.appendChild(document.createElement('div'));
+ const fixtureManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
+ installScreenManager(testRoot,fixtureManager);
+ const entry={id:'master-fixture',route:'/master-fixture',kind:'feature',adapter:'fixture'};
+ const config={screenCode:'fixture_master',route:entry.route,title:'Reusable fixture',views:[{id:'work',label:'Work'},{id:'excluded',label:'Excluded'}]};
+ const dialogOptions={className:'fixture-dialog',headingSelector:'h2',closeSelector:'[data-fixture-close]',statusKey:'fixture-status',current:()=>true,revision:()=>0,canDismiss:()=>false};
+ class FixtureDashboard extends MasterDashboard{constructor(){super(testRoot,fixtureManager,entry,config,dialogOptions);}}
+ const shell={home:entry.route,role:'Fixture',navigation:'',controls:'',content:'<h1>Fixture body</h1>'};
+ const binding={locale:'en',profileScope:'fixture:master',allowedViews:['work'],view:'work',shell,current:()=>true,select:()=>{}};
+ requireMasterDashboard(testRoot);
+ let bypassBlocked=false;try{renderShell(testRoot,shell);}catch(error){bypassBlocked=String(error).includes('must extend MasterDashboard')&&!testRoot.firstChild;}
+ fixtureManager.registerScope('fixture',[entry]);
+ const dashboard=new FixtureDashboard();
+ const screen=dashboard.mount(binding);
+ let invalidSlot=false;try{dashboard.mount({...binding,panels:{missing:'[data-fixture-panel]'}});}catch(error){invalidSlot=String(error).includes('exactly once');}
+ const priorUnchanged=testRoot.querySelector('[data-cy=app-shell]')===screen;
+ const modal=dashboard.dialogs.open('<h2>Fixture dialog</h2><form><select multiple><option selected>First</option><option>Second</option></select><button data-fixture-close>Cancel</button></form>');
+ let submits=0;modal.querySelector('form').onsubmit=e=>{e.preventDefault();submits++;};
+ modal.querySelector('select').options[1].selected=true;
+ const multiDraft=dashboard.dialogs.isDirty(modal),oldClose=modal.querySelector('[data-fixture-close]');
+ oldClose.click();
+ const vetoPreserved=modal.open&&submits===0;
+ dashboard.dialogs.replaceContent(modal,'<h2>Replacement</h2><button data-fixture-close>Close</button>');
+ oldClose.click();
+ const replacementPreserved=modal.open&&modal.querySelector('h2').textContent==='Replacement';
+ fixtureManager.registerScope('fixture',[entry]);
+ const retired=!modal.isConnected&&!screen.isConnected;
+ let rejected=false;try{dashboard.mount(binding);}catch(error){rejected=String(error).includes('Inactive or unavailable');}
+ const next=new FixtureDashboard(),nextScreen=next.mount(binding);
+ dashboard.dispose();
+ const newOwnerPreserved=nextScreen.isConnected;
+ next.dispose();testRoot.remove();
+ return {bypassBlocked,invalidSlot,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
+};const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
 let writes=0;const preferencePosts=[];
-const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
+const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
 await new Promise(r=>server.listen(0,'127.0.0.1',r));const origin='http://127.0.0.1:'+server.address().port;
-const browser=await chromium.launch({headless:true,...(process.env.PRIMECARE_CHROMIUM_EXECUTABLE?{executablePath:process.env.PRIMECARE_CHROMIUM_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage']}: {})});const context=await browser.newContext({viewport:{width:1500,height:960}});await context.addInitScript(token=>sessionStorage.setItem('primecare_session',token),f.actors.admin.token);const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));const el=id=>page.locator('[data-cy='+id+']');
+const profile=process.env.PRIMECARE_DASHBOARD_DEVICE;
+const mobileProfiles={
+ 'android-phone':{engine:chromium,device:devices['Pixel 7']},
+ 'iphone':{engine:webkit,device:devices['iPhone 13']},
+ 'ipad':{engine:webkit,device:devices['iPad (gen 7)']},
+ 'android-tablet':{engine:chromium,device:{viewport:{width:800,height:1100},deviceScaleFactor:2,isMobile:true,hasTouch:true}},
+};
+const target=profile?mobileProfiles[profile]:null;
+if(profile&&!target?.device)throw Error('Unknown or unavailable browser device profile: '+profile);
+const browser=await (target?.engine??chromium).launch({headless:true,...((!target||target.engine===chromium)&&process.env.PRIMECARE_CHROMIUM_EXECUTABLE?{executablePath:process.env.PRIMECARE_CHROMIUM_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage']}: {})});const context=await browser.newContext(target?.device??{viewport:{width:1500,height:960}});await context.addInitScript(token=>sessionStorage.setItem('primecare_session',token),f.actors.admin.token);const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));const el=id=>page.locator('[data-cy='+id+']');
 try{
+ if(target){
+  page.setDefaultTimeout(8000);
+  assert.equal(target.device.hasTouch,true,'device profile must request touch emulation');
+  // Verify trusted touch on the actual controls. WebKit can report zero
+  // maxTouchPoints in emulation even when it delivers genuine touch events.
+  const observeTouch=()=>page.evaluate(()=>{
+   window.__deviceInput=[];
+   for(const type of ['pointerdown','touchstart','touchend','click']) document.addEventListener(type,event=>{
+    const id=event.target instanceof Element?event.target.closest('[data-cy]')?.getAttribute('data-cy'):null;
+    if(id)window.__deviceInput.push({type,id,trusted:event.isTrusted,pointer:event.pointerType??null});
+   },true);
+  });
+  const touchFor=(events,id)=>events.some(event=>event.id===id&&event.trusted&&(event.type==='touchstart'||(event.type==='pointerdown'&&event.pointer==='touch')));
+  await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
+  await el('tenant-create-task').waitFor();
+  const measured=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,maxTouchPoints:navigator.maxTouchPoints}));
+  assert.equal(measured.width,target.device.viewport.width,'fixture renders at actual emulated viewport width');
+  assert.ok(measured.scroll<=measured.width+1,'dashboard does not scroll horizontally');
+  await observeTouch();
+  await el('tenant-create-task').tap();
+  const dialog=page.getByRole('dialog');
+  await dialog.waitFor();
+  assert.equal(await dialog.getAttribute('aria-labelledby'),await dialog.getByRole('heading',{level:2}).getAttribute('id'));
+  const box=await dialog.boundingBox(),viewport=page.viewportSize();
+  assert.ok(box&&viewport&&box.x>=-1&&box.x+box.width<=viewport.width+1&&box.height<=viewport.height+1,'task panel remains within viewport');
+  await el('tenant-dialog-close').tap();
+  await dialog.waitFor({state:'detached'});
+  assert.equal(new URL(page.url()).hash,'#overview');
+  assert.equal(writes,0,'opening and dismissing a panel issues no task write');
+  assert.deepEqual(errors,[]);
+  const panelEvents=await page.evaluate(()=>window.__deviceInput);
+  const trustedTouch=touchFor(panelEvents,'tenant-create-task')&&touchFor(panelEvents,'tenant-dialog-close');
+  console.log(JSON.stringify({profile,browser:target.engine.name(),emulated:true,realDevice:false,nativeApp:false,viewport:true,maxTouchPoints:measured.maxTouchPoints,emulatedTapOpenClose:true,trustedTouch,accessibleDialogName:true,noWrite:true,fixturePostgreSQL:f.native,productionVerified:false,version:browser.version(),panelEvents}));
+  assert.ok(trustedTouch,'opening and closing the task panel must deliver trusted touch input');
+ }else{
  await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
  await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
  assert.deepEqual(errors,[],'the real Screen Manager bootstrap must succeed before layout acceptance');
@@ -25,7 +104,13 @@ try{
  await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
  await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
+ const draftDialog=page.locator('dialog.td-dialog[open]');
+ assert.equal(await draftDialog.getByRole('heading',{level:2}).getAttribute('id'),await draftDialog.getAttribute('aria-labelledby'));
+ const statusAlert=draftDialog.locator('[data-cy=tenant-dialog-status]');
  await page.keyboard.press('Escape');
+ await statusAlert.waitFor({state:'attached',timeout:5000});
+ await draftDialog.evaluate(dialog=>dialog.dispatchEvent(new Event('cancel',{cancelable:true})));
+ assert.equal(await statusAlert.count(),1,'repeated dismiss attempts reuse one status alert');
  assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft','Escape cannot discard a dirty task form');
  assert.equal(writes,0,'guarded draft navigation must not write');
  const acceptDiscard=dialog=>dialog.accept();
@@ -162,5 +247,10 @@ try{
  await page.evaluate(()=>{location.hash='clients';});await page.waitForFunction(hash=>location.hash===hash,allowedHash);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
  await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
  await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
- assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
+ assert.deepEqual(errors,[]);
+ const core=await page.evaluate(()=>window.proveMaster());
+ assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
+ console.log(JSON.stringify({masterCore:core}));
+ console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
+ }
 }finally{await context.close();await browser.close();await new Promise(r=>server.close(r));await f.close();}

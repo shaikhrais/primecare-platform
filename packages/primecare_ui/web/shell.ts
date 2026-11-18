@@ -1,3 +1,4 @@
+import {assertMasterDashboardShell} from './dashboard-render-policy';
 import {prepareWorkspaceRender,clearWorkspaceCustomizer,type WorkspaceCustomizerOptions} from './workspace-customizer';
 import {shellIcon} from './icons';
 import media from '../../shared/src/media/registry.json';
@@ -15,6 +16,7 @@ export function shellMarkup(options:ShellContent):string {
 const utilityRoots=new WeakSet<HTMLElement>();
 const shells=new WeakMap<HTMLElement,ShellContent>();
 export function renderShell(root:HTMLElement,options:ShellContent):void {
+ assertMasterDashboardShell(root);
  prepareWorkspaceRender(root);
  applyMediaTokens();
  const previous=shells.get(root);
