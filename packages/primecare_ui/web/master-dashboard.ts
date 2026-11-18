@@ -96,7 +96,7 @@ export abstract class MasterDashboard {
       const shell = root.querySelector('[data-cy=app-shell]');
       if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
       const workspace: WorkspaceCustomizerOptions | undefined = workspaceScreen === undefined
-        ? undefined : {screenCode:workspaceScreen,panels:resolvePanels(shell)};
+        ? undefined : {screenCode:'tenant_admin_command_center',panels:resolvePanels(shell)};
       bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
         () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(installed&&current())binding.select(view.id);}})),
         binding.profileScope,{},workspace,current);
