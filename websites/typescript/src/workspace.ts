@@ -1,4 +1,5 @@
 import {governanceOfficerIntroduction} from './governance-officer-pilot';
+import {connectGovernedMasterDashboard} from './governed-master-dashboard';
 import {mountClientInvoices} from './client-invoice-host';
 import {requireScreenManager, showScreenConfigurationError, ScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
 import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
@@ -64,6 +65,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const eventTarget=root.ownerDocument.defaultView??window;
   let retired=false,suspended=false;let disposeInvoices=()=>{},disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
   let renderVersion=0,dirtyForm=false;
+  let dashboard:ReturnType<typeof connectGovernedMasterDashboard>|undefined;
+  const retireDashboard=()=>{const owner=dashboard;dashboard=undefined;owner?.master.dispose();};
   const onInput=()=>{dirtyForm=true;};
   const ownsRoot=()=>!retired&&workspaceLoads.get(root)===generation;
   const isCurrent=()=>{if(!ownsRoot()||suspended)return false;if(root.isConnected===false){retire();return false;}return true;};
@@ -83,7 +86,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     else redraw();
   };
   const retire=()=>{
-    if(retired)return;retired=true;renderVersion++;
+    if(retired)return;retired=true;renderVersion++;retireDashboard();
     disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
     if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);releaseSnapshot();}
@@ -225,7 +228,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     // Back/Forward can reach a document route in an older workspace history entry.
     // Only the server-filtered screen/action snapshot may request this handoff.
     if(!account&&documentRoute(location.pathname)&&(page||data.actions?.some(s=>s.route===location.pathname))){handoff(location.pathname,true);return;}
-    if(!page&&!account){root.innerHTML=`<main data-cy="error-state"><h1>${t('forbidden')}</h1><a href="${escapeHtml(routeUrl(data.landing??'/'))}">${t('title')}</a></main>`;return;}
+    if(!page&&!account){retireDashboard();root.innerHTML=`<main data-cy="error-state"><h1>${t('forbidden')}</h1><a href="${escapeHtml(routeUrl(data.landing??'/'))}">${t('title')}</a></main>`;return;}
     const id=account?'typescript:account':'governed:'+page!.code,route=location.pathname;
     if(!enter(id,route))return;
     // DOM handlers belong to this particular render, not just to its session.
@@ -310,10 +313,26 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     }).join('')??'';
     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${authorizedReadiness?(p.productionReady===true?escapeHtml(readinessText('ready')):p.productionReady===false?t('pending'):escapeHtml(readinessText('unavailable'))):t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
     const pilotIntro=governanceOfficerIntroduction(location.hostname,route,page?.code,data.identity.role,locale);
-    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}${pilotIntro?'<p data-cy="governance-officer-introduction">'+escapeHtml(pilotIntro)+'</p>':''}</div>
+    const shell={home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}${pilotIntro?'<p data-cy="governance-officer-introduction">'+escapeHtml(pilotIntro)+'</p>':''}</div>
       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
       `${homeActions}${page?.renderer!=='dashboard'?sections:''}${workspaceOverview({t,cards,chart:chart(),metrics:data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join(''),activities:activities(),details:details(page!)})}
-      ${workspaceInventory({t,inventoryOpen,readiness:authorizedReadiness?{summary:readinessText('pages'),empty:readinessText('empty')}:undefined,search,pendingOnly,rowCount:rows.length,tableRows,pageNumber,countPages})}`}`});
+      ${workspaceInventory({t,inventoryOpen,readiness:authorizedReadiness?{summary:readinessText('pages'),empty:readinessText('empty')}:undefined,search,pendingOnly,rowCount:rows.length,tableRows,pageNumber,countPages})}`}`};
+    const searchEntries=()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)}));
+    const searchScope='Authorized screens and tasks for this account';
+    const profileScope=data.identity.role+':'+data.identity.userId;
+    if(!account&&page?.renderer==='dashboard'){
+      try{
+        if(!dashboard||dashboard.code!==page.code||dashboard.route!==route){
+          retireDashboard();
+          const exactRoute=route;
+          dashboard=connectGovernedMasterDashboard(root,manager,page,()=>location.pathname===exactRoute&&currentNavigation());
+        }
+        dashboard.master.mount({locale,profileScope,allowedViews:['overview'],view:'overview',shell,current:active,select:()=>{},search:searchEntries,searchScope});
+      }catch(error){fail(error);return;}
+    }else{
+      retireDashboard();
+      renderShell(root,shell);
+    }
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
@@ -326,7 +345,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
       reportLifecycles.get(page.code)?.redraw();if(!active())return;
     }
-    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)})),data.identity.role+':'+data.identity.userId);
+    if(!dashboard)bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,searchScope,searchEntries,profileScope);
     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId);};
     root.querySelector<HTMLButtonElement>('[data-cy="training-director-open-training"]')?.addEventListener('click',()=>{
       if(active()&&trainingHome)openAdminTraining(gateway,data.identity.userId,locale);

@@ -247,6 +247,8 @@ test('actual main.ts fails closed for missing theme/CSS and catches asynchronous
 });
 
 const workspaceFixtures={
+ // Keep this authorization/lifecycle harness DOM-free. The real adapter is exercised by the separate browser fixture.
+ './governed-master-dashboard':`export const connectGovernedMasterDashboard=(root,_manager,page)=>({code:page.code,route:page.route,master:{dispose(){},mount({shell}){root.innerHTML=shell.mainAttributes+shell.content;}}});`,
  './account-mutations-panel':`export const mutationActorForScreen=()=>false;export const accountCreationMarkup=()=>'';export const bindAccountCreation=()=>()=>{};`,
  './tenant-accounts-panel':`export const tenantAccountsScreen='fixture-disabled';export const tenantAccountsMarkup=()=>'';export const bindTenantAccounts=()=>()=>{};`,
  './admin-training':`export const openAdminTraining=()=>{};export const trainingText=()=>'';`,

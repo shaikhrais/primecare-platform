@@ -11,16 +11,34 @@ import {briefsView,bindBriefs} from './briefs';
 import {searchView,contactView,duplicatesView,bindContacts} from './contacts';
 import {operationsView,bindOperations} from './operations';
 import {registry,stages,type Pipeline} from '../../../../packages/shared/src/growth/contract';
-import {renderShell,bindShell} from '../shell';
+import {requireScreenManager} from '../../../../packages/primecare_ui/web/screen-manager';
+import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
+import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
+import {resolveManagedRoute} from '../managed-routes';
+import type {ShellContent} from '../shell';
 import {growthDashboardStateMarkup,growthMetricMarkup} from '../../../../packages/primecare_ui/web/growth-dashboard-controls';
 import {GrowthClient} from './client';
 import {esc,growthForms,formValues,due,money,type T} from './forms';
+class FounderGrowthMasterDashboard extends MasterDashboard {}
 export async function renderGrowth(root:HTMLElement,gateway:string){
  const owner=growthOwner(root);if(!owner.current())return;if(!owner.token){owner.redirect();return;}
+ const entry=resolveManagedRoute('/growth',''),manager=requireScreenManager(root);
+ const release=requireMasterDashboard(root);
+ let master:FounderGrowthMasterDashboard;
+ try{
+  master=new FounderGrowthMasterDashboard(root,manager,entry,{screenCode:'founder_growth_dashboard',
+   route:entry.route,title:registry.locales.en.title,views:[{id:'overview',label:registry.locales.en.title}]},
+   {current:owner.current,revision:()=>0,canDismiss:()=>false,className:'growth-dashboard-dialog',
+    statusKey:'growth-dashboard-dialog-status',headingSelector:'h2',closeSelector:'[data-growth-dashboard-close]'},release);
+ }catch(error){release();owner.fail(error);return;}
+ owner.onDispose(()=>master.dispose());
  const transport=new GrowthClient(gateway,owner.token,true),receipts=new Map<string,GrowthReceipt>();
  let command='',operation:{key:string;control:string;drafts:Map<string,Record<string,string>>}|undefined,loading=false;
  const client=transport;let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en',offset=0,filters:Record<string,string>={},notice='',busy=false,readVersion=0;
  const t:T=key=>esc((registry.locales as Record<string,Record<string,string>>)[locale][key]??registry.locales.en[key as keyof typeof registry.locales.en]??key);
+ const mount=(shell:ShellContent,profileScope='')=>master.mount({shell,locale,profileScope,allowedViews:['overview'],
+  view:'overview',current:owner.current,select:()=>{},navigationTitle:registry.locales[locale].title,
+  defaultTheme:registry.visual.theme,searchScope:t(data?.scopeKey??'scope'),search:()=>[]});
  const moneyText=(n:unknown)=>new Intl.NumberFormat(locale,{style:'currency',currency:'CAD'}).format(Number(n)/100);
  const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>growthMetricMarkup(label,value,icon(glyph,'metric-'+id));
  const drafts=()=>{const saved=new Map([...root.querySelectorAll<HTMLFormElement>('form[data-cy]')].map(f=>[f.dataset.cy!,{...formValues(f),...Object.fromEntries([...f.querySelectorAll<HTMLInputElement>('input[type=checkbox][name]')].map(e=>[e.name,e.checked?'true':'false']))}]));
@@ -37,7 +55,9 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
   const presentation={home:'/dashboard?enable-semantics=true',role:t('role_'+data.identity.role),navigation:`<a href="/business-plans">Business plans &amp; learning</a><a href="/growth?enable-semantics=true" aria-current="page" data-cy="sidebar-item-founder-growth-dashboard">${icon('chart','nav-growth')}${t('nav')}</a>${sectionNavigation(t,data)}${data.canOpenAdmin?`<a href="/platform/administration?enable-semantics=true" data-cy="growth-admin-link">${icon('home','nav-admin')}${t('tenant_console')}</a>`:''}${data.canReviewLook?`<a href="/appearance-review?enable-semantics=true" data-cy="look-nav">${esc(lookRegistry.locales[locale].title)}</a>`:''}<a href="/dashboard?enable-semantics=true" data-cy="growth-back">${icon('home','nav-back')}${t('back')}</a>`,menuLabel:t('nav'),controls:`<label>${t('language')}<select data-cy="growth-language">${['en','fr','es'].map(l=>`<option value="${l}" ${l===locale?'selected':''}>${l.toUpperCase()}</option>`).join('')}</select></label><button data-cy="growth-refresh">${icon('refresh','refresh')}${t('refresh')}</button>`,mainAttributes:'data-cy="screen-founder-growth-dashboard"',content:`${hero(t,data)}<details class="growth-reading"><summary>${t('reported')}</summary><p>${t('targets_note')}</p><p>${t('period_note')}</p></details><div role="status" aria-live="polite" data-cy="growth-notice">${notice?t(notice):''}</div><section class="section" data-cy="growth-summary"><h2>${icon('chart','summary')}${t('summary')}</h2><div class="metric-grid">${metric(t('leads'),data.stats.total,'people','leads')}${metric(t('overdue'),data.stats.overdue,'clock','overdue')}${metric(t('spend'),moneyText(data.spendCents),'wallet','spend')}</div><ul>${weak.join('')||`<li>${t('on_track')}</li>`}</ul></section><div data-cy="growth-funnels">${funnel('tenant')}${funnel('client')}</div><section class="section" data-cy="growth-leads"><h2>${icon('people','leads')}${t('leads')}</h2>${searchView(t,data)}<p>${t('shown')}: ${data.leads.length} / ${data.stats.total}</p>${table(['name','source','email','owner','fix'],leadRows)}<div class="pagination"><button data-cy="growth-prev" ${offset===0?'disabled':''}>←</button><button data-cy="growth-next" ${offset+100>=data.stats.total?'disabled':''}>→</button></div>${data.capabilities.createLead?forms.leads:''}</section><section class="section" data-cy="growth-campaigns"><h2>${icon('campaign','campaigns')}${t('campaigns')}</h2>${marketingImage(t)}<p>${t('shown')}: ${data.campaigns.length} / ${data.campaignTotal}</p>${table(['name','budget','spend','leads','cpl'],campaignRows)}${briefsView(t,data)}${data.capabilities.createCampaign?forms.campaigns:''}<ul>${data.sourcePerformance.map((s:any)=>`<li>${t(s.source)}: ${Number(s.leads)}</li>`).join('')}</ul></section><section class="section" data-cy="growth-tasks"><h2>${icon('check','tasks')}${t('tasks')}</h2><p>${t('task_note')}</p>${table(['description','owner','due','stage','evidence'],taskRows)}${data.capabilities.createTask?forms.tasks:''}</section>${businessView(t,data.business,moneyText,marketingStatement,marketingMonth,locale)}${alertsView(t,data)}${performanceView(t,data,report?.locale===locale?report:null,reportPeriod)}${intakeView(t,data)}${duplicatesView(t,data)}${operationsView(t,data)}<section class="section" data-cy="growth-integrations"><h2>${icon('link','integrations')}${t('integrations')}</h2><p>${t('manual')}</p><p>Google Ads / Facebook: ${t('not_connected')}</p><p>${t('marketing_owner')}</p></section><section class="section" data-cy="growth-operations"><h2>${icon('heart','operations')}${t('operations')}</h2><p>${t('operations_note')}</p></section>${data.canEditPlan?`<section class="section" data-cy="growth-plan">${forms.plan}</section>`:''}`};
   if(!owner.current())return;prepared();
   let shell:Element|null=null;const published=()=>!!shell&&root.contains(shell)&&root.querySelector('.app-shell')===shell;
-  if(!owner.commit(()=>{renderShell(root,presentation);shell=root.querySelector('.app-shell');bindShell(root,registry.locales[locale].title,locale,t(data.scopeKey??'scope'),()=>[],data.identity.role+':'+data.identity.userId,registry.visual.theme,undefined,owner.current);return published();},published))return;
+  // MasterDashboard rolls back its failed shell. Report only if no replacement owns the root.
+  if(!owner.commit(()=>{shell=mount(presentation,data.identity.role+':'+data.identity.userId);return published();},
+   ()=>published()||(root.isConnected&&!root.childNodes.length)))return;
   const active=owner.capture(),client=scopedClient(active),mutate=(action:()=>Promise<any>,preserveDrafts=false)=>runMutation(active,action,preserveDrafts);
   root.querySelector('.app-shell')?.classList.add('growth-shell');
   if(!data.capabilities.viewFunnels)root.querySelector('[data-cy="growth-funnels"]')?.remove();
@@ -162,7 +182,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
   }finally{if(version===readVersion)loading=false;}
  }
  function renderState(loading:boolean,content:string){
-  owner.commit(()=>renderShell(root,{home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content}));
+  owner.commit(()=>{mount({home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content});});
  }
  renderState(true,growthDashboardStateMarkup({kind:'loading',message:t('loading')}));await load();
 }

@@ -7,7 +7,7 @@ import {pathToFileURL} from 'node:url';
 import {join} from 'node:path';
 import {tenantFixture} from './tenant-dashboard-fixture.mjs';
 const {chromium,webkit,devices}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
-const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
+const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {connectGovernedMasterDashboard} from './websites/typescript/src/governed-master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
  document.querySelector('#app').remove();
  const testRoot=document.body.appendChild(document.createElement('div'));
  const fixtureManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
@@ -42,7 +42,24 @@ const f=await tenantFixture();const bundle=await build({stdin:{contents:`import 
  dashboard.dispose();
  const newOwnerPreserved=nextScreen.isConnected;
  next.dispose();testRoot.remove();
- return {bypassBlocked,invalidSlot,wrongDockHost,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
+ const workspaceRoot=document.body.appendChild(document.createElement('div'));
+ const workspaceManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
+ installScreenManager(workspaceRoot,workspaceManager);
+ const first={code:'first_fixture',name:'First generic',route:'/first-fixture',renderer:'dashboard'};
+ const second={code:'second_fixture',name:'Second generic',route:'/second-fixture',renderer:'dashboard'};
+ workspaceManager.registerScope('workspace',[first,second].map(page=>({id:'governed:'+page.code,route:page.route,kind:'governed',adapter:'workspace'})));
+ const firstOwner=connectGovernedMasterDashboard(workspaceRoot,workspaceManager,first,()=>true);
+ const overview={...binding,allowedViews:['overview'],view:'overview'};
+ firstOwner.master.mount(overview);
+ firstOwner.master.dispose();
+ const secondOwner=connectGovernedMasterDashboard(workspaceRoot,workspaceManager,second,()=>true);
+ secondOwner.master.mount({...overview,shell:{...shell,content:'<h1>Second generic</h1>'}});
+ const genericNavigation=workspaceRoot.querySelector('h1')?.textContent==='Second generic';
+ secondOwner.master.dispose();
+ renderShell(workspaceRoot,{...shell,content:'<h1>Ordinary record</h1>'});
+ const ordinaryAfterDashboard=workspaceRoot.querySelector('h1')?.textContent==='Ordinary record';
+ workspaceRoot.remove();
+ return {bypassBlocked,invalidSlot,wrongDockHost,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved,genericNavigation,ordinaryAfterDashboard};
 };const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
 let writes=0;const preferencePosts=[];
 const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
@@ -250,7 +267,7 @@ try{
  await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
  assert.deepEqual(errors,[]);
  const core=await page.evaluate(()=>window.proveMaster());
- assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,wrongDockHost:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
+ assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,wrongDockHost:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true,genericNavigation:true,ordinaryAfterDashboard:true});
  console.log(JSON.stringify({masterCore:core}));
  console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
  }

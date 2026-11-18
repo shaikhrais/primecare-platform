@@ -1,4 +1,4 @@
-import {withMasterDashboardShell} from './dashboard-render-policy';
+import {assertMasterDashboardShell,withMasterDashboardShell} from './dashboard-render-policy';
 import {bindShell,renderShell,shellMarkup,type ShellContent} from './shell';
 import {ScreenConfigurationError,type ScreenManager,type ScreenRegistration} from './screen-manager';
 import {clearLayoutCustomizer} from './layout-customizer';
@@ -21,6 +21,10 @@ type Binding = Readonly<{
   panels?: Readonly<Record<string,string>>;
   current: () => boolean;
   select: (id: string) => void;
+  navigationTitle?: Parameters<typeof bindShell>[1];
+  defaultTheme?: Parameters<typeof bindShell>[6];
+  searchScope?: Parameters<typeof bindShell>[3];
+  search?: Parameters<typeof bindShell>[4];
 }>;
 
 /** Configuration and projected view identifiers are validated, never used as an access grant. */
@@ -47,12 +51,13 @@ export abstract class MasterDashboard {
   private shell: Element | undefined;
   private bound: (() => boolean) | undefined;
 
-  protected constructor(
+  constructor(
     private readonly root: HTMLElement,
     private readonly manager: ScreenManager,
     entry: Pick<ScreenRegistration,'id'|'route'>,
     descriptor: MasterDashboardConfig,
     panelOptions: DashboardDialogOptions,
+    private readonly afterRetire?: () => void,
   ) {
     if (entry.route !== descriptor.route) throw new ScreenConfigurationError('Master dashboard route does not match registration');
     dashboardViews(descriptor, descriptor.views.map(view => view.id));
@@ -89,29 +94,56 @@ export abstract class MasterDashboard {
       throw new ScreenConfigurationError('Unregistered workspace docking host');
     const revision = ++this.revision;
     let installed = false;
+    let mountedCandidate: Element | null = null;
     const current = () => lease() && revision === this.revision && (!installed || binding.current()) && lease() && revision === this.revision;
     try {
       withMasterDashboardShell(root,lease,()=>renderShell(root,binding.shell));
       if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
-      const shell = root.querySelector('[data-cy=app-shell]');
+      const shell = mountedCandidate = root.querySelector('[data-cy=app-shell]');
       if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
       const workspace: WorkspaceCustomizerOptions | undefined = workspaceScreen === undefined
         ? undefined : {screenCode:'tenant_admin_command_center',panels:resolvePanels(shell)};
-      bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
-        () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(installed&&current())binding.select(view.id);}})),
-        binding.profileScope,{},workspace,current);
+      if (!binding.shell.hideChrome) bindShell(root,binding.navigationTitle??descriptor.title,binding.locale,binding.searchScope??descriptor.route.slice(1),
+        () => {
+          const entries = binding.search?.() ?? views.map(view=>({title:view.label,detail:descriptor.title,open:()=>binding.select(view.id)}));
+          return entries.map(entry=>({...entry,open:()=>{if(installed&&current())return entry.open();}}));
+        },
+        binding.profileScope,binding.defaultTheme,workspace,current);
       if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
       this.shell = shell;
-      this.bound = current;
+      this.bound = binding.shell.hideChrome ? undefined : current;
       installed = true;
       return shell;
     } catch (error) {
-      if (lease() && revision === this.revision) {
+      const ownsFailedShell = () => !!mountedCandidate && lease() && revision === this.revision && root.contains(mountedCandidate);
+      if (ownsFailedShell()) {
         clearLayoutCustomizer(root);
-        if (lease() && revision === this.revision) root.replaceChildren();
+        if (ownsFailedShell()) mountedCandidate?.remove();
       }
       throw error;
     }
+  }
+
+  /** One content slot for products that already own their navigation and landmarks. */
+  mountHostedContent(binding: Pick<Binding,'allowedViews'|'view'|'current'>): HTMLElement {
+    const {root} = this;
+    const lease = () => this.manager.ownsDashboardDialogs(root,this.dialogs);
+    if (this.shell || !this.allowedViews(binding.allowedViews).some(({id})=>id===binding.view) ||
+        !lease() || !binding.current() || !lease())
+      throw new ScreenConfigurationError('Inactive or unavailable dashboard view');
+    const host = root.ownerDocument.createElement('div');
+    host.dataset.pcDashboardContent = this.descriptor.screenCode;
+    host.style.display = 'contents';
+    withMasterDashboardShell(root,lease,()=>{
+      assertMasterDashboardShell(root);
+      root.replaceChildren(host);
+    });
+    if (!lease() || host.parentElement !== root) {
+      if (host.parentElement === root) host.remove();
+      throw new ScreenConfigurationError('Dashboard owner changed during mount');
+    }
+    this.shell = host;
+    return host;
   }
 
   private retire(): void {
@@ -122,6 +154,7 @@ export abstract class MasterDashboard {
       this.shell?.remove();
       this.shell = undefined;
       this.bound = undefined;
+      this.afterRetire?.();
     }
   }
 

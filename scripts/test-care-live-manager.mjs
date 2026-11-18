@@ -91,3 +91,34 @@ for(const endpoint of versionEndpoints)for(const phase of ['acknowledgement','sn
   assert.equal(f.writes().length,1,'Malformed evidence must retain the actual server acknowledgement');
  }finally{owner.dispose();}
 });
+
+for(const route of ['/care','/psw'])test('canonical presentation slot and existing renderer at '+route,async()=>{
+ const f=fixture({route});
+ try{
+  await f.render();
+  const product=f.root.querySelector('[data-live-refresh]'),host=f.root.querySelector('[data-pc-dashboard-content=care_delivery]');
+  assert.ok(product);
+  assert.equal(Boolean(host),route==='/care');
+  if(host){
+   assert.equal(host.parentElement,f.root);assert.ok(host.contains(product));
+   const before=f.calls.length;
+   f.sessionStorage.setItem('primecare_session','replaced');f.event('popstate');
+   assert.equal(f.root.querySelector('[data-pc-dashboard-content]'),null);assert.equal(f.calls.length,before);
+  }
+  assert.equal(f.writes().length,0);
+ }finally{f.event('pagehide',{persisted:false});}
+});
+
+test('canonical failure keeps a guarded host and only the current Retry can reopen',async()=>{
+ const f=fixture({route:'/care'}),normal=f.respond;
+ try{
+  f.respond=async(url,options)=>url.includes('dataset=info')?Response.json({error:'Unavailable fixture'},{status:503}):normal(url,options);
+  await f.render();
+  const old=f.root.querySelector('[data-pc-dashboard-content=care_delivery]'),retry=f.root.querySelector('[data-retry]');
+  assert.ok(old&&retry&&old.contains(retry));
+  f.respond=normal;await f.fire(retry);
+  assert.ok(f.root.querySelector('[data-live-refresh]'));assert.ok(!old.isConnected);
+  const before=f.calls.length;
+  await f.fire(retry);assert.equal(f.calls.length,before);
+ }finally{f.event('pagehide',{persisted:false});}
+});

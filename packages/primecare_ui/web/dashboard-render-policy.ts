@@ -1,11 +1,13 @@
 import {ScreenConfigurationError} from './screen-manager';
 
 /** Routes opt in at the dispatcher before handing off to any feature renderer. */
-const required = new WeakSet<HTMLElement>();
+const required = new WeakMap<HTMLElement,symbol>();
 const permits = new WeakMap<HTMLElement,()=>boolean>();
 
-export function requireMasterDashboard(root: HTMLElement): void {
-  required.add(root);
+export function requireMasterDashboard(root: HTMLElement): () => void {
+  const token=Symbol();
+  required.set(root,token);
+  return ()=>{if(required.get(root)===token)required.delete(root);};
 }
 
 /** Internal to MasterDashboard: one synchronous shell render using a live registration lease. */

@@ -16,7 +16,7 @@ const criterion='growth-shared-loading-error-layout',cases=[];
 const report={passed:false,scope:'Growth renderer shared layout, loading, HTTP and transport retry',wholeTaskVerified:false,criterion_results:{[criterion]:'failed'},cases,limitations:['Synthetic renderer session and HTTP fixtures; no real login, role grant, tenant-isolation or database verification','Initial loading uses the existing default EN locale; recovered errors exercise EN/FR/ES','No full accessibility, device installation or PWA verification','Presentation uses the explicit synthetic look-test-theme.json fixture, not production theme authority']};
 if(runId!==undefined)report.runId=runId;
 await writeFile(out+'/results.json',JSON.stringify(report,null,2)+'\n');
-const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
+const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}export function guarded(root){try{assertMasterDashboardShell(root);return false;}catch(error){if(!String(error).includes('must extend MasterDashboard'))throw error;return true;}}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
 const css=await readFile('websites/typescript/src/styles.css'),policy=JSON.parse(await readFile('packages/shared/src/growth/registry.json'));
 const sources={};
 for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/growth-read-model.mjs','scripts/fixtures/qa-run-identity.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
@@ -39,7 +39,9 @@ try{
   page.on('pageerror',e=>errors.push(e.message));
   let release,arrived,mode='initial',requests=0,stage='initial-loading';
   const gate=new Promise(r=>release=r),requestArrived=new Promise(r=>arrived=r);
+  const guarded=()=>page.evaluate(()=>GrowthStateTest.guarded(document.getElementById('app')));
   const checkShell=async busy=>{
+   assert.equal(await guarded(),true,stage+': content-only state retains the dashboard guard');
    assert.equal(await page.locator(cy('app-shell')).count(),1,stage+': page state must use the shared shell');
    assert.equal(await page.locator(cy('screen-founder-growth-dashboard')).getAttribute('aria-busy'),String(busy),stage+': shared content exposes loading state');
    assert.equal(await page.locator(cy('app-topbar')).isVisible(),false,stage+': unavailable identity hides chrome');
@@ -48,6 +50,7 @@ try{
   const retryToSuccess=async()=>{
    mode='success';await page.locator(cy('growth-retry')).click();
    await page.locator(cy('growth-summary')).waitFor();
+   assert.equal(await guarded(),true,'successful state retains the dashboard guard');
    assert.equal(await page.locator(cy('app-shell')).count(),1);
    assert.equal(await page.locator(cy('app-topbar')).isVisible(),true);
    assert.equal(await page.locator(cy('app-sidebar')).isVisible(),width>1024);
@@ -79,7 +82,7 @@ try{
    await retryToSuccess();
    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
    assert.deepEqual(errors,[]);assert.equal(requests,6);
-   cases.push({locale,width,passed:true,initialLoadingShell:true,errorShell:true,retryRestoresChrome:true,emptyState:true,transportFailureRetry:true,deniedClearsContent:true,requests});
+   cases.push({locale,width,passed:true,initialLoadingShell:true,errorShell:true,masterGuard:true,retryRestoresChrome:true,emptyState:true,transportFailureRetry:true,deniedClearsContent:true,requests});
   }catch(error){
    cases.push({locale,width,passed:false,stage,requests,error:String(error),pageErrors:errors});
    if(record&&!page.isClosed())try{await page.screenshot({path:out+'/failure.png',timeout:5000});}catch(screenshotError){cases.at(-1).screenshotError=String(screenshotError);}

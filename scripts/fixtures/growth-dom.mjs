@@ -7,8 +7,8 @@ import {tmpdir} from 'node:os';
 if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL||process.env.DB_URL)throw Error('Database credentials forbidden in growth fixtures');
 const source=resolve(process.argv[2]??process.cwd());
 const built=await build({stdin:{contents:"export * from './websites/typescript/src/growth/dashboard';export * from './packages/primecare_ui/web/screen-manager';export * from './websites/typescript/src/managed-routes';",resolveDir:source},bundle:true,write:false,platform:'node',format:'esm',plugins:[{name:'growth-shell-fixture',setup(b){
- b.onResolve({filter:/^\.\.\/shell$/},a=>a.importer.endsWith('/growth/dashboard.ts')?{path:a.path,namespace:'fixture'}:null);
- b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export function renderShell(root,o){globalThis.__growthRenderHook?.();if(globalThis.__growthReuseShell&&root.querySelector('main')){root.querySelector('main').innerHTML=o.content;return;}root.innerHTML='<div class="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';}export function bindShell(){globalThis.__growthBindHook?.();}`,loader:'js'}));
+ b.onResolve({filter:/^\.\/shell$/},a=>a.importer.endsWith('/web/master-dashboard.ts')?{path:a.path,namespace:'fixture'}:null);
+ b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export function shellMarkup(o){return o.content;}export function renderShell(root,o){globalThis.__growthRenderHook?.();if(globalThis.__growthReuseShell&&root.querySelector('main')){root.querySelector('main').innerHTML=o.content;return;}root.innerHTML='<div class="app-shell" data-cy="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';}export function bindShell(){globalThis.__growthBindHook?.();}`,loader:'js'}));
 }}]});
 const temp=await mkdtemp(resolve(tmpdir(),'growth-manager-test-'));let module;
 try{const file=resolve(temp,'actual.mjs');await writeFile(file,built.outputFiles[0].text);module=await import(pathToFileURL(file).href);}finally{await rm(temp,{recursive:true,force:true});}

@@ -61,3 +61,20 @@ for(const layer of ['personal','clinical'])for(const failure of ['root','session
 for(const failure of ['root','session','throw'])test('clinical child acquisition '+failure+' replacement cleans acquired dialog owner',async()=>{const f=fixture();await f.render();let phase=0;f.services.theme=()=>{if(f.dialog()&&++phase===2){f.root.innerHTML='<main data-cy="replacement">Replacement</main>';if(failure==='session')f.sessionStorage.setItem('primecare_session','token-B');if(failure==='throw')throw Error('private callback failure');}};const n=f.calls.length;await f.fire(f.cy('psw-personal-visit-open'));assert.ok(f.cy('replacement'));assert.equal(Boolean(f.dialog()),false);assert.equal(f.calls.length,n);assert.deepEqual(f.assigned,[]);assert.equal(f.observers.size,0);});
 
 for(const result of ['network','401','success'])test('pending personal hash departure never publishes optimistic request after '+result,async()=>{const f=fixture();await f.render();const form=await request(f);form.elements.namedItem('subject').value='Unconfirmed fixture request';const normal=f.respond,d=deferred();f.respond=(u,o)=>o.method==='POST'?d.promise:normal(u,o);form.dispatchEvent({type:'submit'});const key=writes(f)[0].options.headers['idempotency-key'],body=writes(f)[0].options.body;f.location.hash='messages';f.event('hashchange');await f.settle();assert.ok(f.cy('screen-psw-personal-messages'));assert.equal(f.root.textContent.includes('Unconfirmed fixture request'),false);if(result==='network')d.reject(Error('offline'));else d.resolve(Response.json(result==='success'?{...f.personal,version:8}:{error:'expired'},{status:result==='success'?200:401}));await f.settle();assert.equal(f.root.textContent.includes('Unconfirmed fixture request'),false);assert.deepEqual(f.assigned,[]);const retry=await request(f);retry.elements.namedItem('subject').value='Unconfirmed fixture request';await f.fire(retry,'submit');if(result==='success')assert.equal(writes(f).length,1);else{assert.equal(writes(f).length,2);assert.equal(writes(f)[1].options.headers['idempotency-key'],key);assert.equal(writes(f)[1].options.body,body);}});
+
+for(const route of ['/care','/psw'])test('canonical presentation slot and existing renderer at '+route,async()=>{
+ const f=fixture({route});
+ try{
+  await f.render();
+  const product=f.root.querySelector('[data-cy=screen-psw-personal-today]'),host=f.root.querySelector('[data-pc-dashboard-content=care_delivery]');
+  assert.ok(product);
+  assert.equal(Boolean(host),route==='/care');
+  if(host){
+   assert.equal(host.parentElement,f.root);assert.ok(host.contains(product));
+   const before=f.calls.length;
+   f.sessionStorage.setItem('primecare_session','replaced');f.event('popstate');
+   assert.equal(f.root.querySelector('[data-pc-dashboard-content]'),null);assert.equal(f.calls.length,before);
+  }
+  assert.equal(f.writes().length,0);
+ }finally{f.event('pagehide',{persisted:false});}
+});
