@@ -80,7 +80,64 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
-          python3 -m tools.deployment.dashboard_release_intent "${parents[1]}" "$GITHUB_SHA"
+          if [[ "${parents[1]}" == 9bedad737ce1e3cfe65494d9bb847f3140168ff2 ]]; then
+            # One reviewed, release-tooling-only continuation. Never treat arbitrary
+            # metadata commits as runtime activations in the automatic writer classifier.
+            python3 - "$GITHUB_SHA" "$PROJECT" <<'PY_SCOPE'
+          import json
+          import os
+          import subprocess
+          import sys
+          from tools.deployment.dashboard_release_intent import changed_paths, classify
+
+          head, project = sys.argv[1:]
+          approved = '47cbcfadac37f3ee4b7a7b82d66eaf43b71c96be'
+          activation = '94a7c98a59f8d4aa4fec32734671c9a3df297a46'
+          mail = '9bedad737ce1e3cfe65494d9bb847f3140168ff2'
+          workflow = '.github/workflows/smart-deploy-dashboard-portal.yml'
+          pinned_mail_blobs = {
+              '.github/workflows/primecare-qa-email.yml': 'a38d9cd3542ee76f368ed054aaf7fc09bf974287',
+              'tools/deployment/qa_email_route.py': 'f2ed2eb7b39d52948ed56569f92b0d65f88178ad',
+              'tools/deployment/test_qa_email_route.py': '0339cd8badc2f82709542cc47aecf76ffdb60200',
+          }
+
+          def git(*args):
+              return subprocess.check_output(('git', *args), text=True).strip()
+
+          def require(condition, message):
+              if not condition:
+                  raise SystemExit(message)
+
+          def commit_entry(commit, path):
+              return git('ls-tree', commit, '--', path)
+
+          require(project in {'primecare-governance', 'primecare-support'},
+                  'This exact continuation is limited to Governance and Support')
+          require(git('rev-list', '--parents', '-n1', head).split() == [head, mail]
+                  and git('rev-list', '--parents', '-n1', mail).split() == [mail, approved]
+                  and git('rev-list', '--parents', '-n1', approved).split() == [approved, activation],
+                  'Unexpected continuation ancestry')
+          require(changed_paths(mail, head) == {workflow},
+                  'Continuation must change only its release workflow')
+          require(changed_paths(approved, mail) == set(pinned_mail_blobs),
+                  'Mail commit does not match the reviewed exact paths')
+          for path, sha in pinned_mail_blobs.items():
+              entry = f'100644 blob {sha}\t{path}'
+              require(commit_entry(mail, path) == entry and commit_entry(head, path) == entry,
+                      'Mail workflow or test blob differs from reviewed content')
+          require(commit_entry(head, workflow).startswith('100644 blob '),
+                  'Continuation workflow is not a regular file')
+          runtime = frozenset(git('show', f'{approved}:tools/deployment/dashboard-runtime-paths.txt').splitlines())
+          intent = json.loads(git('show', f'{approved}:tools/deployment/dashboard-release-intent.json'))
+          require(classify(changed_paths(activation, approved), runtime, intent, activation)
+                  == 'smart-dashboard-runtime', 'Original runtime activation is not approved')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('lane=smart-dashboard-runtime\n')
+          print('Exact release-tooling continuation of the approved dashboard runtime')
+          PY_SCOPE
+          else
+            python3 -m tools.deployment.dashboard_release_intent "${parents[1]}" "$GITHUB_SHA"
+          fi
           grep -Fx 'lane=smart-dashboard-runtime' "$GITHUB_OUTPUT"
           test "$EXPECTED_MAIN" != "$PREVIOUS_LIVE"
           case "$RELEASE_MODE" in
