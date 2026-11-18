@@ -1,0 +1,75 @@
+name: API Smart Deploy - Verify only
+on:
+  workflow_dispatch:
+    inputs:
+      expected_main:
+        description: Exact candidate commit on main (40 lowercase hex characters)
+        required: true
+        type: string
+      comparison_base:
+        description: Reviewed comparison commit (40 lowercase hex characters)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: false}
+      - name: Pin candidate and classify change scope
+        shell: bash
+        env:
+          EXPECTED_MAIN: ${{ inputs.expected_main }}
+          COMPARISON_BASE: ${{ inputs.comparison_base }}
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$COMPARISON_BASE" =~ ^[0-9a-f]{40}$ ]]
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          git merge-base --is-ancestor "$COMPARISON_BASE" "$EXPECTED_MAIN"
+          git fetch --no-tags origin refs/heads/main
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
+          {
+            echo '## API Smart Deploy preflight (no publish)'
+            printf 'Candidate: `%s`\n\nComparison base (not a live receipt): `%s`\n\n' "$EXPECTED_MAIN" "$COMPARISON_BASE"
+            count="$(git diff --no-renames --name-only -z "$COMPARISON_BASE" "$EXPECTED_MAIN" -- | tr -cd '\000' | wc -c)"
+            printf 'Changed paths: %s\n\n' "$count"
+            echo 'Shared Worker inputs are not yet mapped per service. This preflight checks the entire generic Worker set, not Auth, and never authorizes a release.'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - name: Verify pinned governance read-only
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          test -n "$PRODUCTION_DATABASE_URL" || { echo 'Missing production environment database secret' >&2; exit 1; }
+          python tools/governance-production/verify-production-reader.py > /dev/null
+          python scripts/check-api-catalog-identity.py
+      - name: Check Worker types
+        run: |
+          npx --no-install tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+      - name: Run Worker release regression tests
+        run: node --test scripts/test-generic-worker-deploy.mjs scripts/test-generic-worker-release.mjs scripts/test-generic-worker-observability.mjs scripts/test-worker-secret-retention.mjs
+      - name: Dry-run bundle every generic Worker and gateway
+        shell: bash
+        env:
+          WRANGLER_SEND_METRICS: 'false'
+        run: |
+          set -euo pipefail
+          node scripts/generate-cloudflare-worker-config.mjs
+          for service in client provider visit notes billing scheduling notification verification compliance governance franchise-reporting gateway; do
+            npx --no-install wrangler deploy --dry-run --config ".cloudflare-workers/${service}.jsonc" --outdir "$RUNNER_TEMP/api-dry-run/$service"
+          done
+          echo 'Read-only governance check, API catalog, type checks, regressions and dry-run builds passed. No Worker was uploaded or deployed.' >> "$GITHUB_STEP_SUMMARY"
