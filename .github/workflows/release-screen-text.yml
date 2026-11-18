@@ -22,9 +22,6 @@ concurrency:
   group: primecare-screen-text-release
   cancel-in-progress: false
 jobs:
-  pilot_scope:
-    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
-    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   contract:
     runs-on: ubuntu-latest
     steps:
@@ -61,6 +58,8 @@ jobs:
   release_tests:
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
     needs: prepare_portals
+    outputs:
+      allow_legacy_publish: ${{ steps.scope.outputs.allow_legacy_publish }}
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     services:
@@ -73,6 +72,21 @@ jobs:
       SCREEN_TEXT_TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/screen_text
     steps:
       - uses: actions/checkout@v4
+      - name: Check scope rules
+        run: python3 -m unittest tools.deployment.test_dashboard_publish_scope
+      - id: scope
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = push ]; then
+            [[ "$BEFORE" =~ ^[0-9a-f]{40}$ ]]
+            git fetch --no-tags --depth=1 origin "$BEFORE"
+          fi
+          result="$(python3 -m tools.deployment.dashboard_publish_scope "$EVENT" "$BEFORE" "$GITHUB_SHA")"
+          echo "$result" >> "$GITHUB_OUTPUT"
       - name: Prepare isolated historical governance test fixture
         env:
           GOVERNANCE_ALLOW_SQLITE_FIXTURES: '1'
@@ -86,8 +100,8 @@ jobs:
       - run: python3 scripts/register-live-screen-text.py --check
       - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-cache.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs scripts/test-admin-training.mjs scripts/test-admin-training-browser.mjs
   migration:
-    needs: [release_tests, pilot_scope]
-    if: needs.pilot_scope.outputs.allow_legacy_publish == 'true'
+    needs: release_tests
+    if: needs.release_tests.outputs.allow_legacy_publish == 'true'
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 10
