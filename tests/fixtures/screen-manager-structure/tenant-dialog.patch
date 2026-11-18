@@ -279,7 +279,7 @@ diff --git a/packages/primecare_ui/web/screen-manager.ts b/packages/primecare_ui
 diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-workspace-layout.mjs
 --- a/scripts/test-tenant-workspace-layout.mjs
 +++ b/scripts/test-tenant-workspace-layout.mjs
-@@ -6,13 +6,62 @@
+@@ -6,13 +6,57 @@
  import {pathToFileURL} from 'node:url';
  import {join} from 'node:path';
  import {tenantFixture} from './tenant-dashboard-fixture.mjs';
@@ -305,8 +305,8 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
 + if(target){
 +  page.setDefaultTimeout(8000);
 +  assert.equal(target.device.hasTouch,true,'device profile must request touch emulation');
-+  // Measure the engine on a blank document before attributing a touch failure to the dashboard.
-+  await page.setContent('<button data-cy="touch-probe">Probe touch</button>');
++  // Verify trusted touch on the actual controls. WebKit can report zero
++  // maxTouchPoints in emulation even when it delivers genuine touch events.
 +  const observeTouch=()=>page.evaluate(()=>{
 +   window.__deviceInput=[];
 +   for(const type of ['pointerdown','touchstart','touchend','click']) document.addEventListener(type,event=>{
@@ -315,11 +315,6 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
 +   },true);
 +  });
 +  const touchFor=(events,id)=>events.some(event=>event.id===id&&event.trusted&&(event.type==='touchstart'||(event.type==='pointerdown'&&event.pointer==='touch')));
-+  await observeTouch();
-+  let probeError;
-+  try{await el('touch-probe').tap();}catch(error){probeError=String(error);}
-+  const probe=await page.evaluate(()=>({maxTouchPoints:navigator.maxTouchPoints,events:window.__deviceInput}));
-+  console.log(JSON.stringify({profile,stage:'touch-probe',version:browser.version(),requestedTouch:target.device.hasTouch,probe,probeError}));
 +  await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
 +  await el('tenant-create-task').waitFor();
 +  const measured=await page.evaluate(()=>({width:document.documentElement.clientWidth,scroll:document.documentElement.scrollWidth,maxTouchPoints:navigator.maxTouchPoints}));
@@ -338,14 +333,14 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
 +  assert.equal(writes,0,'opening and dismissing a panel issues no task write');
 +  assert.deepEqual(errors,[]);
 +  const panelEvents=await page.evaluate(()=>window.__deviceInput);
-+  const trustedTouch=touchFor(probe.events,'touch-probe')&&touchFor(panelEvents,'tenant-create-task')&&touchFor(panelEvents,'tenant-dialog-close');
-+  console.log(JSON.stringify({profile,browser:target.engine.name(),emulated:true,realDevice:false,nativeApp:false,viewport:true,maxTouchPoints:measured.maxTouchPoints,emulatedTapOpenClose:true,trustedTouch,accessibleDialogName:true,noWrite:true,fixturePostgreSQL:f.native,productionVerified:false,panelEvents}));
-+  assert.ok(trustedTouch,'runner did not deliver observable trusted touch input; layout and emulated tap flow are separate checks');
++  const trustedTouch=touchFor(panelEvents,'tenant-create-task')&&touchFor(panelEvents,'tenant-dialog-close');
++  console.log(JSON.stringify({profile,browser:target.engine.name(),emulated:true,realDevice:false,nativeApp:false,viewport:true,maxTouchPoints:measured.maxTouchPoints,emulatedTapOpenClose:true,trustedTouch,accessibleDialogName:true,noWrite:true,fixturePostgreSQL:f.native,productionVerified:false,version:browser.version(),panelEvents}));
++  assert.ok(trustedTouch,'opening and closing the task panel must deliver trusted touch input');
 + }else{
   await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
   await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
   assert.deepEqual(errors,[],'the real Screen Manager bootstrap must succeed before layout acceptance');
-@@ -25,7 +74,13 @@
+@@ -25,7 +69,13 @@
   await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
   await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
   await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
@@ -359,7 +354,7 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
   assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft','Escape cannot discard a dirty task form');
   assert.equal(writes,0,'guarded draft navigation must not write');
   const acceptDiscard=dialog=>dialog.accept();
-@@ -163,4 +218,5 @@
+@@ -163,4 +213,5 @@
   await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
   await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
   assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
