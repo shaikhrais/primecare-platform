@@ -2,6 +2,7 @@ import {withMasterDashboardShell} from './dashboard-render-policy';
 import {bindShell,renderShell,shellMarkup,type ShellContent} from './shell';
 import {ScreenConfigurationError,type ScreenManager,type ScreenRegistration} from './screen-manager';
 import {clearLayoutCustomizer} from './layout-customizer';
+import type {WorkspaceCustomizerOptions} from './workspace-customizer';
 import type {DashboardDialogOptions} from './dashboard-dialog-manager';
 
 type View = Readonly<{id: string; label: string}>;
@@ -83,6 +84,9 @@ export abstract class MasterDashboard {
       resolvePanels(draft.content);
     }
 
+    const workspaceScreen = binding.panels === undefined ? undefined : descriptor.screenCode;
+    if (workspaceScreen !== undefined && workspaceScreen !== 'tenant_admin_command_center')
+      throw new ScreenConfigurationError('Unregistered workspace docking host');
     const revision = ++this.revision;
     let installed = false;
     const current = () => lease() && revision === this.revision && (!installed || binding.current()) && lease() && revision === this.revision;
@@ -91,7 +95,8 @@ export abstract class MasterDashboard {
       if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
       const shell = root.querySelector('[data-cy=app-shell]');
       if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
-      const workspace = binding.panels === undefined ? undefined : {screenCode:descriptor.screenCode,panels:resolvePanels(shell)};
+      const workspace: WorkspaceCustomizerOptions | undefined = workspaceScreen === undefined
+        ? undefined : {screenCode:workspaceScreen,panels:resolvePanels(shell)};
       bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
         () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(installed&&current())binding.select(view.id);}})),
         binding.profileScope,{},workspace,current);
