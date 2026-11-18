@@ -1,0 +1,58 @@
+name: Preflight shared Screen Manager structure (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/screen-manager-structure-preflight.yml'
+      - 'tests/fixtures/screen-manager-structure/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  contract:
+    name: Focused Screen Manager contract
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Apply candidate in disposable checkout
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+      - run: npm install --prefix "$RUNNER_TEMP/screen-manager" --ignore-scripts --no-audit --no-fund esbuild@0.27.2
+      - name: Verify existing and candidate presentation contracts
+        run: |
+          ln -s "$RUNNER_TEMP/screen-manager/node_modules" node_modules
+          node --test scripts/test-typescript-screen-manager.mjs
+  browser:
+    name: Chromium and disposable PostgreSQL behavior parity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: psw_test, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ["5432:5432"]
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps chromium
+      - name: Verify dialog and database behavior on candidate
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+          node scripts/test-tenant-workspace-layout.mjs
