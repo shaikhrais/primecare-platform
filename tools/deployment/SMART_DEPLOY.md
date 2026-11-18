@@ -13,15 +13,20 @@ Use the normal reviewed release path for shared UI changes that need multiple po
 
 ## 2. Run it
 
+First run **verify-only** (the default). It builds, checks the artifact and reads back the currently live Governance assets; it does not publish. Then use **publish** only when the exact commit and prior deployment are still current and the one-portal release is approved.
+
 In [GitHub Actions](https://github.com/shaikhrais/primecare-platform/actions/workflows/deploy-governance-portal-only.yml), choose **Deploy Governance portal only** → **Run workflow**. Select `main` and enter:
 
 | Input | Value |
 | --- | --- |
+| `mode` | `verify-only` for rehearsal; `publish` for an approved production release |
 | `expected_main` | Full 40-character SHA of the tested tip of main |
 | `previous_live` | Full 40-character SHA from the verified current Governance Pages deployment (not the deployment ID) |
-| `confirm` | `DEPLOY GOVERNANCE` |
+| `confirm` | Leave blank for `verify-only`; enter `DEPLOY GOVERNANCE` for `publish` |
 
-Approve the existing production environment gate if GitHub requests it. The workflow builds once, retains only the Governance artifact for publishing, and validates source, artifact bytes, prior live version, and manifest compatibility. The publisher reuses the artifact rather than rebuilding it.
+Approve the existing production environment gate if GitHub requests it. A passing rehearsal is not a deployment. The workflow builds once, retains only the Governance artifact for publishing, and validates source, artifact bytes, prior live version, and manifest compatibility. The publisher reuses the artifact rather than rebuilding it.
+
+Do not queue a production run while another publisher is active or pending: [GitHub’s default concurrency behavior](https://docs.github.com/en/actions/how-tos/write-workflows/choose-when-workflows-run/control-workflow-concurrency) can replace a pending run. Verify-only uses its own queue. The workflow rechecks main and the previous live version just before publishing; coordinate any manual Cloudflare updates separately.
 
 ## 3. Verify and record
 
