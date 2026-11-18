@@ -201,8 +201,10 @@ test('Growth loading fixture bundles the actual bridge and existing explicit syn
 test('Growth wrapper starts its renderer only after real presentation and keeps synthetic session setup explicit',async t=>{
  const f=peripheral(t,'/growth'),fixtureTheme=JSON.parse(await readFile('scripts/fixtures/look-test-theme.json','utf8'));let calls=0;
  const code=growthEntry.replace(/import\s+(?:\{[^}]+\}|\w+)\s+from\s+['"][^'"]+['"];?/g,'').replace(/\bexport\s+(?=function\s+(?:start|guarded)\s*\()/g,'');
- const start=new Function('presentPlatformFixture','renderGrowth','fixtureTheme',code+'\nreturn start;')(api.presentPlatformFixture,(root,gateway)=>{calls++;assert.equal(root,f.root);assert.equal(gateway,location.origin);const entry=api.resolveManagedRoute('/growth','');api.requireScreenManager(root).enter(entry.id,entry.route);},fixtureTheme);
+ const activations=[];
+ const start=new Function('presentPlatformFixture','renderGrowth','fixtureTheme','installDashboardActivation',code+'\nreturn start;')(api.presentPlatformFixture,(root,gateway)=>{calls++;assert.equal(root,f.root);assert.equal(gateway,location.origin);const entry=api.resolveManagedRoute('/growth','');api.requireScreenManager(root).enter(entry.id,entry.route);},fixtureTheme,(root,project,appCode)=>{assert.equal(root,f.root);activations.push([project,appCode]);});
  await start(f.root,location.origin);assert.equal(calls,1);assert.deepEqual(f.requests,[]);
+ assert.deepEqual(activations,[['primecare-marketing','ma']]);
  assert.match(growth,/sessionStorage\.setItem\("primecare_session","synthetic-renderer-session"\);void GrowthStateTest\.start/);
  assert.match(growth,/for\(const locale of \['en','fr','es'\]\)for\(const width of \[320,1440\]\)/);
  assert.match(growth,/assert\.deepEqual\(errors,\[\]\);assert\.equal\(requests,6\)/);

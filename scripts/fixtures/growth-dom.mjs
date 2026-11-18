@@ -6,8 +6,8 @@ import {pathToFileURL} from 'node:url';
 import {tmpdir} from 'node:os';
 if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL||process.env.DB_URL)throw Error('Database credentials forbidden in growth fixtures');
 const source=resolve(process.argv[2]??process.cwd());
-const built=await build({stdin:{contents:"export * from './websites/typescript/src/growth/dashboard';export * from './packages/primecare_ui/web/screen-manager';export * from './websites/typescript/src/managed-routes';",resolveDir:source},bundle:true,write:false,platform:'node',format:'esm',plugins:[{name:'growth-shell-fixture',setup(b){
- b.onResolve({filter:/^\.\/shell$/},a=>a.importer.endsWith('/web/master-dashboard.ts')?{path:a.path,namespace:'fixture'}:null);
+const built=await build({stdin:{contents:"export * from './websites/typescript/src/growth/dashboard';export * from './packages/primecare_ui/web/screen-manager';export * from './websites/typescript/src/managed-routes';export * from './websites/typescript/src/dashboard-activation';",resolveDir:source},bundle:true,write:false,platform:'node',format:'esm',plugins:[{name:'growth-shell-fixture',setup(b){
+ b.onResolve({filter:/^(\.\/|\.\.\/)shell$/},a=>(a.importer.endsWith('/web/master-dashboard.ts')||a.importer.endsWith('/growth/dashboard.ts'))?{path:a.path,namespace:'fixture'}:null);
  b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export function shellMarkup(o){return o.content;}export function renderShell(root,o){globalThis.__growthRenderHook?.();if(globalThis.__growthReuseShell&&root.querySelector('main')){root.querySelector('main').innerHTML=o.content;return;}root.innerHTML='<div class="app-shell" data-cy="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';}export function bindShell(){globalThis.__growthBindHook?.();}`,loader:'js'}));
 }}]});
 const temp=await mkdtemp(resolve(tmpdir(),'growth-manager-test-'));let module;
@@ -26,7 +26,7 @@ export function fixture({manager=true,path='/growth?enable-semantics=true',data=
  class SelectElement{static [Symbol.hasInstance](element){return element?.tagName==='SELECT';}}
  Object.assign(globalThis,{HTMLSelectElement:SelectElement,HTMLButtonElement:Element,HTMLFormElement:Element,HTMLAnchorElement:Element,Node:Element,FormData:NativeFormData});
  const f={...b,data,calls:[],downloads:[],revoked:[],services:{layout(){},theme(){},language(){},responsive(){}}};
- f.manager=new m.ScreenManager(f.services);if(manager)m.installScreenManager(f.root,f.manager);f.manager.registerScope('entry',[m.resolveManagedRoute('/growth','')]);
+ f.manager=new m.ScreenManager(f.services);if(manager)m.installScreenManager(f.root,f.manager);f.manager.registerScope('entry',[m.resolveManagedRoute('/growth','')]);m.installDashboardActivation(f.root,'primecare-marketing','ma');
  f.respond=async(url,o)=>Response.json(f.data);globalThis.fetch=(url,options)=>{f.calls.push({url,options});return f.respond(url,options);};
  URL.createObjectURL=blob=>{f.downloads.push(blob);return 'blob:fixture';};URL.revokeObjectURL=url=>f.revoked.push(url);
  f.render=()=>m.renderGrowth(f.root,'https://gateway.invalid');f.find=s=>f.root.querySelector(s);f.writes=()=>f.calls.filter(c=>!['GET',undefined].includes(c.options.method));f.fire=async(node,type='click')=>{if(!node)throw Error('Missing fixture control');node.dispatchEvent({type});await f.settle();};

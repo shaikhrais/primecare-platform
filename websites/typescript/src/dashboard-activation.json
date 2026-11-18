@@ -1,0 +1,198 @@
+{
+  "version": 1,
+  "retained": [
+    {
+      "project": "primecare-business-development",
+      "appCode": "bd",
+      "code": "business_development_dashboard",
+      "route": "/common/business-development-dashboard"
+    },
+    {
+      "project": "primecare-business-development",
+      "appCode": "bd",
+      "code": "head_of_bus_dev_dashboard",
+      "route": "/offices/corporate/roles/head_of_bus_dev/dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "api_health_dashboard",
+      "route": "/common/api-health-dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "compliance_manager_dashboard",
+      "route": "/offices/corporate/roles/compliance_manager/dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "file_verification_dashboard",
+      "route": "/common/file-verification-dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "governance_officer_dashboard",
+      "route": "/management/governance-officer-dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "role_coverage_dashboard",
+      "route": "/common/role-coverage-dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "screen_progress_dashboard",
+      "route": "/management/screen-progress-dashboard"
+    },
+    {
+      "project": "primecare-governance",
+      "appCode": "go",
+      "code": "system_dashboard",
+      "route": "/common/system-dashboard"
+    },
+    {
+      "project": "primecare-support",
+      "appCode": "su",
+      "code": "premium_concierge_dashboard",
+      "route": "/management/premium-concierge-dashboard"
+    },
+    {
+      "project": "primecare-support",
+      "appCode": "su",
+      "code": "training_coordinator_dashboard",
+      "route": "/offices/support/roles/training_coordinator/dashboard"
+    },
+    {
+      "project": "primecare-support",
+      "appCode": "su",
+      "code": "vip_manager_dashboard",
+      "route": "/management/vip-manager-dashboard"
+    },
+    {
+      "project": "primecare-marketing",
+      "appCode": "ma",
+      "code": "campaign_dashboard",
+      "route": "/management/campaign-dashboard"
+    },
+    {
+      "project": "primecare-marketing",
+      "appCode": "ma",
+      "code": "community_outreach_dashboard",
+      "route": "/offices/marketing/roles/community_outreach/dashboard"
+    },
+    {
+      "project": "primecare-marketing",
+      "appCode": "ma",
+      "code": "founder_growth_dashboard",
+      "route": "/growth"
+    },
+    {
+      "project": "primecare-marketing",
+      "appCode": "ma",
+      "code": "head_of_marketing_dashboard",
+      "route": "/offices/corporate/roles/head_of_marketing/dashboard"
+    },
+    {
+      "project": "primecare-marketing",
+      "appCode": "ma",
+      "code": "local_marketing_manager_dashboard",
+      "route": "/offices/marketing/roles/local_marketing_manager/dashboard"
+    },
+    {
+      "project": "primecare-franchise",
+      "appCode": "fr",
+      "code": "admin_dashboard",
+      "route": "/offices/franchise/roles/admin/dashboard"
+    },
+    {
+      "project": "primecare-franchise",
+      "appCode": "fr",
+      "code": "franchise_dashboard",
+      "route": "/common/franchise-dashboard"
+    },
+    {
+      "project": "primecare-franchise",
+      "appCode": "fr",
+      "code": "franchise_sales_manager_dashboard",
+      "route": "/offices/business_development/roles/franchise_sales_manager/dashboard"
+    },
+    {
+      "project": "primecare-franchise",
+      "appCode": "fr",
+      "code": "scheduler_dashboard",
+      "route": "/offices/franchise/roles/scheduler/dashboard"
+    }
+  ],
+  "cohorts": [
+    {
+      "id": "corporate-01",
+      "dashboards": [
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "architecture_planning_dashboard",
+          "route": "/common/architecture-planning-dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "ceo_dashboard",
+          "route": "/offices/corporate/roles/ceo/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "cfo_dashboard",
+          "route": "/offices/corporate/roles/cfo/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "ciso_dashboard",
+          "route": "/offices/corporate/roles/ciso/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "coo_dashboard",
+          "route": "/offices/corporate/roles/coo/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "cto_dashboard",
+          "route": "/offices/corporate/roles/cto/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "finance_director_dashboard",
+          "route": "/offices/corporate/roles/finance_director/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "financial_dashboard",
+          "route": "/executive/financial-dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "hr_director_dashboard",
+          "route": "/offices/corporate/roles/hr_director/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "hr_manager_dashboard",
+          "route": "/offices/corporate/roles/hr_manager/dashboard"
+        }
+      ]
+    }
+  ]
+}

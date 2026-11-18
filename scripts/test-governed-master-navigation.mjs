@@ -7,22 +7,28 @@ import {chromium} from 'playwright';
 
 const {screens}=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
 const generic=screens.filter(p=>p.renderer==='dashboard'&&!['care_delivery','founder_growth_dashboard'].includes(p.code));
-const [first,second]=generic.filter(p=>p.route.startsWith('/management/')).slice(0,2);
-const record=screens.find(p=>p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
-const denied=generic.find(p=>p.code!==first.code&&p.code!==second.code&&p.route.startsWith('/management/'));
-const authorized=[first,second,record].map(p=>({...p,sections:[],blockers:[]}));
+const businessDevelopment=process.env.PRIMECARE_WORKSPACE_BD_FIXTURE==='1';
+const project=businessDevelopment?'primecare-business-development':'primecare-corporate',appCode=businessDevelopment?'bd':'co';
+const [first,second,held]=(businessDevelopment?['business_development_dashboard','head_of_bus_dev_dashboard','owner_dashboard']:
+  ['architecture_planning_dashboard','ceo_dashboard','owner_dashboard']).map(code=>generic.find(p=>p.code===code));
+const mismatch={...generic.find(p=>p.code==='coo_dashboard'),appCode:'su'};
+const record=screens.find(p=>businessDevelopment?p.code==='franchise_lead':p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
+const denied=generic.find(p=>p.code==='cfo_dashboard');
+const authorized=[first,second,held,mismatch,record].map(p=>({...p,sections:[],blockers:[]}));
 assert.ok(denied&&authorized.every(p=>typeof p.route==='string'));
 const token='fixture-authorized-token';
 const projection={identity:{userId:'fixture-user',role:'rmt'},landing:first.route,screens:authorized,
   inventory:[...authorized,{...denied,sections:[],blockers:[]}],actions:[],resources:{},overview:{
     activeAccounts:1,activeSessions:1,accountRoles:[],activity:[],metrics:[],scope:'personal'}};
 const scripts=await build({stdin:{resolveDir:process.cwd(),contents:`
+  import {installDashboardActivation} from './websites/typescript/src/dashboard-activation';
   import {renderWorkspace} from './websites/typescript/src/workspace';
   import {resolveManagedRoute} from './websites/typescript/src/managed-routes';
   import {installPortalPresentation} from './websites/typescript/src/screen-presentation';
   import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';
   import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';
   const root=document.querySelector('#app');
+  installDashboardActivation(root,${JSON.stringify(project)},${JSON.stringify(appCode)});
   const manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);
   manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
   window.strictShell=()=>{try{assertMasterDashboardShell(root);return false;}catch(error){
@@ -100,6 +106,12 @@ try{
   await page.goBack();await visit(first,true);
   await page.goForward();await visit(second,true);
   await page.goForward();await visit(record,false);
+  await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),held.code);
+  await visit(held,false);
+  await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),mismatch.code);
+  await visit(mismatch,false);
+  await page.goBack();await visit(held,false);
+  await page.goBack();await visit(record,false);
   assert.equal(workspaceReads,1,'same-document navigation should not reload or replace the projection');
 
   await page.evaluate(route=>{history.pushState({},'',route);window.dispatchEvent(new PopStateEvent('popstate'));},denied.route);
@@ -117,7 +129,7 @@ try{
   assert.equal(workspaceReads,2,'the reloaded document must recheck a replaced session with its API');
   assert.deepEqual(unexpected,[]);
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({dashboardRoutes:[first.route,second.route],ordinaryRoute:record.route,inventoryOnlyDenied:true,
+  console.log(JSON.stringify({project,dashboardRoutes:[first.route,second.route],ordinaryRoute:record.route,unselectedLegacy:true,appCodeMismatchLegacy:true,inventoryOnlyDenied:true,
     retiredControl:true,backForward:true,themeAndLocaleParity:true,sessionRechecked:true,productionVerified:false}));
 }finally{
   await browser?.close();

@@ -1,5 +1,6 @@
 import {governanceOfficerIntroduction} from './governance-officer-pilot';
 import {connectGovernedMasterDashboard} from './governed-master-dashboard';
+import {dashboardActivated} from './dashboard-activation';
 import {mountClientInvoices} from './client-invoice-host';
 import {requireScreenManager, showScreenConfigurationError, ScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
 import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
@@ -320,7 +321,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     const searchEntries=()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)}));
     const searchScope='Authorized screens and tasks for this account';
     const profileScope=data.identity.role+':'+data.identity.userId;
-    if(!account&&page?.renderer==='dashboard'){
+    if(!account&&page?.renderer==='dashboard'&&dashboardActivated(root,page.code,route,page.appCode)){
       try{
         if(!dashboard||dashboard.code!==page.code||dashboard.route!==route){
           retireDashboard();

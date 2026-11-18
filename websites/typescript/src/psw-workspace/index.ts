@@ -1,3 +1,4 @@
+import {dashboardActivated} from '../dashboard-activation';
 import {renderPersonal} from '../psw-personal';
 import {BaseSessionClient} from '../infrastructure/http/base-session-client';
 import {ownCareRoute,type CareOwnership} from '../care/ownership';
@@ -44,7 +45,7 @@ export async function renderPSW(root:HTMLElement,gateway:string){return renderCa
 async function renderCareDocument(root:HTMLElement,gateway:string,failure?:{error:unknown}){
  const owner=ownCareRoute(root);if(!owner.current())return;
  const token=owner.token;if(!token){owner.dispose();root.replaceChildren();location.assign('/login?enable-semantics=true');return;}
- if(location.pathname!=='/care')return renderCareWorkspace(root,gateway,owner,token);
+ if(location.pathname!=='/care'||!dashboardActivated(root,'care_delivery',location.pathname))return renderCareWorkspace(root,gateway,owner,token);
  const entry=resolveManagedRoute('/care',''),manager=requireScreenManager(root),release=requireMasterDashboard(root);
  let content:HTMLElement|undefined,registered=false;
  try{

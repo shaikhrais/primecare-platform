@@ -50,7 +50,7 @@ const fixtures = {
   './reports': `export const reportPanel=()=>document.createElement('section');`,
   './internal-calls': `export const renderInternalCalls=async(root)=>{root.innerHTML='calls fixture';};`,
 };
-const client = await importCode({stdin: {contents: `export * from './websites/typescript/src/workspace';
+const client = await importCode({stdin: {contents: `export * from './websites/typescript/src/workspace'; export * from './websites/typescript/src/dashboard-activation';
   export * from './packages/primecare_ui/web/screen-manager'; export * from './websites/typescript/src/managed-routes';`, resolveDir: process.cwd()},
   plugins: [{name: 'workspace-peripheral-fixtures', setup(builder) {
     builder.onResolve({filter: /^\.\//}, args => (args.importer.endsWith('/workspace.ts') || (args.importer.endsWith('/master-dashboard.ts') && args.path === './shell')) && fixtures[args.path] ? {path: args.path, namespace: 'fixture'} : null);
@@ -127,7 +127,7 @@ async function browser({role = 'ceo', path, locale = 'en', data} = {}) {
   });
   setUrl(path + '?enable-semantics=true');
   const services = Object.fromEntries(['layout', 'theme', 'language', 'responsive'].map(key => [key, () => {}]));
-  const manager = new client.ScreenManager(services); client.installScreenManager(root, manager);
+  const manager = new client.ScreenManager(services); client.installScreenManager(root, manager); client.installDashboardActivation(root,'primecare-corporate','co');
   manager.registerScope('entry',[client.resolveManagedRoute(location.pathname,'')]);
   const palette = route => {const entry = root.entries.find(entry => entry.detail.endsWith(' · ' + route)); assert.ok(entry, 'Missing palette entry: ' + route); return entry.open;};
   const anchor = code => {const link = root.querySelector('[data-cy="sidebar-item-' + code + '"]'); assert.equal(typeof link.onclick, 'function', 'Missing sidebar binding: ' + code); return link;};

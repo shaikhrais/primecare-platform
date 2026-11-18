@@ -1,3 +1,4 @@
+import {syntheticCareActivation} from './fixtures/care-dashboard-activation.mjs';
 /** Real browser on both Care aliases and all three renderer branches. Synthetic HTTP only. */
 import assert from 'node:assert/strict';
 import {build} from 'esbuild';
@@ -8,17 +9,19 @@ import {seedPersonal} from '../packages/shared/src/psw-personal/core.mjs';
 import {seedState} from '../packages/shared/src/psw-workspace/schedule-core.mjs';
 import {projectState} from '../packages/shared/src/psw-workspace/actions.mjs';
 const host=await build({stdin:{resolveDir:process.cwd(),contents:`
+ import {installDashboardActivation} from './websites/typescript/src/dashboard-activation';
  import {renderPSW} from './websites/typescript/src/psw-workspace';
  import {resolveManagedRoute} from './websites/typescript/src/managed-routes';
  import {installPortalPresentation} from './websites/typescript/src/screen-presentation';
  import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';
  import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';
  const root=document.querySelector('#app');
+ if(!new URLSearchParams(location.search).has('fixture-held'))installDashboardActivation(root,'primecare-clinic','ci');
  const manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);
  manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
  window.hasGuard=()=>{try{assertMasterDashboardShell(root);return false;}catch(e){if(!String(e).includes('must extend MasterDashboard'))throw e;return true;}};
  void renderPSW(root,location.origin);
-`},bundle:true,write:false,format:'iife'});
+`},bundle:true,plugins:[syntheticCareActivation],write:false,format:'iife'});
 const css=await readFile('websites/typescript/src/styles.css');
 const server=createServer((req,res)=>{
  const path=new URL(req.url,'http://fixture').pathname;
@@ -41,7 +44,7 @@ const cases=[];
 try{
  browser=await launchCareBrowser();
  for(const [mode,selector] of [['live','[data-live-refresh]'],['personal','[data-cy=screen-psw-personal-today]'],['demo','#schedule-board']]){
-  for(const path of ['/care','/psw']){
+  for(const [path,held] of [['/care',false],['/psw',false],['/care',true]]){
    const width=path==='/care'?390:1440,ctx=await browser.newContext({viewport:{width,height:900}}),page=await ctx.newPage();
    const actor=identity(mode==='personal'?'psw':'scheduler'),info={identity:actor,canManage:true,liveCareAvailable:true,scopes:[]};
    const personal={dataset:'live',personalWorkspace:true,workspaceKey:'fixture-personal',database:'PostgreSQL',synthetic:false,version:7,
@@ -66,9 +69,9 @@ try{
     return route.fulfill({status:404,json:{}});
    });
    try{
-    await page.goto(origin+path+'?dataset='+(mode==='demo'?'demo':'live')+'&enable-semantics=true');
+    await page.goto(origin+path+'?dataset='+(mode==='demo'?'demo':'live')+'&enable-semantics=true'+(held?'&fixture-held=1':''));
     await page.locator(selector).waitFor({state:'attached',timeout:6000});
-    const guarded=path==='/care';
+    const guarded=path==='/care'&&!held;
     assert.equal(await page.evaluate(()=>window.hasGuard()),guarded);
     const slot=page.locator('#app > [data-pc-dashboard-content=care_delivery]');
     assert.equal(await slot.count(),guarded?1:0);
@@ -82,7 +85,7 @@ try{
     await page.locator(selector).waitFor({state:'detached'});
     assert.equal(await page.evaluate(()=>window.hasGuard()),false);
     assert.deepEqual(errors,[]);
-    cases.push({path,mode,width,guarded,sessionReplacementCleared:true});
+    cases.push({path,mode,width,held,guarded,sessionReplacementCleared:true});
    }finally{await ctx.close();}
   }
  }

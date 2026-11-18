@@ -15,30 +15,39 @@ import {requireScreenManager} from '../../../../packages/primecare_ui/web/screen
 import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
 import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
 import {resolveManagedRoute} from '../managed-routes';
-import type {ShellContent} from '../shell';
+import {renderShell,bindShell,type ShellContent} from '../shell';
+import {dashboardActivated} from '../dashboard-activation';
 import {growthDashboardStateMarkup,growthMetricMarkup} from '../../../../packages/primecare_ui/web/growth-dashboard-controls';
 import {GrowthClient} from './client';
 import {esc,growthForms,formValues,due,money,type T} from './forms';
 class FounderGrowthMasterDashboard extends MasterDashboard {}
 export async function renderGrowth(root:HTMLElement,gateway:string){
  const owner=growthOwner(root);if(!owner.current())return;if(!owner.token){owner.redirect();return;}
- const entry=resolveManagedRoute('/growth',''),manager=requireScreenManager(root);
- const release=requireMasterDashboard(root);
- let master:FounderGrowthMasterDashboard;
- try{
-  master=new FounderGrowthMasterDashboard(root,manager,entry,{screenCode:'founder_growth_dashboard',
-   route:entry.route,title:registry.locales.en.title,views:[{id:'overview',label:registry.locales.en.title}]},
-   {current:owner.current,revision:()=>0,canDismiss:()=>false,className:'growth-dashboard-dialog',
-    statusKey:'growth-dashboard-dialog-status',headingSelector:'h2',closeSelector:'[data-growth-dashboard-close]'},release);
- }catch(error){release();owner.fail(error);return;}
- owner.onDispose(()=>master.dispose());
+ let master:FounderGrowthMasterDashboard|undefined;
+ if(dashboardActivated(root,'founder_growth_dashboard',location.pathname)){
+  const entry=resolveManagedRoute('/growth',''),manager=requireScreenManager(root);
+  const release=requireMasterDashboard(root);
+  try{
+   master=new FounderGrowthMasterDashboard(root,manager,entry,{screenCode:'founder_growth_dashboard',
+    route:entry.route,title:registry.locales.en.title,views:[{id:'overview',label:registry.locales.en.title}]},
+    {current:owner.current,revision:()=>0,canDismiss:()=>false,className:'growth-dashboard-dialog',
+     statusKey:'growth-dashboard-dialog-status',headingSelector:'h2',closeSelector:'[data-growth-dashboard-close]'},release);
+  }catch(error){release();owner.fail(error);return;}
+  owner.onDispose(()=>master?.dispose());
+ }
  const transport=new GrowthClient(gateway,owner.token,true),receipts=new Map<string,GrowthReceipt>();
  let command='',operation:{key:string;control:string;drafts:Map<string,Record<string,string>>}|undefined,loading=false;
  const client=transport;let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en',offset=0,filters:Record<string,string>={},notice='',busy=false,readVersion=0;
  const t:T=key=>esc((registry.locales as Record<string,Record<string,string>>)[locale][key]??registry.locales.en[key as keyof typeof registry.locales.en]??key);
- const mount=(shell:ShellContent,profileScope='')=>master.mount({shell,locale,profileScope,allowedViews:['overview'],
-  view:'overview',current:owner.current,select:()=>{},navigationTitle:registry.locales[locale].title,
-  defaultTheme:registry.visual.theme,searchScope:t(data?.scopeKey??'scope'),search:()=>[]});
+ const mount=(shell:ShellContent,profileScope='')=>{
+  if(master)return master.mount({shell,locale,profileScope,allowedViews:['overview'],
+   view:'overview',current:owner.current,select:()=>{},navigationTitle:registry.locales[locale].title,
+   defaultTheme:registry.visual.theme,searchScope:t(data?.scopeKey??'scope'),search:()=>[]});
+  renderShell(root,shell);
+  const element=root.querySelector('.app-shell');
+  if(profileScope)bindShell(root,registry.locales[locale].title,locale,t(data?.scopeKey??'scope'),()=>[],profileScope,registry.visual.theme,undefined,owner.current);
+  return element;
+ };
  const moneyText=(n:unknown)=>new Intl.NumberFormat(locale,{style:'currency',currency:'CAD'}).format(Number(n)/100);
  const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>growthMetricMarkup(label,value,icon(glyph,'metric-'+id));
  const drafts=()=>{const saved=new Map([...root.querySelectorAll<HTMLFormElement>('form[data-cy]')].map(f=>[f.dataset.cy!,{...formValues(f),...Object.fromEntries([...f.querySelectorAll<HTMLInputElement>('input[type=checkbox][name]')].map(e=>[e.name,e.checked?'true':'false']))}]));
@@ -57,7 +66,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
   let shell:Element|null=null;const published=()=>!!shell&&root.contains(shell)&&root.querySelector('.app-shell')===shell;
   // MasterDashboard rolls back its failed shell. Report only if no replacement owns the root.
   if(!owner.commit(()=>{shell=mount(presentation,data.identity.role+':'+data.identity.userId);return published();},
-   ()=>published()||(root.isConnected&&!root.childNodes.length)))return;
+   ()=>published()||!!master&&root.isConnected&&!root.childNodes.length))return;
   const active=owner.capture(),client=scopedClient(active),mutate=(action:()=>Promise<any>,preserveDrafts=false)=>runMutation(active,action,preserveDrafts);
   root.querySelector('.app-shell')?.classList.add('growth-shell');
   if(!data.capabilities.viewFunnels)root.querySelector('[data-cy="growth-funnels"]')?.remove();

@@ -15,6 +15,7 @@ import {renderPlatformAdmin} from './platform-admin';
 import {renderAuth} from './auth-screen';
 import {renderMaintenance} from './maintenance';
 import {renderWorkspace} from './workspace';
+import {installDashboardActivation} from './dashboard-activation';
 
 type ElementSpec = { key: string; type: string; label: string; testId: string; required: boolean };
 type SectionSpec = { code: string; name: string; type: string; purpose: string; testId: string; elements: ElementSpec[] };
@@ -91,6 +92,7 @@ loadManifest().then(async manifest => {
     // Another hide may arrive after the wait resolves but before this continuation.
     if (startupSuspended) continue;
     if (!startupCurrent()) return;
+    installDashboardActivation(root, manifest.project, manifest.appCode);
     const manager = installPortalPresentation(root, manifest.theme, manifest.apiGateway);
     const route = resolveManagedRoute(location.pathname, manifest.appCode);
     manager.registerScope('entry', [route]);
