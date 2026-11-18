@@ -1,0 +1,113 @@
+name: Deploy Governance portal only
+on:
+  workflow_dispatch:
+    inputs:
+      expected_main:
+        description: Exact tested main commit
+        required: true
+        type: string
+      previous_live:
+        description: Exact currently verified Governance portal commit
+        required: true
+        type: string
+      confirm:
+        description: Type DEPLOY GOVERNANCE to authorize this release
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: primecare-cloudflare-typescript-production
+  cancel-in-progress: false
+env:
+  PROJECT: primecare-governance
+  API_GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+  EXPECTED_MAIN: ${{ inputs.expected_main }}
+  PREVIOUS_LIVE: ${{ inputs.previous_live }}
+  CONFIRM: ${{ inputs.confirm }}
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - name: Check approval and exact source
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$PREVIOUS_LIVE" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$CONFIRM" = 'DEPLOY GOVERNANCE'
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - run: python -m unittest tools.deployment.test_portal_artifact tools.deployment.test_typescript_release
+      - run: node --test scripts/test-typescript-screen-manager.mjs scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-manager-boundaries.mjs
+      - name: Build with the existing read-only metadata export
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: node scripts/build-typescript-websites.mjs
+      - name: Seal tested output
+        run: python -m tools.deployment.portal_artifact seal "websites/typescript/dist/$PROJECT" "$PROJECT" "$GITHUB_SHA" "$RUNNER_TEMP/governance-receipt.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: governance-portal-bundle
+          path: websites/typescript/dist/primecare-governance
+          if-no-files-found: error
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: governance-portal-receipt
+          path: ${{ runner.temp }}/governance-receipt.json
+          if-no-files-found: error
+          retention-days: 30
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    environment: production
+    concurrency:
+      group: primecare-cloudflare-primecare-governance
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - uses: actions/download-artifact@v4
+        with: {name: governance-portal-bundle, path: release/governance}
+      - uses: actions/download-artifact@v4
+        with: {name: governance-portal-receipt, path: release/proof}
+      - name: Recheck prior live version and exact artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
+          python -m tools.deployment.portal_artifact check release/governance "$PROJECT" "$GITHUB_SHA" release/proof/governance-receipt.json
+          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --record release/proof/before.json
+          python -m tools.deployment.portal_artifact check-contract release/governance "$PROJECT" "$GITHUB_SHA" release/proof/before.json
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+      - name: Publish only the tested Governance Pages artifact
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@4.68.1 pages deploy release/governance --project-name=primecare-governance --branch=main --commit-hash="$GITHUB_SHA"
+      - name: Verify live source and exact assets
+        run: python -m tools.deployment.typescript_release verify-deploy release/governance "$PROJECT"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: governance-publish-evidence
+          path: release/proof
+          if-no-files-found: error
+          retention-days: 30
