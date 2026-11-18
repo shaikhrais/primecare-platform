@@ -1,0 +1,887 @@
+diff --git a/packages/primecare_ui/web/dashboard-render-policy.ts b/packages/primecare_ui/web/dashboard-render-policy.ts
+index 84f8c6113553c6b99e1fa222423d2d8a2ef4bff6..0ae79d6d86ddd945885f47239633db3a882f3e28 100644
+--- a/packages/primecare_ui/web/dashboard-render-policy.ts
++++ b/packages/primecare_ui/web/dashboard-render-policy.ts
+@@ -1,11 +1,13 @@
+ import {ScreenConfigurationError} from './screen-manager';
+ 
+ /** Routes opt in at the dispatcher before handing off to any feature renderer. */
+-const required = new WeakSet<HTMLElement>();
++const required = new WeakMap<HTMLElement,symbol>();
+ const permits = new WeakMap<HTMLElement,()=>boolean>();
+ 
+-export function requireMasterDashboard(root: HTMLElement): void {
+-  required.add(root);
++export function requireMasterDashboard(root: HTMLElement): () => void {
++  const token=Symbol();
++  required.set(root,token);
++  return ()=>{if(required.get(root)===token)required.delete(root);};
+ }
+ 
+ /** Internal to MasterDashboard: one synchronous shell render using a live registration lease. */
+diff --git a/packages/primecare_ui/web/master-dashboard.ts b/packages/primecare_ui/web/master-dashboard.ts
+index e973c09efec3f9fbb55ef9247b6163e1b99a384d..b4a2e9938c9212416309d3af8102cf8028e94951 100644
+--- a/packages/primecare_ui/web/master-dashboard.ts
++++ b/packages/primecare_ui/web/master-dashboard.ts
+@@ -1,4 +1,4 @@
+-import {withMasterDashboardShell} from './dashboard-render-policy';
++import {assertMasterDashboardShell,withMasterDashboardShell} from './dashboard-render-policy';
+ import {bindShell,renderShell,shellMarkup,type ShellContent} from './shell';
+ import {ScreenConfigurationError,type ScreenManager,type ScreenRegistration} from './screen-manager';
+ import {clearLayoutCustomizer} from './layout-customizer';
+@@ -21,6 +21,10 @@ type Binding = Readonly<{
+   panels?: Readonly<Record<string,string>>;
+   current: () => boolean;
+   select: (id: string) => void;
++  navigationTitle?: Parameters<typeof bindShell>[1];
++  defaultTheme?: Parameters<typeof bindShell>[6];
++  searchScope?: Parameters<typeof bindShell>[3];
++  search?: Parameters<typeof bindShell>[4];
+ }>;
+ 
+ /** Configuration and projected view identifiers are validated, never used as an access grant. */
+@@ -47,12 +51,13 @@ export abstract class MasterDashboard {
+   private shell: Element | undefined;
+   private bound: (() => boolean) | undefined;
+ 
+-  protected constructor(
++  constructor(
+     private readonly root: HTMLElement,
+     private readonly manager: ScreenManager,
+     entry: Pick<ScreenRegistration,'id'|'route'>,
+     descriptor: MasterDashboardConfig,
+     panelOptions: DashboardDialogOptions,
++    private readonly afterRetire?: () => void,
+   ) {
+     if (entry.route !== descriptor.route) throw new ScreenConfigurationError('Master dashboard route does not match registration');
+     dashboardViews(descriptor, descriptor.views.map(view => view.id));
+@@ -89,31 +94,58 @@ export abstract class MasterDashboard {
+       throw new ScreenConfigurationError('Unregistered workspace docking host');
+     const revision = ++this.revision;
+     let installed = false;
++    let mountedCandidate: Element | null = null;
+     const current = () => lease() && revision === this.revision && (!installed || binding.current()) && lease() && revision === this.revision;
+     try {
+       withMasterDashboardShell(root,lease,()=>renderShell(root,binding.shell));
+       if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
+-      const shell = root.querySelector('[data-cy=app-shell]');
++      const shell = mountedCandidate = root.querySelector('[data-cy=app-shell]');
+       if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
+       const workspace: WorkspaceCustomizerOptions | undefined = workspaceScreen === undefined
+         ? undefined : {screenCode:'tenant_admin_command_center',panels:resolvePanels(shell)};
+-      bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
+-        () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(installed&&current())binding.select(view.id);}})),
+-        binding.profileScope,{},workspace,current);
++      if (!binding.shell.hideChrome) bindShell(root,binding.navigationTitle??descriptor.title,binding.locale,binding.searchScope??descriptor.route.slice(1),
++        () => {
++          const entries = binding.search?.() ?? views.map(view=>({title:view.label,detail:descriptor.title,open:()=>binding.select(view.id)}));
++          return entries.map(entry=>({...entry,open:()=>{if(installed&&current())return entry.open();}}));
++        },
++        binding.profileScope,binding.defaultTheme,workspace,current);
+       if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
+       this.shell = shell;
+-      this.bound = current;
++      this.bound = binding.shell.hideChrome ? undefined : current;
+       installed = true;
+       return shell;
+     } catch (error) {
+-      if (lease() && revision === this.revision) {
++      const ownsFailedShell = () => !!mountedCandidate && lease() && revision === this.revision && root.contains(mountedCandidate);
++      if (ownsFailedShell()) {
+         clearLayoutCustomizer(root);
+-        if (lease() && revision === this.revision) root.replaceChildren();
++        if (ownsFailedShell()) mountedCandidate?.remove();
+       }
+       throw error;
+     }
+   }
+ 
++  /** One content slot for products that already own their navigation and landmarks. */
++  mountHostedContent(binding: Pick<Binding,'allowedViews'|'view'|'current'>): HTMLElement {
++    const {root} = this;
++    const lease = () => this.manager.ownsDashboardDialogs(root,this.dialogs);
++    if (this.shell || !this.allowedViews(binding.allowedViews).some(({id})=>id===binding.view) ||
++        !lease() || !binding.current() || !lease())
++      throw new ScreenConfigurationError('Inactive or unavailable dashboard view');
++    const host = root.ownerDocument.createElement('div');
++    host.dataset.pcDashboardContent = this.descriptor.screenCode;
++    host.style.display = 'contents';
++    withMasterDashboardShell(root,lease,()=>{
++      assertMasterDashboardShell(root);
++      root.replaceChildren(host);
++    });
++    if (!lease() || host.parentElement !== root) {
++      if (host.parentElement === root) host.remove();
++      throw new ScreenConfigurationError('Dashboard owner changed during mount');
++    }
++    this.shell = host;
++    return host;
++  }
++
+   private retire(): void {
+     ++this.revision;
+     try {
+@@ -122,6 +154,7 @@ export abstract class MasterDashboard {
+       this.shell?.remove();
+       this.shell = undefined;
+       this.bound = undefined;
++      this.afterRetire?.();
+     }
+   }
+ 
+diff --git a/scripts/fixtures/growth-dom.mjs b/scripts/fixtures/growth-dom.mjs
+index 756e4f1950f66f70bad220c53e47d75d790eed00..c57e1470d701605205caff2c004998aa8ae7c296 100644
+--- a/scripts/fixtures/growth-dom.mjs
++++ b/scripts/fixtures/growth-dom.mjs
+@@ -7,8 +7,8 @@ import {tmpdir} from 'node:os';
+ if(process.env.PRODUCTION_DATABASE_URL||process.env.GOVERNANCE_DATABASE_URL||process.env.DB_URL)throw Error('Database credentials forbidden in growth fixtures');
+ const source=resolve(process.argv[2]??process.cwd());
+ const built=await build({stdin:{contents:"export * from './websites/typescript/src/growth/dashboard';export * from './packages/primecare_ui/web/screen-manager';export * from './websites/typescript/src/managed-routes';",resolveDir:source},bundle:true,write:false,platform:'node',format:'esm',plugins:[{name:'growth-shell-fixture',setup(b){
+- b.onResolve({filter:/^\.\.\/shell$/},a=>a.importer.endsWith('/growth/dashboard.ts')?{path:a.path,namespace:'fixture'}:null);
+- b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export function renderShell(root,o){globalThis.__growthRenderHook?.();if(globalThis.__growthReuseShell&&root.querySelector('main')){root.querySelector('main').innerHTML=o.content;return;}root.innerHTML='<div class="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';}export function bindShell(){globalThis.__growthBindHook?.();}`,loader:'js'}));
++ b.onResolve({filter:/^\.\/shell$/},a=>a.importer.endsWith('/web/master-dashboard.ts')?{path:a.path,namespace:'fixture'}:null);
++ b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export function shellMarkup(o){return o.content;}export function renderShell(root,o){globalThis.__growthRenderHook?.();if(globalThis.__growthReuseShell&&root.querySelector('main')){root.querySelector('main').innerHTML=o.content;return;}root.innerHTML='<div class="app-shell" data-cy="app-shell">'+o.navigation+o.controls+'<main>'+o.content+'</main></div>';}export function bindShell(){globalThis.__growthBindHook?.();}`,loader:'js'}));
+ }}]});
+ const temp=await mkdtemp(resolve(tmpdir(),'growth-manager-test-'));let module;
+ try{const file=resolve(temp,'actual.mjs');await writeFile(file,built.outputFiles[0].text);module=await import(pathToFileURL(file).href);}finally{await rm(temp,{recursive:true,force:true});}
+diff --git a/scripts/test-care-live-manager.mjs b/scripts/test-care-live-manager.mjs
+index c95d5bac85d8ac2efc0aee066e2b465b453383ba..7a5272a28b7bc16664ccc1031bb57d73da5b609a 100644
+--- a/scripts/test-care-live-manager.mjs
++++ b/scripts/test-care-live-manager.mjs
+@@ -91,3 +91,34 @@ for(const endpoint of versionEndpoints)for(const phase of ['acknowledgement','sn
+   assert.equal(f.writes().length,1,'Malformed evidence must retain the actual server acknowledgement');
+  }finally{owner.dispose();}
+ });
++
++for(const route of ['/care','/psw'])test('canonical presentation slot and existing renderer at '+route,async()=>{
++ const f=fixture({route});
++ try{
++  await f.render();
++  const product=f.root.querySelector('[data-live-refresh]'),host=f.root.querySelector('[data-pc-dashboard-content=care_delivery]');
++  assert.ok(product);
++  assert.equal(Boolean(host),route==='/care');
++  if(host){
++   assert.equal(host.parentElement,f.root);assert.ok(host.contains(product));
++   const before=f.calls.length;
++   f.sessionStorage.setItem('primecare_session','replaced');f.event('popstate');
++   assert.equal(f.root.querySelector('[data-pc-dashboard-content]'),null);assert.equal(f.calls.length,before);
++  }
++  assert.equal(f.writes().length,0);
++ }finally{f.event('pagehide',{persisted:false});}
++});
++
++test('canonical failure keeps a guarded host and only the current Retry can reopen',async()=>{
++ const f=fixture({route:'/care'}),normal=f.respond;
++ try{
++  f.respond=async(url,options)=>url.includes('dataset=info')?Response.json({error:'Unavailable fixture'},{status:503}):normal(url,options);
++  await f.render();
++  const old=f.root.querySelector('[data-pc-dashboard-content=care_delivery]'),retry=f.root.querySelector('[data-retry]');
++  assert.ok(old&&retry&&old.contains(retry));
++  f.respond=normal;await f.fire(retry);
++  assert.ok(f.root.querySelector('[data-live-refresh]'));assert.ok(!old.isConnected);
++  const before=f.calls.length;
++  await f.fire(retry);assert.equal(f.calls.length,before);
++ }finally{f.event('pagehide',{persisted:false});}
++});
+diff --git a/scripts/test-care-master-dashboard-browser.mjs b/scripts/test-care-master-dashboard-browser.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..f6bc86983eccaf2dec15ab2523ef5910b3063062
+--- /dev/null
++++ b/scripts/test-care-master-dashboard-browser.mjs
+@@ -0,0 +1,93 @@
++/** Real browser on both Care aliases and all three renderer branches. Synthetic HTTP only. */
++import assert from 'node:assert/strict';
++import {build} from 'esbuild';
++import {createServer} from 'node:http';
++import {readFile} from 'node:fs/promises';
++import {launchCareBrowser} from './care-browser-launch.mjs';
++import {seedPersonal} from '../packages/shared/src/psw-personal/core.mjs';
++import {seedState} from '../packages/shared/src/psw-workspace/schedule-core.mjs';
++import {projectState} from '../packages/shared/src/psw-workspace/actions.mjs';
++const host=await build({stdin:{resolveDir:process.cwd(),contents:`
++ import {renderPSW} from './websites/typescript/src/psw-workspace';
++ import {resolveManagedRoute} from './websites/typescript/src/managed-routes';
++ import {installPortalPresentation} from './websites/typescript/src/screen-presentation';
++ import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';
++ import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';
++ const root=document.querySelector('#app');
++ const manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);
++ manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
++ window.hasGuard=()=>{try{assertMasterDashboardShell(root);return false;}catch(e){if(!String(e).includes('must extend MasterDashboard'))throw e;return true;}};
++ void renderPSW(root,location.origin);
++`},bundle:true,write:false,format:'iife'});
++const css=await readFile('websites/typescript/src/styles.css');
++const server=createServer((req,res)=>{
++ const path=new URL(req.url,'http://fixture').pathname;
++ if(path==='/fixture.js'){res.setHeader('content-type','text/javascript');res.end(host.outputFiles[0].text);return;}
++ if(path==='/style.css'){res.setHeader('content-type','text/css');res.end(css);return;}
++ if(path!=='/care'&&path!=='/psw'){res.statusCode=404;res.end('{}');return;}
++ res.setHeader('content-type','text/html');res.end('<!doctype html><html lang="en"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"><div id="app"></div><script src="/fixture.js"></script>');
++});
++const identity=role=>({role,userId:'fixture-worker',tenantId:'fixture-tenant',organization:'Fixture tenant'});
++const emptyCare={identity:identity('scheduler'),capabilities:{operations:false,verifyClearance:false,qualified:true},
++ cases:[],total:0,assignmentTotal:0,view:'all',reviewBacklog:0,concerns:0,overdue:0,offset:0,limit:20,people:[],visits:[],detail:null,
++ staffing:{canCreate:false,canManage:false,total:0,records:[],offset:0,limit:20,staffOptions:[],createActions:[]},
++ schedules:{canManage:false,series:[]},timesheets:{pending:0,returned:0,total:0,records:[],offset:0,limit:20},
++ handovers:{total:0,records:[],offset:0,limit:20},followups:{open:0,late:0,review:0,extensions:0,waiting:0,view:'all',records:[],offset:0,limit:20},workload:null};
++const token='c'.repeat(43);
++await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
++const origin='http://127.0.0.1:'+server.address().port;
++let browser;
++const cases=[];
++try{
++ browser=await launchCareBrowser();
++ for(const [mode,selector] of [['live','[data-live-refresh]'],['personal','[data-cy=screen-psw-personal-today]'],['demo','#schedule-board']]){
++  for(const path of ['/care','/psw']){
++   const width=path==='/care'?390:1440,ctx=await browser.newContext({viewport:{width,height:900}}),page=await ctx.newPage();
++   const actor=identity(mode==='personal'?'psw':'scheduler'),info={identity:actor,canManage:true,liveCareAvailable:true,scopes:[]};
++   const personal={dataset:'live',personalWorkspace:true,workspaceKey:'fixture-personal',database:'PostgreSQL',synthetic:false,version:7,
++    state:seedPersonal(),profile:{name:'Fixture Worker',role:'psw',qualified:true},team:[],windows:[],identity:actor,from:'2026-10-26',today:'2026-10-28'};
++   const errors=[],requests=[];
++   page.on('pageerror',e=>errors.push(e.message));
++   await page.addInitScript(t=>sessionStorage.setItem('primecare_session',t),token);
++   await page.route('**/*',route=>{
++    const url=new URL(route.request().url());
++    if(url.origin!==origin)return route.abort();
++    if(!url.pathname.startsWith('/v1/'))return route.continue();
++    if(url.pathname==='/v1/governance/care/workspace'||url.pathname==='/v1/governance/care/personal'||url.pathname==='/v1/governance/care'){
++     requests.push({path:url.pathname,method:route.request().method(),bearer:route.request().headers().authorization});
++     if(url.pathname.endsWith('/personal'))return route.fulfill({json:personal});
++     if(url.pathname==='/v1/governance/care')return route.fulfill({json:emptyCare});
++     const dataset=url.searchParams.get('dataset');
++     if(dataset==='info')return route.fulfill({json:info});
++     if(dataset==='demo')return route.fulfill({json:{...info,dataset:'demo',database:'PostgreSQL',synthetic:true,version:7,
++      state:projectState(seedState(),{id:actor.userId,roles:actor.role})}});
++     return route.fulfill({json:{visits:[],providers:[],from:'2026-11-07',to:'2026-11-07'}});
++    }
++    return route.fulfill({status:404,json:{}});
++   });
++   try{
++    await page.goto(origin+path+'?dataset='+(mode==='demo'?'demo':'live')+'&enable-semantics=true');
++    await page.locator(selector).waitFor({state:'attached',timeout:6000});
++    const guarded=path==='/care';
++    assert.equal(await page.evaluate(()=>window.hasGuard()),guarded);
++    const slot=page.locator('#app > [data-pc-dashboard-content=care_delivery]');
++    assert.equal(await slot.count(),guarded?1:0);
++    if(guarded){
++     assert.equal(await slot.locator(selector).count(),1);
++     assert.equal(await slot.evaluate(el=>getComputedStyle(el).display),'contents');
++    }
++    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
++    assert.ok(requests.length>=2);assert.ok(requests.every(r=>r.method==='GET'&&r.bearer==='Bearer '+token));
++    await page.evaluate(()=>{sessionStorage.setItem('primecare_session','replaced');window.dispatchEvent(new PopStateEvent('popstate'));});
++    await page.locator(selector).waitFor({state:'detached'});
++    assert.equal(await page.evaluate(()=>window.hasGuard()),false);
++    assert.deepEqual(errors,[]);
++    cases.push({path,mode,width,guarded,sessionReplacementCleared:true});
++   }finally{await ctx.close();}
++  }
++ }
++ console.log(JSON.stringify({cases,productionVerified:false}));
++}finally{
++ await browser?.close();
++ await new Promise(resolve=>server.close(resolve));
++}
+diff --git a/scripts/test-coordinator-demo-manager.mjs b/scripts/test-coordinator-demo-manager.mjs
+index dd2e225f4020efc9d1c5eea4e69b2e2b957cb4e6..8c0615e4e071814f0433463e01795638ddf9984b 100644
+--- a/scripts/test-coordinator-demo-manager.mjs
++++ b/scripts/test-coordinator-demo-manager.mjs
+@@ -84,3 +84,20 @@ for(const kind of ['network','json'])test('uncertain '+kind+' retry after closin
+ test('retained submit double invocation starts one pending mutation',async()=>{const f=fixture();await f.render();const form=await message(f),d=deferred();f.respond=()=>d.promise;form.dispatchEvent({type:'submit'});form.dispatchEvent({type:'submit'});await f.settle();assert.equal(f.writes().length,1);d.reject(Error('uncertain outcome'));await f.settle();});
+ test('failed visit note with edited draft uses current record and new command identity',async()=>{const f=fixture(),v=f.demo.state.visits[0];v.status='in_progress';v.clockIn=Date.parse('2026-10-28T07:30Z');await f.render();await f.fire(f.find('[data-visit="v1"]'));f.fill({note:'First failed note draft'});f.respond=()=>Promise.reject(Error('uncertain outcome'));await f.fire(f.dialog().querySelector('[data-note-save]'));f.fill({note:'Edited intentional note draft'});await f.fire(f.dialog().querySelector('[data-note-save]'));assert.equal(f.writes().length,2);assert.equal(JSON.parse(f.writes()[0].options.body).value.note,'First failed note draft');assert.equal(JSON.parse(f.writes()[1].options.body).value.note,'Edited intentional note draft');assert.notEqual(f.writes()[0].options.headers['idempotency-key'],f.writes()[1].options.headers['idempotency-key']);});
+ for(const type of ['time','incident','availability'])test('uncertain '+type+' command fingerprint distinguishes target records',async()=>{const f=fixture();if(type==='time'){for(const v of f.demo.state.visits.slice(0,2)){v.status='submitted';v.clockIn=Date.parse('2026-10-28T07:30Z');v.clockOut=v.clockIn+3600000;}}else if(type==='incident')f.demo.state.incidents=['a','b'].map(id=>({id,clientId:'c1',providerId:'p1',date:'2026-10-28',type:'Service exception',facts:'Fixture',action:'Fixture',followup:'Fixture',status:'open'}));else f.demo.state.availabilityRequests=['a','b'].map(id=>({id,providerId:'p1',date:'2026-11-04',reason:'Fixture',status:'pending'}));await f.render();await f.nav(type==='time'?'timesheets':type==='incident'?'incidents':'availability');f.respond=()=>Promise.reject(Error('uncertain outcome'));for(const id of type==='time'?['v1','v2']:['a','b']){await f.fire(f.find('[data-'+(type==='time'?'time-review':type==='incident'?'incident-review':'availability-review')+'="'+id+'"]'));f.fill(type==='time'?{minutes:'60',reason:'Same reason',reviewed:true}:type==='incident'?{review:'Same review'}:{decision:'declined',review:'Same review'});await f.fire(f.form(),'submit');closeDialog(f);await f.settle();}assert.equal(f.writes().length,2);const bodies=f.writes().map(c=>JSON.parse(c.options.body));assert.notEqual(bodies[0].value.visitId??bodies[0].value.id,bodies[1].value.visitId??bodies[1].value.id);assert.notEqual(f.writes()[0].options.headers['idempotency-key'],f.writes()[1].options.headers['idempotency-key']);});
++
++for(const route of ['/care','/psw'])test('canonical presentation slot and existing renderer at '+route,async()=>{
++ const f=fixture({route});
++ try{
++  await f.render();
++  const product=f.root.querySelector('#schedule-board'),host=f.root.querySelector('[data-pc-dashboard-content=care_delivery]');
++  assert.ok(product);
++  assert.equal(Boolean(host),route==='/care');
++  if(host){
++   assert.equal(host.parentElement,f.root);assert.ok(host.contains(product));
++   const before=f.calls.length;
++   f.sessionStorage.setItem('primecare_session','replaced');f.event('popstate');
++   assert.equal(f.root.querySelector('[data-pc-dashboard-content]'),null);assert.equal(f.calls.length,before);
++  }
++  assert.equal(f.writes().length,0);
++ }finally{f.event('pagehide',{persisted:false});}
++});
+diff --git a/scripts/test-governed-master-dashboard.mjs b/scripts/test-governed-master-dashboard.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..2b58db974afe45a8f0432e785913b0dcc7412b0a
+--- /dev/null
++++ b/scripts/test-governed-master-dashboard.mjs
+@@ -0,0 +1,43 @@
++import assert from 'node:assert/strict';
++import {readFile} from 'node:fs/promises';
++import {test} from 'node:test';
++import {build} from 'esbuild';
++
++const {outputFiles:[file]}=await build({
++  stdin:{resolveDir:process.cwd(),contents:`
++    export * from './websites/typescript/src/governed-master-dashboard';
++    export {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';
++    export {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';
++    export {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';
++  `},bundle:true,format:'esm',platform:'node',write:false,
++});
++const {governedDashboardDescriptor,GovernedMasterDashboard,connectGovernedMasterDashboard,MasterDashboard,ScreenManager,
++  installScreenManager,assertMasterDashboardShell}=await import('data:text/javascript;base64,'+Buffer.from(file.text).toString('base64'));
++const {screens}=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
++const canonical=screens.filter(s=>s.renderer==='dashboard');
++const dedicated=new Set(['care_delivery','founder_growth_dashboard']);
++const generic=canonical.filter(s=>!dedicated.has(s.code));
++
++test('the registered coverage derives from one adapter with no per-dashboard configuration',()=>{
++  assert.equal(canonical.length,115);
++  assert.equal(generic.length,113);
++  assert.equal(new Set(generic.map(page=>page.route)).size,113);
++  assert.deepEqual(Object.getOwnPropertyNames(GovernedMasterDashboard.prototype),['constructor']);
++  for(const page of generic)assert.deepEqual(governedDashboardDescriptor(page),{screenCode:page.code,route:page.route,title:page.name,views:[{id:'overview',label:page.name}]});
++  for(const page of canonical.filter(s=>dedicated.has(s.code)))assert.throws(()=>governedDashboardDescriptor(page),/dedicated route/);
++});
++
++test('the guard requires a current authorized registration and is retired on dashboard exit',()=>{
++  const root={},manager=new ScreenManager({layout(){},theme(){},language(){},responsive(){}});
++  installScreenManager(root,manager);
++  const page=generic[0],entry={id:'governed:'+page.code,route:page.route,kind:'governed',adapter:'workspace'};
++  assert.throws(()=>connectGovernedMasterDashboard(root,manager,page,()=>true),/Missing dashboard registration/);
++  assert.doesNotThrow(()=>assertMasterDashboardShell(root));
++  manager.registerScope('workspace',[entry]);
++  const {master}=connectGovernedMasterDashboard(root,manager,page,()=>true);
++  assert.ok(master instanceof MasterDashboard);
++  assert.throws(()=>assertMasterDashboardShell(root),/must extend MasterDashboard/);
++  manager.registerScope('workspace',[]);
++  assert.doesNotThrow(()=>assertMasterDashboardShell(root));
++  assert.throws(()=>master.mount({view:'overview',allowedViews:['overview'],current:()=>true}),/Inactive or unavailable dashboard/);
++});
+diff --git a/scripts/test-governed-master-navigation.mjs b/scripts/test-governed-master-navigation.mjs
+new file mode 100644
+index 0000000000000000000000000000000000000000..828b3ad04c577468039867f6aa30adccb49f4b13
+--- /dev/null
++++ b/scripts/test-governed-master-navigation.mjs
+@@ -0,0 +1,125 @@
++/** Real browser workspace lifecycle; no production hosts, data, writes or credentials. */
++import assert from 'node:assert/strict';
++import {createServer} from 'node:http';
++import {readFile} from 'node:fs/promises';
++import {build} from 'esbuild';
++import {chromium} from 'playwright';
++
++const {screens}=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));
++const generic=screens.filter(p=>p.renderer==='dashboard'&&!['care_delivery','founder_growth_dashboard'].includes(p.code));
++const [first,second]=generic.filter(p=>p.route.startsWith('/management/')).slice(0,2);
++const record=screens.find(p=>p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
++const denied=generic.find(p=>p.code!==first.code&&p.code!==second.code&&p.route.startsWith('/management/'));
++const authorized=[first,second,record].map(p=>({...p,sections:[],blockers:[]}));
++assert.ok(denied&&authorized.every(p=>typeof p.route==='string'));
++const token='fixture-authorized-token';
++const projection={identity:{userId:'fixture-user',role:'rmt'},landing:first.route,screens:authorized,
++  inventory:[...authorized,{...denied,sections:[],blockers:[]}],actions:[],resources:{},overview:{
++    activeAccounts:1,activeSessions:1,accountRoles:[],activity:[],metrics:[],scope:'personal'}};
++const scripts=await build({stdin:{resolveDir:process.cwd(),contents:`
++  import {renderWorkspace} from './websites/typescript/src/workspace';
++  import {resolveManagedRoute} from './websites/typescript/src/managed-routes';
++  import {installPortalPresentation} from './websites/typescript/src/screen-presentation';
++  import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';
++  import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';
++  const root=document.querySelector('#app');
++  const manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);
++  manager.registerScope('entry',[resolveManagedRoute(location.pathname,'')]);
++  window.strictShell=()=>{try{assertMasterDashboardShell(root);return false;}catch(error){
++    if(!String(error).includes('must extend MasterDashboard'))throw error;
++    return true;
++  }};
++  window.begin=()=>renderWorkspace(root,location.origin);
++`},bundle:true,write:false,format:'iife'});
++const css=await readFile('websites/typescript/src/styles.css');
++let workspaceReads=0;
++const unexpected=[];
++const server=createServer(async(req,res)=>{
++  const path=new URL(req.url,'http://fixture.invalid').pathname;
++  if(path.startsWith('/v1/')){
++    res.setHeader('content-type','application/json');
++    if(path==='/v1/governance/workspace'&&req.method==='GET'){
++      workspaceReads++;
++      if(req.headers.authorization==='Bearer '+token){res.end(JSON.stringify(projection));return;}
++      res.statusCode=401;res.end(JSON.stringify({error:'Unauthorized'}));return;
++    }
++    // Optional copy/navigation/theme reads need no service in this fixture.
++    // Writes to any other path are unexpected, not silently stubbed.
++    if(req.method!=='GET'&&req.method!=='HEAD'){
++      let body='';for await(const part of req)body+=part;
++      let read=false;try{read=path==='/v1/user/preferences'&&JSON.parse(body).action==='read';}catch{}
++      if(!read)unexpected.push({method:req.method,path});
++    }
++    res.statusCode=404;res.end('{}');return;
++  }
++  if(path==='/app.js'){res.setHeader('content-type','text/javascript');res.end(scripts.outputFiles[0].text);return;}
++  if(path==='/style.css'){res.setHeader('content-type','text/css');res.end(css);return;}
++  res.setHeader('content-type','text/html');
++  res.end(path==='/login'?'<!doctype html><h1>Fixture sign-in</h1>':
++    '<!doctype html><html lang="fr"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"><div id="app"></div><script src="/app.js"></script><script>window.begin()</script></html>');
++});
++await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
++let browser;
++try{
++  browser=await chromium.launch({headless:true,...(process.env.PRIMECARE_CHROMIUM_EXECUTABLE?{
++    executablePath:process.env.PRIMECARE_CHROMIUM_EXECUTABLE,args:['--no-sandbox','--disable-dev-shm-usage']}: {})});
++  const context=await browser.newContext();
++  const page=await context.newPage(),errors=[];
++  page.on('pageerror',error=>errors.push(error.message));
++  const origin='http://127.0.0.1:'+server.address().port;
++  await page.addInitScript(token=>{
++    if(!sessionStorage.getItem('fixture-initialized')){
++      sessionStorage.setItem('fixture-initialized','yes');
++      sessionStorage.setItem('primecare_session',token);
++    }
++  },token);
++  page.setDefaultTimeout(6500);
++  const byId=id=>page.locator('[data-cy="'+id+'"]');
++  const visit=async(target,strict)=>{
++    await byId('screen-'+target.code).waitFor({state:'attached'});
++    assert.equal(new URL(page.url()).pathname,target.route);
++    assert.equal(await page.evaluate(()=>window.strictShell()),strict);
++    assert.equal(await byId('appearance-open').count(),1);
++    assert.equal(await page.locator('html').getAttribute('lang'),'fr');
++  };
++  await page.goto(origin+first.route+'?locale=fr&enable-semantics=true');
++  await visit(first,true);
++  const appearance=await byId('appearance-open').getAttribute('aria-label');
++  const tokenBefore=await page.locator('html').evaluate(el=>getComputedStyle(el).getPropertyValue('--color-primary'));
++  assert.ok(tokenBefore.trim(),'fixture should actually install a theme token');
++  await page.evaluate(code=>{window.staleLink=document.querySelector('[data-cy="sidebar-item-'+code+'"]');},record.code);
++  await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),second.code);
++  await visit(second,true);
++  await page.evaluate(()=>window.staleLink.click());
++  await visit(second,true);
++  await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),record.code);
++  await visit(record,false);
++  assert.equal(await byId('appearance-open').getAttribute('aria-label'),appearance);
++  assert.equal(await page.locator('html').evaluate(el=>getComputedStyle(el).getPropertyValue('--color-primary')),tokenBefore);
++  await page.goBack();await visit(second,true);
++  await page.goBack();await visit(first,true);
++  await page.goForward();await visit(second,true);
++  await page.goForward();await visit(record,false);
++  assert.equal(workspaceReads,1,'same-document navigation should not reload or replace the projection');
++
++  await page.evaluate(route=>{history.pushState({},'',route);window.dispatchEvent(new PopStateEvent('popstate'));},denied.route);
++  await byId('error-state').waitFor();
++  assert.equal(await byId('screen-'+denied.code).count(),0);
++  assert.equal(await page.evaluate(()=>window.strictShell()),false);
++  await page.goBack();await visit(record,false);
++  await page.goBack();await visit(second,true);
++  await page.evaluate(()=>{
++    sessionStorage.setItem('primecare_session','expired-fixture-token');
++    window.dispatchEvent(new PopStateEvent('popstate'));
++  });
++  await page.waitForURL(/\/login\?/);
++  assert.match(await page.locator('h1').textContent(),/Fixture sign-in/);
++  assert.equal(workspaceReads,2,'the reloaded document must recheck a replaced session with its API');
++  assert.deepEqual(unexpected,[]);
++  assert.deepEqual(errors,[]);
++  console.log(JSON.stringify({dashboardRoutes:[first.route,second.route],ordinaryRoute:record.route,inventoryOnlyDenied:true,
++    retiredControl:true,backForward:true,themeAndLocaleParity:true,sessionRechecked:true,productionVerified:false}));
++}finally{
++  await browser?.close();
++  await new Promise(resolve=>server.close(resolve));
++}
+diff --git a/scripts/test-growth-loading-browser.mjs b/scripts/test-growth-loading-browser.mjs
+index fc8911149b2c5fbd29e7db2b3dc8dcf446feb118..39fc5bb4b9496ee1a00a66834e14d218b7a9c4de 100644
+--- a/scripts/test-growth-loading-browser.mjs
++++ b/scripts/test-growth-loading-browser.mjs
+@@ -16,7 +16,7 @@ const criterion='growth-shared-loading-error-layout',cases=[];
+ const report={passed:false,scope:'Growth renderer shared layout, loading, HTTP and transport retry',wholeTaskVerified:false,criterion_results:{[criterion]:'failed'},cases,limitations:['Synthetic renderer session and HTTP fixtures; no real login, role grant, tenant-isolation or database verification','Initial loading uses the existing default EN locale; recovered errors exercise EN/FR/ES','No full accessibility, device installation or PWA verification','Presentation uses the explicit synthetic look-test-theme.json fixture, not production theme authority']};
+ if(runId!==undefined)report.runId=runId;
+ await writeFile(out+'/results.json',JSON.stringify(report,null,2)+'\n');
+-const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
++const bundle=await build({stdin:{contents:"import {renderGrowth} from './websites/typescript/src/growth/dashboard';import {presentPlatformFixture} from './scripts/fixtures/platform-browser-bootstrap';import fixtureTheme from './scripts/fixtures/look-test-theme.json';import {assertMasterDashboardShell} from './packages/primecare_ui/web/dashboard-render-policy';export function start(root,gateway){return presentPlatformFixture(root,fixtureTheme,gateway,()=>renderGrowth(root,gateway));}export function guarded(root){try{assertMasterDashboardShell(root);return false;}catch(error){if(!String(error).includes('must extend MasterDashboard'))throw error;return true;}}",resolveDir:process.cwd()},bundle:true,format:'iife',globalName:'GrowthStateTest',write:false,metafile:true});
+ const css=await readFile('websites/typescript/src/styles.css'),policy=JSON.parse(await readFile('packages/shared/src/growth/registry.json'));
+ const sources={};
+ for(const path of [...Object.keys(bundle.metafile.inputs).filter(p=>p!=='<stdin>'&&!p.includes('node_modules/')),'scripts/test-growth-loading-browser.mjs','scripts/fixtures/browser-request-arrival.mjs','scripts/fixtures/growth-read-model.mjs','scripts/fixtures/qa-run-identity.mjs','scripts/care-browser-launch.mjs','websites/typescript/src/styles.css'])sources[path]=hash(await readFile(path));
+@@ -39,7 +39,9 @@ try{
+   page.on('pageerror',e=>errors.push(e.message));
+   let release,arrived,mode='initial',requests=0,stage='initial-loading';
+   const gate=new Promise(r=>release=r),requestArrived=new Promise(r=>arrived=r);
++  const guarded=()=>page.evaluate(()=>GrowthStateTest.guarded(document.getElementById('app')));
+   const checkShell=async busy=>{
++   assert.equal(await guarded(),true,stage+': content-only state retains the dashboard guard');
+    assert.equal(await page.locator(cy('app-shell')).count(),1,stage+': page state must use the shared shell');
+    assert.equal(await page.locator(cy('screen-founder-growth-dashboard')).getAttribute('aria-busy'),String(busy),stage+': shared content exposes loading state');
+    assert.equal(await page.locator(cy('app-topbar')).isVisible(),false,stage+': unavailable identity hides chrome');
+@@ -48,6 +50,7 @@ try{
+   const retryToSuccess=async()=>{
+    mode='success';await page.locator(cy('growth-retry')).click();
+    await page.locator(cy('growth-summary')).waitFor();
++   assert.equal(await guarded(),true,'successful state retains the dashboard guard');
+    assert.equal(await page.locator(cy('app-shell')).count(),1);
+    assert.equal(await page.locator(cy('app-topbar')).isVisible(),true);
+    assert.equal(await page.locator(cy('app-sidebar')).isVisible(),width>1024);
+@@ -79,7 +82,7 @@ try{
+    await retryToSuccess();
+    assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1));
+    assert.deepEqual(errors,[]);assert.equal(requests,6);
+-   cases.push({locale,width,passed:true,initialLoadingShell:true,errorShell:true,retryRestoresChrome:true,emptyState:true,transportFailureRetry:true,deniedClearsContent:true,requests});
++   cases.push({locale,width,passed:true,initialLoadingShell:true,errorShell:true,masterGuard:true,retryRestoresChrome:true,emptyState:true,transportFailureRetry:true,deniedClearsContent:true,requests});
+   }catch(error){
+    cases.push({locale,width,passed:false,stage,requests,error:String(error),pageErrors:errors});
+    if(record&&!page.isClosed())try{await page.screenshot({path:out+'/failure.png',timeout:5000});}catch(screenshotError){cases.at(-1).screenshotError=String(screenshotError);}
+diff --git a/scripts/test-personal-care-manager.mjs b/scripts/test-personal-care-manager.mjs
+index 3e409f147440d48e4d0d384cef13bb34d8804ae2..e92a2563663bd3f2d85718557a64581b3459c97e 100644
+--- a/scripts/test-personal-care-manager.mjs
++++ b/scripts/test-personal-care-manager.mjs
+@@ -61,3 +61,20 @@ for(const layer of ['personal','clinical'])for(const failure of ['root','session
+ for(const failure of ['root','session','throw'])test('clinical child acquisition '+failure+' replacement cleans acquired dialog owner',async()=>{const f=fixture();await f.render();let phase=0;f.services.theme=()=>{if(f.dialog()&&++phase===2){f.root.innerHTML='<main data-cy="replacement">Replacement</main>';if(failure==='session')f.sessionStorage.setItem('primecare_session','token-B');if(failure==='throw')throw Error('private callback failure');}};const n=f.calls.length;await f.fire(f.cy('psw-personal-visit-open'));assert.ok(f.cy('replacement'));assert.equal(Boolean(f.dialog()),false);assert.equal(f.calls.length,n);assert.deepEqual(f.assigned,[]);assert.equal(f.observers.size,0);});
+ 
+ for(const result of ['network','401','success'])test('pending personal hash departure never publishes optimistic request after '+result,async()=>{const f=fixture();await f.render();const form=await request(f);form.elements.namedItem('subject').value='Unconfirmed fixture request';const normal=f.respond,d=deferred();f.respond=(u,o)=>o.method==='POST'?d.promise:normal(u,o);form.dispatchEvent({type:'submit'});const key=writes(f)[0].options.headers['idempotency-key'],body=writes(f)[0].options.body;f.location.hash='messages';f.event('hashchange');await f.settle();assert.ok(f.cy('screen-psw-personal-messages'));assert.equal(f.root.textContent.includes('Unconfirmed fixture request'),false);if(result==='network')d.reject(Error('offline'));else d.resolve(Response.json(result==='success'?{...f.personal,version:8}:{error:'expired'},{status:result==='success'?200:401}));await f.settle();assert.equal(f.root.textContent.includes('Unconfirmed fixture request'),false);assert.deepEqual(f.assigned,[]);const retry=await request(f);retry.elements.namedItem('subject').value='Unconfirmed fixture request';await f.fire(retry,'submit');if(result==='success')assert.equal(writes(f).length,1);else{assert.equal(writes(f).length,2);assert.equal(writes(f)[1].options.headers['idempotency-key'],key);assert.equal(writes(f)[1].options.body,body);}});
++
++for(const route of ['/care','/psw'])test('canonical presentation slot and existing renderer at '+route,async()=>{
++ const f=fixture({route});
++ try{
++  await f.render();
++  const product=f.root.querySelector('[data-cy=screen-psw-personal-today]'),host=f.root.querySelector('[data-pc-dashboard-content=care_delivery]');
++  assert.ok(product);
++  assert.equal(Boolean(host),route==='/care');
++  if(host){
++   assert.equal(host.parentElement,f.root);assert.ok(host.contains(product));
++   const before=f.calls.length;
++   f.sessionStorage.setItem('primecare_session','replaced');f.event('popstate');
++   assert.equal(f.root.querySelector('[data-pc-dashboard-content]'),null);assert.equal(f.calls.length,before);
++  }
++  assert.equal(f.writes().length,0);
++ }finally{f.event('pagehide',{persisted:false});}
++});
+diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-workspace-layout.mjs
+index 6a2a37a188754437018c30778b21a546e6e558c2..469d65ea048c1bcfce8aeccc365927b4679a0640 100644
+--- a/scripts/test-tenant-workspace-layout.mjs
++++ b/scripts/test-tenant-workspace-layout.mjs
+@@ -7,7 +7,7 @@ import {pathToFileURL} from 'node:url';
+ import {join} from 'node:path';
+ import {tenantFixture} from './tenant-dashboard-fixture.mjs';
+ const {chromium,webkit,devices}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
+-const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
++const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {connectGovernedMasterDashboard} from './websites/typescript/src/governed-master-dashboard';import {requireMasterDashboard} from './packages/primecare_ui/web/dashboard-render-policy';import {renderShell} from './packages/primecare_ui/web/shell';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
+  document.querySelector('#app').remove();
+  const testRoot=document.body.appendChild(document.createElement('div'));
+  const fixtureManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
+@@ -42,7 +42,24 @@ const f=await tenantFixture();const bundle=await build({stdin:{contents:`import
+  dashboard.dispose();
+  const newOwnerPreserved=nextScreen.isConnected;
+  next.dispose();testRoot.remove();
+- return {bypassBlocked,invalidSlot,wrongDockHost,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
++ const workspaceRoot=document.body.appendChild(document.createElement('div'));
++ const workspaceManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
++ installScreenManager(workspaceRoot,workspaceManager);
++ const first={code:'first_fixture',name:'First generic',route:'/first-fixture',renderer:'dashboard'};
++ const second={code:'second_fixture',name:'Second generic',route:'/second-fixture',renderer:'dashboard'};
++ workspaceManager.registerScope('workspace',[first,second].map(page=>({id:'governed:'+page.code,route:page.route,kind:'governed',adapter:'workspace'})));
++ const firstOwner=connectGovernedMasterDashboard(workspaceRoot,workspaceManager,first,()=>true);
++ const overview={...binding,allowedViews:['overview'],view:'overview'};
++ firstOwner.master.mount(overview);
++ firstOwner.master.dispose();
++ const secondOwner=connectGovernedMasterDashboard(workspaceRoot,workspaceManager,second,()=>true);
++ secondOwner.master.mount({...overview,shell:{...shell,content:'<h1>Second generic</h1>'}});
++ const genericNavigation=workspaceRoot.querySelector('h1')?.textContent==='Second generic';
++ secondOwner.master.dispose();
++ renderShell(workspaceRoot,{...shell,content:'<h1>Ordinary record</h1>'});
++ const ordinaryAfterDashboard=workspaceRoot.querySelector('h1')?.textContent==='Ordinary record';
++ workspaceRoot.remove();
++ return {bypassBlocked,invalidSlot,wrongDockHost,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved,genericNavigation,ordinaryAfterDashboard};
+ };const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
+ let writes=0;const preferencePosts=[];
+ const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
+@@ -250,7 +267,7 @@ try{
+  await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
+  assert.deepEqual(errors,[]);
+  const core=await page.evaluate(()=>window.proveMaster());
+- assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,wrongDockHost:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
++ assert.deepEqual(core,{bypassBlocked:true,invalidSlot:true,wrongDockHost:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true,genericNavigation:true,ordinaryAfterDashboard:true});
+  console.log(JSON.stringify({masterCore:core}));
+  console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
+  }
+diff --git a/scripts/test-typescript-screen-manager.mjs b/scripts/test-typescript-screen-manager.mjs
+index ea257928060ef355f65243578b9a6721a0a37fc6..66f33ba471a3d8c0f5acc871c485a8d5fc697d45 100644
+--- a/scripts/test-typescript-screen-manager.mjs
++++ b/scripts/test-typescript-screen-manager.mjs
+@@ -247,6 +247,8 @@ test('actual main.ts fails closed for missing theme/CSS and catches asynchronous
+ });
+ 
+ const workspaceFixtures={
++ // Keep this authorization/lifecycle harness DOM-free. The real adapter is exercised by the separate browser fixture.
++ './governed-master-dashboard':`export const connectGovernedMasterDashboard=(root,_manager,page)=>({code:page.code,route:page.route,master:{dispose(){},mount({shell}){root.innerHTML=shell.mainAttributes+shell.content;}}});`,
+  './account-mutations-panel':`export const mutationActorForScreen=()=>false;export const accountCreationMarkup=()=>'';export const bindAccountCreation=()=>()=>{};`,
+  './tenant-accounts-panel':`export const tenantAccountsScreen='fixture-disabled';export const tenantAccountsMarkup=()=>'';export const bindTenantAccounts=()=>()=>{};`,
+  './admin-training':`export const openAdminTraining=()=>{};export const trainingText=()=>'';`,
+diff --git a/websites/typescript/src/governed-master-dashboard.ts b/websites/typescript/src/governed-master-dashboard.ts
+new file mode 100644
+index 0000000000000000000000000000000000000000..d791fa8e2d1899c7006d3473a47f6bf56e5d514c
+--- /dev/null
++++ b/websites/typescript/src/governed-master-dashboard.ts
+@@ -0,0 +1,31 @@
++import {MasterDashboard} from '../../../packages/primecare_ui/web/master-dashboard';
++import {requireMasterDashboard} from '../../../packages/primecare_ui/web/dashboard-render-policy';
++import {ScreenConfigurationError,type ScreenManager} from '../../../packages/primecare_ui/web/screen-manager';
++import {resolveManagedRoute} from './managed-routes';
++
++export type GovernedDashboardPage = Readonly<{code:string;name:string;route:string;renderer:string}>;
++
++export function governedDashboardDescriptor(page: GovernedDashboardPage) {
++  if (page.renderer!=='dashboard' || !page.code.trim() || !page.name.trim() ||
++      resolveManagedRoute(page.route,'').adapter!=='workspace')
++    throw new ScreenConfigurationError('A dedicated route cannot use the generic dashboard adapter');
++  return {screenCode:page.code,route:page.route,title:page.name,views:[{id:'overview',label:page.name}]};
++}
++
++/** A single empty subclass for all generic governed dashboards. */
++export class GovernedMasterDashboard extends MasterDashboard {}
++
++export function connectGovernedMasterDashboard(root:HTMLElement,manager:ScreenManager,page:GovernedDashboardPage,current:()=>boolean) {
++  const config=governedDashboardDescriptor(page);
++  const releaseGuard=requireMasterDashboard(root);
++  try {
++    const master=new GovernedMasterDashboard(root,manager,{id:'governed:'+page.code,route:page.route},config,{
++      current,revision:()=>0,canDismiss:()=>false,className:'pc-dashboard-dialog',
++      headingSelector:'h2',closeSelector:'[data-dashboard-close]',statusKey:'dashboard-dialog-status',
++    },releaseGuard);
++    return {code:page.code,route:page.route,master};
++  } catch (error) {
++    releaseGuard();
++    throw error;
++  }
++}
+diff --git a/websites/typescript/src/growth/dashboard.ts b/websites/typescript/src/growth/dashboard.ts
+index 43892bd8032ccd5f692b2967883ee4f5982d0658..71e9e2e354fbc8a04fe71ac693c4f8b5e1bb951a 100644
+--- a/websites/typescript/src/growth/dashboard.ts
++++ b/websites/typescript/src/growth/dashboard.ts
+@@ -11,16 +11,34 @@ import {briefsView,bindBriefs} from './briefs';
+ import {searchView,contactView,duplicatesView,bindContacts} from './contacts';
+ import {operationsView,bindOperations} from './operations';
+ import {registry,stages,type Pipeline} from '../../../../packages/shared/src/growth/contract';
+-import {renderShell,bindShell} from '../shell';
++import {requireScreenManager} from '../../../../packages/primecare_ui/web/screen-manager';
++import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
++import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
++import {resolveManagedRoute} from '../managed-routes';
++import type {ShellContent} from '../shell';
+ import {growthDashboardStateMarkup,growthMetricMarkup} from '../../../../packages/primecare_ui/web/growth-dashboard-controls';
+ import {GrowthClient} from './client';
+ import {esc,growthForms,formValues,due,money,type T} from './forms';
++class FounderGrowthMasterDashboard extends MasterDashboard {}
+ export async function renderGrowth(root:HTMLElement,gateway:string){
+  const owner=growthOwner(root);if(!owner.current())return;if(!owner.token){owner.redirect();return;}
++ const entry=resolveManagedRoute('/growth',''),manager=requireScreenManager(root);
++ const release=requireMasterDashboard(root);
++ let master:FounderGrowthMasterDashboard;
++ try{
++  master=new FounderGrowthMasterDashboard(root,manager,entry,{screenCode:'founder_growth_dashboard',
++   route:entry.route,title:registry.locales.en.title,views:[{id:'overview',label:registry.locales.en.title}]},
++   {current:owner.current,revision:()=>0,canDismiss:()=>false,className:'growth-dashboard-dialog',
++    statusKey:'growth-dashboard-dialog-status',headingSelector:'h2',closeSelector:'[data-growth-dashboard-close]'},release);
++ }catch(error){release();owner.fail(error);return;}
++ owner.onDispose(()=>master.dispose());
+  const transport=new GrowthClient(gateway,owner.token,true),receipts=new Map<string,GrowthReceipt>();
+  let command='',operation:{key:string;control:string;drafts:Map<string,Record<string,string>>}|undefined,loading=false;
+  const client=transport;let report:any=null,reportPeriod:any=null,marketingStatement:any=null,marketingMonth:string|undefined=undefined;let data:any,locale:'en'|'fr'|'es'=document.documentElement.lang==='fr'?'fr':document.documentElement.lang==='es'?'es':'en',offset=0,filters:Record<string,string>={},notice='',busy=false,readVersion=0;
+  const t:T=key=>esc((registry.locales as Record<string,Record<string,string>>)[locale][key]??registry.locales.en[key as keyof typeof registry.locales.en]??key);
++ const mount=(shell:ShellContent,profileScope='')=>master.mount({shell,locale,profileScope,allowedViews:['overview'],
++  view:'overview',current:owner.current,select:()=>{},navigationTitle:registry.locales[locale].title,
++  defaultTheme:registry.visual.theme,searchScope:t(data?.scopeKey??'scope'),search:()=>[]});
+  const moneyText=(n:unknown)=>new Intl.NumberFormat(locale,{style:'currency',currency:'CAD'}).format(Number(n)/100);
+  const metric=(label:string,value:unknown,glyph:'people'|'clock'|'wallet',id:string)=>growthMetricMarkup(label,value,icon(glyph,'metric-'+id));
+  const drafts=()=>{const saved=new Map([...root.querySelectorAll<HTMLFormElement>('form[data-cy]')].map(f=>[f.dataset.cy!,{...formValues(f),...Object.fromEntries([...f.querySelectorAll<HTMLInputElement>('input[type=checkbox][name]')].map(e=>[e.name,e.checked?'true':'false']))}]));
+@@ -37,7 +55,9 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
+   const presentation={home:'/dashboard?enable-semantics=true',role:t('role_'+data.identity.role),navigation:`<a href="/business-plans">Business plans &amp; learning</a><a href="/growth?enable-semantics=true" aria-current="page" data-cy="sidebar-item-founder-growth-dashboard">${icon('chart','nav-growth')}${t('nav')}</a>${sectionNavigation(t,data)}${data.canOpenAdmin?`<a href="/platform/administration?enable-semantics=true" data-cy="growth-admin-link">${icon('home','nav-admin')}${t('tenant_console')}</a>`:''}${data.canReviewLook?`<a href="/appearance-review?enable-semantics=true" data-cy="look-nav">${esc(lookRegistry.locales[locale].title)}</a>`:''}<a href="/dashboard?enable-semantics=true" data-cy="growth-back">${icon('home','nav-back')}${t('back')}</a>`,menuLabel:t('nav'),controls:`<label>${t('language')}<select data-cy="growth-language">${['en','fr','es'].map(l=>`<option value="${l}" ${l===locale?'selected':''}>${l.toUpperCase()}</option>`).join('')}</select></label><button data-cy="growth-refresh">${icon('refresh','refresh')}${t('refresh')}</button>`,mainAttributes:'data-cy="screen-founder-growth-dashboard"',content:`${hero(t,data)}<details class="growth-reading"><summary>${t('reported')}</summary><p>${t('targets_note')}</p><p>${t('period_note')}</p></details><div role="status" aria-live="polite" data-cy="growth-notice">${notice?t(notice):''}</div><section class="section" data-cy="growth-summary"><h2>${icon('chart','summary')}${t('summary')}</h2><div class="metric-grid">${metric(t('leads'),data.stats.total,'people','leads')}${metric(t('overdue'),data.stats.overdue,'clock','overdue')}${metric(t('spend'),moneyText(data.spendCents),'wallet','spend')}</div><ul>${weak.join('')||`<li>${t('on_track')}</li>`}</ul></section><div data-cy="growth-funnels">${funnel('tenant')}${funnel('client')}</div><section class="section" data-cy="growth-leads"><h2>${icon('people','leads')}${t('leads')}</h2>${searchView(t,data)}<p>${t('shown')}: ${data.leads.length} / ${data.stats.total}</p>${table(['name','source','email','owner','fix'],leadRows)}<div class="pagination"><button data-cy="growth-prev" ${offset===0?'disabled':''}>←</button><button data-cy="growth-next" ${offset+100>=data.stats.total?'disabled':''}>→</button></div>${data.capabilities.createLead?forms.leads:''}</section><section class="section" data-cy="growth-campaigns"><h2>${icon('campaign','campaigns')}${t('campaigns')}</h2>${marketingImage(t)}<p>${t('shown')}: ${data.campaigns.length} / ${data.campaignTotal}</p>${table(['name','budget','spend','leads','cpl'],campaignRows)}${briefsView(t,data)}${data.capabilities.createCampaign?forms.campaigns:''}<ul>${data.sourcePerformance.map((s:any)=>`<li>${t(s.source)}: ${Number(s.leads)}</li>`).join('')}</ul></section><section class="section" data-cy="growth-tasks"><h2>${icon('check','tasks')}${t('tasks')}</h2><p>${t('task_note')}</p>${table(['description','owner','due','stage','evidence'],taskRows)}${data.capabilities.createTask?forms.tasks:''}</section>${businessView(t,data.business,moneyText,marketingStatement,marketingMonth,locale)}${alertsView(t,data)}${performanceView(t,data,report?.locale===locale?report:null,reportPeriod)}${intakeView(t,data)}${duplicatesView(t,data)}${operationsView(t,data)}<section class="section" data-cy="growth-integrations"><h2>${icon('link','integrations')}${t('integrations')}</h2><p>${t('manual')}</p><p>Google Ads / Facebook: ${t('not_connected')}</p><p>${t('marketing_owner')}</p></section><section class="section" data-cy="growth-operations"><h2>${icon('heart','operations')}${t('operations')}</h2><p>${t('operations_note')}</p></section>${data.canEditPlan?`<section class="section" data-cy="growth-plan">${forms.plan}</section>`:''}`};
+   if(!owner.current())return;prepared();
+   let shell:Element|null=null;const published=()=>!!shell&&root.contains(shell)&&root.querySelector('.app-shell')===shell;
+-  if(!owner.commit(()=>{renderShell(root,presentation);shell=root.querySelector('.app-shell');bindShell(root,registry.locales[locale].title,locale,t(data.scopeKey??'scope'),()=>[],data.identity.role+':'+data.identity.userId,registry.visual.theme,undefined,owner.current);return published();},published))return;
++  // MasterDashboard rolls back its failed shell. Report only if no replacement owns the root.
++  if(!owner.commit(()=>{shell=mount(presentation,data.identity.role+':'+data.identity.userId);return published();},
++   ()=>published()||(root.isConnected&&!root.childNodes.length)))return;
+   const active=owner.capture(),client=scopedClient(active),mutate=(action:()=>Promise<any>,preserveDrafts=false)=>runMutation(active,action,preserveDrafts);
+   root.querySelector('.app-shell')?.classList.add('growth-shell');
+   if(!data.capabilities.viewFunnels)root.querySelector('[data-cy="growth-funnels"]')?.remove();
+@@ -162,7 +182,7 @@ export async function renderGrowth(root:HTMLElement,gateway:string){
+   }finally{if(version===readVersion)loading=false;}
+  }
+  function renderState(loading:boolean,content:string){
+-  owner.commit(()=>renderShell(root,{home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content}));
++  owner.commit(()=>{mount({home:'/dashboard?enable-semantics=true',role:'',navigation:'',controls:'',hideChrome:true,mainAttributes:`data-cy="screen-founder-growth-dashboard" aria-busy="${loading}"`,content});});
+  }
+  renderState(true,growthDashboardStateMarkup({kind:'loading',message:t('loading')}));await load();
+ }
+diff --git a/websites/typescript/src/psw-workspace/index.ts b/websites/typescript/src/psw-workspace/index.ts
+index 476f5286c7bcc673518f6ced9cc040176d4cd9e8..cc2e3439a986f02c2ef1ef847a1e9e27a5b7a2c5 100644
+--- a/websites/typescript/src/psw-workspace/index.ts
++++ b/websites/typescript/src/psw-workspace/index.ts
+@@ -5,6 +5,11 @@ import {renderDemoPSW} from './demo.mjs';
+ import {renderLivePSW} from './live';
+ import {pswStyles} from './styles';
+ import {demoSnapshot,demoScope} from './demo-snapshot';
++import {MasterDashboard} from '../../../../packages/primecare_ui/web/master-dashboard';
++import {requireMasterDashboard} from '../../../../packages/primecare_ui/web/dashboard-render-policy';
++import {requireScreenManager,showScreenConfigurationError} from '../../../../packages/primecare_ui/web/screen-manager';
++import {resolveManagedRoute} from '../managed-routes';
++import careRegistry from '../../../../packages/shared/src/care/registry.json';
+ export class PSWClient extends BaseSessionClient {
+  protected endpoint='/v1/governance/care/workspace';
+  constructor(gateway:string,token:string,readonly tenant=''){super(gateway,token);}
+@@ -34,9 +39,36 @@ class ManagedDemoClient extends LiveWorkspaceClient {
+   const snapshot=this.accept(result);if(!this.reflected(snapshot,accepted))throw Error('Refresh to confirm the previous database save before another change.');return snapshot;
+  }
+ }
+-export async function renderPSW(root:HTMLElement,gateway:string){
++class CareDeliveryMasterDashboard extends MasterDashboard {}
++export async function renderPSW(root:HTMLElement,gateway:string){return renderCareDocument(root,gateway);}
++async function renderCareDocument(root:HTMLElement,gateway:string,failure?:{error:unknown}){
+  const owner=ownCareRoute(root);if(!owner.current())return;
+  const token=owner.token;if(!token){owner.dispose();root.replaceChildren();location.assign('/login?enable-semantics=true');return;}
++ if(location.pathname!=='/care')return renderCareWorkspace(root,gateway,owner,token);
++ const entry=resolveManagedRoute('/care',''),manager=requireScreenManager(root),release=requireMasterDashboard(root);
++ let content:HTMLElement|undefined,registered=false;
++ try{
++  const dashboard=new CareDeliveryMasterDashboard(root,manager,entry,{
++   screenCode:'care_delivery',route:entry.route,title:careRegistry.locales.en.title,views:[{id:'overview',label:careRegistry.locales.en.title}],
++  },{current:owner.current,revision:()=>0,canDismiss:()=>false,className:'care-dashboard-dialog',
++   statusKey:'care-dashboard-dialog-status',headingSelector:'h2',closeSelector:'[data-care-dashboard-close]'},release);
++  registered=true;owner.onDispose(()=>dashboard.dispose());
++  if(!owner.publish(()=>{content=dashboard.mountHostedContent({allowedViews:['overview'],view:'overview',current:owner.current});})||!content)return;
++ }catch(error){
++  if(!registered)release();
++  if(owner.current()){owner.dispose();showScreenConfigurationError(root,error);}
++  return;
++ }
++ const child=owner.child(content);
++ if(failure){
++  child.publish(()=>paintCareUnavailable(content!,failure.error,()=>void renderPSW(root,gateway)));
++  child.bind();
++  return;
++ }
++ await renderCareWorkspace(content,gateway,child,token,error=>{if(child.current())void renderCareDocument(root,gateway,{error});});
++}
++
++async function renderCareWorkspace(root:HTMLElement,gateway:string,owner:CareOwnership,token:string,showFailure?:(error:unknown)=>void){
+  if(!document.getElementById('psw-workspace-styles')){const style=document.createElement('style');style.id='psw-workspace-styles';style.textContent=pswStyles;document.head.append(style);}
+  if(!owner.publish(()=>{root.innerHTML='<main class="main" role="status"><h1>Loading care workspace…</h1><p>Reading authorized records from PostgreSQL.</p></main>';}))return;
+  const params=new URLSearchParams(location.search),api=new LiveWorkspaceClient(gateway,token,params.get('tenant')||'');
+@@ -47,16 +79,20 @@ export async function renderPSW(root:HTMLElement,gateway:string){
+    await renderPersonal(root,gateway,token,dataset,params.get('tenant')||'',owner);
+   }else if(dataset==='live'){
+    if(!info.liveCareAvailable)throw Error('A clinical or care-operations account is required for live care records. Use the database demo from administration.');
+-   await renderLivePSW(root,gateway,api,info,owner);
++   await renderLivePSW(root,gateway,api,info,owner,showFailure);
+   }else if(dataset==='demo'){
+    const demo=new ManagedDemoClient(gateway,token,params.get('tenant')||'',owner,info),data=await demo.read();await owner.whenActive();if(!owner.current())return;
+    await renderDemoPSW(root,gateway,data,demo,owner);
+   }else throw Error('Choose the live or demo dataset.');
+- }catch(error){await owner.whenActive();if(owner.current())careUnavailable(root,gateway,error,owner);}
++ }catch(error){await owner.whenActive();if(owner.current())careUnavailable(root,gateway,error,owner,showFailure);}
+ }
+-export function careUnavailable(root:HTMLElement,gateway:string,error:unknown,owner?:CareOwnership){
++export function careUnavailable(root:HTMLElement,gateway:string,error:unknown,owner?:CareOwnership,showFailure?:(error:unknown)=>void){
+  if(owner&&!owner.current())return;
+  if(owner&&(error as {status?:number}).status===401){owner.unauthorized();return;}
+- const draw=()=>{root.innerHTML='<main class="main"><h1>Care workspace unavailable</h1><p role="alert"></p><button data-retry>Retry</button> <a href="/success">Account</a> <a href="/psw?dataset=demo">Database demo</a></main>';root.querySelector('[role=alert]')!.textContent=(error as Error).message;root.querySelector<HTMLButtonElement>('[data-retry]')!.onclick=()=>void renderPSW(root,gateway);};
++ if(showFailure){showFailure(error);return;}
++ const draw=()=>paintCareUnavailable(root,error,()=>void renderPSW(root,gateway));
+  if(owner){owner.dispose();const errorOwner=ownCareRoute(root);if(errorOwner.current()){errorOwner.publish(draw);errorOwner.bind();}}else draw();
+ }
++function paintCareUnavailable(root:HTMLElement,error:unknown,retry:()=>void){
++ root.innerHTML='<main class="main"><h1>Care workspace unavailable</h1><p role="alert"></p><button data-retry>Retry</button> <a href="/success">Account</a> <a href="/psw?dataset=demo">Database demo</a></main>';root.querySelector('[role=alert]')!.textContent=(error as Error).message;root.querySelector<HTMLButtonElement>('[data-retry]')!.onclick=retry;
++}
+diff --git a/websites/typescript/src/psw-workspace/live.ts b/websites/typescript/src/psw-workspace/live.ts
+index df68cc36b03351241e4bdec1ed8ca5c054cc91ca..cbb3bbeecacd27d8ef260e1080f507e281ce658c 100644
+--- a/websites/typescript/src/psw-workspace/live.ts
++++ b/websites/typescript/src/psw-workspace/live.ts
+@@ -8,7 +8,7 @@ const today=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/Toronto',year
+ const add=(s:string,n:number)=>new Date(Date.parse(s+'T12:00:00Z')+n*864e5).toISOString().slice(0,10);
+ const mins=(s:string)=>Number(s.slice(0,2))*60+Number(s.slice(3,5));
+ const tabs=[['schedule','Schedule'],['day','My day'],['clients','Clients & care plans'],['visits','Visit notes & tasks'],['handover','Handover'],['timesheets','Timesheets'],['incidents','Concerns & follow-up'],['availability','Availability & staffing'],['guide','Guide']];
+-export async function renderLivePSW(root:HTMLElement,gateway:string,api:PSWClient,info:any,owner:CareOwnership){
++export async function renderLivePSW(root:HTMLElement,gateway:string,api:PSWClient,info:any,owner:CareOwnership,showFailure?:(error:unknown)=>void){
+  if(!owner.current())return;
+  const client=new LiveCareClient(gateway,owner.token!,owner);
+  let tab='schedule',date=today(),view='day',board:any=null,care:any=null,caseId:string|undefined,epoch=0,loading=false,notice='';
+@@ -30,7 +30,7 @@ export async function renderLivePSW(root:HTMLElement,gateway:string,api:PSWClien
+  }
+  async function mountCare(selected?:string){if(!owner.current()||owner.busy())return;const mounted=document.createElement('div');host.replaceChildren(mounted);const child=owner.child(mounted);await renderCare(mounted,gateway,{initialCase:selected,owner:child,client,onSnapshot:snapshot=>{if(!child.current())return;client.confirmSnapshot(snapshot);care=snapshot;if(snapshot.detail?.id)caseId=snapshot.detail.id;picker.replaceChildren();normalize();void loadBoard(false);}});if(child.current())normalize();}
+  async function openCase(id:string){if(!id||!owner.current()||owner.busy())return;caseId=id;tab='visits';picker.replaceChildren();await mountCare(id);normalize();drawBoard();}
+- async function loadBoard(report=true){if(!owner.current())return;const version=++epoch;try{const weekday=new Date(date+'T12:00:00Z').getUTCDay(),from=view==='week'?add(date,-(weekday===0?6:weekday-1)):date,to=view==='week'?add(from,6):date;const next=await api.read('live',{from,to});await owner.whenActive();if(version!==epoch||!owner.current())return;board=next;notice=board.truncated?'Showing the first 1,000 authorized appointments. Narrow the date range.':'';drawBoard();normalize();}catch(e){await owner.whenActive();if(version!==epoch||!owner.current())return;if([401,403].includes((e as {status?:number}).status??0)){careUnavailable(root,gateway,e,owner);return;}notice=(e as Error).message;if(report){board=null;boardHost.innerHTML='<div class="live-empty" role="alert"></div>';boardHost.firstElementChild!.textContent=notice;}normalize();}}
++ async function loadBoard(report=true){if(!owner.current())return;const version=++epoch;try{const weekday=new Date(date+'T12:00:00Z').getUTCDay(),from=view==='week'?add(date,-(weekday===0?6:weekday-1)):date,to=view==='week'?add(from,6):date;const next=await api.read('live',{from,to});await owner.whenActive();if(version!==epoch||!owner.current())return;board=next;notice=board.truncated?'Showing the first 1,000 authorized appointments. Narrow the date range.':'';drawBoard();normalize();}catch(e){await owner.whenActive();if(version!==epoch||!owner.current())return;if([401,403].includes((e as {status?:number}).status??0)){careUnavailable(root,gateway,e,owner,showFailure);return;}notice=(e as Error).message;if(report){board=null;boardHost.innerHTML='<div class="live-empty" role="alert"></div>';boardHost.firstElementChild!.textContent=notice;}normalize();}}
+  function record(v:any){return `<strong>${esc(v.client_name)}</strong><span class="provider-name">${esc(v.provider_name)} · ${esc(v.provider_role||'Unassigned')}</span><span class="service">${esc(v.service_name)} · ${esc(v.care_state||v.status)}</span>`;}
+  function drawBoard(){
+   if(!owner.current())return;
+diff --git a/websites/typescript/src/workspace.ts b/websites/typescript/src/workspace.ts
+index 90352b70fc643ed789ef30ac3714f50ac1ce2c6a..6b8fa7a0a7d998defbf98352c9c8ac0bd0f9cd7f 100644
+--- a/websites/typescript/src/workspace.ts
++++ b/websites/typescript/src/workspace.ts
+@@ -1,3 +1,4 @@
++import {connectGovernedMasterDashboard} from './governed-master-dashboard';
+ import {mountClientInvoices} from './client-invoice-host';
+ import {requireScreenManager, showScreenConfigurationError, ScreenConfigurationError} from '../../../packages/primecare_ui/web/screen-manager';
+ import {businessRoles as planRoles} from '../../../packages/shared/src/business-plans/policy.mjs';
+@@ -63,6 +64,8 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
+   const eventTarget=root.ownerDocument.defaultView??window;
+   let retired=false,suspended=false;let disposeInvoices=()=>{},disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
+   let renderVersion=0,dirtyForm=false;
++  let dashboard:ReturnType<typeof connectGovernedMasterDashboard>|undefined;
++  const retireDashboard=()=>{const owner=dashboard;dashboard=undefined;owner?.master.dispose();};
+   const onInput=()=>{dirtyForm=true;};
+   const ownsRoot=()=>!retired&&workspaceLoads.get(root)===generation;
+   const isCurrent=()=>{if(!ownsRoot()||suspended)return false;if(root.isConnected===false){retire();return false;}return true;};
+@@ -82,7 +85,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
+     else redraw();
+   };
+   const retire=()=>{
+-    if(retired)return;retired=true;renderVersion++;
++    if(retired)return;retired=true;renderVersion++;retireDashboard();
+     disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+     eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
+     if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);releaseSnapshot();}
+@@ -224,7 +227,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
+     // Back/Forward can reach a document route in an older workspace history entry.
+     // Only the server-filtered screen/action snapshot may request this handoff.
+     if(!account&&documentRoute(location.pathname)&&(page||data.actions?.some(s=>s.route===location.pathname))){handoff(location.pathname,true);return;}
+-    if(!page&&!account){root.innerHTML=`<main data-cy="error-state"><h1>${t('forbidden')}</h1><a href="${escapeHtml(routeUrl(data.landing??'/'))}">${t('title')}</a></main>`;return;}
++    if(!page&&!account){retireDashboard();root.innerHTML=`<main data-cy="error-state"><h1>${t('forbidden')}</h1><a href="${escapeHtml(routeUrl(data.landing??'/'))}">${t('title')}</a></main>`;return;}
+     const id=account?'typescript:account':'governed:'+page!.code,route=location.pathname;
+     if(!enter(id,route))return;
+     // DOM handlers belong to this particular render, not just to its session.
+@@ -308,10 +311,26 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
+       return `<section class="section" data-cy="${escapeHtml(section.testId||section.code)}"><h2 class="media-section-heading">${media.sectionIcon(section.type)}${escapeHtml(section.name)}</h2>${body}</section>`;
+     }).join('')??'';
+     const tableRows=rows.slice(pageNumber*25,(pageNumber+1)*25).map(p=>`<tr data-cy="inventory-${escapeHtml(p.code)}"><th scope="row">${allowed.has(p.code)?link(p):escapeHtml(p.name)}</th><td>${escapeHtml(p.appCode)}</td><td>${escapeHtml(p.role)}</td><td>${authorizedReadiness?(p.productionReady===true?escapeHtml(readinessText('ready')):p.productionReady===false?t('pending'):escapeHtml(readinessText('unavailable'))):t('created')}</td><td>${escapeHtml(p.blockers.join('; '))}${details(p)}</td></tr>`).join('');
+-    renderShell(root,{home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
++    const shell={home:escapeHtml(routeUrl(data.landing??'/')),role:escapeHtml(media.roleLabel(data.identity.role)),navigation:nav,menuLabel:t('pages'),controls:`<details class="shell-utilities" data-cy="shell-utilities"><summary>${{en:"More",fr:"Plus",es:"Más"}[locale]}</summary><div class="shell-utility-actions" data-cy="shell-utility-actions"><button data-cy="workspace-training">${escapeHtml(trainingText(gateway,locale,'nav'))}</button><button data-cy="workspace-refresh">${t('refresh')}</button><a href="${routeUrl('/success')}" data-route="/success" data-cy="workspace-account">${t('account')}</a><button data-cy="workspace-logout">${t('sign_out')}</button></div></details>`,mainAttributes:`data-cy="screen-${escapeHtml(page?.code??'account')}"`,content:`<div class="screen-header">${media.heading(account?text('account'):page!.name,media.roleLabel(data.identity.role),page?.renderer==='dashboard'?'chart':'home','workspace-title')}</div>
+       ${account?`<section class="section"><h2>Continue to your workspace</h2><p>Your sign-in is complete. Open your dashboard to see the work available to you.</p><a class="guide-dashboard-link" href="${escapeHtml(routeUrl(data.identity.role==='tenant_admin'?'/tenant-dashboard':['code_admin','central_admin','platform_admin'].includes(data.identity.role)?'/platform/administration':data.landing??'/'))}">Open dashboard</a></section>`+accountMarkup(t):
+       `${homeActions}${page?.renderer!=='dashboard'?sections:''}${workspaceOverview({t,cards,chart:chart(),metrics:data.overview.metrics.map(m=>metric(t(m.code),m.available?m.count:(data.resources['workspace.unconnected']??text('unavailable')))).join(''),activities:activities(),details:details(page!)})}
+-      ${workspaceInventory({t,inventoryOpen,readiness:authorizedReadiness?{summary:readinessText('pages'),empty:readinessText('empty')}:undefined,search,pendingOnly,rowCount:rows.length,tableRows,pageNumber,countPages})}`}`});
++      ${workspaceInventory({t,inventoryOpen,readiness:authorizedReadiness?{summary:readinessText('pages'),empty:readinessText('empty')}:undefined,search,pendingOnly,rowCount:rows.length,tableRows,pageNumber,countPages})}`}`};
++    const searchEntries=()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)}));
++    const searchScope='Authorized screens and tasks for this account';
++    const profileScope=data.identity.role+':'+data.identity.userId;
++    if(!account&&page?.renderer==='dashboard'){
++      try{
++        if(!dashboard||dashboard.code!==page.code||dashboard.route!==route){
++          retireDashboard();
++          const exactRoute=route;
++          dashboard=connectGovernedMasterDashboard(root,manager,page,()=>location.pathname===exactRoute&&currentNavigation());
++        }
++        dashboard.master.mount({locale,profileScope,allowedViews:['overview'],view:'overview',shell,current:active,select:()=>{},search:searchEntries,searchScope});
++      }catch(error){fail(error);return;}
++    }else{
++      retireDashboard();
++      renderShell(root,shell);
++    }
+     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
+     if(page && data.reporting?.screens.includes(page.code)) {
+       let panel=reportPanels.get(page.code);
+@@ -324,7 +343,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
+       root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
+       reportLifecycles.get(page.code)?.redraw();if(!active())return;
+     }
+-    bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,'Authorized screens and tasks for this account',()=>[...data.screens,...(data.actions??[])].map(s=>({title:s.name,detail:s.role+' · '+s.route,open:()=>navigate(s.route,active)})),data.identity.role+':'+data.identity.userId);
++    if(!dashboard)bindShell(root,account?text('account'):page?.name??'PrimeCare',locale,searchScope,searchEntries,profileScope);
+     root.querySelector<HTMLButtonElement>('[data-cy="workspace-training"]')!.onclick=()=>{if(active())openAdminTraining(gateway,data.identity.userId);};
+     root.querySelector<HTMLButtonElement>('[data-cy="training-director-open-training"]')?.addEventListener('click',()=>{
+       if(active()&&trainingHome)openAdminTraining(gateway,data.identity.userId,locale);

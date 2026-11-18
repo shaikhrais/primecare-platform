@@ -1,0 +1,49 @@
+name: Preflight governed MasterDashboard (isolated)
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/governed-master-dashboard-preflight.yml'
+      - 'tests/fixtures/governed-master-dashboard/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixture:
+    name: Isolated dashboard contracts and browser navigation
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: psw_test, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: '${{ github.sha }}'
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - name: Apply the candidate only in this checkout
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/governed-master-dashboard/candidate.patch
+          git apply --numstat "$patch" | cut -f3 | sort > "$RUNNER_TEMP/actual-paths"
+          diff -u tests/fixtures/governed-master-dashboard/allowed-paths.txt "$RUNNER_TEMP/actual-paths"
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+      - run: npm ci --ignore-scripts
+      - name: Check project types before starting a browser
+        run: npx -p typescript@5.9.3 tsc --noEmit --skipLibCheck --target ES2022 --module ESNext --moduleResolution Bundler --resolveJsonModule --esModuleInterop --lib ES2022,DOM,DOM.Iterable websites/typescript/src/main.ts
+      - run: node --test scripts/test-governed-master-dashboard.mjs scripts/test-typescript-screen-manager.mjs scripts/test-growth-manager.mjs scripts/test-care-live-manager.mjs scripts/test-personal-care-manager.mjs scripts/test-coordinator-demo-manager.mjs
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/test-governed-master-navigation.mjs
+      - run: node scripts/test-growth-loading-browser.mjs
+      - run: node scripts/test-care-master-dashboard-browser.mjs
+      - name: Confirm the existing Tenant Admin dashboard still works
+        env: {PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'}
+        run: node scripts/test-tenant-workspace-layout.mjs
