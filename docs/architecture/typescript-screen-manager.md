@@ -3,6 +3,10 @@
 Status: isolated candidate, not deployed or production-approved.
 Baseline: fad8a62e1a32c642df26f50c7b45b2c521c62800.
 
+## Master Dashboard follow-up
+
+The separate [Master Dashboard architecture and migration guide](master-dashboard-architecture.md) describes the inheritable presentation class, scoped dialog manager, and Tenant Admin adapter. Its GitHub preflight applies the candidate only in a disposable checkout. The guide distinguishes the working production pilot from the structural refactor and from native Apple/Android acceptance.
+
 ## Scope and ownership
 
 The nine projects in websites/typescript/projects.json use the TypeScript entry selected by the production runtime policy. A Flutter-only manager does not cover this entry. main.ts now goes through the shared web ScreenManager for every existing route dispatch. The manager is presentation-only and cannot authenticate, authorize, choose tenants, call APIs or manufacture grants.
