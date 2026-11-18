@@ -116,7 +116,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: python -m pip install -r tools/governance-production/requirements.txt
       - run: python -m unittest tools.deployment.test_portal_artifact tools.deployment.test_typescript_release tools.deployment.test_dashboard_portal_contract
-      - run: node --test scripts/test-typescript-screen-manager.mjs scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-manager-boundaries.mjs
+      - name: Verify strict browser compilation and dashboard navigation
+        run: node --test scripts/test-typescript-strict-contracts.mjs scripts/test-typescript-screen-manager.mjs scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-manager-boundaries.mjs scripts/test-platform-browser-fixture.mjs
       - name: Confirm project runtime policy
         run: python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
       - name: Build with the existing read-only metadata export

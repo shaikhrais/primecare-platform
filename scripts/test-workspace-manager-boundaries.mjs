@@ -46,14 +46,14 @@ const fixtures = {
   './screen-text': `export const liveScreenText=()=>({text:(_screen,_locale,_key,fallback)=>fallback,subscribe:callback=>{globalThis.__workspaceRouteLive.add(callback);return ()=>globalThis.__workspaceRouteLive.delete(callback);}});`,
   './account': `export const accountMarkup=()=>''; export const bindAccount=()=>()=>{};`,
   './auth-client': `export const signOut=async(...args)=>{globalThis.__signouts.push(args);await globalThis.__signoutResponse();};`,
-  './shell': `export const renderShell=(root,options)=>root.renderShell(options); export const bindShell=(root,_title,_locale,_scope,entries)=>{root.entries=entries();};`,
+  './shell': `export const shellMarkup=()=>{throw Error('Detached layout slots are outside the route fixture');}; export const renderShell=(root,options)=>root.renderShell(options); export const bindShell=(root,_title,_locale,_scope,entries)=>{root.entries=entries();};`,
   './reports': `export const reportPanel=()=>document.createElement('section');`,
   './internal-calls': `export const renderInternalCalls=async(root)=>{root.innerHTML='calls fixture';};`,
 };
 const client = await importCode({stdin: {contents: `export * from './websites/typescript/src/workspace';
   export * from './packages/primecare_ui/web/screen-manager'; export * from './websites/typescript/src/managed-routes';`, resolveDir: process.cwd()},
   plugins: [{name: 'workspace-peripheral-fixtures', setup(builder) {
-    builder.onResolve({filter: /^\.\//}, args => args.importer.endsWith('/workspace.ts') && fixtures[args.path] ? {path: args.path, namespace: 'fixture'} : null);
+    builder.onResolve({filter: /^\.\//}, args => (args.importer.endsWith('/workspace.ts') || (args.importer.endsWith('/master-dashboard.ts') && args.path === './shell')) && fixtures[args.path] ? {path: args.path, namespace: 'fixture'} : null);
     builder.onLoad({filter: /.*/, namespace: 'fixture'}, args => ({contents: fixtures[args.path], loader: 'js'}));
   }}]});
 
@@ -66,7 +66,9 @@ class Element {
   setAttribute(key, value) {this.attrs.set(key, value);}
   getAttribute(key) {return this.attrs.get(key) ?? null;}
   removeAttribute(key) {this.attrs.delete(key);}
-  replaceChildren(...children) {this.children = children; this.innerHTML = ''; this.anchors = []; this.controls.clear();}
+  replaceChildren(...children) {this.shell?.remove(); this.children = children; this.innerHTML = ''; this.anchors = []; this.controls.clear();}
+  contains(element) {return element === this || element === this.shell || this.anchors.includes(element);}
+  remove() {if(this.parentElement?.shell !== this)return; const root=this.parentElement; this.parentElement=null; this.isConnected=false; root.shell=null; root.replaceChildren(); root.entries=[];}
   insertBefore() {} insertAdjacentHTML() {} setSelectionRange() {}
   focus() {this.focusCount++;} click(){globalThis.__downloads.push({href:this.href,download:this.download});}
   addEventListener(name, callback) {this.listeners.set(name, callback);}
@@ -74,6 +76,7 @@ class Element {
   querySelectorAll(selector) {return selector === 'a[data-route]' ? this.anchors.filter(anchor => anchor.dataset.route !== undefined) : [];}
   querySelector(selector) {
     if (selector === 'main') return this;
+    if (selector === '[data-cy=app-shell]') return this.shell ?? null;
     const cy = selector.match(/\[data-cy=["']?([^\]"']+)["']?\]/)?.[1];
     const key = cy ?? selector;
     if (cy && !this.innerHTML.includes('data-cy='+cy) && !this.innerHTML.includes('data-cy=\"'+cy+'\"')) return null;
@@ -82,6 +85,7 @@ class Element {
   }
   renderShell(options) {
     this.renderCount++;this.controls.clear();this.children=[];
+    this.shell ??= Object.assign(new Element(this.ownerDocument), {parentElement:this});
     this.innerHTML = options.mainAttributes + options.navigation + options.controls + options.content;
     this.anchors = [];
     for (const match of this.innerHTML.matchAll(/<a\b([^>]*)>/g)) {
@@ -183,7 +187,8 @@ for(const name of controls)for(const interruption of ['failure','remount','route
  const requests=f.requests.length,html=f.root.innerHTML;
  await invoke(old);
  assert.equal(f.requests.length,requests);assert.equal(__training.length,0);assert.equal(__signouts.length,0);assert.equal(__downloads.length,0);
- if(interruption!=='session')assert.equal(f.root.innerHTML,html);
+ if(interruption==='detach')assert.equal(f.root.innerHTML,'','detaching retires the owned shell without rendering replacement content');
+ else if(interruption!=='session')assert.equal(f.root.innerHTML,html);
  if(interruption==='failure')checkRetired(f);
  if(interruption==='session')assert.equal(f.storage.getItem('primecare_session'),'replacement-session');
 });

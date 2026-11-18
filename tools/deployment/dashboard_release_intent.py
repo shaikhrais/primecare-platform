@@ -25,13 +25,33 @@ INFRA = frozenset({
     "tools/deployment/dashboard_publish_scope.py",
 })
 INFRA_REPAIR = frozenset({INFRA_MARKER, ".github/workflows/verify-account-mutations.yml"})
+REPAIR_BASE = "94a7c98a59f8d4aa4fec32734671c9a3df297a46"
+REPAIR_INTENT = {"version": 1, "intent": "smart-dashboard-runtime-repair", "base": REPAIR_BASE}
+REPAIR_PATHS = frozenset({
+    INTENT, INFRA_MARKER,
+    ".github/workflows/smart-deploy-dashboard-portal.yml",
+    ".github/workflows/record-own-sessions-evidence.yml",
+    ".github/workflows/record-account-lifecycle-evidence.yml",
+    "tools/deployment/dashboard_publish_scope.py",
+    "tools/deployment/test_dashboard_release_intent.py",
+    "packages/primecare_ui/web/screen-manager.ts",
+    "scripts/test-platform-browser-fixture.mjs",
+    "scripts/test-workspace-route-handoffs.mjs",
+    "scripts/test-workspace-manager-boundaries.mjs",
+    "scripts/fixtures/workspace-owned-children.mjs",
+    "docs/api/workflow-contract-source-amendments.json",
+})
 RUNTIME_PATHS = Path("tools/deployment/dashboard-runtime-paths.txt")
 
 
-def classify(changed, runtime_paths, raw_intent=None):
+def classify(changed, runtime_paths, raw_intent=None, before=None):
     """Return a writer lane. Any malformed, mixed marked push must fail."""
     if not changed:
         raise ValueError("Cannot classify an empty push diff")
+    if isinstance(raw_intent, dict) and raw_intent.get("intent") == "smart-dashboard-runtime-repair":
+        if changed != REPAIR_PATHS or before != REPAIR_BASE or raw_intent != REPAIR_INTENT or type(raw_intent["version"]) is not int:
+            raise ValueError("Repair must match the exact reviewed dashboard diff and parent")
+        return "smart-dashboard-runtime"
     if INFRA_MARKER in changed:
         if changed not in (INFRA, INFRA_REPAIR):
             raise ValueError("Unexpected file in Smart Deploy infrastructure install")
@@ -72,7 +92,7 @@ def main():
     paths = changed_paths(args.before, args.after)
     runtime_paths = frozenset(RUNTIME_PATHS.read_text().splitlines())
     intent = json.loads(Path(INTENT).read_text()) if INTENT in paths else None
-    lane = classify(paths, runtime_paths, intent)
+    lane = classify(paths, runtime_paths, intent, args.before)
     with open(os.environ["GITHUB_OUTPUT"], "a") as output:
         output.write(f"lane={lane}\n")
     print(f"Production writer lane: {lane}")

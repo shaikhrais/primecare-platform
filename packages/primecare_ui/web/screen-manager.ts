@@ -70,10 +70,10 @@ export class ScreenManager {
       throw new ScreenConfigurationError(`Missing dashboard registration for ${id} at ${route}`);
     }
     if (this.dashboardRoots.has(root)) throw new ScreenConfigurationError('Duplicate dashboard presentation owner');
-    const ownsRegistration = () => this.ownsDashboardDialogs(root,dialogs);
-    const dialogs = new DashboardDialogManager(root, {
+    const ownsRegistration = (): boolean => this.ownsDashboardDialogs(root,dialogs);
+    const dialogs: DashboardDialogManager = new DashboardDialogManager(root, {
       ...options,
-      current: () => ownsRegistration() && options.current() && ownsRegistration(),
+      current: (): boolean => ownsRegistration() && options.current() && ownsRegistration(),
     }, () => {
       this.dashboardScopes.delete(dialogs);
       if (this.dashboardRoots.get(root) === dialogs) {

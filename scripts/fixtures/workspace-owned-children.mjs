@@ -47,7 +47,7 @@ const fixtures = {
   './screen-text': `export const liveScreenText=()=>({text:(_screen,_locale,_key,fallback)=>fallback,subscribe:callback=>{globalThis.__workspaceRouteLive.push(callback);globalThis.__boundary.live.add(callback);return ()=>{globalThis.__boundary.live.delete(callback);};}});`,
 
   './auth-client': `export const signOut=async(...args)=>{globalThis.__boundary.signouts.push(args);return globalThis.__boundary.signOut();};`,
-  './shell': `export const renderShell=(root,options)=>root.renderShell(options); export const bindShell=(root,_title,_locale,_scope,entries)=>{root.entries=entries();};`,
+  './shell': `export const shellMarkup=()=>{throw Error('Detached layout slots are outside the route fixture');}; export const renderShell=(root,options)=>root.renderShell(options); export const bindShell=(root,_title,_locale,_scope,entries)=>{root.entries=entries();};`,
 
   './internal-calls': `export const renderInternalCalls=async(root)=>{root.innerHTML='calls fixture';};`,
 };
@@ -57,7 +57,7 @@ const client = await importCode({stdin: {contents: `export * from './websites/ty
     builder.onResolve({filter: /^\.\//}, args => {
  if(args.importer.endsWith('/account.ts') && ['./sessions-panel','./voice-pairing-panel','./sms-verification-panel'].includes(args.path))return {path:args.path,namespace:'account-child-fixture'};
  if(args.importer.endsWith('/reports.ts')&&args.path==='./screen-text')return {path:args.path,namespace:'fixture'};
- return args.importer.endsWith('/workspace.ts')&&fixtures[args.path]?{path:args.path,namespace:'fixture'}:null;
+ return (args.importer.endsWith('/workspace.ts') || (args.importer.endsWith('/master-dashboard.ts') && args.path === './shell'))&&fixtures[args.path]?{path:args.path,namespace:'fixture'}:null;
  });
  builder.onLoad({filter: /.*/, namespace:'account-child-fixture'},()=>({contents:'export const sessionsMarkup=()=>"";export const voicePairingMarkup=()=>"";export const smsVerificationMarkup=()=>"";export const bindSessions=()=>()=>{};export const bindVoicePairing=()=>()=>{};export const bindSmsVerification=()=>()=>{};',loader:'js'}));
     builder.onLoad({filter: /.*/, namespace: 'fixture'}, args => ({contents: fixtures[args.path], loader: 'js'}));
@@ -67,7 +67,7 @@ const client = await importCode({stdin: {contents: `export * from './websites/ty
 // and command-palette entries. This is not browser/Cypress or layout acceptance.
 class Element {
   attrs = new Map(); dataset = {}; children = []; controls = new Map(); anchors = []; entries = []; listeners = new Map();
-  _html=''; get innerHTML(){return this._html;} set innerHTML(value){this._html=value;this.controls.clear();this.children=[];this.anchors=[];} renderCount = 0; focusCount = 0; open = false; isConnected = true; style = {getPropertyValue: () => '', setProperty() {}, removeProperty() {}};
+  _html=''; get innerHTML(){return this._html;} set innerHTML(value){if(this.shell){this.shell.parentElement=null;this.shell.isConnected=false;this.shell=null;}this._html=value;this.controls.clear();this.children=[];this.anchors=[];} renderCount = 0; focusCount = 0; open = false; isConnected = true; style = {getPropertyValue: () => '', setProperty() {}, removeProperty() {}};
   constructor(doc) {this.ownerDocument = doc;}
   setAttribute(key, value) {this.attrs.set(key, value);}
   getAttribute(key) {return this.attrs.get(key) ?? null;}
@@ -77,11 +77,12 @@ class Element {
   focus() {this.focusCount++;}
   addEventListener(name, callback) {if(!this.listeners.has(name))this.listeners.set(name,new Set());this.listeners.get(name).add(callback);}
   removeEventListener(name,callback){this.listeners.get(name)?.delete(callback);}
-  closest(){return null;} remove(){this.isConnected=false;}
+  closest(){return null;} remove(){this.isConnected=false;const root=this.parentElement;if(root?.shell===this){this.parentElement=null;root.shell=null;root.innerHTML='';root.entries=[];}else if(root){root.children=root.children.filter(node=>node!==this);this.parentElement=null;}}
   click(){globalThis.__boundary.downloads.push(this.download);}
   querySelectorAll(selector) {return selector === 'a[data-route]' ? this.anchors.filter(anchor => anchor.dataset.route !== undefined) : [];}
   querySelector(selector) {
     if (selector === 'main') return this; if(selector==='input:focus,textarea:focus,select:focus')return null; if(selector==='[data-cy=change-password-form]'&&!this.innerHTML.includes('change-password-form'))return null;
+    if (selector === '[data-cy=app-shell]') return this.shell ?? null;
     const cy = selector.match(/\[data-cy=["']?([^\]"']+)["']?\]/)?.[1];
     const key = cy ?? selector;
     if (!this.controls.has(key)) this.controls.set(key, new Element(this.ownerDocument));
@@ -89,7 +90,9 @@ class Element {
   }
   renderShell(options) {
     this.renderCount++;
+    const shell=this.shell??new Element(this.ownerDocument);
     this.innerHTML = options.mainAttributes + options.navigation + options.controls + options.content;
+    this.shell=Object.assign(shell,{parentElement:this,isConnected:true});
     this.anchors = [];
     for (const match of this.innerHTML.matchAll(/<a\b([^>]*)>/g)) {
       const anchor = new Element(this.ownerDocument);
@@ -146,7 +149,7 @@ export {browser,serverData,client,Element};
 const adaptWorkspaceDocument=(root,doc,view)=>{
  const style=()=>{const values=new Map();return {scrollbarColor:'',getPropertyValue:k=>values.get(k)??'',setProperty:(k,v)=>values.set(k,v),removeProperty:k=>values.delete(k)};};
  root.style=style();doc.documentElement.style=style();doc.body=doc.createElement('body');doc.body.style=style();root.id='app';root.parentElement=doc.body;root.parentNode=doc.body;
- root.contains=node=>node===root||[...root.controls.values()].includes(node);root.scrollTo=()=>{};
+ root.contains=node=>node===root||node===root.shell||[...root.controls.values()].includes(node);root.scrollTo=()=>{};
  doc.querySelector=selector=>selector==='#app'?root:null;doc.defaultView=view;view.location=globalThis.location;view.history=globalThis.history;view.history.scrollRestoration='auto';
  const failures={responsive:false};view.getComputedStyle=()=>({getPropertyValue:k=>k==='--primecare-responsive-styles'?(failures.responsive?'0':'1'):doc.documentElement.style.getPropertyValue(k)});globalThis.getComputedStyle=view.getComputedStyle;
  const scrolls=[];view.scrollTo=options=>scrolls.push(options);return {scrolls,failures};

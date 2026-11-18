@@ -1,5 +1,5 @@
 import unittest
-from .dashboard_release_intent import INFRA, INTENT, classify
+from .dashboard_release_intent import INFRA, INTENT, REPAIR_BASE, REPAIR_INTENT, REPAIR_PATHS, classify
 
 RUNTIME = frozenset({"one.ts", "two.ts"})
 VALID = {"version": 1, "intent": "smart-dashboard-runtime"}
@@ -35,3 +35,12 @@ class DashboardReleaseIntentTests(unittest.TestCase):
     def test_empty_diff_fails(self):
         with self.assertRaises(ValueError):
             classify(frozenset(), RUNTIME)
+
+    def test_exact_activation_repair_remains_smart_only(self):
+        self.assertEqual(classify(REPAIR_PATHS, RUNTIME, REPAIR_INTENT, REPAIR_BASE),
+                         "smart-dashboard-runtime")
+
+    def test_repair_rejects_wrong_parent_and_unrelated_files(self):
+        for paths, before in [(REPAIR_PATHS, "a" * 40), (REPAIR_PATHS | {"prod.sql"}, REPAIR_BASE)]:
+            with self.subTest(paths=paths, before=before), self.assertRaises(ValueError):
+                classify(paths, RUNTIME, REPAIR_INTENT, before)
