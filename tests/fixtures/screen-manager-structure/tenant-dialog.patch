@@ -2,7 +2,7 @@ diff --git a/packages/primecare_ui/web/dashboard-dialog-manager.ts b/packages/pr
 new file mode 100644
 --- /dev/null
 +++ b/packages/primecare_ui/web/dashboard-dialog-manager.ts
-@@ -0,0 +1,123 @@
+@@ -0,0 +1,141 @@
 +type DismissReason = 'discard' | 'escape';
 +type CloseReason = 'local' | 'history';
 +export type DashboardDialogOptions = Readonly<{
@@ -37,21 +37,25 @@ new file mode 100644
 +
 +  /** Only pass markup from the dashboard's registered, escaping view renderer. */
 +  open(html: string, opener?: HTMLElement): HTMLDialogElement {
-+    const current = !this.disposed && this.options.current();
-+    if (!current || this.disposed) throw new Error('Inactive dashboard dialog owner');
++    if (!this.current()) throw new Error('Inactive dashboard dialog owner');
++    if (this.dialogs.size) throw new Error('Dashboard already has an open dialog');
++    const revision = this.options.revision();
++    if (!this.current() || this.dialogs.size) throw new Error('Inactive dashboard dialog owner');
 +    const doc = this.root.ownerDocument;
 +    const dialog = doc.createElement('dialog');
 +    dialog.className = this.options.className;
 +    const origin = opener ?? doc.activeElement;
 +    const HTMLElementType = doc.defaultView?.HTMLElement;
-+    this.dialogs.set(dialog, {opener: HTMLElementType && origin instanceof HTMLElementType ? origin : null, revision: this.options.revision(), dirty: () => false});
++    this.dialogs.set(dialog, {opener: HTMLElementType && origin instanceof HTMLElementType ? origin : null, revision, dirty: () => false});
 +    try {
 +      this.replaceContent(dialog, html);
 +      dialog.addEventListener('cancel', event => { event.preventDefault(); this.dismiss(dialog, 'escape'); });
 +      dialog.addEventListener('close', () => this.close(dialog));
 +      doc.body.append(dialog);
 +      dialog.showModal();
++      if (!this.current() || !this.has(dialog) || !dialog.open) throw new Error('Dashboard dialog owner changed during open');
 +      dialog.querySelector<HTMLElement>(this.options.headingSelector)?.focus();
++      if (!this.current() || !this.has(dialog) || !dialog.open) throw new Error('Dashboard dialog owner changed during open');
 +      return dialog;
 +    } catch (error) {
 +      this.dialogs.delete(dialog);
@@ -63,12 +67,16 @@ new file mode 100644
 +
 +  replaceContent(dialog: HTMLDialogElement, html: string): void {
 +    const state = this.dialogs.get(dialog);
-+    if (!state) throw new Error('Unmanaged dashboard dialog');
++    if (!state || !this.current()) throw new Error('Unmanaged dashboard dialog');
 +    const template = this.root.ownerDocument.createElement('template');
 +    template.innerHTML = html;
 +    const heading = template.content.querySelector<HTMLElement>(this.options.headingSelector);
 +    const close = template.content.querySelector(this.options.closeSelector);
-+    if (!heading || !close) throw new Error('Dashboard dialog requires a heading and close control');
++    if (!heading?.textContent?.trim() || close?.tagName !== 'BUTTON' || close.hasAttribute('disabled'))
++      throw new Error('Dashboard dialog requires a named heading and enabled close button');
++    if (template.content.querySelector('form[method="dialog" i],[formmethod="dialog" i]'))
++      throw new Error('Dashboard dialogs must close through their managed controls');
++    close.setAttribute('type','button');
 +    heading.id = 'primecare-dashboard-dialog-title-' + (++titleSequence);
 +    heading.tabIndex = -1;
 +    heading.setAttribute('autofocus', '');
@@ -76,10 +84,15 @@ new file mode 100644
 +    const value = (field: typeof fields[number]) =>
 +      field.tagName === 'INPUT' && ['checkbox', 'radio'].includes((field as HTMLInputElement).type)
 +        ? (field as HTMLInputElement).checked
-+        : field.value;
++        : field.tagName === 'SELECT' && (field as HTMLSelectElement).multiple
++          ? JSON.stringify([...((field as HTMLSelectElement).selectedOptions)].map(option=>option.index))
++          : field.value;
 +    const initial = fields.map(value);
 +    state.dirty = () => fields.some((field, index) => value(field) !== initial[index]);
-+    close.addEventListener('click', () => this.dismiss(dialog, 'discard'));
++    close.addEventListener('click', event => {
++      event.preventDefault();
++      if (dialog.contains(close)) this.dismiss(dialog, 'discard');
++    });
 +    dialog.replaceChildren(template.content);
 +    dialog.setAttribute('aria-labelledby', heading.id);
 +    if (dialog.open) heading.focus();
@@ -97,8 +110,13 @@ new file mode 100644
 +    node.textContent = message;
 +  }
 +
++  private current(): boolean {
++    return !this.disposed && this.root.isConnected && this.options.current() && !this.disposed && this.root.isConnected;
++  }
++
 +  private dismiss(dialog: HTMLDialogElement, reason: DismissReason): void {
-+    if (dialog.open && this.has(dialog) && this.options.current() && this.options.canDismiss(dialog, reason)) this.close(dialog);
++    if (dialog.open && this.has(dialog) && this.current() && this.options.canDismiss(dialog, reason)
++      && this.current() && this.has(dialog) && dialog.open) this.close(dialog);
 +  }
 +
 +  close(dialog: HTMLDialogElement, reason: CloseReason = 'local'): void {
@@ -107,8 +125,8 @@ new file mode 100644
 +    this.dialogs.delete(dialog);
 +    if (dialog.open) dialog.close();
 +    dialog.remove();
-+    if (state.revision === this.options.revision() && this.options.current() && state.opener?.isConnected) state.opener.focus();
-+    this.options.onClosed?.(dialog, reason);
++    if (this.current()) this.options.onClosed?.(dialog, reason);
++    if (!this.dialogs.size && this.current() && state.revision === this.options.revision() && this.current() && state.opener?.isConnected) state.opener.focus();
 +  }
 +
 +  dispose(): void {
@@ -117,12 +135,12 @@ new file mode 100644
 +    const dialogs = [...this.dialogs.keys()];
 +    this.dialogs.clear();
 +    try {
++      this.onDisposed();
++    } finally {
 +      for (const dialog of dialogs) {
 +        if (dialog.open) dialog.close();
 +        dialog.remove();
 +      }
-+    } finally {
-+      this.onDisposed();
 +    }
 +  }
 +}
@@ -130,9 +148,10 @@ diff --git a/packages/primecare_ui/web/master-dashboard.ts b/packages/primecare_
 new file mode 100644
 --- /dev/null
 +++ b/packages/primecare_ui/web/master-dashboard.ts
-@@ -0,0 +1,84 @@
-+import {bindShell,renderShell,type ShellContent} from './shell';
+@@ -0,0 +1,125 @@
++import {bindShell,renderShell,shellMarkup,type ShellContent} from './shell';
 +import {ScreenConfigurationError,type ScreenManager,type ScreenRegistration} from './screen-manager';
++import {clearLayoutCustomizer} from './layout-customizer';
 +import type {DashboardDialogOptions} from './dashboard-dialog-manager';
 +
 +type View = Readonly<{id: string; label: string}>;
@@ -173,10 +192,13 @@ new file mode 100644
 +export abstract class MasterDashboard {
 +  readonly dialogs: ReturnType<ScreenManager['connectDashboardDialogs']>;
 +  private readonly descriptor: MasterDashboardConfig;
++  private revision = 0;
++  private shell: Element | undefined;
++  private bound: (() => boolean) | undefined;
 +
 +  protected constructor(
 +    private readonly root: HTMLElement,
-+    manager: ScreenManager,
++    private readonly manager: ScreenManager,
 +    entry: Pick<ScreenRegistration,'id'|'route'>,
 +    descriptor: MasterDashboardConfig,
 +    panelOptions: DashboardDialogOptions,
@@ -184,7 +206,7 @@ new file mode 100644
 +    if (entry.route !== descriptor.route) throw new ScreenConfigurationError('Master dashboard route does not match registration');
 +    dashboardViews(descriptor, descriptor.views.map(view => view.id));
 +    this.descriptor = Object.freeze({...descriptor,views:Object.freeze(descriptor.views.map(view=>Object.freeze({...view})))});
-+    this.dialogs = manager.connectDashboardDialogs(root,entry.id,entry.route,panelOptions);
++    this.dialogs = manager.connectDashboardDialogs(root,entry.id,entry.route,panelOptions,()=>this.retire());
 +  }
 +
 +  allowedViews(projection: unknown): readonly View[] {
@@ -193,22 +215,59 @@ new file mode 100644
 +
 +  mount(binding: Binding): Element {
 +    const {root,descriptor} = this;
++    const lease = () => this.manager.ownsDashboardDialogs(root,this.dialogs);
 +    const views = this.allowedViews(binding.allowedViews);
-+    const ids = new Set(views.map(view => view.id));
-+    if (!ids.has(binding.view) || !binding.current()) throw new ScreenConfigurationError('Inactive or unavailable dashboard view');
-+    renderShell(root,binding.shell);
-+    const shell = root.querySelector('[data-cy=app-shell]');
-+    if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
-+    const panels: Record<string,HTMLElement> = {};
-+    for (const [id,selector] of Object.entries(binding.panels ?? {})) {
-+      const panel = root.querySelector<HTMLElement>(selector);
-+      if (!panel) throw new ScreenConfigurationError('Dashboard panel slot is missing: '+id);
-+      panels[id] = panel;
++    if (!views.some(({id})=>id===binding.view) || !lease() || !binding.current() || !lease())
++      throw new ScreenConfigurationError('Inactive or unavailable dashboard view');
++
++    // Check declared slots in detached markup before replacing any existing content.
++    const selectors = Object.entries(binding.panels ?? {});
++    const resolvePanels = (container: ParentNode): Record<string,HTMLElement> => Object.fromEntries(selectors.map(([id,selector])=>{
++      const nodes = container.querySelectorAll<HTMLElement>(selector);
++      if (nodes.length !== 1) throw new ScreenConfigurationError('Dashboard panel slot must resolve exactly once: '+id);
++      return [id,nodes[0]];
++    }));
++    if (selectors.length) {
++      const draft = root.ownerDocument.createElement('template');
++      draft.innerHTML = shellMarkup(binding.shell);
++      resolvePanels(draft.content);
 +    }
-+    bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
-+      () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(binding.current())binding.select(view.id);}})),
-+      binding.profileScope,{}, {screenCode:descriptor.screenCode,panels});
-+    return shell;
++
++    const revision = ++this.revision;
++    let installed = false;
++    const current = () => lease() && revision === this.revision && (!installed || binding.current()) && lease() && revision === this.revision;
++    try {
++      renderShell(root,binding.shell);
++      if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
++      const shell = root.querySelector('[data-cy=app-shell]');
++      if (!shell) throw new ScreenConfigurationError('Master dashboard shell failed to mount');
++      const workspace = binding.panels === undefined ? undefined : {screenCode:descriptor.screenCode,panels:resolvePanels(shell)};
++      bindShell(root,descriptor.title,binding.locale,descriptor.route.slice(1),
++        () => views.map(view => ({title:view.label,detail:descriptor.title,open:()=>{if(installed&&current())binding.select(view.id);}})),
++        binding.profileScope,{},workspace,current);
++      if (!lease() || revision !== this.revision) throw new ScreenConfigurationError('Dashboard owner changed during mount');
++      this.shell = shell;
++      this.bound = current;
++      installed = true;
++      return shell;
++    } catch (error) {
++      if (lease() && revision === this.revision) {
++        clearLayoutCustomizer(root);
++        if (lease() && revision === this.revision) root.replaceChildren();
++      }
++      throw error;
++    }
++  }
++
++  private retire(): void {
++    ++this.revision;
++    try {
++      if (this.bound) clearLayoutCustomizer(this.root,this.bound);
++    } finally {
++      this.shell?.remove();
++      this.shell = undefined;
++      this.bound = undefined;
++    }
 +  }
 +
 +  dispose(): void {
@@ -233,34 +292,45 @@ diff --git a/packages/primecare_ui/web/screen-manager.ts b/packages/primecare_ui
    constructor(private readonly connections: ScreenConnections) {}
  
    registerScope(scope: string, registrations: readonly ScreenRegistration[]): void {
-@@ -53,6 +57,34 @@
+@@ -51,8 +55,45 @@
+       scopes.set(scope, ids);
+     }
      // Replace only after the complete snapshot validates; never partially install it.
++    const retiring = [...this.dashboardScopes].filter(([, registration]) => next.get(registration.id) !== registration);
      this.registrations = next;
      this.scopes = scopes;
-+    for (const [dialogs, registration] of this.dashboardScopes) {
-+      if (next.get(registration.id) !== registration) dialogs.dispose();
-+    }
++    // Capture identities before native close/focus can synchronously replace scopes again.
++    for (const [dialogs] of retiring) dialogs.dispose();
 +  }
 +
 +  /** Compose a dashboard's panel lifecycle on the existing registered route. */
-+  connectDashboardDialogs(root: HTMLElement, id: string, route: string, options: DashboardDialogOptions): DashboardDialogManager {
++  connectDashboardDialogs(root: HTMLElement, id: string, route: string, options: DashboardDialogOptions, retire?: () => void): DashboardDialogManager {
 +    if (managers.get(root) !== this) throw new ScreenConfigurationError('Dashboard root is not owned by this manager');
 +    const registration = this.registrations.get(id);
 +    if (!registration || registration.route !== route || registration.kind === 'public') {
 +      throw new ScreenConfigurationError(`Missing dashboard registration for ${id} at ${route}`);
 +    }
 +    if (this.dashboardRoots.has(root)) throw new ScreenConfigurationError('Duplicate dashboard presentation owner');
-+    const ownsRegistration = () => this.registrations.get(id) === registration;
++    const ownsRegistration = () => this.ownsDashboardDialogs(root,dialogs);
 +    const dialogs = new DashboardDialogManager(root, {
 +      ...options,
 +      current: () => ownsRegistration() && options.current() && ownsRegistration(),
 +    }, () => {
-+      this.dashboardRoots.delete(root);
 +      this.dashboardScopes.delete(dialogs);
++      if (this.dashboardRoots.get(root) === dialogs) {
++        try { retire?.(); }
++        finally { this.dashboardRoots.delete(root); }
++      }
 +    });
 +    this.dashboardRoots.set(root, dialogs);
 +    this.dashboardScopes.set(dialogs, registration);
 +    return dialogs;
++  }
++
++  ownsDashboardDialogs(root: HTMLElement, dialogs: DashboardDialogManager): boolean {
++    const registration = this.dashboardScopes.get(dialogs);
++    return !!registration && managers.get(root) === this && this.dashboardRoots.get(root) === dialogs
++      && this.registrations.get(registration.id) === registration;
 +  }
 +
 +  clearDashboardDialogs(root: HTMLElement): void {
@@ -268,7 +338,7 @@ diff --git a/packages/primecare_ui/web/screen-manager.ts b/packages/primecare_ui
    }
  
    enter(id: string, route: string): ScreenRegistration {
-@@ -102,6 +134,7 @@
+@@ -102,6 +143,7 @@
  }
  export function showScreenConfigurationError(root: HTMLElement, error: unknown): void {
    // Never leave the previous screen visible, and never interpolate errors as HTML.
@@ -279,13 +349,47 @@ diff --git a/packages/primecare_ui/web/screen-manager.ts b/packages/primecare_ui
 diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-workspace-layout.mjs
 --- a/scripts/test-tenant-workspace-layout.mjs
 +++ b/scripts/test-tenant-workspace-layout.mjs
-@@ -6,13 +6,57 @@
+@@ -6,13 +6,90 @@
  import {pathToFileURL} from 'node:url';
  import {join} from 'node:path';
  import {tenantFixture} from './tenant-dashboard-fixture.mjs';
 -const {chromium}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
+-const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
 +const {chromium,webkit,devices}=await import('playwright').catch(()=>import(pathToFileURL(join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href));
- const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
++const f=await tenantFixture();const bundle=await build({stdin:{contents:`import {renderTenantDashboard} from './websites/typescript/src/tenant-dashboard';import {mountLayoutCustomizer} from './packages/primecare_ui/web/layout-customizer';import {installPortalPresentation} from './websites/typescript/src/screen-presentation';import {resolveManagedRoute} from './websites/typescript/src/managed-routes';import {tenantPresentationTheme} from './scripts/fixtures/tenant-presentation-theme';import {MasterDashboard} from './packages/primecare_ui/web/master-dashboard';import {ScreenManager,installScreenManager} from './packages/primecare_ui/web/screen-manager';window.proveMaster=()=>{
++ document.querySelector('#app').remove();
++ const testRoot=document.body.appendChild(document.createElement('div'));
++ const fixtureManager=new ScreenManager({layout:()=>{},theme:()=>{},language:()=>{},responsive:()=>{}});
++ installScreenManager(testRoot,fixtureManager);
++ const entry={id:'master-fixture',route:'/master-fixture',kind:'feature',adapter:'fixture'};
++ const config={screenCode:'fixture_master',route:entry.route,title:'Reusable fixture',views:[{id:'work',label:'Work'},{id:'excluded',label:'Excluded'}]};
++ const dialogOptions={className:'fixture-dialog',headingSelector:'h2',closeSelector:'[data-fixture-close]',statusKey:'fixture-status',current:()=>true,revision:()=>0,canDismiss:()=>false};
++ class FixtureDashboard extends MasterDashboard{constructor(){super(testRoot,fixtureManager,entry,config,dialogOptions);}}
++ const shell={home:entry.route,role:'Fixture',navigation:'',controls:'',content:'<h1>Fixture body</h1>'};
++ const binding={locale:'en',profileScope:'fixture:master',allowedViews:['work'],view:'work',shell,current:()=>true,select:()=>{}};
++ fixtureManager.registerScope('fixture',[entry]);
++ const dashboard=new FixtureDashboard();
++ const screen=dashboard.mount(binding);
++ let invalidSlot=false;try{dashboard.mount({...binding,panels:{missing:'[data-fixture-panel]'}});}catch(error){invalidSlot=String(error).includes('exactly once');}
++ const priorUnchanged=testRoot.querySelector('[data-cy=app-shell]')===screen;
++ const modal=dashboard.dialogs.open('<h2>Fixture dialog</h2><form><select multiple><option selected>First</option><option>Second</option></select><button data-fixture-close>Cancel</button></form>');
++ let submits=0;modal.querySelector('form').onsubmit=e=>{e.preventDefault();submits++;};
++ modal.querySelector('select').options[1].selected=true;
++ const multiDraft=dashboard.dialogs.isDirty(modal),oldClose=modal.querySelector('[data-fixture-close]');
++ oldClose.click();
++ const vetoPreserved=modal.open&&submits===0;
++ dashboard.dialogs.replaceContent(modal,'<h2>Replacement</h2><button data-fixture-close>Close</button>');
++ oldClose.click();
++ const replacementPreserved=modal.open&&modal.querySelector('h2').textContent==='Replacement';
++ fixtureManager.registerScope('fixture',[entry]);
++ const retired=!modal.isConnected&&!screen.isConnected;
++ let rejected=false;try{dashboard.mount(binding);}catch(error){rejected=String(error).includes('Inactive or unavailable');}
++ const next=new FixtureDashboard(),nextScreen=next.mount(binding);
++ dashboard.dispose();
++ const newOwnerPreserved=nextScreen.isConnected;
++ next.dispose();testRoot.remove();
++ return {invalidSlot,priorUnchanged,multiDraft,vetoPreserved,replacementPreserved,retired,rejected,newOwnerPreserved};
++};const root=document.querySelector('#app'),manager=installPortalPresentation(root,tenantPresentationTheme,location.origin);manager.registerScope('entry',[resolveManagedRoute('/tenant-dashboard','')]);window.localize=(locale)=>mountLayoutCustomizer(document.querySelector('#app'),'test-locale',locale,{}, {screenCode:'tenant_admin_command_center',panels:{'tenant-preference-form':document.querySelector('[data-cy=tenant-preference-form]').closest('section')}});window.render=()=>renderTenantDashboard(document.querySelector('#app'),location.origin);`,resolveDir:process.cwd()},bundle:true,write:false,format:'iife'});
  let writes=0;const preferencePosts=[];
 -const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
 +const server=createServer(async(req,res)=>{try{if(req.url.startsWith('/v1/')){let body='';for await(const part of req)body+=part;const headers=new Headers(req.headers);if(req.method==='POST'){const value=JSON.parse(body);if(!(req.url==='/v1/user/preferences'&&value.action==='read'))writes++;if(value.action==='preferences')preferencePosts.push({key:req.headers['idempotency-key'],body:value});}const reply=await f.tenantDashboard(new Request('https://fixture'+req.url,{method:req.method,headers,...(body?{body}:{})}),f.env,'/tenant-dashboard',{});res.statusCode=reply.status;res.setHeader('content-type','application/json');res.end(await reply.text());}else if(req.url==='/app.js'){res.setHeader('content-type','text/javascript');res.end(bundle.outputFiles[0].text);}else if(req.url==='/style.css'){res.setHeader('content-type','text/css');res.end(await readFile('websites/typescript/src/styles.css'));}else{res.setHeader('content-type','text/html');res.end('<!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="/style.css"></head><body><div id="app"></div><script src="/app.js"></script><script>window.render()</script></body></html>');}}catch(e){res.statusCode=500;res.end(String(e));}});
@@ -340,7 +444,7 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
   await page.goto(origin+'/tenant-dashboard?enable-semantics=true');
   await page.waitForFunction(()=>document.querySelector('[data-cy=appearance-open]')||document.querySelector('[data-cy=error-state]'));
   assert.deepEqual(errors,[],'the real Screen Manager bootstrap must succeed before layout acceptance');
-@@ -25,7 +69,13 @@
+@@ -25,7 +102,13 @@
   await changeHistory('#unknown-view');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
   await el('tenant-create-task').click();await el('tenant-task-title').fill('Unsaved route draft');
   await changeHistory('#audit');assert.equal(await page.evaluate(()=>location.hash),'#overview');assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft');assert.equal(await page.locator('dialog[open]').count(),1);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
@@ -354,10 +458,16 @@ diff --git a/scripts/test-tenant-workspace-layout.mjs b/scripts/test-tenant-work
   assert.equal(await el('tenant-task-title').inputValue(),'Unsaved route draft','Escape cannot discard a dirty task form');
   assert.equal(writes,0,'guarded draft navigation must not write');
   const acceptDiscard=dialog=>dialog.accept();
-@@ -163,4 +213,5 @@
+@@ -162,5 +245,10 @@
+  await page.evaluate(()=>{location.hash='clients';});await page.waitForFunction(hash=>location.hash===hash,allowedHash);assert.equal(await page.evaluate(()=>window.routePreference===document.querySelector('[data-cy=tenant-preference-view]')),true);
   await el('appearance-open').click();assert.equal(await el('workspace-layout-dock').inputValue(),'bottom');assert.equal(await page.locator('[data-pc-panel]').count(),1);
   await el('workspace-layout-close').click();for(const [locale,label] of [['fr','Disposition de l’espace de travail'],['es','Diseño del espacio de trabajo'],['en','Workspace layout']]){await page.evaluate(locale=>window.localize(locale),locale);await el('appearance-open').click();assert.equal(await page.locator('[data-workspace-controls] legend').textContent(),label);await el('workspace-layout-close').click();assert.equal(await page.locator('[data-pc-panel]').count(),1);}
-  assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
+- assert.deepEqual(errors,[]);console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
++ assert.deepEqual(errors,[]);
++ const core=await page.evaluate(()=>window.proveMaster());
++ assert.deepEqual(core,{invalidSlot:true,priorUnchanged:true,multiDraft:true,vetoPreserved:true,replacementPreserved:true,retired:true,rejected:true,newOwnerPreserved:true});
++ console.log(JSON.stringify({masterCore:core}));
++ console.log(JSON.stringify({actualTenantPortal:true,disposableDatabase:f.native?'PostgreSQL':'PGlite',navigation:true,deniedDeepLinkNormalized:true,deniedHistoryAndHashBlocked:true,dialogDraftPreservedOnHistory:true,pendingSavePreservedOnHistory:true,sameViewHistoryPreservesNodes:true,taskBoardCreateReadback:true,taskBoardFilterAndFocusPreserved:true,taskBoardBackAndEscape:true,layoutControls:true,undoRedo:true,saveReload:true,invalidImport:true,originalNodeAndHandler:true,preferenceDatabaseReadback:true,rerenderHistory:true,mobileDrawer:true,actorIsolation:true,preferenceDraftRestart:true,failedPreferenceSaveRetained:true,preferenceConflictPreserved:true,explicitDraftDiscard:true,newerEditDuringSaveRetained:true,pendingRequestRestart:true,lostAcknowledgementReceiptReplay:true,independentPreferenceSqlReadback:true,noDuplicatePreferenceEvent:true,productionVerified:false}));
 + }
  }finally{await context.close();await browser.close();await new Promise(r=>server.close(r));await f.close();}
 diff --git a/scripts/test-typescript-screen-manager.mjs b/scripts/test-typescript-screen-manager.mjs
