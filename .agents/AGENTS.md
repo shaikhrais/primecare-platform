@@ -10,6 +10,8 @@ This user-directed policy applies to every agent and every task in this reposito
 
 # Production governance authority and cutover
 
+For API and dashboard release procedures, start with the [Smart Deploy overview](../tools/deployment/SMART_DEPLOY_OVERVIEW.md).
+
 For PrimeCare builds that need the production database, use GitHub Actions with the existing `PRODUCTION_DATABASE_URL` secret. Never ask for, copy, or log its value. Use the local workspace for code checks and fixtures. A missing local URL is not a CI blocker: check the exact GitHub Actions build before reporting failure. Building does not authorize publishing.
 
 The user-authorized production governance authority is pinned by `tools/governance-production/production-pin.json`: PostgreSQL schema `governance_68b0b02dd1215f58630d2c1a`, tables prefixed `govt_`, source metadata `govt_source_manifest`. Use the shared production connection for migrated consumers. Missing credentials or a manifest mismatch must fail; never silently fall back to SQLite.

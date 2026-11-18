@@ -59,7 +59,7 @@ jobs:
           python scripts/check-api-catalog-identity.py
       - name: Check Worker types
         run: |
-          npx --no-install tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
+          npx --no-install tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
       - name: Run Worker release regression tests
         run: node --test scripts/test-generic-worker-deploy.mjs scripts/test-generic-worker-release.mjs scripts/test-generic-worker-observability.mjs scripts/test-worker-secret-retention.mjs
       - name: Dry-run bundle every generic Worker and gateway
