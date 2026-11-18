@@ -1,0 +1,216 @@
+{
+  "next_nine": {
+    "head": "de4801951fd89af8545f762984c4b3f6c9af8511",
+    "workflow_blob": "dc47683d0b1eb71b91b162dca27c7cbf00ac8695",
+    "projects": {
+      "primecare-marketing": {
+        "verify_run": 44383231881,
+        "publish_run": 44384064981,
+        "head": "de4801951fd89af8545f762984c4b3f6c9af8511",
+        "asset_digest": "1396ab2db02edd58ca720f40051417e7ad3cf399dfa6af668f89ac782e1b73c4",
+        "publish_job": 135084198228
+      },
+      "primecare-franchise": {
+        "verify_run": 44383246960,
+        "publish_run": 44385016597,
+        "head": "de4801951fd89af8545f762984c4b3f6c9af8511",
+        "asset_digest": "313bfd079fe70820fdb17c6c19c4688caf0a9010a21334d2ecd9ebaac7426222",
+        "publish_job": 135087595860
+      }
+    }
+  },
+  "prior_manifest": {
+    "version": 1,
+    "retained": [
+      {
+        "project": "primecare-business-development",
+        "appCode": "bd",
+        "code": "business_development_dashboard",
+        "route": "/common/business-development-dashboard"
+      },
+      {
+        "project": "primecare-business-development",
+        "appCode": "bd",
+        "code": "head_of_bus_dev_dashboard",
+        "route": "/offices/corporate/roles/head_of_bus_dev/dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "api_health_dashboard",
+        "route": "/common/api-health-dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "compliance_manager_dashboard",
+        "route": "/offices/corporate/roles/compliance_manager/dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "file_verification_dashboard",
+        "route": "/common/file-verification-dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "governance_officer_dashboard",
+        "route": "/management/governance-officer-dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "role_coverage_dashboard",
+        "route": "/common/role-coverage-dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "screen_progress_dashboard",
+        "route": "/management/screen-progress-dashboard"
+      },
+      {
+        "project": "primecare-governance",
+        "appCode": "go",
+        "code": "system_dashboard",
+        "route": "/common/system-dashboard"
+      },
+      {
+        "project": "primecare-support",
+        "appCode": "su",
+        "code": "premium_concierge_dashboard",
+        "route": "/management/premium-concierge-dashboard"
+      },
+      {
+        "project": "primecare-support",
+        "appCode": "su",
+        "code": "training_coordinator_dashboard",
+        "route": "/offices/support/roles/training_coordinator/dashboard"
+      },
+      {
+        "project": "primecare-support",
+        "appCode": "su",
+        "code": "vip_manager_dashboard",
+        "route": "/management/vip-manager-dashboard"
+      },
+      {
+        "project": "primecare-marketing",
+        "appCode": "ma",
+        "code": "campaign_dashboard",
+        "route": "/management/campaign-dashboard"
+      },
+      {
+        "project": "primecare-marketing",
+        "appCode": "ma",
+        "code": "community_outreach_dashboard",
+        "route": "/offices/marketing/roles/community_outreach/dashboard"
+      },
+      {
+        "project": "primecare-marketing",
+        "appCode": "ma",
+        "code": "founder_growth_dashboard",
+        "route": "/growth"
+      },
+      {
+        "project": "primecare-marketing",
+        "appCode": "ma",
+        "code": "head_of_marketing_dashboard",
+        "route": "/offices/corporate/roles/head_of_marketing/dashboard"
+      },
+      {
+        "project": "primecare-marketing",
+        "appCode": "ma",
+        "code": "local_marketing_manager_dashboard",
+        "route": "/offices/marketing/roles/local_marketing_manager/dashboard"
+      },
+      {
+        "project": "primecare-franchise",
+        "appCode": "fr",
+        "code": "admin_dashboard",
+        "route": "/offices/franchise/roles/admin/dashboard"
+      },
+      {
+        "project": "primecare-franchise",
+        "appCode": "fr",
+        "code": "franchise_dashboard",
+        "route": "/common/franchise-dashboard"
+      },
+      {
+        "project": "primecare-franchise",
+        "appCode": "fr",
+        "code": "franchise_sales_manager_dashboard",
+        "route": "/offices/business_development/roles/franchise_sales_manager/dashboard"
+      },
+      {
+        "project": "primecare-franchise",
+        "appCode": "fr",
+        "code": "scheduler_dashboard",
+        "route": "/offices/franchise/roles/scheduler/dashboard"
+      }
+    ],
+    "cohorts": []
+  },
+  "batches": {
+    "corporate-01": {
+      "codes": [
+        "architecture_planning_dashboard",
+        "ceo_dashboard",
+        "cfo_dashboard",
+        "ciso_dashboard",
+        "coo_dashboard",
+        "cto_dashboard",
+        "finance_director_dashboard",
+        "financial_dashboard",
+        "hr_director_dashboard",
+        "hr_manager_dashboard"
+      ],
+      "blobs": {
+        "scripts/fixtures/care-dashboard-activation.mjs": "d906629a204f6d0af52ff1928643bf4d111ff01e",
+        "scripts/fixtures/care-live-dom.mjs": "b0bf89ac5df8587aa8a15bd56f49e89418da6560",
+        "scripts/fixtures/growth-dom.mjs": "9f89d407ce608464bfc7889776490f87b483a8fc",
+        "scripts/test-care-master-dashboard-browser.mjs": "a1a69b51bda41cb19286e931532f36114ee1a91b",
+        "scripts/test-dashboard-activation.mjs": "5f6497a19a8aa807962e78f910851b1f166d5c24",
+        "scripts/test-governed-master-navigation.mjs": "da0e82641b59b6996a1c8579ded2dd4659506d39",
+        "scripts/test-growth-loading-browser.mjs": "5c108afda69b51b7c3530b2f7ca98ca697436fea",
+        "scripts/verify-dashboard-activation-delta.mjs": "a11ff8d4e098e842699a7d64a95b08267ca0a5b0",
+        "websites/typescript/src/dashboard-activation.json": "6fca15e7ec56645a9255c8e7662e0e2eb1730cab",
+        "websites/typescript/src/dashboard-activation.ts": "3aea6f2ca0fc89a5e866de1405a6970e68e3dcb0",
+        "websites/typescript/src/growth/dashboard.ts": "120c3f647931b2b0883b9ec6604ebb847af69c26",
+        "websites/typescript/src/main.ts": "66d64a02426eb9a49749f29ddd5d174632ffca7d",
+        "websites/typescript/src/psw-workspace/index.ts": "63ef10097598bc01b0a30b3ef170e693761b227d",
+        "websites/typescript/src/workspace.ts": "e57757c6eaaf9425bf184137ab49d3e9e5dd6d4c",
+        "scripts/test-platform-browser-fixture.mjs": "4eee1d2c2fe6878fc14184e20b61498547676ceb",
+        "scripts/test-workspace-manager-boundaries.mjs": "dd811e8cd5fa667f89bea06aaa2be4605d3772c4"
+      }
+    },
+    "corporate-02": {
+      "codes": [
+        "cx_director_dashboard"
+      ],
+      "blobs": {
+        "websites/typescript/src/dashboard-activation.json": "5a994bc11fc84a79a1d5256f439f7e50211577a6"
+      }
+    }
+  },
+  "registry_sha256": "01c6961f21b9fbffadb35c53d8e0baf28e55dd4518e5ca92398ca58648e80b27",
+  "app_projects": {
+    "bd": "primecare-business-development",
+    "go": "primecare-governance",
+    "su": "primecare-support",
+    "ma": "primecare-marketing",
+    "fr": "primecare-franchise",
+    "co": "primecare-corporate",
+    "cl": "primecare-client",
+    "ci": "primecare-clinic"
+  },
+  "infrastructure_paths": [
+    ".github/workflows/external-calls-production.yml",
+    ".github/workflows/smart-deploy-dashboard-portal.yml",
+    "tools/deployment/corporate-dashboard-release-policy.json",
+    "tools/deployment/corporate_dashboard_release.py",
+    "tools/deployment/test_corporate_dashboard_release.py",
+    "tools/deployment/dashboard_publish_scope.py",
+    "tools/deployment/dashboard_release_intent.py"
+  ]
+}

@@ -80,7 +80,10 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
-          if [[ "${parents[1]}" == 9bedad737ce1e3cfe65494d9bb847f3140168ff2 ||
+          if [[ "$(python3 -c 'import json; print(json.load(open("tools/deployment/dashboard-release-intent.json"))["intent"])')" == corporate-dashboard-cohort ]]; then
+            python3 -m tools.deployment.corporate_dashboard_release "${parents[1]}" "$GITHUB_SHA" "$PROJECT" "$PREVIOUS_LIVE" --observe
+            echo 'lane=smart-dashboard-runtime' >> "$GITHUB_OUTPUT"
+          elif [[ "${parents[1]}" == 9bedad737ce1e3cfe65494d9bb847f3140168ff2 ||
                 "${parents[1]}" == 15bc12d7a7214bd585295e30ac163e89eeb02f9e ]]; then
             # One reviewed, release-tooling-only continuation. Never treat arbitrary
             # metadata commits as runtime activations in the automatic writer classifier.
@@ -192,6 +195,13 @@ jobs:
       - run: python -m unittest tools.deployment.test_portal_artifact tools.deployment.test_typescript_release tools.deployment.test_dashboard_portal_contract
       - name: Verify strict browser compilation and dashboard navigation
         run: node --test scripts/test-typescript-strict-contracts.mjs scripts/test-typescript-screen-manager.mjs scripts/test-workspace-route-handoffs.mjs scripts/test-workspace-manager-boundaries.mjs scripts/test-platform-browser-fixture.mjs
+      - name: Verify Corporate activation rows and rendered browser fixture
+        if: inputs.project == 'primecare-corporate'
+        run: |
+          python -m unittest tools.deployment.test_corporate_dashboard_release
+          node --test scripts/test-dashboard-activation.mjs
+          npx playwright install --with-deps chromium
+          node scripts/test-governed-master-navigation.mjs
       - name: Confirm project runtime policy
         run: python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
       - name: Build with the existing read-only metadata export

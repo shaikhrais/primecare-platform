@@ -29,6 +29,9 @@ on:
 permissions: {contents: read}
 concurrency: {group: primecare-external-calls-production, cancel-in-progress: false}
 jobs:
+  dashboard_scope:
+    name: Resolve dashboard production scope
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   metadata:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
@@ -75,8 +78,8 @@ jobs:
         if: always()
         with: {name: external-call-native, path: test-results/external-calls, retention-days: 30}
   deploy:
-    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
-    needs: [metadata,native]
+    if: ${{ needs.dashboard_scope.outputs.allow_legacy_publish == 'true' && !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
+    needs: [metadata,native,dashboard_scope]
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 18

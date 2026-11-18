@@ -41,6 +41,15 @@ REPAIR_PATHS = frozenset({
     "scripts/fixtures/workspace-owned-children.mjs",
     "docs/api/workflow-contract-source-amendments.json",
 })
+CORPORATE_INFRA = frozenset({
+    INFRA_MARKER,
+    "tools/deployment/dashboard_publish_scope.py",
+    "tools/deployment/corporate_dashboard_release.py",
+    "tools/deployment/corporate-dashboard-release-policy.json",
+    "tools/deployment/test_corporate_dashboard_release.py",
+    ".github/workflows/external-calls-production.yml",
+    ".github/workflows/smart-deploy-dashboard-portal.yml",
+})
 RUNTIME_PATHS = Path("tools/deployment/dashboard-runtime-paths.txt")
 
 
@@ -53,7 +62,7 @@ def classify(changed, runtime_paths, raw_intent=None, before=None):
             raise ValueError("Repair must match the exact reviewed dashboard diff and parent")
         return "smart-dashboard-runtime"
     if INFRA_MARKER in changed:
-        if changed not in (INFRA, INFRA_REPAIR):
+        if changed not in (INFRA, INFRA_REPAIR, CORPORATE_INFRA):
             raise ValueError("Unexpected file in Smart Deploy infrastructure install")
         return "smart-dashboard-infra"
     if INTENT not in changed:

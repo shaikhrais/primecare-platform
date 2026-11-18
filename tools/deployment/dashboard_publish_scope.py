@@ -17,13 +17,19 @@ MARKER = "websites/typescript/src/governance-officer-pilot.ts"
 PILOT_PATHS = {MARKER, "websites/typescript/src/workspace.ts"}
 
 
-def allow_legacy(event, paths, before=None):
+def allow_legacy(event, paths, before=None, after=None):
     if event == "workflow_dispatch":
         return True
     if event != "push" or not paths:
         raise ValueError("Cannot determine approved release scope")
     if INFRA_MARKER in paths or INTENT in paths:
         raw_intent = json.loads(Path(INTENT).read_text()) if INTENT in paths else None
+        if isinstance(raw_intent, dict) and raw_intent.get("intent") == "corporate-dashboard-cohort":
+            if after is None:
+                raise ValueError("Corporate push must bind the exact checkout SHA")
+            from .corporate_dashboard_release import preflight, PROJECT
+            preflight(before, after, PROJECT, raw_intent["previous_live"])
+            return False
         runtime_paths = frozenset(RUNTIME_PATHS.read_text().splitlines())
         return classify(paths, runtime_paths, raw_intent, before) == "legacy"
     if paths <= GATE_PATHS:
@@ -46,7 +52,7 @@ def main():
         if subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip() != args.after:
             raise ValueError("Checkout does not match the event SHA")
         paths = changed_paths(args.before, args.after)
-    print("allow_legacy_publish=" + str(allow_legacy(args.event, paths, args.before)).lower())
+    print("allow_legacy_publish=" + str(allow_legacy(args.event, paths, args.before, args.after)).lower())
 
 
 if __name__ == "__main__":
