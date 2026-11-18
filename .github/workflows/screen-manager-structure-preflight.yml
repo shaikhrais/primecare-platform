@@ -56,3 +56,45 @@ jobs:
           git apply --whitespace=error-all "$patch"
           git diff --check
           node scripts/test-tenant-workspace-layout.mjs
+  devices:
+    name: Phone and tablet web QA (${{ matrix.engine }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - engine: chromium
+            profiles: android-phone android-tablet
+          - engine: webkit
+            profiles: iphone ipad
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env: {POSTGRES_USER: psw_test, POSTGRES_PASSWORD: fixture-only, POSTGRES_DB: psw_test}
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U psw_test -d psw_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: '${{ github.sha }}', persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - run: npm ci --ignore-scripts
+      - run: npx playwright install --with-deps ${{ matrix.engine }}
+      - name: Smoke-test candidate on phone and tablet viewports
+        env:
+          PSW_TEST_DATABASE_URL: 'postgres://psw_test:fixture-only@127.0.0.1:5432/psw_test'
+          PROFILES: ${{ matrix.profiles }}
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/screen-manager-structure/tenant-dialog.patch
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+          fail=0
+          for profile in $PROFILES; do
+            echo "::group::$profile"
+            PRIMECARE_DASHBOARD_DEVICE="$profile" node scripts/test-tenant-workspace-layout.mjs || { echo "::error title=Dashboard device check failed::$profile"; fail=1; }
+            echo "::endgroup::"
+          done
+          exit "$fail"
