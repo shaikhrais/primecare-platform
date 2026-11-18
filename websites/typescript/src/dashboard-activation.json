@@ -193,6 +193,53 @@
           "route": "/offices/corporate/roles/hr_manager/dashboard"
         }
       ]
+    },
+    {
+      "id": "corporate-02",
+      "dashboards": [
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "cx_director_dashboard",
+          "route": "/offices/corporate/roles/cx_director/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "hr_hiring_dashboard",
+          "route": "/offices/corporate/roles/hr_hiring/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "legal_dashboard",
+          "route": "/offices/corporate/roles/legal/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "owner_dashboard",
+          "route": "/offices/corporate/roles/owner/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "shareholder_dashboard",
+          "route": "/offices/corporate/roles/shareholder/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "training_director_dashboard",
+          "route": "/offices/corporate/roles/training_director/dashboard"
+        },
+        {
+          "project": "primecare-corporate",
+          "appCode": "co",
+          "code": "volunteer_coordinator_dashboard",
+          "route": "/offices/corporate/roles/volunteer_coordinator/dashboard"
+        }
+      ]
     }
   ]
 }

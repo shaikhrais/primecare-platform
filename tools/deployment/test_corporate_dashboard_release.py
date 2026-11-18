@@ -71,3 +71,15 @@ class CohortTests(unittest.TestCase):
             reviewed.side_effect=ValueError("unverified")
             with self.assertRaises(ValueError):
                 publish_scope.allow_legacy("push",paths,"before","after")
+
+    def test_continuation_checks_exact_base_and_live_sha(self):
+        self.assertFalse(scope.c2_reviewed_continuation("corporate-01", scope.C2_REVIEWED_BASE, scope.C1_LIVE))
+        self.assertFalse(scope.c2_reviewed_continuation("corporate-02", "0"*40, scope.C1_LIVE))
+        with self.assertRaisesRegex(ValueError, "exact verified C1 live"):
+            scope.c2_reviewed_continuation("corporate-02", scope.C2_REVIEWED_BASE, "0"*40)
+        with patch.object(scope,"git",return_value="") as git, patch.object(scope,"paths",return_value=scope.INTERVENING_PATHS):
+            self.assertTrue(scope.c2_reviewed_continuation("corporate-02", scope.C2_REVIEWED_BASE, scope.C1_LIVE))
+            git.assert_called_once_with("merge-base","--is-ancestor",scope.C1_LIVE,scope.C2_REVIEWED_BASE)
+        with patch.object(scope,"git",return_value=""), patch.object(scope,"paths",return_value=scope.INTERVENING_PATHS | {"websites/typescript/src/main.ts"}):
+            with self.assertRaisesRegex(ValueError, "Unexpected changes"):
+                scope.c2_reviewed_continuation("corporate-02", scope.C2_REVIEWED_BASE, scope.C1_LIVE)

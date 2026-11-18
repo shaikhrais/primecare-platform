@@ -1,5 +1,7 @@
 """Controls automatic production writers for the selected dashboard release lanes."""
 import argparse
+from contextlib import redirect_stdout
+import sys
 import subprocess
 import json
 from pathlib import Path
@@ -28,7 +30,9 @@ def allow_legacy(event, paths, before=None, after=None):
             if after is None:
                 raise ValueError("Corporate push must bind the exact checkout SHA")
             from .corporate_dashboard_release import preflight, PROJECT
-            preflight(before, after, PROJECT, raw_intent["previous_live"])
+            # Keep GitHub output machine-readable, including recursive diagnostics.
+            with redirect_stdout(sys.stderr):
+                preflight(before, after, PROJECT, raw_intent["previous_live"])
             return False
         runtime_paths = frozenset(RUNTIME_PATHS.read_text().splitlines())
         return classify(paths, runtime_paths, raw_intent, before) == "legacy"

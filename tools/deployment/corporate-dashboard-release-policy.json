@@ -186,10 +186,16 @@
     },
     "corporate-02": {
       "codes": [
-        "cx_director_dashboard"
+        "cx_director_dashboard",
+        "hr_hiring_dashboard",
+        "legal_dashboard",
+        "owner_dashboard",
+        "shareholder_dashboard",
+        "training_director_dashboard",
+        "volunteer_coordinator_dashboard"
       ],
       "blobs": {
-        "websites/typescript/src/dashboard-activation.json": "5a994bc11fc84a79a1d5256f439f7e50211577a6"
+        "websites/typescript/src/dashboard-activation.json": "d4d9114d170baa467be9441900e80e0a113a9fc3"
       }
     }
   },

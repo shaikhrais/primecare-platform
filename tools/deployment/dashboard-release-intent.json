@@ -1,1 +1,7 @@
-{"version":1,"intent":"corporate-dashboard-cohort","cohort":"corporate-01","base":"5b3035380e82da53a889295428f6196563d0f633","previous_live":"48e6d4edee1020cc059fa4cfb840c4ec690dddf0"}
+{
+  "version": 1,
+  "intent": "corporate-dashboard-cohort",
+  "cohort": "corporate-02",
+  "base": "43ff6f3d2a266a490efbf1c1e447b47355ae1311",
+  "previous_live": "3a0a1dc0e94d88f2f244eb01b5a6eff490e1364d"
+}

@@ -18,6 +18,22 @@ FIRST_LIVE = "48e6d4edee1020cc059fa4cfb840c4ec690dddf0"
 NEXT_NINE = "de4801951fd89af8545f762984c4b3f6c9af8511"
 NEXT_NINE_WORKFLOW = "dc47683d0b1eb71b91b162dca27c7cbf00ac8695"
 WORKFLOW = ".github/workflows/smart-deploy-dashboard-portal.yml"
+C1_LIVE = "3a0a1dc0e94d88f2f244eb01b5a6eff490e1364d"
+C2_REVIEWED_BASE = "43ff6f3d2a266a490efbf1c1e447b47355ae1311"
+INTERVENING_PATHS = {
+    ".agents/AGENTS.md",
+    ".github/workflows/smart-deploy-api-verify.yml",
+    "tools/deployment/SMART_API_DEPLOY.md",
+    "tools/deployment/SMART_DEPLOY_OVERVIEW.md",
+}
+C2_ALL_CODES = ['cx_director_dashboard', 'hr_hiring_dashboard', 'legal_dashboard', 'owner_dashboard', 'shareholder_dashboard', 'training_director_dashboard', 'volunteer_coordinator_dashboard']
+C2_GUARD_PATHS = {
+    POLICY,
+    "tools/deployment/corporate_dashboard_release.py",
+    "tools/deployment/test_corporate_dashboard_release.py",
+    "tools/deployment/dashboard_publish_scope.py",
+    "tools/deployment/test_dashboard_publish_scope.py",
+}
 VERIFY_ONLY = {"primecare-marketing": 44383231881, "primecare-franchise": 44383246960}
 
 
@@ -82,19 +98,28 @@ def validate_entries(doc, rows):
         seen.add(key)
 
 
-def validate_delta(prior, candidate, cohort, registry, expected_codes):
+def validate_delta(prior, candidate, cohort, registry, expected_codes, *, count=None):
     validate_entries(prior, registry)
     validate_entries(candidate, registry)
     require(prior["retained"] == candidate["retained"], "Retained dashboards changed")
     require(candidate["cohorts"][:-1] == prior["cohorts"], "Existing cohorts changed")
     require(len(candidate["cohorts"]) == len(prior["cohorts"]) + 1, "Require exactly one appended cohort")
     latest = candidate["cohorts"][-1]
-    require(latest["id"] == cohort and len(latest["dashboards"]) == BATCHES[cohort],
+    require(latest["id"] == cohort and len(latest["dashboards"]) == (BATCHES[cohort] if count is None else count),
             "Unexpected Corporate activation count or cohort")
     require([row["code"] for row in latest["dashboards"]] == expected_codes,
             "Corporate activation codes differ from reviewed scope")
     require(all(row["project"] == PROJECT and row["appCode"] == "co" for row in latest["dashboards"]),
             "Only Corporate can be newly activated")
+
+
+def c2_reviewed_continuation(cohort, before, prior_live):
+    if cohort != "corporate-02" or before != C2_REVIEWED_BASE:
+        return False
+    require(prior_live == C1_LIVE, "Corporate continuation must use the exact verified C1 live version")
+    require(git("merge-base", "--is-ancestor", C1_LIVE, before) == "", "Verified C1 is not an ancestor")
+    require(paths(C1_LIVE, before) == INTERVENING_PATHS, "Unexpected changes since verified C1")
+    return True
 
 
 def preflight(before, after, project, prior_live, *, observe=False):
@@ -104,8 +129,6 @@ def preflight(before, after, project, prior_live, *, observe=False):
             "Next-nine workflow byte pin mismatch")
     pin = json.loads(content(after, POLICY))
     validate_next_nine(pin["next_nine"])
-    require(not paths(before, after) - (set(pin["batches"]["corporate-01"]["blobs"]) | {INTENT}),
-            "Unexpected paths in Corporate change")
     intent = json.loads(content(after, INTENT))
     cohort = intent.get("cohort")
     require(cohort in BATCHES, "Unrecognized Corporate cohort")
@@ -113,7 +136,15 @@ def preflight(before, after, project, prior_live, *, observe=False):
                        "base": before, "previous_live": prior_live}, "Source/prior-live pin mismatch")
     data = pin["batches"][cohort]
     require(SHA.fullmatch(prior_live), "Invalid prior live deployment identity")
-    require(paths(before, after) == set(data["blobs"]) | {INTENT}, "Unexpected changed path set")
+    continuation = c2_reviewed_continuation(cohort, before, prior_live)
+    expected_paths = set(data["blobs"]) | {INTENT}
+    if continuation:
+        expected_paths |= C2_GUARD_PATHS
+        previous_pin = json.loads(content(before, POLICY))
+        require(data["codes"] == C2_ALL_CODES and set(data["blobs"]) == {MANIFEST}, "Unreviewed Corporate target set")
+        previous_pin["batches"]["corporate-02"] = data
+        require(pin == previous_pin, "Unrelated release policy changes are prohibited")
+    require(paths(before, after) == expected_paths, "Unexpected changed path set")
     for path, blob in data["blobs"].items():
         require(SHA.fullmatch(blob) and git("ls-tree", after, "--", path) == f"100644 blob {blob}\t{path}",
                 f"Candidate changed bytes differ from reviewed scope: {path}")
@@ -124,19 +155,20 @@ def preflight(before, after, project, prior_live, *, observe=False):
         require(paths(NEXT_NINE, before) == set(pin["infrastructure_paths"]), "Infrastructure source path mismatch")
         prior = pin["prior_manifest"]
     else:
-        require(prior_live == before, "Second Corporate batch must follow first exact tested/live release")
-        previous_parent = git("rev-parse", f"{before}^1")
-        preflight(previous_parent, before, PROJECT, FIRST_LIVE)
-        prior = json.loads(content(before, MANIFEST))
+        require(continuation or prior_live == before, "Second Corporate batch must follow first exact tested/live release")
+        previous_parent = git("rev-parse", f"{prior_live}^1")
+        preflight(previous_parent, prior_live, PROJECT, FIRST_LIVE)
+        prior = json.loads(content(prior_live, MANIFEST))
     require(hashlib.sha256(content(after, REGISTRY)).hexdigest() == pin["registry_sha256"], "Workspace registry changed")
     projects = pin["app_projects"]
     registry = json.loads(content(after, REGISTRY))
     lookup = {(x["appCode"], x["code"], x["route"]):projects[x["appCode"]]
               for x in registry["screens"] if x["renderer"] == "dashboard"}
-    validate_delta(prior, json.loads(content(after, MANIFEST)), cohort, lookup, data["codes"])
+    count = len(C2_ALL_CODES) if continuation else BATCHES[cohort]
+    validate_delta(prior, json.loads(content(after, MANIFEST)), cohort, lookup, data["codes"], count=count)
     if observe:
         verify_published_next_nine(pin["next_nine"])
-    print(f"Corporate source and {BATCHES[cohort]} activation rows approved against {prior_live}")
+    print(f"Corporate source and {count} activation rows approved against {prior_live}")
 
 
 if __name__ == "__main__":
