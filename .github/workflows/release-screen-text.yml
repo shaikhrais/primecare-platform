@@ -22,6 +22,9 @@ concurrency:
   group: primecare-screen-text-release
   cancel-in-progress: false
 jobs:
+  pilot_scope:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   contract:
     runs-on: ubuntu-latest
     steps:
@@ -83,7 +86,8 @@ jobs:
       - run: python3 scripts/register-live-screen-text.py --check
       - run: node --test scripts/test-screen-text.mjs scripts/test-screen-text-cache.mjs scripts/test-screen-text-postgres.mjs scripts/test-screen-text-browser.mjs scripts/test-admin-training.mjs scripts/test-admin-training-browser.mjs
   migration:
-    needs: release_tests
+    needs: [release_tests, pilot_scope]
+    if: needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     runs-on: ubuntu-latest
     environment: production
     timeout-minutes: 10

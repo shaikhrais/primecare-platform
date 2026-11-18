@@ -1,0 +1,30 @@
+name: Classify Governance pilot release scope
+on:
+  workflow_call:
+    outputs:
+      allow_legacy_publish:
+        value: ${{ jobs.scope.outputs.allow_legacy_publish }}
+permissions: {contents: read}
+jobs:
+  scope:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    outputs:
+      allow_legacy_publish: ${{ steps.scope.outputs.allow_legacy_publish }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check scope rules
+        run: python3 -m unittest tools.deployment.test_dashboard_publish_scope
+      - id: scope
+        env:
+          EVENT: ${{ github.event_name }}
+          BEFORE: ${{ github.event.before }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ "$EVENT" = push ]; then
+            [[ "$BEFORE" =~ ^[0-9a-f]{40}$ ]]
+            git fetch --no-tags --depth=1 origin "$BEFORE"
+          fi
+          result="$(python3 -m tools.deployment.dashboard_publish_scope "$EVENT" "$BEFORE" "$GITHUB_SHA")"
+          echo "$result" >> "$GITHUB_OUTPUT"

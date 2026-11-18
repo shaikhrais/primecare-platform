@@ -6,6 +6,9 @@ on:
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
+  pilot_scope:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   review:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -58,7 +61,8 @@ jobs:
     uses: ./.github/workflows/code-admin-tests.yml
 
   publish:
-    needs: [review, data_acceptance, security_acceptance]
+    needs: [review, data_acceptance, security_acceptance, pilot_scope]
+    if: needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 15
