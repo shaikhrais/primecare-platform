@@ -80,7 +80,8 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
-          if [[ "${parents[1]}" == 9bedad737ce1e3cfe65494d9bb847f3140168ff2 ]]; then
+          if [[ "${parents[1]}" == 9bedad737ce1e3cfe65494d9bb847f3140168ff2 ||
+                "${parents[1]}" == 15bc12d7a7214bd585295e30ac163e89eeb02f9e ]]; then
             # One reviewed, release-tooling-only continuation. Never treat arbitrary
             # metadata commits as runtime activations in the automatic writer classifier.
             python3 - "$GITHUB_SHA" "$PROJECT" <<'PY_SCOPE'
@@ -93,6 +94,8 @@ jobs:
           head, project = sys.argv[1:]
           approved = '47cbcfadac37f3ee4b7a7b82d66eaf43b71c96be'
           activation = '94a7c98a59f8d4aa4fec32734671c9a3df297a46'
+          governance_support = '15bc12d7a7214bd585295e30ac163e89eeb02f9e'
+          pinned_governance_workflow_blob = '49d0eafa2a027e914df5b692f43e9e85bc3ef986'
           mail = '9bedad737ce1e3cfe65494d9bb847f3140168ff2'
           workflow = '.github/workflows/smart-deploy-dashboard-portal.yml'
           pinned_mail_blobs = {
@@ -111,13 +114,27 @@ jobs:
           def commit_entry(commit, path):
               return git('ls-tree', commit, '--', path)
 
-          require(project in {'primecare-governance', 'primecare-support'},
-                  'This exact continuation is limited to Governance and Support')
-          require(git('rev-list', '--parents', '-n1', head).split() == [head, mail]
-                  and git('rev-list', '--parents', '-n1', mail).split() == [mail, approved]
+          parents = git('rev-list', '--parents', '-n1', head).split()
+          require(git('rev-list', '--parents', '-n1', mail).split() == [mail, approved]
                   and git('rev-list', '--parents', '-n1', approved).split() == [approved, activation],
                   'Unexpected continuation ancestry')
-          require(changed_paths(mail, head) == {workflow},
+          if parents == [head, mail]:
+              require(project in {'primecare-governance', 'primecare-support'},
+                      'This exact continuation is limited to Governance and Support')
+              parent = mail
+          elif parents == [head, governance_support]:
+              require(project in {'primecare-marketing', 'primecare-franchise'},
+                      'This exact continuation is limited to Marketing and Franchise')
+              require(git('rev-list', '--parents', '-n1', governance_support).split()
+                      == [governance_support, mail], 'Unexpected Governance/Support ancestry')
+              require(changed_paths(mail, governance_support) == {workflow}
+                      and commit_entry(governance_support, workflow)
+                      == f'100644 blob {pinned_governance_workflow_blob}\t{workflow}',
+                      'Governance/Support continuation is not the reviewed workflow revision')
+              parent = governance_support
+          else:
+              raise SystemExit('Unexpected continuation ancestry')
+          require(changed_paths(parent, head) == {workflow},
                   'Continuation must change only its release workflow')
           require(changed_paths(approved, mail) == set(pinned_mail_blobs),
                   'Mail commit does not match the reviewed exact paths')
