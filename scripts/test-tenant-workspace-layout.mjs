@@ -104,50 +104,57 @@ try{
  await el('tenant-preference-save').click();await page.waitForFunction(()=>document.querySelector('[data-cy=tenant-status]').textContent.includes('Default view saved'));
  assert.deepEqual(await storedPreference(),{view:'audit',version:beforeLost.version+2});assert.notEqual(preferencePosts[postStart+2].key,preferencePosts[postStart].key);
  assert.equal(Number((await f.db.query("SELECT count(*) AS total FROM tenant_dashboard_events WHERE actor_id=$1 AND action='preferences'",[identity.identity.userId])).rows[0].total),auditCount+1);
- // Exercise the live presentation with a disposable tenant and the existing task API.
- await page.setViewportSize({width:1500,height:960});
- await el('tenant-nav-tasks').click();
- await el('tenant-task-table').waitFor();
- const boardApi='/v1/governance/tenant-dashboard';
- const isBoardResponse=(response,method)=>new URL(response.url()).pathname===boardApi&&response.request().method()===method;
- await page.evaluate(()=>window.taskFilterBefore=document.querySelector('[data-cy=tenant-task-filter]'));
- await Promise.all([
-  page.waitForResponse(r=>isBoardResponse(r,'GET')&&new URL(r.url()).searchParams.get('status')==='open'),
-  el('tenant-task-filter').selectOption('open'),
- ]);
- await page.waitForFunction(()=>{const current=document.querySelector('[data-cy=tenant-task-filter]');return current!==window.taskFilterBefore&&current?.value==='open';});
- const taskWrites=writes,taskTitle='Pilot assignment from the task dashboard';
- await el('tenant-create-task').click();
- const sheet=page.getByRole('dialog');
- await sheet.waitFor();
- assert.equal(await sheet.getAttribute('aria-labelledby'),await sheet.getByRole('heading',{level:2}).getAttribute('id'));
- await page.waitForFunction(()=>document.activeElement?.tagName==='H2'&&Boolean(document.activeElement.closest('dialog[open]')));
- await el('tenant-task-title').fill(taskTitle);
- await el('tenant-task-owner').selectOption(f.actors.psw.id);
- await el('tenant-task-workflow').selectOption('fixture.tenant.process');
- const [created]=await Promise.all([page.waitForResponse(r=>isBoardResponse(r,'POST')),el('tenant-task-save').click()]);
- assert.equal(created.status(),200);
- const taskReceipt=await created.json(),item=taskReceipt.tasks.find(row=>row.title===taskTitle);
- assert.ok(item?.id);
- assert.equal(taskReceipt.organization.id,identity.organization.id);
- assert.deepEqual((await f.db.query('SELECT tenant_id,owner_id,flow_id,status,created_by FROM tenant_work_tasks WHERE id=$1',[item.id])).rows,[
-  {tenant_id:identity.organization.id,owner_id:f.actors.psw.id,flow_id:'fixture.tenant.process',status:'open',created_by:identity.identity.userId},
- ]);
- await sheet.waitFor({state:'hidden'});
- const opener='tenant-task-open-'+item.id;
- await el(opener).click();
- await sheet.waitFor();
- assert.equal(await sheet.getByRole('heading',{level:2}).textContent(),taskTitle);
- const verifyTaskContext=async()=>{
+ // Default desktop layout and independent browser history for pilot acceptance.
+ const boardContext=await browser.newContext({viewport:{width:1500,height:960}});
+ try{
+  await boardContext.addInitScript(token=>sessionStorage.setItem('primecare_session',token),f.actors.admin.token);
+  const boardPage=await boardContext.newPage(),boardEl=id=>boardPage.locator('[data-cy='+id+']');
+  boardPage.on('pageerror',e=>errors.push(e.message));
+  await boardPage.goto(origin+'/tenant-dashboard?enable-semantics=true#overview');
+  await boardEl('screen-tenant-admin-dashboard').waitFor();
+  await boardEl('tenant-nav-tasks').click();
+  await boardEl('tenant-task-table').waitFor();
+  const boardApi='/v1/governance/tenant-dashboard';
+  const isBoardResponse=(response,method)=>new URL(response.url()).pathname===boardApi&&response.request().method()===method;
+  await boardPage.evaluate(()=>window.taskFilterBefore=document.querySelector('[data-cy=tenant-task-filter]'));
+  await Promise.all([
+   boardPage.waitForResponse(r=>isBoardResponse(r,'GET')&&new URL(r.url()).searchParams.get('status')==='open'),
+   boardEl('tenant-task-filter').selectOption('open'),
+  ]);
+  await boardPage.waitForFunction(()=>{const current=document.querySelector('[data-cy=tenant-task-filter]');return current!==window.taskFilterBefore&&current?.value==='open';});
+  const taskWrites=writes,taskTitle='Pilot assignment from the task dashboard';
+  await boardEl('tenant-create-task').click();
+  const sheet=boardPage.getByRole('dialog');
+  await sheet.waitFor();
+  assert.equal(await sheet.getAttribute('aria-labelledby'),await sheet.getByRole('heading',{level:2}).getAttribute('id'));
+  await boardPage.waitForFunction(()=>document.activeElement?.tagName==='H2'&&Boolean(document.activeElement.closest('dialog[open]')));
+  await boardEl('tenant-task-title').fill(taskTitle);
+  await boardEl('tenant-task-owner').selectOption(f.actors.psw.id);
+  await boardEl('tenant-task-workflow').selectOption('fixture.tenant.process');
+  const [created]=await Promise.all([boardPage.waitForResponse(r=>isBoardResponse(r,'POST')),boardEl('tenant-task-save').click()]);
+  assert.equal(created.status(),200);
+  const taskReceipt=await created.json(),item=taskReceipt.tasks.find(row=>row.title===taskTitle);
+  assert.ok(item?.id);
+  assert.equal(taskReceipt.organization.id,identity.organization.id);
+  assert.deepEqual((await f.db.query('SELECT tenant_id,owner_id,flow_id,status,created_by FROM tenant_work_tasks WHERE id=$1',[item.id])).rows,[
+   {tenant_id:identity.organization.id,owner_id:f.actors.psw.id,flow_id:'fixture.tenant.process',status:'open',created_by:identity.identity.userId},
+  ]);
   await sheet.waitFor({state:'hidden'});
-  assert.equal(new URL(page.url()).hash,'#tasks');
-  assert.equal(await el('tenant-task-filter').inputValue(),'open');
-  await page.waitForFunction(id=>document.activeElement?.getAttribute('data-cy')===id,opener);
- };
- await page.keyboard.press('Escape');await verifyTaskContext();
- await el(opener).press('Enter');await sheet.waitFor();
- await page.goBack();await verifyTaskContext();
- assert.equal(writes,taskWrites+1,'opening and dismissing task detail must not issue a task write');
+  const opener='tenant-task-open-'+item.id;
+  await boardEl(opener).click();
+  await sheet.waitFor();
+  assert.equal(await sheet.getByRole('heading',{level:2}).textContent(),taskTitle);
+  const verifyTaskContext=async()=>{
+   await sheet.waitFor({state:'hidden'});
+   assert.equal(new URL(boardPage.url()).hash,'#tasks');
+   assert.equal(await boardEl('tenant-task-filter').inputValue(),'open');
+   await boardPage.waitForFunction(id=>document.activeElement?.getAttribute('data-cy')===id,opener);
+  };
+  await boardPage.keyboard.press('Escape');await verifyTaskContext();
+  await boardEl(opener).press('Enter');await sheet.waitFor();
+  await boardPage.goBack();await verifyTaskContext();
+  assert.equal(writes,taskWrites+1,'opening and dismissing task detail must not issue a task write');
+ }finally{await boardContext.close();}
  // Switching authenticated actor uses a different storage scope and never restores old panels.
  await page.evaluate(token=>{sessionStorage.setItem('primecare_session',token);history.replaceState(null,'','#clients');document.querySelector('#app').innerHTML='';return window.render();},f.actors.psw.token);
  const allowedHash=await page.evaluate(()=>{window.routePreference=document.querySelector('[data-cy=tenant-preference-view]');return location.hash;});assert.notEqual(allowedHash,'#clients');
