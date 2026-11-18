@@ -120,7 +120,8 @@ jobs:
             test-results/theme-library-recovery
             test-results/shell-footer
   release_source:
-    needs: test
+    needs: [test, dashboard_scope]
+    if: always() && !cancelled() && needs.test.result == 'success' && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true')
     runs-on: ubuntu-latest
     outputs:
       reuse: ${{ steps.source.outputs.reuse }}
@@ -155,7 +156,8 @@ jobs:
             echo "runtime_source=$GITHUB_SHA" >> "$GITHUB_OUTPUT"
           fi
   source_proof:
-    needs: test
+    needs: [test, dashboard_scope]
+    if: always() && !cancelled() && needs.test.result == 'success' && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true')
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 5
@@ -175,8 +177,8 @@ jobs:
           name: auth-live-proof-source-acceptance
           path: test-results/account-mutations/auth-release-approved.json
   bind:
-    needs: [release_source, source_proof, shell_acceptance, dashboard_scope]
-    if: always() && !cancelled() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && needs.release_source.outputs.reuse != 'true' && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true')
+    needs: [release_source, source_proof, shell_acceptance]
+    if: needs.release_source.outputs.reuse != 'true'
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -203,8 +205,8 @@ jobs:
     secrets: inherit
   proof:
     name: proof (all locales, locked-v1)
-    needs: [release_source, source_proof, shell_acceptance, deploy, dashboard_scope]
-    if: always() && !cancelled() && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true') && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
+    needs: [release_source, source_proof, shell_acceptance, deploy]
+    if: always() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 25

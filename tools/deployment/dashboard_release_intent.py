@@ -24,6 +24,7 @@ INFRA = frozenset({
     ".github/workflows/verify-live-own-sessions.yml",
     "tools/deployment/dashboard_publish_scope.py",
 })
+INFRA_REPAIR = frozenset({INFRA_MARKER, ".github/workflows/verify-account-mutations.yml"})
 RUNTIME_PATHS = Path("tools/deployment/dashboard-runtime-paths.txt")
 
 
@@ -32,7 +33,7 @@ def classify(changed, runtime_paths, raw_intent=None):
     if not changed:
         raise ValueError("Cannot classify an empty push diff")
     if INFRA_MARKER in changed:
-        if changed != INFRA:
+        if changed not in (INFRA, INFRA_REPAIR):
             raise ValueError("Unexpected file in Smart Deploy infrastructure install")
         return "smart-dashboard-infra"
     if INTENT not in changed:
