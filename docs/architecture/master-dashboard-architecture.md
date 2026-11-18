@@ -54,6 +54,14 @@ export class TenantAdminDashboard extends MasterDashboard {
 
 The catalog is a declaration, not a capability token. A projection with unknown or duplicate view IDs, an unregistered route, or a duplicate active owner fails rather than falling back to broader access. The controller still has to suppress stale responses and recover safely from session or tenant changes. A panel host never grants access to data.
 
+## Strict inheritance rollout
+
+The [enforcement audit](master-dashboard-enforcement-audit.md) lists all 115 canonical dashboards and their current migration path. The isolated pilot applies a guard before the shared shell writes any content. If a strict dashboard renders directly, the guard reports **Dashboard cannot render: its screen must extend MasterDashboard**. A valid base-class render uses a scoped, synchronous permit tied to the active screen owner.
+
+The candidate checks required layout slots before drawing. Docking is optional for other dashboards and only enabled for a supported existing host. A superseded owner cannot repaint, and its dialogs and shell are retired. The disposable browser fixture exercises a second subclass without Tenant Admin's docking and confirms that a direct shell call cannot draw.
+
+Keep strict enforcement scoped to the pilot until the shared adapter covers the 113 generic dashboard entries and Care Delivery and Founder Growth have their individual adapters. Public sign-in, recovery, account and ordinary governed records retain their existing presentation paths. Publishing documentation and the preflight patch to main does not enable the runtime guard.
+
 ## Verification and rollout
 
 - **Shared contract:** test valid subsets, missing/duplicate IDs, scope replacement, duplicate owners, subclass inheritance and disposal. Ordinary catalog-only changes should reuse these checks, not create a separate dashboard test framework.
