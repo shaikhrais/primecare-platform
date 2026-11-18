@@ -7,6 +7,9 @@ on:
   workflow_dispatch:
 permissions: {contents: read}
 jobs:
+  dashboard_scope:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   acceptance:
     runs-on: ubuntu-24.04
     timeout-minutes: 12
@@ -71,7 +74,8 @@ jobs:
         env: {PSW_PGLITE_MODULE: /tmp/psw-tools/node_modules/@electric-sql/pglite/dist/index.js}
         run: node scripts/preview-psw-personal.mjs
   publish:
-    needs: acceptance
+    needs: [acceptance, dashboard_scope]
+    if: needs.dashboard_scope.outputs.allow_legacy_publish == 'true'
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 20

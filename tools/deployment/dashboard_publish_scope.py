@@ -1,9 +1,11 @@
-"""Controls only automatic production writers during the Governance UI pilot."""
+"""Controls automatic production writers for the selected dashboard release lanes."""
 import argparse
 import subprocess
-import re
+import json
+from pathlib import Path
 
-SHA = re.compile(r"[0-9a-f]{40}")
+from .dashboard_release_intent import INFRA_MARKER, INTENT, RUNTIME_PATHS, changed_paths, classify
+
 GATE_PATHS = {
     ".github/workflows/release-screen-text.yml",
     ".github/workflows/code-admin-look.yml",
@@ -20,6 +22,10 @@ def allow_legacy(event, paths):
         return True
     if event != "push" or not paths:
         raise ValueError("Cannot determine approved release scope")
+    if INFRA_MARKER in paths or INTENT in paths:
+        raw_intent = json.loads(Path(INTENT).read_text()) if INTENT in paths else None
+        runtime_paths = frozenset(RUNTIME_PATHS.read_text().splitlines())
+        return classify(paths, runtime_paths, raw_intent) == "legacy"
     if paths <= GATE_PATHS:
         return False
     if MARKER in paths:
@@ -37,10 +43,9 @@ def main():
     args = parser.parse_args()
     paths = set()
     if args.event == "push":
-        if not all(SHA.fullmatch(x) and x != "0" * 40 for x in (args.before, args.after)):
-            raise ValueError("Missing before/after commit")
-        raw = subprocess.check_output(["git", "diff", "--name-only", "--no-renames", "-z", args.before, args.after, "--"])
-        paths = {p.decode() for p in raw.split(b"\0") if p}
+        if subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip() != args.after:
+            raise ValueError("Checkout does not match the event SHA")
+        paths = changed_paths(args.before, args.after)
     print("allow_legacy_publish=" + str(allow_legacy(args.event, paths)).lower())
 
 

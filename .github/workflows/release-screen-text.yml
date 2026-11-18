@@ -72,8 +72,9 @@ jobs:
       SCREEN_TEXT_TEST_DATABASE_URL: postgres://postgres:postgres@localhost:5432/screen_text
     steps:
       - uses: actions/checkout@v4
+        with: {fetch-depth: 0, persist-credentials: false}
       - name: Check scope rules
-        run: python3 -m unittest tools.deployment.test_dashboard_publish_scope
+        run: python3 -m unittest tools.deployment.test_dashboard_publish_scope tools.deployment.test_dashboard_release_intent
       - id: scope
         env:
           EVENT: ${{ github.event_name }}
@@ -81,10 +82,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ "$EVENT" = push ]; then
-            [[ "$BEFORE" =~ ^[0-9a-f]{40}$ ]]
-            git fetch --no-tags --depth=1 origin "$BEFORE"
-          fi
           result="$(python3 -m tools.deployment.dashboard_publish_scope "$EVENT" "$BEFORE" "$GITHUB_SHA")"
           echo "$result" >> "$GITHUB_OUTPUT"
       - name: Prepare isolated historical governance test fixture

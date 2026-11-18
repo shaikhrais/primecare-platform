@@ -56,6 +56,9 @@ concurrency:
   group: account-mutations-live-release
   cancel-in-progress: false
 jobs:
+  dashboard_scope:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
   test:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
@@ -172,8 +175,8 @@ jobs:
           name: auth-live-proof-source-acceptance
           path: test-results/account-mutations/auth-release-approved.json
   bind:
-    needs: [release_source, source_proof, shell_acceptance]
-    if: needs.release_source.outputs.reuse != 'true'
+    needs: [release_source, source_proof, shell_acceptance, dashboard_scope]
+    if: always() && !cancelled() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && needs.release_source.outputs.reuse != 'true' && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true')
     environment: production
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -200,8 +203,8 @@ jobs:
     secrets: inherit
   proof:
     name: proof (all locales, locked-v1)
-    needs: [release_source, source_proof, shell_acceptance, deploy]
-    if: always() && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
+    needs: [release_source, source_proof, shell_acceptance, deploy, dashboard_scope]
+    if: always() && !cancelled() && (github.event_name != 'push' || needs.dashboard_scope.outputs.allow_legacy_publish == 'true') && needs.release_source.result == 'success' && needs.source_proof.result == 'success' && needs.shell_acceptance.result == 'success' && (needs.deploy.result == 'success' || needs.release_source.outputs.reuse == 'true')
     environment: production
     runs-on: ubuntu-24.04
     timeout-minutes: 25

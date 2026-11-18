@@ -15,8 +15,33 @@ concurrency:
   group: auth-owned-live-sessions
   cancel-in-progress: false
 jobs:
+  dashboard_scope:
+    if: github.event_name == 'push'
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
+  upstream_live_proof:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    outputs:
+      verified: ${{ steps.check.outputs.verified }}
+    steps:
+      - id: check
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const run=context.payload.workflow_run;
+            const owner=context.repo.owner,repo=context.repo.repo;
+            const jobs=await github.paginate(github.rest.actions.listJobsForWorkflowRun,{owner,repo,run_id:run.id,per_page:100});
+            const requiredByName={
+              'Verify deployed account creation editing revocation and email recovery': name=>/^proof(?: \(.*\))?$/.test(name),
+              'Release confirmed self-session revocation': name=>name==='deploy-auth',
+              'Release registered account session controls': name=>name.endsWith(' / verify_gateway'),
+            };
+            const required=requiredByName[run.name];
+            const matching=required?jobs.filter(job=>required(job.name)):[];
+            core.setOutput('verified',String(matching.length>0&&matching.every(job=>job.conclusion==='success')));
   deployment:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    needs: [upstream_live_proof, dashboard_scope]
+    if: always() && !cancelled() && (github.event_name == 'workflow_dispatch' || (github.event_name == 'push' && needs.dashboard_scope.outputs.allow_legacy_publish == 'true') || (github.event_name == 'workflow_run' && needs.upstream_live_proof.outputs.verified == 'true'))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
