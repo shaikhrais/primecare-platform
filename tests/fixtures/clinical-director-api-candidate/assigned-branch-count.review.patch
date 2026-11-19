@@ -1,0 +1,505 @@
+diff --git a/cloudflare/workers/src/business-modules.ts b/cloudflare/workers/src/business-modules.ts
+index 8773f3bbb..15bbd17a0 100644
+--- a/cloudflare/workers/src/business-modules.ts
++++ b/cloudflare/workers/src/business-modules.ts
+@@ -1,3 +1,4 @@
++import {clinicalDashboard} from './clinical-dashboard';
+ import {careDelivery} from './care/service';
+ import {lookReview} from './look/service';
+ import {growth} from './growth/service';
+@@ -18,6 +19,7 @@ type BusinessHandler = (request: Request, env: Env, path: string,
+ /** One ordered registry shared by every service. Handlers retain their authority checks. */
+ export const businessModules: readonly Readonly<{name: string; handle: BusinessHandler}>[] =
+   Object.freeze([
++    {name: 'clinical-dashboard', handle: clinicalDashboard},
+     {name: 'client-booking-lifecycle', handle: clientBookingLifecycle},
+     {name: 'provider-timesheet-items', handle: providerTimesheetItems},
+     {name: 'provider-records', handle: providerRecords},
+diff --git a/cloudflare/workers/src/clinical-dashboard.ts b/cloudflare/workers/src/clinical-dashboard.ts
+new file mode 100644
+index 000000000..476e7ad83
+--- /dev/null
++++ b/cloudflare/workers/src/clinical-dashboard.ts
+@@ -0,0 +1,43 @@
++import {json, withDb, tokenFrom, sha256, type Env} from './auth';
++import {privilegedActor} from './auth-projection';
++import {sourceLimitAllowed} from './source-limit-result';
++
++/** DRAFT pending owner choice: assigned verified active branch count only.
++ * No booking or appointment metrics. Authority is the reviewed effective view.
++ */
++export async function clinicalDashboard(request:Request, env:Env, path:string, headers:HeadersInit):Promise<Response|null> {
++  if (env.SERVICE_NAME !== 'governance' || path !== '/v1/clinical/dashboard') return null;
++  const safe = new Headers(headers);
++  safe.set('cache-control','no-store'); safe.append('vary','Authorization, Cookie');
++  safe.set('x-content-type-options','nosniff');
++  const reply = (status:number,error:string) => json({error},status,safe);
++  if (request.method !== 'GET') {safe.set('allow','GET');return reply(405,'method_not_allowed');}
++  const token = tokenFrom(request);
++  if (!token) return reply(401,'unauthenticated');
++  if (new URL(request.url).search || request.body !== null || request.headers.has('x-tenant-id')) return reply(400,'unexpected_scope_or_query');
++  try {
++    if (env.WORKSPACE_SOURCE_LIMIT && !sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('clinical-dashboard:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))) {
++      safe.set('retry-after','60');return reply(429,'rate_limited');
++    }
++    return await withDb(env,async db => {
++      await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
++      try {
++        const actor = privilegedActor((await db.query(`SELECT u.id,u.tenant_id,u.roles
++          FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
++          JOIN public.tenants t ON t.id=u.tenant_id
++          WHERE s.token_hash=$1 AND s.expires_at>CURRENT_TIMESTAMP
++            AND u.status='active' AND t.status='active'`,[await sha256(token)])).rows);
++        if (!actor) return reply(401,'unauthenticated');
++        if (actor.roles !== 'clinical_director' || !actor.tenant_id) return reply(403,'forbidden');
++        const measured = (await db.query(`SELECT COUNT(DISTINCT branch_id)::text AS branch_count
++          FROM public.clinical_branch_director_effective_scope
++          WHERE tenant_id=$1 AND director_user_id=$2`,[actor.tenant_id,actor.id])).rows;
++        const value = measured.length===1 ? measured[0].branch_count : undefined;
++        if (typeof value!=='string' || !/^(0|[1-9][0-9]*)$/.test(value)
++            || !Number.isSafeInteger(Number(value))) return reply(503,'unavailable');
++        if (Number(value)===0) return reply(403,'no_scope');
++        return json({assignedVerifiedBranchCount:Number(value)},200,safe);
++      } finally {await db.query('ROLLBACK');}
++    });
++  } catch {return reply(503,'unavailable');}
++}
+diff --git a/cloudflare/workers/src/gateway.ts b/cloudflare/workers/src/gateway.ts
+index f4364d399..830b34b57 100644
+--- a/cloudflare/workers/src/gateway.ts
++++ b/cloudflare/workers/src/gateway.ts
+@@ -59,6 +59,11 @@ export class GatewayWorker extends BaseWorker<Env> {
+ 
+   protected override async handle(request: Request, env: Env): Promise<Response> {
+     const url = new URL(request.url);
++    // Exact canonical read; no prefix routing or duplicate-dashboard alias.
++    if(url.pathname==='/v1/clinical/dashboard') {
++      if(request.method!=='GET')return withGatewayHeaders(request,Response.json({error:'method_not_allowed'},{status:405,headers:{allow:'GET'}}));
++      return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));
++    }
+     const approval=voiceContracts.operations.find(op=>['task.preview','task.approve'].includes(op.key)&&op.path===url.pathname);
+     if(approval){
+       if(request.method!==approval.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:approval.method}}));
+@@ -131,6 +136,7 @@ export class GatewayWorker extends BaseWorker<Env> {
+     }
+     const match = url.pathname.match(/^\/(?:v1|api)\/([^/]+)(\/.*)?$/);
+     if (!match || !routes[match[1]]) return withGatewayHeaders(request, Response.json({ error: 'Route not found' }, { status: 404 }));
++    if(match[2]==='/v1/clinical/dashboard')return withGatewayHeaders(request,Response.json({error:'Route not found'},{status:404}));
+     url.hostname = 'service';
+     url.pathname = match[2] || '/';
+     const response = await env[routes[match[1]]].fetch(new Request(url, request));
+diff --git a/scripts/test-worker-inheritance.mjs b/scripts/test-worker-inheritance.mjs
+index 659aab15a..54d0a6f2b 100644
+--- a/scripts/test-worker-inheritance.mjs
++++ b/scripts/test-worker-inheritance.mjs
+@@ -93,7 +93,7 @@ const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-m
+ const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));
+ test('central module registry retains reviewed precedence and cannot mutate',()=>{
+   assert.deepEqual(businessModules.map(module=>module.name),[
+-    'client-booking-lifecycle','provider-timesheet-items','provider-records',
++    'clinical-dashboard','client-booking-lifecycle','provider-timesheet-items','provider-records',
+     'provider-self','client-self','governance','care-delivery','growth','look-review',
+     'workspace','reporting','platform-administration',
+   ]);
+diff --git a/tests/fixtures/clinical-director-api-candidate/API_ONLY_HANDOFF.md b/tests/fixtures/clinical-director-api-candidate/API_ONLY_HANDOFF.md
+new file mode 100644
+index 000000000..8257bf83a
+--- /dev/null
++++ b/tests/fixtures/clinical-director-api-candidate/API_ONLY_HANDOFF.md
+@@ -0,0 +1,38 @@
++# DRAFT — assigned verified branch count, pending owner choice
++
++Local alternative against main `026d4b016aba47c093004e3fc74a4eea36e9b20f`. No commit, publication or production approval. Separate worktree preserves the prior booking-count candidate. This alternative must not be applied on top of that candidate; select one patch against the stated base.
++
++## Exact behavior
++
++GET `/v1/clinical/dashboard` returns only `{"assignedVerifiedBranchCount": 2}` when the signed-in active Clinical Director has two distinct currently assigned active verified branches in their active tenant. It is a scope count, not a working appointment dashboard or clinical activity metric.
++
++The actual gateway forwards only this canonical GET to GOVERNANCE. The actual ServiceWorker performs session/user/tenant authorization and `COUNT(DISTINCT branch_id)` over `public.clinical_branch_director_effective_scope`, filtered by both server-derived tenant_id and director_user_id in one REPEATABLE READ READ ONLY transaction. The reviewed view enforces current grants, active user/tenant, verified/nonretired branches, expiry and revocation. Duplicate effective rows cannot multiply the count. No bookings table is queried or needed. No branch, tenant, user or patient identifiers are returned. No scope inference or fallback grants.
++
++Missing/expired session or inactive user/tenant: 401 unauthenticated. Wrong role: 403 forbidden. Zero assigned effective branches: 403 no_scope, not a successful zero. Missing view/read access or invalid/unsafe count: sanitized 503 unavailable. No query/body/tenant overrides: 400. Non-GET: 405. Duplicate-dashboard and nested service aliases remain excluded. Responses are no-store; existing limiter behavior, token hashing and actor validation remain. No audit writes or new write paths are added.
++
++## Evidence and reproduction
++
++`route.test.mjs` bundles the real gateway and ServiceWorker, replacing only pg connection transport with isolated PGlite. There is no bookings table in this fixture. Cases cover distinct duplicate effective rows and historical grants, other actor/tenant isolation, retired/future-verified/revoked/expired scope, changed role/user/tenant/session, empty scope, missing view and read access, minimum column access, route/input/rate boundaries and actual read-only transaction mode. Handler SQL is asserted to contain only SELECT/BEGIN/ROLLBACK and never bookings. Fixture DDL/DML/grants are disposable local test setup only, not production actions.
++
++Run with installed dependencies:
++
++```sh
++NODE_PATH="$PWD/node_modules" PGLITE_FIXTURE_MODULE=/absolute/path/to/@electric-sql/pglite node --test tests/fixtures/clinical-director-api-candidate/route.test.mjs
++node --test scripts/test-worker-inheritance.mjs
++npx --no-install tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
++npx --no-install esbuild cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts --bundle --platform=node --packages=external --outdir=/tmp/clinical-branch-draft-bundles
++```
++
++PGlite exercises PostgreSQL-compatible SQL, not native PostgreSQL production behavior. Local bundles are not sealed Cloudflare deployment artifacts. The existing prototype fixtures are not evidence of this implementation; the real route test above is.
++
++Local results: **8 route/adapter/SQL tests and 21 Worker regressions passed**; affected TypeScript and local esbuild checks passed. Logs are in `evidence/clinical-branch-draft/` (local only).
++
++## Remaining gates — no live verification performed
++
++First obtain owner choice of this exact branch-only response. This draft does not resolve booking timestamp provenance or serve appointment metrics. No UI edits, production connection, role grants, seeds, pushes, CI dispatch or deployments were performed. No denied setup was retried.
++
++Runtime source is `auth.ts` withDb -> pg.Client using governance Worker env.DB_URL. Generator maps GOVERNANCE to primecare-governance-api and SERVICE_NAME=governance. Actual runtime database principal remains unverified; CI PRODUCTION_DATABASE_URL/migrator identity is not its substitute.
++
++An independently authorized operator must verify serving bindings and principal provenance without exporting credentials, then use the reviewed `runtime-read-preflight.sql` with that same principal: read-only transaction, bounded timeouts, privilege/catalog booleans and WHERE-false compilation only, rollback. No session/clinical rows or principal identifiers are emitted; suppress raw exceptions and retain only labels/SQLSTATE. Minimum schema USAGE and SELECT columns: auth_sessions(token_hash,user_id,expires_at), users(id,tenant_id,roles,status), tenants(id,status), effective_scope(tenant_id,director_user_id,branch_id). No bookings privilege, authority-table grant or write is required. Confirm owner-rights view definition/dependencies, RLS visibility, actual rate binding and query plan separately; do not grant automatically. Empty approved authority objects imply no_scope.
++
++Endpoint read-audit policy remains unresolved: existing access audit supports grant/revoke, not an approved read-event write. Preserve that separate gate. Follow tools/deployment/SMART_DEPLOY_OVERVIEW.md: main-only approved integration, exact-SHA API verify-only CI, and separately approved selective publisher/binding/rollback receipts before any release. This local draft is not production-ready approval.
+diff --git a/tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json b/tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json
+new file mode 100644
+index 000000000..f26e6b1f3
+--- /dev/null
++++ b/tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json
+@@ -0,0 +1,192 @@
++{
++  "openapi": "3.1.0",
++  "info": {
++    "title": "DRAFT Clinical Director assigned branch count",
++    "version": "0.4.0-draft",
++    "description": "Pending owner choice. Counts assigned active verified branches only; no booking or appointment metric. Local candidate, not production approval."
++  },
++  "paths": {
++    "/v1/clinical/dashboard": {
++      "get": {
++        "operationId": "readClinicalDashboard",
++        "security": [
++          {
++            "sessionBearer": []
++          },
++          {
++            "sessionCookie": []
++          }
++        ],
++        "description": "Count distinct branch_id from the reviewed effective-scope view for the active signed-in Clinical Director in their active tenant, in the same repeatable-read read-only authorization transaction. No query/body/tenant overrides or IDs returned. Zero scope is 403 no_scope; database/read failure is 503 unavailable.",
++        "responses": {
++          "400": {
++            "description": "No body, query string or tenant override accepted",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "unexpected_scope_or_query"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "401": {
++            "description": "Missing, invalid or expired session; inactive user or tenant",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "unauthenticated"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "403": {
++            "description": "Wrong role, or no effective assigned verified active branch",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "forbidden",
++                        "no_scope"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "405": {
++            "description": "GET only",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "method_not_allowed"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "429": {
++            "description": "Configured source limiter denied",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "rate_limited"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "503": {
++            "description": "Authorization source or read privileges unavailable; invalid or unsafe aggregate",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "error"
++                  ],
++                  "properties": {
++                    "error": {
++                      "enum": [
++                        "unavailable"
++                      ]
++                    }
++                  }
++                }
++              }
++            }
++          },
++          "200": {
++            "description": "Count of distinct currently assigned active verified branches in the current director tenant. No appointment metric or identifiers.",
++            "content": {
++              "application/json": {
++                "schema": {
++                  "type": "object",
++                  "additionalProperties": false,
++                  "required": [
++                    "assignedVerifiedBranchCount"
++                  ],
++                  "properties": {
++                    "assignedVerifiedBranchCount": {
++                      "type": "integer",
++                      "minimum": 1,
++                      "maximum": 9007199254740991
++                    }
++                  }
++                },
++                "example": {
++                  "assignedVerifiedBranchCount": 2
++                }
++              }
++            }
++          }
++        }
++      }
++    }
++  },
++  "components": {
++    "securitySchemes": {
++      "sessionBearer": {
++        "type": "http",
++        "scheme": "bearer"
++      },
++      "sessionCookie": {
++        "type": "apiKey",
++        "in": "cookie",
++        "name": "session_token"
++      }
++    }
++  },
++  "x-candidate-base": "d87533363f79b33878fcb2c56ae5611e040e6c14",
++  "x-production-ready": false
++}
+diff --git a/tests/fixtures/clinical-director-api-candidate/route.test.mjs b/tests/fixtures/clinical-director-api-candidate/route.test.mjs
+new file mode 100644
+index 000000000..3235c0f3b
+--- /dev/null
++++ b/tests/fixtures/clinical-director-api-candidate/route.test.mjs
+@@ -0,0 +1,99 @@
++// Real gateway + ServiceWorker + session adapter + SQL, using disposable PGlite only.
++import {test} from 'node:test';
++import assert from 'node:assert/strict';
++import {createRequire} from 'node:module';
++import {readFile,mkdtemp,rm} from 'node:fs/promises';
++import {tmpdir} from 'node:os';
++import {join} from 'node:path';
++import {createHash} from 'node:crypto';
++import {build} from 'esbuild';
++if (['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DB_URL'].some(key=>Object.hasOwn(process.env,key))) throw Error('Isolated fixtures only');
++const require=createRequire(import.meta.url);
++const {PGlite}=require(process.env.PGLITE_FIXTURE_MODULE);
++const temp=await mkdtemp(join(tmpdir(),'clinical-route-'));
++const root=new URL('../../../',import.meta.url).pathname;
++const bundle=async(entry,name,plugins=[])=>{
++ const outfile=join(temp,name+'.cjs');await build({entryPoints:[join(root,entry)],outfile,bundle:true,platform:'node',format:'cjs',packages:'external',plugins});return require(outfile);
++};
++const pg={name:'isolated-pg',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export class Client {async connect(){} async end(){} async query(sql,args){globalThis.clinicalQueries.push([sql,args]);const result=await globalThis.clinicalFixture.query(sql,args);if(sql.startsWith('BEGIN'))globalThis.clinicalReadModes.push((await globalThis.clinicalFixture.query('SHOW transaction_read_only')).rows[0].transaction_read_only);return result;}}`,loader:'js'}));}};
++try {
++ const {ServiceWorker}=await bundle('cloudflare/workers/src/service.ts','service',[pg]);
++ const {GatewayWorker}=await bundle('cloudflare/workers/src/gateway.ts','gateway');
++ const db=new PGlite();globalThis.clinicalFixture=db;globalThis.clinicalQueries=[];globalThis.clinicalReadModes=[];
++ const token=id=>id.repeat(43),hash=t=>createHash('sha256').update(t).digest('hex');
++ await db.exec(`CREATE TABLE tenants(id text PRIMARY KEY,status text);
++ CREATE TABLE users(id text PRIMARY KEY,tenant_id text,roles text,status text);
++ CREATE TABLE auth_sessions(token_hash text PRIMARY KEY,user_id text,expires_at timestamptz);
++ INSERT INTO tenants VALUES('a','active'),('b','active');
++ INSERT INTO users VALUES('director','a','clinical_director','active'),('foreign','b','clinical_director','active'),('admin','a','tenant_admin','active'),('empty','a','clinical_director','active');`);
++ for(const [t,id] of [['a','director'],['b','foreign'],['c','admin'],['d','empty']])await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+interval '1 day')",[hash(token(t)),id]);
++ await db.exec(await readFile(new URL('./migration-review.sql',import.meta.url),'utf8'));
++ const worker=new ServiceWorker(),gateway=new GatewayWorker(),env={SERVICE_NAME:'governance',DB_URL:'fixture-only'};
++ let calls=0;
++ const bindings={GOVERNANCE:{fetch:r=>{calls++;return worker.fetch(r,env);}}};
++ const call=(t='a',suffix='',options={})=>gateway.fetch(new Request('https://fixture.test/v1/clinical/dashboard'+suffix,{...options,headers:{...(t?{authorization:'Bearer '+token(t)}:{}),...options.headers}}),bindings);
++ await test('real route: empty authority gives no scope, never zero metrics',async()=>{const r=await call();assert.equal(r.status,403);assert.deepEqual(await r.json(),{error:'no_scope'});assert.equal(r.headers.get('cache-control'),'no-store');});
++ await db.exec(`INSERT INTO clinical_verified_branches VALUES('a','east','fixture',NOW()-interval '1 day',NULL),('b','east','fixture',NOW()-interval '1 day',NULL);
++ INSERT INTO clinical_branch_director_grants VALUES('a','east','director',NOW()-interval '1 day',NOW()+interval '1 day',NULL);`);
++ await test('counts distinct branches only for current actor and tenant, including duplicate effective rows',async()=>{
++ assert.deepEqual(await (await call()).json(),{assignedVerifiedBranchCount:1});
++ assert.deepEqual(await (await call('b')).json(),{error:'no_scope'});
++ assert.deepEqual(await (await call('d')).json(),{error:'no_scope'});
++ await db.exec("INSERT INTO clinical_verified_branches VALUES('a','west','fixture',NOW()-interval '1 day',NULL); INSERT INTO clinical_branch_director_grants VALUES('a','west','director',NOW()-interval '1 day',NOW()+interval '1 day',NULL),('a','east','director',NOW()-interval '3 days',NOW()-interval '1 day',NOW()-interval '2 days'),('b','east','foreign',NOW()-interval '1 day',NOW()+interval '1 day',NULL),('a','west','empty',NOW()-interval '1 day',NOW()+interval '1 day',NULL)");
++ const definition=(await db.query("SELECT pg_get_viewdef('clinical_branch_director_effective_scope'::regclass,true) AS sql")).rows[0].sql.trim().replace(/;$/,'');
++ await db.exec('CREATE OR REPLACE VIEW clinical_branch_director_effective_scope AS '+definition+' UNION ALL '+definition);
++ try {
++  assert.deepEqual(await (await call()).json(),{assignedVerifiedBranchCount:2});
++  assert.deepEqual(await (await call('b')).json(),{assignedVerifiedBranchCount:1});
++  assert.deepEqual(await (await call('d')).json(),{assignedVerifiedBranchCount:1});
++  const q=globalThis.clinicalQueries.find(([sql])=>sql.includes('COUNT(DISTINCT branch_id)'));
++  assert.match(q[0],/tenant_id=\$1 AND director_user_id=\$2/);assert.deepEqual(q[1],['a','director']);
++ } finally {
++  await db.exec('CREATE OR REPLACE VIEW clinical_branch_director_effective_scope AS '+definition);
++  await db.exec("DELETE FROM clinical_branch_director_grants WHERE branch_id='west' OR revoked_at IS NOT NULL OR director_user_id IN ('foreign','empty'); DELETE FROM clinical_verified_branches WHERE branch_id='west'");
++ }
++ });
++ await test('session, role, input and method gates',async()=>{
++ assert.equal((await call(null)).status,401);assert.equal((await call('z')).status,401);assert.equal((await call('c')).status,403);
++ for(const suffix of ['?tenant=b','?branch=east','?userId=foreign','?from=2020-01-01','?status=pending','?windowHours=24'])assert.equal((await call('a',suffix)).status,400);
++ assert.equal((await call('a','',{headers:{'x-tenant-id':'a'}})).status,400);
++ for(const path of ['/v1/governance/v1/clinical/dashboard','/api/governance/v1/clinical/dashboard','/v1/clinical/dashboard-dup-1'])assert.equal((await gateway.fetch(new Request('https://fixture.test'+path,{headers:{authorization:'Bearer '+token('a')}}),bindings)).status,404);
++ const before=calls;assert.equal((await call('a','',{method:'POST'})).status,405);assert.equal(calls,before);
++ assert.equal((await worker.fetch(new Request('https://fixture.test/v1/clinical/dashboard'),{...env,SERVICE_NAME:'client'})).status,404);
++ });
++ await test('configured source limiter denies before database reads',async()=>{
++ const before=globalThis.clinicalQueries.length;
++ env.WORKSPACE_SOURCE_LIMIT={limit:async()=>({success:false})};const r=await call();assert.equal(r.status,429);assert.equal(r.headers.get('retry-after'),'60');assert.equal(globalThis.clinicalQueries.length,before);
++ env.WORKSPACE_SOURCE_LIMIT={limit:async()=>({success:'yes'})};assert.equal((await call()).status,503);assert.equal(globalThis.clinicalQueries.length,before);delete env.WORKSPACE_SOURCE_LIMIT;
++ });
++ await test('scope changes take effect on next request',async()=>{
++ for(const [change,undo,status] of [
++ ["UPDATE clinical_branch_director_grants SET granted_at=NOW()+interval '1 hour'","UPDATE clinical_branch_director_grants SET granted_at=NOW()-interval '1 day'",403],
++ ["UPDATE clinical_branch_director_grants SET revoked_at=NOW()","UPDATE clinical_branch_director_grants SET revoked_at=NULL",403],
++ ["UPDATE clinical_verified_branches SET retired_at=NOW()","UPDATE clinical_verified_branches SET retired_at=NULL",403],
++ ["UPDATE clinical_verified_branches SET verified_at=NOW()+interval '1 day'","UPDATE clinical_verified_branches SET verified_at=NOW()-interval '1 day'",403],
++ ["UPDATE clinical_branch_director_grants SET expires_at=NOW()-interval '1 hour'","UPDATE clinical_branch_director_grants SET expires_at=NOW()+interval '1 day'",403],
++ ["UPDATE users SET tenant_id='b' WHERE id='director'","UPDATE users SET tenant_id='a' WHERE id='director'",403],
++ ["UPDATE users SET roles='tenant_admin' WHERE id='director'","UPDATE users SET roles='clinical_director' WHERE id='director'",403],
++ ["UPDATE users SET status='inactive' WHERE id='director'","UPDATE users SET status='active' WHERE id='director'",401],
++ ["UPDATE tenants SET status='inactive' WHERE id='a'","UPDATE tenants SET status='active' WHERE id='a'",401],
++ ["UPDATE auth_sessions SET expires_at=NOW()-interval '1 hour'","UPDATE auth_sessions SET expires_at=NOW()+interval '1 day'",401]
++ ]) {await db.exec(change);assert.equal((await call()).status,status,change);await db.exec(undo);assert.deepEqual(await (await call()).json(),{assignedVerifiedBranchCount:1});}
++ });
++ await test('scope database permission denied is unavailable without details',async()=>{
++ await db.exec('CREATE ROLE clinical_read_fixture; GRANT USAGE ON SCHEMA public TO clinical_read_fixture; GRANT SELECT ON users,tenants,auth_sessions TO clinical_read_fixture; SET ROLE clinical_read_fixture');
++ const r=await call();assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'unavailable'});await db.exec('RESET ROLE');
++ });
++ await test('minimum column grants suffice without underlying authority-table access (fixture only)',async()=>{
++ await db.exec('REVOKE ALL ON users,tenants,auth_sessions FROM clinical_read_fixture; GRANT SELECT(id,tenant_id,roles,status) ON users TO clinical_read_fixture; GRANT SELECT(id,status) ON tenants TO clinical_read_fixture; GRANT SELECT(token_hash,user_id,expires_at) ON auth_sessions TO clinical_read_fixture; GRANT SELECT(tenant_id,director_user_id,branch_id) ON clinical_branch_director_effective_scope TO clinical_read_fixture; SET ROLE clinical_read_fixture');
++ try {
++  const results=await db.exec(await readFile(new URL('./runtime-read-preflight.sql',import.meta.url),'utf8'));
++  const checks=Object.assign({},...results.flatMap(result=>result.rows));
++  assert.deepEqual(checks,{public_schema_usage:true,not_superuser_or_bypassrls:true,minimum_read_columns_available:true,authority_tables_exist:true,no_clinical_write_privileges:true,scope_is_view:true,reviewed_owner_rights_view_mode:true,runtime_cannot_assume_scope_owner:true,empty_scope_query_compiles:true});
++  const r=await call();assert.equal(r.status,200);assert.deepEqual(await r.json(),{assignedVerifiedBranchCount:1});
++  assert.equal((await call('b')).status,403);
++ } finally {await db.exec('RESET ROLE');}
++ });
++ await test('missing view is unavailable; request handler performs no writes',async()=>{await db.exec('DROP VIEW clinical_branch_director_effective_scope');const r=await call();assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'unavailable'});assert.ok(globalThis.clinicalQueries.every(([q])=>/^(SELECT|BEGIN|ROLLBACK)/.test(q)));assert.ok(globalThis.clinicalQueries.every(([q])=>! /\bbookings\b/i.test(q)));assert.ok(globalThis.clinicalReadModes.length>0);assert.ok(globalThis.clinicalReadModes.every(mode=>mode==='on'));});
++ await db.close();
++} finally {await rm(temp,{recursive:true,force:true});delete globalThis.clinicalFixture;delete globalThis.clinicalQueries;delete globalThis.clinicalReadModes;}
+diff --git a/tests/fixtures/clinical-director-api-candidate/runtime-read-preflight.sql b/tests/fixtures/clinical-director-api-candidate/runtime-read-preflight.sql
+new file mode 100644
+index 000000000..7a779d7f8
+--- /dev/null
++++ b/tests/fixtures/clinical-director-api-candidate/runtime-read-preflight.sql
+@@ -0,0 +1,49 @@
++-- REVIEW PLAN ONLY. Never auto-run or connect using a CI migrator credential.
++-- A separately approved operator must establish provenance to the active
++-- governance Worker's existing DB_URL, without reading/exporting that secret.
++-- No rows, tokens, connection identities, credentials or patient data emitted.
++BEGIN READ ONLY;
++SET LOCAL statement_timeout = '3s';
++SET LOCAL lock_timeout = '1s';
++SELECT has_schema_privilege('public','USAGE') AS public_schema_usage,
++       COALESCE((SELECT NOT rolsuper AND NOT rolbypassrls
++                 FROM pg_catalog.pg_roles WHERE rolname=CURRENT_USER),false) AS not_superuser_or_bypassrls;
++WITH required(relation_name,column_name) AS (VALUES
++ ('public.auth_sessions','token_hash'),('public.auth_sessions','user_id'),('public.auth_sessions','expires_at'),
++ ('public.users','id'),('public.users','tenant_id'),('public.users','roles'),('public.users','status'),
++ ('public.tenants','id'),('public.tenants','status'),
++ ('public.clinical_branch_director_effective_scope','tenant_id'),
++ ('public.clinical_branch_director_effective_scope','director_user_id'),
++ ('public.clinical_branch_director_effective_scope','branch_id')
++)
++SELECT bool_and(COALESCE(has_column_privilege(to_regclass(relation_name),column_name,'SELECT'),false))
++       AS minimum_read_columns_available
++FROM required;
++WITH clinical(relation_name) AS (VALUES
++ ('public.clinical_verified_branches'),('public.clinical_branch_grant_admins'),
++ ('public.clinical_branch_director_grants'),('public.clinical_branch_access_audit')
++)
++SELECT bool_and(to_regclass(relation_name) IS NOT NULL) AS authority_tables_exist,
++       bool_and(NOT COALESCE(has_table_privilege(to_regclass(relation_name),'INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER'),false)
++         AND NOT COALESCE(has_any_column_privilege(to_regclass(relation_name),'INSERT,UPDATE,REFERENCES'),false)) AS no_clinical_write_privileges
++FROM clinical;
++SELECT COALESCE((SELECT relkind='v' FROM pg_catalog.pg_class
++                 WHERE oid=to_regclass('public.clinical_branch_director_effective_scope')),false) AS scope_is_view,
++       COALESCE((SELECT NOT ('security_invoker=true'=ANY(COALESCE(reloptions,ARRAY[]::text[])))
++                 FROM pg_catalog.pg_class WHERE oid=to_regclass('public.clinical_branch_director_effective_scope')),false)
++       AS reviewed_owner_rights_view_mode;
++SELECT COALESCE((SELECT NOT pg_has_role(relowner,'USAGE') FROM pg_catalog.pg_class
++                 WHERE oid=to_regclass('public.clinical_branch_director_effective_scope')),false)
++       AS runtime_cannot_assume_scope_owner;
++-- Resolve exact tables, column types and privileges without examining data.
++-- WHERE false prevents identity rows; no real session is submitted.
++SELECT u.id,u.tenant_id,u.roles
++FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
++JOIN public.tenants t ON t.id=u.tenant_id
++WHERE false AND s.token_hash='' AND s.expires_at>CURRENT_TIMESTAMP
++  AND u.status='active' AND t.status='active';
++SELECT 1 FROM public.clinical_branch_director_effective_scope
++WHERE false AND tenant_id='' AND director_user_id='';
++SELECT COUNT(DISTINCT branch_id)=0 AS empty_scope_query_compiles FROM public.clinical_branch_director_effective_scope
++WHERE false AND tenant_id='' AND director_user_id='';
++ROLLBACK;
