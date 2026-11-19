@@ -1,0 +1,634 @@
+diff --git a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart
+index 5d0d47f78..a0d7dc4b1 100644
+--- a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart
++++ b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart
+@@ -5,7 +5,6 @@ import 'package:flutter_core/flutter_core.dart' as core;
+ 
+ // --- MVC State Model ---
+ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState> {
+-  final bool isShiftActive;
+   final List<core.PswClient> clients;
+   final List<core.PswTask> tasks;
+   final String shiftDurationRemaining;
+@@ -17,7 +16,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
+     required super.title,
+     required super.logs,
+     required super.hasData,
+-    required this.isShiftActive,
+     required this.clients,
+     required this.tasks,
+     required this.shiftDurationRemaining,
+@@ -31,7 +29,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
+     String? title,
+     List<String>? logs,
+     bool? hasData,
+-    bool? isShiftActive,
+     List<core.PswClient>? clients,
+     List<core.PswTask>? tasks,
+     String? shiftDurationRemaining,
+@@ -43,7 +40,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
+       title: title ?? this.title,
+       logs: logs ?? this.logs,
+       hasData: hasData ?? this.hasData,
+-      isShiftActive: isShiftActive ?? this.isShiftActive,
+       clients: clients ?? this.clients,
+       tasks: tasks ?? this.tasks,
+       shiftDurationRemaining: shiftDurationRemaining ?? this.shiftDurationRemaining,
+@@ -66,15 +62,11 @@ class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardS
+           PswDashboardScreenState(
+             isLoading: false,
+             title: 'PSW Dashboard'.tr(),
+-            logs: const [
+-              'Workspace initialized.',
+-              'Security clearance sync complete.',
+-            ],
+-            hasData: true,
+-            isShiftActive: false,
++            logs: const [],
++            hasData: false,
+             clients: const [],
+             tasks: const [],
+-            shiftDurationRemaining: '8h 00m',
++            shiftDurationRemaining: '',
+             shiftProgress: 0.0,
+           ),
+         ) {
+@@ -86,21 +78,6 @@ class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardS
+   }
+ 
+ 
+-
+-  void toggleShift() {
+-    final nextState = !state.isShiftActive;
+-    state = state.copyWith(isShiftActive: nextState);
+-    addLog(nextState ? 'Clocked IN to shift successfully.' : 'Clocked OUT of shift successfully.');
+-  }
+-
+-  void reportIncident(String details) {
+-    addLog('Incident reported: $details');
+-  }
+-
+-  void logVitals(String systolic, String diastolic, String pulse) {
+-    addLog('Vitals recorded: BP $systolic/$diastolic, Pulse $pulse');
+-  }
+-
+   Future<void> refreshData() async {
+     state = state.copyWith(isLoading: true, error: null);
+     try {
+diff --git a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart
+index 75e1af825..bd6aadbcf 100644
+--- a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart
++++ b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart
+@@ -1,4 +1,5 @@
+ import 'package:primecare_models/primecare_models.dart';
++import 'sections/psw_dashboard_actions_section.dart';
+ import 'package:flutter_riverpod/legacy.dart';
+ /* 
+ PRIME:SCREEN=psw_dashboard
+@@ -47,11 +48,8 @@ class CareDashboardScreenController extends BaseWorkspaceController<CareDashboar
+           CareDashboardScreenState(
+             isLoading: false,
+             title: 'Care Dashboard'.tr(),
+-            logs: const [
+-              'Workspace initialized.',
+-              'Security clearance sync complete.',
+-            ],
+-            hasData: true,
++            logs: const [],
++            hasData: false,
+           ),
+         ) {
+     _init();
+@@ -91,17 +89,7 @@ class CareDashboardScreenController extends BaseWorkspaceController<CareDashboar
+     }
+   }
+ 
+-  Future<void> runComplianceScan() async {
+-    state = state.copyWith(isLoading: true);
+-    await Future<void>.delayed(const Duration(milliseconds: 300));
+-    state = state.copyWith(
+-      isLoading: false,
+-      logs: [
+-        ...state.logs,
+-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
+-      ],
+-    );
+-  }
++
+ }
+ 
+ // --- Provider ---
+@@ -147,43 +135,12 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+         body: Cy(
+           id: 'psw_dashboard-content',
+           child: ResponsiveSplitDashboard(
+-            metrics:  [
+-              GovMetricCard(
+-                title: 'Operational Status',
+-                value: 'Active',
+-                trendLabel: 'Optimal',
+-                progress: 0.92,
+-                icon: LucideIcons.activity,
+-                brandColor: theme.colors.success,
+-              ),
+-              GovMetricCard(
+-                title: 'Security Sync',
+-                value: 'Clear',
+-                trendLabel: 'Secured',
+-                progress: 1.0,
+-                icon: LucideIcons.shieldCheck,
+-                brandColor: theme.colors.success,
+-              ),
+-              GovMetricCard(
+-                title: 'Latency Telemetry',
+-                value: '14ms',
+-                trendLabel: 'Optimal',
+-                progress: 0.97,
+-                icon: LucideIcons.zap,
+-                brandColor: theme.colors.warning,
+-              ),
+-            ],
++            metrics: const [],
+             mainContent: SingleChildScrollView(
+               child: Column(
+                 crossAxisAlignment: CrossAxisAlignment.start,
+                 children: [
+                   
+-                  Offstage(
+-                    child: Cy(
+-                      id: 'api_v1_psw_list_get-status',
+-                      child: Text('mocked'),
+-                    ),
+-                  ),
+                   Semantics(
+                     label: 'data-cy:psw_dashboard-title',
+                     child: GovDashboardHero(
+@@ -267,9 +224,9 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+                         child: Column(
+                           crossAxisAlignment: CrossAxisAlignment.start,
+                           children: [
+-                            Text('Active Shift Status'.tr(), style: theme.typography.h4),
++                            Text('Shift status unavailable'.tr(), style: theme.typography.h4),
+                             const SizedBox(height: 8),
+-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
++                            Text('This screen does not show verified operational data.'.tr(), style: theme.typography.bodyMedium),
+                           ],
+                         ),
+                       ),
+@@ -290,7 +247,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+                           children: [
+                             Text('Assigned Clients List Widget'.tr(), style: theme.typography.h4),
+                             const SizedBox(height: 8),
+-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
++                            Text('This screen does not show verified operational data.'.tr(), style: theme.typography.bodyMedium),
+                           ],
+                         ),
+                       ),
+@@ -379,7 +336,8 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+                                 child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   children: [
+-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
++                                    Text('Request completed. Records are not displayed here.'.tr(),
++                                        style: theme.typography.h5),
+                                     const SizedBox(height: 8),
+                                     ...state.logs.map((log) => Padding(
+                                       padding: const EdgeInsets.only(bottom: 6.0),
+@@ -389,32 +347,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+                                 ),
+                               ),
+                             const SizedBox(height: 16),
+-                            // Quick State Toggles for testing compliance
+-                            Row(
+-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+-                              children: [
+-                                TextButton(
+-                                  key: const Key('api_v1_psw_list_get-btn-loading'),
+-                                  onPressed: () => controller.toggleLoading(),
+-                                  child: Text('Load'.tr()),
+-                                ),
+-                                TextButton(
+-                                  key: const Key('api_v1_psw_list_get-btn-error'),
+-                                  onPressed: () => controller.toggleError('Error retrieving api data.'),
+-                                  child: Text('Error'.tr()),
+-                                ),
+-                                TextButton(
+-                                  key: const Key('api_v1_psw_list_get-btn-empty'),
+-                                  onPressed: () => controller.toggleEmpty(),
+-                                  child: Text('Empty'.tr()),
+-                                ),
+-                                TextButton(
+-                                  key: const Key('api_v1_psw_list_get-btn-success'),
+-                                  onPressed: () => controller.toggleSuccess(),
+-                                  child: Text('Success'.tr()),
+-                                ),
+-                              ],
+-                            ),
++
+                           ],
+                         ),
+                       ),
+@@ -428,91 +361,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
+               ),
+             ),
+             defaultSidebarWidgets: [
+-              
+-                  Padding(
+-                    padding: const EdgeInsets.only(bottom: 12.0),
+-                    child: SizedBox(
+-                      width: double.infinity,
+-                      height: 48,
+-                      child: Cy(
+-                        id: 'psw-start-shift-btn',
+-                        child: PrimeButton(key:  const Key('psw-start-shift-btn'), label: 'Start/End Shift Action Button'.tr(), onPressed:  () => controller.addLog('Action: Start/End Shift Action Button executed successfully.')),
+-                      ),
+-                    ),
+-                  ),
+-
+-                  Padding(
+-                    padding: const EdgeInsets.only(bottom: 12.0),
+-                    child: SizedBox(
+-                      width: double.infinity,
+-                      height: 48,
+-                      child: Cy(
+-                        id: 'psw-report-incident-btn',
+-                        child: PrimeButton(key:  const Key('psw-report-incident-btn'), label: 'Report Incident Action Button'.tr(), onPressed:  () => controller.addLog('Action: Report Incident Action Button executed successfully.')),
+-                      ),
+-                    ),
+-                  ),
+-
+-                  Padding(
+-                    padding: const EdgeInsets.only(bottom: 12.0),
+-                    child: SizedBox(
+-                      width: double.infinity,
+-                      height: 48,
+-                      child: Cy(
+-                        id: 'psw-view-vitals-btn',
+-                        child: PrimeButton(key:  const Key('psw-view-vitals-btn'), label: 'Log Vitals Action Button'.tr(), onPressed:  () => controller.addLog('Action: Log Vitals Action Button executed successfully.')),
+-                      ),
+-                    ),
+-                  ),
+-
+-            Padding(
+-              padding: const EdgeInsets.only(bottom: 12.0),
+-              child: Container(
+-                padding: const EdgeInsets.all(12),
+-                decoration: BoxDecoration(
+-                  color: theme.colors.surface,
+-                  borderRadius: BorderRadius.circular(8),
+-                  border: Border.all(color: theme.colors.border),
+-                ),
+-                child: Column(
+-                  crossAxisAlignment: CrossAxisAlignment.start,
+-                  children: [
+-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
+-                    const SizedBox(height: 8),
+-                    Row(
+-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+-                      children: [
+-                        TextButton(
+-                          key: const Key('sim-btn-loading'),
+-                          onPressed: () => controller.toggleLoading(),
+-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
+-                        ),
+-                        TextButton(
+-                          key: const Key('sim-btn-error'),
+-                          onPressed: () => controller.toggleError('Simulated network failure'),
+-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
+-                        ),
+-                      ],
+-                    ),
+-                    Row(
+-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+-                      children: [
+-                        TextButton(
+-                          key: const Key('sim-btn-empty'),
+-                          onPressed: () => controller.toggleEmpty(),
+-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
+-                        ),
+-                        TextButton(
+-                          key: const Key('sim-btn-success'),
+-                          onPressed: () => controller.toggleSuccess(),
+-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
+-                        ),
+-                      ],
+-                    ),
+-                  ],
+-                ),
+-              ),
+-            ),
++              const PswDashboardActionsSection(),
+               const SizedBox(height: 24),
+               // Operational logs panel
+               Container(
+diff --git a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart
+index dffff8955..a4391107a 100644
+--- a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart
++++ b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart
+@@ -1,186 +1,45 @@
+ import 'package:primecare_ui/primecare_ui.dart';
+-import '../psw_dashboard_controller.dart';
+ 
+-class PswDashboardActionsSection extends ConsumerWidget {
++class PswDashboardActionsSection extends StatelessWidget {
+   const PswDashboardActionsSection({super.key});
+ 
+   @override
+-  Widget build(BuildContext context, WidgetRef ref) {
+-    final state = ref.watch(pswDashboardScreenProvider);
+-    final controller = ref.read(pswDashboardScreenProvider.notifier);
+-    final theme = context.theme;
++  Widget build(BuildContext context) {
++    Widget unavailable(String id, String title) => Padding(
++      padding: const EdgeInsets.only(bottom: 12),
++      child: SizedBox(
++        width: double.infinity,
++        height: 48,
++        child: Cy(
++          id: id,
++          child: ElevatedButton(
++            key: Key(id),
++            onPressed: null,
++            child: Text(title.tr()),
++          ),
++        ),
++      ),
++    );
+ 
+     return Cy(
+       id: 'section-psw_dashboard_actions',
+       child: Column(
+         crossAxisAlignment: CrossAxisAlignment.start,
+         children: [
+-          // Required Emergency Button
+-          Padding(
+-            padding: const EdgeInsets.only(bottom: 12.0),
+-            child: SizedBox(
+-              width: double.infinity,
+-              height: 48,
+-              child: Cy(
+-                id: 'pswdashboard-btn-emergency',
+-                child: ElevatedButton(
+-                  key: const Key('pswdashboard-btn-emergency'),
+-                  style: ElevatedButton.styleFrom(
+-                    backgroundColor: theme.colors.error,
+-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+-                  ),
+-                  onPressed: () => controller.addLog('EMERGENCY TRIGGERED: Care coordinator dispatched.'),
+-                  child: Text('Emergency Action'.tr(), style: TextStyle(color: PrimeActionPalette.of(context, PrimeActionTone.error).onAccent)),
+-                ),
+-              ),
+-            ),
+-          ),
+-
+-          // Clock In / Clock Out Button
+-          Padding(
+-            padding: const EdgeInsets.only(bottom: 12.0),
+-            child: SizedBox(
+-              width: double.infinity,
+-              height: 48,
+-              child: Cy(
+-                id: 'psw-start-shift-btn',
+-                child: ElevatedButton.icon(
+-                  key: const Key('psw-start-shift-btn'),
+-                  icon: Icon(state.isShiftActive ? LucideIcons.logOut : LucideIcons.logIn),
+-                  label: Text(state.isShiftActive ? 'Clock Out'.tr() : 'Clock In'.tr()),
+-                  style: ElevatedButton.styleFrom(
+-                    backgroundColor: state.isShiftActive ? theme.colors.error : theme.colors.primary,
+-                    foregroundColor: state.isShiftActive ? PrimeActionPalette.of(context, PrimeActionTone.error).onAccent : PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
+-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+-                  ),
+-                  onPressed: () => controller.toggleShift(),
+-                ),
+-              ),
+-            ),
+-          ),
+-
+-          // Log Vitals Button
+-          Padding(
+-            padding: const EdgeInsets.only(bottom: 12.0),
+-            child: SizedBox(
+-              width: double.infinity,
+-              height: 48,
+-              child: Cy(
+-                id: 'psw-view-vitals-btn',
+-                child: ElevatedButton.icon(
+-                  key: const Key('psw-view-vitals-btn'),
+-                  icon: const Icon(LucideIcons.heart),
+-                  label: Text('Log Vitals'.tr()),
+-                  style: ElevatedButton.styleFrom(
+-                    backgroundColor: theme.colors.primary,
+-                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.primary).onAccent,
+-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+-                  ),
+-                  onPressed: () {
+-                    showDialog<void>(
+-                      context: context,
+-                      builder: (context) {
+-                        final sysController = TextEditingController();
+-                        final diaController = TextEditingController();
+-                        final pulseController = TextEditingController();
+-                        return AlertDialog(
+-                          title: Text('Log Client Vitals'.tr()),
+-                          content: Column(
+-                            mainAxisSize: MainAxisSize.min,
+-                            children: [
+-                              TextField(
+-                                controller: sysController,
+-                                decoration: const InputDecoration(labelText: 'Systolic BP (mmHg)'),
+-                                keyboardType: TextInputType.number,
+-                              ),
+-                              TextField(
+-                                controller: diaController,
+-                                decoration: const InputDecoration(labelText: 'Diastolic BP (mmHg)'),
+-                                keyboardType: TextInputType.number,
+-                              ),
+-                              TextField(
+-                                controller: pulseController,
+-                                decoration: const InputDecoration(labelText: 'Pulse (bpm)'),
+-                                keyboardType: TextInputType.number,
+-                              ),
+-                            ],
+-                          ),
+-                          actions: [
+-                            TextButton(
+-                              onPressed: () => Navigator.of(context).pop(),
+-                              child: Text('Cancel'.tr()),
+-                            ),
+-                            ElevatedButton(
+-                              onPressed: () {
+-                                controller.logVitals(
+-                                  sysController.text,
+-                                  diaController.text,
+-                                  pulseController.text,
+-                                );
+-                                Navigator.of(context).pop();
+-                              },
+-                              child: Text('Save'.tr()),
+-                            ),
+-                          ],
+-                        );
+-                      },
+-                    );
+-                  },
+-                ),
+-              ),
+-            ),
+-          ),
+-
+-          // Report Incident Button
+-          Padding(
+-            padding: const EdgeInsets.only(bottom: 12.0),
+-            child: SizedBox(
+-              width: double.infinity,
+-              height: 48,
+-              child: Cy(
+-                id: 'psw-report-incident-btn',
+-                child: ElevatedButton.icon(
+-                  key: const Key('psw-report-incident-btn'),
+-                  icon: const Icon(LucideIcons.alertTriangle),
+-                  label: Text('Report Incident'.tr()),
+-                  style: ElevatedButton.styleFrom(
+-                    backgroundColor: theme.colors.warning,
+-                    foregroundColor: PrimeActionPalette.of(context, PrimeActionTone.warning).onAccent,
+-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+-                  ),
+-                  onPressed: () {
+-                    showDialog<void>(
+-                      context: context,
+-                      builder: (context) {
+-                        final detailsController = TextEditingController();
+-                        return AlertDialog(
+-                          title: Text('Report Security/Care Incident'.tr()),
+-                          content: TextField(
+-                            controller: detailsController,
+-                            decoration: const InputDecoration(labelText: 'Incident details...'),
+-                            maxLines: 3,
+-                          ),
+-                          actions: [
+-                            TextButton(
+-                              onPressed: () => Navigator.of(context).pop(),
+-                              child: Text('Cancel'.tr()),
+-                            ),
+-                            ElevatedButton(
+-                              onPressed: () {
+-                                controller.reportIncident(detailsController.text);
+-                                Navigator.of(context).pop();
+-                              },
+-                              child: Text('Submit Report'.tr()),
+-                            ),
+-                          ],
+-                        );
+-                      },
+-                    );
+-                  },
+-                ),
+-              ),
++          Semantics(
++            liveRegion: true,
++            child: Text(
++              'Emergency dispatch is not connected here. Use your workplace emergency procedure.'
++                  .tr(),
+             ),
+           ),
++          const SizedBox(height: 12),
++          unavailable('pswdashboard-btn-emergency', 'Emergency Action'),
++          Text('This screen cannot save shifts, incidents, or vitals.'.tr()),
++          const SizedBox(height: 12),
++          unavailable('psw-start-shift-btn', 'Clock In / Out'),
++          unavailable('psw-view-vitals-btn', 'Log Vitals'),
++          unavailable('psw-report-incident-btn', 'Report Incident'),
+         ],
+       ),
+     );
+diff --git a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_summary_section.dart b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_summary_section.dart
+index 194773712..3aeb0b2f6 100644
+--- a/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_summary_section.dart
++++ b/packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_summary_section.dart
+@@ -1,44 +1,21 @@
+ import 'package:primecare_ui/primecare_ui.dart';
+-import '../psw_dashboard_controller.dart';
+ 
+-class PswDashboardSummarySection extends ConsumerWidget {
++class PswDashboardSummarySection extends StatelessWidget {
+   const PswDashboardSummarySection({super.key});
+ 
+   @override
+-  Widget build(BuildContext context, WidgetRef ref) {
+-    final state = ref.watch(pswDashboardScreenProvider);
++  Widget build(BuildContext context) {
+     final theme = context.theme;
+-
+     return Cy(
+       id: 'section-psw_dashboard_summary',
+       child: Cy(
+         id: 'psw-shift-status-card',
+         child: PrimeCareCard(
+           child: Padding(
+-            padding: const EdgeInsets.all(20.0),
+-            child: Column(
+-              crossAxisAlignment: CrossAxisAlignment.start,
+-              children: [
+-                Row(
+-                  children: [
+-                    Icon(
+-                      state.isShiftActive ? LucideIcons.playCircle : LucideIcons.stopCircle,
+-                      color: state.isShiftActive ? theme.colors.success : theme.colors.onSurfaceVariant,
+-                      size: 28,
+-                    ),
+-                    const SizedBox(width: 12),
+-                    Text(
+-                      state.isShiftActive ? 'Shift is Active'.tr() : 'No Active Shift'.tr(),
+-                      style: theme.typography.h4,
+-                    ),
+-                  ],
+-                ),
+-                const SizedBox(height: 12),
+-                Text(
+-                  'Active Session Logs and Operations tracking is active in this environment.'.tr(),
+-                  style: theme.typography.bodyMedium.copyWith(color: theme.colors.onSurfaceVariant),
+-                ),
+-              ],
++            padding: const EdgeInsets.all(20),
++            child: Text(
++              'Shift status unavailable'.tr(),
++              style: theme.typography.h4,
+             ),
+           ),
+         ),
+diff --git a/packages/primecare_ui/test/psw_dashboard_unconnected_actions_test.dart b/packages/primecare_ui/test/psw_dashboard_unconnected_actions_test.dart
+new file mode 100644
+index 000000000..948ab2c11
+--- /dev/null
++++ b/packages/primecare_ui/test/psw_dashboard_unconnected_actions_test.dart
+@@ -0,0 +1,30 @@
++import 'package:flutter/material.dart';
++import 'package:flutter_test/flutter_test.dart';
++import 'package:primecare_ui/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart';
++
++void main() {
++  testWidgets('unconnected PSW actions cannot imply a successful write', (
++    tester,
++  ) async {
++    await tester.pumpWidget(
++      const MaterialApp(
++        home: Scaffold(body: PswDashboardActionsSection()),
++      ),
++    );
++
++    const ids = [
++      'pswdashboard-btn-emergency',
++      'psw-start-shift-btn',
++      'psw-view-vitals-btn',
++      'psw-report-incident-btn',
++    ];
++    for (final id in ids) {
++      final action = find.byKey(ValueKey(id));
++      expect(action, findsOneWidget);
++      expect(tester.widget<ElevatedButton>(action).onPressed, isNull);
++      await tester.tap(action);
++      await tester.pump();
++      expect(find.byType(AlertDialog), findsNothing);
++    }
++  });
++}

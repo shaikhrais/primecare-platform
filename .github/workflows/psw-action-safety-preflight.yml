@@ -1,0 +1,36 @@
+name: Verify PSW action safety without deployment
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/psw-action-safety-preflight.yml'
+      - 'tests/fixtures/psw-action-safety/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  psw-widget:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Apply reviewed PSW candidate in the runner only
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          patch=tests/fixtures/psw-action-safety/candidate.patch
+          git apply --numstat "$patch" | cut -f3 | LC_ALL=C sort > "$RUNNER_TEMP/psw-paths"
+          diff -u tests/fixtures/psw-action-safety/allowed-paths.txt "$RUNNER_TEMP/psw-paths"
+          git apply --check --whitespace=error-all "$patch"
+          git apply --whitespace=error-all "$patch"
+          git diff --check
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Test unconnected actions without production access
+        working-directory: packages/primecare_ui
+        run: flutter test test/psw_dashboard_unconnected_actions_test.dart
