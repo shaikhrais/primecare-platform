@@ -9,6 +9,18 @@ from .portal_artifact import receipt
 from .typescript_release import digest, validate
 
 
+def retain_clinic_live_manifest(bundle, commit, reader=read_public_asset):
+    """Retain the deployed Clinic manifest for a shell-only release."""
+    project = "primecare-clinic"
+    base = f"https://{project}.pages.dev"
+    query = f"?primecare-release={commit}"
+    stamp = validate(json.loads(reader(f"{base}/primecare-build.json{query}")), project, commit)
+    manifest = reader(f"{base}/portal.json{query}")
+    if digest(manifest) != stamp["files"]["portal.json"] or json.loads(manifest).get("project") != project:
+        raise ValueError("Clinic live manifest does not match the pinned build")
+    Path(bundle, "portal.json").write_bytes(manifest)
+
+
 def same_portal_contract(root, project, candidate_commit, prior_stamp, reader=read_public_asset):
     registry = json.loads(Path("websites/typescript/projects.json").read_text())
     if project not in registry:

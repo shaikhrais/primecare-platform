@@ -31,6 +31,10 @@ SECOND_BASE = "6b83e709d6715d85ef0ad645f37df09caf4dc322"
 SECOND_LIVE = "77888c3a1f2d93ec33d4cc3734c66573742feb23"
 SECOND_BLOB = "c771657249f124af5167312ea55fd8448018c45b"
 SECOND_PATHS = {INTENT, MANIFEST, "tools/deployment/clinic_dashboard_release.py", "scripts/test-governed-master-navigation.mjs"}
+METADATA_FIX_BASE = "bedcc302bd24857276cf3e992f319e309f093208"
+METADATA_FIX_PATHS = {".github/workflows/smart-deploy-dashboard-portal.yml",
+                      "tools/deployment/clinic_dashboard_release.py",
+                      "tools/deployment/dashboard_portal_contract.py"}
 SECOND_CODES = (
     "intake_dashboard",
     "psw_dashboard",
@@ -64,6 +68,11 @@ def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
 
 
 def preflight(before, after, project, prior_live):
+    if before == METADATA_FIX_BASE:
+        require(project == PROJECT and prior_live == SECOND_LIVE, "Clinic portal or live baseline mismatch")
+        require(exact_parent(after, before), "Clinic metadata fix requires the exact sole parent")
+        require(paths(before, after) == METADATA_FIX_PATHS, "Unexpected Clinic build fix path")
+        return preflight(SECOND_BASE, before, project, prior_live)
     lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
              SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES)}
     require(before in lanes, "Clinic release has an unreviewed parent")

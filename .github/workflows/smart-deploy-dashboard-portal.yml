@@ -231,6 +231,23 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: node scripts/build-typescript-websites.mjs
+      - name: Retain deployed Clinic metadata for the dashboard-only build
+        if: inputs.project == 'primecare-clinic'
+        run: |
+          python - <<'PY_CLINIC'
+          import json
+          import os
+          from pathlib import Path
+          from tools.deployment.dashboard_portal_contract import retain_clinic_live_manifest
+          from tools.deployment.typescript_release import make_stamp
+
+          intent = json.loads(Path("tools/deployment/dashboard-release-intent.json").read_text())
+          if intent.get("cohort") == "clinic-02":
+              bundle = Path("websites/typescript/dist/primecare-clinic")
+              retain_clinic_live_manifest(bundle, os.environ["PREVIOUS_LIVE"])
+              stamp = make_stamp(bundle, "primecare-clinic", os.environ["GITHUB_SHA"])
+              (bundle / "primecare-build.json").write_text(json.dumps(stamp) + "\n")
+          PY_CLINIC
       - name: Seal tested output
         run: python -m tools.deployment.portal_artifact seal "websites/typescript/dist/$PROJECT" "$PROJECT" "$GITHUB_SHA" "$RUNNER_TEMP/portal-receipt.json"
       - uses: actions/upload-artifact@v4
