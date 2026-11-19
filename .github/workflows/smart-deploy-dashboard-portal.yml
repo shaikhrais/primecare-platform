@@ -81,7 +81,10 @@ jobs:
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
           intent="$(python3 -c 'import json; print(json.load(open("tools/deployment/dashboard-release-intent.json"))["intent"])')"
-          if [[ "$intent" == client-dashboard-cohort ]]; then
+          if [[ "$intent" == clinic-dashboard-cohort ]]; then
+            python3 -m tools.deployment.clinic_dashboard_release "${parents[1]}" "$GITHUB_SHA" "$PROJECT" "$PREVIOUS_LIVE"
+            echo 'lane=smart-dashboard-runtime' >> "$GITHUB_OUTPUT"
+          elif [[ "$intent" == client-dashboard-cohort ]]; then
             python3 -m tools.deployment.client_dashboard_release "${parents[1]}" "$GITHUB_SHA" "$PROJECT" "$PREVIOUS_LIVE"
             echo 'lane=smart-dashboard-runtime' >> "$GITHUB_OUTPUT"
           elif [[ "$intent" == corporate-dashboard-cohort ]]; then
@@ -212,6 +215,12 @@ jobs:
           node --test scripts/test-dashboard-activation.mjs
           npx playwright install --with-deps chromium
           PRIMECARE_WORKSPACE_CLIENT_FIXTURE=1 node scripts/test-governed-master-navigation.mjs
+      - name: Verify Clinic activations and rendered browser fixture
+        if: inputs.project == 'primecare-clinic'
+        run: |
+          node --test scripts/test-dashboard-activation.mjs
+          npx playwright install --with-deps chromium
+          PRIMECARE_WORKSPACE_CLINIC_FIXTURE=1 node scripts/test-governed-master-navigation.mjs
       - name: Confirm project runtime policy
         run: python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
       - name: Build with the existing read-only metadata export

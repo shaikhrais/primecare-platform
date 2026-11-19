@@ -9,18 +9,20 @@ const {screens}=JSON.parse(await readFile('cloudflare/workers/src/workspace-regi
 const generic=screens.filter(p=>p.renderer==='dashboard'&&!['care_delivery','founder_growth_dashboard'].includes(p.code));
 const businessDevelopment=process.env.PRIMECARE_WORKSPACE_BD_FIXTURE==='1';
 const client=process.env.PRIMECARE_WORKSPACE_CLIENT_FIXTURE==='1';
-assert.ok(!(businessDevelopment&&client));
-const project=businessDevelopment?'primecare-business-development':client?'primecare-client':'primecare-corporate';
-const appCode=businessDevelopment?'bd':client?'cl':'co';
+const clinic=process.env.PRIMECARE_WORKSPACE_CLINIC_FIXTURE==='1';
+assert.ok([businessDevelopment,client,clinic].filter(Boolean).length<=1);
+const project=businessDevelopment?'primecare-business-development':client?'primecare-client':clinic?'primecare-clinic':'primecare-corporate';
+const appCode=businessDevelopment?'bd':client?'cl':clinic?'ci':'co';
 const [first,second,held]=(
   businessDevelopment?['business_development_dashboard','head_of_bus_dev_dashboard','owner_dashboard']:
   client?['customer_support_dashboard','dynamic_screen_dashboard','training_dashboard']:
+  clinic?['chiropractor_dashboard','physiotherapist_dashboard','rmt_dashboard']:
   ['architecture_planning_dashboard','ceo_dashboard','owner_dashboard']
 ).map(code=>generic.find(p=>p.code===code));
-const heldUsesMaster=!businessDevelopment&&!client;
+const heldUsesMaster=!businessDevelopment&&!client&&!clinic;
 const mismatch={...generic.find(p=>p.code==='coo_dashboard'),appCode:'su'};
 const record=screens.find(p=>businessDevelopment?p.code==='franchise_lead':p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
-const denied=generic.find(p=>p.code===(client?'family_member_dashboard':'cfo_dashboard'));
+const denied=generic.find(p=>p.code===(client?'family_member_dashboard':clinic?'rn_dashboard':'cfo_dashboard'));
 const authorized=[first,second,held,mismatch,record].map(p=>({...p,sections:[],blockers:[]}));
 assert.ok(denied&&authorized.every(p=>typeof p.route==='string'));
 const token='fixture-authorized-token';

@@ -305,6 +305,53 @@
           "route": "/staff/receptionist-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-01",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "chiropractor_dashboard",
+          "route": "/offices/clinical/roles/chiropractor/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "clinic_dashboard",
+          "route": "/offices/clinical/roles/clinical_director/clinic-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "physiotherapist_dashboard",
+          "route": "/offices/clinical/roles/physiotherapist/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "social_worker_dashboard",
+          "route": "/offices/clinical/roles/social_worker/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "rn_dashboard",
+          "route": "/offices/clinical/roles/rn/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "rpn_dashboard",
+          "route": "/offices/clinical/roles/rpn/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "intake_coordinator_dashboard",
+          "route": "/offices/clinical/roles/intake_coordinator/dashboard"
+        }
+      ]
     }
   ]
 }

@@ -32,6 +32,12 @@ def allow_legacy(event, paths, before=None, after=None):
             from .client_dashboard_release import preflight, PROJECT
             preflight(before, after, PROJECT, raw_intent["previous_live"])
             return False
+        if isinstance(raw_intent, dict) and raw_intent.get("intent") == "clinic-dashboard-cohort":
+            if after is None:
+                raise ValueError("Clinic push must bind the exact checkout SHA")
+            from .clinic_dashboard_release import preflight, PROJECT
+            preflight(before, after, PROJECT, raw_intent["previous_live"])
+            return False
         if isinstance(raw_intent, dict) and raw_intent.get("intent") == "corporate-dashboard-cohort":
             if after is None:
                 raise ValueError("Corporate push must bind the exact checkout SHA")
