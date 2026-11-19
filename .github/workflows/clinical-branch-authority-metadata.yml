@@ -58,10 +58,41 @@ jobs:
                           FROM likely
                       """)
                       result=cur.fetchone()
+                      cur.execute("""
+                          WITH columns AS (
+                            SELECT table_name,column_name,data_type,is_nullable
+                            FROM information_schema.columns WHERE table_schema='public'
+                          ), primary_keys AS (
+                            SELECT c.table_name,array_agg(k.column_name::text ORDER BY k.ordinal_position) AS cols
+                            FROM information_schema.table_constraints c
+                            JOIN information_schema.key_column_usage k
+                              ON k.constraint_catalog=c.constraint_catalog AND k.constraint_schema=c.constraint_schema
+                              AND k.constraint_name=c.constraint_name AND k.table_schema=c.table_schema AND k.table_name=c.table_name
+                            WHERE c.table_schema='public' AND c.constraint_type='PRIMARY KEY'
+                              AND c.table_name IN ('users','tenants')
+                            GROUP BY c.table_name
+                          )
+                          SELECT
+                            (SELECT count(*)=3 FROM columns WHERE (table_name,column_name)
+                              IN (('users','id'),('users','tenant_id'),('tenants','id')) AND data_type='text' AND is_nullable='NO'),
+                            (SELECT count(*)=2 FROM primary_keys WHERE cols=ARRAY['id']),
+                            (SELECT count(*)=3 FROM columns WHERE (table_name,column_name) IN
+                              (('users','status'),('users','roles'),('tenants','status'))),
+                            (SELECT count(*)=3 FROM columns WHERE (table_name,column_name) IN
+                              (('bookings','tenant_id'),('bookings','branch_id'),('bookings','start_at'))),
+                            (SELECT count(DISTINCT table_name) FROM columns WHERE table_name IN
+                              ('clinical_verified_branches','clinical_branch_grant_admins','clinical_branch_director_grants',
+                               'clinical_branch_access_audit','clinical_branch_director_effective_scope'))
+                      """)
+                      compatibility = cur.fetchone()
                       conn.rollback()
               print(json.dumps(dict(zip(
                   ('visible_tenant_directory_candidates','visible_staff_location_candidates','visible_named_assignment_candidates','booking_branch_columns_visible','user_tenant_role_columns_visible'),
                   result
+              )), sort_keys=True))
+              print(json.dumps(dict(zip(
+                  ('expected_text_identity_columns','required_primary_keys','identity_status_role_columns',
+                   'booking_source_columns','existing_candidate_objects_visible'), compatibility
               )), sort_keys=True))
           except Exception:
               raise SystemExit("Metadata inspection failed; connection details and server messages suppressed.") from None
