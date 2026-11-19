@@ -1,0 +1,68 @@
+name: Inspect Clinic branch authority metadata
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/clinical-branch-authority-metadata.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  metadata-only:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'psycopg[binary]==3.2.13'
+      - name: Check schema shape without reading business records
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import json, os
+          import psycopg
+
+          dsn = os.environ.get("PRODUCTION_DATABASE_URL")
+          if not dsn:
+              raise SystemExit("Production secret not available to this protected job.")
+          try:
+              with psycopg.connect(dsn, connect_timeout=8) as conn:
+                  conn.read_only = True
+                  with conn.cursor() as cur:
+                      cur.execute("SET LOCAL statement_timeout = '5000ms'")
+                      cur.execute("SHOW transaction_read_only")
+                      if cur.fetchone() != ("on",):
+                          raise RuntimeError("read-only guard is not active")
+                      cur.execute("""
+                          WITH objects AS (
+                            SELECT table_schema,table_name,
+                              array_agg(column_name::text) AS cols
+                            FROM information_schema.columns
+                            WHERE table_schema NOT IN ('pg_catalog','information_schema')
+                              AND table_schema NOT LIKE 'pg_temp%'
+                            GROUP BY table_schema,table_name
+                          ), likely AS (
+                            SELECT *,
+                              cols && ARRAY['branch_id','clinic_id','location_id','office_id'] AS has_location,
+                              cols && ARRAY['user_id','staff_id','director_user_id','employee_id','provider_id'] AS has_actor
+                            FROM objects
+                          )
+                          SELECT
+                            count(*) FILTER (WHERE table_name IN ('branches','clinics','locations','offices') AND cols @> ARRAY['id','tenant_id']),
+                            count(*) FILTER (WHERE has_location AND has_actor AND cols @> ARRAY['tenant_id']),
+                            count(*) FILTER (WHERE table_name ~ '(branch|clinic|location|office)' AND has_location AND has_actor AND cols @> ARRAY['tenant_id']),
+                            coalesce(bool_or(table_name='bookings' AND cols @> ARRAY['branch_id','tenant_id']),false),
+                            coalesce(bool_or(table_name='users' AND cols @> ARRAY['id','roles','tenant_id']),false)
+                          FROM likely
+                      """)
+                      result=cur.fetchone()
+                      conn.rollback()
+              print(json.dumps(dict(zip(
+                  ('visible_tenant_directory_candidates','visible_staff_location_candidates','visible_named_assignment_candidates','booking_branch_columns_visible','user_tenant_role_columns_visible'),
+                  result
+              )), sort_keys=True))
+          except Exception:
+              raise SystemExit("Metadata inspection failed; connection details and server messages suppressed.") from None
+          PY
