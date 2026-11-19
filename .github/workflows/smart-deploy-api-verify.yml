@@ -37,7 +37,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then
-            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 41260885976c57e6d83fc64eb0abeeaaffdf3298"
+            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 2315c08f00a9708f83def5e3c589ee7c27a9f2a5"
           fi
           git merge-base --is-ancestor "$COMPARISON_BASE" "$EXPECTED_MAIN"
           git fetch --no-tags origin refs/heads/main
@@ -103,6 +103,28 @@ jobs:
                                       checks.update(zip(columns, row))
                           if not cur.nextset():
                               break
+                      if checks.get('no_clinical_write_privileges') is False:
+                          cur.execute("""
+                              WITH targets(name) AS (VALUES
+                                  ('public.clinical_verified_branches'),
+                                  ('public.clinical_branch_grant_admins'),
+                                  ('public.clinical_branch_director_grants'),
+                                  ('public.clinical_branch_access_audit')
+                              ), permissions(privilege) AS (VALUES
+                                  ('INSERT'), ('UPDATE'), ('DELETE'), ('TRUNCATE'),
+                                  ('REFERENCES'), ('TRIGGER')
+                              )
+                              SELECT targets.name, permissions.privilege,
+                                     CASE WHEN has_table_privilege(to_regclass(targets.name), permissions.privilege)
+                                          THEN 'table' ELSE 'column' END AS level
+                              FROM targets CROSS JOIN permissions
+                              WHERE has_table_privilege(to_regclass(targets.name), permissions.privilege)
+                                 OR CASE WHEN permissions.privilege IN ('INSERT','UPDATE','REFERENCES')
+                                         THEN has_any_column_privilege(to_regclass(targets.name), permissions.privilege)
+                                         ELSE false END
+                              ORDER BY targets.name, permissions.privilege
+                          """)
+                          print('Clinical effective privileges: ' + json.dumps(cur.fetchall()), flush=True)
           except psycopg.Error as error:
               state = error.sqlstate or 'unavailable'
               raise SystemExit('Clinical read-only SQL check failed: ' + state) from None
