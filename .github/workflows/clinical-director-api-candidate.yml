@@ -1,0 +1,40 @@
+name: Verify Clinical Director API draft in an isolated database
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/clinical-director-api-candidate.yml'
+      - 'tests/fixtures/clinical-director-api-candidate/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify-draft-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: clinical_fixture
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: clinical_fixture
+        ports: ['127.0.0.1:5432:5432']
+        options: --health-cmd "pg_isready -U clinical_fixture -d clinical_fixture" --health-interval 5s --health-timeout 4s --health-retries 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install the fixture driver only
+        run: npm install --prefix "$RUNNER_TEMP/clinical-fixture" --ignore-scripts --no-audit --no-fund pg@8.16.3
+      - name: Verify authorization and HTTP read behavior against disposable PostgreSQL
+        working-directory: tests/fixtures/clinical-director-api-candidate
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          export PGLITE_FIXTURE_MODULE="$PWD/native-fixture-adapter.cjs"
+          export CLINICAL_FIXTURE_PG_MODULE="$RUNNER_TEMP/clinical-fixture/node_modules/pg"
+          node --test test.mjs endpoint.test.mjs e2e.test.mjs
