@@ -85,6 +85,15 @@ jobs:
                                'clinical_branch_access_audit','clinical_branch_director_effective_scope'))
                       """)
                       compatibility = cur.fetchone()
+                      cur.execute("""
+                          SELECT
+                            pg_catalog.current_setting('default_transaction_read_only')='on',
+                            pg_catalog.pg_is_in_recovery(),
+                            pg_catalog.has_schema_privilege('public','CREATE'),
+                            coalesce(pg_catalog.has_column_privilege('public.users','id','REFERENCES'),false),
+                            coalesce(pg_catalog.has_column_privilege('public.tenants','id','REFERENCES'),false)
+                      """)
+                      privileges = cur.fetchone()
                       conn.rollback()
               print(json.dumps(dict(zip(
                   ('visible_tenant_directory_candidates','visible_staff_location_candidates','visible_named_assignment_candidates','booking_branch_columns_visible','user_tenant_role_columns_visible'),
@@ -93,6 +102,10 @@ jobs:
               print(json.dumps(dict(zip(
                   ('expected_text_identity_columns','required_primary_keys','identity_status_role_columns',
                    'booking_source_columns','existing_candidate_objects_visible'), compatibility
+              )), sort_keys=True))
+              print(json.dumps(dict(zip(
+                  ('default_transactions_read_only','server_in_recovery','can_create_in_target_schema',
+                   'can_reference_users','can_reference_tenants'), privileges
               )), sort_keys=True))
           except Exception:
               raise SystemExit("Metadata inspection failed; connection details and server messages suppressed.") from None
