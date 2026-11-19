@@ -1,5 +1,0 @@
-packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_controller.dart
-packages/primecare_ui/lib/src/screens/psw/psw_dashboard/psw_dashboard_screen.dart
-packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_actions_section.dart
-packages/primecare_ui/lib/src/screens/psw/psw_dashboard/sections/psw_dashboard_summary_section.dart
-packages/primecare_ui/test/psw_dashboard_unconnected_actions_test.dart

@@ -1,4 +1,5 @@
 import 'package:primecare_models/primecare_models.dart';
+import 'sections/psw_dashboard_actions_section.dart';
 import 'package:flutter_riverpod/legacy.dart';
 /* 
 PRIME:SCREEN=psw_dashboard
@@ -47,11 +48,8 @@ class CareDashboardScreenController extends BaseWorkspaceController<CareDashboar
           CareDashboardScreenState(
             isLoading: false,
             title: 'Care Dashboard'.tr(),
-            logs: const [
-              'Workspace initialized.',
-              'Security clearance sync complete.',
-            ],
-            hasData: true,
+            logs: const [],
+            hasData: false,
           ),
         ) {
     _init();
@@ -91,17 +89,7 @@ class CareDashboardScreenController extends BaseWorkspaceController<CareDashboar
     }
   }
 
-  Future<void> runComplianceScan() async {
-    state = state.copyWith(isLoading: true);
-    await Future<void>.delayed(const Duration(milliseconds: 300));
-    state = state.copyWith(
-      isLoading: false,
-      logs: [
-        ...state.logs,
-        'Compliance audit executed at ${DateTime.now().toIso8601String()}',
-      ],
-    );
-  }
+
 }
 
 // --- Provider ---
@@ -147,43 +135,12 @@ class CareDashboardScreen extends GovernedConsumerWidget {
         body: Cy(
           id: 'psw_dashboard-content',
           child: ResponsiveSplitDashboard(
-            metrics:  [
-              GovMetricCard(
-                title: 'Operational Status',
-                value: 'Active',
-                trendLabel: 'Optimal',
-                progress: 0.92,
-                icon: LucideIcons.activity,
-                brandColor: theme.colors.success,
-              ),
-              GovMetricCard(
-                title: 'Security Sync',
-                value: 'Clear',
-                trendLabel: 'Secured',
-                progress: 1.0,
-                icon: LucideIcons.shieldCheck,
-                brandColor: theme.colors.success,
-              ),
-              GovMetricCard(
-                title: 'Latency Telemetry',
-                value: '14ms',
-                trendLabel: 'Optimal',
-                progress: 0.97,
-                icon: LucideIcons.zap,
-                brandColor: theme.colors.warning,
-              ),
-            ],
+            metrics: const [],
             mainContent: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   
-                  Offstage(
-                    child: Cy(
-                      id: 'api_v1_psw_list_get-status',
-                      child: Text('mocked'),
-                    ),
-                  ),
                   Semantics(
                     label: 'data-cy:psw_dashboard-title',
                     child: GovDashboardHero(
@@ -267,9 +224,9 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Active Shift Status'.tr(), style: theme.typography.h4),
+                            Text('Shift status unavailable'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            Text('This screen does not show verified operational data.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -290,7 +247,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                           children: [
                             Text('Assigned Clients List Widget'.tr(), style: theme.typography.h4),
                             const SizedBox(height: 8),
-                            Text('Status monitoring component active.'.tr(), style: theme.typography.bodyMedium),
+                            Text('This screen does not show verified operational data.'.tr(), style: theme.typography.bodyMedium),
                           ],
                         ),
                       ),
@@ -379,7 +336,8 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Connected API Records:'.tr(), style: theme.typography.h5),
+                                    Text('Request completed. Records are not displayed here.'.tr(),
+                                        style: theme.typography.h5),
                                     const SizedBox(height: 8),
                                     ...state.logs.map((log) => Padding(
                                       padding: const EdgeInsets.only(bottom: 6.0),
@@ -389,32 +347,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
                                 ),
                               ),
                             const SizedBox(height: 16),
-                            // Quick State Toggles for testing compliance
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextButton(
-                                  key: const Key('api_v1_psw_list_get-btn-loading'),
-                                  onPressed: () => controller.toggleLoading(),
-                                  child: Text('Load'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_psw_list_get-btn-error'),
-                                  onPressed: () => controller.toggleError('Error retrieving api data.'),
-                                  child: Text('Error'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_psw_list_get-btn-empty'),
-                                  onPressed: () => controller.toggleEmpty(),
-                                  child: Text('Empty'.tr()),
-                                ),
-                                TextButton(
-                                  key: const Key('api_v1_psw_list_get-btn-success'),
-                                  onPressed: () => controller.toggleSuccess(),
-                                  child: Text('Success'.tr()),
-                                ),
-                              ],
-                            ),
+
                           ],
                         ),
                       ),
@@ -428,91 +361,7 @@ class CareDashboardScreen extends GovernedConsumerWidget {
               ),
             ),
             defaultSidebarWidgets: [
-              
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'psw-start-shift-btn',
-                        child: PrimeButton(key:  const Key('psw-start-shift-btn'), label: 'Start/End Shift Action Button'.tr(), onPressed:  () => controller.addLog('Action: Start/End Shift Action Button executed successfully.')),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'psw-report-incident-btn',
-                        child: PrimeButton(key:  const Key('psw-report-incident-btn'), label: 'Report Incident Action Button'.tr(), onPressed:  () => controller.addLog('Action: Report Incident Action Button executed successfully.')),
-                      ),
-                    ),
-                  ),
-
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 12.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      height: 48,
-                      child: Cy(
-                        id: 'psw-view-vitals-btn',
-                        child: PrimeButton(key:  const Key('psw-view-vitals-btn'), label: 'Log Vitals Action Button'.tr(), onPressed:  () => controller.addLog('Action: Log Vitals Action Button executed successfully.')),
-                      ),
-                    ),
-                  ),
-
-            Padding(
-              padding: const EdgeInsets.only(bottom: 12.0),
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: theme.colors.surface,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: theme.colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('API State Simulation'.tr(), style: theme.typography.bodySmall.copyWith(fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          key: const Key('sim-btn-loading'),
-                          onPressed: () => controller.toggleLoading(),
-                          child: Text('Load'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-error'),
-                          onPressed: () => controller.toggleError('Simulated network failure'),
-                          child: Text('Error'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButton(
-                          key: const Key('sim-btn-empty'),
-                          onPressed: () => controller.toggleEmpty(),
-                          child: Text('Empty'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                        TextButton(
-                          key: const Key('sim-btn-success'),
-                          onPressed: () => controller.toggleSuccess(),
-                          child: Text('Success'.tr(), style: const TextStyle(fontSize: 11)),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+              const PswDashboardActionsSection(),
               const SizedBox(height: 24),
               // Operational logs panel
               Container(

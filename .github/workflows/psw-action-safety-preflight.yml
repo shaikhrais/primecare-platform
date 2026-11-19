@@ -4,7 +4,8 @@ on:
     branches: [main]
     paths:
       - '.github/workflows/psw-action-safety-preflight.yml'
-      - 'tests/fixtures/psw-action-safety/**'
+      - 'packages/primecare_ui/lib/src/screens/psw/psw_dashboard/**'
+      - 'packages/primecare_ui/test/psw_dashboard_unconnected_actions_test.dart'
   workflow_dispatch:
 permissions:
   contents: read
@@ -16,16 +17,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - name: Apply reviewed PSW candidate in the runner only
-        run: |
-          set -euo pipefail
-          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
-          patch=tests/fixtures/psw-action-safety/candidate.patch
-          git apply --numstat "$patch" | cut -f3 | LC_ALL=C sort > "$RUNNER_TEMP/psw-paths"
-          diff -u tests/fixtures/psw-action-safety/allowed-paths.txt "$RUNNER_TEMP/psw-paths"
-          git apply --check --whitespace=error-all "$patch"
-          git apply --whitespace=error-all "$patch"
-          git diff --check
+      - name: Confirm exact source under test
+        run: test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.41.5'
@@ -34,7 +27,7 @@ jobs:
       - name: Test unconnected actions without production access
         working-directory: packages/primecare_ui
         run: flutter test test/psw_dashboard_unconnected_actions_test.dart
-      - name: Compile the Clinic Flutter app with the reviewed PSW candidate
+      - name: Compile the Clinic Flutter app from checked-out source
         working-directory: apps/primecare_clinic
         run: flutter build web --release --no-tree-shake-icons
       - name: Confirm the compiled Clinic bundle exists

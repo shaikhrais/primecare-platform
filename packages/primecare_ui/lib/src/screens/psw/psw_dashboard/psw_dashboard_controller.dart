@@ -5,7 +5,6 @@ import 'package:flutter_core/flutter_core.dart' as core;
 
 // --- MVC State Model ---
 class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState> {
-  final bool isShiftActive;
   final List<core.PswClient> clients;
   final List<core.PswTask> tasks;
   final String shiftDurationRemaining;
@@ -17,7 +16,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
     required super.title,
     required super.logs,
     required super.hasData,
-    required this.isShiftActive,
     required this.clients,
     required this.tasks,
     required this.shiftDurationRemaining,
@@ -31,7 +29,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
     String? title,
     List<String>? logs,
     bool? hasData,
-    bool? isShiftActive,
     List<core.PswClient>? clients,
     List<core.PswTask>? tasks,
     String? shiftDurationRemaining,
@@ -43,7 +40,6 @@ class PswDashboardScreenState extends BaseWorkspaceState<PswDashboardScreenState
       title: title ?? this.title,
       logs: logs ?? this.logs,
       hasData: hasData ?? this.hasData,
-      isShiftActive: isShiftActive ?? this.isShiftActive,
       clients: clients ?? this.clients,
       tasks: tasks ?? this.tasks,
       shiftDurationRemaining: shiftDurationRemaining ?? this.shiftDurationRemaining,
@@ -66,15 +62,11 @@ class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardS
           PswDashboardScreenState(
             isLoading: false,
             title: 'PSW Dashboard'.tr(),
-            logs: const [
-              'Workspace initialized.',
-              'Security clearance sync complete.',
-            ],
-            hasData: true,
-            isShiftActive: false,
+            logs: const [],
+            hasData: false,
             clients: const [],
             tasks: const [],
-            shiftDurationRemaining: '8h 00m',
+            shiftDurationRemaining: '',
             shiftProgress: 0.0,
           ),
         ) {
@@ -85,21 +77,6 @@ class PswDashboardScreenController extends BaseWorkspaceController<PswDashboardS
     await refreshData();
   }
 
-
-
-  void toggleShift() {
-    final nextState = !state.isShiftActive;
-    state = state.copyWith(isShiftActive: nextState);
-    addLog(nextState ? 'Clocked IN to shift successfully.' : 'Clocked OUT of shift successfully.');
-  }
-
-  void reportIncident(String details) {
-    addLog('Incident reported: $details');
-  }
-
-  void logVitals(String systolic, String diastolic, String pulse) {
-    addLog('Vitals recorded: BP $systolic/$diastolic, Pulse $pulse');
-  }
 
   Future<void> refreshData() async {
     state = state.copyWith(isLoading: true, error: null);
