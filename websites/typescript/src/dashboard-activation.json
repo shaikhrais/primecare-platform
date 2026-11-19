@@ -446,6 +446,41 @@
           "route": "/common/training-hub-dashboard"
         }
       ]
+    },
+    {
+      "id": "client-04",
+      "dashboards": [
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "employee_dashboard",
+          "route": "/staff/employee-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "volunteer_dashboard",
+          "route": "/staff/volunteer-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "compliance_dashboard",
+          "route": "/management/compliance-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "scheduling_dashboard",
+          "route": "/staff/scheduling-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "training_dashboard",
+          "route": "/staff/training-dashboard"
+        }
+      ]
     }
   ]
 }

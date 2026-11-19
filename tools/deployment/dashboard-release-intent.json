@@ -1,6 +1,7 @@
 {
   "version": 1,
-  "intent": "clinic-psw-safety-maintenance",
-  "base": "ffa8c3114d24dd71a3071c551cdc97a67c125676",
-  "previous_live": "4645a16c070a4bcb5b26469b13fae1fb1357f37e"
+  "intent": "client-dashboard-cohort",
+  "cohort": "client-04",
+  "base": "20325f668235fa72490ee75f575421e03369cec2",
+  "previous_live": "b3b7d8a26fdfbeef95fb275962256a614aba8046"
 }

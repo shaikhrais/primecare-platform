@@ -42,6 +42,13 @@ SECOND_PATHS = {INTENT, MANIFEST, "tools/deployment/client_dashboard_release.py"
 THIRD_BASE = "0a7d08822a8f819ff49377beebfb6df3494c015f"
 THIRD_BLOB = "0b5265e7b18530a75c0b01f014d353807cf2226e"
 THIRD_CODES = ('course_architect_dashboard', 'qa_dashboard', 'quality_assurance_dashboard', 'training_hub_dashboard')
+FOURTH_BASE = "20325f668235fa72490ee75f575421e03369cec2"
+FOURTH_LIVE = "b3b7d8a26fdfbeef95fb275962256a614aba8046"
+FOURTH_BLOB = "9795954d259de4b6e327024aea45c2fc216e4c71"
+FOURTH_CODES = (
+    "employee_dashboard", "volunteer_dashboard", "compliance_dashboard",
+    "scheduling_dashboard", "training_dashboard",
+)
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
@@ -65,7 +72,8 @@ def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
 def preflight(before, after, project, prior_live):
     lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
              SECOND_BASE: ("client-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES),
-             THIRD_BASE: ("client-03", THIRD_BASE, SECOND_PATHS, THIRD_BLOB, THIRD_CODES)}
+             THIRD_BASE: ("client-03", THIRD_BASE, SECOND_PATHS, THIRD_BLOB, THIRD_CODES),
+             FOURTH_BASE: ("client-04", FOURTH_LIVE, SECOND_PATHS, FOURTH_BLOB, FOURTH_CODES)}
     require(before in lanes, "Client release has an unreviewed parent")
     cohort, live, scope, manifest_blob, codes = lanes[before]
     require(project == PROJECT and prior_live == live,

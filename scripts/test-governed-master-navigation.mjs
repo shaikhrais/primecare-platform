@@ -11,6 +11,7 @@ const businessDevelopment=process.env.PRIMECARE_WORKSPACE_BD_FIXTURE==='1';
 const client=process.env.PRIMECARE_WORKSPACE_CLIENT_FIXTURE==='1';
 const clientCohorts=client?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts:[];
 const clientSecond=clientCohorts.some(c=>c.id==='client-02');
+const clientFourth=clientCohorts.find(c=>c.id==='client-04');
 const clientThird=clientCohorts.some(c=>c.id==='client-03');
 const clinic=process.env.PRIMECARE_WORKSPACE_CLINIC_FIXTURE==='1';
 assert.ok([businessDevelopment,client,clinic].filter(Boolean).length<=1);
@@ -18,17 +19,20 @@ const project=businessDevelopment?'primecare-business-development':client?'prime
 const appCode=businessDevelopment?'bd':client?'cl':clinic?'ci':'co';
 const [first,second,held]=(
   businessDevelopment?['business_development_dashboard','head_of_bus_dev_dashboard','owner_dashboard']:
+  clientFourth?['employee_dashboard','volunteer_dashboard','training_dashboard']:
   clientThird?['course_architect_dashboard','training_hub_dashboard','training_dashboard']:
   clientSecond?['general_manager_dashboard','operations_manager_dashboard','training_dashboard']:
   client?['customer_support_dashboard','dynamic_screen_dashboard','training_dashboard']:
   clinic?['chiropractor_dashboard','physiotherapist_dashboard','rmt_dashboard']:
   ['architecture_planning_dashboard','ceo_dashboard','owner_dashboard']
 ).map(code=>generic.find(p=>p.code===code));
-const heldUsesMaster=!businessDevelopment&&!client&&!clinic;
+const heldUsesMaster=Boolean(clientFourth)||(!businessDevelopment&&!client&&!clinic);
 const mismatch={...generic.find(p=>p.code==='coo_dashboard'),appCode:'su'};
 const record=screens.find(p=>businessDevelopment?p.code==='franchise_lead':p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
 const denied=generic.find(p=>p.code===(clientThird?'quality_assurance_dashboard':clientSecond?'regional_bdm_dashboard':client?'family_member_dashboard':clinic?'rn_dashboard':'cfo_dashboard'));
-const authorized=[first,second,held,mismatch,record].map(p=>({...p,sections:[],blockers:[]}));
+const extra=(clientFourth?.dashboards??[]).filter(row=>![first,second,held].some(p=>p.code===row.code))
+  .map(row=>generic.find(p=>p.appCode==='cl'&&p.code===row.code&&p.route===row.route));
+const authorized=[first,second,held,mismatch,record,...extra].map(p=>({...p,sections:[],blockers:[]}));
 assert.ok(denied&&authorized.every(p=>typeof p.route==='string'));
 const token='fixture-authorized-token';
 const projection={identity:{userId:'fixture-user',role:'rmt'},landing:first.route,screens:authorized,
@@ -134,6 +138,10 @@ try{
   assert.equal(await page.evaluate(()=>window.strictShell()),false);
   await page.goBack();await visit(record,false);
   await page.goBack();await visit(second,true);
+  for(const target of extra){
+    await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),target.code);
+    await visit(target,true);
+  }
   await page.evaluate(()=>{
     sessionStorage.setItem('primecare_session','expired-fixture-token');
     window.dispatchEvent(new PopStateEvent('popstate'));
