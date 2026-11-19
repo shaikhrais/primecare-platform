@@ -1,0 +1,79 @@
+name: Publish verified Clinic dashboard batch 06
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/publish-verified-clinic-06.yml']
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: primecare-cloudflare-typescript-production
+  cancel-in-progress: false
+env:
+  PROJECT: primecare-clinic
+  VERIFIED_COMMIT: 5dbb0feca4ad236e7eca0f1e024f6ff0fb0f3ea2
+  PREVIOUS_LIVE: 07fb7481ff8d09b72a54ad4710232734f5039c56
+  VERIFIED_RUN: '44627920050'
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2, persist-credentials: false}
+      - name: Check the one-time Clinic release and its verification
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA $VERIFIED_COMMIT"
+          test "$(git diff --name-only "$VERIFIED_COMMIT" "$GITHUB_SHA")" = '.github/workflows/publish-verified-clinic-06.yml'
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN" > "$RUNNER_TEMP/verify-run.json"
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN/jobs" > "$RUNNER_TEMP/verify-jobs.json"
+          python3 -m tools.deployment.dashboard_portal_contract --verify-run "$RUNNER_TEMP/verify-run.json" "$RUNNER_TEMP/verify-jobs.json" "$VERIFIED_COMMIT"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/download-artifact@v4
+        with:
+          name: dashboard-portal-bundle
+          path: release/bundle
+          github-token: ${{ github.token }}
+          run-id: ${{ env.VERIFIED_RUN }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: dashboard-publish-evidence
+          path: release/proof
+          github-token: ${{ github.token }}
+          run-id: ${{ env.VERIFIED_RUN }}
+      - name: Check the verified artifact and live baseline
+        run: |
+          set -euo pipefail
+          python3 -m tools.deployment.runtime_policy "$PROJECT" typescript --require
+          python3 -m tools.deployment.portal_artifact check release/bundle "$PROJECT" "$VERIFIED_COMMIT" release/proof/portal-receipt.json
+          python3 -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/proof/before.json
+          python3 -m tools.deployment.dashboard_portal_contract release/bundle "$PROJECT" "$VERIFIED_COMMIT" release/proof/before.json
+      - name: Publish the verified Clinic artifact
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          set -euo pipefail
+          npx --yes wrangler@4.68.1 --version
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python3 -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/proof/before.json
+          npx --yes wrangler@4.68.1 pages deploy release/bundle --project-name="$PROJECT" --branch=main --commit-hash="$VERIFIED_COMMIT"
+      - name: Verify live source and exact assets
+        run: |
+          set -euo pipefail
+          for attempt in {1..6}; do
+            if python3 -m tools.deployment.typescript_release live "$PROJECT" "$VERIFIED_COMMIT" --baseline release/bundle/primecare-build.json; then
+              exit 0
+            fi
+            sleep 5
+          done
+          exit 1
