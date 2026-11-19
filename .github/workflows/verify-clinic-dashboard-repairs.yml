@@ -1,0 +1,48 @@
+name: Verify Clinic dashboard repairs without publishing
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/verify-clinic-dashboard-repairs.yml]
+  workflow_dispatch:
+    inputs:
+      expected_main:
+        description: Full SHA of the integrated main commit
+        required: true
+        type: string
+permissions:
+  contents: read
+concurrency:
+  group: clinic-dashboard-repair-verify-${{ github.sha }}
+  cancel-in-progress: false
+jobs:
+  flutter:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Reject mismatched branch, run commit or checkout
+        env:
+          EXPECTED: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
+        run: |
+          [[ "$EXPECTED" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_REF" = refs/heads/main
+          test "$GITHUB_SHA" = "$EXPECTED"
+          test "$(git rev-parse HEAD)" = "$EXPECTED"
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.5'
+          channel: stable
+          cache: true
+      - name: Test protected dashboard reads
+        working-directory: packages/flutter_core
+        run: flutter test test/executive_read_transport_test.dart test/base_controllers_test.dart
+      - name: Test the specialist unavailable screens
+        working-directory: packages/primecare_ui
+        run: flutter test test/specialist_dashboard_unavailable_test.dart
+      - name: Compile the Clinic Flutter web app
+        working-directory: apps/primecare_clinic
+        run: flutter build web --release --no-tree-shake-icons
+      - name: Confirm the compiled bundle
+        run: test -s apps/primecare_clinic/build/web/main.dart.js

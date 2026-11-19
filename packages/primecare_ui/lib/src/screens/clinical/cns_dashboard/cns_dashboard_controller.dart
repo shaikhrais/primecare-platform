@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class CnsDashboardState {
   final bool isLoading;
@@ -8,7 +7,11 @@ class CnsDashboardState {
 
   CnsDashboardState({required this.isLoading, this.error, required this.data});
 
-  CnsDashboardState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
+  CnsDashboardState copyWith({
+    bool? isLoading,
+    String? error,
+    Map<String, dynamic>? data,
+  }) {
     return CnsDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -18,32 +21,24 @@ class CnsDashboardState {
 }
 
 class CnsDashboardController extends StateNotifier<CnsDashboardState> {
-  CnsDashboardController() : super(CnsDashboardState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
+  CnsDashboardController() : super(_unavailable());
+
+  // No approved aggregate metrics read is wired for this dashboard.
+  // Unavailable data must never become sample counts or a healthy status.
+  static CnsDashboardState _unavailable() => CnsDashboardState(
+    isLoading: false,
+    error: 'workspace.unconnected',
+    data: const {},
+  );
 
   Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate API delay
-      state = state.copyWith(
-        isLoading: false,
-        data: {
-          'active_consults': 12,
-          'pending_approvals': 4,
-          'status': 'normal'
-        }
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    state = _unavailable();
   }
 
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+  Future<void> syncData() => loadDashboardData();
 }
 
-final cnsDashboardControllerProvider = StateNotifierProvider<CnsDashboardController, CnsDashboardState>((ref) {
-  return CnsDashboardController();
-});
+final cnsDashboardControllerProvider =
+    StateNotifierProvider<CnsDashboardController, CnsDashboardState>((ref) {
+      return CnsDashboardController();
+    });

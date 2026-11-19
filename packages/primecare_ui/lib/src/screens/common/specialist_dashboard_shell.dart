@@ -1,4 +1,7 @@
+import 'package:flutter_core/src/localization/live_screen_text.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
+import '../../components/prime_status.dart';
 
 /// Shared display shell; the caller owns dashboard state, actions and routing.
 class PrimeSpecialistDashboardShell extends StatelessWidget {
@@ -12,6 +15,26 @@ class PrimeSpecialistDashboardShell extends StatelessWidget {
     required this.actions,
     required this.body,
   });
+
+  /// Presentation only: no request or retry is implied without a bound API.
+  static Widget unavailable(String key) => Builder(
+    builder: (context) => Center(
+      key: ValueKey(key),
+      child: Semantics(
+        liveRegion: true,
+        child: PrimeStatusText(
+          liveScreenText(
+            context,
+            'workspace',
+            Localizations.localeOf(context).languageCode,
+            'unconnected',
+            'workspace.unconnected'.tr(),
+          ),
+          tone: PrimeStatusTone.muted,
+        ),
+      ),
+    ),
+  );
 
   static Widget syncAction(VoidCallback onPressed, {String? semanticLabel}) {
     final button = IconButton(

@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class NpDashboardState {
   final bool isLoading;
@@ -8,7 +7,11 @@ class NpDashboardState {
 
   NpDashboardState({required this.isLoading, this.error, required this.data});
 
-  NpDashboardState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
+  NpDashboardState copyWith({
+    bool? isLoading,
+    String? error,
+    Map<String, dynamic>? data,
+  }) {
     return NpDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -18,33 +21,24 @@ class NpDashboardState {
 }
 
 class NpDashboardController extends StateNotifier<NpDashboardState> {
-  NpDashboardController() : super(NpDashboardState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
+  NpDashboardController() : super(_unavailable());
+
+  // No approved aggregate metrics read is wired for this dashboard.
+  // Unavailable data must never become sample counts or a healthy status.
+  static NpDashboardState _unavailable() => NpDashboardState(
+    isLoading: false,
+    error: 'workspace.unconnected',
+    data: const {},
+  );
 
   Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate API delay
-      state = state.copyWith(
-        isLoading: false,
-        data: {
-          'active_cases': 14,
-          'pending_prescriptions': 3,
-          'avg_triage_time': '12 mins',
-          'status': 'normal'
-        }
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    state = _unavailable();
   }
 
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+  Future<void> syncData() => loadDashboardData();
 }
 
-final npDashboardControllerProvider = StateNotifierProvider<NpDashboardController, NpDashboardState>((ref) {
-  return NpDashboardController();
-});
+final npDashboardControllerProvider =
+    StateNotifierProvider<NpDashboardController, NpDashboardState>((ref) {
+      return NpDashboardController();
+    });

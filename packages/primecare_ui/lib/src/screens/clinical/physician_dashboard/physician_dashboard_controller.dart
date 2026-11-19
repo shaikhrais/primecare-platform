@@ -1,14 +1,21 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class PhysicianDashboardState {
   final bool isLoading;
   final String? error;
   final Map<String, dynamic> data;
 
-  PhysicianDashboardState({required this.isLoading, this.error, required this.data});
+  PhysicianDashboardState({
+    required this.isLoading,
+    this.error,
+    required this.data,
+  });
 
-  PhysicianDashboardState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
+  PhysicianDashboardState copyWith({
+    bool? isLoading,
+    String? error,
+    Map<String, dynamic>? data,
+  }) {
     return PhysicianDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -17,33 +24,29 @@ class PhysicianDashboardState {
   }
 }
 
-class PhysicianDashboardController extends StateNotifier<PhysicianDashboardState> {
-  PhysicianDashboardController() : super(PhysicianDashboardState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
+class PhysicianDashboardController
+    extends StateNotifier<PhysicianDashboardState> {
+  PhysicianDashboardController() : super(_unavailable());
+
+  // No approved aggregate metrics read is wired for this dashboard.
+  // Unavailable data must never become sample counts or a healthy status.
+  static PhysicianDashboardState _unavailable() => PhysicianDashboardState(
+    isLoading: false,
+    error: 'workspace.unconnected',
+    data: const {},
+  );
 
   Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate API delay
-      state = state.copyWith(
-        isLoading: false,
-        data: {
-          'active_patients': 6,
-          'pending_labs': 2,
-          'status': 'normal'
-        }
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    state = _unavailable();
   }
 
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+  Future<void> syncData() => loadDashboardData();
 }
 
-final physicianDashboardControllerProvider = StateNotifierProvider<PhysicianDashboardController, PhysicianDashboardState>((ref) {
-  return PhysicianDashboardController();
-});
+final physicianDashboardControllerProvider =
+    StateNotifierProvider<
+      PhysicianDashboardController,
+      PhysicianDashboardState
+    >((ref) {
+      return PhysicianDashboardController();
+    });

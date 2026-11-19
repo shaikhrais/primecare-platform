@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class HswDashboardState {
   final bool isLoading;
@@ -8,7 +7,11 @@ class HswDashboardState {
 
   HswDashboardState({required this.isLoading, this.error, required this.data});
 
-  HswDashboardState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
+  HswDashboardState copyWith({
+    bool? isLoading,
+    String? error,
+    Map<String, dynamic>? data,
+  }) {
     return HswDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -18,32 +21,24 @@ class HswDashboardState {
 }
 
 class HswDashboardController extends StateNotifier<HswDashboardState> {
-  HswDashboardController() : super(HswDashboardState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
+  HswDashboardController() : super(_unavailable());
+
+  // No approved aggregate metrics read is wired for this dashboard.
+  // Unavailable data must never become sample counts or a healthy status.
+  static HswDashboardState _unavailable() => HswDashboardState(
+    isLoading: false,
+    error: 'workspace.unconnected',
+    data: const {},
+  );
 
   Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate API delay
-      state = state.copyWith(
-        isLoading: false,
-        data: {
-          'active_visits': 5,
-          'completed_logs': 2,
-          'status': 'normal'
-        }
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    state = _unavailable();
   }
 
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+  Future<void> syncData() => loadDashboardData();
 }
 
-final hswDashboardControllerProvider = StateNotifierProvider<HswDashboardController, HswDashboardState>((ref) {
-  return HswDashboardController();
-});
+final hswDashboardControllerProvider =
+    StateNotifierProvider<HswDashboardController, HswDashboardState>((ref) {
+      return HswDashboardController();
+    });

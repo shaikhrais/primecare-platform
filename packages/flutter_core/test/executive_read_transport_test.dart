@@ -7,13 +7,22 @@ import 'package:flutter_core/src/network/api_client.dart';
 import 'package:flutter_core/src/network/local_cache_service.dart';
 
 // These paths are the existing generated GET requests, not new API bindings.
-const _executivePaths = [
+const _liveReadPaths = [
   '/v1/growth-pipeline',
   '/v1/regional-performance',
   '/v1/leadership-reports',
+  '/offices/clinical/roles/caregiver/dashboard',
+  '/offices/clinical/roles/chiropractor/dashboard',
+  '/offices/clinical/roles/clinical_director/clinic-dashboard',
+  '/offices/clinical/roles/intake_coordinator/dashboard',
+  '/offices/clinical/roles/intake_coordinator/dashboard-dup-1',
+  '/offices/clinical/roles/physiotherapist/dashboard',
+  '/offices/clinical/roles/rn/dashboard',
+  '/offices/clinical/roles/rpn/dashboard',
+  '/offices/clinical/roles/social_worker/dashboard',
 ];
 const _staleData = <String, dynamic>{'record': 'another-session-cached-data'};
-const _errorData = <String, dynamic>{'error': 'executive read unavailable'};
+const _errorData = <String, dynamic>{'error': 'live read unavailable'};
 const _realData = <String, dynamic>{'record': 'actual-transport-data'};
 
 class _ProbeCache extends LocalCacheService {
@@ -126,7 +135,7 @@ void _expectFailure(ApiResponse response, int statusCode, dynamic data) {
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  for (final path in _executivePaths) {
+  for (final path in _liveReadPaths) {
     for (final cachedData in [null, _staleData]) {
       final cacheState = cachedData == null ? 'empty cache' : 'stale cache';
       for (final status in [400, 401, 403, 404, 405, 408, 429, 500, 502, 503]) {
@@ -165,7 +174,7 @@ void main() {
       '$path/',
       'https://api.example.invalid$path?enable-semantics=true',
       'https://api.example.invalid$path/?enable-semantics=true',
-      '/v1/../v1/${path.split('/').last}?enable-semantics=true',
+      '/discard/..$path?enable-semantics=true',
     ]) {
       for (final status in [null, 401, 403, 404, 503]) {
         test('$variant preserves failure $status without stale cache', () async {

@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LpnDashboardState {
   final bool isLoading;
@@ -8,7 +7,11 @@ class LpnDashboardState {
 
   LpnDashboardState({required this.isLoading, this.error, required this.data});
 
-  LpnDashboardState copyWith({bool? isLoading, String? error, Map<String, dynamic>? data}) {
+  LpnDashboardState copyWith({
+    bool? isLoading,
+    String? error,
+    Map<String, dynamic>? data,
+  }) {
     return LpnDashboardState(
       isLoading: isLoading ?? this.isLoading,
       error: error ?? this.error,
@@ -18,32 +21,24 @@ class LpnDashboardState {
 }
 
 class LpnDashboardController extends StateNotifier<LpnDashboardState> {
-  LpnDashboardController() : super(LpnDashboardState(isLoading: true, data: {})) {
-    loadDashboardData();
-  }
+  LpnDashboardController() : super(_unavailable());
+
+  // No approved aggregate metrics read is wired for this dashboard.
+  // Unavailable data must never become sample counts or a healthy status.
+  static LpnDashboardState _unavailable() => LpnDashboardState(
+    isLoading: false,
+    error: 'workspace.unconnected',
+    data: const {},
+  );
 
   Future<void> loadDashboardData() async {
-    state = state.copyWith(isLoading: true, error: null);
-    try {
-      await Future.delayed(const Duration(milliseconds: 500)); // Simulate API delay
-      state = state.copyWith(
-        isLoading: false,
-        data: {
-          'active_patients': 10,
-          'completed_treatments': 6,
-          'status': 'normal'
-        }
-      );
-    } catch (e) {
-      state = state.copyWith(isLoading: false, error: e.toString());
-    }
+    state = _unavailable();
   }
 
-  Future<void> syncData() async {
-    await loadDashboardData();
-  }
+  Future<void> syncData() => loadDashboardData();
 }
 
-final lpnDashboardControllerProvider = StateNotifierProvider<LpnDashboardController, LpnDashboardState>((ref) {
-  return LpnDashboardController();
-});
+final lpnDashboardControllerProvider =
+    StateNotifierProvider<LpnDashboardController, LpnDashboardState>((ref) {
+      return LpnDashboardController();
+    });

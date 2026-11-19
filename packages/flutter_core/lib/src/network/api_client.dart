@@ -388,15 +388,28 @@ class ApiClient {
         route.startsWith('/v1/auth/me/notifications/');
   }
 
-  // These existing generated executive GETs require a real response. This is
+  // These existing generated dashboard and executive GETs require a real response. This is
   // only a transport failure boundary, not a route binding or permission grant.
-  static bool _isGeneratedExecutiveReadPath(String path) {
+  static bool _isGeneratedLiveReadPath(String path) {
     final route = (Uri.tryParse(path)?.normalizePath().path ?? path)
         .replaceFirst(RegExp(r'/+$'), '');
     return route == '/v1/growth-pipeline' ||
         route == '/v1/regional-performance' ||
-        route == '/v1/leadership-reports';
+        route == '/v1/leadership-reports' ||
+        _legacyClinicDashboardReadPaths.contains(route);
   }
+
+  static const _legacyClinicDashboardReadPaths = <String>{
+    '/offices/clinical/roles/caregiver/dashboard',
+    '/offices/clinical/roles/chiropractor/dashboard',
+    '/offices/clinical/roles/clinical_director/clinic-dashboard',
+    '/offices/clinical/roles/intake_coordinator/dashboard',
+    '/offices/clinical/roles/intake_coordinator/dashboard-dup-1',
+    '/offices/clinical/roles/physiotherapist/dashboard',
+    '/offices/clinical/roles/rn/dashboard',
+    '/offices/clinical/roles/rpn/dashboard',
+    '/offices/clinical/roles/social_worker/dashboard',
+  };
 
   static ApiResponse _workflowFailure(Object error) {
     final response = error is DioException ? error.response : null;
@@ -423,9 +436,9 @@ class ApiClient {
     Map<String, dynamic>? queryParameters,
   }) async {
     final protectedProfile = _isOwnerProfilePath(path);
-    final protectedExecutiveRead = _isGeneratedExecutiveReadPath(path);
+    final protectedGeneratedRead = _isGeneratedLiveReadPath(path);
     final protectedWorkflow =
-        _isUncachedWorkflowPath(path) || protectedExecutiveRead;
+        _isUncachedWorkflowPath(path) || protectedGeneratedRead;
     try {
       final response = await _dio.get<Map<String, dynamic>>(
         path,
@@ -449,8 +462,8 @@ class ApiClient {
       if (protectedWorkflow) {
         final failure = _workflowFailure(e);
         // A decoding/interceptor error can carry a 2xx response. It still
-        // cannot confirm a successful executive read.
-        if (protectedExecutiveRead && failure.isSuccess) {
+        // cannot confirm a successful dashboard or executive read.
+        if (protectedGeneratedRead && failure.isSuccess) {
           return ApiResponse(
             data: failure.data,
             statusCode: 503,
