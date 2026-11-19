@@ -1,0 +1,55 @@
+name: Check Clinical Director booking column types without reading records
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/clinical-booking-metadata.yml]
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  catalog-only:
+    runs-on: ubuntu-24.04
+    environment: production
+    timeout-minutes: 6
+    steps:
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'psycopg[binary]==3.2.13'
+      - name: Inspect metadata in a read-only transaction
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY'
+          import json, os
+          import psycopg
+
+          try:
+              with psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'], connect_timeout=8) as conn:
+                  conn.read_only = True
+                  with conn.cursor() as cur:
+                      cur.execute("SET LOCAL statement_timeout='5000ms'")
+                      cur.execute('SHOW transaction_read_only')
+                      if cur.fetchone() != ('on',):
+                          raise RuntimeError('read-only guard failed')
+                      cur.execute("""
+                        SELECT
+                          count(*) FILTER (WHERE attname IN ('tenant_id', 'branch_id') AND atttypid = 'text'::regtype) = 2,
+                          coalesce(bool_or(atttypid = 'timestamptz'::regtype) FILTER (WHERE attname = 'start_at'), false),
+                          coalesce(bool_or(atttypid = 'timestamp'::regtype) FILTER (WHERE attname = 'start_at'), false)
+                        FROM pg_catalog.pg_attribute
+                        WHERE attrelid = to_regclass('public.bookings') AND attnum > 0 AND NOT attisdropped
+                      """)
+                      identity, with_zone, without_zone = cur.fetchone()
+                  conn.rollback()
+              result = {
+                  'identity_columns_text': identity,
+                  'start_at_timezone_aware': with_zone,
+                  'start_at_without_timezone': without_zone,
+                  'scope': 'catalog only; not the Worker database identity',
+              }
+              print(json.dumps(result, sort_keys=True))
+              with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                  print('Clinical Director booking schema: `' + json.dumps(result,sort_keys=True) + '`', file=summary)
+          except Exception:
+              raise SystemExit('Catalog check failed; database details suppressed.') from None
+          PY
