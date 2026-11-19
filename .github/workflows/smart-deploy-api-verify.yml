@@ -1,5 +1,8 @@
 name: API Smart Deploy - Verify only
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/smart-deploy-api-verify.yml']
   workflow_dispatch:
     inputs:
       expected_main:
@@ -26,13 +29,16 @@ jobs:
       - name: Pin candidate and classify change scope
         shell: bash
         env:
-          EXPECTED_MAIN: ${{ inputs.expected_main }}
-          COMPARISON_BASE: ${{ inputs.comparison_base }}
+          EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
+          COMPARISON_BASE: ${{ github.event_name == 'push' && '023eb56bc09c9fec58ca112384a4523173c4d2d9' || inputs.comparison_base }}
         run: |
           set -euo pipefail
           [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$COMPARISON_BASE" =~ ^[0-9a-f]{40}$ ]]
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then
+            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 8807677c373b9968f074e5846973145f96a8022f"
+          fi
           git merge-base --is-ancestor "$COMPARISON_BASE" "$EXPECTED_MAIN"
           git fetch --no-tags origin refs/heads/main
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
