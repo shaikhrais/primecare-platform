@@ -1,0 +1,48 @@
+name: Check Clinical API Worker release prerequisites
+on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/clinical-api-worker-preflight.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  preflight:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 2, persist-credentials: false}
+      - name: Confirm exact source and successful Clinical API CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERIFIED_SOURCE: 783fa6fcac42daf07bb4d474c624f94b44e0878e
+        run: |
+          set -euo pipefail
+          test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA $VERIFIED_SOURCE"
+          test "$(git diff --name-only "$VERIFIED_SOURCE" HEAD)" = '.github/workflows/clinical-api-worker-preflight.yml'
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/44625060669" --jq \
+            '. | [.head_sha, .status, .conclusion] | @tsv' > "$RUNNER_TEMP/clinical-ci.tsv"
+          printf '%s\tcompleted\tsuccess\n' "$VERIFIED_SOURCE" | cmp - "$RUNNER_TEMP/clinical-ci.tsv"
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - run: npm ci --ignore-scripts
+      - name: Prepare existing Worker configurations and test release guards
+        run: |
+          node scripts/generate-cloudflare-worker-config.mjs
+          node --test scripts/test-generic-worker-release.mjs scripts/test-generic-worker-observability.mjs scripts/test-worker-secret-retention.mjs
+      - name: Read live Governance and gateway configuration
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -uo pipefail
+          failed=0
+          for service in governance gateway; do
+            if ! node scripts/generic-worker-release.mjs --check --service "$service"; then
+              echo "::error::$service preservation check failed"
+              failed=1
+            fi
+          done
+          exit "$failed"
