@@ -37,7 +37,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then
-            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 8807677c373b9968f074e5846973145f96a8022f"
+            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 8ea451e9360f1d6c9fb8ca9bd71ae209f90b3db7"
           fi
           git merge-base --is-ancestor "$COMPARISON_BASE" "$EXPECTED_MAIN"
           git fetch --no-tags origin refs/heads/main
@@ -63,6 +63,51 @@ jobs:
           test -n "$PRODUCTION_DATABASE_URL" || { echo 'Missing production environment database secret' >&2; exit 1; }
           python tools/governance-production/verify-production-reader.py > /dev/null
           python scripts/check-api-catalog-identity.py
+      - name: Check Clinical Director read access with the production GitHub connection
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          python - <<'PY_CLINICAL'
+          import json
+          import os
+          from pathlib import Path
+          import psycopg
+
+          expected = {
+              'public_schema_usage', 'not_superuser_or_bypassrls',
+              'minimum_read_columns_available', 'authority_tables_exist',
+              'no_clinical_write_privileges', 'scope_is_view',
+              'reviewed_owner_rights_view_mode', 'runtime_cannot_assume_scope_owner',
+              'empty_scope_query_compiles',
+          }
+          sql = Path('tests/fixtures/clinical-director-api-candidate/runtime-read-preflight.sql').read_text()
+          try:
+              with psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'], connect_timeout=8, autocommit=True) as conn:
+                  with conn.cursor() as cur:
+                      cur.execute(sql, prepare=False)
+                      checks = {}
+                      while True:
+                          if cur.description:
+                              columns = [col.name for col in cur.description]
+                              if set(columns) <= expected:
+                                  row = cur.fetchone()
+                                  if row:
+                                      checks.update(zip(columns, row))
+                          if not cur.nextset():
+                              break
+          except psycopg.Error as error:
+              state = error.sqlstate or 'unavailable'
+              raise SystemExit('Clinical read-only SQL check failed: ' + state) from None
+          except Exception:
+              raise SystemExit('Clinical read-only SQL check could not complete') from None
+          missing = expected - checks.keys()
+          if missing:
+              raise SystemExit('Missing clinical check results: ' + ', '.join(sorted(missing)))
+          print(json.dumps(checks, sort_keys=True))
+          print('Evidence applies to the GitHub production database identity.')
+          if any(value is not True for value in checks.values()):
+              raise SystemExit('Clinical database checks did not all pass for this identity.')
+          PY_CLINICAL
       - name: Check Worker types
         run: |
           npx --no-install tsc --noEmit --allowImportingTsExtensions --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/service.ts cloudflare/workers/src/gateway.ts
