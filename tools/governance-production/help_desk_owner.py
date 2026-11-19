@@ -63,7 +63,7 @@ def guarded_change(store, apply):
 
 def main():
     mode=sys.argv[1:]
-    if mode not in (['--preflight'],['--apply']):
+    if mode not in (['--preflight'],['--apply'],['--verify']):
         raise SystemExit('Explicit mode required')
     apply=mode==['--apply']
     if apply and os.environ.get('HELP_DESK_CHANGE_CONFIRMATION')!=APPROVED:
@@ -76,8 +76,16 @@ def main():
         else:
             from production_reader import connect
             with connect() as reader:
-                prepare(*snapshot(reader))
-        print(json.dumps({'screen':896,'eligible':True,'applied':apply,'portalPublished':False}))
+                data=snapshot(reader)
+                if mode==['--preflight']:
+                    prepare(*data)
+                else:
+                    screen,roles,grants,_=data
+                    owner=one([r for r in roles if r[0]=='customer_support'])[1]
+                    s=one(screen)
+                    if s!=(*KEY,owner) or one(grants)[1:]!=(owner,*VIEW):
+                        raise ValueError('independent readback differs')
+        print(json.dumps({'screen':896,'eligible':True,'applied':apply,'portalPublished':False,'readbackVerified':mode==['--verify']}))
     except Exception:
         raise SystemExit('Help Desk metadata check failed; no success claimed. Details suppressed.') from None
 

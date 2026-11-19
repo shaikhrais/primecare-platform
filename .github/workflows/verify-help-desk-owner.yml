@@ -1,9 +1,7 @@
 name: Rehearse Help Desk view-only metadata change
 on:
-  push:
-    branches: [main]
-    paths: [.github/workflows/verify-help-desk-owner.yml]
   workflow_dispatch:
+  workflow_call:
 permissions: {contents: read}
 jobs:
   disposable-fixture:

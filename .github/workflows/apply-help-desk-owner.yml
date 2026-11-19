@@ -1,0 +1,69 @@
+name: Apply approved Help Desk ownership metadata only
+on:
+  workflow_dispatch:
+    inputs:
+      expected_main:
+        description: Full reviewed main commit SHA
+        required: true
+        type: string
+      confirm:
+        description: Type APPLY HELP DESK VIEW ONLY
+        required: true
+        type: string
+permissions: {contents: read}
+concurrency:
+  group: primecare-help-desk-owner-metadata
+  cancel-in-progress: false
+jobs:
+  exact:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - name: Verify exact reviewed main and narrow confirmation
+        env:
+          EXPECTED_MAIN: ${{ inputs.expected_main }}
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          set -euo pipefail
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$CONFIRM" = "APPLY HELP DESK VIEW ONLY"
+  verify:
+    needs: exact
+    uses: ./.github/workflows/verify-help-desk-owner.yml
+  metadata:
+    needs: [exact, verify]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - name: Apply only the approved metadata transaction
+        env:
+          EXPECTED_MAIN: ${{ inputs.expected_main }}
+          HELP_DESK_CHANGE_CONFIRMATION: ${{ inputs.confirm }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin refs/heads/main
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          python tools/governance-production/help_desk_owner.py --apply | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Read back the role and view-only grant independently
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          python tools/governance-production/help_desk_owner.py --verify | tee -a "$GITHUB_STEP_SUMMARY"
