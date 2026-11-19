@@ -11,6 +11,13 @@ class DashboardPublishScopeTest(unittest.TestCase):
     def test_guard_install_is_test_only(self):
         self.assertFalse(allow_legacy("push", GATE_PATHS))
 
+    def test_clinical_api_push_cannot_trigger_legacy_publish(self):
+        for paths in ({scope.CLINICAL_API_MARKER},
+                      {scope.CLINICAL_API_MARKER, "cloudflare/workers/src/gateway.ts"},
+                      {scope.CLINICAL_API_MARKER, scope.INTENT, "websites/typescript/src/workspace.ts"}):
+            with self.subTest(paths=paths):
+                self.assertFalse(allow_legacy("push", paths))
+
     def test_only_pilot_skips_unrelated_publish(self):
         self.assertFalse(allow_legacy("push", PILOT_PATHS))
 

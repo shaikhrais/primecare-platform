@@ -10,6 +10,8 @@ from .dashboard_release_intent import INFRA_MARKER, INTENT, RUNTIME_PATHS, chang
 
 GATE_PATHS = {
     ".github/workflows/release-screen-text.yml",
+    ".github/workflows/account-sessions-production-registration.yml",
+    ".github/workflows/internal-calls-production.yml",
     ".github/workflows/code-admin-look.yml",
     ".github/workflows/governance-pilot-publish-scope.yml",
     "tools/deployment/dashboard_publish_scope.py",
@@ -17,6 +19,7 @@ GATE_PATHS = {
 }
 MARKER = "websites/typescript/src/governance-officer-pilot.ts"
 PILOT_PATHS = {MARKER, "websites/typescript/src/workspace.ts"}
+CLINICAL_API_MARKER = "cloudflare/workers/src/clinical-dashboard.ts"
 
 
 def allow_legacy(event, paths, before=None, after=None):
@@ -24,6 +27,10 @@ def allow_legacy(event, paths, before=None, after=None):
         return True
     if event != "push" or not paths:
         raise ValueError("Cannot determine approved release scope")
+    # This API-only release uses separate verification and promotion.
+    # A mixed push cannot re-enable a legacy dashboard production writer.
+    if CLINICAL_API_MARKER in paths:
+        return False
     if INFRA_MARKER in paths or INTENT in paths:
         raw_intent = json.loads(Path(INTENT).read_text()) if INTENT in paths else None
         if isinstance(raw_intent, dict) and raw_intent.get("intent") == "clinic-psw-safety-maintenance":

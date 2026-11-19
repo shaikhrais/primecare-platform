@@ -106,6 +106,7 @@ jobs:
         if: always()
         with: {name: internal-call-native, path: test-results/internal-calls, retention-days: 30}
   readiness:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 6
@@ -144,7 +145,7 @@ jobs:
           pip install -r tools/governance-production/requirements.txt
           python tools/governance-production/test-account-sessions-registration.py
   deploy:
-    if: ${{ !contains(github.event.head_commit.message, 'VAPI_CALLBACK_RELEASE') }}
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: [metadata, native, account_catalog]
     runs-on: ubuntu-24.04
     environment: production
@@ -231,12 +232,14 @@ jobs:
         if: always()
         with: {name: internal-call-deployment, path: test-results/internal-calls, retention-days: 30}
   websites:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: deploy
     uses: ./.github/workflows/deploy-typescript-websites.yml
     with: {confirm: DEPLOY}
     secrets: inherit
 
   live:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: websites
     runs-on: ubuntu-24.04
     environment: production

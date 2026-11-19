@@ -44,6 +44,7 @@ jobs:
           WORKFLOW_TEST_DATABASE_URL: postgres://recovery:fixture-only@127.0.0.1:5432/recovery_metadata_test
         run: python tools/governance-production/test-account-sessions-registration.py
   apply:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: test
     runs-on: ubuntu-latest
     environment: production
