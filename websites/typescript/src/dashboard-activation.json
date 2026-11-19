@@ -417,6 +417,35 @@
           "route": "/common/system-verification-dashboard"
         }
       ]
+    },
+    {
+      "id": "client-03",
+      "dashboards": [
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "course_architect_dashboard",
+          "route": "/common/course-architect-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "qa_dashboard",
+          "route": "/offices/support/roles/quality_assurance/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "quality_assurance_dashboard",
+          "route": "/staff/quality-assurance-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "training_hub_dashboard",
+          "route": "/common/training-hub-dashboard"
+        }
+      ]
     }
   ]
 }

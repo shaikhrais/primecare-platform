@@ -39,6 +39,9 @@ SECOND_CODES = (
     "system_verification_dashboard",
 )
 SECOND_PATHS = {INTENT, MANIFEST, "tools/deployment/client_dashboard_release.py", "scripts/test-governed-master-navigation.mjs"}
+THIRD_BASE = "0a7d08822a8f819ff49377beebfb6df3494c015f"
+THIRD_BLOB = "0b5265e7b18530a75c0b01f014d353807cf2226e"
+THIRD_CODES = ('course_architect_dashboard', 'qa_dashboard', 'quality_assurance_dashboard', 'training_hub_dashboard')
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
@@ -61,7 +64,8 @@ def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
 
 def preflight(before, after, project, prior_live):
     lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
-             SECOND_BASE: ("client-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES)}
+             SECOND_BASE: ("client-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES),
+             THIRD_BASE: ("client-03", THIRD_BASE, SECOND_PATHS, THIRD_BLOB, THIRD_CODES)}
     require(before in lanes, "Client release has an unreviewed parent")
     cohort, live, scope, manifest_blob, codes = lanes[before]
     require(project == PROJECT and prior_live == live,
@@ -77,9 +81,10 @@ def preflight(before, after, project, prior_live):
                 f"Unexpected exact source bytes: {path}")
     validate_delta(json.loads(content(before, MANIFEST)), json.loads(content(after, MANIFEST)),
                    json.loads(content(after, REGISTRY)), cohort, codes)
+    return len(codes)
 
 
 if __name__ == "__main__":
     import sys
-    preflight(*sys.argv[1:])
-    print(f"Client source and {len(CODES)} activation rows validated")
+    count = preflight(*sys.argv[1:])
+    print(f"Client source and {count} activation rows validated")
