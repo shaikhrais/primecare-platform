@@ -19,12 +19,17 @@ on:
         description: Exact currently verified Governance portal commit
         required: true
         type: string
+      verified_run_id:
+        description: Successful verify-only run on the identical main commit (publish only)
+        required: false
+        type: string
       confirm:
         description: For publish only, type DEPLOY GOVERNANCE
         required: false
         type: string
 permissions:
   contents: read
+  actions: read
 concurrency:
   group: ${{ github.event_name == 'workflow_dispatch' && inputs.mode == 'publish' && 'primecare-cloudflare-typescript-production' || format('primecare-governance-verify-{0}', github.run_id) }}
   cancel-in-progress: false
@@ -34,10 +39,11 @@ env:
   EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
   PREVIOUS_LIVE: ${{ github.event_name == 'push' && '48e6d4edee1020cc059fa4cfb840c4ec690dddf0' || inputs.previous_live }}
   CONFIRM: ${{ inputs.confirm }}
+  VERIFIED_RUN_ID: ${{ inputs.verified_run_id }}
   RELEASE_MODE: ${{ github.event_name == 'push' && 'verify-only' || inputs.mode }}
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch' || github.event.before == '718a9194702925e3b2f5741b10ad9dcf7794ec71'
+    if: (github.event_name == 'workflow_dispatch' && inputs.mode == 'verify-only') || github.event.before == '718a9194702925e3b2f5741b10ad9dcf7794ec71'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: production
@@ -53,8 +59,7 @@ jobs:
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
           case "$RELEASE_MODE" in
-            verify-only) test -z "$CONFIRM" ;;
-            publish) test "$CONFIRM" = 'DEPLOY GOVERNANCE' ;;
+            verify-only) test -z "$CONFIRM" && test -z "$VERIFIED_RUN_ID" ;;
             *) exit 1 ;;
           esac
       - uses: actions/setup-node@v4
@@ -86,6 +91,7 @@ jobs:
   publish:
     name: Check artifact and publish only if requested
     needs: build
+    if: always() && !cancelled() && ((github.event_name == 'workflow_dispatch' && inputs.mode == 'publish' && needs.build.result == 'skipped') || ((github.event_name == 'push' || inputs.mode == 'verify-only') && needs.build.result == 'success'))
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: production
@@ -98,17 +104,67 @@ jobs:
         with: {node-version: '24'}
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - name: Pin previous verify-only run and select artifacts
+        id: source
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = refs/heads/main
+          [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ && "$PREVIOUS_LIVE" =~ ^[0-9a-f]{40}$ ]]
+          test "$GITHUB_SHA" = "$EXPECTED_MAIN"
+          test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
+          test "$EXPECTED_MAIN" != "$PREVIOUS_LIVE"
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
+          case "$RELEASE_MODE" in
+            verify-only)
+              test -z "$CONFIRM" && test -z "$VERIFIED_RUN_ID"
+              printf 'run_id=%s\n' "$GITHUB_RUN_ID" >> "$GITHUB_OUTPUT"
+              ;;
+            publish)
+              test "$CONFIRM" = 'DEPLOY GOVERNANCE'
+              [[ "$VERIFIED_RUN_ID" =~ ^[1-9][0-9]*$ ]]
+              test "$VERIFIED_RUN_ID" != "$GITHUB_RUN_ID"
+              gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN_ID" > "$RUNNER_TEMP/verify-run.json"
+              gh api "repos/$GITHUB_REPOSITORY/actions/runs/$VERIFIED_RUN_ID/jobs" > "$RUNNER_TEMP/verify-jobs.json"
+              python -m tools.deployment.governance_verify_run "$RUNNER_TEMP/verify-run.json" "$RUNNER_TEMP/verify-jobs.json" "$EXPECTED_MAIN" "$VERIFIED_RUN_ID"
+              printf 'run_id=%s\n' "$VERIFIED_RUN_ID" >> "$GITHUB_OUTPUT"
+              ;;
+            *) exit 1 ;;
+          esac
       - uses: actions/download-artifact@v4
-        with: {name: governance-portal-bundle, path: release/governance}
+        with:
+          name: governance-portal-bundle
+          path: release/governance
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
       - uses: actions/download-artifact@v4
-        with: {name: governance-portal-receipt, path: release/proof}
+        with:
+          name: governance-portal-receipt
+          path: release/proof
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
+      - uses: actions/download-artifact@v4
+        if: inputs.mode == 'publish'
+        with:
+          name: governance-publish-evidence
+          path: release/prior
+          github-token: ${{ github.token }}
+          run-id: ${{ steps.source.outputs.run_id }}
+
       - name: Recheck prior live version and exact artifact
         shell: bash
         run: |
           set -euo pipefail
           python -m tools.deployment.runtime_policy "$PROJECT" typescript --require
           python -m tools.deployment.portal_artifact check release/governance "$PROJECT" "$GITHUB_SHA" release/proof/governance-receipt.json
-          python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --record release/proof/before.json
+          if [[ "$RELEASE_MODE" == publish ]]; then
+            python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/prior/before.json --record release/proof/before.json
+          else
+            python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --record release/proof/before.json
+          fi
           python -m tools.deployment.portal_artifact check-contract release/governance "$PROJECT" "$GITHUB_SHA" release/proof/before.json
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
