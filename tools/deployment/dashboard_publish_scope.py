@@ -26,6 +26,12 @@ def allow_legacy(event, paths, before=None, after=None):
         raise ValueError("Cannot determine approved release scope")
     if INFRA_MARKER in paths or INTENT in paths:
         raw_intent = json.loads(Path(INTENT).read_text()) if INTENT in paths else None
+        if isinstance(raw_intent, dict) and raw_intent.get("intent") == "client-dashboard-cohort":
+            if after is None:
+                raise ValueError("Client push must bind the exact checkout SHA")
+            from .client_dashboard_release import preflight, PROJECT
+            preflight(before, after, PROJECT, raw_intent["previous_live"])
+            return False
         if isinstance(raw_intent, dict) and raw_intent.get("intent") == "corporate-dashboard-cohort":
             if after is None:
                 raise ValueError("Corporate push must bind the exact checkout SHA")

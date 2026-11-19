@@ -240,6 +240,71 @@
           "route": "/offices/corporate/roles/volunteer_coordinator/dashboard"
         }
       ]
+    },
+    {
+      "id": "client-01",
+      "dashboards": [
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "customer_support_dashboard",
+          "route": "/common/customer-support-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "dynamic_screen_dashboard",
+          "route": "/common/dynamic-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "family_member_dashboard",
+          "route": "/common/family-member-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "guest_dashboard",
+          "route": "/common/guest-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "office_dashboard",
+          "route": "/common/office-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "patient_dashboard",
+          "route": "/offices/client/roles/client/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "portal_dashboard",
+          "route": "/common/portal-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "support_dashboard",
+          "route": "/common/support-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "billing_admin_dashboard",
+          "route": "/offices/franchise/roles/billing_admin/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "receptionist_dashboard",
+          "route": "/staff/receptionist-dashboard"
+        }
+      ]
     }
   ]
 }
