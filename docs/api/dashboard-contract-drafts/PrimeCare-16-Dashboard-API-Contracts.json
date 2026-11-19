@@ -1,0 +1,474 @@
+{
+  "status": "draft_not_publishable",
+  "sourceCommit": "b829da63b2eaf3064e7dbdec22c69a9be8afe597",
+  "screenCount": 16,
+  "operationCount": 31,
+  "screens": {
+    "caregiver_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/caregiver/activity/log",
+        "proposedRequest": "assignment, declared activity type, event time, idempotency key",
+        "proposedResponse": "activity receipt",
+        "proposedAuthorization": "Self + active care assignment",
+        "unresolvedGate": "Confirm authorized activity types and record source",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/caregiver/meds/acknowledge",
+        "proposedRequest": "existing instruction reference, expected revision, idempotency key",
+        "proposedResponse": "acknowledgement receipt only",
+        "proposedAuthorization": "Self + assigned instruction visibility",
+        "unresolvedGate": "Confirm acknowledgement policy; never treat it as administration",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "clinical_director_dashboard": [
+      {
+        "method": "GET",
+        "path": "/v1/clinical/dashboard",
+        "proposedRequest": "No body, filters, or tenant override",
+        "proposedResponse": "assignedVerifiedBranchCount only",
+        "proposedAuthorization": "Active director + current verified branch grants",
+        "unresolvedGate": "Isolated CI passed; runtime access and selective deploy still unverified; no booking metric",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "cns_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/cns/consultations/log",
+        "proposedRequest": "existing consultation reference, event time, version, idempotency key",
+        "proposedResponse": "consultation receipt",
+        "proposedAuthorization": "Assigned consultation and tenant",
+        "unresolvedGate": "Verify source, protected record policy and exact permitted data",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/cns/standards/publish",
+        "proposedRequest": "approved revision reference, expected version, idempotency key",
+        "proposedResponse": "publication status receipt",
+        "proposedAuthorization": "Explicit publisher and separate approved revision",
+        "unresolvedGate": "Confirm approval, versioning, audience and rollback source",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "compliance_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/compliance-dashboard/compliance/scan",
+        "proposedRequest": "registered scan profile, approved scope, idempotency key",
+        "proposedResponse": "job receipt and status",
+        "proposedAuthorization": "Authorized compliance operator; scan stays within server scope",
+        "unresolvedGate": "Choose governed scan engine, controls and findings visibility",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "employee_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/employee/pto/request",
+        "proposedRequest": "date range, approved leave type, idempotency key",
+        "proposedResponse": "own leave request receipt",
+        "proposedAuthorization": "Self within active employment; separate approval",
+        "unresolvedGate": "Verify policy, date semantics and HR system of record",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/employee/tax/download",
+        "proposedRequest": "own existing document reference",
+        "proposedResponse": "protected download with no-store",
+        "proposedAuthorization": "Self only; revalidate document ownership on each read",
+        "unresolvedGate": "Verify verified document provider and access/audit rules",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "hsw_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/hsw/alerts/trigger",
+        "proposedRequest": "approved alert reference/category, authorized visit, idempotency key",
+        "proposedResponse": "accepted/failed dispatch receipt",
+        "proposedAuthorization": "Assigned active visit and explicit dispatch policy",
+        "unresolvedGate": "Confirm recipient and escalation service; a request is not delivery",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/hsw/visits/checkin",
+        "proposedRequest": "visit reference, expected version, idempotency key",
+        "proposedResponse": "visit state receipt",
+        "proposedAuthorization": "Own active assignment",
+        "unresolvedGate": "Verify visit state rules and time authority",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/hsw/visits/checkout",
+        "proposedRequest": "visit reference, expected version, idempotency key",
+        "proposedResponse": "visit state receipt",
+        "proposedAuthorization": "Own active assignment",
+        "unresolvedGate": "Verify matching check-in and allowed completion rules",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "lpn_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/lpn/medpass/log",
+        "proposedRequest": "existing medication event reference, expected version, idempotency key",
+        "proposedResponse": "record receipt, no medication advice",
+        "proposedAuthorization": "Explicit clinical permission plus assignment",
+        "unresolvedGate": "Confirm approved medication-event schema, attestation and audit",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/lpn/wounds/submit",
+        "proposedRequest": "existing assessment reference, approved revision, idempotency key",
+        "proposedResponse": "assessment submission receipt",
+        "proposedAuthorization": "Explicit clinical permission plus assignment",
+        "unresolvedGate": "Confirm approved assessment schema, source and audit",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "np_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/np/diagnostics/sign",
+        "proposedRequest": "existing diagnostic record, expected revision, idempotency key",
+        "proposedResponse": "signature-state receipt",
+        "proposedAuthorization": "Qualified authorized signer and assigned case",
+        "unresolvedGate": "Confirm approval workflow and signature requirements; never infer clinical decision",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/np/referrals/create",
+        "proposedRequest": "approved referral draft reference, expected revision, idempotency key",
+        "proposedResponse": "referral receipt; no assumed delivery",
+        "proposedAuthorization": "Authorized referrer and assigned case",
+        "unresolvedGate": "Confirm record and delivery provider before enabling submission",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "pediatric_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/pediatric/growth/record",
+        "proposedRequest": "assigned patient and existing growth measurement record reference, revision, idempotency key",
+        "proposedResponse": "record receipt",
+        "proposedAuthorization": "Assigned patients only; explicit clinical write grant",
+        "unresolvedGate": "Confirm authoritative assignment and validated clinical schema",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/pediatric/vaccines/administer",
+        "proposedRequest": "existing administration-event reference, verified revision, idempotency key",
+        "proposedResponse": "record receipt; does not authorize administration",
+        "proposedAuthorization": "Assigned patients only; explicit clinical write grant",
+        "unresolvedGate": "Verify vaccination system of record, credentials and recording policy",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "physician_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/physician/labs/authorize",
+        "proposedRequest": "existing lab order reference, expected revision, idempotency key",
+        "proposedResponse": "authorization receipt",
+        "proposedAuthorization": "Authorized physician and assigned case",
+        "unresolvedGate": "Confirm order source, sign-off policy and audit",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/physician/prescriptions/submit",
+        "proposedRequest": "existing signed prescription reference, expected revision, idempotency key",
+        "proposedResponse": "submission status receipt; no inferred dispensing",
+        "proposedAuthorization": "Authorized physician and assigned case",
+        "unresolvedGate": "Confirm regulated approval and verified submission channel; no prescribing logic",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "rmt_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/rmt/appointments/fetch",
+        "proposedRequest": "bounded window and cursor; decide GET migration",
+        "proposedResponse": "minimal appointment projection and cursor",
+        "proposedAuthorization": "Own approved appointments within tenant scope",
+        "unresolvedGate": "Verify appointment scope, source timestamps, status filters and method choice",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/rmt/claims/submit",
+        "proposedRequest": "existing claim draft, expected revision, idempotency key",
+        "proposedResponse": "claim submission receipt",
+        "proposedAuthorization": "Authorized billing operator and associated encounter",
+        "unresolvedGate": "Confirm claims processor, financial validation and access rules",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/rmt/soap-notes/submit",
+        "proposedRequest": "existing note draft, expected revision, idempotency key",
+        "proposedResponse": "note submission receipt",
+        "proposedAuthorization": "Assigned encounter and explicit record-write permission",
+        "unresolvedGate": "Verify clinical record retention and approved schema",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/rmt/treatment-plans/update",
+        "proposedRequest": "existing plan draft, expected revision, idempotency key",
+        "proposedResponse": "versioned plan revision receipt",
+        "proposedAuthorization": "Assigned encounter and write grant",
+        "unresolvedGate": "Verify plan lifecycle and approval; no clinical recommendations",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "rn_field_supervisor_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/rn/assessments/signoff",
+        "proposedRequest": "existing assessment, approved version, idempotency key",
+        "proposedResponse": "sign-off receipt",
+        "proposedAuthorization": "Approved supervisor and assigned case; independence where required",
+        "unresolvedGate": "Verify clinical signoff source and policy",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/rn/audits/submit",
+        "proposedRequest": "existing audit draft, approved revision, idempotency key",
+        "proposedResponse": "audit submission receipt",
+        "proposedAuthorization": "Authorized auditor and audit scope",
+        "unresolvedGate": "Verify audit record authority and lifecycle",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "scheduling_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/scheduling-dashboard/compliance/scan",
+        "proposedRequest": "registered scheduling scan profile, approved scope, idempotency key",
+        "proposedResponse": "job receipt and status",
+        "proposedAuthorization": "Authorized scheduler; only allowed schedule resources",
+        "unresolvedGate": "Verify scan controls; no general compliance permission implied",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "therapist_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/therapist/notes/finalize",
+        "proposedRequest": "owned note draft, expected revision, idempotency key",
+        "proposedResponse": "finalization receipt",
+        "proposedAuthorization": "Assigned encounter and authorized author/signer",
+        "unresolvedGate": "Verify record finalization and revision policy",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/therapist/sessions/start",
+        "proposedRequest": "existing session reference, expected version, idempotency key",
+        "proposedResponse": "session state receipt",
+        "proposedAuthorization": "Own assigned session and explicit state transition permission",
+        "unresolvedGate": "Verify session source and state rules",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "training_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/training-dashboard/compliance/scan",
+        "proposedRequest": "registered training scan profile, approved scope, idempotency key",
+        "proposedResponse": "job receipt and status",
+        "proposedAuthorization": "Authorized training coordinator; only permitted training records",
+        "unresolvedGate": "Verify completion authority and defined training controls",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ],
+    "volunteer_dashboard": [
+      {
+        "method": "POST",
+        "path": "/v1/volunteer/shift/checkin",
+        "proposedRequest": "own shift reference, expected version, idempotency key",
+        "proposedResponse": "shift state receipt",
+        "proposedAuthorization": "Own active role and assignment",
+        "unresolvedGate": "Confirm volunteer shift ledger and check-in rules",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      },
+      {
+        "method": "POST",
+        "path": "/v1/volunteer/visits/log",
+        "proposedRequest": "own authorized visit reference, event type/time, idempotency key",
+        "proposedResponse": "visit-log receipt",
+        "proposedAuthorization": "Own authorized assignment; least data",
+        "unresolvedGate": "Confirm record scope and event policy; no disclosure of patient notes",
+        "registryGaps": [
+          "permission",
+          "requestSchema",
+          "responseSchema"
+        ],
+        "productionApproved": false
+      }
+    ]
+  }
+}
