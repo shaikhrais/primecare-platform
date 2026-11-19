@@ -1,0 +1,25 @@
+name: Audit 26 PrimeCare dashboard owners without changing grants
+on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/dashboard-owner-readonly-audit.yml]
+  workflow_dispatch:
+permissions: {contents: read}
+jobs:
+  metadata-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - name: Check exact owner, portal and existing active view grant
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python tools/governance-production/audit_dashboard_owner_bindings.py tools/governance-production/dashboard-owner-audit-26.json | tee -a "$GITHUB_STEP_SUMMARY"
