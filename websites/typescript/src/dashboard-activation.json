@@ -481,6 +481,71 @@
           "route": "/staff/training-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-02",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "intake_dashboard",
+          "route": "/offices/clinical/roles/intake_coordinator/dashboard-dup-1"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "psw_dashboard",
+          "route": "/offices/clinical/roles/psw/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "regional_manager_ontario_dashboard",
+          "route": "/offices/business_development/roles/regional_manager_ontario/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "family_dashboard",
+          "route": "/offices/client/roles/family_member/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "it_admin_dashboard",
+          "route": "/offices/corporate/roles/it_admin/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "franchise_owner_dashboard",
+          "route": "/offices/franchise/roles/franchise_owner/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "marketing_manager_dashboard",
+          "route": "/offices/franchise/roles/marketing_manager/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "regional_manager_dashboard",
+          "route": "/offices/franchise/roles/regional_manager/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "escalation_dashboard",
+          "route": "/support/escalation-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "help_desk_dashboard",
+          "route": "/support/help-desk-dashboard"
+        }
+      ]
     }
   ]
 }

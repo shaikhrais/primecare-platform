@@ -1,4 +1,4 @@
-"""Fail-closed source scope for the first Clinic dashboard shell batch."""
+"""Fail-closed source scope for the reviewed Clinic dashboard shell batches."""
 import json
 
 from .corporate_dashboard_release import (
@@ -27,12 +27,28 @@ CODES = (
     "rpn_dashboard",
     "intake_coordinator_dashboard",
 )
+SECOND_BASE = "6b83e709d6715d85ef0ad645f37df09caf4dc322"
+SECOND_LIVE = "77888c3a1f2d93ec33d4cc3734c66573742feb23"
+SECOND_BLOB = "c771657249f124af5167312ea55fd8448018c45b"
+SECOND_PATHS = {INTENT, MANIFEST, "tools/deployment/clinic_dashboard_release.py", "scripts/test-governed-master-navigation.mjs"}
+SECOND_CODES = (
+    "intake_dashboard",
+    "psw_dashboard",
+    "regional_manager_ontario_dashboard",
+    "family_dashboard",
+    "it_admin_dashboard",
+    "franchise_owner_dashboard",
+    "marketing_manager_dashboard",
+    "regional_manager_dashboard",
+    "escalation_dashboard",
+    "help_desk_dashboard",
+)
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
 
 
-def validate_delta(prior, candidate, registry):
+def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
     lookup = {(r["appCode"], r["code"], r["route"]): "primecare-" + PROJECT_APPS[r["appCode"]]
               for r in registry["screens"] if r["renderer"] == "dashboard" and r["appCode"] in PROJECT_APPS}
     validate_entries(prior, lookup)
@@ -41,29 +57,34 @@ def validate_delta(prior, candidate, registry):
     require(candidate["retained"] == prior["retained"], "Retained activations changed")
     new = candidate["cohorts"][-1]
     require(candidate["cohorts"][:-1] == prior["cohorts"] and set(new) == {"id", "dashboards"}
-            and new["id"] == COHORT, "Require exactly one appended Clinic cohort")
-    require(tuple(r["code"] for r in new["dashboards"]) == CODES
+            and new["id"] == cohort, "Require exactly one appended Clinic cohort")
+    require(tuple(r["code"] for r in new["dashboards"]) == codes
             and all(r["project"] == PROJECT and r["appCode"] == "ci" for r in new["dashboards"]),
             "Unexpected Clinic dashboard activation set")
 
 
 def preflight(before, after, project, prior_live):
-    require(before == BASE and project == PROJECT and prior_live == PREVIOUS_LIVE,
+    lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
+             SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES)}
+    require(before in lanes, "Clinic release has an unreviewed parent")
+    cohort, live, scope, manifest_blob, codes = lanes[before]
+    require(project == PROJECT and prior_live == live,
             "Clinic source parent, target or prior live mismatch")
     require(exact_parent(after, before), "Clinic source does not have the exact sole parent")
-    require(paths(before, after) == EXACT_PATHS, "Unexpected path in Clinic dashboard release")
+    require(paths(before, after) == scope, "Unexpected path in Clinic dashboard release")
     intent = json.loads(content(after, INTENT))
     require(type(intent.get("version")) is int and intent == {
-        "version": 1, "intent": KIND, "cohort": COHORT, "base": BASE, "previous_live": PREVIOUS_LIVE,
+        "version": 1, "intent": KIND, "cohort": cohort, "base": before, "previous_live": live,
     }, "Clinic release intent mismatch")
-    for path, blob in ((MANIFEST, MANIFEST_BLOB), (REGISTRY, REGISTRY_BLOB)):
+    for path, blob in ((MANIFEST, manifest_blob), (REGISTRY, REGISTRY_BLOB)):
         require(git("ls-tree", after, "--", path) == f"100644 blob {blob}\t{path}",
                 f"Unexpected exact source bytes: {path}")
     validate_delta(json.loads(content(before, MANIFEST)), json.loads(content(after, MANIFEST)),
-                   json.loads(content(after, REGISTRY)))
+                   json.loads(content(after, REGISTRY)), cohort, codes)
+    return len(codes)
 
 
 if __name__ == "__main__":
     import sys
-    preflight(*sys.argv[1:])
-    print(f"Clinic source and {len(CODES)} activation rows validated")
+    count = preflight(*sys.argv[1:])
+    print(f"Clinic source and {count} activation rows validated")

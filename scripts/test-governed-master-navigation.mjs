@@ -14,6 +14,7 @@ const clientSecond=clientCohorts.some(c=>c.id==='client-02');
 const clientFourth=clientCohorts.find(c=>c.id==='client-04');
 const clientThird=clientCohorts.some(c=>c.id==='client-03');
 const clinic=process.env.PRIMECARE_WORKSPACE_CLINIC_FIXTURE==='1';
+const clinicSecond=clinic?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts.find(c=>c.id==='clinic-02'):undefined;
 assert.ok([businessDevelopment,client,clinic].filter(Boolean).length<=1);
 const project=businessDevelopment?'primecare-business-development':client?'primecare-client':clinic?'primecare-clinic':'primecare-corporate';
 const appCode=businessDevelopment?'bd':client?'cl':clinic?'ci':'co';
@@ -30,8 +31,8 @@ const heldUsesMaster=Boolean(clientFourth)||(!businessDevelopment&&!client&&!cli
 const mismatch={...generic.find(p=>p.code==='coo_dashboard'),appCode:'su'};
 const record=screens.find(p=>businessDevelopment?p.code==='franchise_lead':p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
 const denied=generic.find(p=>p.code===(clientThird?'quality_assurance_dashboard':clientSecond?'regional_bdm_dashboard':client?'family_member_dashboard':clinic?'rn_dashboard':'cfo_dashboard'));
-const extra=(clientFourth?.dashboards??[]).filter(row=>![first,second,held].some(p=>p.code===row.code))
-  .map(row=>generic.find(p=>p.appCode==='cl'&&p.code===row.code&&p.route===row.route));
+const extra=((clientFourth??clinicSecond)?.dashboards??[]).filter(row=>![first,second,held].some(p=>p.code===row.code))
+  .map(row=>generic.find(p=>p.appCode===row.appCode&&p.code===row.code&&p.route===row.route));
 const authorized=[first,second,held,mismatch,record,...extra].map(p=>({...p,sections:[],blockers:[]}));
 assert.ok(denied&&authorized.every(p=>typeof p.route==='string'));
 const token='fixture-authorized-token';
