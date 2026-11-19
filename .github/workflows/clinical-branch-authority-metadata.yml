@@ -94,6 +94,29 @@ jobs:
                             coalesce(pg_catalog.has_column_privilege('public.tenants','id','REFERENCES'),false)
                       """)
                       privileges = cur.fetchone()
+                      cur.execute("""
+                          SELECT
+                            coalesce((SELECT rolsuper FROM pg_catalog.pg_roles WHERE rolname=CURRENT_USER), false),
+                            coalesce((SELECT pg_catalog.pg_has_role(datdba,'USAGE') FROM pg_catalog.pg_database WHERE datname=current_database()),false),
+                            pg_catalog.has_schema_privilege('public','USAGE'),
+                            coalesce(pg_catalog.has_language_privilege('plpgsql','USAGE'),false),
+                            (SELECT bool_and(pg_catalog.has_column_privilege('public.users',c,'SELECT'))
+                              FROM unnest(ARRAY['id','tenant_id','roles','status']) c),
+                            (SELECT bool_and(pg_catalog.has_column_privilege('public.tenants',c,'SELECT'))
+                              FROM unnest(ARRAY['id','status']) c),
+                            (SELECT count(*) FROM pg_catalog.pg_event_trigger WHERE evtenabled<>'D'
+                              AND evtevent IN ('ddl_command_start','ddl_command_end'))
+                      """)
+                      access = cur.fetchone()
+                      try:
+                          with conn.transaction():
+                              cur.execute("DO $$ BEGIN NULL; END $$")
+                          noop = 'passed'
+                      except psycopg.Error as error:
+                          state = error.sqlstate
+                          noop = state if isinstance(state,str) and len(state)==5 and state.isalnum() else 'unavailable'
+                      host = (conn.info.host or '').lower()
+                      host_class = {'pooled.db.prisma.io':'prisma_pooler','db.prisma.io':'prisma_direct'}.get(host,'other')
                       conn.rollback()
               print(json.dumps(dict(zip(
                   ('visible_tenant_directory_candidates','visible_staff_location_candidates','visible_named_assignment_candidates','booking_branch_columns_visible','user_tenant_role_columns_visible'),
@@ -107,6 +130,11 @@ jobs:
                   ('default_transactions_read_only','server_in_recovery','can_create_in_target_schema',
                    'can_reference_users','can_reference_tenants'), privileges
               )), sort_keys=True))
+              extra = dict(zip(('is_superuser','has_database_owner_role','has_public_schema_usage',
+                               'has_plpgsql_usage','can_read_required_user_columns','can_read_required_tenant_columns',
+                               'active_ddl_event_triggers'),access))
+              extra.update({'host_class':host_class,'no_op_do':noop})
+              print(json.dumps(extra,sort_keys=True))
           except Exception:
               raise SystemExit("Metadata inspection failed; connection details and server messages suppressed.") from None
           PY
