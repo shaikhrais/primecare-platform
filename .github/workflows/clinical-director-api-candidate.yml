@@ -37,4 +37,4 @@ jobs:
           test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
           export PGLITE_FIXTURE_MODULE="$PWD/native-fixture-adapter.cjs"
           export CLINICAL_FIXTURE_PG_MODULE="$RUNNER_TEMP/clinical-fixture/node_modules/pg"
-          node --test test.mjs endpoint.test.mjs e2e.test.mjs
+          node --test test.mjs endpoint.test.mjs e2e.test.mjs migration-review.test.mjs
