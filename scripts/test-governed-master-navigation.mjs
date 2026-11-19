@@ -14,7 +14,7 @@ const clientSecond=clientCohorts.some(c=>c.id==='client-02');
 const clientFourth=clientCohorts.find(c=>c.id==='client-04');
 const clientThird=clientCohorts.some(c=>c.id==='client-03');
 const clinic=process.env.PRIMECARE_WORKSPACE_CLINIC_FIXTURE==='1';
-const clinicCohort=clinic?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts.findLast(c=>['clinic-02','clinic-03'].includes(c.id)):undefined;
+const clinicCohort=clinic?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts.findLast(c=>['clinic-02','clinic-03','clinic-04'].includes(c.id)):undefined;
 assert.ok([businessDevelopment,client,clinic].filter(Boolean).length<=1);
 const project=businessDevelopment?'primecare-business-development':client?'primecare-client':clinic?'primecare-clinic':'primecare-corporate';
 const appCode=businessDevelopment?'bd':client?'cl':clinic?'ci':'co';

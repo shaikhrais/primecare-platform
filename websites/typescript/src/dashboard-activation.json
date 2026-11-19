@@ -611,6 +611,53 @@
           "route": "/generated/campaign-performance-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-04",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "client_dashboard",
+          "route": "/generated/client-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "pharmacy_dispensing_dashboard",
+          "route": "/generated/pharmacy-dispensing-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "epidemiological_surveillance_dashboard",
+          "route": "/generated/epidemiological-surveillance-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "school_health_program_dashboard",
+          "route": "/generated/school-health-program-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "clinical_trial_recruitment_dashboard",
+          "route": "/generated/clinical-trial-recruitment-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "remote_patient_monitoring_dashboard",
+          "route": "/generated/remote-patient-monitoring-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "dynamic_dashboard",
+          "route": "/generated/dynamic-dashboard"
+        }
+      ]
     }
   ]
 }

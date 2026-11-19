@@ -63,6 +63,18 @@ THIRD_CODES = (
     "c_m_e_tracking_dashboard",
     "campaign_performance_dashboard",
 )
+FOURTH_BASE = "e1429f84bf0278d1a3790acc63624d09ed9f6897"
+FOURTH_LIVE = "b19469ccca03fb1d7b00ae9123c3bbb9cdd1c9d0"
+FOURTH_BLOB = "68ec87b234e19ff0dd14b0d3251f22ac8746a833"
+FOURTH_CODES = (
+    "client_dashboard",
+    "pharmacy_dispensing_dashboard",
+    "epidemiological_surveillance_dashboard",
+    "school_health_program_dashboard",
+    "clinical_trial_recruitment_dashboard",
+    "remote_patient_monitoring_dashboard",
+    "dynamic_dashboard",
+)
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
@@ -96,7 +108,8 @@ def preflight(before, after, project, prior_live):
         return preflight(SECOND_BASE, before, project, prior_live)
     lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
              SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES),
-             THIRD_BASE: ("clinic-03", THIRD_BASE, THIRD_PATHS, THIRD_BLOB, THIRD_CODES)}
+             THIRD_BASE: ("clinic-03", THIRD_BASE, THIRD_PATHS, THIRD_BLOB, THIRD_CODES),
+             FOURTH_BASE: ("clinic-04", FOURTH_LIVE, THIRD_PATHS, FOURTH_BLOB, FOURTH_CODES)}
     require(before in lanes, "Clinic release has an unreviewed parent")
     cohort, live, scope, manifest_blob, codes = lanes[before]
     require(project == PROJECT and prior_live == live,
