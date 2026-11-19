@@ -90,6 +90,10 @@ FIFTH_CODES = (
     "caregiver_dashboard",
     "rn_field_supervisor_dashboard",
 )
+SIXTH_BASE = "b83c0b76f7211730db2adf317aeb16161bd115cc"
+SIXTH_LIVE = "07fb7481ff8d09b72a54ad4710232734f5039c56"
+SIXTH_BLOB = "5a3f0cd1d77c09cd0019c6e9166e7bb5bb9be1b5"
+SIXTH_CODES = ('clinical_dashboard', 'clinical_director_dashboard')
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
@@ -125,7 +129,8 @@ def preflight(before, after, project, prior_live):
              SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES),
              THIRD_BASE: ("clinic-03", THIRD_BASE, THIRD_PATHS, THIRD_BLOB, THIRD_CODES),
              FOURTH_BASE: ("clinic-04", FOURTH_LIVE, THIRD_PATHS, FOURTH_BLOB, FOURTH_CODES),
-             FIFTH_BASE: ("clinic-05", FIFTH_LIVE, THIRD_PATHS, FIFTH_BLOB, FIFTH_CODES)}
+             FIFTH_BASE: ("clinic-05", FIFTH_LIVE, THIRD_PATHS, FIFTH_BLOB, FIFTH_CODES),
+             SIXTH_BASE: ("clinic-06", SIXTH_LIVE, THIRD_PATHS, SIXTH_BLOB, SIXTH_CODES)}
     require(before in lanes, "Clinic release has an unreviewed parent")
     cohort, live, scope, manifest_blob, codes = lanes[before]
     require(project == PROJECT and prior_live == live,

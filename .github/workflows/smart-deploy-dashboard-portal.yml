@@ -50,7 +50,7 @@ env:
   PROJECT: ${{ github.event_name == 'push' && 'primecare-clinic' || inputs.project }}
   API_GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
   EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
-  PREVIOUS_LIVE: ${{ github.event_name == 'push' && 'c7f14f8f45ff32a0c78c61781bda3ab5ec6c838a' || inputs.previous_live }}
+  PREVIOUS_LIVE: ${{ github.event_name == 'push' && '07fb7481ff8d09b72a54ad4710232734f5039c56' || inputs.previous_live }}
   CONFIRM: ${{ inputs.confirm }}
   VERIFIED_RUN_ID: ${{ inputs.verified_run_id }}
   RELEASE_MODE: ${{ github.event_name == 'push' && 'verify-only' || inputs.mode }}
@@ -84,7 +84,7 @@ jobs:
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then
-            test "${parents[1]}" = 922b98fbce46fda3b2eb41f9882fa388b21e768b
+            test "${parents[1]}" = b83c0b76f7211730db2adf317aeb16161bd115cc
             test "$RELEASE_MODE" = verify-only
           fi
           intent="$(python3 -c 'import json; print(json.load(open("tools/deployment/dashboard-release-intent.json"))["intent"])')"
@@ -249,7 +249,7 @@ jobs:
           from tools.deployment.typescript_release import make_stamp
 
           intent = json.loads(Path("tools/deployment/dashboard-release-intent.json").read_text())
-          if intent.get("cohort") in {"clinic-02", "clinic-03", "clinic-04", "clinic-05"}:
+          if intent.get("cohort") in {"clinic-02", "clinic-03", "clinic-04", "clinic-05", "clinic-06"}:
               bundle = Path("websites/typescript/dist/primecare-clinic")
               retain_clinic_live_manifest(bundle, os.environ["PREVIOUS_LIVE"])
               stamp = make_stamp(bundle, "primecare-clinic", os.environ["GITHUB_SHA"])

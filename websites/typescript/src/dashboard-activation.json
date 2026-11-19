@@ -723,6 +723,23 @@
           "route": "/rn/rn-field-supervisor-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-06",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "clinical_dashboard",
+          "route": "/offices/clinical/roles/clinical_director/dashboard-dup-1"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "clinical_director_dashboard",
+          "route": "/offices/clinical/roles/clinical_director/dashboard"
+        }
+      ]
     }
   ]
 }
