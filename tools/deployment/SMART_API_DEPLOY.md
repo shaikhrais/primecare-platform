@@ -20,3 +20,34 @@ There is no Smart Deploy publish mode yet. The existing full-fleet workflow is a
 4. If publishing fails or is inconclusive, inspect live version/traffic state before any retry. If the new version is live and unhealthy, follow the approved rollback procedure for the affected service only; confirm prior version and traffic before continuing.
 
 References: [GitHub manual workflows](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/manually-run-a-workflow) · [Cloudflare Worker bundling](https://developers.cloudflare.com/workers/wrangler/bundling/) · [Cloudflare versions and deployments](https://developers.cloudflare.com/workers/versions-and-deployments/)
+
+## Reusable approval record (read-only contract)
+
+Approve one exact release plan, not all future deploys. The tool
+`python -m tools.deployment.api_release_approval digest plan.json` prints
+the digest to attach to approval. A plan specifies the exact main `commit`,
+`verified_run_id`, and sorted `targets`. Each target records its full
+`worker` name, `prior_deployment`, `prior_version`, `candidate_version`,
+and verified `bundle_sha256`. A change to any of those fields invalidates
+the approval.
+
+Check matching records without deploying:
+
+```sh
+python -m tools.deployment.api_release_approval check plan.json APPROVED_DIGEST verified.json live.json
+```
+
+The verified record includes `commit`, `verified_run_id`, the independently
+reviewed sorted list of `required_workers`, and `versions` keyed by Worker
+name (with `version` and `bundle_sha256`). The live record is keyed by Worker
+name (with `deployment` and a `traffic` map from version IDs to percent).
+This gate only accepts a single prior version serving 100% per target and
+excludes Auth, the gateway and specialized Workers.
+
+This command checks consistency, not who approved the plan or where the input
+records came from. Do not use self-supplied JSON as approval or production
+evidence. A future production-gated job must obtain approved digest and sealed
+verification evidence through trusted GitHub sources, fetch Cloudflare's live
+state directly, and verify that main, dependency scope, bindings and routing
+remain current before any promotion. The existing verify-only run does not
+create a verified Worker version, and cannot yet satisfy this gate.

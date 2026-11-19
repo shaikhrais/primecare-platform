@@ -59,6 +59,16 @@ export class GatewayWorker extends BaseWorker<Env> {
 
   protected override async handle(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
+    // Exact canonical read; no prefix routing or duplicate-dashboard alias.
+    if(url.pathname==='/v1/clinical/dashboard') {
+      if(request.method!=='GET')return withGatewayHeaders(request,Response.json({error:'method_not_allowed'},{status:405,headers:{allow:'GET'}}));
+      try {
+        return withGatewayHeaders(request,await env.GOVERNANCE.fetch(request));
+      } catch {
+        // Do not expose binding errors or internal service names to API callers.
+        return withGatewayHeaders(request,Response.json({error:'unavailable'},{status:503}));
+      }
+    }
     const approval=voiceContracts.operations.find(op=>['task.preview','task.approve'].includes(op.key)&&op.path===url.pathname);
     if(approval){
       if(request.method!==approval.method)return withGatewayHeaders(request,Response.json({error:'Method not allowed'},{status:405,headers:{allow:approval.method}}));
@@ -131,6 +141,7 @@ export class GatewayWorker extends BaseWorker<Env> {
     }
     const match = url.pathname.match(/^\/(?:v1|api)\/([^/]+)(\/.*)?$/);
     if (!match || !routes[match[1]]) return withGatewayHeaders(request, Response.json({ error: 'Route not found' }, { status: 404 }));
+    if(match[2]==='/v1/clinical/dashboard')return withGatewayHeaders(request,Response.json({error:'Route not found'},{status:404}));
     url.hostname = 'service';
     url.pathname = match[2] || '/';
     const response = await env[routes[match[1]]].fetch(new Request(url, request));

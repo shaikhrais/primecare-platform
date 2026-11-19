@@ -1,0 +1,327 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "DRAFT Clinical Director assigned branch count",
+    "version": "0.4.0-draft",
+    "description": "Pending owner choice. Counts assigned active verified branches only; no booking or appointment metric. Local candidate, not production approval."
+  },
+  "paths": {
+    "/v1/clinical/dashboard": {
+      "get": {
+        "operationId": "readClinicalDashboard",
+        "security": [
+          {
+            "sessionBearer": []
+          },
+          {
+            "sessionCookie": []
+          }
+        ],
+        "description": "Count distinct branch_id from the reviewed effective-scope view for the active signed-in Clinical Director in their active tenant, in the same repeatable-read read-only authorization transaction. No query/body/tenant overrides or IDs returned. Zero scope is 403 no_scope; database/read failure is 503 unavailable.",
+        "responses": {
+          "400": {
+            "description": "No body, query string or tenant override accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "unexpected_scope_or_query"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "unexpected_scope_or_query": {
+                    "value": {
+                      "error": "unexpected_scope_or_query"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Missing, invalid or expired session; inactive user or tenant",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "unauthenticated"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "unauthenticated": {
+                    "value": {
+                      "error": "unauthenticated"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Wrong role, or no effective assigned verified active branch",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "forbidden",
+                        "no_scope"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "forbidden": {
+                    "value": {
+                      "error": "forbidden"
+                    }
+                  },
+                  "no_scope": {
+                    "value": {
+                      "error": "no_scope"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "GET only",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "method_not_allowed"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "method_not_allowed": {
+                    "value": {
+                      "error": "method_not_allowed"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              },
+              "Allow": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "GET"
+                  ]
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Configured source limiter denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "rate_limited"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "rate_limited": {
+                    "value": {
+                      "error": "rate_limited"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              },
+              "Retry-After": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "60"
+                  ]
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Governance service unavailable, authorization database unavailable, or unsafe aggregate; no internal detail.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "error"
+                  ],
+                  "properties": {
+                    "error": {
+                      "enum": [
+                        "unavailable"
+                      ]
+                    }
+                  }
+                },
+                "examples": {
+                  "unavailable": {
+                    "value": {
+                      "error": "unavailable"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Count of distinct currently assigned active verified branches in the current director tenant. No appointment metric or identifiers.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "assignedVerifiedBranchCount"
+                  ],
+                  "properties": {
+                    "assignedVerifiedBranchCount": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 9007199254740991
+                    }
+                  }
+                },
+                "example": {
+                  "assignedVerifiedBranchCount": 2
+                }
+              }
+            },
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "enum": [
+                    "no-store"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-request-example": "GET /v1/clinical/dashboard; Authorization: Bearer <session-token>; no query or body",
+        "x-audit-boundary": "Read-only transaction; durable per-read audit policy is not implemented or approved."
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      },
+      "sessionCookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "session_token"
+      }
+    }
+  },
+  "x-candidate-base": "f9082060be9180241fca0844033b0efd9e03d5bd",
+  "x-production-ready": false
+}

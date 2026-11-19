@@ -93,7 +93,7 @@ const registryBuild=await build({entryPoints:['cloudflare/workers/src/business-m
 const {businessModules}=await import('data:text/javascript;base64,'+Buffer.from(registryBuild.outputFiles[0].text).toString('base64'));
 test('central module registry retains reviewed precedence and cannot mutate',()=>{
   assert.deepEqual(businessModules.map(module=>module.name),[
-    'client-booking-lifecycle','provider-timesheet-items','provider-records',
+    'clinical-dashboard','client-booking-lifecycle','provider-timesheet-items','provider-records',
     'provider-self','client-self','governance','care-delivery','growth','look-review',
     'workspace','reporting','platform-administration',
   ]);

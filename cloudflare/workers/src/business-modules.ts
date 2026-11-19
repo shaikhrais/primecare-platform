@@ -1,3 +1,4 @@
+import {clinicalDashboard} from './clinical-dashboard';
 import {careDelivery} from './care/service';
 import {lookReview} from './look/service';
 import {growth} from './growth/service';
@@ -18,6 +19,7 @@ type BusinessHandler = (request: Request, env: Env, path: string,
 /** One ordered registry shared by every service. Handlers retain their authority checks. */
 export const businessModules: readonly Readonly<{name: string; handle: BusinessHandler}>[] =
   Object.freeze([
+    {name: 'clinical-dashboard', handle: clinicalDashboard},
     {name: 'client-booking-lifecycle', handle: clientBookingLifecycle},
     {name: 'provider-timesheet-items', handle: providerTimesheetItems},
     {name: 'provider-records', handle: providerRecords},
