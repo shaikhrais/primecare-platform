@@ -2,10 +2,12 @@ import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 
-/** DRAFT pending owner choice: assigned verified active branch count only.
+type ClinicalEnv = Env & {CLINICAL_READ_DATABASE_URL?: string};
+
+/** assigned verified active branch count only.
  * No booking or appointment metrics. Authority is the reviewed effective view.
  */
-export async function clinicalDashboard(request:Request, env:Env, path:string, headers:HeadersInit):Promise<Response|null> {
+export async function clinicalDashboard(request:Request, env:ClinicalEnv, path:string, headers:HeadersInit):Promise<Response|null> {
   if (env.SERVICE_NAME !== 'governance' || path !== '/v1/clinical/dashboard') return null;
   const safe = new Headers(headers);
   safe.set('cache-control','no-store'); safe.append('vary','Authorization, Cookie');
@@ -15,11 +17,13 @@ export async function clinicalDashboard(request:Request, env:Env, path:string, h
   const token = tokenFrom(request);
   if (!token) return reply(401,'unauthenticated');
   if (new URL(request.url).search || request.body !== null || request.headers.has('x-tenant-id')) return reply(400,'unexpected_scope_or_query');
+  const connectionString = env.CLINICAL_READ_DATABASE_URL?.trim();
+  if (!connectionString) return reply(503,'unavailable');
   try {
     if (env.WORKSPACE_SOURCE_LIMIT && !sourceLimitAllowed(await env.WORKSPACE_SOURCE_LIMIT.limit({key:await sha256('clinical-dashboard:'+(request.headers.get('cf-connecting-ip')??'unknown'))}))) {
       safe.set('retry-after','60');return reply(429,'rate_limited');
     }
-    return await withDb(env,async db => {
+    return await withDb({...env, DB_URL:connectionString},async db => {
       await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
       try {
         const actor = privilegedActor((await db.query(`SELECT u.id,u.tenant_id,u.roles
