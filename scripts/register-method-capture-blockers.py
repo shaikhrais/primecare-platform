@@ -174,7 +174,7 @@ def verify_sources(root=ROOT):
         actual=root/path
         if not actual.is_file():raise ValueError('Reviewed method/caller evidence changed: '+path)
         content=actual.read_text()
-        if path in ('cloudflare/workers/src/gateway.ts','cloudflare/workers/src/service-application.ts'):content=reviewed_gateway_source(content,expected,root,path)
+        if path in ('cloudflare/workers/src/gateway.ts','cloudflare/workers/src/service-application.ts','cloudflare/workers/src/business-modules.ts'):content=reviewed_gateway_source(content,expected,root,path)
         if hashlib.sha256(content.encode()).hexdigest()!=expected:raise ValueError('Reviewed method/caller evidence changed: '+path)
     gateway=reviewed_gateway_source((root/'cloudflare/workers/src/gateway.ts').read_text(),SOURCE_HASHES['cloudflare/workers/src/gateway.ts'],root)
     communication_import="import communicationContracts from '../../../packages/shared/src/communications/registered-contracts.json';\n"
