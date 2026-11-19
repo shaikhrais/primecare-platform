@@ -1,5 +1,8 @@
 name: Apply approved Help Desk ownership metadata only
 on:
+  push:
+    branches: [main]
+    paths: [.github/workflows/apply-help-desk-owner.yml]
   workflow_dispatch:
     inputs:
       expected_main:
@@ -24,19 +27,69 @@ jobs:
         with: {persist-credentials: false}
       - name: Verify exact reviewed main and narrow confirmation
         env:
-          EXPECTED_MAIN: ${{ inputs.expected_main }}
+          EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
           CONFIRM: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
           [[ "$EXPECTED_MAIN" =~ ^[0-9a-f]{40}$ ]]
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
-          test "$CONFIRM" = "APPLY HELP DESK VIEW ONLY"
-  verify:
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            test "$CONFIRM" = "APPLY HELP DESK VIEW ONLY"
+          else
+            test "$GITHUB_EVENT_NAME" = "push"
+          fi
+  disposable-fixture:
     needs: exact
-    uses: ./.github/workflows/verify-help-desk-owner.yml
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: fixture
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: help_desk_fixture
+        ports: ['127.0.0.1:5432:5432']
+        options: --health-cmd "pg_isready -U fixture -d help_desk_fixture" --health-interval 5s --health-timeout 4s --health-retries 8
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - name: Verify exact write scope in a disposable database
+        env:
+          HELP_DESK_FIXTURE: postgres://fixture:fixture-only@127.0.0.1:5432/help_desk_fixture
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          python tools/governance-production/test-help-desk-owner.py
+  production-preflight-readonly:
+    runs-on: ubuntu-24.04
+    needs: disposable-fixture
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24', cache: npm}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install -r tools/governance-production/requirements.txt
+      - name: Confirm Help Desk 896 only, without changing any grants
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          test -n "$PRODUCTION_DATABASE_URL" || { echo "::error::Production database secret unavailable to preflight"; exit 1; }
+          python tools/governance-production/help_desk_owner.py --preflight | tee -a "$GITHUB_STEP_SUMMARY"
   metadata:
-    needs: [exact, verify]
+    if: github.event_name == 'workflow_dispatch'
+    needs: [exact, production-preflight-readonly]
     runs-on: ubuntu-24.04
     timeout-minutes: 8
     environment: production
@@ -57,6 +110,7 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
           set -euo pipefail
+          test -n "$PRODUCTION_DATABASE_URL" || { echo "::error::Production database secret unavailable to apply"; exit 1; }
           git fetch --no-tags origin refs/heads/main
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
