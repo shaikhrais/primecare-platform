@@ -2,7 +2,9 @@ name: Verify Clinic dashboard repairs without publishing
 on:
   push:
     branches: [main]
-    paths: [.github/workflows/verify-clinic-dashboard-repairs.yml]
+    paths:
+      - .github/workflows/verify-clinic-dashboard-repairs.yml
+      - packages/primecare_ui/test/specialist_dashboard_unavailable_test.dart
   workflow_dispatch:
     inputs:
       expected_main:

@@ -205,8 +205,20 @@ void main() {
             find.byKey(ValueKey('${entry.key}dashboard_screen')),
             findsOneWidget,
           );
-          expect(find.bySemanticsLabel('screen-root'), findsOneWidget);
-          expect(find.bySemanticsLabel('page-title'), findsOneWidget);
+          // Flutter can merge route labels with descendant text. Match a
+          // complete label line in the actual accessibility tree.
+          expect(
+            find.semantics.byLabel(RegExp(r'(?:^|\n)screen-root(?:\n|$)')),
+            findsOneWidget,
+          );
+          expect(
+            find.semantics.byLabel(RegExp(r'(?:^|\n)page-title(?:\n|$)')),
+            findsOneWidget,
+          );
+          expect(
+            find.semantics.byLabel(RegExp(RegExp.escape(messages[language]!))),
+            findsOneWidget,
+          );
           expect(find.byType(Card), findsNothing);
           expect(find.byType(ElevatedButton), findsNothing);
           expect(find.byIcon(Icons.sync), findsNothing);
