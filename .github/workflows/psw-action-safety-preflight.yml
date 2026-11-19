@@ -34,3 +34,8 @@ jobs:
       - name: Test unconnected actions without production access
         working-directory: packages/primecare_ui
         run: flutter test test/psw_dashboard_unconnected_actions_test.dart
+      - name: Compile the Clinic Flutter app with the reviewed PSW candidate
+        working-directory: apps/primecare_clinic
+        run: flutter build web --release --no-tree-shake-icons
+      - name: Confirm the compiled Clinic bundle exists
+        run: test -s apps/primecare_clinic/build/web/main.dart.js
