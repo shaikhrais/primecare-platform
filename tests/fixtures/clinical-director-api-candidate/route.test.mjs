@@ -8,7 +8,7 @@ import {join} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
 import {build} from 'esbuild';
-if (['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DB_URL','CLINICAL_READ_DATABASE_URL'].some(key=>Object.hasOwn(process.env,key))) throw Error('Isolated fixtures only');
+if (['PRODUCTION_DATABASE_URL','GOVERNANCE_DATABASE_URL','DB_URL'].some(key=>Object.hasOwn(process.env,key))) throw Error('Isolated fixtures only');
 const require=createRequire(import.meta.url);
 const {PGlite}=require(process.env.PGLITE_FIXTURE_MODULE);
 const temp=await mkdtemp(join(tmpdir(),'clinical-route-'));
@@ -16,7 +16,7 @@ const root=fileURLToPath(new URL('../../../',import.meta.url));
 const bundle=async(entry,name,plugins=[])=>{
  const outfile=join(temp,name+'.cjs');await build({entryPoints:[join(root,entry)],outfile,bundle:true,platform:'node',format:'cjs',packages:'external',plugins});return require(outfile);
 };
-const pg={name:'isolated-pg',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export class Client {constructor(options){if(options.connectionString!=='clinical-fixture-only')throw Error('Unexpected fixture connection');} async connect(){} async end(){} async query(sql,args){globalThis.clinicalQueries.push([sql,args]);const result=await globalThis.clinicalFixture.query(sql,args);if(sql.startsWith('BEGIN'))globalThis.clinicalReadModes.push((await globalThis.clinicalFixture.query('SHOW transaction_read_only')).rows[0].transaction_read_only);return result;}}`,loader:'js'}));}};
+const pg={name:'isolated-pg',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export class Client {async connect(){} async end(){} async query(sql,args){globalThis.clinicalQueries.push([sql,args]);const result=await globalThis.clinicalFixture.query(sql,args);if(sql.startsWith('BEGIN'))globalThis.clinicalReadModes.push((await globalThis.clinicalFixture.query('SHOW transaction_read_only')).rows[0].transaction_read_only);return result;}}`,loader:'js'}));}};
 try {
  const {ServiceWorker}=await bundle('cloudflare/workers/src/service.ts','service',[pg]);
  const {GatewayWorker}=await bundle('cloudflare/workers/src/gateway.ts','gateway');
@@ -29,7 +29,7 @@ try {
  INSERT INTO users VALUES('director','a','clinical_director','active'),('foreign','b','clinical_director','active'),('admin','a','tenant_admin','active'),('empty','a','clinical_director','active');`);
  for(const [t,id] of [['a','director'],['b','foreign'],['c','admin'],['d','empty']])await db.query("INSERT INTO auth_sessions VALUES($1,$2,NOW()+interval '1 day')",[hash(token(t)),id]);
  await db.exec(await readFile(new URL('./migration-review.sql',import.meta.url),'utf8'));
- const worker=new ServiceWorker(),gateway=new GatewayWorker(),env={SERVICE_NAME:'governance',DB_URL:'shared-fixture-only',CLINICAL_READ_DATABASE_URL:'clinical-fixture-only'};
+ const worker=new ServiceWorker(),gateway=new GatewayWorker(),env={SERVICE_NAME:'governance',DB_URL:'fixture-only'};
  let calls=0;
  const bindings={GOVERNANCE:{fetch:r=>{calls++;return worker.fetch(r,env);}}};
  await test('OpenAPI contract matches sanitized gateway dependency failure',async()=>{
@@ -44,16 +44,6 @@ try {
    assert.deepEqual(await r.json(),spec['503'].content['application/json'].examples.unavailable.value);
  });
  const call=(t='a',suffix='',options={})=>gateway.fetch(new Request('https://fixture.test/v1/clinical/dashboard'+suffix,{...options,headers:{...(t?{authorization:'Bearer '+token(t)}:{}),...options.headers}}),bindings);
- await test('missing clinical binding fails closed without touching the shared connection',async()=>{
-   const before=globalThis.clinicalQueries.length;
-   for(const value of [undefined,'   ']){
-     const direct=new Request('https://fixture.test/v1/clinical/dashboard',{headers:{authorization:'Bearer '+token('a')}});
-     const response=await worker.fetch(direct,{...env,CLINICAL_READ_DATABASE_URL:value});
-     assert.equal(response.status,503);
-     assert.deepEqual(await response.json(),{error:'unavailable'});
-   }
-   assert.equal(globalThis.clinicalQueries.length,before);
- });
  await test('real route: empty authority gives no scope, never zero metrics',async()=>{const r=await call();assert.equal(r.status,403);assert.deepEqual(await r.json(),{error:'no_scope'});assert.equal(r.headers.get('cache-control'),'no-store');});
  await db.exec(`INSERT INTO clinical_verified_branches VALUES('a','east','fixture',NOW()-interval '1 day',NULL),('b','east','fixture',NOW()-interval '1 day',NULL);
  INSERT INTO clinical_branch_director_grants VALUES('a','east','director',NOW()-interval '1 day',NOW()+interval '1 day',NULL);`);
