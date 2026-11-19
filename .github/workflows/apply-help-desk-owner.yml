@@ -121,3 +121,37 @@ jobs:
         run: |
           set -euo pipefail
           python tools/governance-production/help_desk_owner.py --verify | tee -a "$GITHUB_STEP_SUMMARY"
+  run-summary:
+    if: always()
+    needs: [exact, disposable-fixture, production-preflight-readonly, metadata]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Record failed stage and whether the write was skipped
+        env:
+          EXACT: ${{ needs.exact.result }}
+          FIXTURE: ${{ needs.disposable-fixture.result }}
+          PREFLIGHT: ${{ needs.production-preflight-readonly.result }}
+          METADATA: ${{ needs.metadata.result }}
+        run: |
+          set -euo pipefail
+          {
+            echo "## Help Desk #896 ownership check"
+            printf 'Commit: `%s`\n\n' "$GITHUB_SHA"
+            printf '| Check | Result |\n|---|---|\n'
+            printf '| Exact main commit | %s |\n| Isolated fixture | %s |\n| Production read-only preflight | %s |\n| Metadata write and independent readback | %s |\n\n' "$EXACT" "$FIXTURE" "$PREFLIGHT" "$METADATA"
+            if [[ "$METADATA" == "skipped" ]]; then
+              echo "Production metadata write was skipped."
+            elif [[ "$METADATA" == "success" ]]; then
+              echo "Metadata change and independent readback succeeded."
+            else
+              echo "Production metadata result is not verified. Check live ownership before retrying."
+            fi
+            echo "No dashboard or API is published by this workflow."
+          } >> "$GITHUB_STEP_SUMMARY"
+          for stage in "exact main commit:$EXACT" "isolated fixture:$FIXTURE" "production read-only preflight:$PREFLIGHT" "metadata write/readback:$METADATA"; do
+            if [[ "${stage##*:}" == "failure" ]]; then
+              echo "::error title=Help Desk metadata check failed::Failed stage: ${stage%:*}. See the run summary."
+              break
+            fi
+          done
