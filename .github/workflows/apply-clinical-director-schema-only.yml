@@ -1,5 +1,10 @@
 name: Apply only the approved Clinical Director access schema
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-clinical-director-schema-only.yml'
+      - 'tests/fixtures/clinical-director-api-candidate/run-reviewed-migration.py'
   workflow_dispatch:
     inputs:
       expected_main:
@@ -13,10 +18,36 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: primecare-database-migrations
+  group: ${{ github.event_name == 'workflow_dispatch' && 'primecare-database-migrations' || format('clinical-migration-fixture-{0}', github.run_id) }}
   cancel-in-progress: false
 jobs:
+  rehearse-runner:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: clinical_fixture
+          POSTGRES_PASSWORD: fixture-only
+          POSTGRES_DB: clinical_fixture
+        ports: ['127.0.0.1:5432:5432']
+        options: --health-cmd "pg_isready -U clinical_fixture -d clinical_fixture" --health-interval 5s --health-timeout 4s --health-retries 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install 'psycopg[binary]==3.2.13'
+      - name: Rehearse identical migration and verification without production credentials
+        env:
+          CLINICAL_MIGRATION_FIXTURE: '1'
+        run: python tests/fixtures/clinical-director-api-candidate/run-reviewed-migration.py
   schema-only:
+    if: github.event_name == 'workflow_dispatch'
+    needs: rehearse-runner
     runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 8
@@ -47,85 +78,5 @@ jobs:
         env:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
-          python - <<'PY'
-          import hashlib, json, os
-          from pathlib import Path
-          import psycopg
-          from psycopg import sql
+          python tests/fixtures/clinical-director-api-candidate/run-reviewed-migration.py
 
-          data = Path('tests/fixtures/clinical-director-api-candidate/migration-review.sql').read_bytes()
-          pin = '6b6bf92aa84b37caa01167d408b9cdef14ca5c8b2f25f1534e573f01d2e70a3d'
-          if hashlib.sha256(data).hexdigest() != pin:
-              raise SystemExit('Reviewed migration hash mismatch.')
-          dsn = os.environ.get('PRODUCTION_DATABASE_URL')
-          if not dsn:
-              raise SystemExit('Production credential not available to this protected job.')
-
-          tables = ['clinical_verified_branches','clinical_branch_grant_admins',
-                    'clinical_branch_director_grants','clinical_branch_access_audit']
-          view = 'clinical_branch_director_effective_scope'
-          seq = 'clinical_branch_access_audit_id_seq'
-          names = [*tables,view,seq,'clinical_branch_director_single_open_grant']
-          expected = dict([(name,'r') for name in tables]+[(view,'v'),(seq,'S'),
-                          ('clinical_branch_director_single_open_grant','i')])
-          stage = 'connect'
-          committed = False
-
-          def objects(cur):
-              cur.execute("""
-                  SELECT c.relname::text,c.relkind::text
-                  FROM pg_catalog.pg_class c
-                  JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
-                  WHERE n.nspname='public' AND c.relname::text=ANY(%s)
-              """,(names,))
-              return dict(cur.fetchall())
-
-          def verify(cur):
-              if objects(cur) != expected:
-                  raise RuntimeError('new schema object mismatch')
-              cur.execute("""
-                  SELECT count(*) FROM pg_catalog.pg_class c
-                  JOIN pg_catalog.pg_namespace n ON n.oid=c.relnamespace
-                  CROSS JOIN LATERAL pg_catalog.aclexplode(c.relacl) a
-                  WHERE n.nspname='public' AND c.relname::text=ANY(%s)
-                    AND a.grantee<>c.relowner
-              """,([*tables,view,seq],))
-              if cur.fetchone() != (0,):
-                  raise RuntimeError('unexpected default access')
-              for name in [*tables,view]:
-                  cur.execute(sql.SQL('SELECT NOT EXISTS (SELECT 1 FROM {}.{})').format(
-                      sql.Identifier('public'),sql.Identifier(name)))
-                  if cur.fetchone() != (True,):
-                      raise RuntimeError('schema unexpectedly populated')
-
-          try:
-              with psycopg.connect(dsn,connect_timeout=8) as conn:
-                  with conn.cursor() as cur:
-                      stage = 'preflight'
-                      cur.execute("SET LOCAL lock_timeout = '3000ms'")
-                      cur.execute("SET LOCAL statement_timeout = '15000ms'")
-                      cur.execute("SET LOCAL search_path TO public")
-                      cur.execute('SELECT current_schema(), pg_catalog.pg_try_advisory_xact_lock(692047823)')
-                      if cur.fetchone() != ('public',True) or objects(cur):
-                          raise RuntimeError('schema lock or collision')
-                      stage = 'reviewed schema SQL'
-                      cur.execute(data.decode('utf-8'))
-                      stage = 'pre-commit verification'
-                      verify(cur)
-                      stage = 'commit'
-                      conn.commit()
-                      committed = True
-                      stage = 'read-only post-commit verification'
-                      conn.read_only = True
-                      cur.execute("SET LOCAL statement_timeout = '10000ms'")
-                      verify(cur)
-                      conn.rollback()
-              print(json.dumps({'schema_only':True,'new_tables':4,'new_views':1,
-                                'all_empty':True,'nonowner_acl_entries':0,'deployed_api':False,
-                                'deployed_dashboard':False,'migration_sha256':pin},sort_keys=True))
-          except Exception:
-              state = 'DDL committed; inspect production state before any retry' if committed else (
-                  'commit outcome uncertain; inspect production state before any retry' if stage=='commit'
-                  else 'no successful transaction commit')
-              raise SystemExit(f'Schema-only operation failed during {stage}; {state}. Connection details suppressed.') from None
-          PY
