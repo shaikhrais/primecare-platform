@@ -194,8 +194,7 @@ void main() {
       testWidgets(
         '${entry.key} shows localized unavailable with no fake controls ($language)',
         (tester) async {
-          final semantics = tester.ensureSemantics();
-          addTearDown(semantics.dispose);
+          // testWidgets enables semantics and disposes its handle itself.
           await tester.pumpWidget(
             ProviderScope(child: localized(entry.value, language: language)),
           );
