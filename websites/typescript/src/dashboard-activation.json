@@ -546,6 +546,71 @@
           "route": "/support/help-desk-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-03",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "infection_control_dashboard",
+          "route": "/generated/infection-control-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "nurse_dashboard",
+          "route": "/generated/nurse-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "psw_care_dashboard",
+          "route": "/generated/psw-care-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "audit_dashboard",
+          "route": "/generated/audit-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "it_administrator_dashboard",
+          "route": "/generated/it-administrator-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "hipaa_audit_dashboard",
+          "route": "/generated/hipaa-audit-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "provider_performance_dashboard",
+          "route": "/generated/provider-performance-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "predictive_analytics_dashboard",
+          "route": "/generated/predictive-analytics-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "c_m_e_tracking_dashboard",
+          "route": "/generated/c-m-e-tracking-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "campaign_performance_dashboard",
+          "route": "/generated/campaign-performance-dashboard"
+        }
+      ]
     }
   ]
 }

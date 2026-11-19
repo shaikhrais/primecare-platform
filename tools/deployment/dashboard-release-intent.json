@@ -1,7 +1,7 @@
 {
   "version": 1,
   "intent": "clinic-dashboard-cohort",
-  "cohort": "clinic-02",
-  "base": "6b83e709d6715d85ef0ad645f37df09caf4dc322",
-  "previous_live": "77888c3a1f2d93ec33d4cc3734c66573742feb23"
+  "cohort": "clinic-03",
+  "base": "c72e17dc67c13bd9d55e6ad49db935c6eba03f9b",
+  "previous_live": "c72e17dc67c13bd9d55e6ad49db935c6eba03f9b"
 }

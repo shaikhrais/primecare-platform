@@ -47,6 +47,21 @@ SECOND_CODES = (
     "escalation_dashboard",
     "help_desk_dashboard",
 )
+THIRD_BASE = "c72e17dc67c13bd9d55e6ad49db935c6eba03f9b"
+THIRD_BLOB = "3c70c57ed4c8f5e78775ef837850937ee4ee16e0"
+THIRD_PATHS = SECOND_PATHS | {".github/workflows/smart-deploy-dashboard-portal.yml"}
+THIRD_CODES = (
+    "infection_control_dashboard",
+    "nurse_dashboard",
+    "psw_care_dashboard",
+    "audit_dashboard",
+    "it_administrator_dashboard",
+    "hipaa_audit_dashboard",
+    "provider_performance_dashboard",
+    "predictive_analytics_dashboard",
+    "c_m_e_tracking_dashboard",
+    "campaign_performance_dashboard",
+)
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
@@ -74,7 +89,8 @@ def preflight(before, after, project, prior_live):
         require(paths(before, after) == METADATA_FIX_PATHS, "Unexpected Clinic build fix path")
         return preflight(SECOND_BASE, before, project, prior_live)
     lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
-             SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES)}
+             SECOND_BASE: ("clinic-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES),
+             THIRD_BASE: ("clinic-03", THIRD_BASE, THIRD_PATHS, THIRD_BLOB, THIRD_CODES)}
     require(before in lanes, "Clinic release has an unreviewed parent")
     cohort, live, scope, manifest_blob, codes = lanes[before]
     require(project == PROJECT and prior_live == live,

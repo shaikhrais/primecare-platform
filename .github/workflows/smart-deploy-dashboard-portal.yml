@@ -242,7 +242,7 @@ jobs:
           from tools.deployment.typescript_release import make_stamp
 
           intent = json.loads(Path("tools/deployment/dashboard-release-intent.json").read_text())
-          if intent.get("cohort") == "clinic-02":
+          if intent.get("cohort") in {"clinic-02", "clinic-03"}:
               bundle = Path("websites/typescript/dist/primecare-clinic")
               retain_clinic_live_manifest(bundle, os.environ["PREVIOUS_LIVE"])
               stamp = make_stamp(bundle, "primecare-clinic", os.environ["GITHUB_SHA"])
