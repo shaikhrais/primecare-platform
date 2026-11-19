@@ -1,4 +1,4 @@
-"""Fail-closed source scope for the first Client dashboard shell batch."""
+"""Fail-closed source scope for the reviewed Client dashboard shell batch."""
 import json
 
 from .corporate_dashboard_release import (
@@ -23,12 +23,28 @@ CODES = (
     "guest_dashboard", "office_dashboard", "patient_dashboard", "portal_dashboard",
     "support_dashboard", "billing_admin_dashboard", "receptionist_dashboard",
 )
+SECOND_BASE = '4645a16c070a4bcb5b26469b13fae1fb1357f37e'
+SECOND_LIVE = 'a3b1d1c5acd6e3bc731a70dbd0c7f5b4cd926f0d'
+SECOND_BLOB = 'd5dc506b322a820d6aecff61bbc1028a50eedf2a'
+SECOND_CODES = (
+    "general_manager_dashboard",
+    "operations_manager_dashboard",
+    "partnership_manager_dashboard",
+    "regional_bdm_dashboard",
+    "regional_manager_usa_dashboard",
+    "scrum_master_dashboard",
+    "territory_expansion_manager_dashboard",
+    "territory_sales_manager_dashboard",
+    "infrastructure_dashboard",
+    "system_verification_dashboard",
+)
+SECOND_PATHS = {INTENT, MANIFEST, "tools/deployment/client_dashboard_release.py", "scripts/test-governed-master-navigation.mjs"}
 PROJECT_APPS = {"bd": "business-development", "go": "governance", "su": "support",
                 "ma": "marketing", "fr": "franchise", "co": "corporate",
                 "cl": "client", "ci": "clinic"}
 
 
-def validate_delta(prior, candidate, registry):
+def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
     lookup = {(r["appCode"], r["code"], r["route"]): "primecare-" + PROJECT_APPS[r["appCode"]]
               for r in registry["screens"] if r["renderer"] == "dashboard" and r["appCode"] in PROJECT_APPS}
     validate_entries(prior, lookup)
@@ -37,26 +53,30 @@ def validate_delta(prior, candidate, registry):
     require(candidate["retained"] == prior["retained"], "Retained activations changed")
     new = candidate["cohorts"][-1]
     require(candidate["cohorts"][:-1] == prior["cohorts"] and set(new) == {"id", "dashboards"}
-            and new["id"] == COHORT, "Require exactly one appended Client cohort")
-    require(tuple(r["code"] for r in new["dashboards"]) == CODES
+            and new["id"] == cohort, "Require exactly one appended Client cohort")
+    require(tuple(r["code"] for r in new["dashboards"]) == codes
             and all(r["project"] == PROJECT and r["appCode"] == "cl" for r in new["dashboards"]),
             "Unexpected Client dashboard activation set")
 
 
 def preflight(before, after, project, prior_live):
-    require(before == BASE and project == PROJECT and prior_live == PREVIOUS_LIVE,
+    lanes = {BASE: (COHORT, PREVIOUS_LIVE, EXACT_PATHS, MANIFEST_BLOB, CODES),
+             SECOND_BASE: ("client-02", SECOND_LIVE, SECOND_PATHS, SECOND_BLOB, SECOND_CODES)}
+    require(before in lanes, "Client release has an unreviewed parent")
+    cohort, live, scope, manifest_blob, codes = lanes[before]
+    require(project == PROJECT and prior_live == live,
             "Client source parent, target or prior live mismatch")
     require(exact_parent(after, before), "Client source does not have the exact sole parent")
-    require(paths(before, after) == EXACT_PATHS, "Unexpected path in Client dashboard release")
+    require(paths(before, after) == scope, "Unexpected path in Client dashboard release")
     intent = json.loads(content(after, INTENT))
     require(type(intent.get("version")) is int and intent == {
-        "version": 1, "intent": KIND, "cohort": COHORT, "base": BASE, "previous_live": PREVIOUS_LIVE,
+        "version": 1, "intent": KIND, "cohort": cohort, "base": before, "previous_live": live,
     }, "Client release intent mismatch")
-    for path, blob in ((MANIFEST, MANIFEST_BLOB), (REGISTRY, REGISTRY_BLOB)):
+    for path, blob in ((MANIFEST, manifest_blob), (REGISTRY, REGISTRY_BLOB)):
         require(git("ls-tree", after, "--", path) == f"100644 blob {blob}\t{path}",
                 f"Unexpected exact source bytes: {path}")
     validate_delta(json.loads(content(before, MANIFEST)), json.loads(content(after, MANIFEST)),
-                   json.loads(content(after, REGISTRY)))
+                   json.loads(content(after, REGISTRY)), cohort, codes)
 
 
 if __name__ == "__main__":

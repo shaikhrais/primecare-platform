@@ -352,6 +352,71 @@
           "route": "/offices/clinical/roles/intake_coordinator/dashboard"
         }
       ]
+    },
+    {
+      "id": "client-02",
+      "dashboards": [
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "general_manager_dashboard",
+          "route": "/offices/business_development/roles/general_manager/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "operations_manager_dashboard",
+          "route": "/offices/franchise/roles/operations_manager/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "partnership_manager_dashboard",
+          "route": "/offices/business_development/roles/partnership_manager/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "regional_bdm_dashboard",
+          "route": "/offices/business_development/roles/regional_bdm/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "regional_manager_usa_dashboard",
+          "route": "/offices/business_development/roles/regional_manager_usa/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "scrum_master_dashboard",
+          "route": "/management/scrum-master-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "territory_expansion_manager_dashboard",
+          "route": "/offices/business_development/roles/territory_expansion_manager/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "territory_sales_manager_dashboard",
+          "route": "/offices/marketing/roles/territory_sales_manager/dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "infrastructure_dashboard",
+          "route": "/common/infrastructure-dashboard"
+        },
+        {
+          "project": "primecare-client",
+          "appCode": "cl",
+          "code": "system_verification_dashboard",
+          "route": "/common/system-verification-dashboard"
+        }
+      ]
     }
   ]
 }
