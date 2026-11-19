@@ -47,7 +47,7 @@ def same_portal_contract(root, project, candidate_commit, prior_stamp, reader=re
 def verify_ci_run(run, jobs, accepted_sha):
     if (
         run.get("path", "").split("@", 1)[0] != ".github/workflows/smart-deploy-dashboard-portal.yml"
-        or run.get("event") != "workflow_dispatch"
+        or run.get("event") not in {"workflow_dispatch", "push"}
         or run.get("head_branch") != "main"
         or run.get("head_sha") != accepted_sha
         or run.get("status") != "completed"

@@ -87,10 +87,11 @@ class VerificationRunTests(unittest.TestCase):
         }]}
 
     def test_successful_exact_verification(self):
-        contract.verify_ci_run(self.run, self.jobs, CANDIDATE)
+        for event in ("workflow_dispatch", "push"):
+            contract.verify_ci_run({**self.run, "event": event}, self.jobs, CANDIDATE)
 
     def test_wrong_workflow_source_or_state(self):
-        for altered in ({"path": "other.yml"}, {"head_sha": PREVIOUS}, {"event": "push"},
+        for altered in ({"path": "other.yml"}, {"head_sha": PREVIOUS}, {"event": "pull_request"},
                         {"status": "in_progress"}, {"conclusion": "failure"}):
             with self.subTest(altered=altered), self.assertRaises(ValueError):
                 contract.verify_ci_run({**self.run, **altered}, self.jobs, CANDIDATE)

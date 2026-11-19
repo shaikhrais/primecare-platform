@@ -1,5 +1,8 @@
 name: Smart Deploy one dashboard portal
 on:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/smart-deploy-dashboard-portal.yml']
   workflow_dispatch:
     inputs:
       project:
@@ -44,13 +47,13 @@ concurrency:
   group: ${{ inputs.mode == 'publish' && 'primecare-cloudflare-typescript-production' || format('primecare-dashboard-verify-{0}', github.run_id) }}
   cancel-in-progress: false
 env:
-  PROJECT: ${{ inputs.project }}
+  PROJECT: ${{ github.event_name == 'push' && 'primecare-clinic' || inputs.project }}
   API_GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
-  EXPECTED_MAIN: ${{ inputs.expected_main }}
-  PREVIOUS_LIVE: ${{ inputs.previous_live }}
+  EXPECTED_MAIN: ${{ github.event_name == 'push' && github.sha || inputs.expected_main }}
+  PREVIOUS_LIVE: ${{ github.event_name == 'push' && 'c72e17dc67c13bd9d55e6ad49db935c6eba03f9b' || inputs.previous_live }}
   CONFIRM: ${{ inputs.confirm }}
   VERIFIED_RUN_ID: ${{ inputs.verified_run_id }}
-  RELEASE_MODE: ${{ inputs.mode }}
+  RELEASE_MODE: ${{ github.event_name == 'push' && 'verify-only' || inputs.mode }}
 jobs:
   scope:
     name: Approve exact dashboard activation and artifact source
@@ -80,6 +83,10 @@ jobs:
           test "$(git rev-parse FETCH_HEAD)" = "$EXPECTED_MAIN"
           parents=($(git rev-list --parents -n1 HEAD))
           test "${#parents[@]}" = 2
+          if [[ "$GITHUB_EVENT_NAME" == push ]]; then
+            test "${parents[1]}" = 7e906783809018c7bf38ccf50ccf4389781d3849
+            test "$RELEASE_MODE" = verify-only
+          fi
           intent="$(python3 -c 'import json; print(json.load(open("tools/deployment/dashboard-release-intent.json"))["intent"])')"
           if [[ "$intent" == clinic-psw-safety-maintenance ]]; then
             python3 -m tools.deployment.psw_dashboard_release "${parents[1]}" "$GITHUB_SHA" "$PROJECT" "$PREVIOUS_LIVE"
@@ -188,7 +195,7 @@ jobs:
             *) exit 1 ;;
           esac
   build:
-    if: inputs.mode == 'verify-only'
+    if: (github.event_name == 'push' || inputs.mode == 'verify-only')
     needs: scope
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -219,7 +226,7 @@ jobs:
           npx playwright install --with-deps chromium
           PRIMECARE_WORKSPACE_CLIENT_FIXTURE=1 node scripts/test-governed-master-navigation.mjs
       - name: Verify Clinic activations and rendered browser fixture
-        if: inputs.project == 'primecare-clinic'
+        if: github.event_name == 'push' || inputs.project == 'primecare-clinic'
         run: |
           node --test scripts/test-dashboard-activation.mjs
           npx playwright install --with-deps chromium
@@ -232,7 +239,7 @@ jobs:
           PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: node scripts/build-typescript-websites.mjs
       - name: Retain deployed Clinic metadata for the dashboard-only build
-        if: inputs.project == 'primecare-clinic'
+        if: github.event_name == 'push' || inputs.project == 'primecare-clinic'
         run: |
           python - <<'PY_CLINIC'
           import json
@@ -266,7 +273,7 @@ jobs:
   publish:
     name: Check artifact and publish only if requested
     needs: [scope, build]
-    if: always() && !cancelled() && needs.scope.result == 'success' && ((inputs.mode == 'verify-only' && needs.build.result == 'success') || (inputs.mode == 'publish' && needs.build.result == 'skipped'))
+    if: always() && !cancelled() && needs.scope.result == 'success' && (((github.event_name == 'push' || inputs.mode == 'verify-only') && needs.build.result == 'success') || (inputs.mode == 'publish' && needs.build.result == 'skipped'))
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     environment: production
@@ -328,7 +335,7 @@ jobs:
           python -m tools.deployment.typescript_release live "$PROJECT" "$PREVIOUS_LIVE" --baseline release/proof/before.json
           npx --yes wrangler@4.68.1 pages deploy release/bundle --project-name="$PROJECT" --branch=main --commit-hash="$GITHUB_SHA"
       - name: Record successful verification without publishing
-        if: inputs.mode == 'verify-only'
+        if: (github.event_name == 'push' || inputs.mode == 'verify-only')
         run: echo "Selected portal bundle verified. Use this run ID to promote these exact bytes. No deployment performed." >> "$GITHUB_STEP_SUMMARY"
       - name: Verify live source and exact assets
         if: inputs.mode == 'publish'

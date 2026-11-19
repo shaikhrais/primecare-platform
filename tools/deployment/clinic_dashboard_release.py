@@ -35,6 +35,7 @@ METADATA_FIX_BASE = "bedcc302bd24857276cf3e992f319e309f093208"
 METADATA_FIX_PATHS = {".github/workflows/smart-deploy-dashboard-portal.yml",
                       "tools/deployment/clinic_dashboard_release.py",
                       "tools/deployment/dashboard_portal_contract.py"}
+AUTO_VERIFY_PATHS = METADATA_FIX_PATHS | {"tools/deployment/test_dashboard_portal_contract.py"}
 SECOND_CODES = (
     "intake_dashboard",
     "psw_dashboard",
@@ -83,6 +84,11 @@ def validate_delta(prior, candidate, registry, cohort=COHORT, codes=CODES):
 
 
 def preflight(before, after, project, prior_live):
+    if before == "7e906783809018c7bf38ccf50ccf4389781d3849":
+        require(project == PROJECT and prior_live == THIRD_BASE, "Clinic portal or live baseline mismatch")
+        require(exact_parent(after, before), "Clinic verification requires the exact sole parent")
+        require(paths(before, after) == AUTO_VERIFY_PATHS, "Unexpected Clinic verification path")
+        return preflight(THIRD_BASE, before, project, prior_live)
     if before == METADATA_FIX_BASE:
         require(project == PROJECT and prior_live == SECOND_LIVE, "Clinic portal or live baseline mismatch")
         require(exact_parent(after, before), "Clinic metadata fix requires the exact sole parent")
