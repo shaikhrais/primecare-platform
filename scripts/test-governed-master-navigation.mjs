@@ -14,7 +14,7 @@ const clientSecond=clientCohorts.some(c=>c.id==='client-02');
 const clientFourth=clientCohorts.find(c=>c.id==='client-04');
 const clientThird=clientCohorts.some(c=>c.id==='client-03');
 const clinic=process.env.PRIMECARE_WORKSPACE_CLINIC_FIXTURE==='1';
-const clinicCohort=clinic?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts.findLast(c=>['clinic-02','clinic-03','clinic-04','clinic-05','clinic-06'].includes(c.id)):undefined;
+const clinicCohort=clinic?JSON.parse(await readFile('websites/typescript/src/dashboard-activation.json','utf8')).cohorts.findLast(c=>['clinic-02','clinic-03','clinic-04','clinic-05','clinic-06','clinic-07'].includes(c.id)):undefined;
 assert.ok([businessDevelopment,client,clinic].filter(Boolean).length<=1);
 const project=businessDevelopment?'primecare-business-development':client?'primecare-client':clinic?'primecare-clinic':'primecare-corporate';
 const appCode=businessDevelopment?'bd':client?'cl':clinic?'ci':'co';
@@ -24,10 +24,10 @@ const [first,second,held]=(
   clientThird?['course_architect_dashboard','training_hub_dashboard','training_dashboard']:
   clientSecond?['general_manager_dashboard','operations_manager_dashboard','training_dashboard']:
   client?['customer_support_dashboard','dynamic_screen_dashboard','training_dashboard']:
-  clinic?['chiropractor_dashboard','physiotherapist_dashboard',clinicCohort?.id==='clinic-06'?'unknown_dashboard':clinicCohort?.id==='clinic-05'?'clinical_director_dashboard':'rmt_dashboard']:
+  clinic?['chiropractor_dashboard','physiotherapist_dashboard',['clinic-06','clinic-07'].includes(clinicCohort?.id)?'unknown_dashboard':clinicCohort?.id==='clinic-05'?'clinical_director_dashboard':'rmt_dashboard']:
   ['architecture_planning_dashboard','ceo_dashboard','owner_dashboard']
 ).map(code=>generic.find(p=>p.code===code));
-const heldUsesMaster=Boolean(clientFourth)||(!businessDevelopment&&!client&&!clinic);
+const heldUsesMaster=clinicCohort?.id==='clinic-07'||Boolean(clientFourth)||(!businessDevelopment&&!client&&!clinic);
 const mismatch={...generic.find(p=>p.code==='coo_dashboard'),appCode:'su'};
 const record=screens.find(p=>businessDevelopment?p.code==='franchise_lead':p.renderer==='governed_page'&&p.route.startsWith('/management/')&&!p.route.startsWith('/management/tenant'));
 const denied=generic.find(p=>p.code===(clientThird?'quality_assurance_dashboard':clientSecond?'regional_bdm_dashboard':client?'family_member_dashboard':clinic?'rn_dashboard':'cfo_dashboard'));

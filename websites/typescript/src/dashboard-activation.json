@@ -740,6 +740,17 @@
           "route": "/offices/clinical/roles/clinical_director/dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-07",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "unknown_dashboard",
+          "route": "/generated/unknown-dashboard"
+        }
+      ]
     }
   ]
 }
