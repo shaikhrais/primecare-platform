@@ -78,3 +78,14 @@ for(const route of ['/care','/psw'])test('canonical presentation slot and existi
   assert.equal(f.writes().length,0);
  }finally{f.event('pagehide',{persisted:false});}
 });
+
+test('live PSW makes the emergency limitation clear before opening a request',async()=>{
+ const f=fixture();await f.render();
+ assert.match(f.root.textContent,/Requests do not dispatch emergency help/);
+ await f.fire(f.cy('psw-personal-nav-messages'));
+ assert.match(f.root.textContent,/Create team request/);
+ await f.fire(f.root.querySelector('[data-action="help"]'));
+ assert.match(f.dialog().textContent,/No external message or emergency alert is sent/);
+ assert.match(f.dialog().textContent,/Save team request/);
+ assert.equal(f.writes().length,0);
+});

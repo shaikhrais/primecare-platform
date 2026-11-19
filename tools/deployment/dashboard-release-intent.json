@@ -1,7 +1,6 @@
 {
   "version": 1,
-  "intent": "client-dashboard-cohort",
-  "cohort": "client-03",
-  "base": "0a7d08822a8f819ff49377beebfb6df3494c015f",
-  "previous_live": "0a7d08822a8f819ff49377beebfb6df3494c015f"
+  "intent": "clinic-psw-safety-maintenance",
+  "base": "ffa8c3114d24dd71a3071c551cdc97a67c125676",
+  "previous_live": "4645a16c070a4bcb5b26469b13fae1fb1357f37e"
 }

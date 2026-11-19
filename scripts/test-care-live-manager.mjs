@@ -122,3 +122,13 @@ test('canonical failure keeps a guarded host and only the current Retry can reop
   await f.fire(retry);assert.equal(f.calls.length,before);
  }finally{f.event('pagehide',{persisted:false});}
 });
+
+test('live PSW explains that recording a concern does not dispatch help',async()=>{
+ const f=fixture({route:'/psw'});
+ try{
+  await f.render();
+  assert.match(f.root.textContent,/Recording a concern does not dispatch emergency help/);
+  assert.match(f.root.textContent,/contact emergency services directly/);
+  assert.equal(f.writes().length,0);
+ }finally{f.event('pagehide',{persisted:false});}
+});
