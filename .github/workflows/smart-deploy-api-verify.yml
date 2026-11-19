@@ -37,7 +37,7 @@ jobs:
           test "$(git rev-parse HEAD)" = "$EXPECTED_MAIN"
           test "$GITHUB_SHA" = "$EXPECTED_MAIN"
           if [[ "$GITHUB_EVENT_NAME" == push ]]; then
-            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 8ea451e9360f1d6c9fb8ca9bd71ae209f90b3db7"
+            test "$(git rev-list --parents -n1 HEAD)" = "$GITHUB_SHA 41260885976c57e6d83fc64eb0abeeaaffdf3298"
           fi
           git merge-base --is-ancestor "$COMPARISON_BASE" "$EXPECTED_MAIN"
           git fetch --no-tags origin refs/heads/main
@@ -84,6 +84,14 @@ jobs:
           try:
               with psycopg.connect(os.environ['PRODUCTION_DATABASE_URL'], connect_timeout=8, autocommit=True) as conn:
                   with conn.cursor() as cur:
+                      cur.execute("""
+                          SELECT COUNT(DISTINCT branch_id) = 0
+                          FROM public.clinical_branch_director_effective_scope
+                          WHERE FALSE
+                      """)
+                      if cur.fetchone() != (True,):
+                          raise SystemExit('Standalone Clinical Director SELECT did not pass')
+                      print('Standalone Clinical Director SELECT passed without explicit BEGIN.', flush=True)
                       cur.execute(sql, prepare=False)
                       checks = {}
                       while True:
