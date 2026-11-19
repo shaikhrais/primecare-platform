@@ -107,10 +107,10 @@ try{
   await page.goForward();await visit(second,true);
   await page.goForward();await visit(record,false);
   await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),held.code);
-  await visit(held,false);
+  await visit(held,!businessDevelopment);
   await page.evaluate(code=>document.querySelector('[data-cy="sidebar-item-'+code+'"]').click(),mismatch.code);
   await visit(mismatch,false);
-  await page.goBack();await visit(held,false);
+  await page.goBack();await visit(held,!businessDevelopment);
   await page.goBack();await visit(record,false);
   assert.equal(workspaceReads,1,'same-document navigation should not reload or replace the projection');
 
@@ -129,7 +129,7 @@ try{
   assert.equal(workspaceReads,2,'the reloaded document must recheck a replaced session with its API');
   assert.deepEqual(unexpected,[]);
   assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({project,dashboardRoutes:[first.route,second.route],ordinaryRoute:record.route,unselectedLegacy:true,appCodeMismatchLegacy:true,inventoryOnlyDenied:true,
+  console.log(JSON.stringify({project,dashboardRoutes:[first.route,second.route],ordinaryRoute:record.route,ownerDashboardUsesMaster:!businessDevelopment,appCodeMismatchLegacy:true,inventoryOnlyDenied:true,
     retiredControl:true,backForward:true,themeAndLocaleParity:true,sessionRechecked:true,productionVerified:false}));
 }finally{
   await browser?.close();

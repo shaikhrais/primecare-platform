@@ -123,6 +123,17 @@ def c2_reviewed_continuation(cohort, before, prior_live):
 
 
 def preflight(before, after, project, prior_live, *, observe=False):
+    # Only the reviewed browser-fixture repair may follow the seven-screen candidate.
+    if before == "6664cde7e578b79018961be0c456cad9cbaa7ffe":
+        require(project == PROJECT and prior_live == C1_LIVE and exact_parent(after, before),
+                "Browser fixture repair must retain the reviewed Corporate source and live baseline")
+        fixture = "scripts/test-governed-master-navigation.mjs"
+        guard = "tools/deployment/corporate_dashboard_release.py"
+        require(paths(before, after) == {fixture, guard}, "Unexpected path in browser fixture repair")
+        require(git("ls-tree", after, "--", fixture) == f"100644 blob 881cecc769b992718738649679e3732fd7d781af\t{fixture}",
+                "Unreviewed browser fixture bytes")
+        preflight(C2_REVIEWED_BASE, before, project, prior_live, observe=observe)
+        return
     require(project == PROJECT, "Corporate cohort cannot target another project")
     require(exact_parent(after, before), "Unexpected source ancestry")
     require(git("ls-tree", NEXT_NINE, "--", WORKFLOW) == f"100644 blob {NEXT_NINE_WORKFLOW}\t{WORKFLOW}",
