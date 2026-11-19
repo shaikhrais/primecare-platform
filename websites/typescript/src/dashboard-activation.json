@@ -658,6 +658,71 @@
           "route": "/generated/dynamic-dashboard"
         }
       ]
+    },
+    {
+      "id": "clinic-05",
+      "dashboards": [
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "rmt_dashboard",
+          "route": "/offices/clinical/roles/rmt/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "therapist_dashboard",
+          "route": "/offices/clinical/roles/therapist/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "cns_dashboard",
+          "route": "/clinical/cns-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "hsw_dashboard",
+          "route": "/clinical/hsw-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "lpn_dashboard",
+          "route": "/clinical/lpn-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "np_dashboard",
+          "route": "/clinical/np-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "pediatric_dashboard",
+          "route": "/clinical/pediatric-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "physician_dashboard",
+          "route": "/clinical/physician-dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "caregiver_dashboard",
+          "route": "/offices/clinical/roles/caregiver/dashboard"
+        },
+        {
+          "project": "primecare-clinic",
+          "appCode": "ci",
+          "code": "rn_field_supervisor_dashboard",
+          "route": "/rn/rn-field-supervisor-dashboard"
+        }
+      ]
     }
   ]
 }
