@@ -2,7 +2,7 @@ name: Render requested EMS and Dart Theme Center screenshots
 on:
   push:
     branches: [main]
-    paths: ['packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/lib/theme/prime_palette_editor.dart', 'packages/flutter_core/lib/theme/theme_settings_provider.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'tools/screen-preview/capture-requested-ems.mjs', '.github/workflows/requested-ems-theme-screenshots.yml']
+    paths: ['packages/flutter_core/lib/theme/prime_theme_center.dart', 'packages/flutter_core/lib/theme/prime_theme_center_style.dart', 'packages/flutter_core/lib/theme/prime_palette_editor.dart', 'packages/flutter_core/lib/theme/theme_settings_provider.dart', 'packages/flutter_core/test/screenshots/theme_center_capture_test.dart', 'tools/screen-preview/capture-requested-ems.mjs', '.github/workflows/requested-ems-theme-screenshots.yml']
   workflow_dispatch:
 permissions: {contents: read}
 jobs:

@@ -25,7 +25,7 @@ abstract final class PrimeThemeCenterStyle {
         floatingLabelStyle:text.labelLarge?.copyWith(color:base.colorScheme.secondary),isDense:true,contentPadding:const EdgeInsets.symmetric(horizontal:12,vertical:6)),
       filledButtonTheme:FilledButtonThemeData(style:FilledButton.styleFrom(backgroundColor:base.colorScheme.secondary,foregroundColor:base.colorScheme.onSecondary,
         minimumSize:const Size(64,32),padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),textStyle:text.labelLarge?.copyWith(fontWeight:FontWeight.w500),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)))),
-      textButtonTheme:TextButtonThemeData(style:TextButton.styleFrom(foregroundColor:base.colorScheme.onSurface,minimumSize:const Size(64,32),textStyle:text.labelLarge?.copyWith(fontWeight:FontWeight.w500),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)))),
+      textButtonTheme:TextButtonThemeData(style:TextButton.styleFrom(foregroundColor:base.colorScheme.onSurface,minimumSize:const Size(64,32),padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),textStyle:text.labelLarge?.copyWith(fontWeight:FontWeight.w500),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)))),
       outlinedButtonTheme:OutlinedButtonThemeData(style:OutlinedButton.styleFrom(minimumSize:const Size(64,32),textStyle:text.labelLarge?.copyWith(fontWeight:FontWeight.w500),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(8)))));
   }
 }
