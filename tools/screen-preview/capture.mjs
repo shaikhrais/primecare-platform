@@ -21,6 +21,18 @@ try{
  assert.ok(await frame().locator('.ems-trend-line').count()>0,'real EMS chart must plot the synthetic traffic history');
  for(const[name,width,height]of [['ems-desktop',1440,1000],['ems-tablet',820,1180],['ems-mobile',390,844]]){await page.setViewportSize({width,height});await page.waitForTimeout(200);await page.screenshot({path:dir+'/screenshots/'+name+'.png',fullPage:true});screenshots.push(name);}
  await page.setViewportSize({width:1440,height:1000});
+ // Exercise the existing Theme Center against the shared spatial manager.
+ await frame().locator('[data-cy=appearance-open]').evaluate(el=>el.click());
+ await frame().locator('[data-cy=appearance-dialog]').waitFor();
+ const pagePadding=await frame().locator('.workspace>main').evaluate(el=>getComputedStyle(el).paddingTop);
+ await frame().locator('[data-cy=appearance-density]').selectOption('compact');
+ const compactPadding=await frame().locator('.workspace>main').evaluate(el=>getComputedStyle(el).paddingTop);
+ assert.ok(parseFloat(compactPadding)<parseFloat(pagePadding),'density control did not compact the shared layout');
+ await frame().locator('[data-cy=appearance-theme]').selectOption('dark');
+ const darkPalette=await frame().evaluate(()=>getComputedStyle(document.documentElement).getPropertyValue('--color-background').trim());assert.equal(darkPalette,'#0b1220');
+ await frame().locator('[data-cy=appearance-close]').click();await page.waitForTimeout(150);await page.screenshot({path:dir+'/screenshots/ems-dark-compact.png',fullPage:true});screenshots.push('ems-dark-compact');
+ await frame().locator('[data-cy=appearance-open]').evaluate(el=>el.click());await frame().locator('[data-cy=appearance-theme]').selectOption('default');await frame().locator('[data-cy=appearance-density]').selectOption('comfortable');await frame().locator('[data-cy=appearance-close]').click();
+ console.log('PREVIEW_MANAGERS '+JSON.stringify({pagePadding,compactPadding,darkPalette}));
  // Exercise a real form and round trip through the synthetic API adapter.
  await open('preview-admin-tenants');await frame().locator('[data-cy=platform-tenant-form]').waitFor();
  await frame().locator('[data-cy=platform-tenant-form] [name=name]').fill('Demo · Browser created');await frame().locator('[data-cy=platform-tenant-form] [name=slug]').fill('preview-browser-created');await frame().locator('[data-cy=platform-tenant-form] button').click();await frame().locator('[data-cy=platform-account-form]').waitFor({timeout:10000});
