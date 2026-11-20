@@ -42,11 +42,11 @@ void main(){
   testWidgets('day and night keep the selected source color combination',(tester)async{
     await tester.pumpWidget(MaterialApp(home:PrimePaletteEditor(section:'main',initial:PersonalTheme(name:'Sky',preset:'skyBlueOrange'))));
     await tester.tap(find.text('Dark'));await tester.pumpAndSettle();
-    expect(tester.widget<TextField>(find.byKey(const Key('palette-color-background'))).controller!.text,'#121212');
+    expect(tester.widget<PrimePaletteColorField>(find.byKey(const Key('palette-color-background'))).color,const Color(0xff121212));
     final primary=find.byKey(const Key('palette-color-primary'));
-    expect(tester.widget<TextField>(primary).controller!.text,'#64b5f6');
+    expect(tester.widget<PrimePaletteColorField>(primary).color,const Color(0xff64b5f6));
     await tester.tap(find.text('Light'));await tester.pumpAndSettle();
-    expect(tester.widget<TextField>(primary).controller!.text,'#64b5f6');
+    expect(tester.widget<PrimePaletteColorField>(primary).color,const Color(0xff64b5f6));
     expect(tester.takeException(),isNull);
   });
 }

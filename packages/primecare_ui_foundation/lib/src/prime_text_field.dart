@@ -10,6 +10,7 @@ class PrimeTextField extends StatelessWidget {
   final Key? fieldKey;
   final TextEditingController? controller;
   final FocusNode? focusNode;
+  final TextStyle? style;
   final InputDecoration decoration;
   final TextInputType? keyboardType;
   final int? maxLines;
@@ -24,6 +25,7 @@ class PrimeTextField extends StatelessWidget {
     Key? key,
     this.controller,
     this.focusNode,
+    this.style,
     this.decoration = const InputDecoration(),
     this.keyboardType,
     this.maxLines = 1,
@@ -45,6 +47,7 @@ class PrimeTextField extends StatelessWidget {
         key: fieldKey,
         controller: controller,
         focusNode: focusNode,
+        style: style,
         decoration: decoration,
         keyboardType: keyboardType,
         maxLines: maxLines,

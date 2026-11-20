@@ -10,3 +10,4 @@ export 'src/prime_snack_bar.dart';
 export 'src/prime_card.dart';
 export 'src/prime_app_bar.dart';
 export 'src/prime_material_controls.dart';
+export 'src/prime_settings_controls.dart';

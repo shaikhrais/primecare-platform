@@ -70,3 +70,8 @@ flutter:
     - assets/data/
     - assets/db/
     - assets/db/precision_education.json
+
+  fonts:
+    - family: PrimeCareGeist
+      fonts:
+        - asset: assets/fonts/Geist-VariableFont_wght.ttf

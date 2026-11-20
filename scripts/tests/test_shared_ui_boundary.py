@@ -110,6 +110,13 @@ class SharedUiBoundaryTest(unittest.TestCase):
             self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_text.dart')], ['Icon', 'Colors.red'])
             self.assertEqual([f[3] for f in findings if f[0].endswith('/prime_icon.dart')], ['Text', 'Colors.blue'])
 
+    def test_compact_settings_delegate_is_narrow_and_still_rejects_colors(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory);path=root/'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart';path.parent.mkdir(parents=True)
+            path.write_text("Radio(value: value); Switch(value: value); Icon(Icons.circle); Text(label); Colors.red;")
+            results=boundary.scan(root)
+            self.assertEqual([(row[2],row[3]) for row in results],[('shared-control','Text'),('theme-color','Colors.red')])
+
     def test_button_delegates_do_not_allow_other_controls_or_colors(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

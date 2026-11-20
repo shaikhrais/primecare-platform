@@ -36,7 +36,9 @@ void main(){
     expect(container.read(themeSettingsProvider).navigationStyle,'tabbed');
     await tester.scrollUntilVisible(find.byKey(const Key('palette-main')),200,scrollable:find.byType(Scrollable).first);await tester.pumpAndSettle();await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();
     expect(find.text('Edit palette'),findsOneWidget);expect(find.text('Preview'),findsOneWidget);
-    await tester.enterText(find.byKey(const Key('palette-color-primary')),'#112233');
+    await tester.tap(find.byKey(const Key('palette-color-primary')));await tester.pumpAndSettle();
+    await tester.enterText(find.byKey(const Key('palette-picker-hex')),'#112233');await tester.pump();
+    await tester.tap(find.text('Use color'));await tester.pumpAndSettle();
     await tester.pump();await tester.tap(find.descendant(of:find.byType(Dialog),matching:find.text('Save')));await tester.pumpAndSettle();
     expect(container.read(themeSettingsProvider).theme.colors['primary'],'#112233');
     expect(container.read(themeSettingsProvider).navigationStyle,'tabbed');

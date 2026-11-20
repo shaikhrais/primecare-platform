@@ -95,6 +95,8 @@ COLOR_TEAR_OFF = re.compile(r'\bColor\s*\.\s*(?:new|fromARGB|fromRGBO|from)\b(?!
 INHERITS = re.compile(r'\b(?:extends|implements|with)\s+(?:(\w+)\s*\.\s*)?('+'|'.join(CONTROLS)+r')\b')
 ALIASES = re.compile(r'\btypedef\s+\w+\s*(?:<[^;=]*>)?\s*=\s*(?:\w+\s*\.\s*)?(\w+)\b')
 CONTROL_IMPLEMENTATIONS = {
+    # SDK Switch.thumbIcon requires the concrete Icon type; colors still come from ThemeData.
+    'packages/primecare_ui_foundation/lib/src/prime_settings_controls.dart': ('Radio','Switch','Icon'),
     'packages/primecare_ui_foundation/lib/src/prime_material_controls.dart': ('Drawer', 'FloatingActionButton', 'ListTile', 'DropdownButton', 'DropdownButtonFormField', 'PopupMenuButton', 'TextFormField', 'FilterChip', 'TabBar', 'DataTable', 'CheckboxListTile', 'RadioListTile', 'SwitchListTile', 'Slider', 'Checkbox', 'LinearProgressIndicator', 'ChoiceChip', 'FilledButton', 'AlertDialog'),
     'packages/primecare_ui_foundation/lib/src/prime_circular_progress_indicator.dart': ('CircularProgressIndicator',),
     'packages/primecare_ui_foundation/lib/src/prime_scaffold.dart': ('Scaffold',),
