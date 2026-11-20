@@ -61,6 +61,9 @@ export const spaceStyles=`
 .app-shell[data-space-managed] .ems-series-3{fill:var(--color-info);stroke:var(--color-info)}
 .app-shell[data-space-managed] .ems-chart-card circle[fill=none]{fill:none}
 
+/* Active themes own control surfaces as well as card and text tokens. */
+.app-shell[data-space-managed][data-theme-center-active] :is(button,input,select,textarea){background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border)!important}
+.app-shell[data-space-managed][data-theme-center-active] :is(button.primary,button[type=submit]){background:var(--color-primary)!important;color:var(--color-on-primary)!important}
 /* Page identity stays accessible without reserving a visible title zone. */
 .app-shell[data-space-managed] .workspace>main h1,.app-shell[data-space-managed] .topbar-title,.app-shell[data-space-managed] .code-admin-title-row{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;margin:0!important;padding:0!important;white-space:nowrap!important;border:0!important}
 .app-shell[data-space-managed] .code-admin-page-header{border:0;margin:0;padding:0;gap:0;min-height:0}

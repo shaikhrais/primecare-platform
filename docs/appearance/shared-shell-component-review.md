@@ -18,6 +18,7 @@ Reference inspected: the checked-in Fuse React v17 Vite skeleton archive, Layout
 | Language menu | Shared shell | Existing control retained |
 | Account utility menu | Shared shell | Existing control retained |
 | Appearance drawer | Theme Center | Existing layout/colour/type/saved-theme controls retained; viewport adapter retained |
+| Form/control surfaces | Theme tokens / SpaceManager | Active themes own button/input/select colours; dark-theme contrast checked by recorder |
 | Footer | Shared shell / SpaceManager | Compact padding; empty footer removed |
 | Dashboard cards/charts | PrimeEmsDashboardControls | Existing shared widgets and theme tokens retained |
 | Screen registration | ScreenManager | Registration and presentation ownership remain required; visual changes grant no routes or permissions |
