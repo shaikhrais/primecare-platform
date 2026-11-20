@@ -110,6 +110,26 @@ class DocumentationTests(unittest.TestCase):
                        '`error`: string, required'):
             self.assertIn(phrase, text)
 
+    def test_comments_include_declared_limits_formats_and_array_item_fields(self):
+        source = {
+            'file': 'docs/example.openapi.json', 'components': {},
+            'operation': {
+                'parameters': [{'name': 'limit', 'in': 'query',
+                                'schema': {'type': 'integer', 'minimum': 1, 'maximum': 50}}],
+                'responses': {'200': {'headers': {'Retry-After': {
+                    'description': 'Delay in seconds.', 'schema': {'type': 'integer', 'minimum': 0}}},
+                    'content': {'application/json': {'schema': {
+                        'type': 'array', 'maxItems': 50,
+                        'items': {'type': 'object', 'required': ['id'],
+                                  'properties': {'id': {'type': 'string', 'format': 'uuid'}}}}}}}},
+            },
+        }
+        text = source_comments([source])
+        for phrase in ('`limit` in query (optional) — integer, minimum=1, maximum=50',
+                       '`Retry-After` — integer, minimum=0. Delay in seconds.',
+                       'Schema: array, maxItems=50.', '`id`: string, format uuid, required'):
+            self.assertIn(phrase, text)
+
     def test_yaml_path_parameters_and_security_inheritance(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

@@ -92,6 +92,36 @@ def resolve(value, components, section='schemas'):
     return value if isinstance(value, dict) else {}
 
 
+def constraints(schema):
+    """Summarize declared validation without copying example or literal values."""
+    details = []
+    kind = schema.get('type')
+    if kind:
+        details.append(' or '.join(map(str, kind)) if isinstance(kind, list) else clean(kind, 80))
+    if schema.get('format'):
+        details.append('format ' + clean(schema['format'], 80))
+    if schema.get('nullable') is True:
+        details.append('nullable')
+    for key in ('minimum', 'maximum', 'exclusiveMinimum', 'exclusiveMaximum',
+                'minLength', 'maxLength', 'minItems', 'maxItems'):
+        value = schema.get(key)
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            details.append(f'{key}={value}')
+    if schema.get('uniqueItems') is True:
+        details.append('unique items')
+    if schema.get('readOnly') is True:
+        details.append('read-only')
+    if schema.get('writeOnly') is True:
+        details.append('write-only; never log')
+    if isinstance(schema.get('enum'), list):
+        details.append(f'{len(schema["enum"])} allowed values; see source')
+    if 'const' in schema:
+        details.append('fixed value; see source')
+    if 'pattern' in schema:
+        details.append('pattern-constrained; see source')
+    return details
+
+
 def shape(schema, components):
     schema = resolve(schema, components)
     if not schema:
@@ -106,27 +136,22 @@ def shape(schema, components):
         variant = resolve(variant, components)
         properties = variant.get('properties', {})
         if not properties:
-            fields.append('No object fields; schema type: ' + clean(variant.get('type', 'unspecified'), 100) + '.')
+            fields.append('Schema: ' + (', '.join(constraints(variant)) or 'type unspecified') + '.')
+            if variant.get('type') == 'array' and isinstance(variant.get('items'), dict):
+                item = resolve(variant['items'], components)
+                fields.append('Array item schema: ' + (', '.join(constraints(item)) or 'see source') + '.')
+                properties = item.get('properties', {})
+                variant = item
         for name, definition in list(properties.items())[:100]:
-            # Names/types/limits only. Never export examples, defaults, enum values,
-            # credentials or arbitrary registry schema content into comments.
             field = resolve(definition, components)
-            constraints = [clean(field.get('type', 'constrained value'), 80)]
-            constraints.append('required' if name in variant.get('required', []) else 'optional')
-            for key in ['minimum', 'maximum', 'minLength', 'maxLength', 'minItems', 'maxItems']:
-                value = field.get(key)
-                if isinstance(value, (int, float)) and not isinstance(value, bool):
-                    constraints.append(f'{key}={value}')
-            if field.get('writeOnly') is True:
-                constraints.append('write-only; never log')
-            if 'enum' in field and isinstance(field['enum'], list):
-                constraints.append(f'{len(field["enum"])} allowed values; see source')
-            if 'const' in field:
-                constraints.append('fixed value; see source')
-            if 'pattern' in field:
-                constraints.append('pattern-constrained; see source')
+            details = constraints(field) or ['constrained value']
+            if field.get('type') == 'array' and isinstance(field.get('items'), dict):
+                item = resolve(field['items'], components)
+                if item.get('type'):
+                    details.append('items: ' + constraints(item)[0])
+            details.append('required' if name in variant.get('required', []) else 'optional')
             prefix = f'variant {number}: ' if len(variants) > 1 else ''
-            fields.append('- ' + prefix + '`' + clean(name, 100).replace('`', '') + '`: ' + ', '.join(constraints))
+            fields.append('- ' + prefix + '`' + clean(name, 100).replace('`', '') + '`: ' + ', '.join(details))
         if variant.get('additionalProperties') is False:
             fields.append('Additional properties are rejected for this shape.')
     return '\n'.join(fields)
@@ -169,7 +194,14 @@ def source_comments(sources):
             requirement = 'required' if parameter.get('required') else 'optional'
             name = clean(parameter['name'], 100).replace('`', '')
             location = clean(parameter.get('in'), 50)
-            parameter_notes.append(f'- `{name}` in {location} ({requirement})')
+            details = constraints(resolve(parameter.get('schema', {}), components))
+            description = clean(parameter.get('description'), 800)
+            note = f'- `{name}` in {location} ({requirement})'
+            if details:
+                note += ' — ' + ', '.join(details)
+            if description:
+                note += '. ' + description
+            parameter_notes.append(note)
         if parameter_notes:
             sections.append('**Parameters:**\n' + '\n'.join(parameter_notes))
         body = resolve(operation.get('requestBody', {}), components, 'requestBodies')
@@ -187,9 +219,17 @@ def source_comments(sources):
         for status, raw_response in operation.get('responses', {}).items():
             response = resolve(raw_response, components, 'responses')
             sections.append('**Response ' + clean(status, 20) + ':** ' + clean(response.get('description', 'See source response reference.'), 1000))
-            if response.get('headers'):
-                sections.append('Response headers: ' + ', '.join(
-                    '`' + clean(name, 100).replace('`', '') + '`' for name in response['headers']) + '.')
+            for name, raw_header in response.get('headers', {}).items():
+                header = resolve(raw_header, components, 'headers')
+                details = constraints(resolve(header.get('schema', {}), components))
+                if header.get('required') is True:
+                    details.insert(0, 'required')
+                label = '`' + clean(name, 100).replace('`', '') + '`'
+                note = 'Response headers: ' + label
+                if details:
+                    note += ' — ' + ', '.join(details)
+                description = clean(header.get('description'), 800)
+                sections.append(note + '.' + (' ' + description if description else ''))
             for media, content in response.get('content', {}).items():
                 sections.append('Content type `' + clean(media, 100) + '`:\n' + shape(content.get('schema', {}), components))
     return '\n\n'.join(sections)

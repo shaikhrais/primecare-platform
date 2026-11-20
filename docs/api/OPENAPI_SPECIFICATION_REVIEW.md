@@ -21,6 +21,10 @@ The source review traversed all 102 source specifications. It found 225 local re
 
 The two file-relative references in [account preferences](account-preferences.openapi.yaml) point to the request and response schema keys in the [preference sync contract](../../tools/governance-production/preference-sync-contract.json). These remain source references in generated comments so readers can inspect the full schema and its constraints.
 
+## Parameter, response header and array comments
+
+The 102 source specifications contain 491 exact source operations represented by 655 source declarations. Of those declarations, 554 have at least one parameter schema and 30 have at least one response header after resolving shared response components. The endpoint handbook now includes declared parameter and header descriptions, types, formats and numeric bounds. Array responses show declared item types and first-level item fields. Literal enum values, defaults and examples remain in the source specifications.
+
 ## Priority follow-through
 
 | Operation | Evidence | Remaining work |
