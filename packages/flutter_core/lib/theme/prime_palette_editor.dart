@@ -102,7 +102,8 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
     final p=ThemeConfig.getAppPalette(preset);var value=_parse(fields[field]!.text)??p.primary;var valid=true;
     final hex=TextEditingController(text:_hex(value));
     try{
-      final result=await showDialog<Color>(context:context,builder:(context)=>StatefulBuilder(builder:(context,setLocal)=>PrimeAlertDialog(
+      final navigator=Navigator.of(context,rootNavigator:true);
+      final route=DialogRoute<Color>(context:context,themes:InheritedTheme.capture(from:context,to:navigator.context),builder:(context)=>StatefulBuilder(builder:(context,setLocal)=>PrimeAlertDialog(
         title:const PrimeText('Choose color'),content:SizedBox(width:300,child:Column(mainAxisSize:MainAxisSize.min,children:[
           Container(height:56,color:value),const SizedBox(height:12),
           PrimeTextField(key:const Key('palette-picker-hex'),controller:hex,maxLength:7,decoration:InputDecoration(labelText:'Hex color',errorText:valid?null:'Use #RRGGBB'),
@@ -112,7 +113,10 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
             onChanged:(v)=>setLocal((){value=Color.fromARGB(255,component=='Red'?v.round():(value.r*255).round(),component=='Green'?v.round():(value.g*255).round(),component=='Blue'?v.round():(value.b*255).round());hex.text=_hex(value);valid=true;})))]),
         ])),actions:[PrimeTextButton(onPressed:()=>Navigator.pop(context),child:const PrimeText('Cancel')),
           PrimeFilledButton(onPressed:valid?()=>Navigator.pop(context,value):null,child:const PrimeText('Use color'))])));
+      final result=await navigator.push(route);
       if(result!=null&&mounted)setState((){fields[field]!.text=_hex(result);dirty=true;error=null;});
+      // The text field remains mounted during the dialog's reverse transition.
+      await route.completed;
     }finally{hex.dispose();}
   }
   @override Widget build(BuildContext context)=>Theme(data:PrimeThemeCenterStyle.resolve(Theme.of(context),family:widget.initial.fontFamily,scale:widget.initial.fontScale),child:Builder(builder:(context)=>_build(context)));
