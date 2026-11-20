@@ -95,7 +95,8 @@
                           "unmappedServiceLabels",
                           "evidenceScope",
                           "productionVerified",
-                          "postgresVerified"
+                          "postgresVerified",
+                          "managementStates"
                         ],
                         "properties": {
                           "service": {
@@ -139,6 +140,29 @@
                           },
                           "productionVerified": {
                             "const": false
+                          },
+                          "managementStates": {
+                            "type": "object",
+                            "required": [
+                              "blocked",
+                              "maintenance",
+                              "unverified"
+                            ],
+                            "properties": {
+                              "blocked": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "maintenance": {
+                                "type": "integer",
+                                "minimum": 0
+                              },
+                              "unverified": {
+                                "type": "integer",
+                                "minimum": 0
+                              }
+                            },
+                            "additionalProperties": false
                           }
                         }
                       }

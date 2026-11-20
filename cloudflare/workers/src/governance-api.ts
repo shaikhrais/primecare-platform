@@ -26,9 +26,22 @@ export function parseGovernanceQuery(url:URL):Query|null {
 const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.appCode,role:p.role,route:p.route,
   lifecycle:p.lifecycle,productionReady:p.productionReady,blockers:p.blockers,pendingActions:p.pendingActions}));
 
+/** Management status reflects registered evidence. Screen grants never prove API protection. */
+function endpointManagement(row:RecordRow) {
+  const declaration=String(row.declaredImplementation);
+  const maintenance=declaration==='maintenance'?'recorded_maintenance':'unknown';
+  const implementation=row.verificationState==='blocked'||declaration==='blocked'?'blocked':
+    declaration==='implemented'?'declared_implemented':declaration==='partial'?'partial':'unknown';
+  const missing=row.missingContractFields as string[];
+  const protection=missing.includes('permission')?'permission_metadata_missing':'unverified';
+  const readiness=maintenance==='recorded_maintenance'?'maintenance':
+    implementation==='blocked'?'blocked':'unverified';
+  return {implementation,protection,readiness,maintenance,evidenceScope:'registered_operation_metadata'};
+}
+
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
 export function governanceRows(path:string):RecordRow[] {
-  if(path==='/api-execution-status')return execution.data;
+  if(path==='/api-execution-status')return execution.data.map(row=>({...row,management:endpointManagement(row)}));
   const gaps:Record<string,string>={'/api-missing-permissions':'permission','/api-missing-request-schemas':'requestSchema','/api-missing-response-schemas':'responseSchema','/api-unlinked-screens':'screenLink'};
   if(gaps[path])return execution.data.filter(row=>row.missingContractFields.includes(gaps[path]));
   if(path==='/api-verification-summary')return verificationSummary(execution.data);
@@ -102,7 +115,11 @@ export function verificationSummary(rows:RecordRow[]):RecordRow[] {
 }
 export function serviceVerificationSummary(rows:RecordRow[]):RecordRow[] {
  const services=['auth','client','provider','visit','notes','billing','scheduling','notification','verification','compliance','governance','franchise-reporting'];
- return [...services,'unassigned'].map(service=>{const group=rows.filter(row=>service==='unassigned'?!services.includes(String(row.service)):row.service===service);return {service,gatewayBound:service!=='unassigned',declaredOperations:group.length,verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});
+ return [...services,'unassigned'].map(service=>{const group=rows.filter(row=>service==='unassigned'?!services.includes(String(row.service)):row.service===service);return {service,gatewayBound:service!=='unassigned',declaredOperations:group.length,managementStates:group.reduce<Record<string,number>>((counts,row)=>{
+   const {readiness}=endpointManagement(row);
+   counts[readiness]=(counts[readiness]??0)+1;
+   return counts;
+ },{blocked:0,maintenance:0,unverified:0}),verificationStates:Object.fromEntries(['blocked','unit_fixtures_recorded','verification_pending'].map(state=>[state,group.filter(row=>row.verificationState===state).length])),contractGaps:Object.fromEntries(['permission','requestSchema','responseSchema','screenLink'].map(field=>[field,group.filter(row=>(row.missingContractFields as string[]).includes(field)).length])),unmappedServiceLabels:[...new Set(group.map(row=>row.service))],evidenceScope:'registered_operation_metadata',postgresVerified:false,productionVerified:false};});
 }
 function paginate(rows:RecordRow[],query:Query,evidenceType:string) {
   const filtered=filterGovernanceRows(rows,query);

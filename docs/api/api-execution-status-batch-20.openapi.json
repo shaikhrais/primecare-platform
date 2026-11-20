@@ -93,8 +93,58 @@
                           "missingContractFields",
                           "recordedUnitStatus",
                           "productionVerified",
-                          "postgresVerified"
-                        ]
+                          "postgresVerified",
+                          "management"
+                        ],
+                        "properties": {
+                          "management": {
+                            "type": "object",
+                            "required": [
+                              "implementation",
+                              "protection",
+                              "readiness",
+                              "maintenance",
+                              "evidenceScope"
+                            ],
+                            "properties": {
+                              "implementation": {
+                                "type": "string",
+                                "enum": [
+                                  "blocked",
+                                  "declared_implemented",
+                                  "partial",
+                                  "unknown"
+                                ]
+                              },
+                              "protection": {
+                                "type": "string",
+                                "enum": [
+                                  "permission_metadata_missing",
+                                  "unverified"
+                                ]
+                              },
+                              "readiness": {
+                                "type": "string",
+                                "enum": [
+                                  "blocked",
+                                  "maintenance",
+                                  "unverified"
+                                ]
+                              },
+                              "maintenance": {
+                                "type": "string",
+                                "enum": [
+                                  "recorded_maintenance",
+                                  "unknown"
+                                ]
+                              },
+                              "evidenceScope": {
+                                "const": "registered_operation_metadata"
+                              }
+                            },
+                            "additionalProperties": false
+                          }
+                        }
                       }
                     },
                     "pagination": {

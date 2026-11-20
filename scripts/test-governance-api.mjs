@@ -148,3 +148,19 @@ test('role coverage scopes granted pages before counting and retains zero-covera
 });
 
 for(const rows of [null,[null],[{},{}],[{id:1,roles:'ceo',tenant_id:'tenant-a'}],[{id:'actor',roles:1,tenant_id:'tenant-a'}],[{id:'actor',roles:'ceo',tenant_id:1}]])test('batch 343 malformed catalog authority '+JSON.stringify(rows),async()=>{fixture();const base=globalThis.__batchQuery;globalThis.__batchQuery=async(sql,v)=>{const r=await base(sql,v);if(sql.includes('WHERE s.token_hash=$1'))r.rows=rows;return r;};const path=catalog.bindings[0].path;const r=await governanceApi(new Request('https://fixture'+path,{headers:{authorization:'Bearer '+token}}),env,path,{});assert.equal(r.status,503);assert.equal(r.headers.get('cache-control'),'no-store');assert.equal(queries.at(-1).sql,'ROLLBACK');});
+
+test('management keeps implementation declarations distinct from protection and readiness',async()=>{
+  const result=await (await call('/api-execution-status','?search=%2Fapi%2Fclients&limit=100')).json();
+  assert.equal(result.pagination.total,2);
+  for(const row of result.data)assert.deepEqual(row.management,{
+    implementation:'blocked',protection:'unverified',readiness:'blocked',
+    maintenance:'unknown',evidenceScope:'registered_operation_metadata',
+  });
+  const implemented=await (await call('/api-execution-status','?search=declared_implemented&limit=1')).json();
+  assert.ok(implemented.pagination.total>0);
+  assert.equal(implemented.data[0].management.readiness,'unverified');
+  const services=await (await call('/api-service-status','?limit=100')).json();
+  for(const row of services.data){
+    assert.equal(Object.values(row.managementStates).reduce((sum,count)=>sum+count,0),row.declaredOperations);
+  }
+});
