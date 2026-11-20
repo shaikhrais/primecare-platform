@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'scripts/verify-ems-live-telemetry.mjs'
+      - 'cloudflare/workers/src/endpoint-analytics.ts'
       - 'scripts/test-ems-live-telemetry.mjs'
       - '.github/workflows/ems-live-telemetry.yml'
   workflow_dispatch:

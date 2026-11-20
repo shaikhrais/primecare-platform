@@ -43,13 +43,13 @@ async function main(){
   const versionId=uploadedWorkerVersion(output);
   const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key]});
   const after=await api('/workers/scripts/'+names[key]+'/settings');
-  const allowed=key==='gateway'?['ENDPOINT_ANALYTICS','ENDPOINT_TRAFFIC_ENABLED']:['ENDPOINT_ANALYTICS_ACCOUNT_ID','ENDPOINT_ANALYTICS_READER_ROLE','ENDPOINT_ANALYTICS_READER_TENANT_ID','ENDPOINT_ANALYTICS_READ_TOKEN'];
-  verifyUnchangedBindings(settings[key],after,allowed);report.workers.push({...receipt,unrelatedBindingsPreserved:true});
+  const allowed=key==='gateway'?['ENDPOINT_ANALYTICS','ENDPOINT_BODY_ANALYTICS','ENDPOINT_TRAFFIC_ENABLED']:['ENDPOINT_ANALYTICS_ACCOUNT_ID','ENDPOINT_ANALYTICS_READER_ROLE','ENDPOINT_ANALYTICS_READER_TENANT_ID','ENDPOINT_ANALYTICS_READ_TOKEN'];
+  verifyUnchangedBindings(settings[key],after,allowed);if(key==='gateway'&&!after.bindings.some(b=>b.name==='ENDPOINT_BODY_ANALYTICS'&&b.type==='analytics_engine'&&b.dataset==='primecare_endpoint_body_v1'))throw Error('Response body dataset readback mismatch');report.workers.push({...receipt,unrelatedBindingsPreserved:true});
  }
  const preflight=await inspectEndpointManagement(process.env);report.configuration=preflight.configuration;report.health=preflight.health;
  if(preflight.blockers.length)throw Error('Live analytics configuration readback has blockers');
  for(const path of ['summary','endpoints','services','traffic','capacity','maintenance']){const r=await fetch('https://primecare-api-gateway.itpro-mohammed.workers.dev/v1/governance/platform/ems/'+path,{redirect:'error',signal:AbortSignal.timeout(15000)});await r.body?.cancel();if(r.status!==401)throw Error('Live EMS anonymous boundary failed');}
- report.status='configured';report.anonymousBoundariesPassed=6;report.liveDataPendingIngestion=true;
+ report.responseBodyCollectionEnabled=true;report.status='configured';report.anonymousBoundariesPassed=6;report.liveDataPendingIngestion=true;
 }
 try{await main();}catch(error){
  const safe=new Set(['Registered control-tenant policy required','Control tenant is not provisioned','Registered control tenant is missing or changed','Governance authority mismatch','Approved Code Admin owner is not registered','Approved Code Admin owner binding differs','Protected current-main credentials required','Current main required','Selected analytics credential cannot query dataset','Live analytics configuration readback has blockers','Live EMS anonymous boundary failed']);

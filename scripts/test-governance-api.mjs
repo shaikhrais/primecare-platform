@@ -220,7 +220,7 @@ test('platform traffic additionally requires the explicitly configured reader ro
   const wrongTenant=await (await call('/api-service-status','?limit=100','governance',{},'GET',{...config,ENDPOINT_ANALYTICS_READER_TENANT_ID:'other-tenant'})).json();
   assert.equal(wrongTenant.traffic.status,'denied');assert.equal(calls,0);
   const available=await (await call('/api-service-status','?limit=100','governance',{},'GET',config)).json();
-  assert.equal(available.traffic.status,'available');assert.equal(calls,2);
+  assert.equal(available.traffic.status,'available');assert.equal(calls,3);assert.equal(available.traffic.report.responseBodies.status,'available');
   assert.equal(available.traffic.report.measurementKind,'sample_weighted_estimate');
   assert.ok(!JSON.stringify(available).includes('private-provider-token'));
   globalThis.fetch=async()=>new Response('private-provider-error',{status:503});

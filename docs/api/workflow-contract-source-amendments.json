@@ -39,8 +39,8 @@
       "path": "cloudflare/workers/src/gateway.ts",
       "baselineCommit": "3c4252f8b4ce87696a3b7a6d495c4772e48b11c2",
       "baselineSha256": "10a26892b2bc96b4d065178876ebde22841d3e256937f61b45ba58a1fbfd9530",
-      "reviewedSha256": "e1c84e0b03fb7c5ae292941bdedc15a4ec7d86dba2d9d5b6d87d3289bc106e78",
-      "reason": "Add only the exact registered communication method/path dispatch before legacy routing. Wrong methods return 405; the target Worker still enforces native session and endpoint/resource policies. No wildcard or legacy workflow gains authority. Review at 952722e3ac5c2b8df001b30b487971af34c03bb2 includes exact registered internal/external calling and phone-enrollment dispatches, then only native task.preview/task.approve forwarding to VAPI_CALLBACK. Each dispatch checks its registered method, preserves the full request and denies absent bindings; targets enforce native login/ownership/policy. Gateway tests cover canonical paths, preserved authorization, wrong methods, absent bindings and unknown suffix denial. This source review grants no workflow completion or retirement credit and does not certify live caller acceptance. B07 adds only registered POST API 777 forwarding with wrong-method rejection; runtime activation remains gated. Exact removal restores every prior gateway byte. Record the exact Clinical Director GET route and duplicate-service alias rejection. Observe gateway traffic through opt-in metadata logging without changing routes, authorization or response handling. Review at eea5a85fc2ca5564089886b41d783e86ee2d9a8d adds only the optional sanitized Analytics Engine writer binding to the existing opt-in telemetry wrapper. Exact reversal restores the previous reviewed gateway. Dataset failures are isolated; no routes, access rules, endpoint evidence or readiness credits change. Gateway and governance authorization tests pass.",
+      "reviewedSha256": "f018bd57ca3f673563226806ff954856e2cc8870d01250ba6363550cbdc98e3a",
+      "reason": "Add only the exact registered communication method/path dispatch before legacy routing. Wrong methods return 405; the target Worker still enforces native session and endpoint/resource policies. No wildcard or legacy workflow gains authority. Review at 952722e3ac5c2b8df001b30b487971af34c03bb2 includes exact registered internal/external calling and phone-enrollment dispatches, then only native task.preview/task.approve forwarding to VAPI_CALLBACK. Each dispatch checks its registered method, preserves the full request and denies absent bindings; targets enforce native login/ownership/policy. Gateway tests cover canonical paths, preserved authorization, wrong methods, absent bindings and unknown suffix denial. This source review grants no workflow completion or retirement credit and does not certify live caller acceptance. B07 adds only registered POST API 777 forwarding with wrong-method rejection; runtime activation remains gated. Exact removal restores every prior gateway byte. Record the exact Clinical Director GET route and duplicate-service alias rejection. Observe gateway traffic through opt-in metadata logging without changing routes, authorization or response handling. Review at eea5a85fc2ca5564089886b41d783e86ee2d9a8d adds only the optional sanitized Analytics Engine writer binding to the existing opt-in telemetry wrapper. Exact reversal restores the previous reviewed gateway. Dataset failures are isolated; no routes, access rules, endpoint evidence or readiness credits change. Gateway and governance authorization tests pass. Exact observation-only response-body counting before gateway compression; canonical routes and authorization unchanged.",
       "hunks": [
         {
           "before": "import {BaseWorker, workerHandler} from './core/base-worker';\nimport governedReadAliases from './governed-read-aliases.json';\ninterface Service { fetch(request: Request): Promise<Response> }\ninterface Env {\n",
@@ -89,6 +89,18 @@
         {
           "before": "recordEndpointTraffic(request,response,performance.now()-start);",
           "after": "recordEndpointTraffic(request,response,performance.now()-start,env.ENDPOINT_ANALYTICS);"
+        },
+        {
+          "before": "import {recordEndpointTraffic} from './endpoint-traffic';",
+          "after": "import {recordEndpointTraffic} from './endpoint-traffic';\nimport {observeEndpointResponseBody} from './endpoint-body-traffic';"
+        },
+        {
+          "before": "type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string; ENDPOINT_ANALYTICS?:EndpointAnalyticsDataset};",
+          "after": "type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string; ENDPOINT_ANALYTICS?:EndpointAnalyticsDataset;ENDPOINT_BODY_ANALYTICS?:EndpointAnalyticsDataset};"
+        },
+        {
+          "before": "const gatewayHandler=workerHandler(new GatewayWorker());",
+          "after": "class ObservedGatewayWorker extends GatewayWorker {\n  override async fetch(request:Request,env:GatewayEnv):Promise<Response> {\n    const response=await super.fetch(request,env);\n    return env.ENDPOINT_TRAFFIC_ENABLED==='1'?observeEndpointResponseBody(request,response,env.ENDPOINT_BODY_ANALYTICS):response;\n  }\n}\nconst gatewayHandler=workerHandler(new ObservedGatewayWorker());"
         }
       ]
     },

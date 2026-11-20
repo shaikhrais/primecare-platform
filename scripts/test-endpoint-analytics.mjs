@@ -49,3 +49,14 @@ test('config preparation preserves routes, secrets metadata and observability; r
  assert.throws(()=>endpointAnalyticsConfigs(gateway,governance,'bad','ceo',{ceo:{inventory:true}},'platform-tenant'));
  assert.throws(()=>endpointAnalyticsConfigs(gateway,governance,'a'.repeat(32),'psw',{psw:{inventory:false}},'platform-tenant'));
 });
+test('body completions use a separate dataset and never change observed request totals',async()=>{
+ const report=await readEndpointAnalytics(env,async(url,init)=>{
+  if(init.body.includes('FROM primecare_endpoint_body_v1'))return Response.json({data:[{endpoint:group.endpoint,completion:'complete',responses:'4',bytes:'1234'},{endpoint:group.endpoint,completion:'incomplete',responses:'1',bytes:'12'}],rows:2});
+  return sendFixture()(url,init);
+ });
+ const parsed=readTrafficReport(report);assert.equal(parsed.observedRequests,3);assert.equal(parsed.bodyTotals.completedResponses,4);assert.equal(parsed.bodyTotals.completedBytes,1234);assert.equal(parsed.bodyTotals.partialBytes,12);
+ assert.throws(()=>readTrafficReport({...report,responseBodies:{status:'available',endpoints:[...report.responseBodies.endpoints,...report.responseBodies.endpoints]}}));
+});
+test('unavailable completion dataset keeps declared-length traffic available',async()=>{
+ const report=await readEndpointAnalytics(env,async(url,init)=>init.body.includes('FROM primecare_endpoint_body_v1')?new Response('unavailable',{status:400}):sendFixture()(url,init));assert.equal(report.responseBodies.status,'unavailable');assert.equal(readTrafficReport(report).observedRequests,3);
+});

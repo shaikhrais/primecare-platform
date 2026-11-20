@@ -7,8 +7,8 @@ export function endpointAnalyticsConfigs(gateway,governance,account,role,permiss
  if(gateway?.name!=='primecare-api-gateway'||gateway.main!=='../cloudflare/workers/src/gateway.ts'||governance?.name!=='primecare-governance-api'||governance.main!=='../cloudflare/workers/src/service.ts'||governance.vars?.SERVICE_NAME!=='governance')throw Error('Unexpected Worker identities');
  const g=structuredClone(gateway),v=structuredClone(governance);
  const bindings=g.analytics_engine_datasets??[];
- if(!Array.isArray(bindings)||bindings.some(b=>b.binding==='ENDPOINT_ANALYTICS'&&b.dataset!=='primecare_endpoint_traffic_v1'))throw Error('Conflicting analytics binding');
- g.analytics_engine_datasets=[...bindings.filter(b=>b.binding!=='ENDPOINT_ANALYTICS'),{binding:'ENDPOINT_ANALYTICS',dataset:'primecare_endpoint_traffic_v1'}];
+ if(!Array.isArray(bindings)||bindings.some(b=>b.binding==='ENDPOINT_ANALYTICS'&&b.dataset!=='primecare_endpoint_traffic_v1'||b.binding==='ENDPOINT_BODY_ANALYTICS'&&b.dataset!=='primecare_endpoint_body_v1'))throw Error('Conflicting analytics binding');
+ g.analytics_engine_datasets=[...bindings.filter(b=>!['ENDPOINT_ANALYTICS','ENDPOINT_BODY_ANALYTICS'].includes(b.binding)),{binding:'ENDPOINT_ANALYTICS',dataset:'primecare_endpoint_traffic_v1'},{binding:'ENDPOINT_BODY_ANALYTICS',dataset:'primecare_endpoint_body_v1'}];
  g.vars={...g.vars,ENDPOINT_TRAFFIC_ENABLED:'1'};
  v.vars={...v.vars,ENDPOINT_ANALYTICS_ACCOUNT_ID:account,ENDPOINT_ANALYTICS_READER_ROLE:role,ENDPOINT_ANALYTICS_READER_TENANT_ID:tenantId};
  return {gateway:g,governance:v};

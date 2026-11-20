@@ -1,6 +1,7 @@
 type Bytes = {knownBytes:number;unknownRequests:number};
 type Traffic = {observedRequests:number; declaredRequestBytes:Bytes; declaredResponseBytes:Bytes; responseHeaderLatencyP95Ms:number; statusCounts?:Record<string,number>};
-type Report = {intervalSeconds:number; windowStartedAt:string; windowEndedAt:string;
+type ResponseBody={endpoint:string;completedResponses:number;completedBytes:number;incompleteResponses:number;partialBytes:number};
+type Report = {responseBodies?:{status:string;endpoints?:ResponseBody[]};intervalSeconds:number; windowStartedAt:string; windowEndedAt:string;
   observedRequests:number; measurementKind?:string; endpoints:Array<Traffic & {endpoint:string}>};
 
 const count = (n:unknown):n is number => typeof n==='number'&&Number.isSafeInteger(n)&&n>=0;
@@ -41,7 +42,17 @@ export function readTrafficReport(raw:unknown) {
     outboundBytes+=row.declaredResponseBytes.knownBytes;
   }
   if(!count(observedRequests)||observedRequests!==report.observedRequests||!count(inboundBytes)||!count(outboundBytes))throw Error('Invalid request total');
-  return {measurementKind:report.measurementKind==='sample_weighted_estimate'?'sample_weighted_estimate':'retained_observations',endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds,inboundBytesPerSecond:inboundBytes/report.intervalSeconds,outboundBytesPerSecond:outboundBytes/report.intervalSeconds,successfulRequestsPerSecond:successfulRequests/report.intervalSeconds};
+  const responseBodies=new Map<string,ResponseBody>();
+  let bodyTotals:{completedResponses:number;completedBytes:number;incompleteResponses:number;partialBytes:number}|undefined;
+  if(report.responseBodies?.status==='available'){
+    const rows=report.responseBodies.endpoints;if(!Array.isArray(rows)||rows.length>10000)throw Error('Invalid response body report');
+    bodyTotals={completedResponses:0,completedBytes:0,incompleteResponses:0,partialBytes:0};
+    for(const row of rows){if(!row||typeof row.endpoint!=='string'||row.endpoint.length>400||responseBodies.has(row.endpoint))throw Error('Invalid response body endpoint');
+      for(const field of ['completedResponses','completedBytes','incompleteResponses','partialBytes'] as const){if(!count(row[field])||!count(bodyTotals[field]+row[field]))throw Error('Invalid response body total');bodyTotals[field]+=row[field];}
+      responseBodies.set(row.endpoint,row);
+    }
+  }else if(report.responseBodies&&report.responseBodies.status!=='unavailable')throw Error('Invalid response body status');
+  return {responseBodies,bodyTotals,measurementKind:report.measurementKind==='sample_weighted_estimate'?'sample_weighted_estimate':'retained_observations',endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds,inboundBytesPerSecond:inboundBytes/report.intervalSeconds,outboundBytesPerSecond:outboundBytes/report.intervalSeconds,successfulRequestsPerSecond:successfulRequests/report.intervalSeconds};
 }
 
 /** Missing status evidence stays unknown, including for legacy exports. */

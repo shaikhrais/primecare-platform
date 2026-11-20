@@ -39,7 +39,7 @@ jobs:
           npm install --prefix "$RUNNER_TEMP/endpoint-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 bcryptjs@3.0.2 @types/node@22.19.1 @cloudflare/workers-types@4.20260403.1 jsdom@26.1.0
           ln -s "$RUNNER_TEMP/endpoint-tools/node_modules" node_modules
       - name: Test authorization, privacy, metrics, capacity and dashboard lifecycle
-        run: node --test scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-preflight.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
+        run: node --test scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-preflight.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-endpoint-body-traffic.mjs scripts/test-governance-api.mjs
       - name: Type-check Workers and dashboard separately
         run: |
           node_modules/.bin/tsc --noEmit --skipLibCheck --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/gateway.ts cloudflare/workers/src/governance-api.ts

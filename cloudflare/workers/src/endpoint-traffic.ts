@@ -16,7 +16,7 @@ for (const {method,route} of [...inventory.data,...ems.operations.map(op=>({meth
   templates.set(key,group);
 }
 
-function endpoint(method:string,path:string) {
+export function endpointBucket(method:string,path:string) {
   const key=`${method} ${path}`;
   if (exact.has(key)) return key;
   const parts=path.split('/');
@@ -34,7 +34,7 @@ function bodyBytes(message:Request|Response) {
 
 /** Observe the forwarded response without consuming, cloning or buffering bodies. */
 export function recordEndpointTraffic(request:Request,response:Response|undefined,elapsedMs:number,dataset?:EndpointAnalyticsDataset) {
-  const route=endpoint(request.method,new URL(request.url).pathname);
+  const route=endpointBucket(request.method,new URL(request.url).pathname);
   const event={
     endpoint:route,status:response?.status??null,latencyMs:Math.max(0,Math.round(elapsedMs)),
     declaredRequestBytes:bodyBytes(request),

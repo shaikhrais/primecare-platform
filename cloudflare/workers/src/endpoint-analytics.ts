@@ -43,9 +43,10 @@ export async function readEndpointAnalytics(env:EndpointAnalyticsEnv,send:typeof
     if(!Array.isArray(raw.data)||raw.data.length>=10000||raw.rows!==raw.data.length)throw Error('Incomplete analytics');
     return raw.data as Array<Record<string,unknown>>;
   }
-  const [groups,latencies]=await Promise.all([
+  const [groups,latencies,completions]=await Promise.all([
     query(`SELECT blob1 AS endpoint, blob2 AS status, SUM(_sample_interval) AS requests, SUM(_sample_interval * double2) AS inbound, SUM(_sample_interval * double3) AS unknownInbound, SUM(_sample_interval * double4) AS outbound, SUM(_sample_interval * double5) AS unknownOutbound ${scope} GROUP BY endpoint, status LIMIT 10000 FORMAT JSON`),
     query(`SELECT blob1 AS endpoint, quantileExactWeighted(0.95)(double1, _sample_interval) AS p95 ${scope} GROUP BY endpoint LIMIT 10000 FORMAT JSON`),
+    query(`SELECT blob1 AS endpoint, blob2 AS completion, SUM(_sample_interval) AS responses, SUM(_sample_interval * double1) AS bytes ${scope.replace('FROM '+table,'FROM primecare_endpoint_body_v1')} GROUP BY endpoint, completion LIMIT 10000 FORMAT JSON`).catch(()=>null),
   ]);
   const p95=new Map<string,number>();
   for(const row of latencies){if(typeof row.endpoint!=='string'||p95.has(row.endpoint))throw Error('Invalid analytics latency');p95.set(row.endpoint,integer(row.p95));}
@@ -65,6 +66,20 @@ export async function readEndpointAnalytics(env:EndpointAnalyticsEnv,send:typeof
   const data=[...endpoints.values()];
   const total=data.reduce((n,row)=>n+row.observedRequests,0);
   if(!Number.isSafeInteger(total)||data.some(row=>![row.observedRequests,row.declaredRequestBytes.knownBytes,row.declaredResponseBytes.knownBytes,row.declaredRequestBytes.unknownRequests,row.declaredResponseBytes.unknownRequests].every(Number.isSafeInteger)))throw Error('Analytics overflow');
-  return {intervalSeconds:300,windowStartedAt:new Date(start).toISOString(),windowEndedAt:new Date(end).toISOString(),
-    observedRequests:total,endpoints:data,measurementKind:'sample_weighted_estimate',measurement:'Platform-wide gateway Analytics Engine estimates; declared body bytes; direct service traffic excluded'};
+  // Completion events have their own timestamp/window and never increase request counts.
+  let responseBodies:{status:string;endpoints?:Array<{endpoint:string;completedResponses:number;completedBytes:number;incompleteResponses:number;partialBytes:number}>}={status:'unavailable'};
+  try{
+    if(!completions)throw Error('Body dataset unavailable');
+    const bodies=new Map<string,{endpoint:string;completedResponses:number;completedBytes:number;incompleteResponses:number;partialBytes:number}>();
+    for(const row of completions){
+      if(typeof row.endpoint!=='string'||row.endpoint.length>400||!['complete','incomplete'].includes(String(row.completion)))throw Error('Invalid body dimensions');
+      const body=bodies.get(row.endpoint)??{endpoint:row.endpoint,completedResponses:0,completedBytes:0,incompleteResponses:0,partialBytes:0};
+      const countKey=row.completion==='complete'?'completedResponses':'incompleteResponses',bytesKey=row.completion==='complete'?'completedBytes':'partialBytes';
+      if(Object.hasOwn(body,'seen_'+row.completion))throw Error('Duplicate body group');
+      Object.defineProperty(body,'seen_'+row.completion,{value:true});body[countKey]=integer(row.responses);body[bytesKey]=integer(row.bytes);bodies.set(row.endpoint,body);
+    }
+    responseBodies={status:'available',endpoints:[...bodies.values()]};
+  }catch{/* Older deployments or unavailable completion evidence leave header metrics intact. */}
+  return {responseBodies,intervalSeconds:300,windowStartedAt:new Date(start).toISOString(),windowEndedAt:new Date(end).toISOString(),
+    observedRequests:total,endpoints:data,measurementKind:'sample_weighted_estimate',measurement:'Platform-wide gateway estimates; declared lengths and separate application response-body completions before gateway compression; direct service traffic and network overhead excluded'};
 }

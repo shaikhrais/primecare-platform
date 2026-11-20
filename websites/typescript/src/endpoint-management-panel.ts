@@ -160,6 +160,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
     const parsed=traffic;
     const time=(value:number)=>new Date(value).toLocaleString(locale);
     trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / ${efficiencyLabels[4]}: ${numbers.format(parsed.failedRequests)} · ${efficiencyLabels[3]}: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)} · ${efficiencyLabels[0]}: ${numbers.format(parsed.inboundBytesPerSecond)} · ${efficiencyLabels[1]}: ${numbers.format(parsed.outboundBytesPerSecond)} · ${efficiencyLabels[2]}: ${numbers.format(parsed.successfulRequestsPerSecond)}`;
+    if(parsed.bodyTotals){const b=parsed.bodyTotals;trafficStatus.append(` · ${bodyLabels[0]}: ${numbers.format(b.completedBytes)} · ${bodyLabels[1]}: ${numbers.format(b.completedResponses)} · ${bodyLabels[2]}: ${numbers.format(b.incompleteResponses)} (${numbers.format(b.partialBytes)} bytes)`);trafficStatus.append(' '+bodyLabels[3]);}
     const note=locale==='fr'?'Estimations pondérées par échantillonnage; trafic global de la passerelle.':locale==='es'?'Estimaciones ponderadas por muestreo; tráfico global de la puerta de enlace.':'Sample-weighted estimates; platform-wide gateway traffic.';
     if(parsed.measurementKind==='sample_weighted_estimate')trafficStatus.textContent=note+' '+trafficStatus.textContent;
   }
@@ -181,8 +182,9 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
     if(active()){showCapacity();void load();}
   };
   panel.querySelector('.table-scroll')!.setAttribute('aria-label',title);
+  const bodyLabels={en:['Measured response body bytes','Completed bodies','Incomplete bodies','Application body bytes before gateway compression; completions are counted separately from request arrivals.'],fr:['Octets du corps mesurés','Corps terminés','Corps incomplets','Octets applicatifs avant compression ; fins de transfert séparées des arrivées de requêtes.'],es:['Bytes medidos del cuerpo','Cuerpos completados','Cuerpos incompletos','Bytes de aplicación antes de compresión; finalizaciones separadas de llegadas de solicitudes.']}[locale];
   const metricLabels={en:['Requests/s','HTTP 2xx','HTTP 5xx / no response','Error rate'],fr:['Requêtes/s','HTTP 2xx','HTTP 5xx / sans réponse','Taux d’erreur'],es:['Solicitudes/s','HTTP 2xx','HTTP 5xx / sin respuesta','Tasa de error']}[locale];
-  for(const column of [...columns,requests,inbound,outbound,latency,...metricLabels]){
+  for(const column of [...columns,requests,inbound,outbound,latency,...metricLabels,...bodyLabels.slice(0,3)]){
     const th=document.createElement('th'); th.scope='col'; th.textContent=column; header.append(th);
   }
   const [back,forward]=[...panel.querySelectorAll<HTMLButtonElement>('button[type="button"]')].filter(button=>button!==healthButton);
@@ -213,6 +215,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
           size(observed.declaredResponseBytes),numbers.format(observed.responseHeaderLatencyP95Ms)]:Array(4).fill('—')));
         const metrics=observed&&traffic?endpointTrafficMetrics(observed,(traffic.end-traffic.start)/1000):undefined;
         cells.push(...(metrics?[numbers.format(metrics.requestsPerSecond),metrics.successful===null?'—':numbers.format(metrics.successful),metrics.failed===null?'—':numbers.format(metrics.failed),metrics.errorRate===null?'—':numbers.format(metrics.errorRate*100)+'%']:Array(4).fill('—')));
+        const measured=traffic?.responseBodies.get(row.api);cells.push(...(measured?[numbers.format(measured.completedBytes),numbers.format(measured.completedResponses),numbers.format(measured.incompleteResponses)+' / '+numbers.format(measured.partialBytes)+' bytes']:Array(3).fill('—')));
         const tr=body.insertRow();
         for(const cell of cells)tr.insertCell().textContent=cell??'';
         const window=row.management?.maintenanceWindow;

@@ -1,6 +1,7 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
 import type {EndpointAnalyticsDataset} from './endpoint-analytics';
 import {recordEndpointTraffic} from './endpoint-traffic';
+import {observeEndpointResponseBody} from './endpoint-body-traffic';
 import governedReadAliases from './governed-read-aliases.json';
 import externalCalls from '../../../tools/governance-production/external-call-registration.json';
 import callPreparation from '../../../tools/governance-production/internal-call-preparation-registration.json';
@@ -16,7 +17,7 @@ interface Env {
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
 
-type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string; ENDPOINT_ANALYTICS?:EndpointAnalyticsDataset};
+type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string; ENDPOINT_ANALYTICS?:EndpointAnalyticsDataset;ENDPOINT_BODY_ANALYTICS?:EndpointAnalyticsDataset};
 
 const routes: Record<string, keyof Env> = {
   auth: 'AUTH', client: 'CLIENT', provider: 'PROVIDER', providers: 'PROVIDER',
@@ -153,7 +154,13 @@ export class GatewayWorker extends BaseWorker<Env> {
   }
 }
 
-const gatewayHandler=workerHandler(new GatewayWorker());
+class ObservedGatewayWorker extends GatewayWorker {
+  override async fetch(request:Request,env:GatewayEnv):Promise<Response> {
+    const response=await super.fetch(request,env);
+    return env.ENDPOINT_TRAFFIC_ENABLED==='1'?observeEndpointResponseBody(request,response,env.ENDPOINT_BODY_ANALYTICS):response;
+  }
+}
+const gatewayHandler=workerHandler(new ObservedGatewayWorker());
 export default {
   ...gatewayHandler,
   async fetch(request:Request,env:GatewayEnv):Promise<Response> {
