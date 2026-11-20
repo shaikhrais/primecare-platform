@@ -2,7 +2,8 @@ import {validatePersonalTheme,themePresets,themeContrast,defaultPersonalTheme,ty
 /** PrimeCare-owned adapter. Contains no vendor components, credentials or access rules.
  * The same validated JSON is already accepted by Flutter PersonalTheme.fromJson.
  */
-export type PrimePaletteOptions={palette:{mode:'light'|'dark';primary:{main:string;contrastText:string};secondary:{main:string;contrastText:string};background:{default:string;paper:string};text:{primary:string;secondary:string};divider:string};typography:{fontFamily:string;fontSize:number};shape:{borderRadius:number}};
+export type PrimeColorRamp={main:string;light:string;dark:string;contrastText:string};
+export type PrimePaletteOptions={palette:{mode:'light'|'dark';primary:PrimeColorRamp;secondary:PrimeColorRamp;success:PrimeColorRamp;warning:PrimeColorRamp;info:PrimeColorRamp;error:PrimeColorRamp;grey:Record<string,string>;action:Record<string,string>;background:{default:string;paper:string};text:{primary:string;secondary:string};divider:string};typography:{fontFamily:string;fontSize:number};shape:{borderRadius:number}};
 export type PrimeCareAppearance={profile:PersonalTheme;theme:{main:PrimePaletteOptions;navbar:PrimePaletteOptions;toolbar:PrimePaletteOptions;footer:PrimePaletteOptions}};
 const foreground=(background:string,preferred?:string)=>preferred&&themeContrast(preferred,background)>=4.5?preferred.toLowerCase():themeContrast('#000000',background)>=themeContrast('#ffffff',background)?'#000000':'#ffffff';
 export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
@@ -15,7 +16,7 @@ export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
  const muted=[mutedCandidate,text].find(color=>[background,surface].every(bg=>themeContrast(color,bg)>=4.5))!;
  const typography={fontFamily:profile.fontFamily==='system'?'system-ui, sans-serif':profile.fontFamily==='serif'?'serif':'monospace',fontSize:14*profile.fontScale};
  const shape={borderRadius:profile.radius};
- const palette={mode:base.mode as 'light'|'dark',primary:{main:primary,contrastText:foreground(primary,base.primary.contrastText)},secondary:{main:secondary,contrastText:foreground(secondary,base.secondary.contrastText)},background:{default:background,paper:surface},text:{primary:text,secondary:muted},divider:border};
+ const palette={...structuredClone(base),mode:base.mode as 'light'|'dark',primary:{...base.primary,main:primary,contrastText:foreground(primary,base.primary.contrastText)},secondary:{...base.secondary,main:secondary,contrastText:foreground(secondary,base.secondary.contrastText)},background:{default:background,paper:surface},text:{...base.text,primary:text,secondary:muted},divider:border};
  const main={palette,typography,shape};
  const chrome=(background:string):PrimePaletteOptions=>({palette:{...palette,mode:foreground(background)==='#ffffff'?'dark':'light',background:{default:background,paper:background},text:{primary:foreground(background,text),secondary:foreground(background,muted)}},typography:{...typography},shape:{...shape}});
  const sidebar=c.sidebar??base.sidebarBackground,topbar=c.topbar??base.topbarBackground;
@@ -24,5 +25,5 @@ export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
 
 /** Default PrimeCare chrome is derived from the original shared palette. */
 export function defaultPrimeCareProfile():PersonalTheme {
- return validatePersonalTheme({...defaultPersonalTheme,name:'PrimeCare shared appearance',colors:{sidebar:themePresets.defaultNavbar.background.default,topbar:themePresets.default.background.default}});
+ return validatePersonalTheme({...defaultPersonalTheme,name:'PrimeCare shared appearance',colors:{sidebar:themePresets.defaultNavbar.background.default,topbar:themePresets.default.background.paper}});
 }

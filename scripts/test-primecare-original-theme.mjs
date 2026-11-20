@@ -11,7 +11,7 @@ test('Original palettes provide readable text, controls and shared chrome',()=>{
   const view=toPrimeCareAppearance({...defaultPrimeCareProfile(),preset,colors:{}});
   for(const region of Object.values(view.theme)){
    const p=region.palette;
-   for(const background of Object.values(p.background))for(const text of Object.values(p.text))assert.ok(contrast(text,background)>=4.5,preset);
+   for(const background of Object.values(p.background))for(const text of [p.text.primary,p.text.secondary])assert.ok(contrast(text,background)>=4.5,preset);
    assert.ok(contrast(p.primary.main,p.primary.contrastText)>=4.5,preset);
   }
  }

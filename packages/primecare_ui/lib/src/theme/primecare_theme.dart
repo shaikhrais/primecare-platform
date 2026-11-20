@@ -21,7 +21,7 @@ class PrimeCareTheme {
     'radius': 12,
     'colors': <String, String>{
       'sidebar': _hex(ThemeConfig.getAppPalette('defaultNavbar').background),
-      'topbar': _hex(ThemeConfig.getAppPalette('default').background),
+      'topbar': _hex(ThemeConfig.getAppPalette('default').surface),
     },
   });
 

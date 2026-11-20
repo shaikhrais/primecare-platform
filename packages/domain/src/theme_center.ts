@@ -1,4 +1,5 @@
 import catalog from '../../../scripts/primecare_presets.json';
+export {default as themeColorRamps} from '../../../scripts/theme_color_ramps.json';
 export const themePresets=catalog;
 export const themeColorKeys=['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar'] as const;
 export type ThemeColorKey=typeof themeColorKeys[number];
@@ -23,3 +24,15 @@ export function validateThemeLibrary(value:unknown):ThemeLibrary {
 }
 
 export function themeContrast(a:string,b:string):number {const luminance=(color:string)=>{let values:number[];if(color.startsWith('#')){let hex=color.slice(1);if(hex.length===3)hex=hex.split('').map(x=>x+x).join('');values=[0,2,4].map(i=>parseInt(hex.slice(i,i+2),16)/255);}else{const m=/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/.exec(color);if(!m)return NaN;values=[1,2,3].map(i=>Number(m[i])/255);}values=values.map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);return .2126*values[0]+.7152*values[1]+.0722*values[2];};const x=luminance(a),y=luminance(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05);}
+
+/** Switch brightness without discarding the user's selected accent combination. */
+export function themeForMode(value:unknown,mode:'light'|'dark'):PersonalTheme {
+ const theme=validatePersonalTheme(value),current=themePresets[theme.preset as keyof typeof themePresets];
+ if(current.mode===mode)return theme;
+ const pairs:Record<string,[string,string]>={default:['default','defaultDark'],defaultDark:['default','defaultDark'],legacyDefault:['legacyDefault','legacyDark'],legacyDark:['legacyDefault','legacyDark'],primecareDay:['primecareDay','primecareNight'],primecareNight:['primecareDay','primecareNight']};
+ for(const name of Object.keys(themePresets))if(Object.hasOwn(themePresets,name+'Dark')){pairs[name]=[name,name+'Dark'];pairs[name+'Dark']=pairs[name];}
+ const pair=pairs[theme.preset],preset=pair?.[mode==='dark'?1:0]??(mode==='dark'?'defaultDark':'default');
+ const colors={...theme.colors};delete colors.background;delete colors.surface;delete colors.text;delete colors.muted;
+ if(!pair){colors.primary??=current.primary.main;colors.secondary??=current.secondary.main;}
+ return validatePersonalTheme({...theme,preset,colors});
+}

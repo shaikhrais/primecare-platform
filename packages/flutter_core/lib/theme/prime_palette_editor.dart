@@ -43,6 +43,7 @@ class PrimePaletteEditor extends StatefulWidget {
 }
 class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
   late String preset=widget.initial.preset;
+  late final modePreset=widget.initial.preset;
   late bool dark;
   bool presets=false,dirty=false;String? error;
   final fields=<String,TextEditingController>{};
@@ -57,10 +58,19 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
     for(final entry in defaults.entries){fields[entry.key]=TextEditingController(text:_hex(entry.value));}
   }
   @override void dispose(){for(final c in fields.values)c.dispose();super.dispose();}
-  void mode(bool value){final p=ThemeConfig.getAppPalette(value?'defaultDark':'default');setState((){
-    dark=value;preset=value?'defaultDark':'default';dirty=true;
-    fields['surface']!.text=_hex(p.surface);fields['background']!.text=_hex(p.background);error=null;
-  });}
+  void mode(bool value){
+    if(value==dark)return;
+    final paired=themeCenterModePairs[modePreset];
+    final next=paired?[value?1:0]??(value?'defaultDark':'default');
+    final p=ThemeConfig.getAppPalette(next);
+    setState((){
+      dark=value;dirty=true;error=null;
+      // Unpaired source palettes keep their accent combination when mode changes.
+      if(paired!=null){preset=next;fields['primary']!.text=_hex(p.primary);fields['secondary']!.text=_hex(p.secondary);}
+      else{preset=next;}
+      fields['surface']!.text=_hex(p.surface);fields['background']!.text=_hex(p.background);
+    });
+  }
   Map<String,String> colors(){final out={...widget.initial.colors};
     if(preset!=widget.initial.preset){out.remove('text');out.remove('muted');}
     for(final entry in fields.entries){out[entry.key]=entry.value.text.trim();}

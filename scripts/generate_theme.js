@@ -41,11 +41,21 @@ try {
 
   const configContent = fs.readFileSync(configPath, 'utf8');
   const userConfig = JSON.parse(configContent);
+  const ramps = JSON.parse(fs.readFileSync(path.join(__dirname,'theme_color_ramps.json'),'utf8'));
+  const tokenMap = (preset) => {
+    const values=[];
+    const visit=(node,path='')=>{for(const [key,value] of Object.entries(node)){const name=path?path+'.'+key:key;if(value&&typeof value==='object')visit(value,name);else if(typeof value==='string'&&/^(#|rgba?\()/.test(value))values.push(`'${name}': ${toDartColor(value)}`);}};
+    visit(preset);return `const {${values.join(',')}}`;
+  };
 
   let dartContent = `// Generated file. Do not edit directly. Edit theme_config.json in root.
 import 'package:flutter/material.dart';
+const themeColorRamps = <String,Map<String,Color>>{${Object.entries(ramps).map(([name,p])=>`'${name}': <String,Color>{${Object.entries(p).map(([key,color])=>`'${key}': ${toDartColor(color)}`).join(',')}}`).join(',')}};
+${Object.entries(presets).map(([name,p])=>`const _paletteTokens${name[0].toUpperCase()+name.slice(1)} = <String,Color>${tokenMap(p).replace(/^const /,'')};`).join('\n')}
 
 class AppThemePalette {
+  final Map<String, Color> tokens;
+  Color? token(String key) => tokens[key];
   final Brightness brightness;
   final Color primary;
   final Color primaryContainer;
@@ -67,6 +77,7 @@ class AppThemePalette {
   final List<String> supportedLanguages;
 
   const AppThemePalette({
+    this.tokens = const {},
     required this.brightness,
     required this.primary,
     required this.primaryContainer,
@@ -133,6 +144,7 @@ class ThemeConfig {
     const formattedSupportedLanguages = `const ${JSON.stringify(supportedLanguages).replace(/"/g, "'")}`;
 
     dartContent += `    '${app}': AppThemePalette(
+      tokens: _paletteTokens${presetName[0].toUpperCase()+presetName.slice(1)},
       brightness: ${brightness},
       primary: ${toDartColor(palette.primary.main)},
       primaryContainer: ${toDartColor(palette.primary.light)},
@@ -164,6 +176,7 @@ class ThemeConfig {
     const formattedSupportedLanguages = `const ${JSON.stringify(supportedLanguages).replace(/"/g, "'")}`;
 
     dartContent += `    '${presetName}': AppThemePalette(
+      tokens: _paletteTokens${presetName[0].toUpperCase()+presetName.slice(1)},
       brightness: ${brightness},
       primary: ${toDartColor(preset.primary.main)},
       primaryContainer: ${toDartColor(preset.primary.light)},

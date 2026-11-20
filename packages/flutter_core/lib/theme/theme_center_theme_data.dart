@@ -1,9 +1,19 @@
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeElevatedButton, PrimeOutlinedButton, PrimeTextButton;
 import 'package:flutter/material.dart';
 import 'app_theme.dart';
+import 'prime_semantic_palette.dart';
 import 'personal_theme.dart';
 import 'theme_config_generated.dart';
 import 'theme_contrast.dart';
+
+/// Complete semantic color inventory, including alpha-aware actions and grey ramps.
+class PrimePaletteTokens extends ThemeExtension<PrimePaletteTokens> {
+  final Map<String,Color> colors;
+  const PrimePaletteTokens(this.colors);
+  Color? operator [](String key)=>colors[key];
+  @override PrimePaletteTokens copyWith({Map<String,Color>? colors})=>PrimePaletteTokens(colors??this.colors);
+  @override PrimePaletteTokens lerp(covariant PrimePaletteTokens? other,double t)=>other==null?this:PrimePaletteTokens({for(final key in {...colors.keys,...other.colors.keys})key:Color.lerp(colors[key],other.colors[key],t)!});
+}
 
 ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
     Color? parseHexColor(String? value) => value != null && RegExp(r'^#[0-9a-fA-F]{6}$').hasMatch(value) ? Color(int.parse(value.substring(1),radix:16) | 0xff000000) : null;
@@ -36,6 +46,7 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
       labelSmall:sized(baseTheme.textTheme.labelSmall,seed.labelSmall),
     );
     return baseTheme.copyWith(
+      disabledColor:palette.token('action.disabled'),hoverColor:palette.token('action.hover'),focusColor:palette.token('action.focus'),highlightColor:palette.token('action.selected'),
       primaryColor:resolvedPrimary,scaffoldBackgroundColor:background,dividerColor:border,hintColor:readableMuted,
       textTheme:completeText.apply(fontFamily:fontFamily,fontSizeFactor:style.fontScale,bodyColor:readable,displayColor:readable),
       cardTheme:baseTheme.cardTheme.copyWith(color:surface,elevation:0,surfaceTintColor:Colors.transparent,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble()),side:BorderSide(color:border))),
@@ -46,8 +57,8 @@ ThemeData applyPersonalThemeData(ThemeData baseTheme,PersonalTheme personal) {
       outlinedButtonTheme:OutlinedButtonThemeData(style:PrimeOutlinedButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       textButtonTheme:TextButtonThemeData(style:PrimeTextButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
       elevatedButtonTheme:ElevatedButtonThemeData(style:PrimeElevatedButton.styleFrom(shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(style.radius.toDouble())))),
-      colorScheme:ColorScheme.fromSeed(seedColor:resolvedPrimary,brightness:palette.brightness).copyWith(primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,onPrimaryContainer:foreground(resolvedPrimaryContainer,text),secondary:resolvedSecondary,onSecondary:foreground(resolvedSecondary,palette.onSecondary),surface:surface,surfaceContainerLowest:surface,surfaceContainerLow:surface,surfaceContainer:surface,surfaceContainerHigh:surface,surfaceContainerHighest:surface,surfaceDim:surface,surfaceBright:surface,onSurface:readable,onSurfaceVariant:readableMuted,outline:border),
-      extensions:[...baseTheme.extensions.values.where((e)=>e is! GovernanceThemeColors),GovernanceThemeColors(sidebarBackground:resolvedSidebarBg,topbarBackground:resolvedTopbarBg,sidebarTextColor:foreground(resolvedSidebarBg,muted),sidebarSelectedTextColor:foreground(surface,text),sidebarIconColor:foreground(resolvedSidebarBg,muted),sidebarSelectedIconColor:foreground(surface,text),sidebarSelectedTileColor:surface,sidebarDividerColor:border,topbarTextColor:foreground(resolvedTopbarBg,muted),topbarSelectedTextColor:foreground(resolvedTopbarBg,text),topbarIconColor:foreground(resolvedTopbarBg,muted),topbarSelectedIconColor:foreground(resolvedTopbarBg,text),topbarDividerColor:border)],
+      colorScheme:ColorScheme.fromSeed(seedColor:resolvedPrimary,brightness:palette.brightness).copyWith(secondaryContainer:palette.secondaryContainer,onSecondaryContainer:foreground(palette.secondaryContainer,text),errorContainer:palette.token('error.light'),onErrorContainer:foreground(palette.token('error.light')??surface,text),error:palette.token('error.main'),onError:foreground(palette.token('error.main')??baseTheme.colorScheme.error,palette.token('error.contrastText')??baseTheme.colorScheme.onError),primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,onPrimaryContainer:foreground(resolvedPrimaryContainer,text),secondary:resolvedSecondary,onSecondary:foreground(resolvedSecondary,palette.onSecondary),surface:surface,surfaceContainerLowest:surface,surfaceContainerLow:surface,surfaceContainer:surface,surfaceContainerHigh:surface,surfaceContainerHighest:surface,surfaceDim:surface,surfaceBright:surface,onSurface:readable,onSurfaceVariant:readableMuted,outline:border),
+      extensions:[...baseTheme.extensions.values.where((e)=>e is! GovernanceThemeColors && e is! PrimePaletteTokens && e is! PrimeSemanticStatusColors),PrimeSemanticStatusColors(success:palette.token('success.main')??baseTheme.colorScheme.tertiary,successContainer:palette.token('success.light')??baseTheme.colorScheme.tertiaryContainer,warning:palette.token('warning.main')??baseTheme.colorScheme.secondary,warningContainer:palette.token('warning.light')??baseTheme.colorScheme.secondaryContainer),PrimePaletteTokens(palette.tokens),GovernanceThemeColors(sidebarBackground:resolvedSidebarBg,topbarBackground:resolvedTopbarBg,sidebarTextColor:foreground(resolvedSidebarBg,muted),sidebarSelectedTextColor:foreground(surface,text),sidebarIconColor:foreground(resolvedSidebarBg,muted),sidebarSelectedIconColor:foreground(surface,text),sidebarSelectedTileColor:surface,sidebarDividerColor:border,topbarTextColor:foreground(resolvedTopbarBg,muted),topbarSelectedTextColor:foreground(resolvedTopbarBg,text),topbarIconColor:foreground(resolvedTopbarBg,muted),topbarSelectedIconColor:foreground(resolvedTopbarBg,text),topbarDividerColor:border)],
     );
 
 }

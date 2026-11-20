@@ -1,4 +1,4 @@
-import {themePresets,themeColorKeys,defaultPersonalTheme,validatePersonalTheme,type PersonalTheme} from '../../domain/src/theme_center';
+import {themeForMode,themePresets,themeColorKeys,defaultPersonalTheme,validatePersonalTheme,type PersonalTheme} from '../../domain/src/theme_center';
 import type {PersonalThemeLibrary} from './theme-library';import type {BaseLayoutManager} from './layout-manager';type NavigationLocale='en'|'fr'|'es';
 import {installThemeCenterStyles} from './theme-center-styles';
 const copy={en:['Theme Center','Built-in palette','Saved themes','Theme name','Save as new','Update selected','Apply','Rename','Duplicate','Delete','Font','System','Serif','Monospace','Text scale','Corner radius','Custom colors (optional #RRGGBB)','Export theme','Import theme','Reset theme','Saved on this browser.','Unable to save or apply this theme. Choose a unique name and valid settings.','No saved themes','Themes are personal to this account and role on this browser. Foregrounds adjust for readable contrast.'],fr:['Centre des thèmes','Palette intégrée','Thèmes enregistrés','Nom du thème','Créer une copie','Mettre à jour','Appliquer','Renommer','Dupliquer','Supprimer','Police','Système','Avec empattement','Monospace','Échelle du texte','Rayon des coins','Couleurs personnalisées (#RRGGBB)','Exporter le thème','Importer le thème','Réinitialiser le thème','Enregistré dans ce navigateur.','Impossible d’enregistrer ou d’appliquer ce thème. Choisissez un nom unique et des paramètres valides.','Aucun thème enregistré','Les thèmes sont personnels à ce compte et rôle dans ce navigateur. Le contraste du texte est ajusté.'],es:['Centro de temas','Paleta integrada','Temas guardados','Nombre del tema','Guardar nuevo','Actualizar','Aplicar','Renombrar','Duplicar','Eliminar','Fuente','Sistema','Serif','Monoespacio','Escala del texto','Radio de esquinas','Colores personalizados (#RRGGBB)','Exportar tema','Importar tema','Restablecer tema','Guardado en este navegador.','No se pudo guardar o aplicar. Elija un nombre único y parámetros válidos.','Sin temas guardados','Los temas son personales de esta cuenta y rol en este navegador. Se ajusta el contraste del texto.']};
@@ -9,6 +9,9 @@ export function mountThemeCenter(dialog:HTMLDialogElement,manager:BaseLayoutMana
  const create=(label:string,id:string,element:HTMLElement)=>{const node=document.createElement('label');node.textContent=label;element.dataset.cy='theme-center-'+id;node.append(element);root.append(node);return element;};
  const name=create(t[3],'name',document.createElement('input')) as HTMLInputElement;name.maxLength=60;
  const palette=create(t[1],'preset',document.createElement('select')) as HTMLSelectElement;for(const id of Object.keys(themePresets)){const option=document.createElement('option');option.value=id;option.textContent=id;palette.append(option);}
+ const modes=document.createElement('div');modes.className='theme-center-mode quick-links';
+ const modeButtons=new Map<string,HTMLButtonElement>();
+ for(const [mode,label] of [['light',{en:'Day',fr:'Jour',es:'Día'}[locale]],['dark',{en:'Night',fr:'Nuit',es:'Noche'}[locale]]]){const button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.cy='theme-center-mode-'+mode;modeButtons.set(mode,button);modes.append(button);}root.append(modes);
  const font=create(t[10],'font',document.createElement('select')) as HTMLSelectElement;['system','serif','monospace'].forEach((key,i)=>{const option=document.createElement('option');option.value=key;option.textContent=t[11+i];font.append(option);});
  const scale=create(t[14],'scale',document.createElement('input')) as HTMLInputElement;scale.type='number';scale.min='.875';scale.max='1.5';scale.step='.125';
  const radius=create(t[15],'radius',document.createElement('input')) as HTMLInputElement;radius.type='number';radius.min='0';radius.max='24';radius.step='1';
@@ -18,7 +21,7 @@ export function mountThemeCenter(dialog:HTMLDialogElement,manager:BaseLayoutMana
  const file=create(t[18],'import',document.createElement('input')) as HTMLInputElement;file.type='file';file.accept='.json,application/json';const status=document.createElement('output');status.dataset.cy='theme-center-status';status.setAttribute('role','status');root.append(status);const note=document.createElement('p');note.className='theme-center-note';note.textContent=t[23];root.append(note);
  dialog.querySelector('form')!.prepend(root);if(manager.personalTheme)dialog.dataset.themeCenterActive='true';
  const draft=():PersonalTheme=>validatePersonalTheme({version:1,name:name.value,preset:palette.value,fontFamily:font.value,fontScale:Number(scale.value),radius:Number(radius.value),colors:Object.fromEntries([...fields].filter(([,input])=>input.value.trim()).map(([key,input])=>[key,input.value.trim()]))});
- const fill=(theme:PersonalTheme)=>{name.value=theme.name;palette.value=theme.preset;font.value=theme.fontFamily;scale.value=String(theme.fontScale);radius.value=String(theme.radius);for(const [key,input] of fields)input.value=theme.colors[key as keyof typeof theme.colors]??'';syncQuick();};
+ const fill=(theme:PersonalTheme)=>{name.value=theme.name;palette.value=theme.preset;font.value=theme.fontFamily;scale.value=String(theme.fontScale);radius.value=String(theme.radius);for(const [key,input] of fields)input.value=theme.colors[key as keyof typeof theme.colors]??'';syncQuick();for(const [mode,button] of modeButtons)button.setAttribute('aria-pressed',String(themePresets[theme.preset as keyof typeof themePresets].mode===mode));};
  const lists=()=>{saved.replaceChildren();const empty=document.createElement('option');empty.value='';empty.textContent=library.items.length?{en:'Choose a saved theme',fr:'Choisir un thème',es:'Elegir un tema'}[locale]:t[22];saved.append(empty);for(const item of library.items){const option=document.createElement('option');option.value=item.id;option.textContent=item.theme.name;saved.append(option);}if(!library.items.some(i=>i.id===selected))selected='';saved.value=selected;for(const id of ['update','apply','rename','duplicate','delete'])actions.get(id)!.disabled=!selected;};
  let actionBusy=false,importSequence=0;
  const run=(work:()=>void)=>{if(!isCurrent()||actionBusy)return;const started=revision();actionBusy=true;importSequence++;file.value='';
@@ -31,6 +34,7 @@ export function mountThemeCenter(dialog:HTMLDialogElement,manager:BaseLayoutMana
   });
  };
  const runReadOnly=(work:()=>void)=>{if(!isCurrent()||actionBusy)return;try{work();status.value=library.recoveryRequired?recovery[0]:t[20];}catch{status.value=library.recoveryRequired?recovery[0]:t[21];}};
+ for(const [mode,button] of modeButtons)button.onclick=()=>{if(!isCurrent()||actionBusy)return;runReadOnly(()=>{fill(themeForMode(draft(),mode as 'light'|'dark'));manager.setPersonalTheme(draft());});};
  const preview=()=>{if(!isCurrent()||actionBusy)return;try{manager.setPersonalTheme(draft());syncQuick();status.value=library.recoveryRequired?recovery[0]:'';}catch{status.value=library.recoveryRequired?recovery[0]:t[21];}};
  for(const element of [palette,font,scale,radius,...fields.values()])element.onchange=preview;
  saved.onchange=()=>{if(!isCurrent()||actionBusy)return;selected=saved.value;lists();};
@@ -60,11 +64,12 @@ export function organizeThemeCenter(dialog:HTMLDialogElement,locale:NavigationLo
  for(const id of ['sidebar','navigation','density','width'])move(layout,'[data-cy=appearance-'+id+']');
  for(const id of ['theme','accent'])move(colors,'[data-cy=appearance-'+id+']');
  move(colors,'[data-cy=theme-center-preset]');
+ const modes=root.querySelector<HTMLElement>('.theme-center-mode');if(modes)colors.append(modes);
  const quick=root.querySelector<HTMLElement>('.theme-center-quick');if(quick)colors.append(quick);
  const custom=root.querySelector('details');if(custom)colors.append(custom);
  for(const id of ['font','scale','radius'])move(typography,'[data-cy=theme-center-'+id+']');
  for(const id of ['name','saved'])move(saved,'[data-cy=theme-center-'+id+']');
- const actions=root.querySelector<HTMLElement>('.quick-links');if(actions)saved.append(actions);
+ const actions=root.querySelector<HTMLElement>('[data-cy=theme-center-new]')?.parentElement;if(actions)saved.append(actions);
  for(const id of ['import','status'])move(saved,'[data-cy=theme-center-'+id+']');
  const note=root.querySelector<HTMLElement>('.theme-center-note');if(note)saved.append(note);
  const layoutActions=dialog.querySelector('[data-cy=appearance-undo]')?.closest<HTMLElement>('.quick-links');if(layoutActions)layout.append(layoutActions);
