@@ -71,15 +71,24 @@ def document_sources(root=ROOT):
     return sources
 
 
-def resolve(value, components):
-    """Resolve local schema refs only, with cycle/depth bounds."""
+def resolve(value, components, section='schemas'):
+    """Resolve references within the requested component section only."""
+    prefix = f'#/components/{section}/'
     seen = set()
     while isinstance(value, dict) and '$ref' in value:
         ref = value['$ref']
-        if not isinstance(ref, str) or not ref.startswith('#/components/schemas/') or ref in seen or len(seen) >= 20:
-            return {'description': 'Reference requires explicit review; see source document.'}
+        if not isinstance(ref, str) or not ref.startswith(prefix) or ref in seen or len(seen) >= 20:
+            break
         seen.add(ref)
-        value = components.get('schemas', {}).get(ref.split('/')[-1], {})
+        key = ref[len(prefix):]
+        if not key or '/' in key:
+            break
+        target = components.get(section, {}).get(key.replace('~1', '/').replace('~0', '~'))
+        if target is None:
+            break
+        value = target
+    if isinstance(value, dict) and '$ref' in value:
+        return {'description': 'Reference requires explicit review; see source document.'}
     return value if isinstance(value, dict) else {}
 
 
@@ -87,6 +96,8 @@ def shape(schema, components):
     schema = resolve(schema, components)
     if not schema:
         return 'Not defined in this source.'
+    if schema.get('description') == 'Reference requires explicit review; see source document.':
+        return schema['description']
     fields = []
     variants = schema.get('oneOf') or schema.get('anyOf') or [schema]
     if len(variants) > 1:
@@ -145,18 +156,40 @@ def source_comments(sources):
                          'An explicit empty security requirement is declared; review the runtime before treating access as public.' if not security else
                          source.get('securityLevel', 'operation') + ' level: ' +
                          ' OR '.join(' AND '.join(clean(k, 100) for k in item) or 'no credentials' for item in security)))
-        parameters = {(p.get('name'), p.get('in'), p.get('$ref')): p
-                      for p in [*source.get('parameters', []), *operation.get('parameters', [])]}
-        if parameters:
-            sections.append('**Parameters:**\n' + '\n'.join('- `' + clean(p.get('name') or p.get('$ref'), 100).replace('`', '') + '` in ' + clean(p.get('in'), 50) +
-                            (' (required)' if p.get('required') else ' (optional)') for p in parameters.values()))
-        body = operation.get('requestBody', {})
+        parameters = {}
+        for parameter in [*source.get('parameters', []), *operation.get('parameters', [])]:
+            resolved = resolve(parameter, components, 'parameters')
+            key = (resolved.get('name'), resolved.get('in'), parameter.get('$ref') if not resolved.get('name') else None)
+            parameters[key] = resolved
+        parameter_notes = []
+        for parameter in parameters.values():
+            if not parameter.get('name'):
+                parameter_notes.append('- ' + clean(parameter.get('description') or 'Parameter needs review.'))
+                continue
+            requirement = 'required' if parameter.get('required') else 'optional'
+            name = clean(parameter['name'], 100).replace('`', '')
+            location = clean(parameter.get('in'), 50)
+            parameter_notes.append(f'- `{name}` in {location} ({requirement})')
+        if parameter_notes:
+            sections.append('**Parameters:**\n' + '\n'.join(parameter_notes))
+        body = resolve(operation.get('requestBody', {}), components, 'requestBodies')
+        if body:
+            requirement = 'required' if body.get('required') else 'optional'
+            description = clean(body.get('description'), 1000)
+            if '$ref' in operation.get('requestBody', {}) and 'content' not in body:
+                sections.append('**Request body:** ' + description)
+            else:
+                sections.append('**Request body:** ' + requirement.capitalize() + '. ' + description)
         for media, content in body.get('content', {}).items():
             sections.append('**Request body — ' + clean(media, 100) + ':**\n' + shape(content.get('schema', {}), components))
         if not body:
             sections.append('**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.')
-        for status, response in operation.get('responses', {}).items():
+        for status, raw_response in operation.get('responses', {}).items():
+            response = resolve(raw_response, components, 'responses')
             sections.append('**Response ' + clean(status, 20) + ':** ' + clean(response.get('description', 'See source response reference.'), 1000))
+            if response.get('headers'):
+                sections.append('Response headers: ' + ', '.join(
+                    '`' + clean(name, 100).replace('`', '') + '`' for name in response['headers']) + '.')
             for media, content in response.get('content', {}).items():
                 sections.append('Content type `' + clean(media, 100) + '`:\n' + shape(content.get('schema', {}), components))
     return '\n\n'.join(sections)

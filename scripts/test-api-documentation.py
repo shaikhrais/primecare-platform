@@ -87,6 +87,29 @@ class DocumentationTests(unittest.TestCase):
         comments = source_comments([source])
         self.assertIn('no credentials OR bearer OR signedCookie AND csrf', comments)
 
+    def test_component_references_supply_parameter_body_and_response_comments(self):
+        ref = lambda section, name: {'$ref': f'#/components/{section}/{name}'}
+        source = {
+            'file': 'docs/example.openapi.json',
+            'components': {
+                'parameters': {'Id': {'name': 'id', 'in': 'path', 'required': True}},
+                'requestBodies': {'Payload': {'required': True, 'content': {
+                    'application/json': {'schema': {'type': 'object'}}}}},
+                'responses': {'Denied': {'description': 'Access denied.',
+                    'headers': {'Cache-Control': {}},
+                    'content': {'application/json': {'schema': ref('schemas', 'Problem')}}}},
+                'schemas': {'Problem': {'type': 'object', 'required': ['error'],
+                                        'properties': {'error': {'type': 'string'}}}},
+            },
+            'operation': {'parameters': [ref('parameters', 'Id')], 'requestBody': ref('requestBodies', 'Payload'),
+                          'responses': {'403': ref('responses', 'Denied')}},
+        }
+        text = source_comments([source])
+        for phrase in ('`id` in path (required)', '**Request body:** Required.',
+                       '**Response 403:** Access denied.', 'Response headers: `Cache-Control`.',
+                       '`error`: string, required'):
+            self.assertIn(phrase, text)
+
     def test_yaml_path_parameters_and_security_inheritance(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

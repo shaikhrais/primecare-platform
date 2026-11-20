@@ -15,6 +15,12 @@ The documentation exporter reads YAML and JSON, includes inherited security requ
 
 The [operation reconciliation](OPENAPI_OPERATION_RECONCILIATION.md) uses the newer generated catalog and lists every exact source-only operation with its specifications and comment review signals.
 
+## Component reference and path-parameter review
+
+The source review traversed all 102 source specifications. It found 225 local response references and 89 local schema references, all pointing to existing entries. The 655 source operation declarations eligible for endpoint comments include every template parameter on their paths. Shared response components occur in 32 communications operations, covering provider callbacks, voice and messaging. Generated comments now expand their descriptions, headers and payload shapes. Local parameter and request-body references use the same bounded lookup in their own component sections.
+
+The two file-relative references in [account preferences](account-preferences.openapi.yaml) point to the request and response schema keys in the [preference sync contract](../../tools/governance-production/preference-sync-contract.json). These remain source references in generated comments so readers can inspect the full schema and its constraints.
+
 ## Priority follow-through
 
 | Operation | Evidence | Remaining work |
