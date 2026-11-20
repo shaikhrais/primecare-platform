@@ -15,7 +15,7 @@ test('preview writes remain in memory and error denied empty states are explicit
  assert.equal(demoApi(store,'/not-modeled','GET',{},'populated').status,503);assert.ok(store.missing.has('GET /not-modeled'));
 });
 test('offline shell blocks network and labels actual renderer versus metadata coverage',async()=>{
- const html=await readFile('tools/screen-preview/shell.html','utf8');assert.match(html,/connect-src 'none'/);assert.match(html,/worker-src 'none'/);assert.match(html,/form-action 'none'/);assert.match(html,/REGISTERED TEMPLATE/);assert.match(html,/ACTUAL RENDERER/);assert.match(html,/Synthetic data only/);
+ const html=await readFile('tools/screen-preview/shell.html','utf8');assert.match(html,/connect-src 'none'/);assert.match(html,/worker-src 'none'/);assert.match(html,/form-action 'none'/);assert.match(html,/REGISTERED TEMPLATE/);assert.match(html,/ACTUAL RENDERER/);assert.match(html,/Synthetic data only/);assert.match(html,/allow-forms/);
  const entry=await readFile('tools/screen-preview/entry.ts','utf8');assert.doesNotMatch(entry,/fetch\(.*apiOrigin/);assert.match(entry,/store\.missing/);assert.match(entry,/syntheticSession/);
  const registry=JSON.parse(await readFile('cloudflare/workers/src/workspace-registry.json','utf8'));assert.equal(new Set(registry.screens.map(s=>s.route)).size,registry.screens.length);
 });
