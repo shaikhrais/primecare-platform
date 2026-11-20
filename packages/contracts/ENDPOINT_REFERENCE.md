@@ -15207,7 +15207,7 @@ Additional properties are rejected for this shape.
 
 Idempotent without credentials. Deletes the presented token hash and clears the cookie. Does not revoke other sessions.
 
-**Authentication declared in source:** operation level: anonymous alternative; bearerSession; cookieSession
+**Authentication declared in source:** operation level: no credentials OR bearerSession OR cookieSession
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15396,7 +15396,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Read current session identity using bearer or session cookie. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** operation level: bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth OR sessionCookie
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15442,7 +15442,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Read current session identity using bearer or session cookie.
 
-**Authentication declared in source:** operation level: bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth OR sessionCookie
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15470,7 +15470,7 @@ Additional properties are rejected for this shape.
 
 Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.
 
-**Authentication declared in source:** operation level: bearerSession; cookieSession
+**Authentication declared in source:** operation level: bearerSession OR cookieSession
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15544,7 +15544,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Read current session identity; this compatibility POST performs no mutation. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** operation level: bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth OR sessionCookie
 
 **Request body — application/json:**
 No object fields; schema type: unspecified.
@@ -15591,7 +15591,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Read current session identity; this compatibility POST performs no mutation.
 
-**Authentication declared in source:** operation level: bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth OR sessionCookie
 
 **Request body — application/json:**
 No object fields; schema type: unspecified.
@@ -15620,7 +15620,7 @@ Additional properties are rejected for this shape.
 
 Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.
 
-**Authentication declared in source:** operation level: bearerSession; cookieSession
+**Authentication declared in source:** operation level: bearerSession OR cookieSession
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -22131,7 +22131,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Count distinct branch_id from the reviewed effective-scope view for the active signed-in Clinical Director in their active tenant, in the same repeatable-read read-only authorization transaction. No query/body/tenant overrides or IDs returned. Zero scope is 403 no_scope; database/read failure is 503 unavailable.
 
-**Authentication declared in source:** operation level: sessionBearer; sessionCookie
+**Authentication declared in source:** operation level: sessionBearer OR sessionCookie
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
