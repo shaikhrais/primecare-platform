@@ -8,6 +8,7 @@ import '../registry/widgets/theme_center_panel.dart';
 import '../workspace/portal_workspace.dart';
 import 'personal_theme.dart';
 import 'prime_palette_editor.dart';
+import 'theme_center_catalog_generated.dart';
 import 'theme_center_complete_panel.dart';
 import 'theme_center_settings_file.dart';
 import 'theme_settings_provider.dart';
@@ -23,6 +24,8 @@ class PrimeThemeCenter extends ConsumerWidget {
   @override Widget build(BuildContext context,WidgetRef ref){
     final settings=ref.watch(themeSettingsProvider),notifier=ref.read(themeSettingsProvider.notifier);
     final c=PortalWorkspaceScope.maybeOf(context),p=c?.current,theme=Theme.of(context);
+    final matchedCombinations=themeCenterColorCombinations.entries.where((entry)=>settings.theme.colors.isEmpty&&entry.value['main']==settings.theme.preset&&['navbar','toolbar','footer'].every((part)=>entry.value[part]==(settings.sectionThemes[part]??settings.theme).preset&&(settings.sectionThemes[part]??settings.theme).colors.isEmpty));
+    final selectedCombination=matchedCombinations.isEmpty?null:matchedCombinations.first.key;
     final auth=ref.watch(authProvider),owner=themeAccountScope(ref.read(authProvider));
     final horizontal=['top','bottom'].contains(p?.navigation)||p?.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal;
     final family=c==null?(settings.layoutStyle==LayoutStyle.horizontal?'2':'1'):horizontal?(p!.scroll=='content'?'3':'2'):'1';
@@ -94,6 +97,10 @@ class PrimeThemeCenter extends ConsumerWidget {
             ]),
           ],
           PrimeSettingsGroup(key:const Key('theme-settings-palette'),label:'Theme',children:[
+            PrimeDropdownButtonFormField<String>(key:ValueKey(selectedCombination),initialValue:selectedCombination,isExpanded:true,decoration:const InputDecoration(labelText:'Color combination',isDense:true,border:OutlineInputBorder()),
+              items:[for(final name in themeCenterColorCombinations.keys)DropdownMenuItem(value:name,child:PrimeText(name))],
+              onChanged:(name){if(name!=null)_run(context,()=>notifier.applyColorCombination(name));}),
+            const SizedBox(height:16),
             LayoutBuilder(builder:(context,constraints){final width=(constraints.maxWidth-16)/2;
               return Wrap(spacing:16,runSpacing:16,children:[for(final region in ['main','navbar','toolbar','footer'])SizedBox(width:width,
                 child:PrimePaletteTile(key:Key('palette-$region'),section:region,theme:settings.sectionThemes[region]??settings.theme,

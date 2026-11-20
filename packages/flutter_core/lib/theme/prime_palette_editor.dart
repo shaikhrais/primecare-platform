@@ -45,6 +45,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
   late String preset=widget.initial.preset;
   late final modePreset=widget.initial.preset;
   late bool dark;
+  Map<String,String>? modeOverrides;
   bool presets=false,dirty=false;String? error;
   final fields=<String,TextEditingController>{};
   @override void initState(){super.initState();final p=ThemeConfig.getAppPalette(preset);
@@ -62,17 +63,15 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
     if(value==dark)return;
     final paired=themeCenterModePairs[modePreset];
     final next=paired?[value?1:0]??(value?'defaultDark':'default');
-    final p=ThemeConfig.getAppPalette(next);
+    final overrides=themeCenterModeOverrides[value?'dark':'light']!;
     setState((){
-      dark=value;dirty=true;error=null;
-      // Unpaired source palettes keep their accent combination when mode changes.
-      if(paired!=null){preset=next;fields['primary']!.text=_hex(p.primary);fields['secondary']!.text=_hex(p.secondary);}
-      else{preset=next;}
-      fields['surface']!.text=_hex(p.surface);fields['background']!.text=_hex(p.background);
+      dark=value;dirty=true;error=null;preset=next;modeOverrides=overrides;
+      fields['surface']!.text=overrides['surface']!;fields['background']!.text=overrides['background']!;
     });
   }
   Map<String,String> colors(){final out={...widget.initial.colors};
-    if(preset!=widget.initial.preset){out.remove('text');out.remove('muted');}
+    if(modeOverrides!=null){out.addAll(modeOverrides!);final border=modeOverrides!['border']!;if(!border.startsWith('#'))out['border']='#2d2d2e';}
+    if(preset!=widget.initial.preset&&modeOverrides==null){out.remove('text');out.remove('muted');}
     for(final entry in fields.entries){out[entry.key]=entry.value.text.trim();}
     if(widget.section=='navbar')out['sidebar']=out['background']!;
     if(widget.section=='toolbar')out['topbar']=out['background']!;

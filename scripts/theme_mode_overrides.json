@@ -1,0 +1,4 @@
+{
+  "light": {"background":"#F7F7F7","surface":"#FFFFFF","text":"#111827","muted":"#6B7280","disabled":"#959CA9","border":"#E2E8F0"},
+  "dark": {"background":"#121212","surface":"#1E2125","text":"#FFFFFF","muted":"#94A3B8","disabled":"#9CA3AF","border":"rgba(241,245,249,.12)"}
+}

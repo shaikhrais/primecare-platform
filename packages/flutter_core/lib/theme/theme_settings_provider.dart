@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../auth_service.dart';
 import '../providers/persistence_providers.dart';
 import 'personal_theme.dart';
+import 'theme_center_catalog_generated.dart';
 
 enum LayoutStyle { verticalLeft, verticalRight, horizontal, collapsed }
 bool hasThemeAccount(AuthState auth) => auth.isAuthenticated &&
@@ -86,6 +87,14 @@ class ThemeSettingsNotifier extends Notifier<ThemeSettingsState> {
       customPrimary:state.customPrimary,customPrimaryContainer:state.customPrimaryContainer,
       customSidebarBg:state.customSidebarBg,customTopbarBg:state.customTopbarBg,
       sectionThemes:Map.unmodifiable(sections),navigationStyle:state.navigationStyle,hiddenChrome:state.hiddenChrome));
+  }
+  Future<void> applyColorCombination(String name) {
+    final sections=themeCenterColorCombinations[name];
+    if(sections==null)throw ArgumentError('Unknown color combination');
+    final current=state.theme;
+    PersonalTheme palette(String part)=>PersonalTheme(name:name,preset:sections[part]!,fontFamily:current.fontFamily,fontScale:current.fontScale,radius:current.radius).validated();
+    return replaceSettings(ThemeSettingsState.fromJson({...state.toJson(),'personal':true,'theme':palette('main').toJson(),
+      'sections':{for(final part in ['navbar','toolbar','footer'])part:palette(part).toJson()}}));
   }
   Future<void> applyPersonalTheme(PersonalTheme theme) => _save(state.withTheme(theme));
   Future<void> rememberChrome(String part,String value) => replaceSettings(state.copyWith(hiddenChrome:Map.unmodifiable({...state.hiddenChrome,part:value})));

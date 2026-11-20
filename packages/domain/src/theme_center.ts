@@ -1,7 +1,9 @@
+import modeOverrides from '../../../scripts/theme_mode_overrides.json';
 import catalog from '../../../scripts/primecare_presets.json';
+export {default as themeColorCombinations} from '../../../scripts/theme_color_combinations.json';
 export {default as themeColorRamps} from '../../../scripts/theme_color_ramps.json';
 export const themePresets=catalog;
-export const themeColorKeys=['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar'] as const;
+export const themeColorKeys=['primary','primaryContainer','secondary','background','surface','text','muted','border','sidebar','topbar','disabled'] as const;
 export type ThemeColorKey=typeof themeColorKeys[number];
 export type PersonalTheme={version:1;name:string;preset:string;fontFamily:'system'|'serif'|'monospace';fontScale:number;radius:number;colors:Partial<Record<ThemeColorKey,string>>};
 export const defaultPersonalTheme:PersonalTheme={version:1,name:'My theme',preset:'default',fontFamily:'system',fontScale:1,radius:12,colors:{}};
@@ -33,6 +35,10 @@ export function themeForMode(value:unknown,mode:'light'|'dark'):PersonalTheme {
  for(const name of Object.keys(themePresets))if(Object.hasOwn(themePresets,name+'Dark')){pairs[name]=[name,name+'Dark'];pairs[name+'Dark']=pairs[name];}
  const pair=pairs[theme.preset],preset=pair?.[mode==='dark'?1:0]??(mode==='dark'?'defaultDark':'default');
  const colors={...theme.colors};delete colors.background;delete colors.surface;delete colors.text;delete colors.muted;
- if(!pair){colors.primary??=current.primary.main;colors.secondary??=current.secondary.main;}
+ colors.primary??=current.primary.main;colors.secondary??=current.secondary.main;
+ const override=modeOverrides[mode];
+ // Portable RGB divider is the source alpha divider blended over its background.
+ const border=override.border.startsWith('#')?override.border:'#2d2d2e';
+ Object.assign(colors,override,{border});
  return validatePersonalTheme({...theme,preset,colors});
 }

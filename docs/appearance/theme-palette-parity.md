@@ -6,13 +6,15 @@ Read all 37 palettes (19 light, 18 dark), shared neutral/status definitions, the
 
 All declared colors are retained: primary/secondary main, light, dark, contrast; paper/default backgrounds; text primary/secondary/disabled; dividers; success/info/warning/error shades; grey ramps; action hover/selected/focus/disabled states, including alpha. Fields omitted by an individual source palette use the shared neutral/status fallback for its mode. Such fallback fields are additional values, not claims that the original palette declared them.
 
+All 22 four-region combinations in `src/configs/themeOptions.ts` are also recorded in `scripts/theme_color_combinations.json`. The central Dart Theme Center applies each complete combination atomically, including mixed light content with dark navigation/footer.
+
 The original PrimeCare light/dark colors remain available as `primecareDay` and `primecareNight`, giving 39 selectable presets. Existing preset names and per-user settings/import/export contracts remain accepted. Users with explicit custom overrides retain those overrides; users who selected a built-in preset now receive its matched source colors.
 
 Dart exposes complete semantic tokens through `AppThemePalette.tokens`, `PrimePaletteTokens`, and `themeColorRamps`. Material controls receive source error, hover, focus, selected and disabled colors. Shared status widgets receive success/warning colors. Web exposes all palette tokens as `--theme-palette-*`, with active status and primary-hover tokens updated. No screen-local color definitions were added.
 
 Existing PrimeCare tenant defaults still select `navyTealPalette`, now with its exact source colors. The default ZIP combination is main `default`, navbar `defaultNavbar`, toolbar/footer `default`. Each region can still select its own palette. A palette's own default/paper colors are used for its chrome, rather than substituting its primary accent.
 
-Day/night uses matching named light/dark variants where the ZIP defines them. Unpaired palettes retain primary/secondary accents while using mode-appropriate neutral backgrounds. These generated mode combinations are not presented as additional source presets. Automatic schedules/system-mode detection are not added. Text and button foregrounds retain the existing readable-contrast protection, so a low-contrast source foreground can be adjusted at rendering time while the exact source token remains available.
+Day/night follows `changeThemeMode` from the ZIP: light background/paper `#F7F7F7`/`#FFFFFF`, dark `#121212`/`#1E2125`, and matching text/divider colors. It preserves primary/secondary accents. Named dark presets remain separately selectable; toggling mode is a background/text transformation. The mode alpha divider is retained in source data; the portable override stores its RGB blend over the background. These generated mode combinations are not presented as additional source presets. Automatic schedules/system-mode detection are not added. Text and button foregrounds retain the existing readable-contrast protection, so a low-contrast source foreground can be adjusted at rendering time while the exact source token remains available.
 
 | Preset | Mode | Primary | Secondary | Background | Paper |
 | --- | --- | --- | --- | --- | --- |

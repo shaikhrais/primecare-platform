@@ -1,0 +1,200 @@
+[
+  {
+    "name": "Default",
+    "sections": {
+      "main": "default",
+      "navbar": "defaultNavbar",
+      "toolbar": "default",
+      "footer": "default"
+    }
+  },
+  {
+    "name": "Default Dark",
+    "sections": {
+      "main": "defaultDark",
+      "navbar": "defaultDark",
+      "toolbar": "defaultDark",
+      "footer": "defaultDark"
+    }
+  },
+  {
+    "name": "Legacy",
+    "sections": {
+      "main": "legacy",
+      "navbar": "legacyDark",
+      "toolbar": "legacy",
+      "footer": "legacy"
+    }
+  },
+  {
+    "name": "Legacy Dark",
+    "sections": {
+      "main": "legacyDark",
+      "navbar": "legacyDark",
+      "toolbar": "legacyDark",
+      "footer": "legacyDark"
+    }
+  },
+  {
+    "name": "Navy Teal",
+    "sections": {
+      "main": "navyTealPalette",
+      "navbar": "navyTealPalette",
+      "toolbar": "navyTealPalette",
+      "footer": "navyTealPalette"
+    }
+  },
+  {
+    "name": "Indigo Amber",
+    "sections": {
+      "main": "indigoAmberPalette",
+      "navbar": "indigoAmberPalette",
+      "toolbar": "indigoAmberPalette",
+      "footer": "indigoAmberPalette"
+    }
+  },
+  {
+    "name": "Charcoal Teal",
+    "sections": {
+      "main": "charcoalTeal",
+      "navbar": "charcoalTealDark",
+      "toolbar": "charcoalTeal",
+      "footer": "charcoalTealDark"
+    }
+  },
+  {
+    "name": "Charcoal Teal Dark",
+    "sections": {
+      "main": "charcoalTealDark",
+      "navbar": "charcoalTealDark",
+      "toolbar": "charcoalTealDark",
+      "footer": "charcoalTealDark"
+    }
+  },
+  {
+    "name": "Blue Silver",
+    "sections": {
+      "main": "darkBlueSilver",
+      "navbar": "darkBlueSilverDark",
+      "toolbar": "darkBlueSilver",
+      "footer": "darkBlueSilverDark"
+    }
+  },
+  {
+    "name": "Blue Silver Dark",
+    "sections": {
+      "main": "darkBlueSilverDark",
+      "navbar": "darkBlueSilverDark",
+      "toolbar": "darkBlueSilverDark",
+      "footer": "darkBlueSilverDark"
+    }
+  },
+  {
+    "name": "Slate Crimson",
+    "sections": {
+      "main": "slateCrimson",
+      "navbar": "slateCrimsonDark",
+      "toolbar": "slateCrimson",
+      "footer": "slateCrimsonDark"
+    }
+  },
+  {
+    "name": "Slate Crimson Dark",
+    "sections": {
+      "main": "slateCrimsonDark",
+      "navbar": "slateCrimsonDark",
+      "toolbar": "slateCrimsonDark",
+      "footer": "slateCrimsonDark"
+    }
+  },
+  {
+    "name": "Emarald Gold",
+    "sections": {
+      "main": "emeraldGold",
+      "navbar": "emeraldGoldDark",
+      "toolbar": "emeraldGold",
+      "footer": "emeraldGoldDark"
+    }
+  },
+  {
+    "name": "Emarald Gold Dark",
+    "sections": {
+      "main": "emeraldGoldDark",
+      "navbar": "emeraldGoldDark",
+      "toolbar": "emeraldGoldDark",
+      "footer": "emeraldGoldDark"
+    }
+  },
+  {
+    "name": "Indigo Coral",
+    "sections": {
+      "main": "indigoCoral",
+      "navbar": "indigoCoralDark",
+      "toolbar": "indigoCoral",
+      "footer": "indigoCoralDark"
+    }
+  },
+  {
+    "name": "Indigo Coral Dark",
+    "sections": {
+      "main": "indigoCoralDark",
+      "navbar": "indigoCoralDark",
+      "toolbar": "indigoCoralDark",
+      "footer": "indigoCoralDark"
+    }
+  },
+  {
+    "name": "Sky Blue Orange",
+    "sections": {
+      "main": "skyBlueOrange",
+      "navbar": "skyBlueOrangeDark",
+      "toolbar": "skyBlueOrange",
+      "footer": "skyBlueOrangeDark"
+    }
+  },
+  {
+    "name": "Sky Blue Orange Dark",
+    "sections": {
+      "main": "skyBlueOrangeDark",
+      "navbar": "skyBlueOrangeDark",
+      "toolbar": "skyBlueOrangeDark",
+      "footer": "skyBlueOrangeDark"
+    }
+  },
+  {
+    "name": "Soft Green Maroon",
+    "sections": {
+      "main": "softGreenMaroon",
+      "navbar": "softGreenMaroonDark",
+      "toolbar": "softGreenMaroon",
+      "footer": "softGreenMaroonDark"
+    }
+  },
+  {
+    "name": "Soft Green Maroon Dark",
+    "sections": {
+      "main": "softGreenMaroonDark",
+      "navbar": "softGreenMaroonDark",
+      "toolbar": "softGreenMaroonDark",
+      "footer": "softGreenMaroonDark"
+    }
+  },
+  {
+    "name": "Cool Grey Pink",
+    "sections": {
+      "main": "coolGreyPink",
+      "navbar": "coolGreyPinkDark",
+      "toolbar": "coolGreyPink",
+      "footer": "coolGreyPinkDark"
+    }
+  },
+  {
+    "name": "Cool Grey Pink Dark",
+    "sections": {
+      "main": "coolGreyPinkDark",
+      "navbar": "coolGreyPinkDark",
+      "toolbar": "coolGreyPinkDark",
+      "footer": "coolGreyPinkDark"
+    }
+  }
+]

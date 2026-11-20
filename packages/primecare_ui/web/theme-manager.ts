@@ -34,6 +34,7 @@ export class BaseThemeManager {
   const safe=(color:string,bg:string)=>contrastRatio(color,bg)>=4.5?color:onAccent(bg);
   const assignments={'--color-success':resolve(palette.success.main),'--color-warning':resolve(palette.warning.main),'--color-error':resolve(palette.error.main),'--color-info':resolve(palette.info.main),'--color-background':background,'--color-surface':surface,'--color-surface-soft':surface,'--color-primary':primary,'--color-primary-hover':colors.primary??resolve(palette.primary.dark),'--color-on-primary':onAccent(primary),'--color-secondary':colors.secondary??resolve(palette.secondary.main),'--color-sidebar':sidebar,'--color-sidebar-text':onAccent(sidebar),'--color-topbar':topbar,'--color-topbar-text':onAccent(topbar),'--color-text':safe(text,background),'--color-text-muted':safe(muted,background),'--color-surface-text':safe(text,surface),'--color-surface-muted':safe(muted,surface),'--color-border':colors.border??resolve(palette.divider,surface)};
   for(const [key,value] of Object.entries(flattenPalette(palette)))this.host.style.setProperty('--theme-palette-'+key,value);
+  if(colors.disabled)this.host.style.setProperty('--theme-palette-text-disabled',colors.disabled);
   for(const [key,value] of Object.entries(assignments))this.host.style.setProperty(key,value);
   this.host.style.setProperty('--theme-font-scale',String(personal.fontScale));
   if(personal.fontFamily!=='system')this.host.style.setProperty('--font-family',personal.fontFamily==='serif'?'Georgia, serif':'ui-monospace, monospace');

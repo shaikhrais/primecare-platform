@@ -34,3 +34,11 @@ test('day/night retains paired and unpaired accent combinations and settings',as
  profile=themeForMode(themeForMode(profile,'dark'),'light');assert.equal(profile.colors.primary,catalog.navyTealPalette.primary.main.toLowerCase());
  assert.equal(themeForMode({...defaultPersonalTheme,preset:'skyBlueOrange'},'dark').preset,'skyBlueOrangeDark');
 });
+
+
+test('all 22 source combinations resolve all four independent areas',async()=>{
+ const combinations=JSON.parse(await readFile('scripts/theme_color_combinations.json','utf8'));
+ assert.equal(combinations.length,22);
+ for(const combination of combinations){assert.deepEqual(Object.keys(combination.sections).sort(),['footer','main','navbar','toolbar']);for(const name of Object.values(combination.sections))assert.ok(reference.palettes[name]);}
+ assert.equal(combinations.find(c=>c.name==='Charcoal Teal').sections.footer,'charcoalTealDark');
+});
