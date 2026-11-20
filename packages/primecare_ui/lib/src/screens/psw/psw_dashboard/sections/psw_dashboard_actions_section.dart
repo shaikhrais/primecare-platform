@@ -5,17 +5,19 @@ class PswDashboardActionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     Widget unavailable(String id, String title) => Padding(
-      padding: const EdgeInsets.only(bottom: 12),
+      padding: EdgeInsets.only(bottom: theme.spacing.cardGap),
       child: SizedBox(
         width: double.infinity,
-        height: 48,
+        height: theme.spacing.xxl,
         child: Cy(
           id: id,
-          child: ElevatedButton(
+          child: PrimeButton(
             key: Key(id),
             onPressed: null,
-            child: Text(title.tr()),
+            isFullWidth: true,
+            label: title.tr(),
           ),
         ),
       ),
@@ -33,10 +35,10 @@ class PswDashboardActionsSection extends StatelessWidget {
                   .tr(),
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: theme.spacing.cardGap),
           unavailable('pswdashboard-btn-emergency', 'Emergency Action'),
           Text('This screen cannot save shifts, incidents, or vitals.'.tr()),
-          const SizedBox(height: 12),
+          SizedBox(height: theme.spacing.cardGap),
           unavailable('psw-start-shift-btn', 'Clock In / Out'),
           unavailable('psw-view-vitals-btn', 'Log Vitals'),
           unavailable('psw-report-incident-btn', 'Report Incident'),

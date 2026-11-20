@@ -12,7 +12,7 @@ class PswDashboardSummarySection extends StatelessWidget {
         id: 'psw-shift-status-card',
         child: PrimeCareCard(
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(theme.spacing.md),
             child: Text(
               'Shift status unavailable'.tr(),
               style: theme.typography.h4,

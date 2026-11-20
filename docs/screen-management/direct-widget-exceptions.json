@@ -4482,7 +4482,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/allied/rmt_dashboard/rmt_dashboard_screen.dart",
     "class": "RmtDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/allied/rmt_exercise_plan/rmt_exercise_plan_screen.dart",
@@ -4587,7 +4587,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/cns_dashboard/cns_dashboard_screen.dart",
     "class": "CnsDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/compliance_review/compliance_review_screen.dart",
@@ -4612,7 +4612,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/hsw_dashboard/hsw_dashboard_screen.dart",
     "class": "HswDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/hsw_incident_reports/hsw_incident_reports_screen.dart",
@@ -4632,7 +4632,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/lpn_dashboard/lpn_dashboard_screen.dart",
     "class": "LpnDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/medication/medication_screen.dart",
@@ -4642,7 +4642,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/np_dashboard/np_dashboard_screen.dart",
     "class": "NpDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/nursing_task/nursing_task_screen.dart",
@@ -4662,7 +4662,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/pediatric_dashboard/pediatric_dashboard_screen.dart",
     "class": "PediatricDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/pediatric_workflow/pediatric_workflow_screen.dart",
@@ -4677,7 +4677,7 @@
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/physician_dashboard/physician_dashboard_screen.dart",
     "class": "PhysicianDashboardScreen",
-    "base": "ConsumerWidget"
+    "base": "StatelessWidget"
   },
   {
     "file": "packages/primecare_ui/lib/src/screens/clinical/physician_workflow/physician_workflow_screen.dart",

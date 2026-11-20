@@ -6,8 +6,24 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_psw_unavailable_sections(source,path):
+    """Replay the exact pre-unavailable PSW palette output for historical tests only."""
+    manifest=ROOT/'scripts/psw-unavailable-sections-replay.json'
+    if not manifest.exists():return source
+    doc=json.loads(manifest.read_text())
+    if doc.get('version')!=1:raise AssertionError('Unsupported PSW replay receipt')
+    rows=[row for row in doc['files'] if row['path']==path]
+    if not rows:return source
+    if len(rows)!=1:raise AssertionError('Duplicate PSW replay receipt')
+    row=rows[0]
+    if hashlib.sha256(source.encode()).hexdigest()!=row['afterSha256']:return source
+    if source!=row['after'] or hashlib.sha256(row['before'].encode()).hexdigest()!=row['beforeSha256']:
+        raise AssertionError('PSW unavailable replay receipt drift: '+path)
+    return row['before']
+
 def before_native_application_host(source,path):
     """Remove only the exact reviewed native-host router amendment for old replays."""
+    source=before_psw_unavailable_sections(source,path)
     manifest=ROOT/'scripts/native-application-host-amendment.json'
     if not manifest.exists():return source
     row=next((r for r in json.loads(manifest.read_text())['files'] if r['path']==path),None)

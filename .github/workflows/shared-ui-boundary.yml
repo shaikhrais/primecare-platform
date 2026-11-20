@@ -17,6 +17,8 @@ jobs:
           python-version: '3.12'
       - name: Verify boundary diagnostics
         run: python3 -m unittest discover -s scripts/tests -p test_shared_ui_boundary.py
+      - name: Verify exact disconnected-PSW source replay
+        run: python3 -m unittest discover -s scripts/tests -p test_psw_unavailable_replay.py
       - name: Verify all conservative UI and theme migrations
         run: python3 -m unittest discover -s scripts/tests -p 'test_migrate_*.py'
       - name: Verify generated status import cleanup
