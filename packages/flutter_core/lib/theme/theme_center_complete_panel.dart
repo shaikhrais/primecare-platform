@@ -13,7 +13,8 @@ import 'theme_settings_provider.dart';
 
 /// The complete-profile controls live once, inside the shared Theme Center.
 class ThemeCenterCompletePanel extends ConsumerWidget {
-  const ThemeCenterCompletePanel({super.key});
+  final bool actionsOnly;
+  const ThemeCenterCompletePanel({super.key,this.actionsOnly=false});
   @override Widget build(BuildContext context, WidgetRef ref) {
     final auth=ref.watch(authProvider);
     final owner=themeAccountScope(auth);
@@ -62,9 +63,11 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
         });}));
     }
     return Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
+      if(!actionsOnly) ...[
       const PrimeText('MY THEME SETTINGS'),
       const PrimeText('Your preferences are separate from other users. Save and load your profile on this device, or transfer it using a settings file.'),
       for(final section in ['main','navbar','toolbar','footer'])palette(section),
+      ],
       if(workspace!=null)...[
         Wrap(spacing:8,runSpacing:4,children:[
           PrimeTextButton(onPressed:()=>run(()async {await Clipboard.setData(ClipboardData(text:snapshot().exportJson()));return 'Complete settings JSON copied.';}),child:const PrimeText('Copy all settings')),
@@ -90,7 +93,7 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
             await apply(source);return 'Complete settings loaded.';
           }),child:const PrimeText('Load all')),
         ]),
-        const PrimeText('One file contains current palettes, typography, colors, direction, scrollbar preference and layout. Named theme-library entries are separate. No business data or access rules are included.'),
+        if(!actionsOnly) const PrimeText('One file contains current palettes, typography, colors, direction, scrollbar preference and layout. Named theme-library entries are separate. No business data or access rules are included.'),
       ],
       const SizedBox(height:24),
     ]);

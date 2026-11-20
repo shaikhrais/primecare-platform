@@ -208,3 +208,47 @@ class PrimePortalNavigationLabel extends StatelessWidget {
       const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: color),
     ]));
 }
+
+/// Retains access to Theme Settings when imported layouts hide their toolbar.
+class PrimeWorkspaceRecovery extends StatelessWidget {
+  final bool show;final Widget child;
+  const PrimeWorkspaceRecovery({super.key,required this.show,required this.child});
+  @override Widget build(BuildContext context)=>Stack(children:[Positioned.fill(child:child),
+    if(show)PositionedDirectional(end:0,top:16,child:Material(elevation:3,color:Theme.of(context).colorScheme.surface,
+      borderRadius:const BorderRadiusDirectional.horizontal(start:Radius.circular(12)),child:PrimeIconButton(
+        tooltip:'Theme settings',onPressed:()=>Scaffold.of(context).openEndDrawer(),icon:const PrimeIcon(Icons.settings_outlined)))),
+  ]);
+}
+class PrimeNavigationEntry {
+  final String label;final VoidCallback onPressed;
+  const PrimeNavigationEntry(this.label,this.onPressed);
+}
+class PrimeNavigationTab {
+  final String label;final IconData icon;final Widget content;final List<PrimeNavigationEntry> entries;
+  const PrimeNavigationTab({required this.label,required this.icon,required this.content,required this.entries});
+}
+/// The host supplies only authorized navigation destinations and content.
+class PrimeTabbedNavigation extends StatefulWidget {
+  final List<PrimeNavigationTab> tabs;final int initialIndex;
+  const PrimeTabbedNavigation({super.key,required this.tabs,this.initialIndex=0});
+  @override State<PrimeTabbedNavigation> createState()=>_PrimeTabbedNavigationState();
+}
+class _PrimeTabbedNavigationState extends State<PrimeTabbedNavigation>{
+  late int selected=widget.initialIndex;
+  @override void didUpdateWidget(PrimeTabbedNavigation old){super.didUpdateWidget(old);
+    if(old.initialIndex!=widget.initialIndex)selected=widget.initialIndex;
+    if(selected>=widget.tabs.length)selected=0;
+  }
+  @override Widget build(BuildContext context){if(widget.tabs.isEmpty)return const SizedBox.shrink();
+    return LayoutBuilder(builder:(context,limits){final folded=limits.maxWidth<=96;
+      return Row(children:[Container(width:folded?limits.maxWidth:48,color:Theme.of(context).colorScheme.surfaceContainerLow,child:ListView(children:[
+        for(var i=0;i<widget.tabs.length;i++)Semantics(selected:i==selected,child:Container(
+          color:i==selected?Theme.of(context).colorScheme.primaryContainer:null,
+          child:folded?PrimePopupMenuButton<int>(tooltip:widget.tabs[i].label,icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant),
+            itemBuilder:(context)=>[for(var j=0;j<widget.tabs[i].entries.length;j++)PopupMenuItem(value:j,child:PrimeText(widget.tabs[i].entries[j].label))],
+            onSelected:(j)=>widget.tabs[i].entries[j].onPressed()):PrimeIconButton(tooltip:widget.tabs[i].label,
+              onPressed:()=>setState(()=>selected=i),icon:PrimeIcon(widget.tabs[i].icon,size:20,color:i==selected?Theme.of(context).colorScheme.onPrimaryContainer:Theme.of(context).colorScheme.onSurfaceVariant)))),
+      ])),if(!folded)Expanded(child:widget.tabs[selected].content)]);
+    });
+  }
+}

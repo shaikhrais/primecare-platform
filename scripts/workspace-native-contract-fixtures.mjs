@@ -7,7 +7,7 @@ const {defaultWorkspaceLayout,validateWorkspaceLayout}=await import('data:text/j
 const ids=['note','summary'],profiles=[];
 for(const navigation of ['left','right','top','bottom','hidden'])
 for(const container of ['fullwidth','boxed','content'])
-for(const toolbar of ['top','bottom','belowNavigation'])
+for(const toolbar of ['top','bottom','belowNavigation','hidden'])
 for(const toolbarStyle of ['sticky','static'])
 for(const scroll of ['page','content'])
 for(const footer of ['static','sticky','hidden']){
@@ -20,6 +20,6 @@ for(const footer of ['static','sticky','hidden']){
 const root='packages/flutter_core/test/workspace/fixtures';
 if(process.argv.includes('--verify-native')){
  const native=JSON.parse(await readFile(process.argv[process.argv.indexOf('--verify-native')+1]||root+'/native.json','utf8'));
- assert.equal(native.length,540);assert.deepEqual(native.map(p=>validateWorkspaceLayout(p,ids)),profiles);
- console.log('540 native exports accepted by the web contract without setting loss.');
-}else{await mkdir(root,{recursive:true});await writeFile(root+'/web.json',JSON.stringify({panelIds:ids,profiles}));console.log('Generated 540 validated web profiles for native roundtrip checks.');}
+ assert.equal(native.length,720);assert.deepEqual(native.map(p=>validateWorkspaceLayout(p,ids)),profiles);
+ console.log('720 native exports accepted by the web contract without setting loss.');
+}else{await mkdir(root,{recursive:true});await writeFile(root+'/web.json',JSON.stringify({panelIds:ids,profiles}));console.log('Generated 720 validated web profiles for native roundtrip checks.');}

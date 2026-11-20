@@ -107,6 +107,7 @@ export class WorkspaceLayoutManager {
     const ordered = [...(p.toolbar === 'top' ? [this.slots.toolbar] : []), ...(p.navigation === 'top' || vertical ? [this.slots.navigation] : []), ...(p.toolbar === 'belowNavigation' ? [this.slots.toolbar] : []), this.stage, ...(p.navigation === 'bottom' ? [this.slots.navigation] : []), ...(this.slots.footer ? [this.slots.footer] : []), ...(p.toolbar === 'bottom' ? [this.slots.toolbar] : []), ...(p.navigation === 'hidden' ? [this.slots.navigation] : [])];
     // CSS positions desktop slots; DOM order follows visual order for keyboard/mobile users.
     for (let i = 0; i < ordered.length; i++) if (root.children[i] !== ordered[i]) root.insertBefore(ordered[i], root.children[i] ?? null);
+    this.slots.toolbar.hidden = p.toolbar === 'hidden' || this.originals.find(item => item.element === this.slots.toolbar)!.attributes.some(([name]) => name === 'hidden');
     const nav = this.slots.navigation; nav.style.height = vertical && !narrow ? (p.scroll === 'content' ? '100%' : '100dvh') : 'auto';
     if (!vertical) {nav.style.setProperty('position','static','important'); nav.style.maxHeight = '35dvh';} else {nav.style.removeProperty('position'); nav.style.removeProperty('max-height');}
     for (const [id, panel] of Object.entries(this.slots.panels)) {

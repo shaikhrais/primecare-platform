@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_fuse_center_match(source,path):
+    return reverse_presentation_receipt(source,path,'fuse-center-match-replay.json')
+
 def before_user_settings_isolation(source,path):
+    source=before_fuse_center_match(source,path)
     return reverse_presentation_receipt(source,path,'user-settings-isolation-replay.json')
 
 def before_complete_theme_settings(source,path):

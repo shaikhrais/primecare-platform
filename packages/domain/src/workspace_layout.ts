@@ -6,7 +6,7 @@ export type WorkspaceLayout = {
   version: 1;
   navigation: 'left' | 'right' | 'top' | 'bottom' | 'hidden';
   navigationWidth: number;
-  toolbar: 'top' | 'bottom' | 'belowNavigation';
+  toolbar: 'top' | 'bottom' | 'belowNavigation' | 'hidden';
   toolbarStyle: 'sticky' | 'static';
   footer: 'sticky' | 'static' | 'hidden';
   container: 'fullwidth' | 'boxed' | 'content';
@@ -42,7 +42,7 @@ export function validateWorkspaceLayout(value: unknown, panelIds: readonly strin
     const p = record(rawPanels[id]); keys(p, ['dock', 'x', 'y', 'width', 'height']);
     return [id, {dock: choice(p.dock, panelDocks), x: integer(p.x, 0, 10000), y: integer(p.y, 0, 10000), width: integer(p.width, 180, 1200), height: integer(p.height, 120, 1200)}];
   }));
-  return {version: 1, navigation: choice(v.navigation, ['left', 'right', 'top', 'bottom', 'hidden']), navigationWidth: v.navigationWidth === 64 ? 64 : integer(v.navigationWidth, 160, 400), toolbar: choice(v.toolbar, ['top', 'bottom', 'belowNavigation']), toolbarStyle: choice(v.toolbarStyle, ['sticky', 'static']), footer: choice(v.footer, ['sticky', 'static', 'hidden']), container: choice(v.container, ['fullwidth', 'boxed', 'content']), maxWidth: integer(v.maxWidth, 960, 1920), scroll: choice(v.scroll, ['page', 'content']), panels};
+  return {version: 1, navigation: choice(v.navigation, ['left', 'right', 'top', 'bottom', 'hidden']), navigationWidth: v.navigationWidth === 64 ? 64 : integer(v.navigationWidth, 160, 400), toolbar: choice(v.toolbar, ['top', 'bottom', 'belowNavigation', 'hidden']), toolbarStyle: choice(v.toolbarStyle, ['sticky', 'static']), footer: choice(v.footer, ['sticky', 'static', 'hidden']), container: choice(v.container, ['fullwidth', 'boxed', 'content']), maxWidth: integer(v.maxWidth, 960, 1920), scroll: choice(v.scroll, ['page', 'content']), panels};
 }
 export function parseWorkspaceLayout(text: string, panelIds: readonly string[]): WorkspaceLayout {
   if (typeof text !== 'string' || new TextEncoder().encode(text).length > 32768) throw Error('Layout file too large');

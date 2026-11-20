@@ -45,11 +45,16 @@ void main(){
           builder:(context,controller)=>Scaffold(body:Center(child:RepaintBoundary(key:const Key('capture-panel'),
             child:const ThemeSettingsDrawer(tenantDefaultPreset:'navyTealPalette'))))))));
       await tester.pumpAndSettle();expect(tester.takeException(),isNull);
-      await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-center-${view.$1}.png'));
-      final layout=find.text('WORKSPACE LAYOUT');
+      await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-layout-${view.$1}.png'));
+      final layout=find.byKey(const Key('theme-settings-palette'));
       await tester.scrollUntilVisible(layout,500,scrollable:find.byType(Scrollable).first);
       await tester.pumpAndSettle();expect(tester.takeException(),isNull);
-      await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-layout-${view.$1}.png'));
+      await expectLater(find.byKey(const Key('capture-panel')),matchesGoldenFile('captures/theme-center-${view.$1}.png'));
+      if(view.$1=='desktop'){
+        await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();
+        expect(tester.takeException(),isNull);
+        await expectLater(find.byType(Dialog),matchesGoldenFile('captures/palette-editor-desktop.png'));
+      }
       } finally { debugDefaultTargetPlatformOverride=null; }
     });
   }

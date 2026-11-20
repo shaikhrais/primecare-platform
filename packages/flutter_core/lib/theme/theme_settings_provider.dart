@@ -19,34 +19,36 @@ String? legacyThemeAccountScope(AuthState auth) {
 
 class ThemeSettingsState {
   final LayoutStyle layoutStyle;
+  final String navigationStyle;
   final String presetName;
   final bool customScrollbars;
   final TextDirection direction;
   final String? customPrimary, customPrimaryContainer, customSidebarBg, customTopbarBg;
   final PersonalTheme? personalTheme;
   final Map<String, PersonalTheme> sectionThemes;
-  const ThemeSettingsState({required this.layoutStyle,required this.presetName,required this.customScrollbars,required this.direction,this.customPrimary,this.customPrimaryContainer,this.customSidebarBg,this.customTopbarBg,this.personalTheme,this.sectionThemes=const {}});
+  const ThemeSettingsState({required this.layoutStyle,required this.presetName,required this.customScrollbars,required this.direction,this.customPrimary,this.customPrimaryContainer,this.customSidebarBg,this.customTopbarBg,this.personalTheme,this.sectionThemes=const {},this.navigationStyle='slide'});
   PersonalTheme get theme => personalTheme ?? PersonalTheme(name:'My theme',preset:presetName,colors:{if(customPrimary!=null)'primary':customPrimary!,if(customPrimaryContainer!=null)'primaryContainer':customPrimaryContainer!,if(customSidebarBg!=null)'sidebar':customSidebarBg!,if(customTopbarBg!=null)'topbar':customTopbarBg!});
-  ThemeSettingsState copyWith({LayoutStyle? layoutStyle,String? presetName,bool? customScrollbars,TextDirection? direction,String? customPrimary,String? customPrimaryContainer,String? customSidebarBg,String? customTopbarBg}) => ThemeSettingsState(layoutStyle:layoutStyle ?? this.layoutStyle,presetName:presetName ?? this.presetName,customScrollbars:customScrollbars ?? this.customScrollbars,direction:direction ?? this.direction,customPrimary:customPrimary ?? this.customPrimary,customPrimaryContainer:customPrimaryContainer ?? this.customPrimaryContainer,customSidebarBg:customSidebarBg ?? this.customSidebarBg,customTopbarBg:customTopbarBg ?? this.customTopbarBg,personalTheme:personalTheme,sectionThemes:sectionThemes);
-  ThemeSettingsState withTheme(PersonalTheme value) {final next=value.validated();return ThemeSettingsState(layoutStyle:layoutStyle,presetName:next.preset,customScrollbars:customScrollbars,direction:direction,customPrimary:next.colors['primary'],customPrimaryContainer:next.colors['primaryContainer'],customSidebarBg:next.colors['sidebar'],customTopbarBg:next.colors['topbar'],personalTheme:next,sectionThemes:sectionThemes);}
-  Map<String,Object> toJson() => {'version':2,'sections':{for(final entry in sectionThemes.entries)entry.key:entry.value.validated().toJson()},'layout':layoutStyle.name,'scrollbars':customScrollbars,'direction':direction==TextDirection.rtl?'rtl':'ltr','personal':personalTheme!=null,'theme':theme.validated().toJson()};
+  ThemeSettingsState copyWith({String? navigationStyle,LayoutStyle? layoutStyle,String? presetName,bool? customScrollbars,TextDirection? direction,String? customPrimary,String? customPrimaryContainer,String? customSidebarBg,String? customTopbarBg}) => ThemeSettingsState(layoutStyle:layoutStyle ?? this.layoutStyle,presetName:presetName ?? this.presetName,customScrollbars:customScrollbars ?? this.customScrollbars,direction:direction ?? this.direction,customPrimary:customPrimary ?? this.customPrimary,customPrimaryContainer:customPrimaryContainer ?? this.customPrimaryContainer,customSidebarBg:customSidebarBg ?? this.customSidebarBg,customTopbarBg:customTopbarBg ?? this.customTopbarBg,personalTheme:personalTheme,sectionThemes:sectionThemes,navigationStyle:navigationStyle ?? this.navigationStyle);
+  ThemeSettingsState withTheme(PersonalTheme value) {final next=value.validated();return ThemeSettingsState(layoutStyle:layoutStyle,presetName:next.preset,customScrollbars:customScrollbars,direction:direction,customPrimary:next.colors['primary'],customPrimaryContainer:next.colors['primaryContainer'],customSidebarBg:next.colors['sidebar'],customTopbarBg:next.colors['topbar'],personalTheme:next,sectionThemes:sectionThemes,navigationStyle:navigationStyle);}
+  Map<String,Object> toJson() => {'version':3,'navigationStyle':navigationStyle,'sections':{for(final entry in sectionThemes.entries)entry.key:entry.value.validated().toJson()},'layout':layoutStyle.name,'scrollbars':customScrollbars,'direction':direction==TextDirection.rtl?'rtl':'ltr','personal':personalTheme!=null,'theme':theme.validated().toJson()};
   factory ThemeSettingsState.fromJson(Object? raw) {
-    if(raw is! Map || ![1,2].contains(raw['version']) ||
-      raw.length != (raw['version']==1?6:7) ||
+    if(raw is! Map || ![1,2,3].contains(raw['version']) ||
+      raw.length != (raw['version']==1?6:raw['version']==2?7:8) ||
       !raw.keys.toSet().containsAll(['version','layout','scrollbars','direction','personal','theme']) ||
       !LayoutStyle.values.any((v)=>v.name==raw['layout']) || raw['scrollbars'] is! bool ||
       raw['personal'] is! bool || !['ltr','rtl'].contains(raw['direction'])) throw const FormatException('Invalid theme settings');
     final sections=<String,PersonalTheme>{};
-    if(raw['version']==2) {
+    if(raw['version']!=1) {
       final source=raw['sections'];
       if(source is! Map || source.keys.any((key)=>!['navbar','toolbar','footer'].contains(key))) throw const FormatException('Invalid section themes');
       for(final entry in source.entries) { sections[entry.key as String]=PersonalTheme.fromJson(entry.value); }
     }
+    if(raw['version']==3 && !['slide','tabbed'].contains(raw['navigationStyle']))throw const FormatException('Invalid navigation style');
     final theme=PersonalTheme.fromJson(raw['theme']);
     final settings=ThemeSettingsState(layoutStyle:LayoutStyle.values.firstWhere((v)=>v.name==raw['layout']),
       presetName:theme.preset,customScrollbars:raw['scrollbars'] as bool,
       direction:raw['direction']=='rtl'?TextDirection.rtl:TextDirection.ltr,
-      sectionThemes:Map.unmodifiable(sections));
+      sectionThemes:Map.unmodifiable(sections),navigationStyle:raw['version']==3?raw['navigationStyle'] as String:'slide');
     return raw['personal']==true?settings.withTheme(theme):settings;
   }
 }
@@ -75,9 +77,13 @@ class ThemeSettingsNotifier extends Notifier<ThemeSettingsState> {
       customScrollbars:state.customScrollbars,direction:state.direction,personalTheme:state.personalTheme,
       customPrimary:state.customPrimary,customPrimaryContainer:state.customPrimaryContainer,
       customSidebarBg:state.customSidebarBg,customTopbarBg:state.customTopbarBg,
-      sectionThemes:Map.unmodifiable(sections)));
+      sectionThemes:Map.unmodifiable(sections),navigationStyle:state.navigationStyle));
   }
   Future<void> applyPersonalTheme(PersonalTheme theme) => _save(state.withTheme(theme));
+  Future<void> updateNavigationStyle(String style) {
+    if(!['slide','tabbed'].contains(style))throw ArgumentError('Unknown navigation style');
+    return _save(state.copyWith(navigationStyle:style));
+  }
   Future<void> updateLayoutStyle(LayoutStyle style) => _save(state.copyWith(layoutStyle:style));
   Future<void> updatePreset(String presetName) => _save(state.withTheme(PersonalTheme(name:'My theme',preset:presetName,fontFamily:state.theme.fontFamily,fontScale:state.theme.fontScale,radius:state.theme.radius)));
   Future<void> toggleScrollbars(bool enabled) => _save(state.copyWith(customScrollbars:enabled));

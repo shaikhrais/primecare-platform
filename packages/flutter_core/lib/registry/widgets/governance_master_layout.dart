@@ -160,7 +160,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                         isDrawer: true,
                       )
                     : null,
-                body: PrimeWorkspaceLayout(
+                body: PrimeWorkspaceRecovery(show: workspace.current.toolbar == 'hidden', child: PrimeWorkspaceLayout(
                   controller: workspace,
                   navigationVisible: !isHandheld,
                   horizontalNavigationExtent: 48,
@@ -398,7 +398,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       child: AppShellBoundary(child: child)),
                   ),
                   panels: const {},
-                ),
+                )),
               ),
             ),
           ),
@@ -418,7 +418,18 @@ class GovernanceMasterLayout extends ConsumerWidget {
     ThemeSettingsState settings, {
     bool collapsed = false,
     bool isDrawer = false,
+    bool tabContent = false,
   }) {
+    if(settings.navigationStyle == 'tabbed' && !isDrawer && !tabContent && modules.isNotEmpty) {
+      String route='';try {route=GoRouterState.of(context).uri.path;} catch (_) {}
+      final selected=modules.indexWhere((module)=>module.screens.any((screen)=>screen.route==route));
+      return PrimeTabbedNavigation(initialIndex:selected<0?0:selected,tabs:[
+        for(final module in modules)PrimeNavigationTab(label:module.name,icon:module.icon,
+          content:_buildSidebar(context,ref,theme,[module],tenant,tier,settings,tabContent:true),
+          entries:[for(final screen in module.screens)if(screen.requiredRole==null||screen.requiredRole==activeRole)
+            PrimeNavigationEntry(screen.title,()=>context.go(screen.route))]),
+      ]);
+    }
     final themeColors = theme.extension<GovernanceThemeColors>();
     final sidebarBg = themeColors?.sidebarBackground ?? theme.scaffoldBackgroundColor;
 

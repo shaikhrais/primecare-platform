@@ -131,6 +131,7 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final p = widget.controller.current;
         final width = p.container == 'boxed' ? math.min(available.width, p.maxWidth.toDouble()) : available.width;
         final viewport = Size(width, available.height);
+        final showToolbar = widget.toolbarVisible && p.toolbar != 'hidden';
         final showNavigation = widget.navigationVisible && p.navigation != 'hidden';
         final vertical = showNavigation && !narrow && ['left', 'right'].contains(p.navigation);
         final visualWidth=widget.navigationVisualWidth??p.navigationWidth.toDouble();
@@ -138,13 +139,13 @@ class _PrimeWorkspaceLayoutState extends State<PrimeWorkspaceLayout> {
         final navWidth = math.min(visualWidth, width * .5);
         final stageWidth = width - (vertical ? navWidth : 0);
         final navHeight = math.min(widget.horizontalNavigationExtent, viewport.height * .25);
-        final toolHeight = widget.toolbarVisible ? math.min(widget.toolbarExtent, viewport.height * .2) : 0.0;
+        final toolHeight = showToolbar ? math.min(widget.toolbarExtent, viewport.height * .2) : 0.0;
         final footHeight = math.min(widget.footerExtent, viewport.height * .2);
         final mainHeight = math.max(0.0, viewport.height - toolHeight - (widget.footerVisible && widget.footer != null && p.footer != 'hidden' ? footHeight : 0)
           - (showNavigation && !vertical ? navHeight : 0));
         Widget navigation() => SizedBox(width: vertical ? navWidth : null,
           height: vertical ? viewport.height : navHeight, child: _slot('navigation', widget.navigation));
-        Widget toolbar() => widget.toolbarVisible ? SizedBox(height: toolHeight, child: _slot('toolbar', widget.toolbar)) : _slot('toolbar', widget.toolbar, hidden: true);
+        Widget toolbar() => showToolbar ? SizedBox(height: toolHeight, child: _slot('toolbar', widget.toolbar)) : _slot('toolbar', widget.toolbar, hidden: true);
         Widget footer() => SizedBox(height: footHeight, child: _slot('footer', widget.footer!));
         Widget dock(String dock) {
           final ids = p.panels.keys.where((id) => p.panels[id]!.dock == dock).toList();

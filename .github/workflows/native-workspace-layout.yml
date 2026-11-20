@@ -11,6 +11,9 @@ on:
       - 'packages/flutter_core/lib/theme/theme_center_settings_file.dart'
       - 'packages/flutter_core/lib/theme/theme_settings_provider.dart'
       - 'packages/flutter_core/lib/theme/portal_section_theme.dart'
+      - 'packages/flutter_core/lib/theme/prime_theme_center.dart'
+      - 'packages/flutter_core/lib/theme/prime_palette_editor.dart'
+      - 'packages/flutter_core/test/theme_center_reference_test.dart'
       - 'packages/flutter_core/test/theme_center_settings_file_test.dart'
       - 'packages/flutter_core/lib/registry/widgets/governance_master_layout.dart'
       - 'packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart'
@@ -55,14 +58,14 @@ jobs:
         working-directory: packages/flutter_core
       - name: Analyze shared native workspace only
         working-directory: packages/flutter_core
-        run: flutter analyze --no-fatal-infos lib/workspace.dart lib/workspace lib/theme/theme_center_complete_panel.dart lib/theme/theme_center_settings_file.dart lib/theme/theme_settings_provider.dart lib/theme/portal_section_theme.dart test/workspace test/theme_center_settings_file_test.dart
+        run: flutter analyze --no-fatal-infos lib/workspace.dart lib/workspace lib/theme/theme_center_complete_panel.dart lib/theme/theme_center_settings_file.dart lib/theme/theme_settings_provider.dart lib/theme/portal_section_theme.dart lib/theme/prime_theme_center.dart lib/theme/prime_palette_editor.dart test/workspace test/theme_center_settings_file_test.dart
       - name: Analyze production master shell integration
         if: matrix.os == 'ubuntu-24.04'
         working-directory: packages/flutter_core
         run: flutter analyze --no-fatal-infos lib/registry/widgets/governance_master_layout.dart lib/registry/widgets/theme_settings_drawer.dart
       - name: Validate contract, persistence, actor isolation and real widget gestures
         working-directory: packages/flutter_core
-        run: flutter test test/workspace test/theme_center_settings_file_test.dart test/theme_center_test.dart --reporter expanded
+        run: flutter test test/workspace test/theme_center_settings_file_test.dart test/theme_center_test.dart test/theme_center_reference_test.dart --reporter expanded
       - uses: actions/upload-artifact@v4
         if: always()
         with:
