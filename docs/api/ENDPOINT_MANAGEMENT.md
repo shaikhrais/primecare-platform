@@ -34,3 +34,30 @@ Release maintainers record reviewed windows in [the Worker maintenance schedule]
 The inventory shows the next window as scheduled, marks it active from the start time up to the end time, and clears it after expiry. Blocked endpoints remain blocked. The checked-in schedule contains no windows. Production display requires deploying the Worker and dashboard with the reviewed schedule. These windows communicate maintenance status. Traffic continues through the existing handlers.
 
 This read-only inventory uses the Worker catalog snapshot. Use the [delivery checklist](API_DELIVERY_CHECKLIST.md) and [route audit](API_REACHABILITY_AUDIT.md) for operation-specific follow-up.
+
+## Request volume and transfer
+
+The gateway records one metadata event per invocation when the release operator sets `ENDPOINT_TRAFFIC_ENABLED=1` and Workers Logs retains the event. The event contains the registered method and route template, response status, gateway response latency, and declared inbound and outbound body lengths. Paths without a unique catalog match use one `unmatched` bucket. Events omit raw URLs, query strings, identifiers, credentials, headers and bodies. Requests sent directly to a service Worker are outside this gateway measurement.
+
+Export only the `primecare_endpoint_traffic_v1` console message lines from a known interval. For a one-hour export, run:
+
+```sh
+python3 scripts/summarize-endpoint-traffic.py --interval-seconds 3600 < endpoint-traffic.log
+```
+
+The report shows observed requests, observed requests per second, response status counts, error rate, p95 response latency, known bytes in each direction and the number of missing lengths. Retention or sampling can reduce the observed counts. Lengths represent declared body bytes and exclude headers, transport overhead and WebSocket traffic after the upgrade. Compressed or streaming responses may have unknown lengths. Transfer completion and billable network usage require edge metrics. The dashboard has no automatic feed from these logs yet.
+
+## Full-system capacity and efficiency
+
+Service health reports availability at the time of the check. Sustained request capacity, peak throughput and latency headroom require measurement against a representative environment with the deployed topology and sanitized test data.
+
+| Measure | How to establish it |
+| --- | --- |
+| Sustainable throughput | Replay the observed mix of reads, writes, uploads and workflows in a production-like environment. Increase the request rate in steps and hold each step long enough to expose queues and connection saturation. Record the highest sustained rate that meets the agreed latency, error and throughput targets. |
+| Effective throughput | Track successful business operations per second, p95 and p99 latency by operation, and error and retry rates. Reconcile writes against expected persistence and audit records. |
+| Resource efficiency | Measure Worker CPU per successful operation, PostgreSQL connection waits and query time, queue age, third-party limits and transfer bytes per successful operation. |
+| Headroom | Compare sustainable throughput with the observed peak request rate for the same workload mix. Record the interval, deployment version, load profile and measured bottleneck. |
+
+Use the first measured bottleneck to choose the capacity change. For PostgreSQL saturation, inspect slow and repeated queries, add verified indexes and reduce connection churn through pooling. For oversized responses, paginate and project fewer fields, then measure compression and transfer coverage. For slow independent downstream work, use bounded concurrency or an asynchronous queue where the business contract permits it. Cache public, safe responses with a defined staleness limit. Check third-party quotas before scaling callers. Repeat the same load profile after each change to measure the gain and detect regressions.
+
+Cloudflare publishes platform limits separately from the application's measured capacity. [Workers limits](https://developers.cloudflare.com/workers/platform/limits/) · [Workers Logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/)

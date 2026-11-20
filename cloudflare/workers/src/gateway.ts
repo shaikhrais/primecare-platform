@@ -1,4 +1,5 @@
 import {BaseWorker, workerHandler} from './core/base-worker';
+import {recordEndpointTraffic} from './endpoint-traffic';
 import governedReadAliases from './governed-read-aliases.json';
 import externalCalls from '../../../tools/governance-production/external-call-registration.json';
 import callPreparation from '../../../tools/governance-production/internal-call-preparation-registration.json';
@@ -13,6 +14,8 @@ interface Env {
   NOTES: Service; BILLING: Service; SCHEDULING: Service; NOTIFICATION: Service;
   VERIFICATION: Service; COMPLIANCE: Service; GOVERNANCE: Service; FRANCHISE_REPORTING: Service;
 }
+
+type GatewayEnv=Env & {ENDPOINT_TRAFFIC_ENABLED?:string};
 
 const routes: Record<string, keyof Env> = {
   auth: 'AUTH', client: 'CLIENT', provider: 'PROVIDER', providers: 'PROVIDER',
@@ -149,4 +152,19 @@ export class GatewayWorker extends BaseWorker<Env> {
   }
 }
 
-export default workerHandler(new GatewayWorker()) satisfies ExportedHandler<Env>;
+const gatewayHandler=workerHandler(new GatewayWorker());
+export default {
+  ...gatewayHandler,
+  async fetch(request:Request,env:GatewayEnv):Promise<Response> {
+    if(env.ENDPOINT_TRAFFIC_ENABLED!=='1')return gatewayHandler.fetch(request,env);
+    const start=performance.now();
+    let response:Response|undefined;
+    try {
+      response=await gatewayHandler.fetch(request,env);
+      return response;
+    } finally {
+      try {recordEndpointTraffic(request,response,performance.now()-start);}
+      catch { /* Telemetry must not interfere with the API response. */ }
+    }
+  },
+} satisfies ExportedHandler<GatewayEnv>;
