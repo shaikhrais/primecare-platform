@@ -63,7 +63,10 @@ export const spaceStyles=`
 
 /* Active themes own control surfaces as well as card and text tokens. */
 .app-shell[data-space-managed][data-theme-center-active] :is(button,input,select,textarea){background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border)!important}
-.app-shell[data-space-managed][data-theme-center-active] :is(button.primary,button[type=submit]){background:var(--color-primary)!important;color:var(--color-on-primary)!important}
+.app-shell[data-space-managed][data-theme-center-active] :is(button.primary,button[type=submit],button[aria-pressed=true],button[aria-selected=true]){background:var(--color-primary)!important;color:var(--color-on-primary)!important}
+.app-shell[data-space-managed][data-theme-center-active] .global-search label{background:var(--color-surface)!important;color:var(--color-text)!important;border-color:var(--color-border)!important}
+.app-shell[data-space-managed][data-theme-center-active] .global-search kbd{background:var(--color-surface-soft);color:var(--color-text-muted);border-color:var(--color-border)}
+.app-shell[data-space-managed][data-theme-center-active] aside nav a[aria-current=page] .shell-icon{color:var(--color-on-primary)!important}
 /* Page identity stays accessible without reserving a visible title zone. */
 .app-shell[data-space-managed] .workspace>main h1,.app-shell[data-space-managed] .topbar-title,.app-shell[data-space-managed] .code-admin-title-row{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip-path:inset(50%)!important;margin:0!important;padding:0!important;white-space:nowrap!important;border:0!important}
 .app-shell[data-space-managed] .code-admin-page-header{border:0;margin:0;padding:0;gap:0;min-height:0}
