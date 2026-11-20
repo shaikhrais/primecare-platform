@@ -38,7 +38,7 @@ jobs:
   pilot_scope:
     uses: ./.github/workflows/governance-pilot-publish-scope.yml
   verify:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
     services:
       postgres:
@@ -76,7 +76,7 @@ jobs:
   register:
     if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     needs: [verify, pilot_scope]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 8
     steps:
@@ -106,7 +106,7 @@ jobs:
   publish:
     if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
     needs: [verify, register, pilot_scope]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     environment: production
     timeout-minutes: 20
     concurrency:

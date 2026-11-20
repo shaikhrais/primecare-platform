@@ -2,10 +2,11 @@
 import {chromium} from '@playwright/test';
 import {mkdir,writeFile} from 'node:fs/promises';
 const origin='https://primecare-governance.pages.dev',out='test-results/ems/live-browser';
-const receipt={source:process.env.GITHUB_SHA??null,origin,observedAt:new Date().toISOString(),sourceKind:'deployed_browser',authenticated:false,blocker:null,views:[]};
+const receipt={captureSource:process.env.GITHUB_SHA??null,servingSource:null,origin,observedAt:new Date().toISOString(),sourceKind:'deployed_browser',authenticated:false,blocker:null,views:[]};
 await mkdir(out,{recursive:true});
 const browser=await chromium.launch({headless:true});const context=await browser.newContext();
 try{
+ const stamp=await fetch(origin+'/primecare-build.json?capture='+Date.now(),{cache:'no-store'}).then(r=>r.json());receipt.servingSource=typeof stamp.commit==='string'?stamp.commit:null;
  const page=await context.newPage();
  await page.goto(origin+'/platform/administration#ems',{waitUntil:'domcontentloaded',timeout:60000});
  await page.waitForTimeout(3000);
