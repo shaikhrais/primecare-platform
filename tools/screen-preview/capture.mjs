@@ -16,8 +16,8 @@ const frame=()=>page.frames().find(f=>f!==page.mainFrame());
 try{
  await page.goto(origin,{waitUntil:'domcontentloaded'});await page.waitForFunction(()=>document.querySelector('iframe')?.contentWindow?.PreviewFrame);await page.waitForFunction(()=>document.querySelector('iframe')?.contentDocument?.querySelector('.ems-widget'));
  await frame().locator('[data-cy=ems-summary]').filter({hasText:'120'}).waitFor();
- for(let i=0;i<5;i++){await page.locator('#advance').click();await page.waitForTimeout(120);}
- const operations=frame().locator('.ems-widget-grid');assert.equal(await operations.locator('.ems-widget').count(),6);
+ await page.locator('#preview-settings').evaluate(el=>el.open=true);for(let i=0;i<5;i++){await page.locator('#advance').click();await page.waitForTimeout(120);}
+ await page.locator('#preview-settings').evaluate(el=>el.open=false);const geometry=await frame().evaluate(()=>({titleHeight:document.querySelector('h1').getBoundingClientRect().height,widgetTop:document.querySelector('.ems-widget').getBoundingClientRect().top}));assert.ok(geometry.titleHeight<=34,'desktop title consumes multiple rows');assert.ok(geometry.widgetTop<250,'excessive space before first widget');console.log('PREVIEW_SPACE '+JSON.stringify(geometry));const operations=frame().locator('.ems-widget-grid');assert.equal(await operations.locator('.ems-widget').count(),6);
  assert.ok(await frame().locator('.ems-trend-line').count()>0,'real EMS chart must plot the synthetic traffic history');
  for(const[name,width,height]of [['ems-desktop',1440,1000],['ems-tablet',820,1180],['ems-mobile',390,844]]){await page.setViewportSize({width,height});await page.waitForTimeout(200);await page.screenshot({path:dir+'/screenshots/'+name+'.png',fullPage:true});screenshots.push(name);}
  await page.setViewportSize({width:1440,height:1000});
@@ -32,7 +32,7 @@ try{
  // End the video on the fully populated EMS renderer.
  await open('preview-admin-ems');await page.waitForTimeout(2000);
  const snapshot=await page.evaluate(()=>window.PreviewHost.snapshot());
- const report={sourceKind:'real_browser_of_exported_preview',synthetic:true,productionConnections:false,registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots,scan,pageErrors:errors,externalRequests:external,unsupportedApis:snapshot.runtime?.missingApis??[],observedAt:new Date().toISOString()};
+ const report={layoutGeometry:geometry,sourceKind:'real_browser_of_exported_preview',synthetic:true,productionConnections:false,registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots,scan,pageErrors:errors,externalRequests:external,unsupportedApis:snapshot.runtime?.missingApis??[],observedAt:new Date().toISOString()};
  await writeFile(dir+'/browser-report.json',JSON.stringify(report,null,2));
  assert.equal(external.length,0,'preview attempted an external request');assert.equal(errors.length,0,'preview JavaScript errors');assert.equal(scan.filter(s=>s.alert||!s.title).length,0,'one or more screen renderers failed');
  console.log('PREVIEW_BROWSER '+JSON.stringify({registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots:screenshots.length,externalRequests:external.length,pageErrors:errors.length,unsupportedApis:report.unsupportedApis}));

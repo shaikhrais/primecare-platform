@@ -10,11 +10,11 @@ function svgNode(name:string,attrs:Record<string,string|number>={}){const el=doc
 function createEmsCharts(host:HTMLElement,locale:Locale){
  installEmsDashboardStyles(host.ownerDocument);
  const w=words[locale],nf=new Intl.NumberFormat(locale,{maximumFractionDigits:3});
- const title=document.createElement('h2');title.textContent=w[0];
+ const title=document.createElement('h2');title.textContent=w[0];title.className='pc-visually-hidden';
  const note=document.createElement('p');note.textContent=w[8];
  const clear=document.createElement('button');clear.type='button';clear.textContent=w[21];
  const grid=document.createElement('div');grid.className='ems-chart-grid';
- const toolbar=document.createElement('div');toolbar.className='ems-observatory-toolbar';const intro=document.createElement('div');intro.append(title,note);toolbar.append(intro,clear);
+ const toolbar=document.createElement('div');toolbar.className='ems-observatory-toolbar';const intro=document.createElement('div');const notes=document.createElement('details');notes.className='ems-notes';const summary=document.createElement('summary');summary.textContent=({en:'Measurement notes',fr:'Notes de mesure',es:'Notas de medición'}[locale]);notes.append(summary,note);intro.append(title);toolbar.append(intro,notes,clear);
  const widgets=document.createElement('div');widgets.className='ems-widget-grid';
  const widgetCopy={en:['Registered endpoints','Verified ready','Needs attention','Requests in window','Gateway throughput','HTTP 2xx rate','Catalog declarations','Current release evidence','Blocked declarations','Observed gateway arrivals','Requests per second','Transport responses, not business completion'],fr:['API enregistrées','Préparation vérifiée','À examiner','Requêtes par fenêtre','Débit passerelle','Taux HTTP 2xx','Déclarations du catalogue','Preuves de version actuelle','Déclarations bloquées','Arrivées observées','Requêtes par seconde','Réponses HTTP, pas achèvement métier'],es:['API registradas','Preparación verificada','Requiere atención','Solicitudes por ventana','Rendimiento de puerta','Tasa HTTP 2xx','Declaraciones del catálogo','Evidencia de versión actual','Declaraciones bloqueadas','Llegadas observadas','Solicitudes por segundo','Respuestas HTTP, no finalización de negocio']}[locale];
  const widgetValues:HTMLElement[]=[];

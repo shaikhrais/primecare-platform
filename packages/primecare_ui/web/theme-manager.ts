@@ -1,7 +1,7 @@
 import solidTheme from '../../shared/src/solid-theme.json';
 import {validatePersonalTheme,themePresets,type PersonalTheme} from '../../domain/src/theme_center';
 import type {LayoutProfile} from '../../domain/src/layout_profile';
-const tokens=['--color-primary','--color-primary-hover','--color-secondary','--color-background','--color-surface','--color-surface-soft','--color-text','--color-text-muted','--color-border','--color-info','--color-on-primary','--color-sidebar','--color-sidebar-text','--color-topbar','--color-topbar-text','--color-surface-text','--color-surface-muted','--font-family','--font-size-body','--font-size-heading','--font-size-caption','--radius-md','--radius-lg'];
+const tokens=['--color-success','--color-warning','--color-error','--shadow-card','--color-primary','--color-primary-hover','--color-secondary','--color-background','--color-surface','--color-surface-soft','--color-text','--color-text-muted','--color-border','--color-info','--color-on-primary','--color-sidebar','--color-sidebar-text','--color-topbar','--color-topbar-text','--color-surface-text','--color-surface-muted','--font-family','--font-size-body','--font-size-heading','--font-size-caption','--radius-md','--radius-lg'];
 const bases=new WeakMap<HTMLElement,Map<string,string>>();
 export function onAccent(color:string):string {
  const rgb=[1,3,5].map(i=>parseInt(color.slice(i,i+2),16)/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4);const l=.2126*rgb[0]+.7152*rgb[1]+.0722*rgb[2];return (l+.05)/.05>=1.05/(l+.05)?'#000000':'#ffffff';
@@ -16,6 +16,7 @@ export class BaseThemeManager {
   for(const [key,value] of this.base){if(value)this.host.style.setProperty(key,value);else this.host.style.removeProperty(key);}
   const palettes={light:['#ffffff','#f8fafc','#eef2f6','#172033','#526078','#cbd5e1','#0f172a','#1e293b','#0369a1'],dark:['#172033','#0b1220','#243149','#f1f5f9','#b6c4d9','#475569','#5eead4','#99f6e4','#7dd3fc']};
   if(profile.theme!=='default'){const colors=palettes[profile.theme];['--color-surface','--color-background','--color-surface-soft','--color-text','--color-text-muted','--color-border','--color-primary','--color-primary-hover','--color-info'].forEach((k,i)=>this.host.style.setProperty(k,colors[i]));this.host.style.setProperty('--color-secondary',colors[3]);this.host.style.setProperty('--color-sidebar',colors[0]);this.host.style.setProperty('--color-sidebar-text',colors[3]);}
+  if(profile.theme==='dark'){this.host.style.setProperty('--color-success','#86efac');this.host.style.setProperty('--color-warning','#fcd34d');this.host.style.setProperty('--color-error','#fca5a5');}
   if(profile.accent){this.host.style.setProperty('--color-primary',profile.accent);this.host.style.setProperty('--color-primary-hover',profile.accent);}
   const primary=this.host.style.getPropertyValue('--color-primary').trim();if(/^#[0-9a-f]{6}$/i.test(primary))this.host.style.setProperty('--color-on-primary',onAccent(primary));
   this.host.style.setProperty('--theme-font-scale','1');
