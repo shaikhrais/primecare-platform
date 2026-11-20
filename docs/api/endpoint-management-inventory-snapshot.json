@@ -1,0 +1,24 @@
+{
+  "observedAt": "2026-11-20T02:08:04.222Z",
+  "sourceCommit": "eea5a85fc2ca5564089886b41d783e86ee2d9a8d",
+  "scope": "checked-in governance catalog; no live endpoint verification or release binding",
+  "declarations": 1485,
+  "uniqueOperations": 1484,
+  "implementation": {
+    "blocked": 14,
+    "unknown": 1049,
+    "declared_implemented": 398,
+    "partial": 24
+  },
+  "protection": {
+    "unverified": 432,
+    "permission_metadata_missing": 1053
+  },
+  "readiness": {
+    "blocked": 14,
+    "unverified": 1471
+  },
+  "maintenance": {
+    "unknown": 1485
+  }
+}

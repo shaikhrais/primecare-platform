@@ -130,3 +130,17 @@ Provider references: [Analytics Engine SQL API](https://developers.cloudflare.co
 Local verification: `node --test scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs`. The Analytics and capacity TypeScript unit tests require Node 24+; the bundled governance and gateway tests retain their existing esbuild dependency.
 
 Validation for the automatic-traffic change: 41 focused gateway, governance authorization, report parsing, capacity and config-preservation tests passed. Worker and browser TypeScript checks passed separately. A DOM smoke check verified automatic report rendering, readiness totals, clearing stale usage after an unavailable response, and stopping refresh after disposal. No live provider query, production deployment or full-system load test was performed.
+
+## Production activation evidence
+
+The [production preflight](https://github.com/shaikhrais/primecare-platform/actions/runs/44657005408) completed read-only on 2026-11-20 at 01:55 UTC. The gateway reported HTTP 200 and all 12 service checks healthy. It also confirmed that collection, the dataset binding, reader account, reader role, reader tenant and reader secret were not configured. These are configuration blockers, not measured zero traffic. The sanitized [snapshot](endpoint-management-production-preflight.json) records that observation; rerun the preflight after configuration changes. No deployment was performed by the diagnostic job.
+
+The source-reviewed [inventory snapshot](endpoint-management-inventory-snapshot.json) records catalog counts without a serving release binding. It is separate from production availability and does not certify endpoint execution or protection.
+
+The read-only preflight runs when its own code changes and can also be dispatched manually. `Endpoint management tests` runs focused authorization, privacy, configuration, capacity and dashboard lifecycle regressions for changes to the relevant sources. The broader repository theme and screen-inventory checks remain separate release gates.
+
+## Reproducible capacity evidence
+
+Use the [staging load harness and evaluator](../../tools/endpoint-capacity/README.md) to generate capacity evidence from actual sustained test results. Profiles use an explicit nonproduction origin, increasing request rates, bounded concurrency, authenticated synthetic reads and per-operation checks. The evaluator refuses incomplete runs, dropped iterations, missed rate or latency/error targets, and workloads whose operation mix does not match the profile. A passing result creates an expiring benchmark for the measured staging read mix only. No live load test has been run against PrimeCare, so production and full-system capacity remain unmeasured.
+
+The telemetry source-review records now reconstruct both the gateway and governance API back to their exact historical source hashes. The 19 contract-plan tests and unchanged generated-plan check pass, preserving all unresolved workflow identities and zero API credits. Existing theme migration, screen style and screen-inventory CI failures are outside these endpoint changes and remain separate release blockers.

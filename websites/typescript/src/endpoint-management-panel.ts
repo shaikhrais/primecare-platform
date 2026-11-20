@@ -133,6 +133,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
     capacityStatus.textContent=`${capacity.releaseId} · ${capacity.environment} · ${capacity.workload} · ${capacityText[0]}: ${numbers.format(capacity.sustainableRequestsPerSecond)} ${capacityText[2]} · ${capacityText[1]}: ${numbers.format(capacity.sustainableRequestsPerSecond*(1-capacity.errorRate))} ${capacityText[2]} · P95 ${numbers.format(capacity.p95LatencyMs)} ms · Errors ${numbers.format(capacity.errorRate*100)}% · ${capacityText[3]} ${capacity.measuredAt} · ${capacityText[4]} ${capacity.expiresAt}`+
       (result?` · ${capacityText[5]}: ${numbers.format(result.observedAverageUtilization*100)}% · ${capacityText[6]}: ${numbers.format(result.averageRateMargin)} ${capacityText[2]}`:'')+
       ` · ${assessCapacity(capacity,0).recommendation} ${capacityText[8]}`;
+    if(capacity.measurementScope==='staging_http_read_mix')capacityStatus.append(' '+(locale==='fr'?'Mesure limitée aux lectures en préproduction.':locale==='es'?'Medición limitada a lecturas en preproducción.':'Measurement covers staging reads only.'));
     const link=document.createElement('a');link.href=capacity.evidenceUrl;link.textContent=' '+capacityText[7];link.target='_blank';link.rel='noopener noreferrer';capacityStatus.append(link);
   }
   capacityFile.onchange=async()=>{

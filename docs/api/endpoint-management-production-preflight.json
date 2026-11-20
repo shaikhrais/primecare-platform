@@ -1,0 +1,86 @@
+{
+  "source": "0d57c57f040f26270f6be6312488b93af3b383f4",
+  "observedAt": "2026-11-20T01:55:05.323Z",
+  "providerWrites": 0,
+  "configuration": {
+    "checks": {
+      "gatewayCollectionEnabled": false,
+      "datasetBound": false,
+      "readerAccountConfigured": false,
+      "readerRoleConfigured": false,
+      "readerTenantConfigured": false,
+      "readerSecretConfigured": false
+    },
+    "configured": false,
+    "blockers": [
+      {
+        "key": "gatewayCollectionEnabled",
+        "action": "Enable ENDPOINT_TRAFFIC_ENABLED on the gateway."
+      },
+      {
+        "key": "datasetBound",
+        "action": "Bind ENDPOINT_ANALYTICS to primecare_endpoint_traffic_v1."
+      },
+      {
+        "key": "readerAccountConfigured",
+        "action": "Configure the Analytics Engine account ID on governance."
+      },
+      {
+        "key": "readerRoleConfigured",
+        "action": "Select an inventory-authorized platform reporting role."
+      },
+      {
+        "key": "readerTenantConfigured",
+        "action": "Bind the reporting grant to the approved platform tenant."
+      },
+      {
+        "key": "readerSecretConfigured",
+        "action": "Configure a dedicated Account Analytics Read token as ENDPOINT_ANALYTICS_READ_TOKEN."
+      }
+    ]
+  },
+  "health": {
+    "httpStatus": 200,
+    "services": {
+      "auth": true,
+      "client": true,
+      "provider": true,
+      "visit": true,
+      "notes": true,
+      "billing": true,
+      "scheduling": true,
+      "notification": true,
+      "verification": true,
+      "compliance": true,
+      "governance": true,
+      "franchise-reporting": true
+    }
+  },
+  "blockers": [
+    {
+      "key": "gatewayCollectionEnabled",
+      "action": "Enable ENDPOINT_TRAFFIC_ENABLED on the gateway."
+    },
+    {
+      "key": "datasetBound",
+      "action": "Bind ENDPOINT_ANALYTICS to primecare_endpoint_traffic_v1."
+    },
+    {
+      "key": "readerAccountConfigured",
+      "action": "Configure the Analytics Engine account ID on governance."
+    },
+    {
+      "key": "readerRoleConfigured",
+      "action": "Select an inventory-authorized platform reporting role."
+    },
+    {
+      "key": "readerTenantConfigured",
+      "action": "Bind the reporting grant to the approved platform tenant."
+    },
+    {
+      "key": "readerSecretConfigured",
+      "action": "Configure a dedicated Account Analytics Read token as ENDPOINT_ANALYTICS_READ_TOKEN."
+    }
+  ],
+  "evidenceUrl": "https://github.com/shaikhrais/primecare-platform/actions/runs/44657005408"
+}

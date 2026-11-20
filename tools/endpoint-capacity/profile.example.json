@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "origin": "https://primecare-api-gateway.staging.example.com",
+  "environment": "staging",
+  "releaseId": "replace-with-tested-release",
+  "workload": "authenticated-governance-read-mix",
+  "evidenceUrl": "https://example.com/replace-with-reviewed-load-run",
+  "preAllocatedVUs": 20,
+  "maxVUs": 100,
+  "targetP95LatencyMs": 500,
+  "targetErrorRate": 0.01,
+  "stages": [
+    {"rate": 5, "durationSeconds": 120},
+    {"rate": 10, "durationSeconds": 120},
+    {"rate": 20, "durationSeconds": 120}
+  ],
+  "operations": [
+    {"name": "auth_me", "path": "/v1/auth/me", "weight": 80, "expectedStatus": 200, "jsonObjectKeys": []},
+    {"name": "endpoint_status", "path": "/v1/governance/api-service-status", "weight": 20, "expectedStatus": 200, "jsonObjectKeys": ["data", "pagination"]}
+  ]
+}

@@ -1,19 +1,22 @@
 /** Capacity evidence must describe the same deployment, environment and workload. */
 export type CapacityEvidence = {
   releaseId:string; environment:string; workload:string; evidenceUrl:string;
+  measurementScope?:'staging_http_read_mix';
   measuredAt:string; expiresAt:string; sustainableRequestsPerSecond:number;
   p95LatencyMs:number; errorRate:number; targetP95LatencyMs:number;
   targetErrorRate:number; bottleneck:'database'|'transfer'|'downstream'|'worker'|'unknown';
 };
 const positive=(v:unknown):v is number=>typeof v==='number'&&Number.isFinite(v)&&v>0;
+const nonNegative=(v:unknown):v is number=>typeof v==='number'&&Number.isFinite(v)&&v>=0;
 const rate=(v:unknown):v is number=>typeof v==='number'&&Number.isFinite(v)&&v>=0&&v<=1;
 export function readCapacityEvidence(raw:unknown,now=Date.now()):CapacityEvidence {
   const value=raw as CapacityEvidence;
   if(!value||![value.releaseId,value.environment,value.workload].every(text=>
     typeof text==='string'&&text.trim().length>0&&text.length<=200)||
-    !positive(value.sustainableRequestsPerSecond)||!positive(value.p95LatencyMs)||!positive(value.targetP95LatencyMs)||
+    !positive(value.sustainableRequestsPerSecond)||!nonNegative(value.p95LatencyMs)||!positive(value.targetP95LatencyMs)||
     !rate(value.errorRate)||!rate(value.targetErrorRate)||
     !['database','transfer','downstream','worker','unknown'].includes(value.bottleneck))throw Error('Invalid capacity evidence');
+  if(value.measurementScope!==undefined&&value.measurementScope!=='staging_http_read_mix')throw Error('Invalid capacity scope');
   const measured=Date.parse(value.measuredAt),expires=Date.parse(value.expiresAt);
   if(!Number.isFinite(measured)||!Number.isFinite(expires)||measured>now||expires<=now||expires<=measured)throw Error('Expired or invalid capacity evidence');
   const url=new URL(value.evidenceUrl);
