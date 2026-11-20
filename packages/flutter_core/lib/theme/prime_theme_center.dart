@@ -27,6 +27,16 @@ class PrimeThemeCenter extends ConsumerWidget {
     final horizontal=['top','bottom'].contains(p?.navigation)||p?.navigation=='hidden'&&settings.layoutStyle==LayoutStyle.horizontal;
     final family=c==null?(settings.layoutStyle==LayoutStyle.horizontal?'2':'1'):horizontal?(p!.scroll=='content'?'3':'2'):'1';
     void patch(Map<String,Object?> value){if(c!=null)c.patch(value);}
+    void display(String part,bool visible,String current,String fallback){
+      _run(context,()async{
+        if(!visible)await notifier.rememberChrome(part,current);
+        if(!context.mounted||themeAccountScope(ref.read(authProvider))!=owner)return;
+        patch({part:visible?(settings.hiddenChrome[part]??fallback):'hidden'});
+      });
+    }
+    void position(String part,String current,String value){
+      if(current=='hidden'){_run(context,()=>notifier.rememberChrome(part,value));}else{patch({part:value});}
+    }
     void chooseFamily(String value){
       _run(context,()async{
         await notifier.updateLayoutStyle(value=='1'?LayoutStyle.verticalLeft:LayoutStyle.horizontal);
@@ -47,7 +57,7 @@ class PrimeThemeCenter extends ConsumerWidget {
       if(!context.mounted||themeAccountScope(ref.read(authProvider))!=owner||!await prefs.setString('theme_center_complete_v1:${c.scope.storageKey}',source))throw StateError('Account changed');
       if(context.mounted)ScaffoldMessenger.maybeOf(context)?.showSnackBar(const PrimeSnackBar(content:PrimeText('Your settings are saved.')));
     }
-    return PrimeDrawer(width:math.min(380,MediaQuery.sizeOf(context).width*.9),shape:const RoundedRectangleBorder(),
+    return PrimeDrawer(width:math.min(380.0,MediaQuery.sizeOf(context).width*.9),shape:const RoundedRectangleBorder(),
       child:SafeArea(child:Column(children:[
         Padding(padding:const EdgeInsets.fromLTRB(24,12,8,4),child:Row(children:[
           Expanded(child:PrimeText('Theme Settings',style:theme.textTheme.titleLarge?.copyWith(fontWeight:FontWeight.w600))),
@@ -63,21 +73,24 @@ class PrimeThemeCenter extends ConsumerWidget {
           ]),
           if(p!=null)...[
             PrimeSettingsGroup(label:'Navbar',children:[
-              toggle('Display',p.navigation!='hidden',(v)=>patch({'navigation':v?(horizontal?'top':settings.layoutStyle==LayoutStyle.verticalRight?'right':'left'):'hidden'})),
+              toggle('Display',p.navigation!='hidden',(v)=>display('navigation',v,p.navigation,horizontal?'top':settings.layoutStyle==LayoutStyle.verticalRight?'right':'left')),
               if(!horizontal)...[
-                choices('Position',p.navigation=='right'?'right':'left',{'left':'Left','right':'Right'},(v){patch({'navigation':v});_run(context,()=>notifier.updateLayoutStyle(v=='right'?LayoutStyle.verticalRight:LayoutStyle.verticalLeft));}),
+                choices('Position',(p.navigation=='hidden'?settings.hiddenChrome['navigation']:p.navigation)=='right'?'right':'left',{'left':'Left','right':'Right'},(v)=>_run(context,()async{
+                  if(p.navigation=='hidden'){await notifier.rememberChrome('navigation',v);}else{patch({'navigation':v});}
+                  if(context.mounted&&themeAccountScope(ref.read(authProvider))==owner)await notifier.updateLayoutStyle(v=='right'?LayoutStyle.verticalRight:LayoutStyle.verticalLeft);
+                })),
                 choices('Style',settings.navigationStyle,{'slide':'Slide','tabbed':'Tabbed'},(v)=>_run(context,()=>notifier.updateNavigationStyle(v))),
                 toggle('Folded',p.navigationWidth==64,(v)=>patch({'navigationWidth':v?64:248})),
               ],
             ]),
             PrimeSettingsGroup(label:'Toolbar',children:[
-              toggle('Display',p.toolbar!='hidden',(v)=>patch({'toolbar':v?(horizontal?'belowNavigation':'top'):'hidden'})),
-              if(horizontal)choices('Position',p.toolbar=='belowNavigation'?'belowNavigation':p.toolbar=='bottom'?'bottom':'top',{'top':'Above','belowNavigation':'Below','bottom':'Bottom'},(v)=>patch({'toolbar':v})),
+              toggle('Display',p.toolbar!='hidden',(v)=>display('toolbar',v,p.toolbar,horizontal?'belowNavigation':'top')),
+              if(horizontal)choices('Position',(p.toolbar=='hidden'?settings.hiddenChrome['toolbar']:p.toolbar)??'top',{'top':'Above','belowNavigation':'Below','bottom':'Bottom'},(v)=>position('toolbar',p.toolbar,v)),
               choices('Style',p.toolbarStyle,{'sticky':'Fixed','static':'Static'},(v)=>patch({'toolbarStyle':v})),
             ]),
             PrimeSettingsGroup(label:'Footer',children:[
-              toggle('Display',p.footer!='hidden',(v)=>patch({'footer':v?'sticky':'hidden'})),
-              choices('Style',p.footer=='static'?'static':'sticky',{'sticky':'Fixed','static':'Static'},(v)=>patch({'footer':v})),
+              toggle('Display',p.footer!='hidden',(v)=>display('footer',v,p.footer,'sticky')),
+              choices('Style',(p.footer=='hidden'?settings.hiddenChrome['footer']:p.footer)??'sticky',{'sticky':'Fixed','static':'Static'},(v)=>position('footer',p.footer,v)),
             ]),
           ],
           PrimeSettingsGroup(key:const Key('theme-settings-palette'),label:'Theme',children:[
@@ -101,7 +114,7 @@ class PrimeThemeCenter extends ConsumerWidget {
             choices('Scroll',p.scroll,{'page':'Page','content':'Content'},(v)=>patch({'scroll':v})),
             PrimeText('Navigation width · ${p.navigationWidth}px'),
             PrimeSlider(value:p.navigationWidth.clamp(160,400).toDouble(),min:160,max:400,divisions:24,onChanged:p.navigationWidth==64?null:(v)=>patch({'navigationWidth':v.round()})),
-            Row(children:[PrimeTextButton(onPressed:c?.canUndo==true?c!.undo:null,child:const PrimeText('Undo')),PrimeTextButton(onPressed:c?.canRedo==true?c!.redo:null,child:const PrimeText('Redo'))]),
+            Row(children:[PrimeTextButton(onPressed:c!=null&&c.canUndo?c.undo:null,child:const PrimeText('Undo')),PrimeTextButton(onPressed:c!=null&&c.canRedo?c.redo:null,child:const PrimeText('Redo'))]),
           ]),
           const ExpansionTile(title:PrimeText('My settings · Import & export'),tilePadding:EdgeInsets.zero,children:[ThemeCenterCompletePanel(actionsOnly:true)]),
           const ExpansionTile(title:PrimeText('Saved themes & typography'),tilePadding:EdgeInsets.zero,children:[ThemeCenterPanel()]),

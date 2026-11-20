@@ -15,10 +15,13 @@ void main(){
   test('slide/tabbed settings migrate from older files and survive a roundtrip',(){
     const value=ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:'default',customScrollbars:true,direction:TextDirection.ltr,navigationStyle:'tabbed');
     expect(ThemeSettingsState.fromJson(value.toJson()).navigationStyle,'tabbed');
-    final v2=value.toJson()..remove('navigationStyle');v2['version']=2;
+    final v2=value.toJson()..remove('navigationStyle')..remove('hiddenChrome');v2['version']=2;
     expect(ThemeSettingsState.fromJson(v2).navigationStyle,'slide');
     expect(()=>ThemeSettingsState.fromJson({...value.toJson(),'navigationStyle':'unregistered'}),throwsFormatException);
     expect(WorkspaceLayout.defaults([]).patch({'toolbar':'hidden'}).toolbar,'hidden');
+    final remembered=value.copyWith(hiddenChrome:const {'toolbar':'belowNavigation','footer':'static'});
+    expect(ThemeSettingsState.fromJson(remembered.toJson()).hiddenChrome,remembered.hiddenChrome);
+    expect(()=>ThemeSettingsState.fromJson({...remembered.toJson(),'hiddenChrome':{'role':'admin'}}),throwsFormatException);
   });
   testWidgets('grouped settings persist navigation style and palette editing',(tester)async{
     SharedPreferences.setMockInitialValues({});final preferences=await SharedPreferences.getInstance();

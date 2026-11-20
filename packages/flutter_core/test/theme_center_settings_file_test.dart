@@ -24,7 +24,7 @@ void main() {
     expect(restored.appearance.direction,TextDirection.rtl);
   });
   test('legacy v1 appearance loads; unknown sections, access rules and oversized files fail', () {
-    final legacy=appearance().toJson()..remove('sections')..remove('navigationStyle');legacy['version']=1;
+    final legacy=appearance().toJson()..remove('sections')..remove('navigationStyle')..remove('hiddenChrome');legacy['version']=1;
     expect(ThemeSettingsState.fromJson(legacy).sectionThemes,isEmpty);
     final bad=appearance().toJson();bad['sections']={'authorization':<String,Object?>{}};
     expect(()=>ThemeSettingsState.fromJson(bad),throwsFormatException);
