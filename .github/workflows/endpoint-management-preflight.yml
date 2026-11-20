@@ -1,0 +1,36 @@
+name: Endpoint management production preflight
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/endpoint-management-preflight.mjs'
+      - 'scripts/test-endpoint-management-preflight.mjs'
+      - '.github/workflows/endpoint-management-preflight.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: endpoint-management-read-only-preflight
+  cancel-in-progress: false
+jobs:
+  inspect:
+    environment: production
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Test redaction and configuration diagnostics
+        run: node --test scripts/test-endpoint-management-preflight.mjs
+      - name: Inspect live settings and public health without mutations
+        run: node scripts/endpoint-management-preflight.mjs
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: endpoint-management-preflight
+          path: test-results/endpoint-management/preflight.json
+          retention-days: 14
