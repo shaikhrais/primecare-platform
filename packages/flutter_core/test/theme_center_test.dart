@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_core/theme/theme_center_complete_panel.dart';
+import 'package:flutter_core/workspace/portal_workspace.dart';
 import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';import 'package:flutter_riverpod/flutter_riverpod.dart';import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_core/auth_service.dart';import 'package:flutter_core/providers/persistence_providers.dart';import 'package:flutter_core/theme/personal_theme.dart';import 'package:flutter_core/theme/theme_center_catalog_generated.dart';import 'package:flutter_core/theme/theme_library_provider.dart';import 'package:flutter_core/theme/theme_settings_provider.dart';
@@ -25,6 +28,26 @@ void main(){
  });
  test('malformed stored preferences fall back without applying them',()async{
   final auth=AuthState(isAuthenticated:true,userId:'bad',tenantId:'tenant',role:'admin');final scope=themeAccountScope(auth);SharedPreferences.setMockInitialValues({'theme_center_settings_v1:$scope':jsonEncode({'version':2}),'theme_center_library_v1:$scope':'not json'});final prefs=await SharedPreferences.getInstance();final c=ProviderContainer(overrides:[sharedPreferencesProvider.overrideWithValue(prefs),authProvider.overrideWith(()=>TestThemeAuth(auth))]);addTearDown(c.dispose);expect(c.read(themeSettingsProvider).theme.colors,isEmpty);expect(c.read(themeLibraryProvider),isEmpty);
+ });
+ testWidgets('complete Save all and Load all restore layout and section palettes together',(tester)async{
+  SharedPreferences.setMockInitialValues({});final prefs=await SharedPreferences.getInstance();
+  late WorkspaceController workspace;
+  await tester.pumpWidget(ProviderScope(overrides:[sharedPreferencesProvider.overrideWithValue(prefs),
+    authProvider.overrideWith(()=>TestThemeAuth(AuthState(isAuthenticated:true,userId:'all-settings',tenantId:'tenant',role:'admin')))],
+    child:MaterialApp(home:PortalWorkspace(scope:WorkspaceScope(tenant:'tenant',user:'all-settings',role:'admin'),
+      preferences:SharedWorkspacePreferences(prefs),legacyLayoutStyle:'verticalLeft',
+      builder:(context,c){workspace=c;return const Scaffold(body:SingleChildScrollView(child:ThemeCenterCompletePanel()));}))));
+  await tester.pumpAndSettle();
+  final container=ProviderScope.containerOf(tester.element(find.byType(ThemeCenterCompletePanel)));
+  final settings=container.read(themeSettingsProvider.notifier);
+  workspace.patch({'navigation':'right','toolbar':'belowNavigation'});
+  await settings.updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827'}));
+  await tester.pumpAndSettle();await tester.ensureVisible(find.text('Save all'));await tester.tap(find.text('Save all'));await tester.pumpAndSettle();
+  workspace.patch({'navigation':'hidden'});await settings.updateSectionTheme('footer',null);
+  await tester.pumpAndSettle();await tester.ensureVisible(find.text('Load all'));await tester.tap(find.text('Load all'));await tester.pumpAndSettle();
+  expect(workspace.current.navigation,'right');expect(workspace.current.toolbar,'belowNavigation');
+  expect(container.read(themeSettingsProvider).sectionThemes['footer']!.colors['surface'],'#111827');
+  expect(tester.takeException(),isNull);
  });
  test('theme limit leaves existing library intact',()async{
   SharedPreferences.setMockInitialValues({});final prefs=await SharedPreferences.getInstance();final c=ProviderContainer(overrides:[sharedPreferencesProvider.overrideWithValue(prefs),authProvider.overrideWith(()=>TestThemeAuth(AuthState(isAuthenticated:true,userId:'limit',tenantId:'tenant',role:'admin')))]);addTearDown(c.dispose);final store=c.read(themeLibraryProvider.notifier);for(var i=0;i<20;i++)await store.save(PersonalTheme(name:'Theme $i',preset:'default'));await expectLater(store.save(PersonalTheme(name:'Overflow',preset:'default')),throwsFormatException);expect(c.read(themeLibraryProvider).length,20);

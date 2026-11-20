@@ -168,7 +168,9 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       ? buildHorizontalNav()
                       : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,
                           collapsed: workspace.current.navigationWidth == 64)),
-                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: PreferredSize(
+                  toolbar: PrimePortalTheme(data: portalSectionTheme(theme, 'toolbar'), child: Builder(builder: (context) {
+                  final theme = Theme.of(context);
+                  return PreferredSize(
                   preferredSize: const Size.fromHeight(kToolbarHeight),
                   child: Semantics(
                     label: 'data-cy:app-topbar',
@@ -385,7 +387,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                       ),
                     ),
                   ),
-                ),
+                );
+                  }),
                   ),
                   footer: PrimePortalTheme(data: portalSectionTheme(theme, 'footer'), child: const PortalLayoutFooter()),
                   main: Semantics(

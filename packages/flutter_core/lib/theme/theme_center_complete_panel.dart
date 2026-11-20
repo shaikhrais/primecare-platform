@@ -59,6 +59,7 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
           if(WorkspaceFiles.canExportFile)PrimeTextButton(onPressed:()=>run(()async {
             return await WorkspaceFiles.exportJson(snapshot().exportJson(),filename:'primecare-theme-settings.json')?'Complete settings file exported.':'Export cancelled.';
           }),child:const PrimeText('Export all settings')),
+          PrimeTextButton(onPressed:()=>showDialog<void>(context:context,builder:(_)=>_CompleteSettingsImport(onApply:apply)),child:const PrimeText('Paste all settings')),
           PrimeTextButton(onPressed:()=>run(()async {
             final source=await WorkspaceFiles.importJson(maxBytes:65536);
             if(source==null)return 'Import cancelled.';
@@ -81,4 +82,28 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
       const SizedBox(height:24),
     ]);
   }
+}
+
+class _CompleteSettingsImport extends StatefulWidget {
+  final Future<void> Function(String) onApply;
+  const _CompleteSettingsImport({required this.onApply});
+  @override State<_CompleteSettingsImport> createState()=>_CompleteSettingsImportState();
+}
+class _CompleteSettingsImportState extends State<_CompleteSettingsImport> {
+  final input=TextEditingController();
+  String? error;
+  bool busy=false;
+  @override void dispose(){input.dispose();super.dispose();}
+  @override Widget build(BuildContext context)=>PrimeAlertDialog(
+    title:const PrimeText('Import complete theme settings'),
+    content:SizedBox(width:480,child:PrimeTextField(controller:input,maxLines:8,maxLength:65536,
+      enabled:!busy,decoration:InputDecoration(hintText:'Paste complete settings JSON',errorText:error))),
+    actions:[
+      PrimeTextButton(onPressed:busy?null:()=>Navigator.pop(context),child:const PrimeText('Cancel')),
+      PrimeTextButton(onPressed:busy?null:()async {
+        setState(()=>busy=true);
+        try {await widget.onApply(input.text);if(context.mounted)Navigator.pop(context);}
+        catch(_){if(mounted)setState((){busy=false;error='Invalid settings or settings could not be saved.';});}
+      },child:PrimeText(busy?'Applying…':'Apply')),
+    ]);
 }
