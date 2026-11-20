@@ -81,6 +81,38 @@ class DocumentationTests(unittest.TestCase):
             self.assertEqual(len(index[('POST', '/v1/example')][0]['sha256']), 64)
             self.assertEqual(index[('POST', '/v1/example')][0]['file'], 'docs/api/fixture.openapi.json')
 
+    def test_yaml_path_parameters_and_security_inheritance(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            folder = root / 'docs/care'
+            folder.mkdir(parents=True)
+            (folder / 'openapi.yaml').write_text("""openapi: 3.1.0
+security:
+  - bearerAuth: []
+paths:
+  /placeholder:
+    get:
+      x-primecare-structure-status: draft_missing_decisions
+  /example/{id}:
+    parameters:
+      - {name: id, in: path, required: true}
+      - {name: limit, in: query}
+    get:
+      summary: Get example
+      parameters:
+        - {name: limit, in: query, required: true}
+    post:
+      security: []
+""")
+            sources = document_sources(root)
+            self.assertNotIn(('GET', '/placeholder'), sources)
+            read = source_comments(sources[('GET', '/example/{id}')])
+            self.assertIn('document level: bearerAuth', read)
+            self.assertIn('`id` in path (required)', read)
+            self.assertIn('`limit` in query (required)', read)
+            self.assertNotIn('`limit` in query (optional)', read)
+            self.assertIn('explicit empty security', source_comments(sources[('POST', '/example/{id}')]))
+
 
 if __name__ == '__main__':
     unittest.main()

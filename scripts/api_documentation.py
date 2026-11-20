@@ -10,6 +10,11 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SOURCE_DIRECTORIES = ('docs/api', 'docs/appearance', 'docs/care', 'docs/marketing',
+                      'docs/platform-bundle', 'docs/platform-operations', 'docs/territories')
+SOURCE_FILES = ('docs/auth-openapi.json', 'docs/api-openapi.yaml',
+                'packages/contracts/communications.openapi.json',
+                'tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json')
 METHODS = {'get', 'post', 'put', 'patch', 'delete', 'head', 'options', 'trace'}
 
 
@@ -17,15 +22,29 @@ def clean(value, limit=2000):
     return str(value or '').replace('\x00', '').replace('\r', '')[:limit]
 
 
+def specification_files(root=ROOT):
+    """Enumerate known contract locations, excluding the generated catalogue."""
+    files = {root / path for path in SOURCE_FILES if (root / path).is_file()}
+    for directory in SOURCE_DIRECTORIES:
+        for file in (root / directory).rglob('*'):
+            if file.is_file() and 'openapi' in file.stem and file.suffix in {'.json', '.yaml', '.yml'}:
+                files.add(file)
+    return sorted(files)
+
+
+def load_specification(file):
+    contents = file.read_bytes()
+    if file.suffix == '.json':
+        return json.loads(contents), hashlib.sha256(contents).hexdigest()
+    import yaml
+    return yaml.safe_load(contents), hashlib.sha256(contents).hexdigest()
+
+
 def document_sources(root=ROOT):
-    """Use only tracked documentation locations; never load arbitrary URLs/refs."""
+    """Index source evidence by exact HTTP method and path."""
     sources = defaultdict(list)
-    files = sorted((root / 'docs/api').glob('*.openapi.json'))
-    communication = root / 'packages/contracts/communications.openapi.json'
-    if communication.exists():
-        files.append(communication)
-    for file in files:
-        doc = json.loads(file.read_text())
+    for file in specification_files(root):
+        doc, digest = load_specification(file)
         if not isinstance(doc, dict) or not isinstance(doc.get('paths'), dict):
             raise ValueError('Invalid repository API documentation')
         for path, operations in doc['paths'].items():
@@ -36,10 +55,18 @@ def document_sources(root=ROOT):
                     continue
                 if not isinstance(operation, dict):
                     raise ValueError('Invalid repository API operation')
+                if operation.get('x-primecare-structure-status') == 'draft_missing_decisions':
+                    continue
                 sources[(method.upper(), path)].append({
                     'file': file.relative_to(root).as_posix(),
-                    'sha256': hashlib.sha256(file.read_bytes()).hexdigest(),
+                    'sha256': digest,
                     'operation': operation, 'components': doc.get('components', {}),
+                    'security': operation.get('security', doc.get('security')),
+                    'securityLevel': 'operation' if 'security' in operation else 'document',
+                    'parameters': operations.get('parameters', []),
+                    'proposal': bool(doc.get('x-primecare-review', {}).get('noActivation')
+                                     or doc.get('x-primecare-no-activation')
+                                     or operation.get('x-primecare-no-activation')),
                 })
     return sources
 
@@ -108,17 +135,21 @@ def source_comments(sources):
         operation, components = source['operation'], source['components']
         sections.extend(['### [' + source['file'] + '](../../' + source['file'] + ')',
                          '**Purpose / behavior from source:** ' + clean(operation.get('summary') or operation.get('description') or 'Not stated.', 5000)])
+        if source.get('proposal'):
+            sections.append('**Review status:** Proposal or non-activated source.')
         if operation.get('summary') and operation.get('description'):
             sections.append(clean(operation['description'], 5000))
-        security = operation.get('security')
+        security = source.get('security', operation.get('security'))
         sections.append('**Authentication declared in source:** ' +
-                        ('Not declared at operation level; inspect document-level security.' if security is None else
-                         'No operation-level security requirement is declared; this does not authorize public exposure.' if not security else
+                        ('No security requirement is declared in this source.' if security is None else
+                         'An explicit empty security requirement is declared; review the runtime before treating access as public.' if not security else
+                         source.get('securityLevel', 'operation') + ' level: ' +
                          '; '.join(', '.join(clean(k, 100) for k in item) or 'anonymous alternative' for item in security)))
-        parameters = operation.get('parameters', [])
+        parameters = {(p.get('name'), p.get('in'), p.get('$ref')): p
+                      for p in [*source.get('parameters', []), *operation.get('parameters', [])]}
         if parameters:
-            sections.append('**Parameters:**\n' + '\n'.join('- `' + clean(p.get('name'), 100).replace('`', '') + '` in ' + clean(p.get('in'), 50) +
-                            (' (required)' if p.get('required') else ' (optional)') for p in parameters if isinstance(p, dict)))
+            sections.append('**Parameters:**\n' + '\n'.join('- `' + clean(p.get('name') or p.get('$ref'), 100).replace('`', '') + '` in ' + clean(p.get('in'), 50) +
+                            (' (required)' if p.get('required') else ' (optional)') for p in parameters.values()))
         body = operation.get('requestBody', {})
         for media, content in body.get('content', {}).items():
             sections.append('**Request body — ' + clean(media, 100) + ':**\n' + shape(content.get('schema', {}), components))

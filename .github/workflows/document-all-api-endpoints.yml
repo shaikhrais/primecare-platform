@@ -8,7 +8,13 @@ on:
       - 'scripts/export_governed_openapi.py'
       - 'scripts/test-api-documentation.py'
       - 'scripts/check-api-documentation.py'
-      - 'docs/api/*.openapi.json'
+      - 'docs/**/*.openapi.*'
+      - 'docs/**/openapi.json'
+      - 'docs/api/contract-factory/openapi-drafts.json'
+      - 'docs/api-openapi.yaml'
+      - 'docs/auth-openapi.json'
+      - 'tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json'
+      - 'tools/governance-production/requirements.txt'
       - 'packages/contracts/communications.openapi.json'
   workflow_dispatch:
 permissions:
@@ -24,6 +30,7 @@ jobs:
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
       - run: |
+          pip install PyYAML==6.0.3
           python scripts/test_governed_openapi.py
           python scripts/test-api-documentation.py
   production:
