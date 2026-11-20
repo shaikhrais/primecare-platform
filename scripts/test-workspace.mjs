@@ -100,3 +100,22 @@ test('batch 296 workspace activity projects only persisted action/date fields',a
  globalThis.__workspaceQuery=async(sql,values)=>sql.includes('FROM auth_account_audit')?(queries.push({sql,values}),{rows:[{action:'account_created',created_at:new Date('2026-01-01T00:00:00Z'),private:'private-secret',actor_user_id:'private-actor'}]}):original(sql,values);
  const response=await call();assert.equal(response.status,200);const body=await response.json();assert.deepEqual(body.overview.activity,[{action:'account_created',created_at:'2026-01-01T00:00:00.000Z'}]);assert.ok(!JSON.stringify(body.overview).includes('private-'));
 });
+
+test('endpoint dashboard health uses one credential-free request and shows degraded services',async()=>{
+  const outfile=join(dir,'endpoint-panel.cjs');
+  await build({entryPoints:['websites/typescript/src/endpoint-management-panel.ts'],bundle:true,
+    platform:'node',format:'cjs',outfile});
+  const {readEndpointServiceHealth}=createRequire(import.meta.url)(outfile);
+  const signal=new AbortController().signal;
+  const gateway='https://gateway.test';
+  const services=await readEndpointServiceHealth(gateway,signal,async(url,init)=>{
+    assert.equal(url,gateway+'/health');
+    assert.deepEqual(init,{method:'GET',credentials:'omit',cache:'no-store',signal});
+    return Response.json({status:'degraded',services:{client:true,governance:false}},{status:503});
+  });
+  assert.deepEqual(services,[{service:'client',healthy:true},{service:'governance',healthy:false}]);
+  await assert.rejects(readEndpointServiceHealth(gateway,signal,async()=>Response.json(
+    {status:'healthy',services:{governance:'true'}})),/Invalid service results/);
+  await assert.rejects(readEndpointServiceHealth(gateway,signal,async()=>Response.json(
+    {status:'degraded',services:{governance:false}})),/Inconsistent health status/);
+});
