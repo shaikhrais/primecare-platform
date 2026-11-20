@@ -10,7 +10,7 @@ const server=createServer((req,res)=>{if(req.url==='/'||req.url?.startsWith('/?'
 const browser=await chromium.launch({headless:true});const external=[],errors=[],scan=[],screenshots=[];
 const context=await browser.newContext({viewport:{width:1440,height:1000},recordVideo:{dir:dir+'/video',size:{width:1440,height:1000}}});
 await context.route('**/*',async route=>{const url=route.request().url();if(/^https?:/.test(url)&&!url.startsWith(origin+'/')){external.push(url);await route.abort();}else await route.continue();});
-const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+const consoleErrors=[];const page=await context.newPage();page.on('pageerror',e=>{errors.push(e.message);console.log('PREVIEW_PAGE_ERROR '+e.message);});page.on('console',message=>{if(message.type()==='error')consoleErrors.push(message.text());});
 const open=async(code)=>{await page.evaluate(async code=>{const done=window.PreviewHost.waitReady();window.PreviewHost.openScreen(code);return await done;},code);};
 const frame=()=>page.frames().find(f=>f!==page.mainFrame());
 try{
@@ -36,4 +36,4 @@ try{
  await writeFile(dir+'/browser-report.json',JSON.stringify(report,null,2));
  assert.equal(external.length,0,'preview attempted an external request');assert.equal(errors.length,0,'preview JavaScript errors');assert.equal(scan.filter(s=>s.alert||!s.title).length,0,'one or more screen renderers failed');
  console.log('PREVIEW_BROWSER '+JSON.stringify({registeredPagesScanned:registry.length,actualAdminViewsScanned:admin.length,rolesCaptured:roleShots.size,screenshots:screenshots.length,externalRequests:external.length,pageErrors:errors.length,unsupportedApis:report.unsupportedApis}));
-}finally{await context.close();await browser.close();server.close();}
+}finally{await page.screenshot({path:dir+'/screenshots/last-state.png',fullPage:true}).catch(()=>{});await writeFile(dir+'/diagnostics.json',JSON.stringify({pageErrors:errors,consoleErrors,externalRequests:external,frames:page.frames().map(f=>f.url())},null,2));await context.close();await browser.close();server.close();}
