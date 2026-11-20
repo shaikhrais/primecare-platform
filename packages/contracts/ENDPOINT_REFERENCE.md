@@ -15141,22 +15141,25 @@ Additional properties are rejected for this shape.
 **Response 200:** Authenticated operation response
 
 Content type `application/json`:
-3 alternative input shapes; see source for conditional requirements.
-- variant 1: `role`: string, required
-- variant 1: `status`: fixed value; see source, required
-- variant 1: `token`: string, pattern-constrained; see source, required
-- variant 1: `userId`: string, required
-- variant 1: `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
-Additional properties are rejected for this shape.
-- variant 2: `challenge`: string, pattern-constrained; see source, required
-- variant 2: `purpose`: fixed value; see source, required
-- variant 2: `setupKey`: string, pattern-constrained; see source, required
-- variant 2: `status`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 3: `challenge`: string, pattern-constrained; see source, required
-- variant 3: `purpose`: fixed value; see source, required
-- variant 3: `status`: fixed value; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `role`: string, required
+  - `status`: fixed value; see source, required
+  - `token`: string, pattern-constrained; see source, required
+  - `userId`: string, required
+  - `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional in this schema component
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `challenge`: string, pattern-constrained; see source, required
+  - `purpose`: fixed value; see source, required
+  - `setupKey`: string, pattern-constrained; see source, required
+  - `status`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `challenge`: string, pattern-constrained; see source, required
+  - `purpose`: fixed value; see source, required
+  - `status`: fixed value; see source, required
+  Additional properties are rejected for this shape.
 
 ### [docs/auth-openapi.json](../../docs/auth-openapi.json)
 
@@ -15519,7 +15522,7 @@ Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
 - `status`: fixed value; see source, required
-- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional in this schema component
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -15639,7 +15642,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 **Request body:** Optional. 
 
 **Request body — application/json:**
-Schema: type unspecified.
+Not defined in this source.
 
 **Response 200:** Successful existing handler response
 
@@ -15678,7 +15681,7 @@ Content type `application/json`:
 - `userId`: string, required
 - `roles`: string, required
 - `status`: fixed value; see source, required
-- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional in this schema component
 Additional properties are rejected for this shape.
 
 ### [docs/api/existing-auth-batches-242-247.openapi.json](../../docs/api/existing-auth-batches-242-247.openapi.json)
@@ -15690,7 +15693,7 @@ Additional properties are rejected for this shape.
 **Request body:** Optional. 
 
 **Request body — application/json:**
-Schema: type unspecified.
+Not defined in this source.
 
 **Response 200:** Successful existing handler response
 
@@ -15803,7 +15806,7 @@ Content type `application/json`:
 - `status`: fixed value; see source, required
 - `token`: string, required
 - `userId`: string, required
-- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional in this schema component
 Additional properties are rejected for this shape.
 
 <a id="api-16501"></a>
@@ -16382,7 +16385,7 @@ Content type `application/json`:
 - `status`: fixed value; see source, required
 - `token`: string, pattern-constrained; see source, required
 - `userId`: string, required
-- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional
+- `tenantId`: string, minLength=1, maxLength=200, pattern-constrained; see source, optional in this schema component
 Additional properties are rejected for this shape.
 
 <a id="api-16505"></a>
@@ -20150,8 +20153,8 @@ Active explicit bearer session. client_profiles.user_id must match the actor and
 **Request body — application/json:**
 - `service_type`: string, minLength=1, maxLength=100, required
 - `preferred_date`: string, format date-time, pattern-constrained; see source, required
-- `preferred_time`: string or null, pattern-constrained; see source, optional
-- `notes`: string or null, maxLength=2000, optional
+- `preferred_time`: string or null, pattern-constrained; see source, optional in this schema component
+- `notes`: string or null, maxLength=2000, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20424,8 +20427,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Request body — application/json:**
 - `service_type`: string, minLength=1, maxLength=100, required
 - `preferred_date`: string, format date-time, pattern-constrained; see source, required
-- `preferred_time`: string or null, pattern-constrained; see source, optional
-- `notes`: string or null, maxLength=2000, optional
+- `preferred_time`: string or null, pattern-constrained; see source, optional in this schema component
+- `notes`: string or null, maxLength=2000, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20511,8 +20514,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Request body — application/json:**
 - `service_type`: string, minLength=1, maxLength=100, required
 - `preferred_date`: string, format date-time, pattern-constrained; see source, required
-- `preferred_time`: string or null, pattern-constrained; see source, optional
-- `notes`: string or null, maxLength=2000, optional
+- `preferred_time`: string or null, pattern-constrained; see source, optional in this schema component
+- `notes`: string or null, maxLength=2000, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -20598,8 +20601,8 @@ Exact POST compatibility route to /v1/client/booking-requests. Active explicit b
 **Request body — application/json:**
 - `service_type`: string, minLength=1, maxLength=100, required
 - `preferred_date`: string, format date-time, pattern-constrained; see source, required
-- `preferred_time`: string or null, pattern-constrained; see source, optional
-- `notes`: string or null, maxLength=2000, optional
+- `preferred_time`: string or null, pattern-constrained; see source, optional in this schema component
+- `notes`: string or null, maxLength=2000, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 201:** Owner data
@@ -28083,7 +28086,38 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
+Required field: `assignmentTotal`.
+Required field: `capabilities`.
+Required field: `concerns`.
+Required field: `followups`.
+Required field: `handovers`.
+Required field: `identity`.
+Required field: `limit`.
+Required field: `offset`.
+Required field: `timesheets`.
+Required field: `total`.
+Required field: `view`.
+Required field: `workload`.
 - `detail`: constrained value, required
+  Field schema rules:
+  oneOf — Exactly one alternative must match.
+    Component 1:
+    Schema: null.
+    Component 2:
+    Required field: `actions`.
+    Required field: `id`.
+    Required field: `plan`.
+    - `clinical`: boolean, required
+    - `events`: array, maxItems=1000, required
+    allOf — All component rules apply.
+      Component 1:
+        When these conditions match:
+        - `clinical`: fixed value; see source, optional in this schema component
+        Apply these rules:
+        - `plan`: null, optional in this schema component
+        - `events`: maxItems=0, optional in this schema component
+          This shape is disallowed:
+          Required field: `client`.
 - `cases`: array, maxItems=25, items: object, required
 - `people`: array, maxItems=200, required
 - `visits`: array, maxItems=100, required
@@ -28238,12 +28272,12 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Request body — application/json:**
 - `action`: 3 allowed values; see source, required
-- `userId`: string, optional
-- `startsOn`: string, format date, optional
-- `endsOn`: string or null, optional
-- `reason`: string, minLength=10, maxLength=1000, optional
-- `id`: string, format uuid, optional
-- `version`: integer, minimum=1, optional
+- `userId`: string, optional in this schema component
+- `startsOn`: string, format date, optional in this schema component
+- `endsOn`: string or null, optional in this schema component
+- `reason`: string, minLength=10, maxLength=1000, optional in this schema component
+- `id`: string, format uuid, optional in this schema component
+- `version`: integer, minimum=1, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 200:** Tenant-scoped assignments and audit; primary role preserved
@@ -28407,98 +28441,116 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-18 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `assessment`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `risks`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `escalation`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `consentEvidence`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `consentChecked`: fixed value; see source, required
-- variant 1: `validUntil`: string, format date-time, required
-- variant 1: `tasks`: array, minItems=1, maxItems=20, items: object, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 4: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 5: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 6: `action`: fixed value; see source, required
-- variant 6: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 6: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 6: `consentChecked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 7: `action`: fixed value; see source, required
-- variant 7: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 7: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 7: `taskId`: string, format uuid, required
-- variant 7: `outcome`: 4 allowed values; see source, required
-Additional properties are rejected for this shape.
-- variant 8: `action`: fixed value; see source, required
-- variant 8: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 8: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 9: `action`: fixed value; see source, required
-- variant 9: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 9: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 9: `eventId`: string, format uuid, required
-Additional properties are rejected for this shape.
-- variant 10: `action`: fixed value; see source, required
-- variant 10: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 10: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 11: `action`: fixed value; see source, required
-- variant 11: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 11: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 12: `action`: fixed value; see source, required
-- variant 12: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 12: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 12: `nurseId`: string, pattern-constrained; see source, required
-- variant 12: `supervisorId`: string, pattern-constrained; see source, required
-- variant 12: `workerId`: string, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 13: `action`: fixed value; see source, required
-- variant 13: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 13: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 14: `action`: fixed value; see source, required
-- variant 14: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 14: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 15: `action`: fixed value; see source, required
-- variant 15: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 15: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 15: `reason`: 5 allowed values; see source, required
-Additional properties are rejected for this shape.
-- variant 16: `action`: fixed value; see source, required
-- variant 16: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 16: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 17: `action`: fixed value; see source, required
-- variant 17: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 17: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 17: `startsAt`: string, format date-time, required
-- variant 17: `durationMinutes`: integer, minimum=15, maximum=720, required
-- variant 17: `confirmed`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 18: `action`: fixed value; see source, required
-- variant 18: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 18: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 18: `confirmed`: fixed value; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `assessment`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `risks`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `escalation`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `consentEvidence`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `consentChecked`: fixed value; see source, required
+  - `validUntil`: string, format date-time, required
+  - `tasks`: array, minItems=1, maxItems=20, items: object, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 6:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `consentChecked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 7:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `taskId`: string, format uuid, required
+  - `outcome`: 4 allowed values; see source, required
+  Additional properties are rejected for this shape.
+  Component 8:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 9:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `eventId`: string, format uuid, required
+  Additional properties are rejected for this shape.
+  Component 10:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 11:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 12:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `nurseId`: string, pattern-constrained; see source, required
+  - `supervisorId`: string, pattern-constrained; see source, required
+  - `workerId`: string, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 13:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 14:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 15:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `reason`: 5 allowed values; see source, required
+  Additional properties are rejected for this shape.
+  Component 16:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 17:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `startsAt`: string, format date-time, required
+  - `durationMinutes`: integer, minimum=15, maximum=720, required
+  - `confirmed`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 18:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `confirmed`: fixed value; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
@@ -28586,7 +28638,7 @@ Active tenant and governed care role required. Current clearance, assignment pur
 - `registration`: string, minLength=1, maxLength=100, required
 - `evidence`: string, minLength=1, maxLength=2000, required
 - `checked`: fixed value; see source, required
-- `profile`: object, optional
+- `profile`: object, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
@@ -28668,87 +28720,102 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-13 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 1: `caseId`: string, format uuid, required
-- variant 1: `category`: 8 allowed values; see source, required
-- variant 1: `ownerId`: string, minLength=1, maxLength=200, required
-- variant 1: `dueAt`: string, format date-time, required
-- variant 1: `prerequisiteIds`: array, maxItems=5, unique items, items: string, optional
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 2: `id`: string, format uuid, required
-- variant 2: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 3: `id`: string, format uuid, required
-- variant 3: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 4: `id`: string, format uuid, required
-- variant 4: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 5: `id`: string, format uuid, required
-- variant 5: `version`: integer, minimum=1, maximum=49, required
-- variant 5: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 6: `action`: fixed value; see source, required
-- variant 6: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 6: `id`: string, format uuid, required
-- variant 6: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 7: `action`: fixed value; see source, required
-- variant 7: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 7: `id`: string, format uuid, required
-- variant 7: `version`: integer, minimum=1, maximum=49, required
-- variant 7: `ownerId`: string, minLength=1, maxLength=200, required
-- variant 7: `dueAt`: string, format date-time, required
-Additional properties are rejected for this shape.
-- variant 8: `action`: fixed value; see source, required
-- variant 8: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 8: `id`: string, format uuid, required
-- variant 8: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 9: `action`: fixed value; see source, required
-- variant 9: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 9: `id`: string, format uuid, required
-- variant 9: `version`: integer, minimum=1, maximum=49, required
-- variant 9: `dueAt`: string, format date-time, required
-Additional properties are rejected for this shape.
-- variant 10: `action`: fixed value; see source, required
-- variant 10: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 10: `id`: string, format uuid, required
-- variant 10: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 11: `action`: fixed value; see source, required
-- variant 11: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 11: `id`: string, format uuid, required
-- variant 11: `version`: integer, minimum=1, maximum=49, required
-- variant 11: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 12: `action`: fixed value; see source, required
-- variant 12: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 12: `id`: string, format uuid, required
-- variant 12: `version`: integer, minimum=1, maximum=49, required
-Additional properties are rejected for this shape.
-- variant 13: `action`: fixed value; see source, required
-- variant 13: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 13: `id`: string, format uuid, required
-- variant 13: `version`: integer, minimum=1, maximum=49, required
-- variant 13: `prerequisiteId`: string, format uuid, required
-- variant 13: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `caseId`: string, format uuid, required
+  - `category`: 8 allowed values; see source, required
+  - `ownerId`: string, minLength=1, maxLength=200, required
+  - `dueAt`: string, format date-time, required
+  - `prerequisiteIds`: array, maxItems=5, unique items, items: string, optional in this schema component
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 6:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 7:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  - `ownerId`: string, minLength=1, maxLength=200, required
+  - `dueAt`: string, format date-time, required
+  Additional properties are rejected for this shape.
+  Component 8:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 9:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  - `dueAt`: string, format date-time, required
+  Additional properties are rejected for this shape.
+  Component 10:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 11:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 12:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  Additional properties are rejected for this shape.
+  Component 13:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=49, required
+  - `prerequisiteId`: string, format uuid, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
 Schema: object.
+Required field: `id`.
+Required field: `version`.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -28824,51 +28891,59 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 1: `sourceCaseId`: string, format uuid, required
-- variant 1: `targetCaseId`: string, format uuid, required
-- variant 1: `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 1: `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 1: `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 2: `id`: string, format uuid, required
-- variant 2: `version`: integer, minimum=1, maximum=20, required
-- variant 2: `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 2: `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 2: `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 3: `id`: string, format uuid, required
-- variant 3: `version`: integer, minimum=1, maximum=20, required
-- variant 3: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 4: `id`: string, format uuid, required
-- variant 4: `version`: integer, minimum=1, maximum=20, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 5: `id`: string, format uuid, required
-- variant 5: `version`: integer, minimum=1, maximum=20, required
-- variant 5: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 6: `action`: fixed value; see source, required
-- variant 6: `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
-- variant 6: `id`: string, format uuid, required
-- variant 6: `version`: integer, minimum=1, maximum=20, required
-- variant 6: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `sourceCaseId`: string, format uuid, required
+  - `targetCaseId`: string, format uuid, required
+  - `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=20, required
+  - `summary`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `outstanding`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `precautions`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=20, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=20, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=20, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 6:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=1000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=20, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
 Schema: object.
+Required field: `id`.
+Required field: `version`.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29028,31 +29103,34 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `sourceVisitId`: string, minLength=1, maxLength=200, required
-- variant 1: `localStart`: string, pattern-constrained; see source, required
-- variant 1: `timeZone`: 2 allowed values; see source, required
-- variant 1: `count`: integer, minimum=1, maximum=12, required
-- variant 1: `intervalWeeks`: integer, minimum=1, maximum=4, required
-- variant 1: `durationMinutes`: integer, minimum=15, maximum=720, required
-- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `sourceVisitId`: string, minLength=1, maxLength=200, required
-- variant 2: `localStart`: string, pattern-constrained; see source, required
-- variant 2: `timeZone`: 2 allowed values; see source, required
-- variant 2: `count`: integer, minimum=1, maximum=12, required
-- variant 2: `intervalWeeks`: integer, minimum=1, maximum=4, required
-- variant 2: `durationMinutes`: integer, minimum=15, maximum=720, required
-- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 2: `confirmed`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `visitId`: string, minLength=1, maxLength=200, required
-- variant 3: `updatedAt`: string, format date-time, required
-- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `sourceVisitId`: string, minLength=1, maxLength=200, required
+  - `localStart`: string, pattern-constrained; see source, required
+  - `timeZone`: 2 allowed values; see source, required
+  - `count`: integer, minimum=1, maximum=12, required
+  - `intervalWeeks`: integer, minimum=1, maximum=4, required
+  - `durationMinutes`: integer, minimum=15, maximum=720, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `sourceVisitId`: string, minLength=1, maxLength=200, required
+  - `localStart`: string, pattern-constrained; see source, required
+  - `timeZone`: 2 allowed values; see source, required
+  - `count`: integer, minimum=1, maximum=12, required
+  - `intervalWeeks`: integer, minimum=1, maximum=4, required
+  - `durationMinutes`: integer, minimum=15, maximum=720, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `confirmed`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `visitId`: string, minLength=1, maxLength=200, required
+  - `updatedAt`: string, format date-time, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
@@ -29133,39 +29211,45 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `staffId`: string, minLength=1, maxLength=200, required
-- variant 1: `startsAt`: string, format date-time, required
-- variant 1: `endsAt`: string, format date-time, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 2: `staffId`: string, minLength=1, maxLength=200, required
-- variant 2: `startsAt`: string, format date-time, required
-- variant 2: `endsAt`: string, format date-time, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 3: `id`: string, format uuid, required
-- variant 3: `version`: integer, minimum=1, maximum=3, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 4: `id`: string, format uuid, required
-- variant 4: `version`: integer, minimum=1, maximum=3, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 5: `id`: string, format uuid, required
-- variant 5: `version`: integer, minimum=1, maximum=3, required
-Additional properties are rejected for this shape.
-- variant 6: `action`: fixed value; see source, required
-- variant 6: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 6: `id`: string, format uuid, required
-- variant 6: `version`: integer, minimum=1, maximum=3, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `staffId`: string, minLength=1, maxLength=200, required
+  - `startsAt`: string, format date-time, required
+  - `endsAt`: string, format date-time, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `staffId`: string, minLength=1, maxLength=200, required
+  - `startsAt`: string, format date-time, required
+  - `endsAt`: string, format date-time, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=3, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=3, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=3, required
+  Additional properties are rejected for this shape.
+  Component 6:
+  - `action`: fixed value; see source, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `id`: string, format uuid, required
+  - `version`: integer, minimum=1, maximum=3, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
@@ -29247,32 +29331,37 @@ Active tenant and governed care role required. Current clearance, assignment pur
 **Request body:** Required. 
 
 **Request body — application/json:**
-3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `caseId`: string, format uuid, required
-- variant 1: `version`: integer, minimum=0, maximum=49, required
-- variant 1: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 1: `actualStart`: string, format date-time, required
-- variant 1: `actualEnd`: string, format date-time, required
-- variant 1: `breakMinutes`: integer, minimum=0, maximum=1440, required
-- variant 1: `attested`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `caseId`: string, format uuid, required
-- variant 2: `version`: integer, minimum=0, maximum=49, required
-- variant 2: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-- variant 2: `checked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `caseId`: string, format uuid, required
-- variant 3: `version`: integer, minimum=0, maximum=49, required
-- variant 3: `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `caseId`: string, format uuid, required
+  - `version`: integer, minimum=0, maximum=49, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `actualStart`: string, format date-time, required
+  - `actualEnd`: string, format date-time, required
+  - `breakMinutes`: integer, minimum=0, maximum=1440, required
+  - `attested`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `caseId`: string, format uuid, required
+  - `version`: integer, minimum=0, maximum=49, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  - `checked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `caseId`: string, format uuid, required
+  - `version`: integer, minimum=0, maximum=49, required
+  - `note`: string, minLength=1, maxLength=2000, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Persisted scoped care result
 
 Content type `application/json`:
 Schema: object.
+Required field: `caseId`.
+Required field: `version`.
 
 **Response 400:** Invalid fields, consent or tenant override
 
@@ -29490,7 +29579,7 @@ Current active tenant-scoped session and governed role policy. Owner/CEO control
 **Response 200:** Persisted result or tenant dashboard
 
 Content type `application/json`:
-- `business`: object, optional
+- `business`: object, optional in this schema component
 
 **Response 400:** Invalid fields
 
@@ -30119,8 +30208,8 @@ Additional properties are rejected for this shape.
 **Response 200:** Appended confirmation version
 
 Content type `application/json`:
-- `id`: string, format uuid, optional
-- `version`: integer, optional
+- `id`: string, format uuid, optional in this schema component
+- `version`: integer, optional in this schema component
 
 **Response 400:** Invalid fields
 
@@ -30399,8 +30488,8 @@ Content type `application/json`:
 - `name`: string, required
 - `pipeline`: 2 allowed values; see source, required
 - `consentVersion`: string, required
-- `routingMode`: 2 allowed values; see source, optional
-- `sharingConsentVersion`: string, optional
+- `routingMode`: 2 allowed values; see source, optional in this schema component
+- `sharingConsentVersion`: string, optional in this schema component
 Additional properties are rejected for this shape.
 
 <a id="api-16467"></a>
@@ -30466,10 +30555,10 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 - `consent`: fixed value; see source, required
 - `consentVersion`: fixed value; see source, required
 - `website`: fixed value; see source, required
-- `postalCode`: string, maxLength=7, optional
-- `service`: 2 allowed values; see source, optional
-- `sharingConsent`: fixed value; see source, optional
-- `sharingConsentVersion`: fixed value; see source, optional
+- `postalCode`: string, maxLength=7, optional in this schema component
+- `service`: 2 allowed values; see source, optional in this schema component
+- `sharingConsent`: fixed value; see source, optional in this schema component
+- `sharingConsentVersion`: fixed value; see source, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 400:** Invalid input or forbidden tenant/header fields
@@ -30719,10 +30808,27 @@ Delivery mode is immutable. Legacy links use direct tenant delivery. Territory c
 - `pipeline`: 2 allowed values; see source, required
 - `ownerId`: string, format uuid, required
 - `campaignId`: constrained value, required
-- `source`: 3 allowed values; see source, optional
-- `attribution`: string, maxLength=200, optional
-- `routingMode`: 2 allowed values; see source, optional
+  Field schema rules:
+  anyOf — At least one alternative must match.
+    Component 1:
+    Schema: string, format uuid.
+    Component 2:
+    Schema: null.
+- `source`: 3 allowed values; see source, optional in this schema component
+- `attribution`: string, maxLength=200, optional in this schema component
+- `routingMode`: 2 allowed values; see source, optional in this schema component
 Additional properties are rejected for this shape.
+allOf — All component rules apply.
+  Component 1:
+    When these conditions match:
+    - `source`: 2 allowed values; see source, required
+    Apply these rules:
+    - `attribution`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+  Component 2:
+    When these conditions match:
+    - `routingMode`: fixed value; see source, required
+    Apply these rules:
+    - `pipeline`: fixed value; see source, optional in this schema component
 
 **Response 400:** Invalid input or forbidden tenant/header fields
 
@@ -30893,14 +30999,14 @@ Current active session and tenant-bound ceo/marketing/local_marketing policy. Pl
 **Request body — application/json:**
 - `pipeline`: 2 allowed values; see source, required
 - `name`: string, minLength=1, maxLength=150, required
-- `email`: string, maxLength=254, optional
-- `phone`: string, maxLength=40, optional
+- `email`: string, maxLength=254, optional in this schema component
+- `phone`: string, maxLength=40, optional in this schema component
 - `source`: 7 allowed values; see source, required
 - `reference`: string, minLength=1, maxLength=500, required
 - `contactBasis`: 3 allowed values; see source, required
-- `campaignId`: string or null, format uuid, optional
-- `ownerId`: string or null, format uuid, optional
-- `dueAt`: string or null, format date-time, optional
+- `campaignId`: string or null, format uuid, optional in this schema component
+- `ownerId`: string or null, format uuid, optional in this schema component
+- `dueAt`: string or null, format date-time, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 201:** Persisted result or tenant dashboard
@@ -31106,6 +31212,13 @@ Owner, CEO or tenant administrator in the current active tenant only. Recalculat
 **Response 200:** Nonbillable proposal statement
 
 Content type `application/json`:
+Required field: `classification`.
+Required field: `columns`.
+Required field: `generatedAt`.
+Required field: `locale`.
+Required field: `scope`.
+Required field: `source`.
+Required field: `title`.
 - `id`: fixed value; see source, required
 - `rows`: array, items: object, required
 
@@ -31969,30 +32082,42 @@ Same-tenant current-session operation with version, idempotency, rate limit and 
 **Request body:** Required. 
 
 **Request body — application/json:**
-5 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 1: `evidence`: string, minLength=1, maxLength=500, required
-- variant 1: `ownerId`: string, format uuid, required
+- `action`: string, 5 allowed values; see source, required
+- `version`: integer, minimum=1, maximum=2147483646, required
+- `evidence`: string, minLength=1, maxLength=500, required
+- `ownerId`: string, format uuid, optional in this schema component
+- `dueAt`: string, format date-time, optional in this schema component
+- `priority`: string, 4 allowed values; see source, optional in this schema component
 Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 2: `evidence`: string, minLength=1, maxLength=500, required
-- variant 2: `dueAt`: string, format date-time, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 3: `evidence`: string, minLength=1, maxLength=500, required
-- variant 3: `priority`: string, 4 allowed values; see source, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 4: `evidence`: string, minLength=1, maxLength=500, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `version`: integer, minimum=1, maximum=2147483646, required
-- variant 5: `evidence`: string, minLength=1, maxLength=500, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `evidence`: string, minLength=1, maxLength=500, required
+  - `ownerId`: string, format uuid, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `evidence`: string, minLength=1, maxLength=500, required
+  - `dueAt`: string, format date-time, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `evidence`: string, minLength=1, maxLength=500, required
+  - `priority`: string, 4 allowed values; see source, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `evidence`: string, minLength=1, maxLength=500, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `version`: integer, minimum=1, maximum=2147483646, required
+  - `evidence`: string, minLength=1, maxLength=500, required
+  Additional properties are rejected for this shape.
 
 **Response 400:** Invalid planning fields, date range, URL or owner
 
@@ -34670,13 +34795,13 @@ The following repository documents match this exact HTTP method and path. Their 
 **Request body:** Required. 
 
 **Request body — application/json:**
-- `locale`: 3 allowed values; see source, optional
-- `search`: string, maxLength=100, optional
-- `readiness`: 3 allowed values; see source, optional
+- `locale`: 3 allowed values; see source, optional in this schema component
+- `search`: string, maxLength=100, optional in this schema component
+- `readiness`: 3 allowed values; see source, optional in this schema component
 - `to`: string, format email, maxLength=254, required
 - `confirmed`: fixed value; see source, required
-- `subject`: string, maxLength=150, optional
-- `message`: string, maxLength=1000, optional
+- `subject`: string, maxLength=150, optional in this schema component
+- `message`: string, maxLength=1000, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 200:** Report, catalog, PDF or accepted replay
@@ -35082,10 +35207,10 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Request body — application/json:**
 - `action`: 11 allowed values; see source, required
-- `id`: string, optional
-- `version`: integer, minimum=1, optional
-- `workspaceVersion`: integer, minimum=1, optional
-- `value`: object, optional
+- `id`: string, optional in this schema component
+- `version`: integer, minimum=1, optional in this schema component
+- `workspaceVersion`: integer, minimum=1, optional in this schema component
+- `value`: object, optional in this schema component
 Additional properties are rejected for this shape.
 
 **Response 200:** Authorized PostgreSQL workspace and current versions
@@ -40054,29 +40179,34 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Request body:** Required. 
 
 **Request body — application/json:**
-4 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `businessReference`: string, minLength=1, maxLength=200, required
-- variant 1: `id`: string, minLength=1, maxLength=200, required
-- variant 1: `key`: string, minLength=1, maxLength=200, required
-- variant 1: `members`: array, minItems=2, unique items, items: string, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `id`: string, minLength=1, maxLength=200, required
-- variant 2: `key`: string, minLength=1, maxLength=200, required
-- variant 2: `pictureIds`: array, unique items, items: string, optional
-- variant 2: `text`: string, maxLength=20000, required
-- variant 2: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `id`: string, minLength=1, maxLength=200, required
-- variant 3: `key`: string, minLength=1, maxLength=200, required
-- variant 3: `sequence`: integer, minimum=0, required
-- variant 3: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `id`: string, minLength=1, maxLength=200, required
-Additional properties are rejected for this shape.
+Schema: object.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `businessReference`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `members`: array, minItems=2, unique items, items: string, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `pictureIds`: array, unique items, items: string, optional in this schema component
+  - `text`: string, maxLength=20000, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `sequence`: integer, minimum=0, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
@@ -40192,45 +40322,52 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Request body:** Required. 
 
 **Request body — application/json:**
-6 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `callId`: string, minLength=1, maxLength=200, required
-- variant 1: `id`: string, minLength=1, maxLength=200, required
-- variant 1: `key`: string, minLength=1, maxLength=200, required
-- variant 1: `recipientId`: string, minLength=1, maxLength=200, required
-- variant 1: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `callId`: string, minLength=1, maxLength=200, required
-- variant 2: `id`: string, minLength=1, maxLength=200, required
-- variant 2: `key`: string, minLength=1, maxLength=200, required
-- variant 2: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `callId`: string, minLength=1, maxLength=200, required
-- variant 3: `id`: string, minLength=1, maxLength=200, required
-- variant 3: `key`: string, minLength=1, maxLength=200, required
-- variant 3: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 4: `action`: fixed value; see source, required
-- variant 4: `callId`: string, minLength=1, maxLength=200, required
-- variant 4: `id`: string, minLength=1, maxLength=200, required
-- variant 4: `key`: string, minLength=1, maxLength=200, required
-- variant 4: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 5: `action`: fixed value; see source, required
-- variant 5: `callId`: string, minLength=1, maxLength=200, required
-- variant 5: `id`: string, minLength=1, maxLength=200, required
-- variant 5: `key`: string, minLength=1, maxLength=200, required
-- variant 5: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 6: `action`: fixed value; see source, required
-- variant 6: `callId`: string, minLength=1, maxLength=200, required
-- variant 6: `id`: string, minLength=1, maxLength=200, required
-- variant 6: `key`: string, minLength=1, maxLength=200, required
-- variant 6: `signal`: object, required
-- variant 6: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
+Schema: object.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `recipientId`: string, minLength=1, maxLength=200, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 4:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 5:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 6:
+  - `action`: fixed value; see source, required
+  - `callId`: string, minLength=1, maxLength=200, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `signal`: object, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
@@ -40346,22 +40483,26 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 **Request body:** Required. 
 
 **Request body — application/json:**
-3 alternative input shapes; see source for conditional requirements.
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `id`: string, minLength=1, maxLength=200, required
-- variant 1: `key`: string, minLength=1, maxLength=200, required
-- variant 1: `subject`: string, minLength=1, maxLength=200, required
-- variant 1: `text`: string, minLength=1, required
-- variant 1: `to`: string, format email, required
-Additional properties are rejected for this shape.
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `id`: string, minLength=1, maxLength=200, required
-- variant 2: `key`: string, minLength=1, maxLength=190, required
-- variant 2: `version`: integer, minimum=0, required
-Additional properties are rejected for this shape.
-- variant 3: `action`: fixed value; see source, required
-- variant 3: `id`: string, minLength=1, maxLength=200, required
-Additional properties are rejected for this shape.
+Schema: object.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=200, required
+  - `subject`: string, minLength=1, maxLength=200, required
+  - `text`: string, minLength=1, required
+  - `to`: string, format email, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  - `key`: string, minLength=1, maxLength=190, required
+  - `version`: integer, minimum=0, required
+  Additional properties are rejected for this shape.
+  Component 3:
+  - `action`: fixed value; see source, required
+  - `id`: string, minLength=1, maxLength=200, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Validated service result. Email queued/accepted does not prove delivery; audio signaling does not prove a device answered.
 
@@ -40487,6 +40628,12 @@ Shared inherited communication operation. Current session, exact API/linked-scre
 Content type `application/json`:
 - `items`: array, maxItems=100, items: object, required
 - `nextAfter`: constrained value, required
+  Field schema rules:
+  oneOf — Exactly one alternative must match.
+    Component 1:
+    Schema: string, minLength=1, maxLength=200.
+    Component 2:
+    Schema: null.
 Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
@@ -41232,12 +41379,14 @@ Additional properties are rejected for this shape.
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
 Content type `application/json`:
-2 alternative input shapes; see source for conditional requirements.
-- variant 1: `linked`: fixed value; see source, required
-Additional properties are rejected for this shape.
-- variant 2: `linked`: fixed value; see source, required
-- variant 2: `link`: object, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `linked`: fixed value; see source, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `linked`: fixed value; see source, required
+  - `link`: object, required
+  Additional properties are rejected for this shape.
 
 **Response 400:** Malformed, invalid or oversized input. Body limits are host-configured; do not retry unchanged requests.
 
@@ -59358,41 +59507,45 @@ Proposed read semantics on the existing API794 identity; no handler, binding, ro
 **Request body:** Required. 
 
 **Request body — application/json:**
-2 alternative input shapes; see source for conditional requirements.
-- variant 1: `version`: fixed value; see source, required
-- variant 1: `locale`: string, 3 allowed values; see source, required
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `query`: string, maxLength=100, pattern-constrained; see source, required
-- variant 1: `offset`: integer, minimum=0, maximum=100000, required
-- variant 1: `limit`: integer, minimum=1, maximum=100, required
-Additional properties are rejected for this shape.
-- variant 2: `version`: fixed value; see source, required
-- variant 2: `locale`: string, 3 allowed values; see source, required
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `articleId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `version`: fixed value; see source, required
+  - `locale`: string, 3 allowed values; see source, required
+  - `action`: fixed value; see source, required
+  - `query`: string, maxLength=100, pattern-constrained; see source, required
+  - `offset`: integer, minimum=0, maximum=100000, required
+  - `limit`: integer, minimum=1, maximum=100, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `version`: fixed value; see source, required
+  - `locale`: string, 3 allowed values; see source, required
+  - `action`: fixed value; see source, required
+  - `articleId`: string, minLength=1, maxLength=200, pattern-constrained; see source, required
+  Additional properties are rejected for this shape.
 
 **Response 200:** Proposed scoped read result; no business mutation
 
 Response headers: `Cache-Control` — fixed value; see source. Must be no-store
 
 Content type `application/json`:
-2 alternative input shapes; see source for conditional requirements.
-- variant 1: `version`: fixed value; see source, required
-- variant 1: `locale`: string, 3 allowed values; see source, required
-- variant 1: `action`: fixed value; see source, required
-- variant 1: `scope`: object, required
-- variant 1: `items`: array, maxItems=100, items: object, required
-- variant 1: `offset`: integer, minimum=0, maximum=100000, required
-- variant 1: `limit`: integer, minimum=1, maximum=100, required
-- variant 1: `total`: integer, minimum=0, maximum=9007199254740991, required
-Additional properties are rejected for this shape.
-- variant 2: `version`: fixed value; see source, required
-- variant 2: `locale`: string, 3 allowed values; see source, required
-- variant 2: `action`: fixed value; see source, required
-- variant 2: `scope`: object, required
-- variant 2: `article`: object, required
-Additional properties are rejected for this shape.
+oneOf — Exactly one alternative must match.
+  Component 1:
+  - `version`: fixed value; see source, required
+  - `locale`: string, 3 allowed values; see source, required
+  - `action`: fixed value; see source, required
+  - `scope`: object, required
+  - `items`: array, maxItems=100, items: object, required
+  - `offset`: integer, minimum=0, maximum=100000, required
+  - `limit`: integer, minimum=1, maximum=100, required
+  - `total`: integer, minimum=0, maximum=9007199254740991, required
+  Additional properties are rejected for this shape.
+  Component 2:
+  - `version`: fixed value; see source, required
+  - `locale`: string, 3 allowed values; see source, required
+  - `action`: fixed value; see source, required
+  - `scope`: object, required
+  - `article`: object, required
+  Additional properties are rejected for this shape.
 
 **Response 400:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
 
@@ -69911,8 +70064,14 @@ Verify the exact signed Twilio form and persist the inbound SMS before returning
 - `To`: string, maxLength=16, pattern-constrained; see source, required
 - `Body`: string, maxLength=1600, pattern-constrained; see source, required
 - `NumMedia`: 11 allowed values; see source, required
-- `MessagingServiceSid`: string, maxLength=34, pattern-constrained; see source, optional
-- `OptOutType`: 3 allowed values; see source, optional
+- `MessagingServiceSid`: string, maxLength=34, pattern-constrained; see source, optional in this schema component
+- `OptOutType`: 3 allowed values; see source, optional in this schema component
+allOf — All component rules apply.
+  Component 1:
+    When these conditions match:
+    - `NumMedia`: fixed value; see source, optional in this schema component
+    Apply these rules:
+    - `Body`: pattern-constrained; see source, optional in this schema component
 
 **Response 200:** Successful transport/service response; not evidence of a confirmed appointment.
 
@@ -70504,7 +70663,7 @@ Resolve 0 to configured reception, 1 to configured verified app pairing, or a pu
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
 - `CallSid`: string, minLength=1, maxLength=34, pattern-constrained; see source, required
-- `Digits`: string, maxLength=4, optional
+- `Digits`: string, maxLength=4, optional in this schema component
 - `To`: string, maxLength=16, pattern-constrained; see source, required
 - `Direction`: fixed value; see source, required
 
