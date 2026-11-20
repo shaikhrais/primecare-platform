@@ -2,11 +2,13 @@
 import {mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
 import pg from 'pg';
+import {resolve} from 'node:path';
 import {resolveCodeAdminControlTenant} from './bootstrap-code-admin-control-tenant.mjs';
 import {verifyCodeAdminOwnerRegistration} from './code-admin-owner.mjs';
 import {liveWorkerConfig,verifyUnchangedBindings} from './ems-analytics-live-config.mjs';
 import {endpointAnalyticsConfigs} from './prepare-endpoint-analytics-config.mjs';
-import {uploadedWorkerVersion,verifyWorkerDeploymentEventually} from './worker-deployment-receipt.mjs';
+import {uploadedWorkerVersion} from './worker-deployment-receipt.mjs';
+import {verifyPublishedWorker} from './worker-content-receipt.mjs';
 import {inspectEndpointManagement} from './endpoint-management-preflight.mjs';
 const report={source:process.env.GITHUB_SHA,status:'blocked',accountAssignments:0,emailMessagesSent:0,providerWrites:0,workers:[]};
 const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,reader=process.env.ENDPOINT_ANALYTICS_READ_TOKEN||token;
@@ -37,11 +39,11 @@ async function main(){
  report.readerCredentialSource=process.env.ENDPOINT_ANALYTICS_READ_TOKEN?'dedicated_github_secret':'existing_cloudflare_github_secret';
  await mkdir('.cloudflare-workers',{recursive:true});
  for(const key of ['governance','gateway']){
-  const file='.cloudflare-workers/ems-'+key+'.jsonc';await writeFile(file,JSON.stringify(configs[key]));
-  let output;try{output=execFileSync('node_modules/.bin/wrangler',['deploy','--config',file,'--keep-vars'],{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});}catch{throw Error('EMS '+key+' deployment failed; inspect live settings before retrying');}
+  const outputDirectory=resolve('.cloudflare-workers/ems-output-'+key);const file='.cloudflare-workers/ems-'+key+'.jsonc';await writeFile(file,JSON.stringify(configs[key]));
+  let output;try{output=execFileSync('node_modules/.bin/wrangler',['deploy','--config',file,'--keep-vars','--outdir',outputDirectory],{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});}catch{throw Error('EMS '+key+' deployment failed; inspect live settings before retrying');}
   report.providerWrites++;
-  const versionId=uploadedWorkerVersion(output);
-  const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key].id,previousVersionId:previous[key].versions?.[0]?.version_id,allowIdempotent:true,allowVersionListing:true});
+  const versionId=uploadedWorkerVersion(output);report.lastUpload={worker:names[key],wranglerReportedVersionId:versionId};
+  const receipt=await verifyPublishedWorker({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key].id,previousVersionId:previous[key].versions?.[0]?.version_id,allowIdempotent:true,allowVersionListing:true},{directory:outputDirectory,readContent:path=>fetch(base+path,{headers:{authorization:'Bearer '+token},redirect:'error',signal:AbortSignal.timeout(30000)})});
   const after=await api('/workers/scripts/'+names[key]+'/settings');
   const allowed=key==='gateway'?['ENDPOINT_ANALYTICS','ENDPOINT_BODY_ANALYTICS','ENDPOINT_TRAFFIC_ENABLED']:['ENDPOINT_ANALYTICS_ACCOUNT_ID','ENDPOINT_ANALYTICS_READER_ROLE','ENDPOINT_ANALYTICS_READER_TENANT_ID','ENDPOINT_ANALYTICS_READ_TOKEN'];
   verifyUnchangedBindings(settings[key],after,allowed);if(key==='gateway'&&!after.bindings.some(b=>b.name==='ENDPOINT_BODY_ANALYTICS'&&b.type==='analytics_engine'&&b.dataset==='primecare_endpoint_body_v1'))throw Error('Response body dataset readback mismatch');report.workers.push({...receipt,unrelatedBindingsPreserved:true});
@@ -53,5 +55,5 @@ async function main(){
 }
 try{await main();}catch(error){
  const safe=new Set(['Registered control-tenant policy required','Control tenant is not provisioned','Registered control tenant is missing or changed','Governance authority mismatch','Approved Code Admin owner is not registered','Approved Code Admin owner binding differs','Protected current-main credentials required','Current main required','Selected analytics credential cannot query dataset','Live analytics configuration readback has blockers','Live EMS anonymous boundary failed']);
- report.blocker=safe.has(error.message)||['Uploaded version is not the sole active deployment','Uploaded version readback mismatch','Deployment changed during verification','Exact prior active version required','Unrelated live bindings changed','Response body dataset readback mismatch'].includes(error.message)||/^Cloudflare activation request failed \(HTTP [1-5][0-9]{2}\)$/.test(error.message)?error.message:'Activation stopped; protected configuration or provider verification failed';process.exitCode=1;
+ report.blocker=safe.has(error.message)||['Uploaded version is not the sole active deployment','Uploaded version readback mismatch','Deployment changed during verification','Exact prior active version required','Unrelated live bindings changed','Response body dataset readback mismatch','Active Worker code differs from emitted CI modules','Active Worker content unavailable','Active module entrypoint unavailable','Invalid active module part','Latest version is not the active content version','Sole active version required for content verification','Active Worker changed during code verification','Unexpected emitted module directory','Unexpected emitted module file','Emitted JavaScript module required'].includes(error.message)||/^Cloudflare activation request failed \(HTTP [1-5][0-9]{2}\)$/.test(error.message)?error.message:'Activation stopped; protected configuration or provider verification failed';process.exitCode=1;
 }finally{await mkdir('test-results/endpoint-management',{recursive:true});await writeFile('test-results/endpoint-management/activation.json',JSON.stringify(report,null,2)+'\n');console.log('EMS_ANALYTICS_ACTIVATION '+JSON.stringify(report));}

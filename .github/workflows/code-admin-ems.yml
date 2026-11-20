@@ -14,6 +14,7 @@ on:
       - 'scripts/verify-code-admin-ems-release.mjs'
       - 'scripts/deploy-approved-admin-governance.mjs'
       - 'scripts/worker-deployment-receipt.mjs'
+      - 'scripts/worker-content-receipt.mjs'
       - 'tools/governance-production/ems_registration.py'
       - 'tools/governance-production/test_ems_registration.py'
       - '.github/workflows/code-admin-ems.yml'
@@ -53,7 +54,7 @@ jobs:
       - name: Validate exact read-only metadata registration and rollback
         run: python tools/governance-production/test_ems_registration.py
       - name: Test EMS API, dashboard, navigation and existing endpoint contracts
-        run: node --test scripts/test-code-admin-ems.mjs scripts/test-code-admin-ems-panel.mjs scripts/test-platform-admin-navigation.mjs scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
+        run: node --test scripts/test-worker-content-receipt.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-code-admin-ems.mjs scripts/test-code-admin-ems-panel.mjs scripts/test-platform-admin-navigation.mjs scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
       - name: Validate actual PostgreSQL authorization joins
         run: node --test scripts/test-code-admin-ems-postgres.mjs
         env:

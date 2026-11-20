@@ -5,6 +5,7 @@ on:
     paths:
       - 'scripts/activate-ems-analytics.mjs'
       - 'scripts/ems-analytics-live-config.mjs'
+      - 'scripts/worker-content-receipt.mjs'
       - 'scripts/prepare-endpoint-analytics-config.mjs'
       - 'cloudflare/workers/src/endpoint-body-traffic.ts'
       - 'scripts/test-ems-analytics-live-config.mjs'
@@ -27,7 +28,7 @@ jobs:
         with: {node-version: '24'}
       - run: npm ci --ignore-scripts
       - name: Verify configuration preservation and deployment provenance
-        run: node --test scripts/test-ems-analytics-live-config.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-ems-secret-capabilities.mjs scripts/test-endpoint-management-preflight.mjs scripts/test-endpoint-body-traffic.mjs scripts/test-endpoint-analytics.mjs
+        run: node --test scripts/test-ems-analytics-live-config.mjs scripts/test-worker-deployment-receipt.mjs scripts/test-worker-content-receipt.mjs scripts/test-ems-secret-capabilities.mjs scripts/test-endpoint-management-preflight.mjs scripts/test-endpoint-body-traffic.mjs scripts/test-endpoint-analytics.mjs
       - name: Enable collection and the registered Code Admin reader without account or mail changes
         run: node scripts/activate-ems-analytics.mjs
         env:

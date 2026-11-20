@@ -1,7 +1,9 @@
 /** Update only governance code; preserve and verify its existing live bindings. */
 import {mkdir,writeFile} from 'node:fs/promises';
 import {execFileSync} from 'node:child_process';
-import {uploadedWorkerVersion,verifyWorkerDeploymentEventually} from './worker-deployment-receipt.mjs';
+import {resolve} from 'node:path';
+import {uploadedWorkerVersion} from './worker-deployment-receipt.mjs';
+import {verifyPublishedWorker} from './worker-content-receipt.mjs';
 const account=process.env.CLOUDFLARE_ACCOUNT_ID,token=process.env.CLOUDFLARE_API_TOKEN,worker='primecare-governance-api';
 if(!/^[a-f0-9]{32}$/i.test(account??'')||!token)throw Error('Cloudflare configuration required');
 const api=async path=>{const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{headers:{authorization:'Bearer '+token},signal:AbortSignal.timeout(30000)});const value=await r.json();if(!r.ok||value.success!==true){const error=Error('Cloudflare metadata request failed (HTTP '+r.status+')');error.status=r.status;throw error;}return value.result;};
@@ -29,8 +31,8 @@ for(const binding of settings.bindings){
 if(config.vars.SERVICE_NAME!=='governance')throw Error('Governance service scope changed');
 await mkdir('.cloudflare-workers',{recursive:true});await writeFile('.cloudflare-workers/approved-governance.jsonc',JSON.stringify(config,null,2));
 let versionId;
-try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/approved-governance.jsonc','--keep-vars'],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});versionId=uploadedWorkerVersion(output.toString());}catch(error){let diagnostic=String(error.stderr??'')+'\n'+String(error.stdout??'');for(const value of [token,account,process.env.PRODUCTION_DATABASE_URL,...Object.values(config.vars).filter(v=>typeof v==='string'&&v.length>3)])if(value)diagnostic=diagnostic.split(value).join('[redacted]');diagnostic=diagnostic.replace(/postgres(?:ql)?:\/\/[^\s\"']+/g,'[redacted database]');console.error(diagnostic.slice(-12000));throw Error('Governance worker publication failed; no other worker targeted');}
-const provenance=await verifyWorkerDeploymentEventually({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id,previousVersionId:previous.versions?.[0]?.version_id,allowIdempotent:true,allowVersionListing:true});
+try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/approved-governance.jsonc','--keep-vars','--outdir',resolve('.cloudflare-workers/approved-governance-output')],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});versionId=uploadedWorkerVersion(output.toString());}catch(error){let diagnostic=String(error.stderr??'')+'\n'+String(error.stdout??'');for(const value of [token,account,process.env.PRODUCTION_DATABASE_URL,...Object.values(config.vars).filter(v=>typeof v==='string'&&v.length>3)])if(value)diagnostic=diagnostic.split(value).join('[redacted]');diagnostic=diagnostic.replace(/postgres(?:ql)?:\/\/[^\s\"']+/g,'[redacted database]');console.error(diagnostic.slice(-12000));throw Error('Governance worker publication failed; no other worker targeted');}
+const provenance=await verifyPublishedWorker({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id,previousVersionId:previous.versions?.[0]?.version_id,allowIdempotent:true,allowVersionListing:true},{directory:resolve('.cloudflare-workers/approved-governance-output'),readContent:path=>fetch('https://api.cloudflare.com/client/v4/accounts/'+account+path,{headers:{authorization:'Bearer '+token},redirect:'error',signal:AbortSignal.timeout(30000)})});
 const after=await api('/workers/scripts/'+worker+'/settings');
 const fingerprint=bindings=>JSON.stringify(bindings.map(b=>({name:b.name,type:b.type,...(b.service?{service:b.service}:{}),...(b.entrypoint?{entrypoint:b.entrypoint}:{}),...(b.id?{id:b.id}:{})})).sort((a,b)=>a.name.localeCompare(b.name)));
 if(fingerprint(settings.bindings)!==fingerprint(after.bindings)){
