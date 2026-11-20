@@ -41,5 +41,34 @@ export function readTrafficReport(raw:unknown) {
     outboundBytes+=row.declaredResponseBytes.knownBytes;
   }
   if(!count(observedRequests)||observedRequests!==report.observedRequests||!count(inboundBytes)||!count(outboundBytes))throw Error('Invalid request total');
-  return {endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds};
+  return {endpoints,start,end,failedRequests,successfulRequests,statusCoveredRequests,unknownInbound,unknownOutbound,observedRequests,inboundBytes,outboundBytes,requestsPerSecond:observedRequests/report.intervalSeconds,inboundBytesPerSecond:inboundBytes/report.intervalSeconds,outboundBytesPerSecond:outboundBytes/report.intervalSeconds,successfulRequestsPerSecond:successfulRequests/report.intervalSeconds};
+}
+
+/** Missing status evidence stays unknown, including for legacy exports. */
+export function endpointTrafficMetrics(row:Traffic,intervalSeconds:number){
+  if(!Number.isFinite(intervalSeconds)||intervalSeconds<=0)throw Error('Invalid traffic interval');
+  if(!row.statusCounts)return {requestsPerSecond:row.observedRequests/intervalSeconds,successful:null,failed:null,errorRate:null};
+  const successful=Object.entries(row.statusCounts).reduce((n,[status,count])=>n+(Number(status)>=200&&Number(status)<300?count:0),0);
+  const failed=Object.entries(row.statusCounts).reduce((n,[status,count])=>n+(status==='no_response'||Number(status)>=500?count:0),0);
+  return {requestsPerSecond:row.observedRequests/intervalSeconds,successful,failed,errorRate:row.observedRequests?failed/row.observedRequests:null};
+}
+
+export function readEndpointSummary(raw:unknown){
+  const value=raw as {data:Array<{service:string;declaredOperations:number;managementStates:Record<string,number>}>;pagination:{hasMore:boolean;total:number}};
+  if(!value||!Array.isArray(value.data)||value.data.length>100||!value.pagination||value.pagination.hasMore!==false||value.pagination.total!==value.data.length)throw Error('Incomplete endpoint summary');
+  const seen=new Set<string>();
+  const totals={operations:0,ready:0,blocked:0,maintenance:0,unverified:0};
+  for(const row of value.data){
+    if(!row||typeof row.service!=='string'||seen.has(row.service)||!count(row.declaredOperations)||!row.managementStates)throw Error('Invalid service summary');
+    seen.add(row.service);
+    let sum=0;
+    for(const state of ['ready','blocked','maintenance','unverified'] as const){
+      const n=row.managementStates[state];if(!count(n))throw Error('Invalid service status');
+      totals[state]+=n;sum+=n;
+    }
+    if(sum!==row.declaredOperations)throw Error('Invalid service total');
+    totals.operations+=sum;
+  }
+  if(!Object.values(totals).every(count))throw Error('Invalid summary total');
+  return totals;
 }

@@ -33,3 +33,19 @@ test('traffic totals include status and transfer coverage; mismatched status tot
  const legacy=readTrafficReport({...raw,endpoints:[{...row,statusCounts:undefined}]});
  assert.equal(legacy.statusCoveredRequests,0);
 });
+
+test('per-endpoint rates preserve unknowns and distinguish denial from server errors',async()=>{
+ const {endpointTrafficMetrics}=await import('../websites/typescript/src/endpoint-traffic-report.ts');
+ const row={observedRequests:10,statusCounts:{'200':6,'403':2,'500':1,no_response:1}};
+ assert.deepEqual(endpointTrafficMetrics(row,2),{requestsPerSecond:5,successful:6,failed:2,errorRate:0.2});
+ assert.equal(endpointTrafficMetrics({...row,statusCounts:undefined},2).failed,null);
+ assert.equal(endpointTrafficMetrics({...row,observedRequests:0,statusCounts:{}},2).errorRate,null);
+ assert.throws(()=>endpointTrafficMetrics(row,0));
+});
+test('service summary requires complete coverage and reconciled readiness counts',async()=>{
+ const {readEndpointSummary}=await import('../websites/typescript/src/endpoint-traffic-report.ts');
+ const row={service:'auth',declaredOperations:4,managementStates:{ready:1,blocked:1,maintenance:1,unverified:1}};
+ const raw={data:[row],pagination:{hasMore:false,total:1}};
+ assert.deepEqual(readEndpointSummary(raw),{operations:4,ready:1,blocked:1,maintenance:1,unverified:1});
+ for(const patch of [{pagination:{hasMore:true,total:2}},{data:[{...row,declaredOperations:5}]},{data:[row,row],pagination:{hasMore:false,total:2}}])assert.throws(()=>readEndpointSummary({...raw,...patch}));
+});

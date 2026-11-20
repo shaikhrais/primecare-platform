@@ -1,4 +1,4 @@
-import {readTrafficReport} from './endpoint-traffic-report';
+import {readTrafficReport,endpointTrafficMetrics,readEndpointSummary} from './endpoint-traffic-report';
 import {readCapacityEvidence,assessCapacity} from './endpoint-capacity';
 type Locale = 'en' | 'fr' | 'es';
 const labels = {
@@ -75,6 +75,21 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
     }catch{if(active())healthStatus.textContent=healthUnavailable;}
     finally{if(active()){healthRequest=undefined;healthButton.disabled=false;}}
   };
+  const summary=document.createElement('p');summary.setAttribute('role','status');
+  heading.after(summary);
+  const summaryRequest=new AbortController();
+  const summaryText={en:['Registered declarations','Ready','Blocked','Maintenance','Unverified','Status summary unavailable.'],fr:['Déclarations enregistrées','Prêt','Bloqué','Maintenance','Non vérifié','Résumé indisponible.'],es:['Declaraciones registradas','Listo','Bloqueado','Mantenimiento','Sin verificar','Resumen no disponible.']}[locale];
+  async function loadSummary(){
+    try{
+      const response=await fetch(gateway+'/v1/governance/api-service-status?limit=100',{
+        headers:{authorization:'Bearer '+token},cache:'no-store',signal:AbortSignal.any([summaryRequest.signal,AbortSignal.timeout(10000)])});
+      if(!response.ok)throw Error();
+      const totals=readEndpointSummary(await response.json());
+      if(!current()||summaryRequest.signal.aborted)return;
+      summary.textContent=[totals.operations,totals.ready,totals.blocked,totals.maintenance,totals.unverified].map((n,i)=>summaryText[i]+': '+n.toLocaleString(locale)).join(' · ');
+    }catch{if(current()&&!summaryRequest.signal.aborted)summary.textContent=summaryText[5];}
+  }
+  void loadSummary();
   const form=panel.querySelector('form')!, input=panel.querySelector('input')!;
   form.querySelector('span')!.textContent=searchLabel;
   form.querySelector('button')!.textContent=search;
@@ -120,6 +135,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   };
   let importVersion=0;
   const numbers=new Intl.NumberFormat(locale,{maximumFractionDigits:3});
+  const efficiencyLabels={en:['Known inbound bytes/s','Known outbound bytes/s','Observed HTTP 2xx/s','HTTP status coverage','no response'],fr:['Octets entrants connus/s','Octets sortants connus/s','HTTP 2xx observés/s','Couverture des statuts HTTP','sans réponse'],es:['Bytes entrantes conocidos/s','Bytes salientes conocidos/s','HTTP 2xx observados/s','Cobertura de estados HTTP','sin respuesta']}[locale];
   showCapacity();
   trafficFile.onchange=async()=>{
     if(!current())return;
@@ -132,12 +148,13 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       if(!active())return;
       traffic=parsed;
       const time=(value:number)=>new Date(value).toLocaleString(locale);
-      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / no response: ${numbers.format(parsed.failedRequests)} · HTTP status coverage: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)}`;
+      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / ${efficiencyLabels[4]}: ${numbers.format(parsed.failedRequests)} · ${efficiencyLabels[3]}: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)} · ${efficiencyLabels[0]}: ${numbers.format(parsed.inboundBytesPerSecond)} · ${efficiencyLabels[1]}: ${numbers.format(parsed.outboundBytesPerSecond)} · ${efficiencyLabels[2]}: ${numbers.format(parsed.successfulRequestsPerSecond)}`;
     }catch{if(active())trafficStatus.textContent=invalidTraffic;}
     if(active()){showCapacity();void load();}
   };
   panel.querySelector('.table-scroll')!.setAttribute('aria-label',title);
-  for(const column of [...columns,requests,inbound,outbound,latency]){
+  const metricLabels={en:['Requests/s','HTTP 2xx','HTTP 5xx / no response','Error rate'],fr:['Requêtes/s','HTTP 2xx','HTTP 5xx / sans réponse','Taux d’erreur'],es:['Solicitudes/s','HTTP 2xx','HTTP 5xx / sin respuesta','Tasa de error']}[locale];
+  for(const column of [...columns,requests,inbound,outbound,latency,...metricLabels]){
     const th=document.createElement('th'); th.scope='col'; th.textContent=column; header.append(th);
   }
   const [back,forward]=[...panel.querySelectorAll<HTMLButtonElement>('button[type="button"]')].filter(button=>button!==healthButton);
@@ -166,6 +183,8 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
           numbers.format(bytes.knownBytes)+(bytes.unknownRequests?' · '+unknownSizes+': '+numbers.format(bytes.unknownRequests):'');
         cells.push(...(observed?[numbers.format(observed.observedRequests),size(observed.declaredRequestBytes),
           size(observed.declaredResponseBytes),numbers.format(observed.responseHeaderLatencyP95Ms)]:Array(4).fill('—')));
+        const metrics=observed&&traffic?endpointTrafficMetrics(observed,(traffic.end-traffic.start)/1000):undefined;
+        cells.push(...(metrics?[numbers.format(metrics.requestsPerSecond),metrics.successful===null?'—':numbers.format(metrics.successful),metrics.failed===null?'—':numbers.format(metrics.failed),metrics.errorRate===null?'—':numbers.format(metrics.errorRate*100)+'%']:Array(4).fill('—')));
         const tr=body.insertRow();
         for(const cell of cells)tr.insertCell().textContent=cell??'';
         const window=row.management?.maintenanceWindow;
@@ -184,5 +203,5 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   back.onclick=()=>{if(offset>=limit){offset-=limit;void load();}};
   forward.onclick=()=>{offset+=limit;void load();};
   void load();
-  return ()=>{request?.abort();request=undefined;healthRequest?.abort();healthRequest=undefined;};
+  return ()=>{summaryRequest.abort();request?.abort();request=undefined;healthRequest?.abort();healthRequest=undefined;};
 }

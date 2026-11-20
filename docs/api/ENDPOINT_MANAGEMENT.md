@@ -89,3 +89,19 @@ The values above illustrate the format; they are not PrimeCare measurements. Acc
 Traffic imports also display HTTP 2xx responses, 5xx/exception counts, status coverage and unknown request/response length counts. HTTP 2xx responses are transport-level observations, not proof of successful business workflows. Legacy reports without status counts show zero status coverage. Status totals are validated before display.
 
 Validation: `node --test scripts/test-endpoint-capacity.mjs` (Node 24+).
+
+### Management overview and operation efficiency
+
+The dashboard also reads the inventory-authorized service summary to show total registered declarations and counts ready, blocked, in maintenance and unverified. These totals cover the full inventory independently of the current search page. The reader rejects truncated summaries, duplicate service groups and inconsistent counts.
+
+Imported traffic adds per-operation requests/second, HTTP 2xx counts, 5xx/exception counts and error rates. Denied requests are not classified as server errors. Missing status coverage stays unknown, and an empty interval has no error percentage. Whole-gateway totals include known inbound/outbound bytes per second and observed HTTP 2xx per second. All rates use the report interval. They do not include unobserved requests, transport overhead or direct service traffic.
+
+### Remaining production connections
+
+1. Deploy the reviewed gateway and dashboard versions through the existing release process.
+2. Configure gateway `ENDPOINT_TRAFFIC_ENABLED=1` and retained Workers Logs, then verify metadata events contain no caller data.
+3. Establish automated export and delivery through an authenticated, approved reporting channel; the current dashboard imports reports locally.
+4. Record the deployed gateway and service versions, then run representative sustained load in a production-like environment with sanitized data. Capture database waits, Worker CPU, queues and provider limits alongside latency and errors.
+5. Import reviewed capacity evidence and compare only the same deployment and workload mix. Repeat after tuning the measured bottleneck.
+
+The source changes alone do not activate these production connections or establish whole-system capacity.
