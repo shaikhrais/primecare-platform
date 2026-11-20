@@ -8,7 +8,9 @@ ROOT=Path(__file__).resolve().parents[1]
 
 def before_portal_layout(source,path):
     """Replay only the hash-pinned portal amendment for historical migration tests."""
-    doc=json.loads((ROOT/'scripts/portal-layout-replay.json').read_text())
+    manifest=ROOT/'scripts/portal-layout-replay.json'
+    if not manifest.exists():return source
+    doc=json.loads(manifest.read_text())
     if doc['version']!=1:raise AssertionError('Unsupported portal replay receipt')
     rows=[row for row in doc['files'] if row['path']==path]
     if not rows:return source
