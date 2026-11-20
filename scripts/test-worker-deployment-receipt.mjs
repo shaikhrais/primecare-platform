@@ -15,3 +15,8 @@ test('delayed provider propagation accepts only the exact version and fails clos
  await assert.rejects(()=>verifyWorkerDeploymentEventually(wrong,{attempts:3,wait:async()=>{}}));
 });
 test('gateway receipt requires its exact registered Worker name',async()=>{const r=await verifyWorkerDeployment({...fixture(),worker:'primecare-api-gateway',service:'gateway'});assert.equal(r.worker,'primecare-api-gateway');await assert.rejects(()=>verifyWorkerDeployment({...fixture(),worker:'primecare-gateway-api',service:'gateway'}));});
+test('idempotent publication requires explicit opt-in and the exact independently observed prior version',async()=>{
+ const unchanged=fixture(v=>{if(v.deployments)v.deployments[0].id=old;});
+ const result=await verifyWorkerDeployment({...unchanged,allowIdempotent:true,previousVersionId:version});assert.equal(result.deploymentChanged,false);assert.equal(result.versionId,version);
+ for(const extra of [{allowIdempotent:false,previousVersionId:version},{allowIdempotent:true,previousVersionId:old},{allowIdempotent:true},{allowIdempotent:'yes',previousVersionId:version}])await assert.rejects(()=>verifyWorkerDeployment({...unchanged,...extra}));
+});

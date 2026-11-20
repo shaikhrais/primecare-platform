@@ -5,16 +5,17 @@ export function uploadedWorkerVersion(output){
  if(ids.length!==1||!uuid.test(ids[0]))throw Error('Unambiguous uploaded Worker version required');
  return ids[0];
 }
-export async function verifyWorkerDeployment({api,worker,service,source,versionId,previousDeploymentId}){
+export async function verifyWorkerDeployment({api,worker,service,source,versionId,previousDeploymentId,previousVersionId,allowIdempotent=false}){
  if(!/^[0-9a-f]{40}$/.test(source??'')||!uuid.test(versionId??'')||!uuid.test(previousDeploymentId??'')||!['auth','governance','gateway'].includes(service)||worker!==(service==='gateway'?'primecare-api-gateway':'primecare-'+service+'-api'))throw Error('Exact deployment provenance required');
+ if(allowIdempotent&&(!uuid.test(previousVersionId??'')||typeof allowIdempotent!=='boolean'))throw Error('Exact prior active version required');
  const base='/workers/scripts/'+worker;
- const check=raw=>{const active=raw?.deployments?.[0];if(!active||!uuid.test(active.id??'')||active.id===previousDeploymentId||!Number.isFinite(Date.parse(active.created_on))||active.versions?.length!==1||active.versions[0].version_id!==versionId||active.versions[0].percentage!==100)throw Error('Uploaded version is not the sole active deployment');return active;};
+ const check=raw=>{const active=raw?.deployments?.[0];if(!active||!uuid.test(active.id??'')||active.id===previousDeploymentId&&!(allowIdempotent===true&&previousVersionId===versionId)||!Number.isFinite(Date.parse(active.created_on))||active.versions?.length!==1||active.versions[0].version_id!==versionId||active.versions[0].percentage!==100)throw Error('Uploaded version is not the sole active deployment');return active;};
  const active=check(await api(base+'/deployments?per_page=1'));
  const version=await api(base+'/versions/'+versionId);
  if(version?.id!==versionId)throw Error('Uploaded version readback mismatch');
  const confirmed=check(await api(base+'/deployments?per_page=1'));
  if(confirmed.id!==active.id)throw Error('Deployment changed during verification');
- return {format:1,source,worker,service,deploymentId:active.id,versionId,trafficPercent:100,createdOn:active.created_on,independentlyReadDeployment:true,sourceAssociation:'verified CI checkout and exact Wrangler upload version',registeredGovernanceArtifactId:null,grantAssociationApproved:false};
+ return {format:1,source,worker,service,deploymentId:active.id,versionId,trafficPercent:100,deploymentChanged:active.id!==previousDeploymentId,createdOn:active.created_on,independentlyReadDeployment:true,sourceAssociation:'verified CI checkout and exact Wrangler upload version',registeredGovernanceArtifactId:null,grantAssociationApproved:false};
 }
 
 /** Allow provider propagation while still requiring the exact uploaded version at 100%. */

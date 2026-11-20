@@ -12,6 +12,8 @@ on:
       - 'websites/typescript/src/platform-admin.ts'
       - 'scripts/test-code-admin-ems*'
       - 'scripts/verify-code-admin-ems-release.mjs'
+      - 'scripts/deploy-approved-admin-governance.mjs'
+      - 'scripts/worker-deployment-receipt.mjs'
       - 'tools/governance-production/ems_registration.py'
       - 'tools/governance-production/test_ems_registration.py'
       - '.github/workflows/code-admin-ems.yml'

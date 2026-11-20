@@ -27,8 +27,8 @@ async function main(){
  if(!check.ok)throw Error('Selected analytics credential cannot query dataset');await check.body?.cancel();
  const names={gateway:'primecare-api-gateway',governance:'primecare-governance-api'},settings={},previous={};
  for(const [key,worker] of Object.entries(names)){
-  settings[key]=await api('/workers/scripts/'+worker+'/settings');previous[key]=(await api('/workers/scripts/'+worker+'/deployments?per_page=1')).deployments?.[0]?.id;
-  if(!/^[a-f0-9-]{36}$/i.test(previous[key]??''))throw Error('Existing deployment required');
+  settings[key]=await api('/workers/scripts/'+worker+'/settings');previous[key]=(await api('/workers/scripts/'+worker+'/deployments?per_page=1')).deployments?.[0];
+  if(!/^[a-f0-9-]{36}$/i.test(previous[key]?.id??'')||previous[key].versions?.length!==1||previous[key].versions[0].percentage!==100||!/^[a-f0-9-]{36}$/i.test(previous[key].versions[0].version_id??''))throw Error('Existing sole active deployment required');
  }
  const configs=endpointAnalyticsConfigs(liveWorkerConfig(names.gateway,settings.gateway),liveWorkerConfig(names.governance,settings.governance),account,'code_admin',{},tenant);
  // User explicitly authorized reuse of the existing GitHub Cloudflare credential.
@@ -41,7 +41,7 @@ async function main(){
   let output;try{output=execFileSync('node_modules/.bin/wrangler',['deploy','--config',file,'--keep-vars'],{encoding:'utf8',stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});}catch{throw Error('EMS '+key+' deployment failed; inspect live settings before retrying');}
   report.providerWrites++;
   const versionId=uploadedWorkerVersion(output);
-  const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key]});
+  const receipt=await verifyWorkerDeploymentEventually({api,worker:names[key],service:key==='gateway'?'gateway':'governance',source:report.source,versionId,previousDeploymentId:previous[key].id,previousVersionId:previous[key].versions?.[0]?.version_id,allowIdempotent:true});
   const after=await api('/workers/scripts/'+names[key]+'/settings');
   const allowed=key==='gateway'?['ENDPOINT_ANALYTICS','ENDPOINT_BODY_ANALYTICS','ENDPOINT_TRAFFIC_ENABLED']:['ENDPOINT_ANALYTICS_ACCOUNT_ID','ENDPOINT_ANALYTICS_READER_ROLE','ENDPOINT_ANALYTICS_READER_TENANT_ID','ENDPOINT_ANALYTICS_READ_TOKEN'];
   verifyUnchangedBindings(settings[key],after,allowed);if(key==='gateway'&&!after.bindings.some(b=>b.name==='ENDPOINT_BODY_ANALYTICS'&&b.type==='analytics_engine'&&b.dataset==='primecare_endpoint_body_v1'))throw Error('Response body dataset readback mismatch');report.workers.push({...receipt,unrelatedBindingsPreserved:true});
@@ -53,5 +53,5 @@ async function main(){
 }
 try{await main();}catch(error){
  const safe=new Set(['Registered control-tenant policy required','Control tenant is not provisioned','Registered control tenant is missing or changed','Governance authority mismatch','Approved Code Admin owner is not registered','Approved Code Admin owner binding differs','Protected current-main credentials required','Current main required','Selected analytics credential cannot query dataset','Live analytics configuration readback has blockers','Live EMS anonymous boundary failed']);
- report.blocker=safe.has(error.message)?error.message:'Activation stopped; protected configuration or provider verification failed';process.exitCode=1;
+ report.blocker=safe.has(error.message)||['Uploaded version is not the sole active deployment','Uploaded version readback mismatch','Deployment changed during verification','Exact prior active version required','Unrelated live bindings changed','Response body dataset readback mismatch'].includes(error.message)||/^Cloudflare activation request failed \(HTTP [1-5][0-9]{2}\)$/.test(error.message)?error.message:'Activation stopped; protected configuration or provider verification failed';process.exitCode=1;
 }finally{await mkdir('test-results/endpoint-management',{recursive:true});await writeFile('test-results/endpoint-management/activation.json',JSON.stringify(report,null,2)+'\n');console.log('EMS_ANALYTICS_ACTIVATION '+JSON.stringify(report));}

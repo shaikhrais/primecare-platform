@@ -9,7 +9,7 @@ const source=process.env.GITHUB_SHA;
 if(!/^[0-9a-f]{40}$/.test(source??'')||process.env.GITHUB_REF!=='refs/heads/main'||execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim()!==source)throw Error('Verified main checkout required for deployment provenance');
 execFileSync('git',['diff','--quiet','HEAD'],{stdio:'ignore'});
 const previous=(await api('/workers/scripts/'+worker+'/deployments?per_page=1'))?.deployments?.[0];
-if(!/^[0-9a-f-]{36}$/i.test(previous?.id??''))throw Error('Previous deployment identity required');
+if(!/^[0-9a-f-]{36}$/i.test(previous?.id??'')||previous.versions?.length!==1||previous.versions[0].percentage!==100||!/^[0-9a-f-]{36}$/i.test(previous.versions[0].version_id??''))throw Error('Previous sole active deployment identity required');
 const settings=await api('/workers/scripts/'+worker+'/settings');
 if(!Array.isArray(settings.bindings)||!settings.bindings.some(b=>b.name==='DB_URL'&&b.type==='secret_text'))throw Error('Existing encrypted database binding required');
 const config={name:worker,main:'../cloudflare/workers/src/service.ts',compatibility_date:settings.compatibility_date??'2026-09-27',compatibility_flags:settings.compatibility_flags??['nodejs_compat'],workers_dev:true,vars:{},services:[],ratelimits:[],send_email:[],observability:settings.observability??{enabled:true}};
@@ -30,7 +30,7 @@ if(config.vars.SERVICE_NAME!=='governance')throw Error('Governance service scope
 await mkdir('.cloudflare-workers',{recursive:true});await writeFile('.cloudflare-workers/approved-governance.jsonc',JSON.stringify(config,null,2));
 let versionId;
 try{const output=execFileSync('node_modules/.bin/wrangler',['deploy','--config','.cloudflare-workers/approved-governance.jsonc','--keep-vars'],{stdio:['ignore','pipe','pipe'],maxBuffer:8*1024*1024});versionId=uploadedWorkerVersion(output.toString());}catch(error){let diagnostic=String(error.stderr??'')+'\n'+String(error.stdout??'');for(const value of [token,account,process.env.PRODUCTION_DATABASE_URL,...Object.values(config.vars).filter(v=>typeof v==='string'&&v.length>3)])if(value)diagnostic=diagnostic.split(value).join('[redacted]');diagnostic=diagnostic.replace(/postgres(?:ql)?:\/\/[^\s\"']+/g,'[redacted database]');console.error(diagnostic.slice(-12000));throw Error('Governance worker publication failed; no other worker targeted');}
-const provenance=await verifyWorkerDeploymentEventually({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id});
+const provenance=await verifyWorkerDeploymentEventually({api,worker,service:'governance',source,versionId,previousDeploymentId:previous.id,previousVersionId:previous.versions?.[0]?.version_id,allowIdempotent:true});
 const after=await api('/workers/scripts/'+worker+'/settings');
 const fingerprint=bindings=>JSON.stringify(bindings.map(b=>({name:b.name,type:b.type,...(b.service?{service:b.service}:{}),...(b.entrypoint?{entrypoint:b.entrypoint}:{}),...(b.id?{id:b.id}:{})})).sort((a,b)=>a.name.localeCompare(b.name)));
 if(fingerprint(settings.bindings)!==fingerprint(after.bindings)){
