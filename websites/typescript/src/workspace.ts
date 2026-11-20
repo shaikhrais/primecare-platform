@@ -1,3 +1,4 @@
+import {mountEndpointManagement} from './endpoint-management-panel';
 import {governanceOfficerIntroduction} from './governance-officer-pilot';
 import {connectGovernedMasterDashboard} from './governed-master-dashboard';
 import {dashboardActivated} from './dashboard-activation';
@@ -64,7 +65,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   workspaceOwners.get(root)?.();workspaceRestores.delete(root);
   const generation=(workspaceLoads.get(root)??0)+1;workspaceLoads.set(root,generation);
   const eventTarget=root.ownerDocument.defaultView??window;
-  let retired=false,suspended=false;let disposeInvoices=()=>{},disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
+  let retired=false,suspended=false;let disposeEndpoints=()=>{},disposeInvoices=()=>{},disposeCalls=()=>{},disposeAccountReads=()=>{},disposeAccountCreation=()=>{},disposeAccount=()=>{},disposeReports=()=>{},stopLive=()=>{},redraw=()=>{};
   let renderVersion=0,dirtyForm=false;
   let dashboard:ReturnType<typeof connectGovernedMasterDashboard>|undefined;
   const retireDashboard=()=>{const owner=dashboard;dashboard=undefined;owner?.master.dispose();};
@@ -88,7 +89,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   };
   const retire=()=>{
     if(retired)return;retired=true;renderVersion++;retireDashboard();
-    disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    disposeCalls();disposeCalls=()=>{};disposeEndpoints();disposeEndpoints=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     eventTarget.removeEventListener('pagehide',leave);eventTarget.removeEventListener('pageshow',resume);eventTarget.removeEventListener('popstate',onHistory);root.removeEventListener('input',onInput);
     if(workspaceOwners.get(root)===retire){workspaceOwners.delete(root);releaseSnapshot();}
   };
@@ -108,7 +109,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   };
   const leave=(event:PageTransitionEvent)=>{
     if(!ownsRoot())return;
-    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};releaseSnapshot();
+    suspended=true;renderVersion++;disposeCalls();disposeCalls=()=>{};disposeEndpoints();disposeEndpoints=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};releaseSnapshot();
     workspaceRestores.delete(root);
     if(!event.persisted)retire();
   };
@@ -204,7 +205,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
     return sessionCurrent();
   };
   const handoff=(route:string,replace=false)=>{
-    handingOff=true;renderVersion++;disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
+    handingOff=true;renderVersion++;disposeEndpoints();disposeEndpoints=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};disposeReports();stopLive();stopLive=()=>{};
     if(replace)location.replace(routeUrl(route));else location.assign(routeUrl(route));
   };
   const navigate=(route:string,active:()=>boolean)=>{
@@ -217,7 +218,7 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
   const draw=()=>{
     if(!currentNavigation())return;
     const version=++renderVersion;
-    disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};
+    disposeEndpoints();disposeEndpoints=()=>{};disposeInvoices();disposeInvoices=()=>{};disposeAccountCreation();disposeAccountCreation=()=>{};disposeAccountReads();disposeAccountReads=()=>{};disposeAccount();disposeAccount=()=>{};
     const inventoryOpen=root.querySelector<HTMLDetailsElement>('[data-cy="workspace-inventory"]')?.open??false;
     let page=data.screens.find(s=>s.route===location.pathname);
     if(location.pathname==='/' || location.pathname==='/dashboard') {
@@ -335,6 +336,11 @@ export async function renderWorkspace(root:HTMLElement,gateway:string):Promise<v
       renderShell(root,shell);
     }
     root.querySelectorAll<HTMLAnchorElement>('a[data-route]').forEach(a=>a.onclick=e=>{e.preventDefault();navigate(a.dataset.route!,active);});
+    if(page?.code==='api_health_dashboard'&&active()){
+      const panel=document.createElement('section');panel.className='section';panel.dataset.cy='endpoint-management';
+      root.querySelector('main')!.insertBefore(panel,root.querySelector('[data-cy="workspace-inventory"]'));
+      disposeEndpoints=mountEndpointManagement(panel,gateway,token,locale,active);
+    }
     if(page && data.reporting?.screens.includes(page.code)) {
       let panel=reportPanels.get(page.code);
       if(!panel){panel=reportPanel(gateway,data.reporting.endpoint,token,data.identity.userId,locale,{
