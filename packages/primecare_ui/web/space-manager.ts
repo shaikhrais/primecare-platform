@@ -5,7 +5,7 @@ export class SpaceManager {
   if(!['comfortable','compact'].includes(density))throw Error('Unsupported spatial density');
   this.surface.dataset.spaceManaged='true';
   const compact=density==='compact';
-  for(const [name,value] of Object.entries({'--pc-page-gap':compact?'12px':'18px','--pc-card-pad':compact?'12px':'16px','--pc-section-gap':compact?'10px':'14px','--pc-title-size':compact?'20px':'24px','--pc-chart-height':compact?'168px':'196px'}))this.surface.style.setProperty(name,value);
+  for(const [name,value] of Object.entries({'--pc-page-gap':compact?'clamp(10px, 2vw, 12px)':'clamp(12px, 2vw, 18px)','--pc-card-pad':compact?'clamp(10px, 1.5vw, 12px)':'clamp(12px, 1.5vw, 16px)','--pc-section-gap':compact?'10px':'clamp(10px, 1.5vw, 14px)','--pc-title-size':compact?'20px':'clamp(20px, 2vw, 24px)','--pc-chart-height':compact?'166px':'clamp(166px, 20vw, 196px)'}))this.surface.style.setProperty(name,value);
  }
  clear():void {delete this.surface.dataset.spaceManaged;for(const key of ['--pc-page-gap','--pc-card-pad','--pc-section-gap','--pc-title-size','--pc-chart-height'])this.surface.style.removeProperty(key);}
 }
