@@ -49,6 +49,7 @@ export const spaceStyles=`
 .app-shell[data-space-managed] .ems-chart-grid{gap:var(--pc-section-gap);margin-block:var(--pc-section-gap)}
 .app-shell[data-space-managed] .ems-chart-card>h3{border:0;padding:0;margin-bottom:8px;font-size:13px;line-height:1.4}
 .app-shell[data-space-managed] .ems-chart-card svg{height:var(--pc-chart-height);max-height:var(--pc-chart-height);width:100%}
+.app-shell[data-space-managed] .ems-status-card svg{height:calc(var(--pc-chart-height) * .72);max-height:calc(var(--pc-chart-height) * .72)}
 .app-shell[data-space-managed] .ems-chart-card details{margin-top:4px;font-size:11px}
 .app-shell[data-space-managed] .ems-chart-card p{margin:6px 0;font-size:10px;line-height:1.4}
 .app-shell[data-space-managed] .ems-chart-card details summary{padding:4px 0;font-weight:500}
@@ -59,5 +60,5 @@ export const spaceStyles=`
 .app-shell[data-space-managed] .ems-series-2{fill:var(--color-warning);stroke:var(--color-warning)}
 .app-shell[data-space-managed] .ems-series-3{fill:var(--color-info);stroke:var(--color-info)}
 .app-shell[data-space-managed] .ems-chart-card circle[fill=none]{fill:none}
-@media(max-width:600px){.app-shell[data-space-managed]{--pc-page-gap:12px;--pc-card-pad:12px;--pc-section-gap:10px;--pc-title-size:20px;--pc-chart-height:166px}.app-shell[data-space-managed] .code-admin-title-row{flex-basis:auto}.app-shell[data-space-managed] .ems-widget>strong{font-size:25px}.app-shell[data-space-managed] .ems-widget h3{min-height:28px;margin-bottom:6px}.app-shell[data-space-managed] .ems-chart-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:'trend trend' 'readiness operational' 'services services' 'status status'}.app-shell[data-space-managed] .ems-readiness-card svg{height:140px}.app-shell[data-space-managed] .ems-status-list{font-size:11px}.app-shell[data-space-managed] .ems-observatory-toolbar{margin-bottom:8px}}
+@media(max-width:600px){.app-shell[data-space-managed]{--pc-page-gap:12px;--pc-card-pad:12px;--pc-section-gap:10px;--pc-title-size:20px;--pc-chart-height:166px}.app-shell[data-space-managed] .code-admin-title-row{flex-basis:auto}.app-shell[data-space-managed] .ems-widget>strong{font-size:25px}.app-shell[data-space-managed] .ems-widget h3{min-height:28px;margin-bottom:6px}.app-shell[data-space-managed] .ems-chart-grid{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:'trend trend' 'readiness readiness' 'services services' 'status status'}.app-shell[data-space-managed] .ems-readiness-card svg{height:var(--pc-chart-height)}.app-shell[data-space-managed] .ems-readiness-card svg text:not(.ems-chart-total){font-size:16px}.app-shell[data-space-managed] .ems-operational-card{display:none}.app-shell[data-space-managed] .ems-status-list{font-size:11px}.app-shell[data-space-managed] .ems-observatory-toolbar{margin-bottom:8px}}
 `;
