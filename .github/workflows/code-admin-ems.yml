@@ -107,11 +107,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
       - name: Verify current main and install the existing deployment toolchain
         run: |
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           npm ci --ignore-scripts
+          python -m pip install -r tools/governance-production/requirements.txt
       - name: Publish only governance code while preserving live bindings
         run: node scripts/deploy-approved-admin-governance.mjs
       - name: Verify all six EMS routes deny anonymous reads through the gateway
