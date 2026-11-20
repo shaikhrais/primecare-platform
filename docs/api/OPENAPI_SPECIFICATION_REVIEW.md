@@ -25,6 +25,10 @@ The two file-relative references in [account preferences](account-preferences.op
 
 The 102 source specifications contain 491 exact source operations represented by 655 source declarations. Of those declarations, 554 have at least one parameter schema and 30 have at least one response header after resolving shared response components. The endpoint handbook now includes declared parameter and header descriptions, types, formats and numeric bounds. Array responses show declared item types and first-level item fields. Literal enum values, defaults and examples remain in the source specifications.
 
+## Composed schemas and conditional fields
+
+The 102 source specifications use 31 `oneOf`, three `allOf` and one `anyOf` declarations. Generated comments now keep the base fields visible alongside the composition rules. They distinguish exactly one alternative, at least one alternative, and all component rules. They also show conditional requirements and disallowed shapes where the source declares them. Examples include required attribution for certain [growth intake links](../marketing/growth.openapi.json), field restrictions in [Care Delivery](../care/openapi.json), and conditional SMS body validation in the [communications contract](../../packages/contracts/communications.openapi.json). Exact condition values remain in the linked specifications.
+
 ## Priority follow-through
 
 | Operation | Evidence | Remaining work |

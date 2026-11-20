@@ -123,38 +123,70 @@ def constraints(schema):
 
 
 def shape(schema, components):
-    schema = resolve(schema, components)
-    if not schema:
-        return 'Not defined in this source.'
-    if schema.get('description') == 'Reference requires explicit review; see source document.':
-        return schema['description']
-    fields = []
-    variants = schema.get('oneOf') or schema.get('anyOf') or [schema]
-    if len(variants) > 1:
-        fields.append(f'{len(variants)} alternative input shapes; see source for conditional requirements.')
-    for number, variant in enumerate(variants[:20], 1):
-        variant = resolve(variant, components)
-        properties = variant.get('properties', {})
-        if not properties:
-            fields.append('Schema: ' + (', '.join(constraints(variant)) or 'type unspecified') + '.')
-            if variant.get('type') == 'array' and isinstance(variant.get('items'), dict):
-                item = resolve(variant['items'], components)
-                fields.append('Array item schema: ' + (', '.join(constraints(item)) or 'see source') + '.')
-                properties = item.get('properties', {})
-                variant = item
-        for name, definition in list(properties.items())[:100]:
-            field = resolve(definition, components)
-            details = constraints(field) or ['constrained value']
-            if field.get('type') == 'array' and isinstance(field.get('items'), dict):
-                item = resolve(field['items'], components)
-                if item.get('type'):
-                    details.append('items: ' + constraints(item)[0])
-            details.append('required' if name in variant.get('required', []) else 'optional')
-            prefix = f'variant {number}: ' if len(variants) > 1 else ''
-            fields.append('- ' + prefix + '`' + clean(name, 100).replace('`', '') + '`: ' + ', '.join(details))
-        if variant.get('additionalProperties') is False:
-            fields.append('Additional properties are rejected for this shape.')
-    return '\n'.join(fields)
+    lines = []
+    describe_shape(schema, components, lines)
+    return '\n'.join(lines) or 'Not defined in this source.'
+
+
+def describe_shape(schema, components, lines, depth=0, label=''):
+    if len(lines) >= 120 or depth > 5:
+        if lines[-1:] != ['Additional schema detail is available in the source.']:
+            lines.append('Additional schema detail is available in the source.')
+        return
+    variant = resolve(schema, components)
+    if not variant:
+        return
+    prefix = '  ' * depth
+    if label:
+        lines.append(prefix + label)
+    if variant.get('description') == 'Reference requires explicit review; see source document.':
+        lines.append(prefix + variant['description'])
+        return
+    properties = variant.get('properties', {})
+    if not properties:
+        details = constraints(variant)
+        if details:
+            lines.append(prefix + 'Schema: ' + ', '.join(details) + '.')
+        if variant.get('type') == 'array' and isinstance(variant.get('items'), dict):
+            describe_shape(variant['items'], components, lines, depth + 1, 'Array item schema:')
+    required = set(variant.get('required', []))
+    for name in sorted(required - properties.keys()):
+        lines.append(prefix + 'Required field: `' + clean(name, 100).replace('`', '') + '`.')
+    for name, definition in list(properties.items())[:100]:
+        if len(lines) >= 120:
+            break
+        field = resolve(definition, components)
+        details = constraints(field) or ['constrained value']
+        if field.get('type') == 'array' and isinstance(field.get('items'), dict):
+            item = resolve(field['items'], components)
+            if item.get('type'):
+                details.append('items: ' + constraints(item)[0])
+        details.append('required' if name in required else 'optional in this schema component')
+        lines.append(prefix + '- `' + clean(name, 100).replace('`', '') + '`: ' + ', '.join(details))
+        if any(key in field for key in ('oneOf', 'anyOf', 'allOf', 'if')):
+            describe_shape(field, components, lines, depth + 1, 'Field schema rules:')
+    if variant.get('additionalProperties') is False:
+        lines.append(prefix + 'Additional properties are rejected for this shape.')
+    for keyword, explanation in (
+        ('allOf', 'All component rules apply.'),
+        ('oneOf', 'Exactly one alternative must match.'),
+        ('anyOf', 'At least one alternative must match.'),
+    ):
+        alternatives = variant.get(keyword, [])
+        if alternatives:
+            lines.append(prefix + f'{keyword} — {explanation}')
+            for number, child in enumerate(alternatives[:20], 1):
+                if len(lines) >= 120:
+                    break
+                describe_shape(child, components, lines, depth + 1, f'Component {number}:')
+    if 'if' in variant:
+        for keyword, heading in (('if', 'When these conditions match:'),
+                                 ('then', 'Apply these rules:'),
+                                 ('else', 'Otherwise apply these rules:')):
+            if keyword in variant:
+                describe_shape(variant[keyword], components, lines, depth + 1, heading)
+    if 'not' in variant:
+        describe_shape(variant['not'], components, lines, depth + 1, 'This shape is disallowed:')
 
 
 def source_comments(sources):

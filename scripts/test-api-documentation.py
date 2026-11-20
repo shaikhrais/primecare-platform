@@ -130,6 +130,18 @@ class DocumentationTests(unittest.TestCase):
                        'Schema: array, maxItems=50.', '`id`: string, format uuid, required'):
             self.assertIn(phrase, text)
 
+    def test_composed_schema_preserves_base_and_conditional_rules(self):
+        schema = {'properties': {'mode': {'type': 'string'}}, 'required': ['mode'],
+                  'allOf': [{'if': {'properties': {'mode': {'const': 'LITERAL_SENTINEL'}}},
+                             'then': {'required': ['reason']}},
+                            {'anyOf': [{'type': 'string'}, {'type': 'null'}]}]}
+        text = shape(schema, {})
+        for phrase in ('`mode`: string, required', 'All component rules apply.',
+                       'When these conditions match:', 'Required field: `reason`.',
+                       'At least one alternative must match.'):
+            self.assertIn(phrase, text)
+        self.assertNotIn('LITERAL_SENTINEL', text)
+
     def test_yaml_path_parameters_and_security_inheritance(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
