@@ -120,11 +120,14 @@ jobs:
       - name: Verify all six EMS routes deny anonymous reads through the gateway
         run: node scripts/verify-code-admin-ems-release.mjs
       - name: Build existing websites and publish the Code Admin governance portal
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
         run: |
           node scripts/build-typescript-websites.mjs
           git fetch origin main
           test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
           npx wrangler pages deploy websites/typescript/dist/primecare-governance --project-name primecare-governance --branch main --commit-hash "$GITHUB_SHA"
+          python3 -m tools.deployment.typescript_release verify-deploy websites/typescript/dist/primecare-governance primecare-governance
       - uses: actions/upload-artifact@v4
         if: always()
         with:
