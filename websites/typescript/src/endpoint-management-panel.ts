@@ -1,4 +1,5 @@
 import {readTrafficReport} from './endpoint-traffic-report';
+import {readCapacityEvidence,assessCapacity} from './endpoint-capacity';
 type Locale = 'en' | 'fr' | 'es';
 const labels = {
   en: ['Endpoint management','Search endpoints','Search','Previous','Next','Loading endpoints…','No matching endpoints.','Endpoint inventory access denied.','Endpoint inventory unavailable.','Operation','Service','Implementation','Protection','Readiness','Maintenance','Offline HTTP result'],
@@ -86,8 +87,40 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   const trafficStatus=document.createElement('p');trafficStatus.setAttribute('role','status');
   form.before(trafficLabel,trafficStatus);
   let traffic:ReturnType<typeof readTrafficReport>|undefined;
+  const capacityText={
+    en:['Sustainable benchmark','Successful benchmark','requests/s','Measured','Expires','Observed average / benchmark','Average rate margin','Benchmark evidence','Interval averages and retained logs do not establish peak headroom. Confirm matching deployment and workload before comparison.','Invalid, expired or failing benchmark.'],
+    fr:['Débit soutenu mesuré','Débit réussi mesuré','requêtes/s','Mesuré','Expiration','Moyenne observée / mesure','Marge du débit moyen','Preuve de mesure','Les moyennes et journaux conservés ne prouvent pas la marge de pointe. Confirmez la même version et charge avant comparaison.','Mesure invalide, expirée ou hors cible.'],
+    es:['Capacidad sostenida medida','Capacidad exitosa medida','solicitudes/s','Medido','Vence','Promedio observado / medición','Margen de tasa media','Evidencia de medición','Los promedios y registros retenidos no demuestran margen de pico. Confirme la misma versión y carga antes de comparar.','Medición inválida, vencida o fuera de objetivos.'],
+  }[locale];
+  const capacityLabel=document.createElement('label');
+  capacityLabel.textContent=locale==='fr'?'Ouvrir une mesure de capacité ':locale==='es'?'Abrir medición de capacidad ':'Open capacity benchmark ';
+  const capacityFile=document.createElement('input');capacityFile.type='file';capacityFile.accept='.json,application/json';
+  capacityLabel.append(capacityFile);
+  const capacityStatus=document.createElement('p');capacityStatus.setAttribute('role','status');
+  trafficStatus.after(capacityLabel,capacityStatus);
+  let capacity:ReturnType<typeof readCapacityEvidence>|undefined,capacityVersion=0;
+  function showCapacity(){
+    if(!capacity){capacityStatus.textContent=locale==='fr'?'Capacité non mesurée.':locale==='es'?'Capacidad sin medir.':'Capacity unmeasured. Import a benchmark for the same release, environment and workload as the traffic report.';return;}
+    try{readCapacityEvidence(capacity);}catch{capacity=undefined;showCapacity();return;}
+    const result=traffic?assessCapacity(capacity,traffic.requestsPerSecond):undefined;
+    capacityStatus.textContent=`${capacity.releaseId} · ${capacity.environment} · ${capacity.workload} · ${capacityText[0]}: ${numbers.format(capacity.sustainableRequestsPerSecond)} ${capacityText[2]} · ${capacityText[1]}: ${numbers.format(capacity.sustainableRequestsPerSecond*(1-capacity.errorRate))} ${capacityText[2]} · P95 ${numbers.format(capacity.p95LatencyMs)} ms · Errors ${numbers.format(capacity.errorRate*100)}% · ${capacityText[3]} ${capacity.measuredAt} · ${capacityText[4]} ${capacity.expiresAt}`+
+      (result?` · ${capacityText[5]}: ${numbers.format(result.observedAverageUtilization*100)}% · ${capacityText[6]}: ${numbers.format(result.averageRateMargin)} ${capacityText[2]}`:'')+
+      ` · ${assessCapacity(capacity,0).recommendation} ${capacityText[8]}`;
+    const link=document.createElement('a');link.href=capacity.evidenceUrl;link.textContent=' '+capacityText[7];link.target='_blank';link.rel='noopener noreferrer';capacityStatus.append(link);
+  }
+  capacityFile.onchange=async()=>{
+    const version=++capacityVersion;
+    capacity=undefined;
+    try{
+      const file=capacityFile.files?.[0];if(!file||file.size>20000)throw Error();
+      const parsed=readCapacityEvidence(JSON.parse(await file.text()));
+      if(!current()||version!==capacityVersion)return;
+      capacity=parsed;showCapacity();
+    }catch{if(current()&&version===capacityVersion){showCapacity();capacityStatus.append(' '+capacityText[9]);}}
+  };
   let importVersion=0;
   const numbers=new Intl.NumberFormat(locale,{maximumFractionDigits:3});
+  showCapacity();
   trafficFile.onchange=async()=>{
     if(!current())return;
     const version=++importVersion,file=trafficFile.files?.[0];
@@ -99,9 +132,9 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       if(!active())return;
       traffic=parsed;
       const time=(value:number)=>new Date(value).toLocaleString(locale);
-      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)}`;
+      trafficStatus.textContent=`${time(parsed.start)} – ${time(parsed.end)} · ${numbers.format(parsed.observedRequests)} ${requests.toLocaleLowerCase(locale)} · ${numbers.format(parsed.requestsPerSecond)} ${rps} · ${inbound} ${numbers.format(parsed.inboundBytes)} · ${outbound} ${numbers.format(parsed.outboundBytes)} · ${unknownSizes}: ${numbers.format(parsed.unknownInbound)} / ${numbers.format(parsed.unknownOutbound)} · HTTP 2xx: ${numbers.format(parsed.successfulRequests)} · HTTP 5xx / no response: ${numbers.format(parsed.failedRequests)} · HTTP status coverage: ${numbers.format(parsed.statusCoveredRequests)} / ${numbers.format(parsed.observedRequests)}`;
     }catch{if(active())trafficStatus.textContent=invalidTraffic;}
-    if(active())void load();
+    if(active()){showCapacity();void load();}
   };
   panel.querySelector('.table-scroll')!.setAttribute('aria-label',title);
   for(const column of [...columns,requests,inbound,outbound,latency]){

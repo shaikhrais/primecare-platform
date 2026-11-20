@@ -62,3 +62,30 @@ Service health reports availability at the time of the check. Sustained request 
 Use the first measured bottleneck to choose the capacity change. For PostgreSQL saturation, inspect slow and repeated queries, add verified indexes and reduce connection churn through pooling. For oversized responses, paginate and project fewer fields, then measure compression and transfer coverage. For slow independent downstream work, use bounded concurrency or an asynchronous queue where the business contract permits it. Cache public, safe responses with a defined staleness limit. Check third-party quotas before scaling callers. Repeat the same load profile after each change to measure the gain and detect regressions.
 
 Cloudflare publishes platform limits separately from the application's measured capacity. [Workers limits](https://developers.cloudflare.com/workers/platform/limits/) · [Workers Logs](https://developers.cloudflare.com/workers/observability/logs/workers-logs/)
+
+### Capacity benchmark dashboard
+
+The Endpoint management panel accepts a separate, locally read JSON file with **Open capacity benchmark**. Supply results from a reviewed, representative sustained-load test. No benchmark is bundled, and importing a file does not independently verify its claims. Match the release, environment and workload against the traffic export before comparing them.
+
+```json
+{
+  "releaseId": "replace-with-tested-release",
+  "environment": "staging",
+  "workload": "replace-with-load-profile",
+  "evidenceUrl": "https://example.com/replace-with-test-evidence",
+  "measuredAt": "2026-11-20T10:00:00Z",
+  "expiresAt": "2026-11-21T10:00:00Z",
+  "sustainableRequestsPerSecond": 100,
+  "p95LatencyMs": 150,
+  "errorRate": 0.01,
+  "targetP95LatencyMs": 200,
+  "targetErrorRate": 0.02,
+  "bottleneck": "database"
+}
+```
+
+The values above illustrate the format; they are not PrimeCare measurements. Accepted bottlenecks are `database`, `transfer`, `downstream`, `worker`, and `unknown`. The panel rejects expired or future-dated evidence and benchmarks that miss their declared latency or error targets. It displays sustained and successful benchmark throughput, measurement expiry, observed average utilization, average rate margin (including negative margin), an evidence link, and a bottleneck-specific next action. Recommendations are operator guidance, not automatic infrastructure changes. Interval averages, incomplete logs and mismatched traffic mixes cannot establish peak headroom or full-system capacity. Re-test after a deployment or topology change.
+
+Traffic imports also display HTTP 2xx responses, 5xx/exception counts, status coverage and unknown request/response length counts. HTTP 2xx responses are transport-level observations, not proof of successful business workflows. Legacy reports without status counts show zero status coverage. Status totals are validated before display.
+
+Validation: `node --test scripts/test-endpoint-capacity.mjs` (Node 24+).
