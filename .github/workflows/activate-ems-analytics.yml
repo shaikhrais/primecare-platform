@@ -6,6 +6,7 @@ on:
       - 'scripts/activate-ems-analytics.mjs'
       - 'scripts/ems-analytics-live-config.mjs'
       - 'scripts/worker-content-receipt.mjs'
+      - '.github/workflows/psw-workspace.yml'
       - 'scripts/prepare-endpoint-analytics-config.mjs'
       - 'cloudflare/workers/src/endpoint-body-traffic.ts'
       - 'scripts/test-ems-analytics-live-config.mjs'

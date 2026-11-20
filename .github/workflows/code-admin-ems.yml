@@ -15,6 +15,7 @@ on:
       - 'scripts/deploy-approved-admin-governance.mjs'
       - 'scripts/worker-deployment-receipt.mjs'
       - 'scripts/worker-content-receipt.mjs'
+      - '.github/workflows/psw-workspace.yml'
       - 'tools/governance-production/ems_registration.py'
       - 'tools/governance-production/test_ems_registration.py'
       - '.github/workflows/code-admin-ems.yml'
