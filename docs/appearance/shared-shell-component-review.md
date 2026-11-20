@@ -8,7 +8,7 @@ Reference inspected: the checked-in Fuse React v17 Vite skeleton archive, Layout
 | Breadcrumb/title bar | Navigation / SpaceManager | Visible repeated title removed; search remains |
 | Vertical navigation | Sidebar / SpaceManager | 216px expanded sidebar; compact desktop icon rail at 64px |
 | Mobile navigation | Sidebar | Existing labelled drawer, focus trap, backdrop and Escape preserved |
-| Navigation item | Sidebar | Existing permitted links retained; native tooltips added for icon rail |
+| Navigation item | Sidebar | Existing permitted links retained; native tooltips added for icon rail; current permitted link scrolled into the navigation viewport |
 | Navigation groups | SpaceManager | Smaller group gaps; group labels removed only in desktop icon mode |
 | Brand/header | SpaceManager | 56px brand area replaces 112px block |
 | Account/sidebar footer | AdminSidebarMenu / SpaceManager | Reduced footer; rail utility menu remains visible and popover escapes rail clipping |

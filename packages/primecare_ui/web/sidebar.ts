@@ -4,6 +4,7 @@ export function bindSidebar(root:HTMLElement):void {
  const toggle=root.querySelector<HTMLButtonElement>('[data-cy="sidebar-toggle"]');
  const close=root.querySelector<HTMLButtonElement>('[data-cy="sidebar-close"]');
  if(sidebar)for(const link of sidebar.querySelectorAll<HTMLAnchorElement>('nav a')){if(!link.hasAttribute('title'))link.title=link.textContent?.trim()??'';}
+ if(sidebar)requestAnimationFrame(()=>{if(!sidebar.isConnected)return;const nav=sidebar.querySelector<HTMLElement>('nav'),active=nav?.querySelector<HTMLElement>('a[aria-current=page]');if(!nav||!active)return;const bounds=nav.getBoundingClientRect(),item=active.getBoundingClientRect();if(!bounds.height)return;if(item.bottom>bounds.bottom)nav.scrollTop+=item.bottom-bounds.bottom+8;else if(item.top<bounds.top)nav.scrollTop+=item.top-bounds.top-8;});
  if(!sidebar||!toggle||bound.has(sidebar))return;bound.add(sidebar);
  const shade=document.createElement('button');shade.type='button';shade.className='sidebar-backdrop';shade.dataset.cy='sidebar-backdrop';shade.tabIndex=-1;shade.setAttribute('aria-label',close?.getAttribute('aria-label')??'Close navigation');sidebar.parentElement!.append(shade);
  const setOpen=(open:boolean,returnFocus=true)=>{sidebar.classList.toggle('open',open);toggle.setAttribute('aria-expanded',String(open));if(open)close?.focus();else if(returnFocus)toggle.focus();};
