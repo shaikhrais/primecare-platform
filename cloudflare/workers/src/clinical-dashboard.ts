@@ -2,7 +2,7 @@ import {json, withDb, tokenFrom, sha256, type Env} from './auth';
 import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 
-/** DRAFT pending owner choice: assigned verified active branch count only.
+/** Returns the assigned verified active branch count.
  * No booking or appointment metrics. Authority is the reviewed effective view.
  */
 export async function clinicalDashboard(request:Request, env:Env, path:string, headers:HeadersInit):Promise<Response|null> {
@@ -20,24 +20,24 @@ export async function clinicalDashboard(request:Request, env:Env, path:string, h
       safe.set('retry-after','60');return reply(429,'rate_limited');
     }
     return await withDb(env,async db => {
-      await db.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
-      try {
-        const actor = privilegedActor((await db.query(`SELECT u.id,u.tenant_id,u.roles
-          FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
-          JOIN public.tenants t ON t.id=u.tenant_id
-          WHERE s.token_hash=$1 AND s.expires_at>CURRENT_TIMESTAMP
-            AND u.status='active' AND t.status='active'`,[await sha256(token)])).rows);
-        if (!actor) return reply(401,'unauthenticated');
-        if (actor.roles !== 'clinical_director' || !actor.tenant_id) return reply(403,'forbidden');
-        const measured = (await db.query(`SELECT COUNT(DISTINCT branch_id)::text AS branch_count
+      // A single statement uses one snapshot for the session and its branch scope.
+      const actor = privilegedActor((await db.query(`SELECT u.id,u.tenant_id,u.roles,
+        CASE WHEN u.roles='clinical_director' THEN (
+          SELECT COUNT(DISTINCT branch_id)::text
           FROM public.clinical_branch_director_effective_scope
-          WHERE tenant_id=$1 AND director_user_id=$2`,[actor.tenant_id,actor.id])).rows;
-        const value = measured.length===1 ? measured[0].branch_count : undefined;
-        if (typeof value!=='string' || !/^(0|[1-9][0-9]*)$/.test(value)
-            || !Number.isSafeInteger(Number(value))) return reply(503,'unavailable');
-        if (Number(value)===0) return reply(403,'no_scope');
-        return json({assignedVerifiedBranchCount:Number(value)},200,safe);
-      } finally {await db.query('ROLLBACK');}
+          WHERE tenant_id=u.tenant_id AND director_user_id=u.id
+        ) END AS branch_count
+        FROM public.auth_sessions s JOIN public.users u ON u.id=s.user_id
+        JOIN public.tenants t ON t.id=u.tenant_id
+        WHERE s.token_hash=$1 AND s.expires_at>CURRENT_TIMESTAMP
+          AND u.status='active' AND t.status='active'`,[await sha256(token)])).rows);
+      if (!actor) return reply(401,'unauthenticated');
+      if (actor.roles !== 'clinical_director' || !actor.tenant_id) return reply(403,'forbidden');
+      const value = actor.branch_count;
+      if (typeof value!=='string' || !/^(0|[1-9][0-9]*)$/.test(value)
+          || !Number.isSafeInteger(Number(value))) return reply(503,'unavailable');
+      if (Number(value)===0) return reply(403,'no_scope');
+      return json({assignedVerifiedBranchCount:Number(value)},200,safe);
     });
   } catch {return reply(503,'unavailable');}
 }

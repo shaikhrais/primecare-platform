@@ -12,7 +12,7 @@ Missing/expired session or inactive user/tenant: 401 unauthenticated. Wrong role
 
 ## Evidence and reproduction
 
-`route.test.mjs` bundles the real gateway and ServiceWorker, replacing only pg connection transport with isolated PGlite. There is no bookings table in this fixture. Cases cover distinct duplicate effective rows and historical grants, other actor/tenant isolation, retired/future-verified/revoked/expired scope, changed role/user/tenant/session, empty scope, missing view and read access, minimum column access, route/input/rate boundaries and actual read-only transaction mode. Handler SQL is asserted to contain only SELECT/BEGIN/ROLLBACK and never bookings. Fixture DDL/DML/grants are disposable local test setup only, not production actions.
+`route.test.mjs` bundles the real gateway and ServiceWorker, replacing only pg connection transport with isolated PGlite. There is no bookings table in this fixture. Cases cover distinct duplicate effective rows and historical grants, other actor/tenant isolation, retired/future-verified/revoked/expired scope, changed role/user/tenant/session, empty scope, missing view and read access, minimum column access, route/input/rate boundaries and single-statement reads. The fixture checks that the handler uses one SELECT to read the session and branch scope in the same snapshot, with no booking data. Fixture DDL/DML/grants are disposable local test setup only, not production actions.
 
 Run with installed dependencies:
 

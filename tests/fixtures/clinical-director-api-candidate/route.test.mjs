@@ -16,11 +16,11 @@ const root=fileURLToPath(new URL('../../../',import.meta.url));
 const bundle=async(entry,name,plugins=[])=>{
  const outfile=join(temp,name+'.cjs');await build({entryPoints:[join(root,entry)],outfile,bundle:true,platform:'node',format:'cjs',packages:'external',plugins});return require(outfile);
 };
-const pg={name:'isolated-pg',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export class Client {async connect(){} async end(){} async query(sql,args){globalThis.clinicalQueries.push([sql,args]);const result=await globalThis.clinicalFixture.query(sql,args);if(sql.startsWith('BEGIN'))globalThis.clinicalReadModes.push((await globalThis.clinicalFixture.query('SHOW transaction_read_only')).rows[0].transaction_read_only);return result;}}`,loader:'js'}));}};
+const pg={name:'isolated-pg',setup(b){b.onResolve({filter:/^pg$/},()=>({path:'pg',namespace:'fixture'}));b.onLoad({filter:/.*/,namespace:'fixture'},()=>({contents:`export class Client {async connect(){} async end(){} async query(sql,args){globalThis.clinicalQueries.push([sql,args]);return globalThis.clinicalFixture.query(sql,args);}}`,loader:'js'}));}};
 try {
  const {ServiceWorker}=await bundle('cloudflare/workers/src/service.ts','service',[pg]);
  const {GatewayWorker}=await bundle('cloudflare/workers/src/gateway.ts','gateway');
- const db=new PGlite();globalThis.clinicalFixture=db;globalThis.clinicalQueries=[];globalThis.clinicalReadModes=[];
+ const db=new PGlite();globalThis.clinicalFixture=db;globalThis.clinicalQueries=[];
  const token=id=>id.repeat(43),hash=t=>createHash('sha256').update(t).digest('hex');
  await db.exec(`CREATE TABLE tenants(id text PRIMARY KEY,status text);
  CREATE TABLE users(id text PRIMARY KEY,tenant_id text,roles text,status text);
@@ -55,11 +55,13 @@ try {
  const definition=(await db.query("SELECT pg_get_viewdef('clinical_branch_director_effective_scope'::regclass,true) AS sql")).rows[0].sql.trim().replace(/;$/,'');
  await db.exec('CREATE OR REPLACE VIEW clinical_branch_director_effective_scope AS '+definition+' UNION ALL '+definition);
  try {
+  const before=globalThis.clinicalQueries.length;
   assert.deepEqual(await (await call()).json(),{assignedVerifiedBranchCount:2});
+  assert.equal(globalThis.clinicalQueries.length,before+1);
   assert.deepEqual(await (await call('b')).json(),{assignedVerifiedBranchCount:1});
   assert.deepEqual(await (await call('d')).json(),{assignedVerifiedBranchCount:1});
   const q=globalThis.clinicalQueries.find(([sql])=>sql.includes('COUNT(DISTINCT branch_id)'));
-  assert.match(q[0],/tenant_id=\$1 AND director_user_id=\$2/);assert.deepEqual(q[1],['a','director']);
+  assert.match(q[0],/tenant_id=u\.tenant_id AND director_user_id=u\.id/);assert.deepEqual(q[1],[hash(token('a'))]);
  } finally {
   await db.exec('CREATE OR REPLACE VIEW clinical_branch_director_effective_scope AS '+definition);
   await db.exec("DELETE FROM clinical_branch_director_grants WHERE branch_id='west' OR revoked_at IS NOT NULL OR director_user_id IN ('foreign','empty'); DELETE FROM clinical_verified_branches WHERE branch_id='west'");
@@ -106,6 +108,6 @@ try {
   assert.equal((await call('b')).status,403);
  } finally {await db.exec('RESET ROLE');}
  });
- await test('missing view is unavailable; request handler performs no writes',async()=>{await db.exec('DROP VIEW clinical_branch_director_effective_scope');const r=await call();assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'unavailable'});assert.ok(globalThis.clinicalQueries.every(([q])=>/^(SELECT|BEGIN|ROLLBACK)/.test(q)));assert.ok(globalThis.clinicalQueries.every(([q])=>! /\bbookings\b/i.test(q)));assert.ok(globalThis.clinicalReadModes.length>0);assert.ok(globalThis.clinicalReadModes.every(mode=>mode==='on'));});
+ await test('missing view is unavailable; request handler performs no writes',async()=>{await db.exec('DROP VIEW clinical_branch_director_effective_scope');const r=await call();assert.equal(r.status,503);assert.deepEqual(await r.json(),{error:'unavailable'});assert.ok(globalThis.clinicalQueries.every(([q])=>/^SELECT /.test(q)));assert.ok(globalThis.clinicalQueries.every(([q])=>! /\bbookings\b/i.test(q)));});
  await db.close();
-} finally {await rm(temp,{recursive:true,force:true});delete globalThis.clinicalFixture;delete globalThis.clinicalQueries;delete globalThis.clinicalReadModes;}
+} finally {await rm(temp,{recursive:true,force:true});delete globalThis.clinicalFixture;delete globalThis.clinicalQueries;}
