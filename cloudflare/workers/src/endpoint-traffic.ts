@@ -1,9 +1,10 @@
 import {writeEndpointAnalytics,type EndpointAnalyticsDataset} from './endpoint-analytics';
+import ems from '../../../packages/shared/src/endpoint-management/contract.json';
 import inventory from './api-execution-inventory.json';
 
 const exact = new Set<string>();
 const templates = new Map<string, string[][]>();
-for (const {method,route} of inventory.data) {
+for (const {method,route} of [...inventory.data,...ems.operations.map(op=>({method:op.method,route:op.path}))]) {
   if (!route.includes('{')) {
     exact.add(`${method} ${route}`);
     continue;

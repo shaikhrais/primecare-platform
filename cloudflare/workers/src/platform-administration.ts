@@ -1,3 +1,4 @@
+import {codeAdminEms} from './code-admin-ems';
 import {tenantDashboard} from './tenant-dashboard/service';
 import {vapiAdministration} from './vapi-administration';
 import {createTenantRecord} from '../../../packages/shared/src/tenant-creation.mjs';
@@ -51,6 +52,7 @@ export function platformCommand(path:string,method:string,body:Record<string,unk
 export async function platformAdministration(request:Request,env:Env,path:string,headers:HeadersInit):Promise<Response|null> {
  const tenantResponse=await tenantDashboard(request,env,path,headers);if(tenantResponse)return tenantResponse;
  if(env.SERVICE_NAME!=='governance'||!(path==='/platform'||path.startsWith('/platform/')))return null;
+ const ems=await codeAdminEms(request,env,path,headers);if(ems)return ems;
  const vapi=await vapiAdministration(request,env,path,headers);if(vapi)return vapi;
  const bundle=await platformBundle(request,env,path,headers);if(bundle)return bundle;
  const operations=await tenantOperations(request,env,path,headers);if(operations)return operations;

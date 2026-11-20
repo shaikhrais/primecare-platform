@@ -61,3 +61,11 @@ test('gateway sends only sanitized events to analytics and survives writer failu
   assert.equal(await (await gateway.fetch(request(),env)).text(),'ok');
  }finally{console.log=original;}
 });
+
+test('new EMS contracts retain operation buckets before the next inventory snapshot export',async()=>{
+ const original=console.log,lines=[];console.log=line=>lines.push(line);
+ try{
+  await gateway.fetch(new Request('https://gateway.test/v1/governance/platform/ems/summary?private=hidden'),{GOVERNANCE:{fetch:async()=>Response.json({ok:true})},ENDPOINT_TRAFFIC_ENABLED:'1'});
+  assert.equal(JSON.parse(lines[0].slice(prefix.length)).endpoint,'GET /v1/governance/platform/ems/summary');assert.doesNotMatch(lines[0],/private|hidden/);
+ }finally{console.log=original;}
+});

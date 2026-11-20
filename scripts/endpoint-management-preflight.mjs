@@ -14,10 +14,10 @@ export function assessEndpointManagementSettings(gateway,governance,expectedAcco
  const checks={gatewayCollectionEnabled:plain(gateway,'ENDPOINT_TRAFFIC_ENABLED')==='1',
   datasetBound:dataset?.type==='analytics_engine'&&dataset.dataset==='primecare_endpoint_traffic_v1',
   readerAccountConfigured:/^[a-f0-9]{32}$/i.test(plain(governance,'ENDPOINT_ANALYTICS_ACCOUNT_ID')??'')&&(!expectedAccount||plain(governance,'ENDPOINT_ANALYTICS_ACCOUNT_ID')===expectedAccount),
-  readerRoleConfigured:typeof role==='string'&&permissions[role]?.inventory===true,
+  readerRoleConfigured:typeof role==='string'&&(permissions[role]?.inventory===true||role==='code_admin'),
   readerTenantConfigured:typeof plain(governance,'ENDPOINT_ANALYTICS_READER_TENANT_ID')==='string'&&!!plain(governance,'ENDPOINT_ANALYTICS_READER_TENANT_ID').trim(),
   readerSecretConfigured:find(governance,'ENDPOINT_ANALYTICS_READ_TOKEN')?.type==='secret_text'};
- const remedies={gatewayCollectionEnabled:'Enable ENDPOINT_TRAFFIC_ENABLED on the gateway.',datasetBound:'Bind ENDPOINT_ANALYTICS to primecare_endpoint_traffic_v1.',readerAccountConfigured:'Configure the Analytics Engine account ID on governance.',readerRoleConfigured:'Select an inventory-authorized platform reporting role.',readerTenantConfigured:'Bind the reporting grant to the approved platform tenant.',readerSecretConfigured:'Configure a dedicated Account Analytics Read token as ENDPOINT_ANALYTICS_READ_TOKEN.'};
+ const remedies={gatewayCollectionEnabled:'Enable ENDPOINT_TRAFFIC_ENABLED on the gateway.',datasetBound:'Bind ENDPOINT_ANALYTICS to primecare_endpoint_traffic_v1.',readerAccountConfigured:'Configure the Analytics Engine account ID on governance.',readerRoleConfigured:'Select an inventory-authorized role or a registered Code Admin EMS reader.',readerTenantConfigured:'Bind the reporting grant to the approved platform tenant.',readerSecretConfigured:'Configure a dedicated Account Analytics Read token as ENDPOINT_ANALYTICS_READ_TOKEN.'};
  return {checks,configured:Object.values(checks).every(Boolean),blockers:Object.entries(checks).filter(([,ok])=>!ok).map(([key])=>({key,action:remedies[key]}))};
 }
 export async function inspectEndpointManagement(env,send=fetch){

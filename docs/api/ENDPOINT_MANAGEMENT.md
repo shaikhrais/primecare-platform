@@ -1,5 +1,7 @@
 # Endpoint management
 
+Code Admin has a dedicated [EMS dashboard and six protected read APIs](CODE_ADMIN_EMS.md) under `/platform/administration#ems`.
+
 The existing inventory-authorized Governance APIs report registered endpoint declarations and their evidence. Read access requires a bearer session and the inventory grant. The API rejects a mismatched tenant header and write methods.
 
 Open **API Health Dashboard** at `/common/api-health-dashboard` from an authorized workspace. The Endpoint management panel searches and pages through the inventory and displays operation, service, implementation, protection, readiness and maintenance. The panel shows access denied when the account lacks the API inventory grant. Use **Check live health** to get a timestamped service health snapshot from the gateway using its public health endpoint. This check sends no credentials, does not invoke business endpoints and does not alter endpoint readiness.

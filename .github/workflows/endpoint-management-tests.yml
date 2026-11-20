@@ -9,6 +9,7 @@ on:
       - 'scripts/*endpoint*'
       - 'scripts/test-governance-api.mjs'
       - 'tools/endpoint-capacity/**'
+      - 'packages/shared/src/endpoint-management/**'
       - '.github/workflows/endpoint-management-tests.yml'
   push:
     branches: [main]
@@ -20,6 +21,7 @@ on:
       - 'scripts/*endpoint*'
       - 'scripts/test-governance-api.mjs'
       - 'tools/endpoint-capacity/**'
+      - 'packages/shared/src/endpoint-management/**'
       - '.github/workflows/endpoint-management-tests.yml'
 permissions:
   contents: read

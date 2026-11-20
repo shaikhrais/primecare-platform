@@ -38,7 +38,7 @@ const pageRows=()=>registry.screens.map(p=>({screen:p.code,name:p.name,app:p.app
 const readinessFor=endpointReadiness(readinessReceipts);
 let maintenanceLookup:ReturnType<typeof endpointMaintenance>|undefined;
 /** Management status reflects registered evidence. Screen grants never prove API protection. */
-function endpointManagement(row:RecordRow,now:number,releaseId?:string) {
+export function endpointManagement(row:RecordRow,now:number,releaseId?:string) {
   const declaration=String(row.declaredImplementation);
   maintenanceLookup??=endpointMaintenance(maintenanceWindows,execution.data);
   const maintenanceWindow=maintenanceLookup(row.id,row.api,now);

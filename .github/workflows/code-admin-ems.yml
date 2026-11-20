@@ -1,0 +1,132 @@
+name: Code Admin EMS APIs and registration
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'packages/shared/src/endpoint-management/**'
+      - 'cloudflare/workers/src/code-admin-ems*.ts'
+      - 'cloudflare/workers/src/platform-administration.ts'
+      - 'websites/typescript/src/code-admin-ems.ts'
+      - 'websites/typescript/src/endpoint-management-panel.ts'
+      - 'websites/typescript/src/endpoint-capacity.ts'
+      - 'websites/typescript/src/platform-admin.ts'
+      - 'scripts/test-code-admin-ems*'
+      - 'scripts/verify-code-admin-ems-release.mjs'
+      - 'tools/governance-production/ems_registration.py'
+      - 'tools/governance-production/test_ems_registration.py'
+      - '.github/workflows/code-admin-ems.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: code-admin-ems-registration
+  cancel-in-progress: false
+jobs:
+  pilot_scope:
+    uses: ./.github/workflows/governance-pilot-publish-scope.yml
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: ems_test
+          POSTGRES_PASSWORD: isolated-fixture-only
+          POSTGRES_DB: ems_test
+        ports: ['5432:5432']
+        options: --health-cmd "pg_isready -U ems_test" --health-interval 5s --health-timeout 5s --health-retries 10
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Install isolated test dependencies
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ems-tools" --ignore-scripts --no-audit --no-fund esbuild@0.27.2 typescript@5.9.3 pg@8.16.3 bcryptjs@3.0.2 @types/node@22.19.1 @cloudflare/workers-types@4.20260403.1 @twilio/voice-sdk@2.18.5 jsdom@26.1.0
+          ln -s "$RUNNER_TEMP/ems-tools/node_modules" node_modules
+          python -m pip install -r tools/governance-production/requirements.txt
+      - name: Validate exact read-only metadata registration and rollback
+        run: python tools/governance-production/test_ems_registration.py
+      - name: Test EMS API, dashboard, navigation and existing endpoint contracts
+        run: node --test scripts/test-code-admin-ems.mjs scripts/test-code-admin-ems-panel.mjs scripts/test-platform-admin-navigation.mjs scripts/test-endpoint-analytics.mjs scripts/test-endpoint-capacity.mjs scripts/test-endpoint-capacity-profile.mjs scripts/test-endpoint-management-panel.mjs scripts/test-endpoint-traffic.mjs scripts/test-governance-api.mjs
+      - name: Validate actual PostgreSQL authorization joins
+        run: node --test scripts/test-code-admin-ems-postgres.mjs
+        env:
+          EMS_TEST_DATABASE_URL: postgres://ems_test:isolated-fixture-only@127.0.0.1:5432/ems_test
+      - name: Check Worker and browser types
+        run: |
+          node_modules/.bin/tsc --noEmit --skipLibCheck --allowImportingTsExtensions --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --types @cloudflare/workers-types,node cloudflare/workers/src/code-admin-ems.ts
+          node_modules/.bin/tsc --noEmit --skipLibCheck --resolveJsonModule --module esnext --moduleResolution bundler --target es2022 --lib es2022,dom,dom.iterable websites/typescript/src/code-admin-ems.ts websites/typescript/src/platform-admin.ts
+  register:
+    if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
+    needs: [verify, pilot_scope]
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Validate current main and install the pinned metadata reader
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          python -m pip install -r tools/governance-production/requirements.txt
+      - name: Dry-run the six EMS reads and Code Admin view grant, then apply idempotently
+        run: |
+          python tools/governance-production/ems_registration.py --dry-run
+          python tools/governance-production/ems_registration.py --apply
+        env:
+          PRODUCTION_DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+          GOVERNANCE_WORKFLOW_WRITES: '1'
+          GOVERNANCE_EMS_REGISTRATION_WRITES: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-admin-ems-registration
+          path: test-results/ems
+          retention-days: 30
+
+  publish:
+    if: github.ref == 'refs/heads/main' && needs.pilot_scope.outputs.allow_legacy_publish == 'true'
+    needs: [verify, register, pilot_scope]
+    runs-on: ubuntu-latest
+    environment: production
+    timeout-minutes: 20
+    concurrency:
+      group: primecare-cloudflare-typescript-production
+      cancel-in-progress: false
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      API_GATEWAY_URL: https://primecare-api-gateway.itpro-mohammed.workers.dev
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: {node-version: '24'}
+      - name: Verify current main and install the existing deployment toolchain
+        run: |
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          npm ci --ignore-scripts
+      - name: Publish only governance code while preserving live bindings
+        run: node scripts/deploy-approved-admin-governance.mjs
+      - name: Verify all six EMS routes deny anonymous reads through the gateway
+        run: node scripts/verify-code-admin-ems-release.mjs
+      - name: Build existing websites and publish the Code Admin governance portal
+        run: |
+          node scripts/build-typescript-websites.mjs
+          git fetch origin main
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          npx wrangler pages deploy websites/typescript/dist/primecare-governance --project-name primecare-governance --branch main --commit-hash "$GITHUB_SHA"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: code-admin-ems-release
+          path: |
+            test-results/approved-code-admin-release/worker.json
+            test-results/ems/release.json
+          retention-days: 30

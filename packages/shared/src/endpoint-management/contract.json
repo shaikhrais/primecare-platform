@@ -1,0 +1,53 @@
+{
+  "version": 1,
+  "status": "candidate-unregistered",
+  "role": "code_admin",
+  "screenCode": "CODE_ADMIN_EMS_DASHBOARD",
+  "screenName": "Endpoint Management System",
+  "route": "/platform/administration#ems",
+  "file": "websites/typescript/src/code-admin-ems.ts",
+  "operations": [
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/summary",
+      "code": "EMS_SUMMARY_READ",
+      "name": "summary",
+      "usesPagination": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/endpoints",
+      "code": "EMS_ENDPOINTS_READ",
+      "name": "endpoints",
+      "usesPagination": true
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/services",
+      "code": "EMS_SERVICES_READ",
+      "name": "services",
+      "usesPagination": true
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/traffic",
+      "code": "EMS_TRAFFIC_READ",
+      "name": "traffic",
+      "usesPagination": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/capacity",
+      "code": "EMS_CAPACITY_READ",
+      "name": "capacity",
+      "usesPagination": false
+    },
+    {
+      "method": "GET",
+      "path": "/v1/governance/platform/ems/maintenance",
+      "code": "EMS_MAINTENANCE_READ",
+      "name": "maintenance",
+      "usesPagination": true
+    }
+  ]
+}

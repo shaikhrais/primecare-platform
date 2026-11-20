@@ -170,3 +170,11 @@ test('Denied Tenant Admin training does not mount on an exact training link',asy
  assert.ok(!f.root.anchors.some(a=>a.dataset.section==='training'));
  assert.equal(f.trainingDashboard,undefined);assert.equal(f.assigned.length,0);
 });
+
+test('Code Admin EMS hash uses the registered parent host and disposes its metrics on navigation',async()=>{
+ const f=browser({hash:'#ems',role:'code_admin'});await f.render();assert.equal(f.root.view,'ems');assert.ok(f.anchor('ems'));assert.ok(f.mounts.includes('ems'));assert.equal(f.emsCurrent(),true);
+ await f.click('appearance');assert.equal(f.emsCurrent(),false);assert.ok(f.emsDisposals>=1);
+});
+for(const role of ['tenant_admin','platform_admin','central_admin','ceo'])test('EMS sidebar and hash do not grant Code Admin authority to '+role,async()=>{
+ const f=browser({hash:'#ems',role});await f.render();assert.notEqual(f.root.view,'ems');assert.ok(!f.root.anchors.some(a=>a.dataset.section==='ems'));assert.ok(!f.mounts.includes('ems'));
+});

@@ -3,7 +3,7 @@ import {readFile,writeFile} from 'node:fs/promises';
 import {pathToFileURL} from 'node:url';
 import {join} from 'node:path';
 export function endpointAnalyticsConfigs(gateway,governance,account,role,permissions,tenantId){
- if(typeof tenantId!=='string'||!tenantId.trim()||tenantId.length>200||/[\u0000-\u001f]/.test(tenantId)||!/^[a-f0-9]{32}$/i.test(account)||typeof role!=='string'||permissions?.[role]?.inventory!==true)throw Error('Expected account ID and an inventory-authorized platform reader role');
+ if(typeof tenantId!=='string'||!tenantId.trim()||tenantId.length>200||/[\u0000-\u001f]/.test(tenantId)||!/^[a-f0-9]{32}$/i.test(account)||typeof role!=='string'||(permissions?.[role]?.inventory!==true&&role!=='code_admin'))throw Error('Expected account ID, approved EMS/inventory reader role and platform tenant');
  if(gateway?.name!=='primecare-api-gateway'||gateway.main!=='../cloudflare/workers/src/gateway.ts'||governance?.name!=='primecare-governance-api'||governance.main!=='../cloudflare/workers/src/service.ts'||governance.vars?.SERVICE_NAME!=='governance')throw Error('Unexpected Worker identities');
  const g=structuredClone(gateway),v=structuredClone(governance);
  const bindings=g.analytics_engine_datasets??[];

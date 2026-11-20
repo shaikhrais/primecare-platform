@@ -49,7 +49,7 @@ const trafficLabels = {
   es:['Abrir informe de tráfico','Informe de tráfico no válido.','Solicitudes observadas','Bytes entrantes conocidos','Bytes salientes conocidos','Tamaños desconocidos','Latencia P95 (ms)','solicitudes observadas/s'],
 } as const;
 
-export function mountEndpointManagement(panel:HTMLElement, gateway:string, token:string, locale:Locale, current:()=>boolean) {
+export function mountEndpointManagement(panel:HTMLElement, gateway:string, token:string, locale:Locale, current:()=>boolean, paths?:{inventory:string;services:string;traffic:string}) {
   const [title,searchLabel,search,previous,next,loading,empty,denied,unavailable,...columns]=labels[locale];
   panel.innerHTML='<h2></h2><form><label><span></span> <input type="search" maxlength="200"></label> <button type="submit"></button></form><p role="status"></p><div class="table-scroll" tabindex="0"><table><thead><tr></tr></thead><tbody></tbody></table></div><button type="button"></button> <button type="button"></button>';
   const [checkHealth,checkingHealth,healthUnavailable,healthy,degraded,observedAt]=healthLabels[locale];
@@ -81,11 +81,17 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
   const summaryText={en:['Registered declarations','Ready','Blocked','Maintenance','Unverified','Status summary unavailable.'],fr:['Déclarations enregistrées','Prêt','Bloqué','Maintenance','Non vérifié','Résumé indisponible.'],es:['Declaraciones registradas','Listo','Bloqueado','Mantenimiento','Sin verificar','Resumen no disponible.']}[locale];
   async function loadSummary(){
     try{
-      const response=await fetch(gateway+'/v1/governance/api-service-status?limit=100',{
+      const response=await fetch(gateway+(paths?.services??'/v1/governance/api-service-status')+'?limit=100',{
         headers:{authorization:'Bearer '+token},cache:'no-store',signal:AbortSignal.any([summaryRequest.signal,AbortSignal.timeout(10000)])});
       if(!response.ok)throw Error();
       const payload=await response.json() as {traffic?:{status?:string;report?:unknown}};
       const totals=readEndpointSummary(payload);
+      if(paths&&!localTraffic){
+        try{
+          const response=await fetch(gateway+paths.traffic,{headers:{authorization:'Bearer '+token},cache:'no-store',signal:AbortSignal.any([summaryRequest.signal,AbortSignal.timeout(10000)])});
+          payload.traffic=response.ok?await response.json() as {status?:string;report?:unknown}:{status:response.status===401||response.status===403?'denied':'unavailable'};
+        }catch{payload.traffic={status:'unavailable'};}
+      }
       if(!current()||summaryRequest.signal.aborted)return;
       if(!localTraffic){
         if(payload.traffic?.status==='available'){
@@ -191,7 +197,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
     status.textContent=loading;table.hidden=true;back.disabled=forward.disabled=true;body.replaceChildren();
     try {
       const params=new URLSearchParams({limit:String(limit),offset:String(offset),search:query});
-      const response=await fetch(gateway+'/v1/governance/api-execution-status?'+params,{headers:{authorization:'Bearer '+token},cache:'no-store',signal:pending.signal});
+      const response=await fetch(gateway+(paths?.inventory??'/v1/governance/api-execution-status')+'?'+params,{headers:{authorization:'Bearer '+token},cache:'no-store',signal:pending.signal});
       if(!active())return;
       if(response.status===401||response.status===403){status.textContent=denied;return;}
       if(!response.ok)throw Error();

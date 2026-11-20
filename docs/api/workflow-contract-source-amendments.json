@@ -3,7 +3,7 @@
   "noActivation": true,
   "implementationCredits": 0,
   "retirementCredits": 0,
-  "reviewedAtCommit": "eea5a85fc2ca5564089886b41d783e86ee2d9a8d",
+  "reviewedAtCommit": "8e02f45e9122190b1b5bf9cc5c57cfc4ec695721",
   "scope": "Exact source amendments only. Historical hashes, pending operation identities/stages and authority decisions remain unchanged. Any extra source drift fails.",
   "entries": [
     {
@@ -496,8 +496,8 @@
       "path": "cloudflare/workers/src/governance-api.ts",
       "baselineCommit": "4e6195c51e639e362b2884e4de435578960f0983",
       "baselineSha256": "e79696a9932ce00009ea84ecf85e43f0869e7f937f7759c383db12c8d0bb3ee8",
-      "reviewedSha256": "dca201be5882370eb677e8346744af1084be161505c8f812ad32a0cf4d25e54c",
-      "reason": "Review endpoint management changes through eea5a85fc2ca5564089886b41d783e86ee2d9a8d: exact declaration-scoped offline observations, maintenance schedule and expiring release receipts; per-service readiness aggregation; existing screen-text dispatch; and optional platform traffic read restricted by existing inventory authority plus configured role and tenant. Bearer session, active account, tenant matching, source limiter, bounded queries, read-only database transaction and no-store responses remain enforced. Runtime tests cover authorization failures, readiness expiration and release mismatches, maintenance precedence, provider failure isolation and role/tenant traffic denial. This reversible record preserves every historical source hash and all unresolved operations and grants no workflow implementation, retirement or activation credit.",
+      "reviewedSha256": "c984c48a041323771628a43cb33c865d7a392ea82608191f09a05b3a508452b8",
+      "reason": "Review endpoint management changes through eea5a85fc2ca5564089886b41d783e86ee2d9a8d: exact declaration-scoped offline observations, maintenance schedule and expiring release receipts; per-service readiness aggregation; existing screen-text dispatch; and optional platform traffic read restricted by existing inventory authority plus configured role and tenant. Bearer session, active account, tenant matching, source limiter, bounded queries, read-only database transaction and no-store responses remain enforced. Runtime tests cover authorization failures, readiness expiration and release mismatches, maintenance precedence, provider failure isolation and role/tenant traffic denial. This reversible record preserves every historical source hash and all unresolved operations and grants no workflow implementation, retirement or activation credit. Code Admin EMS reuses this same readiness formatter through a named export; the formatter behavior, receipt requirements and historical source hashes are unchanged.",
       "hunks": [
         {
           "before": "import {screenText} from './screen-text';\n",
@@ -538,6 +538,10 @@
         {
           "before": "        return json(paginate(governanceRows(path),query,'registered_governance'),200,safe);\n",
           "after": "        return json(paginate(governanceRows(path,Date.now(),env.ENDPOINT_RELEASE_ID),query,'registered_governance'),200,safe);\n"
+        },
+        {
+          "before": "function endpointManagement(row:RecordRow",
+          "after": "export function endpointManagement(row:RecordRow"
         }
       ]
     }

@@ -2085,5 +2085,19 @@
     "grantsRetired": 64,
     "newRoleGrants": false,
     "runtimeActivation": false
+  },
+  "emsRegistrationWriter": {
+    "optInVariable": "GOVERNANCE_EMS_REGISTRATION_WRITES",
+    "tables": [
+      "screens",
+      "role_screen_permissions",
+      "api_endpoints",
+      "api_permissions",
+      "screen_api_links"
+    ],
+    "definitionSha256": "61d4d00ec297dc088f3f6407b7882a44b0b98a581616d7cbd081d148d5e67ab3",
+    "schemaChanges": false,
+    "businessDataWrites": false,
+    "accountAssignments": false
   }
 }
