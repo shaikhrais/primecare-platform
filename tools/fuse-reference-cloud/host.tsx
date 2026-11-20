@@ -1,6 +1,7 @@
 import './styles/index.css';
 import {createRoot} from 'react-dom/client';
 import {useState} from 'react';
+import {BrowserRouter} from 'react-router';
 import _ from 'lodash';
 import {SnackbarProvider} from 'notistack';
 import FuseSettingsContext from './@fuse/core/FuseSettings/FuseSettingsContext';
@@ -18,4 +19,4 @@ function Reference(){
  const update=(change)=>{const next=_.merge({},data,change);setData(next);return next;};
  return <FuseSettingsContext value={{data,initial,defaults:data,setSettings:update}}><RootThemeProvider><MainThemeProvider><SnackbarProvider><SettingsPanel open onClose={()=>{}} settingsHandlers={{}}/></SnackbarProvider></MainThemeProvider></RootThemeProvider></FuseSettingsContext>;
 }
-createRoot(document.getElementById('app')!).render(<Reference/>);
+createRoot(document.getElementById('app')!).render(<BrowserRouter><Reference/></BrowserRouter>);
