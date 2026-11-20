@@ -143,7 +143,7 @@ class PrimeSettingsChoices extends StatelessWidget {
   @override Widget build(BuildContext context)=>Padding(padding:const EdgeInsets.symmetric(vertical:4),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
     PrimeText(label,style:Theme.of(context).textTheme.labelLarge?.copyWith(color:Theme.of(context).colorScheme.onSurfaceVariant)),
     RadioGroup<String>(groupValue:value,onChanged:(v){if(v!=null)onChanged(v);},child:LayoutBuilder(builder:(context,constraints)=>Wrap(children:[for(final entry in choices.entries)SizedBox(
-      width:vertical?constraints.maxWidth:constraints.maxWidth/(choices.length>2?3:2),child:PrimeRadioListTile<String>(value:entry.key,title:PrimeText(entry.value),dense:true,
+      width:vertical?constraints.maxWidth:constraints.maxWidth/2,child:PrimeRadioListTile<String>(value:entry.key,title:PrimeText(entry.value),dense:true,
         contentPadding:EdgeInsets.zero,visualDensity:VisualDensity.compact))]))),
   ]));
 }

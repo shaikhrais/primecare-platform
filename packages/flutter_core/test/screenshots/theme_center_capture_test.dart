@@ -53,7 +53,7 @@ void main(){
       if(view.$1=='desktop'){
         await tester.tap(find.byKey(const Key('palette-main')));await tester.pumpAndSettle();
         expect(tester.takeException(),isNull);
-        await expectLater(find.byType(Dialog),matchesGoldenFile('captures/palette-editor-desktop.png'));
+        await expectLater(find.byKey(const Key('palette-editor-capture')),matchesGoldenFile('captures/palette-editor-desktop.png'));
       }
       } finally { debugDefaultTargetPlatformOverride=null; }
     });

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart';
-import 'app_theme.dart';
 import 'personal_theme.dart';
 import 'theme_center_catalog_generated.dart';
 import 'theme_config_generated.dart';
@@ -15,7 +14,7 @@ class PrimePaletteTile extends StatelessWidget {
   const PrimePaletteTile({super.key,required this.section,required this.theme,required this.onPressed});
   @override Widget build(BuildContext context)=>Semantics(button:true,label:'Edit $section palette',child:InkWell(onTap:onPressed,borderRadius:BorderRadius.circular(6),child:Padding(
     padding:const EdgeInsets.all(4),child:Column(children:[PrimePaletteMiniature(theme:theme,section:section),const SizedBox(height:8),
-      PrimeText('${section[0].toUpperCase()}${section.substring(1)} Palette',style:Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight:FontWeight.w600))]))));
+      PrimeText('${section[0].toUpperCase()}${section.substring(1)} Palette',maxLines:2,textAlign:TextAlign.center,style:Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight:FontWeight.w600))]))));
 }
 class PrimePaletteMiniature extends StatelessWidget {
   final PersonalTheme theme;final String section;
@@ -86,7 +85,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
   }
   @override Widget build(BuildContext context){
     final theme=Theme.of(context),palette=ThemeConfig.getAppPalette(preset);
-    final header=theme.extension<GovernanceThemeColors>()?.sidebarBackground??theme.colorScheme.primary;
+    final header=theme.colorScheme.secondary;
     final headerText=readableThemeForeground(header,theme.colorScheme.onSurface);
     final primary=_parse(fields['primary']!.text)??palette.primary,secondary=_parse(fields['secondary']!.text)??palette.secondary;
     final surface=_parse(fields['surface']!.text)??palette.surface,background=_parse(fields['background']!.text)??palette.background;
@@ -105,7 +104,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
     ]);
     Widget preview()=>Column(mainAxisSize:MainAxisSize.min,children:[PrimeText('Preview',style:theme.textTheme.titleMedium?.copyWith(fontWeight:FontWeight.w600)),
       const SizedBox(height:20),PrimePaletteLivePreview(primary:primary,secondary:secondary,surface:surface,background:background)]);
-    return Dialog(insetPadding:const EdgeInsets.all(20),clipBehavior:Clip.antiAlias,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),child:SizedBox(
+    return Dialog(insetPadding:const EdgeInsets.all(20),clipBehavior:Clip.antiAlias,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),child:RepaintBoundary(key:const Key('palette-editor-capture'),child:SizedBox(
       width:640,child:Column(mainAxisSize:MainAxisSize.min,children:[
         Container(color:header,padding:const EdgeInsets.symmetric(horizontal:20,vertical:14),child:Row(children:[PrimeIcon(Icons.palette_outlined,color:headerText),const SizedBox(width:12),
           Expanded(child:PrimeText('Edit palette',style:theme.textTheme.titleLarge?.copyWith(color:headerText))),
@@ -119,7 +118,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
           PrimeTextButton(onPressed:()=>Navigator.pop(context),child:const PrimeText('Cancel')),
           if(!presets)PrimeFilledButton(onPressed:dirty?save:null,child:const PrimeText('Save')),
         ])),
-      ])));
+      ]))));
   }
 }
 class PrimePaletteLivePreview extends StatelessWidget{
