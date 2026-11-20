@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "ae3b9627e1252c49a31161891dd38760d4417963",
+  "scope": "Exact historical replay only; runtime layout changes are validated by Flutter workspace tests.",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "07c23eb2e99597f3272b8badbccfe1790c077030a6d645e5b2f53228c13bf5e4",
+      "afterSha256": "e49cb68a9ef3001c80bfab11d0f7d85f7d0bf88b7b8263e1ab2be8dff53c2344",
+      "edits": [
+        {
+          "begin": 0,
+          "old": "",
+          "new": "import '../../workspace/portal_workspace.dart';\nimport '../../providers/persistence_providers.dart';\n"
+        },
+        {
+          "begin": 698,
+          "old": "import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;\n",
+          "new": ""
+        },
+        {
+          "begin": 2854,
+          "old": "    final isHandheld = ScreenBreakpoints.isHandheld(context);\n",
+          "new": "    final isHandheld = MediaQuery.sizeOf(context).width <= 1024;\n"
+        },
+        {
+          "begin": 3823,
+          "old": "    final topbarSecondaryTextColor = readableThemeForeground(topbarBg, themeColors?.topbarTextColor ?? theme.hintColor);\n",
+          "new": ""
+        },
+        {
+          "begin": 4944,
+          "old": "              child: PrimeTextButton.icon(\n                style: PrimeTextButton.styleFrom(\n                  foregroundColor: textColor,\n                  padding: const EdgeInsets.symmetric(horizontal: 12),\n                ),\n                icon: PrimeIcon(module.icon, size: 16),\n                label: PrimeText(module.name),\n                onPressed: () {\n                  if (module.screens.isNotEmpty) {\n                    context.go(module.screens.first.route);\n                  }\n                },\n",
+          "new": "              child: PrimePopupMenuButton<String>(\n                tooltip: module.name,\n                onSelected: (route) => context.go(route),\n                itemBuilder: (context) => [\n                  for (final screen in module.screens)\n                    if (screen.requiredRole == null || screen.requiredRole == activeRole)\n                      PopupMenuItem(value: screen.route, child: PrimeText(screen.title)),\n                ],\n                child: PrimePortalNavigationLabel(icon: module.icon,\n                  label: module.name, color: textColor),\n"
+        },
+        {
+          "begin": 5530,
+          "old": "    // Build body layout based on style\n    Widget buildBody() {\n      if (settings.layoutStyle == LayoutStyle.horizontal) {\n        return Column(\n          children: [\n            buildHorizontalNav(),\n            Expanded(\n              child: Semantics(\n                label: 'data-cy:app-content-slot',\n                container: true,\n                child: KeyedSubtree(\n                  key: const Key('app-content-slot'),\n                  child: Container(\n                    color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),\n                    child: AppShellBoundary(child: child),\n                  ),\n                ),\n              ),\n            ),\n          ],\n        );\n      }\n\n      final sidebarWidget = isHandheld\n          ? const SizedBox.shrink()\n          : (settings.layoutStyle == LayoutStyle.collapsed\n              ? _SidebarHoverWrapper(\n                  builder: (context, isHovered) => _buildSidebar(\n                    context,\n                    ref,\n                    theme,\n                    modules,\n                    tenant,\n                    tier,\n                    settings,\n                    collapsed: !isHovered,\n                  ),\n                )\n              : _buildSidebar(\n                  context,\n                  ref,\n                  theme,\n                  modules,\n                  tenant,\n                  tier,\n                  settings,\n                  collapsed: false,\n                ));\n\n      if (settings.layoutStyle == LayoutStyle.verticalRight) {\n        return Row(\n          children: [\n            Expanded(\n              child: Semantics(\n                label: 'data-cy:app-content-slot',\n                container: true,\n                child: KeyedSubtree(\n                  key: const Key('app-content-slot'),\n                  child: Container(\n                    color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),\n                    child: AppShellBoundary(child: child),\n                  ),\n                ),\n              ),\n            ),\n            sidebarWidget,\n          ],\n        );\n      }\n\n      // Default (verticalLeft)\n      return Row(\n        children: [\n          sidebarWidget,\n          Expanded(\n            child: Semantics(\n              label: 'data-cy:app-content-slot',\n              container: true,\n              child: KeyedSubtree(\n                key: const Key('app-content-slot'),\n                child: Container(\n                  color: theme.scaffoldBackgroundColor.withValues(alpha: 0.5),\n                  child: AppShellBoundary(child: child),\n                ),\n              ),\n            ),\n          ),\n        ],\n      );\n    }\n\n",
+          "new": ""
+        },
+        {
+          "begin": 8339,
+          "old": "    return Theme(\n",
+          "new": "    final auth = ref.watch(authProvider);\n    final preferences = ref.watch(sharedPreferencesProvider);\n    return PortalWorkspace(\n      key: ValueKey('${auth.isAuthenticated}:${auth.tenantId}:${auth.userId}:${activeRole.name}:${application.name}:${preferences != null}'),\n      scope: WorkspaceScope(\n        tenant: auth.tenantId ?? tenant.tenantId,\n        user: auth.userId ?? 'guest',\n        role: activeRole.name,\n        dataset: application.name,\n      ),\n      preferences: auth.isAuthenticated && preferences != null\n          ? SharedWorkspacePreferences(preferences) : null,\n      legacyLayoutStyle: settings.layoutStyle.name,\n      builder: (context, workspace) => PrimePortalTheme(\n"
+        },
+        {
+          "begin": 8861,
+          "old": "                drawer: isHandheld\n",
+          "new": "                drawer: isHandheld || workspace.current.navigation == 'hidden'\n"
+        },
+        {
+          "begin": 9289,
+          "old": "                appBar: PreferredSize(\n",
+          "new": "                body: PrimeWorkspaceLayout(\n                  controller: workspace,\n                  navigationVisible: !isHandheld,\n                  horizontalNavigationExtent: 48,\n                  navigation: ['top', 'bottom'].contains(workspace.current.navigation)\n                      ? buildHorizontalNav()\n                      : _buildSidebar(context, ref, theme, modules, tenant, tier, settings,\n                          collapsed: workspace.current.navigationWidth == 64),\n                  toolbar: PreferredSize(\n"
+        },
+        {
+          "begin": 9657,
+          "old": "",
+          "new": "                        primary: false,\n"
+        },
+        {
+          "begin": 9922,
+          "old": "                        title: Row(\n                          children: [\n                            Container(\n                              padding: const EdgeInsets.all(8),\n                              decoration: BoxDecoration(\n                                color: topbarIconColor.withValues(alpha: 0.1),\n                                borderRadius: BorderRadius.circular(12),\n                              ),\n                              child: PrimeIcon(LucideIcons.shieldCheck, color: topbarIconColor),\n                            ),\n                            const SizedBox(width: 12),\n                            Column(\n                              crossAxisAlignment: CrossAxisAlignment.start,\n                              children: [\n                                PrimeText(\n                                  tenant.name,\n                                  style: theme.textTheme.titleMedium?.copyWith(\n                                    fontWeight: FontWeight.bold,\n                                    color: topbarTextColor,\n                                  ),\n                                ),\n                                PrimeText(\n                                  application.name,\n                                  style: theme.textTheme.labelSmall?.copyWith(\n                                    color: topbarSecondaryTextColor,\n                                  ),\n                                ),\n                              ],\n                            ),\n                          ],\n                        ),\n",
+          "new": "                        title: isHandheld ? null : PrimeText(tenant.name, maxLines: 1,\n                          overflow: TextOverflow.ellipsis,\n                          style: theme.textTheme.titleSmall?.copyWith(color: topbarTextColor)),\n"
+        },
+        {
+          "begin": 13087,
+          "old": "                                    PrimeText(\n",
+          "new": "                                    if (!isHandheld) PrimeText(\n"
+        },
+        {
+          "begin": 13661,
+          "old": "                                    const SizedBox(width: 12),\n                                    Container(\n                                      width: 1,\n                                      height: 14,\n                                      color: topbarTextColor.withValues(alpha: 0.2),\n                                    ),\n                                    const SizedBox(width: 12),\n                                    Builder(\n                                      builder: (context) {\n                                        final govRole = GovernanceRole(activeRole);\n                                        return Row(\n                                          children: [\n                                            PrimeIcon(LucideIcons.layers, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),\n                                            const SizedBox(width: 4),\n                                            PrimeText(\n                                              'Role Items: ${govRole.totalSidebarItems}',\n                                              style: theme.textTheme.labelSmall?.copyWith(\n                                                color: topbarTextColor.withValues(alpha: 0.8),\n                                              ),\n                                            ),\n                                            const SizedBox(width: 12),\n                                            PrimeIcon(LucideIcons.appWindow, size: 14, color: topbarTextColor.withValues(alpha: 0.7)),\n                                            const SizedBox(width: 4),\n                                            PrimeText(\n                                              'App Total: ${govRole.totalAppSidebarItems}',\n                                              style: theme.textTheme.labelSmall?.copyWith(\n                                                color: topbarTextColor.withValues(alpha: 0.8),\n                                              ),\n                                            ),\n                                          ],\n                                        );\n                                      }\n                                    ),\n",
+          "new": ""
+        },
+        {
+          "begin": 25403,
+          "old": "                body: buildBody(),\n",
+          "new": "                  footer: const PortalLayoutFooter(),\n                  main: Semantics(\n                    label: 'data-cy:app-content-slot',\n                    container: true,\n                    child: KeyedSubtree(key: const Key('app-content-slot'),\n                      child: AppShellBoundary(child: child)),\n                  ),\n                  panels: const {},\n                ),\n"
+        },
+        {
+          "begin": 25503,
+          "old": "",
+          "new": "    ),\n"
+        },
+        {
+          "begin": 31670,
+          "old": "                          if (ScreenBreakpoints.isHandheld(context)) {\n",
+          "new": "                          if (isDrawer) {\n"
+        },
+        {
+          "begin": 32966,
+          "old": "  }\n}\n\nclass _SidebarHoverWrapper extends StatefulWidget {\n  final Widget Function(BuildContext context, bool isHovered) builder;\n  const _SidebarHoverWrapper({required this.builder});\n\n  @override\n  State<_SidebarHoverWrapper> createState() => _SidebarHoverWrapperState();\n}\n\nclass _SidebarHoverWrapperState extends State<_SidebarHoverWrapper> {\n  bool _isHovered = false;\n\n  @override\n  Widget build(BuildContext context) {\n    return MouseRegion(\n      onEnter: (_) => setState(() => _isHovered = true),\n      onExit: (_) => setState(() => _isHovered = false),\n      child: widget.builder(context, _isHovered),\n    );\n",
+          "new": ""
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_settings_drawer.dart",
+      "beforeSha256": "db422c5c4b94fa806a61846a020676bdab6a5d13cb047234fdb476215515a653",
+      "afterSha256": "242716d64fa3a797d24cc1827b64b8c7931e40f66c151db54e3ad0606245340c",
+      "edits": [
+        {
+          "begin": 0,
+          "old": "",
+          "new": "import '../../workspace/portal_workspace.dart';\n"
+        },
+        {
+          "begin": 2739,
+          "old": "",
+          "new": "                  if (PortalWorkspaceScope.maybeOf(context) != null) const PortalLayoutEditor(),\n                  if (PortalWorkspaceScope.maybeOf(context) == null) ...[\n"
+        },
+        {
+          "begin": 4740,
+          "old": "",
+          "new": "                  ],\n"
+        }
+      ]
+    }
+  ]
+}

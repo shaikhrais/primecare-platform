@@ -146,18 +146,51 @@ class PortalLayoutEditor extends StatelessWidget {
       const SizedBox(height: 24),
     ]);
   }
-  Future<void> _import(BuildContext context, WorkspaceController c) async {
-    final input = TextEditingController();
-    String? error;
-    await showDialog<void>(context: context, builder: (dialogContext) => StatefulBuilder(
-      builder: (context, setState) => PrimeAlertDialog(title: const PrimeText('Import layout JSON'),
-        content: SizedBox(width: 480, child: PrimeTextField(controller: input, maxLines: 10,
-          maxLength: 32768, decoration: InputDecoration(hintText: 'Paste exported layout JSON', errorText: error))),
-        actions: [PrimeTextButton(onPressed: () => Navigator.pop(dialogContext), child: const PrimeText('Cancel')),
-          PrimeTextButton(onPressed: () {
-            try { c.importJson(input.text); Navigator.pop(dialogContext); }
-            catch (_) { setState(() => error = 'Invalid or incompatible layout JSON.'); }
-          }, child: const PrimeText('Apply'))])));
-    input.dispose();
-  }
+  Future<void> _import(BuildContext context, WorkspaceController c) =>
+    showDialog<void>(context: context, builder: (_) => _LayoutImportDialog(controller: c));
+}
+
+class _LayoutImportDialog extends StatefulWidget {
+  final WorkspaceController controller;
+  const _LayoutImportDialog({required this.controller});
+  @override State<_LayoutImportDialog> createState() => _LayoutImportDialogState();
+}
+class _LayoutImportDialogState extends State<_LayoutImportDialog> {
+  final input = TextEditingController();
+  String? error;
+  @override void dispose() { input.dispose(); super.dispose(); }
+  @override Widget build(BuildContext context) => PrimeAlertDialog(
+    title: const PrimeText('Import layout JSON'),
+    content: SizedBox(width: 480, child: PrimeTextField(controller: input, maxLines: 10,
+      maxLength: 32768, decoration: InputDecoration(hintText: 'Paste exported layout JSON', errorText: error))),
+    actions: [
+      PrimeTextButton(onPressed: () => Navigator.pop(context), child: const PrimeText('Cancel')),
+      PrimeTextButton(onPressed: () {
+        try { widget.controller.importJson(input.text); Navigator.pop(context); }
+        catch (_) { setState(() => error = 'Invalid or incompatible layout JSON.'); }
+      }, child: const PrimeText('Apply')),
+    ]);
+}
+
+/// Shared theme envelope; all shell appearance derives from Theme Center data.
+class PrimePortalTheme extends StatelessWidget {
+  final ThemeData data;
+  final Widget child;
+  const PrimePortalTheme({super.key, required this.data, required this.child});
+  @override Widget build(BuildContext context) => Theme(data: data, child: child);
+}
+
+/// Horizontal navigation uses the same centrally themed label in every portal.
+class PrimePortalNavigationLabel extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final Color color;
+  const PrimePortalNavigationLabel({super.key, required this.icon, required this.label, required this.color});
+  @override Widget build(BuildContext context) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 12),
+    child: Row(mainAxisSize: MainAxisSize.min, children: [
+      PrimeIcon(icon, size: 16, color: color), const SizedBox(width: 8),
+      PrimeText(label, style: Theme.of(context).textTheme.labelMedium?.copyWith(color: color)),
+      const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: color),
+    ]));
 }

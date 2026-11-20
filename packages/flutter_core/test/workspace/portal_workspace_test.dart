@@ -12,7 +12,7 @@ void main() {
     final preferences = MemoryPreferences();
     late WorkspaceController current;
     Future<void> mount(String user) async {
-      await tester.pumpWidget(MaterialApp(home: PortalWorkspace(key: ValueKey(user),
+      await tester.pumpWidget(MaterialApp(home: PortalWorkspace(
         scope: WorkspaceScope(tenant: 'tenant', user: user, role: 'staff'),
         preferences: preferences, legacyLayoutStyle: 'verticalLeft',
         builder: (context, c) { current = c; return const Scaffold(body: SingleChildScrollView(child: PortalLayoutEditor())); })));
@@ -29,6 +29,29 @@ void main() {
     expect(current.current.navigation, 'right');
     expect(current.current.toolbar, 'bottom');
     expect(current.current.footer, 'sticky');
+    expect(tester.takeException(), isNull);
+  });
+  testWidgets('JSON import rejects authority fields and applies a valid layout', (tester) async {
+    late WorkspaceController current;
+    await tester.pumpWidget(MaterialApp(home: PortalWorkspace(
+      scope: WorkspaceScope(tenant: 'tenant', user: 'a', role: 'staff'),
+      legacyLayoutStyle: 'verticalLeft',
+      builder: (context, c) { current = c; return const Scaffold(
+        body: SingleChildScrollView(child: PortalLayoutEditor())); })));
+    await tester.pumpAndSettle();
+    final valid = current.current.patch({'navigation': 'right'}).exportJson();
+    await tester.ensureVisible(find.text('Import JSON'));
+    await tester.tap(find.text('Import JSON'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), '{"role":"admin"}');
+    await tester.tap(find.text('Apply'));
+    await tester.pumpAndSettle();
+    expect(find.text('Invalid or incompatible layout JSON.'), findsOneWidget);
+    expect(current.current.navigation, 'left');
+    await tester.enterText(find.byType(TextField), valid);
+    await tester.tap(find.text('Apply'));
+    await tester.pumpAndSettle();
+    expect(current.current.navigation, 'right');
     expect(tester.takeException(), isNull);
   });
   testWidgets('footer and editor share one controller; hidden footer is recoverable', (tester) async {

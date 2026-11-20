@@ -8,7 +8,6 @@ import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show Prime
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextField;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeScaffold;
 import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeIconButton;
-import 'package:primecare_ui_foundation/primecare_ui_foundation.dart' show PrimeTextButton;
 import '../../theme/theme_center_theme_data.dart';
 // Governance - Category: view | Purpose: Layer: 01_INFRASTRUCTURE The central Governance Layout for all PrimeCare portals. It automatically pulls sidebar and ...
 // Layer: 01_INFRASTRUCTURE
@@ -108,11 +107,8 @@ class GovernanceMasterLayout extends ConsumerWidget {
                     if (screen.requiredRole == null || screen.requiredRole == activeRole)
                       PopupMenuItem(value: screen.route, child: PrimeText(screen.title)),
                 ],
-                child: Padding(padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Row(children: [PrimeIcon(module.icon, size: 16, color: textColor),
-                    const SizedBox(width: 8), PrimeText(module.name,
-                      style: TextStyle(color: textColor)),
-                    const SizedBox(width: 4), PrimeIcon(Icons.expand_more, size: 16, color: textColor)])),
+                child: PrimePortalNavigationLabel(icon: module.icon,
+                  label: module.name, color: textColor),
               ),
             );
           },
@@ -135,7 +131,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
       preferences: auth.isAuthenticated && preferences != null
           ? SharedWorkspacePreferences(preferences) : null,
       legacyLayoutStyle: settings.layoutStyle.name,
-      builder: (context, workspace) => Theme(
+      builder: (context, workspace) => PrimePortalTheme(
       data: theme,
       child: QuickAccessBoundary(
         userRole: GovernanceRole(activeRole),
