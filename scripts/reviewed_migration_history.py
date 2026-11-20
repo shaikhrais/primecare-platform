@@ -243,7 +243,11 @@ def before_shared_scaffolds(source,path):
     return original
 
 
+def before_theme_palette_match(source,path):
+    return reverse_presentation_receipt(source,path,'theme-palette-match-replay.json')
+
 def before_control_extensions(source,path):
+    source=before_theme_palette_match(source,path)
     source=before_shared_snack_bars(source,path)
     source=reverse_manifest(source,path,'branding-settings-palette-manifest.json')
     source=reverse_manifest(source,path,'shared-metric-contrast-manifest.json')

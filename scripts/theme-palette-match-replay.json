@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "13bab69d4c21b16febb48418d6792da30545ea16",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/theme/theme_center_theme_data.dart",
+      "beforeSha256": "c6043c0aa1261ecdc47bd25de877cbc51bc9618ba5923e326eb699c0ff31838a",
+      "afterSha256": "8793de18b8ebead5181420c8cd59f6f9fcf12802c98ef7c87190834439b4ef1c",
+      "edits": [
+        {
+          "begin": 199,
+          "old": "",
+          "new": "import 'prime_semantic_palette.dart';\n"
+        },
+        {
+          "begin": 297,
+          "old": "",
+          "new": "\n/// Complete semantic color inventory, including alpha-aware actions and grey ramps.\nclass PrimePaletteTokens extends ThemeExtension<PrimePaletteTokens> {\n  final Map<String,Color> colors;\n  const PrimePaletteTokens(this.colors);\n  Color? operator [](String key)=>colors[key];\n  @override PrimePaletteTokens copyWith({Map<String,Color>? colors})=>PrimePaletteTokens(colors??this.colors);\n  @override PrimePaletteTokens lerp(covariant PrimePaletteTokens? other,double t)=>other==null?this:PrimePaletteTokens({for(final key in {...colors.keys,...other.colors.keys})key:Color.lerp(colors[key],other.colors[key],t)!});\n}\n"
+        },
+        {
+          "begin": 3277,
+          "old": "",
+          "new": "      disabledColor:palette.token('action.disabled'),hoverColor:palette.token('action.hover'),focusColor:palette.token('action.focus'),highlightColor:palette.token('action.selected'),\n"
+        },
+        {
+          "begin": 5376,
+          "old": "      colorScheme:ColorScheme.fromSeed(seedColor:resolvedPrimary,brightness:palette.brightness).copyWith(primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,onPrimaryContainer:foreground(resolvedPrimaryContainer,text),secondary:resolvedSecondary,onSecondary:foreground(resolvedSecondary,palette.onSecondary),surface:surface,surfaceContainerLowest:surface,surfaceContainerLow:surface,surfaceContainer:surface,surfaceContainerHigh:surface,surfaceContainerHighest:surface,surfaceDim:surface,surfaceBright:surface,onSurface:readable,onSurfaceVariant:readableMuted,outline:border),\n      extensions:[...baseTheme.extensions.values.where((e)=>e is! GovernanceThemeColors),GovernanceThemeColors(sidebarBackground:resolvedSidebarBg,topbarBackground:resolvedTopbarBg,sidebarTextColor:foreground(resolvedSidebarBg,muted),sidebarSelectedTextColor:foreground(surface,text),sidebarIconColor:foreground(resolvedSidebarBg,muted),sidebarSelectedIconColor:foreground(surface,text),sidebarSelectedTileColor:surface,sidebarDividerColor:border,topbarTextColor:foreground(resolvedTopbarBg,muted),topbarSelectedTextColor:foreground(resolvedTopbarBg,text),topbarIconColor:foreground(resolvedTopbarBg,muted),topbarSelectedIconColor:foreground(resolvedTopbarBg,text),topbarDividerColor:border)],\n",
+          "new": "      colorScheme:ColorScheme.fromSeed(seedColor:resolvedPrimary,brightness:palette.brightness).copyWith(secondaryContainer:palette.secondaryContainer,onSecondaryContainer:foreground(palette.secondaryContainer,text),errorContainer:palette.token('error.light'),onErrorContainer:foreground(palette.token('error.light')??surface,text),error:palette.token('error.main'),onError:foreground(palette.token('error.main')??baseTheme.colorScheme.error,palette.token('error.contrastText')??baseTheme.colorScheme.onError),primary:resolvedPrimary,onPrimary:foreground(resolvedPrimary,palette.onPrimary),primaryContainer:resolvedPrimaryContainer,onPrimaryContainer:foreground(resolvedPrimaryContainer,text),secondary:resolvedSecondary,onSecondary:foreground(resolvedSecondary,palette.onSecondary),surface:surface,surfaceContainerLowest:surface,surfaceContainerLow:surface,surfaceContainer:surface,surfaceContainerHigh:surface,surfaceContainerHighest:surface,surfaceDim:surface,surfaceBright:surface,onSurface:readable,onSurfaceVariant:readableMuted,outline:border),\n      extensions:[...baseTheme.extensions.values.where((e)=>e is! GovernanceThemeColors && e is! PrimePaletteTokens && e is! PrimeSemanticStatusColors),PrimeSemanticStatusColors(success:palette.token('success.main')??baseTheme.colorScheme.tertiary,successContainer:palette.token('success.light')??baseTheme.colorScheme.tertiaryContainer,warning:palette.token('warning.main')??baseTheme.colorScheme.secondary,warningContainer:palette.token('warning.light')??baseTheme.colorScheme.secondaryContainer),PrimePaletteTokens({...palette.tokens,'text.disabled':resolved('disabled',palette.textDisabled)}),GovernanceThemeColors(sidebarBackground:resolvedSidebarBg,topbarBackground:resolvedTopbarBg,sidebarTextColor:foreground(resolvedSidebarBg,muted),sidebarSelectedTextColor:foreground(surface,text),sidebarIconColor:foreground(resolvedSidebarBg,muted),sidebarSelectedIconColor:foreground(surface,text),sidebarSelectedTileColor:surface,sidebarDividerColor:border,topbarTextColor:foreground(resolvedTopbarBg,muted),topbarSelectedTextColor:foreground(resolvedTopbarBg,text),topbarIconColor:foreground(resolvedTopbarBg,muted),topbarSelectedIconColor:foreground(resolvedTopbarBg,text),topbarDividerColor:border)],\n"
+        }
+      ]
+    }
+  ]
+}

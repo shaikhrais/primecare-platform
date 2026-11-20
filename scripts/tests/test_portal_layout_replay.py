@@ -53,3 +53,16 @@ class FuseCenterMatchReplayTest(unittest.TestCase):
             before=before_fuse_center_match(source,row['path'])
             self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
             self.assertEqual(before_fuse_center_match(source+'\n',row['path']),source+'\n')
+
+
+class ThemePaletteMatchReplayTest(unittest.TestCase):
+    def test_only_exact_palette_bridge_changes_are_replayed(self):
+        from reviewed_migration_history import before_theme_palette_match
+        receipt=json.loads((ROOT/'scripts/theme-palette-match-replay.json').read_text())
+        self.assertEqual(len(receipt['files']),1)
+        for row in receipt['files']:
+            source=(ROOT/row['path']).read_text()
+            self.assertEqual(hashlib.sha256(source.encode()).hexdigest(),row['afterSha256'])
+            before=before_theme_palette_match(source,row['path'])
+            self.assertEqual(hashlib.sha256(before.encode()).hexdigest(),row['beforeSha256'])
+            self.assertEqual(before_theme_palette_match(source+'\n',row['path']),source+'\n')
