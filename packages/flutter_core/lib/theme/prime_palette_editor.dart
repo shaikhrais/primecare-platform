@@ -104,7 +104,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
     ]);
     Widget preview()=>Column(mainAxisSize:MainAxisSize.min,children:[PrimeText('Preview',style:theme.textTheme.titleMedium?.copyWith(fontWeight:FontWeight.w600)),
       const SizedBox(height:20),PrimePaletteLivePreview(primary:primary,secondary:secondary,surface:surface,background:background)]);
-    return Dialog(insetPadding:const EdgeInsets.all(20),clipBehavior:Clip.antiAlias,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),child:RepaintBoundary(key:const Key('palette-editor-capture'),child:SizedBox(
+    return Dialog(insetPadding:const EdgeInsets.all(20),clipBehavior:Clip.antiAlias,shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(16)),child:RepaintBoundary(key:const Key('palette-editor-capture'),child:ColoredBox(color:theme.colorScheme.surface,child:SizedBox(
       width:640,child:Column(mainAxisSize:MainAxisSize.min,children:[
         Container(color:header,padding:const EdgeInsets.symmetric(horizontal:20,vertical:14),child:Row(children:[PrimeIcon(Icons.palette_outlined,color:headerText),const SizedBox(width:12),
           Expanded(child:PrimeText('Edit palette',style:theme.textTheme.titleLarge?.copyWith(color:headerText))),
@@ -118,7 +118,7 @@ class _PrimePaletteEditorState extends State<PrimePaletteEditor>{
           PrimeTextButton(onPressed:()=>Navigator.pop(context),child:const PrimeText('Cancel')),
           if(!presets)PrimeFilledButton(onPressed:dirty?save:null,child:const PrimeText('Save')),
         ])),
-      ]))));
+      ])))));
   }
 }
 class PrimePaletteLivePreview extends StatelessWidget{
