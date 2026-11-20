@@ -2,7 +2,7 @@
 
 Generated from the pinned production governance catalogue and exact repository documentation references. Comments cover every exported operation; missing business contracts remain explicit. This is documentation coverage, not implementation or production certification.
 
-Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps: 1121. Omitted/quarantined records: 1.
+Exported operations: 1311. Source-linked: 224. Registry-only with explicit gaps: 1087. Omitted/quarantined records: 1.
 
 ## Contents
 
@@ -49,6 +49,8 @@ Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps:
 - [business-development](#family-business-development) — 1 operations
 
 - [calendar-management](#family-calendar-management) — 1 operations
+
+- [calls](#family-calls) — 9 operations
 
 - [campaign-dashboard](#family-campaign-dashboard) — 1 operations
 
@@ -112,7 +114,7 @@ Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps:
 
 - [claims-processing](#family-claims-processing) — 1 operations
 
-- [client](#family-client) — 29 operations
+- [client](#family-client) — 35 operations
 
 - [client-intake](#family-client-intake) — 1 operations
 
@@ -224,6 +226,8 @@ Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps:
 
 - [expense-management](#family-expense-management) — 1 operations
 
+- [external-calls](#family-external-calls) — 5 operations
+
 - [failed-workflow](#family-failed-workflow) — 1 operations
 
 - [family-overview](#family-family-overview) — 1 operations
@@ -272,7 +276,7 @@ Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps:
 
 - [franchise-sales-workflow](#family-franchise-sales-workflow) — 1 operations
 
-- [governance](#family-governance) — 71 operations
+- [governance](#family-governance) — 86 operations
 
 - [governance-control-room](#family-governance-control-room) — 1 operations
 
@@ -676,7 +680,7 @@ Exported operations: 1273. Source-linked: 152. Registry-only with explicit gaps:
 
 - [user](#family-user) — 8 operations
 
-- [vapi](#family-vapi) — 1 operations
+- [vapi](#family-vapi) — 4 operations
 
 - [verification](#family-verification) — 2 operations
 
@@ -11519,7 +11523,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Explicit bearer session; active CEO and matching tenant required. Passwords, tokens and configuration secrets are excluded. Search is literal. canModify is false for the actor. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -11555,7 +11559,7 @@ Content type `application/json`:
 
 Requires the existing active explicit CEO bearer session and matching non-null tenant. Target lookup remains tenant-scoped and self-revocation remains blocked. Counts must be nonnegative safe integers without coercion; malformed counts roll back and return a sanitized 503. Bounded paging, no-store, mutation limits and atomic audit behavior remain enforced. No additional role grants or clinical access.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -11591,7 +11595,7 @@ Content type `application/json`:
 
 Explicit bearer session; active CEO and matching tenant required. Passwords, tokens and configuration secrets are excluded. Search is literal. canModify is false for the actor. No new role grants. Explicit projections exclude unregistered adapter fields. Required identifiers and date-time fields are validated without coercion; invalid projected rows roll back and return sanitized no-store 503. Null account states are retained only where the existing contract allows them.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -11627,7 +11631,7 @@ Content type `application/json`:
 
 Explicit bearer session; active CEO and matching tenant required. Passwords, tokens and configuration secrets are excluded. Search is literal. canModify is false for the actor. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -11705,7 +11709,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11741,7 +11745,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11777,7 +11781,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11816,7 +11820,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Manage another account in the active CEO tenant; revoke target sessions and audit the change.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `id`: string, required, pattern-constrained; see source
@@ -11841,6 +11845,62 @@ Additional properties are rejected for this shape.
 **Response 503:** Source unavailable
 
 **Response 404:** Target absent in the actor tenant
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Update account role and status
+
+CEO only, same tenant, no self-modification. Both role and status are required. Revokes every target session and writes previous/new state to audit in the same transaction. Missing and cross-tenant targets both return 404. Cookie-only requests are rejected. Limit: 10 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.
+
+**Authentication declared in source:** operation level: bearerSession
+
+**Request body — application/json:**
+- `id`: string, required, pattern-constrained; see source
+- `role`: string, required, 64 allowed values; see source
+- `status`: constrained value, required, 2 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `user`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Malformed or invalid input
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 403:** Role or tenant denied
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 404:** Account unavailable in actor tenant
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 429:** Authentication attempts exhausted
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16423"></a>
 
@@ -11892,7 +11952,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Projects only approved role, status and session-count fields. Arbitrary audit JSON fields are never returned. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -11949,7 +12009,7 @@ Content type `application/json`:
 
 Requires the existing active explicit CEO bearer session and matching non-null tenant. Target lookup remains tenant-scoped and self-revocation remains blocked. Counts must be nonnegative safe integers without coercion; malformed counts roll back and return a sanitized 503. Bounded paging, no-store, mutation limits and atomic audit behavior remain enforced. No additional role grants or clinical access.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -12006,7 +12066,7 @@ Content type `application/json`:
 
 Projects only approved role, status and session-count fields. Arbitrary audit JSON fields are never returned. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants. Explicit projections exclude unregistered adapter fields. Required identifiers and date-time fields are validated without coercion; invalid projected rows roll back and return sanitized no-store 503. Null account states are retained only where the existing contract allows them.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -12152,7 +12212,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Reads persisted account_created events only. Does not include password or management history. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -12210,7 +12270,7 @@ Content type `application/json`:
 
 Requires the existing active explicit CEO bearer session and matching non-null tenant. Target lookup remains tenant-scoped and self-revocation remains blocked. Counts must be nonnegative safe integers without coercion; malformed counts roll back and return a sanitized 503. Bounded paging, no-store, mutation limits and atomic audit behavior remain enforced. No additional role grants or clinical access.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -12268,7 +12328,7 @@ Content type `application/json`:
 
 Reads persisted account_created events only. Does not include password or management history. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants. Explicit projections exclude unregistered adapter fields. Required identifiers and date-time fields are validated without coercion; invalid projected rows roll back and return sanitized no-store 503. Null account states are retained only where the existing contract allows them.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -12415,7 +12475,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Only approved account fields are returned. Self accounts have canModify=false. No session or password data. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12471,7 +12531,7 @@ Content type `application/json`:
 
 Only approved account fields are returned. Self accounts have canModify=false. No session or password data. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants. Explicit projections exclude unregistered adapter fields. Required identifiers and date-time fields are validated without coercion; invalid projected rows roll back and return sanitized no-store 503. Null account states are retained only where the existing contract allows them.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12571,7 +12631,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 CEO cannot revoke their own sessions through this endpoint. Target locking serializes with login and account changes. Revocation and audit commit atomically. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12627,7 +12687,7 @@ Content type `application/json`:
 
 Requires the existing active explicit CEO bearer session and matching non-null tenant. Target lookup remains tenant-scoped and self-revocation remains blocked. Counts must be nonnegative safe integers without coercion; malformed counts roll back and return a sanitized 503. Bounded paging, no-store, mutation limits and atomic audit behavior remain enforced. No additional role grants or clinical access.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12727,7 +12787,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Sessions expose dates only, never token hashes. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12786,7 +12846,7 @@ Content type `application/json`:
 
 Requires the existing active explicit CEO bearer session and matching non-null tenant. Target lookup remains tenant-scoped and self-revocation remains blocked. Counts must be nonnegative safe integers without coercion; malformed counts roll back and return a sanitized 503. Bounded paging, no-store, mutation limits and atomic audit behavior remain enforced. No additional role grants or clinical access.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -12845,7 +12905,7 @@ Content type `application/json`:
 
 Sessions expose dates only, never token hashes. Requires an active explicit bearer session, CEO authority and a matching tenant. No new role grants. Explicit projections exclude unregistered adapter fields. Required identifiers and date-time fields are validated without coercion; invalid projected rows roll back and return sanitized no-store 503. Null account states are retained only where the existing contract allows them.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `userId` in path (required)
@@ -14619,7 +14679,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14658,7 +14718,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14697,7 +14757,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14821,7 +14881,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14869,7 +14929,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14918,7 +14978,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -14962,7 +15022,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -15010,7 +15070,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Current independently registered optional native tenant claim. Grants and activation unchanged.
 
-**Authentication declared in source:** Not declared at operation level; inspect document-level security.
+**Authentication declared in source:** No security requirement is declared in this source.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15032,6 +15092,51 @@ Additional properties are rejected for this shape.
 - variant 3: `challenge`: string, required, pattern-constrained; see source
 - variant 3: `purpose`: constrained value, required, fixed value; see source
 - variant 3: `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Authenticate an active account
+
+Normalizes email. Rejects ambiguous duplicate accounts. Ten attempts per normalized email per 60 seconds, including successful attempts. Stores only a token hash; session expires after 12 hours. Sets Secure HttpOnly SameSite=Lax session cookie. Limit: 10 attempts per 60 seconds per normalized email. Failed and denied valid-input attempts count; Retry-After is returned on 429. A separate approximate source-IP limit allows 120 attempts per 60 seconds per Cloudflare location before body parsing or database access. Applies to direct Worker and gateway requests, including malformed attempts. Shared networks share this budget. Missing trusted source identity or limiter availability returns 503.
+
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body — application/json:**
+- `email`: string, required, maxLength=254
+- `password`: string, required, minLength=1, write-only; never log
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `userId`: string, required
+- `role`: string, required
+- `token`: string, required, pattern-constrained; see source
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Malformed or invalid input
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 429:** Authentication attempts exhausted
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
 Additional properties are rejected for this shape.
 
 <a id="api-5"></a>
@@ -15080,11 +15185,13 @@ These are proposed checks, not passed tests.
 
 The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
 
+Multiple source versions exist. Read every reference; incompatible request/security/response definitions must be reconciled against the current runtime and governance before client generation. No version is silently selected.
+
 ### [docs/api/auth-delivery-work-package.openapi.json](../../docs/api/auth-delivery-work-package.openapi.json)
 
 **Purpose / behavior from source:** Idempotent logout. Bearer or cookie is optional; only the supplied session hash is deleted. Body/query are ignored.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15092,6 +15199,28 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Content type `application/json`:
 - `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Revoke the presented session
+
+Idempotent without credentials. Deletes the presented token hash and clears the cookie. Does not revoke other sessions.
+
+**Authentication declared in source:** operation level: anonymous alternative; bearerSession; cookieSession
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
 Additional properties are rejected for this shape.
 
 <a id="api-16493"></a>
@@ -15267,7 +15396,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Read current session identity using bearer or session cookie. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth; sessionCookie
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15296,7 +15425,7 @@ Content type `application/json`:
 
 **Purpose / behavior from source:** Current independently registered optional native tenant claim. Grants and activation unchanged.
 
-**Authentication declared in source:** Not declared at operation level; inspect document-level security.
+**Authentication declared in source:** No security requirement is declared in this source.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15313,7 +15442,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Read current session identity using bearer or session cookie.
 
-**Authentication declared in source:** bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth; sessionCookie
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15334,6 +15463,36 @@ Additional properties are rejected for this shape.
 **Response 429:** Rate limit
 
 **Response 503:** Source unavailable
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Resolve the active session
+
+Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.
+
+**Authentication declared in source:** operation level: bearerSession; cookieSession
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `userId`: string, required
+- `roles`: string, required
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-779"></a>
 
@@ -15385,7 +15544,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Read current session identity; this compatibility POST performs no mutation. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth; sessionCookie
 
 **Request body — application/json:**
 No object fields; schema type: unspecified.
@@ -15415,7 +15574,7 @@ Content type `application/json`:
 
 **Purpose / behavior from source:** Current independently registered optional native tenant claim. Grants and activation unchanged.
 
-**Authentication declared in source:** Not declared at operation level; inspect document-level security.
+**Authentication declared in source:** No security requirement is declared in this source.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15432,7 +15591,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Read current session identity; this compatibility POST performs no mutation.
 
-**Authentication declared in source:** bearerAuth; sessionCookie
+**Authentication declared in source:** operation level: bearerAuth; sessionCookie
 
 **Request body — application/json:**
 No object fields; schema type: unspecified.
@@ -15454,6 +15613,36 @@ Additional properties are rejected for this shape.
 **Response 429:** Rate limit
 
 **Response 503:** Source unavailable
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Resolve the active session
+
+Reads the current active user and unexpired session from PostgreSQL. Explicit invalid Authorization never falls back to a cookie. Returns roles as the existing string field.
+
+**Authentication declared in source:** operation level: bearerSession; cookieSession
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `userId`: string, required
+- `roles`: string, required
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-16496"></a>
 
@@ -15501,7 +15690,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Current independently registered optional native tenant claim. Grants and activation unchanged.
 
-**Authentication declared in source:** Not declared at operation level; inspect document-level security.
+**Authentication declared in source:** No security requirement is declared in this source.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15554,7 +15743,61 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_elevation
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `password`: string, required, minLength=1, maxLength=72
+- `code`: string, required, pattern-constrained; see source
+- `reason`: string, required, minLength=10, maxLength=500
+- `scope`: array, required, minItems=1, maxItems=1
+- `seconds`: integer, required, minimum=1, maximum=900
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `elevationId`: string, required
+- `expiresAt`: string, required
+- `scope`: array, required, minItems=1, maxItems=1
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16502"></a>
 
@@ -15595,7 +15838,54 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_elevation
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `elevationId`: string, required
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16499"></a>
 
@@ -15636,7 +15926,57 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge
+
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body — application/json:**
+- `challenge`: string, required, pattern-constrained; see source
+- `recoveryCode`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `challenge`: string, required, pattern-constrained; see source
+- `setupKey`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16497"></a>
 
@@ -15677,7 +16017,56 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_mfa
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `password`: string, required, minLength=1
+- `code`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `recoveryCodes`: array, required, minItems=10, maxItems=10
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16498"></a>
 
@@ -15718,7 +16107,57 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: self_code_admin_mfa
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `password`: string, required, minLength=1
+- `code`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `challenge`: string, required, pattern-constrained; see source
+- `setupKey`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16500"></a>
 
@@ -15762,11 +16201,63 @@ These are proposed checks, not passed tests.
 
 The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
 
+Multiple source versions exist. Read every reference; incompatible request/security/response definitions must be reconciled against the current runtime and governance before client generation. No version is silently selected.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: password_verified_mfa_replacement_challenge
+
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Request body — application/json:**
+- `challenge`: string, required, pattern-constrained; see source
+- `code`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `token`: string, required, pattern-constrained; see source
+- `userId`: string, required
+- `role`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
+
 ### [docs/api/auth-session-tenant.openapi.json](../../docs/api/auth-session-tenant.openapi.json)
 
 **Purpose / behavior from source:** Current independently registered optional native tenant claim. Grants and activation unchanged.
 
-**Authentication declared in source:** Not declared at operation level; inspect document-level security.
+**Authentication declared in source:** No security requirement is declared in this source.
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -15819,7 +16310,57 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: tenant_admin_support_approval
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `requestId`: string, required
+- `password`: string, required, minLength=1, maxLength=72
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `requestId`: string, required
+- `expiresAt`: string, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16503"></a>
 
@@ -15860,7 +16401,66 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: elevated_code_admin_support_request
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `elevationId`: string, required
+- `tenantId`: string, required
+- `ticket`: string, required, minLength=1, maxLength=100
+- `reason`: string, required, minLength=10, maxLength=500
+- `scope`: array, required, minItems=1, maxItems=1
+- `seconds`: integer, required, minimum=1, maximum=900
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `requestId`: string, required
+- `requesterId`: string, required
+- `tenantId`: string, required
+- `ticket`: string, required, minLength=1, maxLength=100
+- `reason`: string, required, minLength=10, maxLength=500
+- `scope`: array, required, minItems=1, maxItems=1
+- `expiresAt`: string, required
+- `state`: constrained value, required, 3 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16504"></a>
 
@@ -15901,7 +16501,52 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: tenant_admin_support_approval
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `requests`: array, required, maxItems=50
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16506"></a>
 
@@ -15942,7 +16587,55 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: owned_or_tenant_admin_support_revocation
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `requestId`: string, required
+- `password`: string, required, minLength=1, maxLength=72
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-16507"></a>
 
@@ -15983,7 +16676,57 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/auth-lifecycle-openapi.json](../../docs/api/auth-lifecycle-openapi.json)
+
+**Purpose / behavior from source:** Registered contract. Deployment and verification status are tracked separately. Permission: approved_tenant_security_summary
+
+**Authentication declared in source:** operation level: sessionBearer
+
+**Request body — application/json:**
+- `requestId`: string, required
+Additional properties are rejected for this shape.
+
+**Response 200:** Validated operation result
+
+Content type `application/json`:
+- `tenantId`: string, required
+- `activeAccounts`: integer, required, minimum=0
+- `activeSessions`: integer, required, minimum=0
+- `enrolledAuthenticators`: integer, required, minimum=0
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid request
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 401:** Missing, stale or rejected authority or proof
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 403:** Actor, scope or tenant not authorized
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 405:** Method not allowed
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+- `error`: string, required
+
+**Response 503:** Required authority, audit, database or cryptographic service unavailable
+
+Content type `application/json`:
+- `error`: string, required
 
 <a id="api-8"></a>
 
@@ -16258,7 +17001,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16294,7 +17037,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16330,7 +17073,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16369,7 +17112,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Create a tenant account under the existing CEO or HR role assignment policy. Explicit bearer required.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16394,6 +17137,62 @@ Additional properties are rejected for this shape.
 **Response 503:** Source unavailable
 
 **Response 409:** Account cannot be created
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Create an authorized same-tenant account
+
+No public registration. CEO and HR allowlists come from account-policy.json generated from governance. Tenant is resolved from the actor, never accepted from the body. Creates bcrypt hash and account audit in one transaction. Duplicate email returns 409. Cookie-only requests are rejected. Limit: 10 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.
+
+**Authentication declared in source:** operation level: bearerSession
+
+**Request body — application/json:**
+- `email`: string, required, maxLength=254
+- `password`: string, required, minLength=12, maxLength=72, write-only; never log
+- `role`: string, required, 64 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 201:** Successful operation
+
+Content type `application/json`:
+- `user`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Malformed or invalid input
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 403:** Role or tenant denied
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Account cannot be created
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 429:** Authentication attempts exhausted
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-396"></a>
 
@@ -16444,7 +17243,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16486,7 +17285,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -16528,7 +17327,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:**  Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** No operation-level security requirement is declared; this does not authorize public exposure.
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
 
 **Request body — application/json:**
 - `email`: string, required
@@ -17034,6 +17833,388 @@ These are proposed checks, not passed tests.
 - missing_request_schema
 - missing_response_schema
 - missing_permission_key
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="family-calls"></a>
+
+## calls
+
+<a id="api-16545"></a>
+
+### 16545: POST /v1/calls/command
+
+## Registered operation
+`POST /v1/calls/command`
+
+Governance ID: 16545. Registry code: `INTERNAL_CALL_COMMAND`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16544"></a>
+
+### 16544: POST /v1/calls/dial
+
+## Registered operation
+`POST /v1/calls/dial`
+
+Governance ID: 16544. Registry code: `INTERNAL_CALL_DIAL`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16542"></a>
+
+### 16542: POST /v1/calls/directory
+
+## Registered operation
+`POST /v1/calls/directory`
+
+Governance ID: 16542. Registry code: `INTERNAL_CALL_DIRECTORY`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16547"></a>
+
+### 16547: GET /v1/calls/events
+
+## Registered operation
+`GET /v1/calls/events`
+
+Governance ID: 16547. Registry code: `INTERNAL_CALL_EVENTS`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16543"></a>
+
+### 16543: POST /v1/calls/extension
+
+## Registered operation
+`POST /v1/calls/extension`
+
+Governance ID: 16543. Registry code: `INTERNAL_CALL_EXTENSION`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16546"></a>
+
+### 16546: POST /v1/calls/media
+
+## Registered operation
+`POST /v1/calls/media`
+
+Governance ID: 16546. Registry code: `INTERNAL_CALL_MEDIA`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16548"></a>
+
+### 16548: POST /v1/calls/prepare
+
+## Registered operation
+`POST /v1/calls/prepare`
+
+Governance ID: 16548. Registry code: `INTERNAL_CALL_PREPARE`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16549"></a>
+
+### 16549: POST /v1/calls/prepare/read
+
+## Registered operation
+`POST /v1/calls/prepare/read`
+
+Governance ID: 16549. Registry code: `INTERNAL_CALL_PREPARE_READ`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16550"></a>
+
+### 16550: POST /v1/calls/prepare/signal
+
+## Registered operation
+`POST /v1/calls/prepare/signal`
+
+Governance ID: 16550. Registry code: `INTERNAL_CALL_PREPARE_SIGNAL`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
 - missing_rate_limit_key
 - runtime_security_persistence_and_tests_not_verified
 
@@ -18743,6 +19924,274 @@ These are proposed checks, not passed tests.
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
 
+<a id="api-16570"></a>
+
+### 16570: POST /v1/client/booking-requests
+
+## Registered operation
+`POST /v1/client/booking-requests`
+
+Governance ID: 16570. Registry code: `CLIENT_BOOKING_REQUEST_CREATE`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/client-booking-lifecycle-batch-19.openapi.json](../../docs/api/client-booking-lifecycle-batch-19.openapi.json)
+
+**Purpose / behavior from source:** Submit own booking request
+
+Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `service_type`: string, required, minLength=1, maxLength=100
+- `preferred_date`: string, required, pattern-constrained; see source
+- `preferred_time`: ['string', 'null'], optional, pattern-constrained; see source
+- `notes`: ['string', 'null'], optional, maxLength=2000
+Additional properties are rejected for this shape.
+
+**Response 201:** Owner data
+
+Content type `application/json`:
+- `request`: object, required
+
+**Response 400:** Invalid query/body
+
+**Response 401:** Invalid session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Own client profile or booking absent
+
+**Response 409:** Idempotency or state conflict
+
+**Response 405:** Unsupported method
+
+**Response 429:** Source limit
+
+**Response 503:** Database unavailable or schema dependency missing
+
+<a id="api-16571"></a>
+
+### 16571: GET /v1/client/booking-requests/{requestId}
+
+## Registered operation
+`GET /v1/client/booking-requests/{requestId}`
+
+Governance ID: 16571. Registry code: `CLIENT_BOOKING_REQUEST_READ`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+Multiple source versions exist. Read every reference; incompatible request/security/response definitions must be reconciled against the current runtime and governance before client generation. No version is silently selected.
+
+### [docs/api/client-booking-requests-batch-18.openapi.json](../../docs/api/client-booking-requests-batch-18.openapi.json)
+
+**Purpose / behavior from source:** Read own booking request
+
+Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Booking-request queries additionally check booking tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `requestId` in path (required)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Owner data
+
+Content type `application/json`:
+- `request`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid query/body
+
+**Response 401:** Invalid session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Own client profile or booking absent
+
+**Response 405:** Unsupported method
+
+**Response 429:** Source limit
+
+**Response 503:** Database unavailable or schema dependency missing
+
+### [docs/api/client-operational-projections-batches-191-194.openapi.json](../../docs/api/client-operational-projections-batches-191-194.openapi.json)
+
+**Purpose / behavior from source:** Read validated own client operational data
+
+Active explicit bearer session, one client profile owned through client_profiles.user_id, and matching non-null tenant are required. Every domain query binds the owned profile and tenant. Runtime projections, counts, timestamps, nullable fields and stored status groups are validated without coercion; malformed database values return a sanitized 503. Read only; no role grants, owner overrides, clinical interpretation, approval, completion or production-readiness claims.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `requestId` in path (required)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Validated owner-scoped data
+
+Content type `application/json`:
+- `request`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid identifier, query or body
+
+**Response 401:** No active bearer session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Owned profile or record absent
+
+**Response 405:** Read only
+
+**Response 429:** Source limit
+
+**Response 503:** Client data unavailable
+
+<a id="api-16572"></a>
+
+### 16572: POST /v1/client/booking-requests/{requestId}/cancel
+
+## Registered operation
+`POST /v1/client/booking-requests/{requestId}/cancel`
+
+Governance ID: 16572. Registry code: `CLIENT_BOOKING_REQUEST_CANCEL`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/client-booking-lifecycle-batch-19.openapi.json](../../docs/api/client-booking-lifecycle-batch-19.openapi.json)
+
+**Purpose / behavior from source:** Cancel own pending booking request
+
+Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+- `requestId` in path (required)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Owner data
+
+Content type `application/json`:
+- `request`: object, required
+
+**Response 400:** Invalid query/body
+
+**Response 401:** Invalid session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Own client profile or booking absent
+
+**Response 409:** Idempotency or state conflict
+
+**Response 405:** Unsupported method
+
+**Response 429:** Source limit
+
+**Response 503:** Database unavailable or schema dependency missing
+
 <a id="api-237"></a>
 
 ### 237: POST /v1/client/bookings
@@ -18795,7 +20244,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Exact POST compatibility route to /v1/client/booking-requests. Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses. The client-book-req touchpoint uses this POST; GET /v1/client/bookings remains the existing list alias. Caller fields are service_type, preferred_date (UTC), optional preferred_time and notes. Legacy serviceTypeId/date/time/duration fields are rejected rather than silently converted. This creates a pending request, not a confirmed appointment. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
@@ -18880,7 +20329,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Exact POST compatibility route to /v1/client/booking-requests. Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses. Caller fields are service_type, preferred_date (UTC), optional preferred_time and notes. Legacy serviceTypeId/date/time/duration fields are rejected rather than silently converted. This creates a pending request, not a confirmed appointment. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
@@ -18965,7 +20414,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Exact POST compatibility route to /v1/client/booking-requests. Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Mutations lock the active actor and owned profile, use an actor/tenant idempotency key and write audit atomically. Cancellation is restricted to pending requests. Audit joins the owned request. Additive booking_request_audit migration required. Missing profile returns 404; conflicting tenant header returns 403. Notes are excluded. No clinical details or payment processor identifiers are returned. No new role grants. Mutation and stored retry responses validate exact request identity, expected action status, fields and UTC timestamps. Invalid results return sanitized 503, without success or replay headers, and roll back writes before audit/commit. Audit events validate the created/null/pending and cancelled/pending/cancelled transitions. Stored retry extras are excluded from responses. Legacy submit-button and interaction declarations use this POST; the list registry uses GET /v1/client/booking-requests. Caller fields are service_type, preferred_date (UTC), optional preferred_time and notes. Legacy serviceTypeId/date/time/duration fields are rejected rather than silently converted. This creates a pending request, not a confirmed appointment. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
@@ -18997,6 +20446,83 @@ Content type `application/json`:
 **Response 429:** Source limit
 
 **Response 503:** Database unavailable or schema dependency missing
+
+<a id="api-16567"></a>
+
+### 16567: GET /v1/client/consents
+
+## Registered operation
+`GET /v1/client/consents`
+
+Governance ID: 16567. Registry code: `CLIENT_OWN_CONSENT_FORMS_LIST`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/client-records-batch-21.openapi.json](../../docs/api/client-records-batch-21.openapi.json)
+
+**Purpose / behavior from source:** Read owned consent forms list
+
+Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations. Feedback is recorded metadata, not proof of authorship or resolved care; comments, resolution notes and visit identifiers are excluded.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `limit` in query (optional)
+- `offset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Projected owned metadata
+
+Content type `application/json`:
+- `consents`: array, required, maxItems=100
+- `pagination`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid ID/query/body
+
+**Response 401:** No active bearer session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Profile or record absent
+
+**Response 405:** Read only
+
+**Response 429:** Source limit
+
+**Response 503:** Data unavailable
 
 <a id="api-243"></a>
 
@@ -19453,7 +20979,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Active explicit bearer session, one client profile owned through client_profiles.user_id, and matching non-null tenant are required. Every domain query binds the owned profile and tenant. Runtime projections, counts, timestamps, nullable fields and stored status groups are validated without coercion; malformed database values return a sanitized 503. Read only; no role grants, owner overrides, clinical interpretation, approval, completion or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -19483,7 +21009,7 @@ Additional properties are rejected for this shape.
 
 Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -19645,7 +21171,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Invoice query additionally checks invoice tenant and owner profile. Missing profile returns 404; conflicting tenant header returns 403. No clinical details or payment processor identifiers are returned. Nullable stored status/currency and amounts remain null; no default currency or zero amount is inferred. Decimal values and sums remain exact finite decimal strings when present; malformed projected IDs, timestamps, labels, amounts and counts fail closed with sanitized 503. NaN/infinite numeric storage is not exposed as an amount. No new role grants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -19852,6 +21378,83 @@ These are proposed checks, not passed tests.
 
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16568"></a>
+
+### 16568: GET /v1/client/service-authorizations
+
+## Registered operation
+`GET /v1/client/service-authorizations`
+
+Governance ID: 16568. Registry code: `CLIENT_OWN_SERVICE_AUTHORIZATIONS_LIST`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/client-records-batch-21.openapi.json](../../docs/api/client-records-batch-21.openapi.json)
+
+**Purpose / behavior from source:** Read owned service authorizations list
+
+Active explicit bearer session, unique owned client profile and matching tenant required. SQL restricts client_id and tenant_id; detail binds the exact record ID. Registered metadata fields only: no notes, authorization codes, signature data, storage keys or witness details. Stored consent status is not a legal validity judgment; authorization hours do not imply available/billable care; waitlist status does not imply an appointment. No new grants or mutations. Feedback is recorded metadata, not proof of authorship or resolved care; comments, resolution notes and visit identifiers are excluded.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `limit` in query (optional)
+- `offset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Projected owned metadata
+
+Content type `application/json`:
+- `authorizations`: array, required, maxItems=100
+- `pagination`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid ID/query/body
+
+**Response 401:** No active bearer session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Profile or record absent
+
+**Response 405:** Read only
+
+**Response 429:** Source limit
+
+**Response 503:** Data unavailable
 
 <a id="api-240"></a>
 
@@ -20122,6 +21725,120 @@ These are proposed checks, not passed tests.
 
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16566"></a>
+
+### 16566: GET /v1/client/visits
+
+## Registered operation
+`GET /v1/client/visits`
+
+Governance ID: 16566. Registry code: `CLIENT_OWN_VISITS`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `authenticated_client_profile_owner`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `workspace.source`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+Multiple source versions exist. Read every reference; incompatible request/security/response definitions must be reconciled against the current runtime and governance before client generation. No version is silently selected.
+
+### [docs/api/client-operational-projections-batches-191-194.openapi.json](../../docs/api/client-operational-projections-batches-191-194.openapi.json)
+
+**Purpose / behavior from source:** Read validated own client operational data
+
+Active explicit bearer session, one client profile owned through client_profiles.user_id, and matching non-null tenant are required. Every domain query binds the owned profile and tenant. Runtime projections, counts, timestamps, nullable fields and stored status groups are validated without coercion; malformed database values return a sanitized 503. Read only; no role grants, owner overrides, clinical interpretation, approval, completion or production-readiness claims.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `limit` in query (optional)
+- `offset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Validated owner-scoped data
+
+Content type `application/json`:
+- `visits`: array, required
+- `pagination`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid identifier, query or body
+
+**Response 401:** No active bearer session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Owned profile or record absent
+
+**Response 405:** Read only
+
+**Response 429:** Source limit
+
+**Response 503:** Client data unavailable
+
+### [docs/api/client-visits-batch-11.openapi.json](../../docs/api/client-visits-batch-11.openapi.json)
+
+**Purpose / behavior from source:** List own visits
+
+Active explicit bearer session. client_profiles.user_id must match the actor and tenant_id must match the actor tenant. No arbitrary clientId/userId/tenant overrides. Visit queries additionally require client_id to match the owned client profile and tenant_id to match the actor tenant. Missing profile returns 404; conflicting tenant header returns 403. Only operational visit summaries are returned. No client identifiers, addresses or clinical/management notes. No new role grants.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `limit` in query (optional)
+- `offset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Owner data
+
+Content type `application/json`:
+- `visits`: array, required
+- `pagination`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid query/body
+
+**Response 401:** Invalid session
+
+**Response 403:** Tenant mismatch
+
+**Response 404:** Own client profile or visit absent
+
+**Response 405:** Unsupported method
+
+**Response 429:** Source limit
+
+**Response 503:** Database unavailable or schema dependency missing
 
 <a id="family-client-intake"></a>
 
@@ -20407,7 +22124,58 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json](../../tests/fixtures/clinical-director-api-candidate/api-only-contract.openapi.json)
+
+**Purpose / behavior from source:** Count distinct branch_id from the reviewed effective-scope view for the active signed-in Clinical Director in their active tenant, in the same repeatable-read read-only authorization transaction. No query/body/tenant overrides or IDs returned. Zero scope is 403 no_scope; database/read failure is 503 unavailable.
+
+**Authentication declared in source:** operation level: sessionBearer; sessionCookie
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 400:** No body, query string or tenant override accepted
+
+Content type `application/json`:
+- `error`: constrained value, required, 1 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing, invalid or expired session; inactive user or tenant
+
+Content type `application/json`:
+- `error`: constrained value, required, 1 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 403:** Wrong role, or no effective assigned verified active branch
+
+Content type `application/json`:
+- `error`: constrained value, required, 2 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 405:** GET only
+
+Content type `application/json`:
+- `error`: constrained value, required, 1 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 429:** Configured source limiter denied
+
+Content type `application/json`:
+- `error`: constrained value, required, 1 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 503:** Governance service unavailable, authorization database unavailable, or unsafe aggregate; no internal detail.
+
+Content type `application/json`:
+- `error`: constrained value, required, 1 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Count of distinct currently assigned active verified branches in the current director tenant. No appointment metric or identifiers.
+
+Content type `application/json`:
+- `assignedVerifiedBranchCount`: integer, required, minimum=1, maximum=9007199254740991
+Additional properties are rejected for this shape.
 
 <a id="api-1205"></a>
 
@@ -24483,6 +26251,220 @@ These are proposed checks, not passed tests.
 ## Endpoint-specific implementation references
 No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
 
+<a id="family-external-calls"></a>
+
+## external-calls
+
+<a id="api-16555"></a>
+
+### 16555: POST /v1/external-calls/complete
+
+## Registered operation
+`POST /v1/external-calls/complete`
+
+Governance ID: 16555. Registry code: `EXTERNAL_EXTERNAL_COMPLETE`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `provider_signature`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16554"></a>
+
+### 16554: POST /v1/external-calls/connect
+
+## Registered operation
+`POST /v1/external-calls/connect`
+
+Governance ID: 16554. Registry code: `EXTERNAL_EXTERNAL_CONNECT`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `provider_signature`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16553"></a>
+
+### 16553: POST /v1/external-calls/end
+
+## Registered operation
+`POST /v1/external-calls/end`
+
+Governance ID: 16553. Registry code: `EXTERNAL_EXTERNAL_END`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16551"></a>
+
+### 16551: POST /v1/external-calls/prepare
+
+## Registered operation
+`POST /v1/external-calls/prepare`
+
+Governance ID: 16551. Registry code: `EXTERNAL_EXTERNAL_PREPARE`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16552"></a>
+
+### 16552: POST /v1/external-calls/state
+
+## Registered operation
+`POST /v1/external-calls/state`
+
+Governance ID: 16552. Registry code: `EXTERNAL_EXTERNAL_STATE`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
 <a id="family-failed-workflow"></a>
 
 ## failed-workflow
@@ -25801,7 +27783,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -25871,7 +27853,220 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Read assigned care worklist and record
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `offset` in query (optional)
+- `case` in query (optional)
+- `view` in query (optional)
+- `staffingOffset` in query (optional)
+- `staff` in query (optional)
+- `seriesOffset` in query (optional)
+- `timeOffset` in query (optional)
+- `handoverOffset` in query (optional)
+- `followupOffset` in query (optional)
+- `followupView` in query (optional)
+- `followupOwner` in query (optional)
+- `workloadOffset` in query (optional)
+- `workloadQuery` in query (optional)
+- `rosterQuery` in query (optional)
+- `visitQuery` in query (optional)
+- `visitOffset` in query (optional)
+- `sourceQuery` in query (optional)
+- `sourceOffset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+- `detail`: constrained value, required
+- `cases`: array, required, maxItems=25
+- `people`: array, required, maxItems=200
+- `visits`: array, required, maxItems=100
+- `staffing`: object, required
+- `visitPicker`: object, required
+- `schedules`: object, required
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
+
+<a id="api-16576"></a>
+
+### 16576: GET /v1/governance/care/additional-charge
+
+## Registered operation
+`GET /v1/governance/care/additional-charge`
+
+Governance ID: 16576. Registry code: `PSW_COORDINATOR_CHARGE_GET`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `coordinator_charge.current_tenant_admin`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/coordinator-charge.openapi.json](../../docs/care/coordinator-charge.openapi.json)
+
+**Purpose / behavior from source:** Read assignments and audit
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `tenant` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Tenant-scoped assignments and audit; primary role preserved
+
+**Response 400:** Invalid body, query or dates
+
+**Response 401:** Active session required
+
+**Response 403:** Role, tenant or current assignment denied
+
+**Response 404:** Organization or assignment not found
+
+**Response 409:** Overlapping assignment, stale version or changed idempotency request
+
+**Response 415:** JSON content required
+
+**Response 429:** Rate limit
+
+**Response 503:** Database unavailable; no success assumed
+
+<a id="api-16577"></a>
+
+### 16577: POST /v1/governance/care/additional-charge
+
+## Registered operation
+`POST /v1/governance/care/additional-charge`
+
+Governance ID: 16577. Registry code: `PSW_COORDINATOR_CHARGE_POST`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `coordinator_charge.current_tenant_admin`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/coordinator-charge.openapi.json](../../docs/care/coordinator-charge.openapi.json)
+
+**Purpose / behavior from source:** Assign, end or enter a coordinator additional charge
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `tenant` in query (optional)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `action`: constrained value, required, 3 allowed values; see source
+- `userId`: string, optional
+- `startsOn`: string, optional
+- `endsOn`: ['string', 'null'], optional
+- `reason`: string, optional, minLength=10, maxLength=1000
+- `id`: string, optional
+- `version`: integer, optional, minimum=1
+Additional properties are rejected for this shape.
+
+**Response 200:** Tenant-scoped assignments and audit; primary role preserved
+
+**Response 400:** Invalid body, query or dates
+
+**Response 401:** Active session required
+
+**Response 403:** Role, tenant or current assignment denied
+
+**Response 404:** Organization or assignment not found
+
+**Response 409:** Overlapping assignment, stale version or changed idempotency request
+
+**Response 415:** JSON content required
+
+**Response 429:** Rate limit
+
+**Response 503:** Database unavailable; no success assumed
 
 <a id="api-16481"></a>
 
@@ -25912,7 +28107,50 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care cases
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+- `visitId`: string, required, minLength=1, maxLength=200
+- `nurseId`: string, required, minLength=1, maxLength=200
+- `supervisorId`: string, required, minLength=1, maxLength=200
+- `workerId`: string, required, minLength=1, maxLength=200
+- `evidence`: string, required, minLength=1, maxLength=2000
+Additional properties are rejected for this shape.
+
+**Response 201:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16482"></a>
 
@@ -25953,7 +28191,137 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care cases {id} actions
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+18 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `assessment`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `risks`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `escalation`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `consentEvidence`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `consentChecked`: constrained value, required, fixed value; see source
+- variant 1: `validUntil`: string, required
+- variant 1: `tasks`: array, required, minItems=1, maxItems=20
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 4: `action`: constrained value, required, fixed value; see source
+- variant 4: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 4: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 5: `action`: constrained value, required, fixed value; see source
+- variant 5: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 5: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 6: `action`: constrained value, required, fixed value; see source
+- variant 6: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 6: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 6: `consentChecked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 7: `action`: constrained value, required, fixed value; see source
+- variant 7: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 7: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 7: `taskId`: string, required
+- variant 7: `outcome`: constrained value, required, 4 allowed values; see source
+Additional properties are rejected for this shape.
+- variant 8: `action`: constrained value, required, fixed value; see source
+- variant 8: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 8: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 9: `action`: constrained value, required, fixed value; see source
+- variant 9: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 9: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 9: `eventId`: string, required
+Additional properties are rejected for this shape.
+- variant 10: `action`: constrained value, required, fixed value; see source
+- variant 10: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 10: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 11: `action`: constrained value, required, fixed value; see source
+- variant 11: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 11: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 12: `action`: constrained value, required, fixed value; see source
+- variant 12: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 12: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 12: `nurseId`: string, required, pattern-constrained; see source
+- variant 12: `supervisorId`: string, required, pattern-constrained; see source
+- variant 12: `workerId`: string, required, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 13: `action`: constrained value, required, fixed value; see source
+- variant 13: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 13: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 14: `action`: constrained value, required, fixed value; see source
+- variant 14: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 14: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 15: `action`: constrained value, required, fixed value; see source
+- variant 15: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 15: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 15: `reason`: constrained value, required, 5 allowed values; see source
+Additional properties are rejected for this shape.
+- variant 16: `action`: constrained value, required, fixed value; see source
+- variant 16: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 16: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 17: `action`: constrained value, required, fixed value; see source
+- variant 17: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 17: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 17: `startsAt`: string, required
+- variant 17: `durationMinutes`: integer, required, minimum=15, maximum=720
+- variant 17: `confirmed`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 18: `action`: constrained value, required, fixed value; see source
+- variant 18: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 18: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 18: `confirmed`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16480"></a>
 
@@ -25994,7 +28362,53 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care clearances
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+- `staffId`: string, required, minLength=1, maxLength=200
+- `version`: integer, required, minimum=0, maximum=2147483646
+- `status`: constrained value, required, 2 allowed values; see source
+- `expiresOn`: string, required
+- `registration`: string, required, minLength=1, maxLength=100
+- `evidence`: string, required, minLength=1, maxLength=2000
+- `checked`: constrained value, required, fixed value; see source
+- `profile`: object, optional
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16487"></a>
 
@@ -26035,7 +28449,120 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care followups
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+13 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 1: `caseId`: string, required
+- variant 1: `category`: constrained value, required, 8 allowed values; see source
+- variant 1: `ownerId`: string, required, minLength=1, maxLength=200
+- variant 1: `dueAt`: string, required
+- variant 1: `prerequisiteIds`: array, optional, maxItems=5
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 2: `id`: string, required
+- variant 2: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 3: `id`: string, required
+- variant 3: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 4: `action`: constrained value, required, fixed value; see source
+- variant 4: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 4: `id`: string, required
+- variant 4: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 5: `action`: constrained value, required, fixed value; see source
+- variant 5: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 5: `id`: string, required
+- variant 5: `version`: integer, required, minimum=1, maximum=49
+- variant 5: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 6: `action`: constrained value, required, fixed value; see source
+- variant 6: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 6: `id`: string, required
+- variant 6: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 7: `action`: constrained value, required, fixed value; see source
+- variant 7: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 7: `id`: string, required
+- variant 7: `version`: integer, required, minimum=1, maximum=49
+- variant 7: `ownerId`: string, required, minLength=1, maxLength=200
+- variant 7: `dueAt`: string, required
+Additional properties are rejected for this shape.
+- variant 8: `action`: constrained value, required, fixed value; see source
+- variant 8: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 8: `id`: string, required
+- variant 8: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 9: `action`: constrained value, required, fixed value; see source
+- variant 9: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 9: `id`: string, required
+- variant 9: `version`: integer, required, minimum=1, maximum=49
+- variant 9: `dueAt`: string, required
+Additional properties are rejected for this shape.
+- variant 10: `action`: constrained value, required, fixed value; see source
+- variant 10: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 10: `id`: string, required
+- variant 10: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 11: `action`: constrained value, required, fixed value; see source
+- variant 11: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 11: `id`: string, required
+- variant 11: `version`: integer, required, minimum=1, maximum=49
+- variant 11: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 12: `action`: constrained value, required, fixed value; see source
+- variant 12: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 12: `id`: string, required
+- variant 12: `version`: integer, required, minimum=1, maximum=49
+Additional properties are rejected for this shape.
+- variant 13: `action`: constrained value, required, fixed value; see source
+- variant 13: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 13: `id`: string, required
+- variant 13: `version`: integer, required, minimum=1, maximum=49
+- variant 13: `prerequisiteId`: string, required
+- variant 13: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16486"></a>
 
@@ -26073,6 +28600,167 @@ Rate-limit key: `care.actor`. Audit events, retention and retry policy require a
 These are proposed checks, not passed tests.
 
 ## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care handovers
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+6 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 1: `sourceCaseId`: string, required
+- variant 1: `targetCaseId`: string, required
+- variant 1: `summary`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 1: `outstanding`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 1: `precautions`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 2: `id`: string, required
+- variant 2: `version`: integer, required, minimum=1, maximum=20
+- variant 2: `summary`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 2: `outstanding`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 2: `precautions`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 3: `id`: string, required
+- variant 3: `version`: integer, required, minimum=1, maximum=20
+- variant 3: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 4: `action`: constrained value, required, fixed value; see source
+- variant 4: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 4: `id`: string, required
+- variant 4: `version`: integer, required, minimum=1, maximum=20
+Additional properties are rejected for this shape.
+- variant 5: `action`: constrained value, required, fixed value; see source
+- variant 5: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 5: `id`: string, required
+- variant 5: `version`: integer, required, minimum=1, maximum=20
+- variant 5: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 6: `action`: constrained value, required, fixed value; see source
+- variant 6: `note`: string, required, minLength=1, maxLength=1000, pattern-constrained; see source
+- variant 6: `id`: string, required
+- variant 6: `version`: integer, required, minimum=1, maximum=20
+- variant 6: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
+
+<a id="api-16574"></a>
+
+### 16574: GET /v1/governance/care/personal
+
+## Registered operation
+`GET /v1/governance/care/personal`
+
+Governance ID: 16574. Registry code: `PSW_PERSONAL_GET`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16575"></a>
+
+### 16575: POST /v1/governance/care/personal
+
+## Registered operation
+`POST /v1/governance/care/personal`
+
+Governance ID: 16575. Registry code: `PSW_PERSONAL_POST`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
@@ -26117,7 +28805,69 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care schedules
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+3 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `sourceVisitId`: string, required, minLength=1, maxLength=200
+- variant 1: `localStart`: string, required, pattern-constrained; see source
+- variant 1: `timeZone`: constrained value, required, 2 allowed values; see source
+- variant 1: `count`: integer, required, minimum=1, maximum=12
+- variant 1: `intervalWeeks`: integer, required, minimum=1, maximum=4
+- variant 1: `durationMinutes`: integer, required, minimum=15, maximum=720
+- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `sourceVisitId`: string, required, minLength=1, maxLength=200
+- variant 2: `localStart`: string, required, pattern-constrained; see source
+- variant 2: `timeZone`: constrained value, required, 2 allowed values; see source
+- variant 2: `count`: integer, required, minimum=1, maximum=12
+- variant 2: `intervalWeeks`: integer, required, minimum=1, maximum=4
+- variant 2: `durationMinutes`: integer, required, minimum=15, maximum=720
+- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 2: `confirmed`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `visitId`: string, required, minLength=1, maxLength=200
+- variant 3: `updatedAt`: string, required
+- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16483"></a>
 
@@ -26158,7 +28908,78 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care staffing
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+6 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `staffId`: string, required, minLength=1, maxLength=200
+- variant 1: `startsAt`: string, required
+- variant 1: `endsAt`: string, required
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 2: `staffId`: string, required, minLength=1, maxLength=200
+- variant 2: `startsAt`: string, required
+- variant 2: `endsAt`: string, required
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 3: `id`: string, required
+- variant 3: `version`: integer, required, minimum=1, maximum=3
+Additional properties are rejected for this shape.
+- variant 4: `action`: constrained value, required, fixed value; see source
+- variant 4: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 4: `id`: string, required
+- variant 4: `version`: integer, required, minimum=1, maximum=3
+Additional properties are rejected for this shape.
+- variant 5: `action`: constrained value, required, fixed value; see source
+- variant 5: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 5: `id`: string, required
+- variant 5: `version`: integer, required, minimum=1, maximum=3
+Additional properties are rejected for this shape.
+- variant 6: `action`: constrained value, required, fixed value; see source
+- variant 6: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 6: `id`: string, required
+- variant 6: `version`: integer, required, minimum=1, maximum=3
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required, minimum=1, maximum=3
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-16485"></a>
 
@@ -26199,7 +29020,65 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/openapi.json](../../docs/care/openapi.json)
+
+**Purpose / behavior from source:** Scoped care time-records
+
+Active tenant and governed care role required. Current clearance, assignment purpose, independent reviewer and state/version checks apply. Manual human verification is not live regulator verification. No controlled-act or medication authority is granted.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+3 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `caseId`: string, required
+- variant 1: `version`: integer, required, minimum=0, maximum=49
+- variant 1: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 1: `actualStart`: string, required
+- variant 1: `actualEnd`: string, required
+- variant 1: `breakMinutes`: integer, required, minimum=0, maximum=1440
+- variant 1: `attested`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `caseId`: string, required
+- variant 2: `version`: integer, required, minimum=0, maximum=49
+- variant 2: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+- variant 2: `checked`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `caseId`: string, required
+- variant 3: `version`: integer, required, minimum=0, maximum=49
+- variant 3: `note`: string, required, minLength=1, maxLength=2000, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted scoped care result
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields, consent or tenant override
+
+**Response 401:** Session inactive or expired
+
+**Response 403:** Role, qualification or action denied
+
+**Response 404:** Hidden or missing record
+
+**Response 405:** Method denied
+
+**Response 409:** Stale version or workflow state
+
+**Response 413:** Record limit
+
+**Response 429:** Rate limit
+
+**Response 503:** Storage or schema unavailable
 
 <a id="api-888"></a>
 
@@ -26375,7 +29254,66 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped founder dashboard
+
+Current active tenant-scoped session and governed role policy. Owner/CEO control plans, campaign money and review decisions. Eligible business roles receive a current UTC-month proposal estimate based on recorded payments less refunds; billable is always false. No fund, charge, provider launch or bank reconciliation is implied.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `offset` in query (optional)
+- `q` in query (optional)
+- `pipeline` in query (optional)
+- `stage` in query (optional)
+- `source` in query (optional)
+- `owner` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+- `business`: object, optional
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16457"></a>
 
@@ -26416,7 +29354,41 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Record appointments coordination workflow
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `leadId`: string, required
+- `ownerId`: string, required
+- `startsAt`: string, required
+- `duration`: integer, required, minimum=15, maximum=180
+- `notes`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 201:** Saved
+
+**Response 400:** Invalid request
+
+**Response 401:** Authentication required
+
+**Response 403:** Role denied
+
+**Response 404:** Not found in current tenant
+
+**Response 409:** Stale version, blocked contact or scheduling conflict
+
+**Response 429:** Actor rate limit
+
+**Response 503:** Unavailable; write rolled back
 
 <a id="api-16458"></a>
 
@@ -26457,7 +29429,40 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Record appointments coordination workflow
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1
+- `status`: string, required, 3 allowed values; see source
+- `notes`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Saved
+
+**Response 400:** Invalid request
+
+**Response 401:** Authentication required
+
+**Response 403:** Role denied
+
+**Response 404:** Not found in current tenant
+
+**Response 409:** Stale version, blocked contact or scheduling conflict
+
+**Response 429:** Actor rate limit
+
+**Response 503:** Unavailable; write rolled back
 
 <a id="api-16461"></a>
 
@@ -26498,7 +29503,54 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Save a versioned draft campaign brief
+
+Tenant and source scoped. Managers assign active source-compatible owners. Specialists may create an own brief and edit only their own brief. Stores planning text and an optional HTTPS URL without fetching it; never approves or launches ads. Pending review briefs cannot be edited; withdraw first. Any later edit resets status to draft and invalidates approval.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `ownerId`: string, required
+- `audience`: string, required, minLength=1, maxLength=1000
+- `offer`: string, required, minLength=1, maxLength=1000
+- `creative`: string, required, minLength=1, maxLength=3000
+- `landingUrl`: string, required, maxLength=2000
+- `pipeline`: string, required, 2 allowed values; see source
+- `targetLeads`: integer, required, minimum=1, maximum=1000000
+- `start`: string, required
+- `end`: string, required
+- `version`: integer, required, minimum=0, maximum=2147483647
+Additional properties are rejected for this shape.
+
+**Response 200:** Draft saved
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required, minimum=1
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid planning fields, date range, URL or owner
+
+**Response 401:** Authentication required
+
+**Response 403:** Operation or brief ownership denied
+
+**Response 404:** Campaign outside tenant/source scope
+
+**Response 409:** Stale brief version
+
+**Response 429:** Rate limited
+
+**Response 503:** Unavailable; write rolled back
 
 <a id="api-16456"></a>
 
@@ -26539,7 +29591,41 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Record calls coordination workflow
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `leadId`: string, required
+- `leadVersion`: integer, required, minimum=1
+- `outcome`: string, required, 6 allowed values; see source
+- `notes`: string, required, minLength=1, maxLength=500
+- `dueAt`: ['string', 'null'], required
+Additional properties are rejected for this shape.
+
+**Response 201:** Saved
+
+**Response 400:** Invalid request
+
+**Response 401:** Authentication required
+
+**Response 403:** Role denied
+
+**Response 404:** Not found in current tenant
+
+**Response 409:** Stale version, blocked contact or scheduling conflict
+
+**Response 429:** Actor rate limit
+
+**Response 503:** Unavailable; write rolled back
 
 <a id="api-16451"></a>
 
@@ -26580,7 +29666,67 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /campaigns
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `name`: string, required, minLength=1, maxLength=150
+- `source`: constrained value, required, 7 allowed values; see source
+- `reference`: string, required, minLength=1, maxLength=500
+- `budgetCents`: integer, required, minimum=0, maximum=100000000
+- `spendCents`: integer, required, minimum=0, maximum=100000000
+Additional properties are rejected for this shape.
+
+**Response 201:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16452"></a>
 
@@ -26621,7 +29767,66 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /campaigns/{id}
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care. Owner/CEO only. Changing budget resets any brief to draft and increments its version; spend-only changes retain the review state.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `budgetCents`: integer, required, minimum=0, maximum=100000000
+- `spendCents`: integer, required, minimum=0, maximum=100000000
+- `version`: integer, required, minimum=1, maximum=2147483647
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16478"></a>
 
@@ -26662,7 +29867,69 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Record owner service-capacity confirmation
+
+Owner/CEO in current tenant only. Requires a client campaign on a governed paid source, a current approved brief with recorded owner budget review, a matching brief version and the latest capacity version. Appends immutable operational evidence. Zero slots blocks capacity readiness. Expiry must be in the next 30 days. No clinical scheduling, staffing guarantee or advertising provider launch. Present owner authority checked before idempotency replay.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `idempotency-key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=0
+- `briefVersion`: integer, required, minimum=1
+- `clientSlots`: integer, required, minimum=0, maximum=1000
+- `expiresAt`: string, required
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Appended confirmation version
+
+Content type `application/json`:
+- `id`: string, optional
+- `version`: integer, optional
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16459"></a>
 
@@ -26703,7 +29970,47 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Correct contact details
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1
+- `name`: string, required, minLength=1, maxLength=150
+- `email`: string, required, maxLength=254
+- `phone`: string, required, maxLength=40
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Saved
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required, minimum=1
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid fields or nonmatching candidate
+
+**Response 401:** Authentication required
+
+**Response 403:** Operation denied
+
+**Response 404:** Outside authorized assignment or tenant
+
+**Response 409:** Stale version, duplicate identity or existing duplicate link
+
+**Response 429:** Rate limited
+
+**Response 503:** Unavailable; mutation rolled back
 
 <a id="api-16460"></a>
 
@@ -26744,7 +30051,48 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Review a same-pipeline contact duplicate
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `canonicalId`: string, required
+- `duplicateId`: string, required
+- `canonicalVersion`: integer, required, minimum=1
+- `duplicateVersion`: integer, required, minimum=1
+- `reviewVersion`: integer, required, minimum=0
+- `decision`: string, required, 2 allowed values; see source
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 201:** Saved
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required, minimum=1
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid fields or nonmatching candidate
+
+**Response 401:** Authentication required
+
+**Response 403:** Operation denied
+
+**Response 404:** Outside authorized assignment or tenant
+
+**Response 409:** Stale version, duplicate identity or existing duplicate link
+
+**Response 429:** Rate limited
+
+**Response 503:** Unavailable; mutation rolled back
 
 <a id="api-16466"></a>
 
@@ -26785,7 +30133,45 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Read public enquiry form title and pipeline
+
+Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.
+
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Parameters:**
+- `key` in path (required)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 400:** Invalid input or forbidden tenant/header fields
+
+**Response 404:** Unknown or unavailable public link
+
+**Response 405:** Unsupported method
+
+**Response 409:** Version or idempotency conflict
+
+**Response 413:** Request body exceeds shared 50,000-byte limit
+
+**Response 429:** Rate limited; retry-after 60 seconds
+
+**Response 503:** Unavailable; sanitized error
+
+**Response 200:** Public form configuration
+
+Content type `application/json`:
+- `name`: string, required
+- `pipeline`: constrained value, required, 2 allowed values; see source
+- `consentVersion`: string, required
+- `routingMode`: constrained value, optional, 2 allowed values; see source
+- `sharingConsentVersion`: string, optional
+Additional properties are rejected for this shape.
 
 <a id="api-16467"></a>
 
@@ -26826,7 +30212,53 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Submit a consent-based website enquiry
+
+Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.
+
+**Authentication declared in source:** An explicit empty security requirement is declared; review the runtime before treating access as public.
+
+**Parameters:**
+- `key` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `name`: string, required, minLength=1, maxLength=150
+- `email`: string, required, maxLength=254
+- `phone`: string, required, maxLength=40
+- `consent`: constrained value, required, fixed value; see source
+- `consentVersion`: constrained value, required, fixed value; see source
+- `website`: constrained value, required, fixed value; see source
+- `postalCode`: string, optional, maxLength=7
+- `service`: constrained value, optional, 2 allowed values; see source
+- `sharingConsent`: constrained value, optional, fixed value; see source
+- `sharingConsentVersion`: constrained value, optional, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid input or forbidden tenant/header fields
+
+**Response 404:** Unknown or unavailable public link
+
+**Response 405:** Unsupported method
+
+**Response 409:** Version or idempotency conflict
+
+**Response 413:** Request body exceeds shared 50,000-byte limit
+
+**Response 429:** Rate limited; retry-after 60 seconds
+
+**Response 503:** Unavailable; sanitized error
+
+**Response 202:** Generic receipt (including repeat enquiries)
+
+Content type `application/json`:
+- `accepted`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
 
 <a id="api-16475"></a>
 
@@ -26867,7 +30299,50 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /finance
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `kind`: constrained value, required, 4 allowed values; see source
+- `reference`: string, required, minLength=1, maxLength=100
+- `amountCents`: integer, required, minimum=1, maximum=1000000000
+- `date`: string, required
+- `leadId`: ['string', 'null'], required
+- `invoiceId`: ['string', 'null'], required
+- `category`: ['string', 'null'], required
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16474"></a>
 
@@ -26908,7 +30383,45 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /handoffs
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `leadId`: string, required
+- `visitId`: string, required
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16464"></a>
 
@@ -26949,7 +30462,54 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Create a website enquiry link
+
+Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `name`: string, required, minLength=1, maxLength=100
+- `pipeline`: constrained value, required, 2 allowed values; see source
+- `ownerId`: string, required
+- `campaignId`: constrained value, required
+- `source`: constrained value, optional, 3 allowed values; see source
+- `attribution`: string, optional, maxLength=200
+- `routingMode`: constrained value, optional, 2 allowed values; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid input or forbidden tenant/header fields
+
+**Response 403:** Manager role denied
+
+**Response 404:** Unknown or unavailable public link
+
+**Response 405:** Unsupported method
+
+**Response 409:** Version or idempotency conflict
+
+**Response 413:** Request body exceeds shared 50,000-byte limit
+
+**Response 429:** Rate limited; retry-after 60 seconds
+
+**Response 503:** Unavailable; sanitized error
+
+**Response 401:** Missing, invalid or revoked session
+
+**Response 201:** Versioned link mutation
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required
+Additional properties are rejected for this shape.
 
 <a id="api-16465"></a>
 
@@ -26990,7 +30550,50 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Enable or disable a versioned enquiry link
+
+Delivery mode is immutable. Legacy links use direct tenant delivery. Territory client forms require explicit sharing consent and are delivered only after recipient acceptance. Source tenants receive total submission counts without contact or duplicate classifications.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `active`: boolean, required
+- `version`: integer, required, minimum=1, maximum=2147483646
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid input or forbidden tenant/header fields
+
+**Response 403:** Manager role denied
+
+**Response 404:** Unknown or unavailable public link
+
+**Response 405:** Unsupported method
+
+**Response 409:** Version or idempotency conflict
+
+**Response 413:** Request body exceeds shared 50,000-byte limit
+
+**Response 429:** Rate limited; retry-after 60 seconds
+
+**Response 503:** Unavailable; sanitized error
+
+**Response 401:** Missing, invalid or revoked session
+
+**Response 200:** Versioned link mutation
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required
+Additional properties are rejected for this shape.
 
 <a id="api-16449"></a>
 
@@ -27031,7 +30634,72 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /leads
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `pipeline`: constrained value, required, 2 allowed values; see source
+- `name`: string, required, minLength=1, maxLength=150
+- `email`: string, optional, maxLength=254
+- `phone`: string, optional, maxLength=40
+- `source`: constrained value, required, 7 allowed values; see source
+- `reference`: string, required, minLength=1, maxLength=500
+- `contactBasis`: constrained value, required, 3 allowed values; see source
+- `campaignId`: ['string', 'null'], optional
+- `ownerId`: ['string', 'null'], optional
+- `dueAt`: ['string', 'null'], optional
+Additional properties are rejected for this shape.
+
+**Response 201:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16450"></a>
 
@@ -27072,7 +30740,68 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /leads/{id}
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `stage`: constrained value, required, 10 allowed values; see source
+- `version`: integer, required, minimum=1, maximum=2147483647
+- `ownerId`: ['string', 'null'], required
+- `dueAt`: ['string', 'null'], required
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16476"></a>
 
@@ -27113,7 +30842,63 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Monthly marketing proposal statement
+
+Owner, CEO or tenant administrator in the current active tenant only. Recalculates the current proposal from recorded monthly payments less refunds. Not an invoice, historical rate guarantee, fund payment or bank reconciliation. Audited and rate limited.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `month` in query (optional)
+- `locale` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Nonbillable proposal statement
+
+Content type `application/json`:
+- `id`: constrained value, required, fixed value; see source
+- `rows`: array, required
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16477"></a>
 
@@ -27154,7 +30939,62 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Monthly marketing proposal PDF
+
+Owner, CEO or tenant administrator in the current active tenant only. Recalculates the current proposal from recorded monthly payments less refunds. Not an invoice, historical rate guarantee, fund payment or bank reconciliation. Audited and rate limited.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `month` in query (optional)
+- `locale` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Nonbillable proposal statement
+
+Content type `application/pdf`:
+No object fields; schema type: string.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16472"></a>
 
@@ -27195,7 +31035,48 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /onboarding
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `leadId`: string, required
+- `businessKind`: constrained value, required, 3 allowed values; see source
+- `identityChecked`: constrained value, required, fixed value; see source
+- `agreementChecked`: constrained value, required, fixed value; see source
+- `insuranceChecked`: constrained value, required, fixed value; see source
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16473"></a>
 
@@ -27236,7 +31117,45 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /onboarding/{id}
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+- `id` in path (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16468"></a>
 
@@ -27277,7 +31196,43 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /performance
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `start` in query (optional)
+- `end` in query (optional)
+- `locale` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16471"></a>
 
@@ -27318,7 +31273,46 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /performance/deliveries/{id}
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+- `id` in path (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1, maximum=2147483646
+- `decision`: constrained value, required, 2 allowed values; see source
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16470"></a>
 
@@ -27359,7 +31353,47 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /performance/email
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `start`: string, required
+- `end`: string, required
+- `locale`: constrained value, required, 3 allowed values; see source
+- `to`: string, required, maxLength=254
+- `confirmed`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful read or update
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16469"></a>
 
@@ -27400,7 +31434,46 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** /performance/pdf
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `start` in query (optional)
+- `end` in query (optional)
+- `locale` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Localized landscape PDF
+
+Content type `application/pdf`:
+No object fields; schema type: string.
+
+**Response 201:** Created
+
+**Response 202:** Provider accepted; not proof of recipient delivery
+
+**Response 400:** Invalid request
+
+**Response 401:** Active explicit bearer session required
+
+**Response 403:** Role or tenant authority denied
+
+**Response 404:** Record unavailable in scope
+
+**Response 409:** Stale version, duplicate or unresolved delivery
+
+**Response 413:** Report owner bound exceeded
+
+**Response 429:** Actor limit exceeded
+
+**Response 503:** Required database or provider unavailable
 
 <a id="api-16448"></a>
 
@@ -27441,7 +31514,66 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /plan
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `start`: string, required
+- `end`: string, required
+- `version`: integer, required, minimum=0
+- `targets`: object, required
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16462"></a>
 
@@ -27482,7 +31614,47 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Review a versioned campaign brief
+
+Tenant/source scoped and append-only history. Owners and CEO/marketing may submit or withdraw. Only CEO/marketing decide; self-review is allowed and recorded only for CEO. Pending briefs are frozen; later edits reset approval. Internal planning only, no ads or spend launched. Uses actor rate limit, audit and idempotency replay. Decisions include an immutable budget/version/currency snapshot. Only owner/CEO may approve, request changes or reject; this is not provider launch authorization.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `action`: string, required, 5 allowed values; see source
+- `version`: integer, required, minimum=1, maximum=2147483647
+- `evidence`: string, required, minLength=1, maxLength=1000
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid planning fields, date range, URL or owner
+
+**Response 401:** Authentication required
+
+**Response 403:** Review role, ownership, source or self-review denied
+
+**Response 404:** Campaign outside tenant/source scope
+
+**Response 409:** Stale brief version or idempotency conflict
+
+**Response 429:** Rate limited
+
+**Response 503:** Unavailable; write rolled back
+
+**Response 201:** Draft saved
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required, minimum=1
+Additional properties are rejected for this shape.
 
 <a id="api-16463"></a>
 
@@ -27523,7 +31695,67 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Reassign, reprioritize, reschedule or escalate an open task
+
+Same-tenant current-session operation with version, idempotency, rate limit and transactional audit. Managers may reassign/reschedule/reprioritize/resolve escalation; assigned staff may only escalate their own task. Closed tasks reject changes. Escalation does not send notifications.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+5 alternative input shapes; see source for conditional requirements.
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 1: `evidence`: string, required, minLength=1, maxLength=500
+- variant 1: `ownerId`: string, required
+Additional properties are rejected for this shape.
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 2: `evidence`: string, required, minLength=1, maxLength=500
+- variant 2: `dueAt`: string, required
+Additional properties are rejected for this shape.
+- variant 3: `action`: constrained value, required, fixed value; see source
+- variant 3: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 3: `evidence`: string, required, minLength=1, maxLength=500
+- variant 3: `priority`: string, required, 4 allowed values; see source
+Additional properties are rejected for this shape.
+- variant 4: `action`: constrained value, required, fixed value; see source
+- variant 4: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 4: `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+- variant 5: `action`: constrained value, required, fixed value; see source
+- variant 5: `version`: integer, required, minimum=1, maximum=2147483646
+- variant 5: `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 400:** Invalid planning fields, date range, URL or owner
+
+**Response 401:** Authentication required
+
+**Response 403:** Review role, ownership, source or self-review denied
+
+**Response 404:** Campaign outside tenant/source scope
+
+**Response 409:** Stale brief version or idempotency conflict
+
+**Response 429:** Rate limited
+
+**Response 503:** Unavailable; write rolled back
+
+**Response 201:** Draft saved
+
+Content type `application/json`:
+- `id`: string, required
+- `version`: integer, required
+Additional properties are rejected for this shape.
 
 <a id="api-16453"></a>
 
@@ -27564,7 +31796,65 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /tasks
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `name`: string, required, minLength=1, maxLength=200
+- `ownerId`: string, required
+- `dueAt`: string, required
+Additional properties are rejected for this shape.
+
+**Response 201:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16454"></a>
 
@@ -27605,7 +31895,65 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Tenant-scoped /tasks/{id}
+
+Current active session and tenant-bound ceo/marketing/local_marketing policy. Plan writes require ceo. Milestones are reported CRM evidence, not verified clinical care.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1, maximum=2147483647
+- `evidence`: string, required, minLength=1, maxLength=500
+Additional properties are rejected for this shape.
+
+**Response 200:** Persisted result or tenant dashboard
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 400:** Invalid fields
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 401:** Invalid session
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 403:** Role or scope denied
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 404:** Record or route not found
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 409:** Duplicate, stale version or incompatible retry
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 429:** Rate limited
+
+Content type `application/json`:
+No object fields; schema type: object.
+
+**Response 503:** Schema, storage or connection unavailable
+
+Content type `application/json`:
+No object fields; schema type: object.
 
 <a id="api-16455"></a>
 
@@ -27646,7 +31994,456 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/growth.openapi.json](../../docs/marketing/growth.openapi.json)
+
+**Purpose / behavior from source:** Record team coordination workflow
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `specialty`: string, required, 6 allowed values; see source
+- `version`: integer, required, minimum=0
+Additional properties are rejected for this shape.
+
+**Response 200:** Saved
+
+**Response 400:** Invalid request
+
+**Response 401:** Authentication required
+
+**Response 403:** Role denied
+
+**Response 404:** Not found in current tenant
+
+**Response 409:** Stale version, blocked contact or scheduling conflict
+
+**Response 429:** Actor rate limit
+
+**Response 503:** Unavailable; write rolled back
+
+<a id="api-16556"></a>
+
+### 16556: GET /v1/governance/look
+
+## Registered operation
+`GET /v1/governance/look`
+
+Governance ID: 16556. Registry code: `LOOK_LIST`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `look.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/look.openapi.json](../../docs/appearance/look.openapi.json)
+
+**Purpose / behavior from source:** Read scoped visual review queue
+
+Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.
+
+**Authentication declared in source:** operation level: session
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Scoped result or recorded human decision
+
+**Response 201:** New screenshot revision
+
+**Response 202:** AI claim accepted; read current state for outcome
+
+**Response 400:** Invalid fields, PNG, context or inspection confirmation
+
+**Response 401:** Active bearer session required
+
+**Response 403:** Administrator/page grant denied
+
+**Response 404:** Record absent in current scope
+
+**Response 409:** Stale version/digest/rubric or approval ordering conflict
+
+**Response 413:** Body/image too large
+
+**Response 415:** JSON required
+
+**Response 429:** Actor/model limit
+
+**Response 503:** Provider/configuration/database/audit unavailable
+
+<a id="api-16557"></a>
+
+### 16557: POST /v1/governance/look/reviews
+
+## Registered operation
+`POST /v1/governance/look/reviews`
+
+Governance ID: 16557. Registry code: `LOOK_SUBMIT`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `look.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/look.openapi.json](../../docs/appearance/look.openapi.json)
+
+**Purpose / behavior from source:** /reviews
+
+Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `screen`: string, required
+- `platform`: constrained value, required, 6 allowed values; see source
+- `width`: integer, required, minimum=280, maximum=7680
+- `height`: integer, required, minimum=240, maximum=4320
+- `scale`: number, required, minimum=1, maximum=4
+- `locale`: constrained value, required, 3 allowed values; see source
+- `build`: string, required
+- `theme`: string, required
+- `layout`: string, required
+- `image`: string, required
+- `redacted`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Scoped result or recorded human decision
+
+**Response 201:** New screenshot revision
+
+**Response 202:** AI claim accepted; read current state for outcome
+
+**Response 400:** Invalid fields, PNG, context or inspection confirmation
+
+**Response 401:** Active bearer session required
+
+**Response 403:** Administrator/page grant denied
+
+**Response 404:** Record absent in current scope
+
+**Response 409:** Stale version/digest/rubric or approval ordering conflict
+
+**Response 413:** Body/image too large
+
+**Response 415:** JSON required
+
+**Response 429:** Actor/model limit
+
+**Response 503:** Provider/configuration/database/audit unavailable
+
+<a id="api-16559"></a>
+
+### 16559: POST /v1/governance/look/reviews/{id}/ai
+
+## Registered operation
+`POST /v1/governance/look/reviews/{id}/ai`
+
+Governance ID: 16559. Registry code: `LOOK_AI`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `look.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/look.openapi.json](../../docs/appearance/look.openapi.json)
+
+**Purpose / behavior from source:** /reviews/{id}/ai
+
+Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1
+Additional properties are rejected for this shape.
+
+**Response 200:** Scoped result or recorded human decision
+
+**Response 201:** New screenshot revision
+
+**Response 202:** AI claim accepted; read current state for outcome
+
+**Response 400:** Invalid fields, PNG, context or inspection confirmation
+
+**Response 401:** Active bearer session required
+
+**Response 403:** Administrator/page grant denied
+
+**Response 404:** Record absent in current scope
+
+**Response 409:** Stale version/digest/rubric or approval ordering conflict
+
+**Response 413:** Body/image too large
+
+**Response 415:** JSON required
+
+**Response 429:** Actor/model limit
+
+**Response 503:** Provider/configuration/database/audit unavailable
+
+<a id="api-16560"></a>
+
+### 16560: POST /v1/governance/look/reviews/{id}/human
+
+## Registered operation
+`POST /v1/governance/look/reviews/{id}/human`
+
+Governance ID: 16560. Registry code: `LOOK_HUMAN`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `look.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/look.openapi.json](../../docs/appearance/look.openapi.json)
+
+**Purpose / behavior from source:** /reviews/{id}/human
+
+Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1
+- `decision`: constrained value, required, 3 allowed values; see source
+- `evidence`: string, required, minLength=1, maxLength=1500
+- `imageDigest`: string, required, pattern-constrained; see source
+- `reviewed`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Scoped result or recorded human decision
+
+**Response 201:** New screenshot revision
+
+**Response 202:** AI claim accepted; read current state for outcome
+
+**Response 400:** Invalid fields, PNG, context or inspection confirmation
+
+**Response 401:** Active bearer session required
+
+**Response 403:** Administrator/page grant denied
+
+**Response 404:** Record absent in current scope
+
+**Response 409:** Stale version/digest/rubric or approval ordering conflict
+
+**Response 413:** Body/image too large
+
+**Response 415:** JSON required
+
+**Response 429:** Actor/model limit
+
+**Response 503:** Provider/configuration/database/audit unavailable
+
+<a id="api-16558"></a>
+
+### 16558: GET /v1/governance/look/reviews/{id}/image
+
+## Registered operation
+`GET /v1/governance/look/reviews/{id}/image`
+
+Governance ID: 16558. Registry code: `LOOK_IMAGE`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `look.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/look.openapi.json](../../docs/appearance/look.openapi.json)
+
+**Purpose / behavior from source:** /reviews/{id}/image
+
+Active explicit bearer session and governed administrator grants. Global central/platform scope; CEO/tenant administrator own-tenant scope. Scores come only from the trusted server binding. AI never performs final human approval. No production-readiness credits.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Authenticated PNG evidence
+
+Content type `image/png`:
+No object fields; schema type: string.
+
+**Response 201:** New screenshot revision
+
+**Response 202:** AI claim accepted; read current state for outcome
+
+**Response 400:** Invalid fields, PNG, context or inspection confirmation
+
+**Response 401:** Active bearer session required
+
+**Response 403:** Administrator/page grant denied
+
+**Response 404:** Record absent in current scope
+
+**Response 409:** Stale version/digest/rubric or approval ordering conflict
+
+**Response 413:** Body/image too large
+
+**Response 415:** JSON required
+
+**Response 429:** Actor/model limit
+
+**Response 503:** Provider/configuration/database/audit unavailable
 
 <a id="api-16418"></a>
 
@@ -27698,7 +32495,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -27735,7 +32532,7 @@ Content type `application/json`:
 
 Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -27816,7 +32613,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -27853,7 +32650,7 @@ Content type `application/json`:
 
 Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -27932,7 +32729,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -28011,7 +32808,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe. Screen, app, role and search filters apply to source screen records before grouping by application; pagination counts application groups.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -28090,7 +32887,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -28169,7 +32966,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -28234,7 +33031,36 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/admin-hierarchy.openapi.json](../../docs/marketing/admin-hierarchy.openapi.json)
+
+**Purpose / behavior from source:** List reviewed partners
+
+Central/platform global scope and governed screen grants required. CEO/tenant administrators denied. Only active source tenants and reviewed unchanged contacts are eligible. No clinical credentials granted. Existing platform administration operations retain their URLs and now enforce the distinct scopes.
+
+**Authentication declared in source:** operation level: session
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Scoped reviewed records
+
+**Response 201:** Tenant/admin created and audited
+
+**Response 400:** Strict schema or tenant override rejected
+
+**Response 401:** Active explicit session required
+
+**Response 403:** Global administrator authority required
+
+**Response 404:** No eligible reviewed record
+
+**Response 409:** Version/contact/uniqueness/replay conflict
+
+**Response 429:** 30 mutations per actor per minute
+
+**Response 503:** Dependency/audit failure; no partial tenant created
 
 <a id="api-16446"></a>
 
@@ -28275,7 +33101,45 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/marketing/admin-hierarchy.openapi.json](../../docs/marketing/admin-hierarchy.openapi.json)
+
+**Purpose / behavior from source:** Atomically provision reviewed partner tenant and tenant administrator
+
+Central/platform global scope and governed screen grants required. CEO/tenant administrators denied. Only active source tenants and reviewed unchanged contacts are eligible. No clinical credentials granted. Existing platform administration operations retain their URLs and now enforce the distinct scopes.
+
+**Authentication declared in source:** operation level: session
+
+**Parameters:**
+- `id` in path (required)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `version`: integer, required, minimum=1, maximum=2147483646
+- `slug`: string, required, pattern-constrained; see source
+- `name`: string, required, minLength=1, maxLength=150
+- `password`: string, required, minLength=12, maxLength=72, write-only; never log
+Additional properties are rejected for this shape.
+
+**Response 200:** Scoped reviewed records
+
+**Response 201:** Tenant/admin created and audited
+
+**Response 400:** Strict schema or tenant override rejected
+
+**Response 401:** Active explicit session required
+
+**Response 403:** Global administrator authority required
+
+**Response 404:** No eligible reviewed record
+
+**Response 409:** Version/contact/uniqueness/replay conflict
+
+**Response 429:** 30 mutations per actor per minute
+
+**Response 503:** Dependency/audit failure; no partial tenant created
 
 <a id="api-16492"></a>
 
@@ -28316,7 +33180,44 @@ These are proposed checks, not passed tests.
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/platform-operations/openapi.json](../../docs/platform-operations/openapi.json)
+
+**Purpose / behavior from source:** Read scoped tenant setup counts and issue navigation
+
+**Authentication declared in source:** document level: bearer
+
+**Parameters:**
+- `search` in query (optional)
+- `filter` in query (optional)
+- `offset` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Counts and scoped tenants from one repeatable-read snapshot
+
+Content type `application/json`:
+- `scope`: constrained value, required, 2 allowed values; see source
+- `source`: object, required
+- `tenants`: array, required, maxItems=25
+- `summary`: object, required
+- `pagination`: object, required
+
+**Response 400:** Unknown, duplicated or invalid query / tenant override
+
+**Response 401:** Missing, expired or inactive session
+
+**Response 403:** Administrator role required
+
+**Response 404:** Unknown route
+
+**Response 405:** Read-only endpoint
+
+**Response 429:** Optional source limiter exceeded
+
+**Response 503:** Unavailable data; no partial success response
 
 <a id="api-16435"></a>
 
@@ -28366,7 +33267,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -28440,7 +33341,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `Idempotency-Key` in header (required)
@@ -28520,7 +33421,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28597,7 +33498,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28674,7 +33575,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28756,7 +33657,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28838,7 +33739,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28915,7 +33816,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -28992,7 +33893,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -29074,7 +33975,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active platform_admin bearer session only. Tenant identifiers are explicit path parameters. No tenant header or query overrides. Mutations are atomic, audited and idempotent; attempts are limited to 30 per actor per minute. Lists are bounded to 100 rows. Ordinary tenant roles and CEO cannot provision platform tenants.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `tenantId` in path (required)
@@ -29108,6 +34009,170 @@ Additional properties are rejected for this shape.
 **Response 429:** Mutation attempt budget exceeded
 
 **Response 503:** Data, audit or request persistence unavailable
+
+<a id="api-16562"></a>
+
+### 16562: POST /v1/governance/platform/vapi/assistants
+
+## Registered operation
+`POST /v1/governance/platform/vapi/assistants`
+
+Governance ID: 16562. Registry code: `VAPI_ADMIN_ASSISTANTS`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `platform.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16564"></a>
+
+### 16564: POST /v1/governance/platform/vapi/attachment
+
+## Registered operation
+`POST /v1/governance/platform/vapi/attachment`
+
+Governance ID: 16564. Registry code: `VAPI_ADMIN_ATTACHMENT`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `platform.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16561"></a>
+
+### 16561: GET /v1/governance/platform/vapi/inventory
+
+## Registered operation
+`GET /v1/governance/platform/vapi/inventory`
+
+Governance ID: 16561. Registry code: `VAPI_ADMIN_INVENTORY`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `platform.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16563"></a>
+
+### 16563: POST /v1/governance/platform/vapi/tools
+
+## Registered operation
+`POST /v1/governance/platform/vapi/tools`
+
+Governance ID: 16563. Registry code: `VAPI_ADMIN_TOOLS`. Registry status: `implemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `role_screen_permissions`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `platform.actor`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
 
 <a id="api-16488"></a>
 
@@ -29155,7 +34220,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `locale` in query (optional)
@@ -29233,7 +34298,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `reportId` in path (required)
@@ -29314,7 +34379,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `reportId` in path (required)
@@ -29401,7 +34466,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Active bearer session; tenant derives from identity; shared_report_grants authorize each action. Runs and downloads require the report audit migration. Email is limited to 10 new requests per actor per hour; ambiguous sends are never retried automatically.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `reportId` in path (required)
@@ -29484,7 +34549,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe. App and screen filters scope granted pages before role counts; role and search select role summaries. Roles with zero matching grants remain present; landingAuthorized refers to the scoped pages.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -29563,7 +34628,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Active bearer session and tenant required. Existing inventory authority required. Catalog evidence is recorded evidence, never a live probe.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -29593,6 +34658,167 @@ Content type `application/json`:
 **Response 429:** Rate limit
 
 **Response 503:** Source unavailable
+
+<a id="api-16578"></a>
+
+### 16578: GET /v1/governance/tenant-dashboard
+
+## Registered operation
+`GET /v1/governance/tenant-dashboard`
+
+Governance ID: 16578. Registry code: `TENANT_DASHBOARD_GET`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `tenant_dashboard.current_tenant_or_own_task`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/tenant-dashboard.openapi.json](../../docs/care/tenant-dashboard.openapi.json)
+
+**Purpose / behavior from source:** Read actual tenant aggregates, tasks and governance workflows
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `dataset` in query (optional)
+- `tenant` in query (optional)
+- `search` in query (optional)
+- `flowOffset` in query (optional)
+- `taskOffset` in query (optional)
+- `status` in query (optional)
+
+**Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
+
+**Response 200:** Authorized PostgreSQL workspace and current versions
+
+**Response 400:** Invalid fields or transition
+
+**Response 401:** Active session required
+
+**Response 403:** Role, tenant or independent review denied
+
+**Response 404:** Task or organization unavailable to this actor
+
+**Response 409:** Stale version or changed idempotency request
+
+**Response 415:** JSON required
+
+**Response 429:** Write rate exceeded
+
+**Response 503:** Database/manifest unavailable; no success assumed
+
+<a id="api-16579"></a>
+
+### 16579: POST /v1/governance/tenant-dashboard
+
+## Registered operation
+`POST /v1/governance/tenant-dashboard`
+
+Governance ID: 16579. Registry code: `TENANT_DASHBOARD_POST`. Registry status: `partial` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `tenant_dashboard.current_tenant_or_own_task`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/care/tenant-dashboard.openapi.json](../../docs/care/tenant-dashboard.openapi.json)
+
+**Purpose / behavior from source:** Save operational responsibility and evidence without clinical/payroll approval
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Parameters:**
+- `dataset` in query (optional)
+- `tenant` in query (optional)
+- `search` in query (optional)
+- `flowOffset` in query (optional)
+- `taskOffset` in query (optional)
+- `status` in query (optional)
+- `Idempotency-Key` in header (required)
+
+**Request body — application/json:**
+- `action`: constrained value, required, 11 allowed values; see source
+- `id`: string, optional
+- `version`: integer, optional, minimum=1
+- `workspaceVersion`: integer, optional, minimum=1
+- `value`: object, optional
+Additional properties are rejected for this shape.
+
+**Response 200:** Authorized PostgreSQL workspace and current versions
+
+**Response 400:** Invalid fields or transition
+
+**Response 401:** Active session required
+
+**Response 403:** Role, tenant or independent review denied
+
+**Response 404:** Task or organization unavailable to this actor
+
+**Response 409:** Stale version or changed idempotency request
+
+**Response 415:** JSON required
+
+**Response 429:** Write rate exceeded
+
+**Response 503:** Database/manifest unavailable; no success assumed
 
 <a id="api-16411"></a>
 
@@ -29641,7 +34867,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 **Purpose / behavior from source:** Existing active bearer session, matching tenant and catalog organization/screen authority remain required. Live counts require nonnegative safe integers; role groups must be unique nonempty strings. Invalid projections return sanitized 503 and roll back the read-only repeatable-read transaction. No new grants or production-readiness claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `screen` in query (optional)
@@ -34537,7 +39763,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Request body — application/json:**
 4 alternative input shapes; see source for conditional requirements.
@@ -34637,7 +39863,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Request body — application/json:**
 6 alternative input shapes; see source for conditional requirements.
@@ -34753,7 +39979,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Request body — application/json:**
 3 alternative input shapes; see source for conditional requirements.
@@ -34846,7 +40072,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `after` in query (optional)
@@ -34930,7 +40156,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `limit` in query (optional)
@@ -35010,7 +40236,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `action` in query (required)
@@ -35091,7 +40317,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Shared inherited communication operation. Current session, exact API/linked-screen grants and conversation/case/mailbox restrictions are enforced server-side. Registration and documentation do not activate this route. Request identity/tenant overrides are forbidden.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Request body — multipart/form-data:**
 - `action`: constrained value, required, fixed value; see source
@@ -35227,7 +40453,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Bind an explicitly selected conversation with explicit consent, a native session created within five minutes, an independently verified contact and current owner permissions. Phone, actor, tenant and provider configuration are server-derived. A blocked sender or stale link cannot be revived by retrying a request. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -35308,7 +40534,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Revoke the exact owner's SMS link using a fresh native session and current permission checks. Queued replies bound to the old link become unavailable. Already submitted provider messages cannot be recalled. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -35386,7 +40612,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read the current signed-in owner's SMS conversation-link status. Provider delivery or phone equality does not authenticate an account. The public result omits phone numbers, actor IDs and session handles. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -37807,7 +43033,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/adl-log-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38160,7 +43386,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/notifications. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38194,7 +43420,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/notifications. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38228,7 +43454,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/notifications. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38262,7 +43488,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/notifications. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38388,7 +43614,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/audit-event-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38515,7 +43741,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/provider/availability-overrides. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38549,7 +43775,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/availability-overrides. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38583,7 +43809,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/availability-overrides. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38754,7 +43980,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/behavior-note-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -38880,7 +44106,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/authored-post-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39008,7 +44234,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/client/bookings. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39042,7 +44268,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/bookings. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39076,7 +44302,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/bookings. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39110,7 +44336,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/bookings. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39193,7 +44419,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/client/booking-requests. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39227,7 +44453,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/booking-requests. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39261,7 +44487,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/booking-requests. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39295,7 +44521,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/client/booking-requests. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39511,7 +44737,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/care-feedback. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39592,7 +44818,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/authored-care-plan-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39673,7 +44899,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/care-plan-follow-up-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -39844,7 +45070,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/insurance-claim-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -40015,7 +45241,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/home/profile. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -40181,7 +45407,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/assessment-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -40577,7 +45803,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/consents. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -40930,7 +46156,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/activities. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -40964,7 +46190,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/activities. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -40998,7 +46224,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/activities. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41081,7 +46307,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/audit-signoff-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41115,7 +46341,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/audit-signoff-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41196,7 +46422,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/daily-entry-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41682,7 +46908,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/family-links. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41763,7 +46989,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/family-notification-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -41888,7 +47114,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/feedback. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -42194,7 +47420,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/fleet-status. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -42584,7 +47810,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/rewards. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -42659,7 +47885,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/health-ids. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -42967,7 +48193,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/reported-incident-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43001,7 +48227,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/reported-incident-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43127,7 +48353,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/infection-control-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43433,7 +48659,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/inventory-item-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43514,7 +48740,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/invoices. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43641,7 +48867,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/device-events. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43675,7 +48901,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/device-events. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -43709,7 +48935,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/device-events. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44330,7 +49556,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/medication-administration-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44593,7 +49819,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/medication-reconciliation-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44627,7 +49853,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/medication-reconciliation-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44708,7 +49934,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/authored-message-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44788,7 +50014,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/conversation-threads. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44869,7 +50095,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/mileage-logs. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -44950,7 +50176,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/mobility-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -46516,7 +51742,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/narrative-note-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -46597,7 +51823,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/nutrition-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47038,7 +52264,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/alert-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47254,7 +52480,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/payments. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47334,7 +52560,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/payouts. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47417,7 +52643,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/authored-review-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47451,7 +52677,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/authored-review-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47711,7 +52937,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/prescription-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47884,7 +53110,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/provider/availability. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47918,7 +53144,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/availability. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -47952,7 +53178,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/availability. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48035,7 +53261,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/provider/documents. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48069,7 +53295,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/documents. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48103,7 +53329,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/documents. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48137,7 +53363,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/provider/documents. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48218,7 +53444,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/profile. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -48294,7 +53520,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/shift-logs. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48375,7 +53601,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/vital-sign-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -48456,7 +53682,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/purchase-order-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49392,7 +54618,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/service-authorizations. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49473,7 +54699,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/shift-assignment-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49554,7 +54780,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/handover-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49725,7 +54951,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/group-memberships. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49808,7 +55034,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49842,7 +55068,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49876,7 +55102,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -49910,7 +55136,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/assigned-task-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50081,7 +55307,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/supervision-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50432,7 +55658,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/survey-submissions. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50603,7 +55829,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/system-event-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50865,7 +56091,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/technical-audit-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50899,7 +56125,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/technical-audit-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -50980,7 +56206,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/telehealth-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51240,7 +56466,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/timesheets. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51321,7 +56547,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/timesheet-items. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51402,7 +56628,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/training-assignment-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51528,7 +56754,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/ledger-event-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51699,7 +56925,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/devices. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51780,7 +57006,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/auth/me/reputation. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -51900,7 +57126,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/visits. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -51981,7 +57207,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/visit-check-events. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52062,7 +57288,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/authored-checklist-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52143,7 +57369,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/visit-matches. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52224,7 +57450,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/provider/authored-visit-note-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52305,7 +57531,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/patient-vital-records. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52386,7 +57612,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read-only compatibility route to /v1/client/waitlist. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52559,7 +57785,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52593,7 +57819,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -52627,7 +57853,7 @@ Content type `application/json`:
 
 Read-only compatibility route to /v1/auth/me/wellness-pulses. This returns the canonical ownership-scoped metadata response, not an unrestricted ORM collection. Only the exact registered collection path and GET are supported. Writes are denied before forwarding; detail/nested or other premium routes remain unhandled. Query, active bearer, non-null tenant, profile uniqueness where applicable, projection, no-store and source limits are enforced by the canonical handler. No role grants, arbitrary owner/tenant filters, business writes or additional record access. Stored metadata does not establish approval, clinical access, document verification or completed care.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -53448,25 +58674,25 @@ No exact method-and-path documentation source was found. This is an explicit doc
 ## Registered operation
 `POST /v1/psw/help-support`
 
-Governance ID: 794. Registry code: `API__V1_PSW_HELP-SUPPORT`. Registry status: `active` (not runtime evidence).
+Governance ID: 794. Registry code: `API__V1_PSW_HELP-SUPPORT`. Registry status: `registered-unimplemented` (not runtime evidence).
 
 ## Purpose and behavior
 The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
 
 ## Authentication and permissions
-Registered auth_required: `1`. Permission key: `NOT DEFINED`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+Registered auth_required: `1`. Permission key: `psw_published_help_read`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
 
 ## Request contract
-No endpoint-level request schema is registered. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
 
 ## Response contract
-No endpoint-level response schema is registered. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
 
 ## Persistence and tenant isolation
 Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
 
 ## Rate limiting and audit
-Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+Rate-limit key: `psw_published_help_read`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
 
 ## Required verification
 - Approved successful journey and persistence/read-back where applicable.
@@ -53477,14 +58703,105 @@ Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require 
 These are proposed checks, not passed tests.
 
 ## Blocking findings
-- missing_request_schema
-- missing_response_schema
-- missing_permission_key
-- missing_rate_limit_key
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/appearance/pc10-section2-help-proposal.openapi.json](../../docs/appearance/pc10-section2-help-proposal.openapi.json)
+
+**Purpose / behavior from source:** DRAFT ONLY: list/read tenant-published Help articles
+
+**Review status:** Proposal or non-activated source.
+
+Proposed read semantics on the existing API794 identity; no handler, binding, role grant or runtime activation is established. All unresolved governance/content decisions in the companion proposal must be resolved first.
+
+**Authentication declared in source:** operation level: bearerAuth
+
+**Request body — application/json:**
+2 alternative input shapes; see source for conditional requirements.
+- variant 1: `version`: constrained value, required, fixed value; see source
+- variant 1: `locale`: string, required, 3 allowed values; see source
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `query`: string, required, maxLength=100, pattern-constrained; see source
+- variant 1: `offset`: integer, required, minimum=0, maximum=100000
+- variant 1: `limit`: integer, required, minimum=1, maximum=100
+Additional properties are rejected for this shape.
+- variant 2: `version`: constrained value, required, fixed value; see source
+- variant 2: `locale`: string, required, 3 allowed values; see source
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `articleId`: string, required, minLength=1, maxLength=200, pattern-constrained; see source
+Additional properties are rejected for this shape.
+
+**Response 200:** Proposed scoped read result; no business mutation
+
+Content type `application/json`:
+2 alternative input shapes; see source for conditional requirements.
+- variant 1: `version`: constrained value, required, fixed value; see source
+- variant 1: `locale`: string, required, 3 allowed values; see source
+- variant 1: `action`: constrained value, required, fixed value; see source
+- variant 1: `scope`: object, required
+- variant 1: `items`: array, required, maxItems=100
+- variant 1: `offset`: integer, required, minimum=0, maximum=100000
+- variant 1: `limit`: integer, required, minimum=1, maximum=100
+- variant 1: `total`: integer, required, minimum=0, maximum=9007199254740991
+Additional properties are rejected for this shape.
+- variant 2: `version`: constrained value, required, fixed value; see source
+- variant 2: `locale`: string, required, 3 allowed values; see source
+- variant 2: `action`: constrained value, required, fixed value; see source
+- variant 2: `scope`: object, required
+- variant 2: `article`: object, required
+Additional properties are rejected for this shape.
+
+**Response 400:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 401:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 403:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 404:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 409:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 429:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Fail closed; preserve HTTP failure; never use private cache or synthetic success
+
+Content type `application/json`:
+- `version`: constrained value, required, fixed value; see source
+- `error`: object, required
+Additional properties are rejected for this shape.
 
 <a id="api-212"></a>
 
@@ -63941,7 +69258,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Verify the exact signed Twilio form and persist the inbound SMS before returning empty TwiML. Durable duplicates do not create a second AI turn. Control messages and unsupported media stay outside the AI queue. The provider signature does not authenticate a PrimeCare account; verified linking and current consent remain required for any reply. Registration does not mount or activate this route. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, maxLength=34, pattern-constrained; see source
@@ -64019,7 +69336,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Persist, deduplicate or quarantine signed delivery observations before returning 204. Delivery callbacks are not SMS read receipts. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64089,7 +69406,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Start ConversationRelay only for the canonical live call with current verified identity and task authorization. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64161,7 +69478,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Return from the verified AI connection through its registered completion handler. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64233,7 +69550,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Connect an authorized Voice SDK caller using the canonical provider call and current scoped directory. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64309,7 +69626,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Handle busy/no-answer/failed dial outcomes using a previously reserved private voicemail route. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64382,7 +69699,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Resolve 0 to configured reception, 1 to configured verified app pairing, or a published four-digit extension. Unknown, ambiguous or revoked destinations fall back to reception or an unavailable message. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64457,7 +69774,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Return the four-digit extension/reception/AI menu for a signed incoming Twilio call. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64531,7 +69848,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Issue an app pairing code outside the model stream. This code is distinct from the six-digit OTP. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64603,7 +69920,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Validate voicemail recording completion against its reserved call/destination. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64675,7 +69992,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Verify the provider recording and enqueue an authorized private voicemail notification. Enqueued does not prove delivered. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64747,7 +70064,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Upgrade the exact signed WebSocket request. The relay rechecks canonical call, OTP identity, durable session claim and task authorization; no caller-selected actor or tenant is trusted. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Parameters:**
 - `Upgrade` in header (required)
@@ -64817,7 +70134,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Recheck the current app pairing/OTP state before proceeding to the verified agent or reception. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** twilioSignature
+**Authentication declared in source:** operation level: twilioSignature
 
 **Request body — application/x-www-form-urlencoded:**
 - `AccountSid`: string, required, minLength=1, maxLength=34, pattern-constrained; see source
@@ -64893,7 +70210,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 **Purpose / behavior from source:** Change own password after current-password verification; revoke all sessions and password resets. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
@@ -64927,7 +70244,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Change own password after current-password verification; revoke all sessions and password resets. Authentication JSON bodies are bounded to 50,000 wire bytes while streaming. Oversize returns sanitized no-store 413 before PostgreSQL, bcrypt or email dispatch. Existing source throttling and explicit-session checks still run in their established order. This document records runtime hardening; it does not promote pending governance declarations. Authentication database rate limits require exactly one row with positive integer attempts no greater than the saturated budget plus one, and positive integer retry seconds no greater than the configured window. Invalid limiter results return sanitized no-store 503 before protected credential, session, audit or email work. The existing atomic counter, inclusive budget, expiry reset and authorization remain in place.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
@@ -64961,7 +70278,7 @@ Additional properties are rejected for this shape.
 
 **Purpose / behavior from source:** Change own password after current-password verification; revoke all sessions and password resets.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body — application/json:**
 - `currentPassword`: string, required, minLength=1
@@ -64984,6 +70301,50 @@ Additional properties are rejected for this shape.
 **Response 429:** Rate limit
 
 **Response 503:** Source unavailable
+
+### [docs/auth-openapi.json](../../docs/auth-openapi.json)
+
+**Purpose / behavior from source:** Change your password
+
+Requires current password and active bearer session. New password must differ. Writes bcrypt hash, revokes all sessions and appends audit atomically, then clears cookie. Login again after success. This is not password recovery. Limit: 5 attempts per 60 seconds per authenticated user across sessions. Failed and denied valid-input attempts count; Retry-After is returned on 429.
+
+**Authentication declared in source:** operation level: bearerSession
+
+**Request body — application/json:**
+- `currentPassword`: string, required, minLength=1, write-only; never log
+- `newPassword`: string, required, minLength=12, maxLength=72, write-only; never log
+Additional properties are rejected for this shape.
+
+**Response 200:** Successful operation
+
+Content type `application/json`:
+- `status`: constrained value, required, fixed value; see source
+- `reauthenticationRequired`: constrained value, required, fixed value; see source
+Additional properties are rejected for this shape.
+
+**Response 400:** Malformed or invalid input
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 401:** Missing/invalid session or credentials
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 429:** Authentication attempts exhausted
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
+
+**Response 503:** Service unavailable; details withheld
+
+Content type `application/json`:
+- `error`: string, required
+Additional properties are rejected for this shape.
 
 <a id="api-278"></a>
 
@@ -65037,25 +70398,25 @@ No exact method-and-path documentation source was found. This is an explicit doc
 ## Registered operation
 `POST /v1/user/preferences`
 
-Governance ID: 777. Registry code: `API__V1_USER_PREFERENCES`. Registry status: `active` (not runtime evidence).
+Governance ID: 777. Registry code: `API__V1_USER_PREFERENCES`. Registry status: `implemented-unverified` (not runtime evidence).
 
 ## Purpose and behavior
 The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
 
 ## Authentication and permissions
-Registered auth_required: `1`. Permission key: `NOT DEFINED`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+Registered auth_required: `1`. Permission key: `authenticated_self_preferences`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
 
 ## Request contract
-No endpoint-level request schema is registered. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
 
 ## Response contract
-No endpoint-level response schema is registered. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
 
 ## Persistence and tenant isolation
 Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
 
 ## Rate limiting and audit
-Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+Rate-limit key: `accountPreferences`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
 
 ## Required verification
 - Approved successful journey and persistence/read-back where applicable.
@@ -65066,14 +70427,39 @@ Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require 
 These are proposed checks, not passed tests.
 
 ## Blocking findings
-- missing_request_schema
-- missing_response_schema
-- missing_permission_key
-- missing_rate_limit_key
 - runtime_security_persistence_and_tests_not_verified
 
 ## Endpoint-specific implementation references
-No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+The following repository documents match this exact HTTP method and path. Their claims describe source contracts; they are not fresh production acceptance evidence.
+
+### [docs/api/account-preferences.openapi.yaml](../../docs/api/account-preferences.openapi.yaml)
+
+**Purpose / behavior from source:** API 777. Explicit activation required. Identity is derived from the current session; expectedScope is a comparison precondition only. Read, write, reset and delete use this one registered POST. Writes use compare-and-swap revisions and UUID v4 receipts. Reset/delete retain monotonic tombstones. No business permissions are granted by preferences.
+
+**Authentication declared in source:** operation level: nativeBearer
+
+**Request body — application/json:**
+No object fields; schema type: unspecified.
+
+**Response 200:** Owned snapshot or original idempotent mutation receipt
+
+Content type `application/json`:
+No object fields; schema type: unspecified.
+
+**Response 400:** Invalid or unregistered data or scope override
+
+**Response 401:** Missing expired revoked or inactive native session
+
+**Response 403:** Current API or resource permission denied
+
+**Response 409:** Scope changed or revision conflict or request UUID reused. Revision conflicts include the current owned snapshot for explicit resolution.
+
+**Response 413:** Request exceeds 73728 bytes or document exceeds 65536 bytes
+
+**Response 429:** Account or source quota exceeded. Retry-After is 60 seconds.
+
+**Response 503:** Runtime disabled or exact contract authority or storage unavailable
 
 <a id="api-276"></a>
 
@@ -65170,7 +70556,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Active explicit bearer session and matching non-null tenant required. Booking audit retains the unique actor-owned ClientProfile and exact owned request scope; self-session operations derive the User solely from the bearer and accept no user override. Database counts must be nonnegative safe integers without coercion; malformed values roll back and return a sanitized 503. Existing bounded paging, no-store, transaction isolation, mutation budget, idempotency and atomic audit behavior remain unchanged. No role grants, clinical access or business-status claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -65199,7 +70585,7 @@ Additional properties are rejected for this shape.
 
 Active explicit bearer session and matching tenant required. User identity is derived from the session for every role. No userId/body accepted. DELETE atomically revokes active and expired sessions plus audit, and clears the session cookie. Concurrent later logins may create new sessions. No passwords, hashes or tokens returned.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Request body:** Not declared in this source. This may be a bodyless operation or an incomplete patch document; inspect the linked runtime.
 
@@ -65272,7 +70658,7 @@ Multiple source versions exist. Read every reference; incompatible request/secur
 
 Active explicit bearer session and matching tenant required. User identity is derived from the session for every role. No userId/body accepted. DELETE atomically revokes active and expired sessions plus audit, and clears the session cookie. Concurrent later logins may create new sessions. No passwords, hashes or tokens returned. Returned identifiers and authentication roles are validated without coercion. Extra database-adapter fields are not returned. Malformed results return sanitized no-store 503; login does not issue a session, and mutations roll back before audit or revocation. Existing authorization is retained. Session timestamps must satisfy the registered date-time format and current must be boolean.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -65308,7 +70694,7 @@ Content type `application/json`:
 
 Active explicit bearer session and matching non-null tenant required. Booking audit retains the unique actor-owned ClientProfile and exact owned request scope; self-session operations derive the User solely from the bearer and accept no user override. Database counts must be nonnegative safe integers without coercion; malformed values roll back and return a sanitized 503. Existing bounded paging, no-store, transaction isolation, mutation budget, idempotency and atomic audit behavior remain unchanged. No role grants, clinical access or business-status claims.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -65341,7 +70727,7 @@ Additional properties are rejected for this shape.
 
 Active explicit bearer session and matching tenant required. User identity is derived from the session for every role. No userId/body accepted. DELETE atomically revokes active and expired sessions plus audit, and clears the session cookie. Concurrent later logins may create new sessions. No passwords, hashes or tokens returned.
 
-**Authentication declared in source:** bearerAuth
+**Authentication declared in source:** operation level: bearerAuth
 
 **Parameters:**
 - `limit` in query (optional)
@@ -65462,6 +70848,90 @@ No exact method-and-path documentation source was found. This is an explicit doc
 
 ## vapi
 
+<a id="api-16573"></a>
+
+### 16573: POST /v1/vapi/calls/audit
+
+## Registered operation
+`POST /v1/vapi/calls/audit`
+
+Governance ID: 16573. Registry code: `VAPI_CALL_AUDIT`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `vapi.service.call_audit`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16569"></a>
+
+### 16569: POST /v1/vapi/client/read
+
+## Registered operation
+`POST /v1/vapi/client/read`
+
+Governance ID: 16569. Registry code: `VAPI_CLIENT_INFORMATION`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `vapi.service.client_information`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
 <a id="api-16534"></a>
 
 ### 16534: POST /v1/vapi/voice/tasks
@@ -65476,6 +70946,48 @@ The route identifies the registered operation. A verified business-purpose descr
 
 ## Authentication and permissions
 Registered auth_required: `1`. Permission key: `vapi.service.tasks`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
+
+## Request contract
+A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
+
+## Response contract
+A schema value is registered but has not been verified. Success codes, payloads, pagination and error bodies are unverified. The default response below is a documentation placeholder, not a runtime guarantee.
+
+## Persistence and tenant isolation
+Database mappings, tenant predicates, transaction boundaries, idempotency and write/read-back evidence must be validated before this operation is considered functional.
+
+## Rate limiting and audit
+Rate-limit key: `NOT DEFINED`. Audit events, retention and retry policy require a reviewed contract. Do not automatically retry mutations.
+
+## Required verification
+- Approved successful journey and persistence/read-back where applicable.
+- Missing, expired and invalid credentials.
+- Forbidden roles and cross-tenant requests.
+- Invalid input, resource absence and database failure.
+- Rate limiting and audit event emission.
+These are proposed checks, not passed tests.
+
+## Blocking findings
+- missing_rate_limit_key
+- runtime_security_persistence_and_tests_not_verified
+
+## Endpoint-specific implementation references
+No exact method-and-path documentation source was found. This is an explicit documentation/implementation gap, not permission to infer behavior from the route name.
+
+<a id="api-16565"></a>
+
+### 16565: POST /v1/vapi/voice/verification
+
+## Registered operation
+`POST /v1/vapi/voice/verification`
+
+Governance ID: 16565. Registry code: `VAPI_VOICE_VERIFICATION`. Registry status: `registered-unimplemented` (not runtime evidence).
+
+## Purpose and behavior
+The route identifies the registered operation. A verified business-purpose description, side effects, prerequisites and completion criteria are not supplied by this endpoint record. Do not infer them from its name.
+
+## Authentication and permissions
+Registered auth_required: `1`. Permission key: `vapi.service.verification`. No reviewed endpoint-specific role allowlist, authentication scheme, or tenant scope is established by this export. Missing security metadata does not mean anonymous access is allowed.
 
 ## Request contract
 A schema value is registered but has not been verified; it is not promoted to an executable contract. Required fields, types, limits, content types, query parameters and validation behavior need approval.
@@ -66116,7 +71628,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Assign a globally unique four-digit extension to an authorized active tenant/user. Assignment does not publish it. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66201,7 +71713,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Publish or revoke an authorized extension at the exact current version. Re-read directory state; no external-number forwarding. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66288,7 +71800,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Submit the OTP in the authenticated app. A false verified result is not authentication. Codes must not be spoken to an AI agent. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66367,7 +71879,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Bind the signed call pairing code to the current app session and send OTP to its previously verified contact. This is an app operation, never an AI tool. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66446,7 +71958,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Approve the exact unexpired digest in the authenticated app. It does not itself execute a task. Never attach this operation to an AI assistant. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66526,7 +72038,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read the exact server-owned task summary and digest for independent app confirmation. This does not execute a task. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66607,7 +72119,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Issue a short-lived Voice SDK token for the current published destination. Token issuance does not assign an extension or grant permission. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66687,7 +72199,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Download private bounded WAV audio after current owner/session checks before and after provider retrieval. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
@@ -66764,7 +72276,7 @@ The following repository documents match this exact HTTP method and path. Their 
 
 Read metadata for a private recording owned by the current user and tenant. This registered route is not activated by documentation. Query strings and fragments are rejected. Provider identity is never accepted as native user authentication.
 
-**Authentication declared in source:** nativeSession
+**Authentication declared in source:** operation level: nativeSession
 
 **Parameters:**
 - `Origin` in header (optional)
