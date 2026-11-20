@@ -25,5 +25,5 @@ export function toPrimeCareAppearance(value:unknown):PrimeCareAppearance {
 
 /** Default PrimeCare chrome is derived from the original shared palette. */
 export function defaultPrimeCareProfile():PersonalTheme {
- return validatePersonalTheme({...defaultPersonalTheme,name:'PrimeCare shared appearance',colors:{sidebar:themePresets.defaultNavbar.background.default,topbar:themePresets.default.background.paper}});
+ return validatePersonalTheme({...defaultPersonalTheme,name:'PrimeCare shared appearance',colors:{sidebar:themePresets.defaultNavbar.background.default,topbar:themePresets.default.background.default}});
 }

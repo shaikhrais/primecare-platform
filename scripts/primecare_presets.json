@@ -76,7 +76,7 @@
       "white": "#FFFFFF"
     },
     "sidebarBackground": "#F6F7F8",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F6F7F8"
   },
   "defaultDark": {
     "grey": {
@@ -155,7 +155,7 @@
       "white": "#FFFFFF"
     },
     "sidebarBackground": "#0F1115",
-    "topbarBackground": "#1A1D22"
+    "topbarBackground": "#0F1115"
   },
   "defaultNavbar": {
     "grey": {
@@ -234,7 +234,7 @@
       "white": "#FFFFFF"
     },
     "sidebarBackground": "#E5E7EB",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#E5E7EB"
   },
   "legacyDefault": {
     "grey": {
@@ -313,7 +313,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#E8E8E8",
-    "topbarBackground": "#F4F4F4"
+    "topbarBackground": "#E8E8E8"
   },
   "legacyDark": {
     "grey": {
@@ -392,7 +392,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#121212",
-    "topbarBackground": "#1E1E1E"
+    "topbarBackground": "#121212"
   },
   "navyTealPalette": {
     "grey": {
@@ -471,7 +471,7 @@
       "white": "#FFFFFF"
     },
     "sidebarBackground": "#F6F8FA",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F6F8FA"
   },
   "indigoAmberPalette": {
     "grey": {
@@ -550,7 +550,7 @@
       "white": "#FFFFFF"
     },
     "sidebarBackground": "#F7F8FC",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F7F8FC"
   },
   "darkBlueSilver": {
     "grey": {
@@ -629,7 +629,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F1F5F9",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F1F5F9"
   },
   "darkBlueSilverDark": {
     "grey": {
@@ -708,7 +708,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#263238",
-    "topbarBackground": "#2D3940"
+    "topbarBackground": "#263238"
   },
   "slateCrimson": {
     "grey": {
@@ -787,7 +787,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#E6E6E6",
-    "topbarBackground": "#F2F2F2"
+    "topbarBackground": "#E6E6E6"
   },
   "slateCrimsonDark": {
     "grey": {
@@ -866,7 +866,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#212121",
-    "topbarBackground": "#2E2E2E"
+    "topbarBackground": "#212121"
   },
   "emeraldGold": {
     "grey": {
@@ -945,7 +945,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#DCF2F2",
-    "topbarBackground": "#F2FDFA"
+    "topbarBackground": "#DCF2F2"
   },
   "emeraldGoldDark": {
     "grey": {
@@ -1024,7 +1024,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#004D40",
-    "topbarBackground": "#00544A"
+    "topbarBackground": "#004D40"
   },
   "indigoCoral": {
     "grey": {
@@ -1103,7 +1103,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#EAEBFB",
-    "topbarBackground": "#F6F7FD"
+    "topbarBackground": "#EAEBFB"
   },
   "indigoCoralDark": {
     "grey": {
@@ -1182,7 +1182,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1A237E",
-    "topbarBackground": "#283593"
+    "topbarBackground": "#1A237E"
   },
   "charcoalTeal": {
     "grey": {
@@ -1261,7 +1261,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#EDF6FA",
-    "topbarBackground": "#F7FCFC"
+    "topbarBackground": "#EDF6FA"
   },
   "charcoalTealDark": {
     "grey": {
@@ -1340,7 +1340,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#000000",
-    "topbarBackground": "#102027"
+    "topbarBackground": "#000000"
   },
   "skyBlueOrange": {
     "grey": {
@@ -1419,7 +1419,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F5F5F5",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F5F5F5"
   },
   "skyBlueOrangeDark": {
     "grey": {
@@ -1498,7 +1498,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1A1A1A",
-    "topbarBackground": "#333333"
+    "topbarBackground": "#1A1A1A"
   },
   "softGreenMaroon": {
     "grey": {
@@ -1577,7 +1577,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F5F5F5",
-    "topbarBackground": "#FAFCFA"
+    "topbarBackground": "#F5F5F5"
   },
   "softGreenMaroonDark": {
     "grey": {
@@ -1656,7 +1656,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1A1A1A",
-    "topbarBackground": "#323332"
+    "topbarBackground": "#1A1A1A"
   },
   "coolGreyPink": {
     "grey": {
@@ -1735,7 +1735,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F5F5F5",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F5F5F5"
   },
   "coolGreyPinkDark": {
     "grey": {
@@ -1814,7 +1814,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1A1A1A",
-    "topbarBackground": "#292929"
+    "topbarBackground": "#1A1A1A"
   },
   "legacy": {
     "grey": {
@@ -1893,7 +1893,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F6F7F9",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F6F7F9"
   },
   "light1": {
     "grey": {
@@ -1972,7 +1972,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F0F7F7",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F0F7F7"
   },
   "light2": {
     "grey": {
@@ -2051,7 +2051,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F2F8F1",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F2F8F1"
   },
   "light3": {
     "grey": {
@@ -2130,7 +2130,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#FAFAFE",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#FAFAFE"
   },
   "light4": {
     "grey": {
@@ -2209,7 +2209,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#F5F4F6",
-    "topbarBackground": "#FFFFFF"
+    "topbarBackground": "#F5F4F6"
   },
   "light5": {
     "grey": {
@@ -2288,7 +2288,7 @@
       "focus": "rgba(0,0,0,0.12)"
     },
     "sidebarBackground": "#FAF8F2",
-    "topbarBackground": "#EFEEE7"
+    "topbarBackground": "#FAF8F2"
   },
   "dark1": {
     "grey": {
@@ -2367,7 +2367,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1E1D1E",
-    "topbarBackground": "#262526"
+    "topbarBackground": "#1E1D1E"
   },
   "dark2": {
     "grey": {
@@ -2446,7 +2446,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#2A2D35",
-    "topbarBackground": "#31343E"
+    "topbarBackground": "#2A2D35"
   },
   "dark3": {
     "grey": {
@@ -2525,7 +2525,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#1B2A3F",
-    "topbarBackground": "#23354E"
+    "topbarBackground": "#1B2A3F"
   },
   "dark4": {
     "grey": {
@@ -2604,7 +2604,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#180F3D",
-    "topbarBackground": "#22184B"
+    "topbarBackground": "#180F3D"
   },
   "dark5": {
     "grey": {
@@ -2683,7 +2683,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#232931",
-    "topbarBackground": "#465261"
+    "topbarBackground": "#232931"
   },
   "dark6": {
     "grey": {
@@ -2762,7 +2762,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#202441",
-    "topbarBackground": "#2D3159"
+    "topbarBackground": "#202441"
   },
   "dark7": {
     "grey": {
@@ -2841,7 +2841,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#15171E",
-    "topbarBackground": "#1C1E27"
+    "topbarBackground": "#15171E"
   },
   "greyDark": {
     "grey": {
@@ -2920,7 +2920,7 @@
       "focus": "rgba(255,255,255,0.12)"
     },
     "sidebarBackground": "#263238",
-    "topbarBackground": "#455A64"
+    "topbarBackground": "#263238"
   },
   "primecareDay": {
     "grey": {
