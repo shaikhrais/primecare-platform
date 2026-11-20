@@ -6,7 +6,11 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 
+def before_user_settings_isolation(source,path):
+    return reverse_presentation_receipt(source,path,'user-settings-isolation-replay.json')
+
 def before_complete_theme_settings(source,path):
+    source=before_user_settings_isolation(source,path)
     return reverse_presentation_receipt(source,path,'theme-complete-replay.json')
 
 def before_portal_layout(source,path):

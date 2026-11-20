@@ -36,3 +36,9 @@ Named saved-theme library entries are deliberately separate from the current act
 ## Limits of matching
 
 This is an owned Dart equivalent of the settings structure and supported layouts. It is not a pixel-identical React/MUI port. Native file-picker interaction and authenticated production appearance need device/browser acceptance beyond widget tests and web compilation.
+
+## Personal ownership
+
+Every signed-in user has separate device preferences. Keys encode tenant, user and role as an unambiguous JSON tuple; complete workspace snapshots also include the application scope. Existing unambiguous authenticated keys remain readable. Guests may preview appearance but do not persist account settings. Complete-profile controls check that the current user owns the supplied workspace before reading, saving or importing it.
+
+Exported files contain presentation choices, not an owner identifier. Import intentionally creates a copy in the importing user's current profile; it cannot address or replace the exporting user's stored profile. Theme and named-library dialogs capture their opening account and reject late mutations after an account switch. This is device-local persistence and file transfer, not cross-device account synchronization.

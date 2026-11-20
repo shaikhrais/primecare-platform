@@ -1,3 +1,4 @@
+import '../auth_service.dart' show authProvider;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,13 +15,22 @@ import 'theme_settings_provider.dart';
 class ThemeCenterCompletePanel extends ConsumerWidget {
   const ThemeCenterCompletePanel({super.key});
   @override Widget build(BuildContext context, WidgetRef ref) {
+    final auth=ref.watch(authProvider);
+    final owner=themeAccountScope(auth);
     final settings=ref.watch(themeSettingsProvider);
     final notifier=ref.read(themeSettingsProvider.notifier);
     final workspace=PortalWorkspaceScope.maybeOf(context);
     final preferences=ref.watch(sharedPreferencesProvider);
     final identity=workspace?.scope.storageKey;
-    bool isCurrent() => context.mounted && identical(PortalWorkspaceScope.maybeOf(context), workspace);
-    ThemeCenterSettingsFile snapshot() => ThemeCenterSettingsFile(appearance:ref.read(themeSettingsProvider),layout:workspace!.current);
+    final ownsWorkspace=hasThemeAccount(auth) && workspace!=null &&
+      workspace.scope.user==auth.userId && workspace.scope.tenant==auth.tenantId;
+    bool isCurrent() => context.mounted && ownsWorkspace &&
+      themeAccountScope(ref.read(authProvider))==owner &&
+      identical(PortalWorkspaceScope.maybeOf(context), workspace);
+    ThemeCenterSettingsFile snapshot() {
+      if(!isCurrent())throw StateError('Personal workspace changed');
+      return ThemeCenterSettingsFile(appearance:ref.read(themeSettingsProvider),layout:workspace!.current);
+    }
     Future<void> run(Future<String> Function() action) async {
       final messenger=ScaffoldMessenger.maybeOf(context);
       try {final message=await action();if(context.mounted)messenger?.showSnackBar(PrimeSnackBar(content:PrimeText(message)));}
@@ -44,6 +54,7 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
         items:[if(!main)const DropdownMenuItem(value:'inherit',child:PrimeText('Inherit main palette')),
           for(final preset in themeCenterPresetNames)DropdownMenuItem(value:preset,child:PrimeText(preset))],
         onChanged:(value) {if(value!=null)run(()async {
+          if(!isCurrent())throw StateError('Personal workspace changed');
           if(main) {await notifier.updatePreset(value);} else {
             await notifier.updateSectionTheme(section,value=='inherit'?null:PersonalTheme(name:section,preset:value));
           }
@@ -51,7 +62,8 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
         });}));
     }
     return Column(crossAxisAlignment:CrossAxisAlignment.stretch,children:[
-      const PrimeText('COMPLETE THEME SETTINGS'),
+      const PrimeText('MY THEME SETTINGS'),
+      const PrimeText('Your preferences are separate from other users. Save and load your profile on this device, or transfer it using a settings file.'),
       for(final section in ['main','navbar','toolbar','footer'])palette(section),
       if(workspace!=null)...[
         Wrap(spacing:8,runSpacing:4,children:[
@@ -65,13 +77,14 @@ class ThemeCenterCompletePanel extends ConsumerWidget {
             if(source==null)return 'Import cancelled.';
             await apply(source);return 'Complete settings applied. Save all to retain the layout.';
           }),child:const PrimeText('Import all settings')),
-          PrimeTextButton(onPressed:workspace.preferences==null || preferences==null?null:()=>run(()async {
+          PrimeTextButton(onPressed:!ownsWorkspace || workspace.preferences==null || preferences==null?null:()=>run(()async {
             final source=snapshot().exportJson();
             await workspace.save();
             if(!isCurrent() || !await preferences.setString('theme_center_complete_v1:$identity',source))throw StateError('Unable to save settings');
             return 'Complete settings saved on this device.';
           }),child:const PrimeText('Save all')),
-          PrimeTextButton(onPressed:workspace.preferences==null || preferences==null?null:()=>run(()async {
+          PrimeTextButton(onPressed:!ownsWorkspace || workspace.preferences==null || preferences==null?null:()=>run(()async {
+            if(!isCurrent())throw StateError('Personal workspace changed');
             final source=preferences.getString('theme_center_complete_v1:$identity');
             if(source==null)return 'No complete settings profile saved.';
             await apply(source);return 'Complete settings loaded.';

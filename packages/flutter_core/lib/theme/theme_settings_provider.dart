@@ -6,7 +6,16 @@ import '../providers/persistence_providers.dart';
 import 'personal_theme.dart';
 
 enum LayoutStyle { verticalLeft, verticalRight, horizontal, collapsed }
-String themeAccountScope(AuthState auth) => Uri.encodeComponent('${auth.tenantId ?? ''}:${auth.isAuthenticated ? auth.userId ?? 'guest' : 'guest'}:${auth.role ?? ''}');
+bool hasThemeAccount(AuthState auth) => auth.isAuthenticated &&
+  [auth.tenantId,auth.userId,auth.role].every((value)=>value!=null && value.trim().isNotEmpty);
+String themeAccountScope(AuthState auth) => Uri.encodeComponent(jsonEncode([
+  auth.tenantId ?? '',hasThemeAccount(auth)?auth.userId:'guest',auth.role ?? ''
+]));
+/// Only unambiguous authenticated legacy keys may be read during migration.
+String? legacyThemeAccountScope(AuthState auth) {
+  if(!hasThemeAccount(auth) || [auth.tenantId!,auth.userId!,auth.role!].any((value)=>value.contains(':')))return null;
+  return Uri.encodeComponent('${auth.tenantId}:${auth.userId}:${auth.role}');
+}
 
 class ThemeSettingsState {
   final LayoutStyle layoutStyle;
@@ -43,15 +52,19 @@ class ThemeSettingsState {
 }
 class ThemeSettingsNotifier extends Notifier<ThemeSettingsState> {
   String _scope='';
+  bool _authenticated=false;
+  bool _matchesAccount(String scope) => _scope==scope && themeAccountScope(ref.read(authProvider))==scope;
+  PersonalThemeSettingsSession bindAccount() => PersonalThemeSettingsSession._(this,_scope);
   @override ThemeSettingsState build() {
-    final auth=ref.watch(authProvider);_scope=themeAccountScope(auth);final prefs=ref.watch(sharedPreferencesProvider);
-    try {final raw=prefs?.getString('theme_center_settings_v1:$_scope');if(raw!=null && utf8.encode(raw).length<=16384)return ThemeSettingsState.fromJson(jsonDecode(raw));}catch (_) {}
+    final auth=ref.watch(authProvider);_scope=themeAccountScope(auth);_authenticated=hasThemeAccount(auth);final prefs=ref.watch(sharedPreferencesProvider);
+    try {final legacy=legacyThemeAccountScope(auth);final raw=!_authenticated?null:prefs?.getString('theme_center_settings_v1:$_scope') ?? (legacy==null?null:prefs?.getString('theme_center_settings_v1:$legacy'));if(raw!=null && utf8.encode(raw).length<=16384)return ThemeSettingsState.fromJson(jsonDecode(raw));}catch (_) {}
     return const ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:'navyTealPalette',customScrollbars:false,direction:TextDirection.ltr);
   }
   Future<void> _save(ThemeSettingsState next) async {
+    if(!_matchesAccount(_scope))throw StateError('Account changed');
     final scope=_scope,prefs=ref.read(sharedPreferencesProvider);final json=jsonEncode(next.toJson());
-    if(prefs!=null && !await prefs.setString('theme_center_settings_v1:$scope',json)) throw StateError('Unable to save appearance settings');
-    if(_scope!=scope)throw StateError('Account changed');state=next;
+    if(_authenticated && prefs!=null && !await prefs.setString('theme_center_settings_v1:$scope',json)) throw StateError('Unable to save appearance settings');
+    if(!_matchesAccount(scope))throw StateError('Account changed');state=next;
   }
   Future<void> replaceSettings(ThemeSettingsState next) => _save(ThemeSettingsState.fromJson(next.toJson()));
   Future<void> updateSectionTheme(String section, PersonalTheme? theme) {
@@ -78,3 +91,14 @@ class ThemeSettingsNotifier extends Notifier<ThemeSettingsState> {
   Future<void> resetToTenantDefault(String tenantPreset) => _save(ThemeSettingsState(layoutStyle:LayoutStyle.verticalLeft,presetName:tenantPreset,customScrollbars:false,direction:TextDirection.ltr));
 }
 final themeSettingsProvider=NotifierProvider<ThemeSettingsNotifier,ThemeSettingsState>(ThemeSettingsNotifier.new);
+
+/// Dialogs retain the account that opened them, even after a login switch.
+class PersonalThemeSettingsSession {
+  final ThemeSettingsNotifier _owner;
+  final String _scope;
+  PersonalThemeSettingsSession._(this._owner,this._scope);
+  Future<void> applyPersonalTheme(PersonalTheme theme) {
+    if(!_owner._matchesAccount(_scope))throw StateError('Account changed');
+    return _owner.applyPersonalTheme(theme);
+  }
+}

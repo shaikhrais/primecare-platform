@@ -26,7 +26,7 @@ void main() {
   test('legacy v1 appearance loads; unknown sections, access rules and oversized files fail', () {
     final legacy=appearance().toJson()..remove('sections');legacy['version']=1;
     expect(ThemeSettingsState.fromJson(legacy).sectionThemes,isEmpty);
-    final bad=appearance().toJson();bad['sections']={'authorization':{}};
+    final bad=appearance().toJson();bad['sections']={'authorization':<String,Object?>{}};
     expect(()=>ThemeSettingsState.fromJson(bad),throwsFormatException);
     final file=ThemeCenterSettingsFile(appearance:appearance(),layout:WorkspaceLayout.defaults([]));
     final json=jsonDecode(file.exportJson()) as Map<String,dynamic>;json['defaultAuth']=['admin'];

@@ -129,7 +129,7 @@ class GovernanceMasterLayout extends ConsumerWidget {
         role: activeRole.name,
         dataset: application.name,
       ),
-      preferences: auth.isAuthenticated && preferences != null
+      preferences: hasThemeAccount(auth) && preferences != null
           ? SharedWorkspacePreferences(preferences) : null,
       legacyLayoutStyle: settings.layoutStyle.name,
       builder: (context, workspace) => PrimePortalTheme(

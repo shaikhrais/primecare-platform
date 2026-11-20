@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "reviewedSourceCommit": "164447b2d58fb172942a4f703eddecdb9b92cc45",
+  "files": [
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/governance_master_layout.dart",
+      "beforeSha256": "f03cb81fcd5a1d3d86e1ac52ad9c39c7e411791385b1e1ddb6329facef37f1c5",
+      "afterSha256": "b74ce11b4245e02500a5da684374faac4b0d49072c5d8a74b19dfee221ddb82e",
+      "edits": [
+        {
+          "begin": 6140,
+          "old": "      preferences: auth.isAuthenticated && preferences != null\n",
+          "new": "      preferences: hasThemeAccount(auth) && preferences != null\n"
+        }
+      ]
+    },
+    {
+      "path": "packages/flutter_core/lib/registry/widgets/theme_center_panel.dart",
+      "beforeSha256": "82ee718470fe4f06b83e77b1a8454a79a98905e4c780502f8bc2aa5f33ce286e",
+      "afterSha256": "835e24dff0f91795b4a5fae98b1e51a9ca2209caf2b05c986dfa041be1aba17c",
+      "edits": [
+        {
+          "begin": 4522,
+          "old": "  final current=ref.watch(themeSettingsProvider).theme,items=ref.watch(themeLibraryProvider);final settings=ref.read(themeSettingsProvider.notifier),library=ref.read(themeLibraryProvider.notifier);\n",
+          "new": "  final current=ref.watch(themeSettingsProvider).theme,items=ref.watch(themeLibraryProvider);final settings=ref.read(themeSettingsProvider.notifier).bindAccount(),library=ref.read(themeLibraryProvider.notifier).bindAccount();\n"
+        }
+      ]
+    }
+  ]
+}
