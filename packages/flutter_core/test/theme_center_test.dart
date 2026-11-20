@@ -19,7 +19,7 @@ void main(){
   final a=container('actor-a','admin');addTearDown(a.dispose);final store=a.read(themeLibraryProvider.notifier);final theme=PersonalTheme(name:'My Navy',preset:'navyTealPalette',fontScale:1.25,colors:{'primary':'#ffffff'});
   final id=await store.save(theme);expect(a.read(themeLibraryProvider).single.theme.name,'My Navy');await store.rename(id,'Renamed');await store.duplicate(id,'Copy');expect(a.read(themeLibraryProvider).length,2);await expectLater(store.save(theme.named('Copy')),throwsStateError);
   await a.read(themeSettingsProvider.notifier).applyPersonalTheme(theme);await a.read(themeSettingsProvider.notifier).updateLayoutStyle(LayoutStyle.verticalRight);
-  await a.read(themeSettingsProvider.notifier).updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827'}));
+  await a.read(themeSettingsProvider.notifier).updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827','background':'#111827'}));
   final restarted=container('actor-a','admin');addTearDown(restarted.dispose);expect(restarted.read(themeLibraryProvider).length,2);expect(restarted.read(themeSettingsProvider).theme.fontScale,1.25);expect(restarted.read(themeSettingsProvider).layoutStyle,LayoutStyle.verticalRight);expect(restarted.read(themeSettingsProvider).sectionThemes['footer']!.colors['surface'],'#111827');
   final b=container('actor-b','admin');addTearDown(b.dispose);expect(b.read(themeLibraryProvider),isEmpty);expect(b.read(themeSettingsProvider).theme.colors,isEmpty);expect(b.read(themeSettingsProvider).sectionThemes,isEmpty);
   final role=container('actor-a','rmt');addTearDown(role.dispose);expect(role.read(themeLibraryProvider),isEmpty);
@@ -41,7 +41,7 @@ void main(){
   final container=ProviderScope.containerOf(tester.element(find.byType(ThemeCenterCompletePanel)));
   final settings=container.read(themeSettingsProvider.notifier);
   workspace.patch({'navigation':'right','toolbar':'belowNavigation'});
-  await settings.updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827'}));
+  await settings.updateSectionTheme('footer',PersonalTheme(name:'Footer',preset:'default',colors:{'surface':'#111827','background':'#111827'}));
   await tester.pumpAndSettle();await tester.ensureVisible(find.text('Save all'));await tester.tap(find.text('Save all'));await tester.pumpAndSettle();
   workspace.patch({'navigation':'hidden'});await settings.updateSectionTheme('footer',null);
   await tester.pumpAndSettle();await tester.ensureVisible(find.text('Load all'));await tester.tap(find.text('Load all'));await tester.pumpAndSettle();

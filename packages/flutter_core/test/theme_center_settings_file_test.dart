@@ -12,7 +12,7 @@ void main() {
   ThemeSettingsState appearance() => ThemeSettingsState(layoutStyle:LayoutStyle.horizontal,
     presetName:'navyTealPalette',customScrollbars:true,direction:TextDirection.rtl,
     personalTheme:PersonalTheme(name:'Main',preset:'navyTealPalette',fontScale:1.25,radius:8),
-    sectionThemes:{for(final name in ['navbar','toolbar','footer'])name:PersonalTheme(name:name,preset:'navyTealPalette',colors:{'surface':'#111827'})});
+    sectionThemes:{for(final name in ['navbar','toolbar','footer'])name:PersonalTheme(name:name,preset:'navyTealPalette',colors:{'surface':'#111827','background':'#111827'})});
   test('one file roundtrips appearance, all four areas, direction and full layout', () {
     final file=ThemeCenterSettingsFile(appearance:appearance(),layout:WorkspaceLayout.defaults([]).patch({
       'navigation':'top','toolbar':'belowNavigation','footer':'sticky','container':'content','maxWidth':1120}));

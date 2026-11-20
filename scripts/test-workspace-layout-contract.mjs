@@ -4,17 +4,17 @@ import {build} from 'esbuild';
 const compiled=await build({entryPoints:['packages/domain/src/workspace_layout.ts'],bundle:true,platform:'node',format:'esm',write:false});
 const {defaultWorkspaceLayout,validateWorkspaceLayout,parseWorkspaceLayout}=await import('data:text/javascript;base64,'+Buffer.from(compiled.outputFiles[0].text).toString('base64'));
 const ids=['schedule','messages'];
-test('180 layout combinations survive a validated data-only JSON roundtrip',()=>{
+test('270 layout combinations survive a validated data-only JSON roundtrip',()=>{
   let combinations=0;
   for(const navigation of ['left','right','top','bottom','hidden'])
   for(const container of ['fullwidth','boxed','content'])
-  for(const toolbar of ['top','bottom'])
+  for(const toolbar of ['top','bottom','belowNavigation'])
   for(const scroll of ['page','content'])
   for(const footer of ['static','sticky','hidden']) {
     const value={...defaultWorkspaceLayout(ids),navigation,container,toolbar,scroll,footer};
     assert.deepEqual(parseWorkspaceLayout(JSON.stringify(value),ids),value);combinations++;
   }
-  assert.equal(combinations,180);
+  assert.equal(combinations,270);
 });
 test('unregistered panels, authority fields, script-like settings and invalid dimensions fail closed',()=>{
   const base=defaultWorkspaceLayout(ids);
