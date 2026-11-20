@@ -143,6 +143,33 @@
                               }
                             },
                             "additionalProperties": false
+                          },
+                          "routingEvidence": {
+                            "description": "Historical anonymous, offline routing observation for this exact declaration. Null means no matching observation.",
+                            "type": [
+                              "object",
+                              "null"
+                            ],
+                            "required": [
+                              "status",
+                              "sourceCommit",
+                              "scope"
+                            ],
+                            "additionalProperties": false,
+                            "properties": {
+                              "status": {
+                                "type": "integer",
+                                "minimum": 100,
+                                "maximum": 599
+                              },
+                              "sourceCommit": {
+                                "type": "string",
+                                "pattern": "^[a-f0-9]{40}$"
+                              },
+                              "scope": {
+                                "const": "offline_unauthenticated_catalog_probe"
+                              }
+                            }
                           }
                         }
                       }

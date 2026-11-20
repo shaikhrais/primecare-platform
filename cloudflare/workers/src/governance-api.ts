@@ -3,10 +3,13 @@ import {privilegedActor} from './auth-projection';
 import {sourceLimitAllowed} from './source-limit-result';
 import catalog from './governance-api-registry.json';
 import execution from './api-execution-inventory.json';
+import routingEvidence from './endpoint-routing-evidence.json';
 import registry from './workspace-registry.json';
 import {json,withDb,tokenFrom,sha256,type Env} from './auth';
 import {overview,visiblePages,workspaceRoleCounts} from './workspace';
 
+const routingStatus = new Map(routingEvidence.observations.map(([id, api, status]) =>
+  [`${id} ${api}`, Number(status)] as const));
 type RecordRow=Record<string,unknown>;
 type Query={limit:number;offset:number;search:string;app:string;role:string;screen:string};
 const permissions=registry.permissions as Record<string,{inventory:boolean;organization:boolean}>;
@@ -41,7 +44,12 @@ function endpointManagement(row:RecordRow) {
 
 /** Registered evidence only. No test timestamps or healthy flags are invented. */
 export function governanceRows(path:string):RecordRow[] {
-  if(path==='/api-execution-status')return execution.data.map(row=>({...row,management:endpointManagement(row)}));
+  if(path==='/api-execution-status')return execution.data.map(row=>({
+    ...row,management:endpointManagement(row),
+    routingEvidence:routingStatus.has(`${row.id} ${row.api}`)?{
+      status:routingStatus.get(`${row.id} ${row.api}`),sourceCommit:routingEvidence.sourceCommit,scope:routingEvidence.scope
+    }:null,
+  }));
   const gaps:Record<string,string>={'/api-missing-permissions':'permission','/api-missing-request-schemas':'requestSchema','/api-missing-response-schemas':'responseSchema','/api-unlinked-screens':'screenLink'};
   if(gaps[path])return execution.data.filter(row=>row.missingContractFields.includes(gaps[path]));
   if(path==='/api-verification-summary')return verificationSummary(execution.data);

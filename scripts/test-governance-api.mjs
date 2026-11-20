@@ -164,3 +164,13 @@ test('management keeps implementation declarations distinct from protection and 
     assert.equal(Object.values(row.managementStates).reduce((sum,count)=>sum+count,0),row.declaredOperations);
   }
 });
+
+test('routing observations retain their offline scope and cannot establish readiness',async()=>{
+  const result=await (await call('/api-execution-status','?search=%2Fv1%2Fclinical%2Fdashboard&limit=100')).json();
+  const row=result.data.find(r=>r.api==='GET /v1/clinical/dashboard');
+  assert.equal(row.routingEvidence.status,401);
+  assert.equal(row.routingEvidence.scope,'offline_unauthenticated_catalog_probe');
+  assert.match(row.routingEvidence.sourceCommit,/^[a-f0-9]{40}$/);
+  assert.equal(row.productionVerified,false);
+  assert.equal(row.management.readiness,'unverified');
+});

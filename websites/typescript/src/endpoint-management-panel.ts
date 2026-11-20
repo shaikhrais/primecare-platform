@@ -1,8 +1,8 @@
 type Locale = 'en' | 'fr' | 'es';
 const labels = {
-  en: ['Endpoint management','Search endpoints','Search','Previous','Next','Loading endpoints…','No matching endpoints.','Endpoint inventory access denied.','Endpoint inventory unavailable.','Operation','Service','Implementation','Protection','Readiness','Maintenance'],
-  fr: ['Gestion des API','Rechercher des points d’accès','Rechercher','Précédent','Suivant','Chargement des API…','Aucun résultat.','Accès à l’inventaire refusé.','Inventaire des API indisponible.','Opération','Service','Implémentation','Protection','État de préparation','Maintenance'],
-  es: ['Gestión de API','Buscar endpoints','Buscar','Anterior','Siguiente','Cargando endpoints…','Sin resultados.','Acceso al inventario denegado.','Inventario de API no disponible.','Operación','Servicio','Implementación','Protección','Preparación','Mantenimiento'],
+  en: ['Endpoint management','Search endpoints','Search','Previous','Next','Loading endpoints…','No matching endpoints.','Endpoint inventory access denied.','Endpoint inventory unavailable.','Operation','Service','Implementation','Protection','Readiness','Maintenance','Offline HTTP result'],
+  fr: ['Gestion des API','Rechercher des points d’accès','Rechercher','Précédent','Suivant','Chargement des API…','Aucun résultat.','Accès à l’inventaire refusé.','Inventaire des API indisponible.','Opération','Service','Implémentation','Protection','État de préparation','Maintenance','Résultat HTTP hors ligne'],
+  es: ['Gestión de API','Buscar endpoints','Buscar','Anterior','Siguiente','Cargando endpoints…','Sin resultados.','Acceso al inventario denegado.','Inventario de API no disponible.','Operación','Servicio','Implementación','Protección','Preparación','Mantenimiento','Resultado HTTP sin conexión'],
 } as const;
 const states: Record<string, readonly [string,string,string]> = {
   blocked:['Blocked','Bloqué','Bloqueado'],
@@ -15,7 +15,7 @@ const states: Record<string, readonly [string,string,string]> = {
   recorded_maintenance:['Recorded maintenance','Maintenance enregistrée','Mantenimiento registrado'],
 };
 const fields = ['implementation','protection','readiness','maintenance'] as const;
-type Endpoint = {api:string;service:string;management:Record<typeof fields[number],string>};
+type Endpoint = {api:string;service:string;management:Record<typeof fields[number],string>;routingEvidence?:{status:number}|null};
 
 export function mountEndpointManagement(panel:HTMLElement, gateway:string, token:string, locale:Locale, current:()=>boolean) {
   const [title,searchLabel,search,previous,next,loading,empty,denied,unavailable,...columns]=labels[locale];
@@ -50,7 +50,7 @@ export function mountEndpointManagement(panel:HTMLElement, gateway:string, token
       if(!active())return;
       if(!Array.isArray(data.data)||!Number.isSafeInteger(data.pagination?.total)||data.pagination.total<0)throw Error();
       for(const row of data.data) {
-        const cells=[row.api,row.service,...fields.map(key=>states[row.management?.[key]]?.[language]??states.unknown[language])];
+        const cells=[row.api,row.service,...fields.map(key=>states[row.management?.[key]]?.[language]??states.unknown[language]),row.routingEvidence?.status?.toString()??states.unknown[language]];
         const tr=body.insertRow();
         for(const cell of cells)tr.insertCell().textContent=cell??'';
       }
