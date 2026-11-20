@@ -44,8 +44,9 @@ function createEmsCharts(host:HTMLElement,locale:Locale){
  function renderTrend(){
   if(!history.length){empty(trend);return;}
   const svg=chart(trend,w[2]),max=Math.max(...history.map(p=>p.rate),0.001),first=history[0].end,last=history.at(-1)!.end;
-  const x=(t:number)=>last===first?220:50+(t-first)/(last-first)*345,y=(v:number)=>175-v/max*140;
-  for(const ratio of [0,0.5,1]){const yy=y(max*ratio);svg.append(svgNode('line',{x1:50,x2:395,y1:yy,y2:yy,class:'ems-chart-gridline'}));const text=svgNode('text',{x:44,y:yy+4,'text-anchor':'end'});text.textContent=nf.format(max*ratio);svg.append(text);}
+  const renderedHeight=parseFloat(getComputedStyle(svg).height)||220;const width=Math.max(320,trend.getBoundingClientRect().width*220/renderedHeight);svg.setAttribute('viewBox',`0 0 ${width} 220`);const edge=width-20;
+  const x=(t:number)=>last===first?(50+edge)/2:50+(t-first)/(last-first)*(edge-50),y=(v:number)=>175-v/max*140;
+  for(const ratio of [0,0.5,1]){const yy=y(max*ratio);svg.append(svgNode('line',{x1:50,x2:edge,y1:yy,y2:yy,class:'ems-chart-gridline'}));const text=svgNode('text',{x:44,y:yy+4,'text-anchor':'end'});text.textContent=nf.format(max*ratio);svg.append(text);}
   // Missing completed windows break the line; no invented zero traffic or history.
   for(let i=1;i<history.length;i++){const a=history[i-1],b=history[i];if(b.start>a.end)continue;svg.append(svgNode('polygon',{points:x(a.end)+',175 '+x(a.end)+','+y(a.rate)+' '+x(b.end)+','+y(b.rate)+' '+x(b.end)+',175',class:'ems-trend-area'}));svg.append(svgNode('line',{x1:x(a.end),y1:y(a.rate),x2:x(b.end),y2:y(b.rate),class:'ems-trend-line'}));}
   for(const point of history){const dot=svgNode('circle',{cx:x(point.end),cy:y(point.rate),r:4,class:'ems-series-0'});const tip=svgNode('title');tip.textContent=`${new Date(point.end).toLocaleString(locale)}: ${nf.format(point.rate)} requests/s`;dot.append(tip);svg.append(dot);}
@@ -77,7 +78,8 @@ function createEmsCharts(host:HTMLElement,locale:Locale){
   metrics.replaceChildren();for(const [label,value]of [[w[18],nf.format(report.inboundBytes)],[w[19],report.bodyTotals?nf.format(report.bodyTotals.completedBytes):'—'],[w[20],nf.format(report.unknownOutbound)]]){const item=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;item.append(dt,dd);metrics.append(item);}
  }
  clear.onclick=()=>{history=[];renderTrend();};for(const target of [readiness,trend,operations,statuses,services,overview])empty(target);
- return {setSummary,setTraffic,dispose(){disposed=true;history=[];host.replaceChildren();}};
+ let trendGeometry='';const observer=typeof ResizeObserver==='undefined'?null:new ResizeObserver(()=>{const geometry=trend.getBoundingClientRect().width+':'+getComputedStyle(host).getPropertyValue('--pc-chart-height');if(geometry!==trendGeometry){trendGeometry=geometry;if(!disposed&&history.length)renderTrend();}});observer?.observe(trend);
+ return {setSummary,setTraffic,dispose(){disposed=true;observer?.disconnect();history=[];host.replaceChildren();}};
 }
 
 /** Central, theme-controlled dashboard group. The host owns API access and authorization. */
